@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ed40e708",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-29T22:07:07Z",
+      "side": 1,
+      "message": "we try to add some input safety by using arg guards and quotes\n\n  \u0027rm -- \"%s\"\u0027",
+      "revId": "8710497ab16f5e77628fdf9840523afee66d60f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cd436311",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-29T22:07:07Z",
+      "side": 1,
+      "message": "ll is not really designed to check for files.\n\ncan we be more explicit about what we are checking and use [ -r ]  or test -r to check for readability\n\n test -r \n\nor maybe -s to check for non-zero size",
+      "revId": "8710497ab16f5e77628fdf9840523afee66d60f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0d49cb30",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-29T22:07:07Z",
+      "side": 1,
+      "message": "isfile does not mean we can read the file.  the only sure way to check is with open() and catch the exception.\n\nor if you want to use stat based, R_OK maybe.\n\n os.acess(base_image, os.R_OK)",
+      "revId": "8710497ab16f5e77628fdf9840523afee66d60f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2d4e4f3b",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-29T22:07:07Z",
+      "side": 1,
+      "message": "-- and quotes?\n\n mv -- \"/tmp/%s\" \"%s\"",
+      "revId": "8710497ab16f5e77628fdf9840523afee66d60f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
