@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ad3a5f96",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_sriov_external_rfc2544_ipv4_1rule_1flow_64B_trex.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-29T21:42:26Z",
+      "side": 1,
+      "message": "network names were changed to be vld_id when we added scale tests.\n\nsamples/vnf_samples/nsut/cgnapt/tc_heat_rfc2544_ipv4_1flow_64B_trex_correlated_scale_2.yaml\n\n    uplink_0:\n      cidr: \u002710.1.0.0/24\u0027\n      gateway_ip: \u0027null\u0027\n      port_security_enabled: False\n      enable_dhcp: \u0027false\u0027\n    downlink_0:\n      cidr: \u002710.1.1.0/24\u0027\n      gateway_ip: \u0027null\u0027\n      port_security_enabled: False\n      enable_dhcp: \u0027false\u0027\n\n\nwe also added per-network port topology.  by default each instance is connected to all networks, but you can prune the topology by listing which ports should be in which network, like so:\n\n  servers:\n    tg_0:\n      floating_ip: true\n      placement: \"pgrp1\"\n      network_ports:\n        mgmt:\n          - mgmt\n        uplink_0:\n          - xe0\n        uplink_1:\n          - xe1",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 68,
+        "endChar": 9
+      },
+      "revId": "e396311d99acf2c9f790707c28504d9297e1374a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
