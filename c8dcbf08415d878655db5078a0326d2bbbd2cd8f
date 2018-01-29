@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_8d64bbb9",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-29T22:14:11Z",
+      "side": 1,
+      "message": "not sure why we need OrderedDict, but if we do maybe we should sort or use generator expression.\n\n  OrderedDict(sorted((k, v) for k, v in vnf[\u0027network_ports\u0027].items() if k !\u003d \u0027mgmt\u0027)))\n\n\nmaybe",
+      "revId": "c8dcbf08415d878655db5078a0326d2bbbd2cd8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
