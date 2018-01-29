@@ -30,6 +30,7 @@ class CreateFloatingIp(base.Scenario):
         self.ext_net_id = os.getenv("EXTERNAL_NETWORK", "external")
 
         self.neutron_client = op_utils.get_neutron_client()
+        self.shade_client = op_utils.get_shade_client()
         self.setup_done = False
 
     def setup(self):
@@ -43,18 +44,15 @@ class CreateFloatingIp(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        net_id = op_utils.get_network_id(self.neutron_client, self.ext_net_id)
+        net_id = op_utils.get_network_id(self.shade_client, self.ext_net_id)
         floating_info = op_utils.create_floating_ip(self.neutron_client,
                                                     extnet_id=net_id)
-        if floating_info:
-            LOG.info("Creating floating ip successful!")
-        else:
-            LOG.error("Creating floating ip failed!")
 
-        try:
-            keys = self.scenario_cfg.get('output', '').split()
-        except KeyError:
-            pass
-        else:
-            values = [floating_info["fip_id"], floating_info["fip_addr"]]
-            return self._push_to_outputs(keys, values)
+        if not floating_info:
+            LOG.error("Creating floating ip failed!")
+            return
+
+        LOG.info("Creating floating ip successful!")
+        keys = self.scenario_cfg.get('output', '').split()
+        values = [floating_info["fip_id"], floating_info["fip_addr"]]
+        return self._push_to_outputs(keys, values)
