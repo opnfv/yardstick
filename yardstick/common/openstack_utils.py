@@ -16,6 +16,9 @@ import logging
 
 from keystoneauth1 import loading
 from keystoneauth1 import session
+import shade
+from shade import exc
+
 from cinderclient import client as cinderclient
 from novaclient import client as novaclient
 from glanceclient import client as glanceclient
@@ -169,6 +172,9 @@ def get_glance_client():    # pragma: no cover
     sess = get_session()
     return glanceclient.Client(get_glance_client_version(), session=sess)
 
+
+def get_shade_client():
+    return shade.openstack_cloud()
 
 # *********************************************
 #   NOVA
@@ -436,15 +442,11 @@ def delete_keypair(nova_client, key):     # pragma: no cover
 # *********************************************
 #   NEUTRON
 # *********************************************
-def get_network_id(neutron_client, network_name):       # pragma: no cover
-    networks = neutron_client.list_networks()['networks']
-    return next((n['id'] for n in networks if n['name'] == network_name), None)
-
-
-def get_port_id_by_ip(neutron_client, ip_address):      # pragma: no cover
-    ports = neutron_client.list_ports()['ports']
-    return next((i['id'] for i in ports for j in i.get(
-        'fixed_ips') if j['ip_address'] == ip_address), None)
+def get_network_id(shade_client, network_name):
+    networks = shade_client.list_networks({'name': network_name})
+    if networks:
+        return networks[0]['id']
+    return None
 
 
 def create_neutron_net(neutron_client, json_body):      # pragma: no cover
@@ -457,12 +459,12 @@ def create_neutron_net(neutron_client, json_body):      # pragma: no cover
         return None
 
 
-def delete_neutron_net(neutron_client, network_id):      # pragma: no cover
+def delete_neutron_net(shade_client, network_id):
     try:
-        neutron_client.delete_network(network_id)
-        return True
-    except Exception:
-        log.error("Error [delete_neutron_net(neutron_client, '%s')]" % network_id)
+        return shade_client.delete_network(network_id)
+    except exc.OpenStackCloudException:
+        log.error(
+            "Error [delete_neutron_net(shade_client, '%s')]" % network_id)
         return False
 
 
