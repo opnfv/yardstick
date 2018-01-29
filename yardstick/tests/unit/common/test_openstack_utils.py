@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2016 Huawei Technologies Co.,Ltd and others.
 #
@@ -9,9 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.common.openstack_utils
-
-from __future__ import absolute_import
+from oslo_utils import uuidutils
 import unittest
 import mock
 
@@ -38,9 +34,14 @@ class GetHeatApiVersionTestCase(unittest.TestCase):
             self.assertEqual(api_version, expected_result)
 
 
-def main():
-    unittest.main()
+class GetNetworkIdTestCase(unittest.TestCase):
 
+    def test_get_network_id(self):
+        _uuid = uuidutils.generate_uuid()
+        mock_shade_client = mock.Mock()
+        mock_shade_client.list_networks = mock.Mock()
+        mock_shade_client.list_networks.return_value = [{'id': _uuid}]
 
-if __name__ == '__main__':
-    main()
+        output = openstack_utils.get_network_id(mock_shade_client,
+                                                'network_name')
+        self.assertEqual(_uuid, output)
