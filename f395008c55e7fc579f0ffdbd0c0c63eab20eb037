@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_6d6b3785",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-01-29T22:21:20Z",
+      "side": 1,
+      "message": "in the refactor we use dpdk_bind_helper.rebind_drivers()",
+      "revId": "f395008c55e7fc579f0ffdbd0c0c63eab20eb037",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
