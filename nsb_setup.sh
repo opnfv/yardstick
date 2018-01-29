@@ -42,6 +42,16 @@ proxy_env:
   https_proxy: ${https_proxy}
   no_proxy: ${no_proxy}
 EOF
+
+    mkdir -p /etc/systemd/system/docker.service.d
+    cat <<EOF > /etc/systemd/system/docker.service.d/http-proxy.conf
+---
+[Service]
+Environment="HTTP_PROXY=${http_proxy}" "HTTPS_PROXY=${https_proxy}" "NO_PROXY=${no_proxy}"
+EOF
+
+    systemctl daemon-reload
+    systemctl restart docker
 fi
 
 apt-get update > /dev/null 2>&1
