@@ -1,0 +1,31 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Make i40evf
+  make:
+    chdir: "{{ i40evf_path }}/src"
+    params:
+      BUILD_KERNEL: "{{ chroot_kernel }}"
+
+- name: Make i40evf install
+  make:
+    chdir: "{{ i40evf_path }}/src"
+    target: install
+    params:
+      BUILD_KERNEL: "{{ chroot_kernel }}"
+
+- name: Configure i40evf to load on boot
+  copy:
+    content: i40evf
+    dest: /etc/modules-load.d/i40evf.conf
