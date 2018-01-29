@@ -7,8 +7,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import absolute_import
-
 import os
 import time
 import sys
@@ -16,10 +14,13 @@ import logging
 
 from keystoneauth1 import loading
 from keystoneauth1 import session
+import shade
+
 from cinderclient import client as cinderclient
 from novaclient import client as novaclient
 from glanceclient import client as glanceclient
 from neutronclient.neutron import client as neutronclient
+
 
 log = logging.getLogger(__name__)
 
@@ -170,27 +171,30 @@ def get_glance_client():    # pragma: no cover
     return glanceclient.Client(get_glance_client_version(), session=sess)
 
 
+def get_shade_client():
+    return shade.openstack_cloud()
+
 # *********************************************
 #   NOVA
 # *********************************************
-def get_instances(nova_client):     # pragma: no cover
+def get_instances(nova_client):
     try:
         return nova_client.servers.list(search_opts={'all_tenants': 1})
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [get_instances(nova_client)]")
 
 
 def get_instance_status(nova_client, instance):     # pragma: no cover
     try:
         return nova_client.servers.get(instance.id).status
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [get_instance_status(nova_client)]")
 
 
 def get_instance_by_name(nova_client, instance_name):   # pragma: no cover
     try:
         return nova_client.servers.find(name=instance_name)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [get_instance_by_name(nova_client, '%s')]",
                       instance_name)
 
@@ -198,28 +202,28 @@ def get_instance_by_name(nova_client, instance_name):   # pragma: no cover
 def get_aggregates(nova_client):    # pragma: no cover
     try:
         return nova_client.aggregates.list()
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [get_aggregates(nova_client)]")
 
 
 def get_availability_zones(nova_client):    # pragma: no cover
     try:
         return nova_client.availability_zones.list()
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [get_availability_zones(nova_client)]")
 
 
 def get_availability_zone_names(nova_client):   # pragma: no cover
     try:
         return [az.zoneName for az in get_availability_zones(nova_client)]
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [get_availability_zone_names(nova_client)]")
 
 
 def create_aggregate(nova_client, aggregate_name, av_zone):  # pragma: no cover
     try:
         nova_client.aggregates.create(aggregate_name, av_zone)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [create_aggregate(nova_client, %s, %s)]",
                       aggregate_name, av_zone)
         return False
@@ -231,7 +235,7 @@ def get_aggregate_id(nova_client, aggregate_name):      # pragma: no cover
     try:
         aggregates = get_aggregates(nova_client)
         _id = next((ag.id for ag in aggregates if ag.name == aggregate_name))
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [get_aggregate_id(nova_client, %s)]",
                       aggregate_name)
     else:
@@ -243,7 +247,7 @@ def add_host_to_aggregate(nova_client, aggregate_name,
     try:
         aggregate_id = get_aggregate_id(nova_client, aggregate_name)
         nova_client.aggregates.add_host(aggregate_id, compute_host)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [add_host_to_aggregate(nova_client, %s, %s)]",
                       aggregate_name, compute_host)
         return False
@@ -256,7 +260,7 @@ def create_aggregate_with_host(nova_client, aggregate_name, av_zone,
     try:
         create_aggregate(nova_client, aggregate_name, av_zone)
         add_host_to_aggregate(nova_client, aggregate_name, compute_host)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [create_aggregate_with_host("
                       "nova_client, %s, %s, %s)]",
                       aggregate_name, av_zone, compute_host)
@@ -265,19 +269,19 @@ def create_aggregate_with_host(nova_client, aggregate_name, av_zone,
         return True
 
 
-def create_keypair(nova_client, name, key_path=None):    # pragma: no cover
+def create_keypair(name, key_path=None):    # pragma: no cover
     try:
         with open(key_path) as fpubkey:
             keypair = get_nova_client().keypairs.create(name=name, public_key=fpubkey.read())
             return keypair
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [create_keypair(nova_client)]")
 
 
 def create_instance(json_body):    # pragma: no cover
     try:
         return get_nova_client().servers.create(**json_body)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error create instance failed")
         return None
 
@@ -288,7 +292,7 @@ def create_instance_and_wait_for_active(json_body):    # pragma: no cover
     nova_client = get_nova_client()
     instance = create_instance(json_body)
     count = VM_BOOT_TIMEOUT / SLEEP
-    for n in range(count, -1, -1):
+    for _ in range(count, -1, -1):
         status = get_instance_status(nova_client, instance)
         if status.lower() == "active":
             return instance
@@ -303,7 +307,7 @@ def create_instance_and_wait_for_active(json_body):    # pragma: no cover
 def attach_server_volume(server_id, volume_id, device=None):    # pragma: no cover
     try:
         get_nova_client().volumes.create_server_volume(server_id, volume_id, device)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [attach_server_volume(nova_client, '%s', '%s')]",
                       server_id, volume_id)
         return False
@@ -314,7 +318,7 @@ def attach_server_volume(server_id, volume_id, device=None):    # pragma: no cov
 def delete_instance(nova_client, instance_id):      # pragma: no cover
     try:
         nova_client.servers.force_delete(instance_id)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [delete_instance(nova_client, '%s')]",
                       instance_id)
         return False
@@ -327,7 +331,7 @@ def remove_host_from_aggregate(nova_client, aggregate_name,
     try:
         aggregate_id = get_aggregate_id(nova_client, aggregate_name)
         nova_client.aggregates.remove_host(aggregate_id, compute_host)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error remove_host_from_aggregate(nova_client, %s, %s)",
                       aggregate_name, compute_host)
         return False
@@ -348,7 +352,7 @@ def delete_aggregate(nova_client, aggregate_name):  # pragma: no cover
     try:
         remove_hosts_from_aggregate(nova_client, aggregate_name)
         nova_client.aggregates.delete(aggregate_name)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [delete_aggregate(nova_client, %s)]",
                       aggregate_name)
         return False
@@ -367,7 +371,7 @@ def get_server_by_name(name):   # pragma: no cover
 def create_flavor(name, ram, vcpus, disk, **kwargs):   # pragma: no cover
     try:
         return get_nova_client().flavors.create(name, ram, vcpus, disk, **kwargs)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [create_flavor(nova_client, %s, %s, %s, %s, %s)]",
                       name, ram, disk, vcpus, kwargs['is_public'])
         return None
@@ -400,7 +404,7 @@ def get_flavor_by_name(name):   # pragma: no cover
 
 
 def check_status(status, name, iterations, interval):   # pragma: no cover
-    for i in range(iterations):
+    for _ in range(iterations):
         try:
             server = get_server_by_name(name)
         except IndexError:
@@ -417,7 +421,7 @@ def check_status(status, name, iterations, interval):   # pragma: no cover
 def delete_flavor(flavor_id):    # pragma: no cover
     try:
         get_nova_client().flavors.delete(flavor_id)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [delete_flavor(nova_client, %s)]", flavor_id)
         return False
     else:
@@ -428,7 +432,7 @@ def delete_keypair(nova_client, key):     # pragma: no cover
     try:
         nova_client.keypairs.delete(key=key)
         return True
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [delete_keypair(nova_client)]")
         return False
 
@@ -436,33 +440,29 @@ def delete_keypair(nova_client, key):     # pragma: no cover
 # *********************************************
 #   NEUTRON
 # *********************************************
-def get_network_id(neutron_client, network_name):       # pragma: no cover
-    networks = neutron_client.list_networks()['networks']
-    return next((n['id'] for n in networks if n['name'] == network_name), None)
-
-
-def get_port_id_by_ip(neutron_client, ip_address):      # pragma: no cover
-    ports = neutron_client.list_ports()['ports']
-    return next((i['id'] for i in ports for j in i.get(
-        'fixed_ips') if j['ip_address'] == ip_address), None)
+def get_network_id(shade_client, network_name):
+    networks = shade_client.list_networks({'name': network_name})
+    if networks:
+        return networks[0]['id']
+    return None
 
 
 def create_neutron_net(neutron_client, json_body):      # pragma: no cover
     try:
         network = neutron_client.create_network(body=json_body)
         return network['network']['id']
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.error("Error [create_neutron_net(neutron_client)]")
         raise Exception("operation error")
-        return None
 
 
 def delete_neutron_net(neutron_client, network_id):      # pragma: no cover
     try:
         neutron_client.delete_network(network_id)
         return True
-    except Exception:
-        log.error("Error [delete_neutron_net(neutron_client, '%s')]" % network_id)
+    except Exception:  # pylint: disable=broad-except
+        log.error("Error [delete_neutron_net(neutron_client, '%s')]",
+                  network_id)
         return False
 
 
@@ -470,28 +470,27 @@ def create_neutron_subnet(neutron_client, json_body):      # pragma: no cover
     try:
         subnet = neutron_client.create_subnet(body=json_body)
         return subnet['subnets'][0]['id']
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.error("Error [create_neutron_subnet")
         raise Exception("operation error")
-        return None
 
 
 def create_neutron_router(neutron_client, json_body):      # pragma: no cover
     try:
         router = neutron_client.create_router(json_body)
         return router['router']['id']
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.error("Error [create_neutron_router(neutron_client)]")
         raise Exception("operation error")
-        return None
 
 
 def delete_neutron_router(neutron_client, router_id):      # pragma: no cover
     try:
         neutron_client.delete_router(router=router_id)
         return True
-    except Exception:
-        log.error("Error [delete_neutron_router(neutron_client, '%s')]" % router_id)
+    except Exception:  # pylint: disable=broad-except
+        log.error("Error [delete_neutron_router(neutron_client, '%s')]",
+                  router_id)
         return False
 
 
@@ -499,8 +498,9 @@ def remove_gateway_router(neutron_client, router_id):      # pragma: no cover
     try:
         neutron_client.remove_gateway_router(router_id)
         return True
-    except Exception:
-        log.error("Error [remove_gateway_router(neutron_client, '%s')]" % router_id)
+    except Exception:  # pylint: disable=broad-except
+        log.error("Error [remove_gateway_router(neutron_client, '%s')]",
+                  router_id)
         return False
 
 
@@ -511,9 +511,9 @@ def remove_interface_router(neutron_client, router_id, subnet_id,
         neutron_client.remove_interface_router(router=router_id,
                                                body=json_body)
         return True
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.error("Error [remove_interface_router(neutron_client, '%s', "
-                  "'%s')]" % (router_id, subnet_id))
+                  "'%s')]", router_id, subnet_id)
         return False
 
 
@@ -523,7 +523,7 @@ def create_floating_ip(neutron_client, extnet_id):      # pragma: no cover
         ip_json = neutron_client.create_floatingip({'floatingip': props})
         fip_addr = ip_json['floatingip']['floating_ip_address']
         fip_id = ip_json['floatingip']['id']
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.error("Error [create_floating_ip(neutron_client)]")
         return None
     return {'fip_addr': fip_addr, 'fip_id': fip_id}
@@ -533,8 +533,9 @@ def delete_floating_ip(nova_client, floatingip_id):      # pragma: no cover
     try:
         nova_client.floating_ips.delete(floatingip_id)
         return True
-    except Exception:
-        log.error("Error [delete_floating_ip(nova_client, '%s')]" % floatingip_id)
+    except Exception:  # pylint: disable=broad-except
+        log.error("Error [delete_floating_ip(nova_client, '%s')]",
+                  floatingip_id)
         return False
 
 
@@ -543,7 +544,7 @@ def get_security_groups(neutron_client):      # pragma: no cover
         security_groups = neutron_client.list_security_groups()[
             'security_groups']
         return security_groups
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.error("Error [get_security_groups(neutron_client)]")
         return None
 
@@ -564,9 +565,9 @@ def create_security_group(neutron_client, sg_name, sg_description):      # pragm
     try:
         secgroup = neutron_client.create_security_group(json_body)
         return secgroup['security_group']
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.error("Error [create_security_group(neutron_client, '%s', "
-                  "'%s')]" % (sg_name, sg_description))
+                  "'%s')]", sg_name, sg_description)
         return None
 
 
@@ -597,16 +598,15 @@ def create_secgroup_rule(neutron_client, sg_id, direction, protocol,
         else:
             log.error("Bad security group format."
                       "One of the port range is not properly set:"
-                      "range min: {},"
-                      "range max: {}".format(port_range_min,
-                                             port_range_max))
+                      "range min: %s, range max: %s", port_range_min,
+                      port_range_max)
             return False
 
     # Create security group using neutron client
     try:
         neutron_client.create_security_group_rule(json_body)
         return True
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Impossible to create_security_group_rule,"
                       "security group rule probably already exists")
         return False
@@ -616,9 +616,9 @@ def create_security_group_full(neutron_client,
                                sg_name, sg_description):      # pragma: no cover
     sg_id = get_security_group_id(neutron_client, sg_name)
     if sg_id != '':
-        log.info("Using existing security group '%s'..." % sg_name)
+        log.info("Using existing security group '%s'...", sg_name)
     else:
-        log.info("Creating security group  '%s'..." % sg_name)
+        log.info("Creating security group  '%s'...", sg_name)
         SECGROUP = create_security_group(neutron_client,
                                          sg_name,
                                          sg_description)
@@ -628,18 +628,16 @@ def create_security_group_full(neutron_client,
 
         sg_id = SECGROUP['id']
 
-        log.debug("Security group '%s' with ID=%s created successfully."
-                  % (SECGROUP['name'], sg_id))
+        log.debug("Security group '%s' with ID=%s created successfully.",
+                  SECGROUP['name'], sg_id)
 
-        log.debug("Adding ICMP rules in security group '%s'..."
-                  % sg_name)
+        log.debug("Adding ICMP rules in security group '%s'...", sg_name)
         if not create_secgroup_rule(neutron_client, sg_id,
                                     'ingress', 'icmp'):
             log.error("Failed to create the security group rule...")
             return None
 
-        log.debug("Adding SSH rules in security group '%s'..."
-                  % sg_name)
+        log.debug("Adding SSH rules in security group '%s'...", sg_name)
         if not create_secgroup_rule(
                 neutron_client, sg_id, 'ingress', 'tcp', '22', '22'):
             log.error("Failed to create the security group rule...")
@@ -664,12 +662,12 @@ def create_image(glance_client, image_name, file_path, disk_format,
                  container_format, min_disk, min_ram, protected, tag,
                  public, **kwargs):    # pragma: no cover
     if not os.path.isfile(file_path):
-        log.error("Error: file %s does not exist." % file_path)
+        log.error("Error: file %s does not exist.", file_path)
         return None
     try:
         image_id = get_image_id(glance_client, image_name)
         if image_id is not None:
-            log.info("Image %s already exists." % image_name)
+            log.info("Image %s already exists.", image_name)
         else:
             log.info("Creating image '%s' from '%s'...", image_name, file_path)
 
@@ -686,7 +684,7 @@ def create_image(glance_client, image_name, file_path, disk_format,
             with open(file_path) as image_data:
                 glance_client.images.upload(image_id, image_data)
         return image_id
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.error("Error [create_glance_image(glance_client, '%s', '%s', '%s')]",
                   image_name, file_path, public)
         return None
@@ -696,7 +694,7 @@ def delete_image(glance_client, image_id):    # pragma: no cover
     try:
         glance_client.images.delete(image_id)
 
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [delete_flavor(glance_client, %s)]", image_id)
         return False
     else:
@@ -722,7 +720,7 @@ def create_volume(cinder_client, volume_name, volume_size,
             volume = cinder_client.volumes.create(name=volume_name,
                                                   size=volume_size)
         return volume
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [create_volume(cinder_client, %s)]",
                       (volume_name, volume_size))
         return None
@@ -733,7 +731,7 @@ def delete_volume(cinder_client, volume_id, forced=False):      # pragma: no cov
         if forced:
             try:
                 cinder_client.volumes.detach(volume_id)
-            except:
+            except Exception:  # pylint: disable=broad-except
                 log.error(sys.exc_info()[0])
             cinder_client.volumes.force_delete(volume_id)
         else:
@@ -743,8 +741,8 @@ def delete_volume(cinder_client, volume_id, forced=False):      # pragma: no cov
                     break
             cinder_client.volumes.delete(volume_id)
         return True
-    except Exception:
-        log.exception("Error [delete_volume(cinder_client, '%s')]" % volume_id)
+    except Exception:  # pylint: disable=broad-except
+        log.exception("Error [delete_volume(cinder_client, '%s')]", volume_id)
         return False
 
 
@@ -752,7 +750,7 @@ def detach_volume(server_id, volume_id):      # pragma: no cover
     try:
         get_nova_client().volumes.delete_server_volume(server_id, volume_id)
         return True
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         log.exception("Error [detach_server_volume(nova_client, '%s', '%s')]",
                       server_id, volume_id)
         return False
