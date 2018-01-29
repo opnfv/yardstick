@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9f31815c",
+        "filename": "ansible/roles/download_drivers/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-01-29T09:50:54Z",
+      "side": 1,
+      "message": "There is maybe a better link like https://downloadcenter.intel.com/download/24693/Intel-Network-Adapter-Virtual-Function-Driver-for-Intel-40-Gigabit-Ethernet-Network-Connections. But I\u0027m not sure if we can use it in the ansible.",
+      "parentUuid": "9a3d3df0_f588b372",
+      "range": {
+        "startLine": 17,
+        "startChar": 13,
+        "endLine": 17,
+        "endChar": 58
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_393df5c4",
         "filename": "ansible/roles/download_drivers/defaults/main.yml",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2018-01-26T21:19:15Z",
       "side": 1,
       "message": "isn\u0027t md5 deprecated, or just plain insecure",
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ff340d4b",
+        "filename": "ansible/roles/download_drivers/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-01-29T09:50:54Z",
+      "side": 1,
+      "message": "Changed to sha1.",
+      "parentUuid": "9a3d3df0_393df5c4",
       "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_df37894b",
+        "filename": "ansible/roles/download_drivers/tasks/i40evf.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-01-29T09:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_55a51f02",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 16
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_35a85bda",
         "filename": "ansible/roles/download_drivers/tasks/i40evf.yml",
         "patchSetId": 2
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_3f42f5ad",
+        "filename": "ansible/roles/download_drivers/tasks/i40evf.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-01-29T09:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_35a85bda",
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_75adc3e8",
         "filename": "ansible/roles/download_drivers/tasks/i40evf.yml",
         "patchSetId": 2
@@ -93,6 +177,30 @@
       "writtenOn": "2018-01-26T15:58:38Z",
       "side": 1,
       "message": "nit: can you use capital letters",
+      "range": {
+        "startLine": 23,
+        "startChar": 8,
+        "endLine": 23,
+        "endChar": 9
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1f3d712b",
+        "filename": "ansible/roles/download_drivers/tasks/i40evf.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-01-29T09:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_75adc3e8",
       "range": {
         "startLine": 23,
         "startChar": 8,
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_7f48fdcb",
+        "filename": "ansible/roles/download_drivers/tasks/i40evf.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-01-29T09:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_d5b80f2c",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 30,
+        "endChar": 9
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_b5b3cb4b",
         "filename": "ansible/roles/download_drivers/tasks/i40evf.yml",
         "patchSetId": 2
@@ -139,6 +271,30 @@
       "writtenOn": "2018-01-26T15:58:38Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 9
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5f4379ae",
+        "filename": "ansible/roles/download_drivers/tasks/i40evf.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-01-29T09:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_b5b3cb4b",
       "range": {
         "startLine": 36,
         "startChar": 8,
@@ -174,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_bf15659d",
+        "filename": "ansible/roles/download_drivers/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-01-29T09:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_152a777e",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 18
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_959967c6",
         "filename": "ansible/roles/install_drivers/tasks/i40evf.yml",
         "patchSetId": 2
@@ -197,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9f1861d4",
+        "filename": "ansible/roles/install_drivers/tasks/i40evf.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-01-29T09:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_959967c6",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 21
+      },
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_b58aab61",
         "filename": "ansible/roles/install_drivers/tasks/i40evf.yml",
         "patchSetId": 2
@@ -208,6 +412,24 @@
       "writtenOn": "2018-01-26T15:58:38Z",
       "side": 1,
       "message": "ditto",
+      "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ff0b6d7a",
+        "filename": "ansible/roles/install_drivers/tasks/i40evf.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-01-29T09:50:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_b58aab61",
       "revId": "6df1a8cec3aeaea54342c4057ba893e497454a75",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
