@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_a8d6cd25",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc059.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-01-30T14:02:39Z",
+      "side": 1,
+      "message": "please update the test case number according to the yardstick test case wiki page",
+      "range": {
+        "startLine": 14,
+        "startChar": 33,
+        "endLine": 14,
+        "endChar": 38
+      },
+      "revId": "c295daf3cd62bb3ecd83f5dd4f87f7c9e545bd34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_d354afcb",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc059.rst",
         "patchSetId": 6
@@ -64,6 +87,29 @@
         "startChar": 20,
         "endLine": 35,
         "endChar": 35
+      },
+      "revId": "c295daf3cd62bb3ecd83f5dd4f87f7c9e545bd34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c8dfd138",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc059.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-01-30T14:02:39Z",
+      "side": 1,
+      "message": "since pktgen is used for connectivity check, I think related monitor metrics can use pktgen-related metrics which are used in existing yardstick cases",
+      "range": {
+        "startLine": 78,
+        "startChar": 21,
+        "endLine": 78,
+        "endChar": 42
       },
       "revId": "c295daf3cd62bb3ecd83f5dd4f87f7c9e545bd34",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -158,6 +204,29 @@
         "startChar": 16,
         "endLine": 153,
         "endChar": 78
+      },
+      "revId": "c295daf3cd62bb3ecd83f5dd4f87f7c9e545bd34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_48ebc1db",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc059.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-01-30T14:02:39Z",
+      "side": 1,
+      "message": "As I mentioned in  HA meeting before, creating VM in the middle of the test case is not well supported in current HA framework. So I suggest not to implement this step and corresponding connectivity check now.",
+      "range": {
+        "startLine": 158,
+        "startChar": 17,
+        "endLine": 158,
+        "endChar": 64
       },
       "revId": "c295daf3cd62bb3ecd83f5dd4f87f7c9e545bd34",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
