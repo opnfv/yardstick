@@ -16,6 +16,24 @@
       "revId": "6cde0aaeed026ebd8e93990c9e88525ac82e49d6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c8a7d109",
+        "filename": "tests/unit/benchmark/scenarios/test_base.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-30T10:14:33Z",
+      "side": 1,
+      "message": "yes, this is going to be faster",
+      "parentUuid": "9a3d3df0_2de00f28",
+      "revId": "6cde0aaeed026ebd8e93990c9e88525ac82e49d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
