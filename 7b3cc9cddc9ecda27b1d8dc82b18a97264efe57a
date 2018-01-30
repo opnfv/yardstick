@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_738f9675",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2018-01-30T23:38:31Z",
+      "side": 1,
+      "message": "Unrelated to this change, but since it was in patch context, I couldn\u0027t help but notice that half of this is doing literally nothing.\nWe should cleanup this code in another change (later).",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 6
+      },
+      "revId": "7b3cc9cddc9ecda27b1d8dc82b18a97264efe57a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
