@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_88c02951",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-01-30T14:45:23Z",
+      "side": 1,
+      "message": "please update the test case number according to the yardstick test case wiki page",
+      "range": {
+        "startLine": 7,
+        "startChar": 32,
+        "endLine": 7,
+        "endChar": 37
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_530fffe0",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
         "patchSetId": 3
@@ -157,6 +180,52 @@
         "startChar": 50,
         "endLine": 41,
         "endChar": 78
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_08cc1988",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-01-30T14:45:23Z",
+      "side": 1,
+      "message": "use pktgen related metrics which are used in yardstick cases",
+      "range": {
+        "startLine": 81,
+        "startChar": 20,
+        "endLine": 81,
+        "endChar": 37
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_48c2a153",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-01-30T14:45:23Z",
+      "side": 1,
+      "message": "this should be in the configuration of monitors",
+      "range": {
+        "startLine": 95,
+        "startChar": 20,
+        "endLine": 96,
+        "endChar": 77
       },
       "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
