@@ -95,8 +95,8 @@ class HeatContext(Context):
         return sorted_networks
 
     def init(self, attrs):
-        self.check_environment()
         """initializes itself from the supplied arguments"""
+        self.check_environment()
         self.name = attrs["name"]
 
         self._user = attrs.get("user")
@@ -173,7 +173,8 @@ class HeatContext(Context):
         if self.flavor:
             if isinstance(self.flavor, dict):
                 flavor = self.flavor.setdefault("name", self.name + "-flavor")
-                template.add_flavor(**self.flavor)
+                # TODO(elfoley): investigate and fix
+                template.add_flavor(**self.flavor)  # pylint: disable=not-a-mapping
                 self.flavors.add(flavor)
 
         template.add_keypair(self.keypair_name, self.key_uuid)

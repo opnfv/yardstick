@@ -57,7 +57,7 @@ class Task(object):     # pragma: no cover
         out_types = [s.strip() for s in dispatchers.split(',')]
         output_config['DEFAULT']['dispatcher'] = out_types
 
-    def start(self, args, **kwargs):
+    def start(self, args):
         """Start a benchmark scenario."""
 
         atexit.register(self.atexit_handler)
@@ -69,7 +69,7 @@ class Task(object):     # pragma: no cover
 
         try:
             output_config = utils.parse_ini_file(CONF_FILE)
-        except Exception:
+        except Exception:  # pylint: disable=broad-except
             # all error will be ignore, the default value is {}
             output_config = {}
 
@@ -123,7 +123,7 @@ class Task(object):     # pragma: no cover
                 data = self._run(scenarios, run_in_parallel, args.output_file)
             except KeyboardInterrupt:
                 raise
-            except Exception:
+            except Exception:  # pylint: disable=broad-except
                 LOG.error('Testcase: "%s" FAILED!!!', case_name, exc_info=True)
                 testcases[case_name] = {'criteria': 'FAIL', 'tc_data': []}
             else:
