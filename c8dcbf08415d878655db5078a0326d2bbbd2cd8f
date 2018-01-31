@@ -16,6 +16,24 @@
       "revId": "c8dcbf08415d878655db5078a0326d2bbbd2cd8f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6e75ed30",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-31T14:34:54Z",
+      "side": 1,
+      "message": "You are right. There is no reason to use an ordered dict (or a dict). \"network_ports\" is used to create [1] the XML section.\n\nThe order is not needed for the XML definition, it doesn\u0027t affect to the network sections defined.\n\n[1]https://github.com/opnfv/yardstick/blob/fa6a71d6a0f654d9e85a6dd8f73c1173f75ccdde/yardstick/benchmark/contexts/standalone/model.py#L135",
+      "parentUuid": "9a3d3df0_8d64bbb9",
+      "revId": "c8dcbf08415d878655db5078a0326d2bbbd2cd8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
