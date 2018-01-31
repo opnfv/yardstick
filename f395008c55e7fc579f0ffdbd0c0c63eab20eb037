@@ -16,6 +16,24 @@
       "revId": "f395008c55e7fc579f0ffdbd0c0c63eab20eb037",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2e980577",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-01-31T14:05:39Z",
+      "side": 1,
+      "message": "This function has the same purpose, to bind a driver to an interface.\n\nBut dpdk_bind_helper.rebind_driver() [1] is used [2] inside a VM, durint the tear down.\n\nIn the OvsDpdkContext I don\u0027t have access to this helper. This operation is done in the baremetal system, not in the VM.\n\nDo you mean we can have a common function, outside the helper, to execute this command?\n\n[1]https://github.com/opnfv/yardstick/blob/fa6a71d6a0f654d9e85a6dd8f73c1173f75ccdde/yardstick/network_services/helpers/dpdkbindnic_helper.py#L158\n[2]https://github.com/opnfv/yardstick/blob/fa6a71d6a0f654d9e85a6dd8f73c1173f75ccdde/yardstick/network_services/vnf_generic/vnf/sample_vnf.py#L320",
+      "parentUuid": "9a3d3df0_6d6b3785",
+      "revId": "f395008c55e7fc579f0ffdbd0c0c63eab20eb037",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
