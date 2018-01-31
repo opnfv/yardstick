@@ -46,6 +46,30 @@
       "revId": "7b3cc9cddc9ecda27b1d8dc82b18a97264efe57a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8ea791bc",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-31T14:01:09Z",
+      "side": 1,
+      "message": "I\u0027ve added a Jira ticket: https://jira.opnfv.org/browse/YARDSTICK-991\n\nFeel free to add more detail, or submit a patch :)",
+      "parentUuid": "9a3d3df0_33706e0a",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 6
+      },
+      "revId": "7b3cc9cddc9ecda27b1d8dc82b18a97264efe57a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
