@@ -343,8 +343,8 @@ class Task(object):     # pragma: no cover
         for item in [server_name, scenario_cfg]:
             try:
                 config_context_target(item)
-            except KeyError:
-                pass
+            except KeyError as exc:
+                LOG.debug("Got a KeyError in config_context_target: %s", exc)
             else:
                 break
 
@@ -520,11 +520,13 @@ class TaskParser(object):       # pragma: no cover
         contexts = []
         name_suffix = '-{}'.format(task_id[:8])
         for cfg_attrs in context_cfgs:
-            try:
-                cfg_attrs['name'] = '{}{}'.format(cfg_attrs['name'],
-                                                  name_suffix)
-            except KeyError:
-                pass
+            # TODO: May not need this if get_servers tries with and without a suffix
+            if not (cfg_attrs.get('no_setup', False) or cfg_attrs.get('no_teardown', False)):
+                try:
+                    cfg_attrs['name'] = '{}{}'.format(cfg_attrs['name'],
+                                                      name_suffix)
+                except KeyError:
+                    pass
             # default to Heat context because we are testing OpenStack
             context_type = cfg_attrs.get("type", "Heat")
             context = Context.get(context_type)
