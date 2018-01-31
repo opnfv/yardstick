@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_3f283599",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_vpe_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-01-31T15:50:59Z",
+      "side": 1,
+      "message": "This is virtually identical to the one above",
+      "range": {
+        "startLine": 242,
+        "startChar": 4,
+        "endLine": 346,
+        "endChar": 5
+      },
+      "revId": "91427deb714587202c3cdc4c0d74b47237d87f35",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
