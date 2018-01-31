@@ -22,6 +22,30 @@
       "revId": "7b3cc9cddc9ecda27b1d8dc82b18a97264efe57a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_33706e0a",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-01-31T07:59:58Z",
+      "side": 1,
+      "message": "agree with you.",
+      "parentUuid": "9a3d3df0_738f9675",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 6
+      },
+      "revId": "7b3cc9cddc9ecda27b1d8dc82b18a97264efe57a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
