@@ -26,6 +26,7 @@ from yardstick.benchmark.contexts.model import PlacementGroup, ServerGroup
 from yardstick.benchmark.contexts.model import Server
 from yardstick.benchmark.contexts.model import update_scheduler_hints
 from yardstick.common.openstack_utils import get_neutron_client
+from yardstick.orchestrator.heat import HeatStack
 from yardstick.orchestrator.heat import HeatTemplate, get_short_key_uuid
 from yardstick.common import constants as consts
 from yardstick.common.utils import source_env
@@ -75,6 +76,8 @@ class HeatContext(Context):
         self.key_filename = ''.join(
             [consts.YARDSTICK_ROOT_PATH, 'yardstick/resources/files/yardstick_key-',
              get_short_key_uuid(self.key_uuid)])
+        self.no_setup = False
+        self.no_teardown = False
         super(HeatContext, self).__init__()
 
     @staticmethod
@@ -137,7 +140,17 @@ class HeatContext(Context):
             self._server_map[server.dn] = server
 
         self.attrs = attrs
-        SSH.gen_keys(self.key_filename)
+        self.no_setup = attrs.get("no_setup", False)
+        self.no_teardown = attrs.get("no_teardown", False)
+        if self.no_setup or self.no_teardown:
+            self.key_uuid = self.name
+
+        self.key_filename = ''.join(
+            [consts.YARDSTICK_ROOT_PATH,
+             'yardstick/resources/files/yardstick_key-',
+              self.key_uuid])
+        if not os.path.exists(self.key_filename):
+            SSH.gen_keys(self.key_filename)
 
     def check_environment(self):
         try:
@@ -298,6 +311,18 @@ class HeatContext(Context):
                     network.network_type = neutron_net.get('provider:network_type')
                     network.neutron_info = neutron_net
 
+    def create_new_stack(self, heat_template):
+         try:
+             new_stack = heat_template.create(block=True,
+                                               timeout=self.heat_timeout)
+             return new_stack
+         except KeyboardInterrupt:
+             raise SystemExit("\nStack create interrupted")
+         except:
+             LOG.exception("stack failed")
+             # let the other failures happen, we want stack trace
+             raise
+
     def retrieve_existing_stack(self, stack_name):
         stack = HeatStack(stack_name)
         stack.get()
@@ -317,15 +342,14 @@ class HeatContext(Context):
         if self.template_file is None:
             self._add_resources_to_template(heat_template)
 
-        try:
-            self.stack = heat_template.create(block=True,
-                                              timeout=self.heat_timeout)
-        except KeyboardInterrupt:
-            raise SystemExit("\nStack create interrupted")
-        except:
-            LOG.exception("stack failed")
-            # let the other failures happen, we want stack trace
-            raise
+        if self.no_setup:
+            # Try to get an existing stack, returns a stack or None
+            self.stack = self.retrieve_existing_stack(self.name)
+            if not self.stack:
+                self.stack = self.create_new_stack(heat_template)
+
+        else:
+            self.stack = self.create_new_stack(heat_template)
 
         # TODO: use Neutron to get segmentation-id
         self.get_neutron_info()
@@ -400,13 +424,16 @@ class HeatContext(Context):
 
     def undeploy(self):
         """undeploys stack from cloud"""
+        if self.no_teardown:
+            return
+
         if self.stack:
             LOG.info("Undeploying context '%s' START", self.name)
             self.stack.delete()
             self.stack = None
             LOG.info("Undeploying context '%s' DONE", self.name)
 
-            self._delete_key_file()
+        self._delete_key_file()
 
         super(HeatContext, self).undeploy()
 
@@ -442,7 +469,11 @@ class HeatContext(Context):
             server.private_ip = self.stack.outputs.get(
                 attr_name.get("private_ip_attr", object()), None)
         else:
-            server = self._server_map.get(attr_name, None)
+            try:
+                server = self._server_map[attr_name]
+            except KeyError:
+                attr_name_no_suffix = attr_name.split("-")[0]
+                server = self._server_map.get(attr_name_no_suffix, None)
             if server is None:
                 return None
 

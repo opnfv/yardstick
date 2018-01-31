@@ -345,7 +345,6 @@ class HeatTemplateTestCase(unittest.TestCase):
             3600)
         self.assertEqual(heat_stack, ret)
 
-
     def test_create_block_status_no_complete(self):
         heat_stack = mock.Mock()
         heat_stack.status = 'other status'

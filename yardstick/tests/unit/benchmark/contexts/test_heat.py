@@ -17,6 +17,8 @@ import os
 import mock
 import unittest
 
+import shade
+
 from yardstick.benchmark.contexts import heat
 from yardstick.benchmark.contexts import model
 
@@ -51,6 +53,8 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertIsNone(self.test_context.heat_parameters)
         self.assertIsNotNone(self.test_context.key_uuid)
         self.assertIsNotNone(self.test_context.key_filename)
+        self.assertFalse(self.test_context.no_setup)
+        self.assertFalse(self.test_context.no_teardown)
 
     @mock.patch('yardstick.benchmark.contexts.heat.PlacementGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.ServerGroup')
@@ -96,6 +100,24 @@ class HeatContextTestCase(unittest.TestCase):
             except OSError:
                 LOG.exception("key_filename: %s",
                               self.test_context.key_filename)
+        self.assertFalse(self.test_context.no_setup)
+        self.assertFalse(self.test_context.no_teardown)
+
+    def test_init_no_setup_no_teardown(self):
+
+        attrs = {'name': 'foo',
+                 'placement_groups': {},
+                 'server_groups': {},
+                 'networks': {},
+                 'servers': {},
+                 'no_setup': True,
+                 'no_teardown': True,
+                }
+
+        self.test_context.init(attrs)
+        # Make sure that the attribute is set
+        self.assertTrue(self.test_context.no_setup)
+        self.assertTrue(self.test_context.no_teardown)
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_resources_to_template_no_servers(self, mock_template):
@@ -160,6 +182,47 @@ class HeatContextTestCase(unittest.TestCase):
                                          {'image': 'cirros'})
         self.assertIsNotNone(self.test_context.stack)
 
+    # TODO: patch objects
+    @mock.patch.object(heat, 'HeatTemplate')
+    @mock.patch.object(heat.HeatContext, 'retrieve_existing_stack')
+    @mock.patch.object(heat.HeatContext, 'create_new_stack')
+    def test_deploy_no_setup(self, mock_create_new_stack, mock_retrieve_existing_stack, *args):
+        self.test_context.name = 'foo'
+        # Might be able to get rid of these
+        self.test_context.template_file = '/bar/baz/some-heat-file'
+        self.test_context.heat_parameters = {'image': 'cirros'}
+        self.test_context.get_neutron_info = mock.MagicMock()
+        self.test_context.no_setup = True
+        self.test_context.deploy()
+
+        # check that heat client is called...
+        mock_create_new_stack.assert_not_called()
+        mock_retrieve_existing_stack.assert_called_with(self.test_context.name)
+        self.assertIsNotNone(self.test_context.stack)
+
+    @mock.patch.object(shade, 'openstack_cloud')
+    @mock.patch.object(heat.HeatTemplate, 'add_keypair')
+    @mock.patch.object(heat.HeatContext, 'create_new_stack')
+    @mock.patch.object(heat.HeatStack, 'get')
+    def test_deploy_try_retrieve_context_does_not_exist(self,
+                                                        mock_get_stack,
+                                                        mock_create_new_stack,
+                                                        *args):
+        self.test_context.no_setup = True
+        self.test_context.get_neutron_info = mock.MagicMock()
+
+        # TODo: Check is this the right value to return, should it be None instead?
+        mock_get_stack.return_value = []
+
+        self.test_context.deploy()
+
+        mock_get_stack.assert_called()
+        mock_create_new_stack.assert_called()
+
+    def test_check_for_context(self):
+        pass
+        # check that the context exists
+
     def test_add_server_port(self):
         network1 = mock.MagicMock()
         network2 = mock.MagicMock()
@@ -222,6 +285,14 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context.stack = mock_template
         self.test_context.undeploy()
         self.assertTrue(mock_template.delete.called)
+
+    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
+    def test_undeploy_no_teardown(self, mock_template):
+        self.test_context.stack = mock_template
+        self.test_context.no_teardown = True
+        self.test_context.undeploy()
+
+        mock_template.delete.assert_not_called()
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     @mock.patch('yardstick.benchmark.contexts.heat.os')
