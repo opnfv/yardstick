@@ -9,6 +9,7 @@
 
 import tempfile
 
+import munch
 import mock
 from oslo_serialization import jsonutils
 from oslo_utils import uuidutils
@@ -40,12 +41,16 @@ class HeatStackTestCase(unittest.TestCase):
         self._mock_stack_delete = mock.patch.object(self.heatstack._cloud,
                                                     'delete_stack')
         self.mock_stack_delete = self._mock_stack_delete.start()
+        self._mock_stack_get = mock.patch.object(self.heatstack._cloud,
+                                                 'get_stack')
+        self.mock_stack_get = self._mock_stack_get.start()
 
         self.addCleanup(self._cleanup)
 
     def _cleanup(self):
         self._mock_stack_create.stop()
         self._mock_stack_delete.stop()
+        self._mock_stack_get.stop()
         heat._DEPLOYED_STACKS = {}
 
     def test_create(self):
@@ -339,7 +344,6 @@ class HeatTemplateTestCase(unittest.TestCase):
             self.template._template, self.template.heat_parameters, False,
             3600)
         self.assertEqual(heat_stack, ret)
-
 
     def test_create_block_status_no_complete(self):
         heat_stack = mock.Mock()
