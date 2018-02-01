@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_05123f08",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-01T12:56:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_88c02951",
+      "range": {
+        "startLine": 7,
+        "startChar": 32,
+        "endLine": 7,
+        "endChar": 37
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_530fffe0",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-01-24T13:23:51Z",
       "side": 1,
       "message": "resilience and high availability",
+      "range": {
+        "startLine": 14,
+        "startChar": 55,
+        "endLine": 14,
+        "endChar": 65
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_65fcebb8",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-01T12:56:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_530fffe0",
       "range": {
         "startLine": 14,
         "startChar": 55,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_45f727d3",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-01T12:56:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_b3fdabb3",
+      "range": {
+        "startLine": 20,
+        "startChar": 44,
+        "endLine": 20,
+        "endChar": 52
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_1330d79d",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2018-01-24T13:23:51Z",
       "side": 1,
       "message": "typo ...\n\"... is offline recovering ...\"",
+      "range": {
+        "startLine": 28,
+        "startChar": 32,
+        "endLine": 28,
+        "endChar": 51
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a50273b1",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-01T12:56:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_1330d79d",
       "range": {
         "startLine": 28,
         "startChar": 32,
@@ -164,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_85fdafb3",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-01T12:56:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_f33293a5",
+      "range": {
+        "startLine": 32,
+        "startChar": 21,
+        "endLine": 32,
+        "endChar": 31
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5326df68",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
         "patchSetId": 3
@@ -175,6 +295,30 @@
       "writtenOn": "2018-01-24T13:23:51Z",
       "side": 1,
       "message": "and verifies that the system never loses the ability to execute new virtual network operations, even when failed SDN Controller is still recovering",
+      "range": {
+        "startLine": 39,
+        "startChar": 50,
+        "endLine": 41,
+        "endChar": 78
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e52f5b3d",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-01T12:56:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_5326df68",
       "range": {
         "startLine": 39,
         "startChar": 50,
@@ -210,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c53217a6",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-01T12:56:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_08cc1988",
+      "range": {
+        "startLine": 81,
+        "startChar": 20,
+        "endLine": 81,
+        "endChar": 37
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_48c2a153",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
         "patchSetId": 3
@@ -233,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_25b023dc",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-01T12:56:04Z",
+      "side": 1,
+      "message": "Right. I didn\u0027t want to move this configuration-related aspect to the \"monitor\" section above, but instead indented it to indicate that this is a configuration option of the monitors.",
+      "parentUuid": "9a3d3df0_48c2a153",
+      "range": {
+        "startLine": 95,
+        "startChar": 20,
+        "endLine": 96,
+        "endChar": 77
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_93234755",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
         "patchSetId": 3
@@ -244,6 +436,30 @@
       "writtenOn": "2018-01-24T13:23:51Z",
       "side": 1,
       "message": "Can we describe this in more detail ?\n\nIs it a 2xNode SDN Controller Cluster or a 3xNode SDN Controller Cluster ?\n\nAt one time, ODL ONLY supported 3xNode Clusters.\n\nIf it is still ONLY 3xNode Clusters,\nwe should test\n      - single SDN Controller failure, and\n      - two SDN Controllers failing.\n\nIn past experience, I have seen ODL NEVER recover from 2 of 3 SDN Controllers in a cluster failing.",
+      "range": {
+        "startLine": 108,
+        "startChar": 21,
+        "endLine": 109,
+        "endChar": 60
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c5e337d7",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-01T12:56:04Z",
+      "side": 1,
+      "message": "Hi Greg, good point. Initially we have to live with what the OPNFV installers provide us with, and I assume that will be a 3x cluster. I\u0027ll reach out to the installer folks to find out. Let\u0027s make this test case a single controller failure test case and eventually create another one later on (or make this one configurable).",
+      "parentUuid": "9a3d3df0_93234755",
       "range": {
         "startLine": 108,
         "startChar": 21,
@@ -303,6 +519,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c51857d5",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-01T12:56:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_90cdfd68",
+      "range": {
+        "startLine": 165,
+        "startChar": 16,
+        "endLine": 165,
+        "endChar": 78
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_b3ebebda",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
         "patchSetId": 3
@@ -326,6 +566,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_65298be5",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-01T12:56:04Z",
+      "side": 1,
+      "message": "I moved this to step 4, i.e., before checking and stopping the monitors.",
+      "parentUuid": "9a3d3df0_b3ebebda",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 167,
+        "endChar": 79
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_33e07bf9",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
         "patchSetId": 3
@@ -337,6 +601,30 @@
       "writtenOn": "2018-01-24T13:23:51Z",
       "side": 1,
       "message": "Would be good to specify target SLA within this test case.",
+      "range": {
+        "startLine": 193,
+        "startChar": 31,
+        "endLine": 193,
+        "endChar": 34
+      },
+      "revId": "a2f1a0f0ea325ceb104701069bf899ea316d3dfb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4524470c",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc060.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-01T12:56:04Z",
+      "side": 1,
+      "message": "Do we have a good indication of what this SLA value could be?",
+      "parentUuid": "9a3d3df0_33e07bf9",
       "range": {
         "startLine": 193,
         "startChar": 31,
