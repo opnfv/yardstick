@@ -98,7 +98,7 @@ Yardstick Test Case Description TC056
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |configuration | This test case needs two configuration files:                |
-|              | 1) test case file:opnfv_yardstick_tc056.yaml                 |
+|              | 1) test case file: opnfv_yardstick_tc056.yaml                |
 |              | -Attackers: see above "attackers" description                |
 |              | -waiting_time: which is the time (seconds) from the process  |
 |              | being killed to stoping monitors the monitors                |
