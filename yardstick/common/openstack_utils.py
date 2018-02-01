@@ -17,6 +17,7 @@ import logging
 from keystoneauth1 import loading
 from keystoneauth1 import session
 import shade
+from shade import exc
 
 from cinderclient import client as cinderclient
 from novaclient import client as novaclient
@@ -458,12 +459,12 @@ def create_neutron_net(neutron_client, json_body):      # pragma: no cover
         return None
 
 
-def delete_neutron_net(neutron_client, network_id):      # pragma: no cover
+def delete_neutron_net(shade_client, network_id):
     try:
-        neutron_client.delete_network(network_id)
-        return True
-    except Exception:
-        log.error("Error [delete_neutron_net(neutron_client, '%s')]" % network_id)
+        return shade_client.delete_network(network_id)
+    except exc.OpenStackCloudException:
+        log.error(
+            "Error [delete_neutron_net(shade_client, '%s')]" % network_id)
         return False
 
 

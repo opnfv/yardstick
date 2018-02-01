@@ -30,7 +30,7 @@ class DeleteNetwork(base.Scenario):
 
         self.network_id = self.options.get("network_id", None)
 
-        self.neutron_client = op_utils.get_neutron_client()
+        self.shade_client = op_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -45,7 +45,7 @@ class DeleteNetwork(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        status = op_utils.delete_neutron_net(self.neutron_client,
+        status = op_utils.delete_neutron_net(self.shade_client,
                                              network_id=self.network_id)
         if status:
             result.update({"delete_network": 1})
@@ -53,3 +53,4 @@ class DeleteNetwork(base.Scenario):
         else:
             result.update({"delete_network": 0})
             LOG.error("Delete network failed!")
+        return status
