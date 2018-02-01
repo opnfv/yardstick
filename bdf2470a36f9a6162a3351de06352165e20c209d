@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_983352f5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-01T15:31:55Z",
+      "side": 1,
+      "message": "nit:space",
+      "revId": "bdf2470a36f9a6162a3351de06352165e20c209d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_383846d2",
+        "filename": "docs/testing/user/userguide/15-list-of-tcs.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-01T15:31:55Z",
+      "side": 1,
+      "message": "remove whitespace",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 3
+      },
+      "revId": "bdf2470a36f9a6162a3351de06352165e20c209d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
