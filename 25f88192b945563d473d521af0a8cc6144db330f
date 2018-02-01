@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_e5b91bcd",
+        "filename": "docs/testing/user/userguide/15-list-of-tcs.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-02-01T12:29:33Z",
+      "side": 1,
+      "message": "thank your for your patch. I think tc057 is also a HA test case and need to be added. https://git.opnfv.org/yardstick/tree/docs/testing/user/userguide/opnfv_yardstick_tc057.rst",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 28
+      },
+      "revId": "25f88192b945563d473d521af0a8cc6144db330f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
