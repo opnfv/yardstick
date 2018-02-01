@@ -15,6 +15,7 @@ import logging
 from keystoneauth1 import loading
 from keystoneauth1 import session
 import shade
+from shade import exc
 
 from cinderclient import client as cinderclient
 from novaclient import client as novaclient
@@ -177,6 +178,8 @@ def get_shade_client():
 # *********************************************
 #   NOVA
 # *********************************************
+
+
 def get_instances(nova_client):
     try:
         return nova_client.servers.list(search_opts={'all_tenants': 1})
@@ -272,7 +275,8 @@ def create_aggregate_with_host(nova_client, aggregate_name, av_zone,
 def create_keypair(name, key_path=None):    # pragma: no cover
     try:
         with open(key_path) as fpubkey:
-            keypair = get_nova_client().keypairs.create(name=name, public_key=fpubkey.read())
+            keypair = get_nova_client().keypairs.create(
+                name=name, public_key=fpubkey.read())
             return keypair
     except Exception:  # pylint: disable=broad-except
         log.exception("Error [create_keypair(nova_client)]")
@@ -304,9 +308,11 @@ def create_instance_and_wait_for_active(json_body):    # pragma: no cover
     return None
 
 
-def attach_server_volume(server_id, volume_id, device=None):    # pragma: no cover
+def attach_server_volume(server_id, volume_id,
+                         device=None):    # pragma: no cover
     try:
-        get_nova_client().volumes.create_server_volume(server_id, volume_id, device)
+        get_nova_client().volumes.create_server_volume(server_id,
+                                                       volume_id, device)
     except Exception:  # pylint: disable=broad-except
         log.exception("Error [attach_server_volume(nova_client, '%s', '%s')]",
                       server_id, volume_id)
@@ -370,7 +376,8 @@ def get_server_by_name(name):   # pragma: no cover
 
 def create_flavor(name, ram, vcpus, disk, **kwargs):   # pragma: no cover
     try:
-        return get_nova_client().flavors.create(name, ram, vcpus, disk, **kwargs)
+        return get_nova_client().flavors.create(name, ram, vcpus,
+                                                disk, **kwargs)
     except Exception:  # pylint: disable=broad-except
         log.exception("Error [create_flavor(nova_client, %s, %s, %s, %s, %s)]",
                       name, ram, disk, vcpus, kwargs['is_public'])
@@ -455,13 +462,12 @@ def create_neutron_net(neutron_client, json_body):      # pragma: no cover
         raise Exception("operation error")
 
 
-def delete_neutron_net(neutron_client, network_id):      # pragma: no cover
+def delete_neutron_net(shade_client, network_id):
     try:
-        neutron_client.delete_network(network_id)
-        return True
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [delete_neutron_net(neutron_client, '%s')]",
-                  network_id)
+        return shade_client.delete_network(network_id)
+    except exc.OpenStackCloudException:
+        log.error(
+            "Error [delete_neutron_net(shade_client, '%s')]", network_id)
         return False
 
 
@@ -558,7 +564,8 @@ def get_security_group_id(neutron_client, sg_name):      # pragma: no cover
     return id
 
 
-def create_security_group(neutron_client, sg_name, sg_description):      # pragma: no cover
+def create_security_group(neutron_client, sg_name,
+                          sg_description):      # pragma: no cover
     json_body = {'security_group': {'name': sg_name,
                                     'description': sg_description}}
     try:
@@ -611,8 +618,8 @@ def create_secgroup_rule(neutron_client, sg_id, direction, protocol,
         return False
 
 
-def create_security_group_full(neutron_client,
-                               sg_name, sg_description):      # pragma: no cover
+def create_security_group_full(neutron_client, sg_name,
+                               sg_description):      # pragma: no cover
     sg_id = get_security_group_id(neutron_client, sg_name)
     if sg_id != '':
         log.info("Using existing security group '%s'...", sg_name)
@@ -670,22 +677,18 @@ def create_image(glance_client, image_name, file_path, disk_format,
         else:
             log.info("Creating image '%s' from '%s'...", image_name, file_path)
 
-            image = glance_client.images.create(name=image_name,
-                                                visibility=public,
-                                                disk_format=disk_format,
-                                                container_format=container_format,
-                                                min_disk=min_disk,
-                                                min_ram=min_ram,
-                                                tags=tag,
-                                                protected=protected,
-                                                **kwargs)
+            image = glance_client.images.create(
+                name=image_name, visibility=public, disk_format=disk_format,
+                container_format=container_format, min_disk=min_disk,
+                min_ram=min_ram, tags=tag, protected=protected, **kwargs)
             image_id = image.id
             with open(file_path) as image_data:
                 glance_client.images.upload(image_id, image_data)
         return image_id
     except Exception:  # pylint: disable=broad-except
-        log.error("Error [create_glance_image(glance_client, '%s', '%s', '%s')]",
-                  image_name, file_path, public)
+        log.error(
+            "Error [create_glance_image(glance_client, '%s', '%s', '%s')]",
+            image_name, file_path, public)
         return None
 
 
@@ -725,7 +728,8 @@ def create_volume(cinder_client, volume_name, volume_size,
         return None
 
 
-def delete_volume(cinder_client, volume_id, forced=False):      # pragma: no cover
+def delete_volume(cinder_client, volume_id,
+                  forced=False):      # pragma: no cover
     try:
         if forced:
             try:
