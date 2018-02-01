@@ -1,0 +1,43 @@
+# Copyright (c) 2016-2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: yardstick:task:0.1
+scenarios:
+- type: NSPerf
+  traffic_profile: "../../traffic_profiles/http_tests/HTTP_256k-requests_1M_concurrency.yaml"
+  topology: firewall_vnf_topology_ixload.yaml
+  nodes:
+    tg__0: trafficgen_1.yardstick
+    vnf__0: vnf.yardstick
+  options:
+    framesize:
+      private: {64B: 100}
+      public: {64B: 100}
+    traffic_type: 4
+    rfc2544:
+      allowed_drop_rate: 0.0001 - 0.0001
+    vnf__0:
+      rules: acl_1rule.yaml
+      vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      nfvi_enable: True
+  runner:
+    type: Duration
+    duration: 2
+  ixia_profile: ../../traffic_profiles/vfw/HTTP-vFW_IPv4_2Ports-CPS-256K.rxf # Need vlan update
+context:
+  type: Node
+  name: yardstick
+  nfvi_type: baremetal
+  file: /etc/yardstick/nodes/pod_ixia.yaml
