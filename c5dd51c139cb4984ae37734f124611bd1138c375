@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5bb2644c",
+        "filename": "samples/vnf_samples/nsut/router/tc_heat_external_rfc2544_ipv4_128Kflows_5cores_2ports_1024B.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-02-02T07:24:24Z",
+      "side": 1,
+      "message": "if \"user\" need to be configured, you can set this as a jinja2 variable like {{ user_name }}\nand set  {% set user_name \u003d user_name  or ubuntu %} as default value.\n\nThen you can run this test case with cli if you want to set the user_name as root: like yardstick task start **.yaml --task-args \u0027{\"user_name\": \"root\"}\u0027\nThis also apply to other parameters if you\u0027d like them to be able to set by user.",
+      "range": {
+        "startLine": 82,
+        "startChar": 11,
+        "endLine": 82,
+        "endChar": 17
+      },
+      "revId": "c5dd51c139cb4984ae37734f124611bd1138c375",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3bade0e9",
+        "filename": "samples/vnf_samples/nsut/router/tc_heat_external_rfc2544_ipv4_128Kflows_5cores_2ports_1024B.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-02-02T07:24:24Z",
+      "side": 1,
+      "message": "a space at the line end",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 38
+      },
+      "revId": "c5dd51c139cb4984ae37734f124611bd1138c375",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
