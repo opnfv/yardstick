@@ -2,6 +2,190 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_5b28a499",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-02-02T19:57:29Z",
+      "side": 1,
+      "message": "Is this test case being written to explicitly test Masakari VM failure detection and recovery ?\nIf so should we be stating that somewhere ?",
+      "range": {
+        "startLine": 2,
+        "startChar": 53,
+        "endLine": 2,
+        "endChar": 59
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fb46d879",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-02-02T19:57:29Z",
+      "side": 1,
+      "message": "... whether an alarm is generated and ...",
+      "range": {
+        "startLine": 9,
+        "startChar": 32,
+        "endLine": 9,
+        "endChar": 33
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5b61c403",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-02-02T19:57:29Z",
+      "side": 1,
+      "message": "... whether an alarm is generated and ...",
+      "range": {
+        "startLine": 13,
+        "startChar": 45,
+        "endLine": 13,
+        "endChar": 46
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3b5cc04a",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-02-02T19:57:29Z",
+      "side": 1,
+      "message": "is there any monitor required for alarm ?",
+      "range": {
+        "startLine": 38,
+        "startChar": 55,
+        "endLine": 38,
+        "endChar": 60
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9b57cc25",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-02-02T19:57:29Z",
+      "side": 1,
+      "message": "... and possibly an alarm indicator",
+      "range": {
+        "startLine": 43,
+        "startChar": 39,
+        "endLine": 43,
+        "endChar": 43
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7b52c835",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-02-02T19:57:29Z",
+      "side": 1,
+      "message": "What are the details of the SLA ?\ni.e. is the vm-status metric simply a boolean ... i.e. whether the VM Status was recovered or not ?  ... or is there a timing factor wrt how quickly the VM Status, at least according to Nova, takes to be recovered ?",
+      "range": {
+        "startLine": 58,
+        "startChar": 17,
+        "endLine": 58,
+        "endChar": 54
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_db34b4fd",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-02-02T19:57:29Z",
+      "side": 1,
+      "message": "what are the details here ?\nis this a Nova Flavor extra-spec for specifying that the VM should be launched with QEMU soft dog enabled ?",
+      "range": {
+        "startLine": 70,
+        "startChar": 47,
+        "endLine": 72,
+        "endChar": 25
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3b2320be",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-02-02T19:57:29Z",
+      "side": 1,
+      "message": "Is this testing Masakari VM recovery on a Host Fault ?\nShould we be explicitly saying that ?",
+      "range": {
+        "startLine": 11,
+        "startChar": 59,
+        "endLine": 11,
+        "endChar": 75
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_bb7a9085",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 2
@@ -87,6 +271,52 @@
         "startChar": 33,
         "endLine": 80,
         "endChar": 40
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bb1e106e",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-02-02T19:57:29Z",
+      "side": 1,
+      "message": "? vm1_connectivity - which determines whether L2/L3/L3VPN traffic thru the VM is recovered [ and possibly how much packet loss occurred ] ?",
+      "range": {
+        "startLine": 106,
+        "startChar": 16,
+        "endLine": 106,
+        "endChar": 29
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1b129c61",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 6367
+      },
+      "writtenOn": "2018-02-02T19:57:29Z",
+      "side": 1,
+      "message": "? are there \u0027quantative\u0027 SLAs like max-time-to-recover-VM or max-packet-loss ?\nor\n? are there just \u0027qualitative\u0027 SLAs like vm-recovery-succeeded and vm-traffic recovery-succeeded ?",
+      "range": {
+        "startLine": 122,
+        "startChar": 17,
+        "endLine": 122,
+        "endChar": 55
       },
       "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
