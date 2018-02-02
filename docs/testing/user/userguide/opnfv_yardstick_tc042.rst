@@ -4,7 +4,7 @@
 .. (c) OPNFV, ZTE and others.
 
 ***************************************
-Yardstick Test Case Description TC0042
+Yardstick Test Case Description TC042
 ***************************************
 
 .. _DPDK: http://dpdk.org/doc/guides/index.html
