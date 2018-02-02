@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b67aa785",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "can you add how the monitor is checking this?",
+      "range": {
+        "startLine": 29,
+        "startChar": 64,
+        "endLine": 30,
+        "endChar": 38
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_3b5cc04a",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
         "patchSetId": 2
@@ -117,6 +140,29 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_166ef3c8",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "nitpicking: adding a blank between the hyphen and the text results in a better readable layout of the compiled document.",
+      "range": {
+        "startLine": 54,
+        "startChar": 17,
+        "endLine": 57,
+        "endChar": 60
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_7b52c835",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
         "patchSetId": 2
@@ -133,6 +179,29 @@
         "startChar": 17,
         "endLine": 58,
         "endChar": 54
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f670afa5",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "Proposal: replace by \"The pod.yaml file contains host and login information about the nodes in the POD. The \"nodes\" mentioned in this test case description need to be defined in the pod.yaml correspondingly.\"",
+      "range": {
+        "startLine": 61,
+        "startChar": 17,
+        "endLine": 63,
+        "endChar": 30
       },
       "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -163,6 +232,144 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_566b5bb6",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "... the IP address of the VM through OpenStack",
+      "range": {
+        "startLine": 74,
+        "startChar": 27,
+        "endLine": 74,
+        "endChar": 53
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_366697ed",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "some character encoding problem here",
+      "range": {
+        "startLine": 81,
+        "startChar": 38,
+        "endLine": 81,
+        "endChar": 41
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_966163d5",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "is this a specific tool/components that needs to be available of the node?",
+      "range": {
+        "startLine": 88,
+        "startChar": 20,
+        "endLine": 88,
+        "endChar": 28
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_765c9f19",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "exits",
+      "range": {
+        "startLine": 93,
+        "startChar": 54,
+        "endLine": 93,
+        "endChar": 59
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d69e4bb8",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "Is this needed for this test case? I assume that the test VM does not need to be restarted if it does not come back, but rather, it should be deleted.",
+      "range": {
+        "startLine": 94,
+        "startChar": 17,
+        "endLine": 95,
+        "endChar": 70
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_16a55303",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc085.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "as usual: what are good values here? Suggestions are welcome",
+      "range": {
+        "startLine": 98,
+        "startChar": 31,
+        "endLine": 98,
+        "endChar": 34
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_3b2320be",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 2
@@ -179,6 +386,29 @@
         "startChar": 59,
         "endLine": 11,
         "endChar": 75
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f6a70f09",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "please add blanks between the hyphens and the text to create a better layout of the compiled text",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 32
       },
       "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -255,6 +485,29 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b63d8791",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "does the new VM get a new or the same IP address? In order to make the HA failover more transparent, it should get the same IP, I believe. If this is the case, rephrase to \".. to the IP address of the new VM\"",
+      "range": {
+        "startLine": 70,
+        "startChar": 48,
+        "endLine": 70,
+        "endChar": 65
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5b6b84b6",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 2
@@ -271,6 +524,29 @@
         "startChar": 33,
         "endLine": 80,
         "endChar": 40
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1641d30a",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "This can be a complex task and I assume the test will just check basic things (which is fine), such as that the host is up and one can SSH into it. So, for clarity, this description should state what \"running normally\" means.",
+      "range": {
+        "startLine": 89,
+        "startChar": 24,
+        "endLine": 89,
+        "endChar": 41
       },
       "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -317,6 +593,98 @@
         "startChar": 17,
         "endLine": 122,
         "endChar": 55
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f6438f10",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "Proposal: replace by \"The pod.yaml file contains host and login information about the nodes in the POD. The \"nodes\" mentioned in this test case description need to be defined in the pod.yaml correspondingly.\"",
+      "range": {
+        "startLine": 125,
+        "startChar": 16,
+        "endLine": 127,
+        "endChar": 30
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_36497731",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "the naming is a bit confusing here. Both, the old VM as well as the new VM are referred to as VM1 here.",
+      "range": {
+        "startLine": 162,
+        "startChar": 17,
+        "endLine": 173,
+        "endChar": 63
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d6612baa",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "same question as above: will it get the same IP or a different one, i.e., ping the new IP of the VM or ping the new VM (with the same IP)",
+      "range": {
+        "startLine": 176,
+        "startChar": 69,
+        "endLine": 177,
+        "endChar": 30
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b66467b9",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-02T22:14:12Z",
+      "side": 1,
+      "message": "does this apply to this test case? No individual process is killed, but rather a whole compute node.",
+      "range": {
+        "startLine": 184,
+        "startChar": 35,
+        "endLine": 185,
+        "endChar": 70
       },
       "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
