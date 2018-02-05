@@ -47,6 +47,7 @@ class GetNetworkIdTestCase(unittest.TestCase):
                                                 'network_name')
         self.assertEqual(_uuid, output)
 
+
 class DeleteNeutronNetTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -74,3 +75,31 @@ class DeleteNeutronNetTestCase(unittest.TestCase):
         self.assertFalse(output)
         mock_logger.error.assert_called_once_with(
             "Error [delete_neutron_net(shade_client, 'network_id')]")
+
+
+class CreateNeutronNetTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_network_name = mock.Mock()
+        self.mock_shade_client.create_network = mock.Mock()
+
+    def test_create_neutron_net(self):
+        _uuid = uuidutils.generate_uuid()
+        self.mock_shade_client.create_network.return_value = [{'id': _uuid}]
+        output = openstack_utils.create_neutron_net(self.mock_shade_client,
+                                                   {'name':
+                                                    self.mock_network_name})
+        self.assertEqual(_uuid, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_neutron_net_exception(self, mock_logger):
+        self.mock_shade_client.create_network.side_effect = (
+            exc.OpenStackCloudException('error message'))
+
+        with self.assertRaises(Exception):
+            openstack_utils.create_neutron_net(self.mock_shade_client,
+                                            {'name': self.mock_network_name})
+
+        mock_logger.error.assert_called_once_with(
+                                    "Error [create_neutron_net(shade_client)]")

@@ -28,9 +28,9 @@ class CreateNetwork(base.Scenario):
         self.context_cfg = context_cfg
         self.options = self.scenario_cfg['options']
 
-        self.openstack = self.options.get("openstack_paras", None)
+        self.network_name = self.options.get("network_name", None)
 
-        self.neutron_client = op_utils.get_neutron_client()
+        self.shade_client = op_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -45,20 +45,15 @@ class CreateNetwork(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        openstack_paras = {'network': self.openstack}
-        network_id = op_utils.create_neutron_net(self.neutron_client,
-                                                 openstack_paras)
-        if network_id:
-            result.update({"network_create": 1})
-            LOG.info("Create network successful!")
-        else:
+        network_id = op_utils.create_neutron_net(self.shade_client,
+                                                 network_name=self.network_name)
+        if not network_id:
             result.update({"network_create": 0})
             LOG.error("Create network failed!")
+            return
 
-        try:
-            keys = self.scenario_cfg.get('output', '').split()
-        except KeyError:
-            pass
-        else:
-            values = [network_id]
-            return self._push_to_outputs(keys, values)
+        result.update({"network_create": 1})
+        LOG.info("Create network successful!")
+        keys = self.scenario_cfg.get('output', '').split()
+        values = [network_id]
+        return self._push_to_outputs(keys, values)
