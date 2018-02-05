@@ -40,7 +40,7 @@
 
     - file: path="{{ INSTALL_BIN_PATH }}/trex/scripts/automation/trex_control_plane/stl/__init__.py" state=touch
 
-    - command: cp "{{ INSTALL_BIN_PATH }}/trex/scripts/dpdk_nic_bind.py" "{{ INSTALL_BIN_PATH }}"
+    - command: cp "{{ INSTALL_BIN_PATH }}/trex/scripts/dpdk-devbind.py" "{{ INSTALL_BIN_PATH }}"
 
     - name: add scripts to PYTHONPATH
       lineinfile:

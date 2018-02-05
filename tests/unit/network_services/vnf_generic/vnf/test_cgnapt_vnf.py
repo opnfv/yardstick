@@ -392,22 +392,6 @@ class TestCgnaptApproxVnf(unittest.TestCase):
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
-    def test_terminate(self, ssh, *args):
-        mock_ssh(ssh)
-
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
-        cgnapt_approx_vnf._vnf_process = mock.MagicMock()
-        cgnapt_approx_vnf._vnf_process.terminate = mock.Mock()
-        cgnapt_approx_vnf.used_drivers = {"01:01.0": "i40e",
-                                          "01:01.1": "i40e"}
-        cgnapt_approx_vnf.vnf_execute = mock.MagicMock()
-        cgnapt_approx_vnf.dpdk_nic_bind = "dpdk_nic_bind.py"
-        cgnapt_approx_vnf._resource_collect_stop = mock.Mock()
-        self.assertEqual(None, cgnapt_approx_vnf.terminate())
-
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
-    @mock.patch(SSH_HELPER)
     def test__vnf_up_post(self, ssh, *args):
         mock_ssh(ssh)
 

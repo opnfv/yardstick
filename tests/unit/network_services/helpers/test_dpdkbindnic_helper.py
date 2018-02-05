@@ -117,7 +117,7 @@ Other crypto devices
         self.assertEqual(conn, dpdk_bind_helper.ssh_helper)
         self.assertEqual(self.CLEAN_STATUS, dpdk_bind_helper.dpdk_status)
         self.assertIsNone(dpdk_bind_helper.status_nic_row_re)
-        self.assertIsNone(dpdk_bind_helper._dpdk_nic_bind_attr)
+        self.assertIsNone(dpdk_bind_helper._dpdk_devbind)
         self.assertIsNone(dpdk_bind_helper._status_cmd_attr)
 
     def test__dpdk_execute(self):

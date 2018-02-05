@@ -348,18 +348,3 @@ pipeline>
                                                     'rules': ""}}
         self.scenario_cfg.update({"nodes": {"vnf__1": ""}})
         self.assertIsNone(vfw_approx_vnf.instantiate(self.scenario_cfg, self.context_cfg))
-
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
-    @mock.patch(SSH_HELPER)
-    def test_terminate(self, ssh, *args):
-        mock_ssh(ssh)
-
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        vfw_approx_vnf = FWApproxVnf(name, vnfd)
-        vfw_approx_vnf._vnf_process = mock.MagicMock()
-        vfw_approx_vnf.used_drivers = {"01:01.0": "i40e",
-                                       "01:01.1": "i40e"}
-        vfw_approx_vnf.vnf_execute = mock.Mock()
-        vfw_approx_vnf.dpdk_nic_bind = "dpdk_nic_bind.py"
-        vfw_approx_vnf._resource_collect_stop = mock.Mock()
-        self.assertIsNone(vfw_approx_vnf.terminate())
