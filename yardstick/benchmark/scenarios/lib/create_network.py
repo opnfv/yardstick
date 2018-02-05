@@ -7,13 +7,11 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import print_function
-from __future__ import absolute_import
-
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
+from yardstick.common import openstack_utils
+
 
 LOG = logging.getLogger(__name__)
 
@@ -28,9 +26,14 @@ class CreateNetwork(base.Scenario):
         self.context_cfg = context_cfg
         self.options = self.scenario_cfg['options']
 
-        self.openstack = self.options.get("openstack_paras", None)
+        self.network_name = self.options["network_name"]
+        self.shared = self.options.get("shared", False)
+        self.admin_state_up = self.options.get("admin_state_up", True)
+        self.external = self.options.get("external", False)
+        self.provider = self.options.get("provider")
+        self.project_id = self.options.get("project_id")
 
-        self.neutron_client = op_utils.get_neutron_client()
+        self.shade_client = openstack_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -39,26 +42,21 @@ class CreateNetwork(base.Scenario):
 
         self.setup_done = True
 
-    def run(self, result):
+    def run(self, *args):
         """execute the test"""
 
         if not self.setup_done:
             self.setup()
 
-        openstack_paras = {'network': self.openstack}
-        network_id = op_utils.create_neutron_net(self.neutron_client,
-                                                 openstack_paras)
-        if network_id:
-            result.update({"network_create": 1})
-            LOG.info("Create network successful!")
-        else:
-            result.update({"network_create": 0})
+        network_id = openstack_utils.create_neutron_net(
+            self.shade_client, self.network_name, shared=self.shared,
+            admin_state_up=self.admin_state_up, external=self.external,
+            provider=self.provider, project_id=self.project_id)
+        if not network_id:
             LOG.error("Create network failed!")
+            return
 
-        try:
-            keys = self.scenario_cfg.get('output', '').split()
-        except KeyError:
-            pass
-        else:
-            values = [network_id]
-            return self._push_to_outputs(keys, values)
+        LOG.info("Create network successful!")
+        keys = self.scenario_cfg.get('output', '').split()
+        values = [network_id]
+        return self._push_to_outputs(keys, values)
