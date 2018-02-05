@@ -48,8 +48,15 @@ class TaskTestCase(unittest.TestCase):
     def test__do_output(self, mock_dispatcher):
         t = task.Task()
         output_config = {"DEFAULT": {"dispatcher": "file, http"}}
-        mock_dispatcher.get = mock.MagicMock(return_value=[mock.MagicMock(),
-                                                           mock.MagicMock()])
+
+        dispatcher1 = mock.MagicMock()
+        dispatcher1.__dispatcher_type__ = 'file'
+
+        dispatcher2 = mock.MagicMock()
+        dispatcher2.__dispatcher_type__ = 'http'
+
+        mock_dispatcher.get = mock.MagicMock(return_value=[dispatcher1,
+                                                           dispatcher2])
         self.assertEqual(None, t._do_output(output_config, {}))
 
     @mock.patch.object(task, 'Context')

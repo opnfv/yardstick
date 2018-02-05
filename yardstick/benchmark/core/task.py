@@ -120,7 +120,7 @@ class Task(object):     # pragma: no cover
 
             case_name = os.path.splitext(os.path.basename(task_files[i]))[0]
             try:
-                data = self._run(scenarios, run_in_parallel, args.output_file)
+                data = self._run(scenarios, run_in_parallel, output_config)
             except KeyboardInterrupt:
                 raise
             except Exception:  # pylint: disable=broad-except
@@ -232,11 +232,12 @@ class Task(object):     # pragma: no cover
 
     def _do_output(self, output_config, result):
         dispatchers = DispatcherBase.get(output_config)
+        dispatchers = (d for d in dispatchers if d.__dispatcher_type__ != 'Influxdb')
 
         for dispatcher in dispatchers:
             dispatcher.flush_result_data(result)
 
-    def _run(self, scenarios, run_in_parallel, output_file):
+    def _run(self, scenarios, run_in_parallel, output_config):
         """Deploys context and calls runners"""
         for context in self.contexts:
             context.deploy()
@@ -247,14 +248,14 @@ class Task(object):     # pragma: no cover
         # Start all background scenarios
         for scenario in filter(_is_background_scenario, scenarios):
             scenario["runner"] = dict(type="Duration", duration=1000000000)
-            runner = self.run_one_scenario(scenario, output_file)
+            runner = self.run_one_scenario(scenario, output_config)
             background_runners.append(runner)
 
         runners = []
         if run_in_parallel:
             for scenario in scenarios:
                 if not _is_background_scenario(scenario):
-                    runner = self.run_one_scenario(scenario, output_file)
+                    runner = self.run_one_scenario(scenario, output_config)
                     runners.append(runner)
 
             # Wait for runners to finish
@@ -263,12 +264,12 @@ class Task(object):     # pragma: no cover
                 if status != 0:
                     raise RuntimeError(
                         "{0} runner status {1}".format(runner.__execution_type__, status))
-                LOG.info("Runner ended, output in %s", output_file)
+                LOG.info("Runner ended")
         else:
             # run serially
             for scenario in scenarios:
                 if not _is_background_scenario(scenario):
-                    runner = self.run_one_scenario(scenario, output_file)
+                    runner = self.run_one_scenario(scenario, output_config)
                     status = runner_join(runner, background_runners, self.outputs, result)
                     if status != 0:
                         LOG.error('Scenario NO.%s: "%s" ERROR!',
@@ -276,7 +277,7 @@ class Task(object):     # pragma: no cover
                                   scenario.get('type'))
                         raise RuntimeError(
                             "{0} runner status {1}".format(runner.__execution_type__, status))
-                    LOG.info("Runner ended, output in %s", output_file)
+                    LOG.info("Runner ended")
 
         # Abort background runners
         for runner in background_runners:
@@ -313,10 +314,10 @@ class Task(object):     # pragma: no cover
         else:
             return op
 
-    def run_one_scenario(self, scenario_cfg, output_file):
+    def run_one_scenario(self, scenario_cfg, output_config):
         """run one scenario using context"""
         runner_cfg = scenario_cfg["runner"]
-        runner_cfg['output_filename'] = output_file
+        runner_cfg['output_config'] = output_config
 
         options = scenario_cfg.get('options', {})
         scenario_cfg['options'] = self._parse_options(options)

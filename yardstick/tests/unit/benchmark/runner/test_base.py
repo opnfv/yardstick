@@ -40,7 +40,14 @@ class ActionTestCase(unittest.TestCase):
 class RunnerTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.runner = iteration.IterationRunner({})
+        config = {
+            'output_config': {
+                'DEFAULT': {
+                    'dispatcher': 'file'
+                }
+            }
+        }
+        self.runner = iteration.IterationRunner(config)
 
     @mock.patch("yardstick.benchmark.runners.iteration.multiprocessing")
     def test_get_output(self, *args):
