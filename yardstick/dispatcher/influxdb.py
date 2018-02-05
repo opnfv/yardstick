@@ -11,6 +11,7 @@ from __future__ import absolute_import
 
 import logging
 import time
+import os
 
 import requests
 
@@ -38,7 +39,8 @@ class InfluxdbDispatcher(DispatchBase):
 
         self.influxdb_url = "%s/write?db=%s" % (self.target, self.db_name)
 
-        self.task_id = -1
+        self.task_id = None
+        self.tags = None
 
     def flush_result_data(self, data):
         LOG.debug('Test result all : %s', data)
@@ -57,11 +59,14 @@ class InfluxdbDispatcher(DispatchBase):
             for record in data['tc_data']:
                 # skip results with no data because we influxdb encode empty dicts
                 if record.get("data"):
-                    self._upload_one_record(record, case, tc_criteria)
+                    self.upload_one_record(record, case, tc_criteria)
 
         return 0
 
-    def _upload_one_record(self, data, case, tc_criteria):
+    def upload_one_record(self, data, case, tc_criteria, task_id=None):
+        if task_id:
+            self.task_id = task_id
+
         try:
             line = self._data_to_line_protocol(data, case, tc_criteria)
             LOG.debug('Test result line format : %s', line)
@@ -79,6 +84,15 @@ class InfluxdbDispatcher(DispatchBase):
 
     def _data_to_line_protocol(self, data, case, criteria):
         msg = {}
+
+        if not self.tags:
+            self.tags = {
+                'deploy_scenario': os.environ.get('DEPLOY_SCENARIO', 'unknown'),
+                'installer': os.environ.get('INSTALLER_TYPE', 'unknown'),
+                'pod_name': os.environ.get('NODE_NAME', 'unknown'),
+                'version': os.environ.get('YARDSTICK_BRANCH', 'unknown')
+            }
+
         point = {
             "measurement": case,
             "fields": utils.flatten_dict_key(data["data"]),

@@ -30,6 +30,7 @@ from six.moves.queue import Empty
 
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base as base_scenario
+from yardstick.dispatcher.base import Base as DispatcherBase
 
 log = logging.getLogger(__name__)
 
@@ -137,6 +138,8 @@ class Runner(object):
             Runner.release(runner)
 
     def __init__(self, config):
+        self.task_id = None
+        self.case_name = None
         self.config = config
         self.periodic_action_process = None
         self.output_queue = multiprocessing.Queue()
@@ -170,6 +173,8 @@ class Runner(object):
         cls = getattr(module, path_split[-1])
 
         self.config['object'] = class_name
+        self.case_name = scenario_cfg['tc']
+        self.task_id = scenario_cfg['task_id']
         self.aborted.clear()
 
         # run a potentially configured pre-start action
@@ -245,10 +250,24 @@ class Runner(object):
 
     def get_result(self):
         result = []
+
+        dispatcher = self.config['output_config']['DEFAULT']['dispatcher']
+        output_in_influxdb = 'influxdb' in dispatcher
+
         while not self.result_queue.empty():
             log.debug("result_queue size %s", self.result_queue.qsize())
             try:
-                result.append(self.result_queue.get(True, 1))
+                one_record = self.result_queue.get(True, 1)
             except Empty:
                 pass
+            else:
+                if output_in_influxdb:
+                    self._output_to_influxdb(one_record)
+
+                result.append(one_record)
         return result
+
+    def _output_to_influxdb(self, record):
+        dispatchers = DispatcherBase.get(self.config['output_config'])
+        dispatcher = next((d for d in dispatchers if d.__dispatcher_type__ == 'Influxdb'))
+        dispatcher.upload_one_record(record, self.case_name, '', task_id=self.task_id)
