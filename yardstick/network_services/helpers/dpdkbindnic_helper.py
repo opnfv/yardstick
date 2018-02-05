@@ -34,11 +34,11 @@ class DpdkBindHelperException(Exception):
 
 
 class DpdkBindHelper(object):
-    DPDK_STATUS_CMD = "{dpdk_nic_bind} --status"
-    DPDK_BIND_CMD = "sudo {dpdk_nic_bind} {force} -b {driver} {vpci}"
+    DPDK_STATUS_CMD = "{dpdk_devbind} --status"
+    DPDK_BIND_CMD = "sudo {dpdk_devbind} {force} -b {driver} {vpci}"
 
-    NIC_ROW_RE = re.compile("([^ ]+) '([^']+)' (?:if=([^ ]+) )?drv=([^ ]+) "
-                            "unused=([^ ]*)(?: (\*Active\*))?")
+    NIC_ROW_RE = re.compile(r"([^ ]+) '([^']+)' (?:if=([^ ]+) )?drv=([^ ]+) "
+                            r"unused=([^ ]*)(?: (\*Active\*))?")
     SKIP_RE = re.compile('(====|<none>|^$)')
     NIC_ROW_FIELDS = ['vpci', 'dev_type', 'iface', 'driver', 'unused', 'active']
 
@@ -64,7 +64,7 @@ class DpdkBindHelper(object):
     def __init__(self, ssh_helper):
         self.dpdk_status = None
         self.status_nic_row_re = None
-        self._dpdk_nic_bind_attr = None
+        self._dpdk_devbind = None
         self._status_cmd_attr = None
 
         self.ssh_helper = ssh_helper
@@ -74,19 +74,19 @@ class DpdkBindHelper(object):
         res = self.ssh_helper.execute(*args, **kwargs)
         if res[0] != 0:
             raise DpdkBindHelperException('{} command failed with rc={}'.format(
-                self._dpdk_nic_bind, res[0]))
+                self.dpdk_devbind, res[0]))
         return res
 
     @property
-    def _dpdk_nic_bind(self):
-        if self._dpdk_nic_bind_attr is None:
-            self._dpdk_nic_bind_attr = self.ssh_helper.provision_tool(tool_file="dpdk-devbind.py")
-        return self._dpdk_nic_bind_attr
+    def dpdk_devbind(self):
+        if self._dpdk_devbind is None:
+            self._dpdk_devbind = self.ssh_helper.provision_tool(tool_file="dpdk-devbind.py")
+        return self._dpdk_devbind
 
     @property
     def _status_cmd(self):
         if self._status_cmd_attr is None:
-            self._status_cmd_attr = self.DPDK_STATUS_CMD.format(dpdk_nic_bind=self._dpdk_nic_bind)
+            self._status_cmd_attr = self.DPDK_STATUS_CMD.format(dpdk_devbind=self.dpdk_devbind)
         return self._status_cmd_attr
 
     def _addline(self, active_list, line):
@@ -139,7 +139,7 @@ class DpdkBindHelper(object):
         # accept single PCI or list of PCI
         if isinstance(pci_addresses, six.string_types):
             pci_addresses = [pci_addresses]
-        cmd = self.DPDK_BIND_CMD.format(dpdk_nic_bind=self._dpdk_nic_bind,
+        cmd = self.DPDK_BIND_CMD.format(dpdk_devbind=self.dpdk_devbind,
                                         driver=driver,
                                         vpci=' '.join(list(pci_addresses)),
                                         force='--force' if force else '')

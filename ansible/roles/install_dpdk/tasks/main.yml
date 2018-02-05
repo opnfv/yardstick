@@ -121,11 +121,3 @@
     remote_src: yes
     force: yes
     mode: 0755
-
-- name: make dpdk_nic_bind.py for backwards compatibility
-  copy:
-    src: "{{ dpdk_devbind[dpdk_version] }}"
-    dest: "{{ INSTALL_BIN_PATH }}/dpdk_nic_bind.py"
-    remote_src: yes
-    force: yes
-    mode: 0755
