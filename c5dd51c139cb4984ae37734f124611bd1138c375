@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_236656bb",
+        "filename": "samples/vnf_samples/nsut/router/tc_heat_external_rfc2544_ipv4_128Kflows_5cores_2ports_1024B.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2018-02-05T17:22:51Z",
+      "side": 1,
+      "message": "Done.\n\nThanks for the excellent suggestion Lee. I have removed 12 test case files because of this.",
+      "parentUuid": "9a3d3df0_5bb2644c",
+      "range": {
+        "startLine": 82,
+        "startChar": 11,
+        "endLine": 82,
+        "endChar": 17
+      },
+      "revId": "c5dd51c139cb4984ae37734f124611bd1138c375",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_3bade0e9",
         "filename": "samples/vnf_samples/nsut/router/tc_heat_external_rfc2544_ipv4_128Kflows_5cores_2ports_1024B.yaml",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-02T07:24:24Z",
       "side": 1,
       "message": "a space at the line end",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 38
+      },
+      "revId": "c5dd51c139cb4984ae37734f124611bd1138c375",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_630b3ed6",
+        "filename": "samples/vnf_samples/nsut/router/tc_heat_external_rfc2544_ipv4_128Kflows_5cores_2ports_1024B.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7035
+      },
+      "writtenOn": "2018-02-05T17:22:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_3bade0e9",
       "range": {
         "startLine": 98,
         "startChar": 0,
