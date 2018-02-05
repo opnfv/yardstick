@@ -83,3 +83,43 @@ class DeleteNeutronNetTestCase(unittest.TestCase):
                                                     'network_id')
         self.assertFalse(output)
         mock_logger.error.assert_called_once()
+
+
+class CreateNeutronNetTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_network_name = 'name'
+        self.mock_shared = False
+        self.mock_admin_state = True
+        self.mock_external = False
+        self.mock_provider = None
+        self.mock_project_id = None
+        self.mock_availability_zone_hints = mock.Mock()
+        self.mock_shade_client.create_network = mock.Mock()
+
+    def test_create_neutron_net(self):
+        _uuid = uuidutils.generate_uuid()
+        self.mock_shade_client.create_network.return_value = [{'id': _uuid}]
+        output = openstack_utils.create_neutron_net(
+            self.mock_shade_client, network_name=self.mock_network_name,
+            shared=self.mock_shared, admin_state=self.mock_admin_state,
+            external=self.mock_external, provider=self.mock_provider,
+            project_id=self.mock_project_id,
+            availability_zone_hints=self.mock_availability_zone_hints)
+        self.assertEqual(_uuid, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_neutron_net_exception(self, mock_logger):
+        self.mock_shade_client.create_network.side_effect = (
+            exc.OpenStackCloudException('error message'))
+
+        with self.assertRaises(Exception):
+            openstack_utils.create_neutron_net(
+                self.mock_shade_client, network_name=self.mock_network_name,
+                shared=self.mock_shared, admin_state=self.mock_admin_state,
+                external=self.mock_external, provider=self.mock_provider,
+                project_id=self.mock_project_id,
+                availability_zone_hints=self.mock_availability_zone_hints)
+            mock_logger.error.assert_called_once_with(
+                                    "Error [create_neutron_net(shade_client)]")
