@@ -218,6 +218,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_6337beff",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-05T21:28:13Z",
+      "side": 1,
+      "message": "what was \u0027ints\u0027\n\nworks for me when ints is a list.\n\n\n Python 3.6.4 (default, Jan 23 2018, 22:25:37) \n \u003e\u003e\u003e from itertools import chain\n ... \n ... ints \u003d list(range(5))\n ... \n ... def iter_fun():\n ...     return ((\u0027fistro\u0027, i) for i in ints)\n ... \n \u003e\u003e\u003e iter_fun()\n \u003cgenerator object iter_fun.\u003clocals\u003e.\u003cgenexpr\u003e at  0x7f4cf44e8e08\u003e\n \u003e\u003e\u003e chain.from_iterable(iter_fun())\n \u003citertools.chain object at 0x7f4cf44f5cf8\u003e\n \u003e\u003e\u003e set(chain.from_iterable(iter_fun()))\n {0, 1, 2, 3, 4, \u0027fistro\u0027}",
+      "parentUuid": "9a3d3df0_a6ebabda",
+      "range": {
+        "startLine": 178,
+        "startChar": 33,
+        "endLine": 178,
+        "endChar": 86
+      },
+      "revId": "2dc4c73acaf64cfb558eb289ebbca1c7ccb9f5b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_46829f00",
         "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
         "patchSetId": 21
