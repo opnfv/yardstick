@@ -57,3 +57,7 @@ class YardstickException(Exception):
 class FunctionNotImplemented(YardstickException):
     message = ('The function "%(function_name)s" is not implemented in '
                '"%(class_name)" class.')
+
+
+class IPv6RangeError(YardstickException):
+    message = 'Start IP "%(start_ip)" is greater than end IP "%(end_ip)s"'

@@ -13,14 +13,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-from __future__ import absolute_import
+import ipaddress
 
-import unittest
 import mock
+import six
+import unittest
 
 from tests.unit import STL_MOCKS
+from yardstick.common import exceptions as y_exc
 
 
 STLClient = mock.MagicMock()
@@ -205,11 +206,27 @@ class TestTrexProfile(unittest.TestCase):
             TrexProfile(TrafficProfile)
         self.assertEqual({}, trex_profile.generate_imix_data(False))
 
-    def test__get_start_end_ipv6(self):
-        trex_profile = \
-            TrexProfile(TrafficProfile)
-        self.assertRaises(SystemExit, trex_profile._get_start_end_ipv6,
-                          "1.1.1.3", "1.1.1.1")
+    def test__count_ip_ipv4(self):
+        start, end, count = TrexProfile._count_ip('1.1.1.1', '1.2.3.4')
+        self.assertEqual('1.1.1.1', str(start))
+        self.assertEqual('1.2.3.4', str(end))
+        diff = (int(ipaddress.IPv4Address(six.u('1.2.3.4'))) -
+                int(ipaddress.IPv4Address(six.u('1.1.1.1'))))
+        self.assertEqual(diff, count)
+
+    def test__count_ip_ipv6(self):
+        start_ip = '0064:ff9b:0:0:0:0:9810:6414'
+        end_ip = '0064:ff9b:0:0:0:0:9810:6420'
+        start, end, count = TrexProfile._count_ip(start_ip, end_ip)
+        self.assertEqual(0x98106414, start)
+        self.assertEqual(0x98106420, end)
+        self.assertEqual(0x98106420 - 0x98106414, count)
+
+    def test__count_ip_ipv6_exception(self):
+        start_ip = '0064:ff9b:0:0:0:0:9810:6420'
+        end_ip = '0064:ff9b:0:0:0:0:9810:6414'
+        with self.assertRaises(y_exc.IPv6RangeError):
+            TrexProfile._count_ip(start_ip, end_ip)
 
     def test__general_single_action_partial(self):
         trex_profile = TrexProfile(TrafficProfile)
