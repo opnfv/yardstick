@@ -452,13 +452,30 @@ def get_network_id(shade_client, network_name):
         return networks[0]['id']
 
 
-def create_neutron_net(neutron_client, json_body):      # pragma: no cover
+def create_neutron_net(shade_client, network_name, shared=False,
+                       admin_state=True, external=False, provider=None,
+                       project_id=None, availability_zone_hints=None):
+    """Create a neutron network.
+
+    :param network_name:(string) name of the network being created.
+    :param shared:(bool) whether the network is shared.
+    :param admin_state:(bool) set the network administrative state.
+    :param external:(bool) whether this network is externally accessible.
+    :param provider:(dict) a dict of network provider options.
+    :param project_id:(string) specify the project ID this network
+    will be created on (admin-only).
+    :param availability_zone_hints: A list of availability zone hints.
+    :returns:(string) the network id.
+    """
     try:
-        network = neutron_client.create_network(body=json_body)
-        return network['network']['id']
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [create_neutron_net(neutron_client)]")
-        raise Exception("operation error")
+        networks = shade_client.create_network(
+            name=network_name, shared=shared, admin_state=admin_state,
+            external=external, provider=provider, project_id=project_id,
+            availability_zone_hints=availability_zone_hints)
+        return networks[0]['id']
+    except exc.OpenStackCloudException:
+        log.exception("Error [create_neutron_net(shade_client)]")
+        return None
 
 
 def delete_neutron_net(shade_client, network_id):
