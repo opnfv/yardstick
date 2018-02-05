@@ -13,14 +13,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-from __future__ import absolute_import
+import ipaddress
 
-import unittest
 import mock
+import six
+import unittest
 
 from tests.unit import STL_MOCKS
+from yardstick.common import exceptions as y_exc
 
 
 STLClient = mock.MagicMock()
@@ -60,74 +61,92 @@ class TestTrexProfile(unittest.TestCase):
                'name': 'rfc2544',
                'traffic_profile': {'traffic_type': 'RFC2544Profile',
                                    'frame_rate': 100},
-               TrafficProfile.DOWNLINK: {'ipv4': {'outer_l2': {'framesize': {'64B': '100',
-                                                              '1518B': '0',
-                                                              '128B': '0',
-                                                              '1400B': '0',
-                                                              '256B': '0',
-                                                              '373b': '0',
-                                                              '570B': '0'},
-                                                               "srcmac": "00:00:00:00:00:02",
-                                                               "dstmac": "00:00:00:00:00:01"},
-                                                  'outer_l3v4': {'dstip4': '1.1.1.1-1.1.2.2',
-                                                  'proto': 'udp',
-                                                  'srcip4': '9.9.1.1-90.1.2.2',
-                                                  'dscp': 0, 'ttl': 32,
-                                                  'count': 1},
-                                                  'outer_l4': {'srcport': '2001',
-                                                'dsrport': '1234',
-                                                'count': 1}}},
-               TrafficProfile.UPLINK: {'ipv4':
-                           {'outer_l2': {'framesize':
+               TrafficProfile.DOWNLINK: {
+                   'ipv4': {
+                       'outer_l2':
+                           {'framesize': {'64B': '100',
+                                          '1518B': '0',
+                                          '128B': '0',
+                                          '1400B': '0',
+                                          '256B': '0',
+                                          '373b': '0',
+                                          '570B': '0'},
+                            "srcmac": "00:00:00:00:00:02",
+                            "dstmac": "00:00:00:00:00:01"},
+                       'outer_l3v4': {'dstip4': '1.1.1.1-1.1.2.2',
+                                      'proto': 'udp',
+                                      'srcip4': '9.9.1.1-90.1.2.2',
+                                      'dscp': 0,
+                                      'ttl': 32,
+                                      'count': 1},
+                       'outer_l4': {'srcport': '2001',
+                                    'dsrport': '1234',
+                                    'count': 1}}},
+               TrafficProfile.UPLINK: {
+                   'ipv4':
+                       {'outer_l2': {'framesize':
                                          {'64B': '100', '1518B': '0',
                                           '128B': '0', '1400B': '0',
                                           '256B': '0', '373b': '0',
                                           '570B': '0'},
-                                         "srcmac": "00:00:00:00:00:01",
-                                         "dstmac": "00:00:00:00:00:02"},
-                            'outer_l3v4': {'dstip4': '9.9.1.1-90.105.255.255',
-                                           'proto': 'udp',
-                                           'srcip4': '1.1.1.1-1.15.255.255',
-                                           'dscp': 0, 'ttl': 32, 'count': 1},
-                            'outer_l4': {'dstport': '2001',
-                                         'srcport': '1234',
-                                         'count': 1}}},
+                                     "srcmac": "00:00:00:00:00:01",
+                                     "dstmac": "00:00:00:00:00:02"},
+                        'outer_l3v4': {'dstip4': '9.9.1.1-90.105.255.255',
+                                       'proto': 'udp',
+                                       'srcip4': '1.1.1.1-1.15.255.255',
+                                       'dscp': 0,
+                                       'ttl': 32,
+                                       'count': 1},
+                        'outer_l4': {'dstport': '2001',
+                                     'srcport': '1234',
+                                     'count': 1}}},
                'schema': 'isb:traffic_profile:0.1'}
     PROFILE_v6 = {'description': 'Traffic profile to run RFC2544 latency',
                   'name': 'rfc2544',
                   'traffic_profile': {'traffic_type': 'RFC2544Profile',
                                       'frame_rate': 100},
-                  TrafficProfile.DOWNLINK: {'ipv6': {'outer_l2': {'framesize':
-                                                   {'64B': '100', '1518B': '0',
-                                                    '128B': '0', '1400B': '0',
-                                                    '256B': '0', '373b': '0',
-                                                    '570B': '0'},
-                                                   "srcmac": "00:00:00:00:00:02",
-                                                   "dstmac": "00:00:00:00:00:01"},
-                                                     'outer_l3v4': {'dstip6': '0064:ff9b:0:0:0:0:9810:6414-0064:ff9b:0:0:0:0:9810:6420',
-                                                     'proto': 'udp',
-                                                     'srcip6': '0064:ff9b:0:0:0:0:9810:2814-0064:ff9b:0:0:0:0:9810:2820',
-                                                     'dscp': 0, 'ttl': 32,
-                                                     'count': 1},
-                                                     'outer_l4': {'srcport': '2001',
-                                                   'dsrport': '1234',
-                                                   'count': 1}}},
-                  TrafficProfile.UPLINK:
-                  {'ipv6': {'outer_l2': {'framesize':
-                                         {'64B': '100', '1518B': '0',
-                                          '128B': '0', '1400B': '0',
-                                          '256B': '0', '373b': '0',
-                                          '570B': '0'},
-                                         "srcmac": "00:00:00:00:00:01",
-                                         "dstmac": "00:00:00:00:00:02"},
-                            'outer_l3v4': {'dstip6': '0064:ff9b:0:0:0:0:9810:2814-0064:ff9b:0:0:0:0:9810:2820',
-                                           'proto': 'udp',
-                                           'srcip6': '0064:ff9b:0:0:0:0:9810:6414-0064:ff9b:0:0:0:0:9810:6420',
-                                           'dscp': 0, 'ttl': 32,
-                                           'count': 1},
-                            'outer_l4': {'dstport': '2001',
-                                         'srcport': '1234',
-                                         'count': 1}}},
+                  TrafficProfile.DOWNLINK: {
+                      'ipv6': {
+                          'outer_l2': {'framesize':
+                                           {'64B': '100', '1518B': '0',
+                                            '128B': '0', '1400B': '0',
+                                            '256B': '0', '373b': '0',
+                                            '570B': '0'},
+                                       "srcmac": "00:00:00:00:00:02",
+                                       "dstmac": "00:00:00:00:00:01"},
+                          'outer_l3v4': {
+                              'dstip6': '0064:ff9b:0:0:0:0:9810:6414-'
+                                        '0064:ff9b:0:0:0:0:9810:6420',
+                              'proto': 'udp',
+                              'srcip6': '0064:ff9b:0:0:0:0:9810:2814-'
+                                        '0064:ff9b:0:0:0:0:9810:2820',
+                              'dscp': 0,
+                              'ttl': 32,
+                              'count': 1},
+                          'outer_l4': {'srcport': '2001',
+                                       'dsrport': '1234',
+                                       'count': 1}}},
+                  TrafficProfile.UPLINK: {
+                      'ipv6': {
+                          'outer_l2': {'framesize':
+                                           {'64B': '100', '1518B': '0',
+                                            '128B': '0', '1400B': '0',
+                                            '256B': '0', '373b': '0',
+                                            '570B': '0'},
+                                       "srcmac": "00:00:00:00:00:01",
+                                       "dstmac": "00:00:00:00:00:02"},
+                          'outer_l3v4': {
+                              'dstip6': '0064:ff9b:0:0:0:0:9810:2814-'
+                                        '0064:ff9b:0:0:0:0:9810:2820',
+                              'proto': 'udp',
+                              'srcip6': '0064:ff9b:0:0:0:0:9810:6414-'
+                                        '0064:ff9b:0:0:0:0:9810:6420',
+                              'dscp': 0,
+                              'ttl': 32,
+                              'count': 1},
+                          'outer_l4': {'dstport': '2001',
+                                       'srcport': '1234',
+                                       'count': 1}}},
                   'schema': 'isb:traffic_profile:0.1'}
 
     def test___init__(self):
@@ -205,22 +224,42 @@ class TestTrexProfile(unittest.TestCase):
             TrexProfile(TrafficProfile)
         self.assertEqual({}, trex_profile.generate_imix_data(False))
 
-    def test__get_start_end_ipv6(self):
-        trex_profile = \
-            TrexProfile(TrafficProfile)
-        self.assertRaises(SystemExit, trex_profile._get_start_end_ipv6,
-                          "1.1.1.3", "1.1.1.1")
+    def test__count_ip_ipv4(self):
+        start, end, count = TrexProfile._count_ip('1.1.1.1', '1.2.3.4')
+        self.assertEqual('1.1.1.1', str(start))
+        self.assertEqual('1.2.3.4', str(end))
+        diff = (int(ipaddress.IPv4Address(six.u('1.2.3.4'))) -
+                int(ipaddress.IPv4Address(six.u('1.1.1.1'))))
+        self.assertEqual(diff, count)
+
+    def test__count_ip_ipv6(self):
+        start_ip = '0064:ff9b:0:0:0:0:9810:6414'
+        end_ip = '0064:ff9b:0:0:0:0:9810:6420'
+        start, end, count = TrexProfile._count_ip(start_ip, end_ip)
+        self.assertEqual(0x98106414, start)
+        self.assertEqual(0x98106420, end)
+        self.assertEqual(0x98106420 - 0x98106414, count)
+
+    def test__count_ip_ipv6_exception(self):
+        start_ip = '0064:ff9b:0:0:0:0:9810:6420'
+        end_ip = '0064:ff9b:0:0:0:0:9810:6414'
+        with self.assertRaises(y_exc.IPv6RangeError):
+            TrexProfile._count_ip(start_ip, end_ip)
 
     def test__general_single_action_partial(self):
         trex_profile = TrexProfile(TrafficProfile)
 
-        trex_profile._general_single_action_partial(ETHERNET)(SRC)(self.EXAMPLE_ETHERNET_ADDR)
-        self.assertEqual(self.EXAMPLE_ETHERNET_ADDR, trex_profile.ether_packet.src)
+        trex_profile._general_single_action_partial(ETHERNET)(SRC)(
+            self.EXAMPLE_ETHERNET_ADDR)
+        self.assertEqual(self.EXAMPLE_ETHERNET_ADDR,
+                         trex_profile.ether_packet.src)
 
-        trex_profile._general_single_action_partial(IP)(DST)(self.EXAMPLE_IP_ADDR)
+        trex_profile._general_single_action_partial(IP)(DST)(
+            self.EXAMPLE_IP_ADDR)
         self.assertEqual(self.EXAMPLE_IP_ADDR, trex_profile.ip_packet.dst)
 
-        trex_profile._general_single_action_partial(IPv6)(DST)(self.EXAMPLE_IPv6_ADDR)
+        trex_profile._general_single_action_partial(IPv6)(DST)(
+            self.EXAMPLE_IPv6_ADDR)
         self.assertEqual(self.EXAMPLE_IPv6_ADDR, trex_profile.ip6_packet.dst)
 
         trex_profile._general_single_action_partial(UDP)(SRC_PORT)(5060)
