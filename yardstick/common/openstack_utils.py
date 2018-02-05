@@ -446,12 +446,11 @@ def get_network_id(shade_client, network_name):
     return shade_client.list_networks({'name': network_name})[0]['id']
 
 
-def create_neutron_net(neutron_client, json_body):      # pragma: no cover
+def create_neutron_net(shade_client, network_name):
     try:
-        network = neutron_client.create_network(body=json_body)
-        return network['network']['id']
-    except Exception:
-        log.error("Error [create_neutron_net(neutron_client)]")
+        return shade_client.create_network({'name': network_name})[0]['id']
+    except exc.OpenStackCloudException:
+        log.error("Error [create_neutron_net(shade_client)]")
         raise Exception("operation error")
         return None
 
