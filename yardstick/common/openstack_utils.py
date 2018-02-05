@@ -179,6 +179,8 @@ def get_shade_client():
 # *********************************************
 #   NOVA
 # *********************************************
+
+
 def get_instances(nova_client):     # pragma: no cover
     try:
         return nova_client.servers.list(search_opts={'all_tenants': 1})
@@ -274,7 +276,8 @@ def create_aggregate_with_host(nova_client, aggregate_name, av_zone,
 def create_keypair(nova_client, name, key_path=None):    # pragma: no cover
     try:
         with open(key_path) as fpubkey:
-            keypair = get_nova_client().keypairs.create(name=name, public_key=fpubkey.read())
+            keypair = get_nova_client().keypairs.create(
+                name=name, public_key=fpubkey.read())
             return keypair
     except Exception:
         log.exception("Error [create_keypair(nova_client)]")
@@ -306,9 +309,11 @@ def create_instance_and_wait_for_active(json_body):    # pragma: no cover
     return None
 
 
-def attach_server_volume(server_id, volume_id, device=None):    # pragma: no cover
+def attach_server_volume(server_id, volume_id,
+                         device=None):                  # pragma: no cover
     try:
-        get_nova_client().volumes.create_server_volume(server_id, volume_id, device)
+        get_nova_client().volumes.create_server_volume(
+            server_id, volume_id, device)
     except Exception:
         log.exception("Error [attach_server_volume(nova_client, '%s', '%s')]",
                       server_id, volume_id)
@@ -372,7 +377,8 @@ def get_server_by_name(name):   # pragma: no cover
 
 def create_flavor(name, ram, vcpus, disk, **kwargs):   # pragma: no cover
     try:
-        return get_nova_client().flavors.create(name, ram, vcpus, disk, **kwargs)
+        return get_nova_client().flavors.create(name, ram, vcpus,
+                                                disk, **kwargs)
     except Exception:
         log.exception("Error [create_flavor(nova_client, %s, %s, %s, %s, %s)]",
                       name, ram, disk, vcpus, kwargs['is_public'])
@@ -449,12 +455,32 @@ def get_network_id(shade_client, network_name):
     return None
 
 
-def create_neutron_net(neutron_client, json_body):      # pragma: no cover
+def create_neutron_net(shade_client, network_name, shared, admin_state,
+                       external, provider, project_id,
+                       availability_zone_hints):
+    """Create a neutron network.
+
+            :param string network_name: Name of the network being created.
+            :param bool shared: Set the network as shared.
+            :param bool admin_state: Set the network administrative state.
+                By default set to up.
+            :param bool external: Whether this network is externally
+                accessible.By default set to False.
+            :param dict provider: A dict of network provider options.By default
+                set to None.
+            :param string project_id: Specify the project ID this network
+                will be created on (admin-only).By default set to None.
+            :param types.ListType availability_zone_hints: A list of
+               availability zone hints.By default set to None.
+            """
     try:
-        network = neutron_client.create_network(body=json_body)
-        return network['network']['id']
-    except Exception:
-        log.error("Error [create_neutron_net(neutron_client)]")
+        networks = shade_client.create_network(
+            name=network_name, shared=shared, admin_state=admin_state,
+            external=external, provider=provider, project_id=project_id,
+            availability_zone_hints=availability_zone_hints)
+        return networks[0]['id']
+    except exc.OpenStackCloudException:
+        log.error("Error [create_neutron_net(shade_client)]")
         raise Exception("operation error")
         return None
 
@@ -493,7 +519,8 @@ def delete_neutron_router(neutron_client, router_id):      # pragma: no cover
         neutron_client.delete_router(router=router_id)
         return True
     except Exception:
-        log.error("Error [delete_neutron_router(neutron_client, '%s')]" % router_id)
+        log.error(
+            "Error [delete_neutron_router(neutron_client, '%s')]" % router_id)
         return False
 
 
@@ -502,7 +529,8 @@ def remove_gateway_router(neutron_client, router_id):      # pragma: no cover
         neutron_client.remove_gateway_router(router_id)
         return True
     except Exception:
-        log.error("Error [remove_gateway_router(neutron_client, '%s')]" % router_id)
+        log.error(
+            "Error [remove_gateway_router(neutron_client, '%s')]" % router_id)
         return False
 
 
@@ -536,7 +564,8 @@ def delete_floating_ip(nova_client, floatingip_id):      # pragma: no cover
         nova_client.floating_ips.delete(floatingip_id)
         return True
     except Exception:
-        log.error("Error [delete_floating_ip(nova_client, '%s')]" % floatingip_id)
+        log.error(
+            "Error [delete_floating_ip(nova_client, '%s')]" % floatingip_id)
         return False
 
 
@@ -560,7 +589,8 @@ def get_security_group_id(neutron_client, sg_name):      # pragma: no cover
     return id
 
 
-def create_security_group(neutron_client, sg_name, sg_description):      # pragma: no cover
+def create_security_group(
+        neutron_client, sg_name, sg_description):      # pragma: no cover
     json_body = {'security_group': {'name': sg_name,
                                     'description': sg_description}}
     try:
@@ -615,7 +645,7 @@ def create_secgroup_rule(neutron_client, sg_id, direction, protocol,
 
 
 def create_security_group_full(neutron_client,
-                               sg_name, sg_description):      # pragma: no cover
+                               sg_name, sg_description):     # pragma: no cover
     sg_id = get_security_group_id(neutron_client, sg_name)
     if sg_id != '':
         log.info("Using existing security group '%s'..." % sg_name)
