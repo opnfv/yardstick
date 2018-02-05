@@ -16,6 +16,24 @@
       "revId": "4037926074316c6ec866309cc0a61ab7c3c2675f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e79bdb63",
+        "filename": "ansible/install_trex_standalone.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-05T11:41:46Z",
+      "side": 1,
+      "message": "You are right. TREX keeps the previous name (and it doesn\u0027t depends on DPDK version.\n\nIn v2.20 [1], this tool name is dpdk_nic_bind.py\n\n[1] https://github.com/cisco-system-traffic-generator/trex-core/blob/v2.20/scripts/dpdk_nic_bind.py",
+      "parentUuid": "9a3d3df0_a7955334",
+      "revId": "4037926074316c6ec866309cc0a61ab7c3c2675f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
