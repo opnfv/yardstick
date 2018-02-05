@@ -12,18 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-#- name: Prepare baremetal machine
-#  include: ubuntu_server_baremetal_deploy_samplevnfs.yml
-#  vars:
-#    YARD_IMG_ARCH: amd64
-#
-#- name: Install jumphost dependencies and configure docker
-#  hosts: jumphost
-#  environment:
-#    "{{ proxy_env }}"
-#  roles:
-#    - install_dependencies
-#    - docker
+- name: Prepare baremetal machine
+  include: ubuntu_server_baremetal_deploy_samplevnfs.yml
+  vars:
+    YARD_IMG_ARCH: amd64
+
+- name: Install jumphost dependencies and configure docker
+  hosts: jumphost
+  environment:
+    "{{ proxy_env }}"
+  roles:
+    - install_dependencies
+    - docker
 
 - name: "handle all openstack stuff when: openrc_file is defined"
   include: prepare_openstack.yml
