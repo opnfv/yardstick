@@ -184,10 +184,18 @@ class HeatTemplateTestCase(unittest.TestCase):
         heat_template.add_subnet("subnet2", "network2", "cidr2")
         heat_template.add_router("router1", "gw1", "subnet1")
         heat_template.add_router_interface("router_if1", "router1", "subnet1")
-        heat_template.add_port("port1", "network1", "subnet1", "normal")
-        heat_template.add_port("port2", "network2", "subnet2", "normal",
+        network1 = mock.MagicMock()
+        network1.stack_name = "network1"
+        network1.subnet_stack_name = "subnet1"
+        network1.vnic_type = "normal"
+        network2 = mock.MagicMock()
+        network2.stack_name = "network2"
+        network2.subnet_stack_name = "subnet2"
+        network2.vnic_type = "normal"
+        heat_template.add_port("port1", network1)
+        heat_template.add_port("port2", network2,
                                sec_group_id="sec_group1", provider="not-sriov")
-        heat_template.add_port("port3", "network2", "subnet2", "normal",
+        heat_template.add_port("port3", network2,
                                sec_group_id="sec_group1", provider="sriov")
         heat_template.add_floating_ip("floating_ip1", "network1", "port1",
                                       "router_if1")

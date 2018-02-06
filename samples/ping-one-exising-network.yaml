@@ -1,0 +1,50 @@
+##############################################################################
+## Copyright (c) 2018 Huawei Technologies Co.,Ltd and others.
+##
+## All rights reserved. This program and the accompanying materials
+## are made available under the terms of the Apache License, Version 2.0
+## which accompanies this distribution, and is available at
+## http://www.apache.org/licenses/LICENSE-2.0
+###############################################################################
+---
+# Sample benchmark task config file
+# measure network latency using ping
+# This sample use one existing network as both public network and private network.
+
+schema: "yardstick:task:0.1"
+
+{% set public_net = public_net or 'public' %}
+{% set public_subnet = public_subnet or 'public_subnet' %}
+
+scenarios:
+-
+  type: Ping
+  options:
+    packetsize: 200
+  host: athena.demo
+  target: ares.demo
+
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+
+  sla:
+    max_rtt: 10
+    action: monitor
+
+context:
+  name: demo
+  image: yardstick-image
+  flavor: yardstick-flavor
+  user: ubuntu
+
+  servers:
+    athena:
+    ares:
+
+  networks:
+    {{ public_net }}:
+      net_flags:
+        is_existing: true
+      subnet: {{ public_subnet }}

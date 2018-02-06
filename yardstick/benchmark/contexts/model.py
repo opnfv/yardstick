@@ -18,6 +18,8 @@ import logging
 from collections import Mapping
 from six.moves import range
 
+from yardstick.common import constants as consts
+
 
 LOG = logging.getLogger(__name__)
 
@@ -132,11 +134,28 @@ class Network(Object):
             if self.gateway_ip is None:
                 self.gateway_ip = "null"
 
-        if "external_network" in attrs:
-            self.router = Router("router", self.name,
-                                 context, attrs["external_network"])
+        self.net_flags = attrs.get('net_flags', {})
+        if self.is_existing():
+            self.subnet = attrs.get('subnet')
+            if not self.subnet:
+                raise Warning('No subnet set in existing netwrok!')
+        else:
+            if "external_network" in attrs:
+                self.router = Router("router", self.name,
+                                     context, attrs["external_network"])
+            Network.list.append(self)
 
-        Network.list.append(self)
+    def is_existing(self):
+        net_is_existing = self.net_flags.get(consts.IS_EXISTING)
+        if net_is_existing and not isinstance(net_is_existing, bool):
+            raise SyntaxError('Network flags should be bool type!')
+        return net_is_existing
+
+    def is_public(self):
+        net_is_public = self.net_flags.get(consts.IS_PUBLIC)
+        if net_is_public and not isinstance(net_is_public, bool):
+            raise SyntaxError('Network flags should be bool type!')
+        return net_is_public
 
     def has_route_to(self, network_name):
         """determines if this network has a route to the named network"""
@@ -302,10 +321,13 @@ class Server(Object):     # pragma: no cover
             # otherwise add a port for every network with port name as network name
             else:
                 ports = [network.name]
+            net_flags = network.net_flags
             for port in ports:
                 port_name = "{0}-{1}-port".format(server_name, port)
-                self.ports.setdefault(network.name, []).append(
-                    {"stack_name": port_name, "port": port})
+                port_info = {"stack_name": port_name, "port": port}
+                if net_flags:
+                    port_info['net_flags'] = net_flags
+                self.ports.setdefault(network.name, []).append(port_info)
                 # we can't use secgroups if port_security_enabled is False
                 if network.port_security_enabled is False:
                     sec_group_id = None
@@ -314,11 +336,14 @@ class Server(Object):     # pragma: no cover
                     sec_group_id = self.secgroup_name
                 # don't refactor to pass in network object, that causes JSON
                 # circular ref encode errors
-                template.add_port(port_name, network.stack_name, network.subnet_stack_name,
-                                  network.vnic_type, sec_group_id=sec_group_id,
+                template.add_port(port_name, network,
+                                  sec_group_id=sec_group_id,
                                   provider=network.provider,
                                   allowed_address_pairs=network.allowed_address_pairs)
-                port_name_list.append(port_name)
+                if network.is_public():
+                    port_name_list.insert(0, port_name)
+                else:
+                    port_name_list.append(port_name)
 
                 if self.floating_ip:
                     external_network = self.floating_ip["external_network"]
