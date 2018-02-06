@@ -322,23 +322,38 @@ name (i.e. %s).
             }
         }
 
-    def add_port(self, name, network_name, subnet_name, vnic_type, sec_group_id=None,
+    def add_port(self, name, network, sec_group_id=None,
                  provider=None, allowed_address_pairs=None):
         """add to the template a named Neutron Port
         """
+        network_name = network.stack_name
+        subnet_name = network.subnet_stack_name
+        vnic_type = network.vnic_type
         log.debug("adding Neutron::Port '%s', network:'%s', subnet:'%s', vnic_type:'%s', "
                   "secgroup:%s", name, network_name, subnet_name, vnic_type, sec_group_id)
-        self.resources[name] = {
-            'type': 'OS::Neutron::Port',
-            'depends_on': [subnet_name],
-            'properties': {
-                'name': name,
-                'binding:vnic_type': vnic_type,
-                'fixed_ips': [{'subnet': {'get_resource': subnet_name}}],
-                'network_id': {'get_resource': network_name},
-                'replacement_policy': 'AUTO',
+        network_tag = network.tag
+        if not network_tag:
+            self.resources[name] = {
+                'type': 'OS::Neutron::Port',
+                'depends_on': [subnet_name],
+                'properties': {
+                    'name': name,
+                    'binding:vnic_type': vnic_type,
+                    'fixed_ips': [{'subnet': {'get_resource': subnet_name}}],
+                    'network_id': {'get_resource': network_name},
+                    'replacement_policy': 'AUTO',
+                }
             }
-        }
+        elif 'existing' in network_tag:
+            self.resources[name] = {
+                'type': 'OS::Neutron::Port',
+                'depends_on': [],
+                'properties': {
+                    'name': name,
+                    'fixed_ips': [{'subnet': network.subnet}],
+                    'network': network.name
+                }
+            }
 
         if provider == PROVIDER_SRIOV:
             self.resources[name]['properties']['binding:vnic_type'] = \
