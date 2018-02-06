@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_a9436511",
+        "filename": "ansible/roles/infra_create_network/tasks/create_xml.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-02-06T13:47:46Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 52,
+        "startChar": 15,
+        "endLine": 52,
+        "endChar": 21
+      },
+      "revId": "d53e9ea4e3977b1239c13a69a36775366efb6acd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_133bb79d",
         "filename": "ansible/roles/infra_create_network/tasks/create_xml.yaml",
         "patchSetId": 3
