@@ -1,0 +1,77 @@
+##############################################################################
+# Copyright (c) 2018 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# Sample benchmark task config file
+# measure storage performance using fio
+#
+# For this sample just like running the command below on the test vm and
+# getting benchmark info back to the yardstick.
+#
+# sudo fio -filename=/home/ubuntu/data.raw -bs=4k -ipdepth=1 -rw=rw \
+#          -ramp_time=10 -runtime=60 -name=yardstick-fio -ioengine=libaio \
+#          -direct=1 -group_reporting -numjobs=1 -time_based \
+#          --output-format=json
+
+schema: "yardstick:task:0.1"
+run_in_parallel: true
+
+{% set directory = directory or '/FIO_Test' %}
+{% set stack_num = stack_num or 1 %}
+{% set volume_num = volume_num or "1" %}
+{% set rw = rw or "randrw" %}
+{% set bs = bs or "4k" %}
+{% set size = size or "30g" %}
+{% set rwmixwrite = rwmixwrite or "50" %}
+{% set numjobs = numjobs or "1" %}
+{% set direct = direct or "1" %}
+{% set volume_size = volume_size or 50 %}
+
+scenarios:
+{% for num in range(stack_num) %}
+-
+  type: Fio
+  options:
+    filename: {{ directory }}/test
+    directory: {{ directory }}
+    bs: {{bs}}
+    rw: {{rw}}
+    size: {{size}}
+    rwmixwrite: {{rwmixwrite}}
+    numjobs: {{numjobs}}
+    direct: {{direct}}
+    ramp_time: 10
+
+  host: demo.storage_bottlenecks-{{num}}-{{volume_num}}
+
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+{% endfor %}
+
+contexts:
+{% for context_num in range(stack_num) %}
+-
+  name: storage_bottlenecks-{{context_num}}-{{volume_num}}
+  image: yardstick-image
+  flavor: yardstick-flavor
+  user: ubuntu
+
+  servers:
+    demo:
+      volume:
+        size: {{volume_size}}
+      volume_mountpoint: "/dev/vdb"
+      floating_ip: true
+
+  networks:
+    test:
+      cidr: "10.0.1.0/24"
+      port_security_enabled: true
+{% endfor %}
