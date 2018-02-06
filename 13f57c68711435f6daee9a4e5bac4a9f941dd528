@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_4c02a7b4",
+        "filename": "ansible/roles/infra_create_network/tasks/create_xml.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-06T18:12:33Z",
+      "side": 1,
+      "message": "We don\u0027t have a template, we have the rendered file.\nThis should be:\n   \"{{ lookup(\u0027file\u0027, xml_file) }}\"",
+      "range": {
+        "startLine": 91,
+        "startChar": 9,
+        "endLine": 91,
+        "endChar": 61
+      },
+      "revId": "13f57c68711435f6daee9a4e5bac4a9f941dd528",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0cfc1fb7",
+        "filename": "ansible/roles/infra_create_network/tasks/create_xml.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-06T18:12:33Z",
+      "side": 1,
+      "message": "{{ xml_file }}",
+      "range": {
+        "startLine": 105,
+        "startChar": 11,
+        "endLine": 105,
+        "endChar": 41
+      },
+      "revId": "13f57c68711435f6daee9a4e5bac4a9f941dd528",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
