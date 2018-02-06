@@ -22,6 +22,7 @@ import ipaddress
 import logging
 import os
 import random
+import re
 import socket
 import subprocess
 import sys
@@ -395,3 +396,17 @@ class Timer(object):
 
     def __getattr__(self, item):
         return getattr(self.delta, item)
+
+
+def read_meminfo(ssh_client):
+    """Read "/proc/meminfo" file and parse all keys and values"""
+
+    cpuinfo = six.BytesIO()
+    ssh_client.get_file_obj('/proc/meminfo', cpuinfo)
+    lines = cpuinfo.getvalue().decode('utf-8')
+    matches = re.findall(r"([\w\(\)]+):\s+(\d+)( kB)*", lines)
+    output = {}
+    for match in matches:
+        output[match[0]] = match[1]
+
+    return output
