@@ -180,6 +180,9 @@ class HeatContext(Context):
         template.add_security_group(self.secgroup_name)
 
         for network in self.networks.values():
+            # Using existing network
+            if network.is_existing():
+                continue
             template.add_network(network.stack_name,
                                  network.physical_network,
                                  network.provider,
@@ -332,18 +335,41 @@ class HeatContext(Context):
 
         LOG.info("Deploying context '%s' DONE", self.name)
 
+    @staticmethod
+    def _port_net_is_existing(port_info):
+        net_flags = port_info.get('net_flags', {})
+        return net_flags.get(consts.IS_EXISTING)
+
+    @staticmethod
+    def _port_net_is_public(port_info):
+        net_flags = port_info.get('net_flags', {})
+        return net_flags.get(consts.IS_PUBLIC)
+
     def add_server_port(self, server):
-        # use private ip from first port in first network
-        try:
-            private_port = next(iter(server.ports.values()))[0]
-        except IndexError:
-            LOG.exception("Unable to find first private port in %s", server.ports)
-            raise
-        server.private_ip = self.stack.outputs[private_port["stack_name"]]
+        server_ports = server.ports.values()
+        if len(server_ports) == 1:
+            port_info = server_ports[0][0]
+            port_ip = self.stack.outputs[port_info["stack_name"]]
+            server.private_ip = port_ip
+            if self._port_net_is_existing(port_info):
+                server.public_ip = server.private_ip
+        else:
+            for server_port in server_ports:
+                port_info = server_port[0]
+                port_ip = self.stack.outputs[port_info["stack_name"]]
+                if (self._port_net_is_existing(port_info) and
+                        self._port_net_is_public(port_info)):
+                    server.public_ip = port_ip
+                    continue
+                if not server.private_ip:
+                    server.private_ip = port_ip
+
         server.interfaces = {}
         for network_name, ports in server.ports.items():
             for port in ports:
                 # port['port'] is either port name from mapping or default network_name
+                if self._port_net_is_existing(port):
+                    continue
                 server.interfaces[port['port']] = self.make_interface_dict(network_name,
                                                                            port['port'],
                                                                            port['stack_name'],
