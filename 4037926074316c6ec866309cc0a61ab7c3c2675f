@@ -70,6 +70,24 @@
       "revId": "4037926074316c6ec866309cc0a61ab7c3c2675f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8663f040",
+        "filename": "ansible/install_trex_standalone.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-06T08:48:09Z",
+      "side": 1,
+      "message": "Use \"install_trex\" for standalone too? We should need some modifications, but could be done.",
+      "parentUuid": "9a3d3df0_03d4f2e9",
+      "revId": "4037926074316c6ec866309cc0a61ab7c3c2675f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
