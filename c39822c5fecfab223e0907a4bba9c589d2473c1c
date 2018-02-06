@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_ac8533d0",
+        "filename": "ansible/roles/virt_create_vms/tasks/configure_vm.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-02-06T20:36:45Z",
+      "side": 1,
+      "message": "its pasword in the config file...should it be changed?",
+      "parentUuid": "9a3d3df0_0c237f56",
+      "range": {
+        "startLine": 49,
+        "startChar": 44,
+        "endLine": 49,
+        "endChar": 51
+      },
+      "revId": "c39822c5fecfab223e0907a4bba9c589d2473c1c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_ac289333",
         "filename": "ansible/roles/virt_create_vms/tasks/configure_vm.yml",
         "patchSetId": 3
