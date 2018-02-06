@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_09709109",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-06T15:11:11Z",
+      "side": 1,
+      "message": "delete this empty space",
+      "range": {
+        "startLine": 11,
+        "startChar": 51,
+        "endLine": 11,
+        "endChar": 52
+      },
+      "revId": "71d5ab33c17fd46c20c73f6d79d1eb14a1198617",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e96a8d18",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-06T15:11:11Z",
+      "side": 1,
+      "message": "JIRA",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 5
+      },
+      "revId": "71d5ab33c17fd46c20c73f6d79d1eb14a1198617",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_89630141",
+        "filename": "ansible/roles/infra_create_network/tasks/create_xml.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-06T15:11:11Z",
+      "side": 1,
+      "message": "Delete the temporary file",
+      "revId": "71d5ab33c17fd46c20c73f6d79d1eb14a1198617",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
