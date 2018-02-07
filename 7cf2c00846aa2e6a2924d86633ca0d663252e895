@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_b2eaaa71",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-07T17:20:40Z",
+      "side": 1,
+      "message": "I\u0027ve checked this script manually.\n\nIf the bridge exists but it wasn\u0027t created by livbirt, the bridge won\u0027t be deleted.\n\nYou need to add another loop to delete any previous Linux bridge existing in the host.",
+      "revId": "7cf2c00846aa2e6a2924d86633ca0d663252e895",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
