@@ -7,13 +7,11 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import print_function
-from __future__ import absolute_import
-
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
+from yardstick.common import openstack_utils
+
 
 LOG = logging.getLogger(__name__)
 
@@ -28,9 +26,23 @@ class CreateSubnet(base.Scenario):
         self.context_cfg = context_cfg
         self.options = self.scenario_cfg['options']
 
-        self.openstack = self.options.get("openstack_paras", None)
+        self.network_name_or_id = self.options.get('network_name_or_id')
+        self.cidr = self.options.get('cidr')
+        self.ip_version = self.options.get('ip_version', 4)
+        self.enable_dhcp = self.options.get('enable_dhcp', False)
+        self.subnet_name = self.options.get('subnet_name')
+        self.tenant_id = self.options.get('tenant_id')
+        self.allocation_pools = self.options.get('allocation_pools')
+        self.gateway_ip = self.options.get('gateway_ip')
+        self.disable_gateway_ip = self.options.get('disable_gateway_ip', False)
+        self.dns_nameservers = self.options.get('dns_nameservers')
+        self.host_routes = self.options.get('host_routes')
+        self.ipv6_ra_mode = self.options.get('ipv6_ra_mode')
+        self.ipv6_address_mode = self.options.get('ipv6_address_mode')
+        self.use_default_subnetpool = self.options.get(
+            'use_default_subnetpool', False)
 
-        self.neutron_client = op_utils.get_neutron_client()
+        self.shade_client = openstack_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -39,28 +51,27 @@ class CreateSubnet(base.Scenario):
 
         self.setup_done = True
 
-    def run(self, result):
+    def run(self, *args):
         """execute the test"""
 
         if not self.setup_done:
             self.setup()
 
-        openstack_paras = {'subnets': [self.openstack]}
-        subnet_id = op_utils.create_neutron_subnet(self.neutron_client,
-                                                   openstack_paras)
-        if subnet_id:
-            result.update({"subnet_create": 1})
-            LOG.info("Create subnet successful!")
-        else:
-            result.update({"subnet_create": 0})
+        subnet_id = openstack_utils.create_neutron_subnet(
+            self.shade_client, self.network_name_or_id, cidr=self.cidr,
+            ip_version=self.ip_version, enable_dhcp=self.enable_dhcp,
+            subnet_name=self.subnet_name, tenant_id=self.tenant_id,
+            allocation_pools=self.allocation_pools, gateway_ip=self.gateway_ip,
+            disable_gateway_ip=self.disable_gateway_ip,
+            dns_nameservers=self.dns_nameservers, host_routes=self.host_routes,
+            ipv6_ra_mode=self.ipv6_ra_mode,
+            ipv6_address_mode=self.ipv6_address_mode,
+            use_default_subnetpool=self.use_default_subnetpool)
+        if not subnet_id:
             LOG.error("Create subnet failed!")
+            return
 
-        check_result = subnet_id
-
-        try:
-            keys = self.scenario_cfg.get('output', '').split()
-        except KeyError:
-            pass
-        else:
-            values = [check_result]
-            return self._push_to_outputs(keys, values)
+        LOG.info("Create subnet successful!")
+        keys = self.scenario_cfg.get('output', '').split()
+        values = [subnet_id]
+        return self._push_to_outputs(keys, values)
