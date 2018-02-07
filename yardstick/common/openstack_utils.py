@@ -468,13 +468,55 @@ def delete_neutron_net(shade_client, network_id):
         return False
 
 
-def create_neutron_subnet(neutron_client, json_body):      # pragma: no cover
+def create_neutron_subnet(shade_client, network_name_or_id, cidr=None,
+                          ip_version=4, enable_dhcp=False, subnet_name=None,
+                          tenant_id=None, allocation_pools=None,
+                          gateway_ip=None, disable_gateway_ip=False,
+                          dns_nameservers=None, host_routes=None,
+                          ipv6_ra_mode=None, ipv6_address_mode=None,
+                          use_default_subnetpool=False):
+    """Create a subnet on a specified network.
+
+    :param network_name_or_id:(string) the unique name or ID of the
+                              attached network. If a non-unique name is
+                              supplied, an exception is raised.
+    :param cidr:(string) the CIDR.
+    :param ip_version:(int) the IP version.
+    :param enable_dhcp:(bool) whether DHCP is enable.
+    :param subnet_name:(string) the name of the subnet.
+    :param tenant_id:(string) the ID of the tenant who owns the network.
+    :param allocation_pools: A list of dictionaries of the start and end
+                            addresses for the allocation pools.
+    :param gateway_ip:(string) the gateway IP address.
+    :param disable_gateway_ip:(bool) whether gateway IP address is enabled.
+    :param dns_nameservers: A list of DNS name servers for the subnet.
+    :param host_routes: A list of host route dictionaries for the subnet.
+    :param ipv6_ra_mode:(string) IPv6 Router Advertisement mode.
+                        Valid values are: 'dhcpv6-stateful',
+                        'dhcpv6-stateless', or 'slaac'.
+    :param ipv6_address_mode:(string) IPv6 address mode.
+                             Valid values are: 'dhcpv6-stateful',
+                             'dhcpv6-stateless', or 'slaac'.
+    :param use_default_subnetpool:(bool) use the default subnetpool for
+                                  ``ip_version`` to obtain a CIDR. It is
+                                  required to pass ``None`` to the ``cidr``
+                                  argument when enabling this option.
+    :returns:(string) the subnet id.
+    """
     try:
-        subnet = neutron_client.create_subnet(body=json_body)
-        return subnet['subnets'][0]['id']
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [create_neutron_subnet")
-        raise Exception("operation error")
+        subnet = shade_client.create_subnet(
+            network_name_or_id, cidr=cidr, ip_version=ip_version,
+            enable_dhcp=enable_dhcp, subnet_name=subnet_name,
+            tenant_id=tenant_id, allocation_pools=allocation_pools,
+            gateway_ip=gateway_ip, disable_gateway_ip=disable_gateway_ip,
+            dns_nameservers=dns_nameservers, host_routes=host_routes,
+            ipv6_ra_mode=ipv6_ra_mode, ipv6_address_mode=ipv6_address_mode,
+            use_default_subnetpool=use_default_subnetpool)
+        return subnet['id']
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [create_neutron_subnet(shade_client)]. "
+                  "Exception message: '%s'", o_exc.orig_message)
+        return None
 
 
 def create_neutron_router(neutron_client, json_body):      # pragma: no cover
