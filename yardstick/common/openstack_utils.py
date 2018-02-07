@@ -491,13 +491,52 @@ def delete_neutron_net(shade_client, network_id):
         return False
 
 
-def create_neutron_subnet(neutron_client, json_body):      # pragma: no cover
+def create_neutron_subnet(shade_client, network_name_or_id, cidr, ip_version,
+                          enable_dhcp, subnet_name, tenant_id,
+                          allocation_pools, gateway_ip, disable_gateway_ip,
+                          dns_nameservers, host_routes, ipv6_ra_mode,
+                          ipv6_address_mode, use_default_subnetpool):
+    """Create a subnet on a specified network.
+
+    :param string network_name_or_id: The unique name or ID of the
+      attached network. If a non-unique name is supplied, an exception is
+      raised.
+    :param string cidr: The CIDR. By default set to ``None``.
+    :param int ip_version: The IP version. By default it is 4.
+    :param bool enable_dhcp: Whether DHCP is enable. By default is ``False``.
+    :param string subnet_name:The name of the subnet.
+    :param string tenant_id: The ID of the tenant who owns the network.
+    :param allocation_pools: A list of dictionaries of the start and end
+      addresses for the allocation pools.
+    :param string gateway_ip: The gateway IP address.
+    :param bool disable_gateway_ip: Whether gateway IP address is enabled.
+      By default is ``False``.
+    :param dns_nameservers: A list of DNS name servers for the subnet.
+    :param host_routes: A list of host route dictionaries for the subnet.
+    :param string ipv6_ra_mode: IPv6 Router Advertisement mode.
+      Valid values are: 'dhcpv6-stateful', 'dhcpv6-stateless', or 'slaac'.
+    :param string ipv6_address_mode: IPv6 address mode.
+      Valid values are: 'dhcpv6-stateful', 'dhcpv6-stateless', or 'slaac'.
+    :param bool use_default_subnetpool: Use the default subnetpool for
+      ``ip_version`` to obtain a CIDR. It is required to pass ``None`` to the
+      ``cidr`` argument when enabling this option.
+
+    :returns: The subnet id.
+    :raises: OpenStackCloudException on operation error.
+        """
     try:
-        subnet = neutron_client.create_subnet(body=json_body)
-        return subnet['subnets'][0]['id']
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [create_neutron_subnet")
-        raise Exception("operation error")
+        subnet = shade_client.create_subnet(
+            network_name_or_id=network_name_or_id, cidr=cidr,
+            ip_version=ip_version, enable_dhcp=enable_dhcp,
+            subnet_name=subnet_name, tenant_id=tenant_id,
+            allocation_pools=allocation_pools, gateway_ip=gateway_ip,
+            disable_gateway_ip=disable_gateway_ip,
+            dns_nameservers=dns_nameservers, host_routes=host_routes,
+            ipv6_ra_mode=ipv6_ra_mode, ipv6_address_mode=ipv6_address_mode,
+            use_default_subnetpool=use_default_subnetpool)
+        return subnet[0]['id']
+    except exc.OpenStackCloudException:
+        log.error("Error [create_neutron_subnet(shade_client)]")
 
 
 def create_neutron_router(neutron_client, json_body):      # pragma: no cover

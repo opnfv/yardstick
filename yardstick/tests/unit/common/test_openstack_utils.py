@@ -122,3 +122,65 @@ class CreateNeutronNetTestCase(unittest.TestCase):
                 availability_zone_hints=self.mock_availability_zone_hints)
         mock_logger.error.assert_called_once_with(
                                     "Error [create_neutron_net(shade_client)]")
+
+
+class CreateNeutronSubnetTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_network_name_or_id = 'name_or_id'
+        self.mock_cidr = None
+        self.mock_ip_version = 4
+        self.mock_enable_dhcp = False
+        self.mock_subnet_name = None
+        self.mock_tenant_id = None
+        self.mock_allocation_pools = None
+        self.mock_gateway_ip = None
+        self.mock_disable_gateway_ip = False
+        self.mock_dns_nameservers = None
+        self.mock_host_routes = None
+        self.mock_ipv6_ra_mode = None
+        self.mock_ipv6_address_mode = None
+        self.mock_use_default_subnetpool = False
+        self.mock_shade_client.create_subnet = mock.Mock()
+
+    def test_create_neutron_subnet(self):
+        _uuid = uuidutils.generate_uuid()
+        self.mock_shade_client.create_subnet.return_value = [{'id': _uuid}]
+        output = openstack_utils.create_neutron_subnet(
+            self.mock_shade_client,
+            network_name_or_id=self.mock_network_name_or_id,
+            cidr=self.mock_cidr, ip_version=self.mock_ip_version,
+            enable_dhcp=self.mock_enable_dhcp,
+            subnet_name=self.mock_subnet_name, tenant_id=self.mock_tenant_id,
+            allocation_pools=self.mock_allocation_pools,
+            gateway_ip=self.mock_gateway_ip,
+            disable_gateway_ip=self.mock_disable_gateway_ip,
+            dns_nameservers=self.mock_dns_nameservers,
+            host_routes=self.mock_host_routes,
+            ipv6_ra_mode=self.mock_ipv6_ra_mode,
+            ipv6_address_mode=self.mock_ipv6_address_mode,
+            use_default_subnetpool=self.mock_use_default_subnetpool)
+        self.assertEqual(_uuid, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_neutron_subnet_exception(self, mock_logger):
+        self.mock_shade_client.create_subnet.side_effect = (
+            exc.OpenStackCloudException('error message'))
+
+        openstack_utils.create_neutron_subnet(
+            self.mock_shade_client,
+            network_name_or_id=self.mock_network_name_or_id,
+            cidr=self.mock_cidr, ip_version=self.mock_ip_version,
+            enable_dhcp=self.mock_enable_dhcp,
+            subnet_name=self.mock_subnet_name, tenant_id=self.mock_tenant_id,
+            allocation_pools=self.mock_allocation_pools,
+            gateway_ip=self.mock_gateway_ip,
+            disable_gateway_ip=self.mock_disable_gateway_ip,
+            dns_nameservers=self.mock_dns_nameservers,
+            host_routes=self.mock_host_routes,
+            ipv6_ra_mode=self.mock_ipv6_ra_mode,
+            ipv6_address_mode=self.mock_ipv6_address_mode,
+            use_default_subnetpool=self.mock_use_default_subnetpool)
+        mock_logger.error.assert_called_once_with(
+            "Error [create_neutron_subnet(shade_client)]")
