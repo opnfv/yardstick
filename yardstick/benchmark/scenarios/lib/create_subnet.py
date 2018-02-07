@@ -28,9 +28,9 @@ class CreateSubnet(base.Scenario):
         self.context_cfg = context_cfg
         self.options = self.scenario_cfg['options']
 
-        self.openstack = self.options.get("openstack_paras", None)
+        self.network_name_or_id = self.options.get('network_name_or_id', None)
 
-        self.neutron_client = op_utils.get_neutron_client()
+        self.shade_client = op_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -45,22 +45,16 @@ class CreateSubnet(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        openstack_paras = {'subnets': [self.openstack]}
-        subnet_id = op_utils.create_neutron_subnet(self.neutron_client,
-                                                   openstack_paras)
-        if subnet_id:
-            result.update({"subnet_create": 1})
-            LOG.info("Create subnet successful!")
-        else:
+        subnet_id = op_utils.create_neutron_subnet(self.shade_client,
+                                                   network_name_or_id=
+                                                   self.network_name_or_id)
+        if not subnet_id:
             result.update({"subnet_create": 0})
             LOG.error("Create subnet failed!")
+            return
 
-        check_result = subnet_id
-
-        try:
-            keys = self.scenario_cfg.get('output', '').split()
-        except KeyError:
-            pass
-        else:
-            values = [check_result]
-            return self._push_to_outputs(keys, values)
+        result.update({"subnet_create": 1})
+        LOG.info("Create subnet successful!")
+        keys = self.scenario_cfg.get('output', '').split()
+        values = [subnet_id]
+        return self._push_to_outputs(keys, values)
