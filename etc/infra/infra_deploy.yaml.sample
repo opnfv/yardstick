@@ -12,7 +12,7 @@ nodes:
     ram: 8192
     vcpus: 4
 
-  - name Controller_Compute VM
+  - name: Controller_Compute VM
     openstack_node: controller_compute
     hostname: controller_compute
     interfaces:
