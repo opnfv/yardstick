@@ -57,3 +57,7 @@ class YardstickException(Exception):
 class FunctionNotImplemented(YardstickException):
     message = ('The function "%(function_name)s" is not implemented in '
                '"%(class_name)" class.')
+
+
+class DPDKSetupDriverError(YardstickException):
+    message = '"igb_uio" driver is not loaded'

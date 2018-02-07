@@ -624,37 +624,34 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
 
         self.assertIsInstance(dpdk_vnf_setup_env_helper.setup_vnf_environment(), ResourceProfile)
 
-    def test__setup_dpdk_early_success(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
+    def test__setup_dpdk(self):
         ssh_helper = mock.Mock()
-        ssh_helper.execute.return_value = 0, 'output', ''
-        ssh_helper.join_bin_path.return_value = 'joined_path'
-        ssh_helper.provision_tool.return_value = 'provision string'
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper._setup_hugepages = mock.Mock()
+        ssh_helper.execute = mock.Mock()
+        ssh_helper.execute.return_value = (0, 0, 0)
+        dpdk_setup_helper = DpdkVnfSetupEnvHelper(mock.ANY, ssh_helper, mock.ANY)
+        with mock.patch.object(dpdk_setup_helper, '_setup_hugepages') as \
+                mock_setup_hp:
+            dpdk_setup_helper._setup_dpdk()
+        mock_setup_hp.assert_called_once()
+        ssh_helper.execute.assert_has_calls([
+            mock.call('sudo modprobe uio && sudo modprobe igb_uio'),
+            mock.call('lsmod | grep -i igb_uio')
+        ])
 
-        self.assertIsNone(dpdk_setup_helper._setup_dpdk())
-        self.assertEqual(dpdk_setup_helper.ssh_helper.execute.call_count, 2)
-
-    @mock.patch('yardstick.ssh.SSH')
-    def test__setup_dpdk_short(self, _):
-        def execute_side(cmd):
-            if 'joined_path' in cmd:
-                return 0, 'output', ''
-            return 1, 'bad output', 'error output'
-
-        vnfd_helper = VnfdHelper(self.VNFD_0)
+    def test__setup_dpdk_igb_uio_not_loaded(self):
         ssh_helper = mock.Mock()
-        ssh_helper.execute.side_effect = execute_side
-        ssh_helper.join_bin_path.return_value = 'joined_path'
-        ssh_helper.provision_tool.return_value = 'provision string'
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper._setup_hugepages = mock.Mock()
-
-        self.assertIsNone(dpdk_setup_helper._setup_dpdk())
-        self.assertEqual(dpdk_setup_helper.ssh_helper.execute.call_count, 3)
+        ssh_helper.execute = mock.Mock()
+        ssh_helper.execute.side_effect = [(0, 0, 0), (1, 0, 0)]
+        dpdk_setup_helper = DpdkVnfSetupEnvHelper(mock.ANY, ssh_helper, mock.ANY)
+        with mock.patch.object(dpdk_setup_helper, '_setup_hugepages') as \
+                mock_setup_hp:
+            with self.assertRaises(y_exceptions.DPDKSetupDriverError):
+                dpdk_setup_helper._setup_dpdk()
+        mock_setup_hp.assert_called_once()
+        ssh_helper.execute.assert_has_calls([
+            mock.call('sudo modprobe uio && sudo modprobe igb_uio'),
+            mock.call('lsmod | grep -i igb_uio')
+        ])
 
     @mock.patch('yardstick.ssh.SSH')
     def test__setup_resources(self, _):
