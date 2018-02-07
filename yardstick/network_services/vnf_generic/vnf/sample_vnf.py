@@ -250,20 +250,12 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         self.ssh_helper.execute("sudo killall %s" % self.APP_NAME)
 
     def _setup_dpdk(self):
-        """ setup dpdk environment needed for vnf to run """
-
+        """Setup DPDK environment needed for VNF to run"""
         self._setup_hugepages()
-        self.ssh_helper.execute("sudo modprobe uio && sudo modprobe igb_uio")
-
-        exit_status = self.ssh_helper.execute("lsmod | grep -i igb_uio")[0]
-        if exit_status == 0:
-            return
-
-        dpdk = self.ssh_helper.join_bin_path(DPDK_VERSION)
-        dpdk_setup = self.ssh_helper.provision_tool(tool_file="nsb_setup.sh")
-        exit_status = self.ssh_helper.execute("which {} >/dev/null 2>&1".format(dpdk))[0]
-        if exit_status != 0:
-            self.ssh_helper.execute("bash %s dpdk >/dev/null 2>&1" % dpdk_setup)
+        self.ssh_helper.execute('sudo modprobe uio && sudo modprobe igb_uio')
+        exit_status = self.ssh_helper.execute('lsmod | grep -i igb_uio')[0]
+        if exit_status:
+            raise y_exceptions.DPDKSetupDriverError()
 
     def get_collectd_options(self):
         options = self.scenario_helper.all_options.get("collectd", {})
