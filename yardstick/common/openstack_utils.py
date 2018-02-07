@@ -494,12 +494,12 @@ def delete_neutron_net(shade_client, network_id):
         return False
 
 
-def create_neutron_subnet(neutron_client, json_body):      # pragma: no cover
+def create_neutron_subnet(shade_client, network_name_or_id):
     try:
-        subnet = neutron_client.create_subnet(body=json_body)
-        return subnet['subnets'][0]['id']
-    except Exception:
-        log.error("Error [create_neutron_subnet")
+        return shade_client.create_subnet({'network_name_or_id':
+                                            network_name_or_id})[0]['id']
+    except exc.OpenStackCloudException:
+        log.error("Error [create_neutron_subnet(shade_client)]")
         raise Exception("operation error")
         return None
 

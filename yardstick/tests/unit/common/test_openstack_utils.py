@@ -124,3 +124,30 @@ class CreateNeutronNetTestCase(unittest.TestCase):
                 availability_zone_hints=self.mock_availability_zone_hints)
             mock_logger.error.assert_called_once_with(
                                     "Error [create_neutron_net(shade_client)]")
+
+
+class CreateNeutronSubnetTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_network_name_or_id = mock.Mock()
+        self.mock_shade_client.create_subnet = mock.Mock()
+
+    def test_create_neutron_subnet(self):
+        _uuid = uuidutils.generate_uuid()
+        self.mock_shade_client.create_subnet.return_value = [{'id': _uuid}]
+        output = openstack_utils.create_neutron_subnet(self.mock_shade_client,
+                                                       {'name': self.mock_network_name_or_id})
+        self.assertEqual(_uuid, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_neutron_subnet_exception(self, mock_logger):
+        self.mock_shade_client.create_subnet.side_effect = (
+            exc.OpenStackCloudException('error message'))
+
+        with self.assertRaises(Exception):
+            openstack_utils.create_neutron_subnet(self.mock_shade_client,
+                                            {'name': self.mock_network_name_or_id})
+
+        mock_logger.error.assert_called_once_with(
+            "Error [create_neutron_subnet(shade_client)]")
