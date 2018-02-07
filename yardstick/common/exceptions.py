@@ -104,3 +104,7 @@ class TaskRenderError(YardstickException):
 
 class ScenarioCreateNetworkError(YardstickException):
     message = 'Create Neutron Network Scenario failed'
+
+
+class ScenarioCreateSubnetError(YardstickException):
+    message = 'Create Neutron Subnet Scenario failed'
