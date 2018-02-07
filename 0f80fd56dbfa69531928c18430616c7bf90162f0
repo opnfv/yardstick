@@ -22,6 +22,30 @@
       "revId": "0f80fd56dbfa69531928c18430616c7bf90162f0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_92f1666d",
+        "filename": "INFO.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6
+      },
+      "writtenOn": "2018-02-07T17:16:36Z",
+      "side": 1,
+      "message": "you can amend the patchset if you prefer, as long as the id remains correct.",
+      "parentUuid": "9a3d3df0_c934e94b",
+      "range": {
+        "startLine": 70,
+        "startChar": 14,
+        "endLine": 70,
+        "endChar": 34
+      },
+      "revId": "0f80fd56dbfa69531928c18430616c7bf90162f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
