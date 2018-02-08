@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_9d1b3780",
+        "filename": "test-requirements.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-08T09:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_1261d604",
+      "revId": "1752f17b14bdf41138e02d09a8cb7bdc7ad1f6bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_5257de25",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2018-02-07T18:41:10Z",
       "side": 1,
       "message": "Now I realize, you need to be careful with this: maybe there are no networks and the returned object is empty. Just in case:\n---\nnetworks \u003d shade_client.list_networks({\u0027name\u0027: network_name})\nif networks:\n    return networks[0][\u0027id\u0027]",
+      "range": {
+        "startLine": 445,
+        "startChar": 61,
+        "endLine": 445,
+        "endChar": 70
+      },
+      "revId": "1752f17b14bdf41138e02d09a8cb7bdc7ad1f6bd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7d1e3371",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-08T09:35:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_5257de25",
       "range": {
         "startLine": 445,
         "startChar": 61,
