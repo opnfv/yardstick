@@ -1,0 +1,291 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_38ecb9ba",
+        "filename": "samples/vnf_samples/nsut/router/tc_heat_external_rfc2544_ipv4_128Kflows_5cores_2ports.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-08T16:23:03Z",
+      "side": 1,
+      "message": "What I still don\u0027t understand why is this password here, instead of being in the context.",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 25
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_58f1bd93",
+        "filename": "samples/vnf_samples/nsut/router/tc_heat_external_rfc2544_ipv4_128Kflows_5cores_2ports.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-08T16:23:03Z",
+      "side": 1,
+      "message": "Using the yardstick-samplevnf image, we don\u0027t have access to root user. Is disabled by default.",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 26
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d8e66de7",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_router_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-08T16:23:03Z",
+      "side": 1,
+      "message": "I know this have been systematically in all testcases. But you should mock only the functions which are going to be called.",
+      "range": {
+        "startLine": 377,
+        "startChar": 4,
+        "endLine": 377,
+        "endChar": 27
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_780ac18a",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_router_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-08T16:23:03Z",
+      "side": 1,
+      "message": "Instead of \"instantiate\", \"Context.get_context_from_server\" and \"self.configure_routes\" should be tested. Unit tests are for function testing. With this you are testing beyond this function.",
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d8fdcd6f",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_router_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-08T16:23:03Z",
+      "side": 1,
+      "message": "configure_routes shouldn\u0027t return a value. This is irrelevant.",
+      "range": {
+        "startLine": 419,
+        "startChar": 13,
+        "endLine": 419,
+        "endChar": 26
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_18fbb579",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_router_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-08T16:23:03Z",
+      "side": 1,
+      "message": "The function is not tested at all. All ssh calls and intermediate values should be tested. The goal of this function is to make the proper \"ip\" calls. This is what you should test.\n\nYou whould also check the possible exceptions thrown.\n\nThis function should be splited in several functions.",
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9892254a",
+        "filename": "yardstick/cmd/NSBperf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-08T16:23:03Z",
+      "side": 1,
+      "message": "You are calling this function only from L213, always with \"task_args\". This shouldn\u0027t be a conditional argument.",
+      "range": {
+        "startLine": 108,
+        "startChar": 46,
+        "endLine": 108,
+        "endChar": 59
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3870393f",
+        "filename": "yardstick/cmd/NSBperf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-08T16:23:03Z",
+      "side": 1,
+      "message": "This condition will be always true, because of L192.\n\nThis should be:\n  task_args \u003d args.get(\"taskargs\")\n  ...\n  cmd \u003d  [\u0027yardstick\u0027, \u0027--debug\u0027, \u0027task\u0027, \u0027start\u0027, test]\n  if task_args:\n     cmd +\u003d [\u0027--task-args\u0027, task_args]\n  subprocess.check_output(cmd)",
+      "range": {
+        "startLine": 206,
+        "startChar": 12,
+        "endLine": 206,
+        "endChar": 37
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_58ac1d8c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-08T16:23:03Z",
+      "side": 1,
+      "message": "You don\u0027t need this variable to be an instance variable, just a temporary one.",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 26
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d8982d6c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-08T16:23:03Z",
+      "side": 1,
+      "message": "To be removed",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 76
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b89ba964",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-08T16:23:03Z",
+      "side": 1,
+      "message": "There is no need to initialize this variable, it\u0027s done in L55",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 53,
+        "endChar": 38
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_18a615ae",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-08T16:23:03Z",
+      "side": 1,
+      "message": "You don\u0027t need this variable to be an instance variable, just a temporary one.",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 17
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b800c966",
+        "filename": "yardstick/network_services/vnf_generic/vnf/router_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-08T16:23:03Z",
+      "side": 1,
+      "message": "There is not need for this output. In L64 you don\u0027t assign it.",
+      "range": {
+        "startLine": 203,
+        "startChar": 9,
+        "endLine": 203,
+        "endChar": 29
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
