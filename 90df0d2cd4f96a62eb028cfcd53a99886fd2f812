@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ec0e163a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:44:23Z",
+      "side": 1,
+      "message": "Add a blank line between these two lines to conform with the standard commit message format:\n\n    \u003csummary\u003e\n    \u003cblank line\u003e\n    \u003cdetails on the change....\n     .....\u003e\n\n    JIRA: YARDSTICK-XXX\n    Signed-off-by: xxxx\n    Change-Id: xxxxxxxx",
+      "revId": "90df0d2cd4f96a62eb028cfcd53a99886fd2f812",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cc099232",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:44:23Z",
+      "side": 1,
+      "message": "*built",
+      "range": {
+        "startLine": 8,
+        "startChar": 23,
+        "endLine": 8,
+        "endChar": 30
+      },
+      "revId": "90df0d2cd4f96a62eb028cfcd53a99886fd2f812",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2c059e13",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:44:23Z",
+      "side": 1,
+      "message": "There\u0027s a lot of detail here about the error that you are fixing.\n\nIt would be better to log a ticket in Jira and add most of the error detail there.\n\nYou can then link that Jira ticket to this commit using\n    JIRA: YARDSTICK-XXX",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 43
+      },
+      "revId": "90df0d2cd4f96a62eb028cfcd53a99886fd2f812",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0c009a00",
+        "filename": "ansible/roles/create_dockerfile/templates/ubuntu/Dockerfile",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:44:23Z",
+      "side": 1,
+      "message": "These aren\u0027t used, remove them",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 18
+      },
+      "revId": "90df0d2cd4f96a62eb028cfcd53a99886fd2f812",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
