@@ -2,6 +2,167 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_cc799230",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:33:21Z",
+      "side": 1,
+      "message": "This is a big commit. The changes below are not all strictly related, and some can be separated out very easily so that we have a number of smaller patches, instead of one large one.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4c958231",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:33:21Z",
+      "side": 1,
+      "message": "Part of a \"pep8 fixes\" change, or as part of each of the smaller, separated changes.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 19
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ac988e6a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:33:21Z",
+      "side": 1,
+      "message": "This needs more detail for sure, and should be it\u0027s own change.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 60
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2c759e31",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:33:21Z",
+      "side": 1,
+      "message": "This is a separate change.",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 59
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8c9b0a65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:33:21Z",
+      "side": 1,
+      "message": "I assume that this coverage issue popped up because there was \u003e10 lines of code added. It should be either part of another, relevant change, or added as a separate change in itself (i.e. \"Add new test for ClassX.methodY to test zzz\")",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 44
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6c92064d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:33:21Z",
+      "side": 1,
+      "message": "This could be put in as part of a \"pep8 fixes\" change",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 78
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0c709a3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:33:21Z",
+      "side": 1,
+      "message": "This can be a separate change as well",
+      "range": {
+        "startLine": 31,
+        "startChar": 1,
+        "endLine": 31,
+        "endChar": 73
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_38ecb9ba",
         "filename": "samples/vnf_samples/nsut/router/tc_heat_external_rfc2544_ipv4_128Kflows_5cores_2ports.yaml",
         "patchSetId": 10
@@ -48,6 +209,46 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_cca07292",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_router_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:33:21Z",
+      "side": 1,
+      "message": "import the multiprocessing library (see ln40)",
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_eca576a2",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_router_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:33:21Z",
+      "side": 1,
+      "message": "There is no process member in this class, just the imported from multiprocessing.Process class.\n\nYou should mock multiprocessing.Process instead.\n\n    @mock.patch.object(multiprocessing, \u0027Process\u0027)",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 76
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_d8e66de7",
         "filename": "tests/unit/network_services/vnf_generic/vnf/test_router_vnf.py",
         "patchSetId": 10
@@ -64,6 +265,29 @@
         "startChar": 4,
         "endLine": 377,
         "endChar": 27
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cc2232b8",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_router_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:33:21Z",
+      "side": 1,
+      "message": "Looking at the definition of mock_ssh()[3], it appears that this sets the return values for execute() and run(), and then explicitly sets a number of other return_value\u0027s to instances of mock.Mock(), which is the default return value anyway. [1][2] \n\nWould it not be better to: \n    (a) skip using mock_ssh, and explicitly use the return value when needed,\nor at least:\n    (b) do this patching in the setUp() function for this TestCase? \n   \nfor (b):\n    def setUp(self):\n        self._mock_ssh \u003d mock.patch(SSH_HELPER)\n        self.mock_ssh \u003d self._mock_ssh.start()\n        testbase.mock_ssh(self.mock_ssh)\n        self.addCleanup(self._stop_mock)\n\n    def _stop_mock(self):\n        self._mock_ssh.stop()\n\n[1] https://docs.python.org/3/library/unittest.mock.html#unittest.mock.Mock\n[2] https://docs.python.org/3/library/unittest.mock.html#unittest.mock.Mock.return_value\n[3] https://github.com/opnfv/yardstick/blob/master/tests/unit/network_services/vnf_generic/vnf/test_base.py#L157-L172",
+      "range": {
+        "startLine": 379,
+        "startChar": 17,
+        "endLine": 379,
+        "endChar": 20
       },
       "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -128,6 +352,29 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_2cac7e8b",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_router_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:33:21Z",
+      "side": 1,
+      "message": "Time is an imported library in this class, not an attribute or method. The sleep method is called in the sample_vnf module, so you can time.sleep instead:\n\n    @mock.patch.object(time, \u0027sleep\u0027)\n\nRemember to import time above as well.",
+      "range": {
+        "startLine": 450,
+        "startChar": 0,
+        "endLine": 450,
+        "endChar": 77
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_9892254a",
         "filename": "yardstick/cmd/NSBperf.py",
         "patchSetId": 10
@@ -139,6 +386,30 @@
       "writtenOn": "2018-02-08T16:23:03Z",
       "side": 1,
       "message": "You are calling this function only from L213, always with \"task_args\". This shouldn\u0027t be a conditional argument.",
+      "range": {
+        "startLine": 108,
+        "startChar": 46,
+        "endLine": 108,
+        "endChar": 59
+      },
+      "revId": "a51d165aeac2faf84084da8af1bf6774c398901b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6c1b2681",
+        "filename": "yardstick/cmd/NSBperf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-08T23:33:21Z",
+      "side": 1,
+      "message": "+1,  in L192, the default value for task_args is set, so this function is never called without this argument",
+      "parentUuid": "9a3d3df0_9892254a",
       "range": {
         "startLine": 108,
         "startChar": 46,
