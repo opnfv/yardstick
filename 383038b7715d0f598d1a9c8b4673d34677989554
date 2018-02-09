@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_42bc2bbb",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_ixload.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T13:49:12Z",
+      "side": 1,
+      "message": "This was changed only to pass pep8 tests. Those tests must be reviewed. But this is out of scope of this patch.",
+      "parentUuid": "9a3d3df0_62084fda",
+      "range": {
+        "startLine": 300,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 76
+      },
+      "revId": "383038b7715d0f598d1a9c8b4673d34677989554",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_420b8bd5",
         "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_rfc2544_ixia.py",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_62920f4d",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_rfc2544_ixia.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T13:49:12Z",
+      "side": 1,
+      "message": "And:\n1) It works both in PY2 and PY3.\n2) Is the only way to mock builtins in a safe way.\n\nMix both:\n- https://stackoverflow.com/questions/1289894/how-do-i-mock-an-open-used-in-a-with-statement-using-the-mock-framework-in-pyth\n- http://nullege.com/codes/search/six.moves.builtins",
+      "parentUuid": "9a3d3df0_420b8bd5",
+      "range": {
+        "startLine": 346,
+        "startChar": 27,
+        "endLine": 346,
+        "endChar": 45
+      },
+      "revId": "383038b7715d0f598d1a9c8b4673d34677989554",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_22c76765",
         "filename": "yardstick/network_services/vnf_generic/vnf/vfw_vnf.py",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2018-02-09T12:32:21Z",
       "side": 1,
       "message": "Separate change.",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "383038b7715d0f598d1a9c8b4673d34677989554",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_229e4763",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vfw_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T13:49:12Z",
+      "side": 1,
+      "message": "??\n\nI don\u0027t understand. I have moved \"find_relative_file\" form vnf_generic to utils.\n\nI must import this library.",
+      "parentUuid": "9a3d3df0_22c76765",
       "range": {
         "startLine": 17,
         "startChar": 1,

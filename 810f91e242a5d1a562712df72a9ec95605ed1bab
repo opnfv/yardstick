@@ -22,6 +22,30 @@
       "revId": "810f91e242a5d1a562712df72a9ec95605ed1bab",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_428eeb2e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vfw_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T13:49:12Z",
+      "side": 0,
+      "message": "No, I can\u0027t keep find_relative_file in vnf_generic.\n\nvnf_generic in importing and registering the traffic profile modules (L41). vnf_generic must be imported only when the scenario is loaded, not from other modules.\n\nIf you take a look at the base code, \"from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file\" is imported 6 times (from network_services.vnf_generic.nvf....). I have removed those unneeded calls.\n\n\"network_services\" classes (vnfs, tgs, tprofiles, etc) should be called from the scenario class, not in the other way.",
+      "parentUuid": "9a3d3df0_226be785",
+      "range": {
+        "startLine": 18,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 83
+      },
+      "revId": "810f91e242a5d1a562712df72a9ec95605ed1bab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
