@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_e2973f46",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:36:10Z",
+      "side": 1,
+      "message": "I can\u0027t because this is mocking a method of an instance (self.s), not a class.\n\nThis instance is not alive when the class is imported along with the decorators.",
+      "parentUuid": "9a3d3df0_a2409707",
+      "range": {
+        "startLine": 621,
+        "startChar": 8,
+        "endLine": 622,
+        "endChar": 74
+      },
+      "revId": "10714dafc26d6b1396f88861ee45bfee9b129d7e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_c2483b2f",
         "filename": "yardstick/tests/functional/benchmark/scenarios/networking/test_vnf_generic.py",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-09T11:27:03Z",
       "side": 1,
       "message": "nit: could use assertDictEqual instead",
+      "range": {
+        "startLine": 82,
+        "startChar": 13,
+        "endLine": 82,
+        "endChar": 24
+      },
+      "revId": "10714dafc26d6b1396f88861ee45bfee9b129d7e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_02c22352",
+        "filename": "yardstick/tests/functional/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:36:10Z",
+      "side": 1,
+      "message": "There are several commits in OpenStack replacing assert specific function with assertEqual, which calls the specific checker.",
+      "parentUuid": "9a3d3df0_c2483b2f",
       "range": {
         "startLine": 82,
         "startChar": 13,
