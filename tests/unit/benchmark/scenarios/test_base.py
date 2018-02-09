@@ -51,3 +51,56 @@ class ScenarioTestCase(unittest.TestCase):
             pass
 
         self.assertEqual(str(None), DummyScenario.get_description())
+
+    def test_get_types(self):
+        scenario_names = set(
+            scenario.__scenario_type__ for scenario in
+            base.Scenario.get_types() if hasattr(scenario,
+                                                 '__scenario_type__'))
+        existing_scenario_class_names = {
+            'Iperf3', 'CACHEstat', 'SpecCPU2006', 'Dummy', 'NSPerf', 'Parser'}
+        self.assertTrue(existing_scenario_class_names.issubset(scenario_names))
+
+    def test_get_cls_existing_scenario(self):
+        scenario_name = 'NSPerf'
+        scenario = base.Scenario.get_cls(scenario_name)
+        self.assertEqual(scenario_name, scenario.__scenario_type__)
+
+    def test_get_cls_non_existing_scenario(self):
+        wrong_scenario_name = 'Non-existing-scenario'
+        with self.assertRaises(RuntimeError) as exc:
+            base.Scenario.get_cls(wrong_scenario_name)
+        self.assertEqual('No such scenario type %s' % wrong_scenario_name,
+                         str(exc.exception))
+
+    def test_get_existing_scenario(self):
+        scenario_name = 'NSPerf'
+        scenario_module = ('yardstick.benchmark.scenarios.networking.'
+                           'vnf_generic.NetworkServiceTestCase')
+        self.assertEqual(scenario_module, base.Scenario.get(scenario_name))
+
+    def test_get_non_existing_scenario(self):
+        wrong_scenario_name = 'Non-existing-scenario'
+        with self.assertRaises(RuntimeError) as exc:
+            base.Scenario.get(wrong_scenario_name)
+        self.assertEqual('No such scenario type %s' % wrong_scenario_name,
+                         str(exc.exception))
+
+
+class IterScenarioClassesTestCase(unittest.TestCase):
+
+    def test_no_scenario_type_defined(self):
+        some_existing_scenario_class_names = [
+            'Iperf3', 'CACHEstat', 'SpecCPU2006', 'Dummy', 'NSPerf', 'Parser']
+        scenario_types = [scenario.__scenario_type__ for scenario
+                          in base._iter_scenario_classes()]
+        for class_name in some_existing_scenario_class_names:
+            self.assertIn(class_name, scenario_types)
+
+    def test_scenario_type_defined(self):
+        some_existing_scenario_class_names = [
+            'Iperf3', 'CACHEstat', 'SpecCPU2006', 'Dummy', 'NSPerf', 'Parser']
+        for class_name in some_existing_scenario_class_names:
+            scenario_class = next(base._iter_scenario_classes(
+                scenario_type=class_name))
+            self.assertEqual(class_name, scenario_class.__scenario_type__)
