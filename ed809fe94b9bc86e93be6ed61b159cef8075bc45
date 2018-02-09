@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_02a4e348",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T15:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_38b3194e",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 70
+      },
+      "revId": "ed809fe94b9bc86e93be6ed61b159cef8075bc45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_028d03d3",
         "filename": "yardstick/tests/unit/orchestrator/test_heat.py",
         "patchSetId": 10
@@ -59,6 +83,54 @@
       "writtenOn": "2018-02-09T15:42:06Z",
       "side": 1,
       "message": "This line is too long",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 93
+      },
+      "revId": "ed809fe94b9bc86e93be6ed61b159cef8075bc45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c2addb32",
+        "filename": "yardstick/tests/unit/orchestrator/test_heat.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T15:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_028d03d3",
+      "range": {
+        "startLine": 101,
+        "startChar": 25,
+        "endLine": 101,
+        "endChar": 92
+      },
+      "revId": "ed809fe94b9bc86e93be6ed61b159cef8075bc45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_22a92724",
+        "filename": "yardstick/tests/unit/orchestrator/test_heat.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T15:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_d8f2ed04",
       "range": {
         "startLine": 101,
         "startChar": 0,
