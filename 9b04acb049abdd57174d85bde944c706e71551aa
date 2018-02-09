@@ -1,0 +1,337 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_a20ed7e2",
+        "filename": "samples/ping-one-exising-network.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "Instead of \"tag\", this should be called \"flags\" or \"tags\".\nThis container should be a dict:\n---\n  tags:\n     \"existing\": True\n     \"other_tag\": False",
+      "range": {
+        "startLine": 50,
+        "startChar": 5,
+        "endLine": 50,
+        "endChar": 19
+      },
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_22f007c8",
+        "filename": "samples/ping-two-exising-network.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "Why this name?",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 22
+      },
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e2d0df20",
+        "filename": "tests/unit/benchmark/contexts/test_model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "Testcases should be executed with tox, not manually.",
+      "range": {
+        "startLine": 592,
+        "startChar": 0,
+        "endLine": 596,
+        "endChar": 8
+      },
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8f3dbcdf",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "There is no need to make this branch, between 1 and many ports. You can handle this in one single branch.",
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e2df3f67",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "The public IP is set depending on the floating IP (L332-L334). And the floating IP will be def",
+      "range": {
+        "startLine": 352,
+        "startChar": 16,
+        "endLine": 354,
+        "endChar": 46
+      },
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8228f333",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "1) This should be called \"tags\" or \"flags\"\n2) This should be a dictionary",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 135,
+        "endChar": 17
+      },
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0266a3ba",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "What happens if \"tag\" dict contains other tags, but not \"existing\"? This will fail.",
+      "range": {
+        "startLine": 136,
+        "startChar": 8,
+        "endLine": 136,
+        "endChar": 23
+      },
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_82111306",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "Those \"tags\" should be stored in ./yardstick/common/constants.py",
+      "range": {
+        "startLine": 141,
+        "startChar": 13,
+        "endLine": 141,
+        "endChar": 23
+      },
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e2229f50",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "If there is no subnet, we have a (big) problem. This should raise an exception.",
+      "range": {
+        "startLine": 142,
+        "startChar": 26,
+        "endLine": 142,
+        "endChar": 45
+      },
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_825ab3ef",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "Where are we using this value stored in  port_info[\"network_tag\"]?",
+      "range": {
+        "startLine": 313,
+        "startChar": 20,
+        "endLine": 313,
+        "endChar": 58
+      },
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c26f9b90",
+        "filename": "yardstick/benchmark/contexts/model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "Why this change? Is there any reason?",
+      "range": {
+        "startLine": 327,
+        "startChar": 15,
+        "endLine": 330,
+        "endChar": 52
+      },
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_622faf3f",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "Port definition shouldn\u0027t be different in both cases.\n\n---\nexisting_network \u003d True if \u0027existing\u0027 in network_tag else False\ndepends_on \u003d [] if existing_network else [network.subnet_stack_name]\nsubnet \u003d network.subnet if existing_network else {\n    \u0027get_resource\u0027: network.subnet_stack_name}\nnetwork \u003d network.name if existing_network else network.stack_name\n---\n\u0027depends_on\u0027: depends_on \n\u0027name\u0027: name\n\u0027binding:vnic_type\u0027: network.vnic_type\n\u0027fixed_ips\u0027: [{\u0027subnet\u0027: subnet}]\n\u0027network\u0027: network",
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2202c7b3",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "Why are you removing this in the second branch?",
+      "range": {
+        "startLine": 382,
+        "startChar": 20,
+        "endLine": 382,
+        "endChar": 51
+      },
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c2f67bd6",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "This should be replaced with \"network\" (in both cases)",
+      "range": {
+        "startLine": 384,
+        "startChar": 20,
+        "endLine": 384,
+        "endChar": 65
+      },
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e2fbbfbe",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T12:21:57Z",
+      "side": 1,
+      "message": "This is the default status, so it\u0027s irrelevant and could be removed.\n\nhttps://github.com/openstack/heat/blob/master/heat/engine/resources/openstack/neutron/port.py#L189",
+      "range": {
+        "startLine": 385,
+        "startChar": 20,
+        "endLine": 385,
+        "endChar": 49
+      },
+      "revId": "9b04acb049abdd57174d85bde944c706e71551aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
