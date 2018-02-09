@@ -19,6 +19,6 @@
     is_public: yes
     disk_format: qcow2
     container_format: bare
-    filename: "{{ raw_imgfile }}"
+    filename: "{{ imgfile }}"
     properties:
       hw_vif_multiqueue_enabled: true
