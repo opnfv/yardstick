@@ -13,6 +13,8 @@
 # limitations under the License.
 
 ---
+{% set provider = provider or none %}
+
 schema: yardstick:task:0.1
 scenarios:
 - type: NSPerf
@@ -68,10 +70,18 @@ context:
     xe0:
       cidr: '10.0.2.0/24'
       gateway_ip: 'null'
+      {% if provider %}
+      provider: {{ provider }}
+      {{ 'physical_network: physnet1' if provider == 'sriov' }}
+      {% endif %}
       port_security_enabled: False
       enable_dhcp: 'false'
     xe1:
       cidr: '10.0.3.0/24'
       gateway_ip: 'null'
+      {% if provider %}
+      provider: {{ provider }}
+      {{ 'physical_network: physnet2' if provider == 'sriov' }}
+      {% endif %}
       port_security_enabled: False
       enable_dhcp: 'false'
