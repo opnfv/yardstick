@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_a2409707",
+        "filename": "tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-09T11:27:03Z",
+      "side": 1,
+      "message": "Could this be mocking be done with the decorator syntax instead.\nThe functionality of the L619 and 620 would not be effected but this change of scope.",
+      "range": {
+        "startLine": 621,
+        "startChar": 8,
+        "endLine": 622,
+        "endChar": 74
+      },
+      "revId": "10714dafc26d6b1396f88861ee45bfee9b129d7e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c2483b2f",
+        "filename": "yardstick/tests/functional/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-09T11:27:03Z",
+      "side": 1,
+      "message": "nit: could use assertDictEqual instead",
+      "range": {
+        "startLine": 82,
+        "startChar": 13,
+        "endLine": 82,
+        "endChar": 24
+      },
+      "revId": "10714dafc26d6b1396f88861ee45bfee9b129d7e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e24d7f3f",
+        "filename": "yardstick/tests/functional/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-09T11:27:03Z",
+      "side": 1,
+      "message": "nit: could use assertDictEqual instead",
+      "range": {
+        "startLine": 88,
+        "startChar": 13,
+        "endLine": 88,
+        "endChar": 24
+      },
+      "revId": "10714dafc26d6b1396f88861ee45bfee9b129d7e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
