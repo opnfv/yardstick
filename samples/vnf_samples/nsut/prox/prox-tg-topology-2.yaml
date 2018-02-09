@@ -21,10 +21,10 @@ nsd:nsd-catalog:
         constituent-vnfd:
         -   member-vnf-index: '1'
             vnfd-id-ref: tg__0
-            VNF model: ../../vnf_descriptors/tg_prox_tpl-2.yaml
+            VNF model: ../../vnf_descriptors/tg_prox_tpl.yaml
         -   member-vnf-index: '2'
             vnfd-id-ref: vnf__0
-            VNF model: ../../vnf_descriptors/prox_vnf-2.yaml
+            VNF model: ../../vnf_descriptors/prox_vnf.yaml
         vld:
         -   id: uplink_0
             name: tg__0 to vnf__0 link 1
