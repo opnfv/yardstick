@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_e2fa9f73",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/delete_network.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T14:52:43Z",
+      "side": 1,
+      "message": "This command is only for bridge creation, not for deletion.\n\nAlso we need to check if OVS is present (or at least the ovs-vsctl command).",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 17
+      },
+      "revId": "e653dd47f466e6d51c6f972b1416907040843b31",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c2f5db83",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/delete_network.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-09T14:52:43Z",
+      "side": 1,
+      "message": "We must be root for those operations.",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 12
+      },
+      "revId": "e653dd47f466e6d51c6f972b1416907040843b31",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
