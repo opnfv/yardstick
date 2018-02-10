@@ -645,6 +645,29 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             )
             mock_tprofile_get.assert_called_once_with(fake_vnfd)
 
+    @mock.patch.object(utils, 'open_relative_file')
+    def test__get_topology(self, mock_open_path):
+        self.s.scenario_cfg['topology'] = 'fake_topology'
+        self.s.scenario_cfg['task_path'] = 'fake_path'
+        mock_open_path.side_effect = mock.mock_open(read_data='fake_data')
+        self.assertEqual('fake_data', self.s._get_topology())
+        mock_open_path.assert_called_once_with('fake_topology', 'fake_path')
+
+    @mock.patch.object(vnfdgen, 'generate_vnfd')
+    def test__render_topology(self, mock_generate):
+        fake_topology = 'fake_topology'
+        mock_generate.return_value = {'nsd:nsd-catalog': {'nsd': ['fake_nsd']}}
+        with mock.patch.object(self.s, '_get_topology',
+                               return_value=fake_topology) as mock_get_topology:
+            self.s._render_topology()
+            mock_get_topology.assert_called_once()
+
+        mock_generate.assert_called_once_with(
+            fake_topology,
+            {'extra_args': {'arg1': 'value1', 'arg2': 'value2'}}
+        )
+        self.assertEqual(self.s.topology, 'fake_nsd')
+
     def test_teardown(self):
         vnf = mock.Mock(autospec=GenericVNF)
         vnf.terminate = mock.Mock(return_value=True)
