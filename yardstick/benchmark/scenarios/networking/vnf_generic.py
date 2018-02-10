@@ -28,7 +28,6 @@ from yardstick.benchmark.scenarios import base as scenario_base
 from yardstick.common.constants import LOG_DIR
 from yardstick.common.process import terminate_children
 from yardstick.common import utils
-from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic import vnfdgen
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
@@ -100,12 +99,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
 
-        # fixme: create schema to validate all fields have been provided
-        with utils.open_relative_file(scenario_cfg["topology"],
-                                      scenario_cfg['task_path']) as stream:
-            topology_yaml = yaml_load(stream)
-
-        self.topology = topology_yaml["nsd:nsd-catalog"]["nsd"][0]
+        self._render_topology()
         self.vnfs = []
         self.collector = None
         self.traffic_profile = None
@@ -184,6 +178,12 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         with utils.open_relative_file(profile, path) as infile:
             return infile.read()
 
+    def _get_topology(self):
+        topology = self.scenario_cfg["topology"]
+        path = self.scenario_cfg["task_path"]
+        with utils.open_relative_file(topology, path) as infile:
+            return infile.read()
+
     def _fill_traffic_profile(self):
         tprofile = self._get_traffic_profile()
         extra_args = self.scenario_cfg.get('extra_args', {})
@@ -197,6 +197,15 @@ class NetworkServiceTestCase(scenario_base.Scenario):
 
         traffic_vnfd = vnfdgen.generate_vnfd(tprofile, tprofile_data)
         self.traffic_profile = tprofile_base.TrafficProfile.get(traffic_vnfd)
+
+    def _render_topology(self):
+        topology = self._get_topology()
+        topology_args = self.scenario_cfg.get('extra_args', {})
+        topolgy_data = {
+            'extra_args': topology_args
+        }
+        topology_yaml = vnfdgen.generate_vnfd(topology, topolgy_data)
+        self.topology = topology_yaml["nsd:nsd-catalog"]["nsd"][0]
 
     def _find_vnf_name_from_id(self, vnf_id):
         return next((vnfd["vnfd-id-ref"]
