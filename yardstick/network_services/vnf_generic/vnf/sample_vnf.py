@@ -114,7 +114,6 @@ class SetupEnvHelper(object):
     def tear_down(self):
         raise NotImplementedError
 
-
 class DpdkVnfSetupEnvHelper(SetupEnvHelper):
 
     APP_NAME = 'DpdkVnf'
@@ -173,6 +172,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         vnf_cfg = self.scenario_helper.vnf_cfg
         task_path = self.scenario_helper.task_path
 
+        config_file = vnf_cfg.get('file')
         lb_count = vnf_cfg.get('lb_count', 3)
         lb_config = vnf_cfg.get('lb_config', 'SW')
         worker_config = vnf_cfg.get('worker_config', '1C/1T')
@@ -203,10 +203,12 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         multiport.generate_config()
         with open(self.CFG_CONFIG) as handle:
             new_config = handle.read()
-
-        new_config = self._update_traffic_type(new_config, traffic_options)
-        new_config = self._update_packet_type(new_config, traffic_options)
-
+        if not config_file:
+            new_config = self._update_traffic_type(new_config, traffic_options)
+            new_config = self._update_packet_type(new_config, traffic_options)
+        else:
+            with utils.open_relative_file(config_file, task_path) as infile:
+                new_config = infile.read()
         self.ssh_helper.upload_config_file(config_basename, new_config)
         self.ssh_helper.upload_config_file(script_basename,
                                            multiport.generate_script(self.vnfd_helper))

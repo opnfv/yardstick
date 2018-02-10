@@ -17,7 +17,6 @@ import sys
 
 import mock
 import unittest
-import yaml
 
 from yardstick import tests as y_tests
 from yardstick.common import utils
@@ -61,8 +60,9 @@ class VnfGenericTestCase(unittest.TestCase):
                         'traffic_profile': 'fake_fprofile_path'}
         context_cfg = {}
         topology_yaml = {'nsd:nsd-catalog': {'nsd': [mock.Mock()]}}
-        with mock.patch.object(yaml, 'load', return_value=topology_yaml), \
-                mock.patch.object(utils, 'open_relative_file'):
+
+        with mock.patch.object(utils, 'open_relative_file') as mock_open_path:
+            mock_open_path.side_effect = mock.mock_open(read_data=str(topology_yaml))
             self.ns_testcase = vnf_generic.NetworkServiceTestCase(scenario_cfg,
                                                                   context_cfg)
         self.ns_testcase._get_traffic_profile = mock.Mock()
