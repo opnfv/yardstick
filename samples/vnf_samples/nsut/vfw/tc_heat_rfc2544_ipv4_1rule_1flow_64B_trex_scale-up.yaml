@@ -1,0 +1,89 @@
+# Copyright (c) 2016-2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+{% set mem = mem or 20480 %}
+{% set vcpus = vcpus or 10 %}
+{% set vports = vports or 2 %}
+---
+schema: yardstick:task:0.1
+scenarios:
+- type: NSPerf
+  traffic_profile: ../../traffic_profiles/ipv4_throughput-scale-up.yaml
+  extra_args:
+    vports: {{ vports }}
+  topology: vfw-tg-topology-scale-up.yaml
+  nodes:
+    tg__0: tg_0.yardstick
+    vnf__0: vnf_0.yardstick
+  options:
+    framesize:
+      uplink: {64B: 100}
+      downlink: {64B: 100}
+    flow:
+      src_ip: [
+{% for vport in range(0,vports,2|int) %}
+       {'tg__0': 'xe{{vport}}'},
+{% endfor %}  ]
+      dst_ip: [
+{% for vport in range(1,vports,2|int) %}
+      {'tg__0': 'xe{{vport}}'},
+{% endfor %}  ]
+      count: 1
+    traffic_type: 4
+    rfc2544:
+      allowed_drop_rate: 0.0001 - 0.0001
+    vnf__0:
+      rules: acl_1rule.yaml
+      vnf_config: {lb_config: 'SW', file: vfw_vnf_pipeline_cores_{{vcpus}}_ports_{{vports}}_lb_1_sw.conf }
+  runner:
+    type: Iteration
+    iterations: 10
+    interval: 35
+context:
+  # put node context first, so we don't HEAT deploy if node has errors
+  name: yardstick
+  image: yardstick-samplevnfs
+  flavor:
+    vcpus: {{ vcpus }}
+    ram: {{ mem }}
+    disk: 6
+    extra_specs:
+      hw:cpu_sockets: 1
+      hw:cpu_cores: {{ vcpus }}
+      hw:cpu_threads: 1
+  user: ubuntu
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+  servers:
+    tg_0:
+      floating_ip: true
+      placement: "pgrp1"
+    vnf_0:
+      floating_ip: true
+      placement: "pgrp1"
+  networks:
+    mgmt:
+      cidr: '10.0.1.0/24'
+{% for vport in range(1,vports,2|int) %}
+    uplink_{{loop.index0}}:
+      cidr: '10.1.{{vport}}.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    downlink_{{loop.index0}}:
+      cidr: '10.1.{{vport+1}}.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+{% endfor %}

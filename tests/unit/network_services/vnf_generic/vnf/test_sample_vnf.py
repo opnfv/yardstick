@@ -549,7 +549,8 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
     @mock.patch.object(utils, 'find_relative_file')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig')
-    def test_build_config(self, mock_multi_port_config_class, mock_find, *args):
+    @mock.patch.object(utils, 'open_relative_file')
+    def test_build_config(self, mock_open_rf, mock_multi_port_config_class, mock_find, *args):
         mock_multi_port_config = mock_multi_port_config_class()
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
@@ -560,6 +561,20 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
 
         dpdk_setup_helper.PIPELINE_COMMAND = expected = 'pipeline command'
         result = dpdk_setup_helper.build_config()
+        self.assertEqual(result, expected)
+        self.assertGreaterEqual(ssh_helper.upload_config_file.call_count, 2)
+        self.assertGreaterEqual(mock_find.call_count, 1)
+        self.assertGreaterEqual(mock_multi_port_config.generate_config.call_count, 1)
+        self.assertGreaterEqual(mock_multi_port_config.generate_script.call_count, 1)
+
+        scenario_helper.vnf_cfg = {'file': 'fake_file'}
+        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        mock_open_rf.side_effect = mock.mock_open(read_data='fake_data')
+        dpdk_setup_helper.PIPELINE_COMMAND = expected = 'pipeline command'
+
+        result = dpdk_setup_helper.build_config()
+
+        mock_open_rf.assert_called_once()
         self.assertEqual(result, expected)
         self.assertGreaterEqual(ssh_helper.upload_config_file.call_count, 2)
         self.assertGreaterEqual(mock_find.call_count, 1)
