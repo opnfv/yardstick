@@ -1,0 +1,52 @@
+# Copyright (c) 2016-2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+{% set vports = get(extra_args, 'vports', '2') %}
+nsd:nsd-catalog:
+    nsd:
+    -   id: 3tg-topology
+        name: 3tg-topology
+        short-name: 3tg-topology
+        description: 3tg-topology
+        constituent-vnfd:
+        -   member-vnf-index: '1'
+            vnfd-id-ref: tg__0
+            VNF model: ../../vnf_descriptors/tg_rfc2544_tpl.yaml      #VNF type
+        -   member-vnf-index: '2'
+            vnfd-id-ref: vnf__0
+            VNF model: ../../vnf_descriptors/vfw_vnf.yaml      #VNF type
+
+        vld:
+{% for vport in range(0,vports,2|int) %}
+        -   id: uplink_{{loop.index0}}
+            name: tg__0 to vnf__0 link {{vport + 1}}
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: '1'
+                vnfd-connection-point-ref: xe{{vport}}
+                vnfd-id-ref: tg__0
+            -   member-vnf-index-ref: '2'
+                vnfd-connection-point-ref: xe{{vport}}
+                vnfd-id-ref: vnf__0
+        -   id: downlink_{{loop.index0}}
+            name: vnf__0 to tg__0 link {{vport + 2}}
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: '2'
+                vnfd-connection-point-ref: xe{{vport+1}}
+                vnfd-id-ref: vnf__0
+            -   member-vnf-index-ref: '1'
+                vnfd-connection-point-ref: xe{{vport+1}}
+                vnfd-id-ref: tg__0
+{% endfor %}

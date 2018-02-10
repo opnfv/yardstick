@@ -17,7 +17,6 @@ import sys
 
 import mock
 import unittest
-import yaml
 
 from yardstick import tests as y_tests
 from yardstick.common import utils
@@ -53,6 +52,24 @@ uplink_{{vport}}:
 {% endfor %}
 """
 
+TOPOLOGY_PROFILE = """
+{% set vports = get(extra_args, 'vports', 2) %}
+nsd:nsd-catalog:
+    nsd:
+    -   id: 3tg-topology
+        vld:
+{% for vport in range(0,vports,2|int) %}
+        -   id: uplink_{{loop.index0}}
+            name: tg__0 to vnf__0 link {{vport + 1}}
+            vnfd-connection-point-ref:
+            -   vnfd-connection-point-ref: xe{{vport}}
+        -   id: downlink_{{loop.index0}}
+            name: vnf__0 to tg__0 link {{vport + 2}}
+            vnfd-connection-point-ref:
+            -   vnfd-connection-point-ref: xe{{vport+1}}
+{% endfor %}
+"""
+
 class VnfGenericTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -61,11 +78,13 @@ class VnfGenericTestCase(unittest.TestCase):
                         'traffic_profile': 'fake_fprofile_path'}
         context_cfg = {}
         topology_yaml = {'nsd:nsd-catalog': {'nsd': [mock.Mock()]}}
-        with mock.patch.object(yaml, 'load', return_value=topology_yaml), \
-                mock.patch.object(utils, 'open_relative_file'):
+
+        with mock.patch.object(utils, 'open_relative_file') as mock_open_path:
+            mock_open_path.side_effect = mock.mock_open(read_data=str(topology_yaml))
             self.ns_testcase = vnf_generic.NetworkServiceTestCase(scenario_cfg,
                                                                   context_cfg)
         self.ns_testcase._get_traffic_profile = mock.Mock()
+        self.ns_testcase._get_topology = mock.Mock()
 
     def test__fill_traffic_profile_no_args(self):
         traffic_profile = copy.deepcopy(TRAFFIC_PROFILE_1)
@@ -108,3 +127,69 @@ class VnfGenericTestCase(unittest.TestCase):
         config = self.ns_testcase.traffic_profile.params
         self.assertEqual({'ipv4': '192.168.0.0'}, config['uplink_0'])
         self.assertNotIn('uplink_1', config)
+
+    def test__render_topology_with_args(self):
+        topology_profile = copy.deepcopy(TOPOLOGY_PROFILE)
+        self.ns_testcase._get_topology.return_value = topology_profile
+        self.ns_testcase.scenario_cfg['extra_args'] = {'vports': 6}
+
+        self.ns_testcase._render_topology()
+        topology = self.ns_testcase.topology
+        self.assertEqual("3tg-topology", topology['id'])
+        vld = self.ns_testcase.topology['vld']
+        self.assertEqual(len(vld), 6)
+        for index, vport in enumerate(range(0, 6, 2)):
+            self.assertEqual('uplink_{}'.format(index), vld[vport]['id'])
+            self.assertEqual('tg__0 to vnf__0 link {}'.format(vport + 1), vld[vport]['name'])
+            self.assertEqual('xe{}'.format(vport),
+                             vld[vport]['vnfd-connection-point-ref'][0]
+                             ['vnfd-connection-point-ref'])
+
+            self.assertEqual('downlink_{}'.format(index), vld[vport + 1]['id'])
+            self.assertEqual('vnf__0 to tg__0 link {}'.format(vport + 2), vld[vport + 1]['name'])
+            self.assertEqual('xe{}'.format(vport + 1),
+                             vld[vport + 1]['vnfd-connection-point-ref'][0]
+                             ['vnfd-connection-point-ref'])
+
+    def test__render_topology_incorrect_args(self):
+        topology_profile = copy.deepcopy(TOPOLOGY_PROFILE)
+        self.ns_testcase._get_topology.return_value = topology_profile
+        self.ns_testcase.scenario_cfg['extra_args'] = {'fake_vports': 5}
+
+        self.ns_testcase._render_topology()
+
+        topology = self.ns_testcase.topology
+        self.assertEqual("3tg-topology", topology['id'])
+        vld = self.ns_testcase.topology['vld']
+        self.assertEqual(len(vld), 2)
+
+        self.assertEqual('uplink_0', vld[0]['id'])
+        self.assertEqual('tg__0 to vnf__0 link 1', vld[0]['name'])
+        self.assertEqual('xe0',
+                         vld[0]['vnfd-connection-point-ref'][0]['vnfd-connection-point-ref'])
+
+        self.assertEqual('downlink_0', vld[1]['id'])
+        self.assertEqual('vnf__0 to tg__0 link 2', vld[1]['name'])
+        self.assertEqual('xe1',
+                         vld[1]['vnfd-connection-point-ref'][0]['vnfd-connection-point-ref'])
+
+    def test__render_topology_no_args(self):
+        topology_profile = copy.deepcopy(TOPOLOGY_PROFILE)
+        self.ns_testcase._get_topology.return_value = topology_profile
+
+        self.ns_testcase._render_topology()
+
+        topology = self.ns_testcase.topology
+        self.assertEqual("3tg-topology", topology['id'])
+        vld = self.ns_testcase.topology['vld']
+        self.assertEqual(len(vld), 2)
+
+        self.assertEqual('uplink_0', vld[0]['id'])
+        self.assertEqual('tg__0 to vnf__0 link 1', vld[0]['name'])
+        self.assertEqual('xe0',
+                         vld[0]['vnfd-connection-point-ref'][0]['vnfd-connection-point-ref'])
+
+        self.assertEqual('downlink_0', vld[1]['id'])
+        self.assertEqual('vnf__0 to tg__0 link 2', vld[1]['name'])
+        self.assertEqual('xe1',
+                         vld[1]['vnfd-connection-point-ref'][0]['vnfd-connection-point-ref'])
