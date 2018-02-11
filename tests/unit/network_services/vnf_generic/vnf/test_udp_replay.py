@@ -462,15 +462,3 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         self.assertIsNone(udp_replay_approx_vnf.instantiate(self.SCENARIO_CFG, self.CONTEXT_CFG))
         with self.assertRaises(RuntimeError):
             udp_replay_approx_vnf.wait_for_instantiate()
-
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
-    @mock.patch(SSH_HELPER)
-    def test_terminate(self, ssh, *args):
-        mock_ssh(ssh)
-
-        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
-        udp_replay_approx_vnf._vnf_process = mock.MagicMock()
-        udp_replay_approx_vnf._vnf_process.terminate = mock.Mock()
-        udp_replay_approx_vnf.used_drivers = {"01:01.0": "i40e", "01:01.1": "i40e"}
-        udp_replay_approx_vnf.dpdk_nic_bind = "dpdk_nic_bind.py"
-        self.assertEqual(None, udp_replay_approx_vnf.terminate())

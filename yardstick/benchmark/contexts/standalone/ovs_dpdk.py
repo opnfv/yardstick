@@ -57,7 +57,7 @@ class OvsDpdkContext(Context):
         self.file_path = None
         self.sriov = []
         self.first_run = True
-        self.dpdk_nic_bind = ""
+        self.dpdk_devbind = ''
         self.vm_names = []
         self.name = None
         self.nfvi_host = []
@@ -116,12 +116,12 @@ class OvsDpdkContext(Context):
         ]
         for cmd in cmd_list:
             self.connection.execute(cmd)
-        bind_cmd = "{dpdk_nic_bind} --force -b {driver} {port}"
+        bind_cmd = "{dpdk_devbind} --force -b {driver} {port}"
         phy_driver = "vfio-pci"
-        for _, port in self.networks.items():
+        for port in self.networks.values():
             vpci = port.get("phy_port")
-            self.connection.execute(bind_cmd.format(dpdk_nic_bind=self.dpdk_nic_bind,
-                                                    driver=phy_driver, port=vpci))
+            self.connection.execute(bind_cmd.format(
+                dpdk_devbind=self.dpdk_devbind, driver=phy_driver, port=vpci))
 
     def start_ovs_serverswitch(self):
         vpath = self.ovs_properties.get("vpath")
@@ -241,7 +241,7 @@ class OvsDpdkContext(Context):
             return
 
         self.connection = ssh.SSH.from_node(self.host_mgmt)
-        self.dpdk_nic_bind = provision_tool(
+        self.dpdk_devbind = provision_tool(
             self.connection,
             os.path.join(get_nsb_option("bin_path"), "dpdk-devbind.py"))
 
@@ -249,9 +249,8 @@ class OvsDpdkContext(Context):
         self.check_ovs_dpdk_env()
         #    Todo: NFVi deploy (sriov, vswitch, ovs etc) based on the config.
         StandaloneContextHelper.install_req_libs(self.connection)
-        self.networks = StandaloneContextHelper.get_nic_details(self.connection,
-                                                                self.networks,
-                                                                self.dpdk_nic_bind)
+        self.networks = StandaloneContextHelper.get_nic_details(
+            self.connection, self.networks, self.dpdk_devbind)
 
         self.setup_ovs()
         self.start_ovs_serverswitch()
@@ -271,12 +270,12 @@ class OvsDpdkContext(Context):
         self.cleanup_ovs_dpdk_env()
 
         # Bind nics back to kernel
-        bind_cmd = "{dpdk_nic_bind} --force -b {driver} {port}"
+        bind_cmd = "{dpdk_devbind} --force -b {driver} {port}"
         for port in self.networks.values():
             vpci = port.get("phy_port")
             phy_driver = port.get("driver")
-            self.connection.execute(bind_cmd.format(dpdk_nic_bind=self.dpdk_nic_bind,
-                                                    driver=phy_driver, port=vpci))
+            self.connection.execute(bind_cmd.format(
+                dpdk_devbind=self.dpdk_devbind, driver=phy_driver, port=vpci))
 
         # Todo: NFVi undeploy (sriov, vswitch, ovs etc) based on the config.
         for vm in self.vm_names:

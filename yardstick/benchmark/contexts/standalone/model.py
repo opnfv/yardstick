@@ -310,7 +310,7 @@ class StandaloneContextHelper(object):
         return driver
 
     @classmethod
-    def get_nic_details(cls, connection, networks, dpdk_nic_bind):
+    def get_nic_details(cls, connection, networks, dpdk_devbind):
         for key, ports in networks.items():
             if key == "mgmt":
                 continue
@@ -320,11 +320,11 @@ class StandaloneContextHelper(object):
             driver = cls.get_kernel_module(connection, phy_ports, phy_driver)
 
             # Make sure that ports are bound to kernel drivers e.g. i40e/ixgbe
-            bind_cmd = "{dpdk_nic_bind} --force -b {driver} {port}"
+            bind_cmd = "{dpdk_devbind} --force -b {driver} {port}"
             lshw_cmd = "lshw -c network -businfo | grep '{port}'"
             link_show_cmd = "ip -s link show {interface}"
 
-            cmd = bind_cmd.format(dpdk_nic_bind=dpdk_nic_bind,
+            cmd = bind_cmd.format(dpdk_devbind=dpdk_devbind,
                                   driver=driver, port=ports['phy_port'])
             connection.execute(cmd)
 

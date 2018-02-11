@@ -41,7 +41,7 @@ class SriovContext(Context):
         self.file_path = None
         self.sriov = []
         self.first_run = True
-        self.dpdk_nic_bind = ""
+        self.dpdk_devbind = ''
         self.vm_names = []
         self.name = None
         self.nfvi_host = []
@@ -83,15 +83,14 @@ class SriovContext(Context):
             return
 
         self.connection = ssh.SSH.from_node(self.host_mgmt)
-        self.dpdk_nic_bind = provision_tool(
+        self.dpdk_devbind = provision_tool(
             self.connection,
-            os.path.join(get_nsb_option("bin_path"), "dpdk_nic_bind.py"))
+            os.path.join(get_nsb_option("bin_path"), "dpdk-devbind.py"))
 
         #    Todo: NFVi deploy (sriov, vswitch, ovs etc) based on the config.
         StandaloneContextHelper.install_req_libs(self.connection)
-        self.networks = StandaloneContextHelper.get_nic_details(self.connection,
-                                                                self.networks,
-                                                                self.dpdk_nic_bind)
+        self.networks = StandaloneContextHelper.get_nic_details(
+            self.connection, self.networks, self.dpdk_devbind)
         self.nodes = self.setup_sriov_context()
 
         LOG.debug("Waiting for VM to come up...")
@@ -138,7 +137,7 @@ class SriovContext(Context):
         except StopIteration:
             pass
         else:
-            raise ValueError("Duplicate nodes!!! Nodes: %s %s",
+            raise ValueError("Duplicate nodes!!! Nodes: %s %s" %
                              (node, duplicate))
 
         node["name"] = attr_name

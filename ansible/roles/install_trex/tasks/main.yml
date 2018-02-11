@@ -31,9 +31,6 @@
     dest: "{{ INSTALL_BIN_PATH }}/trex_client"
     state: link
 
-# Don't use trex/scripts/dpdk_nic_bind.py use DPDK usertools/dpdk-devbind.py
-#- command: cp "{{ INSTALL_BIN_PATH }}/trex/scripts/dpdk_nic_bind.py" "{{ INSTALL_BIN_PATH }}"
-
 - name: add scripts to PYTHONPATH
   lineinfile:
     dest: /etc/environment
