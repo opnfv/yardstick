@@ -57,3 +57,9 @@ class YardstickException(Exception):
 class FunctionNotImplemented(YardstickException):
     message = ('The function "%(function_name)s" is not implemented in '
                '"%(class_name)" class.')
+
+
+class HeatTemplateError(YardstickException):
+    """Error in Heat during the stack deployment"""
+    message = ('Error in Heat during the creation of the OpenStack stack '
+               '"%(stack_name)"')
