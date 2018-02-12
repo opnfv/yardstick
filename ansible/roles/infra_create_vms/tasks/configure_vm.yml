@@ -1,0 +1,342 @@
+# Copyright (c) 2017-2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Remove directory
+  file:
+    path: "{{ '/tmp/'+node_item.hostname }}"
+    state: absent
+
+- name: Create directory
+  file:
+    path: "{{ '/tmp/'+node_item.hostname }}"
+    state: directory
+    mode: 0755
+
+- name: Define user-data file name
+  set_fact:
+    user_data: "{{ '/tmp/'+node_item.hostname+'/user-data' }}"
+
+- name: Define image-dir
+  set_fact:
+    image_dir: "{{ '/var/lib/libvirt/images/' }}"
+
+- name: Create a new empty file for user-data
+  file:
+    path: "{{ user_data }}"
+    state: touch
+
+- name: Add user-data
+  blockinfile:
+    path: "{{ user_data }}"
+    marker: "MARKER"
+    content: |
+      #cloud-config
+      preserve_hostname: False
+      hostname: {{ node_item.hostname }}
+      output:
+        all: ">> /var/log/cloud-init.log"
+      ssh_pwauth: True
+      bootcmd:
+        - echo 127.0.0.1 {{ node_item.hostname }} >> /etc/hosts
+      users:
+          - name: {{ node_item.user }}
+            lock-passwd: False
+            plain_text_passwd: {{ node_item.password }}
+            chpasswd: { expire: False }
+            sudo: ALL=(ALL) NOPASSWD:ALL
+            ssh_pwauth: True
+
+- name: Remove the marker
+  lineinfile:
+    dest: "{{ user_data }}"
+    state: absent
+    regexp: "MARKER"
+
+- name: Define network-config file name
+  set_fact:
+    network_config: "{{ '/tmp/'+node_item.hostname+'/network-config' }}"
+
+- name: Create a new empty file for network-config
+  file:
+    path: "{{ network_config }}"
+    state: touch
+
+- name: Add network-data
+  blockinfile:
+    path: "{{ network_config }}"
+    marker: "MARKER"
+    content: |
+      version: 2
+      ethernets:
+
+- name: Define meta-data file name
+  set_fact:
+    meta_data: "{{ '/tmp/'+node_item.hostname+'/meta-data' }}"
+
+- name: Create a new empty file for meta-data
+  file:
+    path: "{{ meta_data }}"
+    state: touch
+
+- name: Add meta-data
+  blockinfile:
+    path: "{{ meta_data }}"
+    marker: "MARKER"
+    content: |
+      instance-id: {{ node_item.hostname }}
+      local-hostname: {{ node_item.hostname }}
+
+- name: Remove the marker
+  lineinfile:
+    dest: "{{ meta_data }}"
+    state: absent
+    regexp: "MARKER"
+
+- name: Define xml file name
+  set_fact:
+    xml_file: "{{ '/tmp/'+node_item.hostname+'/'+node_item.hostname+'.xml' }}"
+
+- name: Create a new empty file for xml file
+  file:
+    path: "{{ xml_file }}"
+    state: touch
+
+- name: Add root "domain" node
+  blockinfile:
+    path: "{{ xml_file }}"
+    marker: ""
+    content: |
+      <domain>
+      </domain>
+
+- name: Add "type" attribute to "domain" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain
+    attribute: type
+    value: "kvm"
+    pretty_print: yes
+
+- name: Add new children nodes to "domain" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain
+    add_children:
+      - name: "{{ node_item.hostname }}"
+      - memory: "{{ node_item.ram }}"
+      - vcpu: "{{ node_item.vcpus }}"
+      - os
+      - cpu
+      - devices
+    pretty_print: yes
+
+- name: Add "unit" attribute to "memory" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/memory
+    attribute: unit
+    value: "MB"
+    pretty_print: yes
+
+- name: Add "placement" attribute to "vcpu" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/vcpu
+    attribute: placement
+    value: "static"
+    pretty_print: yes
+
+- name: Add new children nodes to "os" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/os
+    add_children:
+      - type: "hvm"
+      - boot
+    pretty_print: yes
+
+- name: Add "arch" attribute to "type" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/os/type
+    attribute: arch
+    value: "x86_64"
+    pretty_print: yes
+
+- name: Add "dev" attribute to "boot" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/os/boot
+    attribute: dev
+    value: "hd"
+    pretty_print: yes
+
+- name: Add new children nodes to "cpu" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/cpu
+    add_children:
+      - cache
+    pretty_print: yes
+
+- name: Add "mode" attribute to "cpu" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/cpu
+    attribute: mode
+    value: "host-passthrough"
+    pretty_print: yes
+
+- name: Add "mode" attribute to "cache" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/cpu/cache
+    attribute: mode
+    value: "passthrough"
+    pretty_print: yes
+
+- name: Add new children nodes to "devices" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/devices
+    add_children:
+      - disk:
+          type: file
+          device: disk
+      - controller:
+          type: virtio-serial
+          index: '0'
+      - serial:
+          type: pty
+      - console:
+          type: pty
+          tty: '/dev/pts/14'
+    pretty_print: yes
+
+- name: Add new children nodes to "disk" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/devices/disk
+    add_children:
+      - driver:
+          name: qemu
+          type: qcow2
+      - source:
+          file: "{{ '/var/lib/libvirt/images/'+node_item.hostname+'.qcow2' }}"
+      - target:
+          dev: vda
+          bus: virtio
+      - alias:
+          name: virtio-disk0
+    pretty_print: yes
+
+- name: Add new children nodes to "devices" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/devices
+    add_children:
+      - disk:
+          type: file
+          device: cdrom
+    pretty_print: yes
+
+- name: Add new children nodes to "disk" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/devices/disk
+    add_children:
+      - source:
+          file: "{{ '/var/lib/libvirt/images/'+node_item.hostname+'-ci-data.img' }}"
+      - target:
+          dev: hdb
+          bus: ide
+      - readonly
+    pretty_print: yes
+
+- name: Configure controller
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/devices/controller
+    add_children:
+      - alias:
+          name: virtio-serial0
+    pretty_print: yes
+
+- name: Configure serial
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/devices/serial
+    add_children:
+      - source:
+          path: '/dev/pts/14'
+      - target:
+          port: '0'
+      - alias:
+          name: 'serial0'
+    pretty_print: yes
+
+- name: Configure console
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/devices/console
+    add_children:
+      - source:
+          path: '/dev/pts/14'
+      - target:
+          port: '0'
+          type: 'serial'
+      - alias:
+          name: 'serial0'
+    pretty_print: yes
+
+- set_fact:
+    slot_address: 5
+
+- name: Populate network-config and add interface to xml file
+  include_tasks: create_interfaces.yml
+  extra_vars: "{{ network_config, xml_file , slot_address, mac_address_counter }}"
+  loop_control:
+    loop_var: interface_item
+  with_items: "{{ node_item.interfaces }}"
+
+- name: Create directory
+  file:
+    path: "{{ '/tmp/'+node_item.hostname }}"
+    state: directory
+    mode: 0755
+
+- name: Generate iso image
+  shell: >
+    genisoimage -output {{ image_dir+node_item.hostname+'-ci-data.img' }} -volid cidata -joliet
+    -r {{ '/tmp/'+node_item.hostname+'/network-config' }} {{ '/tmp/'+node_item.hostname+'/user-data' }} {{ '/tmp/'+node_item.hostname+'/meta-data' }}
+    &>> {{ '/tmp/'+node_item.hostname+'/hostname.log' }}
+
+- name: Copy and convert the ubuntu image
+  shell: >
+    qemu-img convert -O qcow2 {{ node_item.image }} {{ image_dir+node_item.hostname+'.qcow2' }}
+
+- name: Copy and convert the ubuntu image
+  shell: >
+    qemu-img resize {{ image_dir+node_item.hostname+'.qcow2' }} {{ node_item.disk }}MB
+
+- name: Define the VMs
+  virt:
+    command: define
+    name: "{{ node_item.hostname }}"
+    xml: "{{ lookup('file', '/tmp/'+node_item.hostname+'/'+node_item.hostname+'.xml') }}"
+
+- name: Start the VMs
+  virt:
+    command: create
+    name: "{{ node_item.hostname }}"

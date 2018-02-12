@@ -1,0 +1,65 @@
+# Copyright (c) 2017-2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Add network-data
+  blockinfile:
+    path: "{{ network_config }}"
+    insertafter: 'ethernets:'
+    marker: "MARKER"
+    block: |2
+        {{ 'enp0s%d:'| format( slot_address | int) }}
+          match:
+            mac_address: {{ '52:54:00:5d:7d:%02x'| format( mac_address_counter | int) }}
+          addresses:
+            - {{ interface_item.ip }}/{{ interface_item.netmask }}
+
+
+- name: Remove the marker introduced in network-data
+  lineinfile:
+    dest: "{{ network_config }}"
+    state: absent
+    regexp: "MARKER"
+
+- name: Add new children nodes to "domain" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/devices
+    add_children:
+      - interface:
+          type: 'bridge'
+    pretty_print: yes
+
+- name: Add new children nodes to "domain" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/devices/interface
+    add_children:
+      - source:
+          bridge: "{{ interface_item.network }}"
+      - model:
+          type: 'virtio'
+      - address:
+          type: 'pci'
+          domain: '0x0000'
+          bus: '0x00'
+          slot: "{{ '0x%02x'| format( slot_address | int) }}"
+          function: '0x0'
+      - mac:
+          address: "{{ '52:54:00:5d:7d:%02x'| format( mac_address_counter | int) }}"
+    pretty_print: yes
+
+- set_fact:
+    slot_address: "{{ slot_address | int + 1 }}"
+- set_fact:
+    mac_address_counter: "{{ mac_address_counter | int + 1 }}"
