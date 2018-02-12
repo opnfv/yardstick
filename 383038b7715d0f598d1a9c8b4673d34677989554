@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_2068e4f4",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_ixload.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-12T17:20:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_42bc2bbb",
+      "range": {
+        "startLine": 300,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 76
+      },
+      "revId": "383038b7715d0f598d1a9c8b4673d34677989554",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_420b8bd5",
         "filename": "tests/unit/network_services/vnf_generic/vnf/test_tg_rfc2544_ixia.py",
         "patchSetId": 3
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "??\n\nI don\u0027t understand. I have moved \"find_relative_file\" form vnf_generic to utils.\n\nI must import this library.",
       "parentUuid": "9a3d3df0_22c76765",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 34
+      },
+      "revId": "383038b7715d0f598d1a9c8b4673d34677989554",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_806d7807",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vfw_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-12T17:20:02Z",
+      "side": 1,
+      "message": "Related to the comment on the base commit.",
+      "parentUuid": "9a3d3df0_229e4763",
       "range": {
         "startLine": 17,
         "startChar": 1,
