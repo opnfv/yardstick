@@ -1,0 +1,106 @@
+# Copyright (c) 2017-2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Define XML file name
+  set_fact:
+    xml_file: "{{ '/tmp/'+item.name+'.xml' }}"
+
+- name: Delete the file, if exists
+  file:
+    path: "{{ xml_file }}"
+    state: absent
+
+- name: Create a new empty file
+  file:
+    path: "{{ xml_file }}"
+    state: touch
+
+- name: Add root "network" node
+  blockinfile:
+    path: "{{ xml_file }}"
+    marker: ""
+    content: |
+      <network>
+      </network>
+
+- name: Add new children nodes to "network" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /network
+    add_children:
+      - name: "{{ item.name }}"
+      - bridge
+      - ip
+    pretty_print: yes
+
+- name: Add "name" attribute to "bridge" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /network/bridge
+    attribute: name
+    value: "{{ item.name }}"
+    pretty_print: yes
+
+- name: Add "stp" attribute to "bridge" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /network/bridge
+    attribute: stp
+    value: "on"
+    pretty_print: yes
+
+- name: Add "delay" attribute to "bridge" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /network/bridge
+    attribute: delay
+    value: "0"
+    pretty_print: yes
+
+- name: Add "address" attribute to "ip" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /network/ip
+    attribute: address
+    value: "{{ item.host_ip }}"
+    pretty_print: yes
+
+- name: Add "netmask" attribute to "ip" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /network/ip
+    attribute: netmask
+    value: "{{ item.netmask }}"
+    pretty_print: yes
+
+- name: Define the networks
+  virt_net:
+    command: define
+    name: "{{ item.name }}"
+    xml: "{{ lookup('file', xml_file) }}"
+
+- name: Set autostart to yes
+  virt_net:
+    autostart: yes
+    name: "{{ item.name }}"
+
+- name: Start the networks
+  virt_net:
+    command: start
+    name: "{{ item.name }}"
+
+- name: Remove XML file
+  file:
+    path: "{{ xml_file }}"
+    state: absent
