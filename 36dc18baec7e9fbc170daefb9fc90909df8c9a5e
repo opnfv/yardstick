@@ -22,6 +22,30 @@
       "revId": "36dc18baec7e9fbc170daefb9fc90909df8c9a5e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_400530c1",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-12T11:02:42Z",
+      "side": 1,
+      "message": "Yes, it\u0027s only the host port mapping which has changed.",
+      "parentUuid": "5a3f45e8_e0b55c32",
+      "range": {
+        "startLine": 505,
+        "startChar": 49,
+        "endLine": 505,
+        "endChar": 53
+      },
+      "revId": "36dc18baec7e9fbc170daefb9fc90909df8c9a5e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
