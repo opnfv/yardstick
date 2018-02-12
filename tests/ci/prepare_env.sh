@@ -85,37 +85,36 @@ verify_connectivity() {
 ssh_options="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 if [ "$INSTALLER_TYPE" == "fuel" ]; then
-    #ip_fuel="10.20.0.2"
+
+    # check the connection
     verify_connectivity $INSTALLER_IP
 
+    pod_yaml="$YARDSTICK_REPO_DIR/etc/yardstick/nodes/fuel_baremetal/pod.yaml"
+
+    # update "ip" according to the CI env
     ssh -l ubuntu ${INSTALLER_IP} -i ${SSH_KEY} ${ssh_options} \
          "sudo salt -C 'ctl* or cmp*' grains.get fqdn_ip4  --out yaml">node_info
 
-    # update node ip info according to the CI env
     controller_ips=($(cat node_info|awk '/ctl/{getline; print $2}'))
     compute_ips=($(cat node_info|awk '/cmp/{getline; print $2}'))
 
-    pod_yaml="./etc/yardstick/nodes/fuel_baremetal/pod.yaml"
-    node_line_num=($(grep -n node[1-5] $pod_yaml | awk -F: '{print $1}'))
-    node_ID=0;
-
-    # update 'user' and 'key_filename' according to CI env
-    sed -i "s|node_username|${USER_NAME}|;s|node_keyfile|${SSH_KEY}|" $pod_yaml;
-
     if [[ ${controller_ips[0]} ]]; then
-        sed -i "${node_line_num[0]}s/node1/node$((++node_ID))/;s/ip1/${controller_ips[0]}/" $pod_yaml;
+        sed -i "s|ip1|${controller_ips[0]}|" $pod_yaml;
     fi
     if [[ ${controller_ips[1]} ]]; then
-        sed -i "${node_line_num[1]}s/node2/node$((++node_ID))/;s/ip2/${controller_ips[1]}/" $pod_yaml;
+        sed -i "s|ip2|${controller_ips[1]}|" $pod_yaml;
     fi
     if [[ ${controller_ips[2]} ]]; then
-        sed -i "${node_line_num[2]}s/node3/node$((++node_ID))/;s/ip3/${controller_ips[2]}/" $pod_yaml;
+        sed -i "s|ip3|${controller_ips[2]}|" $pod_yaml;
     fi
     if [[ ${compute_ips[0]} ]]; then
-        sed -i "${node_line_num[3]}s/node4/node$((++node_ID))/;s/ip4/${compute_ips[0]}/" $pod_yaml;
+        sed -i "s|ip4|${compute_ips[0]}|" $pod_yaml;
     fi
     if [[ ${compute_ips[1]} ]]; then
-        sed -i "${node_line_num[4]}s/node5/node$((++node_ID))/;s/ip5/${compute_ips[1]}/" $pod_yaml;
+        sed -i "s|ip5|${compute_ips[1]}|" $pod_yaml;
     fi
+
+    # update 'user' and 'key_filename' according to the CI env
+    sed -i "s|node_username|${USER_NAME}|;s|node_keyfile|${SSH_KEY}|" $pod_yaml;
 
 fi
