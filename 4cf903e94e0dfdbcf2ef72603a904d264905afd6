@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_fdfb4745",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-12T09:28:05Z",
+      "side": 1,
+      "message": "Please, add JIRA: YARDSTICK-1005\n\nI created this ticket for this bug.",
+      "revId": "4cf903e94e0dfdbcf2ef72603a904d264905afd6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
