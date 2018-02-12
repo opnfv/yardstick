@@ -59,7 +59,7 @@ class HeatStackTestCase(unittest.TestCase):
         with mock.patch.object(tempfile._TemporaryFileWrapper, '__enter__',
                                return_value=mock_tfile):
             self.heatstack.create(template, heat_parameters, True, 100)
-            mock_tfile.write.assert_called_once_with(jsonutils.dumps(template))
+            mock_tfile.write.assert_called_once_with(jsonutils.dump_as_bytes(template))
             mock_tfile.close.assert_called_once()
 
         self.mock_stack_create.assert_called_once_with(
