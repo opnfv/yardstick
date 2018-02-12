@@ -53,7 +53,7 @@ class HeatStack(object):
     def create(self, template, heat_parameters, wait, timeout):
         """Creates an OpenStack stack from a template"""
         with tempfile.NamedTemporaryFile('wb', delete=False) as template_file:
-            template_file.write(jsonutils.dumps(template))
+            template_file.write(jsonutils.dump_as_bytes(template))
             template_file.close()
             self._stack = self._cloud.create_stack(
                 self.name, template_file=template_file.name, wait=wait,
