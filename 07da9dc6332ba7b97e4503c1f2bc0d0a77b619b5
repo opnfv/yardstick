@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_20362404",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-02-12T17:41:34Z",
+      "side": 1,
+      "message": "shouldn\u0027t be \"%(start_ip)s\" instead of \"%(start_ip)\"?\n\nmsg \u003d \u0027Start IP \"%(start_ip)\" is greater than end IP %(end_ip)s\u0027 % {\u0027start_ip\u0027:\u00271.2.3.4\u0027, \u0027end_ip\u0027:\u00271.2.3.4\u0027}\nTraceback (most recent call last):\n  File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e\nValueError: unsupported format character \u0027\"\u0027 (0x22) at index 21",
+      "revId": "07da9dc6332ba7b97e4503c1f2bc0d0a77b619b5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
