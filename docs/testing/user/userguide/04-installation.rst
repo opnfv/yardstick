@@ -464,7 +464,7 @@ Thirdly, create and configure Grafana container::
 
    yardstick env grafana
 
-Then you can run a test case and visit http://host_ip:3000
+Then you can run a test case and visit http://host_ip:1948
 (``admin``/``admin``) to see the results.
 
 .. note:: Executing ``yardstick env`` command to deploy InfluxDB and Grafana
@@ -502,9 +502,9 @@ Configure influxDB::
 
 Run Grafana::
 
-   sudo -EH docker run -d --name grafana -p 3000:3000 grafana/grafana
+   sudo -EH docker run -d --name grafana -p 1948:3000 grafana/grafana
 
-Log on http://{YOUR_IP_HERE}:3000 using ``admin``/``admin`` and configure
+Log on http://{YOUR_IP_HERE}:1948 using ``admin``/``admin`` and configure
 database resource to be ``{YOUR_IP_HERE}:8086``.
 
 .. image:: images/Grafana_config.png
