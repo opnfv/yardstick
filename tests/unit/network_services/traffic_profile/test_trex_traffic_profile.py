@@ -29,16 +29,16 @@ stl_patch.start()
 
 if stl_patch:
     from yardstick.network_services.traffic_profile.base import TrafficProfile
-    from yardstick.network_services.traffic_profile.traffic_profile import TrexProfile
-    from yardstick.network_services.traffic_profile.traffic_profile import SRC
-    from yardstick.network_services.traffic_profile.traffic_profile import DST
-    from yardstick.network_services.traffic_profile.traffic_profile import ETHERNET
-    from yardstick.network_services.traffic_profile.traffic_profile import IP
-    from yardstick.network_services.traffic_profile.traffic_profile import IPv6
-    from yardstick.network_services.traffic_profile.traffic_profile import UDP
-    from yardstick.network_services.traffic_profile.traffic_profile import SRC_PORT
-    from yardstick.network_services.traffic_profile.traffic_profile import DST_PORT
-    from yardstick.network_services.traffic_profile.traffic_profile import TYPE_OF_SERVICE
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import TrexProfile
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import SRC
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import DST
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import ETHERNET
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import IP
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import IPv6
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import UDP
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import SRC_PORT
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import DST_PORT
+    from yardstick.network_services.traffic_profile.trex_traffic_profile import TYPE_OF_SERVICE
 
 
 class TestTrexProfile(unittest.TestCase):
