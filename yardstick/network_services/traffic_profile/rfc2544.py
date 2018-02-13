@@ -21,7 +21,7 @@ from trex_stl_lib.trex_stl_client import STLStream
 from trex_stl_lib.trex_stl_streams import STLFlowLatencyStats
 from trex_stl_lib.trex_stl_streams import STLTXCont
 
-from yardstick.network_services.traffic_profile.traffic_profile \
+from yardstick.network_services.traffic_profile.trex_traffic_profile \
     import TrexProfile
 
 LOGGING = logging.getLogger(__name__)
