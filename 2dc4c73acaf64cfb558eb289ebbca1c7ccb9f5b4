@@ -171,6 +171,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_43189a84",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-13T10:55:54Z",
+      "side": 1,
+      "message": "Why Fedora?",
+      "parentUuid": "9a3d3df0_06937750",
+      "range": {
+        "startLine": 148,
+        "startChar": 15,
+        "endLine": 148,
+        "endChar": 41
+      },
+      "revId": "2dc4c73acaf64cfb558eb289ebbca1c7ccb9f5b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_a6ebabda",
         "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
         "patchSetId": 21
@@ -277,6 +301,30 @@
       "side": 1,
       "message": "lshw is not installed by default, at least not on Fedora.\n\nwe also used to use subsystem_vendor to identify exact NIC model, e.g. X520, X540, variants, etc.\n\nThis is a generalize sysfs dump, it can be expanded as new kernel attributes are added.",
       "parentUuid": "9a3d3df0_46829f00",
+      "range": {
+        "startLine": 237,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 36
+      },
+      "revId": "2dc4c73acaf64cfb558eb289ebbca1c7ccb9f5b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e32ba692",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-13T10:55:54Z",
+      "side": 1,
+      "message": "But this is for SampleVNF and it\u0027s based on Ubuntu. And if we add a new base image, we can always add this tool.",
+      "parentUuid": "9a3d3df0_e695b333",
       "range": {
         "startLine": 237,
         "startChar": 0,
