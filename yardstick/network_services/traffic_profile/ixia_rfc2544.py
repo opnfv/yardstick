@@ -15,7 +15,7 @@
 from __future__ import absolute_import
 import logging
 
-from yardstick.network_services.traffic_profile.traffic_profile import \
+from yardstick.network_services.traffic_profile.trex_traffic_profile import \
     TrexProfile
 
 LOG = logging.getLogger(__name__)
