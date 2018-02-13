@@ -17,15 +17,8 @@ import time
 import mock
 import unittest
 
-from yardstick.tests.unit import STL_MOCKS
-
-STLClient = mock.MagicMock()
-stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
-stl_patch.start()
-
-if stl_patch:
-    from yardstick.benchmark.runners.search import SearchRunner
-    from yardstick.benchmark.runners.search import SearchRunnerHelper
+from yardstick.benchmark.runners.search import SearchRunner
+from yardstick.benchmark.runners.search import SearchRunnerHelper
 
 
 class TestSearchRunnerHelper(unittest.TestCase):
