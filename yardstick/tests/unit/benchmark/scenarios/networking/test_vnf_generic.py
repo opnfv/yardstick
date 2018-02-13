@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Copyright (c) 2016-2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,10 +13,6 @@
 # limitations under the License.
 #
 
-# Unittest for yardstick.benchmark.scenarios.networking.test_vnf_generic
-
-from __future__ import absolute_import
-
 import os
 import errno
 import unittest
@@ -26,17 +20,12 @@ import mock
 
 from copy import deepcopy
 
-from yardstick.tests.unit import STL_MOCKS
 from yardstick.benchmark.scenarios.networking.vnf_generic import \
     SshManager, NetworkServiceTestCase, IncorrectConfig, \
     open_relative_file
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.vnf_generic.vnf.base import \
     GenericTrafficGen, GenericVNF
-
-
-# pylint: disable=unused-argument
-# disable this for now because I keep forgetting mock patch arg ordering
 
 
 COMPLETE_TREX_VNFD = {
@@ -425,16 +414,15 @@ class TestNetworkServiceTestCase(unittest.TestCase):
 
     def test_get_vnf_imp(self):
         vnfd = COMPLETE_TREX_VNFD['vnfd:vnfd-catalog']['vnfd'][0]['class-name']
-        with mock.patch.dict("sys.modules", STL_MOCKS):
-            self.assertIsNotNone(self.s.get_vnf_impl(vnfd))
+        self.assertIsNotNone(self.s.get_vnf_impl(vnfd))
 
-            with self.assertRaises(IncorrectConfig) as raised:
-                self.s.get_vnf_impl('NonExistentClass')
+        with self.assertRaises(IncorrectConfig) as raised:
+            self.s.get_vnf_impl('NonExistentClass')
 
-            exc_str = str(raised.exception)
-            print(exc_str)
-            self.assertIn('No implementation', exc_str)
-            self.assertIn('found in', exc_str)
+        exc_str = str(raised.exception)
+        print(exc_str)
+        self.assertIn('No implementation', exc_str)
+        self.assertIn('found in', exc_str)
 
     def test_load_vnf_models_invalid(self):
         self.context_cfg["nodes"]['tg__1']['VNF model'] = \
@@ -626,14 +614,13 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                              self.s._get_traffic_imix())
 
     def test__fill_traffic_profile(self):
-        with mock.patch.dict("sys.modules", STL_MOCKS):
-            self.scenario_cfg["traffic_profile"] = \
-                self._get_file_abspath("ipv4_throughput_vpe.yaml")
-            self.scenario_cfg["traffic_options"]["flow"] = \
-                self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
-            self.scenario_cfg["traffic_options"]["imix"] = \
-                self._get_file_abspath("imix_voice.yaml")
-            self.assertIsNotNone(self.s._fill_traffic_profile())
+        self.scenario_cfg["traffic_profile"] = \
+            self._get_file_abspath("ipv4_throughput_vpe.yaml")
+        self.scenario_cfg["traffic_options"]["flow"] = \
+            self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
+        self.scenario_cfg["traffic_options"]["imix"] = \
+            self._get_file_abspath("imix_voice.yaml")
+        self.assertIsNotNone(self.s._fill_traffic_profile())
 
     def test_teardown(self):
         vnf = mock.Mock(autospec=GenericVNF)
