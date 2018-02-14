@@ -21,3 +21,9 @@ service-status:
   monitor_script: ha_tools/check_service.bash
 ip-status:
   monitor_script: ha_tools/network/ping.bash
+ping-same-network-l2:
+  monitor_script: ha_tools/network/ping_from_nova_instance.bash
+ping-other-network-l3:
+  monitor_script: ha_tools/network/ping_from_nova_instance.bash
+ping-external-snat:
+  monitor_script: ha_tools/network/ping_from_nova_instance.bash
