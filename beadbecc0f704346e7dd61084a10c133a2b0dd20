@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_316838f5",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 34
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-14T04:52:22Z",
+      "side": 1,
+      "message": "renamed the other methods",
+      "parentUuid": "5a3f45e8_e302860a",
+      "range": {
+        "startLine": 172,
+        "startChar": 8,
+        "endLine": 172,
+        "endChar": 13
+      },
+      "revId": "beadbecc0f704346e7dd61084a10c133a2b0dd20",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_8609102f",
         "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
         "patchSetId": 34
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_b18568af",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 34
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-14T04:52:22Z",
+      "side": 1,
+      "message": "legacy from ISB.  If iproute2 is not present then we will have problem?  Or not.  I guess since we dpdk-devbind we don\u0027t need iproute2.\n\nremoved",
+      "parentUuid": "5a3f45e8_8609102f",
+      "range": {
+        "startLine": 187,
+        "startChar": 16,
+        "endLine": 187,
+        "endChar": 36
+      },
+      "revId": "beadbecc0f704346e7dd61084a10c133a2b0dd20",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_86f3d009",
         "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
         "patchSetId": 34
@@ -105,6 +153,30 @@
       "writtenOn": "2018-02-13T10:55:54Z",
       "side": 1,
       "message": "We should avoid this. If the provision tool (dpdk-devbind) is not in the VNF, that means DPDK is not installed or compiled.\n\nThis must be ensured during the VNF creation, not in runtime.",
+      "range": {
+        "startLine": 309,
+        "startChar": 7,
+        "endLine": 312,
+        "endChar": 33
+      },
+      "revId": "beadbecc0f704346e7dd61084a10c133a2b0dd20",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_11937cfb",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 34
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-14T04:52:22Z",
+      "side": 1,
+      "message": "okay",
+      "parentUuid": "5a3f45e8_86f3d009",
       "range": {
         "startLine": 309,
         "startChar": 7,
