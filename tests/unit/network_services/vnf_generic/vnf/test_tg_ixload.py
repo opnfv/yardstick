@@ -151,6 +151,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.shutil")
     def test_instantiate(self, call, shutil, mock_makedirs):
+        # pylint: disable=unused-argument
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -185,6 +186,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.max")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.len")
     def test_run_traffic(self, call, shutil, main_open, min, max, len):
+        # pylint: disable=unused-argument
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
@@ -216,6 +218,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.max")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.len")
     def test_run_traffic_csv(self, call, shutil, main_open, min, max, len):
+        # pylint: disable=unused-argument
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
@@ -243,7 +246,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
             self.assertIsNone(result)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
-    def test_terminate(self, call):
+    def test_terminate(self, *args):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -256,6 +259,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
     @mock.patch("yardstick.ssh.SSH")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
     def test_parse_csv_read(self, mock_call, mock_ssh):
+        # pylint: disable=unused-argument
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         kpi_data = {
             'HTTP Total Throughput (Kbps)': 1,
@@ -280,6 +284,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
     @mock.patch("yardstick.ssh.SSH")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
     def test_parse_csv_read_value_error(self, mock_call, mock_ssh):
+        # pylint: disable=unused-argument
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         http_reader = [{
             'HTTP Total Throughput (Kbps)': 1,
@@ -302,6 +307,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
     @mock.patch("yardstick.ssh.SSH")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
     def test_parse_csv_read_error(self, mock_call, mock_ssh):
+        # pylint: disable=unused-argument
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         http_reader = [{
             'HTTP Total Throughput (Kbps)': 1,
