@@ -1,0 +1,92 @@
+##############################################################################
+## Copyright (c) 2018 Intracom Telecom and others.
+##
+## All rights reserved. This program and the accompanying materials
+## are made available under the terms of the Apache License, Version 2.0
+## which accompanies this distribution, and is available at
+## http://www.apache.org/licenses/LICENSE-2.0
+###############################################################################
+---
+
+schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC087 config file;
+    SDN Controller resilience in non-HA configuration
+
+
+{% set attack_host = attack_host or 'node1' %}
+
+scenarios:
+- type: ServiceHA
+    options:
+      attackers:
+      - fault_type: "kill-process"
+        process_name: "opendaylight"
+        host: {{attack_host}}
+
+
+      monitors:
+        - monitor_type: "general-monitor"
+          monitor_key: "ping-same-network-l2"
+          key: "layer-two"
+          monitor_time: 10
+          sla:
+            packet_drop:
+          parameter:
+            floating_ip: "@floating_ip"
+            destination_ip: "@l2_destination_ip"
+            user: cirros
+            password: cubswin:)
+
+        - monitor_type: "general-monitor"
+          monitor_key: "ping_other_network_l3"
+          key: "layer-three"
+          monitor_time: 10
+          sla:
+            packet_drop:
+          parameter:
+            floating_ip: "@floating_ip"
+            destination_ip: "@l3_destination_ip"
+            user: cirros
+            password: cubswin:)
+
+        - monitor_type: "general-monitor"
+          monitor_key: "ping_external_snat"
+          key: "layer-three"
+          monitor_time: 10
+          sla:
+            packet_drop:
+          parameter:
+            floating_ip: "@floating_ip"
+            user: cirros
+            password: cubswin:)
+
+
+  context:
+    name: ODLnoHA
+    image: cirros-0.3.5
+    flavor: yardstick-flavor
+    user: cirros
+    password: cubswin:)
+
+    placement_groups:
+      pgrp1:
+        policy: "availability"
+
+    servers:
+      athena:
+        floating_ip: true
+        placement: "pgrp1"
+      ares:
+        placement: "pgrp1"
+
+    networks:
+      test:
+        cidr: '10.0.1.0/24'
+        {% if provider == "vlan" %}
+        provider: {{provider}}
+        physical_network: {{physical_network}}
+          {% if segmentation_id %}
+        segmentation_id: {{segmentation_id}}
+          {% endif %}
+        {% endif %}
