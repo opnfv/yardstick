@@ -1,0 +1,163 @@
+##############################################################################
+## Copyright (c) 2018 Intracom Telecom and others.
+##
+## All rights reserved. This program and the accompanying materials
+## are made available under the terms of the Apache License, Version 2.0
+## which accompanies this distribution, and is available at
+## http://www.apache.org/licenses/LICENSE-2.0
+###############################################################################
+---
+
+schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC087 config file;
+    SDN Controller resilience in non-HA configuration
+
+
+
+scenarios:
+-
+      type: ServiceHA
+      options:
+          attackers:
+          - fault_type: "kill-process"
+            process_name: "opendaylight"
+            host: odl01
+
+          wait_time: 10
+          monitors:
+            - monitor_type: "process"
+              process_name: "opendaylight"
+              host: "opendaylight"
+              key: "monitor-recovery"
+              monitor_time: 30
+              sla:
+                max_recover_time: 30
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ping-same-network-l2"
+              key: "layer-two"
+              monitor_time: 10
+              sla:
+                packet_drop: 0
+              parameter:
+                user: ubuntu
+                floating_ip: "@floating_ip"
+                destination_ip: "@l2_destination_ip"
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ping-other-network-l3"
+              key: "layer-three"
+              monitor_time: 10
+              sla:
+                packet_drop: 0
+              parameter:
+                user: ubuntu
+                floating_ip: "@floating_ip"
+                destination_ip: "@l3_destination_ip"
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ping-external-snat"
+              key: "snat"
+              monitor_time: 10
+              sla:
+                packet_drop: 0
+              parameter:
+                user: ubuntu
+                floating_ip: "@floating_ip"
+                destination_ip: "www.google.com"
+
+          operations:
+            - operation_type: "general-operation"
+              key: "get-floatingip"
+              operation_key: "get-floatingip"
+              action_parameter:
+                server_name: "athena"
+              return_parameter:
+                all: "@floating_ip"
+
+            - operation_type: "general-operation"
+              key: "create-nova-instance"
+              operation_key: "create-nova-instance"
+              action_parameter:
+                server_name: zeus
+                image-name: yardstick-image
+                flavor-name: yardstick-flavor
+                network-name: test_one
+              return_parameter:
+                all: "@floating_ip"
+
+          steps:
+            - actionKey: "get-floatingip"
+              actionType: "operation"
+              index: 1
+
+            - actionKey: "layer-two"
+              actionType: "monitor"
+              index: 2
+
+            - actionKey: "layer-three"
+              actionType: "monitor"
+              index: 3
+
+            - actionKey: "snat"
+              actionType: "monitor"
+              index: 4
+
+            - actionKey: "kill-process"
+              actionType: "attacker"
+              index: 5
+
+            - actionKey: "create-nova-instance"
+              actionType: "operation"
+              index: 6
+
+      nodes:
+        odl01: odl01.LF
+      runner:
+        type: Duration
+        duration: 1
+      sla:
+        outage_time: 5
+        action: monitor
+
+contexts:
+    -
+        type: Node
+        name: LF
+        file: /etc/yardstick/nodes/fuel_virtual/pod.yaml
+    -
+        name: ODLnoHA1
+        image: yardstick-image
+        flavor: yardstick-flavor
+        user: ubuntu
+        placement_groups:
+            pgrp1:
+                policy: "availability"
+        servers:
+            athena_test_one:
+                floating_ip: true
+                placement: "pgrp1"
+            ares_test_one:
+                placement: "pgrp1"
+        networks:
+            test_one:
+                cidr: '10.0.1.0/24'
+                router: 'test_router'
+
+    -
+        name: ODLnoHA2
+        image: yardstick-image
+        flavor: yardstick-flavor
+        user: ubuntu
+        placement_groups:
+            pgrp1:
+                policy: "availability"
+        servers:
+            hermes_test_two:
+                placement: "pgrp1"
+        networks:
+            test_two:
+                cidr: '10.0.2.0/24'
+                router: 'test_router'
+
