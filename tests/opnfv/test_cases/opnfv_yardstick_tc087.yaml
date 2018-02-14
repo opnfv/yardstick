@@ -1,0 +1,227 @@
+##############################################################################
+## Copyright (c) 2018 Intracom Telecom and others.
+##
+## All rights reserved. This program and the accompanying materials
+## are made available under the terms of the Apache License, Version 2.0
+## which accompanies this distribution, and is available at
+## http://www.apache.org/licenses/LICENSE-2.0
+###############################################################################
+---
+
+schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC087 config file;
+    SDN Controller resilience in non-HA configuration
+
+
+
+scenarios:
+
+-
+      type: "GeneralHA"
+      options:
+          wait_time: 10
+          monitors:
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ip-status"
+              key: "snat"
+              monitor_time: 50
+              host: athena
+              sla:
+                 max_outage_time: 0
+              parameter:
+                destination_ip: "8.8.8.8"
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ip-status"
+              key: "l2"
+              monitor_time: 50
+              host: athena
+              sla:
+                 max_outage_time: 0
+              parameter:
+                destination_ip: "@private_ip"
+
+          operations:
+            - operation_type: "general-operation"
+              key: "get-privateip"
+              operation_key: "get-privateip"
+              action_parameter:
+                server_name: "ares"
+              return_parameter:
+                all: "@private_ip"
+
+
+          steps:
+            - actionKey: "get-privateip"
+              actionType: "operation"
+              index: 1
+
+            - actionKey: "l2"
+              actionType: "monitor"
+              index: 2
+
+            - actionKey: "snat"
+              actionType: "monitor"
+              index: 3
+
+
+      nodes:
+        odl01: odl01.LF
+        athena: athena.ODLnoHA1
+      runner:
+        type: Duration
+        duration: 1
+      sla:
+        action: monitor
+
+
+-
+      type: "GeneralHA"
+      options:
+          attackers:
+            - 
+              fault_type: "kill-process"
+              process_name: "opendaylight"
+              key: "kill-process"
+              host: odl01
+
+          wait_time: 10
+          monitors:
+            - monitor_type: "process"
+              process_name: "opendaylight"
+              host: odl01
+              key: "monitor-recovery"
+              monitor_time: 100
+              sla:
+                max_recover_time: 105
+
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ip-status"
+              key: "snat"
+              monitor_time: 50
+              host: athena
+              sla:
+                 max_outage_time: 0
+              parameter:
+                destination_ip: "8.8.8.8"
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ip-status"
+              key: "l2"
+              monitor_time: 50
+              host: athena
+              sla:
+                 max_outage_time: 0 
+              parameter:
+                destination_ip: "@private_ip"
+
+          operations:
+            - operation_type: "general-operation"
+              key: "start-service"
+              host: odl01
+              operation_key: "start-service"
+              action_parameter:
+                service: "opendaylight"
+              rollback_parameter:
+                service: "opendaylight"
+
+            - operation_type: "general-operation"
+              key: "get-privateip"
+              operation_key: "get-privateip"
+              action_parameter:
+                server_name: "ares"
+              return_parameter:
+                all: "@private_ip"
+
+ 
+
+          steps:
+
+            - actionKey: "kill-process"
+              actionType: "attacker"
+              index: 1
+
+            - actionKey: "monitor-recovery"
+              actionType: "monitor"
+              index: 2
+
+
+            - actionKey: "kill-process"
+              actionType: "attacker"
+              index: 3
+
+            - actionKey: "kill-process"
+              actionType: "attacker"
+              index: 4
+
+            - actionKey: "kill-process"
+              actionType: "attacker"
+              index: 5
+
+
+            - actionKey: "start-service"
+              actionType: "operation"
+              index: 6
+
+            - actionKey: "get-privateip"
+              actionType: "operation"
+              index: 7
+
+            - actionKey: "l2"
+              actionType: "monitor"
+              index: 8
+
+            - actionKey: "snat"
+              actionType: "monitor"
+              index: 9
+
+
+
+      nodes:
+        odl01: odl01.LF
+        athena: athena.ODLnoHA1
+      runner:
+        type: Duration
+        duration: 1
+      sla:
+        action: monitor
+
+contexts:
+    -
+        type: Node
+        name: LF
+        file: /etc/yardstick/nodes/fuel_virtual/pod.yaml
+    -
+        name: ODLnoHA1
+        image: yardstick-image
+        flavor: yardstick-flavor
+        user: ubuntu
+        host: athena
+        key_filename:
+        placement_groups:
+            pgrp1:
+                policy: "availability"
+        servers:
+            athena:
+                floating_ip: true
+                placement: "pgrp1"
+                network_ports:
+                    test_one:
+                        - ens0
+
+            ares:
+                floating_ip: true
+                placement: "pgrp1"
+                network_ports:
+                    test_one:
+                        - ens0
+
+        networks:
+            test_one:
+                cidr: '10.0.1.0/24'
+                router: 'test_router'
+                external_network: 'floating_net'
+
