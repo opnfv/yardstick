@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_0cdb5f1c",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-14T10:24:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_2c8d7b32",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 32
+      },
+      "revId": "2a781e247fbceca00200355bb742e8133c4e4886",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_cc7b3728",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-14T10:24:29Z",
       "side": 1,
       "message": "Duplicate. Please remove.",
+      "range": {
+        "startLine": 217,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 66
+      },
+      "revId": "2a781e247fbceca00200355bb742e8133c4e4886",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ecd713ec",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-14T10:24:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_cc7b3728",
       "range": {
         "startLine": 217,
         "startChar": 0,
