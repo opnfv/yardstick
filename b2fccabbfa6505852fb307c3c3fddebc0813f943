@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_ec727348",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-14T10:24:29Z",
+      "side": 1,
+      "message": "This file builds the config from scratch. \n\nIf we have a pre-defined config, it looks like we can skip most of these actions.",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 27
+      },
+      "revId": "b2fccabbfa6505852fb307c3c3fddebc0813f943",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0c76bf3e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-14T10:24:29Z",
+      "side": 1,
+      "message": "You should add tests to make sure that the correct actions take place here when config_file is defined and when it is not defined.\n\nFor the case where it is not defined, this is most likely covered by an existing test_build_config\n\nFor the case where config file is defined, you will have to add a new test to make sure that it is parsed in",
+      "range": {
+        "startLine": 206,
+        "startChar": 0,
+        "endLine": 211,
+        "endChar": 42
+      },
+      "revId": "b2fccabbfa6505852fb307c3c3fddebc0813f943",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cca2179a",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-14T10:24:29Z",
+      "side": 1,
+      "message": "You can put this outside this context, in L664, where you are setting the return values for the other mocks.",
+      "range": {
+        "startLine": 668,
+        "startChar": 12,
+        "endLine": 668,
+        "endChar": 50
+      },
+      "revId": "b2fccabbfa6505852fb307c3c3fddebc0813f943",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6ceca3c8",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-14T10:24:29Z",
+      "side": 1,
+      "message": "IINM, you should be able to move these assertions outside the scope of the context manager as well.",
+      "range": {
+        "startLine": 670,
+        "startChar": 12,
+        "endLine": 675,
+        "endChar": 79
+      },
+      "revId": "b2fccabbfa6505852fb307c3c3fddebc0813f943",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
