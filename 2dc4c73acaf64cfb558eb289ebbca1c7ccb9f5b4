@@ -195,6 +195,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_71a48057",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-14T04:52:22Z",
+      "side": 1,
+      "message": "ah, it depends on sudo or root user maybe\n\ndoes ubuntu user have same path as root?",
+      "parentUuid": "5a3f45e8_43189a84",
+      "range": {
+        "startLine": 148,
+        "startChar": 15,
+        "endLine": 148,
+        "endChar": 41
+      },
+      "revId": "2dc4c73acaf64cfb558eb289ebbca1c7ccb9f5b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_a6ebabda",
         "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
         "patchSetId": 21
@@ -325,6 +349,30 @@
       "side": 1,
       "message": "But this is for SampleVNF and it\u0027s based on Ubuntu. And if we add a new base image, we can always add this tool.",
       "parentUuid": "9a3d3df0_e695b333",
+      "range": {
+        "startLine": 237,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 36
+      },
+      "revId": "2dc4c73acaf64cfb558eb289ebbca1c7ccb9f5b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d188f4c8",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-14T04:52:22Z",
+      "side": 1,
+      "message": "lshw doesn\u0027t return all the info we need.  the kernel sysfs is authoritative.",
+      "parentUuid": "5a3f45e8_e32ba692",
       "range": {
         "startLine": 237,
         "startChar": 0,
