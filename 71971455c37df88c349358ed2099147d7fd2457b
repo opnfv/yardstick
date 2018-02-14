@@ -70,6 +70,30 @@
       "revId": "71971455c37df88c349358ed2099147d7fd2457b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_919f8c03",
+        "filename": "yardstick/network_services/helpers/dpdkbindnic_helper.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-14T04:52:22Z",
+      "side": 1,
+      "message": "if a class doesn\u0027t call super and it is in an mixin MRO then it breaks the MRO __init__ call chain and the other classes do not call __init__\n\n\n\n    mro \u003d []\n\n    class A(object):\n\n        def __init__(self) -\u003e None:\n            # super().__init__()\n            print(\"A\")\n            mro.append(\"A\")\n\n\n    class B(object):\n\n        def __init__(self) -\u003e None:\n            super().__init__()\n            print(\"B\")\n            mro.append(\"B\")\n\n\n    class C(object):\n\n        def __init__(self) -\u003e None:\n            super().__init__()\n            print(\"C\")\n            mro.append(\"C\")\n\n\n    class D(A, B, C):\n\n        def __init__(self) -\u003e None:\n            super().__init__()\n            print(\"D\")\n            mro.append(\"D\")\n\n\n    def test_mro():\n        print()\n        D()\n        assert mro \u003d\u003d [\"C\", \"B\", \"A\", \"D\"]\n\n\nso we always call super()",
+      "parentUuid": "5a3f45e8_23362e04",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 45
+      },
+      "revId": "71971455c37df88c349358ed2099147d7fd2457b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
