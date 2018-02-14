@@ -149,7 +149,7 @@ class IxiaResourceHelper(ClientResourceHelper):
                 self.client.ix_stop_traffic()
                 samples = self.generate_samples(traffic_profile.ports)
                 self._queue.put(samples)
-                status, samples = traffic_profile.get_drop_percentage(self, samples, min_tol,
+                status, samples = traffic_profile.get_drop_percentage(samples, min_tol,
                                                                       max_tol, self.client, mac)
 
                 current = samples['CurrentDropPercentage']
