@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d2711279",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-15T09:51:07Z",
+      "side": 1,
+      "message": "Why this change?",
+      "revId": "61b9fbe6d1d20aa241533227ca4ef5266fcc7fb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b26e0695",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-15T09:51:07Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "61b9fbe6d1d20aa241533227ca4ef5266fcc7fb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_126c1a9c",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-15T09:51:07Z",
+      "side": 1,
+      "message": "ditto, non related",
+      "revId": "61b9fbe6d1d20aa241533227ca4ef5266fcc7fb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d2f8f2c6",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-15T09:51:07Z",
+      "side": 1,
+      "message": "This can go in on line and fits in 80 chars.",
+      "range": {
+        "startLine": 469,
+        "startChar": 0,
+        "endLine": 470,
+        "endChar": 73
+      },
+      "revId": "61b9fbe6d1d20aa241533227ca4ef5266fcc7fb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f2688e89",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-15T09:51:07Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "61b9fbe6d1d20aa241533227ca4ef5266fcc7fb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_520502c1",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-15T09:51:07Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "61b9fbe6d1d20aa241533227ca4ef5266fcc7fb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_320af6d2",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-15T09:51:07Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "61b9fbe6d1d20aa241533227ca4ef5266fcc7fb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_920f8ae1",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-15T09:51:07Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "61b9fbe6d1d20aa241533227ca4ef5266fcc7fb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_72147ef5",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-15T09:51:07Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "61b9fbe6d1d20aa241533227ca4ef5266fcc7fb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
