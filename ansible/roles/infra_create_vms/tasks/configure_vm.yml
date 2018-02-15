@@ -305,7 +305,7 @@
 
 - name: Populate network-config and add interface to xml file
   include_tasks: create_interfaces.yml
-  extra_vars: "{{ network_config, xml_file , slot_address, mac_address_counter }}"
+  extra_vars: "{{ network_config xml_file slot_address mac_address_counter default_bridge }}"
   loop_control:
     loop_var: interface_item
   with_items: "{{ node_item.interfaces }}"
@@ -326,7 +326,7 @@
   shell: >
     qemu-img convert -O qcow2 {{ node_item.image }} {{ image_dir+node_item.hostname+'.qcow2' }}
 
-- name: Copy and convert the ubuntu image
+- name: Resize image
   shell: >
     qemu-img resize {{ image_dir+node_item.hostname+'.qcow2' }} {{ node_item.disk }}MB
 
