@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e6af2f2a",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-15T22:45:28Z",
+      "side": 1,
+      "message": "``apt-get install -y`` SHOULD provide yes as the answer to these questions, so why is there the need for DEBIAN_FRONTEND\u003dnoninteractive?\n\nI\u0027m concerned that this will just bury some other problem.",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 75
+      },
+      "revId": "1503a8bbf6dae5f504954a1d5c95423c38cc3e3c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
