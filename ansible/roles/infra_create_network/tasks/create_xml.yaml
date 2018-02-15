@@ -40,8 +40,49 @@
     xpath: /network
     add_children:
       - name: "{{ item.name }}"
+      - forward
       - bridge
       - ip
+    pretty_print: yes
+
+- name: Add "mode" attribute to "forward" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /network/forward
+    attribute: mode
+    value: "nat"
+    pretty_print: yes
+
+- name: Add new children nodes to "forward" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /network/forward
+    add_children:
+      - nat
+    pretty_print: yes
+
+- name: Add new children nodes to "nat" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /network/forward/nat
+    add_children:
+      - port
+    pretty_print: yes
+
+- name: Add "start" attribute to "port" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /network/forward/nat/port
+    attribute: start
+    value: "1024"
+    pretty_print: yes
+
+- name: Add "end" attribute to "port" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /network/forward/nat/port
+    attribute: end
+    value: "65535"
     pretty_print: yes
 
 - name: Add "name" attribute to "bridge" node
