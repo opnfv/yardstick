@@ -31,5 +31,11 @@ nodes:
 
 networks:
   - name: management
+    default_gateway: True
     host_ip: 192.168.1.1
+    netmask: 255.255.255.0
+
+  - name: traffic
+    default_gateway: False  # This parameter is not mandatory, default value: False
+    host_ip: 192.20.1.1
     netmask: 255.255.255.0
