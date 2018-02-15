@@ -24,6 +24,16 @@
           addresses:
             - {{ interface_item.ip }}/{{ interface_item.netmask }}
 
+- name: Add default gateway
+  blockinfile:
+    path: "{{ network_config }}"
+    insertafter: "{{ interface_item.ip }}"
+    marker: "MARKER"
+    block: |2
+          gateway4: {{ default_bridge.host_ip }}
+  when:
+    - default_bridge.name is defined
+    - default_bridge.name == interface_item.network
 
 - name: Remove the marker introduced in network-data
   lineinfile:
