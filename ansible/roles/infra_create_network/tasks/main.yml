@@ -18,5 +18,5 @@
     name: infra_deploy_vars
 
 - name: Create XML file
-  include_tasks: create_xml.yaml
+  include_tasks: create_xml.yml
   with_items: "{{ infra_deploy_vars.networks }}"
