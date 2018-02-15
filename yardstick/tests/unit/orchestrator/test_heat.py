@@ -89,6 +89,18 @@ class HeatStackTestCase(unittest.TestCase):
         self.assertFalse(heat._DEPLOYED_STACKS)
         self.mock_stack_delete.assert_called_once_with(id, wait=True)
 
+    def test_delete_bug_in_shade(self):
+        id = uuidutils.generate_uuid()
+        self.heatstack._stack = FakeStack(
+            outputs=mock.Mock(), status=mock.Mock(), id=id)
+        heat._DEPLOYED_STACKS[id] = self.heatstack._stack
+        self.mock_stack_delete.side_effect = TypeError()
+
+        ret = self.heatstack.delete(wait=True)
+        self.assertTrue(ret)
+        self.assertFalse(heat._DEPLOYED_STACKS)
+        self.mock_stack_delete.assert_called_once_with(id, wait=True)
+
 
 class HeatTemplateTestCase(unittest.TestCase):
 
