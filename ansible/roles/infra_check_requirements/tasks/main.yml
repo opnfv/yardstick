@@ -34,6 +34,22 @@
     msg: "Failed, not enough CPU, required: {{ vcpu_t }}, available {{ ansible_processor_vcpus }}"
   when: ansible_processor_vcpus < vcpu_t|int
 
+- name: Define default network counter
+  set_fact:
+    num_default_network_detected: 0
+
+- name: Increment counter for every default network detected
+  set_fact:
+    num_default_network_detected: "{{ num_default_network_detected|int + 1 }}"
+  when:
+    - item.default_gateway is defined
+    - item.default_gateway == True
+  with_items: "{{infra_deploy_vars.networks}}"
+
+- name: Fail if more than 1 or 0 default networks
+  fail:
+    msg: "Failed, there must be 1 default network: {{ num_default_network_detected }} detected"
+  when: num_default_network_detected|int != 1
 
 - name: Fail if not enough Disk space
   set_fact:

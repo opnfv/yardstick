@@ -40,8 +40,28 @@
     xpath: /network
     add_children:
       - name: "{{ item.name }}"
+      - forward:
+          mode: nat
       - bridge
       - ip
+    pretty_print: yes
+
+- name: Add new children nodes to "forward" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /network/forward
+    add_children:
+      - nat
+    pretty_print: yes
+
+- name: Add new children nodes to "nat" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /network/forward/nat
+    add_children:
+      - port:
+          start: "1024"
+          end: "65535"
     pretty_print: yes
 
 - name: Add "name" attribute to "bridge" node

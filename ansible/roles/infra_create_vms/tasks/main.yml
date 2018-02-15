@@ -20,9 +20,16 @@
 - set_fact:
     mac_address_counter: 0
 
+- set_fact:
+    default_bridge: "{{ item }}"
+  when:
+    - item.default_gateway is defined
+    - item.default_gateway == True
+  with_items: "{{ infra_deploy_vars.networks }}"
+
 - name: Create XML file
   include_tasks: configure_vm.yml
-  extra_vars: "{{ mac_address_counter }}"
+  extra_vars: "{{ mac_address_counter default_gateway }}"
   loop_control:
     loop_var: node_item
   with_items: "{{ infra_deploy_vars.nodes }}"
