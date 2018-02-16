@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_092cecaa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-02-16T15:38:54Z",
+      "side": 1,
+      "message": "JIRA ID is missing",
+      "revId": "e85fbade9c4309759e518a2c94125d2a6bcc7596",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
