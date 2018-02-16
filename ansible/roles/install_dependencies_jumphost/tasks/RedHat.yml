@@ -42,5 +42,14 @@
     - python-setuptools
     - libffi-devel
     - python-devel
-    - kpartx
-
+    - nodejs
+    - npm
+    - gcc
+    - lsof
+    - procps
+    - bridge-utils
+    - ebtables
+    - openssl
+    - python-virtualenv
+    - ccze
+    - lsof
