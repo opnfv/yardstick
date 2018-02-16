@@ -1,0 +1,49 @@
+---
+- hosts: localhost
+
+  vars:
+    arch_amd64: "amd64"
+    arch_arm64: "arm64"
+    inst_mode_container: "container"
+    inst_mode_baremetal: "baremetal"
+    ubuntu_archive:
+      amd64: "http://archive.ubuntu.com/ubuntu/"
+      arm64: "http://ports.ubuntu.com/ubuntu-ports/"
+    installation_mode: "{{ INSTALLATION_MODE | default('baremetal') }}"
+    yardstick_dir: "{{ YARDSTICK_DIR | default('/home/opnfv/repos/yardstick') }}"
+    virtual_environment: False  # This must be an input parameter!!!
+    nsb_dir: "/opt/nsb_bin/"
+
+  pre_tasks: # To be deleted
+#    - debug:
+#        msg: "{{ yardstick_dir }}"
+
+    - name: Create NSB binaries directory, accesible to any user
+      file:
+        path: "{{ nsb_dir }}"
+        state: directory
+        owner: root
+        mode: 0777
+
+  roles:
+    - add_repos_jumphost
+    - install_dependencies_jumphost
+    - install_yardstick
+    - configure_uwsgi
+    - configure_nginx
+    - download_trex
+    - install_trex
+
+  post_tasks:
+    - shell: |
+        semanage port -m -t http_port_t  -p tcp 5000
+        semanage port -m -t http_port_t  -p udp 5000
+      when: ansible_os_family == "RedHat"
+
+    - service:
+        name: nginx
+        state: restarted
+
+    - shell: uwsgi -i /etc/yardstick/yardstick.ini
+
+
