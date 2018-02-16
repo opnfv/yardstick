@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_89b59ccf",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-02-16T13:47:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_892bdc2f",
+      "range": {
+        "startLine": 43,
+        "startChar": 66,
+        "endLine": 43,
+        "endChar": 69
+      },
+      "revId": "591fe14bb53499892621251528f210e63455b4eb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c9ca046e",
         "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_e9c9c05b",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-02-16T13:47:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_c9ca046e",
+      "revId": "591fe14bb53499892621251528f210e63455b4eb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_29c8c873",
         "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
         "patchSetId": 2
@@ -53,6 +95,30 @@
       "writtenOn": "2018-02-16T13:09:52Z",
       "side": 1,
       "message": "when: num_default_network_detected|int !\u003d 1",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 43
+      },
+      "revId": "591fe14bb53499892621251528f210e63455b4eb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c9c68449",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-02-16T13:47:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_29c8c873",
       "range": {
         "startLine": 50,
         "startChar": 2,
@@ -112,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_29c4483f",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-02-16T13:47:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_09aa2c70",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "591fe14bb53499892621251528f210e63455b4eb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_299f2861",
         "filename": "ansible/roles/infra_create_vms/tasks/main.yml",
         "patchSetId": 2
@@ -123,6 +213,24 @@
       "writtenOn": "2018-02-16T13:09:52Z",
       "side": 1,
       "message": "when:\n    - item.default_gateway is defined\n    - item.default_gateway \u003d\u003d True",
+      "revId": "591fe14bb53499892621251528f210e63455b4eb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_09c18c2e",
+        "filename": "ansible/roles/infra_create_vms/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-02-16T13:47:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_299f2861",
       "revId": "591fe14bb53499892621251528f210e63455b4eb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -157,6 +265,30 @@
       "writtenOn": "2018-02-16T13:09:52Z",
       "side": 1,
       "message": "default_gateway: False  # This parameter is not mandatory, default value: False",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 26
+      },
+      "revId": "591fe14bb53499892621251528f210e63455b4eb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_89ec7cc9",
+        "filename": "etc/infra/infra_deploy.yaml.sample",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-02-16T13:47:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_a9ab3888",
       "range": {
         "startLine": 39,
         "startChar": 4,
