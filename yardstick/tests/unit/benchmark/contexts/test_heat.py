@@ -48,6 +48,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertIsNone(self.test_context._image)
         self.assertIsNone(self.test_context._flavor)
         self.assertIsNone(self.test_context._user)
+        self.assertIsNone(self.test_context._password)
         self.assertIsNone(self.test_context.template_file)
         self.assertIsNone(self.test_context.heat_parameters)
         self.assertIsNotNone(self.test_context.key_uuid)
