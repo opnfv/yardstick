@@ -1,0 +1,137 @@
+# Copyright (c) 2017 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Update repositories
+  apt:
+    update_cache: yes
+
+- name: Install core packages
+  action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
+  with_items:
+    - wget
+    - curl
+    - screen
+    - procps
+    - socat
+    - sshpass
+    - sudo
+    - vim
+    - libffi-dev
+    - libfuse-dev
+    - libssl-dev
+    - libxft-dev
+    - libxml2-dev
+    - libxss-dev
+    - libxslt-dev
+    - libxslt1-dev
+    - libzmq-dev
+    #- qemu-kvm
+    - qemu-user-static
+    - qemu-utils
+    - kpartx
+    #- libvirt0
+    - python
+    - python-setuptools
+    - python-dev
+    - python-pip
+    - python-libvirt
+    - python-virtualenv
+    - bridge-utils
+    - ebtables
+    - openssl
+    - ccze
+    - nginx-full
+    - uwsgi
+    - uwsgi-plugin-python
+    - supervisor
+    - lsof
+    - nodejs
+    - npm
+
+
+#     - qemu-user-static=1:2.5+dfsg-5ubuntu10.21
+#     - bonnie++
+#     - wget
+#     - expect
+#     - curl
+#     - sshpass
+#     - qemu-utils
+#     - kpartx
+#     - libffi-dev
+#     - libssl-dev
+#     - libzmq-dev
+#     - python
+#     - python-dev
+#     - libxml2-dev
+#     - libxslt1-dev
+#     - nginx
+#     - uwsgi
+#     - uwsgi-plugin-python
+#     - supervisor
+#     #- python-pip
+#     - vim
+#     - libxft-dev
+#     - libxss-dev
+#     - sudo
+#     - iputils-ping
+
+
+
+#- name: ss
+#  shell: apt-get update && apt-get install -y \
+#    qemu-user-static/xenial \
+#    bonnie++ \
+#    wget \
+#    expect \
+#    curl \
+#    git \
+#    sshpass \
+#    qemu-utils \
+#    kpartx \
+#    libffi-dev \
+#    libssl-dev \
+#    libzmq-dev \
+#    python \
+#    python-dev \
+#    libxml2-dev \
+#    libxslt1-dev \
+#    nginx \
+#    uwsgi \
+#    uwsgi-plugin-python \
+#    supervisor \
+#    python-pip \
+#    vim \
+#    libxft-dev \
+#    libxss-dev \
+#    sudo \
+#    iputils-ping
+
+
+
+- name: Install libc6:arm64 package
+  action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
+  with_items:
+    - libc6:arm64
+  when:
+    - arch is defined
+    - arch != arch_arm64
+    - installation_mode == inst_mode_container
+
+- name: Remove dependencies that are no longer required
+  apt:
+    update_cache: yes
+
+- name: Remove useless packages from the cache
+  apt:
+    autoclean: yes
