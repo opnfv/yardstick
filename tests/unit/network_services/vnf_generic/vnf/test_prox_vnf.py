@@ -131,6 +131,8 @@ class TestProxApproxVnf(unittest.TestCase):
                 'packets_in',
                 'packets_fwd',
                 'packets_dropped',
+                'curr_packets_fwd',
+                'curr_packets_in'
             ],
         },
         'connection-point': [
@@ -329,7 +331,7 @@ class TestProxApproxVnf(unittest.TestCase):
             'packets_in': 0,
             'packets_dropped': 0,
             'packets_fwd': 0,
-            'collect_stats': {'core': {}},
+            'collect_stats': {'core': {}}
         }
         result = prox_approx_vnf.collect_kpi()
         self.assertEqual(result, expected)
@@ -352,7 +354,11 @@ class TestProxApproxVnf(unittest.TestCase):
             'collect_stats': {'core': {'result': 234}},
         }
         result = prox_approx_vnf.collect_kpi()
-        self.assertEqual(result, expected)
+        self.assertEqual(result['packets_in'], expected['packets_in'])
+        self.assertEqual(result['packets_dropped'], expected['packets_dropped'])
+        self.assertEqual(result['packets_fwd'], expected['packets_fwd'])
+        self.assertNotEqual(result['packets_fwd'], 0)
+        self.assertNotEqual(result['packets_fwd'], 0)
 
     @mock.patch(SSH_HELPER)
     def test_collect_kpi_error(self, ssh, *args):

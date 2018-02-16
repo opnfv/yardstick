@@ -1730,7 +1730,7 @@ class TestProxProfileHelper(unittest.TestCase):
         }
 
         self.assertIsNone(helper._test_cores)
-        expected = [12, 23]
+        expected = [3, 4]
         result = helper.test_cores
         self.assertEqual(result, expected)
         self.assertIs(result, helper._test_cores)
@@ -1787,7 +1787,7 @@ class TestProxProfileHelper(unittest.TestCase):
         }
 
         self.assertIsNone(helper._latency_cores)
-        expected = [12, 23]
+        expected = [3, 4]
         result = helper.latency_cores
         self.assertEqual(result, expected)
         self.assertIs(result, helper._latency_cores)
@@ -1842,7 +1842,7 @@ class TestProxProfileHelper(unittest.TestCase):
             }
         }
 
-        expected = [7, 8]
+        expected = [3, 4]
         result = helper.get_cores(helper.PROX_CORE_GEN_MODE)
         self.assertEqual(result, expected)
 
@@ -1984,8 +1984,8 @@ class TestProxMplsProfileHelper(unittest.TestCase):
             }
         }
 
-        expected_tagged = [7]
-        expected_plain = [8]
+        expected_tagged = [3]
+        expected_plain = [4]
         self.assertIsNone(helper._cores_tuple)
         self.assertEqual(helper.tagged_cores, expected_tagged)
         self.assertEqual(helper.plain_cores, expected_plain)
@@ -2060,10 +2060,10 @@ class TestProxBngProfileHelper(unittest.TestCase):
             }
         }
 
-        expected_cpe = [7]
-        expected_inet = [8]
-        expected_arp = [4, 3]
-        expected_arp_task = [0, 4]
+        expected_cpe = [3]
+        expected_inet = [4]
+        expected_arp = [6, 9]
+        expected_arp_task = [0, 6]
         expected_combined = (expected_cpe, expected_inet, expected_arp, expected_arp_task)
 
         self.assertIsNone(helper._cores_tuple)
@@ -2131,8 +2131,8 @@ class TestProxVpeProfileHelper(unittest.TestCase):
             }
         }
 
-        expected_cpe = [7]
-        expected_inet = [8]
+        expected_cpe = [3]
+        expected_inet = [4]
         expected_combined = (expected_cpe, expected_inet)
 
         self.assertIsNone(helper._cores_tuple)
@@ -2245,8 +2245,8 @@ class TestProxlwAFTRProfileHelper(unittest.TestCase):
             }
         }
 
-        expected_tun = [7]
-        expected_inet = [8]
+        expected_tun = [3]
+        expected_inet = [4]
         expected_combined = (expected_tun, expected_inet)
 
         self.assertIsNone(helper._cores_tuple)

@@ -929,6 +929,7 @@ class ProxResourceHelper(ClientResourceHelper):
         func = getattr(self.sut, cmd, None)
         if func:
             return func(*args, **kwargs)
+        return None
 
     def _connect(self, client=None):
         """Run and connect to prox on the remote system """
@@ -1005,11 +1006,18 @@ class ProxDataHelper(object):
     def samples(self):
         samples = {}
         for port_name, port_num in self.vnfd_helper.ports_iter():
-            port_rx_total, port_tx_total = self.sut.port_stats([port_num])[6:8]
-            samples[port_name] = {
-                "in_packets": port_rx_total,
-                "out_packets": port_tx_total,
-            }
+            try:
+                port_rx_total, port_tx_total = self.sut.port_stats([port_num])[6:8]
+                samples[port_name] = {
+                    "in_packets": port_rx_total,
+                    "out_packets": port_tx_total,
+                }
+            except (KeyError, TypeError, NameError, MemoryError, ValueError,
+                    SystemError, BufferError):
+                samples[port_name] = {
+                    "in_packets": 0,
+                    "out_packets": 0,
+                }
         return samples
 
     def __enter__(self):
@@ -1127,7 +1135,7 @@ class ProxProfileHelper(object):
             for key, value in section:
                 if key == "mode" and value == mode:
                     core_tuple = CoreSocketTuple(section_name)
-                    core = core_tuple.find_in_topology(self.cpu_topology)
+                    core = core_tuple.core_id
                     cores.append(core)
 
         return cores
@@ -1149,6 +1157,10 @@ class ProxProfileHelper(object):
         :return: return lat_min, lat_max, lat_avg
         :rtype: list
         """
+
+        if not self._latency_cores:
+            self._latency_cores = self.get_cores(self.PROX_CORE_LAT_MODE)
+
         if self._latency_cores:
             return self.sut.lat_stats(self._latency_cores)
         return []
@@ -1198,12 +1210,12 @@ class ProxMplsProfileHelper(ProxProfileHelper):
 
                 if item_value.startswith("tag"):
                     core_tuple = CoreSocketTuple(section_name)
-                    core_tag = core_tuple.find_in_topology(self.cpu_topology)
+                    core_tag = core_tuple.core_id
                     cores_tagged.append(core_tag)
 
                 elif item_value.startswith("udp"):
                     core_tuple = CoreSocketTuple(section_name)
-                    core_udp = core_tuple.find_in_topology(self.cpu_topology)
+                    core_udp = core_tuple.core_id
                     cores_plain.append(core_udp)
 
         return cores_tagged, cores_plain
@@ -1276,23 +1288,23 @@ class ProxBngProfileHelper(ProxProfileHelper):
 
                 if item_value.startswith("cpe"):
                     core_tuple = CoreSocketTuple(section_name)
-                    cpe_core = core_tuple.find_in_topology(self.cpu_topology)
+                    cpe_core = core_tuple.core_id
                     cpe_cores.append(cpe_core)
 
                 elif item_value.startswith("inet"):
                     core_tuple = CoreSocketTuple(section_name)
-                    inet_core = core_tuple.find_in_topology(self.cpu_topology)
+                    inet_core = core_tuple.core_id
                     inet_cores.append(inet_core)
 
                 elif item_value.startswith("arp"):
                     core_tuple = CoreSocketTuple(section_name)
-                    arp_core = core_tuple.find_in_topology(self.cpu_topology)
+                    arp_core = core_tuple.core_id
                     arp_cores.append(arp_core)
 
                 # We check the tasks/core separately
                 if item_value.startswith("arp_task"):
                     core_tuple = CoreSocketTuple(section_name)
-                    arp_task_core = core_tuple.find_in_topology(self.cpu_topology)
+                    arp_task_core = core_tuple.core_id
                     arp_tasks_core.append(arp_task_core)
 
         return cpe_cores, inet_cores, arp_cores, arp_tasks_core
@@ -1455,12 +1467,12 @@ class ProxVpeProfileHelper(ProxProfileHelper):
 
                 if item_value.startswith("cpe"):
                     core_tuple = CoreSocketTuple(section_name)
-                    core_tag = core_tuple.find_in_topology(self.cpu_topology)
+                    core_tag = core_tuple.core_id
                     cpe_cores.append(core_tag)
 
                 elif item_value.startswith("inet"):
                     core_tuple = CoreSocketTuple(section_name)
-                    inet_core = core_tuple.find_in_topology(self.cpu_topology)
+                    inet_core = core_tuple.core_id
                     inet_cores.append(inet_core)
 
         return cpe_cores, inet_cores
@@ -1639,7 +1651,7 @@ class ProxlwAFTRProfileHelper(ProxProfileHelper):
                 continue
 
             core_tuple = CoreSocketTuple(section_name)
-            core_tag = core_tuple.find_in_topology(self.cpu_topology)
+            core_tag = core_tuple.core_id
             for item_value in (v for k, v in section if k == 'name'):
                 if item_value.startswith('tun'):
                     tun_cores.append(core_tag)
