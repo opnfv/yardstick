@@ -12,39 +12,65 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+- name: Update repositories
+  apt:
+    update_cache: yes
+
 - name: Install core packages
   action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
   with_items:
-    - python-minimal
     - wget
     - curl
     - screen
     - procps
-    - git
     - socat
     - sshpass
-    - libxslt1-dev
+    - sudo
+    - vim
     - libffi-dev
     - libfuse-dev
-    - qemu-kvm
+    - libssl-dev
+    - libxft-dev
+    - libxml2-dev
+    - libxss-dev
+    - libxslt-dev
+    - libxslt1-dev
+    - libzmq-dev
     - qemu-user-static
     - qemu-utils
     - kpartx
-    - libvirt0
+    - python
+    - python-setuptools
+    - python-dev
+    - python-pip
     - python-libvirt
+    - python-virtualenv
     - bridge-utils
     - ebtables
     - openssl
-    - libssl-dev
-    - python-dev
-    - python-virtualenv
     - ccze
-    - libxml2-dev
-    - libxslt-dev
-    - libzmq-dev
     - nginx-full
     - uwsgi
     - uwsgi-plugin-python
     - supervisor
-    - python-setuptools
     - lsof
+    - nodejs
+    - npm
+    - rabbitmq-server
+
+- name: Install libc6:arm64 package
+  action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
+  with_items:
+    - libc6:arm64
+  when:
+    - arch is defined
+    - arch != arch_arm64
+    - installation_mode == inst_mode_container
+
+- name: Remove dependencies that are no longer required
+  apt:
+    update_cache: yes
+
+- name: Remove useless packages from the cache
+  apt:
+    autoclean: yes
