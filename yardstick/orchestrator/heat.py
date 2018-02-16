@@ -425,7 +425,7 @@ name (i.e. %s).
                     pkg_resources.resource_string(
                         'yardstick.resources',
                         'files/yardstick_key-' +
-                        get_short_key_uuid(key_uuid) + '.pub'),
+                        key_uuid + '.pub'),
                     'utf-8')
             }
         }
