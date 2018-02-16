@@ -43,4 +43,5 @@
     - libffi-devel
     - python-devel
     - kpartx
-
+    - nodejs
+    - npm
