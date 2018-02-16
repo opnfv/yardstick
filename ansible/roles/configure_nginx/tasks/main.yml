@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation.
+# Copyright (c) 2018 Intel Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,25 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: make sure trex_dest exists
+- name: Define variables
+  set_fact:
+    socket_file: "{{ socket_file|default('/var/run/yardstick.sock') }}"
+
+- name: Make sure conf.d directory exists
   file:
-    path: "{{ trex_dest }}"
+    path: /etc/nginx/conf.d
     state: directory
 
-- name: fetch Trex
-  get_url:
-    url: "{{ trex_url }}"
-    dest: "{{ trex_dest }}"
-    validate_certs: False
-    checksum: "{{ trex_sha256s[trex_version] }}"
-
-- name: unarchive Trex
-  unarchive:
-    src: "{{ trex_dest }}/{{ trex_file }}"
-    dest: "{{ trex_dest }}/"
-    copy: no
-
-- name: cleanup tar file to save space
-  file:
-      path: "{{ trex_dest }}/{{ trex_file }}"
-      state: absent
+- name: Create the nginx config file
+  template:
+    src: yardstick.conf.j2
+    dest: "/etc/nginx/conf.d/yardstick.conf"

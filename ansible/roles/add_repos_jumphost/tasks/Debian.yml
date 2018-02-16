@@ -1,0 +1,85 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+# Arguments needed: arch_arm64, arch_amd64, ubuntu_archive
+
+- name: Set the repositories architecture name
+  set_fact:
+    arch: "{{ arch_arm64 if ansible_architecture == 'aarch64' else arch_amd64 }}"
+    extra_arch: "{{ arch_amd64 if ansible_architecture == 'aarch64' else arch_arm64 }}"
+
+- name: Define the repositories names
+  set_fact:
+    repo: "{{ ubuntu_archive[arch] }}"
+    extra_repo: "{{ ubuntu_archive[extra_arch] }}"
+
+- name: Add architecture to the default repository list
+  replace:
+    path: "{{ sources_list_file }}"
+    regexp: '(^deb\s+)([^\[].*)$'
+    replace: 'deb [arch={{ arch }}] \2'
+
+- name: Remove support for source repositories
+  replace:
+    path: "{{ sources_list_file }}"
+    regexp: "^deb-src "
+    replace: "# deb-src "
+
+- name: Add extra architecture
+  shell: dpkg --add-architecture {{ extra_arch }}
+
+- name: Read Ubuntu version codename ("etc/os-release")
+  shell: "cat /etc/os-release | grep 'VERSION_CODENAME' | cut -d'=' -f 2"
+  register: codename
+
+- name: Define the default release version
+  copy:
+    dest: "{{ default_distro_file }}"
+    content: 'APT::Default-Release "{{ codename.stdout }}";'
+
+- name: Remove extra repository file
+  file:
+    path: "{{ repo_file }}"
+    state: absent
+  ignore_errors: yes
+
+- name: Add extra repository file
+  file:
+    path: "{{ repo_file }}"
+    state: touch
+
+- name: Add the repository for qemu_static_user/xenial
+  blockinfile:
+    path: "{{ repo_file }}"
+    marker: "MARKER"
+    content: |
+      deb [arch={{ arch }}] {{ repo }} xenial-updates universe
+  when: codename.stdout != "xenial"
+
+- name: Add extra architecture repositories if installing in container
+  blockinfile:
+    path: "{{ repo_file }}"
+    marker: "MARKER"
+    content: |
+      deb [arch={{ extra_arch }}] {{ extra_repo }} {{ codename.stdout }} main universe multiverse restricted
+      deb [arch={{ extra_arch }}] {{ extra_repo }} {{ codename.stdout }}-updates main universe multiverse restricted
+      deb [arch={{ extra_arch }}] {{ extra_repo }} {{ codename.stdout }}-security main universe multiverse restricted
+      deb [arch={{ extra_arch }}] {{ extra_repo }} {{ codename.stdout }}-proposed main universe multiverse restricted
+  when: installation_mode == "container"
+
+- name: Remove the marker
+  lineinfile:
+    dest: "{{ repo_file }}"
+    state: absent
+    regexp: "MARKER"
