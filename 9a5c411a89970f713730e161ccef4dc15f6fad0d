@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_49d55442",
+        "filename": "yardstick/tests/fixture.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-16T11:04:26Z",
+      "side": 1,
+      "message": "Could you use six.moves.builtins instead, which would make L41-44 unnecessary",
+      "range": {
+        "startLine": 45,
+        "startChar": 44,
+        "endLine": 45,
+        "endChar": 52
+      },
+      "revId": "9a5c411a89970f713730e161ccef4dc15f6fad0d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
