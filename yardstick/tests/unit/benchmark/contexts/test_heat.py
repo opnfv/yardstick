@@ -13,7 +13,6 @@ from collections import OrderedDict
 from itertools import count
 import logging
 import os
-import uuid
 
 import mock
 import unittest
@@ -50,14 +49,14 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertIsNone(self.test_context._user)
         self.assertIsNone(self.test_context.template_file)
         self.assertIsNone(self.test_context.heat_parameters)
-        self.assertIsNotNone(self.test_context.key_uuid)
-        self.assertIsNotNone(self.test_context.key_filename)
+        self.assertIsNone(self.test_context.key_filename)
 
+    @mock.patch('yardstick.ssh.SSH.gen_keys')
     @mock.patch('yardstick.benchmark.contexts.heat.PlacementGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.ServerGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.Network')
     @mock.patch('yardstick.benchmark.contexts.heat.Server')
-    def test_init(self, mock_server, mock_network, mock_sg, mock_pg):
+    def test_init(self, mock_server, mock_network, mock_sg, mock_pg, mock_ssh_gen_keys):
 
         pgs = {'pgrp1': {'policy': 'availability'}}
         sgs = {'servergroup1': {'policy': 'affinity'}}
@@ -90,20 +89,14 @@ class HeatContextTestCase(unittest.TestCase):
                                        servers['baz'])
         self.assertEqual(len(self.test_context.servers), 1)
 
-        if os.path.exists(self.test_context.key_filename):
-            try:
-                os.remove(self.test_context.key_filename)
-                os.remove(self.test_context.key_filename + ".pub")
-            except OSError:
-                LOG.exception("key_filename: %s",
-                              self.test_context.key_filename)
+        mock_ssh_gen_keys.assert_called()
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_resources_to_template_no_servers(self, mock_template):
 
         self.test_context.keypair_name = "foo-key"
         self.test_context.secgroup_name = "foo-secgroup"
-        self.test_context.key_uuid = "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b"
+        self.test_context.name = "foo-12345678"
         netattrs = {'cidr': '10.0.0.0/24', 'provider': None, 'external_network': 'ext_net'}
         self.mock_context.name = 'bar'
         self.test_context.networks = OrderedDict(
@@ -113,7 +106,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context._add_resources_to_template(mock_template)
         mock_template.add_keypair.assert_called_with(
             "foo-key",
-            "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b")
+            "foo-12345678")
         mock_template.add_security_group.assert_called_with("foo-secgroup")
 #        mock_template.add_network.assert_called_with("bar-fool-network", 'physnet1', None)
         mock_template.add_router.assert_called_with(
@@ -219,8 +212,12 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertDictEqual(server.interfaces['port_a'], expected)
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
-    def test_undeploy(self, mock_template):
+    @mock.patch('yardstick.benchmark.contexts.heat.os')
+    def test_undeploy(self, mock_os, mock_template):
         self.test_context.stack = mock_template
+        mock_os.path.exists.return_value = True
+        self.test_context.name = 'demo-foo'
+        self.test_context.key_filename = 'foo/bar/foobar'
         self.test_context.undeploy()
         self.assertTrue(mock_template.delete.called)
 
@@ -229,6 +226,7 @@ class HeatContextTestCase(unittest.TestCase):
     def test_undeploy_key_filename(self, mock_os, mock_template):
         self.test_context.stack = mock_template
         mock_os.path.exists.return_value = True
+        self.test_context.key_filename = 'foo/bar/foobar'
         self.assertIsNone(self.test_context.undeploy())
 
     @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
@@ -256,7 +254,6 @@ class HeatContextTestCase(unittest.TestCase):
             'private_ip': '10.0.0.1',
             'public_ip': '127.0.0.1',
         }
-        self.test_context.key_uuid = uuid.uuid4()
         self.test_context._server_map = {
             'baz3': baz3_server,
             'foo2': foo2_server,
@@ -267,6 +264,7 @@ class HeatContextTestCase(unittest.TestCase):
             'private_ip_attr': 'private_ip',
             'public_ip_attr': 'public_ip',
         }
+        self.test_context.key_uuid = 'foo-42'
         result = self.test_context._get_server(attr_name)
         self.assertEqual(result['user'], 'bot')
         self.assertEqual(result['ip'], '127.0.0.1')
@@ -295,7 +293,6 @@ class HeatContextTestCase(unittest.TestCase):
             'private_ip': '10.0.0.1',
             'public_ip': '127.0.0.1',
         }
-        self.test_context.key_uuid = uuid.uuid4()
         self.test_context._server_map = {
             'baz3': baz3_server,
             'foo2': foo2_server,
@@ -304,6 +301,8 @@ class HeatContextTestCase(unittest.TestCase):
         attr_name = {
             'name': 'foo.bar',
         }
+
+        self.test_context.key_uuid = 'foo-42'
         result = self.test_context._get_server(attr_name)
         self.assertEqual(result['user'], 'bot')
         # no private ip attr mapping in the map results in None value in the result
@@ -333,7 +332,6 @@ class HeatContextTestCase(unittest.TestCase):
             'private_ip': '10.0.0.1',
             'public_ip': '127.0.0.1',
         }
-        self.test_context.key_uuid = uuid.uuid4()
         self.test_context.generate_routing_table = mock.MagicMock(return_value=[])
 
         self.test_context._server_map = {
@@ -341,6 +339,7 @@ class HeatContextTestCase(unittest.TestCase):
             'foo2': foo2_server,
         }
 
+        self.test_context.key_uuid = 'foo-42'
         attr_name = 'baz3'
         result = self.test_context._get_server(attr_name)
         self.assertEqual(result['user'], 'zab')
@@ -371,13 +370,13 @@ class HeatContextTestCase(unittest.TestCase):
             'private_ip': '10.0.0.1',
             'public_ip': '127.0.0.1',
         }
-        self.test_context.key_uuid = uuid.uuid4()
         self.test_context._server_map = {
             'baz3': baz3_server,
             'foo2': foo2_server,
             'wow4': None,
         }
 
+        self.test_context.key_uuid = 'foo-42'
         attr_name = 'wow4'
         result = self.test_context._get_server(attr_name)
         self.assertIsNone(result)
@@ -404,12 +403,12 @@ class HeatContextTestCase(unittest.TestCase):
             'private_ip': '10.0.0.1',
             'public_ip': '127.0.0.1',
         }
-        self.test_context.key_uuid = uuid.uuid4()
         self.test_context._server_map = {
             'baz3': baz3_server,
             'foo2': foo2_server,
         }
 
+        self.test_context.key_uuid = 'foo-42'
         attr_name = {
             'name': 'foo.wow4',
             'private_ip_attr': 'private_ip',
@@ -440,12 +439,12 @@ class HeatContextTestCase(unittest.TestCase):
             'private_ip': '10.0.0.1',
             'public_ip': '127.0.0.1',
         }
-        self.mock_context.key_uuid = uuid.uuid4()
         self.mock_context._server_map = {
             'baz3': baz3_server,
             'foo2': foo2_server,
         }
 
+        self.test_context.key_uuid = 'foo-42'
         attr_name = 'foo.wow4'
         result = self.test_context._get_server(attr_name)
         self.assertIsNone(result)
