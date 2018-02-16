@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation.
+# Copyright (c) 2018 Intel Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,39 +12,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+- name: Install EPEL if needed
+  action: "{{ ansible_pkg_mgr }} name=epel-release state=present"
+  when: ansible_distribution in ['RedHat', 'CentOS', 'ScientificLinux']
+
 - name: Install core packages
   action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
   with_items:
-    - python-minimal
+    - deltarpm
     - wget
+    - expect
     - curl
     - screen
-    - procps
     - git
     - socat
     - sshpass
-    - libxslt1-dev
-    - libffi-dev
-    - libfuse-dev
     - qemu-kvm
-    - qemu-user-static
-    - qemu-utils
     - kpartx
-    - libvirt0
-    - python-libvirt
+    - libxslt-devel
+    - libffi-devel
+    - openssl-devel
+    - nginx
+    - uwsgi
+    - python-setuptools
+    - libffi-devel
+    - python-devel
+    - nodejs
+    - npm
+    - gcc
+    - lsof
+    - procps
     - bridge-utils
     - ebtables
     - openssl
-    - libssl-dev
-    - python-dev
     - python-virtualenv
     - ccze
-    - libxml2-dev
-    - libxslt-dev
-    - libzmq-dev
-    - nginx-full
-    - uwsgi
-    - uwsgi-plugin-python
-    - supervisor
-    - python-setuptools
     - lsof
