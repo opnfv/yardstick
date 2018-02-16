@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_17908c94",
+        "filename": "yardstick/tests/unit/base.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-16T10:55:38Z",
+      "side": 1,
+      "message": "For unit tests, right?",
+      "range": {
+        "startLine": 23,
+        "startChar": 22,
+        "endLine": 23,
+        "endChar": 32
+      },
+      "revId": "77a79f02d9cc804b3c3998d2f178ce2bc864a1ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
