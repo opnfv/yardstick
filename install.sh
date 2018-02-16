@@ -57,6 +57,8 @@ deb [arch="${EXTRA_ARCH}"] "${EXTRA_REPO}" "${VERSION_CODENAME}"-proposed main u
 
 echo "vm.mmap_min_addr = 0" > /etc/sysctl.d/mmap_min_addr.conf
 
+sleep 100000
+
 # install tools
 apt-get update && apt-get install -y \
     qemu-user-static/xenial \
@@ -93,7 +95,6 @@ fi
 apt-get -y autoremove && apt-get clean
 
 git config --global http.sslVerify false
-
 
 # install yardstick + dependencies
 easy_install -U pip
