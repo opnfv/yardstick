@@ -88,6 +88,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_09aa2c70",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-02-16T13:25:45Z",
+      "side": 1,
+      "message": "I don\u0027t understand. \nis that now what i am doing?",
+      "parentUuid": "5a3f45e8_099cec68",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 53
+      },
+      "revId": "591fe14bb53499892621251528f210e63455b4eb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_299f2861",
         "filename": "ansible/roles/infra_create_vms/tasks/main.yml",
         "patchSetId": 2
