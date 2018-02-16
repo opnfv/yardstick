@@ -1,0 +1,43 @@
+---
+- hosts: localhost
+
+  vars:
+    arch_amd64: "amd64"
+    arch_arm64: "arm64"
+    inst_mode_container: "container"
+    inst_mode_baremetal: "baremetal"
+    ubuntu_archive:
+      amd64: "http://archive.ubuntu.com/ubuntu/"
+      arm64: "http://ports.ubuntu.com/ubuntu-ports/"
+    #map_min_addr_file: "/opt/stack/tmp/mmap_min_addr.conf"  # This should be "/etc/sysctl.d/mmap_min_addr.conf"
+    map_min_addr_file: "/etc/sysctl.d/mmap_min_addr.conf"
+    installation_mode: "{{ installation_mode | default('container') }}"
+    #yardstick_repo_dir: "/opt/stack/yardstick/"  # This must be an input parameter!!!
+    virtual_environment: False  # This must be an input parameter!!!
+    nsb_dir: "/opt/stack/tmp/nsb_bin/"  # This must be "/opt/nsb_bin/"
+    nsb_dir: "/opt/nsb_bin/"
+
+  pre_tasks: # To be deleted
+    - debug:
+        msg: "{{ ubuntu_archive }}"
+
+    - name: Create NSB binaries directory, accesible to any user
+      file:
+        path: "{{ nsb_dir }}"
+        state: directory
+        owner: root
+        mode: 0777
+
+  roles:
+    - add_repos_jumphost
+    - install_dependencies_jumphost
+    - install_yardstick
+    - configure_uwsgi
+    - configure_nginx
+    - configure_trex_client
+
+  post_tasks:
+    - shell: service nginx restart
+    - shell: uwsgi -i /etc/yardstick/yardstick.ini
+
+
