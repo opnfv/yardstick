@@ -13,7 +13,6 @@ from collections import OrderedDict
 from itertools import count
 import logging
 import os
-import uuid
 
 import mock
 import unittest
@@ -256,7 +255,6 @@ class HeatContextTestCase(unittest.TestCase):
             'private_ip': '10.0.0.1',
             'public_ip': '127.0.0.1',
         }
-        self.test_context.key_uuid = uuid.uuid4()
         self.test_context._server_map = {
             'baz3': baz3_server,
             'foo2': foo2_server,
@@ -295,7 +293,6 @@ class HeatContextTestCase(unittest.TestCase):
             'private_ip': '10.0.0.1',
             'public_ip': '127.0.0.1',
         }
-        self.test_context.key_uuid = uuid.uuid4()
         self.test_context._server_map = {
             'baz3': baz3_server,
             'foo2': foo2_server,
@@ -333,7 +330,6 @@ class HeatContextTestCase(unittest.TestCase):
             'private_ip': '10.0.0.1',
             'public_ip': '127.0.0.1',
         }
-        self.test_context.key_uuid = uuid.uuid4()
         self.test_context.generate_routing_table = mock.MagicMock(return_value=[])
 
         self.test_context._server_map = {
@@ -371,7 +367,6 @@ class HeatContextTestCase(unittest.TestCase):
             'private_ip': '10.0.0.1',
             'public_ip': '127.0.0.1',
         }
-        self.test_context.key_uuid = uuid.uuid4()
         self.test_context._server_map = {
             'baz3': baz3_server,
             'foo2': foo2_server,
@@ -404,7 +399,6 @@ class HeatContextTestCase(unittest.TestCase):
             'private_ip': '10.0.0.1',
             'public_ip': '127.0.0.1',
         }
-        self.test_context.key_uuid = uuid.uuid4()
         self.test_context._server_map = {
             'baz3': baz3_server,
             'foo2': foo2_server,
@@ -440,7 +434,6 @@ class HeatContextTestCase(unittest.TestCase):
             'private_ip': '10.0.0.1',
             'public_ip': '127.0.0.1',
         }
-        self.mock_context.key_uuid = uuid.uuid4()
         self.mock_context._server_map = {
             'baz3': baz3_server,
             'foo2': foo2_server,
