@@ -65,6 +65,7 @@ class HeatContext(Context):
         self._flavor = None
         self.flavors = set()
         self._user = None
+        self._password = None
         self.template_file = None
         self.heat_parameters = None
         self.neutron_client = None
@@ -96,10 +97,11 @@ class HeatContext(Context):
 
     def init(self, attrs):
         self.check_environment()
-        """initializes itself from the supplied arguments"""
+        # initializes itself from the supplied arguments
         self.name = attrs["name"]
 
         self._user = attrs.get("user")
+        self._password = attrs.get("password")
 
         self.template_file = attrs.get("heat_template")
         if self.template_file:
@@ -439,6 +441,7 @@ class HeatContext(Context):
 
         result = {
             "user": server.context.user,
+            "password": self._password,
             "pkey": pkey,
             "private_ip": server.private_ip,
             "interfaces": server.interfaces,
