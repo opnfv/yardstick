@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_c9f5e4cc",
+        "filename": "ansible/roles/infra_create_vms/tasks/configure_vm.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-16T11:59:36Z",
+      "side": 1,
+      "message": "Here you need to specify the address where the VNC port is going to listen:\n\"address\nTells a graphics device to use an address specified in the address attribute, which will contain either an IP address or hostname (which will be resolved to an IP address via a DNS query) to listen on.\"\n\nhttps://libvirt.org/formatdomain.html#elementsGraphics",
+      "revId": "beb5994b7b3619cb8409f8112bbd77a5aea7760d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
