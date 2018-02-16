@@ -13,7 +13,6 @@ from __future__ import print_function
 import collections
 import logging
 import os
-import uuid
 import errno
 from collections import OrderedDict
 
@@ -27,8 +26,7 @@ from yardstick.benchmark.contexts.model import Server
 from yardstick.benchmark.contexts.model import update_scheduler_hints
 from yardstick.common import exceptions as y_exc
 from yardstick.common.openstack_utils import get_neutron_client
-from yardstick.orchestrator.heat import HeatStack
-from yardstick.orchestrator.heat import HeatTemplate, get_short_key_uuid
+from yardstick.orchestrator.heat import HeatTemplate
 from yardstick.common import constants as consts
 from yardstick.common.utils import source_env
 from yardstick.ssh import SSH
@@ -69,13 +67,8 @@ class HeatContext(Context):
         self.template_file = None
         self.heat_parameters = None
         self.neutron_client = None
-        # generate an uuid to identify yardstick_key
-        # the first 8 digits of the uuid will be used
-        self.key_uuid = uuid.uuid4()
         self.heat_timeout = None
-        self.key_filename = ''.join(
-            [consts.YARDSTICK_ROOT_PATH, 'yardstick/resources/files/yardstick_key-',
-             get_short_key_uuid(self.key_uuid)])
+        self.key_filename = None
         super(HeatContext, self).__init__()
 
     @staticmethod
@@ -138,7 +131,16 @@ class HeatContext(Context):
             self._server_map[server.dn] = server
 
         self.attrs = attrs
-        SSH.gen_keys(self.key_filename)
+
+        self.key_filename = ''.join(
+            [consts.YARDSTICK_ROOT_PATH,
+             'yardstick/resources/files/yardstick_key-',
+              self.name])
+        # Perissions may have changed since creation; this can be fixed. If we
+        # overwrite the file, we lose future access to VMs using this key.
+        # As long as the file exists, even if it is unreadable, keep it intact
+        if not os.path.exists(self.key_filename):
+            SSH.gen_keys(self.key_filename)
 
     def check_environment(self):
         try:
@@ -177,7 +179,7 @@ class HeatContext(Context):
                 template.add_flavor(**self.flavor)
                 self.flavors.add(flavor)
 
-        template.add_keypair(self.keypair_name, self.key_uuid)
+        template.add_keypair(self.keypair_name, self.name)
         template.add_security_group(self.secgroup_name)
 
         for network in self.networks.values():
@@ -439,7 +441,7 @@ class HeatContext(Context):
 
         pkey = pkg_resources.resource_string(
             'yardstick.resources',
-            h_join('files/yardstick_key', get_short_key_uuid(self.key_uuid))).decode('utf-8')
+            h_join('files/yardstick_key', self.name)).decode('utf-8')
 
         result = {
             "user": server.context.user,
