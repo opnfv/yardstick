@@ -1,0 +1,18 @@
+[uwsgi]
+master = true
+debug = true
+chdir = {{ yardstick_dir }}api
+module = server
+plugins = python
+processes = 10
+threads = 5
+async = true
+max-requests = 5000
+chmod-socket = 666
+callable = app_wrapper
+enable-threads = true
+close-on-exec = 1
+daemonize = {{ log_dir }}uwsgi.log
+socket = {{ socket_file }}
+{# If virtual environment, we need to add:
+   virtualenv = <virtual_env> #}
