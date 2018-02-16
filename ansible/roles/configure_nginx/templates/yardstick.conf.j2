@@ -1,0 +1,18 @@
+server {
+    listen 5000;
+    server_name localhost;
+    index index.htm index.html;
+    location / {
+        include uwsgi_params;
+        client_max_body_size    2000m;
+        uwsgi_pass unix://{{ socket_file }};
+    }
+
+    location /gui/ {
+        alias /etc/nginx/yardstick/gui/;
+    }
+
+    location /report/ {
+        alias /tmp/;
+    }
+}
