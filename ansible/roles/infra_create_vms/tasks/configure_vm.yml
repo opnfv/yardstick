@@ -222,6 +222,10 @@
       - console:
           type: pty
           tty: '/dev/pts/14'
+      - graphics:
+          type: vnc
+          port: '-1'
+          autoport: 'yes'
     pretty_print: yes
 
 - name: Add new children nodes to "disk" node
@@ -239,6 +243,16 @@
           bus: virtio
       - alias:
           name: virtio-disk0
+    pretty_print: yes
+
+- name: Add new children nodes to "graphics" node
+  xml:
+    path: "{{ xml_file }}"
+    xpath: /domain/devices/graphics
+    add_children:
+      - listen:
+          type: address
+          address: 0.0.0.0
     pretty_print: yes
 
 - name: Add new children nodes to "devices" node
