@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_895d9cec",
+        "filename": "ansible/roles/infra_create_vms/tasks/configure_vm.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-02-16T11:45:32Z",
+      "side": 1,
+      "message": "The user needs to download this image.",
+      "parentUuid": "5a3f45e8_a941780d",
+      "range": {
+        "startLine": 327,
+        "startChar": 33,
+        "endLine": 327,
+        "endChar": 48
+      },
+      "revId": "13fc1bba6dbccf059f6c8597a262f32f051ccce9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_493c3494",
         "filename": "ansible/roles/infra_create_vms/tasks/configure_vm.yml",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2018-02-16T11:22:27Z",
       "side": 1,
       "message": "For \u0027qemu-img version 2.10.1\u0027 unit \u0027MB\u0027 is not acceptable, used \u0027M\u0027 instead.",
+      "range": {
+        "startLine": 331,
+        "startChar": 84,
+        "endLine": 331,
+        "endChar": 86
+      },
+      "revId": "13fc1bba6dbccf059f6c8597a262f32f051ccce9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a95858fb",
+        "filename": "ansible/roles/infra_create_vms/tasks/configure_vm.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-02-16T11:45:32Z",
+      "side": 1,
+      "message": "This is not the place to make this change.\nsee \nhttps://gerrit.opnfv.org/gerrit/#/c/52227/1/ansible/roles/infra_create_vms/tasks/configure_vm.yml",
+      "parentUuid": "5a3f45e8_493c3494",
       "range": {
         "startLine": 331,
         "startChar": 84,
