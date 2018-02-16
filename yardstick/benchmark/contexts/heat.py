@@ -70,7 +70,7 @@ class HeatContext(Context):
         self.neutron_client = None
         # generate an uuid to identify yardstick_key
         # the first 8 digits of the uuid will be used
-        self.key_uuid = uuid.uuid4()
+        self.key_uuid = get_short_key_uuid(uuid.uuid4())
         self.heat_timeout = None
         self.key_filename = ''.join(
             [consts.YARDSTICK_ROOT_PATH, 'yardstick/resources/files/yardstick_key-',
@@ -436,7 +436,7 @@ class HeatContext(Context):
 
         pkey = pkg_resources.resource_string(
             'yardstick.resources',
-            h_join('files/yardstick_key', get_short_key_uuid(self.key_uuid))).decode('utf-8')
+            h_join('files/yardstick_key', self.key_uuid)).decode('utf-8')
 
         result = {
             "user": server.context.user,
