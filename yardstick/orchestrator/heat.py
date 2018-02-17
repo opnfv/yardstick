@@ -74,7 +74,14 @@ class HeatStack(object):
         if self.uuid is None:
             return
 
-        ret = self._cloud.delete_stack(self.uuid, wait=wait)
+        try:
+            ret = self._cloud.delete_stack(self.uuid, wait=wait)
+        except TypeError:
+            # NOTE(ralonsoh): this exception catch solves a bug in Shade, which
+            # tries to retrieve and read the stack status when it's already
+            # deleted.
+            ret = True
+
         _DEPLOYED_STACKS.pop(self.uuid)
         self._stack = None
         return ret
