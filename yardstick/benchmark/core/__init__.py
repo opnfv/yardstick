@@ -23,6 +23,7 @@ class Param(object):
         self.task_args_file = kwargs.get('task-args-file')
         self.keep_deploy = kwargs.get('keep-deploy')
         self.parse_only = kwargs.get('parse-only')
+        self.render_only = kwargs.get('render-only')
         self.output_file = kwargs.get('output-file', '/tmp/yardstick.out')
         self.suite = kwargs.get('suite')
         self.task_id = kwargs.get('task_id')
