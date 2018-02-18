@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2015 Huawei Technologies Co.,Ltd and others.
 #
@@ -9,26 +7,20 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.core.task
-
-from __future__ import print_function
-
-from __future__ import absolute_import
+import io
 import os
+import sys
+
+import mock
+import six
 import unittest
-
-try:
-    from unittest import mock
-except ImportError:
-    import mock
-
+import uuid
 
 from yardstick.benchmark.core import task
 from yardstick.common import constants as consts
-
-
-# pylint: disable=unused-argument
-# disable this for now because I keep forgetting mock patch arg ordering
+from yardstick.common import exceptions
+from yardstick.common import task_template
+from yardstick.common import utils
 
 
 class TaskTestCase(unittest.TestCase):
@@ -131,7 +123,7 @@ class TaskTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.benchmark.core.task.Context')
     @mock.patch('yardstick.benchmark.core.task.base_runner')
-    def test_run(self, mock_base_runner, mock_ctx):
+    def test_run(self, mock_base_runner, *args):
         scenario = {
             'host': 'athena.demo',
             'target': 'ares.demo',
@@ -187,7 +179,7 @@ class TaskTestCase(unittest.TestCase):
         self.assertEqual(task_args_fnames[1], None)
 
     @mock.patch('yardstick.benchmark.core.task.os.environ')
-    def test_parse_suite_no_constraint_with_args(self, mock_environ):
+    def test_parse_suite_no_constraint_with_args(self, *args):
         SAMPLE_SCENARIO_PATH = "no_constraint_with_args_scenario_sample.yaml"
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
         with mock.patch('yardstick.benchmark.core.task.os.environ',
@@ -206,7 +198,7 @@ class TaskTestCase(unittest.TestCase):
         self.assertEqual(task_args_fnames[1], None)
 
     @mock.patch('yardstick.benchmark.core.task.os.environ')
-    def test_parse_suite_with_constraint_no_args(self, mock_environ):
+    def test_parse_suite_with_constraint_no_args(self, *args):
         SAMPLE_SCENARIO_PATH = "with_constraint_no_args_scenario_sample.yaml"
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
         with mock.patch('yardstick.benchmark.core.task.os.environ',
@@ -224,7 +216,7 @@ class TaskTestCase(unittest.TestCase):
         self.assertEqual(task_args_fnames[1], None)
 
     @mock.patch('yardstick.benchmark.core.task.os.environ')
-    def test_parse_suite_with_constraint_with_args(self, mock_environ):
+    def test_parse_suite_with_constraint_with_args(self, *args):
         SAMPLE_SCENARIO_PATH = "with_constraint_with_args_scenario_sample.yaml"
         t = task.TaskParser(self._get_file_abspath(SAMPLE_SCENARIO_PATH))
         with mock.patch('yardstick.benchmark.core.task.os.environ',
@@ -295,7 +287,7 @@ class TaskTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.benchmark.core.task.utils')
     @mock.patch('yardstick.benchmark.core.task.logging')
-    def test_set_log(self, mock_logging, mock_utils):
+    def test_set_log(self, mock_logging, *args):
         task_obj = task.Task()
         task_obj.task_id = 'task_id'
         task_obj._set_log()
@@ -309,10 +301,138 @@ class TaskTestCase(unittest.TestCase):
     def change_to_abspath(self, filepath):
         return os.path.join(consts.YARDSTICK_ROOT_PATH, filepath)
 
+    def test__parse_tasks(self):
+        task_obj = task.Task()
+        _uuid = uuid.uuid4()
+        task_obj.task_id = _uuid
+        task_files = ['/directory/task_file_name.yml']
+        parse_out = {'rendered': 'File content'}
+        mock_parser = mock.Mock()
+        mock_parser.parse_task.return_value = parse_out
+        mock_args = mock.Mock()
+        mock_args.render_only = False
 
-def main():
-    unittest.main()
+        tasks = task_obj._parse_tasks(mock_parser, task_files, mock_args,
+                                      ['arg1'], ['file_arg1'])
+        self.assertEqual(
+            [{'rendered': 'File content', 'case_name': 'task_file_name'}],
+            tasks)
+        mock_parser.parse_task.assert_called_once_with(
+            _uuid, 'arg1', 'file_arg1')
+
+    @mock.patch.object(sys, 'exit')
+    @mock.patch.object(utils, 'write_file')
+    @mock.patch.object(os.path, 'exists', return_value=True)
+    def test__parse_tasks_render_only(self, mock_path_exists, mock_write_file,
+                                      mock_exit):
+        task_obj = task.Task()
+        _uuid = uuid.uuid4()
+        task_obj.task_id = _uuid
+        task_files = ['/directory/task_file_name.yml']
+        parse_out = {'rendered': 'File content'}
+        mock_parser = mock.Mock()
+        mock_parser.parse_task.return_value = parse_out
+        mock_args = mock.Mock()
+        mock_args.render_only = '/output_directory'
+
+        task_obj._parse_tasks(mock_parser, task_files, mock_args,
+                              ['arg1'], ['file_arg1'])
+        mock_path_exists.assert_called_once_with('/output_directory')
+        mock_write_file.assert_called_once_with(
+            '/output_directory/000-task_file_name.txt', 'File content')
+        mock_exit.assert_called_once_with(0)
 
 
-if __name__ == '__main__':
-    main()
+class TaskParserTestCase(unittest.TestCase):
+
+    TASK = """
+{% set value1 = value1 or 'var1' %}
+{% set value2 = value2 or 'var2' %}
+key1: {{ value1 }}
+key2:
+    - {{ value2 }}"""
+
+    TASK_RENDERED_1 = u"""
+
+
+key1: var1
+key2:
+    - var2"""
+
+    TASK_RENDERED_2 = u"""
+
+
+key1: var3
+key2:
+    - var4"""
+
+    def test__render_task_no_args(self):
+        task_parser = task.TaskParser('task_file')
+        task_str = io.StringIO(six.text_type(self.TASK))
+        with mock.patch.object(six.moves.builtins, 'open',
+                               return_value=task_str) as mock_open:
+            parsed, rendered = task_parser._render_task(None, None)
+
+        self.assertEqual(self.TASK_RENDERED_1, rendered)
+        self.assertEqual({'key1': 'var1', 'key2': ['var2']}, parsed)
+        mock_open.assert_called_once_with('task_file')
+
+    def test__render_task_arguments(self):
+        task_parser = task.TaskParser('task_file')
+        task_str = io.StringIO(six.text_type(self.TASK))
+        with mock.patch.object(six.moves.builtins, 'open',
+                               return_value=task_str) as mock_open:
+            parsed, rendered = task_parser._render_task('value1: "var1"', None)
+
+        self.assertEqual(self.TASK_RENDERED_1, rendered)
+        self.assertEqual({'key1': 'var1', 'key2': ['var2']}, parsed)
+        mock_open.assert_called_once_with('task_file')
+
+    def test__render_task_file_arguments(self):
+        task_parser = task.TaskParser('task_file')
+        with mock.patch.object(six.moves.builtins, 'open') as mock_open:
+            mock_open.side_effect = (
+                io.StringIO(six.text_type('value2: var4')),
+                io.StringIO(six.text_type(self.TASK))
+            )
+            parsed, rendered = task_parser._render_task('value1: "var3"',
+                                                        'args_file')
+
+        self.assertEqual(self.TASK_RENDERED_2, rendered)
+        self.assertEqual({'key1': 'var3', 'key2': ['var4']}, parsed)
+        mock_open.assert_has_calls([mock.call('args_file'),
+                                    mock.call('task_file')])
+
+    def test__render_task_error_arguments(self):
+        with self.assertRaises(exceptions.TaskRenderArgumentError):
+            task.TaskParser('task_file')._render_task('value1="var3"', None)
+
+    def test__render_task_error_task_file(self):
+        task_parser = task.TaskParser('task_file')
+        with mock.patch.object(six.moves.builtins, 'open') as mock_open:
+            mock_open.side_effect = (
+                io.StringIO(six.text_type('value2: var4')),
+                IOError()
+            )
+            with self.assertRaises(exceptions.TaskReadError):
+                task_parser._render_task('value1: "var3"', 'args_file')
+
+        mock_open.assert_has_calls([mock.call('args_file'),
+                                    mock.call('task_file')])
+
+    def test__render_task_render_error(self):
+        task_parser = task.TaskParser('task_file')
+        with mock.patch.object(six.moves.builtins, 'open') as mock_open, \
+                mock.patch.object(task_template.TaskTemplate, 'render',
+                                  side_effect=TypeError) as mock_render:
+            mock_open.side_effect = (
+                io.StringIO(six.text_type('value2: var4')),
+                io.StringIO(six.text_type(self.TASK))
+            )
+            with self.assertRaises(exceptions.TaskRenderError):
+                task_parser._render_task('value1: "var3"', 'args_file')
+
+        mock_open.assert_has_calls([mock.call('args_file'),
+                                    mock.call('task_file')])
+        mock_render.assert_has_calls(
+            [mock.call(self.TASK, value1='var3', value2='var4')])
