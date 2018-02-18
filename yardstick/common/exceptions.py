@@ -67,3 +67,15 @@ class HeatTemplateError(YardstickException):
 
 class DPDKSetupDriverError(YardstickException):
     message = '"igb_uio" driver is not loaded'
+
+
+class TaskRenderArgumentError(YardstickException):
+    message = 'Error reading the task input arguments'
+
+
+class TaskReadError(YardstickException):
+    message = 'Failed to read task %(task_file)s'
+
+
+class TaskRenderError(YardstickException):
+    message = 'Failed to render template:\n%(input_task)s'
