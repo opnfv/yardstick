@@ -7,10 +7,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-""" Handler for yardstick command 'task' """
-from __future__ import print_function
-from __future__ import absolute_import
-
 import logging
 
 from yardstick.benchmark.core.task import Task
@@ -42,6 +38,8 @@ class TaskCommands(object):     # pragma: no cover
              action="store_true")
     @cliargs("--parse-only", help="parse the config file and exit",
              action="store_true")
+    @cliargs("--render-only", help="Render the tasks files, store the result "
+             "in the directory given and exit", type=str, dest="render_only")
     @cliargs("--output-file", help="file where output is stored, default %s" %
              output_file_default, default=output_file_default)
     @cliargs("--suite", help="process test suite file instead of a task file",
@@ -54,9 +52,8 @@ class TaskCommands(object):     # pragma: no cover
         LOG.info('Task START')
         try:
             result = Task().start(param, **kwargs)
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-except
             self._write_error_data(e)
-            LOG.exception("")
 
         if result.get('result', {}).get('criteria') == 'PASS':
             LOG.info('Task SUCCESS')
