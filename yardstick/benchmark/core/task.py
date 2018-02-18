@@ -7,10 +7,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-""" Handler for yardstick command 'task' """
-
-from __future__ import absolute_import
-from __future__ import print_function
 import sys
 import os
 from collections import OrderedDict
@@ -31,9 +27,10 @@ from yardstick.benchmark.runners import base as base_runner
 from yardstick.common.constants import CONF_FILE
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.dispatcher.base import Base as DispatcherBase
-from yardstick.common.task_template import TaskTemplate
-from yardstick.common import utils
 from yardstick.common import constants
+from yardstick.common import exceptions as y_exc
+from yardstick.common import task_template
+from yardstick.common import utils
 from yardstick.common.html_template import report_template
 
 output_file_default = "/tmp/yardstick.out"
@@ -57,7 +54,7 @@ class Task(object):     # pragma: no cover
         out_types = [s.strip() for s in dispatchers.split(',')]
         output_config['DEFAULT']['dispatcher'] = out_types
 
-    def start(self, args):
+    def start(self, args, **kwargs):  # pylint: disable=unused-argument
         """Start a benchmark scenario."""
 
         atexit.register(self.atexit_handler)
@@ -89,8 +86,7 @@ class Task(object):     # pragma: no cover
 
         if args.suite:
             # 1.parse suite, return suite_params info
-            task_files, task_args, task_args_fnames = \
-                parser.parse_suite()
+            task_files, task_args, task_args_fnames = parser.parse_suite()
         else:
             task_files = [parser.path]
             task_args = [args.task_args]
@@ -103,32 +99,33 @@ class Task(object):     # pragma: no cover
             sys.exit(0)
 
         testcases = {}
-        # parse task_files
-        for i in range(0, len(task_files)):
+        tasks = self._parse_tasks(parser, task_files, args, task_args,
+                                  task_args_fnames)
+
+        # Execute task files.
+        for i, _ in enumerate(task_files):
             one_task_start_time = time.time()
-            parser.path = task_files[i]
-            scenarios, run_in_parallel, meet_precondition, contexts = \
-                parser.parse_task(self.task_id, task_args[i],
-                                  task_args_fnames[i])
-
-            self.contexts.extend(contexts)
-
-            if not meet_precondition:
-                LOG.info("meet_precondition is %s, please check envrionment",
-                         meet_precondition)
+            self.contexts.extend(tasks[i]['contexts'])
+            if not tasks[i]['meet_precondition']:
+                LOG.info('"meet_precondition" is %s, please check environment',
+                         tasks[i]['meet_precondition'])
                 continue
 
-            case_name = os.path.splitext(os.path.basename(task_files[i]))[0]
             try:
-                data = self._run(scenarios, run_in_parallel, output_config)
+                data = self._run(tasks[i]['scenarios'],
+                                 tasks[i]['run_in_parallel'],
+                                 output_config)
             except KeyboardInterrupt:
                 raise
             except Exception:  # pylint: disable=broad-except
-                LOG.error('Testcase: "%s" FAILED!!!', case_name, exc_info=True)
-                testcases[case_name] = {'criteria': 'FAIL', 'tc_data': []}
+                LOG.error('Testcase: "%s" FAILED!!!', tasks[i]['case_name'],
+                          exc_info=True)
+                testcases[tasks[i]['case_name']] = {'criteria': 'FAIL',
+                                                    'tc_data': []}
             else:
-                LOG.info('Testcase: "%s" SUCCESS!!!', case_name)
-                testcases[case_name] = {'criteria': 'PASS', 'tc_data': data}
+                LOG.info('Testcase: "%s" SUCCESS!!!', tasks[i]['case_name'])
+                testcases[tasks[i]['case_name']] = {'criteria': 'PASS',
+                                                    'tc_data': data}
 
             if args.keep_deploy:
                 # keep deployment, forget about stack
@@ -151,9 +148,8 @@ class Task(object):     # pragma: no cover
         LOG.info("Total finished in %d secs",
                  total_end_time - total_start_time)
 
-        scenario = scenarios[0]
-        LOG.info("To generate report, execute command "
-                 "'yardstick report generate %(task_id)s %(tc)s'", scenario)
+        LOG.info('To generate report, execute command "yardstick report '
+                 'generate %(task_id)s <yaml_name>s"', self.task_id)
         LOG.info("Task ALL DONE, exiting")
         return result
 
@@ -313,6 +309,30 @@ class Task(object):     # pragma: no cover
             return self.outputs.get(op[1:]) if op.startswith('$') else op
         else:
             return op
+
+    def _parse_tasks(self, parser, task_files, args, task_args,
+                     task_args_fnames):
+        tasks = []
+
+        # Parse task_files.
+        for i, _ in enumerate(task_files):
+            parser.path = task_files[i]
+            tasks.append(parser.parse_task(self.task_id, task_args[i],
+                                           task_args_fnames[i]))
+            tasks[i]['case_name'] = os.path.splitext(
+                os.path.basename(task_files[i]))[0]
+
+        if args.render_only:
+            utils.makedirs(args.render_only)
+            for idx, task in enumerate(tasks):
+                output_file_name = os.path.abspath(os.path.join(
+                    args.render_only,
+                    '{0:03d}-{1}.yml'.format(idx, task['case_name'])))
+                utils.write_file(output_file_name, task['rendered'])
+
+            sys.exit(0)
+
+        return tasks
 
     def run_one_scenario(self, scenario_cfg, output_config):
         """run one scenario using context"""
@@ -479,33 +499,42 @@ class TaskParser(object):       # pragma: no cover
 
         return valid_task_files, valid_task_args, valid_task_args_fnames
 
-    def parse_task(self, task_id, task_args=None, task_args_file=None):
-        """parses the task file and return an context and scenario instances"""
-        LOG.info("Parsing task config: %s", self.path)
+    def _render_task(self, task_args, task_args_file):
+        """Render the input task with the given arguments
 
+        :param task_args: (dict) arguments to render the task
+        :param task_args_file: (str) file containing the arguments to render
+                               the task
+        :return: (str) task file rendered
+        """
         try:
             kw = {}
             if task_args_file:
                 with open(task_args_file) as f:
-                    kw.update(parse_task_args("task_args_file", f.read()))
-            kw.update(parse_task_args("task_args", task_args))
+                    kw.update(parse_task_args('task_args_file', f.read()))
+            kw.update(parse_task_args('task_args', task_args))
         except TypeError:
-            raise TypeError()
+            raise y_exc.TaskRenderArgumentError()
 
+        input_task = None
         try:
             with open(self.path) as f:
-                try:
-                    input_task = f.read()
-                    rendered_task = TaskTemplate.render(input_task, **kw)
-                except Exception as e:
-                    LOG.exception('Failed to render template:\n%s\n', input_task)
-                    raise e
-                LOG.debug("Input task is:\n%s\n", rendered_task)
+                input_task = f.read()
+            rendered_task = task_template.TaskTemplate.render(input_task, **kw)
+            LOG.debug('Input task is:\n%s', rendered_task)
+            parsed_task = yaml_load(rendered_task)
+        except (IOError, OSError):
+            raise y_exc.TaskReadError(task_file=self.path)
+        except Exception:
+            raise y_exc.TaskRenderError(input_task=input_task)
 
-                cfg = yaml_load(rendered_task)
-        except IOError as ioerror:
-            sys.exit(ioerror)
+        return parsed_task, rendered_task
 
+    def parse_task(self, task_id, task_args=None, task_args_file=None):
+        """parses the task file and return an context and scenario instances"""
+        LOG.info("Parsing task config: %s", self.path)
+
+        cfg, rendered = self._render_task(task_args, task_args_file)
         self._check_schema(cfg["schema"], "task")
         meet_precondition = self._check_precondition(cfg)
 
@@ -552,7 +581,11 @@ class TaskParser(object):       # pragma: no cover
                 pass
 
         # TODO we need something better here, a class that represent the file
-        return cfg["scenarios"], run_in_parallel, meet_precondition, contexts
+        return {'scenarios': cfg['scenarios'],
+                'run_in_parallel': run_in_parallel,
+                'meet_precondition': meet_precondition,
+                'contexts': contexts,
+                'rendered': rendered}
 
     def _check_schema(self, cfg_schema, schema_type):
         """Check if config file is using the correct schema type"""
