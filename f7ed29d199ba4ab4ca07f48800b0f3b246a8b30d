@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_5feea68c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-19T12:14:47Z",
+      "side": 1,
+      "message": "s/parse-only/render-only/",
+      "range": {
+        "startLine": 7,
+        "startChar": 5,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "f7ed29d199ba4ab4ca07f48800b0f3b246a8b30d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9f5aee81",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-19T12:14:47Z",
+      "side": 1,
+      "message": "Do you need two separate if statements evaluating the same condition?",
+      "range": {
+        "startLine": 333,
+        "startChar": 6,
+        "endLine": 333,
+        "endChar": 28
+      },
+      "revId": "f7ed29d199ba4ab4ca07f48800b0f3b246a8b30d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3ff3da74",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-19T12:14:47Z",
+      "side": 1,
+      "message": "What are you expecting here? The file that should be rendered?\n\n\nIntuitively, this should be a boolean flag. To parse a boolean, you can use action\u003d\"store_true\", like with --parse-only",
+      "range": {
+        "startLine": 42,
+        "startChar": 43,
+        "endLine": 42,
+        "endChar": 50
+      },
+      "revId": "f7ed29d199ba4ab4ca07f48800b0f3b246a8b30d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
