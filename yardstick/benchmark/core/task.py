@@ -341,8 +341,8 @@ class Task(object):     # pragma: no cover
         for item in [server_name, scenario_cfg]:
             try:
                 config_context_target(item)
-            except KeyError:
-                pass
+            except KeyError as exc:
+                LOG.debug("Got a KeyError in config_context_target(%s)", item)
             else:
                 break
 
@@ -523,6 +523,8 @@ class TaskParser(object):       # pragma: no cover
             context_type = cfg_attrs.get("type", "Heat")
             context = Context.get(context_type)
             context.init(cfg_attrs)
+            # Update the name in case the context has used the name_suffix
+            cfg_attrs['name'] = context.name
             contexts.append(context)
 
         run_in_parallel = cfg.get("run_in_parallel", False)
