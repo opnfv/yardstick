@@ -136,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_ff02120a",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-19T13:34:45Z",
+      "side": 1,
+      "message": "For yardstick, the pylintrc will check for a line length of 99, this is set in the project code guide.\n\nFor pep8, the usual limit is 79 characters +1 end-of-line character, which makes 80 characters.",
+      "parentUuid": "5a3f45e8_9fe78ee4",
+      "range": {
+        "startLine": 469,
+        "startChar": 0,
+        "endLine": 470,
+        "endChar": 73
+      },
+      "revId": "61b9fbe6d1d20aa241533227ca4ef5266fcc7fb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_f2688e89",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 11
