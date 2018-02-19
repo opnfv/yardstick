@@ -26,6 +26,7 @@ from yardstick.benchmark.contexts.model import PlacementGroup, ServerGroup
 from yardstick.benchmark.contexts.model import Server
 from yardstick.benchmark.contexts.model import update_scheduler_hints
 from yardstick.common.openstack_utils import get_neutron_client
+from yardstick.orchestrator.heat import HeatStack
 from yardstick.orchestrator.heat import HeatTemplate, get_short_key_uuid
 from yardstick.common import constants as consts
 from yardstick.common.utils import source_env
@@ -297,6 +298,15 @@ class HeatContext(Context):
                     # network.physical_network = neutron_net.get('provider:physical_network')
                     network.network_type = neutron_net.get('provider:network_type')
                     network.neutron_info = neutron_net
+
+    def retrieve_existing_stack(self, stack_name):
+        stack = HeatStack(stack_name)
+        stack.get()
+        if stack._stack:
+            return stack
+        else:
+            LOG.exception("Stack %s does not exist", self.name)
+            return None
 
     def deploy(self):
         """deploys template into a stack using cloud"""
