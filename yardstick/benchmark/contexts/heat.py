@@ -332,7 +332,14 @@ class HeatContext(Context):
         if self.template_file is None:
             self._add_resources_to_template(heat_template)
 
-        self.stack = self._create_new_stack(heat_template)
+        if self._flags.no_setup:
+            # Try to get an existing stack, returns a stack or None
+            self.stack = self._retrieve_existing_stack(self.name)
+            if not self.stack:
+                self.stack = self._create_new_stack(heat_template)
+
+        else:
+            self.stack = self._create_new_stack(heat_template)
 
         # TODO: use Neutron to get segmentation-id
         self.get_neutron_info()
@@ -398,6 +405,10 @@ class HeatContext(Context):
 
     def undeploy(self):
         """undeploys stack from cloud"""
+        if self._flags.no_teardown:
+            LOG.info("Undeploying context '%s' SKIP", self.name)
+            return
+
         if self.stack:
             LOG.info("Undeploying context '%s' START", self.name)
             self.stack.delete()
@@ -445,7 +456,11 @@ class HeatContext(Context):
             server.private_ip = self.stack.outputs.get(
                 attr_name.get("private_ip_attr", object()), None)
         else:
-            server = self._server_map.get(attr_name, None)
+            try:
+                server = self._server_map[attr_name]
+            except KeyError:
+                attr_name_no_suffix = attr_name.split("-")[0]
+                server = self._server_map.get(attr_name_no_suffix, None)
             if server is None:
                 return None
 
