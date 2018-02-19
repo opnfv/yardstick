@@ -101,6 +101,88 @@ class HeatStackTestCase(unittest.TestCase):
         self.assertFalse(heat._DEPLOYED_STACKS)
         self.mock_stack_delete.assert_called_once_with(id, wait=True)
 
+    def test_get(self):
+        # make sure shade/get_stack is called with the appropriate vars
+        self.mock_stack_get.return_value = munch.Munch(
+            id="my-existing-stack-id",
+            outputs=[
+                {
+                 u'output_value': u'b734d06a-dec7-...',
+                 u'output_key': u'ares.demo-test-port-network_id',
+                 u'description': u''
+                },
+                {u'output_value': u'b08da78c-2218-...',
+                 u'output_key': u'ares.demo-test-port-subnet_id',
+                 u'description': u''
+                },
+                {u'output_value': u'10.0.1.0/24',
+                 u'output_key': u'demo-test-subnet-cidr',
+                 u'description': u''
+                },
+                {u'output_value': u'b08da78c-2218-...',
+                 u'output_key': u'demo-test-subnet',
+                 u'description': u''
+                },
+                {u'output_value': u'b1a03624-aefc-...',
+                 u'output_key': u'ares.demo',
+                 u'description': u''
+                },
+                {u'output_value': u'266a8088-c630-...',
+                 u'output_key': u'demo-secgroup',
+                 u'description': u''
+                },
+                {u'output_value': u'10.0.1.5',
+                 u'output_key': u'ares.demo-test-port',
+                 u'description': u''
+                },
+                {u'output_value': u'10.0.1.1',
+                 u'output_key': u'demo-test-subnet-gateway_ip',
+                 u'description': u''
+                },
+                {u'output_value': u'',
+                 u'output_key': u'ares.demo-test-port-device_id',
+                 u'description': u''
+                },
+                {u'output_value': u'172.24.4.7',
+                 u'output_key': u'ares.demo-fip',
+                 u'description': u''
+                },
+                {u'output_value': u'fa:16:3e:6c:c3:0f',
+                 u'output_key': u'ares.demo-test-port-mac_address',
+                 u'description': u''}
+            ]
+        )
+        expected_outputs = {
+            'ares.demo-test-port-network_id': 'b734d06a-dec7-...',
+            'ares.demo-test-port-subnet_id': 'b08da78c-2218-...',
+            'demo-test-subnet-cidr': '10.0.1.0/24',
+            'demo-test-subnet': 'b08da78c-2218-...',
+            'ares.demo': 'b1a03624-aefc-...',
+            'demo-secgroup': '266a8088-c630-...',
+            'ares.demo-test-port': '10.0.1.5',
+            'demo-test-subnet-gateway_ip': '10.0.1.1',
+            'ares.demo-test-port-device_id': '',
+            'ares.demo-fip': '172.24.4.7',
+            'ares.demo-test-port-mac_address': 'fa:16:3e:6c:c3:0f',
+        }
+
+        stack_id = "my-existing-stack-id"
+        self.heatstack.name = "my-existing-stack"
+        self.heatstack.get()
+
+        self.mock_stack_get.assert_called_once_with(self.heatstack.name)
+        self.assertEqual(expected_outputs, self.heatstack.outputs)
+        self.assertEqual(1, len(heat._DEPLOYED_STACKS))
+        self.assertEqual(self.heatstack._stack,
+                         heat._DEPLOYED_STACKS[stack_id])
+
+    def test_get_invalid_name(self):
+        # No context matching this name exists
+        self.mock_stack_get.return_value = []
+        self.heatstack.name = 'not-a-stack'
+        self.heatstack.get()
+        self.assertEqual(0, len(heat._DEPLOYED_STACKS))
+
 
 class HeatTemplateTestCase(unittest.TestCase):
 
