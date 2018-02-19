@@ -64,6 +64,20 @@ class HeatStack(object):
         if self.uuid:
             _DEPLOYED_STACKS[self.uuid] = self._stack
 
+    def get(self):
+        """Retrieves an existing stack from the target cloud
+
+        If the stack does not exist in the target cloud, do nothing.
+        """
+        self._stack = self._cloud.get_stack(self.name)
+        if self._stack:
+            log.debug("type(self._stack): %s", type(self._stack))
+            outputs = self._stack.outputs
+            self.outputs = {output['output_key']: output['output_value'] for output
+                            in outputs}
+            if self.uuid:
+                _DEPLOYED_STACKS[self.uuid] = self._stack
+
     @staticmethod
     def stacks_exist():
         """Check if any stack has been deployed"""
