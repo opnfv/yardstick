@@ -288,9 +288,9 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertEqual(len(server.interfaces), 3)
         self.assertDictEqual(server.interfaces['port_a'], expected)
 
-    @mock.patch('yardstick.benchmark.contexts.heat.os')
+    @mock.patch.object(heat.HeatContext, '_delete_key_file')
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
-    def test_undeploy(self, mock_template, *args):
+    def test_undeploy(self, mock_template, mock_delete_key):
         self.test_context.stack = mock_template
         self.test_context._name = 'foo'
         self.test_context._task_id = '1234567890'
@@ -299,19 +299,8 @@ class HeatContextTestCase(unittest.TestCase):
         # mock_os.path.exists.return_value = True
         self.test_context.key_filename = 'foo/bar/foobar'
         self.test_context.undeploy()
+        mock_delete_key.assert_called()
         self.assertTrue(mock_template.delete.called)
-
-    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
-    @mock.patch('yardstick.benchmark.contexts.heat.os')
-    def test_undeploy_key_filename(self, mock_os, mock_template):
-        self.test_context.stack = mock_template
-        self.test_context._name = 'foo'
-        self.test_context._task_id = '1234567890'
-        self.test_context._name_task_id = '{}-{}'.format(
-            self.test_context._name, self.test_context._task_id)
-        mock_os.path.exists.return_value = True
-        self.test_context.key_filename = 'foo/bar/foobar'
-        self.assertIsNone(self.test_context.undeploy())
 
     @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
     def test__get_server_found_dict(self, *args):
