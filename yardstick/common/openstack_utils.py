@@ -528,13 +528,12 @@ def create_neutron_router(neutron_client, json_body):      # pragma: no cover
         raise Exception("operation error")
 
 
-def delete_neutron_router(neutron_client, router_id):      # pragma: no cover
+def delete_neutron_router(shade_client, router_id):
     try:
-        neutron_client.delete_router(router=router_id)
-        return True
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [delete_neutron_router(neutron_client, '%s')]",
-                  router_id)
+        return shade_client.delete_router(router_id)
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [delete_neutron_router(shade_client, '%s')]."
+                  "Exception message, '%s'", router_id, o_exc.orig_message)
         return False
 
 
