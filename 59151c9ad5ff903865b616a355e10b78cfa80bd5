@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_5f9506e3",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-19T12:18:44Z",
+      "side": 1,
+      "message": "For consistency, add spaces: {{ segmentation_id }}",
+      "revId": "59151c9ad5ff903865b616a355e10b78cfa80bd5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3f9aba14",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-19T12:18:44Z",
+      "side": 1,
+      "message": "ditto here",
+      "range": {
+        "startLine": 91,
+        "startChar": 25,
+        "endLine": 91,
+        "endChar": 40
+      },
+      "revId": "59151c9ad5ff903865b616a355e10b78cfa80bd5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
