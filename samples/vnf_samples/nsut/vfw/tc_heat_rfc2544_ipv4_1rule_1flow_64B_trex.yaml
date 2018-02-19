@@ -15,6 +15,7 @@
 ---
 {% set provider = provider or none %}
 {% set physical_networks = physical_networks or ['physnet1', 'physnet2'] %}
+{% set segmentation_id = segmentation_id or none %}
 
 schema: yardstick:task:0.1
 scenarios:
@@ -74,6 +75,9 @@ context:
       {% if provider %}
       provider: {{ provider }}
       physical_network: {{ physical_networks[0] }}
+        {% if segmentation_id %}
+      segmentation_id: {{ segmentation_id }}
+        {% endif %}
       {% endif %}
       port_security_enabled: False
       enable_dhcp: 'false'
@@ -83,6 +87,9 @@ context:
       {% if provider %}
       provider: {{ provider }}
       physical_network: {{ physical_networks[1] }}
+        {% if segmentation_id %}
+      segmentation_id: {{ segmentation_id }}
+        {% endif %}
       {% endif %}
       port_security_enabled: False
       enable_dhcp: 'false'
