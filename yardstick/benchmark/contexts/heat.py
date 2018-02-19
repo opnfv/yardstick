@@ -298,6 +298,15 @@ class HeatContext(Context):
                     network.network_type = neutron_net.get('provider:network_type')
                     network.neutron_info = neutron_net
 
+    def retrieve_existing_stack(self, stack_name):
+        stack = HeatStack(stack_name)
+        stack.get()
+        if stack._stack:
+            return stack
+        else:
+            LOG.exception("Stack %s does not exist", self.name)
+            return None
+
     def deploy(self):
         """deploys template into a stack using cloud"""
         LOG.info("Deploying context '%s' START", self.name)
