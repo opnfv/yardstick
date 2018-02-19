@@ -381,6 +381,15 @@ class HeatContext(Context):
             "local_ip": private_ip,
         }
 
+    def _delete_key_file(self):
+       if os.path.exists(self.key_filename):
+           try:
+               os.remove(self.key_filename)
+               os.remove(self.key_filename + ".pub")
+           except OSError:
+               LOG.exception("There was an error removing the key file %s",
+                              self.key_filename)
+
     def undeploy(self):
         """undeploys stack from cloud"""
         if self.stack:
@@ -389,12 +398,7 @@ class HeatContext(Context):
             self.stack = None
             LOG.info("Undeploying context '%s' DONE", self.name)
 
-        if os.path.exists(self.key_filename):
-            try:
-                os.remove(self.key_filename)
-                os.remove(self.key_filename + ".pub")
-            except OSError:
-                LOG.exception("Key filename %s", self.key_filename)
+            self._delete_key_file()
 
         super(HeatContext, self).undeploy()
 
