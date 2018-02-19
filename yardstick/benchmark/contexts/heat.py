@@ -29,6 +29,7 @@ from yardstick.common.openstack_utils import get_neutron_client
 from yardstick.orchestrator.heat import HeatStack
 from yardstick.orchestrator.heat import HeatTemplate
 from yardstick.common import constants as consts
+from yardstick.common import utils
 from yardstick.common.utils import source_env
 from yardstick.ssh import SSH
 
@@ -402,6 +403,14 @@ class HeatContext(Context):
             "local_ip": private_ip,
         }
 
+    def _delete_key_file(self):
+        try:
+            utils.remove_file(self.key_filename)
+            utils.remove_file(self.key_filename + ".pub")
+        except OSError:
+            LOG.exception("There was an error removing the key file %s",
+                          self.key_filename)
+
     def undeploy(self):
         """undeploys stack from cloud"""
         if self._flags.no_teardown:
@@ -414,12 +423,7 @@ class HeatContext(Context):
             self.stack = None
             LOG.info("Undeploying context '%s' DONE", self.name)
 
-        if os.path.exists(self.key_filename):
-            try:
-                os.remove(self.key_filename)
-                os.remove(self.key_filename + ".pub")
-            except OSError:
-                LOG.exception("Key filename %s", self.key_filename)
+            self._delete_key_file()
 
         super(HeatContext, self).undeploy()
 

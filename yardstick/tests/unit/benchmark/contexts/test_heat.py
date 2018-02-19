@@ -355,8 +355,9 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertDictEqual(server.interfaces['port_a'], expected)
 
     @mock.patch('yardstick.benchmark.contexts.heat.os')
+    @mock.patch.object(heat.HeatContext, '_delete_key_file')
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
-    def test_undeploy(self, mock_template, *args):
+    def test_undeploy(self, mock_template, mock_delete_key, *args):
         self.test_context.stack = mock_template
         self.test_context._name = 'foo'
         self.test_context._task_id = '1234567890'
@@ -365,6 +366,7 @@ class HeatContextTestCase(unittest.TestCase):
         # mock_os.path.exists.return_value = True
         self.test_context.key_filename = 'foo/bar/foobar'
         self.test_context.undeploy()
+        mock_delete_key.assert_called()
         self.assertTrue(mock_template.delete.called)
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
