@@ -7,13 +7,12 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import print_function
-from __future__ import absolute_import
-
 import logging
 
+from yardstick.common import openstack_utils
+from yardstick.common import exceptions
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
+
 
 LOG = logging.getLogger(__name__)
 
@@ -28,9 +27,9 @@ class DeleteRouter(base.Scenario):
         self.context_cfg = context_cfg
         self.options = self.scenario_cfg['options']
 
-        self.router_id = self.options.get("router_id", None)
+        self.router_id = self.options["router_id"]
 
-        self.neutron_client = op_utils.get_neutron_client()
+        self.shade_client = openstack_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -45,11 +44,12 @@ class DeleteRouter(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        status = op_utils.delete_neutron_router(self.neutron_client,
-                                                router_id=self.router_id)
-        if status:
-            result.update({"delete_router": 1})
-            LOG.info("Delete router successful!")
-        else:
+        status = openstack_utils.delete_neutron_router(self.shade_client,
+                                                       self.router_id)
+        if not status:
             result.update({"delete_router": 0})
             LOG.error("Delete router failed!")
+            raise exceptions.ScenarioDeleteRouterError
+
+        result.update({"delete_router": 1})
+        LOG.info("Delete router successful!")
