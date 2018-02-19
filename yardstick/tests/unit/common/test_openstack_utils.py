@@ -11,6 +11,7 @@ from oslo_utils import uuidutils
 import unittest
 import mock
 
+from shade import exc
 from yardstick.common import openstack_utils
 
 
@@ -54,3 +55,31 @@ class GetNetworkIdTestCase(unittest.TestCase):
         output = openstack_utils.get_network_id(mock_shade_client,
                                                 'network_name')
         self.assertEqual(None, output)
+
+
+class DeleteNeutronNetTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.delete_network = mock.Mock()
+
+    def test_delete_neutron_net(self):
+        self.mock_shade_client.delete_network.return_value = True
+        output = openstack_utils.delete_neutron_net(self.mock_shade_client,
+                                                    'network_id')
+        self.assertTrue(output)
+
+    def test_delete_neutron_net_fail(self):
+        self.mock_shade_client.delete_network.return_value = False
+        output = openstack_utils.delete_neutron_net(self.mock_shade_client,
+                                                    'network_id')
+        self.assertFalse(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_delete_neutron_net_exception(self, mock_logger):
+        self.mock_shade_client.delete_network.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.delete_neutron_net(self.mock_shade_client,
+                                                    'network_id')
+        self.assertFalse(output)
+        mock_logger.error.assert_called_once()
