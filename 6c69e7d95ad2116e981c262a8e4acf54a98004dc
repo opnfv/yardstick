@@ -114,6 +114,30 @@
       "revId": "6c69e7d95ad2116e981c262a8e4acf54a98004dc",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_95176f51",
+        "filename": "etc/infra/infra_deploy.yaml.sample",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-20T14:30:15Z",
+      "side": 1,
+      "message": "This is the IP which is going to be define in the host. Only the IP in the network with \"default_gateway: True\" will be the default GW for the VMs",
+      "parentUuid": "5a3f45e8_352f7ba3",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "revId": "6c69e7d95ad2116e981c262a8e4acf54a98004dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
