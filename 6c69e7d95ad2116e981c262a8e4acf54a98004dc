@@ -138,6 +138,30 @@
       "revId": "6c69e7d95ad2116e981c262a8e4acf54a98004dc",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_301dc967",
+        "filename": "etc/infra/infra_deploy.yaml.sample",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-02-20T14:33:34Z",
+      "side": 1,
+      "message": "The host IP address assigned is actually one that is defined in \u0027interfaces\u0027 section, \u0027ip\u0027 variable.",
+      "parentUuid": "5a3f45e8_95176f51",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "revId": "6c69e7d95ad2116e981c262a8e4acf54a98004dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
