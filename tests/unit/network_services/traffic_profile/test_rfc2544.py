@@ -15,13 +15,10 @@
 # limitations under the License.
 #
 
-from __future__ import absolute_import
-from __future__ import division
-
 import unittest
 import mock
 
-from tests.unit import STL_MOCKS
+from yardstick.tests.unit import STL_MOCKS
 
 
 STLClient = mock.MagicMock()
@@ -51,29 +48,29 @@ class TestRFC2544Profile(unittest.TestCase):
                'traffic_profile': {'traffic_type': 'RFC2544Profile',
                                    'frame_rate': 100},
                'downlink_0': {'ipv4':
-                          {'outer_l2': {'framesize':
-                                        {'64B': '100', '1518B': '0',
-                                         '128B': '0', '1400B': '0',
-                                         '256B': '0', '373b': '0',
-                                         '570B': '0'}},
-                           'outer_l3v4': {'dstip4': '1.1.1.1-1.15.255.255',
-                                          'proto': 'udp',
-                                          'srcip4': '90.90.1.1-90.105.255.255',
-                                          'dscp': 0, 'ttl': 32, 'count': 1},
-                           'outer_l4': {'srcport': '2001',
-                               'dsrport': '1234', 'count': 1}}},
+                              {'outer_l2': {'framesize':
+                                            {'64B': '100', '1518B': '0',
+                                             '128B': '0', '1400B': '0',
+                                             '256B': '0', '373b': '0',
+                                             '570B': '0'}},
+                               'outer_l3v4': {'dstip4': '1.1.1.1-1.15.255.255',
+                                              'proto': 'udp',
+                                              'srcip4': '90.90.1.1-90.105.255.255',
+                                              'dscp': 0, 'ttl': 32, 'count': 1},
+                               'outer_l4': {'srcport': '2001',
+                                            'dsrport': '1234', 'count': 1}}},
                'uplink_0': {'ipv4':
-                           {'outer_l2': {'framesize':
-                                         {'64B': '100', '1518B': '0',
-                                          '128B': '0', '1400B': '0',
-                                          '256B': '0', '373b': '0',
-                                          '570B': '0'}},
-                            'outer_l3v4': {'dstip4': '9.9.1.1-90.105.255.255',
-                                           'proto': 'udp',
-                                           'srcip4': '1.1.1.1-1.15.255.255',
-                                           'dscp': 0, 'ttl': 32, 'count': 1},
-                            'outer_l4': {'dstport': '2001',
-                                'srcport': '1234', 'count': 1}}},
+                            {'outer_l2': {'framesize':
+                                          {'64B': '100', '1518B': '0',
+                                           '128B': '0', '1400B': '0',
+                                           '256B': '0', '373b': '0',
+                                           '570B': '0'}},
+                             'outer_l3v4': {'dstip4': '9.9.1.1-90.105.255.255',
+                                            'proto': 'udp',
+                                            'srcip4': '1.1.1.1-1.15.255.255',
+                                            'dscp': 0, 'ttl': 32, 'count': 1},
+                             'outer_l4': {'dstport': '2001',
+                                          'srcport': '1234', 'count': 1}}},
                'schema': 'isb:traffic_profile:0.1'}
 
     def test___init__(self):
@@ -86,8 +83,7 @@ class TestRFC2544Profile(unittest.TestCase):
             "uplink_0": ["xe0"],
             "downlink_0": ["xe1"],
         }
-        traffic_generator.client = \
-            mock.Mock(return_value=True)
+        traffic_generator.client.return_value = True
         r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
         r_f_c2544_profile.params = self.PROFILE
         r_f_c2544_profile.first_run = True
@@ -99,7 +95,7 @@ class TestRFC2544Profile(unittest.TestCase):
             "uplink_0": ["xe0"],
             "downlink_0": ["xe1"],
         }
-        traffic_generator.client = mock.Mock(return_value=True)
+        traffic_generator.client.return_value = True
 
         r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
         r_f_c2544_profile.params = self.PROFILE
@@ -133,7 +129,7 @@ class TestRFC2544Profile(unittest.TestCase):
                 'rx_throughput_fps': 20,
             },
         }
-        traffic_generator.generate_samples = mock.MagicMock(return_value=samples)
+        traffic_generator.generate_samples.return_value = samples
         traffic_generator.RUN_DURATION = 30
         traffic_generator.rfc2544_helper.tolerance_low = 0.0001
         traffic_generator.rfc2544_helper.tolerance_high = 0.0001
@@ -179,7 +175,8 @@ class TestRFC2544Profile(unittest.TestCase):
                 'rx_throughput_fps': 20,
             },
         }
-        traffic_generator.generate_samples = mock.MagicMock(return_value=samples)
+        traffic_generator.generate_samples = mock.MagicMock(
+            return_value=samples)
         traffic_generator.RUN_DURATION = 30
         traffic_generator.rfc2544_helper.tolerance_low = 0.0001
         traffic_generator.rfc2544_helper.tolerance_high = 0.0001
@@ -196,7 +193,8 @@ class TestRFC2544Profile(unittest.TestCase):
             mock.Mock(return_value=True)
         r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
         r_f_c2544_profile.params = self.PROFILE
-        self.assertEqual(None, r_f_c2544_profile.execute_traffic(traffic_generator))
+        self.assertIsNone(
+            r_f_c2544_profile.execute_traffic(traffic_generator))
         samples = {}
         for ifname in range(1):
             name = "xe{}".format(ifname)
@@ -217,7 +215,8 @@ class TestRFC2544Profile(unittest.TestCase):
                 'tx_throughput_mbps': 10, 'rx_throughput_fps': 20
             }
         }
-        traffic_generator.generate_samples = mock.MagicMock(return_value=samples)
+        traffic_generator.generate_samples = mock.MagicMock(
+            return_value=samples)
         traffic_generator.RUN_DURATION = 30
         traffic_generator.rfc2544_helper.tolerance_low = 0.0001
         traffic_generator.rfc2544_helper.tolerance_high = 0.0001
@@ -277,9 +276,8 @@ class TestRFC2544Profile(unittest.TestCase):
         r_f_c2544_profile.calculate_pps = mock.Mock(return_value=[2274546.67,
                                                                   1.0])
 
-        self.assertEqual(None,
-                         r_f_c2544_profile.execute_latency(traffic_generator,
-                                                           samples))
+        self.assertIsNone(r_f_c2544_profile.execute_latency(traffic_generator,
+                                                            samples))
 
 
 if __name__ == '__main__':
