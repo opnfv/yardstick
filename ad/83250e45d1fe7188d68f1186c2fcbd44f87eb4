@@ -1,0 +1,15 @@
+Code-Review+2: Rodolfo Alonso Hernandez <rodolfo.alonso.hernandez@intel.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Emma Foley <emma.l.foley@intel.com>
+Code-Review+1: Rex Lee <limingjiang@huawei.com>
+Code-Review+1: zhihui wu <wu.zhihui1@zte.com.cn>
+Code-Review+1: Jack Chan <chenjiankun1@huawei.com>
+Code-Review+1: Kubi <jean.gaoliang@huawei.com>
+Code-Review+1: Kanglin Yin <14_ykl@tongji.edu.cn>
+Code-Review+1: Trevor Cooper <trevor.cooper@intel.com>
+Code-Review+2: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-by: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-at: Tue, 20 Feb 2018 18:55:04 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/51285
+Project: yardstick
+Branch: refs/heads/master
