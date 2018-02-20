@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_d591f753",
+        "filename": "yardstick/benchmark/scenarios/lib/create_network.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-20T10:51:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_3a4928d1",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 79
+      },
+      "revId": "e9c2ff93b2e52c2ace868a25aeb7872de04eab12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_fa3ea028",
         "filename": "yardstick/benchmark/scenarios/lib/create_network.py",
         "patchSetId": 12
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_359f7b61",
+        "filename": "yardstick/benchmark/scenarios/lib/create_network.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-20T10:51:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_fa3ea028",
+      "revId": "e9c2ff93b2e52c2ace868a25aeb7872de04eab12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_9a3afc34",
         "filename": "yardstick/benchmark/scenarios/lib/create_network.py",
         "patchSetId": 12
@@ -53,6 +95,30 @@
       "writtenOn": "2018-02-19T17:23:33Z",
       "side": 1,
       "message": "This indentation is very ugly. Try to preserve the whole var name. For example:\n---\nnetwork_id \u003d op_utils.create_neutron_net(\n    self.shade_client, self.network_name, shared\u003d...)",
+      "range": {
+        "startLine": 54,
+        "startChar": 49,
+        "endLine": 55,
+        "endChar": 61
+      },
+      "revId": "e9c2ff93b2e52c2ace868a25aeb7872de04eab12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_159cff68",
+        "filename": "yardstick/benchmark/scenarios/lib/create_network.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-20T10:51:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_9a3afc34",
       "range": {
         "startLine": 54,
         "startChar": 49,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_7588e322",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-20T10:51:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_daf48489",
+      "range": {
+        "startLine": 455,
+        "startChar": 23,
+        "endLine": 457,
+        "endChar": 46
+      },
+      "revId": "e9c2ff93b2e52c2ace868a25aeb7872de04eab12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_1aef0cb2",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 12
@@ -99,6 +189,30 @@
       "writtenOn": "2018-02-19T17:23:33Z",
       "side": 1,
       "message": "We use another way to define the parameters:\n---\n:param network_name: (string) name of the network being created",
+      "range": {
+        "startLine": 460,
+        "startChar": 5,
+        "endLine": 460,
+        "endChar": 30
+      },
+      "revId": "e9c2ff93b2e52c2ace868a25aeb7872de04eab12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_558de730",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-20T10:51:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_1aef0cb2",
       "range": {
         "startLine": 460,
         "startChar": 5,
@@ -128,6 +242,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_b5826bfe",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-20T10:51:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_3af2c89a",
+      "revId": "e9c2ff93b2e52c2ace868a25aeb7872de04eab12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_7a2bb0eb",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 12
@@ -139,6 +271,30 @@
       "writtenOn": "2018-02-19T17:23:33Z",
       "side": 1,
       "message": "You can\u0027t use a type not defined in this project",
+      "range": {
+        "startLine": 471,
+        "startChar": 11,
+        "endLine": 471,
+        "endChar": 25
+      },
+      "revId": "e9c2ff93b2e52c2ace868a25aeb7872de04eab12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_95876f0f",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-20T10:51:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_7a2bb0eb",
       "range": {
         "startLine": 471,
         "startChar": 11,
@@ -168,6 +324,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f57b5327",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-20T10:51:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_5a307456",
+      "revId": "e9c2ff93b2e52c2ace868a25aeb7872de04eab12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_da22c400",
         "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_network.py",
         "patchSetId": 12
@@ -179,6 +353,30 @@
       "writtenOn": "2018-02-19T17:23:33Z",
       "side": 1,
       "message": "Do you need to rename this module? Do it if needed only. You are importing here just a few modules.\n\nfrom yardstick.common import openstack_utils # we know the name of this module",
+      "range": {
+        "startLine": 14,
+        "startChar": 1,
+        "endLine": 14,
+        "endChar": 51
+      },
+      "revId": "e9c2ff93b2e52c2ace868a25aeb7872de04eab12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d578d72d",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_network.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-20T10:51:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_da22c400",
       "range": {
         "startLine": 14,
         "startChar": 1,
@@ -214,6 +412,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_35765b3f",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_network.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-20T10:51:25Z",
+      "side": 1,
+      "message": "This the unit test for create_network.py. So, we are actually testing \u0027run\u0027 function defined in create_network.py file. create_neutron_net is already tested in test_openstack_utils.py file.",
+      "parentUuid": "5a3f45e8_1a46ecbf",
+      "range": {
+        "startLine": 22,
+        "startChar": 8,
+        "endLine": 23,
+        "endChar": 43
+      },
+      "revId": "e9c2ff93b2e52c2ace868a25aeb7872de04eab12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_7a1290b5",
         "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
         "patchSetId": 12
@@ -225,6 +447,30 @@
       "writtenOn": "2018-02-19T17:23:33Z",
       "side": 1,
       "message": "This is not a mock, just a variable. You shouldn\u0027t prefix the name of this variable with \"mock\"",
+      "range": {
+        "startLine": 92,
+        "startChar": 13,
+        "endLine": 92,
+        "endChar": 30
+      },
+      "revId": "e9c2ff93b2e52c2ace868a25aeb7872de04eab12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_15735f4e",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-20T10:51:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_7a1290b5",
       "range": {
         "startLine": 92,
         "startChar": 13,
@@ -260,6 +506,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_758f4324",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-20T10:51:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_ba0c1896",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 59
+      },
+      "revId": "e9c2ff93b2e52c2ace868a25aeb7872de04eab12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_fa25000b",
         "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
         "patchSetId": 12
@@ -271,6 +541,24 @@
       "writtenOn": "2018-02-19T17:23:33Z",
       "side": 1,
       "message": "Indentation:\n---\nmock_logger.error.assert_called_once_with(\n    \"Error [create_neutron_net(shade_client)]\")",
+      "revId": "e9c2ff93b2e52c2ace868a25aeb7872de04eab12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5594c736",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-20T10:51:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_fa25000b",
       "revId": "e9c2ff93b2e52c2ace868a25aeb7872de04eab12",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
