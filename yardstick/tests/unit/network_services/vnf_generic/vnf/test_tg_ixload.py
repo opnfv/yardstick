@@ -16,12 +16,12 @@
 import subprocess
 
 import mock
-import unittest
 import six
+import unittest
 
-from yardstick.tests import STL_MOCKS
 from yardstick import ssh
 from yardstick.common import utils
+from yardstick.tests import STL_MOCKS
 
 
 STLClient = mock.MagicMock()
