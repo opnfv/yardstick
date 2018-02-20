@@ -162,6 +162,30 @@
       "revId": "6c69e7d95ad2116e981c262a8e4acf54a98004dc",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b020b99c",
+        "filename": "etc/infra/infra_deploy.yaml.sample",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-20T14:35:44Z",
+      "side": 1,
+      "message": "Only if the network if the default gateway:\n\n  gateway4: {{ default_bridge.host_ip }}\n  ***when: default_bridge.name \u003d\u003d interface_item.network***",
+      "parentUuid": "5a3f45e8_301dc967",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "revId": "6c69e7d95ad2116e981c262a8e4acf54a98004dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
