@@ -145,7 +145,7 @@ class AnsibleNodeDictTestCase(unittest.TestCase):
 
 class AnsibleCommonTestCase(unittest.TestCase):
     def test_get_timeouts(self):
-        self.assertAlmostEquals(ansible_common.AnsibleCommon.get_timeout(-100), 1200.0)
+        self.assertAlmostEqual(ansible_common.AnsibleCommon.get_timeout(-100), 1200.0)
 
     def test__init__(self):
         ansible_common.AnsibleCommon({})
