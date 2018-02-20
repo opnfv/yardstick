@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_b53b8bea",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-02-20T14:26:36Z",
+      "side": 1,
+      "message": "Remove a white space.",
+      "range": {
+        "startLine": 44,
+        "startChar": 7,
+        "endLine": 44,
+        "endChar": 8
+      },
+      "revId": "6c69e7d95ad2116e981c262a8e4acf54a98004dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f55d134a",
+        "filename": "ansible/roles/infra_create_network/tasks/create_xml.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-02-20T14:26:36Z",
+      "side": 1,
+      "message": "The filename extension is *.yaml, rename it to *.yml as others.",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 44
+      },
+      "revId": "6c69e7d95ad2116e981c262a8e4acf54a98004dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_35581b56",
+        "filename": "ansible/roles/infra_create_vms/tasks/configure_vm.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-02-20T14:26:36Z",
+      "side": 1,
+      "message": "Name is duplicated to above one and doesn\u0027t reflect the action.",
+      "range": {
+        "startLine": 329,
+        "startChar": 0,
+        "endLine": 329,
+        "endChar": 41
+      },
+      "revId": "6c69e7d95ad2116e981c262a8e4acf54a98004dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7531030b",
+        "filename": "ansible/roles/infra_create_vms/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-02-20T14:26:36Z",
+      "side": 1,
+      "message": "Remove a white space.",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 7
+      },
+      "revId": "6c69e7d95ad2116e981c262a8e4acf54a98004dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_352f7ba3",
+        "filename": "etc/infra/infra_deploy.yaml.sample",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-02-20T14:26:36Z",
+      "side": 1,
+      "message": "Should we consider rename \u0027host_ip\u0027 to \u0027gw_ip\u0027 or such?",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 11
+      },
+      "revId": "6c69e7d95ad2116e981c262a8e4acf54a98004dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
