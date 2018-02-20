@@ -19,7 +19,7 @@ import unittest
 import mock
 import subprocess
 
-from tests.unit import STL_MOCKS
+from yardstick.tests.unit import STL_MOCKS
 
 
 STLClient = mock.MagicMock()

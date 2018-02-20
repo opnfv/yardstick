@@ -18,7 +18,7 @@
 import mock
 import unittest
 
-from tests.unit import STL_MOCKS
+from yardstick.tests.unit import STL_MOCKS
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
