@@ -18,8 +18,8 @@ import mock
 import six
 import unittest
 
-from yardstick.tests import STL_MOCKS
 from yardstick.common import exceptions as y_exc
+from yardstick.tests import STL_MOCKS
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
