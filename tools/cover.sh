@@ -45,10 +45,7 @@ run_coverage_test() {
 
     find . -type f -name "*.pyc" -delete
 
-    # Temporarily run tests from two directories, until all tests have moved
-    coverage run -p -m unittest discover ./tests/unit
     coverage run -p -m unittest discover ./yardstick/tests/unit
-    coverage combine
 
     # Temporarily omit yardstick/tests from the report
     coverage report --omit=yardstick/tests/*/* > ${baseline_report}
@@ -72,10 +69,7 @@ run_coverage_test() {
 
     find . -type f -name "*.pyc" -delete
 
-    # Temporarily run tests from two directories, until all tests have moved
-    coverage run -p -m unittest discover ./tests/unit
     coverage run -p -m unittest discover ./yardstick/tests/unit
-    coverage combine
 
     # Temporarily omit yardstick/tests from the report
     coverage report --omit=yardstick/tests/*/* > ${current_report}
