@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d55a974f",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-20T14:22:28Z",
+      "side": 1,
+      "message": "I don\u0027t have this error when testing with pep8",
+      "range": {
+        "startLine": 177,
+        "startChar": 51,
+        "endLine": 177,
+        "endChar": 83
+      },
+      "revId": "0953499c57eec36a46cdd2e0438c60aec4b5bd02",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
