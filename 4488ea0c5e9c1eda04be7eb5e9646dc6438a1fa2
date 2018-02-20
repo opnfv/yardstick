@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_5565e743",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_scale-up.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-20T13:15:51Z",
+      "side": 1,
+      "message": "Just a heads up for the documentation: we need document clearly the possible arguments.\n\nIn the case of static config file, we need to provide both the \"file\" and the \"lb_config\" parameters.",
+      "range": {
+        "startLine": 47,
+        "startChar": 6,
+        "endLine": 47,
+        "endChar": 91
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7560e335",
+        "filename": "samples/vnf_samples/traffic_profiles/ipv4_throughput-scale-up.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-20T13:15:51Z",
+      "side": 1,
+      "message": "This should be 2. The default test is done with only 2 ports.",
+      "range": {
+        "startLine": 36,
+        "startChar": 43,
+        "endLine": 36,
+        "endChar": 44
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1574fffb",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-20T13:15:51Z",
+      "side": 1,
+      "message": "nit: please, don\u0027t mix single and double quotes.",
+      "range": {
+        "startLine": 591,
+        "startChar": 60,
+        "endLine": 591,
+        "endChar": 61
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_35777b04",
+        "filename": "yardstick/tests/functional/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-20T13:15:51Z",
+      "side": 1,
+      "message": "This should be 2, for consistency.",
+      "range": {
+        "startLine": 56,
+        "startChar": 42,
+        "endLine": 56,
+        "endChar": 43
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_95880fe9",
+        "filename": "yardstick/tests/functional/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-20T13:15:51Z",
+      "side": 1,
+      "message": "It\u0027s valid but a bit weird. This should be 6",
+      "range": {
+        "startLine": 134,
+        "startChar": 65,
+        "endLine": 134,
+        "endChar": 67
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f56cf338",
+        "filename": "yardstick/tests/functional/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-20T13:15:51Z",
+      "side": 1,
+      "message": "You should make a loop to test them all.",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 150,
+        "endChar": 95
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7512a3b5",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-20T13:15:51Z",
+      "side": 1,
+      "message": "The function doesn\u0027t explicitly raise an exception, so we don\u0027t need to check it. That should be checked in \"open_relative_file\" but this is not in the scope of this patch.",
+      "range": {
+        "startLine": 656,
+        "startChar": 4,
+        "endLine": 659,
+        "endChar": 38
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b50c2b96",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-20T13:15:51Z",
+      "side": 1,
+      "message": "You don\u0027t need to create a mock object here. This is going to be an input parameter in \"generate_vnfs\". This could be just \"fake_topology\"",
+      "range": {
+        "startLine": 663,
+        "startChar": 24,
+        "endLine": 663,
+        "endChar": 40
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_557e87e5",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-20T13:15:51Z",
+      "side": 1,
+      "message": "Instead of this, mock_generate should return something readable in L208 [1]. E.g.:\nmock_generate.return_value \u003d {\u0027nsd:nsd-catalog\u0027: {\u0027nsd\u0027: [\u0027fake_nsd\u0027]}}\n\n[1] https://gerrit.opnfv.org/gerrit/#/c/51987/11/yardstick/benchmark/scenarios/networking/vnf_generic.py@208",
+      "range": {
+        "startLine": 664,
+        "startChar": 0,
+        "endLine": 666,
+        "endChar": 66
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b5838bcb",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-20T13:15:51Z",
+      "side": 1,
+      "message": "1) We don\u0027t need to msg. This check should fail.\n2) First the expected result, second the value to check.",
+      "range": {
+        "startLine": 676,
+        "startChar": 8,
+        "endLine": 676,
+        "endChar": 75
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
