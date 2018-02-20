@@ -74,6 +74,10 @@ committers:
       email: '14_ykl@tongji.edu.cn'
       company: 'tongji.edu.cn'
       id: 'tjuyinkanglin'
+    - name: 'Abhijit Sinha'
+      email: 'abhijit.sinha@intel.com'
+      company: 'intel.com'
+      id: 'abhijitsinha'
 tsc:
     # yamllint disable rule:line-length
     approval: 'http//meetbot.opnfv.org/meetings/'
