@@ -116,11 +116,13 @@ Configure the network proxy, either using the environment variables or setting
 the global environment file:
 
 .. code-block:: ini
+
     cat /etc/environment
     http_proxy='http://proxy.company.com:port'
     https_proxy='http://proxy.company.com:port'
 
 .. code-block:: console
+
     export http_proxy='http://proxy.company.com:port'
     export https_proxy='http://proxy.company.com:port'
 
@@ -128,6 +130,7 @@ The last step is to modify the Yardstick installation inventory, used by
 Ansible:
 
 .. code-block:: ini
+
   cat ./ansible/yardstick-install-inventory.ini
   [jumphost]
   localhost  ansible_connection=local
@@ -753,14 +756,292 @@ Update "contexts" section
          gateway_ip: '152.16.100.20'
 
 
+Network Service Benchmarking - OpenStack with SR-IOV support
+------------------------------------------------------------
+
+This section describes how to run a Sample VNF test case, using Heat context,
+with SR-IOV. It also covers how to install OpenStack in Ubuntu 16.04, using
+DevStack, with SR-IOV support.
+
+
+Single node OpenStack setup with external TG
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: console
+
+                                 +----------------------------+
+                                 |OpenStack(DevStack)         |
+                                 |                            |
+                                 |   +--------------------+   |
+                                 |   |sample-VNF VM       |   |
+                                 |   |                    |   |
+                                 |   |        DUT         |   |
+                                 |   |       (VNF)        |   |
+                                 |   |                    |   |
+                                 |   +--------+  +--------+   |
+                                 |   | VF NIC |  | VF NIC |   |
+                                 |   +-----+--+--+----+---+   |
+                                 |         ^          ^       |
+                                 |         |          |       |
+  +----------+                   +---------+----------+-------+
+  |          |                   |        VF0        VF1      |
+  |          |                   |         ^          ^       |
+  |          |                   |         |   SUT    |       |
+  |    TG    | (PF0)<----->(PF0) +---------+          |       |
+  |          |                   |                    |       |
+  |          | (PF1)<----->(PF1) +--------------------+       |
+  |          |                   |                            |
+  +----------+                   +----------------------------+
+  trafficgen_1                                 host
+
+
+Host pre-configuration
+######################
+
+.. warning:: The following configuration requires sudo access to the system. Make
+  sure that your user have the access.
+
+Enable the Intel VT-d or AMD-Vi extension in the BIOS. Some system manufacturers
+disable this extension by default.
+
+Activate the Intel VT-d or AMD-Vi extension in the kernel by modifying the GRUB
+config file ``/etc/default/grub``.
+
+For the Intel platform:
+
+.. code:: bash
+
+  ...
+  GRUB_CMDLINE_LINUX_DEFAULT="intel_iommu=on"
+  ...
+
+For the AMD platform:
+
+.. code:: bash
+
+  ...
+  GRUB_CMDLINE_LINUX_DEFAULT="amd_iommu=on"
+  ...
+
+Update the grub configuration file and restart the system:
+
+.. warning:: The following command will reboot the system.
+
+.. code:: bash
+
+  sudo update-grub
+  sudo reboot
+
+Make sure the extension has been enabled:
+
+.. code:: bash
+
+  sudo journalctl -b 0 | grep -e IOMMU -e DMAR
+
+  Feb 06 14:50:14 hostname kernel: ACPI: DMAR 0x000000006C406000 0001E0 (v01 INTEL  S2600WF  00000001 INTL 20091013)
+  Feb 06 14:50:14 hostname kernel: DMAR: IOMMU enabled
+  Feb 06 14:50:14 hostname kernel: DMAR: Host address width 46
+  Feb 06 14:50:14 hostname kernel: DMAR: DRHD base: 0x000000d37fc000 flags: 0x0
+  Feb 06 14:50:14 hostname kernel: DMAR: dmar0: reg_base_addr d37fc000 ver 1:0 cap 8d2078c106f0466 ecap f020de
+  Feb 06 14:50:14 hostname kernel: DMAR: DRHD base: 0x000000e0ffc000 flags: 0x0
+  Feb 06 14:50:14 hostname kernel: DMAR: dmar1: reg_base_addr e0ffc000 ver 1:0 cap 8d2078c106f0466 ecap f020de
+  Feb 06 14:50:14 hostname kernel: DMAR: DRHD base: 0x000000ee7fc000 flags: 0x0
+
+Setup system proxy (if needed). Add the following configuration into the
+``/etc/environment`` file:
+
+.. note:: The proxy server name/port and IPs should be changed according to
+  actuall/current proxy configuration in the lab.
+
+.. code:: bash
+
+  export http_proxy=http://proxy.company.com:port
+  export https_proxy=http://proxy.company.com:port
+  export ftp_proxy=http://proxy.company.com:port
+  export no_proxy=localhost,127.0.0.1,company.com,<IP-OF-HOST1>,<IP-OF-HOST2>,...
+  export NO_PROXY=localhost,127.0.0.1,company.com,<IP-OF-HOST1>,<IP-OF-HOST2>,...
+
+Upgrade the system:
+
+.. code:: bash
+
+  sudo -EH apt-get update
+  sudo -EH apt-get upgrade
+  sudo -EH apt-get dist-upgrade
+
+Install dependencies needed for the DevStack
+
+.. code:: bash
+
+  sudo -EH apt-get install python
+  sudo -EH apt-get install python-dev
+  sudo -EH apt-get install python-pip
+
+Setup SR-IOV ports on the host:
+
+.. note:: The ``enp24s0f0``, ``enp24s0f0`` are physical function (PF) interfaces
+  on a host and ``enp24s0f3`` is a public interface used in OpenStack, so the
+  interface names should be changed according to the HW environment used for
+  testing.
+
+.. code:: bash
+
+  sudo ip link set dev enp24s0f0 up
+  sudo ip link set dev enp24s0f1 up
+  sudo ip link set dev enp24s0f3 up
+
+  # Create VFs on PF
+  echo 2 | sudo tee /sys/class/net/enp24s0f0/device/sriov_numvfs
+  echo 2 | sudo tee /sys/class/net/enp24s0f1/device/sriov_numvfs
+
+
+DevStack installation
+#####################
+
+Use official `Devstack <https://docs.openstack.org/devstack/pike/>`_
+documentation to install OpenStack on a host. Please note, that stable
+``pike`` branch of devstack repo should be used during the installation.
+The required `local.conf`` configuration file are described below.
+
+DevStack configuration file:
+
+.. note:: Update the devstack configuration file by replacing angluar brackets
+  with a short description inside.
+
+.. note:: Use ``lspci | grep Ether`` & ``lspci -n | grep <PCI ADDRESS>``
+  commands to get device and vendor id of the virtual function (VF).
+
+.. literalinclude:: code/single-devstack-local.conf
+   :language: console
+
+Start the devstack installation on a host.
+
+
+TG host configuration
+#####################
+
+Yardstick automatically install and configure Trex traffic generator on TG
+host based on provided POD file (see below). Anyway, it's recommended to check
+the compatibility of the installed NIC on the TG server with software Trex using
+the manual at https://trex-tgn.cisco.com/trex/doc/trex_manual.html.
+
+
+Run the Sample VNF test case
+############################
+
+There is an example of Sample VNF test case ready to be executed in an
+OpenStack environment with SR-IOV support: ``samples/vnf_samples/nsut/vfw/
+tc_heat_sriov_external_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``.
+
+Install yardstick using `Install Yardstick (NSB Testing)`_ steps for OpenStack
+context.
+
+Create pod file for TG in the yardstick repo folder located in the yardstick
+container:
+
+.. note:: The ``ip``, ``user``, ``password`` and ``vpci`` fields show be  changed
+  according to HW environment used for the testing. Use ``lshw -c network -businfo``
+  command to get the PF PCI address for ``vpci`` field.
+
+.. literalinclude:: code/single-yardstick-pod.conf
+   :language: console
+
+Run the Sample vFW RFC2544 SR-IOV TC (``samples/vnf_samples/nsut/vfw/
+tc_heat_sriov_external_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``) in the heat
+context using steps described in `NS testing - using yardstick CLI`_ section.
+
+
+Multi node OpenStack TG and VNF setup (two nodes)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: console
+
+  +----------------------------+                   +----------------------------+
+  |OpenStack(DevStack)         |                   |OpenStack(DevStack)         |
+  |                            |                   |                            |
+  |   +--------------------+   |                   |   +--------------------+   |
+  |   |sample-VNF VM       |   |                   |   |sample-VNF VM       |   |
+  |   |                    |   |                   |   |                    |   |
+  |   |         TG         |   |                   |   |        DUT         |   |
+  |   |    trafficgen_1    |   |                   |   |       (VNF)        |   |
+  |   |                    |   |                   |   |                    |   |
+  |   +--------+  +--------+   |                   |   +--------+  +--------+   |
+  |   | VF NIC |  | VF NIC |   |                   |   | VF NIC |  | VF NIC |   |
+  |   +----+---+--+----+---+   |                   |   +-----+--+--+----+---+   |
+  |        ^           ^       |                   |         ^          ^       |
+  |        |           |       |                   |         |          |       |
+  +--------+-----------+-------+                   +---------+----------+-------+
+  |       VF0         VF1      |                   |        VF0        VF1      |
+  |        ^           ^       |                   |         ^          ^       |
+  |        |    SUT2   |       |                   |         |   SUT1   |       |
+  |        |           +-------+ (PF0)<----->(PF0) +---------+          |       |
+  |        |                   |                   |                    |       |
+  |        +-------------------+ (PF1)<----->(PF1) +--------------------+       |
+  |                            |                   |                            |
+  +----------------------------+                   +----------------------------+
+           host2 (compute)                               host1 (controller)
+
+
+Controller/Compute pre-configuration
+####################################
+
+Pre-configuration of the controller and compute hosts are the same as
+described in `Host pre-configuration`_ section. Follow the steps in the section.
+
+
+DevStack configuration
+######################
+
+Use official `Devstack <https://docs.openstack.org/devstack/pike/>`_
+documentation to install OpenStack on a host. Please note, that stable
+``pike`` branch of devstack repo should be used during the installation.
+The required `local.conf`` configuration file are described below.
+
+.. note:: Update the devstack configuration files by replacing angluar brackets
+  with a short description inside.
+
+.. note:: Use ``lspci | grep Ether`` & ``lspci -n | grep <PCI ADDRESS>``
+  commands to get device and vendor id of the virtual function (VF).
+
+DevStack configuration file for controller host:
+
+.. literalinclude:: code/multi-devstack-controller-local.conf
+   :language: console
+
+DevStack configuration file for compute host:
+
+.. literalinclude:: code/multi-devstack-compute-local.conf
+   :language: console
+
+Start the devstack installation on the controller and compute hosts.
+
+
+Run the sample vFW TC
+#####################
+
+Install yardstick using `Install Yardstick (NSB Testing)`_ steps for OpenStack
+context.
+
+Run sample vFW RFC2544 SR-IOV TC (``samples/vnf_samples/nsut/vfw/
+tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``) in the heat
+context using steps described in `NS testing - using yardstick CLI`_ section
+and the following yardtick command line arguments:
+
+.. code:: bash
+
+  yardstick -d task start --task-args='{"provider": "sriov"}' \
+  samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex.yaml
+
+
 Enabling other Traffic generator
 --------------------------------
 
 IxLoad:
 ^^^^^^^
 
-1. Software needed: IxLoadAPI ``<IxLoadTclApi verson>Linux64.bin.tgz and <IxOS version>Linux64.bin.tar.gz`` (Download from ixia support site)
-                     Install - ``<IxLoadTclApi verson>Linux64.bin.tgz & <IxOS version>Linux64.bin.tar.gz``
+1. Software needed: IxLoadAPI ``<IxLoadTclApi verson>Linux64.bin.tgz and <IxOS
+   version>Linux64.bin.tar.gz`` (Download from ixia support site)
+   Install - ``<IxLoadTclApi verson>Linux64.bin.tgz & <IxOS version>Linux64.bin.tar.gz``
    If the installation was not done inside the container, after installing the IXIA client,
    check /opt/ixia/ixload/<ver>/bin/ixloadpython and make sure you can run this cmd
    inside the yardstick container. Usually user is required to copy or link /opt/ixia/python/<ver>/bin/ixiapython
@@ -818,9 +1099,9 @@ IxLoad:
 
    - Connect to the IxLoad machine using RDP
    - Go to:
-    ``Start->Programs->Ixia->IxOS->IxOS 8.01-GA-Patch1->Ixia Tcl Server IxOS 8.01-GA-Patch1``
+     ``Start->Programs->Ixia->IxOS->IxOS 8.01-GA-Patch1->Ixia Tcl Server IxOS 8.01-GA-Patch1``
      or
-    ``"C:\Program Files (x86)\Ixia\IxOS\8.01-GA-Patch1\ixTclServer.exe"``
+     ``"C:\Program Files (x86)\Ixia\IxOS\8.01-GA-Patch1\ixTclServer.exe"``
 
 4. Create a folder "Results" in c:\ and share the folder on the network.
 
