@@ -519,13 +519,29 @@ def create_neutron_subnet(shade_client, network_name_or_id, cidr=None,
         return None
 
 
-def create_neutron_router(neutron_client, json_body):      # pragma: no cover
+def create_neutron_router(shade_client, name=None, admin_state_up=True,
+                          ext_gateway_net_id=None, enable_snat=None,
+                          ext_fixed_ips=None, project_id=None):
+    """Create a logical router.
+
+    :param name:(string) the router name.
+    :param admin_state_up:(bool) the administrative state of the router.
+    :param ext_gateway_net_id:(string) network ID for the external gateway.
+    :param enable_snat:(bool) enable Source NAT (SNAT) attribute.
+    :param ext_fixed_ips: List of dictionaries of desired IP and/or subnet
+                          on the external network.
+    :param project_id:(string) project ID for the router.
+
+    :returns:(string) the router id.
+    """
     try:
-        router = neutron_client.create_router(json_body)
-        return router['router']['id']
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [create_neutron_router(neutron_client)]")
-        raise Exception("operation error")
+        router = shade_client.create_router(
+            name, admin_state_up, ext_gateway_net_id, enable_snat,
+            ext_fixed_ips, project_id)
+        return router['id']
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [create_neutron_router(shade_client)]. "
+                  "Exception message: %s", o_exc.orig_message)
 
 
 def delete_neutron_router(shade_client, router_id):
