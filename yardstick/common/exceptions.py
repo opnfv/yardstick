@@ -124,3 +124,7 @@ class UnsupportedPodFormatError(YardstickException):
 
 class ScenarioCreateRouterError(YardstickException):
     message = 'Create Neutron Router Scenario failed'
+
+
+class ScenarioRemoveRouterIntError(YardstickException):
+    message = 'Remove Neutron Router Interface Scenario failed'

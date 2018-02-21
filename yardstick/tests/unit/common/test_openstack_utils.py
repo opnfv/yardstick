@@ -185,3 +185,26 @@ class CreateNeutronRouterTestCase(unittest.TestCase):
             self.mock_shade_client)
         mock_logger.error.assert_called_once()
         self.assertIsNone(output)
+
+
+class RemoveRouterInterfaceTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.router = 'router'
+        self.mock_shade_client.remove_router_interface = mock.Mock()
+
+    def test_remove_router_interface(self):
+        self.mock_shade_client.remove_router_interface.return_value = True
+        output = openstack_utils.remove_router_interface(
+            self.mock_shade_client, self.router)
+        self.assertTrue(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_remove_router_interface_exception(self, mock_logger):
+        self.mock_shade_client.remove_router_interface.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.remove_router_interface(
+            self.mock_shade_client, self.router)
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
