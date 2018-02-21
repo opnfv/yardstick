@@ -7,13 +7,10 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import print_function
-from __future__ import absolute_import
-
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
+from yardstick.common import openstack_utils
 
 LOG = logging.getLogger(__name__)
 
@@ -28,10 +25,11 @@ class DeleteRouterInterface(base.Scenario):
         self.context_cfg = context_cfg
         self.options = self.scenario_cfg['options']
 
+        self.router = self.options.get("router", None)
         self.subnet_id = self.options.get("subnet_id", None)
-        self.router_id = self.options.get("router_id", None)
+        self.port_id = self.options.get("port_id", None)
 
-        self.neutron_client = op_utils.get_neutron_client()
+        self.shade_client = openstack_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -46,12 +44,12 @@ class DeleteRouterInterface(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        status = op_utils.remove_interface_router(self.neutron_client,
-                                                  router_id=self.router_id,
-                                                  subnet_id=self.subnet_id)
+        status = openstack_utils.remove_router_interface(
+            self.shade_client, self.router, self.subnet_id, self.port_id)
         if status:
             result.update({"delete_router_interface": 1})
             LOG.info("Delete router interface successful!")
         else:
             result.update({"delete_router_interface": 0})
             LOG.error("Delete router interface failed!")
+        return status
