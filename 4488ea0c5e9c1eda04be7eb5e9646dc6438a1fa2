@@ -48,6 +48,80 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_8bd62cc4",
+        "filename": "samples/vnf_samples/traffic_profiles/ipv4_throughput-scale-up.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T11:23:54Z",
+      "side": 1,
+      "message": "nit: space",
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ebda50e8",
+        "filename": "samples/vnf_samples/traffic_profiles/ipv4_throughput-scale-up.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T11:23:54Z",
+      "side": 1,
+      "message": "nit: space",
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2be558a8",
+        "filename": "samples/vnf_samples/traffic_profiles/ipv4_throughput-scale-up.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T11:23:54Z",
+      "side": 1,
+      "message": "nit: space\n\nThroughout this file, check that the spacing is consistent\n\ni.e. {{ var }}",
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_eb01b03a",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T11:23:54Z",
+      "side": 1,
+      "message": "Single quotes for consistency",
+      "range": {
+        "startLine": 571,
+        "startChar": 31,
+        "endLine": 571,
+        "endChar": 50
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_1574fffb",
         "filename": "tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
         "patchSetId": 11
@@ -65,6 +139,116 @@
         "endLine": 591,
         "endChar": 61
       },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0be21c9f",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T11:23:54Z",
+      "side": 1,
+      "message": "Go for single quotes, since that\u0027s what\u0027s done in the rest of the file",
+      "parentUuid": "5a3f45e8_1574fffb",
+      "range": {
+        "startLine": 591,
+        "startChar": 60,
+        "endLine": 591,
+        "endChar": 61
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6b95a0e3",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T11:23:54Z",
+      "side": 1,
+      "message": "You could use \n\nmock_find.assert_called() \nmock_multi_port_config.generate_config.assert_called()\nmock_multi_port_config.generate_script.assert_called()\n\nThis asserts that the call has been made at least once.\n\n\nBut I know that assertGreaterEqual has been used in the rest of this file, but IMHO, assert_called is easier to grok.",
+      "range": {
+        "startLine": 599,
+        "startChar": 0,
+        "endLine": 601,
+        "endChar": 85
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6bbc806d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T11:23:54Z",
+      "side": 1,
+      "message": "This should be done in the if stmt.\n\nOtherwise, if config_file is present, we assign a value to new_config without using this value.",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 38
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_abb68888",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T11:23:54Z",
+      "side": 1,
+      "message": "nit: I\u0027d put ``if config_file`` first (personal preference)",
+      "range": {
+        "startLine": 206,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 27
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4bc1c4e3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T11:23:54Z",
+      "side": 1,
+      "message": "Put L204-205 in here",
       "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -220,6 +404,30 @@
       "writtenOn": "2018-02-20T13:15:51Z",
       "side": 1,
       "message": "1) We don\u0027t need to msg. This check should fail.\n2) First the expected result, second the value to check.",
+      "range": {
+        "startLine": 676,
+        "startChar": 8,
+        "endLine": 676,
+        "endChar": 75
+      },
+      "revId": "4488ea0c5e9c1eda04be7eb5e9646dc6438a1fa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6b31200b",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T11:23:54Z",
+      "side": 1,
+      "message": "I agree with you on point 2, however, it\u0027s been done in reverse in most places in Yardstick, as far as I can see.",
+      "parentUuid": "5a3f45e8_b5838bcb",
       "range": {
         "startLine": 676,
         "startChar": 8,
