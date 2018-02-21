@@ -21,6 +21,8 @@ import unittest
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import heat
 from yardstick.benchmark.contexts import model
+from yardstick.common import exceptions as y_exc
+from yardstick.orchestrator import heat as orch_heat
 
 
 LOG = logging.getLogger(__name__)
@@ -176,6 +178,28 @@ class HeatContextTestCase(unittest.TestCase):
 
         with self.assertRaises(AttributeError):
             self.test_context.user = 'foo'
+
+    def test__create_new_stack(self):
+        template = mock.Mock()
+        self.test_context._create_new_stack(template)
+        template.create.assert_called_once()
+
+    def test__create_new_stack_stack_create_failed(self):
+        template = mock.Mock()
+        template.create.side_effect = y_exc.HeatTemplateError
+
+        self.assertRaises(y_exc.HeatTemplateError,
+                          self.test_context._create_new_stack,
+                          template)
+
+    @mock.patch.object(orch_heat.HeatTemplate, 'add_keypair')
+    @mock.patch.object(heat.HeatContext, '_create_new_stack')
+    def test_deploy_stack_creation_failed(self, mock_create, *args):
+        self.test_context._name = 'foo'
+        self.test_context._task_id = '1234567890'
+        mock_create.side_effect = y_exc.HeatTemplateError
+        self.assertRaises(y_exc.HeatTemplateError,
+                          self.test_context.deploy)
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_deploy(self, mock_template):
