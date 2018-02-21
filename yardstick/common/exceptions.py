@@ -74,3 +74,7 @@ class DPDKSetupDriverError(YardstickException):
 
 class ScenarioConfigContextNameNotFound(YardstickException):
     message = 'Context name "%(context_name)s" not found'
+
+
+class StackCreationInterrupt(YardstickException):
+    message = 'Stack create interrupted.'
