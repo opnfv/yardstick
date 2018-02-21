@@ -1,0 +1,239 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_2b771804",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-21T11:46:56Z",
+      "side": 1,
+      "message": "We agreed on having a section, called flags. E.g.:\ncontext:\n  name: yardstick\n  flags:\n    no_setup: True\n    no_teardown: True",
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0b74dcfb",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-21T11:46:56Z",
+      "side": 1,
+      "message": "This is a private method.",
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6b600036",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-21T11:46:56Z",
+      "side": 1,
+      "message": "indentation",
+      "range": {
+        "startLine": 317,
+        "startChar": 46,
+        "endLine": 317,
+        "endChar": 47
+      },
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4b654444",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-21T11:46:56Z",
+      "side": 1,
+      "message": "Hmmm, you can return the result of the previous commandm without creating a variable:\n  return heat_template.create(...)",
+      "range": {
+        "startLine": 318,
+        "startChar": 13,
+        "endLine": 318,
+        "endChar": 29
+      },
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0b1dfcbd",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-21T11:46:56Z",
+      "side": 1,
+      "message": "We should create an exception in common.exceptions",
+      "range": {
+        "startLine": 320,
+        "startChar": 13,
+        "endLine": 320,
+        "endChar": 59
+      },
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6b7920fc",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-21T11:46:56Z",
+      "side": 1,
+      "message": "ditto. Remove the log and create and exception with a message",
+      "range": {
+        "startLine": 322,
+        "startChar": 13,
+        "endLine": 324,
+        "endChar": 18
+      },
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ab8328cb",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-21T11:46:56Z",
+      "side": 1,
+      "message": "In this case, we should raise an exception. If the stack is not there (and we are expecting it) we should stop.",
+      "range": {
+        "startLine": 348,
+        "startChar": 12,
+        "endLine": 349,
+        "endChar": 65
+      },
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_eb53706a",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-21T11:46:56Z",
+      "side": 1,
+      "message": "Maybe a log message?",
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6b047f15",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-21T11:46:56Z",
+      "side": 1,
+      "message": "Why this? In \"_server_map\" are stored the running servers in a context, using the \"distinguished name\":\n   return self.name + \".\" + self._context.name\n\nThis is not the problem. The problem is in core.task.Task.parse_task. [1] here the name of the context is changed.\n\nActually, if the name of the context (and subelements) depends on the \"task_id\", why do we need another uuid to name the key [2]? This is totally unnecessary.\n\n[1]https://github.com/opnfv/yardstick/blob/master/yardstick/benchmark/core/task.py#L521-L525\n[2]https://github.com/opnfv/yardstick/blob/master/yardstick/benchmark/contexts/heat.py#L73-L78",
+      "range": {
+        "startLine": 472,
+        "startChar": 11,
+        "endLine": 475,
+        "endChar": 61
+      },
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cbd794be",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-21T11:46:56Z",
+      "side": 1,
+      "message": "KeyError __str__ method:\n    def __str__(self): # real signature unknown; restored from __doc__\n        \"\"\" x.__str__() \u003c\u003d\u003d\u003e str(x) \"\"\"\n        pass\n\nThis is going to be an empty string.",
+      "range": {
+        "startLine": 347,
+        "startChar": 71,
+        "endLine": 347,
+        "endChar": 76
+      },
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cb09532e",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-21T11:46:56Z",
+      "side": 1,
+      "message": "see context.heat comments.",
+      "range": {
+        "startLine": 523,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 24
+      },
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
