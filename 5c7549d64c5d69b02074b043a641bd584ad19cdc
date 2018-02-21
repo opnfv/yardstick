@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_8b958be6",
+        "filename": "ansible/roles/add_repos_jumphost/tasks/Debian.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-02-21T16:17:54Z",
+      "side": 1,
+      "message": "I found out it is possible to remove blank lines with the following \n   - name: Remove blank lines\n     lineinfile:\n       dest: \"{{ repo_file }}\"\n       regexp: \u0027(^\\s*$)\u0027\n       state: absent",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 20
+      },
+      "revId": "5c7549d64c5d69b02074b043a641bd584ad19cdc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_0bdb3bee",
         "filename": "ansible/roles/install_yardstick/tasks/main.yml",
         "patchSetId": 4
