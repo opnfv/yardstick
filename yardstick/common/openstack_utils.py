@@ -563,16 +563,28 @@ def remove_gateway_router(neutron_client, router_id):      # pragma: no cover
         return False
 
 
-def remove_interface_router(neutron_client, router_id, subnet_id,
-                            **json_body):      # pragma: no cover
-    json_body.update({"subnet_id": subnet_id})
+def remove_router_interface(shade_client, router, subnet_id=None,
+                            port_id=None):
+    """Detach a subnet from an internal router interface.
+
+       At least one of subnet_id or port_id must be supplied.
+
+       If you specify both subnet and port ID, the subnet ID must
+       correspond to the subnet ID of the first IP address on the port
+       specified by the port ID. Otherwise an error occurs.
+
+       :param router: The dict object of the router being changed
+       :param subnet_id:(string) The ID of the subnet to use for the interface
+       :param port_id:(string) The ID of the port to use for the interface
+       :returns: True on success
+       """
     try:
-        neutron_client.remove_interface_router(router=router_id,
-                                               body=json_body)
+        shade_client.remove_router_interface(
+            router, subnet_id=subnet_id, port_id=port_id)
         return True
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [remove_interface_router(neutron_client, '%s', "
-                  "'%s')]", router_id, subnet_id)
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [remove_interface_router(shade_client)]. "
+                  "Exception message: %s", o_exc.orig_message)
         return False
 
 
