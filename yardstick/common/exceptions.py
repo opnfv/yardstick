@@ -120,3 +120,7 @@ class MissingPodInfoError(YardstickException):
 
 class UnsupportedPodFormatError(YardstickException):
     message = 'Failed to load pod info, unsupported format'
+
+
+class ScenarioCreateRouterError(YardstickException):
+    message = 'Create Neutron Router Scenario failed'
