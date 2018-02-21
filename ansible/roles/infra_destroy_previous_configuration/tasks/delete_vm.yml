@@ -12,29 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: Include
-  include_vars:
-    file: "{{ rs_file }}"
-    name: infra_deploy_vars
-
-- name: List virt-nets
-  virt_net: command=list_nets
-  register: virt_nets
-
-- name: List VMs
-  virt: command=list_vms
-  register: virt_vms
-
+# Ignore errors as VM can be destroyed without been undefined.
 - name: Destroy old VMs
-  include_tasks: delete_vm.yml
-  extra_vars: "{{ virt_vms }}"
-  loop_control:
-    loop_var: node_item
-  with_items: "{{ infra_deploy_vars.nodes }}"
+  virt:
+    command: destroy
+    name: "{{ node_item.hostname }}"
+  when: node_item.hostname in virt_vms.list_vms
+  ignore_errors: yes
 
-- name: Delete old networks
-  include_tasks: delete_network.yml
-  extra_vars: "{{ virt_nets }}"
-  loop_control:
-    loop_var: network_item
-  with_items: "{{ infra_deploy_vars.networks }}"
+# Ignore errors as VM can be running while undefined
+- name: Undefine old VMs
+  virt:
+    command: undefine
+    name: "{{ node_item.hostname }}"
+  when: node_item.hostname in virt_vms.list_vms
+  ignore_errors: yes
