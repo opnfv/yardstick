@@ -112,3 +112,7 @@ class ScenarioCreateSubnetError(YardstickException):
 
 class ScenarioDeleteRouterError(YardstickException):
     message = 'Delete Neutron Router Scenario failed'
+
+
+class ScenarioCreateRouterError(YardstickException):
+    message = 'Create Neutron Router Scenario failed'
