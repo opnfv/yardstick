@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_2e31e5ec",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T18:11:10Z",
+      "side": 1,
+      "message": "Do I use self.flags.get(\u0027no_setup\u0027)? \n\nOr: \n    flags \u003d attrs.get(\u0027flags\u0027, {})\n    self.no_setup \u003d flags.get(\u0027no_setup\u0027, False)?",
+      "parentUuid": "5a3f45e8_2b771804",
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_0b74dcfb",
         "filename": "yardstick/benchmark/contexts/heat.py",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2018-02-21T11:46:56Z",
       "side": 1,
       "message": "This is a private method.",
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ab17a750",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T18:11:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_0b74dcfb",
       "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -70,6 +106,30 @@
       "writtenOn": "2018-02-21T11:46:56Z",
       "side": 1,
       "message": "Hmmm, you can return the result of the previous commandm without creating a variable:\n  return heat_template.create(...)",
+      "range": {
+        "startLine": 318,
+        "startChar": 13,
+        "endLine": 318,
+        "endChar": 29
+      },
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2b69d78b",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T18:11:10Z",
+      "side": 1,
+      "message": "Of course! Thanks!",
+      "parentUuid": "5a3f45e8_4b654444",
       "range": {
         "startLine": 318,
         "startChar": 13,
@@ -129,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_6e792d93",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T18:11:10Z",
+      "side": 1,
+      "message": "This is done throughout Yardstick when operations are interrupted by a Ctrl+C",
+      "parentUuid": "5a3f45e8_0b1dfcbd",
+      "range": {
+        "startLine": 320,
+        "startChar": 13,
+        "endLine": 320,
+        "endChar": 59
+      },
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_6b7920fc",
         "filename": "yardstick/benchmark/contexts/heat.py",
         "patchSetId": 6
@@ -140,6 +224,30 @@
       "writtenOn": "2018-02-21T11:46:56Z",
       "side": 1,
       "message": "ditto. Remove the log and create and exception with a message",
+      "range": {
+        "startLine": 322,
+        "startChar": 13,
+        "endLine": 324,
+        "endChar": 18
+      },
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8e74799d",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T18:11:10Z",
+      "side": 1,
+      "message": "heat_template.create raises a HeatTemplateError, there\u0027s no need to create another exception here.\n\nhttps://github.com/opnfv/yardstick/blob/5ea891398c0f7404d568bbe813100b2488d677ed/yardstick/orchestrator/heat.py#L581-L582",
+      "parentUuid": "5a3f45e8_6b7920fc",
       "range": {
         "startLine": 322,
         "startChar": 13,
@@ -251,6 +359,24 @@
       "side": 1,
       "message": "Makes sense:\n    LOG.info(\"no_teardown is set, skipping undeploy context %s\", self.name)",
       "parentUuid": "5a3f45e8_eb53706a",
+      "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ce6e81c9",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-21T18:11:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_0b3a1bcd",
       "revId": "d909c3107f539de8088cb13663f33e6894c7836d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
