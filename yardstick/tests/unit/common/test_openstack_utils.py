@@ -161,3 +161,27 @@ class DeleteNeutronRouterTestCase(unittest.TestCase):
                                                        'router_id')
         mock_logger.error.assert_called_once()
         self.assertFalse(output)
+
+
+class CreateNeutronRouterTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.create_subnet = mock.Mock()
+
+    def test_create_neutron_router(self):
+        _uuid = uuidutils.generate_uuid()
+        self.mock_shade_client.create_router.return_value = {'id': _uuid}
+        output = openstack_utils.create_neutron_router(
+            self.mock_shade_client)
+        self.assertEqual(_uuid, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_neutron_subnet_exception(self, mock_logger):
+        self.mock_shade_client.create_router.side_effect = (
+            exc.OpenStackCloudException('error message'))
+
+        output = openstack_utils.create_neutron_router(
+            self.mock_shade_client)
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
