@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_eb76d0d7",
+        "filename": "tests/unit/network_services/nfvi/test_collectd.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-21T11:29:18Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be replaced as well?",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 24
+      },
+      "revId": "7e93f89b0f45e8990281c9f5635496dfddfd372d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cb7314e6",
+        "filename": "tests/unit/network_services/nfvi/test_collectd.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-21T11:29:18Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 49,
+        "startChar": 13,
+        "endLine": 49,
+        "endChar": 24
+      },
+      "revId": "7e93f89b0f45e8990281c9f5635496dfddfd372d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2b81d88f",
+        "filename": "tests/unit/network_services/nfvi/test_collectd.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-21T11:29:18Z",
+      "side": 1,
+      "message": "same as above.",
+      "range": {
+        "startLine": 69,
+        "startChar": 13,
+        "endLine": 69,
+        "endChar": 24
+      },
+      "revId": "7e93f89b0f45e8990281c9f5635496dfddfd372d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0b7e9cae",
+        "filename": "tests/unit/network_services/nfvi/test_collectd.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-21T11:29:18Z",
+      "side": 1,
+      "message": "same as above.",
+      "range": {
+        "startLine": 79,
+        "startChar": 13,
+        "endLine": 79,
+        "endChar": 24
+      },
+      "revId": "7e93f89b0f45e8990281c9f5635496dfddfd372d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6b4ac084",
+        "filename": "tests/unit/network_services/nfvi/test_collectd.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-21T11:29:18Z",
+      "side": 1,
+      "message": "same as above.",
+      "range": {
+        "startLine": 86,
+        "startChar": 13,
+        "endLine": 86,
+        "endChar": 24
+      },
+      "revId": "7e93f89b0f45e8990281c9f5635496dfddfd372d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4b4f0493",
+        "filename": "tests/unit/network_services/nfvi/test_collectd.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-21T11:29:18Z",
+      "side": 1,
+      "message": "same as above.",
+      "range": {
+        "startLine": 126,
+        "startChar": 13,
+        "endLine": 126,
+        "endChar": 24
+      },
+      "revId": "7e93f89b0f45e8990281c9f5635496dfddfd372d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0b55fc1c",
+        "filename": "tests/unit/network_services/traffic_profile/test_ixia_rfc2544.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-21T11:29:18Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be changed as well?",
+      "range": {
+        "startLine": 612,
+        "startChar": 13,
+        "endLine": 612,
+        "endChar": 24
+      },
+      "revId": "7e93f89b0f45e8990281c9f5635496dfddfd372d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
