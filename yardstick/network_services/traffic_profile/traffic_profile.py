@@ -11,16 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-""" Trex Traffic Profile definitions """
 
-from __future__ import absolute_import
 import struct
 import socket
 import logging
 from random import SystemRandom
-import six
 import ipaddress
 
+import six
+
+from yardstick.common import exceptions as y_exc
 from yardstick.network_services.traffic_profile.base import TrafficProfile
 from trex_stl_lib.trex_stl_client import STLStream
 from trex_stl_lib.trex_stl_streams import STLFlowLatencyStats
@@ -78,31 +78,32 @@ class TrexProfile(TrafficProfile):
                                            op='inc',
                                            step=1)
             self.vm_flow_vars.append(stl_vm_flow_var)
-            stl_vm_wr_flow_var = STLVmWrFlowVar(fv_name='mac_{}'.format(direction),
-                                                pkt_offset='Ether.{}'.format(direction))
+            stl_vm_wr_flow_var = STLVmWrFlowVar(
+                fv_name='mac_{}'.format(direction),
+                pkt_offset='Ether.{}'.format(direction))
             self.vm_flow_vars.append(stl_vm_wr_flow_var)
         return partial
 
     def _ip_range_action_partial(self, direction, count=1):
         # pylint: disable=unused-argument
         def partial(min_value, max_value, count):
-            ip1 = int(ipaddress.IPv4Address(min_value))
-            ip2 = int(ipaddress.IPv4Address(max_value))
-            actual_count = (ip2 - ip1)
+            _, _, actual_count = self._count_ip(min_value, max_value)
             if not actual_count:
                 count = 1
             elif actual_count < int(count):
                 count = actual_count
 
-            stl_vm_flow_var = STLVmFlowVarRepeatableRandom(name="ip4_{}".format(direction),
-                                                           min_value=min_value,
-                                                           max_value=max_value,
-                                                           size=4,
-                                                           limit=int(count),
-                                                           seed=0x1235)
+            stl_vm_flow_var = STLVmFlowVarRepeatableRandom(
+                name="ip4_{}".format(direction),
+                min_value=min_value,
+                max_value=max_value,
+                size=4,
+                limit=int(count),
+                seed=0x1235)
             self.vm_flow_vars.append(stl_vm_flow_var)
-            stl_vm_wr_flow_var = STLVmWrFlowVar(fv_name='ip4_{}'.format(direction),
-                                                pkt_offset='IP.{}'.format(direction))
+            stl_vm_wr_flow_var = STLVmWrFlowVar(
+                fv_name='ip4_{}'.format(direction),
+                pkt_offset='IP.{}'.format(direction))
             self.vm_flow_vars.append(stl_vm_wr_flow_var)
             stl_vm_fix_ipv4 = STLVmFixIpv4(offset="IP")
             self.vm_flow_vars.append(stl_vm_fix_ipv4)
@@ -111,7 +112,7 @@ class TrexProfile(TrafficProfile):
     def _ip6_range_action_partial(self, direction, _):
         def partial(min_value, max_value, count):
             # pylint: disable=unused-argument
-            min_value, max_value = self._get_start_end_ipv6(min_value, max_value)
+            min_value, max_value, _ = self._count_ip(min_value, max_value)
             stl_vm_flow_var = STLVmFlowVar(name="ip6_{}".format(direction),
                                            min_value=min_value,
                                            max_value=max_value,
@@ -119,9 +120,10 @@ class TrexProfile(TrafficProfile):
                                            op='random',
                                            step=1)
             self.vm_flow_vars.append(stl_vm_flow_var)
-            stl_vm_wr_flow_var = STLVmWrFlowVar(fv_name='ip6_{}'.format(direction),
-                                                pkt_offset='IPv6.{}'.format(direction),
-                                                offset_fixup=8)
+            stl_vm_wr_flow_var = STLVmWrFlowVar(
+                fv_name='ip6_{}'.format(direction),
+                pkt_offset='IPv6.{}'.format(direction),
+                offset_fixup=8)
             self.vm_flow_vars.append(stl_vm_wr_flow_var)
         return partial
 
@@ -149,15 +151,17 @@ class TrexProfile(TrafficProfile):
             elif int(count) > actual_count:
                 count = actual_count
 
-            stl_vm_flow_var = STLVmFlowVarRepeatableRandom(name="port_{}".format(field),
-                                                           min_value=min_value,
-                                                           max_value=max_value,
-                                                           size=2,
-                                                           limit=int(count),
-                                                           seed=0x1235)
+            stl_vm_flow_var = STLVmFlowVarRepeatableRandom(
+                name="port_{}".format(field),
+                min_value=min_value,
+                max_value=max_value,
+                size=2,
+                limit=int(count),
+                seed=0x1235)
             self.vm_flow_vars.append(stl_vm_flow_var)
-            stl_vm_wr_flow_var = STLVmWrFlowVar(fv_name='port_{}'.format(field),
-                                                pkt_offset=self.udp[field])
+            stl_vm_wr_flow_var = STLVmWrFlowVar(
+                fv_name='port_{}'.format(field),
+                pkt_offset=self.udp[field])
             self.vm_flow_vars.append(stl_vm_wr_flow_var)
         return partial
 
@@ -448,20 +452,18 @@ class TrexProfile(TrafficProfile):
         self.profile = STLProfile(self.streams)
 
     @classmethod
-    def _get_start_end_ipv6(cls, start_ip, end_ip):
-        try:
-            ip1 = socket.inet_pton(socket.AF_INET6, start_ip)
-            ip2 = socket.inet_pton(socket.AF_INET6, end_ip)
-            hi1, lo1 = struct.unpack('!QQ', ip1)
-            hi2, lo2 = struct.unpack('!QQ', ip2)
-            if ((hi1 << 64) | lo1) > ((hi2 << 64) | lo2):
-                raise SystemExit("IPv6: start_ip is greater then end_ip")
-            max_p1 = abs(int(lo1) - int(lo2))
-            base_p1 = lo1
-        except Exception as ex_error:
-            raise SystemExit(ex_error)
-        else:
-            return base_p1, max_p1 + base_p1
+    def _count_ip(cls, start_ip, end_ip):
+        start = ipaddress.ip_address(six.u(start_ip))
+        end = ipaddress.ip_address(six.u(end_ip))
+        if start.version == 4:
+            return start, end, int(end) - int(start)
+        elif start.version == 6:
+            if int(start) > int(end):
+                raise y_exc.IPv6RangeError(start_ip=str(start),
+                                           end_ip=str(end))
+            _, lo1 = struct.unpack('!QQ', start.packed)
+            _, lo2 = struct.unpack('!QQ', end.packed)
+            return lo1, lo2, lo2 - lo1
 
     @classmethod
     def _get_random_value(cls, min_port, max_port):

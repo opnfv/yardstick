@@ -65,5 +65,8 @@ class HeatTemplateError(YardstickException):
                '"%(stack_name)"')
 
 
+class IPv6RangeError(YardstickException):
+    message = 'Start IP "%(start_ip)s" is greater than end IP "%(end_ip)s"'
+
 class DPDKSetupDriverError(YardstickException):
     message = '"igb_uio" driver is not loaded'
