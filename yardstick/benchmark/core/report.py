@@ -45,7 +45,7 @@ class Report(object):
         self.task_id = ""
 
     def _validate(self, yaml_name, task_id):
-        if re.match("^[a-z0-9_-]+$", yaml_name):
+        if re.match("^[\w-]+$", yaml_name):
             self.yaml_name = yaml_name
         else:
             raise ValueError("invalid yaml_name", yaml_name)
@@ -102,10 +102,12 @@ class Report(object):
                     task_time = str(task_time, 'utf8')
                     key = str(key, 'utf8')
                 task_time = task_time[11:]
-                head, sep, tail = task_time.partition('.')
+                head, _, tail = task_time.partition('.')
                 task_time = head + "." + tail[:6]
                 self.Timestamp.append(task_time)
-                if isinstance(task[key], float) is True:
+                if task[key] is None:
+                    values.append('')
+                elif isinstance(task[key], (int, float)) is True:
                     values.append(task[key])
                 else:
                     values.append(ast.literal_eval(task[key]))
