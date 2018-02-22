@@ -7,13 +7,16 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+import copy
 import os
 
 import mock
 import unittest
 
+from yardstick.benchmark.contexts import dummy
 from yardstick.benchmark.core import task
 from yardstick.common import constants as consts
+from yardstick.common import exceptions
 
 
 class TaskTestCase(unittest.TestCase):
@@ -249,31 +252,6 @@ class TaskTestCase(unittest.TestCase):
         actual_result = t._parse_options(options)
         self.assertEqual(expected_result, actual_result)
 
-
-    def test_change_server_name_host_str(self):
-        scenario = {'host': 'demo'}
-        suffix = '-8'
-        task.change_server_name(scenario, suffix)
-        self.assertEqual('demo-8', scenario['host'])
-
-    def test_change_server_name_host_dict(self):
-        scenario = {'host': {'name': 'demo'}}
-        suffix = '-8'
-        task.change_server_name(scenario, suffix)
-        self.assertEqual('demo-8', scenario['host']['name'])
-
-    def test_change_server_name_target_str(self):
-        scenario = {'target': 'demo'}
-        suffix = '-8'
-        task.change_server_name(scenario, suffix)
-        self.assertEqual('demo-8', scenario['target'])
-
-    def test_change_server_name_target_dict(self):
-        scenario = {'target': {'name': 'demo'}}
-        suffix = '-8'
-        task.change_server_name(scenario, suffix)
-        self.assertEqual('demo-8', scenario['target']['name'])
-
     @mock.patch('six.moves.builtins.open', side_effect=mock.mock_open())
     @mock.patch.object(task, 'utils')
     @mock.patch('logging.root')
@@ -292,9 +270,88 @@ class TaskTestCase(unittest.TestCase):
         return os.path.join(consts.YARDSTICK_ROOT_PATH, filepath)
 
 
-def main():
-    unittest.main()
+class TaskParserTestCase(unittest.TestCase):
 
+    def setUp(self):
+        self.parser = task.TaskParser('fake/path')
+        self.scenario = {
+            'host': 'athena.demo',
+            'target': 'kratos.demo',
+            'targets': [
+                'ares.demo', 'mars.demo'
+                ],
+            'options': {
+                'server_name': {
+                    'host': 'jupiter.demo',
+                    'target': 'saturn.demo',
+                    },
+                },
+            'nodes': {
+                'tg__0': 'tg_0.demo',
+                'vnf__0': 'vnf_0.demo',
+                }
+            }
 
-if __name__ == '__main__':
-    main()
+    def test__change_node_names(self):
+
+        ctx_attrs = {
+            'name': 'demo',
+            'task_id': '1234567890',
+            'servers': [
+                'athena', 'kratos',
+                'ares', 'mars',
+                'jupiter', 'saturn',
+                'tg_0', 'vnf_0'
+                ]
+            }
+
+        my_context = dummy.DummyContext()
+        my_context.init(ctx_attrs)
+
+        expected_scenario = {
+            'host': 'athena.demo-12345678',
+            'target': 'kratos.demo-12345678',
+            'targets': [
+                'ares.demo-12345678', 'mars.demo-12345678'
+                ],
+            'options': {
+                'server_name': {
+                    'host': 'jupiter.demo-12345678',
+                    'target': 'saturn.demo-12345678',
+                    },
+                },
+            'nodes': {
+                'tg__0': 'tg_0.demo-12345678',
+                'vnf__0': 'vnf_0.demo-12345678',
+                }
+            }
+
+        scenario = copy.deepcopy(self.scenario)
+
+        self.parser._change_node_names(scenario, [my_context])
+        self.assertEqual(scenario, expected_scenario)
+
+    def test__change_node_names_context_not_found(self):
+        scenario = copy.deepcopy(self.scenario)
+        self.assertRaises(exceptions.ScenarioConfigContextNameNotFound,
+                          self.parser._change_node_names,
+                          scenario, [])
+
+    def test__change_node_names_context_name_unchanged(self):
+        ctx_attrs = {
+            'name': 'demo',
+            'task_id': '1234567890',
+            'flags': {
+                'no_setup': True,
+                'no_teardown': True
+                }
+            }
+
+        my_context = dummy.DummyContext()
+        my_context.init(ctx_attrs)
+
+        scenario = copy.deepcopy(self.scenario)
+        expected_scenario = copy.deepcopy(self.scenario)
+
+        self.parser._change_node_names(scenario, [my_context])
+        self.assertEqual(scenario, expected_scenario)
