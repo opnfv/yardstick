@@ -47,6 +47,8 @@ context:
   # put node context first, so we don't HEAT deploy if node has errors
   name: yardstick
   image: yardstick-samplevnfs
+  flags:
+    no_teardown: True
   flavor:
     vcpus: 10
     ram: 20480
