@@ -67,3 +67,7 @@ class HeatTemplateError(YardstickException):
 
 class DPDKSetupDriverError(YardstickException):
     message = '"igb_uio" driver is not loaded'
+
+
+class ScenarioConfigContextNameNotFound(YardstickException):
+    message = 'Context name "%(context_name)s" not found'
