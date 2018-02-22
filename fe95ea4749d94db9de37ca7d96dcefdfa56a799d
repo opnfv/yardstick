@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d1b6268a",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-22T12:57:32Z",
+      "side": 1,
+      "message": "There\u0027s no need for a second uuid anyway.\nThis naming should be consistent with other resource naming i.e. resource-context_name\n\nkey_uuid can be completely removed, and key_filename can use self.name instead",
+      "range": {
+        "startLine": 73,
+        "startChar": 8,
+        "endLine": 73,
+        "endChar": 56
+      },
+      "revId": "fe95ea4749d94db9de37ca7d96dcefdfa56a799d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
