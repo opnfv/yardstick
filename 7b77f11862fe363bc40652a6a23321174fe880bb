@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_14135c5d",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-22T14:28:37Z",
+      "side": 1,
+      "message": "s/-/.",
+      "range": {
+        "startLine": 594,
+        "startChar": 22,
+        "endLine": 594,
+        "endChar": 23
+      },
+      "revId": "7b77f11862fe363bc40652a6a23321174fe880bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
