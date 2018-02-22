@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d4b454f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-22T18:02:55Z",
+      "side": 1,
+      "message": "You should add a Jira ticket (https://jira.opnfv.org/projects/YARDSTICK/issues/).\n\nJIRA: YARDSTICK-xxx",
+      "revId": "64eb5afac5077cfbc4511ed43e3a19836142f94c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_74bf40d1",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-22T18:02:55Z",
+      "side": 1,
+      "message": "This is not used, should be _ [1]\n\n[1] https://stackoverflow.com/questions/5893163/what-is-the-purpose-of-the-single-underscore-variable-in-python",
+      "range": {
+        "startLine": 105,
+        "startChar": 22,
+        "endLine": 105,
+        "endChar": 25
+      },
+      "revId": "64eb5afac5077cfbc4511ed43e3a19836142f94c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_34ee58ed",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-22T18:02:55Z",
+      "side": 1,
+      "message": "This should be:\n  if task[key] is None:",
+      "range": {
+        "startLine": 108,
+        "startChar": 19,
+        "endLine": 108,
+        "endChar": 39
+      },
+      "revId": "64eb5afac5077cfbc4511ed43e3a19836142f94c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_94baccdf",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-22T18:02:55Z",
+      "side": 1,
+      "message": "Because you are touching this file, you need to fix all possible errors. You need to add a space:\n  (int, float)",
+      "revId": "64eb5afac5077cfbc4511ed43e3a19836142f94c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
