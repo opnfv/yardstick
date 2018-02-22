@@ -7,10 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-""" Handler for yardstick command 'task' """
 
-from __future__ import absolute_import
-from __future__ import print_function
 import sys
 import os
 from collections import OrderedDict
@@ -34,6 +31,7 @@ from yardstick.dispatcher.base import Base as DispatcherBase
 from yardstick.common.task_template import TaskTemplate
 from yardstick.common import utils
 from yardstick.common import constants
+from yardstick.common import exceptions
 from yardstick.common.html_template import report_template
 
 output_file_default = "/tmp/yardstick.out"
@@ -518,14 +516,16 @@ class TaskParser(object):       # pragma: no cover
             context_cfgs = [{"type": "Dummy"}]
 
         contexts = []
-        name_suffix = '-{}'.format(task_id[:8])
+        ###name_suffix = '-{}'.format(task_id[:8])
         for cfg_attrs in context_cfgs:
-            try:
-                cfg_attrs['name'] = '{}{}'.format(cfg_attrs['name'],
-                                                  name_suffix)
-            except KeyError:
-                pass
+            # try:
+            #     cfg_attrs['name'] = '{}{}'.format(cfg_attrs['name'],
+            #                                       name_suffix)
+            # except KeyError:
+            #     pass
             # default to Heat context because we are testing OpenStack
+
+            cfg_attrs['task_id'] = task_id
             context_type = cfg_attrs.get("type", "Heat")
             context = Context.get(context_type)
             context.init(cfg_attrs)
@@ -542,16 +542,77 @@ class TaskParser(object):       # pragma: no cover
             # relative to task path
             scenario["task_path"] = os.path.dirname(self.path)
 
-            change_server_name(scenario, name_suffix)
-
-            try:
-                for node in scenario['nodes']:
-                    scenario['nodes'][node] += name_suffix
-            except KeyError:
-                pass
+            # change_server_name(scenario, name_suffix)
+            # try:
+            #     for node in scenario['nodes']:
+            #         scenario['nodes'][node] += name_suffix
+            # except KeyError:
+            #     pass
+            self._change_node_names(scenario, contexts)
 
         # TODO we need something better here, a class that represent the file
         return cfg["scenarios"], run_in_parallel, meet_precondition, contexts
+
+    @staticmethod
+    def _change_node_names(scenario, contexts):
+        """Change the node names in a scenario, depending on the context config
+
+        The nodes (VMs or physical servers) are referred in the context section
+        with the name of the server and the name of the context:
+            <server name>.<context name>
+
+        If the context is going to be undeployed at the end of the test, the
+        task ID is suffixed to the name to avoid interferences with previous
+        deployments. If the context needs to be deployed at the end of the
+        test, the name assigned is kept.
+
+        There are several places where a node name could appear in the scenario
+        configuration:
+        scenario:
+          host: athena.demo
+          target: kratos.demo
+          targets:
+            - athena.demo
+            - kratos.demo
+
+        scenario:
+          options:
+            server_name:  # JIRA: YARDSTICK-810
+              host: athena.demo
+              target: kratos.demo
+
+        scenario:
+          nodes:
+            tg__0: tg_0.yardstick
+            vnf__0: vnf_0.yardstick
+        """
+        def qualified_name(name):
+            node_name, context_name = name.split('.')
+            for context in (context for context in contexts
+                            if context.assigned_name == context_name):
+                ctx = context
+                break
+            else:
+                raise exceptions.ScenarioConfigContextNameNotFound(
+                    context_name=context_name)
+
+            return '{}.{}'.format(node_name, ctx.name)
+
+        if 'host' in scenario:
+            scenario['host'] = qualified_name(scenario['host'])
+        if 'target' in scenario:
+            scenario['target'] = qualified_name(scenario['target'])
+        server_name = scenario.get('options', {}).get('server_name', {})
+        if 'host' in server_name:
+            server_name['host'] = qualified_name(server_name['host'])
+        if 'target' in server_name:
+            server_name['target'] = qualified_name(server_name['target'])
+        if 'targets' in scenario:
+            for idx, target in enumerate(scenario['targets']):
+                scenario['targets'][idx] = qualified_name(target)
+        if 'nodes' in scenario:
+            for scenario_node, target in scenario['nodes'].items():
+                scenario['nodes'][scenario_node] = qualified_name(target)
 
     def _check_schema(self, cfg_schema, schema_type):
         """Check if config file is using the correct schema type"""
@@ -686,29 +747,29 @@ def parse_task_args(src_name, args):
         raise TypeError()
     return kw
 
-
-def change_server_name(scenario, suffix):
-
-    def add_suffix(cfg, key):
-        try:
-            value = cfg[key]
-        except KeyError:
-            pass
-        else:
-            try:
-                value['name'] += suffix
-            except TypeError:
-                cfg[key] += suffix
-
-    server_name = scenario.get('options', {}).get('server_name', {})
-
-    add_suffix(scenario, 'host')
-    add_suffix(scenario, 'target')
-    add_suffix(server_name, 'host')
-    add_suffix(server_name, 'target')
-
-    try:
-        key = 'targets'
-        scenario[key] = ['{}{}'.format(a, suffix) for a in scenario[key]]
-    except KeyError:
-        pass
+#
+# def change_server_name(scenario, suffix):
+#
+#     def add_suffix(cfg, key):
+#         try:
+#             value = cfg[key]
+#         except KeyError:
+#             pass
+#         else:
+#             try:
+#                 value['name'] += suffix
+#             except TypeError:
+#                 cfg[key] += suffix
+#
+#     server_name = scenario.get('options', {}).get('server_name', {})
+#
+#     add_suffix(scenario, 'host')
+#     add_suffix(scenario, 'target')
+#     add_suffix(server_name, 'host')
+#     add_suffix(server_name, 'target')
+#
+#     try:
+#         key = 'targets'
+#         scenario[key] = ['{}{}'.format(a, suffix) for a in scenario[key]]
+#     except KeyError:
+#         pass

@@ -35,7 +35,6 @@ class NodeContext(Context):
     __context_type__ = "Node"
 
     def __init__(self):
-        self.name = None
         self.file_path = None
         self.nodes = []
         self.networks = {}
@@ -60,7 +59,8 @@ class NodeContext(Context):
 
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
-        self.name = attrs["name"]
+        super(NodeContext, self).init(attrs)
+
         self.file_path = file_path = attrs.get("file", "pod.yaml")
 
         try:
