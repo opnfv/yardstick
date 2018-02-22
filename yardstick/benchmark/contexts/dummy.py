@@ -25,7 +25,7 @@ class DummyContext(Context):
         super(DummyContext, self).__init__()
 
     def init(self, attrs):
-        pass
+        super(DummyContext, self).init(attrs)
 
     def deploy(self):
         """don't need to deploy"""

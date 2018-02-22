@@ -50,7 +50,6 @@ class HeatContext(Context):
     __context_type__ = "Heat"
 
     def __init__(self):
-        self.name = None
         self.stack = None
         self.networks = OrderedDict()
         self.heat_timeout = None
@@ -95,10 +94,10 @@ class HeatContext(Context):
         return sorted_networks
 
     def init(self, attrs):
-        self.check_environment()
-        """initializes itself from the supplied arguments"""
-        self.name = attrs["name"]
+        """Initializes itself from the supplied arguments"""
+        super(HeatContext, self).init(attrs)
 
+        self.check_environment()
         self._user = attrs.get("user")
 
         self.template_file = attrs.get("heat_template")
