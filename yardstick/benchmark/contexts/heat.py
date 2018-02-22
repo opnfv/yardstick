@@ -95,8 +95,8 @@ class HeatContext(Context):
         return sorted_networks
 
     def init(self, attrs):
-        self.check_environment()
         """initializes itself from the supplied arguments"""
+        self.check_environment()
         self.name = attrs["name"]
 
         self._user = attrs.get("user")
