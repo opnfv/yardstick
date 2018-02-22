@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2016 Huawei Technologies Co.,Ltd and others.
 #
@@ -9,94 +7,136 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.core.plugin
-from __future__ import absolute_import
+import copy
 import os
-from os.path import dirname as dirname
+import pkg_resources
 
-try:
-    from unittest import mock
-except ImportError:
-    import mock
-import unittest
+import mock
+import testtools
 
+from yardstick import ssh
 from yardstick.benchmark.core import plugin
+from yardstick.tests import fixture
 
 
-class Arg(object):
+class PluginTestCase(testtools.TestCase):
 
-    def __init__(self):
-        # self.input_file = ('plugin/sample_config.yaml',)
-        self.input_file = [
-            os.path.join(os.path.abspath(
-                dirname(dirname(dirname(dirname(dirname(dirname(__file__))))))),
-                'plugin/sample_config.yaml')]
+    FILE = """
+schema: "yardstick:plugin:0.1"
 
+plugins:
+    name: sample
 
-@mock.patch('yardstick.benchmark.core.plugin.ssh')
-class pluginTestCase(unittest.TestCase):
+deployment:
+    ip: 10.1.0.50
+    user: root
+    password: root
+"""
+
+    NAME = 'sample'
+    DEPLOYMENT = {'ip': '10.1.0.50', 'user': 'root', 'password': 'root'}
 
     def setUp(self):
-        self.result = {}
+        super(PluginTestCase, self).setUp()
+        self.plugin_parser = plugin.PluginParser(mock.Mock())
+        self.plugin = plugin.Plugin()
+        self.useFixture(fixture.PluginParserFixture(PluginTestCase.FILE))
 
-    def test_install(self, mock_ssh):
-        p = plugin.Plugin()
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        input_file = Arg()
-        p.install(input_file)
-        expected_result = {}
-        self.assertEqual(self.result, expected_result)
+        self._mock_ssh_from_node = mock.patch.object(ssh.SSH, 'from_node')
+        self.mock_ssh_from_node = self._mock_ssh_from_node.start()
+        self.mock_ssh_obj = mock.Mock()
+        self.mock_ssh_from_node.return_value = self.mock_ssh_obj
+        self.mock_ssh_obj.wait = mock.Mock()
+        self.mock_ssh_obj._put_file_shell = mock.Mock()
 
-    def test_remove(self, mock_ssh):
-        p = plugin.Plugin()
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        input_file = Arg()
-        p.remove(input_file)
-        expected_result = {}
-        self.assertEqual(self.result, expected_result)
+        self.addCleanup(self._cleanup)
 
-    def test_install_setup_run(self, mock_ssh):
-        p = plugin.Plugin()
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        plugins = {
-            "name": "sample"
-        }
-        deployment = {
-            "ip": "10.1.0.50",
-            "user": "root",
-            "password": "root"
-        }
-        plugin_name = plugins.get("name")
-        p._install_setup(plugin_name, deployment)
-        self.assertIsNotNone(p.client)
+    def _cleanup(self):
+        self._mock_ssh_from_node.stop()
 
-        p._run(plugin_name)
-        expected_result = {}
-        self.assertEqual(self.result, expected_result)
+    def test_install(self):
+        args = mock.Mock()
+        args.input_file = [mock.Mock()]
+        with mock.patch.object(self.plugin, '_install_setup') as \
+                mock_install, \
+                mock.patch.object(self.plugin, '_run') as mock_run:
+            self.plugin.install(args)
+            mock_install.assert_called_once_with(PluginTestCase.NAME,
+                                                 PluginTestCase.DEPLOYMENT)
+            mock_run.assert_called_once_with(PluginTestCase.NAME)
 
-    def test_remove_setup_run(self, mock_ssh):
-        p = plugin.Plugin()
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        plugins = {
-            "name": "sample"
-        }
-        deployment = {
-            "ip": "10.1.0.50",
-            "user": "root",
-            "password": "root"
-        }
-        plugin_name = plugins.get("name")
-        p._remove_setup(plugin_name, deployment)
-        self.assertIsNotNone(p.client)
+    def test_remove(self):
+        args = mock.Mock()
+        args.input_file = [mock.Mock()]
+        with mock.patch.object(self.plugin, '_remove_setup') as \
+                mock_remove, \
+                mock.patch.object(self.plugin, '_run') as mock_run:
+            self.plugin.remove(args)
+            mock_remove.assert_called_once_with(PluginTestCase.NAME,
+                                                PluginTestCase.DEPLOYMENT)
+            mock_run.assert_called_once_with(PluginTestCase.NAME)
 
-        p._run(plugin_name)
-        expected_result = {}
-        self.assertEqual(self.result, expected_result)
+    @mock.patch.object(pkg_resources, 'resource_filename',
+                       return_value='script')
+    def test__install_setup(self, mock_resource_filename):
+        plugin_name = 'plugin_name'
+        self.plugin._install_setup(plugin_name, PluginTestCase.DEPLOYMENT)
+        mock_resource_filename.assert_called_once_with(
+            'yardstick.resources', 'scripts/install/' + plugin_name + '.bash')
+        self.mock_ssh_from_node.assert_called_once_with(
+            PluginTestCase.DEPLOYMENT)
+        self.mock_ssh_obj.wait.assert_called_once_with(timeout=600)
+        self.mock_ssh_obj._put_file_shell.assert_called_once_with(
+            'script', '~/{0}.sh'.format(plugin_name))
 
+    @mock.patch.object(pkg_resources, 'resource_filename',
+                       return_value='script')
+    @mock.patch.object(os, 'environ', return_value='1.2.3.4')
+    def test__install_setup_with_ip_local(self, mock_os_environ,
+                                          mock_resource_filename):
+        plugin_name = 'plugin_name'
+        deployment = copy.deepcopy(PluginTestCase.DEPLOYMENT)
+        deployment['ip'] = 'local'
+        self.plugin._install_setup(plugin_name, deployment)
+        mock_os_environ.__getitem__.assert_called_once_with('JUMP_HOST_IP')
+        mock_resource_filename.assert_called_once_with(
+            'yardstick.resources',
+            'scripts/install/' + plugin_name + '.bash')
+        self.mock_ssh_from_node.assert_called_once_with(
+            deployment, overrides={'ip': os.environ["JUMP_HOST_IP"]})
+        self.mock_ssh_obj.wait.assert_called_once_with(timeout=600)
+        self.mock_ssh_obj._put_file_shell.assert_called_once_with(
+            'script', '~/{0}.sh'.format(plugin_name))
 
-def main():
-    unittest.main()
+    @mock.patch.object(pkg_resources, 'resource_filename',
+                       return_value='script')
+    def test__remove_setup(self, mock_resource_filename):
+        plugin_name = 'plugin_name'
+        self.plugin._remove_setup(plugin_name, PluginTestCase.DEPLOYMENT)
+        mock_resource_filename.assert_called_once_with(
+            'yardstick.resources',
+            'scripts/remove/' + plugin_name + '.bash')
+        self.mock_ssh_from_node.assert_called_once_with(
+            PluginTestCase.DEPLOYMENT)
+        self.mock_ssh_obj.wait.assert_called_once_with(timeout=600)
+        self.mock_ssh_obj._put_file_shell.assert_called_once_with(
+            'script', '~/{0}.sh'.format(plugin_name))
 
-
-if __name__ == '__main__':
-    main()
+    @mock.patch.object(pkg_resources, 'resource_filename',
+                       return_value='script')
+    @mock.patch.object(os, 'environ', return_value='1.2.3.4')
+    def test__remove_setup_with_ip_local(self, mock_os_environ,
+                                         mock_resource_filename):
+        plugin_name = 'plugin_name'
+        deployment = copy.deepcopy(PluginTestCase.DEPLOYMENT)
+        deployment['ip'] = 'local'
+        self.plugin._remove_setup(plugin_name, deployment)
+        mock_os_environ.__getitem__.assert_called_once_with('JUMP_HOST_IP')
+        mock_resource_filename.assert_called_once_with(
+            'yardstick.resources',
+            'scripts/remove/' + plugin_name + '.bash')
+        self.mock_ssh_from_node.assert_called_once_with(
+            deployment, overrides={'ip': os.environ["JUMP_HOST_IP"]})
+        self.mock_ssh_obj.wait.assert_called_once_with(timeout=600)
+        self.mock_ssh_obj._put_file_shell.mock_os_environ(
+            'script', '~/{0}.sh'.format(plugin_name))
