@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_7f60b935",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2018-02-23T07:19:59Z",
+      "side": 1,
+      "message": "For PEP8 code check, not sure if it is correct.",
+      "range": {
+        "startLine": 44,
+        "startChar": 11,
+        "endLine": 44,
+        "endChar": 29
+      },
+      "revId": "ed30870a1a5823423a44f8fa2ef559526e2849f8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
