@@ -17,30 +17,23 @@ import yardstick.common.openstack_utils as op_utils
 class CreateFloatingIpTestCase(unittest.TestCase):
 
     def setUp(self):
-        self._mock_get_network_id = mock.patch.object(
-            op_utils, 'get_network_id')
-        self.mock_get_network_id = self._mock_get_network_id.start()
         self._mock_create_floating_ip = mock.patch.object(
             op_utils, 'create_floating_ip')
         self.mock_create_floating_ip = self._mock_create_floating_ip.start()
-        self._mock_get_neutron_client = mock.patch.object(
-            op_utils, 'get_neutron_client')
-        self.mock_get_neutron_client = self._mock_get_neutron_client.start()
         self._mock_get_shade_client = mock.patch.object(
             op_utils, 'get_shade_client')
         self.mock_get_shade_client = self._mock_get_shade_client.start()
         self._mock_log = mock.patch.object(create_floating_ip, 'LOG')
         self.mock_log = self._mock_log.start()
+        self.args = {'options': {'network_name_or_id': 'yardstick_net'}}
 
-        self._fip_obj = create_floating_ip.CreateFloatingIp(mock.ANY, mock.ANY)
+        self._fip_obj = create_floating_ip.CreateFloatingIp(self.args, mock.ANY)
         self._fip_obj.scenario_cfg = {'output': 'key1\nkey2'}
 
         self.addCleanup(self._stop_mock)
 
     def _stop_mock(self):
-        self._mock_get_network_id.stop()
         self._mock_create_floating_ip.stop()
-        self._mock_get_neutron_client.stop()
         self._mock_get_shade_client.stop()
         self._mock_log.stop()
 
