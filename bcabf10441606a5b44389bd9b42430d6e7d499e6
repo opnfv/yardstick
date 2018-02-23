@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e51c3816",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-23T21:24:56Z",
+      "side": 1,
+      "message": "os.path.exists (os.stat) doesn\u0027t guarantee that we can read the file.\n\nthe only way to be sure is to open for reading and then close.",
+      "revId": "bcabf10441606a5b44389bd9b42430d6e7d499e6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
