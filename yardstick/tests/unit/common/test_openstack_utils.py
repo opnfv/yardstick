@@ -208,3 +208,27 @@ class RemoveRouterInterfaceTestCase(unittest.TestCase):
             self.mock_shade_client, self.router)
         mock_logger.error.assert_called_once()
         self.assertFalse(output)
+
+
+class CreateFloatingIpTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.network_name_or_id = 'name'
+        self.mock_shade_client.create_floating_ip = mock.Mock()
+
+    def test_create_floating_ip(self):
+        self.mock_shade_client.create_floating_ip.return_value = \
+            {'floating_ip_address': 'value1', 'id': 'value2'}
+        output = openstack_utils.create_floating_ip(self.mock_shade_client,
+                                                    self.network_name_or_id)
+        self.assertEqual({'fip_addr': 'value1', 'fip_id': 'value2'}, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_floating_ip_exception(self, mock_logger):
+        self.mock_shade_client.create_floating_ip.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.create_floating_ip(
+            self.mock_shade_client, self.network_name_or_id)
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
