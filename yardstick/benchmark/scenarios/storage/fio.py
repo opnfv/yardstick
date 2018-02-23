@@ -124,7 +124,9 @@ class Fio(base.Scenario):
 
         if mount_dir:
             LOG.debug("Formating volume...")
-            self.client.execute("sudo mkfs.ext4 /dev/vdb")
+            status, stdout, stderr = self.client.execute(
+                "sudo lsblk -dps | grep -m 1 disk | awk '{print $1}'")
+            self.client.execute("sudo mkfs.ext4 %s" % stdout)
             cmd = "sudo mkdir %s" % mount_dir
             self.client.execute(cmd)
             LOG.debug("Mounting volume at: %s", mount_dir)
