@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_a5e23001",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-23T21:39:00Z",
+      "side": 1,
+      "message": "don\u0027t check before delete, this is susceptible to filesystem races.  Catch and ignore errno.ENOENT\n\n try:\n    os.remove(...)\n except OSError as e:\n    if e.errno !\u003d errno.ENOENT:\n       LOG.exception(...)",
+      "revId": "84ba036bece13fa1ae49045c6eb06f6af81e1dbc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
