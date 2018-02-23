@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_650ae8d3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-23T21:06:40Z",
+      "side": 1,
+      "message": "not all interfaces are in the topology and won\u0027t have link.  \n\nWe shouldn\u0027t use ports that aren\u0027t in the topology, it messes up LINK ID and other port enumerations.\n\nWe always use port_pairs.all_ports.\n\nUsing all_ports is more complicated, but we could refactor the interface in the future.\n\n        for port in self.all_ports:\n           vintf \u003d self.vnfd_helper.find_interface(name\u003dport)[\"virtual-interface\"]",
+      "revId": "189be3d687de4af12519a8d01fb36cfa3bedeb45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
