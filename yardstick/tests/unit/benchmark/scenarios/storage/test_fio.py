@@ -49,6 +49,7 @@ class FioTestCase(unittest.TestCase):
         }
         args = {'options': options}
         p = fio.Fio(args, self.ctx)
+        mock_ssh.SSH.from_node().execute.return_value = (0, '/dev/vdb', '')
         p.setup()
 
         mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
