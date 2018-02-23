@@ -102,6 +102,8 @@ class HeatContext(Context):
         self._user = attrs.get("user")
 
         self.template_file = attrs.get("heat_template")
+
+        self.heat_timeout = attrs.get("timeout", DEFAULT_HEAT_TIMEOUT)
         if self.template_file:
             self.heat_parameters = attrs.get("heat_parameters")
             return
@@ -112,8 +114,6 @@ class HeatContext(Context):
         self._image = attrs.get("image")
 
         self._flavor = attrs.get("flavor")
-
-        self.heat_timeout = attrs.get("timeout", DEFAULT_HEAT_TIMEOUT)
 
         self.placement_groups = [PlacementGroup(name, self, pg_attrs["policy"])
                                  for name, pg_attrs in attrs.get(
