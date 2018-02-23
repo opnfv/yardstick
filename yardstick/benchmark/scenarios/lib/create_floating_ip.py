@@ -8,7 +8,6 @@
 ##############################################################################
 
 import logging
-import os
 
 from yardstick.benchmark.scenarios import base
 import yardstick.common.openstack_utils as op_utils
@@ -25,9 +24,15 @@ class CreateFloatingIp(base.Scenario):
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
-        self.ext_net_id = os.getenv("EXTERNAL_NETWORK", "external")
+        self.options = self.scenario_cfg['options']
 
-        self.neutron_client = op_utils.get_neutron_client()
+        self.network_name_or_id = self.options.get("network_name_or_id", None)
+        self.server = self.options.get("server", None)
+        self.fixed_address = self.options.get("fixed_address", None)
+        self.nat_destination = self.options.get("nat_destination", None)
+        self.port = self.options.get("port", None)
+        self.wait = self.options.get("wait", False)
+        self.timeout = self.options.get("timeout", 60)
         self.shade_client = op_utils.get_shade_client()
         self.setup_done = False
 
@@ -42,9 +47,10 @@ class CreateFloatingIp(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        net_id = op_utils.get_network_id(self.shade_client, self.ext_net_id)
-        floating_info = op_utils.create_floating_ip(self.neutron_client,
-                                                    extnet_id=net_id)
+        floating_info = op_utils.create_floating_ip(
+            self.shade_client, self.network_name_or_id, self.server,
+            self.fixed_address, self.nat_destination, self.port, self.wait,
+            self.timeout)
 
         if not floating_info:
             LOG.error("Creating floating ip failed!")
