@@ -34,6 +34,24 @@
       "revId": "5dc8b46b34bbe586ff27ad5aa58e382110d00c78",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_fa53376a",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-02-23T15:37:50Z",
+      "side": 1,
+      "message": "In this case, please leave the message and return None in case of exc.OpenStackCloudException exception and remove L469 as this function doesn\u0027t return any exceptions.",
+      "parentUuid": "5a3f45e8_bafecf69",
+      "revId": "5dc8b46b34bbe586ff27ad5aa58e382110d00c78",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
