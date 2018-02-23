@@ -429,12 +429,6 @@ def delete_keypair(nova_client, key):     # pragma: no cover
 # *********************************************
 #   NEUTRON
 # *********************************************
-def get_network_id(shade_client, network_name):
-    networks = shade_client.list_networks({'name': network_name})
-    if networks:
-        return networks[0]['id']
-
-
 def create_neutron_net(shade_client, network_name, shared=False,
                        admin_state_up=True, external=False, provider=None,
                        project_id=None):
@@ -587,16 +581,40 @@ def remove_router_interface(shade_client, router, subnet_id=None,
         return False
 
 
-def create_floating_ip(neutron_client, extnet_id):      # pragma: no cover
-    props = {'floating_network_id': extnet_id}
+def create_floating_ip(shade_client, network_name_or_id=None, server=None,
+                       fixed_address=None, nat_destination=None,
+                       port=None, wait=False, timeout=60):
+    """Allocate a new floating IP from a network or a pool.
+
+    :param network_name_or_id: Name or ID of the network
+                               that the floating IP should come from.
+    :param server:(optional) Server dict for the server to create
+                  the IP for and to which it should be attached.
+    :param fixed_address:(optional) Fixed IP to attach the floating ip to.
+    :param nat_destination:(optional) Name or ID of the network
+                           that the fixed IP to attach the floating
+                           IP to should be on.
+    :param port:(optional) The port ID that the floating IP should be
+                attached to. Specifying a port conflicts with specifying a
+                server,fixed_address or nat_destination.
+    :param wait:(optional) Whether to wait for the IP to be active.Only applies
+                if a server is provided.
+    :param timeout:(optional) How long to wait for the IP to be active.Only
+                   applies if a server is provided.
+
+    :returns:Floating IP id and address
+    """
+
     try:
-        ip_json = neutron_client.create_floatingip({'floatingip': props})
-        fip_addr = ip_json['floatingip']['floating_ip_address']
-        fip_id = ip_json['floatingip']['id']
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [create_floating_ip(neutron_client)]")
-        return None
-    return {'fip_addr': fip_addr, 'fip_id': fip_id}
+        fip = shade_client.create_floating_ip(
+            network=network_name_or_id, server=server,
+            fixed_address=fixed_address, nat_destination=nat_destination,
+            port=port, wait=wait, timeout=timeout)
+        return {'fip_addr': fip['floating_ip_address'], 'fip_id': fip['id']}
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [create_floating_ip(shade_client)]. "
+                  "Exception message: %s", o_exc.orig_message)
+        return
 
 
 def delete_floating_ip(nova_client, floatingip_id):      # pragma: no cover
