@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_7add6714",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-02-23T14:51:47Z",
+      "side": 1,
+      "message": "The create_neutron_net doesn\u0027t raise the OpenStackCloudException exception but print just an error message instead and return nothing. Please fix it and add test case for this exception.",
+      "revId": "5dc8b46b34bbe586ff27ad5aa58e382110d00c78",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
