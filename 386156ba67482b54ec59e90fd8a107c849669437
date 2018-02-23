@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_85ba94df",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-23T21:48:52Z",
+      "side": 1,
+      "message": "\\w is [a-zA-Z0-9_] plus optional unicode awareness, so probably better to use [\\w-]\n\n\n\\w\n\n\u003e When the LOCALE and UNICODE flags are not specified, matches any alphanumeric character and the underscore; this is equivalent to the set [a-zA-Z0-9_]. With LOCALE, it will match the set [0-9_] plus whatever characters are defined as alphanumeric for the current locale. If UNICODE is set, this will match the characters [0-9_] plus whatever is classified as alphanumeric in the Unicode character properties database.",
+      "revId": "386156ba67482b54ec59e90fd8a107c849669437",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
