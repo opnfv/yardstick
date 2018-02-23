@@ -33,7 +33,7 @@ from six import StringIO
 from chainmap import ChainMap
 
 from yardstick.common.utils import Timer
-
+from yardstick.common import constants as consts
 
 cgitb.enable(format="text")
 
@@ -435,6 +435,7 @@ class AnsibleCommon(object):
         ansible_dict = dict(os.environ, **{
             "ANSIBLE_LOG_PATH": os.path.join(directory, log_file),
             "ANSIBLE_LOG_BASE": directory,
+            "ANSIBLE_ROLES_PATH": consts.ANSIBLE_ROLES_PATH,
             # # required for SSH to work
             # "ANSIBLE_SSH_ARGS": "-o UserKnownHostsFile=/dev/null "
             #                     "-o GSSAPIAuthentication=no "
@@ -516,7 +517,7 @@ class AnsibleCommon(object):
         #  playbook dir: use include to point to files in  consts.ANSIBLE_DIR
 
         if not os.path.isdir(directory):
-            raise OSError("Not a directory, %s", directory)
+            raise OSError("Not a directory, %s" % directory)
         timeout = self.get_timeout(timeout, self.default_timeout)
 
         self.counter += 1
