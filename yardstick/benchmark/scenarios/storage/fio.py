@@ -124,12 +124,16 @@ class Fio(base.Scenario):
 
         if mount_dir:
             LOG.debug("Formating volume...")
-            self.client.execute("sudo mkfs.ext4 /dev/vdb")
-            cmd = "sudo mkdir %s" % mount_dir
-            self.client.execute(cmd)
-            LOG.debug("Mounting volume at: %s", mount_dir)
-            cmd = "sudo mount /dev/vdb %s" % mount_dir
-            self.client.execute(cmd)
+            _, stdout, _ = self.client.execute(
+                "lsblk -dps | grep -m 1 disk | awk '{print $1}'")
+            block_device = stdout.strip()
+            if block_device:
+                 self.client.execute("sudo mkfs.ext4 %s" % block_device)
+                 cmd = "sudo mkdir %s" % mount_dir
+                 self.client.execute(cmd)
+                 LOG.debug("Mounting volume at: %s", mount_dir)
+                 cmd = "sudo mount %s %s" % (block_device, mount_dir)
+                 self.client.execute(cmd)
 
         self.setup_done = True
 
