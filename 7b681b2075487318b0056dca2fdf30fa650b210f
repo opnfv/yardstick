@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_c5b49cf4",
+        "filename": "yardstick/benchmark/scenarios/networking/moongen_testpmd.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-23T22:09:49Z",
+      "side": 1,
+      "message": "2017 - 2018?",
+      "revId": "7b681b2075487318b0056dca2fdf30fa650b210f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a5b990eb",
+        "filename": "yardstick/benchmark/scenarios/networking/moongen_testpmd.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-23T22:09:49Z",
+      "side": 1,
+      "message": "whitespace",
+      "revId": "7b681b2075487318b0056dca2fdf30fa650b210f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_05ce8483",
+        "filename": "yardstick/benchmark/scenarios/networking/moongen_testpmd.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-23T22:09:49Z",
+      "side": 1,
+      "message": "you might be able to use r\u0027\u0027 string  to avoid having extra \\\\\\\\",
+      "revId": "7b681b2075487318b0056dca2fdf30fa650b210f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_85a1f4ab",
+        "filename": "yardstick/benchmark/scenarios/networking/moongen_testpmd.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-23T22:09:49Z",
+      "side": 1,
+      "message": "can we use \"\"\" and %(key)s ?\n\nalso compute output string before opening the file\n\n out_text \u003d \"\"\"\\\nVSPERF {\ntestType \u003d \"throughput\",\nnrFlows \u003d %(multistream)d,\nrunBidirec \u003d %(runBidirec)s,\n...\nsrcMacs \u003d {\u0027%(moongen_port1_mac)s\u0027, \u0027%(moongen_port2_mac)\u0027},\nvlanIds \u003d {%(tg_port1_vlan)s, %(tg_port2_vlan)s},\n...\n\"\"\" % dict(locals(), moongen_port1_mac\u003dmoongen_port1_mac, ...)\n  with open() as out_file:\n     out_file.write(out_text)\n\n\nyou shouldn\u0027t need int(tg_port1_vlan) with %s since %s will convert to string anyway.",
+      "revId": "7b681b2075487318b0056dca2fdf30fa650b210f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_459fec5f",
+        "filename": "yardstick/benchmark/scenarios/networking/moongen_testpmd.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-23T22:09:49Z",
+      "side": 1,
+      "message": "the openstack tools can output JSON (or YAML), so we can just read the full JSON and decode it, or select individual keys\n\n\n  cmd \u003d \"openstack network show %s --format json -c provider:segmentation_id\"\n  tg_port1_vlan \u003d jsonutils.loads(output).get(\"provider:segmentation_id\")\n\n\n\n\n\nusage: openstack network show [-h] [-f {json,shell,table,value,yaml}]\n                              [-c COLUMN] [--noindent] [--max-width \u003cinteger\u003e]\n                              [--fit-width] [--print-empty] [--prefix PREFIX]\n                              \u003cnetwork\u003e",
+      "revId": "7b681b2075487318b0056dca2fdf30fa650b210f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
