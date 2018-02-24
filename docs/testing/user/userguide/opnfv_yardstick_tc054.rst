@@ -115,7 +115,7 @@ Yardstick Test Case Description TC054
 |              | Result: The test case is passed or not.                      |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|post-action   | It is the action when the test cases exist.  It restarts the |
+|post-action   | It is the action when the test cases exist. It restarts the  |
 |              | original VIP master node if it is not restarted.             |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+

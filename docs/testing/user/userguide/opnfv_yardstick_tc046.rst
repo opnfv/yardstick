@@ -127,9 +127,14 @@ Yardstick Test Case Description TC046
 |              | Result: The test case is passed or not.                      |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|post-action   | It is the action when the test cases exist. It will check the|
-|              | status of the specified process on the host, and restart the |
-|              | process if it is not running for next test cases             |
+|post-action   | It is the action when the test cases exist. It will check    |
+|              | the status of the specified process on the host, and restart |
+|              | the process if it is not running for next test cases.        |
+|              |                                                              |
+|              | Notice: This post-action uses 'lsb_release' command to check |
+|              | the host linux distribution and determine the OpenStack      |
+|              | service name to restart the process. Lack of 'lsb_release'   |
+|              | on the host may cause failure to restart the process.        |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test verdict  | Fails only if SLA is not passed, or if there is a test case  |
