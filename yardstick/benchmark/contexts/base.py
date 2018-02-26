@@ -6,11 +6,34 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-from __future__ import absolute_import
 import abc
 import six
 
 import yardstick.common.utils as utils
+
+
+class Flags(object):
+    """Class to represent the status of the flags in a context"""
+
+    _FLAGS = {'no_setup': False,
+              'no_teardown': False}
+
+    def __init__(self, **kwargs):
+        for name, value in self._FLAGS.items():
+            setattr(self, name, value)
+
+        for name, value in ((name, value) for (name, value) in kwargs.items()
+                            if name in self._FLAGS):
+            setattr(self, name, value)
+
+    def parse(self, flags):
+        """Read a dict of key/value matching the flags stored in this object"""
+        if not flags:
+            return
+
+        for name, value in ((name, value) for (name, value) in flags.items()
+                            if name in self._FLAGS):
+            setattr(self, name, value)
 
 
 @six.add_metaclass(abc.ABCMeta)
