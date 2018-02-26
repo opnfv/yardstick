@@ -160,7 +160,8 @@ class HeatTemplateTestCase(unittest.TestCase):
 
     def test__add_resources_to_template_raw(self):
         test_context = node.NodeContext()
-        test_context.name = 'foo'
+        self.addCleanup(test_context._delete_context)
+        test_context._name = 'foo'
         test_context.template_file = '/tmp/some-heat-file'
         test_context.heat_parameters = {'image': 'cirros'}
         test_context.key_filename = "/tmp/1234"
