@@ -16,6 +16,24 @@
       "revId": "189be3d687de4af12519a8d01fb36cfa3bedeb45",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8af3bc72",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-02-26T17:18:46Z",
+      "side": 1,
+      "message": "Done.\n\nself.all_ports is None, so used multiport.all_ports instead.",
+      "parentUuid": "5a3f45e8_650ae8d3",
+      "revId": "189be3d687de4af12519a8d01fb36cfa3bedeb45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
