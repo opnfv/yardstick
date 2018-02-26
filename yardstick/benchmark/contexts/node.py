@@ -35,7 +35,6 @@ class NodeContext(Context):
     __context_type__ = "Node"
 
     def __init__(self):
-        self.name = None
         self.file_path = None
         self.nodes = []
         self.networks = {}
@@ -60,7 +59,8 @@ class NodeContext(Context):
 
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
-        self.name = attrs["name"]
+        super(NodeContext, self).init(attrs)
+
         self.file_path = file_path = attrs.get("file", "pod.yaml")
 
         try:
@@ -157,7 +157,7 @@ class NodeContext(Context):
         except StopIteration:
             pass
         else:
-            raise ValueError("Duplicate nodes!!! Nodes: %s %s",
+            raise ValueError("Duplicate nodes!!! Nodes: %s %s" %
                              (node, duplicate))
 
         node["name"] = attr_name
@@ -204,7 +204,7 @@ class NodeContext(Context):
         self.client._put_file_shell(script_file, '~/{}'.format(script))
 
         cmd = 'sudo bash {} {}'.format(script, options)
-        status, stdout, stderr = self.client.execute(cmd)
+        status, _, stderr = self.client.execute(cmd)
         if status:
             raise RuntimeError(stderr)
 
