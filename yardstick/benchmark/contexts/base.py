@@ -52,10 +52,26 @@ class Context(object):
 
     def __init__(self):
         Context.list.append(self)
+        self._flags = Flags()
+        self._name = None
+        self._task_id = None
 
-    @abc.abstractmethod
     def init(self, attrs):
-        """Initiate context."""
+        """Initiate context"""
+        self._name = attrs['name']
+        self._task_id = attrs['task_id']
+        self._flags.parse(attrs.get('flags'))
+
+    @property
+    def name(self):
+        if self._flags.no_setup or self._flags.no_teardown:
+            return self._name
+        else:
+            return '{}-{}'.format(self._name, self._task_id[:8])
+
+    @property
+    def assigned_name(self):
+        return self._name
 
     @staticmethod
     def get_cls(context_type):

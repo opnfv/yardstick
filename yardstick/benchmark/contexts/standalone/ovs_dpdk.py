@@ -59,7 +59,6 @@ class OvsDpdkContext(Context):
         self.first_run = True
         self.dpdk_devbind = ''
         self.vm_names = []
-        self.name = None
         self.nfvi_host = []
         self.nodes = []
         self.networks = {}
@@ -74,8 +73,8 @@ class OvsDpdkContext(Context):
 
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
+        super(OvsDpdkContext, self).init(attrs)
 
-        self.name = attrs["name"]
         self.file_path = attrs.get("file", "pod.yaml")
 
         self.nodes, self.nfvi_host, self.host_mgmt = \
@@ -288,7 +287,7 @@ class OvsDpdkContext(Context):
         attr_name -- A name for a server listed in nodes config file
         """
         node_name, name = self.split_name(attr_name)
-        if name is None or self.name != name:
+        if name is None or self.assigned_name != name:
             return None
 
         matching_nodes = (n for n in self.nodes if n["name"] == node_name)

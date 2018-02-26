@@ -7,33 +7,25 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import absolute_import
-import logging
-
 from yardstick.benchmark.contexts.base import Context
 
 
-LOG = logging.getLogger(__name__)
-
-
 class DummyContext(Context):
-    """Class that handle dummy info"""
+    """Class that handle dummy info.
+
+    This class is also used to test the abstract class Context because it
+    provides a minimal concrete implementation of a subclass.
+    """
 
     __context_type__ = "Dummy"
 
-    def __init__(self):
-        super(DummyContext, self).__init__()
-
-    def init(self, attrs):
-        pass
-
     def deploy(self):
-        """don't need to deploy"""
+        """Don't need to deploy"""
         pass
 
     def undeploy(self):
-        """don't need to undeploy"""
-        super(DummyContext, self).undeploy()
+        """Don't need to undeploy"""
+        pass
 
     def _get_server(self, attr_name):
         return None

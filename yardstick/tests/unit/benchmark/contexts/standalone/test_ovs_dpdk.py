@@ -26,14 +26,6 @@ class OvsDpdkContextTestCase(unittest.TestCase):
     NODES_ovs_dpdk_SAMPLE = "nodes_ovs_dpdk_sample.yaml"
     NODES_DUPLICATE_SAMPLE = "nodes_duplicate_sample.yaml"
 
-    ATTRS = {
-        'name': 'StandaloneOvsDpdk',
-        'file': 'pod',
-        'flavor': {},
-        'servers': {},
-        'networks': {},
-    }
-
     NETWORKS = {
         'mgmt': {'cidr': '152.16.100.10/24'},
         'private_0': {
@@ -55,6 +47,11 @@ class OvsDpdkContextTestCase(unittest.TestCase):
     }
 
     def setUp(self):
+        self.attrs = {
+            'name': 'foo',
+            'task_id': '1234567890',
+            'file': self._get_file_abspath(self.NODES_ovs_dpdk_SAMPLE)
+        }
         self.ovs_dpdk = ovs_dpdk.OvsDpdkContext()
 
     @mock.patch('yardstick.benchmark.contexts.standalone.model.Server')
@@ -66,9 +63,18 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.assertTrue(self.ovs_dpdk.first_run)
 
     def test_init(self):
+        ATTRS = {
+            'name': 'StandaloneOvsDpdk',
+            'task_id': '1234567890',
+            'file': 'pod',
+            'flavor': {},
+            'servers': {},
+            'networks': {},
+        }
+
         self.ovs_dpdk.helper.parse_pod_file = mock.Mock(
             return_value=[{}, {}, {}])
-        self.assertIsNone(self.ovs_dpdk.init(self.ATTRS))
+        self.assertIsNone(self.ovs_dpdk.init(ATTRS))
 
     def test_setup_ovs(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -186,12 +192,7 @@ class OvsDpdkContextTestCase(unittest.TestCase):
 
     def test__get_server_with_dic_attr_name(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_ovs_dpdk_SAMPLE)
-        }
-
-        self.ovs_dpdk.init(attrs)
+        self.ovs_dpdk.init(self.attrs)
 
         attr_name = {'name': 'foo.bar'}
         result = self.ovs_dpdk._get_server(attr_name)
@@ -200,14 +201,9 @@ class OvsDpdkContextTestCase(unittest.TestCase):
 
     def test__get_server_not_found(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_ovs_dpdk_SAMPLE)
-        }
-
         self.ovs_dpdk.helper.parse_pod_file = mock.Mock(
             return_value=[{}, {}, {}])
-        self.ovs_dpdk.init(attrs)
+        self.ovs_dpdk.init(self.attrs)
 
         attr_name = 'bar.foo'
         result = self.ovs_dpdk._get_server(attr_name)
@@ -216,12 +212,7 @@ class OvsDpdkContextTestCase(unittest.TestCase):
 
     def test__get_server_mismatch(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_ovs_dpdk_SAMPLE)
-        }
-
-        self.ovs_dpdk.init(attrs)
+        self.ovs_dpdk.init(self.attrs)
 
         attr_name = 'bar.foo1'
         result = self.ovs_dpdk._get_server(attr_name)
@@ -230,12 +221,9 @@ class OvsDpdkContextTestCase(unittest.TestCase):
 
     def test__get_server_duplicate(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_DUPLICATE_SAMPLE)
-        }
+        self.attrs['file'] = self._get_file_abspath(self.NODES_DUPLICATE_SAMPLE)
 
-        self.ovs_dpdk.init(attrs)
+        self.ovs_dpdk.init(self.attrs)
 
         attr_name = 'node1.foo'
         with self.assertRaises(ValueError):
@@ -243,12 +231,7 @@ class OvsDpdkContextTestCase(unittest.TestCase):
 
     def test__get_server_found(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_ovs_dpdk_SAMPLE)
-        }
-
-        self.ovs_dpdk.init(attrs)
+        self.ovs_dpdk.init(self.attrs)
 
         attr_name = 'node1.foo'
         result = self.ovs_dpdk._get_server(attr_name)

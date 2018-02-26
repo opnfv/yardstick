@@ -50,7 +50,6 @@ class HeatContext(Context):
     __context_type__ = "Heat"
 
     def __init__(self):
-        self.name = None
         self.stack = None
         self.networks = OrderedDict()
         self.heat_timeout = None
@@ -95,10 +94,10 @@ class HeatContext(Context):
         return sorted_networks
 
     def init(self, attrs):
-        """initializes itself from the supplied arguments"""
-        self.check_environment()
-        self.name = attrs["name"]
+        """Initializes itself from the supplied arguments"""
+        super(HeatContext, self).init(attrs)
 
+        self.check_environment()
         self._user = attrs.get("user")
 
         self.template_file = attrs.get("heat_template")
@@ -313,7 +312,7 @@ class HeatContext(Context):
                                               timeout=self.heat_timeout)
         except KeyboardInterrupt:
             raise SystemExit("\nStack create interrupted")
-        except:
+        except Exception as exc:
             LOG.exception("stack failed")
             # let the other failures happen, we want stack trace
             raise
@@ -418,7 +417,8 @@ class HeatContext(Context):
         """
         if isinstance(attr_name, collections.Mapping):
             node_name, cname = self.split_name(attr_name['name'])
-            if cname is None or cname != self.name:
+            # Because the name might have been changed
+            if cname is None or (cname != self.assigned_name and cname != self.name) :
                 return None
 
             # Create a dummy server instance for holding the *_ip attributes

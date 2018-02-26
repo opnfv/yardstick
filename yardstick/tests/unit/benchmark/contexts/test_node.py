@@ -20,7 +20,7 @@ import mock
 from yardstick.common import constants as consts
 from yardstick.benchmark.contexts import node
 
-
+#ELF: remove this and resolve pep8
 # pylint: disable=unused-argument
 # disable this for now because I keep forgetting mock patch arg ordering
 
@@ -35,6 +35,12 @@ class NodeContextTestCase(unittest.TestCase):
     def setUp(self):
         self.test_context = node.NodeContext()
         self.os_path_join = os.path.join
+        self.attrs = {
+            'name': 'foo',
+            'task_id': '1234567890',
+            'file': self._get_file_abspath(self.NODES_SAMPLE)
+        }
+
 
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
@@ -42,7 +48,7 @@ class NodeContextTestCase(unittest.TestCase):
         return file_path
 
     def test___init__(self):
-        self.assertIsNone(self.test_context.name)
+        self.assertIsNone(self.test_context._name)
         self.assertIsNone(self.test_context.file_path)
         self.assertEqual(self.test_context.nodes, [])
         self.assertEqual(self.test_context.controllers, [])
@@ -74,6 +80,7 @@ class NodeContextTestCase(unittest.TestCase):
 
         attrs = {
             'name': 'foo',
+            'task_id': '1234567890',
             'file': error_path,
         }
         read_mock.side_effect = IOError(errno.EBUSY, 'busy')
@@ -98,23 +105,13 @@ class NodeContextTestCase(unittest.TestCase):
 
     def test_read_config_file(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
+        self.test_context.init(self.attrs)
 
         self.assertIsNotNone(self.test_context.read_config_file())
 
     def test__dispatch_script(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
+        self.test_context.init(self.attrs)
 
         self.test_context.env = {'bash': [{'script': 'dummy'}]}
         self.test_context._execute_script = mock.Mock()
@@ -122,12 +119,7 @@ class NodeContextTestCase(unittest.TestCase):
 
     def test__dispatch_ansible(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
+        self.test_context.init(self.attrs)
 
         self.test_context.env = {'ansible': [{'script': 'dummy'}]}
         self.test_context._do_ansible_job = mock.Mock()
@@ -141,14 +133,9 @@ class NodeContextTestCase(unittest.TestCase):
 
     def test_successful_init(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
+        self.test_context.init(self.attrs)
 
-        self.test_context.init(attrs)
-
-        self.assertEqual(self.test_context.name, "foo")
+        self.assertEqual(self.test_context.name, "foo-12345678")
         self.assertEqual(len(self.test_context.nodes), 4)
         self.assertEqual(len(self.test_context.controllers), 2)
         self.assertEqual(len(self.test_context.computes), 1)
@@ -158,12 +145,7 @@ class NodeContextTestCase(unittest.TestCase):
 
     def test__get_server_with_dic_attr_name(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
+        self.test_context.init(self.attrs)
 
         attr_name = {'name': 'foo.bar'}
         result = self.test_context._get_server(attr_name)
@@ -172,12 +154,7 @@ class NodeContextTestCase(unittest.TestCase):
 
     def test__get_server_not_found(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
+        self.test_context.init(self.attrs)
 
         attr_name = 'bar.foo'
         result = self.test_context._get_server(attr_name)
@@ -186,12 +163,7 @@ class NodeContextTestCase(unittest.TestCase):
 
     def test__get_server_mismatch(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
+        self.test_context.init(self.attrs)
 
         attr_name = 'bar.foo1'
         result = self.test_context._get_server(attr_name)
@@ -200,12 +172,9 @@ class NodeContextTestCase(unittest.TestCase):
 
     def test__get_server_duplicate(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_DUPLICATE_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
+        self.attrs['file'] = self._get_file_abspath(
+            self.NODES_DUPLICATE_SAMPLE)
+        self.test_context.init(self.attrs)
 
         attr_name = 'node1.foo'
         with self.assertRaises(ValueError):
@@ -213,12 +182,7 @@ class NodeContextTestCase(unittest.TestCase):
 
     def test__get_server_found(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
+        self.test_context.init(self.attrs)
 
         attr_name = 'node1.foo'
         result = self.test_context._get_server(attr_name)
@@ -328,18 +292,20 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertTrue(wait_mock.called)
 
     def test_get_server(self):
-        self.test_context.name = 'vnf1'
+        self.test_context._name = 'vnf1'
+        self.test_context._task_id = '1234567890'
         self.test_context.nodes = [{'name': 'my', 'value': 100}]
 
         with self.assertRaises(ValueError):
             self.test_context.get_server('my.vnf2')
 
         expected = {'name': 'my.vnf1', 'value': 100, 'interfaces': {}}
-        result = self.test_context.get_server('my.vnf1')
-        self.assertDictEqual(result, expected)
+        self.assertEqual(self.test_context.get_server('my.vnf1'),
+                         expected)
 
     def test_get_context_from_server(self):
-        self.test_context.name = 'vnf1'
+        self.test_context._name = 'vnf1'
+        self.test_context._task_id = '1234567890'
         self.test_context.nodes = [{'name': 'my', 'value': 100}]
         self.test_context.attrs = {'attr1': 200}
 
