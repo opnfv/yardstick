@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_8a31fca4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-26T15:00:47Z",
+      "side": 1,
+      "message": "typo \"unnecessary\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 10,
+        "endLine": 11,
+        "endChar": 20
+      },
+      "revId": "1aa25202595e87d5604074ad700f9ddd90406dfd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_aa2cb84b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 14
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-26T15:00:47Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 12,
+        "startChar": 33,
+        "endLine": 12,
+        "endChar": 41
+      },
+      "revId": "1aa25202595e87d5604074ad700f9ddd90406dfd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6a763040",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-26T15:00:47Z",
+      "side": 1,
+      "message": "This command may delete the ovs db server too. Is it the expected outcome of this?",
+      "range": {
+        "startLine": 103,
+        "startChar": 25,
+        "endLine": 103,
+        "endChar": 28
+      },
+      "revId": "1aa25202595e87d5604074ad700f9ddd90406dfd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
