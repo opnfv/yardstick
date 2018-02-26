@@ -29,7 +29,6 @@ class KubernetesContext(Context):
     __context_type__ = "Kubernetes"
 
     def __init__(self):
-        self.name = ''
         self.ssh_key = ''
         self.key_path = ''
         self.public_key_path = ''
@@ -38,7 +37,7 @@ class KubernetesContext(Context):
         super(KubernetesContext, self).__init__()
 
     def init(self, attrs):
-        self.name = attrs.get('name', '')
+        super(KubernetesContext, self).init(attrs)
 
         template_cfg = attrs.get('servers', {})
         self.template = KubernetesTemplate(self.name, template_cfg)
