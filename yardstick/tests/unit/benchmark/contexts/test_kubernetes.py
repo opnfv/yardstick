@@ -17,6 +17,7 @@ from yardstick.benchmark.contexts import kubernetes
 context_cfg = {
     'type': 'Kubernetes',
     'name': 'k8s',
+    'task_id': '1234567890',
     'servers': {
         'host': {
             'image': 'openretriever/yardstick',
