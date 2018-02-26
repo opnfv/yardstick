@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_4ae4143b",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-26T14:25:41Z",
+      "side": 0,
+      "message": "Is there any specific reason why there were frequent executes before?",
+      "range": {
+        "startLine": 201,
+        "startChar": 28,
+        "endLine": 201,
+        "endChar": 35
+      },
+      "revId": "5ea891398c0f7404d568bbe813100b2488d677ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_aad03854",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-26T14:25:41Z",
+      "side": 0,
+      "message": "Is there any dependency between running the commands separately and in a sequence?",
+      "range": {
+        "startLine": 209,
+        "startChar": 28,
+        "endLine": 209,
+        "endChar": 35
+      },
+      "revId": "5ea891398c0f7404d568bbe813100b2488d677ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
