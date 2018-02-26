@@ -18,6 +18,7 @@ import uuid
 import mock
 import unittest
 
+from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import heat
 from yardstick.benchmark.contexts import model
 
@@ -33,10 +34,18 @@ class HeatContextTestCase(unittest.TestCase):
 
     def setUp(self):
         self.test_context = heat.HeatContext()
+        self.addCleanup(self._remove_contexts)
         self.mock_context = mock.Mock(spec=heat.HeatContext())
 
+    def _remove_contexts(self):
+        if self.test_context in self.test_context.list:
+            self.test_context._delete_context()
+
     def test___init__(self):
-        self.assertIsNone(self.test_context.name)
+        self.assertIsNone(self.test_context._name)
+        self.assertIsNone(self.test_context._task_id)
+        self.assertFalse(self.test_context._flags.no_setup)
+        self.assertFalse(self.test_context._flags.no_teardown)
         self.assertIsNone(self.test_context.stack)
         self.assertEqual(self.test_context.networks, OrderedDict())
         self.assertEqual(self.test_context.servers, [])
@@ -64,6 +73,7 @@ class HeatContextTestCase(unittest.TestCase):
         networks = {'bar': {'cidr': '10.0.1.0/24'}}
         servers = {'baz': {'floating_ip': True, 'placement': 'pgrp1'}}
         attrs = {'name': 'foo',
+                 'task_id': '1234567890',
                  'placement_groups': pgs,
                  'server_groups': sgs,
                  'networks': networks,
@@ -71,9 +81,13 @@ class HeatContextTestCase(unittest.TestCase):
 
         self.test_context.init(attrs)
 
-        self.assertEqual(self.test_context.name, "foo")
-        self.assertEqual(self.test_context.keypair_name, "foo-key")
-        self.assertEqual(self.test_context.secgroup_name, "foo-secgroup")
+        self.assertFalse(self.test_context._flags.no_setup)
+        self.assertFalse(self.test_context._flags.no_teardown)
+        self.assertEqual(self.test_context._name, "foo")
+        self.assertEqual(self.test_context._task_id, '1234567890')
+        self.assertEqual(self.test_context.name, "foo-12345678")
+        self.assertEqual(self.test_context.keypair_name, "foo-12345678-key")
+        self.assertEqual(self.test_context.secgroup_name, "foo-12345678-secgroup")
 
         mock_pg.assert_called_with('pgrp1', self.test_context,
                                    pgs['pgrp1']['policy'])
@@ -98,32 +112,56 @@ class HeatContextTestCase(unittest.TestCase):
                 LOG.exception("key_filename: %s",
                               self.test_context.key_filename)
 
+    def test_init_no_name_or_task_id(self):
+        attrs = {}
+        self.assertRaises(KeyError, self.test_context.init, attrs)
+
+    def test_name(self):
+        self.test_context._name = 'foo'
+        self.test_context._task_id = '1234567890'
+        self.test_context._name_task_id = '{}-{}'.format(
+            self.test_context._name, self.test_context._task_id[:8])
+        self.assertEqual(self.test_context.name, 'foo-12345678')
+        self.assertEqual(self.test_context.assigned_name, 'foo')
+
+    def test_name_flags(self):
+        self.test_context._flags = base.Flags(**{"no_setup": True, "no_teardown": True})
+        self.test_context._name = 'foo'
+        self.test_context._task_id = '1234567890'
+
+        self.assertEqual(self.test_context.name, 'foo')
+        self.assertEqual(self.test_context.assigned_name, 'foo')
+
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_resources_to_template_no_servers(self, mock_template):
-
-        self.test_context.keypair_name = "foo-key"
-        self.test_context.secgroup_name = "foo-secgroup"
+        self.test_context._name = 'ctx'
+        self.test_context._task_id = '1234567890'
+        self.test_context._name_task_id = '{}-{}'.format(
+            self.test_context._name, self.test_context._task_id[:8])
+        self.test_context.keypair_name = "ctx-key"
+        self.test_context.secgroup_name = "ctx-secgroup"
         self.test_context.key_uuid = "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b"
-        netattrs = {'cidr': '10.0.0.0/24', 'provider': None, 'external_network': 'ext_net'}
-        self.mock_context.name = 'bar'
+        netattrs = {'cidr': '10.0.0.0/24', 'provider': None,
+                    'external_network': 'ext_net'}
         self.test_context.networks = OrderedDict(
-            {"fool-network": model.Network("fool-network", self.mock_context,
+            {"mynet": model.Network("mynet", self.test_context,
                                            netattrs)})
 
         self.test_context._add_resources_to_template(mock_template)
         mock_template.add_keypair.assert_called_with(
-            "foo-key",
+            "ctx-key",
             "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b")
-        mock_template.add_security_group.assert_called_with("foo-secgroup")
-#        mock_template.add_network.assert_called_with("bar-fool-network", 'physnet1', None)
+        mock_template.add_security_group.assert_called_with("ctx-secgroup")
+        mock_template.add_network.assert_called_with(
+            "ctx-12345678-mynet", 'physnet1', None, None, None, None)
         mock_template.add_router.assert_called_with(
-            "bar-fool-network-router",
+            "ctx-12345678-mynet-router",
             netattrs["external_network"],
-            "bar-fool-network-subnet")
+            "ctx-12345678-mynet-subnet")
         mock_template.add_router_interface.assert_called_with(
-            "bar-fool-network-router-if0",
-            "bar-fool-network-router",
-            "bar-fool-network-subnet")
+            "ctx-12345678-mynet-router-if0",
+            "ctx-12345678-mynet-router",
+            "ctx-12345678-mynet-subnet")
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_attrs_get(self, *args):
@@ -150,13 +188,16 @@ class HeatContextTestCase(unittest.TestCase):
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_deploy(self, mock_template):
-        self.test_context.name = 'foo'
+        self.test_context._name = 'foo'
+        self.test_context._task_id = '1234567890'
+        self.test_context._name_task_id = '{}-{}'.format(
+            self.test_context._name, self.test_context._task_id[:8])
         self.test_context.template_file = '/bar/baz/some-heat-file'
         self.test_context.heat_parameters = {'image': 'cirros'}
         self.test_context.get_neutron_info = mock.MagicMock()
         self.test_context.deploy()
 
-        mock_template.assert_called_with('foo',
+        mock_template.assert_called_with('foo-12345678',
                                          '/bar/baz/some-heat-file',
                                          {'image': 'cirros'})
         self.assertIsNotNone(self.test_context.stack)
@@ -164,7 +205,10 @@ class HeatContextTestCase(unittest.TestCase):
     def test_add_server_port(self):
         network1 = mock.MagicMock()
         network2 = mock.MagicMock()
-        self.test_context.name = 'foo'
+        self.test_context._name = 'foo'
+        self.test_context._task_id = '1234567890'
+        self.test_context._name_task_id = '{}-{}'.format(
+            self.test_context._name, self.test_context._task_id[:8])
         self.test_context.stack = mock.MagicMock()
         self.test_context.networks = {
             'a': network1,
@@ -173,15 +217,15 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context.stack.outputs = {
             u'b': u'10.20.30.45',
             u'b-subnet_id': 1,
-            u'foo-a-subnet-cidr': u'10.20.0.0/15',
-            u'foo-a-subnet-gateway_ip': u'10.20.30.1',
+            u'foo-12345678-a-subnet-cidr': u'10.20.0.0/15',
+            u'foo-12345678-a-subnet-gateway_ip': u'10.20.30.1',
             u'b-mac_address': u'00:01',
             u'b-device_id': u'dev21',
             u'b-network_id': u'net789',
             u'd': u'40.30.20.15',
             u'd-subnet_id': 2,
-            u'foo-c-subnet-cidr': u'40.30.0.0/18',
-            u'foo-c-subnet-gateway_ip': u'40.30.20.254',
+            u'foo-12345678-c-subnet-cidr': u'40.30.0.0/18',
+            u'foo-12345678-c-subnet-gateway_ip': u'40.30.20.254',
             u'd-mac_address': u'00:10',
             u'd-device_id': u'dev43',
             u'd-network_id': u'net987',
@@ -221,6 +265,10 @@ class HeatContextTestCase(unittest.TestCase):
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_undeploy(self, mock_template):
         self.test_context.stack = mock_template
+        self.test_context._name = 'foo'
+        self.test_context._task_id = '1234567890'
+        self.test_context._name_task_id = '{}-{}'.format(
+            self.test_context._name, self.test_context._task_id[:8])
         self.test_context.undeploy()
         self.assertTrue(mock_template.delete.called)
 
@@ -228,6 +276,10 @@ class HeatContextTestCase(unittest.TestCase):
     @mock.patch('yardstick.benchmark.contexts.heat.os')
     def test_undeploy_key_filename(self, mock_os, mock_template):
         self.test_context.stack = mock_template
+        self.test_context._name = 'foo'
+        self.test_context._task_id = '1234567890'
+        self.test_context._name_task_id = '{}-{}'.format(
+            self.test_context._name, self.test_context._task_id)
         mock_os.path.exists.return_value = True
         self.assertIsNone(self.test_context.undeploy())
 
@@ -249,7 +301,10 @@ class HeatContextTestCase(unittest.TestCase):
         baz3_server.public_ip = '127.0.0.3'
         baz3_server.context.user = 'zab'
 
-        self.test_context.name = 'bar'
+        self.test_context._name = 'bar'
+        self.test_context._task_id = '1234567890'
+        self.test_context._name_task_id = '{}-{}'.format(
+            self.test_context._name, self.test_context._task_id[:8])
         self.test_context._user = 'bot'
         self.test_context.stack = mock.Mock()
         self.test_context.stack.outputs = {
@@ -263,7 +318,7 @@ class HeatContextTestCase(unittest.TestCase):
         }
 
         attr_name = {
-            'name': 'foo.bar',
+            'name': 'foo.bar-12345678',
             'private_ip_attr': 'private_ip',
             'public_ip_attr': 'public_ip',
         }
@@ -288,7 +343,10 @@ class HeatContextTestCase(unittest.TestCase):
         baz3_server.public_ip = '127.0.0.3'
         baz3_server.context.user = 'zab'
 
-        self.test_context.name = 'bar'
+        self.test_context._name = 'bar'
+        self.test_context._task_id = '1234567890'
+        self.test_context._name_task_id = '{}-{}'.format(
+            self.test_context._name, self.test_context._task_id[:8])
         self.test_context._user = 'bot'
         self.test_context.stack = mock.Mock()
         self.test_context.stack.outputs = {
@@ -302,7 +360,7 @@ class HeatContextTestCase(unittest.TestCase):
         }
 
         attr_name = {
-            'name': 'foo.bar',
+            'name': 'foo.bar-12345678',
         }
         result = self.test_context._get_server(attr_name)
         self.assertEqual(result['user'], 'bot')
@@ -327,7 +385,7 @@ class HeatContextTestCase(unittest.TestCase):
         baz3_server.public_ip = None
         baz3_server.context.user = 'zab'
 
-        self.test_context.name = 'bar1'
+        self.test_context._name = 'bar1'
         self.test_context.stack = mock.Mock()
         self.test_context.stack.outputs = {
             'private_ip': '10.0.0.1',
@@ -365,7 +423,7 @@ class HeatContextTestCase(unittest.TestCase):
         baz3_server.public_ip = None
         baz3_server.context.user = 'zab'
 
-        self.test_context.name = 'bar1'
+        self.test_context._name = 'bar1'
         self.test_context.stack = mock.Mock()
         self.test_context.stack.outputs = {
             'private_ip': '10.0.0.1',
@@ -398,7 +456,10 @@ class HeatContextTestCase(unittest.TestCase):
         baz3_server.public_ip = None
         baz3_server.context.user = 'zab'
 
-        self.test_context.name = 'bar1'
+        self.test_context._name = 'bar1'
+        self.test_context._task_id = '1235467890'
+        self.test_context._name_task_id = '{}-{}'.format(
+            self.test_context._name, self.test_context._task_id[:8])
         self.test_context.stack = mock.Mock()
         self.test_context.stack.outputs = {
             'private_ip': '10.0.0.1',
@@ -434,7 +495,7 @@ class HeatContextTestCase(unittest.TestCase):
         baz3_server.public_ip = None
         baz3_server.context.user = 'zab'
 
-        self.mock_context.name = 'bar1'
+        self.mock_context._name = 'bar1'
         self.test_context.stack = mock.Mock()
         self.mock_context.stack.outputs = {
             'private_ip': '10.0.0.1',
