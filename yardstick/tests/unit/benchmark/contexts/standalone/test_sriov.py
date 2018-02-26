@@ -29,6 +29,7 @@ class SriovContextTestCase(unittest.TestCase):
 
     ATTRS = {
         'name': 'StandaloneSriov',
+        'task_id': '1234567890',
         'file': 'pod',
         'flavor': {},
         'servers': {},
@@ -56,6 +57,11 @@ class SriovContextTestCase(unittest.TestCase):
     }
 
     def setUp(self):
+        self.attrs = {
+            'name': 'foo',
+            'task_id': '1234567890',
+            'file': self._get_file_abspath(self.NODES_SRIOV_SAMPLE)
+        }
         self.sriov = sriov.SriovContext()
 
     @mock.patch('yardstick.benchmark.contexts.standalone.sriov.Libvirt')
@@ -105,12 +111,7 @@ class SriovContextTestCase(unittest.TestCase):
 
     def test__get_server_with_dic_attr_name(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SRIOV_SAMPLE)
-        }
-
-        self.sriov.init(attrs)
+        self.sriov.init(self.attrs)
 
         attr_name = {'name': 'foo.bar'}
         result = self.sriov._get_server(attr_name)
@@ -119,13 +120,8 @@ class SriovContextTestCase(unittest.TestCase):
 
     def test__get_server_not_found(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SRIOV_SAMPLE)
-        }
-
         self.sriov.helper.parse_pod_file = mock.Mock(return_value=[{}, {}, {}])
-        self.sriov.init(attrs)
+        self.sriov.init(self.attrs)
 
         attr_name = 'bar.foo'
         result = self.sriov._get_server(attr_name)
@@ -134,12 +130,7 @@ class SriovContextTestCase(unittest.TestCase):
 
     def test__get_server_mismatch(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SRIOV_SAMPLE)
-        }
-
-        self.sriov.init(attrs)
+        self.sriov.init(self.attrs)
 
         attr_name = 'bar.foo1'
         result = self.sriov._get_server(attr_name)
@@ -148,25 +139,29 @@ class SriovContextTestCase(unittest.TestCase):
 
     def test__get_server_duplicate(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_DUPLICATE_SAMPLE)
-        }
+        self.attrs['file'] = self._get_file_abspath(self.NODES_DUPLICATE_SAMPLE)
 
-        self.sriov.init(attrs)
+        self.sriov.init(self.attrs)
 
-        attr_name = 'node1.foo'
+        attr_name = 'node1.foo-12345678'
         with self.assertRaises(ValueError):
             self.sriov._get_server(attr_name)
 
     def test__get_server_found(self):
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SRIOV_SAMPLE)
-        }
+        self.sriov.init(self.attrs)
 
-        self.sriov.init(attrs)
+        attr_name = 'node1.foo-12345678'
+        result = self.sriov._get_server(attr_name)
+
+        self.assertEqual(result['ip'], '10.229.47.137')
+        self.assertEqual(result['name'], 'node1.foo-12345678')
+        self.assertEqual(result['user'], 'root')
+        self.assertEqual(result['key_filename'], '/root/.yardstick_key')
+
+    def test__get_server_no_task_id(self):
+        self.attrs['flags'] = {'no_setup': True}
+        self.sriov.init(self.attrs)
 
         attr_name = 'node1.foo'
         result = self.sriov._get_server(attr_name)

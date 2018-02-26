@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2015-2017 Huawei Technologies Co.,Ltd and others.
 #
@@ -9,9 +7,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.contexts.node
-
-from __future__ import absolute_import
 import os
 import unittest
 import errno
@@ -19,10 +14,6 @@ import mock
 
 from yardstick.common import constants as consts
 from yardstick.benchmark.contexts import node
-
-
-# pylint: disable=unused-argument
-# disable this for now because I keep forgetting mock patch arg ordering
 
 
 class NodeContextTestCase(unittest.TestCase):
@@ -35,6 +26,12 @@ class NodeContextTestCase(unittest.TestCase):
     def setUp(self):
         self.test_context = node.NodeContext()
         self.os_path_join = os.path.join
+        self.attrs = {
+            'name': 'foo',
+            'task_id': '1234567890',
+            'file': self._get_file_abspath(self.NODES_SAMPLE)
+        }
+        self.addCleanup(self.test_context._delete_context)
 
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
@@ -42,7 +39,7 @@ class NodeContextTestCase(unittest.TestCase):
         return file_path
 
     def test___init__(self):
-        self.assertIsNone(self.test_context.name)
+        self.assertIsNone(self.test_context._name)
         self.assertIsNone(self.test_context.file_path)
         self.assertEqual(self.test_context.nodes, [])
         self.assertEqual(self.test_context.controllers, [])
@@ -74,6 +71,7 @@ class NodeContextTestCase(unittest.TestCase):
 
         attrs = {
             'name': 'foo',
+            'task_id': '1234567890',
             'file': error_path,
         }
         read_mock.side_effect = IOError(errno.EBUSY, 'busy')
@@ -97,37 +95,19 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertEqual(str(raised.exception), str(read_mock.side_effect))
 
     def test_read_config_file(self):
-
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
+        self.test_context.init(self.attrs)
 
         self.assertIsNotNone(self.test_context.read_config_file())
 
     def test__dispatch_script(self):
-
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
+        self.test_context.init(self.attrs)
 
         self.test_context.env = {'bash': [{'script': 'dummy'}]}
         self.test_context._execute_script = mock.Mock()
         self.assertEqual(self.test_context._dispatch_script('bash'), None)
 
     def test__dispatch_ansible(self):
-
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
+        self.test_context.init(self.attrs)
 
         self.test_context.env = {'ansible': [{'script': 'dummy'}]}
         self.test_context._do_ansible_job = mock.Mock()
@@ -136,19 +116,13 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertEqual(self.test_context._dispatch_ansible('ansible'), None)
 
     @mock.patch("{}.AnsibleCommon".format(PREFIX))
-    def test__do_ansible_job(self, mock_ansible):
+    def test__do_ansible_job(self, *args):
         self.assertEqual(None, self.test_context._do_ansible_job('dummy'))
 
-    def test_successful_init(self):
+    def test_init(self):
+        self.test_context.init(self.attrs)
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
-
-        self.assertEqual(self.test_context.name, "foo")
+        self.assertEqual(self.test_context.name, "foo-12345678")
         self.assertEqual(len(self.test_context.nodes), 4)
         self.assertEqual(len(self.test_context.controllers), 2)
         self.assertEqual(len(self.test_context.computes), 1)
@@ -156,81 +130,44 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertEqual(len(self.test_context.baremetals), 1)
         self.assertEqual(self.test_context.baremetals[0]["name"], "node4")
 
-    def test__get_server_with_dic_attr_name(self):
+    def test__get_server_with_dict_attr_name(self):
+        self.test_context.init(self.attrs)
+        result = self.test_context._get_server({'name': 'node1.foo-12345678'})
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
-
-        attr_name = {'name': 'foo.bar'}
-        result = self.test_context._get_server(attr_name)
-
-        self.assertEqual(result, None)
+        self.assertIsNone(result, None)
 
     def test__get_server_not_found(self):
+        self.test_context.init(self.attrs)
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
-
-        attr_name = 'bar.foo'
-        result = self.test_context._get_server(attr_name)
-
-        self.assertEqual(result, None)
+        self.assertIsNone(self.test_context._get_server('bar.foo-12345678'))
 
     def test__get_server_mismatch(self):
+        self.test_context.init(self.attrs)
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
-
-        attr_name = 'bar.foo1'
-        result = self.test_context._get_server(attr_name)
-
-        self.assertEqual(result, None)
+        self.assertIsNone(self.test_context._get_server('bar.foo1'))
 
     def test__get_server_duplicate(self):
+        self.attrs['file'] = self._get_file_abspath(
+            self.NODES_DUPLICATE_SAMPLE)
+        self.test_context.init(self.attrs)
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_DUPLICATE_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
-
-        attr_name = 'node1.foo'
         with self.assertRaises(ValueError):
-            self.test_context._get_server(attr_name)
+            self.test_context._get_server('node1.foo-12345678')
 
     def test__get_server_found(self):
+        self.test_context.init(self.attrs)
 
-        attrs = {
-            'name': 'foo',
-            'file': self._get_file_abspath(self.NODES_SAMPLE)
-        }
-
-        self.test_context.init(attrs)
-
-        attr_name = 'node1.foo'
-        result = self.test_context._get_server(attr_name)
+        result = self.test_context._get_server('node1.foo-12345678')
 
         self.assertEqual(result['ip'], '10.229.47.137')
-        self.assertEqual(result['name'], 'node1.foo')
+        self.assertEqual(result['name'], 'node1.foo-12345678')
         self.assertEqual(result['user'], 'root')
         self.assertEqual(result['key_filename'], '/root/.yardstick_key')
 
     @mock.patch('{}.NodeContext._dispatch_script'.format(PREFIX))
     def test_deploy(self, dispatch_script_mock):
         obj = node.NodeContext()
+        self.addCleanup(obj._delete_context)
         obj.env = {
             'type': 'script'
         }
@@ -240,6 +177,7 @@ class NodeContextTestCase(unittest.TestCase):
     @mock.patch('{}.NodeContext._dispatch_ansible'.format(PREFIX))
     def test_deploy_anisible(self, dispatch_ansible_mock):
         obj = node.NodeContext()
+        self.addCleanup(obj._delete_context)
         obj.env = {
             'type': 'ansible'
         }
@@ -268,6 +206,7 @@ class NodeContextTestCase(unittest.TestCase):
     @mock.patch('{}.ssh.SSH.execute'.format(PREFIX))
     def test_execute_remote_script(self, execute_mock, put_file_mock):
         obj = node.NodeContext()
+        self.addCleanup(obj._delete_context)
         obj.env = {'prefix': 'yardstick.benchmark.scenarios.compute'}
         node_name_args = 'node5'
         obj.nodes = [{
@@ -288,14 +227,18 @@ class NodeContextTestCase(unittest.TestCase):
     def test_execute_script_local(self, local_execute_mock):
         node_name = 'local'
         info = {}
-        node.NodeContext()._execute_script(node_name, info)
+        obj = node.NodeContext()
+        self.addCleanup(obj._delete_context)
+        obj._execute_script(node_name, info)
         self.assertTrue(local_execute_mock.called)
 
     @mock.patch('{}.NodeContext._execute_remote_script'.format(PREFIX))
     def test_execute_script_remote(self, remote_execute_mock):
         node_name = 'node5'
         info = {}
-        node.NodeContext()._execute_script(node_name, info)
+        obj = node.NodeContext()
+        self.addCleanup(obj._delete_context)
+        obj._execute_script(node_name, info)
         self.assertTrue(remote_execute_mock.called)
 
     def test_get_script(self):
@@ -303,13 +246,16 @@ class NodeContextTestCase(unittest.TestCase):
         info_args = {
             'script': script_args
         }
-        script, options = node.NodeContext()._get_script(info_args)
+        obj = node.NodeContext()
+        self.addCleanup(obj._delete_context)
+        script, options = obj._get_script(info_args)
         self.assertEqual(script_args, script)
         self.assertEqual('', options)
 
     def test_node_info(self):
         node_name_args = 'node5'
         obj = node.NodeContext()
+        self.addCleanup(obj._delete_context)
         obj.nodes = [{'name': node_name_args, 'check': node_name_args}]
         node_info = obj._get_node_info(node_name_args)
         self.assertEqual(node_info.get('check'), node_name_args)
@@ -318,6 +264,7 @@ class NodeContextTestCase(unittest.TestCase):
     def test_get_client(self, wait_mock):
         node_name_args = 'node5'
         obj = node.NodeContext()
+        self.addCleanup(obj._delete_context)
         obj.nodes = [{
             'name': node_name_args,
             'user': 'ubuntu',
@@ -328,26 +275,34 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertTrue(wait_mock.called)
 
     def test_get_server(self):
-        self.test_context.name = 'vnf1'
-        self.test_context.nodes = [{'name': 'my', 'value': 100}]
+        self.test_context.init(self.attrs)
+        self.test_context._name = 'foo'
+        self.test_context._task_id = '1234567890'
+        self.assertEqual('foo-12345678', self.test_context.name)
+        self.assertIsNotNone(self.test_context._task_id)
+
+        result = self.test_context.get_server('node1.foo-12345678')
+
+        self.assertEqual(result['ip'], '10.229.47.137')
+        self.assertEqual(result['name'], 'node1.foo-12345678')
+        self.assertEqual(result['user'], 'root')
+        self.assertEqual(result['key_filename'], '/root/.yardstick_key')
+
+    def test_get_server_server_not_in_context(self):
+        self.test_context.init(self.attrs)
 
         with self.assertRaises(ValueError):
-            self.test_context.get_server('my.vnf2')
-
-        expected = {'name': 'my.vnf1', 'value': 100, 'interfaces': {}}
-        result = self.test_context.get_server('my.vnf1')
-        self.assertDictEqual(result, expected)
+            self.test_context.get_server('my2.foo-12345678')
 
     def test_get_context_from_server(self):
-        self.test_context.name = 'vnf1'
+        self.test_context._name = 'vnf1'
+        self.test_context._task_id = '1234567890'
         self.test_context.nodes = [{'name': 'my', 'value': 100}]
         self.test_context.attrs = {'attr1': 200}
 
-        with self.assertRaises(ValueError):
-            self.test_context.get_context_from_server('my.vnf2')
-
-        result = self.test_context.get_context_from_server('my.vnf1')
-        self.assertIs(result, self.test_context)
+        self.assertIs(
+            self.test_context.get_context_from_server('my.vnf1-12345678'),
+            self.test_context)
 
     # TODO: Split this into more granular tests
     def test__get_network(self):
@@ -393,11 +348,3 @@ class NodeContextTestCase(unittest.TestCase):
         expected = network1
         result = self.test_context._get_network(attr_name)
         self.assertDictEqual(result, expected)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()
