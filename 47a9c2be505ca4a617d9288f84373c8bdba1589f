@@ -22,6 +22,30 @@
       "revId": "47a9c2be505ca4a617d9288f84373c8bdba1589f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0a220cb9",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-26T19:28:34Z",
+      "side": 1,
+      "message": "style wise we prefer trailing commas so we can add/remove sections easily later.",
+      "parentUuid": "5a3f45e8_54031f0f",
+      "range": {
+        "startLine": 512,
+        "startChar": 45,
+        "endLine": 512,
+        "endChar": 46
+      },
+      "revId": "47a9c2be505ca4a617d9288f84373c8bdba1589f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
