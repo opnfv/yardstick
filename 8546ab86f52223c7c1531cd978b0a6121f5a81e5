@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_48c1bc2d",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T09:32:43Z",
+      "side": 1,
+      "message": "Can you explain this? The name of a context is always \"self.name\", not \"self.assigned_name\".\n\n\"self.name\" is the string used to identify the stack in OpenStack and internally in Yardstick.",
+      "range": {
+        "startLine": 420,
+        "startChar": 12,
+        "endLine": 421,
+        "endChar": 86
+      },
+      "revId": "8546ab86f52223c7c1531cd978b0a6121f5a81e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c8ecacca",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T09:32:43Z",
+      "side": 1,
+      "message": "Why??",
+      "range": {
+        "startLine": 143,
+        "startChar": 32,
+        "endLine": 143,
+        "endChar": 45
+      },
+      "revId": "8546ab86f52223c7c1531cd978b0a6121f5a81e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_28d1d0fb",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T09:32:43Z",
+      "side": 1,
+      "message": "Why??",
+      "range": {
+        "startLine": 290,
+        "startChar": 32,
+        "endLine": 290,
+        "endChar": 45
+      },
+      "revId": "8546ab86f52223c7c1531cd978b0a6121f5a81e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_08ce945a",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T09:32:43Z",
+      "side": 1,
+      "message": "Why?",
+      "range": {
+        "startLine": 123,
+        "startChar": 32,
+        "endLine": 123,
+        "endChar": 45
+      },
+      "revId": "8546ab86f52223c7c1531cd978b0a6121f5a81e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_68f2b89b",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_dummy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T09:32:43Z",
+      "side": 1,
+      "message": "Uhmm, a good idea: to use Dummy to test Base. Cool!",
+      "revId": "8546ab86f52223c7c1531cd978b0a6121f5a81e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
