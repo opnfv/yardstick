@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e30f0be0",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_delete_router.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T12:38:04Z",
+      "side": 1,
+      "message": "With parenthesis to catch multilines:\n  self.mock_delete_neutron_router \u003d (\n    self._mock_delete_neutron_router.start())",
+      "range": {
+        "startLine": 23,
+        "startChar": 8,
+        "endLine": 24,
+        "endChar": 52
+      },
+      "revId": "5cf5d6a0c9b808d6bf6a4bc9abcdaadbd339f706",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_830a87d0",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_delete_router.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T12:38:04Z",
+      "side": 1,
+      "message": "You are not going to use _uuid anywhere else, so you can directly:\n\nself.args \u003d {\u0027options\u0027: {\u0027router_id\u0027: uuidutils.generate_uuid()}}",
+      "range": {
+        "startLine": 30,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 53
+      },
+      "revId": "5cf5d6a0c9b808d6bf6a4bc9abcdaadbd339f706",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
