@@ -16,6 +16,24 @@
       "revId": "a83651285737d7d96a5c2ad3be5bababd874e3d2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a326a3b8",
+        "filename": "yardstick/benchmark/scenarios/lib/create_floating_ip.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-27T11:01:04Z",
+      "side": 0,
+      "message": "Because we longer don\u0027t need it. Earlier it was required to pass as one of the arguments in create floating ip but with shade client we don\u0027t need it.",
+      "parentUuid": "5a3f45e8_a8184085",
+      "revId": "a83651285737d7d96a5c2ad3be5bababd874e3d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
