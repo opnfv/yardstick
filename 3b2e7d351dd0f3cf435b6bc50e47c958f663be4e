@@ -22,6 +22,30 @@
       "revId": "3b2e7d351dd0f3cf435b6bc50e47c958f663be4e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c8edcc8d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-02-27T10:08:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_4a55341c",
+      "range": {
+        "startLine": 208,
+        "startChar": 28,
+        "endLine": 208,
+        "endChar": 37
+      },
+      "revId": "3b2e7d351dd0f3cf435b6bc50e47c958f663be4e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
