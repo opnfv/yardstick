@@ -210,3 +210,32 @@ class CreateFloatingIpTestCase(unittest.TestCase):
             self.mock_shade_client, self.network_name_or_id)
         mock_logger.error.assert_called_once()
         self.assertIsNone(output)
+
+
+class DeleteFloatingIpTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.floating_ip_id = 'floating_ip_id'
+        self.mock_shade_client.delete_floating_ip = mock.Mock()
+
+    def test_delete_floating_ip(self):
+        self.mock_shade_client.delete_floating_ip.return_value = True
+        output = openstack_utils.delete_floating_ip(self.mock_shade_client,
+                                                    'floating_ip_id')
+        self.assertTrue(output)
+
+    def test_delete_floating_ip_fail(self):
+        self.mock_shade_client.delete_floating_ip.return_value = False
+        output = openstack_utils.delete_floating_ip(self.mock_shade_client,
+                                                    'floating_ip_id')
+        self.assertFalse(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_delete_floating_ip_exception(self, mock_logger):
+        self.mock_shade_client.delete_floating_ip.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.delete_floating_ip(self.mock_shade_client,
+                                                    'floating_ip_id')
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
