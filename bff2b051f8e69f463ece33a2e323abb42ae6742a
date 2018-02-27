@@ -770,6 +770,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_4d4b8eb0",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-02-27T07:17:14Z",
+      "side": 1,
+      "message": "I think this is not necessary using masakari. The testcase only check if the VM can recover on another host when hypervisor failure happens.",
+      "parentUuid": "9a3d3df0_3b2320be",
+      "range": {
+        "startLine": 11,
+        "startChar": 59,
+        "endLine": 11,
+        "endChar": 75
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f6a70f09",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 2
@@ -781,6 +805,30 @@
       "writtenOn": "2018-02-02T22:14:12Z",
       "side": 1,
       "message": "please add blanks between the hyphens and the text to create a better layout of the compiled text",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 32
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_adc7b211",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-02-27T07:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_f6a70f09",
       "range": {
         "startLine": 40,
         "startChar": 15,
@@ -816,6 +864,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_edd1bace",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-02-27T07:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_bb7a9085",
+      "range": {
+        "startLine": 49,
+        "startChar": 32,
+        "endLine": 49,
+        "endChar": 39
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_1b6e1cc9",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 2
@@ -827,6 +899,30 @@
       "writtenOn": "2018-02-02T07:12:28Z",
       "side": 1,
       "message": "on which VM1 is rebuilt?",
+      "range": {
+        "startLine": 55,
+        "startChar": 20,
+        "endLine": 55,
+        "endChar": 37
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cdd67ec5",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-02-27T07:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_1b6e1cc9",
       "range": {
         "startLine": 55,
         "startChar": 20,
@@ -862,6 +958,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_2ddba2ee",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-02-27T07:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_fb7098a5",
+      "range": {
+        "startLine": 58,
+        "startChar": 29,
+        "endLine": 58,
+        "endChar": 36
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_b63d8791",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 2
@@ -873,6 +993,30 @@
       "writtenOn": "2018-02-02T22:14:12Z",
       "side": 1,
       "message": "does the new VM get a new or the same IP address? In order to make the HA failover more transparent, it should get the same IP, I believe. If this is the case, rephrase to \".. to the IP address of the new VM\"",
+      "range": {
+        "startLine": 70,
+        "startChar": 48,
+        "endLine": 70,
+        "endChar": 65
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0dd866ee",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-02-27T07:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_b63d8791",
       "range": {
         "startLine": 70,
         "startChar": 48,
@@ -908,6 +1052,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_6de5aaa7",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-02-27T07:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_5b6b84b6",
+      "range": {
+        "startLine": 80,
+        "startChar": 33,
+        "endLine": 80,
+        "endChar": 40
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_1641d30a",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 2
@@ -919,6 +1087,30 @@
       "writtenOn": "2018-02-02T22:14:12Z",
       "side": 1,
       "message": "This can be a complex task and I assume the test will just check basic things (which is fine), such as that the host is up and one can SSH into it. So, for clarity, this description should state what \"running normally\" means.",
+      "range": {
+        "startLine": 89,
+        "startChar": 24,
+        "endLine": 89,
+        "endChar": 41
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4de26ea0",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-02-27T07:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_1641d30a",
       "range": {
         "startLine": 89,
         "startChar": 24,
@@ -954,6 +1146,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_adee9289",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-02-27T07:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_bb1e106e",
+      "range": {
+        "startLine": 106,
+        "startChar": 16,
+        "endLine": 106,
+        "endChar": 29
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_1b129c61",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 2
@@ -965,6 +1181,30 @@
       "writtenOn": "2018-02-02T19:57:29Z",
       "side": 1,
       "message": "? are there \u0027quantative\u0027 SLAs like max-time-to-recover-VM or max-packet-loss ?\nor\n? are there just \u0027qualitative\u0027 SLAs like vm-recovery-succeeded and vm-traffic recovery-succeeded ?",
+      "range": {
+        "startLine": 122,
+        "startChar": 17,
+        "endLine": 122,
+        "endChar": 55
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8d9ab612",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-02-27T07:17:14Z",
+      "side": 1,
+      "message": "The test case could record the VM recover time and packet loss rate, and leave to the tester to check",
+      "parentUuid": "9a3d3df0_1b129c61",
       "range": {
         "startLine": 122,
         "startChar": 17,
@@ -1000,6 +1240,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_0d86a6b9",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-02-27T07:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_f6438f10",
+      "range": {
+        "startLine": 125,
+        "startChar": 16,
+        "endLine": 127,
+        "endChar": 30
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_36497731",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 2
@@ -1011,6 +1275,30 @@
       "writtenOn": "2018-02-02T22:14:12Z",
       "side": 1,
       "message": "the naming is a bit confusing here. Both, the old VM as well as the new VM are referred to as VM1 here.",
+      "range": {
+        "startLine": 162,
+        "startChar": 17,
+        "endLine": 173,
+        "endChar": 63
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4d90aeec",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-02-27T07:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_36497731",
       "range": {
         "startLine": 162,
         "startChar": 17,
@@ -1046,6 +1334,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_8dc116e7",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-02-27T07:17:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_d6612baa",
+      "range": {
+        "startLine": 176,
+        "startChar": 69,
+        "endLine": 177,
+        "endChar": 30
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_b66467b9",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
         "patchSetId": 2
@@ -1057,6 +1369,30 @@
       "writtenOn": "2018-02-02T22:14:12Z",
       "side": 1,
       "message": "does this apply to this test case? No individual process is killed, but rather a whole compute node.",
+      "range": {
+        "startLine": 184,
+        "startChar": 35,
+        "endLine": 185,
+        "endChar": 70
+      },
+      "revId": "bff2b051f8e69f463ece33a2e323abb42ae6742a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_edb6da89",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc086.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 314
+      },
+      "writtenOn": "2018-02-27T07:17:14Z",
+      "side": 1,
+      "message": "we actually attacked the node use a panic failure. We only need to recover this failure",
+      "parentUuid": "9a3d3df0_b66467b9",
       "range": {
         "startLine": 184,
         "startChar": 35,
