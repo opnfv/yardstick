@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_8363a7b0",
+        "filename": "tests/unit/network_services/helpers/test_samplevnf_helper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T12:27:55Z",
+      "side": 1,
+      "message": "See comment in L151. You don\u0027t need this section.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 34
+      },
+      "revId": "ad75d2c85a7478dab705bf686cf18c5d79f460f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a35ea3e7",
+        "filename": "tests/unit/network_services/helpers/test_samplevnf_helper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T12:27:55Z",
+      "side": 1,
+      "message": "six.moves.builtins",
+      "range": {
+        "startLine": 151,
+        "startChar": 44,
+        "endLine": 151,
+        "endChar": 52
+      },
+      "revId": "ad75d2c85a7478dab705bf686cf18c5d79f460f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_43523fde",
+        "filename": "tests/unit/network_services/helpers/test_samplevnf_helper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T12:27:55Z",
+      "side": 1,
+      "message": "Or:\n\nfrom yardstick.network_services.helpers import samplevnf_helper\nmock.patch.object(samplevnf_helper, \u0027ConfigParser\u0027)",
+      "range": {
+        "startLine": 155,
+        "startChar": 34,
+        "endLine": 156,
+        "endChar": 79
+      },
+      "revId": "ad75d2c85a7478dab705bf686cf18c5d79f460f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c35dafeb",
+        "filename": "tests/unit/network_services/traffic_profile/test_rfc2544.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T12:27:55Z",
+      "side": 1,
+      "message": "Do we need the magic of MagicMock? This could be mock.Mock(), avoiding the extra salt added by MagicMock.",
+      "range": {
+        "startLine": 218,
+        "startChar": 50,
+        "endLine": 218,
+        "endChar": 59
+      },
+      "revId": "ad75d2c85a7478dab705bf686cf18c5d79f460f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e358abfc",
+        "filename": "tests/unit/network_services/traffic_profile/test_rfc2544.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T12:27:55Z",
+      "side": 1,
+      "message": "Please, remove this.",
+      "range": {
+        "startLine": 282,
+        "startChar": 0,
+        "endLine": 284,
+        "endChar": 19
+      },
+      "revId": "ad75d2c85a7478dab705bf686cf18c5d79f460f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
