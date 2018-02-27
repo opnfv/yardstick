@@ -619,13 +619,14 @@ def create_floating_ip(shade_client, network_name_or_id=None, server=None,
         return
 
 
-def delete_floating_ip(nova_client, floatingip_id):      # pragma: no cover
+def delete_floating_ip(shade_client, floating_ip_id, retry=1):
     try:
-        nova_client.floating_ips.delete(floatingip_id)
-        return True
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [delete_floating_ip(nova_client, '%s')]",
-                  floatingip_id)
+        return shade_client.delete_floating_ip(floating_ip_id=floating_ip_id,
+                                               retry=retry)
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [delete_floating_ip(shade_client, '%s'): "
+                  "Exception message: %s", floating_ip_id,
+                  o_exc.orig_message)
         return False
 
 
