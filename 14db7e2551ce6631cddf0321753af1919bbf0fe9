@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_add05254",
+        "filename": "yardstick/benchmark/scenarios/storage/fio.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-27T01:37:38Z",
+      "side": 1,
+      "message": "we are looking for the first disk without partitions?\n\nif so can we add a comment indicating such.\n\nalso we usually use stdout.strip() and then check for non-empty string.\n\nalso we shouldn\u0027t need to use sudo here, lsblk should work as regular user.",
+      "revId": "14db7e2551ce6631cddf0321753af1919bbf0fe9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6dbe4a01",
+        "filename": "yardstick/benchmark/scenarios/storage/fio.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-27T01:37:38Z",
+      "side": 1,
+      "message": "we should use lsblk stdout value here.",
+      "range": {
+        "startLine": 133,
+        "startChar": 30,
+        "endLine": 133,
+        "endChar": 38
+      },
+      "revId": "14db7e2551ce6631cddf0321753af1919bbf0fe9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ad37b2af",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_fio.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-27T01:37:38Z",
+      "side": 1,
+      "message": "please add unittest for empty string, incase lsblk grep doesn\u0027t match anything,  what will happen?",
+      "revId": "14db7e2551ce6631cddf0321753af1919bbf0fe9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
