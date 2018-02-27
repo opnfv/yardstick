@@ -6,22 +6,50 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+from oslo_utils import uuidutils
 import unittest
 import mock
 
-from yardstick.benchmark.scenarios.lib.delete_floating_ip import DeleteFloatingIp
+from yardstick.common import openstack_utils
+from yardstick.common import exceptions
+from yardstick.benchmark.scenarios.lib import delete_floating_ip
 
 
 class DeleteFloatingIpTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.get_nova_client')
-    @mock.patch('yardstick.common.openstack_utils.delete_floating_ip')
-    def test_delete_floating_ip(self, mock_get_nova_client, mock_delete_floating_ip):
-        options = {
-            'floating_ip_id': '123-123-123'
-        }
-        args = {"options": options}
-        obj = DeleteFloatingIp(args, {})
-        obj.run({})
-        mock_get_nova_client.assert_called_once()
-        mock_delete_floating_ip.assert_called_once()
+    def setUp(self):
+        self._mock_delete_floating_ip = mock.patch.object(
+            openstack_utils, 'delete_floating_ip')
+        self.mock_delete_floating_ip = self._mock_delete_floating_ip.start()
+        self._mock_get_shade_client = mock.patch.object(
+            openstack_utils, 'get_shade_client')
+        self.mock_get_shade_client = self._mock_get_shade_client.start()
+        self._mock_log = mock.patch.object(delete_floating_ip, 'LOG')
+        self.mock_log = self._mock_log.start()
+        self.args = {'options': {'floating_ip_id': uuidutils.generate_uuid()}}
+        self.result = {}
+
+        self.del_obj = delete_floating_ip.DeleteFloatingIp(
+            self.args, mock.ANY)
+
+        self.addCleanup(self._stop_mock)
+
+    def _stop_mock(self):
+        self._mock_delete_floating_ip.stop()
+        self._mock_get_shade_client.stop()
+        self._mock_log.stop()
+
+    def test_run(self):
+        self.mock_delete_floating_ip.return_value = True
+        self.assertIsNone(self.del_obj.run(self.result))
+        self.assertEqual({"delete_floating_ip": 1}, self.result)
+        self.mock_log.info.assert_called_once_with(
+            "Delete floating ip successful!")
+
+    def test_run_fail(self):
+        self.mock_delete_floating_ip.return_value = False
+        with self.assertRaises(exceptions.ScenarioDeleteFloatingIPError):
+            self.del_obj.run(self.result)
+        self.assertEqual({"delete_floating_ip": 0}, self.result)
+        self.mock_log.error.assert_called_once_with(
+            "Delete floating ip failed!")
