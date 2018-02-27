@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_03add731",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-27T15:34:22Z",
+      "side": 1,
+      "message": "twice \"for\"",
+      "range": {
+        "startLine": 221,
+        "startChar": 42,
+        "endLine": 221,
+        "endChar": 45
+      },
+      "revId": "da0f5e298c530fa2e0657f453be20b8c9422143b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_63aadb1a",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-27T15:34:22Z",
+      "side": 1,
+      "message": "as \"an\" example",
+      "range": {
+        "startLine": 228,
+        "startChar": 56,
+        "endLine": 228,
+        "endChar": 57
+      },
+      "revId": "da0f5e298c530fa2e0657f453be20b8c9422143b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_43a7df4f",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-27T15:34:22Z",
+      "side": 1,
+      "message": "let\u0027s",
+      "range": {
+        "startLine": 235,
+        "startChar": 4,
+        "endLine": 235,
+        "endChar": 8
+      },
+      "revId": "da0f5e298c530fa2e0657f453be20b8c9422143b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a3634319",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-27T15:34:22Z",
+      "side": 1,
+      "message": "Its already explained in line 250 above. You can merge them if needed or use a different word to explain to avoid repetition.",
+      "range": {
+        "startLine": 283,
+        "startChar": 4,
+        "endLine": 283,
+        "endChar": 17
+      },
+      "revId": "da0f5e298c530fa2e0657f453be20b8c9422143b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e3442b76",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-27T15:34:22Z",
+      "side": 1,
+      "message": "let\u0027s",
+      "range": {
+        "startLine": 456,
+        "startChar": 4,
+        "endLine": 456,
+        "endChar": 8
+      },
+      "revId": "da0f5e298c530fa2e0657f453be20b8c9422143b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_235e1346",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-27T15:34:22Z",
+      "side": 1,
+      "message": "let\u0027s",
+      "range": {
+        "startLine": 692,
+        "startChar": 4,
+        "endLine": 692,
+        "endChar": 8
+      },
+      "revId": "da0f5e298c530fa2e0657f453be20b8c9422143b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_03095731",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-27T15:34:22Z",
+      "side": 1,
+      "message": "Go to",
+      "range": {
+        "startLine": 882,
+        "startChar": 8,
+        "endLine": 882,
+        "endChar": 12
+      },
+      "revId": "da0f5e298c530fa2e0657f453be20b8c9422143b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_63065b22",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-27T15:34:22Z",
+      "side": 1,
+      "message": "let\u0027s",
+      "range": {
+        "startLine": 997,
+        "startChar": 7,
+        "endLine": 997,
+        "endChar": 11
+      },
+      "revId": "da0f5e298c530fa2e0657f453be20b8c9422143b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_43035f0f",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1003,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-27T15:34:22Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 1003,
+        "startChar": 7,
+        "endLine": 1003,
+        "endChar": 11
+      },
+      "revId": "da0f5e298c530fa2e0657f453be20b8c9422143b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9eff7e01",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-27T15:34:22Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 1017,
+        "startChar": 7,
+        "endLine": 1017,
+        "endChar": 11
+      },
+      "revId": "da0f5e298c530fa2e0657f453be20b8c9422143b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7e043215",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-02-27T15:34:22Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 1023,
+        "startChar": 7,
+        "endLine": 1023,
+        "endChar": 11
+      },
+      "revId": "da0f5e298c530fa2e0657f453be20b8c9422143b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
