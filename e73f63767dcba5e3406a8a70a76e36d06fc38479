@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e85888fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T08:40:31Z",
+      "side": 1,
+      "message": "Please, try not to exceed 72 chars in the commit message. The title is not readable in gerrit.",
+      "revId": "e73f63767dcba5e3406a8a70a76e36d06fc38479",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
