@@ -22,6 +22,8 @@ import collections
 from six.moves import configparser
 from oslo_serialization import jsonutils
 from docker import Client
+from docker.errors import APIError
+from requests.exceptions import HTTPError
 
 from api.database.v1.handlers import AsyncTaskHandler
 from api.utils import influx
@@ -44,7 +46,7 @@ class V1Env(ApiResource):
     def post(self):
         return self._dispatch_post()
 
-    def create_grafana(self, args):
+    def create_grafana(self, *args):
         task_id = str(uuid.uuid4())
 
         thread = threading.Thread(target=self._create_grafana, args=(task_id,))
@@ -82,9 +84,10 @@ class V1Env(ApiResource):
 
             self._update_task_status(task_id)
             LOG.info('Finished')
-        except Exception as e:
-            self._update_task_error(task_id, str(e))
-            LOG.exception('Create grafana failed')
+        except (APIError, HTTPError) as errors:
+            for e in errors:
+                self._update_task_error(task_id, str(e))
+                LOG.exception('Create grafana failed')
 
     def _create_dashboard(self, ip):
         url = 'http://admin:admin@{}:{}/api/dashboards/db'.format(ip, consts.GRAFANA_PORT)
@@ -145,7 +148,7 @@ class V1Env(ApiResource):
         return any(t in a['RepoTags'][0]
                    for a in client.images() if a['RepoTags'])
 
-    def create_influxdb(self, args):
+    def create_influxdb(self, *args):
         task_id = str(uuid.uuid4())
 
         thread = threading.Thread(target=self._create_influxdb, args=(task_id,))
@@ -185,7 +188,7 @@ class V1Env(ApiResource):
             self._update_task_status(task_id)
 
             LOG.info('Finished')
-        except Exception as e:
+        except APIError as e:
             self._update_task_error(task_id, str(e))
             LOG.exception('Creating influxdb failed')
 
@@ -217,7 +220,7 @@ class V1Env(ApiResource):
                                consts.INFLUXDB_DB_NAME)
             client.create_database(consts.INFLUXDB_DB_NAME)
             LOG.info('Success to config influxDB')
-        except Exception:
+        except HTTPError:
             LOG.exception('Config influxdb failed')
 
     def _change_output_to_influxdb(self, ip):
@@ -236,7 +239,7 @@ class V1Env(ApiResource):
         with open(consts.CONF_FILE, 'w') as f:
             parser.write(f)
 
-    def prepare_env(self, args):
+    def prepare_env(self, *args):
         task_id = str(uuid.uuid4())
 
         thread = threading.Thread(target=self._prepare_env_daemon,
@@ -287,9 +290,10 @@ class V1Env(ApiResource):
 
             self._update_task_status(task_id)
             LOG.info('Finished')
-        except Exception as e:
-            self._update_task_error(task_id, str(e))
-            LOG.exception('Prepare env failed')
+        except (subprocess.CalledProcessError, OSError) as errors:
+            for e in errors:
+                self._update_task_error(task_id, str(e))
+                LOG.exception('Prepare env failed')
 
     def _create_directories(self):
         utils.makedirs(consts.CONF_DIR)
@@ -373,7 +377,7 @@ class V1Env(ApiResource):
         LOG.info('Source openrc: Sourcing')
         try:
             self._source_file(consts.OPENRC)
-        except Exception as e:
+        except subprocess.CalledProcessError as e:
             LOG.exception('Failed to source openrc')
             return result_handler(consts.API_ERROR, str(e))
         LOG.info('Source openrc: Done')
