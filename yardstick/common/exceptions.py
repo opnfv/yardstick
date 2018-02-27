@@ -124,3 +124,7 @@ class ScenarioRemoveRouterIntError(YardstickException):
 
 class ScenarioCreateFloatingIPError(YardstickException):
     message = 'Create Neutron Floating IP Scenario failed'
+
+
+class ScenarioDeleteFIPError(YardstickException):
+    message = 'Delete Neutron Floating IP Scenario failed'
