@@ -34,6 +34,24 @@
       "revId": "a83651285737d7d96a5c2ad3be5bababd874e3d2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_43c51f5a",
+        "filename": "yardstick/benchmark/scenarios/lib/create_floating_ip.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-02-27T13:27:55Z",
+      "side": 0,
+      "message": "When floating IP is created, we should always specify the network to allocate the IP from. Before, the ext_net_id was used to specify this network. Shade also requires this network.\n\nhttps://docs.openstack.org/shade/1.19.0/usage.html#shade.OpenStackCloud.create_floating_ip\n\nnetwork ",
+      "parentUuid": "5a3f45e8_a326a3b8",
+      "revId": "a83651285737d7d96a5c2ad3be5bababd874e3d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
