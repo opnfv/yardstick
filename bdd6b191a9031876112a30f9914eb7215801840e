@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e8dd2844",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T09:21:40Z",
+      "side": 1,
+      "message": "Let\u0027s avoid this part in the comment.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 47
+      },
+      "revId": "bdd6b191a9031876112a30f9914eb7215801840e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_08e4d40b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T09:21:40Z",
+      "side": 1,
+      "message": "Hehehe Flags will contain flags!\n\nFlags will contain a set of attributes (for example blah blah blah). Those attributes will modify the behaviour of the context. Full stop.\n\nSomething like this.\n\nAnd you must explain the class members added:\n  \u0027no_setup\u0027: False,\n  \u0027no_teardown\u0027: False",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 12
+      },
+      "revId": "bdd6b191a9031876112a30f9914eb7215801840e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_28955040",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T09:21:40Z",
+      "side": 1,
+      "message": "A suggestion, to make this function similar to __init__: we should accept kwargs instead of a dict:\n\n  def parse(self, **kwargs)",
+      "range": {
+        "startLine": 29,
+        "startChar": 20,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "bdd6b191a9031876112a30f9914eb7215801840e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_88bbc4c3",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T09:21:40Z",
+      "side": 1,
+      "message": "Use the new header.\n---\n# Copyright (c) 2018 Intel Corporation\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this file except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#      http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 78
+      },
+      "revId": "bdd6b191a9031876112a30f9914eb7215801840e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_489c1c6a",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T09:21:40Z",
+      "side": 1,
+      "message": "This should be **kwargs",
+      "range": {
+        "startLine": 28,
+        "startChar": 27,
+        "endLine": 28,
+        "endChar": 40
+      },
+      "revId": "bdd6b191a9031876112a30f9914eb7215801840e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_48737c4d",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T09:21:40Z",
+      "side": 1,
+      "message": "See L46 comment",
+      "revId": "bdd6b191a9031876112a30f9914eb7215801840e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a88fa022",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T09:21:40Z",
+      "side": 1,
+      "message": "L46 or L36, use the same indentation.",
+      "revId": "bdd6b191a9031876112a30f9914eb7215801840e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
