@@ -22,6 +22,30 @@
       "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_484b7cb0",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-02-27T10:02:57Z",
+      "side": 1,
+      "message": "which scenario and installer are you using for testing this?",
+      "parentUuid": "5a3f45e8_c8114cae",
+      "range": {
+        "startLine": 162,
+        "startChar": 17,
+        "endLine": 168,
+        "endChar": 49
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
