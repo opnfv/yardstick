@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_a3dd0317",
+        "filename": "tests/unit/network_services/helpers/test_samplevnf_helper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-27T13:56:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_a35ea3e7",
+      "range": {
+        "startLine": 151,
+        "startChar": 44,
+        "endLine": 151,
+        "endChar": 52
+      },
+      "revId": "ad75d2c85a7478dab705bf686cf18c5d79f460f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_43523fde",
         "filename": "tests/unit/network_services/helpers/test_samplevnf_helper.py",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_43c19f2d",
+        "filename": "tests/unit/network_services/helpers/test_samplevnf_helper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-27T13:56:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_43523fde",
+      "range": {
+        "startLine": 155,
+        "startChar": 34,
+        "endLine": 156,
+        "endChar": 79
+      },
+      "revId": "ad75d2c85a7478dab705bf686cf18c5d79f460f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c35dafeb",
         "filename": "tests/unit/network_services/traffic_profile/test_rfc2544.py",
         "patchSetId": 1
@@ -82,6 +130,30 @@
       "writtenOn": "2018-02-27T12:27:55Z",
       "side": 1,
       "message": "Do we need the magic of MagicMock? This could be mock.Mock(), avoiding the extra salt added by MagicMock.",
+      "range": {
+        "startLine": 218,
+        "startChar": 50,
+        "endLine": 218,
+        "endChar": 59
+      },
+      "revId": "ad75d2c85a7478dab705bf686cf18c5d79f460f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0392f756",
+        "filename": "tests/unit/network_services/traffic_profile/test_rfc2544.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-27T13:56:45Z",
+      "side": 1,
+      "message": "In fairness, I kept what was there, but we don\u0027t need magic methods, AFAIK.",
+      "parentUuid": "5a3f45e8_c35dafeb",
       "range": {
         "startLine": 218,
         "startChar": 50,
