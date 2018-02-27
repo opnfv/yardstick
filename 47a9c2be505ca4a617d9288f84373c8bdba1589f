@@ -46,6 +46,30 @@
       "revId": "47a9c2be505ca4a617d9288f84373c8bdba1589f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0d6fc693",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-02-27T02:03:04Z",
+      "side": 1,
+      "message": "Thanks for pointing out. [1] The trailing comma makes sense here for security group rules list. What do you think, Dianfeng?\n\n[1] https://www.python.org/dev/peps/pep-0008/#when-to-use-trailing-commas",
+      "parentUuid": "5a3f45e8_0a220cb9",
+      "range": {
+        "startLine": 512,
+        "startChar": 45,
+        "endLine": 512,
+        "endChar": 46
+      },
+      "revId": "47a9c2be505ca4a617d9288f84373c8bdba1589f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
