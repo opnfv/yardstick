@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_c3400f59",
+        "filename": "yardstick/benchmark/scenarios/lib/create_router.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-27T15:30:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_03f677d7",
+      "range": {
+        "startLine": 28,
+        "startChar": 43,
+        "endLine": 28,
+        "endChar": 50
+      },
+      "revId": "5e38ada1f0b33130c64382ce5a38d8e236ebfff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_6303fbb8",
         "filename": "yardstick/benchmark/scenarios/lib/create_router.py",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-27T13:07:02Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 30,
+        "startChar": 73,
+        "endLine": 30,
+        "endChar": 77
+      },
+      "revId": "5e38ada1f0b33130c64382ce5a38d8e236ebfff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_232573c2",
+        "filename": "yardstick/benchmark/scenarios/lib/create_router.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-27T15:30:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_6303fbb8",
       "range": {
         "startLine": 30,
         "startChar": 73,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_0322f7b8",
+        "filename": "yardstick/benchmark/scenarios/lib/create_router.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-27T15:30:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_43007faa",
+      "range": {
+        "startLine": 31,
+        "startChar": 59,
+        "endLine": 31,
+        "endChar": 63
+      },
+      "revId": "5e38ada1f0b33130c64382ce5a38d8e236ebfff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_a32ce34b",
         "filename": "yardstick/benchmark/scenarios/lib/create_router.py",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2018-02-27T13:07:02Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 32,
+        "startChar": 63,
+        "endLine": 32,
+        "endChar": 67
+      },
+      "revId": "5e38ada1f0b33130c64382ce5a38d8e236ebfff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_632f7ba2",
+        "filename": "yardstick/benchmark/scenarios/lib/create_router.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-27T15:30:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_a32ce34b",
       "range": {
         "startLine": 32,
         "startChar": 63,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_432cffab",
+        "filename": "yardstick/benchmark/scenarios/lib/create_router.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-27T15:30:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_8331e7a4",
+      "range": {
+        "startLine": 33,
+        "startChar": 57,
+        "endLine": 33,
+        "endChar": 61
+      },
+      "revId": "5e38ada1f0b33130c64382ce5a38d8e236ebfff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_e326eb67",
         "filename": "yardstick/benchmark/scenarios/lib/create_router.py",
         "patchSetId": 7
@@ -128,6 +248,30 @@
       "writtenOn": "2018-02-27T13:07:02Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 35,
+        "startChar": 39,
+        "endLine": 35,
+        "endChar": 43
+      },
+      "revId": "5e38ada1f0b33130c64382ce5a38d8e236ebfff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a3186385",
+        "filename": "yardstick/benchmark/scenarios/lib/create_router.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-27T15:30:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_e326eb67",
       "range": {
         "startLine": 35,
         "startChar": 39,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_831d6776",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-27T15:30:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_2320d348",
+      "range": {
+        "startLine": 548,
+        "startChar": 0,
+        "endLine": 549,
+        "endChar": 28
+      },
+      "revId": "5e38ada1f0b33130c64382ce5a38d8e236ebfff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_e3dd4b44",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 7
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_e3126b61",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-27T15:30:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_e3dd4b44",
+      "range": {
+        "startLine": 559,
+        "startChar": 21,
+        "endLine": 559,
+        "endChar": 24
+      },
+      "revId": "5e38ada1f0b33130c64382ce5a38d8e236ebfff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c32bef2e",
         "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_router.py",
         "patchSetId": 7
@@ -197,6 +389,30 @@
       "writtenOn": "2018-02-27T13:07:02Z",
       "side": 1,
       "message": "Use parenthesis:\n\n  self.mock_create_neutron_router \u003d (\n    self._mock_create_neutron_router.start())",
+      "range": {
+        "startLine": 24,
+        "startChar": 42,
+        "endLine": 25,
+        "endChar": 52
+      },
+      "revId": "5e38ada1f0b33130c64382ce5a38d8e236ebfff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c3176f50",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_router.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-27T15:30:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_c32bef2e",
       "range": {
         "startLine": 24,
         "startChar": 42,
