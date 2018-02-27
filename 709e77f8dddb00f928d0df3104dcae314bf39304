@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_c8882cea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T09:44:34Z",
+      "side": 1,
+      "message": "Please, follow the contributor guidelines: https://wiki.opnfv.org/display/DEV/Contribution+Guidelines#ContributionGuidelines-Gitcommitmessagestyle\n\n- Add a description and a justification to add this code.\n- Add a JIRA ticket to track this patch.",
+      "revId": "709e77f8dddb00f928d0df3104dcae314bf39304",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
