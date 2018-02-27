@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_c3464f23",
+        "filename": "yardstick/tests/unit/benchmark/core/test_task.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T12:20:18Z",
+      "side": 1,
+      "message": "Be careful: _change_node_names is changing \"self.scenario\" variable. You should pass a copy of \"self.scenario\".\n\nimport copy\nscenario \u003d copy.deepcopy(self.scenario)",
+      "range": {
+        "startLine": 328,
+        "startChar": 38,
+        "endLine": 328,
+        "endChar": 52
+      },
+      "revId": "fe6abbbee7898459fbcb4aaca1570b9152a680c2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_234bb32c",
+        "filename": "yardstick/tests/unit/benchmark/core/test_task.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T12:20:18Z",
+      "side": 1,
+      "message": "This is the same as self.scenario. Do you need to redefine it again?\n\nThis could be:\n\nexpected_scenario \u003d copy.deepcopy(self.scenario)",
+      "range": {
+        "startLine": 350,
+        "startChar": 8,
+        "endLine": 350,
+        "endChar": 25
+      },
+      "revId": "fe6abbbee7898459fbcb4aaca1570b9152a680c2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0348372c",
+        "filename": "yardstick/tests/unit/benchmark/core/test_task.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T12:20:18Z",
+      "side": 1,
+      "message": "ditto. Make a copy of this variable.",
+      "range": {
+        "startLine": 368,
+        "startChar": 39,
+        "endLine": 368,
+        "endChar": 52
+      },
+      "revId": "fe6abbbee7898459fbcb4aaca1570b9152a680c2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a337c3af",
+        "filename": "yardstick/tests/unit/benchmark/core/test_task.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-27T12:20:18Z",
+      "side": 1,
+      "message": "Please, remove this",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 377,
+        "endChar": 10
+      },
+      "revId": "fe6abbbee7898459fbcb4aaca1570b9152a680c2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
