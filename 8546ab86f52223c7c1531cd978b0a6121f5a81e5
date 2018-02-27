@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_a37983fe",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-27T14:54:11Z",
+      "side": 1,
+      "message": "I had another look at this, and originally, all the get_server tests were failing because they were using name, which has become assigned_name.\n\nTaking a closer look at the Task class, it looks like the names will always have changed by the time get_server is ever called, so I should change the tests in this case, instead of the code.\nThis should still work, however, since both the assigned name and the name are checked.\n\n(The equivalent LOC in other Context sub-classes are incorrect though)",
+      "parentUuid": "5a3f45e8_48c1bc2d",
+      "range": {
+        "startLine": 420,
+        "startChar": 12,
+        "endLine": 421,
+        "endChar": 86
+      },
+      "revId": "8546ab86f52223c7c1531cd978b0a6121f5a81e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c8ecacca",
         "filename": "yardstick/benchmark/contexts/node.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-27T09:32:43Z",
       "side": 1,
       "message": "Why??",
+      "range": {
+        "startLine": 143,
+        "startChar": 32,
+        "endLine": 143,
+        "endChar": 45
+      },
+      "revId": "8546ab86f52223c7c1531cd978b0a6121f5a81e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4346bfc0",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-27T14:54:11Z",
+      "side": 1,
+      "message": "Failures otherwise. The name is \u003cassigned_name\u003e-\u003ctask_id\u003e.\nWe are looking for servers based on the original context name, right?\n\nI\u0027ll examine where this is called, and re-write some tests. This was added so the the original tests would pass.",
+      "parentUuid": "5a3f45e8_c8ecacca",
       "range": {
         "startLine": 143,
         "startChar": 32,
@@ -105,6 +153,24 @@
       "writtenOn": "2018-02-27T09:32:43Z",
       "side": 1,
       "message": "Uhmm, a good idea: to use Dummy to test Base. Cool!",
+      "revId": "8546ab86f52223c7c1531cd978b0a6121f5a81e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e30c2b97",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_dummy.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-27T14:54:11Z",
+      "side": 1,
+      "message": "I started creating a TestContext in test_base, before I realised that it would be the same as DummyContext anyway :)",
+      "parentUuid": "5a3f45e8_68f2b89b",
       "revId": "8546ab86f52223c7c1531cd978b0a6121f5a81e5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
