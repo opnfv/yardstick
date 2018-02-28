@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_e118a286",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-28T14:00:24Z",
+      "side": 1,
+      "message": "Then, which one we should support?",
+      "parentUuid": "5a3f45e8_c11766a2",
+      "range": {
+        "startLine": 471,
+        "startChar": 8,
+        "endLine": 474,
+        "endChar": 59
+      },
+      "revId": "50c0d28e2153eb580dbf14b21ce4ac8547a8b28c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_21844ad3",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 17
@@ -59,6 +83,30 @@
       "writtenOn": "2018-02-28T12:32:52Z",
       "side": 1,
       "message": "A network is being created, so there should not be more than one returned.\n\nshade.create_network returns a network object, which is a dictionary.\nYou can access the id with:\n    networks[\u0027id\u0027]",
+      "range": {
+        "startLine": 475,
+        "startChar": 7,
+        "endLine": 475,
+        "endChar": 32
+      },
+      "revId": "50c0d28e2153eb580dbf14b21ce4ac8547a8b28c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2113aa67",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-02-28T14:00:24Z",
+      "side": 1,
+      "message": "Yes I have done the similar changes in https://gerrit.opnfv.org/gerrit/#/c/52409/9/yardstick/common/openstack_utils.py patch. Will be doing here as well. Thanks anyways.",
+      "parentUuid": "5a3f45e8_21844ad3",
       "range": {
         "startLine": 475,
         "startChar": 7,
