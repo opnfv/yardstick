@@ -21,7 +21,6 @@ ENV REPOS_DIR="/home/opnfv/repos" \
 
 # Yardstick repo
 ENV YARDSTICK_REPO_DIR="${REPOS_DIR}/yardstick" \
-    RELENG_REPO_DIR="${REPOS_DIR}/releng" \
     STORPERF_REPO_DIR="${REPOS_DIR}/storperf"
 
 RUN apt-get update && apt-get install -y git python-setuptools python-pip && apt-get -y autoremove && apt-get clean
@@ -32,7 +31,6 @@ RUN mkdir -p ${REPOS_DIR}
 
 RUN git config --global http.sslVerify false
 RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR}
-RUN git clone --depth 1 https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR}
 RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/storperf ${STORPERF_REPO_DIR}
 
 WORKDIR ${YARDSTICK_REPO_DIR}

@@ -21,7 +21,6 @@ OPENRC: "{{ opnfv_root }}/openrc"
 INSTALLERS: [apex, compass, fuel, joid]
 INSTALLER_TYPE: "{{ lookup('env', 'INSTALLER_TYPE') }}"
 YARDSTICK_REPO_DIR: "{{ lookup('env', 'YARDSTICK_REPO_DIR')|default('/home/opnfv/repos/yardstick', true) }}"
-RELENG_REPO_DIR: "{{ lookup('env', 'RELENG_REPO_DIR')|default('/home/opnfv/repos/releng', true) }}"
 storperf_rc: "{{ opnfv_root }}/storperf_admin-rc"
 
 DISPATCHER_TYPES:
