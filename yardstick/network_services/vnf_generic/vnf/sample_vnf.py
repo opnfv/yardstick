@@ -626,8 +626,24 @@ class ScenarioHelper(object):
 
     @property
     def timeout(self):
-        return self.options.get('timeout', DEFAULT_VNF_TIMEOUT)
+        # if a scenario timeout exists and
+        #   if is scenario time is greater
+        #      scenario timeout
+        #   else
+        #      use default timeout
+        # else
+        #   use default timeout
+        try:
+            test_duration = self.scenario_cfg["runner"]["duration"]
+        except (NameError, KeyError):
+            return self.options.get('timeout', DEFAULT_VNF_TIMEOUT)
 
+        test_timeout = self.options.get('timeout', DEFAULT_VNF_TIMEOUT)
+
+        if test_duration > test_timeout:
+            return test_duration
+        else:
+            return test_timeout
 
 class SampleVNF(GenericVNF):
     """ Class providing file-like API for generic VNF implementation """
