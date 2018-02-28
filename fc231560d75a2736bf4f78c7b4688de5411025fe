@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_a477c801",
+        "filename": "api/resources/v1/env.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-28T15:35:07Z",
+      "side": 0,
+      "message": "we should remove consts.FETCH_SCRIPT from consts as well.",
+      "revId": "fc231560d75a2736bf4f78c7b4688de5411025fe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
