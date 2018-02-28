@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_a7498ad2",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-28T18:39:58Z",
+      "side": 1,
+      "message": "They should be deleted",
+      "parentUuid": "5a3f45e8_c13126a4",
+      "range": {
+        "startLine": 132,
+        "startChar": 5,
+        "endLine": 137,
+        "endChar": 40
+      },
+      "revId": "5040c9dc64274aca994817974451e743b9b160cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_21272a66",
         "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
         "patchSetId": 7
