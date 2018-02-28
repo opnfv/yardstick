@@ -34,11 +34,13 @@ def get_credentials(service):  # pragma: no cover
 
     # The most common way to pass these info to the script is to do it through
     # environment variables.
+    # NOTE(ralonsoh): OS_TENANT_NAME is deprecated.
+    project_name = os.environ.get('OS_PROJECT_NAME', 'admin')
     creds.update({
         "username": os.environ.get('OS_USERNAME', "admin"),
         password: os.environ.get("OS_PASSWORD", 'admin'),
         "auth_url": os.environ.get("OS_AUTH_URL"),
-        tenant: os.environ.get("OS_TENANT_NAME", "admin"),
+        tenant: os.environ.get("OS_TENANT_NAME", project_name),
     })
     cacert = os.environ.get("OS_CACERT")
     if cacert is not None:
@@ -59,7 +61,7 @@ def get_instances(nova_client):  # pragma: no cover
     try:
         instances = nova_client.servers.list(search_opts={'all_tenants': 1})
         return instances
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-except
         print("Error [get_instances(nova_client)]:", e)
         return None
 
@@ -72,7 +74,7 @@ def get_SFs(nova_client):  # pragma: no cover
             if "sfc_test" not in instance.name:
                 SFs.append(instance)
         return SFs
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-except
         print("Error [get_SFs(nova_client)]:", e)
         return None
 
@@ -93,7 +95,7 @@ def create_floating_ips(neutron_client):  # pragma: no cover
             ip_json = neutron_client.create_floatingip({'floatingip': props})
             fip_addr = ip_json['floatingip']['floating_ip_address']
             ips.append(fip_addr)
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-except
         print("Error [create_floating_ip(neutron_client)]:", e)
         return None
     return ips
@@ -106,7 +108,7 @@ def floatIPtoSFs(SFs, floatips):  # pragma: no cover
             SF.add_floating_ip(floatips[i])
             i = i + 1
         return True
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-except
         print(("Error [add_floating_ip(nova_client, '%s', '%s')]:" %
                (SF, floatips[i]), e))
         return False
@@ -122,7 +124,3 @@ def get_an_IP():  # pragma: no cover
     floatips = create_floating_ips(neutron_client)
     floatIPtoSFs(SFs, floatips)
     return floatips
-
-
-if __name__ == '__main__':  # pragma: no cover
-    get_an_IP()

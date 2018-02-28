@@ -252,7 +252,6 @@ Example::
                 "OS_PASSWORD": "console",
                 "OS_PROJECT_DOMAIN_NAME": "default",
                 "OS_PROJECT_NAME": "admin",
-                "OS_TENANT_NAME": "admin",
                 "OS_USERNAME": "admin",
                 "OS_USER_DOMAIN_NAME": "default"
             },
