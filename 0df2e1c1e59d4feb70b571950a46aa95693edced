@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_d9b000e0",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T08:53:42Z",
+      "side": 1,
+      "message": "Yes, this is the best option. My bad!",
+      "parentUuid": "5a3f45e8_79044c15",
+      "revId": "0df2e1c1e59d4feb70b571950a46aa95693edced",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_d909202e",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2018-02-28T03:05:37Z",
       "side": 1,
       "message": "can we use enumerate() here?",
+      "revId": "0df2e1c1e59d4feb70b571950a46aa95693edced",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f9c69c48",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T08:53:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_d909202e",
       "revId": "0df2e1c1e59d4feb70b571950a46aa95693edced",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_59c4f03f",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T08:53:42Z",
+      "side": 1,
+      "message": "Good catch, thanks!",
+      "parentUuid": "5a3f45e8_b90ed432",
+      "revId": "0df2e1c1e59d4feb70b571950a46aa95693edced",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_591d1066",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2018-02-28T03:05:37Z",
       "side": 1,
       "message": "can we render outside of the open context, so we can close the file quickly.\n\nthere isn\u0027t much point keeping the file open after reading it.\n\nor maybe the rendering should go into an else: clause on the try: block.",
+      "revId": "0df2e1c1e59d4feb70b571950a46aa95693edced",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f9cdfc5e",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T08:53:42Z",
+      "side": 1,
+      "message": "Sure, the faster we close the file, the better.",
+      "parentUuid": "5a3f45e8_591d1066",
       "revId": "0df2e1c1e59d4feb70b571950a46aa95693edced",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_b9037472",
+        "filename": "yardstick/tests/unit/benchmark/core/test_task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T08:53:42Z",
+      "side": 1,
+      "message": "I can skip the creation of parse_out, because is not needed in the function anymore.",
+      "parentUuid": "5a3f45e8_992678b9",
+      "revId": "0df2e1c1e59d4feb70b571950a46aa95693edced",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_792bac82",
         "filename": "yardstick/tests/unit/benchmark/core/test_task.py",
         "patchSetId": 3
@@ -98,6 +188,24 @@
       "writtenOn": "2018-02-28T03:05:37Z",
       "side": 1,
       "message": "aren\u0027t we using six.moves.StringIO() elsewhere.",
+      "revId": "0df2e1c1e59d4feb70b571950a46aa95693edced",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f9f4dc88",
+        "filename": "yardstick/tests/unit/benchmark/core/test_task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T08:53:42Z",
+      "side": 1,
+      "message": "In this case I need io.StringIO because StringIO(_TextIOBase(_IOBase)) and _IOBase has __exit__ method. This object is mocking the file object.",
+      "parentUuid": "5a3f45e8_792bac82",
       "revId": "0df2e1c1e59d4feb70b571950a46aa95693edced",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
