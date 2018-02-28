@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_be035a72",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-28T01:01:55Z",
+      "side": 1,
+      "message": "we used to install a package called warlock that used JSON Schema to build validating classes\n\nhttps://pypi.org/project/warlock/\n\n\n import warlock\n\n schema \u003d {\n     \u0027type\u0027: \u0027object\u0027,\n     \u0027properties\u0027: {\n         \u0027no_setup\u0027: {\u0027type\u0027: \u0027boolean\u0027},\n         \u0027no_teardown\u0027: {\u0027type\u0027: \u0027boolean\u0027},\n     },\n     \u0027additionalProperties\u0027: False,\n }\n\n\n class S(object):\n\n     def __new__(cls, no_setup\u003dFalse, no_teardown\u003dFalse):\n        return warlock.model_factory(schema)(no_setup\u003dno_setup, no_teardown\u003dno_teardown)\n\n\n s \u003d S()\n print(s.no_setup)\n s.update({\u0027no_setup\u0027: True})\n print(s.no_setup)\n s.other \u003d 1\n\nIn theory we could schemify lots of things",
+      "revId": "72d4a08124c40658de48928a02c41cf27b754354",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
