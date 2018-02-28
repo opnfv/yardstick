@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_c4a014f7",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T14:27:36Z",
+      "side": 1,
+      "message": "Ross is right in PS5. We should check this before.\n\nRecommendation:\nif not (os.path.isfile(self.key_filename)\n        and os.access(self.key_filename, os.R_OK):\n    utils.remove_file(self.key_filename)  # Just in case, this function won\u0027t raise\n                                            an exception if the file doesn\u0027t exist\n    SSH.gen_keys(self.key_filename)",
+      "range": {
+        "startLine": 140,
+        "startChar": 8,
+        "endLine": 140,
+        "endChar": 49
+      },
+      "revId": "5040c9dc64274aca994817974451e743b9b160cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_44ac04ee",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T14:27:36Z",
+      "side": 1,
+      "message": "nit:\n---\nfrom yardstick import ssh\n...\n@mock.patch.object(ssh.SSH, \u0027gen_keys\u0027)",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 45
+      },
+      "revId": "5040c9dc64274aca994817974451e743b9b160cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c13126a4",
         "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
         "patchSetId": 7
