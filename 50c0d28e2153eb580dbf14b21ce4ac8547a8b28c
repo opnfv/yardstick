@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_ca313ba4",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-28T22:52:24Z",
+      "side": 1,
+      "message": "We support Pike",
+      "parentUuid": "5a3f45e8_e118a286",
+      "range": {
+        "startLine": 471,
+        "startChar": 8,
+        "endLine": 474,
+        "endChar": 59
+      },
+      "revId": "50c0d28e2153eb580dbf14b21ce4ac8547a8b28c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_21844ad3",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 17
