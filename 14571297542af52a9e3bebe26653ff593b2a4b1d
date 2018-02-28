@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_c7049617",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_scale-up.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-02-28T16:29:37Z",
+      "side": 1,
+      "message": "Removed from the TC file.",
+      "parentUuid": "5a3f45e8_79172ca4",
+      "range": {
+        "startLine": 48,
+        "startChar": 19,
+        "endLine": 48,
+        "endChar": 87
+      },
+      "revId": "14571297542af52a9e3bebe26653ff593b2a4b1d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_1926e816",
         "filename": "samples/vnf_samples/nsut/vfw/vfw_vnf_pipeline_cores_4_ports_2_lb_1_sw.conf",
         "patchSetId": 16
@@ -36,6 +60,24 @@
       "writtenOn": "2018-02-28T09:32:15Z",
       "side": 1,
       "message": "I can\u0027t evaluate those config files. Have you tested this in OpenStack? From 2 to 10 ports?",
+      "revId": "14571297542af52a9e3bebe26653ff593b2a4b1d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6713025d",
+        "filename": "samples/vnf_samples/nsut/vfw/vfw_vnf_pipeline_cores_4_ports_2_lb_1_sw.conf",
+        "patchSetId": 16
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-02-28T16:29:37Z",
+      "side": 1,
+      "message": "AFAIK, @Taras was testing those configs in OpenStack. Also, I re-ran the TC with all `ls -l samples/vnf_samples/nsut/vfw/vfw_vnf_pipeline_cores*` config files in OpenStack to make sure that TC are passing using those config files.",
+      "parentUuid": "5a3f45e8_1926e816",
       "revId": "14571297542af52a9e3bebe26653ff593b2a4b1d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
