@@ -22,6 +22,30 @@
       "revId": "1738c931ab93816007b5434c17d46842e488424a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_01478e20",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T11:11:11Z",
+      "side": 1,
+      "message": "Sure, this must be configurable in the future because only a couple of SampleVNFs need this amount of HP. Doing this, we can reduce the memory per VM.\n\nBut this is another feature.",
+      "parentUuid": "5a3f45e8_d9448076",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 35
+      },
+      "revId": "1738c931ab93816007b5434c17d46842e488424a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
