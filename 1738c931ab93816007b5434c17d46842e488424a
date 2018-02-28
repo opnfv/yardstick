@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d9448076",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-28T10:51:28Z",
+      "side": 1,
+      "message": "So, we\u0027re always looking for 16GB of hugepages? This is in line with the original behaviour.\n\nWould it be realistic to make this configurable in the future?",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 35
+      },
+      "revId": "1738c931ab93816007b5434c17d46842e488424a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
