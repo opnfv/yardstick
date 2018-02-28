@@ -28,10 +28,6 @@
     - fail: msg="{{ INSTALLER_TYPE }} not in {{ INSTALLERS }}"
       when: not openrc_present and (INSTALLER_TYPE not in INSTALLERS)
 
-    - name: fetch OS credentials
-      command: "{{ RELENG_REPO_DIR }}/utils/fetch_os_creds.sh {{ '-v' if DEPLOY_TYPE == 'virt' else '' }} -d {{ OPENRC }} -i {{ INSTALLER_TYPE }} -a {{ INSTALLER_IP }}"
-      when: not openrc_present
-
 
   roles:
     - role: convert_openrc

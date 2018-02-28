@@ -18,7 +18,6 @@ ENV REPOS_DIR /home/opnfv/repos
 
 # Yardstick repo
 ENV YARDSTICK_REPO_DIR ${REPOS_DIR}/yardstick
-ENV RELENG_REPO_DIR ${REPOS_DIR}/releng
 RUN sed -i -e 's/^deb /deb [arch=amd64] /g;s/^deb-src /# deb-src /g' /etc/apt/sources.list && \
     echo "\n\
 deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ trusty main universe multiverse restricted \n\
@@ -63,7 +62,6 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir -p ${REPOS_DIR} && \
     git config --global http.sslVerify false && \
     git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR}  && \
-    git clone --depth 1 https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR}
 
 # install yardstick + dependencies
 # explicity pin pip version to avoid future issues like the ill-fated pip 8.0.0 release
