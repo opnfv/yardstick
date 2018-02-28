@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_c4d81456",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T14:49:16Z",
+      "side": 1,
+      "message": "Access to a private member!? Nope, nope.",
+      "range": {
+        "startLine": 316,
+        "startChar": 8,
+        "endLine": 316,
+        "endChar": 24
+      },
+      "revId": "c9bf5bd38e9933b5ca755be6019f2daacf902044",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a40348b7",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T14:49:16Z",
+      "side": 1,
+      "message": "Too much (will retrieve the full stack with this). Log a warning.",
+      "range": {
+        "startLine": 319,
+        "startChar": 16,
+        "endLine": 319,
+        "endChar": 25
+      },
+      "revId": "c9bf5bd38e9933b5ca755be6019f2daacf902044",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_84528cdb",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T14:49:16Z",
+      "side": 1,
+      "message": "if not self._stack:\n   return\n\nThen remove the indentation of the rest.",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 23
+      },
+      "revId": "c9bf5bd38e9933b5ca755be6019f2daacf902044",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a45508c8",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T14:49:16Z",
+      "side": 1,
+      "message": "Do we need this?",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 65
+      },
+      "revId": "c9bf5bd38e9933b5ca755be6019f2daacf902044",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c40ad4d1",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T14:49:16Z",
+      "side": 1,
+      "message": "This is the same as L55-59. Create a function.",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 57
+      },
+      "revId": "c9bf5bd38e9933b5ca755be6019f2daacf902044",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
