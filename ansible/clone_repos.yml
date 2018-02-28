@@ -17,21 +17,8 @@
     YARDSTICK_REPO: "{{ lookup('env', 'YARDSTICK_REPO')|default('https://gerrit.opnfv.org/gerrit/yardstick', true) }}"
     YARDSTICK_REPO_DIR: "{{ lookup('env', 'YARDSTICK_REPO_DIR')|default('/home/opnfv/repos/yardstick', true) }}"
     YARDSTICK_BRANCH: "{{ lookup('env', 'YARDSTICK_BRANCH')|default('master', true) }}"
-    RELENG_REPO: "{{ lookup('env', 'RELENG_REPO')|default('https://gerrit.opnfv.org/gerrit/releng', true) }}"
-    RELENG_REPO_DIR: "{{ lookup('env', 'RELENG_REPO_DIR')|default('/home/opnfv/repos/releng', true) }}"
-    RELENG_BRANCH: "{{ lookup('env', 'RELENG_BRANCH')|default('master', true) }}"
-
 
   tasks:
-    - name: Updating releng -> "{{ RELENG_BRANCH }}"
-      git:
-        repo: "{{ RELENG_REPO }}"
-        dest: "{{ RELENG_REPO_DIR }}"
-        version: "{{ RELENG_BRANCH }}"
-        accept_hostkey: yes
-        recursive: no
-        force: yes
-
     - name: Updating yardstick -> "{{ YARDSTICK_BRANCH }}"
       git:
         repo: "{{ YARDSTICK_REPO }}"

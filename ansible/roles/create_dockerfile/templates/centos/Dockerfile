@@ -18,7 +18,6 @@ ENV REPOS_DIR /home/opnfv/repos
 
 # Yardstick repo
 ENV YARDSTICK_REPO_DIR ${REPOS_DIR}/yardstick
-ENV RELENG_REPO_DIR ${REPOS_DIR}/releng
 
 RUN yum -y install\
     deltarpm \
@@ -50,7 +49,6 @@ RUN yum -y install\
 RUN mkdir -p ${REPOS_DIR} && \
     git config --global http.sslVerify false && \
     git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR}  && \
-    git clone --depth 1 https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR}
 
 # install yardstick + dependencies
 # explicity pin pip version to avoid future issues like the ill-fated pip 8.0.0 release
