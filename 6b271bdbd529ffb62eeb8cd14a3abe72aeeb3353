@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_3e558a1d",
+        "filename": "yardstick/benchmark/scenarios/storage/fio.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-02-28T02:00:17Z",
+      "side": 1,
+      "message": "do we have to move setup_done inside the if clause?  setup_done is only True when we mount?",
+      "revId": "6b271bdbd529ffb62eeb8cd14a3abe72aeeb3353",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
