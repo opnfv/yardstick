@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_c48db433",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-28T19:47:00Z",
+      "side": 1,
+      "message": "That gets rid of private member access in the other file too.",
+      "parentUuid": "5a3f45e8_84528cdb",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 23
+      },
+      "revId": "c9bf5bd38e9933b5ca755be6019f2daacf902044",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_a45508c8",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 8
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_6a13c75c",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-28T19:47:00Z",
+      "side": 1,
+      "message": "Nope! That was in for debugging.",
+      "parentUuid": "5a3f45e8_a45508c8",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 65
+      },
+      "revId": "c9bf5bd38e9933b5ca755be6019f2daacf902044",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c40ad4d1",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 8
@@ -105,6 +153,30 @@
       "writtenOn": "2018-02-28T14:49:16Z",
       "side": 1,
       "message": "This is the same as L55-59. Create a function.",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 57
+      },
+      "revId": "c9bf5bd38e9933b5ca755be6019f2daacf902044",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2483b805",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-28T19:47:00Z",
+      "side": 1,
+      "message": "Something like _setup_stack()?",
+      "parentUuid": "5a3f45e8_c40ad4d1",
       "range": {
         "startLine": 69,
         "startChar": 0,
