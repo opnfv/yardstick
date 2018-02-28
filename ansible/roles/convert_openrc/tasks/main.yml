@@ -18,7 +18,7 @@
 - debug: var=openrc
 
 - set_fact:
-    yardstick_url_ip: "{{ openrc.OS_AUTH_URL|urlsplit|attr('hostname') }}"
+    yardstick_url_ip: "{{ openrc.OS_AUTH_URL|urlsplit('hostname') }}"
 
 - debug: var=yardstick_url_ip
 
