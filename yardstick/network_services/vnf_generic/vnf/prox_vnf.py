@@ -14,6 +14,8 @@
 
 import errno
 import logging
+import datetime
+import time
 
 
 from yardstick.common.process import check_if_process_failed
@@ -39,6 +41,9 @@ class ProxApproxVnf(SampleVNF):
         if resource_helper_type is None:
             resource_helper_type = ProxResourceHelper
 
+        self.prev_packets_in = 0
+        self.prev_packets_sent = 0
+        self.prev_time = time.time()
         super(ProxApproxVnf, self).__init__(name, vnfd, setup_env_helper_type,
                                             resource_helper_type)
 
@@ -79,12 +84,13 @@ class ProxApproxVnf(SampleVNF):
             raise RuntimeError("Failed ..Invalid no of ports .. "
                                "1, 2 or 4 ports only supported at this time")
 
-        port_stats = self.vnf_execute('port_stats', range(port_count))
+        self.port_stats = self.vnf_execute('port_stats', range(port_count))
+        curr_time = time.time()
         try:
-            rx_total = port_stats[6]
-            tx_total = port_stats[7]
+            rx_total = self.port_stats[6]
+            tx_total = self.port_stats[7]
         except IndexError:
-            LOG.error("port_stats parse fail %s", port_stats)
+            LOG.debug("port_stats parse fail ")
             # return empty dict so we don't mess up existing KPIs
             return {}
 
@@ -96,7 +102,17 @@ class ProxApproxVnf(SampleVNF):
             # collectd KPIs here and not TG KPIs, so use a different method name
             "collect_stats": self.resource_helper.collect_collectd_kpi(),
         }
-        LOG.debug("%s collect KPIs %s", self.APP_NAME, result)
+        curr_packets_in = int((rx_total - self.prev_packets_in) / (curr_time - self.prev_time))
+        curr_packets_fwd = int((tx_total - self.prev_packets_sent) / (curr_time - self.prev_time))
+
+        result["curr_packets_in"] = curr_packets_in
+        result["curr_packets_fwd"] = curr_packets_fwd
+
+        self.prev_packets_in = rx_total
+        self.prev_packets_sent = tx_total
+        self.prev_time = curr_time
+
+        LOG.debug("%s collect KPIs %s %s", self.APP_NAME, datetime.datetime.now(), result)
         return result
 
     def _tear_down(self):
