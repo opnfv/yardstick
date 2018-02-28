@@ -16,6 +16,24 @@
       "revId": "72d4a08124c40658de48928a02c41cf27b754354",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d935a047",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-02-28T09:07:40Z",
+      "side": 1,
+      "message": "This is a good idea and it\u0027s used in OpenStack in some places 9not this library, but similar).\n\nMy point is:\n- The validation is done against the class member \"_FLAGS\", if the flag exists or not. If the flag doesn\u0027t exist, this \"error\" will be muted.\n- There is no type validation and so far I don\u0027t think we need it.\n- This object was going to be, initially, a dict. IMO, the extra validation we have with __init__ and parse is enough.",
+      "parentUuid": "5a3f45e8_be035a72",
+      "revId": "72d4a08124c40658de48928a02c41cf27b754354",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
