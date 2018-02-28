@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_c1e2c6d4",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-28T12:32:52Z",
+      "side": 1,
+      "message": "Most of these arguments are kwargs, you need to make sure this method is called with the names of the parameters.\n\nIn yardstick/benchmark/scenarios/lib/create_network.py\", create_neutron_net is called and treats everything as positional arguments. This needs to change to:\n\nnetwork_id \u003d openstack_utils.create_neutron_net(\n            self.shade_client, self.network_name, shared\u003dself.shared,\n            admin_state\u003dself.admin_state, external\u003dself.external, provider\u003dself.provider, project_id\u003dself.project_id,\n            availability_zone_hints\u003dself.availability_zone_hints)",
+      "range": {
+        "startLine": 455,
+        "startChar": 0,
+        "endLine": 458,
+        "endChar": 32
+      },
+      "revId": "50c0d28e2153eb580dbf14b21ce4ac8547a8b28c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c11766a2",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-28T12:32:52Z",
+      "side": 1,
+      "message": "In Pike, these parameters have changed.\n\nadmin_state is admin_state_up\nThe availability_zone_list param was added in the Queens release, so is unavailable in Pike\n\n\nhttps://github.com/openstack-infra/shade/blob/stable/queens/shade/openstackcloud.py#L3413",
+      "range": {
+        "startLine": 471,
+        "startChar": 8,
+        "endLine": 474,
+        "endChar": 59
+      },
+      "revId": "50c0d28e2153eb580dbf14b21ce4ac8547a8b28c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_21844ad3",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-28T12:32:52Z",
+      "side": 1,
+      "message": "A network is being created, so there should not be more than one returned.\n\nshade.create_network returns a network object, which is a dictionary.\nYou can access the id with:\n    networks[\u0027id\u0027]",
+      "range": {
+        "startLine": 475,
+        "startChar": 7,
+        "endLine": 475,
+        "endChar": 32
+      },
+      "revId": "50c0d28e2153eb580dbf14b21ce4ac8547a8b28c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
