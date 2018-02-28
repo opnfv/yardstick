@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_1177eed5",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-02-28T11:24:49Z",
+      "side": 1,
+      "message": "should be \u0027.\u0027",
+      "range": {
+        "startLine": 71,
+        "startChar": 22,
+        "endLine": 71,
+        "endChar": 23
+      },
+      "revId": "7b77f11862fe363bc40652a6a23321174fe880bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_14135c5d",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 1
