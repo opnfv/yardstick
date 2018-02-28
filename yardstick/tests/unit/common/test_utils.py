@@ -19,6 +19,7 @@ from six.moves import configparser
 import unittest
 
 import yardstick
+from yardstick import ssh
 from yardstick.common import utils
 from yardstick.common import constants
 
@@ -1075,8 +1076,27 @@ class SafeDecodeUtf8TestCase(unittest.TestCase):
         self.assertEqual('this is a byte array', out)
 
 
-def main():
-    unittest.main()
+class ReadMeminfoTestCase(unittest.TestCase):
 
-if __name__ == '__main__':
-    main()
+    MEMINFO = (b'MemTotal:       65860500 kB\n'
+               b'MemFree:        28690900 kB\n'
+               b'MemAvailable:   52873764 kB\n'
+               b'Active(anon):    3015676 kB\n'
+               b'HugePages_Total:       8\n'
+               b'Hugepagesize:    1048576 kB')
+    MEMINFO_DICT = {'MemTotal': '65860500',
+                    'MemFree': '28690900',
+                    'MemAvailable': '52873764',
+                    'Active(anon)': '3015676',
+                    'HugePages_Total': '8',
+                    'Hugepagesize': '1048576'}
+
+    def test_read_meminfo(self):
+        ssh_client = ssh.SSH('user', 'host')
+        with mock.patch.object(ssh_client, 'get_file_obj') as \
+                mock_get_client, \
+                mock.patch.object(six, 'BytesIO',
+                                  return_value=six.BytesIO(self.MEMINFO)):
+            output = utils.read_meminfo(ssh_client)
+            mock_get_client.assert_called_once_with('/proc/meminfo', mock.ANY)
+        self.assertEqual(self.MEMINFO_DICT, output)

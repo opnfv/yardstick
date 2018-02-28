@@ -19,9 +19,11 @@ from multiprocessing import Queue, Value, Process
 import os
 import posixpath
 import re
-from six.moves import cStringIO
 import subprocess
 import time
+
+import six
+from six.moves import cStringIO
 
 from trex_stl_lib.trex_stl_client import LoggerApi
 from trex_stl_lib.trex_stl_client import STLClient
@@ -29,6 +31,7 @@ from trex_stl_lib.trex_stl_exceptions import STLError
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
 from yardstick.common import exceptions as y_exceptions
+from yardstick.common import utils
 from yardstick.common.process import check_if_process_failed
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
@@ -119,6 +122,8 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
 
     APP_NAME = 'DpdkVnf'
     FIND_NET_CMD = "find /sys/class/net -lname '*{}*' -printf '%f'"
+    NR_HUGEPAGES_PATH = '/proc/sys/vm/nr_hugepages'
+    HUGEPAGES_KB = 1024 * 1024 * 16
 
     @staticmethod
     def _update_packet_type(ip_pipeline_cfg, traffic_options):
@@ -155,19 +160,16 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         self.dpdk_bind_helper = DpdkBindHelper(ssh_helper)
 
     def _setup_hugepages(self):
-        cmd = "awk '/Hugepagesize/ { print $2$3 }' < /proc/meminfo"
-        hugepages = self.ssh_helper.execute(cmd)[1].rstrip()
-
-        memory_path = \
-            '/sys/kernel/mm/hugepages/hugepages-%s/nr_hugepages' % hugepages
-        self.ssh_helper.execute("awk -F: '{ print $1 }' < %s" % memory_path)
-
-        if hugepages == "2048kB":
-            pages = 8192
-        else:
-            pages = 16
-
-        self.ssh_helper.execute("echo %s | sudo tee %s" % (pages, memory_path))
+        meminfo = utils.read_meminfo(self.ssh_helper)
+        hp_size_kb = int(meminfo['Hugepagesize'])
+        nr_hugepages = int(abs(self.HUGEPAGES_KB / hp_size_kb))
+        self.ssh_helper.execute('echo %s | sudo tee %s' %
+                                (nr_hugepages, self.NR_HUGEPAGES_PATH))
+        hp = six.BytesIO()
+        self.ssh_helper.get_file_obj(self.NR_HUGEPAGES_PATH, hp)
+        nr_hugepages_set = int(hp.getvalue().decode('utf-8').splitlines()[0])
+        LOG.info('Hugepages size (kB): %s, number claimed: %s, number set: %s',
+                 hp_size_kb, nr_hugepages, nr_hugepages_set)
 
     def build_config(self):
         vnf_cfg = self.scenario_helper.vnf_cfg

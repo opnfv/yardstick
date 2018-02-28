@@ -15,14 +15,17 @@
 # limitations under the License.
 #
 
+from copy import deepcopy
+
 import unittest
 import mock
-from copy import deepcopy
+import six
 
 from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from tests.unit import STL_MOCKS
 from yardstick.benchmark.contexts.base import Context
 from yardstick.common import exceptions as y_exceptions
+from yardstick.common import utils
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 
@@ -36,6 +39,7 @@ stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
 
 if stl_patch:
+    from yardstick.network_services.vnf_generic.vnf import sample_vnf
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import VnfSshHelper
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFDeployHelper
     from yardstick.network_services.vnf_generic.vnf.sample_vnf import ScenarioHelper
@@ -528,41 +532,19 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = DpdkVnfSetupEnvHelper._update_traffic_type(ip_pipeline_cfg, traffic_options)
         self.assertEqual(result, expected)
 
-    def test__setup_hugepages(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
+    @mock.patch.object(six, 'BytesIO', return_value=six.BytesIO(b'100\n'))
+    @mock.patch.object(utils, 'read_meminfo',
+                       return_value={'Hugepagesize': '2048'})
+    def test__setup_hugepages(self, mock_meminfo, *args):
         ssh_helper = mock.Mock()
-        ssh_helper.execute.return_value = 0, '', ''
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-
-        result = dpdk_setup_helper._setup_hugepages()
-        expect_start_list = ['awk', 'awk', 'echo']
-        expect_in_list = ['meminfo', 'nr_hugepages', '16']
-        call_args_iter = (args[0][0] for args in ssh_helper.execute.call_args_list)
-        self.assertIsNone(result)
-        self.assertEqual(ssh_helper.execute.call_count, 3)
-        for expect_start, expect_in, arg0 in zip(expect_start_list, expect_in_list,
-                                                 call_args_iter):
-            self.assertTrue(arg0.startswith(expect_start))
-            self.assertIn(expect_in, arg0)
-
-    def test__setup_hugepages_2_mb(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        ssh_helper.execute.return_value = 0, '2048kB  ', ''
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-
-        result = dpdk_setup_helper._setup_hugepages()
-        expect_start_list = ['awk', 'awk', 'echo']
-        expect_in_list = ['meminfo', 'nr_hugepages', '8192']
-        call_args_iter = (args[0][0] for args in ssh_helper.execute.call_args_list)
-        self.assertIsNone(result)
-        self.assertEqual(ssh_helper.execute.call_count, 3)
-        for expect_start, expect_in, arg0 in zip(expect_start_list, expect_in_list,
-                                                 call_args_iter):
-            self.assertTrue(arg0.startswith(expect_start))
-            self.assertIn(expect_in, arg0)
+        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
+            mock.ANY, ssh_helper, mock.ANY)
+        with mock.patch.object(sample_vnf.LOG, 'info') as mock_info:
+            dpdk_setup_helper._setup_hugepages()
+            mock_info.assert_called_once_with(
+                'Hugepages size (kB): %s, number claimed: %s, number set: '
+                '%s', 2048, 8192, 100)
+        mock_meminfo.assert_called_once_with(ssh_helper)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.find_relative_file')
@@ -622,7 +604,10 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         dpdk_vnf_setup_env_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, mock.Mock())
         dpdk_vnf_setup_env_helper._validate_cpu_cfg = mock.Mock(return_value=[])
 
-        self.assertIsInstance(dpdk_vnf_setup_env_helper.setup_vnf_environment(), ResourceProfile)
+        with mock.patch.object(dpdk_vnf_setup_env_helper, '_setup_dpdk'):
+            self.assertIsInstance(
+                dpdk_vnf_setup_env_helper.setup_vnf_environment(),
+                ResourceProfile)
 
     def test__setup_dpdk(self):
         ssh_helper = mock.Mock()
