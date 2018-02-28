@@ -699,6 +699,20 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
                     mac = intf["virtual-interface"]["dst_mac"]
                     section_data[1] = mac
 
+                if item_val.startswith("@@src_mac"):
+                    tx_port_iter = re.finditer(r'\d+', item_val)
+                    tx_port_no = int(next(tx_port_iter).group(0))
+                    intf = self.vnfd_helper.find_interface_by_port(tx_port_no)
+                    mac = intf["virtual-interface"]["local_mac"]
+                    section_data[1] = mac.replace(":", " ", 6)
+
+                if item_key == "src mac" and item_val.startswith("@@"):
+                    tx_port_iter = re.finditer(r'\d+', item_val)
+                    tx_port_no = int(next(tx_port_iter).group(0))
+                    intf = self.vnfd_helper.find_interface_by_port(tx_port_no)
+                    mac = intf["virtual-interface"]["local_mac"]
+                    section_data[1] = mac
+
         # if addition file specified in prox config
         if not self.additional_files:
             return sections
