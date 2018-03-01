@@ -22,6 +22,30 @@
       "revId": "3b9ea5458540c1186d47864b53dbb766d7abe129",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1504e879",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-01T10:07:45Z",
+      "side": 1,
+      "message": "If name is not calculated, and it just returns a constant, it\u0027s going to be a whole lot harder to test.\n\nAt the moment, we can test various behaviors by setting the _flags, task_id and name. If name was a constant, we\u0027d have to do a whole lot more set-up in the test, and instantiate, init and deploy a context for an undeploy() test, for example.\n\nIf we introduce a _name_task_id variable, that\u0027s another thing for developers to worry about.\n\nI\u0027m in favor of keeping the solution that\u0027s there, as it balances #calculations, complexity and test-ability.",
+      "parentUuid": "5a3f45e8_75dd6c70",
+      "range": {
+        "startLine": 70,
+        "startChar": 61,
+        "endLine": 70,
+        "endChar": 62
+      },
+      "revId": "3b9ea5458540c1186d47864b53dbb766d7abe129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
