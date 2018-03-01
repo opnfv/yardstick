@@ -25,7 +25,7 @@ from yardstick.benchmark.contexts.model import PlacementGroup, ServerGroup
 from yardstick.benchmark.contexts.model import Server
 from yardstick.benchmark.contexts.model import update_scheduler_hints
 from yardstick.common import exceptions as y_exc
-from yardstick.common.openstack_utils import get_neutron_client
+from yardstick.common.openstack_utils import get_shade_client
 from yardstick.orchestrator.heat import HeatStack
 from yardstick.orchestrator.heat import HeatTemplate
 from yardstick.common import constants as consts
@@ -290,11 +290,11 @@ class HeatContext(Context):
 
     def get_neutron_info(self):
         if not self.neutron_client:
-            self.neutron_client = get_neutron_client()
+            self.neutron_client = get_shade_client()
 
         networks = self.neutron_client.list_networks()
         for network in self.networks.values():
-            for neutron_net in networks['networks']:
+            for neutron_net in networks:
                 if neutron_net['name'] == network.stack_name:
                     network.segmentation_id = neutron_net.get('provider:segmentation_id')
                     # we already have physical_network
