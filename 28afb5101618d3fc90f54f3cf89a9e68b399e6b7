@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e4d39036",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T16:02:19Z",
+      "side": 1,
+      "message": "This function doesn\u0027t return a value",
+      "range": {
+        "startLine": 334,
+        "startChar": 24,
+        "endLine": 334,
+        "endChar": 65
+      },
+      "revId": "28afb5101618d3fc90f54f3cf89a9e68b399e6b7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
