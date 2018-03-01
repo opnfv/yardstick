@@ -46,3 +46,7 @@ add-server-to-secgroup:
 add-floatingip-to-server:
   action_script: ha_tools/nova/add_floating_ip_to_server.bash
   rollback_script: ha_tools/nova/dissociate_and_delete_floating_ip.bash
+
+get-privateip:
+  action_script: ha_tools/nova/get_server_privateip.bash
+  rollback_script: ha_tools/nova/list_servers.bash
