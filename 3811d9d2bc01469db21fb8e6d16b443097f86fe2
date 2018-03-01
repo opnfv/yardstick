@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_5092fe57",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-01T13:23:17Z",
+      "side": 1,
+      "message": "typo: traffic",
+      "range": {
+        "startLine": 9,
+        "startChar": 19,
+        "endLine": 9,
+        "endChar": 25
+      },
+      "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_909c866b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-01T13:23:17Z",
+      "side": 1,
+      "message": "using",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 23
+      },
+      "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f0886a24",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-01T13:23:17Z",
+      "side": 1,
+      "message": "definition",
+      "range": {
+        "startLine": 10,
+        "startChar": 52,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b09f025f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-01T13:23:17Z",
+      "side": 1,
+      "message": "Jinja2",
+      "range": {
+        "startLine": 10,
+        "startChar": 24,
+        "endLine": 10,
+        "endChar": 29
+      },
+      "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_50795e2e",
+        "filename": "samples/vnf_samples/nsut/vfw/vfw-tg-topology-scale-up.yaml",
+        "patchSetId": 19
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-01T13:23:17Z",
+      "side": 1,
+      "message": "Which file(s) is this replacing? Shouldn\u0027t they be removed?\n\nIf time is an issues here, I suggest you add a script to use the render-only patch[1] and so that users can create and store the tc/topo files.\n\n[1] https://gerrit.opnfv.org/gerrit/#/c/52293/",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 3
+      },
+      "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b076e23c",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-01T13:23:17Z",
+      "side": 1,
+      "message": "nit: the naming convention used for mocks in this file is mock_\u003cname\u003e,  change this to mock_open_rf",
+      "range": {
+        "startLine": 553,
+        "startChar": 32,
+        "endLine": 553,
+        "endChar": 44
+      },
+      "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f08fca21",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-01T13:23:17Z",
+      "side": 1,
+      "message": "There should be two blank lines here, instead of one, to separate classes",
+      "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
