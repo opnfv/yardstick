@@ -185,17 +185,18 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             return infile.read()
 
     def _fill_traffic_profile(self):
-        traffic_mapping = self._get_traffic_profile()
-        traffic_map_data = {
+        tprofile = self._get_traffic_profile()
+        extra_args = self.scenario_cfg.get('extra_args', {})
+        tprofile_data = {
             'flow': self._get_traffic_flow(),
             'imix': self._get_traffic_imix(),
             tprofile_base.TrafficProfile.UPLINK: {},
             tprofile_base.TrafficProfile.DOWNLINK: {},
+            'extra_args': extra_args
         }
 
-        traffic_vnfd = vnfdgen.generate_vnfd(traffic_mapping, traffic_map_data)
+        traffic_vnfd = vnfdgen.generate_vnfd(tprofile, tprofile_data)
         self.traffic_profile = tprofile_base.TrafficProfile.get(traffic_vnfd)
-        return self.traffic_profile
 
     def _find_vnf_name_from_id(self, vnf_id):
         return next((vnfd["vnfd-id-ref"]
@@ -428,6 +429,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
         ' sh  \{\}/* \;
         """)
+
     BASE_ADAPTER_RE = re.compile(
         '^/sys/devices/(.*)/net/([^/]*)/([^:]*):(.*)$', re.M)
 
