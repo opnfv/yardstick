@@ -22,6 +22,29 @@
       "revId": "60df8b6774f91086d08dfe64ec342e81e1fae4eb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d5360003",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-01T11:15:25Z",
+      "side": 1,
+      "message": "nit: \"..in the directory given...\"",
+      "range": {
+        "startLine": 42,
+        "startChar": 21,
+        "endLine": 42,
+        "endChar": 25
+      },
+      "revId": "60df8b6774f91086d08dfe64ec342e81e1fae4eb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
