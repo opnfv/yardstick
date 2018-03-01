@@ -26,6 +26,7 @@ from yardstick.benchmark.contexts.model import Server
 from yardstick.benchmark.contexts.model import update_scheduler_hints
 from yardstick.common import exceptions as y_exc
 from yardstick.common.openstack_utils import get_neutron_client
+from yardstick.orchestrator.heat import HeatStack
 from yardstick.orchestrator.heat import HeatTemplate
 from yardstick.common import constants as consts
 from yardstick.common.utils import source_env
@@ -311,6 +312,14 @@ class HeatContext(Context):
              LOG.exception("stack failed")
              # let the other failures happen, we want stack trace
              raise
+
+    def _retrieve_existing_stack(self, stack_name):
+        stack = HeatStack(stack_name)
+        if stack.get():
+            return stack
+        else:
+            LOG.warning("Stack %s does not exist", self.name)
+            return None
 
     def deploy(self):
         """deploys template into a stack using cloud"""

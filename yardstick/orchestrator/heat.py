@@ -44,6 +44,13 @@ class HeatStack(object):
         self._cloud = shade.openstack_cloud()
         self._stack = None
 
+    def _update_stack_tracking(self):
+        outputs = self._stack.outputs
+        self.outputs = {output['output_key']: output['output_value'] for output
+                        in outputs}
+        if self.uuid:
+            _DEPLOYED_STACKS[self.uuid] = self._stack
+
     def create(self, template, heat_parameters, wait, timeout):
         """Creates an OpenStack stack from a template"""
         with tempfile.NamedTemporaryFile('wb', delete=False) as template_file:
@@ -52,11 +59,21 @@ class HeatStack(object):
             self._stack = self._cloud.create_stack(
                 self.name, template_file=template_file.name, wait=wait,
                 timeout=timeout, **heat_parameters)
-        outputs = self._stack.outputs
-        self.outputs = {output['output_key']: output['output_value'] for output
-                        in outputs}
-        if self.uuid:
-            _DEPLOYED_STACKS[self.uuid] = self._stack
+
+        self._update_stack_tracking()
+
+    def get(self):
+        """Retrieves an existing stack from the target cloud
+
+        Returns a bool indicating whether the stack exists in the target cloud
+        If the stack exists, it will be stored as self._stack
+        """
+        self._stack = self._cloud.get_stack(self.name)
+        if not self._stack:
+            return False
+
+        self._update_stack_tracking()
+        return True
 
     @staticmethod
     def stacks_exist():
