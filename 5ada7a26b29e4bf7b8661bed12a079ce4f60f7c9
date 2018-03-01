@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_50c79e45",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc054.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-01T13:32:59Z",
+      "side": 1,
+      "message": "The change in this file is unrelated to the rest of the patch. I suggest fixing it separately, as there are a few more formatting adjustments that can be made in this file.",
+      "range": {
+        "startLine": 118,
+        "startChar": 61,
+        "endLine": 118,
+        "endChar": 63
+      },
+      "revId": "5ada7a26b29e4bf7b8661bed12a079ce4f60f7c9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
