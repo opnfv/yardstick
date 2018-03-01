@@ -34,6 +34,24 @@
       "revId": "0a62fb02ec4cab80f8fcb98c45ab710ddb725fa0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_75260c18",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-01T10:22:01Z",
+      "side": 1,
+      "message": "I thought I updated that comment -- it\u0027s obviously wrong.\n\nnext() is more concise and more functional.",
+      "parentUuid": "5a3f45e8_f5121cb3",
+      "revId": "0a62fb02ec4cab80f8fcb98c45ab710ddb725fa0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
