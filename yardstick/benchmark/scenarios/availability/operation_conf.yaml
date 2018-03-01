@@ -42,3 +42,7 @@ start-service:
 add-server-to-secgroup:
   action_script: ha_tools/nova/add_server_to_existing_secgroup.bash
   rollback_script: ha_tools/nova/remove_server_from_secgroup.bash
+
+get-privateip:
+  action_script: ha_tools/nova/get_server_privateip.bash
+  rollback_script: ha_tools/nova/list_servers.bash
