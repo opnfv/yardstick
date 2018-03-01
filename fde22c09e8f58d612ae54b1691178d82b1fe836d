@@ -69,6 +69,29 @@
       "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5bc17f7f",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-01T15:55:57Z",
+      "side": 1,
+      "message": "Can we ping from the existing nova instances towards the new nova instance?\n\nIs simpler this way.",
+      "range": {
+        "startLine": 174,
+        "startChar": 17,
+        "endLine": 174,
+        "endChar": 61
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
