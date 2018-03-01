@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Emma Foley <emma.l.foley@intel.com>
+Code-Review+2: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-by: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-at: Thu, 01 Mar 2018 15:11:03 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/50849
+Project: yardstick
+Branch: refs/heads/master
