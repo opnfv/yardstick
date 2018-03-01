@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_cd3afe35",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-01T01:11:16Z",
+      "side": 1,
+      "message": "this is moving to dpdkbindnic_helper in the probing fix.",
+      "revId": "383522d51eee31bf18d306a28783c38aa11d0bf2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
