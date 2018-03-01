@@ -75,3 +75,11 @@ class TrafficProfileNotImplemented(YardstickException):
 
 class DPDKSetupDriverError(YardstickException):
     message = '"igb_uio" driver is not loaded'
+
+
+class ScenarioConfigContextNameNotFound(YardstickException):
+    message = 'Context name "%(context_name)s" not found'
+
+
+class StackCreationInterrupt(YardstickException):
+    message = 'Stack create interrupted.'

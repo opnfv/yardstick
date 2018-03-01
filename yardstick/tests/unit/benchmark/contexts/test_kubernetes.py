@@ -10,13 +10,13 @@
 import mock
 import unittest
 
-from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts import kubernetes
 
 
 context_cfg = {
     'type': 'Kubernetes',
     'name': 'k8s',
+    'task_id': '1234567890',
     'servers': {
         'host': {
             'image': 'openretriever/yardstick',
@@ -40,11 +40,12 @@ class KubernetesTestCase(unittest.TestCase):
 
     def setUp(self):
         self.k8s_context = kubernetes.KubernetesContext()
+        self.addCleanup(self._remove_contexts)
         self.k8s_context.init(context_cfg)
 
-    def tearDown(self):
-        # clear kubernetes contexts from global list so we don't break other tests
-        Context.list = []
+    def _remove_contexts(self):
+        if self.k8s_context in self.k8s_context.list:
+            self.k8s_context._delete_context()
 
     @mock.patch.object(kubernetes.KubernetesContext, '_delete_services')
     @mock.patch.object(kubernetes.KubernetesContext, '_delete_ssh_key')

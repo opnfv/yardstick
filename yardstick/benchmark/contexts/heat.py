@@ -25,6 +25,7 @@ from yardstick.benchmark.contexts.model import Network
 from yardstick.benchmark.contexts.model import PlacementGroup, ServerGroup
 from yardstick.benchmark.contexts.model import Server
 from yardstick.benchmark.contexts.model import update_scheduler_hints
+from yardstick.common import exceptions as y_exc
 from yardstick.common.openstack_utils import get_neutron_client
 from yardstick.orchestrator.heat import HeatTemplate, get_short_key_uuid
 from yardstick.common import constants as consts
@@ -50,7 +51,6 @@ class HeatContext(Context):
     __context_type__ = "Heat"
 
     def __init__(self):
-        self.name = None
         self.stack = None
         self.networks = OrderedDict()
         self.heat_timeout = None
@@ -95,10 +95,10 @@ class HeatContext(Context):
         return sorted_networks
 
     def init(self, attrs):
-        """initializes itself from the supplied arguments"""
-        self.check_environment()
-        self.name = attrs["name"]
+        """Initializes itself from the supplied arguments"""
+        super(HeatContext, self).init(attrs)
 
+        self.check_environment()
         self._user = attrs.get("user")
 
         self.template_file = attrs.get("heat_template")
@@ -298,6 +298,17 @@ class HeatContext(Context):
                     network.network_type = neutron_net.get('provider:network_type')
                     network.neutron_info = neutron_net
 
+    def _create_new_stack(self, heat_template):
+         try:
+             return heat_template.create(block=True,
+                                         timeout=self.heat_timeout)
+         except KeyboardInterrupt:
+             raise y_exc.StackCreationInterrupt
+         except:
+             LOG.exception("stack failed")
+             # let the other failures happen, we want stack trace
+             raise
+
     def deploy(self):
         """deploys template into a stack using cloud"""
         LOG.info("Deploying context '%s' START", self.name)
@@ -308,15 +319,7 @@ class HeatContext(Context):
         if self.template_file is None:
             self._add_resources_to_template(heat_template)
 
-        try:
-            self.stack = heat_template.create(block=True,
-                                              timeout=self.heat_timeout)
-        except KeyboardInterrupt:
-            raise SystemExit("\nStack create interrupted")
-        except:
-            LOG.exception("stack failed")
-            # let the other failures happen, we want stack trace
-            raise
+        self.stack = self._create_new_stack(heat_template)
 
         # TODO: use Neutron to get segmentation-id
         self.get_neutron_info()
