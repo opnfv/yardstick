@@ -34,6 +34,24 @@
       "revId": "59e83edf7f22b5fe0318f02865d553cfa60f94d5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f5c7bc10",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T10:45:13Z",
+      "side": 1,
+      "message": "My bad. This is not used. Please, remove it.",
+      "parentUuid": "5a3f45e8_b54ed4bf",
+      "revId": "59e83edf7f22b5fe0318f02865d553cfa60f94d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
