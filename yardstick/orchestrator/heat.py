@@ -30,15 +30,9 @@ from yardstick.common import template_format
 log = logging.getLogger(__name__)
 
 
-HEAT_KEY_UUID_LENGTH = 8
-
 PROVIDER_SRIOV = "sriov"
 
 _DEPLOYED_STACKS = {}
-
-
-def get_short_key_uuid(uuid):
-    return str(uuid)[:HEAT_KEY_UUID_LENGTH]
 
 
 class HeatStack(object):
@@ -413,7 +407,7 @@ name (i.e. %s).
             }
         }
 
-    def add_keypair(self, name, key_uuid):
+    def add_keypair(self, name, key_id):
         """add to the template a Nova KeyPair"""
         log.debug("adding Nova::KeyPair '%s'", name)
         self.resources[name] = {
@@ -425,7 +419,7 @@ name (i.e. %s).
                     pkg_resources.resource_string(
                         'yardstick.resources',
                         'files/yardstick_key-' +
-                        get_short_key_uuid(key_uuid) + '.pub'),
+                        key_id + '.pub'),
                     'utf-8')
             }
         }
