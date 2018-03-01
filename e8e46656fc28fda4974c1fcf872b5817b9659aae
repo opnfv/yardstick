@@ -45,6 +45,30 @@
       "revId": "e8e46656fc28fda4974c1fcf872b5817b9659aae",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5bda1f79",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-01T16:01:50Z",
+      "side": 1,
+      "message": "or we could re-write it in ansible, which I did.  :) \n\nin general though we code to bash and not sh. :)",
+      "parentUuid": "5a3f45e8_75f8cc7c",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 22
+      },
+      "revId": "e8e46656fc28fda4974c1fcf872b5817b9659aae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
