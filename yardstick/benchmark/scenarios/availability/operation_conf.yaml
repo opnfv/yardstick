@@ -35,3 +35,6 @@ get-vip-host:
   action_script: ha_tools/pacemaker/get_vip_host.bash
   rollback_script: ha_tools/pacemaker/get_resource_status.bash
 
+start-service:
+  action_script: ha_tools/start_service.bash
+  rollback_script: ha_tools/check_process_python.bash
