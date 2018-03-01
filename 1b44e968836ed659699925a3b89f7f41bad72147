@@ -16,6 +16,24 @@
       "revId": "1b44e968836ed659699925a3b89f7f41bad72147",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d57e00e4",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-01T15:02:57Z",
+      "side": 1,
+      "message": "We\u0027re returning a bool to indicate whether the HeatStack object has reference to a stack...\nIt\u0027s a status for whether or no we should use the HeatStack object in benchmark/contexts/heat\n\nreturn will return None, which is evaluated as False, but there\u0027s no harm in being explicit.",
+      "parentUuid": "5a3f45e8_35b5a4ee",
+      "revId": "1b44e968836ed659699925a3b89f7f41bad72147",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
