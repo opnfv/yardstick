@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_75dd6c70",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-01T08:18:29Z",
+      "side": 1,
+      "message": "it is pedantic, but using constants for magic numbers is always useful\n\n SHORT_TASK_ID \u003d 8\n\ndo we have to re-calculate this all the time?  Do the flags change at runtime?\n\n    def init(...):\n        ...\n        self._name_task_id \u003d \u0027{}-{}\u0027.format(self._name, self._task_id[:self.SHORT_TASK_ID])\n\n    @property\n    def name(self):\n        if self._flags.no_setup or self._flags.no_teardown:\n            return self._name\n        else:\n            return self._name_task_id\n\n\nor can we check the flags once and set self.name once?\n\n   def init(...):\n        ...\n        if self._flags.no_setup or self._flags.no_teardown:\n            self.name \u003d self._name\n        else:\n            self.name \u003d \u0027{}-{}\u0027.format(self._name, self._task_id[:self.SHORT_TASK_ID])",
+      "range": {
+        "startLine": 70,
+        "startChar": 61,
+        "endLine": 70,
+        "endChar": 62
+      },
+      "revId": "3b9ea5458540c1186d47864b53dbb766d7abe129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
