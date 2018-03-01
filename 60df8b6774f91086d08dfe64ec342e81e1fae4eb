@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_154a2880",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-01T11:13:15Z",
+      "side": 1,
+      "message": "Why not yaml?",
+      "range": {
+        "startLine": 330,
+        "startChar": 33,
+        "endLine": 330,
+        "endChar": 36
+      },
+      "revId": "60df8b6774f91086d08dfe64ec342e81e1fae4eb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
