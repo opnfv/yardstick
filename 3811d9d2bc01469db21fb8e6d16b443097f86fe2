@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_70261a18",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T14:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_5092fe57",
+      "range": {
+        "startLine": 9,
+        "startChar": 19,
+        "endLine": 9,
+        "endChar": 25
+      },
+      "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_909c866b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 19
@@ -94,6 +118,78 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_50231e05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T14:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_f0886a24",
+      "range": {
+        "startLine": 10,
+        "startChar": 52,
+        "endLine": 10,
+        "endChar": 62
+      },
+      "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_901da6c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T14:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_909c866b",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 23
+      },
+      "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b020a2f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T14:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_b09f025f",
+      "range": {
+        "startLine": 10,
+        "startChar": 24,
+        "endLine": 10,
+        "endChar": 29
+      },
+      "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_50795e2e",
         "filename": "samples/vnf_samples/nsut/vfw/vfw-tg-topology-scale-up.yaml",
         "patchSetId": 19
@@ -105,6 +201,30 @@
       "writtenOn": "2018-03-01T13:23:17Z",
       "side": 1,
       "message": "Which file(s) is this replacing? Shouldn\u0027t they be removed?\n\nIf time is an issues here, I suggest you add a script to use the render-only patch[1] and so that users can create and store the tc/topo files.\n\n[1] https://gerrit.opnfv.org/gerrit/#/c/52293/",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 3
+      },
+      "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_706d7a32",
+        "filename": "samples/vnf_samples/nsut/vfw/vfw-tg-topology-scale-up.yaml",
+        "patchSetId": 19
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T14:14:13Z",
+      "side": 1,
+      "message": "Not for now, we should not remove the other files in this patch.\n\nOnce everything is working (and tested), will do this.\n\nBut of course, we MUST remove the other files now we have this template.",
+      "parentUuid": "5a3f45e8_50795e2e",
       "range": {
         "startLine": 14,
         "startChar": 0,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_907486fe",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T14:14:13Z",
+      "side": 1,
+      "message": "You are right.",
+      "parentUuid": "5a3f45e8_b076e23c",
+      "range": {
+        "startLine": 553,
+        "startChar": 32,
+        "endLine": 553,
+        "endChar": 44
+      },
+      "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_f08fca21",
         "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
         "patchSetId": 19
@@ -151,6 +295,24 @@
       "writtenOn": "2018-03-01T13:23:17Z",
       "side": 1,
       "message": "There should be two blank lines here, instead of one, to separate classes",
+      "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d0656e46",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T14:14:13Z",
+      "side": 1,
+      "message": "Done.\n\nWhy pep8 is not failing??",
+      "parentUuid": "5a3f45e8_f08fca21",
       "revId": "3811d9d2bc01469db21fb8e6d16b443097f86fe2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
