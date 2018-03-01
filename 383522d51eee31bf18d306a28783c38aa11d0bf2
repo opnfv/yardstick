@@ -16,6 +16,24 @@
       "revId": "383522d51eee31bf18d306a28783c38aa11d0bf2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_15bce868",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T10:57:40Z",
+      "side": 1,
+      "message": "Yes, but this patch is not merged yet and we need to merge this patch today or tomorrow.",
+      "parentUuid": "5a3f45e8_cd3afe35",
+      "revId": "383522d51eee31bf18d306a28783c38aa11d0bf2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
