@@ -31,6 +31,7 @@ import six
 from flask import jsonify
 from six.moves import configparser
 from oslo_serialization import jsonutils
+from oslo_utils import encodeutils
 
 import yardstick
 
@@ -106,13 +107,12 @@ def remove_file(path):
             raise
 
 
-def execute_command(cmd):
+def execute_command(cmd, **kwargs):
     exec_msg = "Executing command: '%s'" % cmd
     logger.debug(exec_msg)
 
-    output = subprocess.check_output(cmd.split()).split(os.linesep)
-
-    return output
+    output = subprocess.check_output(cmd.split(), **kwargs)
+    return encodeutils.safe_decode(output, incoming='utf-8').split(os.linesep)
 
 
 def source_env(env_file):
