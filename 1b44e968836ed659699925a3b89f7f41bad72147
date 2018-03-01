@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_35b5a4ee",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-01T08:45:35Z",
+      "side": 1,
+      "message": "are we returning bool or None?\n\nthis should probably be False.\n\nor return self._stack/None",
+      "revId": "1b44e968836ed659699925a3b89f7f41bad72147",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
