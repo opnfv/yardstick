@@ -22,10 +22,10 @@ import shutil
 from collections import OrderedDict
 from subprocess import call
 
-from yardstick.common.utils import makedirs
+from yardstick.common import utils
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
-from yardstick.benchmark.scenarios.networking.vnf_generic import find_relative_file
+
 
 LOG = logging.getLogger(__name__)
 
@@ -93,9 +93,10 @@ class IxLoadResourceHelper(ClientResourceHelper):
     def setup(self):
         # NOTE: fixup scenario_helper to hanlde ixia
         self.resource_file_name = \
-            find_relative_file(self.scenario_helper.scenario_cfg['ixia_profile'],
-                               self.scenario_helper.scenario_cfg["task_path"])
-        makedirs(self.RESULTS_MOUNT)
+            utils.find_relative_file(
+                self.scenario_helper.scenario_cfg['ixia_profile'],
+                self.scenario_helper.scenario_cfg["task_path"])
+        utils.makedirs(self.RESULTS_MOUNT)
         cmd = MOUNT_CMD.format(self.vnfd_helper.mgmt_interface, self)
         LOG.debug(cmd)
 
@@ -103,7 +104,7 @@ class IxLoadResourceHelper(ClientResourceHelper):
             call(cmd, shell=True)
 
         shutil.rmtree(self.RESULTS_MOUNT, ignore_errors=True)
-        makedirs(self.RESULTS_MOUNT)
+        utils.makedirs(self.RESULTS_MOUNT)
         shutil.copy(self.resource_file_name, self.RESULTS_MOUNT)
 
     def make_aggregates(self):

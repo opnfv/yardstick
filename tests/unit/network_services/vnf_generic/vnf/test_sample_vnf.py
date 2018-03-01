@@ -547,7 +547,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         mock_meminfo.assert_called_once_with(ssh_helper)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.find_relative_file')
+    @mock.patch.object(utils, 'find_relative_file')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig')
     def test_build_config(self, mock_multi_port_config_class, mock_find, *args):
         mock_multi_port_config = mock_multi_port_config_class()

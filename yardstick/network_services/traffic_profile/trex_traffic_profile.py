@@ -21,7 +21,7 @@ import ipaddress
 import six
 
 from yardstick.common import exceptions as y_exc
-from yardstick.network_services.traffic_profile.base import TrafficProfile
+from yardstick.network_services.traffic_profile import base
 from trex_stl_lib.trex_stl_client import STLStream
 from trex_stl_lib.trex_stl_streams import STLFlowLatencyStats
 from trex_stl_lib.trex_stl_streams import STLTXCont
@@ -48,7 +48,7 @@ TYPE_OF_SERVICE = 'tos'
 LOG = logging.getLogger(__name__)
 
 
-class TrexProfile(TrafficProfile):
+class TrexProfile(base.TrafficProfile):
     """ This class handles Trex Traffic profile generation and execution """
 
     PROTO_MAP = {
@@ -127,7 +127,7 @@ class TrexProfile(TrafficProfile):
             self.vm_flow_vars.append(stl_vm_wr_flow_var)
         return partial
 
-    def _dscp_range_action_partial(self, *_):
+    def _dscp_range_action_partial(self, *args):
         def partial(min_value, max_value, count):
             # pylint: disable=unused-argument
             stl_vm_flow_var = STLVmFlowVar(name="dscp",
