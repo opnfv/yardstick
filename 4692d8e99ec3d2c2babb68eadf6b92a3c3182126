@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_2ae9bf80",
+        "filename": "tests/opnfv/test_suites/opnfv_os-odl-bgpvpn-noha_daily.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-03-01T02:45:29Z",
+      "side": 1,
+      "message": "also add tc012, this is former yardstick smoke test cases.\n[1]  https://git.opnfv.org/yardstick/tree/tests/opnfv/test_suites/opnfv_smoke.yaml",
+      "revId": "4692d8e99ec3d2c2babb68eadf6b92a3c3182126",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
