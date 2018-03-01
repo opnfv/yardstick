@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_1b1257b1",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T17:56:36Z",
+      "side": 1,
+      "message": "This is redundant. Any developer should be able to read this from the code.",
+      "revId": "b95c3b143b423b933683783d1de5a3b6a3004579",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_db174fa2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T17:56:36Z",
+      "side": 1,
+      "message": "Try to use \"get\" instead of catching an exception:\n\n  test_duration \u003d self.scenario_cfg.get(\u0027runner\u0027, {}).get(\u0027duration\u0027)",
+      "range": {
+        "startLine": 636,
+        "startChar": 8,
+        "endLine": 639,
+        "endChar": 67
+      },
+      "revId": "b95c3b143b423b933683783d1de5a3b6a3004579",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3b0d9391",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T17:56:36Z",
+      "side": 1,
+      "message": "This is more a preference than a request:\n\nreturn test_duration if test_durantion and test_duration \u003e test_timeout else test_timeout",
+      "revId": "b95c3b143b423b933683783d1de5a3b6a3004579",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
