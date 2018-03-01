@@ -46,6 +46,30 @@
       "revId": "3b9ea5458540c1186d47864b53dbb766d7abe129",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1541885a",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T11:24:47Z",
+      "side": 1,
+      "message": "Hi @Ross and @Emma.\n\nTesting difficulties are not, IMO, a justification for an specific implementation.\n\nAny Context setup has two phases, the instantiation (__init__()) and the initialization (init()). Although is \"mandatory\" to initialize a Context, this is not forced in the code. The variable proposed by Ross is a private variable only used in property name and just before the flags are initialized. I think we should introduce it.",
+      "parentUuid": "5a3f45e8_1504e879",
+      "range": {
+        "startLine": 70,
+        "startChar": 61,
+        "endLine": 70,
+        "endChar": 62
+      },
+      "revId": "3b9ea5458540c1186d47864b53dbb766d7abe129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
