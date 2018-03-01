@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_75544c54",
+        "filename": "ansible/prepare_env.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-01T10:43:30Z",
+      "side": 0,
+      "message": "Do we need this file anymore?\n\nIs still present in the old bash script, in in et/yardstick/yarstick.yml and common/constants.py, but only used here.",
+      "range": {
+        "startLine": 32,
+        "startChar": 44,
+        "endLine": 32,
+        "endChar": 58
+      },
+      "revId": "3387e5618de37c37714c86cec9058d737cb01a5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
