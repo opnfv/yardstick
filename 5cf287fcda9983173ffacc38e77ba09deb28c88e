@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_5bf5ff81",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l3fwd-2.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-03-01T17:43:25Z",
+      "side": 1,
+      "message": "what is the need for a dummy mac address?",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 21
+      },
+      "revId": "5cf287fcda9983173ffacc38e77ba09deb28c88e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1b04177a",
+        "filename": "samples/vnf_samples/nsut/prox/configs/ipv4-2port.lua",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-03-01T17:43:25Z",
+      "side": 1,
+      "message": "-- Copyright (c) 2016-2017 Intel Corporation",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 26
+      },
+      "revId": "5cf287fcda9983173ffacc38e77ba09deb28c88e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
