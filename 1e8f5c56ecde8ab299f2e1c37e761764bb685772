@@ -22,6 +22,30 @@
       "revId": "1e8f5c56ecde8ab299f2e1c37e761764bb685772",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5022feb9",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-01T15:02:57Z",
+      "side": 1,
+      "message": "create should also return something, correct? \n\nIn L54, it does not, but it does update the value of self._stack, as is done here",
+      "parentUuid": "5a3f45e8_d068cef7",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 61
+      },
+      "revId": "1e8f5c56ecde8ab299f2e1c37e761764bb685772",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
