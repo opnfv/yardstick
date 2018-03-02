@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d6f3a671",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T11:23:59Z",
+      "side": 1,
+      "message": "We should change this: shade_client",
+      "range": {
+        "startLine": 70,
+        "startChar": 13,
+        "endLine": 70,
+        "endChar": 27
+      },
+      "revId": "6bc4d8b8d091eab1938fff80740be0cff49a69f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_36e92a81",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T11:23:59Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 292,
+        "startChar": 20,
+        "endLine": 292,
+        "endChar": 34
+      },
+      "revId": "6bc4d8b8d091eab1938fff80740be0cff49a69f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7602923f",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T11:23:59Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 293,
+        "startChar": 17,
+        "endLine": 293,
+        "endChar": 31
+      },
+      "revId": "6bc4d8b8d091eab1938fff80740be0cff49a69f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_16eeae88",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T11:23:59Z",
+      "side": 1,
+      "message": "just a small nit:\n\nfor neutron_net in (net for net in networks if net.name \u003d\u003d network.stack_name):\n\n\"net\" is a Munch object, so we can access the keys as attributes.",
+      "range": {
+        "startLine": 297,
+        "startChar": 12,
+        "endLine": 298,
+        "endChar": 61
+      },
+      "revId": "6bc4d8b8d091eab1938fff80740be0cff49a69f9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
