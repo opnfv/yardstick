@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_b606da1e",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-02T12:30:36Z",
+      "side": 1,
+      "message": "ok cool! I will use the ip-status monitor then.",
+      "parentUuid": "5a3f45e8_56515661",
+      "range": {
+        "startLine": 62,
+        "startChar": 18,
+        "endLine": 70,
+        "endChar": 65
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_d6a606c1",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
         "patchSetId": 9
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "can you support Kanglin in creating this script?",
       "parentUuid": "5a3f45e8_d6a606c1",
+      "range": {
+        "startLine": 81,
+        "startChar": 21,
+        "endLine": 81,
+        "endChar": 54
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_762572c1",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-02T12:30:36Z",
+      "side": 1,
+      "message": "Well I can but the script will not take dynamically more than one parameters because of this Bug [0] it will be a bit hardcoded.\n\n[0]: https://jira.opnfv.org/browse/YARDSTICK-1039",
+      "parentUuid": "5a3f45e8_b64edabf",
       "range": {
         "startLine": 81,
         "startChar": 21,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f6186286",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-02T12:30:36Z",
+      "side": 1,
+      "message": "I think yardstick takes care of that it creates some default security groups I think when you deploy the heat stack. I had never had a problem with the ping so far. So I am proposing to leave it as it is for now.",
+      "parentUuid": "5a3f45e8_76545254",
+      "range": {
+        "startLine": 90,
+        "startChar": 21,
+        "endLine": 91,
+        "endChar": 52
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_e1eee28a",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
         "patchSetId": 9
@@ -178,6 +250,30 @@
       "side": 1,
       "message": "good point. Let\u0027s remove this step and keep the monitors running till the end of the test case.",
       "parentUuid": "5a3f45e8_e1eee28a",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 44
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3613ea67",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-02T12:30:36Z",
+      "side": 1,
+      "message": "ok cool",
+      "parentUuid": "5a3f45e8_961d9ec0",
       "range": {
         "startLine": 149,
         "startChar": 0,
@@ -284,6 +380,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_760c5243",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-02T12:30:36Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "5a3f45e8_b6209af8",
+      "range": {
+        "startLine": 162,
+        "startChar": 17,
+        "endLine": 168,
+        "endChar": 49
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_5bc17f7f",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
         "patchSetId": 9
@@ -319,6 +439,30 @@
       "side": 1,
       "message": "yes, that is fine.",
       "parentUuid": "5a3f45e8_5bc17f7f",
+      "range": {
+        "startLine": 174,
+        "startChar": 17,
+        "endLine": 174,
+        "endChar": 61
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_56095630",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-02T12:30:36Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "5a3f45e8_d61726a2",
       "range": {
         "startLine": 174,
         "startChar": 17,
