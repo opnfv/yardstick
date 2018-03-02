@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_b6c89a75",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-02T08:56:27Z",
+      "side": 1,
+      "message": "For these monitors we can use an existing monitor which is called ip-status. \n\nhttps://github.com/opnfv/yardstick/blob/master/yardstick/benchmark/scenarios/availability/monitor_conf.yaml#L22",
+      "range": {
+        "startLine": 62,
+        "startChar": 18,
+        "endLine": 70,
+        "endChar": 65
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d6a606c1",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-02T08:56:27Z",
+      "side": 1,
+      "message": "We are blocked by this Bug: https://jira.opnfv.org/browse/YARDSTICK-1038",
+      "range": {
+        "startLine": 81,
+        "startChar": 21,
+        "endLine": 81,
+        "endChar": 54
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f6886224",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-02T08:56:27Z",
+      "side": 1,
+      "message": "we can use the max_outage_time metric which is the SLA of the general_monitor which we are gonna use. This is practically the same thing because yardstick calculates the outage time if the ping command fails [0] \n\nCurrently there is no monitor which is using packet_drop SLA and pktgen in yardstick\n\n[0]: https://github.com/opnfv/yardstick/blob/master/yardstick/benchmark/scenarios/availability/monitor/basemonitor.py#L129-#L143",
+      "range": {
+        "startLine": 90,
+        "startChar": 21,
+        "endLine": 91,
+        "endChar": 52
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_e1eee28a",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
         "patchSetId": 9
@@ -18,6 +87,29 @@
         "startChar": 0,
         "endLine": 151,
         "endChar": 44
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_16886e1e",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-02T08:56:27Z",
+      "side": 1,
+      "message": "the zero outage_time indicates that we didn\u0027t have a packet drop event.",
+      "range": {
+        "startLine": 157,
+        "startChar": 26,
+        "endLine": 159,
+        "endChar": 43
       },
       "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
