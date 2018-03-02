@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_8abe0efe",
+        "filename": "ansible/roles/infra_create_network/tasks/create_xml.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T14:23:54Z",
+      "side": 1,
+      "message": "Why only these ports? Why don\u0027t we allow all ports? Maybe we can remove this section.",
+      "range": {
+        "startLine": 63,
+        "startChar": 10,
+        "endLine": 64,
+        "endChar": 22
+      },
+      "revId": "f58ced5285a5e07269a7fd2f3c3fe0a064387443",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_aa630ab0",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T14:23:54Z",
+      "side": 1,
+      "message": "See comments in https://gerrit.opnfv.org/gerrit/#/c/52203/5/ansible/roles/infra_create_vms/tasks/main.yml\n\ndefault_bridge could be None",
+      "revId": "f58ced5285a5e07269a7fd2f3c3fe0a064387443",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6abbc20e",
+        "filename": "ansible/roles/infra_create_vms/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T14:23:54Z",
+      "side": 1,
+      "message": "1) \"default_gateway\"? or \"default_bridge\"?\n2) What happens if \"default_bridge\" is not defined, because of the conditions? You should set a default value for \"default_bridge\" (None)",
+      "range": {
+        "startLine": 32,
+        "startChar": 38,
+        "endLine": 32,
+        "endChar": 53
+      },
+      "revId": "f58ced5285a5e07269a7fd2f3c3fe0a064387443",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
