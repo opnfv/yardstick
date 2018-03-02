@@ -59,6 +59,11 @@ class FunctionNotImplemented(YardstickException):
                '"%(class_name)" class.')
 
 
+class YardstickBannedModuleImported(YardstickException):
+    # pragma: no cover
+    message = 'Module "%(module)s" cannnot be imported. Reason: "%(reason)s"'
+
+
 class HeatTemplateError(YardstickException):
     """Error in Heat during the stack deployment"""
     message = ('Error in Heat during the creation of the OpenStack stack '
