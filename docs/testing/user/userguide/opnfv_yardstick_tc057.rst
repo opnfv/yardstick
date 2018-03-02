@@ -10,8 +10,11 @@ Yardstick Test Case Description TC057
 
 +-----------------------------------------------------------------------------+
 |OpenStack Controller Cluster Management Service High Availability            |
-+==============+==============================================================+
-|test case id  |                                                              |
+|                                                                             |
++--------------+--------------------------------------------------------------+
+|test case id  | OPNFV_YARDSTICK_TC057_HA: OpenStack Controller Cluster       |
+|              | Management Service High Availability                         |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test purpose  | This test case will verify the quorum configuration of the   |
 |              | cluster manager(pacemaker) on controller nodes. When a       |
@@ -53,10 +56,11 @@ Yardstick Test Case Description TC057
 |              | "openstack-cmd" for this monitor.                            |
 |              | 2) command_name: which is the command name used for request  |
 |              |                                                              |
-|              | In this case, the command_name of monitor1 should be services|
-|              | that are managed by the cluster manager. (Since rabbitmq and |
-|              | haproxy are managed by pacemaker, most Openstack Services    |
-|              | can be used to check high availability in this case)         |
+|              | In this case, the command_name of monitor1 should be         |
+|              | services that are managed by the cluster manager.            |
+|              | (Since rabbitmq and haproxy are managed by pacemaker,        |
+|              | most Openstack Services can be used to check high            |
+|              | availability in this case)                                   |
 |              |                                                              |
 |              | (e.g.)                                                       |
 |              | monitor1:                                                    |
@@ -155,8 +159,8 @@ Yardstick Test Case Description TC057
 |              | Result: The test case is passed or not.                      |
 |              |                                                              |
 +--------------+------+----------------------------------+--------------------+
-|post-action   | It is the action when the test cases exist. It will check the|
-|              | status of the cluster messaging process(corosync) on the     |
+|post-action   | It is the action when the test cases exist. It will check    |
+|              | the status of the cluster messaging process(corosync) on the |
 |              | host, and restart the process if it is not running for next  |
 |              | test cases                                                   |
 +--------------+------+----------------------------------+--------------------+
