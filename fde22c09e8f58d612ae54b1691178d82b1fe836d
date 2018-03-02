@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_56515661",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-02T10:58:37Z",
+      "side": 1,
+      "message": "let\u0027s use the existing ping monitor with corresponding target IPs. This section was written with the test functionality in mind, not so much the implementation (which I was not well aware of). So the names mentioned here refer to what should be checked, not to new types of monitors.",
+      "parentUuid": "5a3f45e8_b6c89a75",
+      "range": {
+        "startLine": 62,
+        "startChar": 18,
+        "endLine": 70,
+        "endChar": 65
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_d6a606c1",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-02T08:56:27Z",
       "side": 1,
       "message": "We are blocked by this Bug: https://jira.opnfv.org/browse/YARDSTICK-1038",
+      "range": {
+        "startLine": 81,
+        "startChar": 21,
+        "endLine": 81,
+        "endChar": 54
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b64edabf",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-02T10:58:37Z",
+      "side": 1,
+      "message": "can you support Kanglin in creating this script?",
+      "parentUuid": "5a3f45e8_d6a606c1",
       "range": {
         "startLine": 81,
         "startChar": 21,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_76545254",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-02T10:58:37Z",
+      "side": 1,
+      "message": "using the ping monitor is fine for me. Do we need to ensure security groups allow for incoming ICMP traffic?",
+      "parentUuid": "5a3f45e8_f6886224",
+      "range": {
+        "startLine": 90,
+        "startChar": 21,
+        "endLine": 91,
+        "endChar": 52
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_e1eee28a",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2018-02-28T12:48:35Z",
       "side": 1,
       "message": "Why do we need to stop the monitors ?",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 44
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_961d9ec0",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-02T10:58:37Z",
+      "side": 1,
+      "message": "good point. Let\u0027s remove this step and keep the monitors running till the end of the test case.",
+      "parentUuid": "5a3f45e8_e1eee28a",
       "range": {
         "startLine": 149,
         "startChar": 0,
@@ -164,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_b6209af8",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-02T10:58:37Z",
+      "side": 1,
+      "message": "let\u0027s change this so that the SDN controller is explicitly restarted by the test case. The purpose of the test is then to validate that the SDN controller can successfully recover after a restart.",
+      "parentUuid": "5a3f45e8_484b7cb0",
+      "range": {
+        "startLine": 162,
+        "startChar": 17,
+        "endLine": 168,
+        "endChar": 49
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_5bc17f7f",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
         "patchSetId": 9
@@ -175,6 +295,30 @@
       "writtenOn": "2018-03-01T15:55:57Z",
       "side": 1,
       "message": "Can we ping from the existing nova instances towards the new nova instance?\n\nIs simpler this way.",
+      "range": {
+        "startLine": 174,
+        "startChar": 17,
+        "endLine": 174,
+        "endChar": 61
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d61726a2",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-02T10:58:37Z",
+      "side": 1,
+      "message": "yes, that is fine.",
+      "parentUuid": "5a3f45e8_5bc17f7f",
       "range": {
         "startLine": 174,
         "startChar": 17,
