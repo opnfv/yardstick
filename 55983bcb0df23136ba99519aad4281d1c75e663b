@@ -1,0 +1,404 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_36a00a43",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_acl-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d69a8613",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_acl-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "small nit: leave an empty line",
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_16a50e53",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_l2fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7689f2c9",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_l2fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "new line",
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d6c1e6e5",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_l2fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "Write a comment with the alternatives:\n# type: {\u0027\u0027, \u0027multiflow\u0027, \u0027pktTouch\u0027}",
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f6bce26e",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_l2fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "+1!! good one",
+      "range": {
+        "startLine": 35,
+        "startChar": 19,
+        "endLine": 35,
+        "endChar": 84
+      },
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_76b0d28b",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_l2fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "make if configurable, like in acl testcase",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 17
+      },
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_36b76a88",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_l3fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_16bcee68",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_l3fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "new line",
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_56add630",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_mpls_tagging-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b6aa5a17",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_mpls_tagging-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "new line",
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_96a75e4f",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_mpls_tagging-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "configurable",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 17
+      },
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f6634218",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_acl-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_164a2e80",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_acl-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "line",
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3645aa70",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_acl-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "configurable",
+      "range": {
+        "startLine": 60,
+        "startChar": 3,
+        "endLine": 60,
+        "endChar": 17
+      },
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_565b1654",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_l2fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b6589a57",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_l2fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "line",
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_96559e1f",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_l2fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "comment with types, the same as in baremetal",
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f631820c",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_l3fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "same comments",
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d6360603",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_mpls_tagging-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T12:17:15Z",
+      "side": 1,
+      "message": "same comments",
+      "revId": "55983bcb0df23136ba99519aad4281d1c75e663b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
