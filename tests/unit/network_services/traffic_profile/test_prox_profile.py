@@ -31,14 +31,25 @@ if stl_patch:
 
 class TestProxProfile(unittest.TestCase):
 
+    def test_sort_vpci(self):
+        traffic_generator = mock.Mock()
+        interface_1 = {'virtual-interface': {'vpci': 'id1'}, 'name': 'name1'}
+        interface_2 = {'virtual-interface': {'vpci': 'id2'}, 'name': 'name2'}
+        interface_3 = {'virtual-interface': {'vpci': 'id3'}, 'name': 'name3'}
+        interfaces = [interface_2, interface_3, interface_1]
+        traffic_generator.vnfd_helper = {
+            'vdu': [{'external-interface': interfaces}]}
+        output = ProxProfile.sort_vpci(traffic_generator)
+        self.assertEqual([interface_1, interface_2, interface_3], output)
+
     def test_fill_samples(self):
         samples = {}
-        traffic_generator = mock.MagicMock()
-        traffic_generator.vpci_if_name_ascending = [
-            ['id1', 'name1'],
-            ['id2', 'name2'],
-        ]
 
+        traffic_generator = mock.MagicMock()
+        interfaces = [
+            ['id1', 'name1'],
+            ['id2', 'name2']
+        ]
         traffic_generator.resource_helper.sut.port_stats.side_effect = [
             list(range(12)),
             list(range(10, 22)),
@@ -54,7 +65,9 @@ class TestProxProfile(unittest.TestCase):
                 'out_packets': 17,
             },
         }
-        ProxProfile.fill_samples(samples, traffic_generator)
+        with mock.patch.object(ProxProfile, 'sort_vpci', return_value=interfaces):
+            ProxProfile.fill_samples(samples, traffic_generator)
+
         self.assertDictEqual(samples, expected)
 
     def test_init(self):

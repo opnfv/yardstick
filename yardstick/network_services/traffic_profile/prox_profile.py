@@ -29,8 +29,22 @@ class ProxProfile(TrafficProfile):
     """
 
     @staticmethod
+    def sort_vpci(traffic_gen):
+        """Return the list of external interfaces ordered by vpci and name
+
+        :param traffic_gen: (ProxTrafficGen) traffic generator
+        :return: list of ordered interfaces
+        """
+        def key_func(interface):
+            return interface['virtual-interface']['vpci'], interface['name']
+
+        return sorted(traffic_gen.vnfd_helper['vdu'][0]['external-interface'],
+                      key=key_func)
+
+    @staticmethod
     def fill_samples(samples, traffic_gen):
-        for vpci_idx, intf in enumerate(traffic_gen.vpci_if_name_ascending):
+        vpci_if_name_ascending = ProxProfile.sort_vpci(traffic_gen)
+        for vpci_idx, intf in enumerate(vpci_if_name_ascending):
             name = intf[1]
             # TODO: VNFDs KPIs values needs to be mapped to TRex structure
             xe_port = traffic_gen.resource_helper.sut.port_stats([vpci_idx])
