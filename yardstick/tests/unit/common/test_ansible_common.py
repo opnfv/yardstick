@@ -99,7 +99,7 @@ class AnsibleNodeTestCase(unittest.TestCase):
 
     def test_ansible_node_getattr(self):
         a = ansible_common.AnsibleNode({"name": "name"})
-        self.assertEqual(getattr(a, "nosuch", None), None)
+        self.assertIsNone(getattr(a, "nosuch", None))
 
 
 class AnsibleNodeDictTestCase(unittest.TestCase):
