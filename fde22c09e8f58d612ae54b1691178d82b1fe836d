@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_4acec684",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-02T16:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_b606da1e",
+      "range": {
+        "startLine": 62,
+        "startChar": 18,
+        "endLine": 70,
+        "endChar": 65
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_d6a606c1",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
         "patchSetId": 9
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Well I can but the script will not take dynamically more than one parameters because of this Bug [0] it will be a bit hardcoded.\n\n[0]: https://jira.opnfv.org/browse/YARDSTICK-1039",
       "parentUuid": "5a3f45e8_b64edabf",
+      "range": {
+        "startLine": 81,
+        "startChar": 21,
+        "endLine": 81,
+        "endChar": 54
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0ade7e3f",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-02T16:02:31Z",
+      "side": 1,
+      "message": "so, the blocking bug is rather YARDSTICK-1039 and not YARDSTICK-1038.",
+      "parentUuid": "5a3f45e8_762572c1",
       "range": {
         "startLine": 81,
         "startChar": 21,
@@ -215,6 +263,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_aad82a54",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-02T16:02:31Z",
+      "side": 1,
+      "message": "ok, very good.",
+      "parentUuid": "5a3f45e8_f6186286",
+      "range": {
+        "startLine": 90,
+        "startChar": 21,
+        "endLine": 91,
+        "endChar": 52
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_e1eee28a",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
         "patchSetId": 9
@@ -286,6 +358,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_6aee22ee",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-02T16:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_3613ea67",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 44
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_16886e1e",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
         "patchSetId": 9
@@ -297,6 +393,30 @@
       "writtenOn": "2018-03-02T08:56:27Z",
       "side": 1,
       "message": "the zero outage_time indicates that we didn\u0027t have a packet drop event.",
+      "range": {
+        "startLine": 157,
+        "startChar": 26,
+        "endLine": 159,
+        "endChar": 43
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2ae41a0c",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-02T16:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_16886e1e",
       "range": {
         "startLine": 157,
         "startChar": 26,
@@ -404,6 +524,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_0a367e52",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-02T16:02:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_b6209af8",
+      "range": {
+        "startLine": 162,
+        "startChar": 17,
+        "endLine": 168,
+        "endChar": 49
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_5bc17f7f",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
         "patchSetId": 9
@@ -468,6 +612,29 @@
         "startChar": 17,
         "endLine": 174,
         "endChar": 61
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ea1192ad",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-02T16:02:31Z",
+      "side": 1,
+      "message": "so, if we ping from the old VM to the new one, can we still do this?",
+      "range": {
+        "startLine": 181,
+        "startChar": 19,
+        "endLine": 182,
+        "endChar": 41
       },
       "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
