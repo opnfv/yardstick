@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_6db63c3f",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-02T18:55:50Z",
+      "side": 1,
+      "message": "To avoid this, use yardstick.common.utils.remove_file in L407 and L408",
+      "range": {
+        "startLine": 410,
+        "startChar": 12,
+        "endLine": 410,
+        "endChar": 39
+      },
+      "revId": "4045773a94c6e05ce4777ff741c4e6997b4f51aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
