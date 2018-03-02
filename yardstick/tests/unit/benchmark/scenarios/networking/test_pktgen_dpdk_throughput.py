@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 ##############################################################################
 # Copyright (c) 2017 Nokia and others.
 #
@@ -192,11 +191,3 @@ class PktgenDPDKTestCase(unittest.TestCase):
 
         mock_ssh.SSH().execute.assert_called_with(
             "sudo /dpdk/destdir/bin/dpdk-procinfo -- --stats-reset > /dev/null 2>&1")
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

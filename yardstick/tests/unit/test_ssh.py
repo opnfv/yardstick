@@ -602,11 +602,3 @@ class TestAutoConnectSSH(unittest.TestCase):
 
         auto_connect_ssh.put_file('a', 'b')
         self.assertEqual(mock_put_sftp.call_count, 1)
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

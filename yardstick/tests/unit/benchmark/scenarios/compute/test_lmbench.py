@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2015 Ericsson AB and others.
 #
@@ -193,10 +191,3 @@ class LmbenchTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, l.run, self.result)
-
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()

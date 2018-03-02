@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 ##############################################################################
 # Copyright (c) 2015 Huawei Technologies Co.,Ltd and other.
 #
@@ -162,10 +160,3 @@ class UnixbenchTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, u.run, result)
-
-
-def main():
-    unittest.main()
-
-if __name__ == '__main__':
-    main()

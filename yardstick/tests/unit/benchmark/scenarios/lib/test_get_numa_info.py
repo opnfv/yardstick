@@ -101,11 +101,3 @@ class GetNumaInfoTestCase(unittest.TestCase):
         obj = GetNumaInfo(scenario_cfg, {})
         result = obj._get_current_host_name('1')
         self.assertEqual(result, 'host5')
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()

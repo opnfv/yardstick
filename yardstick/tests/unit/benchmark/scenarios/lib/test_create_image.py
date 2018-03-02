@@ -33,11 +33,3 @@ class CreateImageTestCase(unittest.TestCase):
         obj.run({})
         mock_create_image.assert_called_once()
         mock_get_glance_client.assert_called_once()
-
-
-def main():
-    unittest.main()
-
-
-if __name__ == '__main__':
-    main()
