@@ -10,7 +10,7 @@ Yardstick Test Case Description TC056
 
 +-----------------------------------------------------------------------------+
 |OpenStack Controller Messaging Queue Service High Availability               |
-+==============+==============================================================+
++--------------+--------------------------------------------------------------+
 |test case id  | OPNFV_YARDSTICK_TC056:OpenStack Controller Messaging Queue   |
 |              | Service High Availability                                    |
 +--------------+--------------------------------------------------------------+

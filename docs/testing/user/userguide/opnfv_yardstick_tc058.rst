@@ -10,8 +10,9 @@ Yardstick Test Case Description TC058
 
 +-----------------------------------------------------------------------------+
 |OpenStack Controller Virtual Router Service High Availability                |
-+==============+==============================================================+
-|test case id  | OPNFV_YARDSTICK_TC058:OpenStack Controller Virtual Router    |
+|                                                                             |
++--------------+--------------------------------------------------------------+
+|test case id  | OPNFV_YARDSTICK_TC058: OpenStack Controller Virtual Router   |
 |              | Service High Availability                                    |
 +--------------+--------------------------------------------------------------+
 |test purpose  | This test case will verify the high availability of virtual  |
