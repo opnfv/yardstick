@@ -30,20 +30,6 @@ class ProxTrafficGen(SampleVNFTrafficGen):
     LUA_PARAMETER_NAME = "gen"
     WAIT_TIME = 1
 
-    @staticmethod
-    def _sort_vpci(vnfd):
-        """
-
-        :param vnfd: vnfd.yaml
-        :return: trex_cfg.yaml file
-        """
-
-        def key_func(interface):
-            return interface["virtual-interface"]["vpci"], interface["name"]
-
-        ext_intf = vnfd["vdu"][0]["external-interface"]
-        return sorted(ext_intf, key=key_func)
-
     def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
         # don't call superclass, use custom wrapper of ProxApproxVnf
         self._vnf_wrapper = ProxApproxVnf(name, vnfd, setup_env_helper_type, resource_helper_type)
@@ -58,10 +44,6 @@ class ProxTrafficGen(SampleVNFTrafficGen):
         self.traffic_finished = False
         self._tg_process = None
         self._traffic_process = None
-
-        # used for generating stats
-        self.vpci_if_name_ascending = self._sort_vpci(vnfd)
-        self.resource_helper.vpci_if_name_ascending = self._sort_vpci(vnfd)
 
     def terminate(self):
         self._vnf_wrapper.terminate()
