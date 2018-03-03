@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_20371be5",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_aa4f8a91",
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_6a7e22b0",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_80342fdf",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_6a7e22b0",
+      "range": {
+        "startLine": 34,
+        "startChar": 75,
+        "endLine": 34,
+        "endChar": 76
+      },
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_ca4ad682",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
         "patchSetId": 4
@@ -53,6 +95,30 @@
       "writtenOn": "2018-03-02T17:36:29Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 37,
+        "startChar": 49,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_603123ec",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_ca4ad682",
       "range": {
         "startLine": 37,
         "startChar": 49,
@@ -111,6 +177,54 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_a0520b11",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_8a81ee91",
+      "range": {
+        "startLine": 39,
+        "startChar": 34,
+        "endLine": 39,
+        "endChar": 49
+      },
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c04d9774",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_0a45de6f",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 24
+      },
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_2a5b7a55",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
         "patchSetId": 4
@@ -122,6 +236,30 @@
       "writtenOn": "2018-03-02T17:36:29Z",
       "side": 1,
       "message": "Is \"new\" necessary here?\n\nIs it sufficient to say \"Verifies that the system never loses the ability to execute virtual network operations..\"?\n\nThe \"new\" implies you\u0027re using a subset of operations.",
+      "range": {
+        "startLine": 40,
+        "startChar": 44,
+        "endLine": 40,
+        "endChar": 47
+      },
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_00581f31",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_2a5b7a55",
       "range": {
         "startLine": 40,
         "startChar": 44,
@@ -151,6 +289,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_e05c1328",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_8a58ce57",
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_6a55821c",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
         "patchSetId": 4
@@ -162,6 +318,30 @@
       "writtenOn": "2018-03-02T17:36:29Z",
       "side": 1,
       "message": "I suggest using the double backticks to render the parameter names in monospaced font",
+      "range": {
+        "startLine": 46,
+        "startChar": 21,
+        "endLine": 46,
+        "endChar": 31
+      },
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_40418738",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_6a55821c",
       "range": {
         "startLine": 46,
         "startChar": 21,
@@ -197,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_203efbb8",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_ca31360d",
+      "range": {
+        "startLine": 49,
+        "startChar": 21,
+        "endLine": 49,
+        "endChar": 33
+      },
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_aa366a01",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
         "patchSetId": 4
@@ -208,6 +412,30 @@
       "writtenOn": "2018-03-02T17:36:29Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 51,
+        "startChar": 21,
+        "endLine": 51,
+        "endChar": 25
+      },
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_804b8f58",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_aa366a01",
       "range": {
         "startLine": 51,
         "startChar": 21,
@@ -237,6 +465,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_6048035c",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_0a3cbee1",
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_ea407258",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
         "patchSetId": 4
@@ -248,6 +494,30 @@
       "writtenOn": "2018-03-02T17:36:29Z",
       "side": 1,
       "message": "could do backticks to render in monospaced font",
+      "range": {
+        "startLine": 60,
+        "startChar": 21,
+        "endLine": 60,
+        "endChar": 43
+      },
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c074779e",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_ea407258",
       "range": {
         "startLine": 60,
         "startChar": 21,
@@ -283,6 +553,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_a0796b95",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_4a2526c1",
+      "range": {
+        "startLine": 113,
+        "startChar": 35,
+        "endLine": 113,
+        "endChar": 42
+      },
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_2a225ab9",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
         "patchSetId": 4
@@ -294,6 +588,30 @@
       "writtenOn": "2018-03-02T17:36:29Z",
       "side": 1,
       "message": "Three? shouldn\u0027t it be 5 nodes for HA config?\n\nOr are you referring to three controllers?",
+      "range": {
+        "startLine": 114,
+        "startChar": 33,
+        "endLine": 114,
+        "endChar": 52
+      },
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_006f7fc6",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "I am referring only to the SDN controllers here.",
+      "parentUuid": "5a3f45e8_2a225ab9",
       "range": {
         "startLine": 114,
         "startChar": 33,
@@ -329,6 +647,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_e07373af",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_6a2c62ac",
+      "range": {
+        "startLine": 133,
+        "startChar": 17,
+        "endLine": 133,
+        "endChar": 66
+      },
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_ca181687",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
         "patchSetId": 4
@@ -352,6 +694,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_406867ba",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_ca181687",
+      "range": {
+        "startLine": 138,
+        "startChar": 17,
+        "endLine": 140,
+        "endChar": 26
+      },
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_aa1dca75",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
         "patchSetId": 4
@@ -363,6 +729,30 @@
       "writtenOn": "2018-03-02T17:36:29Z",
       "side": 1,
       "message": "it is sufficient to either write \"SSH\" or \"Connect\"",
+      "range": {
+        "startLine": 145,
+        "startChar": 17,
+        "endLine": 145,
+        "endChar": 29
+      },
+      "revId": "e0a1bd6fc8628cb4836c8bb323613484a4339f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_20655be1",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-03T09:42:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_aa1dca75",
       "range": {
         "startLine": 145,
         "startChar": 17,
