@@ -38,3 +38,7 @@ get-vip-host:
 start-service:
   action_script: ha_tools/start_service.bash
   rollback_script: ha_tools/check_process_python.bash
+
+add-server-to-secgroup:
+  action_script: ha_tools/nova/add_server_to_existing_secgroup.bash
+  rollback_script: ha_tools/nova/list_secgroups.bash
