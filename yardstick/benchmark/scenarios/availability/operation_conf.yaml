@@ -35,3 +35,6 @@ get-vip-host:
   action_script: ha_tools/pacemaker/get_vip_host.bash
   rollback_script: ha_tools/pacemaker/get_resource_status.bash
 
+add-floatingip-to-server:
+  action_script: ha_tools/nova/add_floating_ip_to_server.bash
+  rollback_script: ha_tools/nova/dissociate_and_delete_floating_ip.bash
