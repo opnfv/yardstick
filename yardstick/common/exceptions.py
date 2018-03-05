@@ -67,7 +67,7 @@ class YardstickBannedModuleImported(YardstickException):
 class HeatTemplateError(YardstickException):
     """Error in Heat during the stack deployment"""
     message = ('Error in Heat during the creation of the OpenStack stack '
-               '"%(stack_name)"')
+               '"%(stack_name)s"')
 
 
 class IPv6RangeError(YardstickException):
