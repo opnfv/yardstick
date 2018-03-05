@@ -72,10 +72,12 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
 
     # update "ip" according to the CI env
     ssh -l ubuntu "${INSTALLER_IP}" -i ${SSH_KEY} ${ssh_options} \
-         "sudo salt -C 'ctl* or cmp*' grains.get fqdn_ip4  --out yaml">node_info
+         "sudo salt -C 'ctl* or cmp* or odl01* or gtw*' grains.get fqdn_ip4  --out yaml">node_info
 
     controller_ips=($(awk '/ctl/{getline; print $2}' < node_info))
     compute_ips=($(awk '/cmp/{getline; print $2}' < node_info))
+    odl_ip=($(awk '/odl01/{getline; print $2}' < node_info))
+    gateway_ip=($(awk '/gtw/{getline; print $2}' < node_info))
 
     if [[ ${controller_ips[0]} ]]; then
         sed -i "s|ip1|${controller_ips[0]}|" "${pod_yaml}"
@@ -91,6 +93,12 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     fi
     if [[ ${compute_ips[1]} ]]; then
         sed -i "s|ip5|${compute_ips[1]}|" "${pod_yaml}"
+    fi
+    if [[ ${odl_ip[0]} ]]; then
+        sed -i "s|ip6|${odl_ip[0]}|" "${pod_yaml}"
+    fi
+    if [[ ${gateway_ip[0]} ]]; then
+        sed -i "s|ip7|${gateway_ip[0]}|" "${pod_yaml}"
     fi
 
     # update 'user' and 'key_filename' according to the CI env
