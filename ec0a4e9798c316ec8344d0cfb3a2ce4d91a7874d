@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_de1298b3",
+        "filename": "yardstick/benchmark/scenarios/lib/create_network.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-03-05T15:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_9e55b0c8",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 60
+      },
+      "revId": "ec0a4e9798c316ec8344d0cfb3a2ce4d91a7874d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_de0578c3",
         "filename": "yardstick/benchmark/scenarios/lib/create_network.py",
         "patchSetId": 20
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-05T13:12:29Z",
       "side": 1,
       "message": "This should raise an exception.\n\nIf an exception is not raise, then the test case will report a PASS, even though it hasn\u0027t actually succeeded. In order for the testcase to FAIL, an exception needs to be raised.\n\nYou should define a new exception in yardstick/common/exceptions.py called NetworkCreateFailed",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 18
+      },
+      "revId": "ec0a4e9798c316ec8344d0cfb3a2ce4d91a7874d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_be17cca2",
+        "filename": "yardstick/benchmark/scenarios/lib/create_network.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-03-05T15:51:32Z",
+      "side": 1,
+      "message": "As discussed made changes in openstack_utils file to raise exception",
+      "parentUuid": "5a3f45e8_de0578c3",
       "range": {
         "startLine": 57,
         "startChar": 12,
