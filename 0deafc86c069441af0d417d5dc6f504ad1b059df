@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_a3097597",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-03-05T09:29:25Z",
+      "side": 1,
+      "message": "fail\n\"msg\": \"Destination /opt/tempT does not exist\"",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 19
+      },
+      "revId": "0deafc86c069441af0d417d5dc6f504ad1b059df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5bacdfed",
+        "filename": "ansible/roles/install_dependencies_jumphost/tasks/Debian.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-03-05T09:29:25Z",
+      "side": 1,
+      "message": "need to update",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 46
+      },
+      "revId": "0deafc86c069441af0d417d5dc6f504ad1b059df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
