@@ -94,6 +94,30 @@
       "revId": "ff9e325233825ac57248e1ee6abd0752e4635b64",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ded0d855",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/create_instance_from_image.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-05T12:54:31Z",
+      "side": 1,
+      "message": "Ah, ok, got it. Thanks for pointing that out. That wasn\u0027t clear based on the description of the parameters above.",
+      "parentUuid": "5a3f45e8_e3889de9",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 81
+      },
+      "revId": "ff9e325233825ac57248e1ee6abd0752e4635b64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
