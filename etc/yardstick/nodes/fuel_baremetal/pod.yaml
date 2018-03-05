@@ -49,3 +49,16 @@ nodes:
     ip: ip5
     user: node_username
     key_filename: node_keyfile
+-
+    name: node6
+    role: Opendaylight
+    ip: ip6
+    user: node_username
+    key_filename: node_keyfile
+-
+    name: node7
+    role: Gateway
+    ip: ip7
+    user: node_username
+    key_filename: node_keyfile
+
