@@ -22,6 +22,29 @@
       "revId": "6db4fb994536337fc23009bf453fb338e2fceece",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_de18d886",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-05T17:39:44Z",
+      "side": 1,
+      "message": "This should be:\n  default_bridge is defined\n\nIf default_bridge is not defined, you can\u0027t access any member.",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 36
+      },
+      "revId": "6db4fb994536337fc23009bf453fb338e2fceece",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
