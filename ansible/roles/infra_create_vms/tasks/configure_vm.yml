@@ -328,7 +328,7 @@
 
 - name: Copy and convert the ubuntu image
   shell: >
-    qemu-img resize {{ image_dir+node_item.hostname+'.qcow2' }} {{ node_item.disk }}MB
+    qemu-img resize {{ image_dir+node_item.hostname+'.qcow2' }} {{ node_item.disk }}M
 
 - name: Define the VMs
   virt:
