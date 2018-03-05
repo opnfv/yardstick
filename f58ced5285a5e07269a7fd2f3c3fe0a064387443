@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_c395a1e5",
+        "filename": "ansible/roles/infra_create_network/tasks/create_xml.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-03-05T11:20:55Z",
+      "side": 1,
+      "message": "When I used virsh it set theese ports by default.",
+      "parentUuid": "5a3f45e8_8abe0efe",
+      "range": {
+        "startLine": 63,
+        "startChar": 10,
+        "endLine": 64,
+        "endChar": 22
+      },
+      "revId": "f58ced5285a5e07269a7fd2f3c3fe0a064387443",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_aa630ab0",
         "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
         "patchSetId": 5
