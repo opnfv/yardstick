@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_5edb28ed",
+        "filename": "ansible/roles/infra_create_network/tasks/create_xml.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-03-05T16:24:03Z",
+      "side": 1,
+      "message": "if this section is left out the ports will default to theese ports",
+      "range": {
+        "startLine": 63,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 22
+      },
+      "revId": "6db4fb994536337fc23009bf453fb338e2fceece",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
