@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_7ebb840e",
+        "filename": "samples/vnf_samples/nsut/prox/prox-tg-topology-scale-up.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-05T13:07:14Z",
+      "side": 1,
+      "message": "This condition is used to replace samples/vnf_samples/nsut/prox/prox-tg-topology-1.yaml topology file when vports \u003d\u003d 1.",
+      "parentUuid": "5a3f45e8_2dac34ed",
+      "range": {
+        "startLine": 51,
+        "startChar": 1,
+        "endLine": 61,
+        "endChar": 34
+      },
+      "revId": "2002234c371cd542c1bbb6c191c7e652d9ec0f7c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_4daf00e4",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_l2fwd-scale-up.yaml",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_1e424010",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_l2fwd-scale-up.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-05T13:07:14Z",
+      "side": 1,
+      "message": "If it isn\u0027t defined, the variable type eq empty string, so the underscore will be set to \u0027\u0027 too. Anyway, your approach looks less confused. Will change it.",
+      "parentUuid": "5a3f45e8_4daf00e4",
+      "revId": "2002234c371cd542c1bbb6c191c7e652d9ec0f7c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_edaa4cd3",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_l2fwd-scale-up.yaml",
         "patchSetId": 2
@@ -53,6 +95,30 @@
       "writtenOn": "2018-03-02T18:53:35Z",
       "side": 1,
       "message": "What happens if \"type\" is not defined? This will cover both:\n\n{% set underscore \u003d \u0027_\u0027 if type %}",
+      "range": {
+        "startLine": 16,
+        "startChar": 27,
+        "endLine": 16,
+        "endChar": 31
+      },
+      "revId": "2002234c371cd542c1bbb6c191c7e652d9ec0f7c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_fe467422",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_l2fwd-scale-up.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-05T13:07:14Z",
+      "side": 1,
+      "message": "If it isn\u0027t defined, the variable type eq empty string, so the underscore will be set to \u0027\u0027 too. Anyway, your approach looks less confused. Will change it.",
+      "parentUuid": "5a3f45e8_edaa4cd3",
       "range": {
         "startLine": 16,
         "startChar": 27,
