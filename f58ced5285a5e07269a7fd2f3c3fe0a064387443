@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_83fc3940",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-03-05T11:19:29Z",
+      "side": 1,
+      "message": "I Need to add if defined here.",
+      "parentUuid": "5a3f45e8_aa630ab0",
+      "revId": "f58ced5285a5e07269a7fd2f3c3fe0a064387443",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_6abbc20e",
         "filename": "ansible/roles/infra_create_vms/tasks/main.yml",
         "patchSetId": 5
@@ -58,6 +76,29 @@
         "startChar": 38,
         "endLine": 32,
         "endChar": 53
+      },
+      "revId": "f58ced5285a5e07269a7fd2f3c3fe0a064387443",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e3ed3d8d",
+        "filename": "ansible/roles/infra_create_vms/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-03-05T11:19:29Z",
+      "side": 1,
+      "message": "I have made a mistake here. Apparently if you use set_fact you dont need to use extra_vars. that\u0027s why I did not pick up on this error. The full line can be removed",
+      "range": {
+        "startLine": 32,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 57
       },
       "revId": "f58ced5285a5e07269a7fd2f3c3fe0a064387443",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
