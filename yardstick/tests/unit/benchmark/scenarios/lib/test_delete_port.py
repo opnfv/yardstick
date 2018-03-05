@@ -22,4 +22,4 @@ class DeletePortTestCase(unittest.TestCase):
         args = {"options": options}
         obj = DeletePort(args, {})
         obj.run({})
-        self.assertTrue(mock_get_neutron_client.called)
+        mock_get_neutron_client.assert_called_once()

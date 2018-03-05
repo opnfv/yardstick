@@ -65,7 +65,7 @@ class IperfTestCase(unittest.TestCase):
         p.target = mock_ssh.SSH.from_node()
 
         p.teardown()
-        self.assertTrue(mock_ssh.SSH.from_node().close.called)
+        mock_ssh.SSH.from_node().close.assert_called()
         mock_ssh.SSH.from_node().execute.assert_called_with("pkill iperf3")
 
     def test_iperf_successful_no_sla(self, mock_ssh):

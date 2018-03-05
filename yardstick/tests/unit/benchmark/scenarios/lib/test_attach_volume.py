@@ -23,4 +23,4 @@ class AttachVolumeTestCase(unittest.TestCase):
         args = {"options": options}
         obj = AttachVolume(args, {})
         obj.run({})
-        self.assertTrue(mock_attach_server_volume.called)
+        mock_attach_server_volume.assert_called_once()

@@ -26,4 +26,4 @@ class CreateFlavorTestCase(unittest.TestCase):
         args = {"options": options}
         obj = CreateFlavor(args, {})
         obj.run({})
-        self.assertTrue(mock_create_flavor.called)
+        mock_create_flavor.assert_called_once()

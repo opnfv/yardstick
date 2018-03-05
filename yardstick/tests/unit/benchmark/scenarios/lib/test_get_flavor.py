@@ -22,4 +22,4 @@ class GetFlavorTestCase(unittest.TestCase):
         args = {"options": options}
         obj = GetFlavor(args, {})
         obj.run({})
-        self.assertTrue(mock_get_flavor_by_name.called)
+        mock_get_flavor_by_name.assert_called_once()

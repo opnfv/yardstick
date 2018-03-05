@@ -24,5 +24,5 @@ class DeleteRouterInterfaceTestCase(unittest.TestCase):
         args = {"options": options}
         obj = DeleteRouterInterface(args, {})
         obj.run({})
-        self.assertTrue(mock_get_neutron_client.called)
-        self.assertTrue(mock_remove_interface_router.called)
+        mock_get_neutron_client.assert_called_once()
+        mock_remove_interface_router.assert_called_once()

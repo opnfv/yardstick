@@ -153,7 +153,7 @@ class TaskTestCase(unittest.TestCase):
         runner.get_result.return_value = []
         mock_base_runner.Runner.get.return_value = runner
         t._run([scenario], False, "yardstick.out")
-        self.assertTrue(runner.run.called)
+        runner.run.assert_called_once()
 
     @mock.patch.object(os, 'environ')
     def test_check_precondition(self, mock_os_environ):

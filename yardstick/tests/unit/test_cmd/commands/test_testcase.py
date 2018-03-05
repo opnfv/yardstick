@@ -18,4 +18,4 @@ class TestcaseCommandsUT(unittest.TestCase):
     def test_do_list(self, mock_client, mock_print):
         mock_client.get.return_value = {'result': []}
         TestcaseCommands().do_list({})
-        self.assertTrue(mock_print.called)
+        mock_print.assert_called_once()

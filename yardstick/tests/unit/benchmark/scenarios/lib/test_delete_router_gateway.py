@@ -23,5 +23,5 @@ class DeleteRouterGatewayTestCase(unittest.TestCase):
         args = {"options": options}
         obj = DeleteRouterGateway(args, {})
         obj.run({})
-        self.assertTrue(mock_get_neutron_client.called)
-        self.assertTrue(mock_remove_gateway_router.called)
+        mock_get_neutron_client.assert_called_once()
+        mock_remove_gateway_router.assert_called_once()

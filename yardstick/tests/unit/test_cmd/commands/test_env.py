@@ -21,30 +21,30 @@ class EnvCommandTestCase(unittest.TestCase):
     def test_do_influxdb(self, check_status_mock, start_async_task_mock):
         env = EnvCommand()
         env.do_influxdb({})
-        self.assertTrue(start_async_task_mock.called)
-        self.assertTrue(check_status_mock.called)
+        start_async_task_mock.assert_called_once()
+        check_status_mock.assert_called_once()
 
     @mock.patch('yardstick.cmd.commands.env.EnvCommand._start_async_task')
     @mock.patch('yardstick.cmd.commands.env.EnvCommand._check_status')
     def test_do_grafana(self, check_status_mock, start_async_task_mock):
         env = EnvCommand()
         env.do_grafana({})
-        self.assertTrue(start_async_task_mock.called)
-        self.assertTrue(check_status_mock.called)
+        start_async_task_mock.assert_called_once()
+        check_status_mock.assert_called_once()
 
     @mock.patch('yardstick.cmd.commands.env.EnvCommand._start_async_task')
     @mock.patch('yardstick.cmd.commands.env.EnvCommand._check_status')
     def test_do_prepare(self, check_status_mock, start_async_task_mock):
         env = EnvCommand()
         env.do_prepare({})
-        self.assertTrue(start_async_task_mock.called)
-        self.assertTrue(check_status_mock.called)
+        start_async_task_mock.assert_called_once()
+        check_status_mock.assert_called_once()
 
     @mock.patch('yardstick.cmd.commands.env.HttpClient.post')
     def test_start_async_task(self, post_mock):
         data = {'action': 'create_grafana'}
         EnvCommand()._start_async_task(data)
-        self.assertTrue(post_mock.called)
+        post_mock.assert_called_once()
 
     @mock.patch('yardstick.cmd.commands.env.HttpClient.get')
     @mock.patch('yardstick.cmd.commands.env.EnvCommand._print_status')

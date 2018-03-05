@@ -23,5 +23,5 @@ class DeleteServerTestCase(unittest.TestCase):
         args = {"options": options}
         obj = DeleteServer(args, {})
         obj.run({})
-        self.assertTrue(mock_get_nova_client.called)
-        self.assertTrue(mock_delete_instance.called)
+        mock_get_nova_client.assert_called_once()
+        mock_delete_instance.assert_called_once()

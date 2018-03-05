@@ -23,5 +23,5 @@ class DeleteFloatingIpTestCase(unittest.TestCase):
         args = {"options": options}
         obj = DeleteFloatingIp(args, {})
         obj.run({})
-        self.assertTrue(mock_get_nova_client.called)
-        self.assertTrue(mock_delete_floating_ip.called)
+        mock_get_nova_client.assert_called_once()
+        mock_delete_floating_ip.assert_called_once()

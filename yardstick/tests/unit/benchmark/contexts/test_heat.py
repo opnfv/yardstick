@@ -365,7 +365,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context.key_filename = 'foo/bar/foobar'
         self.test_context.undeploy()
         mock_delete_key.assert_called()
-        self.assertTrue(mock_template.delete.called)
+        mock_template.delete.assert_called_once()
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_undeploy_no_teardown(self, mock_template):

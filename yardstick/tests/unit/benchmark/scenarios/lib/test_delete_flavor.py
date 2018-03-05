@@ -23,5 +23,5 @@ class DeleteFlavorTestCase(unittest.TestCase):
         args = {"options": options}
         obj = DeleteFlavor(args, {})
         obj.run({})
-        self.assertTrue(mock_get_nova_client.called)
-        self.assertTrue(mock_delete_flavor.called)
+        mock_get_nova_client.assert_called_once()
+        mock_delete_flavor.assert_called_once()

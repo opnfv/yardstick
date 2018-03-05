@@ -23,5 +23,5 @@ class DeleteVolumeTestCase(unittest.TestCase):
         args = {"options": options}
         obj = DeleteVolume(args, {})
         obj.run({})
-        self.assertTrue(mock_get_cinder_client.called)
-        self.assertTrue(mock_delete_volume.called)
+        mock_get_cinder_client.assert_called_once()
+        mock_delete_volume.assert_called_once()

@@ -28,7 +28,7 @@ class CreateServerTestCase(unittest.TestCase):
         }
         obj = CreateServer(scenario_cfg, {})
         obj.run({})
-        self.assertTrue(mock_get_nova_client.called)
-        self.assertTrue(mock_get_glance_client.called)
-        self.assertTrue(mock_get_neutron_client.called)
-        self.assertTrue(mock_create_instance_and_wait_for_active.called)
+        mock_get_nova_client.assert_called_once()
+        mock_get_glance_client.assert_called_once()
+        mock_get_neutron_client.assert_called_once()
+        mock_create_instance_and_wait_for_active.assert_called_once()

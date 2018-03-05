@@ -44,8 +44,8 @@ class GetNumaInfoTestCase(unittest.TestCase):
         }
         obj = GetNumaInfo(scenario_cfg, {})
         obj.run({})
-        self.assertTrue(mock_get_current_host_name.called)
-        self.assertTrue(mock_check_numa_node.called)
+        mock_get_current_host_name.assert_called_once()
+        mock_check_numa_node.assert_called_once()
 
     @mock.patch('yardstick.ssh.SSH.from_node')
     @mock.patch('{}.GetNumaInfo._get_current_host_name'.format(BASE))

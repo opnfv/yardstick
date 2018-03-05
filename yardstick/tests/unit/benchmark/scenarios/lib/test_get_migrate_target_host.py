@@ -25,9 +25,9 @@ class GetMigrateTargetHostTestCase(unittest.TestCase):
                                      mock_get_nova_client):
         obj = GetMigrateTargetHost({}, {})
         obj.run({})
-        self.assertTrue(mock_get_nova_client.called)
-        self.assertTrue(mock_get_current_host_name.called)
-        self.assertTrue(mock_get_migrate_host.called)
+        mock_get_nova_client.assert_called_once()
+        mock_get_current_host_name.assert_called_once()
+        mock_get_migrate_host.assert_called_once()
 
     @mock.patch('{}.openstack_utils.get_nova_client'.format(BASE))
     def test_get_migrate_host(self, mock_get_nova_client):
@@ -39,5 +39,5 @@ class GetMigrateTargetHostTestCase(unittest.TestCase):
         mock_get_nova_client().hosts.list_all.return_value = [A('compute')]
         obj = GetMigrateTargetHost({}, {})
         host = obj._get_migrate_host('host5')
-        self.assertTrue(mock_get_nova_client.called)
+        mock_get_nova_client.assert_called()
         self.assertEqual(host, 'host4')

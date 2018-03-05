@@ -27,7 +27,7 @@ class AddMemoryLoadTestCase(unittest.TestCase):
         mock_from_node().execute.return_value = (0, '0 2048 512', '')
         obj = AddMemoryLoad(scenario_cfg, context_cfg)
         obj.run({})
-        self.assertTrue(mock_from_node.called)
+        mock_from_node.assert_called()
 
     @mock.patch('yardstick.ssh.SSH.from_node')
     def test_add_memory_load_without_load(self, mock_from_node):
@@ -41,7 +41,7 @@ class AddMemoryLoadTestCase(unittest.TestCase):
         }
         obj = AddMemoryLoad(scenario_cfg, context_cfg)
         obj.run({})
-        self.assertTrue(mock_from_node.called)
+        mock_from_node.assert_called_once()
 
     @mock.patch('yardstick.ssh.SSH.from_node')
     def test_add_memory_load_without_args(self, mock_from_node):
@@ -54,4 +54,4 @@ class AddMemoryLoadTestCase(unittest.TestCase):
         }
         obj = AddMemoryLoad(scenario_cfg, context_cfg)
         obj.run({})
-        self.assertTrue(mock_from_node.called)
+        mock_from_node.assert_called_once()
