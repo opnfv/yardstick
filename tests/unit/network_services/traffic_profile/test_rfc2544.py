@@ -73,7 +73,7 @@ class TestRFC2544Profile(unittest.TestCase):
 
     def test___init__(self):
         r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
-        assert r_f_c2544_profile.rate
+        self.assertIsNotNone(r_f_c2544_profile.rate)
 
     def test_execute(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
