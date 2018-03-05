@@ -46,6 +46,30 @@
       "revId": "ff9e325233825ac57248e1ee6abd0752e4635b64",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_23f605d8",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/create_instance_from_image.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-05T08:36:49Z",
+      "side": 1,
+      "message": "sorry, if I don\u0027t get it. What is the difference between input parameter $4 and NETNAME?",
+      "parentUuid": "5a3f45e8_e35d3deb",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 81
+      },
+      "revId": "ff9e325233825ac57248e1ee6abd0752e4635b64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
