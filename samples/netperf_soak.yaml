@@ -1,0 +1,71 @@
+##############################################################################
+# Copyright (c) 2018 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# Bottlenecks long duration test need Yardstick to create VM pairs and use netperf sending messages
+# This yaml file for the above operations based on Netperf mode similiar as netperf.yaml
+# UDP_STREAM is used and out_opt is customized
+
+schema: "yardstick:task:0.1"
+
+{% set tx_msg_size = tx_msg_size or "8K" %}
+{% set rx_msg_size = rx_msg_size or "8K" %}
+{% set test_time = test_time or "10" %}
+{% set out_opt = out_opt or "THROUGHPUT,THROUGHPUT_UNITS,MEAN_LATENCY,LOCAL_CPU_UTIL,REMOTE_CPU_UTIL,LOCAL_BYTES_SENT,REMOTE_BYTES_RECVD" %}
+{% set image_name = image_name or "yardstick-image" %}
+{% set cpu_num = cpu_num or 1 %}
+{% set ram_num = ram_num or 512 %}
+{% set disk_num = disk_num or 7 %}
+
+scenarios:
+-
+  type: Netperf
+  options:
+    testname: 'UDP_STREAM'
+    send_msg_size: {{tx_msg_size}}
+    recv_msg_size: {{rx_msg_size}}
+    duration: {{test_time}}
+    output_opt: {{out_opt}}
+
+  host: netperf-host.demo
+  target: netperf-target.demo
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+    run_step: 'setup,run'
+
+  sla:
+    mean_latency: 100
+    action: monitor
+
+context:
+  name: demo
+  image: {{image_name}}
+  flavor:
+    vcpus: {{cpu_num}}
+    ram: {{ram_num}}
+    disk: {{disk_num}}
+  user: ubuntu
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    netperf-host:
+      floating_ip: true
+      placement: "pgrp1"
+    netperf-target:
+      floating_ip: false
+      placement: "pgrp1"
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
