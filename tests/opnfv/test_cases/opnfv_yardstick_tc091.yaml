@@ -1,0 +1,59 @@
+##############################################################################
+# Copyright (c) 2017 14_ykl@tongji.edu.cn and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+
+schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC091 config file;
+    HA test case: Control node Openstack service down - heat-api.
+
+{% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set attack_host = attack_host or "node1" %}
+{% set attack_process = attack_process or "heat-api" %}
+
+scenarios:
+-
+  type: ServiceHA
+  options:
+    attackers:
+    - fault_type: "kill-process"
+      process_name: "{{ attack_process }}"
+      host: {{attack_host}}
+
+    monitors:
+    - monitor_type: "openstack-cmd"
+      command_name: "openstack stack list"
+      monitor_time: 10
+      monitor_number: 3
+      sla:
+        max_outage_time: 5
+    - monitor_type: "process"
+      process_name: "{{ attack_process }}"
+      host: {{attack_host}}
+      monitor_time: 30
+      monitor_number: 3
+      sla:
+        max_recover_time: 30
+
+  nodes:
+    {{attack_host}}: {{attack_host}}.LF
+
+  runner:
+    type: Duration
+    duration: 1
+  sla:
+    outage_time: 5
+    action: monitor
+
+
+context:
+  type: Node
+  name: LF
+  file: {{file}}
+
