@@ -52,6 +52,24 @@
       "revId": "a83651285737d7d96a5c2ad3be5bababd874e3d2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4f41b038",
+        "filename": "yardstick/benchmark/scenarios/lib/create_floating_ip.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-06T14:37:29Z",
+      "side": 0,
+      "message": "The old behaviour used ext_net_id as the look-up for network id.\n\nThen that net_id was used to create the floating IP.\n\nThe id look-up is no longer required, because create_floating_ip does the lookup itself.\n\nWe should still use the ext_net_id, as a fallback if the user hasn\u0027t specified a net_name_or_id in the testcase (e.g. someone that was already running this testcase before the changes).\n\ni.e. \n   self.ext_net_id \u003d os.getenv(\"EXTERNAL_NETWORK\", \"external\")\n   self.network_name_or_id \u003d self.options.get(\"network_name_or_id\", self.ext_net_id)",
+      "parentUuid": "5a3f45e8_43c51f5a",
+      "revId": "a83651285737d7d96a5c2ad3be5bababd874e3d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
