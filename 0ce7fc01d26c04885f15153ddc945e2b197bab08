@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_af3154a4",
+        "filename": "yardstick/benchmark/scenarios/lib/delete_router.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T15:41:48Z",
+      "side": 1,
+      "message": "raise exception",
+      "revId": "0ce7fc01d26c04885f15153ddc945e2b197bab08",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0f27a865",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T15:41:48Z",
+      "side": 1,
+      "message": "log.error, and add the exception message",
+      "range": {
+        "startLine": 535,
+        "startChar": 8,
+        "endLine": 536,
+        "endChar": 32
+      },
+      "revId": "0ce7fc01d26c04885f15153ddc945e2b197bab08",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
