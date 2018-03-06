@@ -284,6 +284,29 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_4f209049",
+        "filename": "yardstick/benchmark/scenarios/lib/create_router.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T15:42:55Z",
+      "side": 1,
+      "message": "raise exception",
+      "range": {
+        "startLine": 58,
+        "startChar": 12,
+        "endLine": 58,
+        "endChar": 18
+      },
+      "revId": "5e38ada1f0b33130c64382ce5a38d8e236ebfff8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_2320d348",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 7
