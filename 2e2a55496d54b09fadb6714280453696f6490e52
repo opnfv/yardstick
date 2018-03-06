@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_74a72550",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-06T12:59:49Z",
+      "side": 1,
+      "message": "Add a reference for the jira ticket here\n\nJIRA: YARDSTICK-xxx",
+      "revId": "2e2a55496d54b09fadb6714280453696f6490e52",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
