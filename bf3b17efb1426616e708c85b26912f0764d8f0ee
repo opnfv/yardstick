@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_cf4dc074",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T14:42:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_6a03d0b8",
+      "range": {
+        "startLine": 28,
+        "startChar": 45,
+        "endLine": 28,
+        "endChar": 55
+      },
+      "revId": "bf3b17efb1426616e708c85b26912f0764d8f0ee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_4ab6d43e",
         "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
         "patchSetId": 13
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-26T14:25:41Z",
       "side": 1,
       "message": "can we standardise the quotes to either \u0027single\u0027 or \"double\"",
+      "range": {
+        "startLine": 170,
+        "startChar": 24,
+        "endLine": 170,
+        "endChar": 34
+      },
+      "revId": "bf3b17efb1426616e708c85b26912f0764d8f0ee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ef5cfc27",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T14:42:11Z",
+      "side": 1,
+      "message": "This depends on the developer and the project. According to [1], there is no difference.\n\nI prefer single quotes.\n\n[1] https://docs.python.org/2.0/ref/strings.html",
+      "parentUuid": "5a3f45e8_4ab6d43e",
       "range": {
         "startLine": 170,
         "startChar": 24,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_6f48ec5b",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T14:42:11Z",
+      "side": 1,
+      "message": "The commands executed are the same, but grouped in one sigle cmd list. 30 secs is a lot of time for each single command (this timeout is per command).\n\nMy aim here is to write all commands in cmd_list and execute them in the same loop.",
+      "parentUuid": "5a3f45e8_4abb740e",
+      "range": {
+        "startLine": 216,
+        "startChar": 16,
+        "endLine": 216,
+        "endChar": 19
+      },
+      "revId": "bf3b17efb1426616e708c85b26912f0764d8f0ee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_0af68cd7",
         "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
         "patchSetId": 13
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_ef735caf",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T14:42:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_0af68cd7",
+      "range": {
+        "startLine": 371,
+        "startChar": 15,
+        "endLine": 371,
+        "endChar": 25
+      },
+      "revId": "bf3b17efb1426616e708c85b26912f0764d8f0ee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_2af9c8c8",
         "filename": "yardstick/common/exceptions.py",
         "patchSetId": 13
@@ -105,6 +201,30 @@
       "writtenOn": "2018-02-26T14:25:41Z",
       "side": 1,
       "message": "Unsupported ovs \"version\"",
+      "range": {
+        "startLine": 73,
+        "startChar": 31,
+        "endLine": 73,
+        "endChar": 32
+      },
+      "revId": "bf3b17efb1426616e708c85b26912f0764d8f0ee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8f1d7869",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T14:42:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_2af9c8c8",
       "range": {
         "startLine": 73,
         "startChar": 31,

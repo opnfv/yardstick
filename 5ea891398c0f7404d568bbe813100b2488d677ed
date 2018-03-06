@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_cf74a09e",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T14:42:11Z",
+      "side": 0,
+      "message": "No, that\u0027s why I have grouped everything in one sigle execution loop.",
+      "parentUuid": "5a3f45e8_4ae4143b",
+      "range": {
+        "startLine": 201,
+        "startChar": 28,
+        "endLine": 201,
+        "endChar": 35
+      },
+      "revId": "5ea891398c0f7404d568bbe813100b2488d677ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_aad03854",
         "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
         "patchSetId": 13
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-26T14:25:41Z",
       "side": 0,
       "message": "Is there any dependency between running the commands separately and in a sequence?",
+      "range": {
+        "startLine": 209,
+        "startChar": 28,
+        "endLine": 209,
+        "endChar": 35
+      },
+      "revId": "5ea891398c0f7404d568bbe813100b2488d677ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_af795495",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T14:42:11Z",
+      "side": 0,
+      "message": "No, there is no difference. Each execution call is done in a different context.",
+      "parentUuid": "5a3f45e8_aad03854",
       "range": {
         "startLine": 209,
         "startChar": 28,
