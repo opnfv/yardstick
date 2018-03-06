@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_8f49f8d2",
+        "filename": "yardstick/benchmark/scenarios/lib/create_subnet.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-06T16:56:07Z",
+      "side": 1,
+      "message": "Don\u0027t delete result, it is expected by someone somewhere, and removing it changes the behaviour of the test. (create a subnet, update result param and define outputs)",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 23
+      },
+      "revId": "cf173c39286cbf2475dce39f21867e51c03b2e72",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_6f00ecaa",
         "filename": "yardstick/benchmark/scenarios/lib/create_subnet.py",
         "patchSetId": 14
@@ -13,6 +36,30 @@
       "writtenOn": "2018-03-06T15:40:50Z",
       "side": 1,
       "message": "return exception (yardstick.common.exceptions:ScenarioCreateSubnetError)",
+      "range": {
+        "startLine": 72,
+        "startChar": 11,
+        "endLine": 72,
+        "endChar": 18
+      },
+      "revId": "cf173c39286cbf2475dce39f21867e51c03b2e72",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6f1d8cbd",
+        "filename": "yardstick/benchmark/scenarios/lib/create_subnet.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-06T16:56:07Z",
+      "side": 1,
+      "message": "*raise yardstick.common.exceptions.ScenarioCreateSubnetError",
+      "parentUuid": "5a3f45e8_6f00ecaa",
       "range": {
         "startLine": 72,
         "startChar": 11,
