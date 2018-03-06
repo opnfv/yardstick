@@ -1,0 +1,51 @@
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# measure network latency and throughput using netperf
+# This test case is suite for bottlenecks project.
+# This test case is from TC073
+# we have did some parameters support
+
+schema: "yardstick:task:0.1"
+
+{% set host = host or "node1.LF" %}
+{% set target = target or "node2.LF" %}
+{% set pod_info = pod_info or "etc/yardstick/nodes/vm_pair.yaml" %}
+{% set tx_msg_size = tx_msg_size or "8K" %}
+{% set rx_msg_size = rx_msg_size or "8K" %}
+{% set test_time = test_time or "10" %}
+{% set out_opt = out_opt or "THROUGHPUT,THROUGHPUT_UNITS,MEAN_LATENCY,LOCAL_CPU_UTIL,REMOTE_CPU_UTIL,LOCAL_BYTES_SENT,REMOTE_BYTES_RECVD" %}
+
+scenarios:
+-
+  type: NetperfNode
+  options:
+    testname: 'UDP_STREAM'
+    send_msg_size: {{tx_msg_size}}
+    recv_msg_size: {{rx_msg_size}}
+    duration: {{test_time}}
+    output_opt: {{out_opt}}
+
+  host: {{host}}
+  target: {{target}}
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+    run_step: 'setup,run'
+
+  sla:
+    mean_latency: 100
+    action: monitor
+
+context:
+  type: Node
+  name: LF
+  file: {{pod_info}}
