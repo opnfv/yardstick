@@ -10,17 +10,16 @@
 from collections import OrderedDict
 from itertools import count
 import logging
+import os
 
 import mock
 import unittest
 
-import shade
-
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import heat
 from yardstick.benchmark.contexts import model
+from yardstick.common import constants as consts
 from yardstick.common import exceptions as y_exc
-from yardstick.orchestrator import heat as orch_heat
 from yardstick import ssh
 
 
@@ -62,12 +61,11 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertIsNone(self.test_context.heat_parameters)
         self.assertIsNone(self.test_context.key_filename)
 
-    @mock.patch.object(ssh.SSH, 'gen_keys')
     @mock.patch('yardstick.benchmark.contexts.heat.PlacementGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.ServerGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.Network')
     @mock.patch('yardstick.benchmark.contexts.heat.Server')
-    def test_init(self, mock_server, mock_network, mock_sg, mock_pg, mock_ssh_gen_keys):
+    def test_init(self, mock_server, mock_network, mock_sg, mock_pg):
 
         pgs = {'pgrp1': {'policy': 'availability'}}
         sgs = {'servergroup1': {'policy': 'affinity'}}
@@ -105,8 +103,6 @@ class HeatContextTestCase(unittest.TestCase):
                                        servers['baz'])
         self.assertEqual(len(self.test_context.servers), 1)
 
-        mock_ssh_gen_keys.assert_called()
-
     def test_init_no_name_or_task_id(self):
         attrs = {}
         self.assertRaises(KeyError, self.test_context.init, attrs)
@@ -128,8 +124,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertEqual(self.test_context.name, 'foo')
         self.assertEqual(self.test_context.assigned_name, 'foo')
 
-    @mock.patch('yardstick.ssh.SSH.gen_keys')
-    def test_init_no_setup_no_teardown(self, *args):
+    def test_init_no_setup_no_teardown(self):
 
         attrs = {'name': 'foo',
                  'task_id': '1234567890',
@@ -222,9 +217,11 @@ class HeatContextTestCase(unittest.TestCase):
                           self.test_context._create_new_stack,
                           template)
 
-    @mock.patch.object(orch_heat.HeatTemplate, 'add_keypair')
+    @mock.patch.object(os.path, 'exists', return_value=True)
+    @mock.patch.object(heat.HeatContext, '_add_resources_to_template')
     @mock.patch.object(heat.HeatContext, '_create_new_stack')
-    def test_deploy_stack_creation_failed(self, mock_create, *args):
+    def test_deploy_stack_creation_failed(self, mock_create,
+            mock_resources_template, mock_path_exists):
         self.test_context._name = 'foo'
         self.test_context._task_id = '1234567890'
         self.test_context._name_task_id = 'foo-12345678'
@@ -232,8 +229,13 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertRaises(y_exc.HeatTemplateError,
                           self.test_context.deploy)
 
+        mock_path_exists.assert_called_once()
+        mock_resources_template.assert_called_once()
+
+    @mock.patch.object(os.path, 'exists', return_value=False)
+    @mock.patch.object(ssh.SSH, 'gen_keys')
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
-    def test_deploy(self, mock_template):
+    def test_deploy(self, mock_template, mock_genkeys, mock_path_exists):
         self.test_context._name = 'foo'
         self.test_context._task_id = '1234567890'
         self.test_context._name_task_id = '{}-{}'.format(
@@ -247,46 +249,98 @@ class HeatContextTestCase(unittest.TestCase):
                                          '/bar/baz/some-heat-file',
                                          {'image': 'cirros'})
         self.assertIsNotNone(self.test_context.stack)
+        key_filename = ''.join(
+            [consts.YARDSTICK_ROOT_PATH,
+             'yardstick/resources/files/yardstick_key-',
+             self.test_context._name_task_id])
+        mock_genkeys.assert_called_once_with(key_filename)
+        mock_path_exists.assert_called_once_with(key_filename)
 
-    # TODO: patch objects
     @mock.patch.object(heat, 'HeatTemplate')
+    @mock.patch.object(os.path, 'exists', return_value=False)
+    @mock.patch.object(ssh.SSH, 'gen_keys')
     @mock.patch.object(heat.HeatContext, '_retrieve_existing_stack')
     @mock.patch.object(heat.HeatContext, '_create_new_stack')
-    def test_deploy_no_setup(self, mock_create_new_stack, mock_retrieve_existing_stack, *args):
+    def test_deploy_no_setup(self, mock_create_new_stack,
+            mock_retrieve_existing_stack, mock_genkeys, mock_path_exists,
+            *args):
         self.test_context._name = 'foo'
         self.test_context._task_id = '1234567890'
-        # Might be able to get rid of these
         self.test_context.template_file = '/bar/baz/some-heat-file'
         self.test_context.heat_parameters = {'image': 'cirros'}
         self.test_context.get_neutron_info = mock.MagicMock()
         self.test_context._flags.no_setup = True
         self.test_context.deploy()
 
-        # check that heat client is called...
         mock_create_new_stack.assert_not_called()
         mock_retrieve_existing_stack.assert_called_with(self.test_context.name)
         self.assertIsNotNone(self.test_context.stack)
+        key_filename = ''.join(
+            [consts.YARDSTICK_ROOT_PATH,
+             'yardstick/resources/files/yardstick_key-',
+             self.test_context._name])
+        mock_genkeys.assert_called_once_with(key_filename)
+        mock_path_exists.assert_called_once_with(key_filename)
 
-    @mock.patch.object(shade, 'openstack_cloud')
-    @mock.patch.object(heat.HeatTemplate, 'add_keypair')
+    @mock.patch.object(heat, 'HeatTemplate')
+    @mock.patch.object(os.path, 'exists', return_value=False)
+    @mock.patch.object(ssh.SSH, 'gen_keys')
     @mock.patch.object(heat.HeatContext, '_create_new_stack')
-    @mock.patch.object(heat.HeatStack, 'get')
+    @mock.patch.object(heat.HeatContext, '_retrieve_existing_stack',
+                       return_value=None)
     def test_deploy_try_retrieve_context_does_not_exist(self,
-                                                        mock_get_stack,
-                                                        mock_create_new_stack,
-                                                        *args):
+            mock_retrieve_stack, mock_create_new_stack, mock_genkeys,
+            mock_path_exists, *args):
         self.test_context._name = 'demo'
         self.test_context._task_id = '1234567890'
         self.test_context._flags.no_setup = True
+        self.test_context.template_file = '/bar/baz/some-heat-file'
         self.test_context.get_neutron_info = mock.MagicMock()
-
-        # TODo: Check is this the right value to return, should it be None instead?
-        mock_get_stack.return_value = []
 
         self.test_context.deploy()
 
-        mock_get_stack.assert_called()
+        mock_retrieve_stack.assert_called_once_with(self.test_context._name)
         mock_create_new_stack.assert_called()
+        key_filename = ''.join(
+            [consts.YARDSTICK_ROOT_PATH,
+             'yardstick/resources/files/yardstick_key-',
+             self.test_context._name])
+        mock_genkeys.assert_called_once_with(key_filename)
+        mock_path_exists.assert_called_once_with(key_filename)
+
+    @mock.patch.object(heat, 'HeatTemplate', return_value='heat_template')
+    @mock.patch.object(heat.HeatContext, '_add_resources_to_template')
+    @mock.patch.object(os.path, 'exists', return_value=False)
+    @mock.patch.object(ssh.SSH, 'gen_keys')
+    def test_deploy_ssh_key_before_adding_resources(self, mock_genkeys,
+            mock_path_exists, mock_add_resources, *args):
+        mock_manager = mock.Mock()
+        mock_manager.attach_mock(mock_add_resources,
+                                 '_add_resources_to_template')
+        mock_manager.attach_mock(mock_genkeys, 'gen_keys')
+        mock_manager.reset_mock()
+        self.test_context._name_task_id = 'demo-12345678'
+        self.test_context.get_neutron_info = mock.Mock()
+        with mock.patch.object(self.test_context, '_create_new_stack') as \
+                mock_create_stack, \
+                mock.patch.object(self.test_context, 'get_neutron_info') as \
+                mock_neutron_info:
+            self.test_context.deploy()
+
+        mock_neutron_info.assert_called_once()
+        mock_create_stack.assert_called_once()
+        key_filename = ''.join(
+            [consts.YARDSTICK_ROOT_PATH,
+             'yardstick/resources/files/yardstick_key-',
+             self.test_context._name_task_id])
+        mock_genkeys.assert_called_once_with(key_filename)
+        mock_path_exists.assert_called_once_with(key_filename)
+
+        mock_call_gen_keys = mock.call.gen_keys(key_filename)
+        mock_call_add_resources = (
+            mock.call._add_resources_to_template('heat_template'))
+        self.assertTrue(mock_manager.mock_calls.index(mock_call_gen_keys) <
+                        mock_manager.mock_calls.index(mock_call_add_resources))
 
     def test_check_for_context(self):
         pass
