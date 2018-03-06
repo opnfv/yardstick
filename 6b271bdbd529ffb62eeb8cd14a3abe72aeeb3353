@@ -16,6 +16,24 @@
       "revId": "6b271bdbd529ffb62eeb8cd14a3abe72aeeb3353",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_59ca2250",
+        "filename": "yardstick/benchmark/scenarios/storage/fio.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2018-03-06T00:56:48Z",
+      "side": 1,
+      "message": "This setup_done is the flag for the \u0027setup\u0027 function, not the  for the device mount action. In some cases, we will not mount any block device, and setup_done should be also be True. So we do not need to move it inside the if clause.",
+      "parentUuid": "5a3f45e8_3e558a1d",
+      "revId": "6b271bdbd529ffb62eeb8cd14a3abe72aeeb3353",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
