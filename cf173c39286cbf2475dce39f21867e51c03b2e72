@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_2fd8a4ee",
+        "filename": "yardstick/benchmark/scenarios/lib/create_subnet.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:15:16Z",
+      "side": 1,
+      "message": "we are not reading/writing result anymore. If given, the argument will be unused.\n\nThis should be *args",
+      "parentUuid": "5a3f45e8_8f49f8d2",
+      "range": {
+        "startLine": 54,
+        "startChar": 19,
+        "endLine": 54,
+        "endChar": 23
+      },
+      "revId": "cf173c39286cbf2475dce39f21867e51c03b2e72",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_6f00ecaa",
         "filename": "yardstick/benchmark/scenarios/lib/create_subnet.py",
         "patchSetId": 14
