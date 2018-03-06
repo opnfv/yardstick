@@ -26,11 +26,11 @@ from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.runners import base as base_runner
 from yardstick.common.constants import CONF_FILE
 from yardstick.common.yaml_loader import yaml_load
-from yardstick.dispatcher.base import Base as DispatcherBase
+from yardstick.dispatcher.base import DispatcherManager
+from yardstick.common import utils
 from yardstick.common import constants
 from yardstick.common import exceptions as y_exc
 from yardstick.common import task_template
-from yardstick.common import utils
 from yardstick.common.html_template import report_template
 
 output_file_default = "/tmp/yardstick.out"
@@ -48,12 +48,6 @@ class Task(object):     # pragma: no cover
         self.contexts = []
         self.outputs = {}
 
-    def _set_dispatchers(self, output_config):
-        dispatchers = output_config.get('DEFAULT', {}).get('dispatcher',
-                                                           'file')
-        out_types = [s.strip() for s in dispatchers.split(',')]
-        output_config['DEFAULT']['dispatcher'] = out_types
-
     def start(self, args, **kwargs):  # pylint: disable=unused-argument
         """Start a benchmark scenario."""
 
@@ -70,16 +64,8 @@ class Task(object):     # pragma: no cover
             # all error will be ignore, the default value is {}
             output_config = {}
 
-        self._init_output_config(output_config)
-        self._set_output_config(output_config, args.output_file)
-        LOG.debug('Output configuration is: %s', output_config)
-
-        self._set_dispatchers(output_config)
-
-        # update dispatcher list
-        if 'file' in output_config['DEFAULT']['dispatcher']:
-            result = {'status': 0, 'result': {}}
-            utils.write_json_to_file(args.output_file, result)
+        dispatcher_manager = DispatcherManager(self.task_id, output_config)
+        dispatcher_manager.update_file_path(args.output_file)
 
         total_start_time = time.time()
         parser = TaskParser(args.inputfile[0])
@@ -98,7 +84,6 @@ class Task(object):     # pragma: no cover
         if args.parse_only:
             sys.exit(0)
 
-        testcases = {}
         tasks = self._parse_tasks(parser, task_files, args, task_args,
                                   task_args_fnames)
 
@@ -112,20 +97,19 @@ class Task(object):     # pragma: no cover
                 continue
 
             try:
-                data = self._run(tasks[i]['scenarios'],
-                                 tasks[i]['run_in_parallel'],
-                                 output_config)
+                self._run(tasks[i]['scenarios'], tasks[i]['run_in_parallel'],
+                          dispatcher_manager)
             except KeyboardInterrupt:
                 raise
             except Exception:  # pylint: disable=broad-except
                 LOG.error('Testcase: "%s" FAILED!!!', tasks[i]['case_name'],
                           exc_info=True)
-                testcases[tasks[i]['case_name']] = {'criteria': 'FAIL',
-                                                    'tc_data': []}
+                dispatcher_manager.update_case_status(tasks[i]['case_name'],
+                                                      'FAIL')
             else:
                 LOG.info('Testcase: "%s" SUCCESS!!!', tasks[i]['case_name'])
-                testcases[tasks[i]['case_name']] = {'criteria': 'PASS',
-                                                    'tc_data': data}
+                dispatcher_manager.update_case_status(tasks[i]['case_name'],
+                                                      'PASS')
 
             if args.keep_deploy:
                 # keep deployment, forget about stack
@@ -139,9 +123,10 @@ class Task(object):     # pragma: no cover
             LOG.info("Task %s finished in %d secs", task_files[i],
                      one_task_end_time - one_task_start_time)
 
-        result = self._get_format_result(testcases)
+        dispatcher_manager.flush()
 
-        self._do_output(output_config, result)
+        result = dispatcher_manager.get_result()
+
         self._generate_reporting(result)
 
         total_end_time = time.time()
@@ -151,6 +136,7 @@ class Task(object):     # pragma: no cover
         LOG.info('To generate report, execute command "yardstick report '
                  'generate %(task_id)s <yaml_name>s"', self.task_id)
         LOG.info("Task ALL DONE, exiting")
+
         return result
 
     def _generate_reporting(self, result):
@@ -172,68 +158,7 @@ class Task(object):     # pragma: no cover
 
         logging.root.addHandler(log_handler)
 
-    def _init_output_config(self, output_config):
-        output_config.setdefault('DEFAULT', {})
-        output_config.setdefault('dispatcher_http', {})
-        output_config.setdefault('dispatcher_file', {})
-        output_config.setdefault('dispatcher_influxdb', {})
-        output_config.setdefault('nsb', {})
-
-    def _set_output_config(self, output_config, file_path):
-        try:
-            out_type = os.environ['DISPATCHER']
-        except KeyError:
-            output_config['DEFAULT'].setdefault('dispatcher', 'file')
-        else:
-            output_config['DEFAULT']['dispatcher'] = out_type
-
-        output_config['dispatcher_file']['file_path'] = file_path
-
-        try:
-            target = os.environ['TARGET']
-        except KeyError:
-            pass
-        else:
-            k = 'dispatcher_{}'.format(output_config['DEFAULT']['dispatcher'])
-            output_config[k]['target'] = target
-
-    def _get_format_result(self, testcases):
-        criteria = self._get_task_criteria(testcases)
-
-        info = {
-            'deploy_scenario': os.environ.get('DEPLOY_SCENARIO', 'unknown'),
-            'installer': os.environ.get('INSTALLER_TYPE', 'unknown'),
-            'pod_name': os.environ.get('NODE_NAME', 'unknown'),
-            'version': os.environ.get('YARDSTICK_BRANCH', 'unknown')
-        }
-
-        result = {
-            'status': 1,
-            'result': {
-                'criteria': criteria,
-                'task_id': self.task_id,
-                'info': info,
-                'testcases': testcases
-            }
-        }
-
-        return result
-
-    def _get_task_criteria(self, testcases):
-        criteria = any(t.get('criteria') != 'PASS' for t in testcases.values())
-        if criteria:
-            return 'FAIL'
-        else:
-            return 'PASS'
-
-    def _do_output(self, output_config, result):
-        dispatchers = DispatcherBase.get(output_config)
-        dispatchers = (d for d in dispatchers if d.__dispatcher_type__ != 'Influxdb')
-
-        for dispatcher in dispatchers:
-            dispatcher.flush_result_data(result)
-
-    def _run(self, scenarios, run_in_parallel, output_config):
+    def _run(self, scenarios, run_in_parallel, dispatcher_manager):
         """Deploys context and calls runners"""
         for context in self.contexts:
             context.deploy()
@@ -244,14 +169,14 @@ class Task(object):     # pragma: no cover
         # Start all background scenarios
         for scenario in filter(_is_background_scenario, scenarios):
             scenario["runner"] = dict(type="Duration", duration=1000000000)
-            runner = self.run_one_scenario(scenario, output_config)
+            runner = self.run_one_scenario(scenario, dispatcher_manager)
             background_runners.append(runner)
 
         runners = []
         if run_in_parallel:
             for scenario in scenarios:
                 if not _is_background_scenario(scenario):
-                    runner = self.run_one_scenario(scenario, output_config)
+                    runner = self.run_one_scenario(scenario, dispatcher_manager)
                     runners.append(runner)
 
             # Wait for runners to finish
@@ -265,7 +190,7 @@ class Task(object):     # pragma: no cover
             # run serially
             for scenario in scenarios:
                 if not _is_background_scenario(scenario):
-                    runner = self.run_one_scenario(scenario, output_config)
+                    runner = self.run_one_scenario(scenario, dispatcher_manager)
                     status = runner_join(runner, background_runners, self.outputs, result)
                     if status != 0:
                         LOG.error('Scenario NO.%s: "%s" ERROR!',
@@ -334,10 +259,10 @@ class Task(object):     # pragma: no cover
 
         return tasks
 
-    def run_one_scenario(self, scenario_cfg, output_config):
+    def run_one_scenario(self, scenario_cfg, dispatcher_manager):
         """run one scenario using context"""
         runner_cfg = scenario_cfg["runner"]
-        runner_cfg['output_config'] = output_config
+        runner_cfg['dispatcher_manager'] = dispatcher_manager
 
         options = scenario_cfg.get('options', {})
         scenario_cfg['options'] = self._parse_options(options)
@@ -616,7 +541,7 @@ class TaskParser(object):       # pragma: no cover
             node_name, context_name = name.split('.')
             try:
                 ctx = next((context for context in contexts
-                       if context.assigned_name == context_name))
+                            if context.assigned_name == context_name))
             except StopIteration:
                 raise y_exc.ScenarioConfigContextNameNotFound(
                     context_name=context_name)

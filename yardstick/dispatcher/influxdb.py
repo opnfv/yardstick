@@ -11,7 +11,6 @@ from __future__ import absolute_import
 
 import logging
 import time
-import os
 
 import requests
 from requests import ConnectionError
@@ -29,53 +28,35 @@ class InfluxdbDispatcher(DispatchBase):
 
     __dispatcher_type__ = "Influxdb"
 
-    def __init__(self, conf):
-        super(InfluxdbDispatcher, self).__init__(conf)
-        db_conf = conf['dispatcher_influxdb']
-        self.timeout = int(db_conf.get('timeout', 5))
-        self.target = db_conf.get('target', 'http://127.0.0.1:8086')
-        self.db_name = db_conf.get('db_name', 'yardstick')
-        self.username = db_conf.get('username', 'root')
-        self.password = db_conf.get('password', 'root')
+    def __init__(self, task_id, conf):
+        self.conf = conf.influxdb
+        super(InfluxdbDispatcher, self).__init__(task_id)
 
-        self.influxdb_url = "%s/write?db=%s" % (self.target, self.db_name)
+    def setup(self):
+        pass
 
-        self.task_id = None
-        self.tags = None
+    def teardown(self):
+        pass
 
-    def flush_result_data(self, data):
-        LOG.debug('Test result all : %s', data)
-        if self.target == '':
-            # if the target was not set, do not do anything
-            LOG.error('Dispatcher target was not set, no data will be posted.')
+    def push(self, case, data):
+        self._add_to_result(case, data)
 
-        result = data['result']
-        self.tags = result['info']
-        self.task_id = result['task_id']
-        self.criteria = result['criteria']
-        testcases = result['testcases']
+        self._upload_one_record(case, data)
 
-        for case, data in testcases.items():
-            tc_criteria = data['criteria']
-            for record in data['tc_data']:
-                # skip results with no data because we influxdb encode empty dicts
-                if record.get("data"):
-                    self.upload_one_record(record, case, tc_criteria)
+    def flush(self):
+        self._complete_result()
 
-        return 0
+    def _upload_one_record(self, case, data, tc_criteria="PASS"):
 
-    def upload_one_record(self, data, case, tc_criteria, task_id=None):
-        if task_id:
-            self.task_id = task_id
-
-        line = self._data_to_line_protocol(data, case, tc_criteria)
+        line = self._data_to_line_protocol(case, data, tc_criteria)
         LOG.debug('Test result line format : %s', line)
 
+        url = "{}/write?db={}".format(self.conf.target, self.conf.db_name)
         try:
-            res = requests.post(self.influxdb_url,
+            res = requests.post(url,
                                 data=line,
-                                auth=(self.username, self.password),
-                                timeout=self.timeout)
+                                auth=(self.conf.username, self.conf.password),
+                                timeout=int(self.conf.timeout))
         except ConnectionError as err:
             LOG.exception('Failed to record result data: %s', err)
         else:
@@ -84,16 +65,8 @@ class InfluxdbDispatcher(DispatchBase):
                           ' %d.', res.status_code)
                 LOG.error(res.text)
 
-    def _data_to_line_protocol(self, data, case, criteria):
+    def _data_to_line_protocol(self, case, data, criteria="PASS"):
         msg = {}
-
-        if not self.tags:
-            self.tags = {
-                'deploy_scenario': os.environ.get('DEPLOY_SCENARIO', 'unknown'),
-                'installer': os.environ.get('INSTALLER_TYPE', 'unknown'),
-                'pod_name': os.environ.get('NODE_NAME', 'unknown'),
-                'version': os.environ.get('YARDSTICK_BRANCH', 'unknown')
-            }
 
         point = {
             "measurement": case,
@@ -102,7 +75,7 @@ class InfluxdbDispatcher(DispatchBase):
             "tags": self._get_extended_tags(criteria),
         }
         msg["points"] = [point]
-        msg["tags"] = self.tags
+        msg["tags"] = self.result['result']['info']
 
         return make_lines(msg).encode('utf-8')
 

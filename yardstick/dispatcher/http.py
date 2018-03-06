@@ -24,6 +24,7 @@ from datetime import datetime
 
 from oslo_serialization import jsonutils
 import requests
+from requests import ConnectionError
 
 from yardstick.dispatcher.base import Base as DispatchBase
 
@@ -36,25 +37,31 @@ class HttpDispatcher(DispatchBase):
 
     __dispatcher_type__ = "Http"
 
-    def __init__(self, conf):
-        super(HttpDispatcher, self).__init__(conf)
-        http_conf = conf['dispatcher_http']
-        self.headers = {'Content-type': 'application/json'}
-        self.timeout = int(http_conf.get('timeout', 5))
-        self.target = http_conf.get('target', 'http://127.0.0.1:8000/results')
+    def __init__(self, task_id, conf):
+        self.conf = conf.http
+        super(HttpDispatcher, self).__init__(task_id)
 
-    def flush_result_data(self, data):
-        if self.target == '':
+    def setup(self):
+        pass
+
+    def teardown(self):
+        pass
+
+    def push(self, case, data):
+        self._add_to_result(case, data)
+
+    def flush(self):
+        self._complete_result()
+        self._push_result_data()
+
+    def _push_result_data(self):
+        if self.conf.target == '':
             # if the target was not set, do not do anything
             LOG.error('Dispatcher target was not set, no data will'
                       'be posted.')
             return
 
-        result = data['result']
-        self.info = result['info']
-        self.task_id = result['task_id']
-        self.criteria = result['criteria']
-        testcases = result['testcases']
+        testcases = self.result['result']['testcases']
 
         for case, data in testcases.items():
             self._upload_case_result(case, data)
@@ -68,14 +75,16 @@ class HttpDispatcher(DispatchBase):
             timestamp = float(scenario_data.get('timestamp', 0.0))
             current_time = datetime.fromtimestamp(timestamp)
 
+        info = self.result['result']['info']
+
         result = {
             "project_name": "yardstick",
             "case_name": case,
             "description": "yardstick ci scenario status",
-            "scenario": self.info.get('deploy_scenario'),
-            "version": self.info.get('version'),
-            "pod_name": self.info.get('pod_name'),
-            "installer": self.info.get('installer'),
+            "scenario": info.get('deploy_scenario'),
+            "version": info.get('version'),
+            "pod_name": info.get('pod_name'),
+            "installer": info.get('installer'),
             "build_tag": os.environ.get('BUILD_TAG'),
             "criteria": data.get('criteria'),
             "start_date": current_time.strftime('%Y-%m-%d %H:%M:%S'),
@@ -84,13 +93,17 @@ class HttpDispatcher(DispatchBase):
             "details": ""
         }
 
+        LOG.debug('Test result : %s', result)
+
+        headers = {'Content-type': 'application/json'}
         try:
-            LOG.debug('Test result : %s', result)
-            res = requests.post(self.target,
+            res = requests.post(self.conf.target,
                                 data=jsonutils.dump_as_bytes(result),
-                                headers=self.headers,
-                                timeout=self.timeout)
+                                headers=headers,
+                                timeout=int(self.conf.timeout))
+        except ConnectionError as err:
+            LOG.exception('Failed to record result data: %s', err)
+        else:
+            print(res.text)
             LOG.debug('Test result posting finished with status code'
                       ' %d.' % res.status_code)
-        except Exception as err:
-            LOG.exception('Failed to record result data: %s', err)

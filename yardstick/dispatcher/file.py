@@ -19,7 +19,6 @@
 from __future__ import absolute_import
 
 from yardstick.dispatcher.base import Base as DispatchBase
-from yardstick.common import constants as consts
 from yardstick.common import utils
 
 
@@ -29,10 +28,20 @@ class FileDispatcher(DispatchBase):
 
     __dispatcher_type__ = "File"
 
-    def __init__(self, conf):
-        super(FileDispatcher, self).__init__(conf)
-        self.target = conf['dispatcher_file'].get('file_path',
-                                                  consts.DEFAULT_OUTPUT_FILE)
+    def __init__(self, task_id, conf):
+        super(FileDispatcher, self).__init__(task_id)
+        self.conf = conf.file
 
-    def flush_result_data(self, data):
-        utils.write_json_to_file(self.target, data)
+    def setup(self):
+        utils.write_json_to_file(self.conf.file_path, self.result)
+
+    def teardown(self):
+        pass
+
+    def push(self, case, data):
+        self._add_to_result(case, data)
+
+    def flush(self):
+
+        self._complete_result()
+        utils.write_json_to_file(self.conf.file_path, self.result)
