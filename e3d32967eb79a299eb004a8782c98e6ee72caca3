@@ -1,0 +1,750 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_cfbae0e0",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "OpenStack with SR-IOV support",
+      "range": {
+        "startLine": 759,
+        "startChar": 31,
+        "endLine": 759,
+        "endChar": 41
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8f76183d",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "to run a Sample VNF test case, using Heat context, with SR-IOV. This section will describe how to install OpenStack in Ubuntu 16.04, using DevStack, with SR-IOV support.",
+      "range": {
+        "startLine": 762,
+        "startChar": 27,
+        "endLine": 763,
+        "endChar": 49
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_afbf94cf",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "You should skip this sentence. Just the frist two are enough.",
+      "range": {
+        "startLine": 801,
+        "startChar": 38,
+        "endLine": 802,
+        "endChar": 20
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0fb5e8ed",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "s/The/the",
+      "range": {
+        "startLine": 804,
+        "startChar": 7,
+        "endLine": 804,
+        "endChar": 10
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8fc8d875",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "the Intel VT-d or AMD-Vi extension",
+      "range": {
+        "startLine": 804,
+        "startChar": 7,
+        "endLine": 804,
+        "endChar": 25
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_efb99cea",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "this extension",
+      "range": {
+        "startLine": 804,
+        "startChar": 73,
+        "endLine": 805,
+        "endChar": 10
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_efb07cf6",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "Activate the Intel VT-d or AMD-Vi extension in the kernel by modifying the GRUB config file ``/etc/default/grub``.",
+      "range": {
+        "startLine": 807,
+        "startChar": 0,
+        "endLine": 808,
+        "endChar": 60
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cf882025",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "Add a comment for each platform, Intel and AMD.\n\nintel_iommu\u003don iommu\u003dpt\namd_iommu\u003don iommu\u003dpt",
+      "range": {
+        "startLine": 808,
+        "startChar": 62,
+        "endLine": 809,
+        "endChar": 63
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6f9c6c6a",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "This is only needed if we need HPages.",
+      "range": {
+        "startLine": 816,
+        "startChar": 45,
+        "endLine": 816,
+        "endChar": 95
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8f9f385f",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "Just add the line needed:\n\nGRUB_CMDLINE_LINUX_DEFAULT\u003d\"intel_iommu\u003don iommu\u003dpt\"",
+      "range": {
+        "startLine": 813,
+        "startChar": 1,
+        "endLine": 818,
+        "endChar": 5
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0f832805",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": ".. warning:: The following command will reboot the system.",
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ef87dc0d",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "Make sure the extension has been enabled:",
+      "range": {
+        "startLine": 827,
+        "startChar": 0,
+        "endLine": 827,
+        "endChar": 42
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cf8f8022",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "sudo -EH\n\nIf you need internet access, you need to export the env vars (proxy).",
+      "range": {
+        "startLine": 846,
+        "startChar": 2,
+        "endLine": 846,
+        "endChar": 7
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0f9a0863",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 847,
+        "startChar": 2,
+        "endLine": 847,
+        "endChar": 7
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4fa3709e",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 848,
+        "startChar": 2,
+        "endLine": 848,
+        "endChar": 7
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2fa0a48f",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 854,
+        "startChar": 2,
+        "endLine": 854,
+        "endChar": 7
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8fad788b",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 855,
+        "startChar": 2,
+        "endLine": 855,
+        "endChar": 7
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_afbb14c3",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 856,
+        "startChar": 2,
+        "endLine": 856,
+        "endChar": 7
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0fb168e1",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "``/etc/environment``",
+      "range": {
+        "startLine": 859,
+        "startChar": 0,
+        "endLine": 859,
+        "endChar": 18
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cfddc016",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "You should move this before L842. If you don\u0027t have internet access, you won\u0027t be able to execute apt-get commands.",
+      "range": {
+        "startLine": 861,
+        "startChar": 0,
+        "endLine": 870,
+        "endChar": 81
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_efb51cce",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "SR-IOV",
+      "range": {
+        "startLine": 872,
+        "startChar": 6,
+        "endLine": 872,
+        "endChar": 11
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8fdbb81a",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "Why are you creating this link?",
+      "range": {
+        "startLine": 892,
+        "startChar": 0,
+        "endLine": 892,
+        "endChar": 21
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6fd8ec1d",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 905,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 905,
+        "startChar": 0,
+        "endLine": 905,
+        "endChar": 24
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ef887ce9",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "Why are we creating OVS bridges for those PFs? The traffic switching will be done in the SR-IOV physical switch inside the NIC. We are not going to use those PFs to handle traffic (OpenStack doesn\u0027t allow to use PFs and VFs from one NIC at the same time).",
+      "range": {
+        "startLine": 931,
+        "startChar": 0,
+        "endLine": 938,
+        "endChar": 21
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8f773802",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "Run the Sample VNF test case",
+      "range": {
+        "startLine": 957,
+        "startChar": 0,
+        "endLine": 957,
+        "endChar": 21
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cf602038",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "There is an example of Sample VNF test case ready to be executed in an OpenStack environment with SR-IOV support: \u003cname of the test case, sample/vnf/....sriov\u003e",
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4f6d3032",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "Move those config files to docs/testing/user/userguide/code/.",
+      "range": {
+        "startLine": 970,
+        "startChar": 13,
+        "endLine": 970,
+        "endChar": 38
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4f3ff025",
+        "filename": "docs/testing/user/userguide/multi-devstack-controller-local.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "To define an specific branch version:\nCINDER_BRANCH\u003dstable/pike\nGLANCE_BRANCH\u003dstable/pike\nNEUTRON_BRANCH\u003dstable/pike\nNOVA_BRANCH\u003dstable/pike\nHORIZON_BRANCH\u003dstable/pike\nKEYSTONE_BRANCH\u003dstable/pike\nHEAT_BRANCH\u003dstable/pike",
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0f368852",
+        "filename": "docs/testing/user/userguide/multi-devstack-controller-local.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "not needed",
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ef3a3c35",
+        "filename": "docs/testing/user/userguide/multi-devstack-controller-local.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "This option is deprecated. Remove it.",
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_af303457",
+        "filename": "docs/testing/user/userguide/multi-devstack-controller-local.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "This is not needed. You already have this service in the ENABLED_SERVICES",
+      "range": {
+        "startLine": 29,
+        "startChar": 1,
+        "endLine": 30,
+        "endChar": 81
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_af1794a2",
+        "filename": "docs/testing/user/userguide/multi-devstack-controller-local.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "This range should be changed (and L34 and 35).\n\nCHANGE: RANGE IN THE PUBLIC INTERFACE NETWORK",
+      "range": {
+        "startLine": 33,
+        "startChar": 16,
+        "endLine": 33,
+        "endChar": 30
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8ff29898",
+        "filename": "docs/testing/user/userguide/single-devstack-local.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "This should be:\n\nOVS_BRIDGE_MAPPINGS\u003dpublic:br-ex",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 76
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0f0de890",
+        "filename": "docs/testing/user/userguide/single-devstack-local.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T17:05:03Z",
+      "side": 1,
+      "message": "You should define the floating_range and floating_allocation_pool parameters",
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
