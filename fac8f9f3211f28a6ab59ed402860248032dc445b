@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_efa4fc58",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_network.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-06T18:03:30Z",
+      "side": 1,
+      "message": "You need to check that the result has actually been set.\n\ndefine a result variable, pass result to run, and then check that it has been set to {\u0027create_network\u0027: 0 }",
+      "range": {
+        "startLine": 53,
+        "startChar": 12,
+        "endLine": 53,
+        "endChar": 34
+      },
+      "revId": "fac8f9f3211f28a6ab59ed402860248032dc445b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
