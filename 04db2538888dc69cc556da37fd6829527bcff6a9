@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_2f1d4410",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-06T15:42:55Z",
+      "side": 1,
+      "message": "log error and print exception message",
+      "range": {
+        "startLine": 543,
+        "startChar": 5,
+        "endLine": 543,
+        "endChar": 68
+      },
+      "revId": "04db2538888dc69cc556da37fd6829527bcff6a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
