@@ -239,6 +239,7 @@ class ServerTestCase(unittest.TestCase):
         mock_network.vnic_type = 'normal'
         mock_network.subnet_stack_name = 'some-network-stack-subnet'
         mock_network.provider = 'sriov'
+        mock_network.net_flags = {}
         mock_network.external_network = 'ext_net'
         mock_network.router = model.Router('some-router', 'some-network', self.mock_context,
                                            'ext_net')
@@ -248,9 +249,7 @@ class ServerTestCase(unittest.TestCase):
 
         mock_template.add_port.assert_called_with(
             'some-server-some-network-port',
-            mock_network.stack_name,
-            mock_network.subnet_stack_name,
-            mock_network.vnic_type,
+            mock_network,
             sec_group_id=self.mock_context.secgroup_name,
             provider=mock_network.provider,
             allowed_address_pairs=mock_network.allowed_address_pairs)
@@ -511,6 +510,7 @@ class ServerTestCase(unittest.TestCase):
         mock_network = mock.Mock()
         mock_network.allowed_address_pairs = ["1", "2"]
         mock_network.vnic_type = 'normal'
+        mock_network.net_flags = {}
         mock_network.configure_mock(name='some-network', stack_name='some-network-stack',
                                     subnet_stack_name='some-network-stack-subnet',
                                     provider='some-provider')
@@ -520,9 +520,7 @@ class ServerTestCase(unittest.TestCase):
 
         mock_template.add_port.assert_called_with(
             'ServerFlavor-2-some-network-port',
-            mock_network.stack_name,
-            mock_network.subnet_stack_name,
-            mock_network.vnic_type,
+            mock_network,
             provider=mock_network.provider,
             sec_group_id=self.mock_context.secgroup_name,
             allowed_address_pairs=mock_network.allowed_address_pairs)
@@ -554,6 +552,7 @@ class ServerTestCase(unittest.TestCase):
         mock_network.name = 'some-network'
         mock_network.stack_name = 'some-network-stack'
         mock_network.subnet_stack_name = 'some-network-stack-subnet'
+        mock_network.net_flags = {}
 
         test_server._add_instance(mock_template, 'ServerFlavor-3',
                                   [mock_network], 'hints')

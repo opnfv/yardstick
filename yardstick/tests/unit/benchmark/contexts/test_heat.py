@@ -326,6 +326,7 @@ class HeatContextTestCase(unittest.TestCase):
             u'e-network_id': u'net987',
         }
         server = mock.MagicMock()
+        server.private_ip = None
         server.ports = OrderedDict([
             ('a', [{'stack_name': 'b', 'port': 'port_a'}]),
             ('c', [{'stack_name': 'd', 'port': 'port_c'},

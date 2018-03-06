@@ -26,6 +26,7 @@ import shade
 import yardstick.common.openstack_utils as op_utils
 from yardstick.common import exceptions
 from yardstick.common import template_format
+from yardstick.common import constants as consts
 
 log = logging.getLogger(__name__)
 
@@ -333,21 +334,24 @@ name (i.e. %s).
             }
         }
 
-    def add_port(self, name, network_name, subnet_name, vnic_type, sec_group_id=None,
+    def add_port(self, name, network, sec_group_id=None,
                  provider=None, allowed_address_pairs=None):
         """add to the template a named Neutron Port
         """
-        log.debug("adding Neutron::Port '%s', network:'%s', subnet:'%s', vnic_type:'%s', "
-                  "secgroup:%s", name, network_name, subnet_name, vnic_type, sec_group_id)
+        net_is_existing = network.net_flags.get(consts.IS_EXISTING)
+        depends_on = [] if net_is_existing else [network.subnet_stack_name]
+        fixed_ips = [{'subnet': network.subnet}] if net_is_existing else [
+            {'subnet': {'get_resource': network.subnet_stack_name}}]
+        network_ = network.name if net_is_existing else {
+            'get_resource': network.stack_name}
         self.resources[name] = {
             'type': 'OS::Neutron::Port',
-            'depends_on': [subnet_name],
+            'depends_on': depends_on,
             'properties': {
                 'name': name,
-                'binding:vnic_type': vnic_type,
-                'fixed_ips': [{'subnet': {'get_resource': subnet_name}}],
-                'network_id': {'get_resource': network_name},
-                'replacement_policy': 'AUTO',
+                'binding:vnic_type': network.vnic_type,
+                'fixed_ips': fixed_ips,
+                'network': network_,
             }
         }
 
@@ -363,6 +367,8 @@ name (i.e. %s).
         if allowed_address_pairs:
             self.resources[name]['properties'][
                 'allowed_address_pairs'] = allowed_address_pairs
+
+        log.debug("adding Neutron::Port %s", self.resources[name])
 
         self._template['outputs'][name] = {
             'description': 'Address for interface %s' % name,
