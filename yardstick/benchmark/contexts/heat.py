@@ -134,16 +134,6 @@ class HeatContext(Context):
 
         self.attrs = attrs
 
-        self.key_filename = ''.join(
-            [consts.YARDSTICK_ROOT_PATH,
-             'yardstick/resources/files/yardstick_key-',
-              self.name])
-        # Permissions may have changed since creation; this can be fixed. If we
-        # overwrite the file, we lose future access to VMs using this key.
-        # As long as the file exists, even if it is unreadable, keep it intact
-        if not os.path.exists(self.key_filename):
-            SSH.gen_keys(self.key_filename)
-
     def check_environment(self):
         try:
             os.environ['OS_AUTH_URL']
@@ -311,7 +301,7 @@ class HeatContext(Context):
                                          timeout=self.heat_timeout)
          except KeyboardInterrupt:
              raise y_exc.StackCreationInterrupt
-         except:
+         except Exception:
              LOG.exception("stack failed")
              # let the other failures happen, we want stack trace
              raise
@@ -327,6 +317,16 @@ class HeatContext(Context):
     def deploy(self):
         """deploys template into a stack using cloud"""
         LOG.info("Deploying context '%s' START", self.name)
+
+        self.key_filename = ''.join(
+            [consts.YARDSTICK_ROOT_PATH,
+             'yardstick/resources/files/yardstick_key-',
+             self.name])
+        # Permissions may have changed since creation; this can be fixed. If we
+        # overwrite the file, we lose future access to VMs using this key.
+        # As long as the file exists, even if it is unreadable, keep it intact
+        if not os.path.exists(self.key_filename):
+            SSH.gen_keys(self.key_filename)
 
         heat_template = HeatTemplate(self.name, self.template_file,
                                      self.heat_parameters)
