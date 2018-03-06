@@ -134,16 +134,6 @@ class HeatContext(Context):
 
         self.attrs = attrs
 
-        self.key_filename = ''.join(
-            [consts.YARDSTICK_ROOT_PATH,
-             'yardstick/resources/files/yardstick_key-',
-              self.name])
-        # Permissions may have changed since creation; this can be fixed. If we
-        # overwrite the file, we lose future access to VMs using this key.
-        # As long as the file exists, even if it is unreadable, keep it intact
-        if not os.path.exists(self.key_filename):
-            SSH.gen_keys(self.key_filename)
-
     def check_environment(self):
         try:
             os.environ['OS_AUTH_URL']
@@ -351,6 +341,16 @@ class HeatContext(Context):
             if server.floating_ip:
                 server.public_ip = \
                     self.stack.outputs[server.floating_ip["stack_name"]]
+
+        self.key_filename = ''.join(
+            [consts.YARDSTICK_ROOT_PATH,
+             'yardstick/resources/files/yardstick_key-',
+             self.name])
+        # Permissions may have changed since creation; this can be fixed. If we
+        # overwrite the file, we lose future access to VMs using this key.
+        # As long as the file exists, even if it is unreadable, keep it intact
+        if not os.path.exists(self.key_filename):
+            SSH.gen_keys(self.key_filename)
 
         LOG.info("Deploying context '%s' DONE", self.name)
 
