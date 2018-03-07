@@ -20,6 +20,7 @@ import datetime
 import time
 
 from yardstick.network_services.traffic_profile.prox_profile import ProxProfile
+from yardstick.network_services import constants
 
 LOG = logging.getLogger(__name__)
 
@@ -99,9 +100,13 @@ class ProxBinSearchProfile(ProxProfile):
 
         # throughput and packet loss from the most recent successful test
         successful_pkt_loss = 0.0
+        line_speed = traffic_gen.scenario_helper.all_options.get(
+            "interface_speed_gbps", constants.NIC_GBPS_DEFAULT) * constants.ONE_GIGABIT_IN_BITS
         for test_value in self.bounds_iterator(LOG):
             result, port_samples = self._profile_helper.run_test(pkt_size, duration,
-                                                                 test_value, self.tolerated_loss)
+                                                                 test_value,
+                                                                 self.tolerated_loss,
+                                                                 line_speed)
             self.curr_time = time.time()
             diff_time = self.curr_time - self.prev_time
             self.prev_time = self.curr_time

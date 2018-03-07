@@ -32,9 +32,7 @@ from yardstick.benchmark.contexts.base import Context
 from yardstick.common import exceptions as y_exceptions
 from yardstick.common.process import check_if_process_failed
 from yardstick.common import utils
-from yardstick.network_services.constants import DEFAULT_VNF_TIMEOUT
-from yardstick.network_services.constants import PROCESS_JOIN_TIMEOUT
-from yardstick.network_services.constants import REMOTE_TMP
+from yardstick.network_services import constants
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper, DpdkNode
 from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
@@ -51,8 +49,8 @@ LOG = logging.getLogger(__name__)
 
 class SetupEnvHelper(object):
 
-    CFG_CONFIG = os.path.join(REMOTE_TMP, "sample_config")
-    CFG_SCRIPT = os.path.join(REMOTE_TMP, "sample_script")
+    CFG_CONFIG = os.path.join(constants.REMOTE_TMP, "sample_config")
+    CFG_SCRIPT = os.path.join(constants.REMOTE_TMP, "sample_script")
     DEFAULT_CONFIG_TPL_CFG = "sample.cfg"
     PIPELINE_COMMAND = ''
     VNF_TYPE = "SAMPLE"
@@ -796,7 +794,7 @@ class SampleVNF(GenericVNF):
         if self._vnf_process is not None:
             # be proper and join first before we kill
             LOG.debug("joining before terminate %s", self._vnf_process.name)
-            self._vnf_process.join(PROCESS_JOIN_TIMEOUT)
+            self._vnf_process.join(constants.PROCESS_JOIN_TIMEOUT)
             self._vnf_process.terminate()
         # no terminate children here because we share processes with tg
 
@@ -940,12 +938,12 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         if self._traffic_process is not None:
             # be proper and try to join before terminating
             LOG.debug("joining before terminate %s", self._traffic_process.name)
-            self._traffic_process.join(PROCESS_JOIN_TIMEOUT)
+            self._traffic_process.join(constants.PROCESS_JOIN_TIMEOUT)
             self._traffic_process.terminate()
         if self._tg_process is not None:
             # be proper and try to join before terminating
             LOG.debug("joining before terminate %s", self._tg_process.name)
-            self._tg_process.join(PROCESS_JOIN_TIMEOUT)
+            self._tg_process.join(constants.PROCESS_JOIN_TIMEOUT)
             self._tg_process.terminate()
         # no terminate children here because we share processes with vnf
 
