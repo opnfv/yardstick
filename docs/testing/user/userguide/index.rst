@@ -17,15 +17,15 @@ Yardstick User Guide
    02-methodology
    03-architecture
    04-installation
-   05-yardstick_plugin
-   06-result-store-InfluxDB
-   07-grafana
-   08-api
-   09-yardstick_user_interface
-   10-vtc-overview
-   11-nsb-overview
-   12-nsb_installation
-   13-nsb_operation
+   06-yardstick-plugin
+   07-result-store-InfluxDB
+   08-grafana
+   09-api
+   10-yardstick-user-interface
+   11-vtc-overview
+   12-nsb-overview
+   13-nsb-installation
+   14-nsb-operation
    15-list-of-tcs
    nsb/nsb-list-of-tcs
    glossary
