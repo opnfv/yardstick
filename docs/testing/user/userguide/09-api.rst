@@ -3,25 +3,29 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Huawei Technologies Co.,Ltd and others.
 
+=====================
 Yardstick Restful API
-======================
+=====================
 
 
 Abstract
---------
+========
 
 Yardstick support restful API since Danube.
 
 
 Available API
--------------
+=============
 
 /yardstick/env/action
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
-Description: This API is used to prepare Yardstick test environment. For Euphrates, it supports:
+Description: This API is used to prepare Yardstick test environment.
+For Euphrates, it supports:
 
-1. Prepare yardstick test environment, including set external network environment variable, load Yardstick VM images and create flavors;
+1. Prepare yardstick test environment, including setting the
+   ``EXTERNAL_NETWORK`` environment variable, load Yardstick VM images and
+   create flavors;
 2. Start an InfluxDB Docker container and config Yardstick output to InfluxDB;
 3. Start a Grafana Docker container and config it with the InfluxDB.
 
@@ -38,7 +42,8 @@ Example::
         'action': 'prepare_env'
     }
 
-This is an asynchronous API. You need to call /yardstick/asynctask API to get the task result.
+This is an asynchronous API. You need to call ``/yardstick/asynctask`` API to
+get the task result.
 
 
 Start and config an InfluxDB docker container
@@ -48,7 +53,8 @@ Example::
         'action': 'create_influxdb'
     }
 
-This is an asynchronous API. You need to call /yardstick/asynctask API to get the task result.
+This is an asynchronous API. You need to call ``/yardstick/asynctask`` API to
+get the task result.
 
 
 Start and config a Grafana docker container
@@ -58,11 +64,12 @@ Example::
         'action': 'create_grafana'
     }
 
-This is an asynchronous API. You need to call /yardstick/asynctask API to get the task result.
+This is an asynchronous API. You need to call ``/yardstick/asynctask`` API to
+get the task result.
 
 
 /yardstick/asynctask
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 Description: This API is used to get the status of asynchronous tasks
 
@@ -84,7 +91,7 @@ NOTE::
 
 
 /yardstick/testcases
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 Description: This API is used to list all released Yardstick test cases.
 
@@ -99,7 +106,7 @@ Example::
 
 
 /yardstick/testcases/release/action
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------
 
 Description: This API is used to run a Yardstick released test case.
 
@@ -118,11 +125,12 @@ Example::
         }
     }
 
-This is an asynchronous API. You need to call /yardstick/results to get the result.
+This is an asynchronous API. You need to call ``/yardstick/results`` to get the
+result.
 
 
 /yardstick/testcases/samples/action
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------
 
 Description: This API is used to run a Yardstick sample test case.
 
@@ -141,13 +149,15 @@ Example::
         }
     }
 
-This is an asynchronous API. You need to call /yardstick/results to get the result.
+This is an asynchronous API. You need to call ``/yardstick/results`` to get
+the result.
 
 
 /yardstick/testcases/<testcase_name>/docs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------------
 
-Description: This API is used to the documentation of a certain released test case.
+Description: This API is used to the documentation of a certain released test
+case.
 
 
 Method: GET
@@ -160,7 +170,7 @@ Example::
 
 
 /yardstick/testsuites/action
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
 Description: This API is used to run a Yardstick test suite.
 
@@ -179,11 +189,12 @@ Example::
         }
     }
 
-This is an asynchronous API. You need to call /yardstick/results to get the result.
+This is an asynchronous API. You need to call /yardstick/results to get the
+result.
 
 
 /yardstick/tasks/<task_id>/log
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------
 
 Description: This API is used to get the real time log of test case execution.
 
@@ -198,9 +209,11 @@ Example::
 
 
 /yardstick/results
-^^^^^^^^^^^^^^^^^^
+------------------
 
-Description: This API is used to get the test results of tasks. If you call /yardstick/testcases/samples/action API, it will return a task id. You can use the returned task id to get the results by using this API.
+Description: This API is used to get the test results of tasks. If you call
+/yardstick/testcases/samples/action API, it will return a task id. You can use
+the returned task id to get the results by using this API.
 
 
 Method: GET
@@ -215,9 +228,10 @@ This API will return a list of test case result
 
 
 /api/v2/yardstick/openrcs
-^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------
 
-Description: This API provides functionality of handling OpenStack credential file (openrc). For Euphrates, it supports:
+Description: This API provides functionality of handling OpenStack credential
+file (openrc). For Euphrates, it supports:
 
 1. Upload an openrc file for an OpenStack environment;
 2. Update an openrc;
@@ -268,7 +282,7 @@ Example::
 
 
 /api/v2/yardstick/openrcs/<openrc_id>
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------
 
 Description: This API provides functionality of handling OpenStack credential file (openrc). For Euphrates, it supports:
 
@@ -294,9 +308,10 @@ Example::
 
 
 /api/v2/yardstick/pods
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
-Description: This API provides functionality of handling Yardstick pod file (pod.yaml). For Euphrates, it supports:
+Description: This API provides functionality of handling Yardstick pod file
+(pod.yaml). For Euphrates, it supports:
 
 1. Upload a pod file;
 
@@ -319,7 +334,7 @@ Example::
 
 
 /api/v2/yardstick/pods/<pod_id>
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------
 
 Description: This API provides functionality of handling Yardstick pod file (pod.yaml). For Euphrates, it supports:
 
@@ -343,9 +358,10 @@ Example::
 
 
 /api/v2/yardstick/images
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
-Description: This API is used to do some work related to Yardstick VM images. For Euphrates, it supports:
+Description: This API is used to do some work related to Yardstick VM images.
+For Euphrates, it supports:
 
 1. Load Yardstick VM images;
 
@@ -367,7 +383,7 @@ Example::
 
 
 /api/v2/yardstick/images/<image_id>
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------
 
 Description: This API is used to do some work related to Yardstick VM images. For Euphrates, it supports:
 
@@ -391,9 +407,10 @@ Example::
 
 
 /api/v2/yardstick/tasks
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
-Description: This API is used to do some work related to yardstick tasks. For Euphrates, it supports:
+Description: This API is used to do some work related to yardstick tasks. For
+Euphrates, it supports:
 
 1. Create a Yardstick task;
 
@@ -416,7 +433,7 @@ Example::
 
 
 /api/v2/yardstick/tasks/<task_id>
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------
 
 Description: This API is used to do some work related to yardstick tasks. For Euphrates, it supports:
 
@@ -496,13 +513,15 @@ METHOD: DELETE
 Delete a task
 
 Example::
+
     http://<SERVER IP>:<PORT>/api/v2/yardstick/tasks/5g6g3e02-155a-4847-a5f8-154f1b31db8c
 
 
 /api/v2/yardstick/testcases
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------
 
-Description: This API is used to do some work related to yardstick testcases. For Euphrates, it supports:
+Description: This API is used to do some work related to Yardstick testcases.
+For Euphrates, it supports:
 
 1. Upload a test case;
 2. Get all released test cases' information;
@@ -534,7 +553,7 @@ Example::
 
 
 /api/v2/yardstick/testcases/<case_name>
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------------
 
 Description: This API is used to do some work related to yardstick testcases. For Euphrates, it supports:
 
@@ -555,13 +574,15 @@ METHOD: DELETE
 
 Delete a certain test case
 Example::
+
     http://<SERVER IP>:<PORT>/api/v2/yardstick/testcases/opnfv_yardstick_tc002
 
 
 /api/v2/yardstick/testsuites
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
-Description: This API is used to do some work related to yardstick test suites. For Euphrates, it supports:
+Description: This API is used to do some work related to yardstick test suites.
+For Euphrates, it supports:
 
 1. Create a test suite;
 2. Get all test suites;
@@ -596,7 +617,7 @@ Example::
 
 
 /api/v2/yardstick/testsuites
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
 Description: This API is used to do some work related to yardstick test suites. For Euphrates, it supports:
 
@@ -622,9 +643,10 @@ Example::
 
 
 /api/v2/yardstick/projects
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------
 
-Description: This API is used to do some work related to yardstick test projects. For Euphrates, it supports:
+Description: This API is used to do some work related to Yardstick test
+projects. For Euphrates, it supports:
 
 1. Create a Yardstick project;
 2. Get all projects;
@@ -656,7 +678,7 @@ Example::
 
 
 /api/v2/yardstick/projects
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------
 
 Description: This API is used to do some work related to yardstick test projects. For Euphrates, it supports:
 
@@ -682,9 +704,10 @@ Example::
 
 
 /api/v2/yardstick/containers
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
-Description: This API is used to do some work related to Docker containers. For Euphrates, it supports:
+Description: This API is used to do some work related to Docker containers.
+For Euphrates, it supports:
 
 1. Create a Grafana Docker container;
 2. Create an InfluxDB Docker container;
@@ -721,7 +744,7 @@ Example::
 
 
 /api/v2/yardstick/containers/<container_id>
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------------
 
 Description: This API is used to do some work related to Docker containers. For Euphrates, it supports:
 

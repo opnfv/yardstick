@@ -1,3 +1,4 @@
+========================
 Yardstick User Interface
 ========================
 
@@ -6,14 +7,14 @@ in table format and also values pinned on to a graph.
 
 
 Command
--------
+=======
 ::
 
     yardstick report generate <task-ID> <testcase-filename>
 
 
 Description
------------
+===========
 
 1. When the command is triggered using the task-id and the testcase
 name provided the respective values are retrieved from the
