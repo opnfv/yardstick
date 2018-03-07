@@ -14,11 +14,11 @@ This chapter lists available Yardstick test cases.
 Yardstick test cases are divided in two main categories:
 
 * *Generic NFVI Test Cases* - Test Cases developed to realize the methodology
-described in :doc:`02-methodology`
+  described in :doc:`02-methodology`
 
 * *OPNFV Feature Test Cases* - Test Cases developed to verify one or more
-aspect of a feature delivered by an OPNFV Project, including the test cases
-developed for the :term:`VTC`.
+  aspect of a feature delivered by an OPNFV Project, including the test cases
+  developed for the :term:`VTC`.
 
 Generic NFVI Test Case Descriptions
 ===================================
@@ -108,8 +108,8 @@ Parser
 
    opnfv_yardstick_tc040.rst
 
-   StorPerf
------------
+StorPerf
+--------
 
 .. toctree::
    :maxdepth: 1

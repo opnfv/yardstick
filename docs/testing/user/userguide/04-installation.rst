@@ -39,18 +39,18 @@ Several prerequisites are needed for Yardstick:
 4. Connectivity from the Jumphost to the SUT public/external network
 
 .. note:: *Jumphost* refers to any server which meets the previous
-requirements. Normally it is the same server from where the OPNFV
-deployment has been triggered.
+   requirements. Normally it is the same server from where the OPNFV
+   deployment has been triggered.
 
 .. warning:: Connectivity from Jumphost is essential and it is of paramount
-importance to make sure it is working before even considering to install
-and run Yardstick. Make also sure you understand how your networking is
-designed to work.
+   importance to make sure it is working before even considering to install
+   and run Yardstick. Make also sure you understand how your networking is
+   designed to work.
 
 .. note:: If your Jumphost is operating behind a company http proxy and/or
-Firewall, please first consult `Proxy Support`_ section which is towards the
-end of this document. That section details some tips/tricks which *may* be of
-help in a proxified environment.
+   Firewall, please first consult `Proxy Support`_ section which is towards
+   the end of this document. That section details some tips/tricks which *may*
+   be of help in a proxified environment.
 
 
 Install Yardstick using Docker (first option) (**recommended**)
@@ -85,27 +85,30 @@ Run the Docker image to get a Yardstick container::
    docker run -itd --privileged -v /var/run/docker.sock:/var/run/docker.sock \
       -p 8888:5000 --name yardstick opnfv/yardstick:stable
 
-.. table:: Description of the parameters used with ``docker run`` command
+Description of the parameters used with ``docker run`` command
 
-   ======================= ====================================================
-   Parameters              Detail
-   ======================= ====================================================
-   -itd                    -i: interactive, Keep STDIN open even if not
-                           attached
-                           -t: allocate a pseudo-TTY detached mode, in the
-                           background
-   ======================= ====================================================
-   --privileged            If you want to build ``yardstick-image`` in
-                           Yardstick container, this parameter is needed
-   ======================= ====================================================
-   -p 8888:5000            Redirect the a host port (8888) to a container port
-                           (5000)
-   ======================= ====================================================
-   -v /var/run/docker.sock If you want to use yardstick env grafana/influxdb to
-   :/var/run/docker.sock   create a grafana/influxdb container out of Yardstick
-                           container
-   ======================= ====================================================
-   --name yardstick        The name for this container
+  +------------------------+--------------------------------------------------+
+  | Parameters             | Detail                                           |
+  +========================+==================================================+
+  | -itd                   |  -i: interactive, Keep STDIN open even if not    |
+  |                        |  attached                                        |
+  |                        +--------------------------------------------------+
+  |                        |  -t: allocate a pseudo-TTY detached mode, in the |
+  |                        |  background                                      |
+  +------------------------+--------------------------------------------------+
+  | --privileged           | If you want to build ``yardstick-image`` in      |
+  |                        | Yardstick container, this parameter is needed    |
+  +------------------------+--------------------------------------------------+
+  | -p 8888:5000           | Redirect the a host port (8888) to a container   |
+  |                        | port (5000)                                      |
+  +------------------------+--------------------------------------------------+
+  | -v /var/run/docker.sock| If you want to use yardstick env                 |
+  | :/var/run/docker.sock  | grafana/influxdb to create a grafana/influxdb    |
+  |                        | container out of Yardstick container             |
+  +------------------------+--------------------------------------------------+
+  | --name yardstick       | The name for this container                      |
+  +------------------------+--------------------------------------------------+
+
 
 If the host is restarted
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -135,18 +138,18 @@ automatically::
    yardstick env prepare
 
 .. note:: Since Euphrates release, the above command will not be able to
-automatically configure the ``/etc/yardstick/openstack.creds`` file. So before
-running the above command, it is necessary to create the
-``/etc/yardstick/openstack.creds`` file and save OpenStack environment
-variables into it manually. If you have the openstack credential file saved
-outside the Yardstick Docker container, you can do this easily by mapping the
-credential file into Yardstick container using::
+  automatically configure the ``/etc/yardstick/openstack.creds`` file. So before
+  running the above command, it is necessary to create the
+  ``/etc/yardstick/openstack.creds`` file and save OpenStack environment
+  variables into it manually. If you have the openstack credential file saved
+  outside the Yardstick Docker container, you can do this easily by mapping the
+  credential file into Yardstick container using::
 
-   '-v /path/to/credential_file:/etc/yardstick/openstack.creds'
+     '-v /path/to/credential_file:/etc/yardstick/openstack.creds'
 
-when running the Yardstick container. For details of the required OpenStack
-environment variables please refer to section `Export OpenStack environment
-variables`_.
+  when running the Yardstick container. For details of the required OpenStack
+  environment variables please refer to section `Export OpenStack environment
+  variables`_.
 
 The ``env prepare`` command may take up to 6-8 minutes to finish building
 yardstick-image and other environment preparation. Meanwhile if you wish to
@@ -222,8 +225,8 @@ Yardstick is installed::
    sudo -EH tools/yardstick-img-modify tools/ubuntu-server-cloudimg-modify.sh
 
 .. warning:: Before building the guest image inside the Yardstick container,
-make sure the container is granted with privilege. The script will create files
-by default in ``/tmp/workspace/yardstick`` and the files will be owned by root.
+  make sure the container is granted with privilege. The script will create files
+  by default in ``/tmp/workspace/yardstick`` and the files will be owned by root.
 
 The created image can be added to OpenStack using the OpenStack client or via
 the OpenStack Dashboard::
@@ -270,7 +273,7 @@ For usage of Yardstick GUI, please watch our demo video at
 `Yardstick GUI demo`_.
 
 .. note:: The Yardstick GUI is still in development, the GUI layout and
-features may change.
+  features may change.
 
 Delete the Yardstick container
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -433,7 +436,7 @@ of Yardstick ``help`` command and ``ping.py`` test sample::
    yardstick task start samples/ping.yaml
 
 .. note:: The above commands could be run in both the Yardstick container and
-the Ubuntu directly.
+  the Ubuntu directly.
 
 Each testing tool supported by Yardstick has a sample configuration file.
 These configuration files can be found in the ``samples`` directory.
@@ -468,10 +471,10 @@ Then you can run a test case and visit http://host_ip:1948
 (``admin``/``admin``) to see the results.
 
 .. note:: Executing ``yardstick env`` command to deploy InfluxDB and Grafana
-requires Jumphost's docker API version => 1.24. Run the following command to
-check the docker API version on the Jumphost::
+  requires Jumphost's docker API version => 1.24. Run the following command to
+  check the docker API version on the Jumphost::
 
-   docker version
+    docker version
 
 
 Manual deployment of InfluxDB and Grafana containers
@@ -537,200 +540,6 @@ Deploy InfluxDB and Grafana directly in Ubuntu (**Todo**)
 ---------------------------------------------------------
 
 
-Yardstick common CLI
---------------------
-
-List test cases
-^^^^^^^^^^^^^^^
-
-``yardstick testcase list``: This command line would list all test cases in
-Yardstick. It would show like below::
-
-   +---------------------------------------------------------------------------------------
-   | Testcase Name         | Description
-   +---------------------------------------------------------------------------------------
-   | opnfv_yardstick_tc001 | Measure network throughput using pktgen
-   | opnfv_yardstick_tc002 | measure network latency using ping
-   | opnfv_yardstick_tc005 | Measure Storage IOPS, throughput and latency using fio.
-   ...
-   +---------------------------------------------------------------------------------------
-
-
-Show a test case config file
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Take opnfv_yardstick_tc002 for an example. This test case measure network
-latency. You just need to type in ``yardstick testcase show
-opnfv_yardstick_tc002``, and the console would show the config yaml of this
-test case::
-
-   ---
-
-   schema: "yardstick:task:0.1"
-   description: >
-      Yardstick TC002 config file;
-      measure network latency using ping;
-
-   {% set image = image or "cirros-0.3.5" %}
-
-   {% set provider = provider or none %}
-   {% set physical_network = physical_network or 'physnet1' %}
-   {% set segmentation_id = segmentation_id or none %}
-   {% set packetsize = packetsize or 100 %}
-
-   scenarios:
-   {% for i in range(2) %}
-   -
-    type: Ping
-    options:
-      packetsize: {{packetsize}}
-    host: athena.demo
-    target: ares.demo
-
-    runner:
-      type: Duration
-      duration: 60
-      interval: 10
-
-    sla:
-      max_rtt: 10
-      action: monitor
-   {% endfor %}
-
-   context:
-    name: demo
-    image: {{image}}
-    flavor: yardstick-flavor
-    user: cirros
-
-    placement_groups:
-      pgrp1:
-        policy: "availability"
-
-    servers:
-      athena:
-        floating_ip: true
-        placement: "pgrp1"
-      ares:
-        placement: "pgrp1"
-
-    networks:
-      test:
-        cidr: '10.0.1.0/24'
-        {% if provider == "vlan" %}
-        provider: {{provider}}
-        physical_network: {{physical_network}}å
-          {% if segmentation_id %}
-        segmentation_id: {{segmentation_id}}
-          {% endif %}
-        {% endif %}
-
-
-Start a task to run yardstick test case
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-If you want run a test case, then you need to use ``yardstick task start
-<test_case_path>`` this command support some parameters as below::
-
-   +---------------------+--------------------------------------------------+
-   | Parameters          | Detail                                           |
-   +=====================+==================================================+
-   | -d                  | show debug log of yardstick running              |
-   |                     |                                                  |
-   +---------------------+--------------------------------------------------+
-   | --task-args         | If you want to customize test case parameters,   |
-   |                     | use "--task-args" to pass the value. The format  |
-   |                     | is a json string with parameter key-value pair.  |
-   |                     |                                                  |
-   +---------------------+--------------------------------------------------+
-   | --task-args-file    | If you want to use yardstick                     |
-   |                     | env prepare command(or                           |
-   |                     | related API) to load the                         |
-   +---------------------+--------------------------------------------------+
-   | --parse-only        |                                                  |
-   |                     |                                                  |
-   |                     |                                                  |
-   +---------------------+--------------------------------------------------+
-   | --output-file \     | Specify where to output the log. if not pass,    |
-   | OUTPUT_FILE_PATH    | the default value is                             |
-   |                     | "/tmp/yardstick/yardstick.log"                   |
-   |                     |                                                  |
-   +---------------------+--------------------------------------------------+
-   | --suite \           | run a test suite, TEST_SUITE_PATH specify where  |
-   | TEST_SUITE_PATH     | the test suite locates                           |
-   |                     |                                                  |
-   +---------------------+--------------------------------------------------+
-
-
-Run Yardstick in a local environment
-------------------------------------
-
-We also have a guide about how to run Yardstick in a local environment.
-This work is contributed by Tapio Tallgren.
-You can find this guide at `How to run Yardstick in a local environment`_.
-
-
-Create a test suite for Yardstick
-------------------------------------
-
-A test suite in yardstick is a yaml file which include one or more test cases.
-Yardstick is able to support running test suite task, so you can customize your
-own test suite and run it in one task.
-
-``tests/opnfv/test_suites`` is the folder where Yardstick puts CI test suite.
-A typical test suite is like below (the ``fuel_test_suite.yaml`` example)::
-
-   ---
-   # Fuel integration test task suite
-
-   schema: "yardstick:suite:0.1"
-
-   name: "fuel_test_suite"
-   test_cases_dir: "samples/"
-   test_cases:
-   -
-    file_name: ping.yaml
-   -
-    file_name: iperf3.yaml
-
-As you can see, there are two test cases in the ``fuel_test_suite.yaml``. The
-``schema`` and the ``name`` must be specified. The test cases should be listed
-via the tag ``test_cases`` and their relative path is also marked via the tag
-``test_cases_dir``.
-
-Yardstick test suite also supports constraints and task args for each test
-case. Here is another sample (the ``os-nosdn-nofeature-ha.yaml`` example) to
-show this, which is digested from one big test suite::
-
-   ---
-
-   schema: "yardstick:suite:0.1"
-
-   name: "os-nosdn-nofeature-ha"
-   test_cases_dir: "tests/opnfv/test_cases/"
-   test_cases:
-   -
-     file_name: opnfv_yardstick_tc002.yaml
-   -
-     file_name: opnfv_yardstick_tc005.yaml
-   -
-     file_name: opnfv_yardstick_tc043.yaml
-        constraint:
-           installer: compass
-           pod: huawei-pod1
-        task_args:
-           huawei-pod1: '{"pod_info": "etc/yardstick/.../pod.yaml",
-           "host": "node4.LF","target": "node5.LF"}'
-
-As you can see in test case ``opnfv_yardstick_tc043.yaml``, there are two
-tags, ``constraint`` and ``task_args``. ``constraint`` is to specify which
-installer or pod it can be run in the CI environment. ``task_args`` is to
-specify the task arguments for each pod.
-
-All in all, to create a test suite in Yardstick, you just need to create a
-yaml file and add test cases, constraint or task arguments if necessary.
-
-
 Proxy Support
 -------------
 
@@ -790,7 +599,7 @@ stop and delete the container::
    sudo docker rm yardstick
 
 .. warning:: Be careful, the above ``rm`` command will delete the container
-completely. Everything on this container will be lost.
+  completely. Everything on this container will be lost.
 
 Then follow the previous instructions `Prepare the Yardstick container`_ to
 rebuild the Yardstick container.
@@ -804,4 +613,3 @@ References
 .. _`Cirros 0.3.5`: http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img
 .. _`Ubuntu 16.04`: https://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img
 .. _`Yardstick GUI demo`: https://www.youtube.com/watch?v=M3qbJDp6QBk
-.. _`How to run Yardstick in a local environment`: https://wiki.opnfv.org/display/yardstick/How+to+run+Yardstick+in+a+local+environment
