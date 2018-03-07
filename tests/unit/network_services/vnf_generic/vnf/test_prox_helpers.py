@@ -25,6 +25,8 @@ from tests.unit import STL_MOCKS
 from yardstick.common import utils
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 
+ONE_GIGABIT_IN_BITS = 1e9
+TEN_GIGABIT = 10
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
@@ -1537,7 +1539,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut = mock.MagicMock()
         sut.port_stats.return_value = list(range(10))
 
-        data_helper = ProxDataHelper(vnfd_helper, sut, pkt_size, 25, None)
+        data_helper = ProxDataHelper(vnfd_helper, sut, pkt_size, 25, None, None)
 
         self.assertEqual(data_helper.rx_total, 6)
         self.assertEqual(data_helper.tx_total, 7)
@@ -1551,7 +1553,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut = mock.MagicMock()
         sut.port_stats.return_value = list(range(10))
 
-        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, None)
+        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, None, None)
 
         expected = {
             'xe1': {
@@ -1574,7 +1576,8 @@ class TestProxDataHelper(unittest.TestCase):
         sut = mock.MagicMock()
         sut.port_stats.return_value = list(range(10))
 
-        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, 5.4)
+        data_helper = ProxDataHelper(vnfd_helper, sut, None, None,
+            TEN_GIGABIT * ONE_GIGABIT_IN_BITS,5.4)
         data_helper._totals_and_pps = 12, 32, 4.5
         data_helper.tsc_hz = 9.8
         data_helper.measured_stats = {'delta': TotStatsTuple(6.1, 6.2, 6.3, 6.4)}
@@ -1595,7 +1598,7 @@ class TestProxDataHelper(unittest.TestCase):
     def test___enter___negative(self):
         vnfd_helper = mock.MagicMock()
 
-        data_helper = ProxDataHelper(vnfd_helper, None, None, None, None)
+        data_helper = ProxDataHelper(vnfd_helper, None, None, None, None, None)
 
         vnfd_helper.port_pairs.all_ports = []
         with self.assertRaises(AssertionError):
@@ -1617,7 +1620,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut = ProxSocketHelper(mock.MagicMock())
         sut.get_all_tot_stats = mock.MagicMock(side_effect=[start, end])
 
-        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, 5.4)
+        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, None, 5.4)
 
         self.assertIsNone(data_helper.measured_stats)
 
@@ -1638,7 +1641,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut = mock.MagicMock()
         sut.hz.return_value = '54.6'
 
-        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, None)
+        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, None, None)
 
         self.assertIsNone(data_helper.tsc_hz)
 
@@ -1650,7 +1653,7 @@ class TestProxDataHelper(unittest.TestCase):
 class TestProxProfileHelper(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.utils')
-    def test_get_cls(self, mock_utils):
+    def test_get_cls(self, mock_utils)
         mock_type1 = mock.MagicMock()
         mock_type1.__prox_profile_type__ = 'another_type'
         mock_type2 = mock.MagicMock()
@@ -1935,7 +1938,7 @@ class TestProxProfileHelper(unittest.TestCase):
 
         helper = ProxProfileHelper(resource_helper)
 
-        helper.run_test(120, 5, 6.5)
+        helper.run_test(120, 5, TEN_GIGABIT * ONE_GIGABIT_IN_BITS, 6.5)
 
 
 class TestProxMplsProfileHelper(unittest.TestCase):
@@ -2081,8 +2084,10 @@ class TestProxBngProfileHelper(unittest.TestCase):
 
         helper = ProxBngProfileHelper(resource_helper)
 
-        helper.run_test(120, 5, 6.5)
-        helper.run_test(-1000, 5, 6.5)  # negative pkt_size is the only way to make ratio > 1
+        helper.run_test(120, 5, TEN_GIGABIT * ONE_GIGABIT_IN_BITS, 6.5)
+
+        # negative pkt_size is the only way to make ratio > 1
+        helper.run_test(-1000, 5, TEN_GIGABIT * ONE_GIGABIT_IN_BITS, 6.5)
 
 
 class TestProxVpeProfileHelper(unittest.TestCase):
