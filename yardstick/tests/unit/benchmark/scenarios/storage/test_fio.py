@@ -61,6 +61,22 @@ class FioTestCase(unittest.TestCase):
         }
         args = {'options': options}
         p = fio.Fio(args, self.ctx)
+        mock_ssh.SSH.from_node().execute.return_value = (0, '/dev/vdb', '')
+        p.setup()
+
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+        self.assertIsNotNone(p.client)
+        self.assertTrue(p.setup_done)
+
+    def test_fio_job_file_no_disk__setup(self, mock_ssh):
+
+        options = {
+            'job_file': 'job_file.ini',
+            'directory': '/FIO_Test'
+        }
+        args = {'options': options}
+        p = fio.Fio(args, self.ctx)
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         p.setup()
 
         mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
