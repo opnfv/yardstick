@@ -17,7 +17,7 @@ import os
 
 from six.moves import StringIO
 
-from yardstick.network_services.constants import REMOTE_TMP
+from yardstick.network_services import constants
 from yardstick.ssh import AutoConnectSSH
 
 LOG = logging.getLogger(__name__)
@@ -46,7 +46,7 @@ class VnfSshHelper(AutoConnectSSH):
         return self.get_class()(self.node, self.bin_path)
 
     def upload_config_file(self, prefix, content):
-        cfg_file = os.path.join(REMOTE_TMP, prefix)
+        cfg_file = os.path.join(constants.REMOTE_TMP, prefix)
         LOG.debug(content)
         file_obj = StringIO(content)
         self.put_file_obj(file_obj, cfg_file)
