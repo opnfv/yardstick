@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_32892c27",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/get_server_privateip.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-07T09:33:06Z",
+      "side": 1,
+      "message": "You can have more than one port/IP. E.g.:\ntg_0.yardstick-25703623 yardstick-25703623-uplink_0\u003d10.0.2.9; yardstick-25703623-downlink_0\u003d10.0.3.3; yardstick-25703623-mgmt\u003d10.0.1.10, 192.168.3.110\n\nAre you going to read only one?\n\nAt this point you have something like:\nyardstick-25703623-uplink_0\u003d10.0.2.10;\n\nYou can trim this IP using one single command:\nsed -r \u0027s/.*\u003d([0-9\\.\\:]+);/\\1/\u0027\n\nThe whole expression:\nopenstack server list -f value -c Name -c Networks | grep $1 | awk \u0027{print $2}\u0027 | sed -r \u0027s/.*\u003d([0-9\\.\\:]+);/\\1/\u0027",
+      "range": {
+        "startLine": 23,
+        "startChar": 71,
+        "endLine": 23,
+        "endChar": 106
+      },
+      "revId": "aa0a4bb1ad524f3059c8372adb01bf4d776e48de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b2cedc81",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/get_server_privateip.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-07T09:33:06Z",
+      "side": 1,
+      "message": "Nothing guarantees the CLI output columns will remain the same in next releases. You should force to print only Name and Network:\n\nopenstack server list -f value -c Name -c Networks | grep $1 | awk \u0027{print $2}\u0027",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 40
+      },
+      "revId": "aa0a4bb1ad524f3059c8372adb01bf4d776e48de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
