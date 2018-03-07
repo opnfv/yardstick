@@ -44,7 +44,7 @@ SECTION_CONTENTS = 1
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
 
-TEN_GIGABIT = 1e10
+TEN_GIGABIT_IN_BITS  = 1e10
 BITS_PER_BYTE = 8
 RETRY_SECONDS = 60
 RETRY_INTERVAL = 1
@@ -466,13 +466,13 @@ class ProxSocketHelper(object):
                 core_data['current'] = core_data[key1] + core_data[key2]
                 self.set_speed(core_data['cores'], core_data['current'])
 
-    def set_pps(self, cores, pps, pkt_size):
+    def set_pps(self, cores, pps, pkt_size, line_speed=TEN_GIGABIT_IN_BITS):
         """ set packets per second for specific cores on the remote instance """
         msg = "Set packets per sec for core(s) %s to %g%% of line rate (packet size: %d)"
         LOG.debug(msg, cores, pps, pkt_size)
 
         # speed in percent of line-rate
-        speed = float(pps) * (pkt_size + 20) / TEN_GIGABIT / BITS_PER_BYTE
+        speed = float(pps) * (pkt_size + 20) / line_speed / BITS_PER_BYTE
         self._run_template_over_cores("speed {} 0 {}\n", cores, speed)
 
     def lat_stats(self, cores, task=0):
@@ -967,12 +967,13 @@ class ProxResourceHelper(ClientResourceHelper):
 
 class ProxDataHelper(object):
 
-    def __init__(self, vnfd_helper, sut, pkt_size, value, tolerated_loss):
+    def __init__(self, vnfd_helper, sut, pkt_size, value, line_speed, tolerated_loss):
         super(ProxDataHelper, self).__init__()
         self.vnfd_helper = vnfd_helper
         self.sut = sut
         self.pkt_size = pkt_size
         self.value = value
+        self.line_speed = line_speed
         self.tolerated_loss = tolerated_loss
         self.port_count = len(self.vnfd_helper.port_pairs.all_ports)
         self.tsc_hz = None
@@ -1058,9 +1059,7 @@ class ProxDataHelper(object):
         self.tsc_hz = float(self.sut.hz())
 
     def line_rate_to_pps(self):
-        # NOTE: to fix, don't hardcode 10Gb/s
-        return self.port_count * TEN_GIGABIT / BITS_PER_BYTE / (self.pkt_size + 20)
-
+      return self.port_count * self.line_speed  / BITS_PER_BYTE / (self.pkt_size + 20)
 
 class ProxProfileHelper(object):
 
@@ -1139,8 +1138,10 @@ class ProxProfileHelper(object):
 
         return cores
 
-    def run_test(self, pkt_size, duration, value, tolerated_loss=0.0):
-        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size, value, tolerated_loss)
+    def run_test(self, pkt_size, duration, value, line_speed=TEN_GIGABIT_IN_BITS,
+                 tolerated_loss=0.0):
+        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
+                                     value, line_speed, tolerated_loss)
 
         with data_helper, self.traffic_context(pkt_size, value):
             with data_helper.measure_tot_stats():
@@ -1396,8 +1397,10 @@ class ProxBngProfileHelper(ProxProfileHelper):
         time.sleep(3)
         self.sut.stop(self.all_rx_cores)
 
-    def run_test(self, pkt_size, duration, value, tolerated_loss=0.0):
-        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size, value, tolerated_loss)
+    def run_test(self, pkt_size, duration, value, line_speed=TEN_GIGABIT_IN_BITS,
+                 tolerated_loss=0.0):
+        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
+                                     value, line_speed, tolerated_loss)
 
         with data_helper, self.traffic_context(pkt_size, value):
             with data_helper.measure_tot_stats():
@@ -1583,8 +1586,10 @@ class ProxVpeProfileHelper(ProxProfileHelper):
         time.sleep(3)
         self.sut.stop(self.all_rx_cores)
 
-    def run_test(self, pkt_size, duration, value, tolerated_loss=0.0):
-        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size, value, tolerated_loss)
+    def run_test(self, pkt_size, duration, value, line_speed=TEN_GIGABIT_IN_BITS,
+                 tolerated_loss=0.0):
+        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
+                                     value, line_speed, tolerated_loss)
 
         with data_helper, self.traffic_context(pkt_size, value):
             with data_helper.measure_tot_stats():
@@ -1772,8 +1777,10 @@ class ProxlwAFTRProfileHelper(ProxProfileHelper):
         time.sleep(3)
         self.sut.stop(self.all_rx_cores)
 
-    def run_test(self, pkt_size, duration, value, tolerated_loss=0.0):
-        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size, value, tolerated_loss)
+    def run_test(self, pkt_size, duration, value, line_speed=TEN_GIGABIT_IN_BITS,
+                 tolerated_loss=0.0):
+        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
+                                     value, line_speed, tolerated_loss)
 
         with data_helper, self.traffic_context(pkt_size, value):
             with data_helper.measure_tot_stats():
