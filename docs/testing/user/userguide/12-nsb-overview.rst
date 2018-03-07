@@ -17,8 +17,8 @@ Yardstick_ from Intel.
 Overview
 --------
 
-The goal of NSB is to Extend Yardstick to perform real world VNFs and NFVi Characterization and
-benchmarking with repeatable and deterministic methods.
+The goal of NSB is to Extend Yardstick to perform real world VNFs and NFVi
+Characterization and benchmarking with repeatable and deterministic methods.
 
 The Network Service Benchmarking (NSB) extends the yardstick framework to do
 VNF characterization and benchmarking in three different execution
@@ -77,10 +77,10 @@ connected together using NFV infrastructure.
 
 The Yardstick NSB extension can support multiple VNFs created by different
 vendors including traffic generators. Every VNF being tested has its
-own data model. The Network service defines a VNF modelling on base of performed
-network functionality. The part of the data model is a set of the configuration
-parameters, number of connection points used and flavor including core and
-memory amount.
+own data model. The Network service defines a VNF modelling on base of
+performed network functionality. The part of the data model is a set of the
+configuration parameters, number of connection points used and flavor including
+core and memory amount.
 
 The ETSI defines a Network Service as a set of configurable VNFs working in
 some NFV Infrastructure connecting each other using Virtual Links available
@@ -132,9 +132,9 @@ Components of Network Service
   same way as other VNFs being a part of benchmarked network service.
   Same as other VNFs the traffic generator are instantiated and terminated.
 
-  Every traffic generator has own configuration defined as a traffic profile and
-  a set of KPIs supported. The python models for TG is extended by specific calls
-  to listen and generate traffic.
+  Every traffic generator has own configuration defined as a traffic profile
+  and a set of KPIs supported. The python models for TG is extended by
+  specific calls to listen and generate traffic.
 
   * *The stateless TREX traffic generator*: The main traffic generator used as
     Network Service stimulus is open source TREX tool.

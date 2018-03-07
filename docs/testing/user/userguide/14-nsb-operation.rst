@@ -23,13 +23,14 @@ provider/external networks.
 Provider networks
 ^^^^^^^^^^^^^^^^^
 
-The VNFs require a clear L2 connect to the external network in order to generate
-realistic traffic from multiple address ranges and port
+The VNFs require a clear L2 connect to the external network in order to
+generate realistic traffic from multiple address ranges and ports.
 
-In order to prevent Neutron from filtering traffic we have to disable Neutron Port Security.
-We also disable DHCP on the data ports because we are binding the ports to DPDK and do not need
-DHCP addresses.  We also disable gateways because multiple default gateways can prevent SSH access
-to the VNF from the floating IP.  We only want a gateway on the mgmt network
+In order to prevent Neutron from filtering traffic we have to disable Neutron
+Port Security. We also disable DHCP on the data ports because we are binding
+the ports to DPDK and do not need DHCP addresses.  We also disable gateways
+because multiple default gateways can prevent SSH access to the VNF from the
+floating IP.  We only want a gateway on the mgmt network
 
 .. code-block:: yaml
 
@@ -42,8 +43,9 @@ to the VNF from the floating IP.  We only want a gateway on the mgmt network
 Heat Topologies
 ^^^^^^^^^^^^^^^
 
-By default Heat will attach every node to every Neutron network that is created.
-For scale-out tests we do not want to attach every node to every network.
+By default Heat will attach every node to every Neutron network that is
+created. For scale-out tests we do not want to attach every node to every
+network.
 
 For each node you can specify which ports are on which network using the
 network_ports dictionary.
@@ -85,11 +87,11 @@ In this example we have ``TRex xe0 <-> xe0 VNF xe1 <-> xe0 UDP_Replay``
 Collectd KPIs
 -------------
 
-NSB can collect KPIs from collected.  We have support for various plugins enabled by the
-Barometer project.
+NSB can collect KPIs from collected.  We have support for various plugins
+enabled by the Barometer project.
 
-The default yardstick-samplevnf has collectd installed.   This allows for collecting KPIs
-from the VNF.
+The default yardstick-samplevnf has collectd installed. This allows for
+collecting KPIs from the VNF.
 
 Collecting KPIs from the NFVi is more complicated and requires manual setup.
 We assume that collectd is not installed on the compute nodes.
@@ -130,15 +132,18 @@ Scale-Up
 
 VNFs performance data with scale-up
 
-  * Helps to figure out optimal number of cores specification in the Virtual Machine template creation or VNF
+  * Helps to figure out optimal number of cores specification in the Virtual
+    Machine template creation or VNF
   * Helps in comparison between different VNF vendor offerings
-  * Better the scale-up index, indicates the performance scalability of a particular solution
+  * Better the scale-up index, indicates the performance scalability of a
+    particular solution
 
 Heat
 ^^^^
 
-For VNF scale-up tests we increase the number for VNF worker threads.  In the case of VNFs
-we also need to increase the number of VCPUs and memory allocated to the VNF.
+For VNF scale-up tests we increase the number for VNF worker threads.  In the
+case of VNFs we also need to increase the number of VCPUs and memory allocated
+to the VNF.
 
 An example scale-up Heat testcase is:
 
@@ -157,9 +162,9 @@ We set the VCPUs and memory using the --task-args options
 Baremetal
 ^^^^^^^^^
   1. Follow above traffic generator section to setup.
-  2. edit num of threads in ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_trex_scale_up.yaml``
-
-  e.g, 6 Threads  for given VNF
+  2. Edit num of threads in
+     ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_trex_scale_up.yaml``
+     e.g, 6 Threads for given VNF
 
 .. code-block:: yaml
 
@@ -202,11 +207,12 @@ Baremetal
 Scale-Out
 --------------------
 
-VNFs performance data with scale-out
+VNFs performance data with scale-out helps
 
-  * Helps in capacity planning to meet the given network node requirements
-  * Helps in comparison between different VNF vendor offerings
-  * Better the scale-out index, provides the flexibility in meeting future capacity requirements
+  * in capacity planning to meet the given network node requirements
+  * in comparison between different VNF vendor offerings
+  * better the scale-out index, provides the flexibility in meeting future
+    capacity requirements
 
 
 Standalone
@@ -236,7 +242,8 @@ Scale-out not supported on Baremetal.
 Heat
 ^^^^
 
-There are sample scale-out all-VM Heat tests.  These tests only use VMs and don't use external traffic.
+There are sample scale-out all-VM Heat tests. These tests only use VMs and
+don't use external traffic.
 
 The tests use UDP_Replay and correlated traffic.
 
@@ -250,11 +257,14 @@ To run the test you need to increase OpenStack CPU, Memory and Port quotas.
 Traffic Generator tuning
 ------------------------
 
-The TRex traffic generator can be setup to use multiple threads per core, this is for multiqueue testing.
+The TRex traffic generator can be setup to use multiple threads per core, this
+is for multiqueue testing.
 
-TRex does not automatically enable multiple threads because we currently cannot detect the number of queues on a device.
+TRex does not automatically enable multiple threads because we currently cannot
+detect the number of queues on a device.
 
-To enable multiple queue set the queues_per_port value in the TG VNF options section.
+To enable multiple queue set the ``queues_per_port`` value in the TG VNF
+options section.
 
 .. code-block:: yaml
 
