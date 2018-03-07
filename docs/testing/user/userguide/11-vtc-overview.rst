@@ -29,10 +29,10 @@ to run the :term:`VNF`. The exploitation of Deep Packet Inspection
 assumptions:
 
 * third parties unaffiliated with either source or recipient are able to
-inspect each IP packet’s payload
+  inspect each IP packet's payload
 
-* the classifier knows the relevant syntax of each application’s packet
-payloads (protocol signatures, data patterns, etc.).
+* the classifier knows the relevant syntax of each application's packet
+  payloads (protocol signatures, data patterns, etc.).
 
 The proposed :term:`DPI` based approach will only use an indicative, small
 number of the initial packets from each flow in order to identify the content
@@ -47,14 +47,14 @@ Concepts
 ========
 
 * *Traffic Inspection*: The process of packet analysis and application
-identification of network traffic that passes through the :term:`VTC`.
+  identification of network traffic that passes through the :term:`VTC`.
 
 * *Traffic Forwarding*: The process of packet forwarding from an incoming
-network interface to a pre-defined outgoing network interface.
+  network interface to a pre-defined outgoing network interface.
 
 * *Traffic Rule Application*: The process of packet tagging, based on a
-predefined set of rules. Packet tagging may include e.g. Type of Service
-(:term:`ToS`) field modification.
+  predefined set of rules. Packet tagging may include e.g. Type of Service
+  (:term:`ToS`) field modification.
 
 Architecture
 ============

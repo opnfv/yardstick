@@ -3,11 +3,12 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, 2016-2017 Intel Corporation.
 
+=====================================
 Yardstick - NSB Testing -Installation
 =====================================
 
 Abstract
---------
+========
 
 The Network Service Benchmarking (NSB) extends the yardstick framework to do
 VNF characterization and benchmarking in three different execution
@@ -26,79 +27,65 @@ The steps needed to run Yardstick with NSB testing are:
 
 
 Prerequisites
--------------
+=============
 
 Refer chapter Yardstick Installation for more information on yardstick
 prerequisites
 
-Several prerequisites are needed for Yardstick(VNF testing):
+Several prerequisites are needed for Yardstick (VNF testing):
 
-  - Python Modules: pyzmq, pika.
-
-  - flex
-
-  - bison
-
-  - build-essential
-
-  - automake
-
-  - libtool
-
-  - librabbitmq-dev
-
-  - rabbitmq-server
-
-  - collectd
-
-  - intel-cmt-cat
+  * Python Modules: pyzmq, pika.
+  * flex
+  * bison
+  * build-essential
+  * automake
+  * libtool
+  * librabbitmq-dev
+  * rabbitmq-server
+  * collectd
+  * intel-cmt-cat
 
 Hardware & Software Ingredients
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------
 
 SUT requirements:
 
 
-   +-----------+--------------------+
-   | Item      | Description        |
-   +-----------+--------------------+
-   | Memory    | Min 20GB           |
-   +-----------+--------------------+
-   | NICs      | 2 x 10G            |
-   +-----------+--------------------+
-   | OS        | Ubuntu 16.04.3 LTS |
-   +-----------+--------------------+
-   | kernel    | 4.4.0-34-generic   |
-   +-----------+--------------------+
-   | DPDK      | 17.02              |
-   +-----------+--------------------+
+   ======= ===================
+   Item    Description
+   ======= ===================
+   Memory  Min 20GB
+   NICs    2 x 10G
+   OS      Ubuntu 16.04.3 LTS
+   kernel  4.4.0-34-generic
+   DPDK    17.02
+   ======= ===================
 
 Boot and BIOS settings:
 
 
-   +------------------+---------------------------------------------------+
-   | Boot settings    | default_hugepagesz=1G hugepagesz=1G hugepages=16  |
-   |                  | hugepagesz=2M hugepages=2048 isolcpus=1-11,22-33  |
-   |                  | nohz_full=1-11,22-33 rcu_nocbs=1-11,22-33         |
-   |                  | iommu=on iommu=pt intel_iommu=on                  |
-   |                  | Note: nohz_full and rcu_nocbs is to disable Linux |
-   |                  | kernel interrupts                                 |
-   +------------------+---------------------------------------------------+
-   |BIOS              | CPU Power and Performance Policy <Performance>    |
-   |                  | CPU C-state Disabled                              |
-   |                  | CPU P-state Disabled                              |
-   |                  | Enhanced Intel® Speedstep® Tech Disabled          |
-   |                  | Hyper-Threading Technology (If supported) Enabled |
-   |                  | Virtualization Techology Enabled                  |
-   |                  | Intel(R) VT for Direct I/O Enabled                |
-   |                  | Coherency Enabled                                 |
-   |                  | Turbo Boost Disabled                              |
-   +------------------+---------------------------------------------------+
+   ============= =================================================
+   Boot settings default_hugepagesz=1G hugepagesz=1G hugepages=16
+                 hugepagesz=2M hugepages=2048 isolcpus=1-11,22-33
+                 nohz_full=1-11,22-33 rcu_nocbs=1-11,22-33
+                 iommu=on iommu=pt intel_iommu=on
+                 Note: nohz_full and rcu_nocbs is to disable Linux
+                 kernel interrupts
+   BIOS          CPU Power and Performance Policy <Performance>
+                 CPU C-state Disabled
+                 CPU P-state Disabled
+                 Enhanced Intel® Speedstep® Tech Disabl
+                 Hyper-Threading Technology (If supported) Enabled
+                 Virtualization Techology Enabled
+                 Intel(R) VT for Direct I/O Enabled
+                 Coherency Enabled
+                 Turbo Boost Disabled
+   ============= =================================================
 
 
 
 Install Yardstick (NSB Testing)
--------------------------------
+===============================
 
 Download the source code and install Yardstick from it
 
@@ -168,11 +155,12 @@ Above command setup docker with latest yardstick code. To execute
 
   docker exec -it yardstick bash
 
-It will also automatically download all the packages needed for NSB Testing setup.
-Refer chapter :doc:`04-installation` for more on docker **Install Yardstick using Docker (recommended)**
+It will also automatically download all the packages needed for NSB Testing
+setup. Refer chapter :doc:`04-installation` for more on docker
+**Install Yardstick using Docker (recommended)**
 
 System Topology:
-----------------
+================
 
 .. code-block:: console
 
@@ -187,13 +175,15 @@ System Topology:
 
 
 Environment parameters and credentials
---------------------------------------
+======================================
 
 Config yardstick conf
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
-If user did not run 'yardstick env influxdb' inside the container, which will generate
-correct yardstick.conf, then create the config file manually (run inside the container):
+If user did not run 'yardstick env influxdb' inside the container, which will
+generate correct ``yardstick.conf``, then create the config file manually (run
+inside the container):
+::
 
     cp ./etc/yardstick/yardstick.conf.sample /etc/yardstick/yardstick.conf
     vi /etc/yardstick/yardstick.conf
@@ -219,11 +209,11 @@ Add trex_path, trex_client_lib and bin_path in 'nsb' section.
   trex_client_lib=/opt/nsb_bin/trex_client/stl
 
 Run Yardstick - Network Service Testcases
------------------------------------------
+=========================================
 
 
 NS testing - using yardstick CLI
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------
 
   See :doc:`04-installation`
 
@@ -236,13 +226,13 @@ NS testing - using yardstick CLI
   yardstick --debug task start yardstick/samples/vnf_samples/nsut/<vnf>/<test case>
 
 Network Service Benchmarking - Bare-Metal
------------------------------------------
+=========================================
 
 Bare-Metal Config pod.yaml describing Topology
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------------
 
-Bare-Metal 2-Node setup:
-########################
+Bare-Metal 2-Node setup
+^^^^^^^^^^^^^^^^^^^^^^^
 .. code-block:: console
 
   +----------+              +----------+
@@ -254,8 +244,8 @@ Bare-Metal 2-Node setup:
   +----------+              +----------+
   trafficgen_1                   vnf
 
-Bare-Metal 3-Node setup - Correlated Traffic:
-#############################################
+Bare-Metal 3-Node setup - Correlated Traffic
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. code-block:: console
 
   +----------+              +----------+            +------------+
@@ -270,7 +260,7 @@ Bare-Metal 3-Node setup - Correlated Traffic:
 
 
 Bare-Metal Config pod.yaml
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------
 Before executing Yardstick test cases, make sure that pod.yaml reflects the
 topology and update all the required fields.::
 
@@ -345,13 +335,13 @@ topology and update all the required fields.::
 
 
 Network Service Benchmarking - Standalone Virtualization
---------------------------------------------------------
+========================================================
 
-SR-IOV:
-^^^^^^^
+SR-IOV
+------
 
 SR-IOV Pre-requisites
-#####################
+^^^^^^^^^^^^^^^^^^^^^
 
 On Host:
  a) Create a bridge for VM to connect to external network
@@ -387,10 +377,10 @@ On Host:
 
 
 SR-IOV Config pod.yaml describing Topology
-##########################################
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 SR-IOV 2-Node setup:
-####################
+^^^^^^^^^^^^^^^^^^^^
 .. code-block:: console
 
                                +--------------------+
@@ -418,7 +408,7 @@ SR-IOV 2-Node setup:
 
 
 SR-IOV 3-Node setup - Correlated Traffic
-########################################
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. code-block:: console
 
                                +--------------------+
@@ -454,7 +444,7 @@ topology and update all the required fields.
 .. note:: Update all the required fields like ip, user, password, pcis, etc...
 
 SR-IOV Config pod_trex.yaml
-###########################
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: YAML
 
@@ -483,7 +473,7 @@ SR-IOV Config pod_trex.yaml
                 local_mac: "00:00.00:00:00:02"
 
 SR-IOV Config host_sriov.yaml
-#############################
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: YAML
 
@@ -495,7 +485,8 @@ SR-IOV Config host_sriov.yaml
        user: ""
        password: ""
 
-SR-IOV testcase update: ``<yardstick>/samples/vnf_samples/nsut/vfw/tc_sriov_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
+SR-IOV testcase update:
+``<yardstick>/samples/vnf_samples/nsut/vfw/tc_sriov_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
 
 Update "contexts" section
 """""""""""""""""""""""""
@@ -542,11 +533,11 @@ Update "contexts" section
 
 
 
-OVS-DPDK:
-^^^^^^^^^
+OVS-DPDK
+--------
 
 OVS-DPDK Pre-requisites
-#######################
+^^^^^^^^^^^^^^^^^^^^^^^
 
 On Host:
  a) Create a bridge for VM to connect to external network
@@ -585,10 +576,10 @@ On Host:
 
 
 OVS-DPDK Config pod.yaml describing Topology
-############################################
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-OVS-DPDK 2-Node setup:
-######################
+OVS-DPDK 2-Node setup
+^^^^^^^^^^^^^^^^^^^^^
 
 
 .. code-block:: console
@@ -619,7 +610,7 @@ OVS-DPDK 2-Node setup:
 
 
 OVS-DPDK 3-Node setup - Correlated Traffic
-##########################################
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: console
 
@@ -659,7 +650,7 @@ topology and update all the required fields.
 .. note:: Update all the required fields like ip, user, password, pcis, etc...
 
 OVS-DPDK Config pod_trex.yaml
-#############################
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: YAML
 
@@ -687,7 +678,7 @@ OVS-DPDK Config pod_trex.yaml
               local_mac: "00:00.00:00:00:02"
 
 OVS-DPDK Config host_ovs.yaml
-#############################
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: YAML
 
@@ -699,7 +690,8 @@ OVS-DPDK Config host_ovs.yaml
        user: ""
        password: ""
 
-ovs_dpdk testcase update: ``<yardstick>/samples/vnf_samples/nsut/vfw/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
+ovs_dpdk testcase update:
+``<yardstick>/samples/vnf_samples/nsut/vfw/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
 
 Update "contexts" section
 """""""""""""""""""""""""
@@ -757,7 +749,7 @@ Update "contexts" section
 
 
 Network Service Benchmarking - OpenStack with SR-IOV support
-------------------------------------------------------------
+============================================================
 
 This section describes how to run a Sample VNF test case, using Heat context,
 with SR-IOV. It also covers how to install OpenStack in Ubuntu 16.04, using
@@ -765,7 +757,7 @@ DevStack, with SR-IOV support.
 
 
 Single node OpenStack setup with external TG
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------------
 
 .. code-block:: console
 
@@ -796,7 +788,7 @@ Single node OpenStack setup with external TG
 
 
 Host pre-configuration
-######################
+^^^^^^^^^^^^^^^^^^^^^^
 
 .. warning:: The following configuration requires sudo access to the system. Make
   sure that your user have the access.
@@ -896,7 +888,7 @@ Setup SR-IOV ports on the host:
 
 
 DevStack installation
-#####################
+^^^^^^^^^^^^^^^^^^^^^
 
 Use official `Devstack <https://docs.openstack.org/devstack/pike/>`_
 documentation to install OpenStack on a host. Please note, that stable
@@ -918,7 +910,7 @@ Start the devstack installation on a host.
 
 
 TG host configuration
-#####################
+^^^^^^^^^^^^^^^^^^^^^
 
 Yardstick automatically install and configure Trex traffic generator on TG
 host based on provided POD file (see below). Anyway, it's recommended to check
@@ -927,7 +919,7 @@ the manual at https://trex-tgn.cisco.com/trex/doc/trex_manual.html.
 
 
 Run the Sample VNF test case
-############################
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 There is an example of Sample VNF test case ready to be executed in an
 OpenStack environment with SR-IOV support: ``samples/vnf_samples/nsut/vfw/
@@ -952,7 +944,7 @@ context using steps described in `NS testing - using yardstick CLI`_ section.
 
 
 Multi node OpenStack TG and VNF setup (two nodes)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------------------
 
 .. code-block:: console
 
@@ -983,14 +975,14 @@ Multi node OpenStack TG and VNF setup (two nodes)
 
 
 Controller/Compute pre-configuration
-####################################
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Pre-configuration of the controller and compute hosts are the same as
 described in `Host pre-configuration`_ section. Follow the steps in the section.
 
 
 DevStack configuration
-######################
+^^^^^^^^^^^^^^^^^^^^^^
 
 Use official `Devstack <https://docs.openstack.org/devstack/pike/>`_
 documentation to install OpenStack on a host. Please note, that stable
@@ -1017,7 +1009,7 @@ Start the devstack installation on the controller and compute hosts.
 
 
 Run the sample vFW TC
-#####################
+^^^^^^^^^^^^^^^^^^^^^
 
 Install yardstick using `Install Yardstick (NSB Testing)`_ steps for OpenStack
 context.
@@ -1034,29 +1026,30 @@ and the following yardtick command line arguments:
 
 
 Enabling other Traffic generator
---------------------------------
+================================
 
-IxLoad:
-^^^^^^^
+IxLoad
+^^^^^^
 
-1. Software needed: IxLoadAPI ``<IxLoadTclApi verson>Linux64.bin.tgz and <IxOS
-   version>Linux64.bin.tar.gz`` (Download from ixia support site)
-   Install - ``<IxLoadTclApi verson>Linux64.bin.tgz & <IxOS version>Linux64.bin.tar.gz``
-   If the installation was not done inside the container, after installing the IXIA client,
-   check /opt/ixia/ixload/<ver>/bin/ixloadpython and make sure you can run this cmd
-   inside the yardstick container. Usually user is required to copy or link /opt/ixia/python/<ver>/bin/ixiapython
-   to /usr/bin/ixiapython<ver> inside the container.
+1. Software needed: IxLoadAPI ``<IxLoadTclApi verson>Linux64.bin.tgz`` and
+   ``<IxOS version>Linux64.bin.tar.gz`` (Download from ixia support site)
+   Install - ``<IxLoadTclApi verson>Linux64.bin.tgz`` and
+   ``<IxOS version>Linux64.bin.tar.gz``
+   If the installation was not done inside the container, after installing
+   the IXIA client, check ``/opt/ixia/ixload/<ver>/bin/ixloadpython`` and make
+   sure you can run this cmd inside the yardstick container. Usually user is
+   required to copy or link ``/opt/ixia/python/<ver>/bin/ixiapython`` to
+   ``/usr/bin/ixiapython<ver>`` inside the container.
 
-2. Update pod_ixia.yaml file with ixia details.
+2. Update ``pod_ixia.yaml`` file with ixia details.
 
   .. code-block:: console
 
     cp <repo>/etc/yardstick/nodes/pod.yaml.nsb.sample.ixia etc/yardstick/nodes/pod_ixia.yaml
 
-  Config pod_ixia.yaml
+  Config ``pod_ixia.yaml``
 
   .. code-block:: yaml
-
 
       nodes:
           -
@@ -1097,22 +1090,23 @@ IxLoad:
    You will also need to configure the IxLoad machine to start the IXIA
    IxosTclServer. This can be started like so:
 
-   - Connect to the IxLoad machine using RDP
-   - Go to:
+   * Connect to the IxLoad machine using RDP
+   * Go to:
      ``Start->Programs->Ixia->IxOS->IxOS 8.01-GA-Patch1->Ixia Tcl Server IxOS 8.01-GA-Patch1``
      or
      ``"C:\Program Files (x86)\Ixia\IxOS\8.01-GA-Patch1\ixTclServer.exe"``
 
-4. Create a folder "Results" in c:\ and share the folder on the network.
+4. Create a folder ``Results`` in c:\ and share the folder on the network.
 
-5. execute testcase in samplevnf folder.
-   eg ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_1b_Requests-65000_Concurrency.yaml``
+5. Execute testcase in samplevnf folder e.g.
+   ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_1b_Requests-65000_Concurrency.yaml``
 
-IxNetwork:
-^^^^^^^^^^
+IxNetwork
+---------
 
-1. Software needed: ``IxNetworkAPI<ixnetwork verson>Linux64.bin.tgz`` (Download from ixia support site)
-                     Install - ``IxNetworkAPI<ixnetwork verson>Linux64.bin.tgz``
+1. Software needed: ``IxNetworkAPI<ixnetwork verson>Linux64.bin.tgz``
+   (Download from ixia support site)
+   Install - ``IxNetworkAPI<ixnetwork verson>Linux64.bin.tgz``
 2. Update pod_ixia.yaml file with ixia details.
 
   .. code-block:: console
@@ -1162,9 +1156,11 @@ IxNetwork:
    You will also need to configure the IxNetwork machine to start the IXIA
    IxNetworkTclServer. This can be started like so:
 
-    - Connect to the IxNetwork machine using RDP
-    - Go to:     ``Start->Programs->Ixia->IxNetwork->IxNetwork 7.21.893.14 GA->IxNetworkTclServer`` (or ``IxNetworkApiServer``)
+    * Connect to the IxNetwork machine using RDP
+    * Go to:
+      ``Start->Programs->Ixia->IxNetwork->IxNetwork 7.21.893.14 GA->IxNetworkTclServer``
+      (or ``IxNetworkApiServer``)
 
-4. execute testcase in samplevnf folder.
-   eg ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml``
+4. Execute testcase in samplevnf folder e.g.
+   ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml``
 
