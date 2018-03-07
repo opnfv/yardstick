@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_f5068e1f",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/add_server_to_existing_secgroup.bash",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-07T17:03:06Z",
+      "side": 1,
+      "message": "you already have the secgroup name in $2. Why do you need this command? You\u0027ll get the same value. Unless you check the existence of the secgroup and in case of error you exit the script, there is no reason to do this (or maybe I\u0027m missing something).",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 12
+      },
+      "revId": "ad3aa1f35c33697d7ebd4edf349a94fb606b1545",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d503920d",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/list_secgroups.bash",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-07T17:03:06Z",
+      "side": 1,
+      "message": "As commented in the main file, this rollback action should remove the server from this secgroup.",
+      "revId": "ad3aa1f35c33697d7ebd4edf349a94fb606b1545",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_75139e66",
+        "filename": "yardstick/benchmark/scenarios/availability/operation_conf.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-07T17:03:06Z",
+      "side": 1,
+      "message": "The rollback action should be the deletion of this server in the secirity group.",
+      "range": {
+        "startLine": 44,
+        "startChar": 33,
+        "endLine": 44,
+        "endChar": 47
+      },
+      "revId": "ad3aa1f35c33697d7ebd4edf349a94fb606b1545",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
