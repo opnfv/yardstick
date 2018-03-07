@@ -31,27 +31,18 @@ Prerequisites
 Refer chapter Yardstick Installation for more information on yardstick
 prerequisites
 
-Several prerequisites are needed for Yardstick(VNF testing):
+Several prerequisites are needed for Yardstick (VNF testing):
 
-  - Python Modules: pyzmq, pika.
-
-  - flex
-
-  - bison
-
-  - build-essential
-
-  - automake
-
-  - libtool
-
-  - librabbitmq-dev
-
-  - rabbitmq-server
-
-  - collectd
-
-  - intel-cmt-cat
+  * Python Modules: pyzmq, pika.
+  * flex
+  * bison
+  * build-essential
+  * automake
+  * libtool
+  * librabbitmq-dev
+  * rabbitmq-server
+  * collectd
+  * intel-cmt-cat
 
 Hardware & Software Ingredients
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -61,7 +52,7 @@ SUT requirements:
 
    +-----------+--------------------+
    | Item      | Description        |
-   +-----------+--------------------+
+   +===========+====================+
    | Memory    | Min 20GB           |
    +-----------+--------------------+
    | NICs      | 2 x 10G            |
@@ -84,7 +75,7 @@ Boot and BIOS settings:
    |                  | Note: nohz_full and rcu_nocbs is to disable Linux |
    |                  | kernel interrupts                                 |
    +------------------+---------------------------------------------------+
-   |BIOS              | CPU Power and Performance Policy <Performance>    |
+   | BIOS             | CPU Power and Performance Policy <Performance>    |
    |                  | CPU C-state Disabled                              |
    |                  | CPU P-state Disabled                              |
    |                  | Enhanced Intel® Speedstep® Tech Disabled          |
@@ -168,8 +159,9 @@ Above command setup docker with latest yardstick code. To execute
 
   docker exec -it yardstick bash
 
-It will also automatically download all the packages needed for NSB Testing setup.
-Refer chapter :doc:`04-installation` for more on docker **Install Yardstick using Docker (recommended)**
+It will also automatically download all the packages needed for NSB Testing
+setup. Refer chapter :doc:`04-installation` for more on docker
+**Install Yardstick using Docker (recommended)**
 
 System Topology:
 ----------------
@@ -192,8 +184,10 @@ Environment parameters and credentials
 Config yardstick conf
 ^^^^^^^^^^^^^^^^^^^^^
 
-If user did not run 'yardstick env influxdb' inside the container, which will generate
-correct yardstick.conf, then create the config file manually (run inside the container):
+If user did not run 'yardstick env influxdb' inside the container, which will
+generate correct ``yardstick.conf``, then create the config file manually (run
+inside the container):
+::
 
     cp ./etc/yardstick/yardstick.conf.sample /etc/yardstick/yardstick.conf
     vi /etc/yardstick/yardstick.conf
@@ -495,7 +489,8 @@ SR-IOV Config host_sriov.yaml
        user: ""
        password: ""
 
-SR-IOV testcase update: ``<yardstick>/samples/vnf_samples/nsut/vfw/tc_sriov_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
+SR-IOV testcase update:
+``<yardstick>/samples/vnf_samples/nsut/vfw/tc_sriov_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
 
 Update "contexts" section
 """""""""""""""""""""""""
@@ -699,7 +694,8 @@ OVS-DPDK Config host_ovs.yaml
        user: ""
        password: ""
 
-ovs_dpdk testcase update: ``<yardstick>/samples/vnf_samples/nsut/vfw/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
+ovs_dpdk testcase update:
+``<yardstick>/samples/vnf_samples/nsut/vfw/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
 
 Update "contexts" section
 """""""""""""""""""""""""
@@ -1036,27 +1032,28 @@ and the following yardtick command line arguments:
 Enabling other Traffic generator
 --------------------------------
 
-IxLoad:
-^^^^^^^
+IxLoad
+^^^^^^
 
-1. Software needed: IxLoadAPI ``<IxLoadTclApi verson>Linux64.bin.tgz and <IxOS
-   version>Linux64.bin.tar.gz`` (Download from ixia support site)
-   Install - ``<IxLoadTclApi verson>Linux64.bin.tgz & <IxOS version>Linux64.bin.tar.gz``
-   If the installation was not done inside the container, after installing the IXIA client,
-   check /opt/ixia/ixload/<ver>/bin/ixloadpython and make sure you can run this cmd
-   inside the yardstick container. Usually user is required to copy or link /opt/ixia/python/<ver>/bin/ixiapython
-   to /usr/bin/ixiapython<ver> inside the container.
+1. Software needed: IxLoadAPI ``<IxLoadTclApi verson>Linux64.bin.tgz`` and
+   ``<IxOS version>Linux64.bin.tar.gz`` (Download from ixia support site)
+   Install - ``<IxLoadTclApi verson>Linux64.bin.tgz`` and
+   ``<IxOS version>Linux64.bin.tar.gz``
+   If the installation was not done inside the container, after installing
+   the IXIA client, check ``/opt/ixia/ixload/<ver>/bin/ixloadpython`` and make
+   sure you can run this cmd inside the yardstick container. Usually user is
+   required to copy or link ``/opt/ixia/python/<ver>/bin/ixiapython`` to
+   ``/usr/bin/ixiapython<ver>`` inside the container.
 
-2. Update pod_ixia.yaml file with ixia details.
+2. Update ``pod_ixia.yaml`` file with ixia details.
 
   .. code-block:: console
 
     cp <repo>/etc/yardstick/nodes/pod.yaml.nsb.sample.ixia etc/yardstick/nodes/pod_ixia.yaml
 
-  Config pod_ixia.yaml
+  Config ``pod_ixia.yaml``
 
   .. code-block:: yaml
-
 
       nodes:
           -
@@ -1097,22 +1094,23 @@ IxLoad:
    You will also need to configure the IxLoad machine to start the IXIA
    IxosTclServer. This can be started like so:
 
-   - Connect to the IxLoad machine using RDP
-   - Go to:
+   * Connect to the IxLoad machine using RDP
+   * Go to:
      ``Start->Programs->Ixia->IxOS->IxOS 8.01-GA-Patch1->Ixia Tcl Server IxOS 8.01-GA-Patch1``
      or
      ``"C:\Program Files (x86)\Ixia\IxOS\8.01-GA-Patch1\ixTclServer.exe"``
 
-4. Create a folder "Results" in c:\ and share the folder on the network.
+4. Create a folder ``Results`` in c:\ and share the folder on the network.
 
-5. execute testcase in samplevnf folder.
-   eg ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_1b_Requests-65000_Concurrency.yaml``
+5. Execute testcase in samplevnf folder e.g.
+   ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_1b_Requests-65000_Concurrency.yaml``
 
-IxNetwork:
-^^^^^^^^^^
+IxNetwork
+^^^^^^^^^
 
-1. Software needed: ``IxNetworkAPI<ixnetwork verson>Linux64.bin.tgz`` (Download from ixia support site)
-                     Install - ``IxNetworkAPI<ixnetwork verson>Linux64.bin.tgz``
+1. Software needed: ``IxNetworkAPI<ixnetwork verson>Linux64.bin.tgz``
+   (Download from ixia support site)
+   Install - ``IxNetworkAPI<ixnetwork verson>Linux64.bin.tgz``
 2. Update pod_ixia.yaml file with ixia details.
 
   .. code-block:: console
@@ -1162,9 +1160,11 @@ IxNetwork:
    You will also need to configure the IxNetwork machine to start the IXIA
    IxNetworkTclServer. This can be started like so:
 
-    - Connect to the IxNetwork machine using RDP
-    - Go to:     ``Start->Programs->Ixia->IxNetwork->IxNetwork 7.21.893.14 GA->IxNetworkTclServer`` (or ``IxNetworkApiServer``)
+    * Connect to the IxNetwork machine using RDP
+    * Go to:
+      ``Start->Programs->Ixia->IxNetwork->IxNetwork 7.21.893.14 GA->IxNetworkTclServer``
+      (or ``IxNetworkApiServer``)
 
-4. execute testcase in samplevnf folder.
-   eg ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml``
+4. Execute testcase in samplevnf folder e.g.
+   ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml``
 
