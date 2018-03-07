@@ -22,7 +22,7 @@ from yardstick.common.process import check_if_process_failed
 from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxDpdkVnfSetupEnvHelper
 from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF
-from yardstick.network_services.constants import PROCESS_JOIN_TIMEOUT
+from yardstick.network_services import constants
 
 LOG = logging.getLogger(__name__)
 
@@ -136,5 +136,5 @@ class ProxApproxVnf(SampleVNF):
         self._tear_down()
         if self._vnf_process is not None:
             LOG.debug("joining before terminate %s", self._vnf_process.name)
-            self._vnf_process.join(PROCESS_JOIN_TIMEOUT)
+            self._vnf_process.join(constants.PROCESS_JOIN_TIMEOUT)
             self._vnf_process.terminate()
