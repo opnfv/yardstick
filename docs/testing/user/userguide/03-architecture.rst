@@ -9,8 +9,9 @@ Architecture
 
 Abstract
 ========
-This chapter describes the yardstick framework software architecture. we will introduce it from Use-Case View,
-Logical View, Process View and Deployment View. More technical details will be introduced in this chapter.
+This chapter describes the yardstick framework software architecture. We will
+introduce it from Use-Case View, Logical View, Process View and Deployment
+View. More technical details will be introduced in this chapter.
 
 Overview
 ========
@@ -23,8 +24,8 @@ files. Yardstick is inspired by Rally. Yardstick is intended to run on a
 computer with access and credentials to a cloud. The test case is described
 in a configuration file given as an argument.
 
-How it works: the benchmark task configuration file is parsed and converted into
-an internal model. The context part of the model is converted into a Heat
+How it works: the benchmark task configuration file is parsed and converted
+into an internal model. The context part of the model is converted into a Heat
 template and deployed into a stack. Each scenario is run using a runner, either
 serially or in parallel. Each runner runs in its own subprocess executing
 commands in a VM using SSH. The output of each scenario is written as json
@@ -43,13 +44,15 @@ names, image names, affinity rules and network configurations. A context is
 converted into a simplified Heat template, which is used to deploy onto the
 Openstack environment.
 
-**Data** - Output produced by running a benchmark, written to a file in json format
+**Data** - Output produced by running a benchmark, written to a file in json
+format
 
 **Runner** - Logic that determines how a test scenario is run and reported, for
 example the number of test iterations, input value stepping and test duration.
 Predefined runner types exist for re-usage, see `Runner types`_.
 
-**Scenario** - Type/class of measurement for example Ping, Pktgen, (Iperf, LmBench, ...)
+**Scenario** - Type/class of measurement for example Ping, Pktgen, (Iperf,
+LmBench, ...)
 
 **SLA** - Relates to what result boundary a test case must meet to pass. For
 example a latency limit, amount or ratio of lost packets and so on. Action
@@ -128,8 +131,8 @@ Snippet of an Iteration runner configuration:
 Use-Case View
 =============
 Yardstick Use-Case View shows two kinds of users. One is the Tester who will
-do testing in cloud, the other is the User who is more concerned with test result
-and result analyses.
+do testing in cloud, the other is the User who is more concerned with test
+result and result analyses.
 
 For testers, they will run a single test case or test case suite to verify
 infrastructure compliance or bencnmark their own infrastructure performance.
@@ -254,7 +257,8 @@ Yardstick Directory structure
 
 *tools/* - Currently contains tools to build image for VMs which are deployed
            by Heat. Currently contains how to build the yardstick-trusty-server
-           image with the different tools that are needed from within the image.
+           image with the different tools that are needed from within the
+           image.
 
 *plugin/* - Plug-in configuration files are stored here.
 
