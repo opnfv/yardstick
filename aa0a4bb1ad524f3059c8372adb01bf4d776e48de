@@ -117,6 +117,30 @@
       "revId": "aa0a4bb1ad524f3059c8372adb01bf4d776e48de",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_552662b8",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/get_server_privateip.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-07T12:59:36Z",
+      "side": 1,
+      "message": "The point is you can have this output:\na) 1 port, no external IP:\nservername port\u003d10.0.0.1\n\nb) 1 port, external IP:\nservername port\u003d10.0.0.1, 192.168.0.1\n\nc) several ports, first one no external IP:\nservername port1\u003d10.0.0.1; port2\u003d10.0.0.2\n\nd) several ports, first one with external IP:\nservername port1\u003d10.0.0.1, 192.168.0.1; port2\u003d10.0.0.2\n\nYou need to cover those scenarios.\n\nCheck those strings with:\n$ echo \"string\" | awk \u0027{print $2}\u0027 | sed -r \u0027s/.*\u003d([0-9\\.\\:]+)[;,]*/\\1/\u0027\n\nNOTE: the \"sed\" string is different, covering those cases where the end char is \",\", \";\" or nothing",
+      "parentUuid": "5a3f45e8_7213b466",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 40
+      },
+      "revId": "aa0a4bb1ad524f3059c8372adb01bf4d776e48de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
