@@ -45,6 +45,54 @@
       "revId": "aa0a4bb1ad524f3059c8372adb01bf4d776e48de",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1237d000",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/get_server_privateip.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-07T12:39:20Z",
+      "side": 1,
+      "message": "I will update the patch to print only Name and Network Thanks!!",
+      "parentUuid": "5a3f45e8_b2cedc81",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 40
+      },
+      "revId": "aa0a4bb1ad524f3059c8372adb01bf4d776e48de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3232cc10",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/get_server_privateip.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-07T12:39:20Z",
+      "side": 1,
+      "message": "BTW Thanks for reviewing the patch closely.\nFor now I am planning just to grep the IP from only one network and not from every network that the nova instance is assigned to. I hope this is ok. Also I tested the command that you proposed [0] and it doesn\u0027t return only the IP but returns this : dimitris\u003d10.1.1.7 . \n\n[0]  openstack server list -f value -c Name -c Networks | grep dimitris2 | awk \u0027{print $2}\u0027 | sed -r \u0027s/.*\u003d([0-9\\.\\:]+);/\\1/\u0027",
+      "parentUuid": "5a3f45e8_32892c27",
+      "range": {
+        "startLine": 23,
+        "startChar": 71,
+        "endLine": 23,
+        "endChar": 106
+      },
+      "revId": "aa0a4bb1ad524f3059c8372adb01bf4d776e48de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
