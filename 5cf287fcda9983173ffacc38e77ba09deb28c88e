@@ -45,6 +45,30 @@
       "revId": "5cf287fcda9983173ffacc38e77ba09deb28c88e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d5ef12af",
+        "filename": "samples/vnf_samples/nsut/prox/configs/ipv4-2port.lua",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-07T14:43:36Z",
+      "side": 1,
+      "message": "No.\nThis file was taken from ipv4.lua. Both should have same copyright notice.",
+      "parentUuid": "5a3f45e8_1b04177a",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 26
+      },
+      "revId": "5cf287fcda9983173ffacc38e77ba09deb28c88e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
