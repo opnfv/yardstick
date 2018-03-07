@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_780a7322",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/add_floating_ip_to_server.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-07T18:06:32Z",
+      "side": 1,
+      "message": "Nothing guarantees the order of the parameters in the output.\n\nIf you need only the floating IP:\n  $ openstack floating ip create -f value -c floating_ip_address public\n  192.168.3.111",
+      "range": {
+        "startLine": 23,
+        "startChar": 34,
+        "endLine": 23,
+        "endChar": 64
+      },
+      "revId": "29fb8a8caf8c11adca7ac6f1440f2976682fc5af",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b83a3bcb",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/dissociate_and_delete_floating_ip.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-07T18:06:32Z",
+      "side": 1,
+      "message": "The same comment done in other reviews, you need to retrieve only what you need.\n\nIn this case you need the network configuration:\nopenstack server show $1 -f value -c addresses\n\nThe problem you have here is you\u0027ll retrieve all ports in the VM, with and without floating IP. A port has a floating IP has two IPs:\n  yardstick-837df3aa-mgmt\u003d10.0.1.4, 192.168.3.113; # the second IP is the FIP.\n\nWithout floating IP:\n  yardstick-837df3aa-mgmt\u003d10.0.1.4;\n\nSo you can have this (for example):\n  yardstick-837df3aa-uplink_0\u003d10.0.2.4; yardstick-837df3aa-mgmt\u003d10.0.1.4, 192.168.3.113; yardstick-837df3aa-downlink_0\u003d10.0.3.6, 192.168.3.110\n\nWith this expression:\n  sed -r \u0027s/.*\u003d[0-9\\.\\:]+, ([0-9\\.\\:]+).*/\\1/\u0027\nyou can trim the *last* floating IP in the string. Please, check it.",
+      "range": {
+        "startLine": 23,
+        "startChar": 34,
+        "endLine": 23,
+        "endChar": 54
+      },
+      "revId": "29fb8a8caf8c11adca7ac6f1440f2976682fc5af",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f834c3df",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/dissociate_and_delete_floating_ip.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-07T18:06:32Z",
+      "side": 1,
+      "message": "You don\u0027t need this. You can delete a FIP using the IP itself.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 13
+      },
+      "revId": "29fb8a8caf8c11adca7ac6f1440f2976682fc5af",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d83107ee",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/dissociate_and_delete_floating_ip.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-07T18:06:32Z",
+      "side": 1,
+      "message": "This can be the FIP itself. You don\u0027t need to use the FIP_ID.\n\n[stack@silpixa00390422 files]$openstack floating ip list\n+--------------------------------------+---------------------+------------------+--------------------------------------+--------------------------------------+----------------------------------+\n| ID                                   | Floating IP Address | Fixed IP Address | Port                                 | Floating Network                     | Project                          |\n+--------------------------------------+---------------------+------------------+--------------------------------------+--------------------------------------+----------------------------------+\n| 2efb650f-93f4-464f-aa3c-f037594882e4 | 192.168.3.108       | None             | None                                 | 353a8330-b342-4c80-b962-c03ab4e4abee | 7c112007989e4e13880fd9d35aaf6122 |\n| 705b86ed-c8d2-4b52-b0f9-8010920833a4 | 192.168.3.104       | 10.0.1.5         | 74719070-4d9b-43ee-b1d2-10a5cd11683c | 353a8330-b342-4c80-b962-c03ab4e4abee | 7c112007989e4e13880fd9d35aaf6122 |\n| bc976009-570a-4481-996d-a3ed55c5e936 | 192.168.3.111       | None             | None                                 | 353a8330-b342-4c80-b962-c03ab4e4abee | 7c112007989e4e13880fd9d35aaf6122 |\n| c537174e-c4fd-4989-913f-47dc31a0b0f8 | 192.168.3.102       | None             | None                                 | 353a8330-b342-4c80-b962-c03ab4e4abee | 7c112007989e4e13880fd9d35aaf6122 |\n| e201fabe-ffdd-4788-beb4-26dbff9b9907 | 192.168.3.113       | 10.0.1.4         | 8cf85d18-b1de-485c-b286-8bb0ecf16ee1 | 353a8330-b342-4c80-b962-c03ab4e4abee | 7c112007989e4e13880fd9d35aaf6122 |\n+--------------------------------------+---------------------+------------------+--------------------------------------+--------------------------------------+----------------------------------+\n[stack@silpixa00390422 files]$openstack floating ip delete 192.168.3.108\n[stack@silpixa00390422 files]$openstack floating ip list\n+--------------------------------------+---------------------+------------------+--------------------------------------+--------------------------------------+----------------------------------+\n| ID                                   | Floating IP Address | Fixed IP Address | Port                                 | Floating Network                     | Project                          |\n+--------------------------------------+---------------------+------------------+--------------------------------------+--------------------------------------+----------------------------------+\n| 705b86ed-c8d2-4b52-b0f9-8010920833a4 | 192.168.3.104       | 10.0.1.5         | 74719070-4d9b-43ee-b1d2-10a5cd11683c | 353a8330-b342-4c80-b962-c03ab4e4abee | 7c112007989e4e13880fd9d35aaf6122 |\n| bc976009-570a-4481-996d-a3ed55c5e936 | 192.168.3.111       | None             | None                                 | 353a8330-b342-4c80-b962-c03ab4e4abee | 7c112007989e4e13880fd9d35aaf6122 |\n| c537174e-c4fd-4989-913f-47dc31a0b0f8 | 192.168.3.102       | None             | None                                 | 353a8330-b342-4c80-b962-c03ab4e4abee | 7c112007989e4e13880fd9d35aaf6122 |\n| e201fabe-ffdd-4788-beb4-26dbff9b9907 | 192.168.3.113       | 10.0.1.4         | 8cf85d18-b1de-485c-b286-8bb0ecf16ee1 | 353a8330-b342-4c80-b962-c03ab4e4abee | 7c112007989e4e13880fd9d35aaf6122 |\n+--------------------------------------+---------------------+------------------+--------------------------------------+--------------------------------------+----------------------------------+",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 54
+      },
+      "revId": "29fb8a8caf8c11adca7ac6f1440f2976682fc5af",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
