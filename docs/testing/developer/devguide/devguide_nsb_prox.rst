@@ -251,9 +251,11 @@ Now let's examine the components of the file in detail
    In this case it is ``handle_l2fwd-2.cfg``
 
    A number of additional parameters can be added. This example
-   is taken from VPE::
+   is for VPE::
 
     options:
+      interface_speed_gbps: 10
+
       vnf__0:
         prox_path: /opt/nsb_bin/prox
         prox_config: ``configs/handle_vpe-4.cfg``
@@ -266,6 +268,12 @@ Now let's examine the components of the file in detail
           ``configs/vpe_user_table.lua`` : ````
           ``configs/vpe_rules.lua`` : ````
         prox_generate_parameter: True
+
+   ``interface_speed_gbps`` - this specifies the speed of the interface
+   in Gigabits Per Second. This is used to calculate pps(packets per second).
+   If the interfaces are of different speeds, then this specifies the speed
+   of the slowest interface. This parameter is optional. If omitted the
+   interface speed defaults to 10Gbps.
 
    ``prox_files`` - this specified that a number of addition files
    need to be provided for the test to run correctly. This files
