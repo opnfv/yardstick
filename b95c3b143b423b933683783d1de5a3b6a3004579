@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_95c10a83",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-07T14:09:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_1b1257b1",
+      "revId": "b95c3b143b423b933683783d1de5a3b6a3004579",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_db174fa2",
         "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f5032eb6",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-07T14:09:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_db174fa2",
+      "range": {
+        "startLine": 636,
+        "startChar": 8,
+        "endLine": 639,
+        "endChar": 67
+      },
+      "revId": "b95c3b143b423b933683783d1de5a3b6a3004579",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_3b0d9391",
         "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
         "patchSetId": 1
@@ -53,6 +95,24 @@
       "writtenOn": "2018-03-01T17:56:36Z",
       "side": 1,
       "message": "This is more a preference than a request:\n\nreturn test_duration if test_durantion and test_duration \u003e test_timeout else test_timeout",
+      "revId": "b95c3b143b423b933683783d1de5a3b6a3004579",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b5c40693",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-07T14:09:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_3b0d9391",
       "revId": "b95c3b143b423b933683783d1de5a3b6a3004579",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
