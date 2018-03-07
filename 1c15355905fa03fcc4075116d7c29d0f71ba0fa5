@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_92c76045",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7053
+      },
+      "writtenOn": "2018-03-07T09:51:27Z",
+      "side": 1,
+      "message": "these two commands should be changed to:\ncontroller_ips\u003d($(awk \u0027/ctl/{getline; print $2}\u0027 \u003c node_info))\ncompute_ips\u003d($(awk \u0027/cmp/{getline; print $2}\u0027 \u003c node_info))\n\notherwise the latest yardstick failed with error:\nawk: line 1: syntax error at or near \u003c\n\ncheck the build log https://build.opnfv.org/ci/job/yardstick-fuel-armband-baremetal-daily-master/303/console",
+      "range": {
+        "startLine": 77,
+        "startChar": 63,
+        "endLine": 77,
+        "endChar": 66
+      },
+      "revId": "1c15355905fa03fcc4075116d7c29d0f71ba0fa5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
