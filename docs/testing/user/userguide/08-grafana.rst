@@ -108,8 +108,10 @@ There are 6 steps to go.
 
 5. When finished with all Grafana configuration changes in this temporary
    dashboard then chose "export" of the updated dashboard copy into a JSON file
-   and put it up for review in Gerrit, in file /yardstick/dashboard/Yardstick-TCxxx-yyyyyyyyyyyyy.
-   For instance a typical default name of the file would be "Yardstick-TC001 Copy-1234567891234".
+   and put it up for review in Gerrit, in file
+   ``/yardstick/dashboard/Yardstick-TCxxx-yyyyyyyyyyyyy``.
+   For instance a typical default name of the file would be
+   ``Yardstick-TC001 Copy-1234567891234``.
 
 6. Once you finish your dashboard, the next step is exporting the configuration
    file and propose a patch into Yardstick. Yardstick team will review and

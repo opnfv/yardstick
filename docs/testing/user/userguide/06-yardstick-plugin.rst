@@ -47,24 +47,26 @@ environment and other dependencies:
 1. Make sure docker is installed.
 2. Make sure Keystone, Nova, Neutron, Glance, Heat are installed correctly.
 3. Make sure Jump Host have access to the OpenStack Controller API.
-4. Make sure Jump Host must have internet connectivity for downloading docker image.
-5. You need to know where to get basic openstack Keystone authorization info, such as
-   OS_PASSWORD, OS_PROJECT_NAME, OS_AUTH_URL, OS_USERNAME.
-6. To run a Storperf container, you need to have OpenStack Controller environment
-   variables defined and passed to Storperf container. The best way to do this is to
-   put environment variables in a "storperf_admin-rc" file. The storperf_admin-rc
-   should include credential environment variables at least:
+4. Make sure Jump Host must have internet connectivity for downloading docker
+   image.
+5. You need to know where to get basic openstack Keystone authorization info,
+   such as OS_PASSWORD, OS_PROJECT_NAME, OS_AUTH_URL, OS_USERNAME.
+6. To run a Storperf container, you need to have OpenStack Controller
+   environment variables defined and passed to Storperf container. The best way
+   to do this is to put environment variables in a "storperf_admin-rc" file.
+   The storperf_admin-rc should include credential environment variables at
+   least:
 
-* OS_AUTH_URL
-* OS_USERNAME
-* OS_PASSWORD
-* OS_PROJECT_NAME
-* OS_PROJECT_ID
-* OS_USER_DOMAIN_ID
+   * OS_AUTH_URL
+   * OS_USERNAME
+   * OS_PASSWORD
+   * OS_PROJECT_NAME
+   * OS_PROJECT_ID
+   * OS_USER_DOMAIN_ID
 
-*Yardstick* has a "prepare_storperf_admin-rc.sh" script which can be used to
-generate the "storperf_admin-rc" file, this script is located at
-test/ci/prepare_storperf_admin-rc.sh
+*Yardstick* has a ``prepare_storperf_admin-rc.sh`` script which can be used to
+generate the ``storperf_admin-rc`` file, this script is located at
+``test/ci/prepare_storperf_admin-rc.sh``
 
 ::
 
@@ -92,8 +94,8 @@ test/ci/prepare_storperf_admin-rc.sh
   echo "OS_USER_DOMAIN_ID="$USER_DOMAIN_ID >> ~/storperf_admin-rc
 
 
-The generated "storperf_admin-rc" file will be stored in the root directory. If
-you installed *Yardstick* using Docker, this file will be located in the
+The generated ``storperf_admin-rc`` file will be stored in the root directory.
+If you installed *Yardstick* using Docker, this file will be located in the
 container. You may need to copy it to the root directory of the Storperf
 deployed host.
 
@@ -101,9 +103,9 @@ Step 1: Plug-in configuration file preparation
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 To install a plug-in, first you need to prepare a plug-in configuration file in
-YAML format and store it in the "plugin" directory. The plugin configration file
-work as the input of yardstick "plugin" command. Below is the Storperf plug-in
-configuration file sample:
+YAML format and store it in the "plugin" directory. The plugin configration
+file work as the input of yardstick "plugin" command. Below is the Storperf
+plug-in configuration file sample:
 ::
 
   ---
