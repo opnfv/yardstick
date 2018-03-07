@@ -42,43 +42,44 @@ This document consists of the following chapters:
 * Chapter :doc:`02-methodology` describes the methodology implemented by the
   *Yardstick* Project for :term:`NFVI` verification.
 
-* Chapter :doc:`03-architecture` provides information on the software architecture
-  of *Yardstick*.
+* Chapter :doc:`03-architecture` provides information on the software
+  architecture of *Yardstick*.
 
 * Chapter :doc:`04-installation` provides instructions to install *Yardstick*.
 
-* Chapter :doc:`05-yardstick_plugin` provides information on how to integrate
+* Chapter :doc:`06-yardstick-plugin` provides information on how to integrate
   other OPNFV testing projects into *Yardstick*.
 
-* Chapter :doc:`06-result-store-InfluxDB` provides inforamtion on how to run
+* Chapter :doc:`07-result-store-InfluxDB` provides inforamtion on how to run
   plug-in test cases and store test results into community's InfluxDB.
 
-* Chapter :doc:`07-grafana` provides inforamtion on *Yardstick* grafana dashboard
-  and how to add a dashboard into *Yardstick* grafana dashboard.
+* Chapter :doc:`08-grafana` provides inforamtion on *Yardstick* grafana
+  dashboard and how to add a dashboard into *Yardstick* grafana dashboard.
 
-* Chapter :doc:`08-api` provides inforamtion on *Yardstick* ReST API and how to
+* Chapter :doc:`09-api` provides inforamtion on *Yardstick* ReST API and how to
   use *Yardstick* API.
 
-* Chapter :doc:`09-yardstick_user_interface` provides inforamtion on how to use
+* Chapter :doc:`10-yardstick-user-interface` provides inforamtion on how to use
   yardstick report CLI to view the test result in table format and also values
   pinned on to a graph
 
-* Chapter :doc:`10-vtc-overview` provides information on the :term:`VTC`.
+* Chapter :doc:`11-vtc-overview` provides information on the :term:`VTC`.
 
-* Chapter :doc:`13-nsb-overview` describes the methodology implemented by the
+* Chapter :doc:`12-nsb-overview` describes the methodology implemented by the
   Yardstick - Network service benchmarking to test real world usecase for a
   given VNF.
 
-* Chapter :doc:`14-nsb_installation` provides instructions to install
-  *Yardstick - Network service benchmarking testing*.
+* Chapter :doc:`13-nsb_installation` provides instructions to install
+  *Yardstick - Network Service Benchmarking (NSB) testing*.
+
+* Chapter :doc:`14-nsb-operation` provides information on running *NSB*
 
 * Chapter :doc:`15-list-of-tcs` includes a list of available *Yardstick* test
   cases.
-
 
 Contact Yardstick
 =================
 
 Feedback? `Contact us`_
 
-.. _Contact us: opnfv-users@lists.opnfv.org
+.. _Contact us: mailto:opnfv-users@lists.opnfv.org&subject="[yardstick]"
