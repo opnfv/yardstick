@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_324bec88",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_cfbae0e0",
+      "range": {
+        "startLine": 759,
+        "startChar": 31,
+        "endLine": 759,
+        "endChar": 41
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_8f76183d",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_12507031",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_8f76183d",
+      "range": {
+        "startLine": 762,
+        "startChar": 27,
+        "endLine": 763,
+        "endChar": 49
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_afbf94cf",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "You should skip this sentence. Just the frist two are enough.",
+      "range": {
+        "startLine": 801,
+        "startChar": 38,
+        "endLine": 802,
+        "endChar": 20
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_92092034",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_afbf94cf",
       "range": {
         "startLine": 801,
         "startChar": 38,
@@ -117,6 +189,54 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_1505fa10",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_8fc8d875",
+      "range": {
+        "startLine": 804,
+        "startChar": 7,
+        "endLine": 804,
+        "endChar": 25
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f206a41f",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 804,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_0fb5e8ed",
+      "range": {
+        "startLine": 804,
+        "startChar": 7,
+        "endLine": 804,
+        "endChar": 10
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_efb99cea",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "this extension",
+      "range": {
+        "startLine": 804,
+        "startChar": 73,
+        "endLine": 805,
+        "endChar": 10
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_750a7e22",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_efb99cea",
       "range": {
         "startLine": 804,
         "startChar": 73,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_756f1ec6",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_efb07cf6",
+      "range": {
+        "startLine": 807,
+        "startChar": 0,
+        "endLine": 808,
+        "endChar": 60
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_cf882025",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 1
@@ -174,6 +342,30 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "Add a comment for each platform, Intel and AMD.\n\nintel_iommu\u003don iommu\u003dpt\namd_iommu\u003don iommu\u003dpt",
+      "range": {
+        "startLine": 808,
+        "startChar": 62,
+        "endLine": 809,
+        "endChar": 63
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5574a298",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_cf882025",
       "range": {
         "startLine": 808,
         "startChar": 62,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f5620ed7",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_6f9c6c6a",
+      "range": {
+        "startLine": 816,
+        "startChar": 45,
+        "endLine": 816,
+        "endChar": 95
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_8f9f385f",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 1
@@ -220,6 +436,30 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "Just add the line needed:\n\nGRUB_CMDLINE_LINUX_DEFAULT\u003d\"intel_iommu\u003don iommu\u003dpt\"",
+      "range": {
+        "startLine": 813,
+        "startChar": 1,
+        "endLine": 818,
+        "endChar": 5
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d55f120d",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_8f9f385f",
       "range": {
         "startLine": 813,
         "startChar": 1,
@@ -249,6 +489,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_15a17af8",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_0f832805",
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_ef87dc0d",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 1
@@ -260,6 +518,30 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "Make sure the extension has been enabled:",
+      "range": {
+        "startLine": 827,
+        "startChar": 0,
+        "endLine": 827,
+        "endChar": 42
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_75a6fe11",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_ef87dc0d",
       "range": {
         "startLine": 827,
         "startChar": 0,
@@ -295,6 +577,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_95ac6aef",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_cf8f8022",
+      "range": {
+        "startLine": 846,
+        "startChar": 2,
+        "endLine": 846,
+        "endChar": 7
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_0f9a0863",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 1
@@ -306,6 +612,30 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 847,
+        "startChar": 2,
+        "endLine": 847,
+        "endChar": 7
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f5b96e2f",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_0f9a0863",
       "range": {
         "startLine": 847,
         "startChar": 2,
@@ -341,6 +671,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_d5b6f23c",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_4fa3709e",
+      "range": {
+        "startLine": 848,
+        "startChar": 2,
+        "endLine": 848,
+        "endChar": 7
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_2fa0a48f",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 1
@@ -352,6 +706,30 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 854,
+        "startChar": 2,
+        "endLine": 854,
+        "endChar": 7
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3583d657",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_2fa0a48f",
       "range": {
         "startLine": 854,
         "startChar": 2,
@@ -387,6 +765,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_15885a70",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 855,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_8fad788b",
+      "range": {
+        "startLine": 855,
+        "startChar": 2,
+        "endLine": 855,
+        "endChar": 7
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_afbb14c3",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 1
@@ -398,6 +800,30 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 856,
+        "startChar": 2,
+        "endLine": 856,
+        "endChar": 7
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_757d5e6e",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_afbb14c3",
       "range": {
         "startLine": 856,
         "startChar": 2,
@@ -433,6 +859,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_9593caa2",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_0fb168e1",
+      "range": {
+        "startLine": 859,
+        "startChar": 0,
+        "endLine": 859,
+        "endChar": 18
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_cfddc016",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 1
@@ -444,6 +894,30 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "You should move this before L842. If you don\u0027t have internet access, you won\u0027t be able to execute apt-get commands.",
+      "range": {
+        "startLine": 861,
+        "startChar": 0,
+        "endLine": 870,
+        "endChar": 81
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_35eab60f",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_cfddc016",
       "range": {
         "startLine": 861,
         "startChar": 0,
@@ -479,6 +953,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_15efba1f",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_efb51cce",
+      "range": {
+        "startLine": 872,
+        "startChar": 6,
+        "endLine": 872,
+        "endChar": 11
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_8fdbb81a",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 1
@@ -490,6 +988,30 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "Why are you creating this link?",
+      "range": {
+        "startLine": 892,
+        "startChar": 0,
+        "endLine": 892,
+        "endChar": 21
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5515c2ef",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "This link is used in L1019",
+      "parentUuid": "5a3f45e8_8fdbb81a",
       "range": {
         "startLine": 892,
         "startChar": 0,
@@ -525,6 +1047,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_b5f9a6ca",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 905,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "This link is used in L1019",
+      "parentUuid": "5a3f45e8_6fd8ec1d",
+      "range": {
+        "startLine": 905,
+        "startChar": 0,
+        "endLine": 905,
+        "endChar": 24
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_ef887ce9",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 1
@@ -536,6 +1082,30 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "Why are we creating OVS bridges for those PFs? The traffic switching will be done in the SR-IOV physical switch inside the NIC. We are not going to use those PFs to handle traffic (OpenStack doesn\u0027t allow to use PFs and VFs from one NIC at the same time).",
+      "range": {
+        "startLine": 931,
+        "startChar": 0,
+        "endLine": 938,
+        "endChar": 21
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_75271e65",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "This was a solution to avoid issue where ports couldn\u0027t be created with physnetX network in OpenStack as the network wasn\u0027t listed in the OVS_BRIDGE_MAPPINGS (based on the neutron logs). Also, it was not be possible to map the physnetX network to one br-ex bridge (it is not allowed to map few psychical networks into one bridge, e.g. br-ext by the neutron). So, to workaround this, manually bridges were created and mapped them to the physical networks.\n\nOVS_BRIDGE_MAPPINGS\u003dpublic:br-ex,physnet1:br-enp24s0f0,physnet2:br-enp24s0f1\n\nThe issue was resolved in multi node setup local.conf, so I can try to reuse it with the single setup to avoid this configuration. I need to test it if it works.",
+      "parentUuid": "5a3f45e8_ef887ce9",
       "range": {
         "startLine": 931,
         "startChar": 0,
@@ -571,6 +1141,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_d51712ec",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_8f773802",
+      "range": {
+        "startLine": 957,
+        "startChar": 0,
+        "endLine": 957,
+        "endChar": 21
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_cf602038",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 1
@@ -582,6 +1176,24 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "There is an example of Sample VNF test case ready to be executed in an OpenStack environment with SR-IOV support: \u003cname of the test case, sample/vnf/....sriov\u003e",
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f5c84e76",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_cf602038",
       "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -611,6 +1223,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_75ac3ea1",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_4f6d3032",
+      "range": {
+        "startLine": 970,
+        "startChar": 13,
+        "endLine": 970,
+        "endChar": 38
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_4f3ff025",
         "filename": "docs/testing/user/userguide/multi-devstack-controller-local.conf",
         "patchSetId": 1
@@ -622,6 +1258,24 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "To define an specific branch version:\nCINDER_BRANCH\u003dstable/pike\nGLANCE_BRANCH\u003dstable/pike\nNEUTRON_BRANCH\u003dstable/pike\nNOVA_BRANCH\u003dstable/pike\nHORIZON_BRANCH\u003dstable/pike\nKEYSTONE_BRANCH\u003dstable/pike\nHEAT_BRANCH\u003dstable/pike",
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_55b142f7",
+        "filename": "docs/testing/user/userguide/multi-devstack-controller-local.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "The branches will be selected automatically based on the selected devstack branch. In the documentation, the pike branch is used. Does it make sense to specify them here?",
+      "parentUuid": "5a3f45e8_4f3ff025",
       "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -645,6 +1299,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f59fae5d",
+        "filename": "docs/testing/user/userguide/multi-devstack-controller-local.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_0f368852",
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_ef3a3c35",
         "filename": "docs/testing/user/userguide/multi-devstack-controller-local.conf",
         "patchSetId": 1
@@ -662,6 +1334,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_d59c326c",
+        "filename": "docs/testing/user/userguide/multi-devstack-controller-local.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_ef3a3c35",
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_af303457",
         "filename": "docs/testing/user/userguide/multi-devstack-controller-local.conf",
         "patchSetId": 1
@@ -673,6 +1363,30 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "This is not needed. You already have this service in the ENABLED_SERVICES",
+      "range": {
+        "startLine": 29,
+        "startChar": 1,
+        "endLine": 30,
+        "endChar": 81
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_35891627",
+        "filename": "docs/testing/user/userguide/multi-devstack-controller-local.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "W/o enabling the neutron plugin, the setup doesn\u0027t work.",
+      "parentUuid": "5a3f45e8_af303457",
       "range": {
         "startLine": 29,
         "startChar": 1,
@@ -708,6 +1422,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_95790a32",
+        "filename": "docs/testing/user/userguide/multi-devstack-controller-local.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_af1794a2",
+      "range": {
+        "startLine": 33,
+        "startChar": 16,
+        "endLine": 33,
+        "endChar": 30
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_8ff29898",
         "filename": "docs/testing/user/userguide/single-devstack-local.conf",
         "patchSetId": 1
@@ -731,6 +1469,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_d573924b",
+        "filename": "docs/testing/user/userguide/single-devstack-local.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Replied in the documentation comment.",
+      "parentUuid": "5a3f45e8_8ff29898",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 76
+      },
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_0f0de890",
         "filename": "docs/testing/user/userguide/single-devstack-local.conf",
         "patchSetId": 1
@@ -742,6 +1504,24 @@
       "writtenOn": "2018-03-06T17:05:03Z",
       "side": 1,
       "message": "You should define the floating_range and floating_allocation_pool parameters",
+      "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3590f642",
+        "filename": "docs/testing/user/userguide/single-devstack-local.conf",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-07T14:26:21Z",
+      "side": 1,
+      "message": "Will do",
+      "parentUuid": "5a3f45e8_0f0de890",
       "revId": "e3d32967eb79a299eb004a8782c98e6ee72caca3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
