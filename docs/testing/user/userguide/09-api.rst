@@ -19,9 +19,12 @@ Available API
 /yardstick/env/action
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Description: This API is used to prepare Yardstick test environment. For Euphrates, it supports:
+Description: This API is used to prepare Yardstick test environment.
+For Euphrates, it supports:
 
-1. Prepare yardstick test environment, including set external network environment variable, load Yardstick VM images and create flavors;
+1. Prepare yardstick test environment, including setting the
+   ``EXTERNAL_NETWORK`` environment variable, load Yardstick VM images and
+   create flavors;
 2. Start an InfluxDB Docker container and config Yardstick output to InfluxDB;
 3. Start a Grafana Docker container and config it with the InfluxDB.
 
@@ -38,7 +41,8 @@ Example::
         'action': 'prepareYardstickEnv'
     }
 
-This is an asynchronous API. You need to call /yardstick/asynctask API to get the task result.
+This is an asynchronous API. You need to call ``/yardstick/asynctask`` API to
+get the task result.
 
 
 Start and config an InfluxDB docker container
@@ -48,7 +52,8 @@ Example::
         'action': 'createInfluxDBContainer'
     }
 
-This is an asynchronous API. You need to call /yardstick/asynctask API to get the task result.
+This is an asynchronous API. You need to call ``/yardstick/asynctask`` API to
+get the task result.
 
 
 Start and config a Grafana docker container
@@ -58,7 +63,8 @@ Example::
         'action': 'createGrafanaContainer'
     }
 
-This is an asynchronous API. You need to call /yardstick/asynctask API to get the task result.
+This is an asynchronous API. You need to call ``/yardstick/asynctask`` API to
+get the task result.
 
 
 /yardstick/asynctask
@@ -113,7 +119,8 @@ Example::
         }
     }
 
-This is an asynchronous API. You need to call /yardstick/results to get the result.
+This is an asynchronous API. You need to call ``/yardstick/results`` to get the
+result.
 
 
 /yardstick/testcases/samples/action
@@ -136,13 +143,15 @@ Example::
         }
     }
 
-This is an asynchronous API. You need to call /yardstick/results to get the result.
+This is an asynchronous API. You need to call ``/yardstick/results`` to get
+the result.
 
 
 /yardstick/testcases/<testcase_name>/docs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Description: This API is used to the documentation of a certain released test case.
+Description: This API is used to the documentation of a certain released test
+case.
 
 
 Method: GET
@@ -174,7 +183,8 @@ Example::
         }
     }
 
-This is an asynchronous API. You need to call /yardstick/results to get the result.
+This is an asynchronous API. You need to call /yardstick/results to get the
+result.
 
 
 /yardstick/tasks/<task_id>/log
@@ -194,7 +204,9 @@ Example::
 /yardstick/results
 ^^^^^^^^^^^^^^^^^^
 
-Description: This API is used to get the test results of tasks. If you call /yardstick/testcases/samples/action API, it will return a task id. You can use the returned task id to get the results by using this API.
+Description: This API is used to get the test results of tasks. If you call
+/yardstick/testcases/samples/action API, it will return a task id. You can use
+the returned task id to get the results by using this API.
 
 
 Method: GET
@@ -210,7 +222,8 @@ This API will return a list of test case result
 
 /api/v2/yardstick/openrcs/action
 
-Description: This API provides functionality of handling OpenStack credential file (openrc). For Euphrates, it supports:
+Description: This API provides functionality of handling OpenStack credential
+file (openrc). For Euphrates, it supports:
 
 1. Upload an openrc file for an OpenStack environment;
 2. Update an openrc file;
@@ -279,7 +292,8 @@ Example::
 
 /api/v2/yardstick/pods/action
 
-Description: This API provides functionality of handling Yardstick pod file (pod.yaml). For Euphrates, it supports:
+Description: This API provides functionality of handling Yardstick pod file
+(pod.yaml). For Euphrates, it supports:
 
 1. Upload a pod file;
 2. Get pod file information;
@@ -321,7 +335,8 @@ Example::
 
 /api/v2/yardstick/images/action
 
-Description: This API is used to do some work related to Yardstick VM images. For Euphrates, it supports:
+Description: This API is used to do some work related to Yardstick VM images.
+For Euphrates, it supports:
 
 1. Load Yardstick VM images;
 2. Get image's information;
@@ -359,7 +374,8 @@ Example::
 
 /api/v2/yardstick/tasks/action
 
-Description: This API is used to do some work related to yardstick tasks. For Euphrates, it supports:
+Description: This API is used to do some work related to yardstick tasks. For
+Euphrates, it supports:
 
 1. Create a Yardstick task;
 2. run a Yardstick task;
@@ -439,12 +455,14 @@ METHOD: DELETE
 
 Delete a task
 Example::
+
     http://localhost:8888/api/v2/yardstick/tasks/5g6g3e02-155a-4847-a5f8-154f1b31db8c
 
 
 /api/v2/yardstick/testcases/action
 
-Description: This API is used to do some work related to yardstick testcases. For Euphrates, it supports:
+Description: This API is used to do some work related to Yardstick testcases.
+For Euphrates, it supports:
 
 1. Upload a test case;
 2. Get all released test cases' information;
@@ -491,12 +509,14 @@ METHOD: DELETE
 
 Delete a certain test case
 Example::
+
     http://localhost:8888/api/v2/yardstick/testcases/opnfv_yardstick_tc002
 
 
 /api/v2/yardstick/testsuites/action
 
-Description: This API is used to do some work related to yardstick test suites. For Euphrates, it supports:
+Description: This API is used to do some work related to yardstick test suites.
+For Euphrates, it supports:
 
 1. Create a test suite;
 2. Get a certain test suite's information;
@@ -552,7 +572,8 @@ Example::
 
 /api/v2/yardstick/projects/action
 
-Description: This API is used to do some work related to yardstick test projects. For Euphrates, it supports:
+Description: This API is used to do some work related to Yardstick test
+projects. For Euphrates, it supports:
 
 1. Create a Yardstick project;
 2. Get a certain project's information;
@@ -605,7 +626,8 @@ Example::
 
 /api/v2/yardstick/containers/action
 
-Description: This API is used to do some work related to Docker containers. For Euphrates, it supports:
+Description: This API is used to do some work related to Docker containers.
+For Euphrates, it supports:
 
 1. Create a Grafana Docker container;
 2. Create an InfluxDB Docker container;
