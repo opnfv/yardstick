@@ -74,8 +74,8 @@ if [ "$INSTALLER_TYPE" == "fuel" ]; then
     ssh -l ubuntu "${INSTALLER_IP}" -i ${SSH_KEY} ${ssh_options} \
          "sudo salt -C 'ctl* or cmp*' grains.get fqdn_ip4  --out yaml">node_info
 
-    controller_ips=($(awk '/ctl/{getline; print $2} < node_info'))
-    compute_ips=($(awk '/cmp/{getline; print $2} < node_info'))
+    controller_ips=($(awk '/ctl/{getline; print $2}' < node_info))
+    compute_ips=($(awk '/cmp/{getline; print $2}' < node_info))
 
     if [[ ${controller_ips[0]} ]]; then
         sed -i "s|ip1|${controller_ips[0]}|" "${pod_yaml}"
