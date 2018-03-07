@@ -25,7 +25,6 @@ from tests.unit import STL_MOCKS
 from yardstick.common import utils
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 
-
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
@@ -45,7 +44,7 @@ if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxBngProfileHelper
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxVpeProfileHelper
     from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxlwAFTRProfileHelper
-
+    from yardstick.network_services.constants import ONE_GIGABIT_IN_BITS, NIC_GBPS_DEFAULT
 
 class TestCoreTuple(unittest.TestCase):
     def test___init__(self):
@@ -1537,7 +1536,8 @@ class TestProxDataHelper(unittest.TestCase):
         sut = mock.MagicMock()
         sut.port_stats.return_value = list(range(10))
 
-        data_helper = ProxDataHelper(vnfd_helper, sut, pkt_size, 25, None)
+        data_helper = ProxDataHelper(vnfd_helper, sut, pkt_size, 25, None,
+                                     NIC_GBPS_DEFAULT * ONE_GIGABIT_IN_BITS)
 
         self.assertEqual(data_helper.rx_total, 6)
         self.assertEqual(data_helper.tx_total, 7)
@@ -1551,7 +1551,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut = mock.MagicMock()
         sut.port_stats.return_value = list(range(10))
 
-        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, None)
+        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, None, None)
 
         expected = {
             'xe1': {
@@ -1574,13 +1574,15 @@ class TestProxDataHelper(unittest.TestCase):
         sut = mock.MagicMock()
         sut.port_stats.return_value = list(range(10))
 
-        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, 5.4)
+        data_helper = ProxDataHelper(vnfd_helper, sut, None, None,
+            5.4, NIC_GBPS_DEFAULT * ONE_GIGABIT_IN_BITS)
         data_helper._totals_and_pps = 12, 32, 4.5
         data_helper.tsc_hz = 9.8
         data_helper.measured_stats = {'delta': TotStatsTuple(6.1, 6.2, 6.3, 6.4)}
         data_helper.latency = 7
 
         self.assertIsNone(data_helper.result_tuple)
+        self.assertEqual(data_helper.line_speed, 10000000000.0)
 
         expected = ProxTestDataTuple(5.4, 9.8, 6.1, 6.2, 6.3, 7, 12, 32, 4.5)
         with data_helper:
@@ -1595,7 +1597,7 @@ class TestProxDataHelper(unittest.TestCase):
     def test___enter___negative(self):
         vnfd_helper = mock.MagicMock()
 
-        data_helper = ProxDataHelper(vnfd_helper, None, None, None, None)
+        data_helper = ProxDataHelper(vnfd_helper, None, None, None, None, None)
 
         vnfd_helper.port_pairs.all_ports = []
         with self.assertRaises(AssertionError):
@@ -1617,7 +1619,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut = ProxSocketHelper(mock.MagicMock())
         sut.get_all_tot_stats = mock.MagicMock(side_effect=[start, end])
 
-        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, 5.4)
+        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, None, 5.4)
 
         self.assertIsNone(data_helper.measured_stats)
 
@@ -1638,7 +1640,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut = mock.MagicMock()
         sut.hz.return_value = '54.6'
 
-        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, None)
+        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, None, None)
 
         self.assertIsNone(data_helper.tsc_hz)
 
@@ -1935,7 +1937,7 @@ class TestProxProfileHelper(unittest.TestCase):
 
         helper = ProxProfileHelper(resource_helper)
 
-        helper.run_test(120, 5, 6.5)
+        helper.run_test(120, 5, 6.5, NIC_GBPS_DEFAULT * ONE_GIGABIT_IN_BITS)
 
 
 class TestProxMplsProfileHelper(unittest.TestCase):
@@ -2081,8 +2083,10 @@ class TestProxBngProfileHelper(unittest.TestCase):
 
         helper = ProxBngProfileHelper(resource_helper)
 
-        helper.run_test(120, 5, 6.5)
-        helper.run_test(-1000, 5, 6.5)  # negative pkt_size is the only way to make ratio > 1
+        helper.run_test(120, 5, 6.5, NIC_GBPS_DEFAULT* ONE_GIGABIT_IN_BITS)
+
+        # negative pkt_size is the only way to make ratio > 1
+        helper.run_test(-1000, 5, 6.5, NIC_GBPS_DEFAULT* ONE_GIGABIT_IN_BITS)
 
 
 class TestProxVpeProfileHelper(unittest.TestCase):
