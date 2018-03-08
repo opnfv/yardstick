@@ -15,6 +15,10 @@ description: >
     measure VMs latency using ping;
 run_in_parallel: true
 {% set stack_num = stack_num or 1 %}
+{% set image_name = image_name or "yardstick-image" %}
+{% set cpu_num = cpu_num or 1 %}
+{% set ram_num = ram_num or 512 %}
+{% set disk_num = disk_num or 7 %}
 
 scenarios:
 {% for num in range(stack_num) %}
@@ -34,8 +38,11 @@ contexts:
 {% for num in range(stack_num) %}
 -
   name: demo{{num}}
-  image: yardstick-image
-  flavor: yardstick-flavor
+  image: {{image_name}}
+  flavor:
+    vcpus: {{cpu_num}}
+    ram: {{ram_num}}
+    disk: {{disk_num}}
   user: ubuntu
 
   placement_groups:
