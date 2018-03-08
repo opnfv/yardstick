@@ -22,6 +22,30 @@
       "revId": "5d0aef40ebe007992b3c16298b21a3fb0b785df0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_836a7018",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-08T08:21:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_c369188d",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 62
+      },
+      "revId": "5d0aef40ebe007992b3c16298b21a3fb0b785df0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
