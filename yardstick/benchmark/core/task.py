@@ -149,7 +149,7 @@ class Task(object):     # pragma: no cover
                  total_end_time - total_start_time)
 
         LOG.info('To generate report, execute command "yardstick report '
-                 'generate %(task_id)s <yaml_name>s"', self.task_id)
+                 'generate %s <YAML_NAME>"', self.task_id)
         LOG.info("Task ALL DONE, exiting")
         return result
 
