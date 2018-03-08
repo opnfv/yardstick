@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_fed82b55",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/remove_server_from_secgroup.bash",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T10:57:12Z",
+      "side": 1,
+      "message": "Same comment, don\u0027t trust in the CLI order. Execute:\n$ openstack security group list -f value -c Name | grep $2",
+      "range": {
+        "startLine": 23,
+        "startChar": 15,
+        "endLine": 23,
+        "endChar": 93
+      },
+      "revId": "9631614290f2824a9ac7f918e88bc449f7960b13",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
