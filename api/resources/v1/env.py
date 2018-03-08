@@ -10,6 +10,8 @@ from __future__ import absolute_import
 
 import errno
 import logging
+
+import ipaddress
 import os
 import subprocess
 import threading
@@ -269,6 +271,8 @@ class V1Env(ApiResource):
                     LOG.info('Openrc file not found')
                     installer_ip = os.environ.get('INSTALLER_IP',
                                                   '192.168.200.2')
+                    # validate installer_ip is a valid ipaddress
+                    installer_ip = str(ipaddress.IPv4Address(installer_ip))
                     installer_type = os.environ.get('INSTALLER_TYPE', 'compass')
                     LOG.info('Getting openrc file from %s', installer_type)
                     self._get_remote_rc_file(rc_file,
