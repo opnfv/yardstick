@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_89f56f85",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_network.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-08T16:42:08Z",
+      "side": 1,
+      "message": "Outputs are not always going to be requested by the testcase.  Maybe you should test for the cases where there aren\u0027t any outputs specified.",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 54
+      },
+      "revId": "530f13fe01e1cd593d446cbb07acd613011bab81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4904077b",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_network.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-08T16:42:08Z",
+      "side": 1,
+      "message": "result should be set to {} at the start of each test.",
+      "range": {
+        "startLine": 46,
+        "startChar": 36,
+        "endLine": 46,
+        "endChar": 47
+      },
+      "revId": "530f13fe01e1cd593d446cbb07acd613011bab81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a9f82b7d",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_network.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-08T16:42:08Z",
+      "side": 1,
+      "message": "Use assertEqual here, instead of assertDictEqual",
+      "range": {
+        "startLine": 47,
+        "startChar": 13,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "530f13fe01e1cd593d446cbb07acd613011bab81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
