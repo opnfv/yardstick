@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_c369188d",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-03-08T02:48:00Z",
+      "side": 1,
+      "message": "thanks ting wu [1], there\u0027s a bug here.\n[1] https://jira.opnfv.org/browse/YARDSTICK-1051",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 62
+      },
+      "revId": "5d0aef40ebe007992b3c16298b21a3fb0b785df0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
