@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_2927fbb7",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-03-08T14:01:24Z",
+      "side": 1,
+      "message": "will change this at a later stage",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 41
+      },
+      "revId": "20d427b56b80c86fa2573236a0fb19b50580e369",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
