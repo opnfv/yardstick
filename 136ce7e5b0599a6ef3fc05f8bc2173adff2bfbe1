@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_5e595ffd",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T10:46:58Z",
+      "side": 1,
+      "message": "space",
+      "revId": "136ce7e5b0599a6ef3fc05f8bc2173adff2bfbe1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3e5e13e7",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1596,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T10:46:58Z",
+      "side": 1,
+      "message": "You should check this new added value",
+      "revId": "136ce7e5b0599a6ef3fc05f8bc2173adff2bfbe1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_be5fc30d",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T10:46:58Z",
+      "side": 1,
+      "message": "This constant should go in yardstick.constants",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "136ce7e5b0599a6ef3fc05f8bc2173adff2bfbe1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1e9cf7bf",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T10:46:58Z",
+      "side": 1,
+      "message": "Do we need this constant? Maybe this should have another name, like: NIC_GBPS_DEFAULT\n\nAlso in yardstick.constants",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "136ce7e5b0599a6ef3fc05f8bc2173adff2bfbe1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3eabb3d9",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T10:46:58Z",
+      "side": 1,
+      "message": "We try to use always brakets: https://www.python.org/dev/peps/pep-0008/#maximum-line-length\n\n\"The preferred way of wrapping long lines is by using Python\u0027s implied line continuation inside parentheses, brackets and braces. Long lines can be broken over multiple lines by wrapping expressions in parentheses. These should be used in preference to using a backslash for line continuation.\"\n\nline_speed \u003d (traffic_gen.scenario_helper.all_options.get(\n    \"interface_speed_gbps\", TEN_GIGABIT) * ONE_GIGABIT_IN_BITS)",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 107,
+        "endChar": 90
+      },
+      "revId": "136ce7e5b0599a6ef3fc05f8bc2173adff2bfbe1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7eda5b79",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T10:46:58Z",
+      "side": 1,
+      "message": "We already have the constant ONE_GIGABIT_IN_BITS. This is redundant.",
+      "range": {
+        "startLine": 47,
+        "startChar": 27,
+        "endLine": 47,
+        "endChar": 27
+      },
+      "revId": "136ce7e5b0599a6ef3fc05f8bc2173adff2bfbe1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1e5fd7e6",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T10:46:58Z",
+      "side": 1,
+      "message": "You are changing the definition of the function. Although you are adding a kworded argument, you are changing the position of the original arguments, pussing back \"tolerated_loss\".\n\nIn some function calls [1][2], the arguments are given in order without specifying the arg name. You should add this new parameter at the end of the function definition.\n\n[1]https://github.com/opnfv/yardstick/blob/9c50ed0e9bdb4dec5a95af40eb0e89ee962fcd40/yardstick/network_services/traffic_profile/prox_ACL.py#L48\n[2]https://github.com/opnfv/yardstick/blob/9c50ed0e9bdb4dec5a95af40eb0e89ee962fcd40/yardstick/network_services/traffic_profile/prox_ramp.py#L42",
+      "revId": "136ce7e5b0599a6ef3fc05f8bc2173adff2bfbe1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
