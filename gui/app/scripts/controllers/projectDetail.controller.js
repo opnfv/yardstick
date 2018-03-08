@@ -439,15 +439,36 @@ angular.module('yardStickGui2App')
 
                         $scope.displayTable = false;
                         $scope.contentInfo = response.result.testcase;
+                        $scope.optionalParams = response.result.args;
 
                     }
                 }, function(error) {
-                    toaster.pop({
-                        type: 'error',
-                        title: 'fail',
-                        body: 'unknow error',
-                        timeout: 3000
-                    });
+                    mainFactory.errorHandler2(error);
+                })
+            }
+
+
+            function addParamsToTask(){
+                var params = {}
+                angular.forEach($scope.optionalParams, function(value, name){
+                    if(value.value){
+                        params[name] = value.value;
+                    }
+                });
+
+                mainFactory.taskAddParams().put({
+                    'taskId': $scope.newUUID,
+                    'action': 'add_params',
+                    'args': {
+                        'params': params
+                    }
+                }).$promise.then(function(resp) {
+                    if (resp.status == 1) {
+                    } else {
+                        mainFactory.errorHandler1(resp);
+                    }
+                }, function(error) {
+                    mainFactory.errorHandler2(error);
                 })
             }
 
@@ -530,6 +551,7 @@ angular.module('yardStickGui2App')
             function confirmAddCaseOrSuite(content) {
                 if ($scope.selectType.name == "Test Case") {
                     addCasetoTask(content);
+                    addParamsToTask();
                 } else {
                     addSuitetoTask(content);
                 }

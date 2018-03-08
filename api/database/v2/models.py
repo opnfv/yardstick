@@ -92,6 +92,7 @@ class V2Task(Base):
     case_name = Column(String(30))
     suite = Column(Boolean)
     content = Column(Text)
+    params = Column(Text)
     result = Column(Text)
     error = Column(Text)
     status = Column(Integer)

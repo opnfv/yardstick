@@ -38,6 +38,8 @@ class V2Tasks(ApiResource):
         for t in tasks:
             result = t['result']
             t['result'] = jsonutils.loads(result) if result else None
+            params = t['params']
+            t['params'] = jsonutils.loads(params) if params else None
 
         return result_handler(consts.API_SUCCESS, {'tasks': tasks})
 
@@ -94,6 +96,9 @@ class V2Task(ApiResource):
         result = task_info['result']
         task_info['result'] = jsonutils.loads(result) if result else None
 
+        params = task_info['params']
+        task_info['params'] = jsonutils.loads(params) if params else None
+
         return result_handler(consts.API_SUCCESS, {'task': task_info})
 
     def delete(self, task_id):
@@ -127,7 +132,6 @@ class V2Task(ApiResource):
         return result_handler(consts.API_SUCCESS, {'task': task_id})
 
     def put(self, task_id):
-
         try:
             uuid.UUID(task_id)
         except ValueError:
@@ -163,6 +167,21 @@ class V2Task(ApiResource):
         LOG.info('update environment_id in task')
         task_handler = V2TaskHandler()
         task_handler.update_attr(task_id, {'environment_id': environment_id})
+
+        return result_handler(consts.API_SUCCESS, {'uuid': task_id})
+
+    def add_params(self, args):
+        task_id = args['task_id']
+        try:
+            params = args['params']
+        except KeyError:
+            return result_handler(consts.API_ERROR, 'params must be provided')
+
+        LOG.info('update params info in task')
+
+        task_handler = V2TaskHandler()
+        task_update_data = {'params': jsonutils.dumps(params)}
+        task_handler.update_attr(task_id, task_update_data)
 
         return result_handler(consts.API_SUCCESS, {'uuid': task_id})
 
@@ -243,7 +262,8 @@ class V2Task(ApiResource):
 
         data = {
             'inputfile': ['/tmp/{}.yaml'.format(task.case_name)],
-            'task_id': task_id
+            'task_id': task_id,
+            'task-args': task.params
         }
         if task.suite:
             data.update({'suite': True})
