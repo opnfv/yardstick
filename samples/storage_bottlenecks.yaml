@@ -31,6 +31,11 @@ run_in_parallel: true
 {% set numjobs = numjobs or "1" %}
 {% set direct = direct or "1" %}
 {% set volume_size = volume_size or 50 %}
+{% set image_name = image_name or "yardstick-image" %}
+{% set cpu_num = cpu_num or 1 %}
+{% set ram_num = ram_num or 512 %}
+{% set disk_num = disk_num or 7 %}
+{% set run_time = run_time or 3000 %}
 
 scenarios:
 {% for num in range(stack_num) %}
@@ -51,7 +56,7 @@ scenarios:
 
   runner:
     type: Duration
-    duration: 60
+    duration: {{ run_time }}
     interval: 1
 {% endfor %}
 
@@ -59,8 +64,11 @@ contexts:
 {% for context_num in range(stack_num) %}
 -
   name: storage_bottlenecks-{{context_num}}-{{volume_num}}
-  image: yardstick-image
-  flavor: yardstick-flavor
+  image: {{image_name}}
+  flavor:
+    vcpus: {{cpu_num}}
+    ram: {{ram_num}}
+    disk: {{disk_num}}
   user: ubuntu
 
   servers:

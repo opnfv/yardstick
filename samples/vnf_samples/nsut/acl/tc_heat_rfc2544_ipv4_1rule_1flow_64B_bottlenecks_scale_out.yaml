@@ -1,0 +1,123 @@
+# Copyright (c) 2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: yardstick:task:0.1
+
+{% set num_vnfs = num_vnfs or 2 %}
+{% set image_name = image_name or "yardstick-samplevnfs" %}
+{% set cpu_num = cpu_num or 10 %}
+{% set ram_num = ram_num or 10240 %}
+{% set disk_num = disk_num or 7 %}
+
+scenarios:
+  - type: NSPerf
+    traffic_profile: ../../traffic_profiles/ipv4_throughput-{{ num_vnfs }}.yaml
+    topology: acl-tg-topology-3node-{{ num_vnfs }}.yaml
+    nodes:
+      tg__0: tg_0.yardstick
+      tg__1: tg_1.yardstick
+{% for vnf_num in range(num_vnfs|int) %}
+      vnf__{{ vnf_num }}: vnf_{{ vnf_num }}.yardstick
+{% endfor %}
+    options:
+      framesize:
+        uplink: {64B: 100}
+        downlink: {64B: 100}
+      flow:
+        src_ip:
+{% for vnf_num in range(num_vnfs|int) %}
+          - {'tg__0': 'xe{{ vnf_num }}'}
+{% endfor %}
+        dst_ip:
+{% for vnf_num in range(num_vnfs|int) %}
+          - {'tg__1': 'xe{{ vnf_num }}'}
+{% endfor %}
+        count: 1
+      traffic_type: 4
+      rfc2544:
+        allowed_drop_rate: 0.0001 - 0.0001
+        correlated_traffic: true
+{% for vnf_num in range(num_vnfs|int) %}
+      vnf__{{ vnf_num }}:
+        rules: acl_1rule.yaml
+        vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+{% endfor %}
+    runner:
+      type: Iteration
+      iterations: 10
+      interval: 35
+context:
+  name: yardstick
+  image: {{ image_name }}
+  flavor:
+    vcpus: {{ cpu_num }}
+    ram: {{ ram_num }}
+    disk: {{ disk_num }}
+    extra_specs:
+      hw:cpu_sockets: 1
+      hw:cpu_cores: {{ cpu_num }}
+      hw:cpu_threads: 1
+  user: ubuntu
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+  servers:
+    tg_0:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+{% for vnf_num in range(num_vnfs|int) %}
+        uplink_{{ vnf_num }}:
+          - xe{{ vnf_num }}
+{% endfor %}
+    tg_1:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+{% for vnf_num in range(num_vnfs|int) %}
+        downlink_{{ vnf_num }}:
+          - xe{{ vnf_num }}
+{% endfor %}
+{% for vnf_num in range(num_vnfs|int) %}
+    vnf_{{ vnf_num }}:
+      floating_ip: true
+      placement: "pgrp1"
+      network_ports:
+        mgmt:
+          - mgmt
+        uplink_{{ vnf_num }}:
+          - xe0
+        downlink_{{ vnf_num }}:
+          - xe1
+{% endfor %}
+  networks:
+    mgmt:
+      cidr: '10.0.1.0/24'
+{% for vnf_num in range(num_vnfs|int) %}
+    uplink_{{ vnf_num }}:
+      cidr: '10.{{ vnf_num + 1 }}.0.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+    downlink_{{ vnf_num }}:
+      cidr: '10.{{ vnf_num + 1 }}.1.0/24'
+      gateway_ip: 'null'
+      port_security_enabled: False
+      enable_dhcp: 'false'
+{% endfor %}
