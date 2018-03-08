@@ -22,6 +22,30 @@
       "revId": "1c17293b6e3ab8188e097761602724e350a5d456",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7e741bcf",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_l2fwd-2.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-08T13:36:26Z",
+      "side": 1,
+      "message": "Doing it now. Will be submitted with final submit.",
+      "parentUuid": "5a3f45e8_be73434c",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "1c17293b6e3ab8188e097761602724e350a5d456",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
