@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_7ea09b90",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/add_server_to_existing_secgroup.bash",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T11:31:21Z",
+      "side": 1,
+      "message": "Now you don\u0027t need this section",
+      "range": {
+        "startLine": 23,
+        "startChar": 83,
+        "endLine": 23,
+        "endChar": 100
+      },
+      "revId": "5b62bee0f773ff5209e14ec1f7cec8f76f95f9f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_beaa236e",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/remove_server_from_secgroup.bash",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T11:31:21Z",
+      "side": 1,
+      "message": "You don\u0027t need this now",
+      "range": {
+        "startLine": 23,
+        "startChar": 83,
+        "endLine": 23,
+        "endChar": 100
+      },
+      "revId": "5b62bee0f773ff5209e14ec1f7cec8f76f95f9f4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
