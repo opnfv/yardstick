@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_89da8f76",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T14:59:22Z",
+      "side": 1,
+      "message": "This should not be defined here because we don\u0027t need to patch stl libraries to import his one.\n\nAlso it\u0027s recommended to import the whole module, for trackign purposes. Then, call it like:\n  contants.ONE_GIGABIT_IN_BITS",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 90
+      },
+      "revId": "00f46cc79b5849e44915dd109445a156f394583d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e9e7d33e",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 1585,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T14:59:22Z",
+      "side": 1,
+      "message": "line_speed is supposed to be an integer, not a decimal number",
+      "range": {
+        "startLine": 1585,
+        "startChar": 48,
+        "endLine": 1585,
+        "endChar": 62
+      },
+      "revId": "00f46cc79b5849e44915dd109445a156f394583d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_29d1bb57",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 2086,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T14:59:22Z",
+      "side": 1,
+      "message": "space",
+      "revId": "00f46cc79b5849e44915dd109445a156f394583d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_69cbc3a5",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 2089,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T14:59:22Z",
+      "side": 1,
+      "message": "space",
+      "revId": "00f46cc79b5849e44915dd109445a156f394583d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
