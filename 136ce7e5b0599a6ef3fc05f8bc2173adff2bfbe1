@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_3eb613da",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-08T11:35:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_5e595ffd",
+      "revId": "136ce7e5b0599a6ef3fc05f8bc2173adff2bfbe1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_3e5e13e7",
         "filename": "tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
         "patchSetId": 9
@@ -59,6 +77,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_9ecac74d",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-08T11:35:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_be5fc30d",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "136ce7e5b0599a6ef3fc05f8bc2173adff2bfbe1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_1e9cf7bf",
         "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
         "patchSetId": 9
@@ -70,6 +112,30 @@
       "writtenOn": "2018-03-08T10:46:58Z",
       "side": 1,
       "message": "Do we need this constant? Maybe this should have another name, like: NIC_GBPS_DEFAULT\n\nAlso in yardstick.constants",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "136ce7e5b0599a6ef3fc05f8bc2173adff2bfbe1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7ec7fb45",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-08T11:35:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_1e9cf7bf",
       "range": {
         "startLine": 25,
         "startChar": 0,
@@ -105,6 +171,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_dec44f42",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-08T11:35:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_3eabb3d9",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 107,
+        "endChar": 90
+      },
+      "revId": "136ce7e5b0599a6ef3fc05f8bc2173adff2bfbe1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_7eda5b79",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 9
@@ -128,6 +218,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_bec18330",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-08T11:35:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_7eda5b79",
+      "range": {
+        "startLine": 47,
+        "startChar": 27,
+        "endLine": 47,
+        "endChar": 27
+      },
+      "revId": "136ce7e5b0599a6ef3fc05f8bc2173adff2bfbe1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_1e5fd7e6",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 9
@@ -139,6 +253,24 @@
       "writtenOn": "2018-03-08T10:46:58Z",
       "side": 1,
       "message": "You are changing the definition of the function. Although you are adding a kworded argument, you are changing the position of the original arguments, pussing back \"tolerated_loss\".\n\nIn some function calls [1][2], the arguments are given in order without specifying the arg name. You should add this new parameter at the end of the function definition.\n\n[1]https://github.com/opnfv/yardstick/blob/9c50ed0e9bdb4dec5a95af40eb0e89ee962fcd40/yardstick/network_services/traffic_profile/prox_ACL.py#L48\n[2]https://github.com/opnfv/yardstick/blob/9c50ed0e9bdb4dec5a95af40eb0e89ee962fcd40/yardstick/network_services/traffic_profile/prox_ramp.py#L42",
+      "revId": "136ce7e5b0599a6ef3fc05f8bc2173adff2bfbe1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1edeb711",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-08T11:35:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_1e5fd7e6",
       "revId": "136ce7e5b0599a6ef3fc05f8bc2173adff2bfbe1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
