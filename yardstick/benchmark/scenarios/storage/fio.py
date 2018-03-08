@@ -91,7 +91,7 @@ class Fio(base.Scenario):
         host = self.context_cfg["host"]
 
         self.client = ssh.SSH.from_node(host, defaults={"user": "root"})
-        self.client.wait(timeout=600)
+        self.client.wait(timeout=3600)
 
         self.job_file = self.options.get("job_file", None)
         config_lines = self.options.get("job_file_config", None)
