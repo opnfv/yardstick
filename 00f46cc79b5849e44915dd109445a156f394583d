@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_e9beb3fe",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 14
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T14:59:44Z",
+      "side": 1,
+      "message": "Yes, thanks!!",
+      "revId": "00f46cc79b5849e44915dd109445a156f394583d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_89da8f76",
         "filename": "tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
         "patchSetId": 14
