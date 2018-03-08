@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_9e264715",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T12:00:35Z",
+      "side": 1,
+      "message": "Emma, can you help us rephrasing this commit message?",
+      "revId": "5c5d0e7118b8edb82c8050c9a8893f8e17a65162",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_fe178ba1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T12:00:35Z",
+      "side": 1,
+      "message": "Offline",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 8
+      },
+      "revId": "5c5d0e7118b8edb82c8050c9a8893f8e17a65162",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5e0ddf8f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T12:00:35Z",
+      "side": 1,
+      "message": "These",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 4
+      },
+      "revId": "5c5d0e7118b8edb82c8050c9a8893f8e17a65162",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_be46a3bd",
+        "filename": "samples/ping_bottlenecks.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T12:00:35Z",
+      "side": 1,
+      "message": "Do we need so much space? Maybe 7 is enough (tested with Y image)",
+      "range": {
+        "startLine": 21,
+        "startChar": 30,
+        "endLine": 21,
+        "endChar": 32
+      },
+      "revId": "5c5d0e7118b8edb82c8050c9a8893f8e17a65162",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1e1357b9",
+        "filename": "samples/storage_bottlenecks.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T12:00:35Z",
+      "side": 1,
+      "message": "same comment, 7 should be enough",
+      "range": {
+        "startLine": 38,
+        "startChar": 30,
+        "endLine": 38,
+        "endChar": 32
+      },
+      "revId": "5c5d0e7118b8edb82c8050c9a8893f8e17a65162",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3e1293b1",
+        "filename": "yardstick/benchmark/scenarios/storage/fio.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T12:00:35Z",
+      "side": 1,
+      "message": "Is this related to the JIRA ticket?",
+      "range": {
+        "startLine": 94,
+        "startChar": 33,
+        "endLine": 94,
+        "endChar": 37
+      },
+      "revId": "5c5d0e7118b8edb82c8050c9a8893f8e17a65162",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
