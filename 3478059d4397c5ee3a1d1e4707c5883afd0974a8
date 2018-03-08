@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_09ef9f1f",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_add_memory_load.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-08T14:52:25Z",
+      "side": 1,
+      "message": "how many times are we calling this function?",
+      "range": {
+        "startLine": 30,
+        "startChar": 23,
+        "endLine": 30,
+        "endChar": 36
+      },
+      "revId": "3478059d4397c5ee3a1d1e4707c5883afd0974a8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
