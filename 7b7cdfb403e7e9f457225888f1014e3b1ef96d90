@@ -22,6 +22,30 @@
       "revId": "7b7cdfb403e7e9f457225888f1014e3b1ef96d90",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f88dde32",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/create_instance_from_image.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-09T09:26:26Z",
+      "side": 1,
+      "message": "1) The $4 is the forth paramater (network name) that I pass in the script. Check line 13\n2) ok sure I will fix that thanks",
+      "parentUuid": "5a3f45e8_58b5f2ec",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 43
+      },
+      "revId": "7b7cdfb403e7e9f457225888f1014e3b1ef96d90",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
