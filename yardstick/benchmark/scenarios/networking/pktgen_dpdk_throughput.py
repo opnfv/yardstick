@@ -51,30 +51,19 @@ class PktgenDPDK(base.Scenario):
             PktgenDPDK.TESTPMD_SCRIPT)
 
         host = self.context_cfg['host']
-        host_user = host.get('user', 'ubuntu')
-        host_ssh_port = host.get('ssh_port', ssh.DEFAULT_PORT)
-        host_ip = host.get('ip', None)
-        host_key_filename = host.get('key_filename', '~/.ssh/id_rsa')
         target = self.context_cfg['target']
-        target_user = target.get('user', 'ubuntu')
-        target_ssh_port = target.get('ssh_port', ssh.DEFAULT_PORT)
-        target_ip = target.get('ip', None)
-        target_key_filename = target.get('key_filename', '~/.ssh/id_rsa')
 
-        LOG.info("user:%s, target:%s", target_user, target_ip)
-        self.server = ssh.SSH(target_user, target_ip,
-                              key_filename=target_key_filename,
-                              port=target_ssh_port)
+        LOG.info("user:%s, target:%s", target['user'], target['ip'])
+        self.server = ssh.SSH.from_node(target, defaults={"user": "ubuntu"})
         self.server.wait(timeout=600)
+
+        LOG.info("user:%s, host:%s", host['user'], host['ip'])
+        self.client = ssh.SSH.from_node(host, defaults={"user": "ubuntu"})
+        self.client.wait(timeout=600)
+
 
         # copy script to host
         self.server._put_file_shell(self.testpmd_script, '~/testpmd_rev.sh')
-
-        LOG.info("user:%s, host:%s", host_user, host_ip)
-        self.client = ssh.SSH(host_user, host_ip,
-                              key_filename=host_key_filename,
-                              port=host_ssh_port)
-        self.client.wait(timeout=600)
 
         # copy script to host
         self.client._put_file_shell(self.pktgen_dpdk_script,
