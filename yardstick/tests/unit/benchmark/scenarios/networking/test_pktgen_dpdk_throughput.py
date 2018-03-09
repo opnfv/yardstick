@@ -84,6 +84,7 @@ class PktgenDPDKTestCase(unittest.TestCase):
         expected_result = jsonutils.loads(sample_output)
         expected_result["packets_received"] = 149300
         expected_result["packetsize"] = 60
+        expected_result["ppm"] = 3178
         self.assertEqual(result, expected_result)
 
     def test_pktgen_dpdk_throughput_successful_sla(self, mock_ssh):
@@ -110,6 +111,7 @@ class PktgenDPDKTestCase(unittest.TestCase):
         expected_result = jsonutils.loads(sample_output)
         expected_result["packets_received"] = 149300
         expected_result["packetsize"] = 60
+        expected_result["ppm"] = 3178
         self.assertEqual(result, expected_result)
 
     def test_pktgen_dpdk_throughput_unsuccessful_sla(self, mock_ssh):
