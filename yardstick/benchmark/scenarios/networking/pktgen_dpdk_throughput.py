@@ -11,6 +11,7 @@ import pkg_resources
 import logging
 import json
 import time
+import math
 
 import yardstick.ssh as ssh
 import yardstick.common.utils as utils
@@ -214,12 +215,12 @@ class PktgenDPDK(base.Scenario):
 
         result['packetsize'] = packetsize
 
+        sent = result['packets_sent']
+        received = result['packets_received']
+        ppm = math.ceil(1000000 * (sent - received) / sent)
+        result['ppm'] = ppm
+
         if "sla" in self.scenario_cfg:
-            sent = result['packets_sent']
-            received = result['packets_received']
-            ppm = 1000000 * (sent - received) / sent
-            # Added by Jing
-            ppm += (sent - received) % sent > 0
             LOG.debug("Lost packets %d - Lost ppm %d", (sent - received), ppm)
             sla_max_ppm = int(self.scenario_cfg["sla"]["max_ppm"])
             assert ppm <= sla_max_ppm, "ppm %d > sla_max_ppm %d; " \
