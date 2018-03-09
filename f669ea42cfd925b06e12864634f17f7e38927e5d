@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_b8eeb6ea",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2018-03-09T08:57:41Z",
+      "side": 1,
+      "message": "I think it should be constants.DEFAULT_VNF_TIMEOUT. Same next line.",
+      "range": {
+        "startLine": 611,
+        "startChar": 40,
+        "endLine": 611,
+        "endChar": 59
+      },
+      "revId": "f669ea42cfd925b06e12864634f17f7e38927e5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
