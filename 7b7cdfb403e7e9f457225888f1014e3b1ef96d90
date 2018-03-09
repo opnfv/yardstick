@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_58b5f2ec",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/nova/create_instance_from_image.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-09T09:02:29Z",
+      "side": 1,
+      "message": "1) \"openstack network list\" returns only 3 parameters, grep $4??\n2) use \"-f value -c Name\", without \"awk print $2\"",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 43
+      },
+      "revId": "7b7cdfb403e7e9f457225888f1014e3b1ef96d90",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
