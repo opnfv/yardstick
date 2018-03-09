@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f87e7ee3",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_network.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-03-09T10:01:09Z",
+      "side": 1,
+      "message": "I think this is already being tested in run_fail_exception as we are not going to return any output when TC fails.So,  self._cnet_obj.scenario_cfg \u003d {\u0027output\u0027: \u0027id\u0027} is not required in run_fail_exception TC. I\u0027ll update that",
+      "parentUuid": "5a3f45e8_89f56f85",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 54
+      },
+      "revId": "530f13fe01e1cd593d446cbb07acd613011bab81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_4904077b",
         "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_network.py",
         "patchSetId": 25
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-08T16:42:08Z",
       "side": 1,
       "message": "result should be set to {} at the start of each test.",
+      "range": {
+        "startLine": 46,
+        "startChar": 36,
+        "endLine": 46,
+        "endChar": 47
+      },
+      "revId": "530f13fe01e1cd593d446cbb07acd613011bab81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9895ba42",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_network.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-03-09T10:01:09Z",
+      "side": 1,
+      "message": "in line 32, default value 0 has been passed to result.",
+      "parentUuid": "5a3f45e8_4904077b",
       "range": {
         "startLine": 46,
         "startChar": 36,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_987c9a22",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_network.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-03-09T10:01:09Z",
+      "side": 1,
+      "message": "Is this really required?",
+      "parentUuid": "5a3f45e8_a9f82b7d",
+      "range": {
+        "startLine": 47,
+        "startChar": 13,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "530f13fe01e1cd593d446cbb07acd613011bab81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c99017ef",
         "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_network.py",
         "patchSetId": 25
@@ -82,6 +154,30 @@
       "writtenOn": "2018-03-08T17:45:01Z",
       "side": 1,
       "message": "when there\u0027s an exception, you also need to check that result has been set to 0",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 31
+      },
+      "revId": "530f13fe01e1cd593d446cbb07acd613011bab81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f8a67ec0",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_network.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-03-09T10:01:09Z",
+      "side": 1,
+      "message": "line 56 below does that.",
+      "parentUuid": "5a3f45e8_c99017ef",
       "range": {
         "startLine": 51,
         "startChar": 8,
