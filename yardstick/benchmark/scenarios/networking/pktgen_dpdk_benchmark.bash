@@ -129,11 +129,16 @@ create_expect_file()
 #!/usr/bin/expect
 
 set blacklist  [lindex $argv 0]
-spawn ./app/app/x86_64-native-linuxapp-gcc/pktgen -c 0x0f -n 4 -b $blacklist -- -P -m "{2-3}.0" -f /home/ubuntu/pktgen_tput.lua
+spawn ./app/app/x86_64-native-linuxapp-gcc/pktgen -c 0x0f -n 4 -b $blacklist -- -P -m "2.0" -f /home/ubuntu/pktgen_tput.lua
 expect "Pktgen"
 send "on\n"
 expect "Pktgen"
-send "page main\n"
+send "page stats\n"
+expect "Pktgen"
+sleep 1
+send "off\n"
+expect "Pktgen"
+send "on\n"
 expect "Pktgen"
 sleep 1
 send "quit\n"
