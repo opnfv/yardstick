@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_5bf4ccf1",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 1623,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-09T12:02:45Z",
+      "side": 1,
+      "message": "nit: I think those vars are swapped",
+      "range": {
+        "startLine": 1623,
+        "startChar": 67,
+        "endLine": 1623,
+        "endChar": 76
+      },
+      "revId": "9ba1f1da5b9d8bb5c957f6acb325b69fb3f7f777",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
