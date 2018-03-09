@@ -44,9 +44,9 @@ run_testpmd()
     blacklist=$(lspci |grep Eth |awk '{print $1}'|head -1)
     cd /dpdk
     if [ $NUM_TRAFFIC_PORTS -gt 1 ]; then
-        sudo ./destdir/bin/testpmd -c 0x3f -n 4 -b $blacklist -- -a --nb-cores=4 --coremask=0x3c --rxq=2 --rxd=4096 --rss-udp --txq=2 --forward-mode=rxonly
+        sudo ./destdir/bin/testpmd -c 0x3f -n 4 -b $blacklist -- -a --nb-cores=4 --coremask=0x3c --rxq=1 --rxd=4096 --rss-udp --txq=1 --forward-mode=rxonly
     else
-        sudo ./destdir/bin/testpmd -c 0x0f -n 4 -b $blacklist -- -a --nb-cores=2 --coremask=0x0c --rxq=2 --rxd=4096 --rss-udp --txq=2 --forward-mode=rxonly
+        sudo ./destdir/bin/testpmd -c 0x0f -n 4 -b $blacklist -- -a --nb-cores=2 --coremask=0x0c --rxq=1 --rxd=4096 --rss-udp --txq=1 --forward-mode=rxonly
     fi
 }
 
