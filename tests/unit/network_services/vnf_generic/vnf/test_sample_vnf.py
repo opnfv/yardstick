@@ -533,15 +533,33 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
     @mock.patch.object(six, 'BytesIO', return_value=six.BytesIO(b'100\n'))
     @mock.patch.object(utils, 'read_meminfo',
                        return_value={'Hugepagesize': '2048'})
-    def test__setup_hugepages(self, mock_meminfo, *args):
+    def test__setup_hugepages_no_hugepages_defined(self, mock_meminfo, *args):
         ssh_helper = mock.Mock()
+        scenario_helper = mock.Mock()
+        scenario_helper.all_options = {}
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(
-            mock.ANY, ssh_helper, mock.ANY)
+            mock.ANY, ssh_helper, scenario_helper)
         with mock.patch.object(sample_vnf.LOG, 'info') as mock_info:
             dpdk_setup_helper._setup_hugepages()
             mock_info.assert_called_once_with(
                 'Hugepages size (kB): %s, number claimed: %s, number set: '
                 '%s', 2048, 8192, 100)
+        mock_meminfo.assert_called_once_with(ssh_helper)
+
+    @mock.patch.object(six, 'BytesIO', return_value=six.BytesIO(b'100\n'))
+    @mock.patch.object(utils, 'read_meminfo',
+                       return_value={'Hugepagesize': '1048576'})
+    def test__setup_hugepages_8gb_hugepages_defined(self, mock_meminfo, *args):
+        ssh_helper = mock.Mock()
+        scenario_helper = mock.Mock()
+        scenario_helper.all_options = {'hugepages_gb': 8}
+        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
+            mock.ANY, ssh_helper, scenario_helper)
+        with mock.patch.object(sample_vnf.LOG, 'info') as mock_info:
+            dpdk_setup_helper._setup_hugepages()
+            mock_info.assert_called_once_with(
+                'Hugepages size (kB): %s, number claimed: %s, number set: '
+                '%s', 1048576, 8, 100)
         mock_meminfo.assert_called_once_with(ssh_helper)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
