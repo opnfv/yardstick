@@ -46,69 +46,11 @@ Show a test case config file
 Take opnfv_yardstick_tc002 for an example. This test case measure network
 latency. You just need to type in ``yardstick testcase show
 opnfv_yardstick_tc002``, and the console would show the config yaml of this
-test case::
+test case:
 
-   ---
-
-   schema: "yardstick:task:0.1"
-   description: >
-      Yardstick TC002 config file;
-      measure network latency using ping;
-
-   {% set image = image or "cirros-0.3.5" %}
-
-   {% set provider = provider or none %}
-   {% set physical_network = physical_network or 'physnet1' %}
-   {% set segmentation_id = segmentation_id or none %}
-   {% set packetsize = packetsize or 100 %}
-
-   scenarios:
-   {% for i in range(2) %}
-   -
-    type: Ping
-    options:
-      packetsize: {{packetsize}}
-    host: athena.demo
-    target: ares.demo
-
-    runner:
-      type: Duration
-      duration: 60
-      interval: 10
-
-    sla:
-      max_rtt: 10
-      action: monitor
-   {% endfor %}
-
-   context:
-    name: demo
-    image: {{image}}
-    flavor: yardstick-flavor
-    user: cirros
-
-    placement_groups:
-      pgrp1:
-        policy: "availability"
-
-    servers:
-      athena:
-        floating_ip: true
-        placement: "pgrp1"
-      ares:
-        placement: "pgrp1"
-
-    networks:
-      test:
-        cidr: '10.0.1.0/24'
-        {% if provider == "vlan" %}
-        provider: {{provider}}
-        physical_network: {{physical_network}}
-          {% if segmentation_id %}
-        segmentation_id: {{segmentation_id}}
-          {% endif %}
-        {% endif %}
-
+.. literalinclude::
+   ../../../../tests/opnfv/test_cases/opnfv_yardstick_tc002.yaml
+   :lines: 9-
 
 Run a Yardstick test case
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -241,6 +183,7 @@ Combining these elements together, a sample Heat context config looks like:
 .. literalinclude::
    ../../../../yardstick/tests/integration/dummy-scenario-heat-context.yaml
    :start-after: ---
+   :empahsise-lines: 14-
 
 Using exisiting HOT Templates
 '''''''''''''''''''''''''''''
@@ -304,20 +247,11 @@ cases. Yardstick is able to support running test suite task, so you can
 customize your own test suite and run it in one task.
 
 ``tests/opnfv/test_suites`` is the folder where Yardstick puts CI test suite.
-A typical test suite is like below (the ``fuel_test_suite.yaml`` example)::
+A typical test suite is like below (the ``fuel_test_suite.yaml`` example):
 
-   ---
-   # Fuel integration test task suite
-
-   schema: "yardstick:suite:0.1"
-
-   name: "fuel_test_suite"
-   test_cases_dir: "samples/"
-   test_cases:
-   -
-    file_name: ping.yaml
-   -
-    file_name: iperf3.yaml
+.. literalinclude::
+   ../../../../tests/opnfv/test_suites/fuel_test_suite.yaml
+   :lines: 9-
 
 As you can see, there are two test cases in the ``fuel_test_suite.yaml``. The
 ``schema`` and the ``name`` must be specified. The test cases should be listed
