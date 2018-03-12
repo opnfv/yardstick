@@ -630,24 +630,14 @@ def delete_floating_ip(shade_client, floating_ip_id, retry=1):
         return False
 
 
-def get_security_groups(neutron_client):      # pragma: no cover
+def _get_security_group_id(shade_client, sg_name):
     try:
-        security_groups = neutron_client.list_security_groups()[
-            'security_groups']
-        return security_groups
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [get_security_groups(neutron_client)]")
-        return None
-
-
-def get_security_group_id(neutron_client, sg_name):      # pragma: no cover
-    security_groups = get_security_groups(neutron_client)
-    id = ''
-    for sg in security_groups:
-        if sg['name'] == sg_name:
-            id = sg['id']
-            break
-    return id
+        security_group = shade_client.get_security_group(name=sg_name)
+        return security_group['id']
+    except exc.OpenStackCloudException as op_exc:
+        log.error("Error [get_security_group_id(shade_client)]. "
+                  "Exception message: %s", op_exc.orig_message)
+        return
 
 
 def create_security_group(neutron_client, sg_name,
@@ -706,7 +696,7 @@ def create_secgroup_rule(neutron_client, sg_id, direction, protocol,
 
 def create_security_group_full(neutron_client, sg_name,
                                sg_description):      # pragma: no cover
-    sg_id = get_security_group_id(neutron_client, sg_name)
+    sg_id = _get_security_group_id(neutron_client, sg_name)
     if sg_id != '':
         log.info("Using existing security group '%s'...", sg_name)
     else:
