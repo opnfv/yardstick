@@ -13,9 +13,9 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-# yardstick comment: this is a modified copy of
-# rally/rally/benchmark/scenarios/base.py
+import abc
 
+import six
 from stevedore import extension
 
 import yardstick.common.utils as utils
@@ -37,18 +37,19 @@ def _iter_scenario_classes(scenario_type=None):
             yield scenario
 
 
+@six.add_metaclass(abc.ABCMeta)
 class Scenario(object):
 
     def setup(self):
-        """ default impl for scenario setup """
+        """Default setup implementation for Scenario classes"""
         pass
 
+    @abc.abstractmethod
     def run(self, *args):
-        """ catcher for not implemented run methods in subclasses """
-        raise RuntimeError("run method not implemented")
+        """Entry point for scenario classes, called from runner worker"""
 
     def teardown(self):
-        """ default impl for scenario teardown """
+        """Default teardown implementation for Scenario classes"""
         pass
 
     @staticmethod
@@ -88,10 +89,14 @@ class Scenario(object):
         """
         return cls.__doc__.splitlines()[0] if cls.__doc__ else str(None)
 
-    def _push_to_outputs(self, keys, values):
+    @staticmethod
+    def _push_to_outputs(keys, values):
+        """Return a dictionary given the keys and the values"""
         return dict(zip(keys, values))
 
-    def _change_obj_to_dict(self, obj):
+    @staticmethod
+    def _change_obj_to_dict(obj):
+        """Return a dictionary from the __dict__ attribute of an object"""
         dic = {}
         for k, v in vars(obj).items():
             try:
