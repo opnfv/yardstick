@@ -369,7 +369,7 @@ class ClientResourceHelper(ResourceHelper):
         try:
             return self.client.get_stats(*args, **kwargs)
         except STLError:
-            LOG.exception("TRex client not connected")
+            LOG.error('TRex client not connected')
             return {}
 
     def generate_samples(self, ports, key=None, default=None):
