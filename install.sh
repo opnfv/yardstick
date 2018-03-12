@@ -85,6 +85,7 @@ apt-get update && apt-get install -y \
     libxss-dev \
     sudo \
     iputils-ping
+    rabbitmq-server
 
 if [[ "${DOCKER_ARCH}" != "aarch64" ]]; then
     apt-get install -y libc6:arm64
