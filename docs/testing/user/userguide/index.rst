@@ -17,6 +17,7 @@ Yardstick User Guide
    02-methodology
    03-architecture
    04-installation
+   05-operation
    06-yardstick-plugin
    07-result-store-InfluxDB
    08-grafana
