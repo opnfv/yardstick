@@ -13,8 +13,19 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+import time
+
+import mock
+
 from yardstick.benchmark.scenarios import base
 from yardstick.tests.unit import base as ut_base
+
+
+class _TestScenario(base.Scenario):
+    __scenario_type__ = 'Test Scenario'
+
+    def run(self):
+        pass
 
 
 class ScenarioTestCase(ut_base.BaseUnitTestCase):
@@ -89,6 +100,20 @@ class ScenarioTestCase(ut_base.BaseUnitTestCase):
         # pylint: disable=abstract-class-instantiated
         with self.assertRaises(TypeError):
             base.Scenario()
+
+    @mock.patch.object(time, 'sleep')
+    def test_pre_run_wait_time(self, mock_sleep):
+        """Ensure default behaviour (backwards compatibility): no wait time"""
+        test_scenario = _TestScenario()
+        test_scenario.pre_run_wait_time(mock.ANY)
+        mock_sleep.assert_not_called()
+
+    @mock.patch.object(time, 'sleep')
+    def test_post_run_wait_time(self, mock_sleep):
+        """Ensure default behaviour (backwards compatibility): wait time"""
+        test_scenario = _TestScenario()
+        test_scenario.post_run_wait_time(100)
+        mock_sleep.assert_called_once_with(100)
 
 
 class IterScenarioClassesTestCase(ut_base.BaseUnitTestCase):
