@@ -17,6 +17,7 @@ from __future__ import absolute_import
 
 import os
 import tempfile
+import shutil
 from collections import defaultdict
 
 import mock
@@ -246,3 +247,22 @@ class AnsibleCommonTestCase(unittest.TestCase):
             a.execute_ansible('', d, ansible_check=True, verbose=True)
         finally:
             os.rmdir(d)
+
+    def test_get_sut_info(self):
+        d = tempfile.mkdtemp()
+        a = ansible_common.AnsibleCommon({})
+        try:
+            a.get_sut_info(d)
+        finally:
+            shutil.rmtree(d)
+
+    def test_get_sut_info_not_exist(self):
+        a = ansible_common.AnsibleCommon({})
+        try:
+            a.get_sut_info('/hello/world')
+        except Exception as e:
+            self.assertIsInstance(e, OSError)
+
+
+if __name__ == '__main__':
+    unittest.main()
