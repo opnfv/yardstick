@@ -14,6 +14,7 @@
 #    under the License.
 
 import abc
+import time
 
 import six
 from stevedore import extension
@@ -51,6 +52,14 @@ class Scenario(object):
     def teardown(self):
         """Default teardown implementation for Scenario classes"""
         pass
+
+    def pre_run_wait_time(self, time_seconds):
+        """Time waited before executing the run method"""
+        pass
+
+    def post_run_wait_time(self, time_seconds):
+        """Time waited after executing the run method"""
+        time.sleep(time_seconds)
 
     @staticmethod
     def get_types():
