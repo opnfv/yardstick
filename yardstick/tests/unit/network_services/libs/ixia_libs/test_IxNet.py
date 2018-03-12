@@ -54,7 +54,7 @@ class TestIxNextgen(unittest.TestCase):
 
         result = ixnet_gen.clear_ixia_config()
         self.assertIsNone(result)
-        self.assertEqual(ixnet.execute.call_count, 1)
+        ixnet.execute.assert_called_once()
 
     def test_load_ixia_profile(self):
         ixnet = mock.MagicMock()
@@ -64,7 +64,7 @@ class TestIxNextgen(unittest.TestCase):
 
         result = ixnet_gen.load_ixia_profile({})
         self.assertIsNone(result)
-        self.assertEqual(ixnet.execute.call_count, 1)
+        ixnet.execute.assert_called_once()
 
     def test_load_ixia_config(self):
         ixnet = mock.MagicMock()
@@ -93,10 +93,10 @@ class TestIxNextgen(unittest.TestCase):
 
         result = ixnet_gen.ix_assign_ports()
         self.assertIsNone(result)
-        self.assertEqual(ixnet.execute.call_count, 1)
-        self.assertEqual(ixnet.commit.call_count, 1)
+        ixnet.execute.assert_called_once()
+        ixnet.commit.assert_called_once()
         self.assertEqual(ixnet.getAttribute.call_count, 2)
-        self.assertEqual(mock_logger.error.call_count, 1)
+        mock_logger.error.assert_called_once()
 
     def test_ix_update_frame(self):
         static_traffic_params = {
@@ -230,7 +230,7 @@ class TestIxNextgen(unittest.TestCase):
 
         result = ixnet_gen.ix_start_traffic()
         self.assertIsNone(result)
-        self.assertEqual(ixnet.getList.call_count, 1)
+        ixnet.getList.assert_called_once()
         self.assertEqual(ixnet.execute.call_count, 3)
 
     def test_ix_stop_traffic(self):
@@ -241,8 +241,8 @@ class TestIxNextgen(unittest.TestCase):
 
         result = ixnet_gen.ix_stop_traffic()
         self.assertIsNone(result)
-        self.assertEqual(ixnet.getList.call_count, 1)
-        self.assertEqual(ixnet.execute.call_count, 1)
+        ixnet.getList.assert_called_once()
+        ixnet.execute.assert_called_once()
 
     def test_ix_get_statistics(self):
         ixnet = mock.MagicMock()
@@ -261,7 +261,7 @@ class TestIxNextgen(unittest.TestCase):
 
         result = ixnet_gen.ix_get_statistics()
         self.assertIsNotNone(result)
-        self.assertEqual(ixnet.getList.call_count, 1)
+        ixnet.getList.assert_called_once()
         self.assertEqual(ixnet.execute.call_count, 20)
 
     def test_find_view_obj_no_where(self):
@@ -364,8 +364,8 @@ class TestIxNextgen(unittest.TestCase):
 
         result = ixnet_gen.add_ip_header(static_traffic_params, IP_VERSION_4)
         self.assertIsNone(result)
-        self.assertGreater(ixnet.setMultiAttribute.call_count, 0)
-        self.assertEqual(ixnet.commit.call_count, 1)
+        ixnet.setMultiAttribute.assert_called()
+        ixnet.commit.assert_called_once()
 
     def test_add_ip_header_v4_nothing_to_do(self):
         static_traffic_params = {
@@ -462,8 +462,8 @@ class TestIxNextgen(unittest.TestCase):
 
         result = ixnet_gen.add_ip_header(static_traffic_params, IP_VERSION_4)
         self.assertIsNone(result)
-        self.assertGreater(ixnet.setMultiAttribute.call_count, 0)
-        self.assertEqual(ixnet.commit.call_count, 1)
+        ixnet.setMultiAttribute.assert_called()
+        ixnet.commit.assert_called_once()
 
     def test_add_ip_header_v6(self):
         static_traffic_profile = {
@@ -545,8 +545,8 @@ class TestIxNextgen(unittest.TestCase):
 
         result = ixnet_gen.add_ip_header(static_traffic_profile, IP_VERSION_6)
         self.assertIsNone(result)
-        self.assertGreater(ixnet.setMultiAttribute.call_count, 0)
-        self.assertEqual(ixnet.commit.call_count, 1)
+        ixnet.setMultiAttribute.assert_called()
+        ixnet.commit.assert_called_once()
 
     def test_add_ip_header_v6_nothing_to_do(self):
         static_traffic_params = {
@@ -627,7 +627,7 @@ class TestIxNextgen(unittest.TestCase):
 
         result = ixnet_gen.add_ip_header(static_traffic_params, IP_VERSION_6)
         self.assertIsNone(result)
-        self.assertEqual(ixnet.setMultiAttribute.call_count, 0)
+        ixnet.setMultiAttribute.assert_not_called()
 
     def test_set_random_ip_multi_attributes_bad_ip_version(self):
         bad_ip_version = object()
@@ -780,7 +780,7 @@ class TestIxNextgen(unittest.TestCase):
 
         result = ixnet_gen.ix_update_ether(static_traffic_params)
         self.assertIsNone(result)
-        self.assertGreater(ixnet.setMultiAttribute.call_count, 0)
+        ixnet.setMultiAttribute.assert_called()
 
     def test_ix_update_ether_nothing_to_do(self):
         static_traffic_params = {
@@ -871,4 +871,4 @@ class TestIxNextgen(unittest.TestCase):
 
         result = ixnet_gen.ix_update_ether(static_traffic_params)
         self.assertIsNone(result)
-        self.assertEqual(ixnet.setMultiAttribute.call_count, 0)
+        ixnet.setMultiAttribute.assert_not_called()

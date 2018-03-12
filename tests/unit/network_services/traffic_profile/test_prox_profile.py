@@ -126,5 +126,5 @@ class TestProxProfile(unittest.TestCase):
         for _ in profile.bounds_iterator(mock_logger):
             pass
 
-        self.assertEqual(mock_logger.debug.call_count, 1)
+        mock_logger.debug.assert_called_once()
         self.assertEqual(mock_logger.info.call_count, 10)
