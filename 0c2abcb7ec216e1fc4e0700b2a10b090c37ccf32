@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_c7559bc7",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_l3fwd-2.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-03-12T09:26:36Z",
+      "side": 1,
+      "message": "hardware should have used here",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "0c2abcb7ec216e1fc4e0700b2a10b090c37ccf32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_47598bfd",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_l3fwd-2.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-03-12T09:26:36Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "0c2abcb7ec216e1fc4e0700b2a10b090c37ccf32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8772737a",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_l3fwd-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-03-12T09:26:36Z",
+      "side": 1,
+      "message": "hardware?",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "0c2abcb7ec216e1fc4e0700b2a10b090c37ccf32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
