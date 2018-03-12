@@ -42,8 +42,8 @@ index 2ee5b4c..23e5ea5 100644
  RUN pip install appdirs==1.4.0 pyopenssl==17.5.0 python-openstackclient==3.11.0
 
 @@ -43,8 +44,8 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-
- EXPOSE 5000
+ # nginx=5000, rabbitmq=5672
+ EXPOSE 5000 5672
 
 -ADD http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img ${IMAGE_DIR}
 -ADD http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img ${IMAGE_DIR}
