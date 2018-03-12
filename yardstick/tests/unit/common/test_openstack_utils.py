@@ -239,3 +239,27 @@ class DeleteFloatingIpTestCase(unittest.TestCase):
                                                     'floating_ip_id')
         mock_logger.error.assert_called_once()
         self.assertFalse(output)
+
+
+class GetSecurityGroupIDTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.get_security_group = mock.Mock()
+
+    def test_get_security_group_id(self):
+        _uuid = uuidutils.generate_uuid()
+        self.mock_shade_client.get_security_group.return_value = (
+            {'id': _uuid})
+        output = openstack_utils._get_security_group_id(self.mock_shade_client,
+                                                        'security_group')
+        self.assertEqual(_uuid, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_get_security_group_id_fail(self, mock_logger):
+        self.mock_shade_client.get_security_group.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils._get_security_group_id(self.mock_shade_client,
+                                                        'security_group')
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
