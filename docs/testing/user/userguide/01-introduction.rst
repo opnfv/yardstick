@@ -47,6 +47,9 @@ This document consists of the following chapters:
 
 * Chapter :doc:`04-installation` provides instructions to install *Yardstick*.
 
+* Chapter :doc:`05-operation` provides information on how to use *Yardstick*
+  to run and create testcases.
+
 * Chapter :doc:`06-yardstick-plugin` provides information on how to integrate
   other OPNFV testing projects into *Yardstick*.
 
