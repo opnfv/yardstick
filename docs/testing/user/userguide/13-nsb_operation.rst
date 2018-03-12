@@ -126,7 +126,7 @@ To collectd KPIs from the NFVi compute nodes:
 
 
 Scale-Up
-------------------
+--------
 
 VNFs performance data with scale-up
 
@@ -137,21 +137,59 @@ VNFs performance data with scale-up
 Heat
 ^^^^
 
-For VNF scale-up tests we increase the number for VNF worker threads.  In the case of VNFs
+For VNF scale-up tests we increase the number for VNF worker threads and ports.  In the case of VNFs
 we also need to increase the number of VCPUs and memory allocated to the VNF.
 
 An example scale-up Heat testcase is:
 
+.. literalinclude:: /../../../../../samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_scale-up.yaml
+   :language: yaml
+
+This testcase template requires specifying the number of VCPUs, Memory and Ports.
+We set the VCPUs and memory using the ``--task-args`` options
+
 .. code-block:: console
 
-  <repo>/samples/vnf_samples/nsut/acl/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_scale_up.yaml
+  yardstick task start --task-args='{"mem": 10480, "vcpus": 4, "ports": 2}' \
+  samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_scale-up.yaml
 
-This testcase template requires specifying the number of VCPUs and Memory.
-We set the VCPUs and memory using the --task-args options
+In order to support ports scale-up, traffic and topology templates need to be used in testcase.
 
-.. code-block:: console
+A example topology template is:
 
-  yardstick --debug task start --task-args='{"mem": 20480, "vcpus": 10}'   samples/vnf_samples/nsut/acl/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_scale_up.yaml
+.. literalinclude:: /../../../../../samples/vnf_samples/nsut/vfw/vfw-tg-topology-scale-up.yaml
+   :language: yaml
+
+This template has ``vports`` as an argument. To pass this argument it needs to
+be configured in ``extra_args`` scenario definition. Please note that more
+argument can be defined in that section. All of them will be passed to topology
+and traffic profile templates
+
+For example:
+
+.. code-block:: yaml
+
+   schema: yardstick:task:0.1
+   scenarios:
+   - type: NSPerf
+     traffic_profile: ../../traffic_profiles/ipv4_throughput-scale-up.yaml
+     extra_args:
+       vports: {{ vports }}
+     topology: vfw-tg-topology-scale-up.yaml
+
+A example traffic profile template is:
+
+.. literalinclude:: /../../../../../samples/vnf_samples/traffic_profiles/ipv4_throughput-scale-up.yaml
+   :language: yaml
+
+There is an option to provide predefined config for SampleVNFs. Path to config
+file may by specified in ``vnf_config`` scenario section.
+
+.. code-block:: yaml
+
+   vnf__0:
+      rules: acl_1rule.yaml
+      vnf_config: {lb_config: 'SW', file: vfw_vnf_pipeline_cores_4_ports_2_lb_1_sw.conf }
 
 
 Baremetal
@@ -266,5 +304,3 @@ To enable multiple queue set the queues_per_port value in the TG VNF options sec
       options:
         tg_0:
           queues_per_port: 2
-
-
