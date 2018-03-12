@@ -58,10 +58,10 @@ class KubernetesTestCase(unittest.TestCase):
                       mock_delete_services):
 
         self.k8s_context.undeploy()
-        self.assertTrue(mock_delete_ssh.called)
-        self.assertTrue(mock_delete_rcs.called)
-        self.assertTrue(mock_delete_pods.called)
-        self.assertTrue(mock_delete_services.called)
+        mock_delete_ssh.assert_called_once()
+        mock_delete_rcs.assert_called_once()
+        mock_delete_pods.assert_called_once()
+        mock_delete_services.assert_called_once()
 
     @mock.patch.object(kubernetes.KubernetesContext, '_create_services')
     @mock.patch.object(kubernetes.KubernetesContext, '_wait_until_running')
@@ -77,11 +77,11 @@ class KubernetesTestCase(unittest.TestCase):
 
         with mock.patch("yardstick.benchmark.contexts.kubernetes.time"):
             self.k8s_context.deploy()
-        self.assertTrue(mock_set_ssh_key.called)
-        self.assertTrue(mock_create_rcs.called)
-        self.assertTrue(mock_create_services.called)
-        self.assertTrue(mock_get_rc_pods.called)
-        self.assertTrue(mock_wait_until_running.called)
+        mock_set_ssh_key.assert_called_once()
+        mock_create_rcs.assert_called_once()
+        mock_create_services.assert_called_once()
+        mock_get_rc_pods.assert_called_once()
+        mock_wait_until_running.assert_called_once()
 
     @mock.patch.object(kubernetes, 'paramiko', **{"resource_filename.return_value": ""})
     @mock.patch.object(kubernetes, 'pkg_resources', **{"resource_filename.return_value": ""})
@@ -93,8 +93,8 @@ class KubernetesTestCase(unittest.TestCase):
         self.k8s_context._set_ssh_key()
         self.k8s_context._delete_ssh_key()
 
-        self.assertTrue(mock_create.called)
-        self.assertTrue(mock_delete.called)
+        mock_create.assert_called_once()
+        mock_delete.assert_called_once()
 
     @mock.patch.object(kubernetes.k8s_utils, 'read_pod_status')
     def test_wait_until_running(self, mock_read_pod_status):
@@ -136,34 +136,34 @@ class KubernetesTestCase(unittest.TestCase):
     @mock.patch.object(kubernetes.KubernetesContext, '_create_rc')
     def test_create_rcs(self, mock_create_rc):
         self.k8s_context._create_rcs()
-        self.assertTrue(mock_create_rc.called)
+        mock_create_rc.assert_called()
 
     @mock.patch.object(kubernetes.k8s_utils, 'create_replication_controller')
     def test_create_rc(self, mock_create_replication_controller):
         self.k8s_context._create_rc({})
-        self.assertTrue(mock_create_replication_controller.called)
+        mock_create_replication_controller.assert_called_once()
 
     @mock.patch.object(kubernetes.KubernetesContext, '_delete_rc')
     def test_delete_rcs(self, mock_delete_rc):
         self.k8s_context._delete_rcs()
-        self.assertTrue(mock_delete_rc.called)
+        mock_delete_rc.assert_called()
 
     @mock.patch.object(kubernetes.k8s_utils, 'delete_replication_controller')
     def test_delete_rc(self, mock_delete_replication_controller):
         self.k8s_context._delete_rc({})
-        self.assertTrue(mock_delete_replication_controller.called)
+        mock_delete_replication_controller.assert_called_once()
 
     @mock.patch.object(kubernetes.k8s_utils, 'get_node_list')
     def test_get_node_ip(self, mock_get_node_list):
         self.k8s_context._get_node_ip()
-        self.assertTrue(mock_get_node_list.called)
+        mock_get_node_list.assert_called_once()
 
     @mock.patch('yardstick.orchestrator.kubernetes.ServiceObject.create')
     def test_create_services(self, mock_create):
         self.k8s_context._create_services()
-        self.assertTrue(mock_create.called)
+        mock_create.assert_called()
 
     @mock.patch('yardstick.orchestrator.kubernetes.ServiceObject.delete')
     def test_delete_services(self, mock_delete):
         self.k8s_context._delete_services()
-        self.assertTrue(mock_delete.called)
+        mock_delete.assert_called()

@@ -26,5 +26,5 @@ class CreateNetworkTestCase(unittest.TestCase):
         args = {"options": options}
         obj = CreateNetwork(args, {})
         obj.run({})
-        self.assertTrue(mock_get_neutron_client.called)
-        self.assertTrue(mock_create_neutron_net.called)
+        mock_get_neutron_client.assert_called_once()
+        mock_create_neutron_net.assert_called_once()

@@ -26,5 +26,5 @@ class CreateSecGroupTestCase(unittest.TestCase):
         args = {"options": options}
         obj = CreateSecgroup(args, {})
         obj.run({})
-        self.assertTrue(mock_get_neutron_client.called)
-        self.assertTrue(mock_create_security_group_full.called)
+        mock_get_neutron_client.assert_called_once()
+        mock_create_security_group_full.assert_called_once()

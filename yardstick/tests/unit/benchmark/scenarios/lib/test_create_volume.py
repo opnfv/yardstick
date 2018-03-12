@@ -94,7 +94,7 @@ class CreateVolumeTestCase(unittest.TestCase):
         args = {"options": options}
         scenario = create_volume.CreateVolume(args, {})
         scenario.run()
-        self.assertTrue(mock_create_volume.called)
-        self.assertTrue(mock_image_id.called)
-        self.assertTrue(mock_get_glance_client.called)
-        self.assertTrue(mock_get_cinder_client.called)
+        mock_create_volume.assert_called_once()
+        mock_image_id.assert_called_once()
+        mock_get_glance_client.assert_called_once()
+        mock_get_cinder_client.assert_called_once()

@@ -24,4 +24,4 @@ class CreatePortTestCase(unittest.TestCase):
         args = {"options": options}
         obj = CreatePort(args, {})
         obj.run({})
-        self.assertTrue(mock_get_neutron_client.called)
+        mock_get_neutron_client.assert_called_once()

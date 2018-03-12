@@ -19,7 +19,7 @@ class CheckNumaInfoTestCase(unittest.TestCase):
         scenario_cfg = {'info1': {}, 'info2': {}}
         obj = CheckNumaInfo(scenario_cfg, {})
         obj.run({})
-        self.assertTrue(mock_check_vm2.called)
+        mock_check_vm2.assert_called_once()
 
     def test_check_vm2_status_length_eq_1(self):
         info1 = {

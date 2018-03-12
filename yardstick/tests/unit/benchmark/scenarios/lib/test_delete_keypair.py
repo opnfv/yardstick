@@ -23,5 +23,5 @@ class DeleteKeypairTestCase(unittest.TestCase):
         args = {"options": options}
         obj = DeleteKeypair(args, {})
         obj.run({})
-        self.assertTrue(mock_get_nova_client.called)
-        self.assertTrue(mock_delete_keypair.called)
+        mock_get_nova_client.assert_called_once()
+        mock_delete_keypair.assert_called_once()

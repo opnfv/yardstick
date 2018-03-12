@@ -23,4 +23,4 @@ class DetachVolumeTestCase(unittest.TestCase):
         args = {"options": options}
         obj = DetachVolume(args, {})
         obj.run({})
-        self.assertTrue(mock_detach_volume.called)
+        mock_detach_volume.assert_called_once()

@@ -176,7 +176,7 @@ class NodeContextTestCase(unittest.TestCase):
             'type': 'script'
         }
         obj.deploy()
-        self.assertTrue(dispatch_script_mock.called)
+        dispatch_script_mock.assert_called_once()
 
     @mock.patch('{}.NodeContext._dispatch_ansible'.format(PREFIX))
     def test_deploy_anisible(self, dispatch_ansible_mock):
@@ -186,7 +186,7 @@ class NodeContextTestCase(unittest.TestCase):
             'type': 'ansible'
         }
         obj.deploy()
-        self.assertTrue(dispatch_ansible_mock.called)
+        dispatch_ansible_mock.assert_called_once()
 
     @mock.patch('{}.NodeContext._dispatch_script'.format(PREFIX))
     def test_undeploy(self, dispatch_script_mock):
@@ -195,7 +195,7 @@ class NodeContextTestCase(unittest.TestCase):
             'type': 'script'
         }
         obj.undeploy()
-        self.assertTrue(dispatch_script_mock.called)
+        dispatch_script_mock.assert_called_once()
 
     @mock.patch('{}.NodeContext._dispatch_ansible'.format(PREFIX))
     def test_undeploy_anisble(self, dispatch_ansible_mock):
@@ -204,7 +204,7 @@ class NodeContextTestCase(unittest.TestCase):
             'type': 'ansible'
         }
         obj.undeploy()
-        self.assertTrue(dispatch_ansible_mock.called)
+        dispatch_ansible_mock.assert_called_once()
 
     @mock.patch('{}.ssh.SSH._put_file_shell'.format(PREFIX))
     @mock.patch('{}.ssh.SSH.execute'.format(PREFIX))
@@ -224,8 +224,8 @@ class NodeContextTestCase(unittest.TestCase):
         execute_mock.return_value = (0, '', '')
         obj._execute_remote_script('node5', info)
 
-        self.assertTrue(put_file_mock.called)
-        self.assertTrue(execute_mock.called)
+        put_file_mock.assert_called_once()
+        execute_mock.assert_called()
 
     @mock.patch('{}.NodeContext._execute_local_script'.format(PREFIX))
     def test_execute_script_local(self, local_execute_mock):
@@ -234,7 +234,7 @@ class NodeContextTestCase(unittest.TestCase):
         obj = node.NodeContext()
         self.addCleanup(obj._delete_context)
         obj._execute_script(node_name, info)
-        self.assertTrue(local_execute_mock.called)
+        local_execute_mock.assert_called_once()
 
     @mock.patch('{}.NodeContext._execute_remote_script'.format(PREFIX))
     def test_execute_script_remote(self, remote_execute_mock):
@@ -243,7 +243,7 @@ class NodeContextTestCase(unittest.TestCase):
         obj = node.NodeContext()
         self.addCleanup(obj._delete_context)
         obj._execute_script(node_name, info)
-        self.assertTrue(remote_execute_mock.called)
+        remote_execute_mock.assert_called_once()
 
     def test_get_script(self):
         script_args = 'hello.bash'
@@ -276,7 +276,7 @@ class NodeContextTestCase(unittest.TestCase):
             'pwd': 'ubuntu',
         }]
         obj._get_client(node_name_args)
-        self.assertTrue(wait_mock.called)
+        wait_mock.assert_called_once()
 
     def test_get_server(self):
         self.test_context.init(self.attrs)

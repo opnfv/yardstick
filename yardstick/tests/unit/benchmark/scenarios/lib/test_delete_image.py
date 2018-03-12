@@ -24,6 +24,6 @@ class DeleteImageTestCase(unittest.TestCase):
         args = {"options": options}
         obj = DeleteImage(args, {})
         obj.run({})
-        self.assertTrue(mock_delete_image.called)
-        self.assertTrue(mock_image_id.called)
-        self.assertTrue(mock_get_glance_client.called)
+        mock_delete_image.assert_called_once()
+        mock_image_id.assert_called_once()
+        mock_get_glance_client.assert_called_once()

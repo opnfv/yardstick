@@ -25,8 +25,8 @@ class GetServerTestCase(unittest.TestCase):
         }
         obj = GetServer(scenario_cfg, {})
         obj.run({})
-        self.assertTrue(mock_get_nova_client.called)
-        self.assertTrue(mock_get_server_by_name.called)
+        mock_get_nova_client.assert_called_once()
+        mock_get_server_by_name.assert_called_once()
 
     @mock.patch('yardstick.common.openstack_utils.get_nova_client')
     def test_get_server_with_id(self, mock_get_nova_client):
@@ -39,4 +39,4 @@ class GetServerTestCase(unittest.TestCase):
         mock_get_nova_client().servers.get.return_value = None
         obj = GetServer(scenario_cfg, {})
         obj.run({})
-        self.assertTrue(mock_get_nova_client.called)
+        mock_get_nova_client.assert_called()
