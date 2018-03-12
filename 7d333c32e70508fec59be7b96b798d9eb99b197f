@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_15304ce7",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-12T17:05:32Z",
+      "side": 1,
+      "message": "You can do a literalinclude [1] of this file, in order to embed the example in the doc\n\nYou can include sub-sections of files as well, with the start-after and end-before options\n\n[1] http://www.sphinx-doc.org/en/stable/markup/code.html#directive-literalinclude",
+      "range": {
+        "startLine": 147,
+        "startChar": 1,
+        "endLine": 147,
+        "endChar": 93
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d53c24c2",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-12T17:05:32Z",
+      "side": 1,
+      "message": "``--task-args``",
+      "range": {
+        "startLine": 150,
+        "startChar": 38,
+        "endLine": 150,
+        "endChar": 49
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_354c6870",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-12T17:05:32Z",
+      "side": 1,
+      "message": "Add a blank line before this line, or else this will be part of the code-block",
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b56fd8c4",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-12T17:05:32Z",
+      "side": 1,
+      "message": "In order to support ports scale-up, traffic and topology templates need to be used in testcase.",
+      "range": {
+        "startLine": 155,
+        "startChar": 1,
+        "endLine": 155,
+        "endChar": 104
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_95245cb0",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-12T17:05:32Z",
+      "side": 1,
+      "message": "You can do a literalinclude [1] of this file, in order to embed the example in the doc\n\n[1] http://www.sphinx-doc.org/en/stable/markup/code.html#directive-literalinclude",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 68
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5551340d",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-12T17:05:32Z",
+      "side": 1,
+      "message": "``vports``",
+      "range": {
+        "startLine": 163,
+        "startChar": 19,
+        "endLine": 163,
+        "endChar": 25
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b5587833",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-12T17:05:32Z",
+      "side": 1,
+      "message": "``extra_args``",
+      "range": {
+        "startLine": 163,
+        "startChar": 95,
+        "endLine": 163,
+        "endChar": 107
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_754ef070",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-12T17:05:32Z",
+      "side": 1,
+      "message": "*argument",
+      "range": {
+        "startLine": 163,
+        "startChar": 56,
+        "endLine": 163,
+        "endChar": 65
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_955bbc2d",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-12T17:05:32Z",
+      "side": 1,
+      "message": "Wrap your lines at 80 characters",
+      "range": {
+        "startLine": 163,
+        "startChar": 81,
+        "endLine": 163,
+        "endChar": 91
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_353588da",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-12T17:05:32Z",
+      "side": 1,
+      "message": "You can do a literalinclude [1] of this file, in order to embed the example in the doc\n\n[1] http://www.sphinx-doc.org/en/stable/markup/code.html#directive-literalinclude",
+      "range": {
+        "startLine": 181,
+        "startChar": 2,
+        "endLine": 181,
+        "endChar": 76
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f541603a",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-12T17:05:32Z",
+      "side": 1,
+      "message": "``vnf_config``",
+      "range": {
+        "startLine": 183,
+        "startChar": 104,
+        "endLine": 183,
+        "endChar": 116
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
