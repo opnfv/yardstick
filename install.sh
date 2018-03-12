@@ -85,6 +85,7 @@ apt-get update && apt-get install -y \
     libxss-dev \
     sudo \
     iputils-ping
+    rabbitmq-server
 
 if [[ "${DOCKER_ARCH}" != "aarch64" ]]; then
     apt-get install -y libc6:arm64
@@ -94,6 +95,10 @@ apt-get -y autoremove && apt-get clean
 
 git config --global http.sslVerify false
 
+# Configure and restart RabbitMQ
+rabbitmqctl add_user yardstick yardstick
+rabbitmqctl set_permissions yardstick ".*" ".*" ".*"
+rabbitmqctl reset
 
 # install yardstick + dependencies
 easy_install -U pip
