@@ -436,7 +436,7 @@ class TestProxApproxVnf(unittest.TestCase):
         prox_approx_vnf.resource_helper = resource_helper = mock.Mock()
 
         prox_approx_vnf._vnf_up_post()
-        self.assertEqual(resource_helper.up_post.call_count, 1)
+        resource_helper.up_post.assert_called_once()
 
     @mock.patch(SSH_HELPER)
     def test_vnf_execute_oserror(self, ssh, *args):

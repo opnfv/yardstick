@@ -38,7 +38,7 @@ class TestSearchRunnerHelper(unittest.TestCase):
         with helper.get_benchmark_instance():
             helper()
 
-        self.assertEqual(method.call_count, 1)
+        method.assert_called_once()
 
     def test___call___error(self):
         cls = mock.MagicMock()
@@ -199,4 +199,4 @@ class TestSearchRunner(unittest.TestCase):
 
         runner = SearchRunner({})
         runner._run_benchmark(cls, 'my_method', scenario_cfg, {})
-        self.assertEqual(mock_multi_process.Process.call_count, 1)
+        mock_multi_process.Process.assert_called_once()

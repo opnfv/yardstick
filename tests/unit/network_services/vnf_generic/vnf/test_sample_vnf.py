@@ -192,12 +192,12 @@ class TestVnfSshHelper(unittest.TestCase):
         self.assertFalse(ssh_helper.is_connected)
         cfg_file = ssh_helper.upload_config_file('my/prefix', 'my content')
         self.assertTrue(ssh_helper.is_connected)
-        self.assertEqual(mock_paramiko.SSHClient.call_count, 1)
+        mock_paramiko.SSHClient.assert_called_once()
         self.assertTrue(cfg_file.startswith('/tmp'))
 
         cfg_file = ssh_helper.upload_config_file('/my/prefix', 'my content')
         self.assertTrue(ssh_helper.is_connected)
-        self.assertEqual(mock_paramiko.SSHClient.call_count, 1)
+        mock_paramiko.SSHClient.assert_called_once()
         self.assertEqual(cfg_file, '/my/prefix')
 
     def test_join_bin_path(self):
@@ -234,17 +234,17 @@ class TestVnfSshHelper(unittest.TestCase):
         self.assertFalse(ssh_helper.is_connected)
         ssh_helper.provision_tool()
         self.assertTrue(ssh_helper.is_connected)
-        self.assertEqual(mock_paramiko.SSHClient.call_count, 1)
-        self.assertEqual(mock_provision_tool.call_count, 1)
+        mock_paramiko.SSHClient.assert_called_once()
+        mock_provision_tool.assert_called_once()
 
         ssh_helper.provision_tool(tool_file='my_tool.sh')
         self.assertTrue(ssh_helper.is_connected)
-        self.assertEqual(mock_paramiko.SSHClient.call_count, 1)
+        mock_paramiko.SSHClient.assert_called_once()
         self.assertEqual(mock_provision_tool.call_count, 2)
 
         ssh_helper.provision_tool('tool_path', 'my_tool.sh')
         self.assertTrue(ssh_helper.is_connected)
-        self.assertEqual(mock_paramiko.SSHClient.call_count, 1)
+        mock_paramiko.SSHClient.assert_called_once()
         self.assertEqual(mock_provision_tool.call_count, 3)
 
 
@@ -579,9 +579,9 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = dpdk_setup_helper.build_config()
         self.assertEqual(result, expected)
         self.assertGreaterEqual(ssh_helper.upload_config_file.call_count, 2)
-        self.assertGreaterEqual(mock_find.call_count, 1)
-        self.assertGreaterEqual(mock_multi_port_config.generate_config.call_count, 1)
-        self.assertGreaterEqual(mock_multi_port_config.generate_script.call_count, 1)
+        mock_find.assert_called()
+        mock_multi_port_config.generate_config.assert_called()
+        mock_multi_port_config.generate_script.assert_called()
 
         scenario_helper.vnf_cfg = {'file': 'fake_file'}
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
@@ -593,9 +593,9 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         mock_open_rf.assert_called_once()
         self.assertEqual(result, expected)
         self.assertGreaterEqual(ssh_helper.upload_config_file.call_count, 2)
-        self.assertGreaterEqual(mock_find.call_count, 1)
-        self.assertGreaterEqual(mock_multi_port_config.generate_config.call_count, 1)
-        self.assertGreaterEqual(mock_multi_port_config.generate_script.call_count, 1)
+        mock_find.assert_called()
+        mock_multi_port_config.generate_config.assert_called()
+        mock_multi_port_config.generate_script.assert_called()
 
     def test__build_pipeline_kwargs(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
@@ -1010,7 +1010,7 @@ class TestClientResourceHelper(unittest.TestCase):
         client_resource_helper.client.get_stats.side_effect = mock_state_error
 
         self.assertEqual(client_resource_helper.get_stats(), {})
-        self.assertEqual(client_resource_helper.client.get_stats.call_count, 1)
+        client_resource_helper.client.get_stats.assert_called_once()
 
     def test_generate_samples(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
@@ -1161,7 +1161,7 @@ class TestClientResourceHelper(unittest.TestCase):
         client_resource_helper.client = mock.Mock()
 
         self.assertIsNone(client_resource_helper.clear_stats())
-        self.assertEqual(client_resource_helper.client.clear_stats.call_count, 1)
+        client_resource_helper.client.clear_stats.assert_called_once()
 
     def test_clear_stats_of_ports(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
@@ -1172,7 +1172,7 @@ class TestClientResourceHelper(unittest.TestCase):
         client_resource_helper.client = mock.Mock()
 
         self.assertIsNone(client_resource_helper.clear_stats([3, 4]))
-        self.assertEqual(client_resource_helper.client.clear_stats.call_count, 1)
+        client_resource_helper.client.clear_stats.assert_called_once()
 
     def test_start(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
@@ -1183,7 +1183,7 @@ class TestClientResourceHelper(unittest.TestCase):
         client_resource_helper.client = mock.Mock()
 
         self.assertIsNone(client_resource_helper.start())
-        self.assertEqual(client_resource_helper.client.start.call_count, 1)
+        client_resource_helper.client.start.assert_called_once()
 
     def test_start_ports(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
@@ -1194,7 +1194,7 @@ class TestClientResourceHelper(unittest.TestCase):
         client_resource_helper.client = mock.Mock()
 
         self.assertIsNone(client_resource_helper.start([3, 4]))
-        self.assertEqual(client_resource_helper.client.start.call_count, 1)
+        client_resource_helper.client.start.assert_called_once()
 
     def test_collect_kpi_with_queue(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
@@ -1402,7 +1402,7 @@ class TestSampleVNFDeployHelper(unittest.TestCase):
         self.assertIsNone(sample_vnf_deploy_helper.deploy_vnfs('name1'))
         sample_vnf_deploy_helper.DISABLE_DEPLOY = True
         self.assertEqual(ssh_helper.execute.call_count, 5)
-        self.assertEqual(ssh_helper.put.call_count, 1)
+        ssh_helper.put.assert_called_once()
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
     @mock.patch('subprocess.check_output')
@@ -1417,7 +1417,7 @@ class TestSampleVNFDeployHelper(unittest.TestCase):
 
         self.assertIsNone(sample_vnf_deploy_helper.deploy_vnfs('name1'))
         self.assertEqual(ssh_helper.execute.call_count, 5)
-        self.assertEqual(ssh_helper.put.call_count, 1)
+        ssh_helper.put.assert_called_once()
 
     @mock.patch('subprocess.check_output')
     def test_deploy_vnfs_early_success(self, *args):
@@ -1430,8 +1430,8 @@ class TestSampleVNFDeployHelper(unittest.TestCase):
         sample_vnf_deploy_helper.DISABLE_DEPLOY = False
 
         self.assertIsNone(sample_vnf_deploy_helper.deploy_vnfs('name1'))
-        self.assertEqual(ssh_helper.execute.call_count, 1)
-        self.assertEqual(ssh_helper.put.call_count, 0)
+        ssh_helper.execute.assert_called_once()
+        ssh_helper.put.assert_not_called()
 
 
 class TestScenarioHelper(unittest.TestCase):

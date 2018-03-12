@@ -264,7 +264,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
         ixload.result_dir = 'my_result_dir'
 
         ixload.start_http_test()
-        self.assertEqual(reassign_ports.call_count, 1)
+        reassign_ports.assert_called_once()
 
     @mock.patch("yardstick.network_services.traffic_profile.http_ixload.IXLOADHttpTest")
     def test_main(self, IXLOADHttpTest):
