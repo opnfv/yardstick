@@ -85,6 +85,11 @@ class ScenarioTestCase(ut_base.BaseUnitTestCase):
         self.assertEqual('No such scenario type %s' % wrong_scenario_name,
                          str(exc.exception))
 
+    def test_scenario_abstract_class(self):
+        # pylint: disable=abstract-class-instantiated
+        with self.assertRaises(TypeError):
+            base.Scenario()
+
 
 class IterScenarioClassesTestCase(ut_base.BaseUnitTestCase):
 
