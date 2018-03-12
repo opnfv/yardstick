@@ -100,3 +100,15 @@ class TaskReadError(YardstickException):
 
 class TaskRenderError(YardstickException):
     message = 'Failed to render template:\n%(input_task)s'
+
+
+class ScenarioCreateNetworkError(YardstickException):
+    message = 'Create Neutron Network Scenario failed'
+
+
+class ScenarioCreateSubnetError(YardstickException):
+    message = 'Create Neutron Subnet Scenario failed'
+
+
+class ScenarioDeleteRouterError(YardstickException):
+    message = 'Delete Neutron Router Scenario failed'
