@@ -53,7 +53,7 @@ class TestIxiaResourceHelper(unittest.TestCase):
 
         ixia_resource_helper.client = mock_client
         ixia_resource_helper.stop_collect()
-        self.assertEqual(mock_client.ix_stop_traffic.call_count, 1)
+        mock_client.ix_stop_traffic.assert_called_once()
 
 
 @mock.patch(

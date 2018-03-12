@@ -42,16 +42,16 @@ class ReportTestCase(unittest.TestCase):
         self.param.task_id = [FAKE_TASK_ID]
         self.rep = report.Report()
 
-    @mock.patch('yardstick.benchmark.core.report.Report._get_tasks')
-    @mock.patch('yardstick.benchmark.core.report.Report._get_fieldkeys')
-    @mock.patch('yardstick.benchmark.core.report.Report._validate')
+    @mock.patch.object(report.Report, '_get_tasks')
+    @mock.patch.object(report.Report, '_get_fieldkeys')
+    @mock.patch.object(report.Report, '_validate')
     def test_generate_success(self, mock_valid, mock_keys, mock_tasks):
         mock_tasks.return_value = FAKE_DB_TASK
         mock_keys.return_value = FAKE_DB_FIELDKEYS
         self.rep.generate(self.param)
         mock_valid.assert_called_once_with(FAKE_YAML_NAME, FAKE_TASK_ID)
-        self.assertEqual(1, mock_tasks.call_count)
-        self.assertEqual(1, mock_keys.call_count)
+        mock_tasks.assert_called_once_with()
+        mock_keys.assert_called_once_with()
 
     # pylint: disable=deprecated-method
     def test_invalid_yaml_name(self):
