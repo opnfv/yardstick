@@ -125,11 +125,11 @@ class YangModelTestCase(unittest.TestCase):
 
         y._rules = None
         self.assertIsNone(y.get_rules())
-        self.assertEqual(read_mock.call_count, 1)
-        self.assertEqual(get_mock.call_count, 1)
+        read_mock.assert_called_once()
+        get_mock.assert_called_once()
 
         # True value should prevent calling read and get
         y._rules = 999
         self.assertEqual(y.get_rules(), 999)
-        self.assertEqual(read_mock.call_count, 1)
-        self.assertEqual(get_mock.call_count, 1)
+        read_mock.assert_called_once()
+        get_mock.assert_called_once()
