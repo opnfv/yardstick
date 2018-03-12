@@ -31,6 +31,7 @@ import six.moves.configparser as ConfigParser
 import yaml
 from six import StringIO
 from chainmap import ChainMap
+from oslo_serialization import jsonutils
 
 from yardstick.common.utils import Timer
 from yardstick.common import constants as consts
@@ -507,6 +508,54 @@ class AnsibleCommon(object):
         else:
             timeout = 1200.0
         return timeout
+
+    def _generate_ansible_cfg(self, directory):
+        parser = ConfigParser.ConfigParser()
+        parser.add_section('defaults')
+        parser.set('defaults', 'host_key_checking', 'False')
+
+        cfg_path = os.path.join(directory, 'setup.cfg')
+        with open(cfg_path, 'w') as f:
+            parser.write(f)
+
+    def get_sut_info(self, directory, sut_dir='sut'):
+        self._generate_ansible_cfg(directory)
+
+        prefix = 'tmp'
+        self.gen_inventory_ini_dict()
+        ini_file = self._gen_ansible_inventory_file(directory, prefix=prefix)
+        with ini_file as f:
+            inventory_path = str(f)
+
+        self._exec_get_sut_info_cmd(directory, inventory_path, sut_dir)
+
+        sut_dir = os.path.join(directory, sut_dir)
+        sut_info = self._gen_sut_info_dict(sut_dir)
+
+        return sut_info
+
+    def _exec_get_sut_info_cmd(self, directory, inventory_path, sut_dir):
+        cmd = ['ansible', 'all', '-m', 'setup', '-i',
+               inventory_path, '--tree', sut_dir]
+
+        proc = Popen(cmd, stdout=PIPE, cwd=directory)
+        output, _ = proc.communicate()
+        retcode = proc.wait()
+        LOG.debug("exit status = %s", retcode)
+        if retcode != 0:
+            raise CalledProcessError(retcode, cmd, output)
+
+    def _gen_sut_info_dict(self, sut_dir):
+        sut_info = {}
+
+        root, _, files = next(os.walk(sut_dir))
+        for filename in files:
+            abs_path = os.path.join(root, filename)
+            with open(abs_path) as f:
+                data = jsonutils.load(f)
+            sut_info[filename] = data
+
+        return sut_info
 
     def execute_ansible(self, playbooks, directory, timeout=None,
                         extra_vars=None, ansible_check=False, prefix='tmp',
