@@ -7,7 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 ---
-# Sample benchmark task config file
+# Sample Heat context config with Dummy context
 
 schema: "yardstick:task:0.1"
 
