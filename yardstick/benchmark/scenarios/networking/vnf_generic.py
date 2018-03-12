@@ -14,6 +14,7 @@
 
 import copy
 import logging
+import time
 
 import ipaddress
 from itertools import chain
@@ -484,3 +485,11 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             # https://bugs.python.org/issue9400
             LOG.exception("")
             raise RuntimeError("Error in teardown")
+
+    def pre_run_wait_time(self, time_seconds):
+        """Time waited before executing the run method"""
+        time.sleep(time_seconds)
+
+    def post_run_wait_time(self, time_seconds):
+        """Time waited after executing the run method"""
+        pass
