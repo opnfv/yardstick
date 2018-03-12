@@ -1,0 +1,11 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Rodolfo Alonso Hernandez <rodolfo.alonso.hernandez@intel.com>
+Code-Review+1: Rex Lee <limingjiang@huawei.com>
+Code-Review+1: Alexandru Avadanii <Alexandru.Avadanii@enea.com>
+Code-Review+1: Delia Popescu <delia.popescu@enea.com>
+Code-Review+2: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-by: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-at: Mon, 12 Mar 2018 09:06:04 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/53099
+Project: yardstick
+Branch: refs/heads/master
