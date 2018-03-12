@@ -205,13 +205,13 @@ class TestProxTestDataTuple(unittest.TestCase):
         my_mock_logger = mock.MagicMock()
         prox_test_data = ProxTestDataTuple(1, 2, 3, 4, 5, [6.1, 6.9, 6.4], 7, 8, 9)
         prox_test_data.log_data()
-        self.assertEqual(my_mock_logger.debug.call_count, 0)
+        my_mock_logger.debug.assert_not_called()
         self.assertEqual(mock_logger.debug.call_count, 2)
 
         mock_logger.debug.reset_mock()
         prox_test_data.log_data(my_mock_logger)
         self.assertEqual(my_mock_logger.debug.call_count, 2)
-        self.assertEqual(mock_logger.debug.call_count, 0)
+        mock_logger.debug.assert_not_called()
 
 
 class TestPacketDump(unittest.TestCase):
@@ -303,7 +303,7 @@ class TestProxSocketHelper(unittest.TestCase):
         mock_sock = mock.MagicMock()
         prox = ProxSocketHelper(mock_sock)
         prox.connect('10.20.30.40', 23456)
-        self.assertEqual(mock_sock.connect.call_count, 1)
+        mock_sock.connect.assert_called_once()
 
     def test_get_sock(self):
         mock_sock = mock.MagicMock()
@@ -612,7 +612,7 @@ class TestProxSocketHelper(unittest.TestCase):
         mock_socket = mock.MagicMock()
         prox = ProxSocketHelper(mock_socket)
         prox.dump_rx(3, 5, 8)
-        self.assertEqual(mock_socket.sendall.call_count, 1)
+        mock_socket.sendall.assert_called_once()
 
     def test_quit(self):
         mock_socket = mock.MagicMock()

@@ -290,7 +290,7 @@ class TestDpdkNode(unittest.TestCase):
         dpdk_helper.force_dpdk_rebind = mock_helper_func = mock.Mock()
 
         dpdk_node._force_rebind()
-        self.assertEqual(mock_helper_func.call_count, 1)
+        mock_helper_func.assert_called_once()
 
 
 class TestDpdkBindHelper(unittest.TestCase):

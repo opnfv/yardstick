@@ -50,8 +50,8 @@ class ReportTestCase(unittest.TestCase):
         mock_keys.return_value = FAKE_DB_FIELDKEYS
         self.rep.generate(self.param)
         mock_valid.assert_called_once_with(FAKE_YAML_NAME, FAKE_TASK_ID)
-        self.assertEqual(1, mock_tasks.call_count)
-        self.assertEqual(1, mock_keys.call_count)
+        mock_tasks.assert_called_once()
+        mock_keys.assert_called_once()
 
     # pylint: disable=deprecated-method
     def test_invalid_yaml_name(self):
