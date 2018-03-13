@@ -635,17 +635,28 @@ def _get_security_group_id(shade_client, sg_name):
         return
 
 
-def create_security_group(neutron_client, sg_name,
-                          sg_description):      # pragma: no cover
-    json_body = {'security_group': {'name': sg_name,
-                                    'description': sg_description}}
+def create_security_group(shade_client, sg_name, sg_description,
+                          project_id=None):
+    """Create a new security group
+
+    :param sg_name:(string) A name for the security group.
+    :param sg_description:(string) Describes the security group.
+    :param project_id:(string) Specify the project ID this security group
+                    will be created on (admin-only).
+
+    :returns: The new security group.
+
+    """
     try:
-        secgroup = neutron_client.create_security_group(json_body)
+        secgroup = shade_client.create_security_group(sg_name, sg_description,
+                                                      project_id=project_id)
         return secgroup['security_group']
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [create_security_group(neutron_client, '%s', "
-                  "'%s')]", sg_name, sg_description)
-        return None
+    except (exc.OpenStackCloudException, exc.OpenStackCloudUnavailableFeature)\
+            as op_exc:
+        log.error("Error [create_security_group(shade_client, %s, %s)]."
+                  "Exception message: %s", sg_name, sg_description,
+                  op_exc.orig_message)
+        return
 
 
 def create_secgroup_rule(neutron_client, sg_id, direction, protocol,
