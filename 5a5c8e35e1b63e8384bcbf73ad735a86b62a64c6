@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_298c0d7f",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc086.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-13T18:09:57Z",
+      "side": 1,
+      "message": "whitespace",
+      "range": {
+        "startLine": 27,
+        "startChar": 7,
+        "endLine": 27,
+        "endChar": 8
+      },
+      "revId": "5a5c8e35e1b63e8384bcbf73ad735a86b62a64c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_89ea810d",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc086.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-13T18:09:57Z",
+      "side": 1,
+      "message": "as for the other test case, I am wondering if this part of the implementation is missing from the patch set.",
+      "range": {
+        "startLine": 31,
+        "startChar": 21,
+        "endLine": 31,
+        "endChar": 32
+      },
+      "revId": "5a5c8e35e1b63e8384bcbf73ad735a86b62a64c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_69ed7525",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc086.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-13T18:09:57Z",
+      "side": 1,
+      "message": "see above",
+      "range": {
+        "startLine": 38,
+        "startChar": 22,
+        "endLine": 38,
+        "endChar": 33
+      },
+      "revId": "5a5c8e35e1b63e8384bcbf73ad735a86b62a64c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c9f489f4",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc086.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-13T18:09:57Z",
+      "side": 1,
+      "message": "see above",
+      "range": {
+        "startLine": 49,
+        "startChar": 22,
+        "endLine": 49,
+        "endChar": 31
+      },
+      "revId": "5a5c8e35e1b63e8384bcbf73ad735a86b62a64c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a9f77df4",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc086.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-13T18:09:57Z",
+      "side": 1,
+      "message": "see above",
+      "range": {
+        "startLine": 60,
+        "startChar": 22,
+        "endLine": 60,
+        "endChar": 29
+      },
+      "revId": "5a5c8e35e1b63e8384bcbf73ad735a86b62a64c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_09de716d",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc086.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-13T18:09:57Z",
+      "side": 1,
+      "message": "see above",
+      "range": {
+        "startLine": 85,
+        "startChar": 24,
+        "endLine": 85,
+        "endChar": 35
+      },
+      "revId": "5a5c8e35e1b63e8384bcbf73ad735a86b62a64c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e9d86581",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc086.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-13T18:09:57Z",
+      "side": 1,
+      "message": "see above",
+      "range": {
+        "startLine": 104,
+        "startChar": 22,
+        "endLine": 104,
+        "endChar": 45
+      },
+      "revId": "5a5c8e35e1b63e8384bcbf73ad735a86b62a64c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
