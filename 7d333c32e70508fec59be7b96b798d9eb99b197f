@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_de21e1fd",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-03-13T16:14:21Z",
+      "side": 1,
+      "message": "I\u0027ve tried literalinclued instead of code-block. it does not look good. Pls it is not used by yardstick docs.",
+      "parentUuid": "5a3f45e8_15304ce7",
+      "range": {
+        "startLine": 147,
+        "startChar": 1,
+        "endLine": 147,
+        "endChar": 93
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_d53c24c2",
         "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-12T17:05:32Z",
       "side": 1,
       "message": "``--task-args``",
+      "range": {
+        "startLine": 150,
+        "startChar": 38,
+        "endLine": 150,
+        "endChar": 49
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9e10f9a9",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-03-13T16:14:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_d53c24c2",
       "range": {
         "startLine": 150,
         "startChar": 38,
@@ -203,6 +251,102 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_7e7a4df2",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-03-13T16:14:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_b5587833",
+      "range": {
+        "startLine": 163,
+        "startChar": 95,
+        "endLine": 163,
+        "endChar": 107
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1e1ce9c0",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-03-13T16:14:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_955bbc2d",
+      "range": {
+        "startLine": 163,
+        "startChar": 81,
+        "endLine": 163,
+        "endChar": 91
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_de68c123",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-03-13T16:14:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_754ef070",
+      "range": {
+        "startLine": 163,
+        "startChar": 56,
+        "endLine": 163,
+        "endChar": 65
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3e21e5fb",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-03-13T16:14:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_5551340d",
+      "range": {
+        "startLine": 163,
+        "startChar": 19,
+        "endLine": 163,
+        "endChar": 25
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_353588da",
         "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
         "patchSetId": 1
@@ -237,6 +381,30 @@
       "writtenOn": "2018-03-12T17:05:32Z",
       "side": 1,
       "message": "``vnf_config``",
+      "range": {
+        "startLine": 183,
+        "startChar": 104,
+        "endLine": 183,
+        "endChar": 116
+      },
+      "revId": "7d333c32e70508fec59be7b96b798d9eb99b197f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_be84d5d4",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-03-13T16:14:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_f541603a",
       "range": {
         "startLine": 183,
         "startChar": 104,
