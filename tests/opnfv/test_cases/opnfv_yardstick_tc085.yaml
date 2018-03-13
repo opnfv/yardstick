@@ -1,0 +1,122 @@
+##############################################################################
+# Copyright (c) 2018 mengwang@bupt.edu.cn and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+
+schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC085 config file;
+    HA test case: HA on VM-When VM Fails the Alarm is Generated and the VM will Automatically Recover
+{% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set host = host or 'node1' %}
+{% set name = name or 'watchdog_vm1' %}
+{% set monitor_time = monitor_time or 30 %}
+
+scenarios:
+-
+  type: "GeneralHA"
+  options:
+    attackers:
+      - 
+        fault_type: "general-attacker"
+        host: {{host}}
+        key: "vm-attack"
+        attack_key: "vm-attack"
+        action_parameter:
+          floating_ip: "@floating_ip"
+        rollback_parameter:
+          name: {{name}}
+
+    monitors:
+      -
+        monitor_type: "general-monitor"
+        monitor_key: "ip-status"
+        key: "vm-ip-status"
+        host: {{host}}
+        monitor_time: {{monitor_time}}
+        monitor_number: 1
+        sla:
+          max_outage_time: 40
+        parameter:
+          ip_address: "@floating_ip"
+
+      -
+        monitor_type: "general-monitor"
+        monitor_key: "vm-status"
+        key: "vm-status"
+        host: {{host}}
+        monitor_time: {{monitor_time}}
+        monitor_number: 1
+        sla:
+          max_outage_time: 5
+        parameter:
+          node_name: {{name}}
+
+    operations:
+      -
+        operation_type: "general-operation"
+        key: "get-floatingip"
+        operation_key: "get-floatingip"
+        action_parameter:
+          server_name: {{name}}
+        return_parameter:
+          all: "@floating_ip"
+
+    resultCheckers:
+      -
+        checker_type: "general-result-checker"
+        key: "check-vmpower-status"
+        checker_key: "vmpower-status-checker"
+        host: {{host}}
+        parameter:
+          name: {{name}}
+          time: {{monitor_time}}
+        expectedValue: "Paused"
+        condition: "in"
+
+    steps:
+      -
+        actionKey: "get-floatingip"
+        actionType: "operation"
+        index: 1
+
+      -
+        actionKey: "vm-attack"
+        actionType: "attacker"
+        index: 2
+
+      -
+        actionKey: "vm-ip-status"
+        actionType: "monitor"
+        index: 3
+
+      -
+        actionKey: "vm-status"
+        actionType: "monitor"
+        index: 4
+
+      -
+        actionKey: "check-vmpower-status"
+        actionType: "resultchecker"
+        index: 5
+
+  nodes:
+    node1: node1.LF
+
+  runner:
+    type: Duration
+    duration: 1
+  sla:
+    outage_time: 5
+    action: monitor
+
+context:
+  type: Node
+  name: LF
+  file: {{file}}
+
