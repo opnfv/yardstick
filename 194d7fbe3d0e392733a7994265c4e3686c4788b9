@@ -16,6 +16,24 @@
       "revId": "194d7fbe3d0e392733a7994265c4e3686c4788b9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6993b54f",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2018-03-13T20:07:31Z",
+      "side": 1,
+      "message": "+1\nPlus the previous code does exactly what you want - grains.get cpuarch will return \u0027x86_64\u0027, respectively \u0027aarch64\u0027.",
+      "parentUuid": "5a3f45e8_29724d49",
+      "revId": "194d7fbe3d0e392733a7994265c4e3686c4788b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
