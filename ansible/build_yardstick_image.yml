@@ -30,6 +30,9 @@
 
     workspace: "{{ lookup('env', 'workspace')|default('/tmp/workspace/yardstick', true) }}"
     raw_imgfile_basename: "yardstick-{{ release }}-server.raw"
+    growpart_package:
+      RedHat: cloud-utils-growpart
+      Debian: cloud-guest-utils
   environment:
     - PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin
     - "{{ proxy_env }}"
@@ -39,6 +42,8 @@
         key: image_builder
 
     - package: name=parted state=present
+    - package: name=kpartx state=present
+    - package: "name={{ growpart_package[ansible_os_family] }} state=present"
 
     - set_fact:
         imgfile: "{{ normal_image_file }}"
@@ -99,7 +104,8 @@
       command: "qemu-img resize -f raw {{ raw_imgfile }} +2G"
 
     - name: resize parition to allow for more VNFs
-      command: "parted -s -a optimal {{ raw_imgfile }} resizepart 1 100%"
+      # use growpart because maybe it handles GPT better than parted
+      command: growpart {{ raw_imgfile }}  1
 
     - name: create mknod devices in chroot
       command: "mknod -m 0660 /dev/loop{{ item }} b 7 {{ item }}"
