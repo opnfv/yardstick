@@ -25,7 +25,7 @@ ENV YARDSTICK_REPO_DIR="${REPOS_DIR}/yardstick" \
 
 RUN apt-get update && apt-get install -y git python-setuptools python-pip && apt-get -y autoremove && apt-get clean
 RUN easy_install -U setuptools==30.0.0
-RUN pip install appdirs==1.4.0 pyopenssl==17.5.0 python-openstackclient==3.11.0 python-heatclient==1.11.0
+RUN pip install appdirs==1.4.0
 
 RUN mkdir -p ${REPOS_DIR}
 
