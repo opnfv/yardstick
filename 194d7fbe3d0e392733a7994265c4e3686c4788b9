@@ -34,6 +34,24 @@
       "revId": "194d7fbe3d0e392733a7994265c4e3686c4788b9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_298fedcd",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-13T22:19:44Z",
+      "side": 1,
+      "message": "It looks like the issue might be resizing the yardstick image when it uses GPT.\n\nhttps://gerrit.opnfv.org/gerrit/#/c/53727/\n\nmight fix the parted issue.\n\nI guess the uefi ubuntu images use GPT?\n\nMaybe we can disable the resize code if not needed.",
+      "parentUuid": "5a3f45e8_6993b54f",
+      "revId": "194d7fbe3d0e392733a7994265c4e3686c4788b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
