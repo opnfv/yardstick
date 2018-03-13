@@ -21,8 +21,8 @@ fi
 # Look for a compute node, that is online, and check if it is aarch64
 if [ "${INSTALLER_TYPE}" == 'fuel' ]; then
     ssh_options="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-    COMPUTE_ARCH=$(ssh -l ubuntu ${INSTALLER_IP} -i ${SSH_KEY} ${ssh_options} \
-        "sudo salt 'cmp*' grains.get cpuarch --out yaml | awk '{print \$2; exit}'")
+    # COMPUTE_ARCH = [aarch64, x86_64]
+    COMPUTE_ARCH=$(ssh -l ubuntu ${INSTALLER_IP} -i ${SSH_KEY} ${ssh_options} "uname -p")
     if [ "${COMPUTE_ARCH}" == 'aarch64' ]; then
         YARD_IMG_ARCH=arm64
     fi
