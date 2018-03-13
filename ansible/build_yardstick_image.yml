@@ -99,7 +99,12 @@
       command: "qemu-img resize -f raw {{ raw_imgfile }} +2G"
 
     - name: resize parition to allow for more VNFs
-      command: "parted -s -a optimal {{ raw_imgfile }} resizepart 1 100%"
+      # if GPT partition we need to fix GPT
+      # the warning is "Warning: Not all of the space available to DEVICE appears to be used, you can fix the GPT to use all of the space (an extra 500 blocks) or continue with the current setting?"
+      #
+      # The backup GPT table is not at the end of the disk, as it should be. This might mean that another operating system believes the disk is smaller. Fix, by moving the backup to the end (and removing the old backup)?
+      # echo 'f' to fix the GPT
+      shell: "printf 'f\n' | parted ---pretend-input-tty -a optimal {{ raw_imgfile }} resizepart 1 100%"
 
     - name: create mknod devices in chroot
       command: "mknod -m 0660 /dev/loop{{ item }} b 7 {{ item }}"
