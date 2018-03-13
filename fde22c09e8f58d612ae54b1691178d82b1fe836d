@@ -663,6 +663,30 @@
       "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3bba9723",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-03-13T08:36:27Z",
+      "side": 1,
+      "message": "ok, I\u0027ll remove this.",
+      "parentUuid": "5a3f45e8_b8134d65",
+      "range": {
+        "startLine": 181,
+        "startChar": 19,
+        "endLine": 182,
+        "endChar": 41
+      },
+      "revId": "fde22c09e8f58d612ae54b1691178d82b1fe836d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
