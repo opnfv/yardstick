@@ -263,3 +263,41 @@ class GetSecurityGroupIDTestCase(unittest.TestCase):
                                                         'security_group')
         mock_logger.error.assert_called_once()
         self.assertIsNone(output)
+
+
+class CreateSecurityGroupTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.sg_name = 'sg_name'
+        self.sg_description = 'sg_description'
+        self.mock_shade_client.create_security_group = mock.Mock()
+
+    def test_create_security_group(self):
+        self.mock_shade_client.create_security_group.return_value = (
+            {'security_group': {
+                'name': 'name', 'description': 'description'}})
+        output = openstack_utils.create_security_group(
+            self.mock_shade_client, self.sg_name, self.sg_description)
+        self.assertEqual({'name': 'name', 'description': 'description'},
+                         output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_security_group_exception(self, mock_logger):
+        self.mock_shade_client.create_security_group.side_effect = (
+            exc.OpenStackCloudException('error message'))
+
+        output = openstack_utils.create_security_group(
+            self.mock_shade_client, self.sg_name, self.sg_description)
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_security_group_cloud_unavail_exception(self, mock_logger):
+        self.mock_shade_client.create_security_group.side_effect = (
+            exc.OpenStackCloudUnavailableFeature('error message'))
+
+        output = openstack_utils.create_security_group(
+            self.mock_shade_client, self.sg_name, self.sg_description)
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
