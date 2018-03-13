@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_29724d49",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-13T19:58:50Z",
+      "side": 1,
+      "message": "this is checking the installer arch, not the compute node arch.",
+      "revId": "194d7fbe3d0e392733a7994265c4e3686c4788b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
