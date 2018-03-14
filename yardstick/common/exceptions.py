@@ -112,3 +112,8 @@ class ScenarioCreateSubnetError(YardstickException):
 
 class ScenarioDeleteRouterError(YardstickException):
     message = 'Delete Neutron Router Scenario failed'
+
+
+class PayloadMissingAttributes(YardstickException):
+    message = ('Error instantiating a Payload class, missing attributes: '
+               '%(missing_attributes)s')
