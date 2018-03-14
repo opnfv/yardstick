@@ -64,6 +64,11 @@ class YardstickBannedModuleImported(YardstickException):
     message = 'Module "%(module)s" cannnot be imported. Reason: "%(reason)s"'
 
 
+class PayloadMissingAttributes(YardstickException):
+    message = ('Error instantiating a Payload class, missing attributes: '
+               '%(missing_attributes)s')
+
+
 class HeatTemplateError(YardstickException):
     """Error in Heat during the stack deployment"""
     message = ('Error in Heat during the creation of the OpenStack stack '
