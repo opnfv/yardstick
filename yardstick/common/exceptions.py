@@ -120,3 +120,8 @@ class MissingPodInfoError(YardstickException):
 
 class UnsupportedPodFormatError(YardstickException):
     message = 'Failed to load pod info, unsupported format'
+
+
+class PayloadMissingAttributes(YardstickException):
+    message = ('Error instantiating a Payload class, missing attributes: '
+               '%(missing_attributes)s')
