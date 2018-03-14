@@ -301,3 +301,28 @@ class CreateSecurityGroupTestCase(unittest.TestCase):
             self.mock_shade_client, self.sg_name, self.sg_description)
         mock_logger.error.assert_called_once()
         self.assertIsNone(output)
+
+
+class CreateSecurityGroupRuleTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.secgroup_name_or_id = 'sg_name_id'
+        self.mock_shade_client.create_security_group_rule = mock.Mock()
+
+    def test_create_security_group_rule(self):
+        self.mock_shade_client.create_security_group_rule.return_value = (
+            {'security_group_rule'})
+        output = openstack_utils.create_security_group_rule(
+            self.mock_shade_client, self.secgroup_name_or_id)
+        self.assertTrue(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_security_group_rule_exception(self, mock_logger):
+        self.mock_shade_client.create_security_group_rule.side_effect = (
+            exc.OpenStackCloudException('error message'))
+
+        output = openstack_utils.create_security_group_rule(
+            self.mock_shade_client, self.secgroup_name_or_id)
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
