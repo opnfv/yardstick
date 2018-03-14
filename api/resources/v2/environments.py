@@ -11,6 +11,7 @@ import logging
 
 from oslo_serialization import jsonutils
 from docker import Client
+from docker.errors import APIError
 
 from api import ApiResource
 from api.database.v2.handlers import V2EnvironmentHandler
@@ -20,6 +21,7 @@ from api.database.v2.handlers import V2ContainerHandler
 from yardstick.common.utils import result_handler
 from yardstick.common.utils import change_obj_to_dict
 from yardstick.common import constants as consts
+from yardstick.service.environment import Environment
 
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
@@ -124,10 +126,41 @@ class V2Environment(ApiResource):
                 LOG.debug('container name: %s', container.name)
                 try:
                     client.remove_container(container.name, force=True)
-                except Exception:
+                except APIError:
                     LOG.exception('remove container failed')
                 container_handler.delete_by_uuid(v)
 
         environment_handler.delete_by_uuid(environment_id)
 
         return result_handler(consts.API_SUCCESS, {'environment': environment_id})
+
+
+class V2SUT(ApiResource):
+
+    def get(self, environment_id):
+        try:
+            uuid.UUID(environment_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'invalid environment id')
+
+        environment_handler = V2EnvironmentHandler()
+        try:
+            environment = environment_handler.get_by_uuid(environment_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such environment id')
+
+        if not environment.pod_id:
+            return result_handler(consts.API_SUCCESS, {'sut': {}})
+
+        pod_handler = V2PodHandler()
+        try:
+            pod = pod_handler.get_by_uuid(environment.pod_id)
+        except ValueError:
+            return result_handler(consts.API_ERROR, 'no such pod id')
+        else:
+            pod_content = pod.content
+
+        env = Environment(pod=pod_content)
+        sut_info = env.get_sut_info()
+
+        return result_handler(consts.API_SUCCESS, {'sut': sut_info})
