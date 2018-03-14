@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_2a8cfb7e",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-03-14T14:38:54Z",
+      "side": 1,
+      "message": "\":\" can be removed to match with the line 758",
+      "range": {
+        "startLine": 831,
+        "startChar": 9,
+        "endLine": 831,
+        "endChar": 10
+      },
+      "revId": "a132889b4f152bcc947018e3fcf6e81b8728c263",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0ade5f6d",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 832,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-03-14T14:38:54Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 832,
+        "startChar": 9,
+        "endLine": 832,
+        "endChar": 10
+      },
+      "revId": "a132889b4f152bcc947018e3fcf6e81b8728c263",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
