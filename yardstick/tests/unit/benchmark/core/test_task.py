@@ -421,6 +421,34 @@ key2:
         self.parser._change_node_names(scenario, [my_context])
         self.assertEqual(scenario, expected_scenario)
 
+    def test__change_node_names_options_empty(self):
+        ctx_attrs = {
+            'name': 'demo',
+            'task_id': '1234567890'
+        }
+
+        my_context = dummy.DummyContext()
+        my_context.init(ctx_attrs)
+        scenario = copy.deepcopy(self.scenario)
+        scenario['options'] = None
+
+        self.parser._change_node_names(scenario, [my_context])
+        self.assertIsNone(scenario['options'])
+
+    def test__change_node_names_options_server_name_empty(self):
+        ctx_attrs = {
+            'name': 'demo',
+            'task_id': '1234567890'
+        }
+
+        my_context = dummy.DummyContext()
+        my_context.init(ctx_attrs)
+        scenario = copy.deepcopy(self.scenario)
+        scenario['options']['server_name'] = None
+
+        self.parser._change_node_names(scenario, [my_context])
+        self.assertIsNone(scenario['options']['server_name'])
+
     def test__parse_tasks(self):
         task_obj = task.Task()
         _uuid = uuid.uuid4()

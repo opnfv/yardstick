@@ -627,7 +627,8 @@ class TaskParser(object):       # pragma: no cover
             scenario['host'] = qualified_name(scenario['host'])
         if 'target' in scenario:
             scenario['target'] = qualified_name(scenario['target'])
-        server_name = scenario.get('options', {}).get('server_name', {})
+        options = scenario.get('options') or {}
+        server_name = options.get('server_name') or {}
         if 'host' in server_name:
             server_name['host'] = qualified_name(server_name['host'])
         if 'target' in server_name:
