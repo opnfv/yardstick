@@ -67,6 +67,7 @@ build_yardstick_image()
             cd ${ANSIBLE_SCRIPTS} &&\
             ansible-playbook \
                      -e img_property="normal" \
+                     -e YARD_IMG_ARCH=${YARD_IMG_ARCH} \
                      -vvv -i inventory.ini build_yardstick_image.yml
 
             if [ ! -f "${QCOW_IMAGE}" ]; then
