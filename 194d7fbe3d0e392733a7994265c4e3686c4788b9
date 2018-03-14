@@ -52,6 +52,24 @@
       "revId": "194d7fbe3d0e392733a7994265c4e3686c4788b9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_641c7c78",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-14T09:06:22Z",
+      "side": 1,
+      "message": "You are right. We still need the change in L70",
+      "parentUuid": "5a3f45e8_298fedcd",
+      "revId": "194d7fbe3d0e392733a7994265c4e3686c4788b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
