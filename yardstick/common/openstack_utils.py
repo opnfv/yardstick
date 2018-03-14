@@ -659,44 +659,57 @@ def create_security_group(shade_client, sg_name, sg_description,
         return
 
 
-def create_secgroup_rule(neutron_client, sg_id, direction, protocol,
-                         port_range_min=None, port_range_max=None,
-                         **json_body):      # pragma: no cover
-    # We create a security group in 2 steps
-    # 1 - we check the format and set the json body accordingly
-    # 2 - we call neturon client to create the security group
+def create_security_group_rule(shade_client, secgroup_name_or_id,
+                               port_range_min=None, port_range_max=None,
+                               protocol=None, remote_ip_prefix=None,
+                               remote_group_id=None, direction='ingress',
+                               ethertype='IPv4', project_id=None):
+    """Create a new security group rule
 
-    # Format check
-    json_body.update({'security_group_rule': {'direction': direction,
-                     'security_group_id': sg_id, 'protocol': protocol}})
-    # parameters may be
-    # - both None => we do nothing
-    # - both Not None => we add them to the json description
-    # but one cannot be None is the other is not None
-    if (port_range_min is not None and port_range_max is not None):
-        # add port_range in json description
-        json_body['security_group_rule']['port_range_min'] = port_range_min
-        json_body['security_group_rule']['port_range_max'] = port_range_max
-        log.debug("Security_group format set (port range included)")
-    else:
-        # either both port range are set to None => do nothing
-        # or one is set but not the other => log it and return False
-        if port_range_min is None and port_range_max is None:
-            log.debug("Security_group format set (no port range mentioned)")
-        else:
-            log.error("Bad security group format."
-                      "One of the port range is not properly set:"
-                      "range min: %s, range max: %s", port_range_min,
-                      port_range_max)
-            return False
+    :param secgroup_name_or_id:(string) The security group name or ID to
+                               associate with this security group rule. If a
+                               non-unique group name is given, an exception is
+                               raised.
+    :param port_range_min:(int) The minimum port number in the range that is
+                          matched by the security group rule. If the protocol
+                          is TCP or UDP, this value must be less than or equal
+                          to the port_range_max attribute value. If nova is
+                          used by the cloud provider for security groups, then
+                          a value of None will be transformed to -1.
+    :param port_range_max:(int) The maximum port number in the range that is
+                          matched by the security group rule. The
+                          port_range_min attribute constrains the
+                          port_range_max attribute. If nova is used by the
+                          cloud provider for security groups, then a value of
+                          None will be transformed to -1.
+    :param protocol:(string) The protocol that is matched by the security group
+                    rule. Valid values are None, tcp, udp, and icmp.
+    :param remote_ip_prefix:(string) The remote IP prefix to be associated with
+                            this security group rule. This attribute matches
+                            the specified IP prefix as the source IP address of
+                            the IP packet.
+    :param remote_group_id:(string) The remote group ID to be associated with
+                           this security group rule.
+    :param direction:(string) Ingress or egress: The direction in which the
+                     security group rule is applied.
+    :param ethertype:(string) Must be IPv4 or IPv6, and addresses represented
+                     in CIDR must match the ingress or egress rules.
+    :param project_id:(string) Specify the project ID this security group will
+                      be created on (admin-only).
 
-    # Create security group using neutron client
+    :returns: True on success.
+    """
+
     try:
-        neutron_client.create_security_group_rule(json_body)
+        shade_client.create_security_group_rule(
+            secgroup_name_or_id, port_range_min=port_range_min,
+            port_range_max=port_range_max, protocol=protocol,
+            remote_ip_prefix=remote_ip_prefix, remote_group_id=remote_group_id,
+            direction=direction, ethertype=ethertype, project_id=project_id)
         return True
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Impossible to create_security_group_rule,"
-                      "security group rule probably already exists")
+    except exc.OpenStackCloudException as op_exc:
+        log.error("Failed to create_security_group_rule(shade_client). "
+                  "Exception message: %s", op_exc.orig_message)
         return False
 
 
@@ -720,18 +733,18 @@ def create_security_group_full(neutron_client, sg_name,
                   SECGROUP['name'], sg_id)
 
         log.debug("Adding ICMP rules in security group '%s'...", sg_name)
-        if not create_secgroup_rule(neutron_client, sg_id,
+        if not create_security_group_rule(neutron_client, sg_id,
                                     'ingress', 'icmp'):
             log.error("Failed to create the security group rule...")
             return None
 
         log.debug("Adding SSH rules in security group '%s'...", sg_name)
-        if not create_secgroup_rule(
+        if not create_security_group_rule(
                 neutron_client, sg_id, 'ingress', 'tcp', '22', '22'):
             log.error("Failed to create the security group rule...")
             return None
 
-        if not create_secgroup_rule(
+        if not create_security_group_rule(
                 neutron_client, sg_id, 'egress', 'tcp', '22', '22'):
             log.error("Failed to create the security group rule...")
             return None
