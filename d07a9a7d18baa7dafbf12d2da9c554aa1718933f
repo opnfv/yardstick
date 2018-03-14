@@ -22,6 +22,30 @@
       "revId": "d07a9a7d18baa7dafbf12d2da9c554aa1718933f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4f2199fa",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-14T12:59:52Z",
+      "side": 1,
+      "message": "Because \"options\" could be None. In this case, the default value, {}, is not assigned.",
+      "parentUuid": "5a3f45e8_6f08d591",
+      "range": {
+        "startLine": 631,
+        "startChar": 18,
+        "endLine": 631,
+        "endChar": 47
+      },
+      "revId": "d07a9a7d18baa7dafbf12d2da9c554aa1718933f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
