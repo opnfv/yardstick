@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_37c0e329",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc088.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-03-15T18:52:40Z",
+      "side": 1,
+      "message": "Same with the comment in tc089(https://gerrit.opnfv.org/gerrit/#/c/53243/)",
+      "parentUuid": "5a3f45e8_4a56a7d3",
+      "range": {
+        "startLine": 70,
+        "startChar": 19,
+        "endLine": 70,
+        "endChar": 39
+      },
+      "revId": "6ba89ffd4408358394eec8f947691ff39c5b1665",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_8a5f0fe5",
         "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc088.yaml",
         "patchSetId": 3
@@ -82,6 +106,30 @@
       "writtenOn": "2018-03-14T14:45:12Z",
       "side": 1,
       "message": "You need a monitor as step 4 to monitor the correct creation of nova instance",
+      "range": {
+        "startLine": 64,
+        "startChar": 10,
+        "endLine": 66,
+        "endChar": 18
+      },
+      "revId": "6ba89ffd4408358394eec8f947691ff39c5b1665",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_97de1710",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc088.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-03-15T18:52:40Z",
+      "side": 1,
+      "message": "Same with the comment in tc089(https://gerrit.opnfv.org/gerrit/#/c/53243/)",
+      "parentUuid": "5a3f45e8_8a5f0fe5",
       "range": {
         "startLine": 64,
         "startChar": 10,
