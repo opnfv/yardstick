@@ -21,3 +21,6 @@ nova-flavor-checker:
   verify_script: ha_tools/nova/show_flavors.bash
 pacemaker-resource-checker:
   verify_script: ha_tools/pacemaker/get_resource_status_host.bash
+vmpower-status-checker:
+  verify_script: ha_tools/vm/check_vmpower_status.bash
+

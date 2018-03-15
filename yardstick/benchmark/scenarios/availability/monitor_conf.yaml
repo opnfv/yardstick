@@ -21,3 +21,10 @@ service-status:
   monitor_script: ha_tools/check_service.bash
 ip-status:
   monitor_script: ha_tools/network/ping.bash
+node-status:
+  monitor_script: ha_tools/vm/get_node_status.bash
+vm-status:
+  monitor_script: ha_tools/vm/get_vm_status.bash
+vm-info:
+  monitor_script: ha_tools/vm/get_vm_info.bash
+

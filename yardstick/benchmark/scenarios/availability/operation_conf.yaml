@@ -35,3 +35,11 @@ get-vip-host:
   action_script: ha_tools/pacemaker/get_vip_host.bash
   rollback_script: ha_tools/pacemaker/get_resource_status.bash
 
+create-vm:
+  action_script: ha_tools/vm/create_vm.bash
+  rollback_script: ha_tools/vm/delete_vm.bash
+
+get-vm-host:
+  action_script: ha_tools/vm/get_vm_host.bash
+  rollback_script: ha_tools/nova/list_servers.bash
+

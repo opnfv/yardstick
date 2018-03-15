@@ -14,7 +14,7 @@ description: >
     HA test case: HA on VM-When VM Fails the Alarm is Generated and the VM will Automatically Recover
 {% set file = file or '/etc/yardstick/pod.yaml' %}
 {% set host = host or 'node1' %}
-{% set name = name or 'watchdog_vm1' %}
+{% set name = name or 'watchdog_wm2' %}
 {% set monitor_time = monitor_time or 30 %}
 
 scenarios:
@@ -60,6 +60,16 @@ scenarios:
     operations:
       -
         operation_type: "general-operation"
+        key: "create-vm"
+        operation_key: "create-vm"
+        action_parameter:
+          vmconfig: "ha_flavor centos_yardstick wm_net wm_key"
+          name: {{name}}
+        rollback_parameter:
+          name: {{name}}
+
+      -
+        operation_type: "general-operation"
         key: "get-floatingip"
         operation_key: "get-floatingip"
         action_parameter:
@@ -80,6 +90,11 @@ scenarios:
         condition: "in"
 
     steps:
+      -
+        actionKey: "create-vm"
+        actionType: "operation"
+        index: 1
+
       -
         actionKey: "get-floatingip"
         actionType: "operation"
@@ -106,7 +121,7 @@ scenarios:
         index: 5
 
   nodes:
-    node1: node1.LF
+    {{host}}: {{host}}.LF
 
   runner:
     type: Duration
