@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_01c0057b",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-03-15T08:00:20Z",
+      "side": 1,
+      "message": "alignment fix",
+      "range": {
+        "startLine": 42,
+        "startChar": 75,
+        "endLine": 42,
+        "endChar": 79
+      },
+      "revId": "e0a358c21d684a0beee30c545dc5670528aceac4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_61bf49fc",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 11
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-03-15T08:00:20Z",
+      "side": 1,
+      "message": "alignment fix",
+      "range": {
+        "startLine": 99,
+        "startChar": 76,
+        "endLine": 99,
+        "endChar": 79
+      },
+      "revId": "e0a358c21d684a0beee30c545dc5670528aceac4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_41ba0d0b",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 11
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-03-15T08:00:20Z",
+      "side": 1,
+      "message": "alignment fix",
+      "range": {
+        "startLine": 102,
+        "startChar": 76,
+        "endLine": 102,
+        "endChar": 79
+      },
+      "revId": "e0a358c21d684a0beee30c545dc5670528aceac4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a13831a1",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-03-15T08:00:20Z",
+      "side": 1,
+      "message": "alignment fix",
+      "range": {
+        "startLine": 103,
+        "startChar": 76,
+        "endLine": 103,
+        "endChar": 79
+      },
+      "revId": "e0a358c21d684a0beee30c545dc5670528aceac4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_813b759b",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 11
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-03-15T08:00:20Z",
+      "side": 1,
+      "message": "alignment fix",
+      "range": {
+        "startLine": 106,
+        "startChar": 75,
+        "endLine": 106,
+        "endChar": 79
+      },
+      "revId": "e0a358c21d684a0beee30c545dc5670528aceac4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0147651e",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc087.rst",
+        "patchSetId": 11
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-03-15T08:00:20Z",
+      "side": 1,
+      "message": "alignment fix",
+      "range": {
+        "startLine": 160,
+        "startChar": 76,
+        "endLine": 160,
+        "endChar": 79
+      },
+      "revId": "e0a358c21d684a0beee30c545dc5670528aceac4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
