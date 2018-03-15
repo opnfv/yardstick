@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_97ea970d",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-15T17:00:20Z",
+      "side": 1,
+      "message": "Why FIP is short name now? Keep the name (e.g. FloatingIP) in both create/delete cases the same.",
+      "range": {
+        "startLine": 129,
+        "startChar": 6,
+        "endLine": 129,
+        "endChar": 28
+      },
+      "revId": "1aaa2c637efae56e5f09e9c58c7ac6cf0b30d227",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
