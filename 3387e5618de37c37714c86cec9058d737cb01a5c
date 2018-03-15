@@ -22,6 +22,30 @@
       "revId": "3387e5618de37c37714c86cec9058d737cb01a5c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_57564fd3",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l3fwd-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-15T17:22:05Z",
+      "side": 0,
+      "message": "YES - It does not WORK\nWriting latency at 42-45, but packet size is 42 bytes \nAbove from PROX\n\nPLUS having \"lat pos\u003dxxx\"  must also be in generator section.\nEven when placed in generator ... position is incorrect!",
+      "parentUuid": "5a3f45e8_a7696f8d",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 10
+      },
+      "revId": "3387e5618de37c37714c86cec9058d737cb01a5c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }

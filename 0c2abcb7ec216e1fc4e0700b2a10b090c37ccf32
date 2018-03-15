@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_9738d7a1",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_l3fwd-2.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-15T17:22:05Z",
+      "side": 1,
+      "message": "This is not a dummy number!\n\nYou can replace it with anything.\n\nTHE NSB software replaces it with \"hardware\"",
+      "parentUuid": "5a3f45e8_b70d133a",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "0c2abcb7ec216e1fc4e0700b2a10b090c37ccf32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_47598bfd",
         "filename": "samples/vnf_samples/nsut/prox/configs/handle_l3fwd-2.cfg",
         "patchSetId": 3
