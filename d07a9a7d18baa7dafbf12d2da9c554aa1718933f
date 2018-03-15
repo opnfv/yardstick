@@ -46,6 +46,52 @@
       "revId": "d07a9a7d18baa7dafbf12d2da9c554aa1718933f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d47d3d70",
+        "filename": "yardstick/tests/unit/benchmark/core/test_task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-15T14:37:14Z",
+      "side": 1,
+      "message": "Isn\u0027t this supposed to be {}?",
+      "range": {
+        "startLine": 436,
+        "startChar": 13,
+        "endLine": 436,
+        "endChar": 25
+      },
+      "revId": "d07a9a7d18baa7dafbf12d2da9c554aa1718933f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b4807147",
+        "filename": "yardstick/tests/unit/benchmark/core/test_task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-15T14:37:14Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 450,
+        "startChar": 26,
+        "endLine": 450,
+        "endChar": 61
+      },
+      "revId": "d07a9a7d18baa7dafbf12d2da9c554aa1718933f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
