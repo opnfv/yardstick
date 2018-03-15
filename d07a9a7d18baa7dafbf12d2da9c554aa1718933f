@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_b4a3514e",
+        "filename": "yardstick/tests/unit/benchmark/core/test_task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-15T14:42:50Z",
+      "side": 1,
+      "message": "No, this is the rendered file. What we are doing in [1] is to retrieve the possible value stored in the yaml config file and rename the servers names using the qualified name. But if there is no content in this section, it will remain intact.\n\n[1] https://gerrit.opnfv.org/gerrit/#/c/53785/2/yardstick/benchmark/core/task.py@631",
+      "parentUuid": "5a3f45e8_d47d3d70",
+      "range": {
+        "startLine": 436,
+        "startChar": 13,
+        "endLine": 436,
+        "endChar": 25
+      },
+      "revId": "d07a9a7d18baa7dafbf12d2da9c554aa1718933f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_b4807147",
         "filename": "yardstick/tests/unit/benchmark/core/test_task.py",
         "patchSetId": 2
