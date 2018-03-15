@@ -16,7 +16,7 @@ description: >
 {% set file = file or '/etc/yardstick/pod.yaml' %}
 {% set monitor_time = monitor_time or 30 %}
 {% set outrage_time = outrage_time or 40 %}
-{% set name = name or 'compute_vm1' %}
+{% set name = name or 'compute_vm2' %}
 {% set host = host or 'node1' %}
 
 scenarios:
@@ -81,6 +81,16 @@ scenarios:
     operations:
       -
         operation_type: "general-operation"
+        key: "create-vm"
+        operation_key: "create-vm"
+        action_parameter:
+          vmconfig: "ha_flavor centos_yardstick wm_net wm_key"
+          name: {{name}}
+        rollback_parameter:
+          name: {{name}}
+
+      -
+        operation_type: "general-operation"
         key: "get-vm-host"
         operation_key: "get-vm-host"
         action_parameter:
@@ -111,44 +121,49 @@ scenarios:
 
     steps:
       -
-        actionKey: "get-floatingip"
+        actionKey: "create-vm"
         actionType: "operation"
         index: 1
 
       -
-        actionKey: "get-vm-host"
+        actionKey: "get-floatingip"
         actionType: "operation"
         index: 2
 
       -
+        actionKey: "get-vm-host"
+        actionType: "operation"
+        index: 3
+
+      -
         actionKey: "node-panic"
         actionType: "attacker"
-        index: 3
+        index: 4
 
       -
         actionKey: "node-status"
         actionType: "monitor"
-        index: 4
+        index: 5
 
       -
         actionKey: "vm-status"
         actionType: "monitor"
-        index: 5
+        index: 6
 
       -
         actionKey: "vm-info"
         actionType: "monitor"
-        index: 6
+        index: 7
 
       -
         actionKey: "vm-ip-status"
         actionType: "monitor"
-        index: 7
+        index: 8
 
       -
         actionKey: "check-vmpower-status"
         actionType: "resultchecker"
-        index: 8
+        index: 9
 
   nodes:
     node1: node1.LF
