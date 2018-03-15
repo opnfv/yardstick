@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_576daf97",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-15T17:33:47Z",
+      "side": 1,
+      "message": "Test cases",
+      "range": {
+        "startLine": 9,
+        "startChar": 19,
+        "endLine": 9,
+        "endChar": 27
+      },
+      "revId": "f755d47c219ffbd7be9f9b06014aa8e7141f3628",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d7109f03",
+        "filename": "docker/Dockerfile.aarch64.patch",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-15T17:33:47Z",
+      "side": 1,
+      "message": "This patch cannot be applied. The changes are already in docker/Dockerfile.\n\nyardstick$ patch -p1 \u003c docker/Dockerfile.aarch64.patch\npatching file docker/Dockerfile\nHunk #3 succeeded at 23 with fuzz 2 (offset -1 lines).\npatch: **** malformed patch at line 46: EXPOSE 5000 5672\n\n\nyardstick$ git apply docker/Dockerfile.aarch64.patch\nfatal: corrupt patch at line 45",
+      "revId": "f755d47c219ffbd7be9f9b06014aa8e7141f3628",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
