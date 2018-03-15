@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_215f0143",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-15T12:18:09Z",
+      "side": 1,
+      "message": "Please add testcase title here.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 64
+      },
+      "revId": "ede3d5a7cf3f3d1e59b576299c100f56089cf181",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_54ae4d86",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc091.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-15T12:18:09Z",
+      "side": 1,
+      "message": "Doe the Heat-api process recovers automatically ? without external intervention?",
+      "range": {
+        "startLine": 78,
+        "startChar": 19,
+        "endLine": 79,
+        "endChar": 70
+      },
+      "revId": "ede3d5a7cf3f3d1e59b576299c100f56089cf181",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_34a9017c",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc091.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-15T12:18:09Z",
+      "side": 1,
+      "message": "monitor",
+      "range": {
+        "startLine": 93,
+        "startChar": 42,
+        "endLine": 93,
+        "endChar": 50
+      },
+      "revId": "ede3d5a7cf3f3d1e59b576299c100f56089cf181",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
