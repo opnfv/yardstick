@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f7c5db3d",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc089.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-03-15T18:45:29Z",
+      "side": 1,
+      "message": "It should be recovered by cluster manager like packmaker, but currently it seems not configured in installers.",
+      "parentUuid": "5a3f45e8_ea91739b",
+      "range": {
+        "startLine": 70,
+        "startChar": 18,
+        "endLine": 71,
+        "endChar": 70
+      },
+      "revId": "6a11d873122dbbace403664ce192906c83bfeff4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_4abfc7fb",
         "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc089.yaml",
         "patchSetId": 2
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_d79a5f62",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc089.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-03-15T18:45:29Z",
+      "side": 1,
+      "message": "the monitor_number is the number of service monitoring threads you can refer to monitor_multi.py in the monitor folder",
+      "parentUuid": "5a3f45e8_4abfc7fb",
+      "range": {
+        "startLine": 40,
+        "startChar": 10,
+        "endLine": 40,
+        "endChar": 27
+      },
+      "revId": "6a11d873122dbbace403664ce192906c83bfeff4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_2aba3b0a",
         "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc089.yaml",
         "patchSetId": 2
@@ -82,6 +130,30 @@
       "writtenOn": "2018-03-14T14:22:37Z",
       "side": 1,
       "message": "How are you sure that this nova instance created succesfully ? Maybe this is in error state. I think you should monitor this by executing a ping from a nova instance which is in the same subnet with the newly created nova instance.",
+      "range": {
+        "startLine": 64,
+        "startChar": 9,
+        "endLine": 66,
+        "endChar": 18
+      },
+      "revId": "6a11d873122dbbace403664ce192906c83bfeff4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d7b1bfe2",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc089.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-03-15T18:45:29Z",
+      "side": 1,
+      "message": "If nova-conductor is deployed redundantly, the VM instance can be created successfully since nova-conductor instances on other controller nodes are working. \nIf the nova-conductor fails, the VM creation command should return the code of failure since queries of available compute nodes is failed, but not a creation of failed VM instance. And the total test case aborted because the VM creation operation failed.\nBut your suggestion is right, checking VM status after creation is also necessary. I\u0027ll add checkers in later patches.",
+      "parentUuid": "5a3f45e8_2aba3b0a",
       "range": {
         "startLine": 64,
         "startChar": 9,
