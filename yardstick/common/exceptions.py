@@ -112,3 +112,11 @@ class ScenarioCreateSubnetError(YardstickException):
 
 class ScenarioDeleteRouterError(YardstickException):
     message = 'Delete Neutron Router Scenario failed'
+
+
+class MissingPodInfoError(YardstickException):
+    message = 'Missing pod args, please check'
+
+
+class UnsupportedPodFormatError(YardstickException):
+    message = 'Failed to load pod info, unsupported format'
