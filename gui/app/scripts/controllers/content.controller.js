@@ -49,6 +49,7 @@ angular.module('yardStickGui2App')
                 $scope.gotoOpenrcPage = gotoOpenrcPage;
                 $scope.gotoPodPage = gotoPodPage;
                 $scope.gotoContainerPage = gotoContainerPage;
+                $scope.gotoSUTPage = gotoSUTPage;
                 $scope.gotoTestcase = gotoTestcase;
                 $scope.gotoEnviron = gotoEnviron;
                 $scope.gotoSuite = gotoSuite;
@@ -93,6 +94,12 @@ angular.module('yardStickGui2App')
                 $scope.path = $location.path();
                 $scope.uuid = $scope.path.split('/').pop();
                 $state.go('app.container', { uuid: $scope.uuid });
+            }
+
+            function gotoSUTPage() {
+                $scope.path = $location.path();
+                $scope.uuid = $scope.path.split('/').pop();
+                $state.go('app.sut', { uuid: $scope.uuid });
             }
 
             function gotoTestcase() {

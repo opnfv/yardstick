@@ -127,8 +127,13 @@ angular.module('yardStickGui2App')
             function chooseResult(name) {
                 $scope.selectContainer = name;
             }
+
             $scope.goBack = function goBack() {
                 $state.go('app.projectList');
+            }
+
+            $scope.goNext = function goNext() {
+                $state.go('app.sut', {uuid: $scope.uuid});
             }
 
             $scope.openDeleteEnv = function openDeleteEnv(id, name) {

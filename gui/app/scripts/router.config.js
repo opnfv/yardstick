@@ -116,6 +116,15 @@ angular.module('yardStickGui2App')
                         label: 'Container Manage'
                     }
                 })
+                .state('app.sut', {
+                    url: '/envsut/:uuid',
+                    templateUrl: 'views/sut.html',
+                    controller: 'SUTController',
+                    params: { uuid: null },
+                    ncyBreadcrumb: {
+                        label: 'SUT Manage'
+                    }
+                })
                 .state('app.projectList', {
                     url: '/project',
                     templateUrl: 'views/projectList.html',
