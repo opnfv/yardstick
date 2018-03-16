@@ -1,0 +1,48 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Generate keys
+  user:
+    name: "{{ hostvars[ansible_host].ansible_user }}"
+    generate_ssh_key: yes
+    state: present
+    ssh_key_file: "/root/.ssh/id_rsa"
+
+- name: Get remote files
+  fetch:
+    src: "/root/.ssh/id_rsa.pub"
+    dest: "/tmp"
+
+- name: Update authorized_key
+  authorized_key:
+    key: "{{ lookup('file', '/tmp/{{ hostvars[item].ansible_host }}/root/.ssh/id_rsa.pub') }}"
+    state: present
+    user: "{{ hostvars[item].ansible_user }}"
+  with_items:
+    - "{{ groups['ostack'] }}"
+    - "{{ groups['yardstickG'] }}"
+
+- name: Make sure the known hosts file exists
+  file:
+    path: "{{ ssh_known_hosts_file }}"
+    state: touch
+
+- name: Add key to known hosts
+  known_hosts:
+    name: "{{ hostvars[item].ansible_host }}"
+    key: "{{ lookup('pipe', 'ssh-keyscan -t rsa {{ hostvars[item].ansible_host }}') }}"
+    path: "{{ ssh_known_hosts_file }}"
+  with_items:
+    - "{{ groups['ostack'] }}"
+    - "{{ groups['yardstickG'] }}"
