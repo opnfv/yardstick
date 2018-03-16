@@ -1,0 +1,456 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- hosts: jumphost
+
+  roles:
+    - infra_check_requirements
+    - infra_destroy_previous_configuration
+    - infra_create_network
+    - infra_create_vms
+    - infra_prepare_vms
+
+
+
+
+- hosts: deploy,regular
+  gather_facts: no
+  become: yes
+  environment: "{{ hostvars['localhost']['proxy_env'] }}"
+
+  tasks:
+  - name: Create apt.conf proxy config
+    raw: echo 'Acquire::http::proxy "{{ hostvars.localhost.proxy_proto + "://" + hostvars.localhost.proxy_host_ip.stdout + ':' + hostvars.localhost.proxy_port }}";' > /etc/apt/apt.conf.d/22proxy
+
+  - name: Install python
+    raw: apt-get update && apt-get install -y python
+
+
+
+
+- hosts: deploy,regular
+  gather_facts: yes
+  become: yes
+  environment: "{{ hostvars['localhost']['proxy_env'] }}"
+  vars:
+    ssh_known_hosts_file: "/root/.ssh/known_hosts"
+
+  tasks:
+  - name: Set hostname
+    shell: hostname {{ ansible_hostname }}
+
+  - name: Copy ntp.conf from local to remote
+    copy:
+      src: /etc/ntp.conf
+      dest: /etc/ntp.conf
+
+  - name: Delete hosts between markers
+    blockinfile:
+      path: /etc/hosts
+      marker: "# {mark} generated hosts file"
+      content: ""
+
+  # Remove 127.0.0.1
+  - name: Update /etc/hosts
+    lineinfile:
+      path: /etc/hosts
+      regexp: '.*{{ ansible_hostname }}.*'
+      state: absent
+
+  - set_fact:
+      block_str: "{{ block_str | default('') + hostvars[item].host_ip + ' ' + hostvars[item].ansible_host + '\n'}}"
+    with_items: "{{ groups['ostack'] }}"
+
+  - name: Update /etc/hosts
+    blockinfile:
+      path: /etc/hosts
+      block: |
+        {{ block_str }}
+      marker: "# {mark} generated hosts file"
+
+  - name: Update /etc/hosts
+    lineinfile:
+      path: /etc/hosts
+      regexp: '.*{{ hostvars.localhost.proxy_host }}.*'
+      line: "{{ hostvars.localhost.proxy_host_ip.stdout }} {{ hostvars.localhost.proxy_host }}"
+
+  - name: Turn off IPv6
+    lineinfile:
+      path: /etc/sysctl.conf
+      regexp: '^{{ item }}.*'
+      line: "{{ item }} = 1"
+    with_items:
+      - 'net.ipv6.conf.all.disable_ipv6'
+      - 'net.ipv6.conf.default.disable_ipv6'
+      - 'net.ipv6.conf.lo.disable_ipv6'
+
+  - name: Update IP configuration
+    shell: sysctl -p
+
+  - name: Update resolv.conf
+    shell: echo "{{ 'nameserver ' + hostvars[ansible_host].ansible_default_ipv4.gateway }}" > /etc/resolvconf/resolv.conf.d/base
+
+  - name: Update name servers
+    shell: resolvconf -u
+
+  - name: Generate keys
+    user:
+      name: "{{ hostvars[ansible_host].ansible_user }}"
+      generate_ssh_key: yes
+      state: present
+      ssh_key_file: "/root/.ssh/id_rsa"
+
+  - name: Get remote files
+    fetch:
+      src: "/root/.ssh/id_rsa.pub"
+      dest: "/tmp"
+
+  - name: Update authorized_key
+    authorized_key:
+      key: "{{ lookup('file', '/tmp/{{ hostvars[item].ansible_host }}/root/.ssh/id_rsa.pub') }}"
+      state: present
+      user: "{{ hostvars[item].ansible_user }}"
+    with_items: "{{ groups['ostack'] }}"
+
+  - name: Make sure the known hosts file exists
+    file:
+      path: "{{ ssh_known_hosts_file }}"
+      state: touch
+
+  - name: Add key to known hosts
+    known_hosts:
+      name: "{{ hostvars[item].ansible_host }}"
+      key: "{{ lookup('pipe', 'ssh-keyscan -t rsa {{ hostvars[item].ansible_host }}') }}"
+      path: "{{ ssh_known_hosts_file }}"
+    with_items: "{{ groups['ostack'] }}"
+
+  - name: Update apt cache
+    apt:
+      update_cache: yes
+      upgrade: yes
+      cache_valid_time: 36000
+
+  - name: Install pip
+    shell: curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python get-pip.py && hash -r
+
+  - name: Update pip ansible docker
+    pip:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - ansible
+      - pip
+      - docker
+      - tox
+
+  - name: Install packets
+    apt:
+      name: "{{ item }}"
+    with_items:
+      - python-tox
+      - python-dev
+      - libffi-dev
+      - libssl-dev
+      - python3-dev
+      - ethtool
+      - ipmitool
+      - git
+      - python-pip
+      - ntp
+      - apparmor-utils
+      - docker.io
+      - libvirt-bin
+
+  - name: Remove conflicting packages
+    apt:
+      name: "{{ item }}"
+      state: absent
+    with_items:
+      - lxd
+      - lxc
+      - snapd
+      - docker-py
+
+  - name: Stop and disable libvirt
+    systemd:
+      state: stopped
+      enabled: no
+      name: libvirt-bin.service
+
+  - name: Stop and disable apparmor service
+    systemd:
+      name: apparmor
+      state: stopped
+      enabled: no
+
+  - name: Get stat of libvirtd apparmor profile
+    stat:
+      path: /etc/apparmor.d/disable/usr.sbin.libvirtd
+    register: apparmor_libvirtd_profile
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Remove apparmor profile for libvirt
+    shell: ln -s /etc/apparmor.d/usr.sbin.libvirtd /etc/apparmor.d/disable/ && apparmor_parser -R /etc/apparmor.d/usr.sbin.libvirtd
+    when:
+      - ansible_distribution == "Ubuntu"
+      - apparmor_libvirtd_profile.stat.exists == False
+
+  - name: Install pip mpodules
+    pip:
+      name: "{{ item }}"
+    with_items:
+      - python-openstackclient
+      - python-neutronclient
+      - python-ironicclient
+
+  - file:
+      path: /lib/systemd/system/docker.service.d
+      state: directory
+
+  - copy:
+      content: |
+        [Service]
+        MountFlags=shared
+      dest: /lib/systemd/system/docker.service.d/kolla.conf
+
+  - set_fact:
+      ostack_hosts_ips: "{{ groups['ostack'] | join(',') }}"
+
+  - set_fact:
+      ostack_hosts: "{{ ostack_hosts | default([]) + [hostvars[item].ansible_host] }}"
+      ostack_ips: "{{ ostack_ips | default([]) + [hostvars[item].host_ip] }}"
+    with_items: "{{ groups['ostack'] }}"
+
+  - name: Create proxy configuration for docker
+    copy:
+      content: |
+        [Service]
+        Environment="HTTP_PROXY={{ lookup('env', 'http_proxy') }}"
+        Environment="HTTPS_PROXY={{ lookup('env', 'https_proxy') }}"
+        Environment="FTP_PROXY={{ lookup('env', 'ftp_proxy') }}"
+        Environment="NO_PROXY=localhost,127.0.0.1,{{ ostack_hosts | join(',') }},{{ ostack_ips | join(',') }}"
+      dest: /lib/systemd/system/docker.service.d/http-proxy.conf
+
+  - set_fact:
+      deploy_ip: "{{ hostvars[groups['deploy'][0]].host_ip }}"
+
+  - name: Update /etc/default/docker
+    lineinfile:
+      path: /etc/default/docker
+      line: 'DOCKER_OPTS="--dns {{ hostvars[ansible_host].ansible_default_ipv4.gateway }} --insecure-registry {{ deploy_ip }}:4000"'
+    #notify:
+    #  - Reload restart docker
+
+  - name: Reload restart docker
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: docker
+
+  - name: Update /etc/environment
+    lineinfile:
+      path: /etc/environment
+      regexp: "{{ item.find }}"
+      line: "{{ item.add }}"
+    with_items:
+     - { find: 'http_proxy=', add:  "{{ 'export http_proxy=' + lookup('env', 'http_proxy') }}" }
+     - { find: 'https_proxy=', add:  "{{ 'export https_proxy=' + lookup('env', 'https_proxy') }}" }
+     - { find: 'ftp_proxy=', add:  "{{ 'export ftp_proxy=' + lookup('env', 'ftp_proxy') }}" }
+     - { find: 'no_proxy=', add:  "{{ 'export no_proxy=' + lookup('env', 'no_proxy') }}" }
+ 
+  - name: Source /etc/environment
+    shell: . /etc/environment
+
+
+
+
+- hosts: deploy
+  become: yes
+  vars:
+    deployvm_ip: "{{ hostvars[ansible_host].host_ip }}"
+    git_repos_path: '/tmp/repos/'
+    target: "{{ git_repos_path + 'all-in-one' }}"
+
+  environment: "{{ hostvars['localhost']['proxy_env'] }}"
+
+  tasks:
+  # Cannot run docker_container as a dependency on docker-py as it is not working with openstack pike which is using docker
+  - name: Create a registry container
+    shell: docker ps -a | grep registry || docker run -d -p 4000:5000 --restart=always --name registry registry:2
+
+  - set_fact:
+      kolla_path: "{{ 'https://git.openstack.org/openstack/kolla' | urlsplit('path') | basename }}"
+
+  - set_fact:
+      kolla_ans_path: "{{ 'https://git.openstack.org/openstack/kolla-ansible' | urlsplit('path') | basename }}"
+
+  - name: Download kolla and kolla-ansible from git repos
+    git:
+      repo: "{{ item.repo }}"
+      dest: "{{ git_repos_path + item.dir }}"
+      version: stable/pike
+    with_items:
+      - { dir: "{{ kolla_path }}", repo: 'https://git.openstack.org/openstack/kolla'}
+      - { dir: "{{ kolla_ans_path }}", repo: 'https://git.openstack.org/openstack/kolla-ansible' }
+
+  - name: Copy kolla-ansible password.yml and globals.yml
+    shell: cp -r "{{ git_repos_path + kolla_ans_path + '/etc/kolla/' }}" /etc/ 
+
+  - name: Copy kolla-ansible all-in-one, multinode
+    shell: cp * "{{ git_repos_path }}"
+    args:
+      chdir: "{{ git_repos_path + kolla_ans_path + '/ansible/inventory/' }}"
+
+  # Workaround to get second interface name
+  - name: Get neutron iface
+    set_fact:
+      neutron_iface: "{{ item }}"
+    when:
+      -  "'enp' in item"
+      -  item != hostvars[ansible_host].ansible_default_ipv4.interface
+    with_items: "{{ hostvars[ansible_host].ansible_interfaces }}"
+
+  - name: Modify globals.yml
+    replace:
+      path: /etc/kolla/globals.yml
+      regexp: "{{ item.find }}"
+      replace: "{{ item.insert_after }}"
+    with_items:
+      - { find: '^#kolla_base_distro:.*', insert_after: 'kolla_base_distro: "ubuntu"' }
+      - { find: '^#kolla_install_type:.*', insert_after: 'kolla_install_type: "source"' }
+      - { find: '^#openstack_release:.*', insert_after: 'openstack_release: "pike"' }
+      - { find: 'kolla_internal_vip_address:.*', insert_after: 'kolla_internal_vip_address: "{{ deployvm_ip }}"' }
+      - { find: '^#network_interface:.*', insert_after: 'network_interface: "{{ hostvars[ansible_host].ansible_default_ipv4.interface }}"' }
+      - { find: '^#neutron_external_interface:.*', insert_after: 'neutron_external_interface: "{{ neutron_iface }}"' }
+      - { find: '^#enable_haproxy:.*', insert_after: 'enable_haproxy: "no"'}
+      - { find: '^#enable_heat:.*' , insert_after: 'enable_heat: "yes"'}
+      - { find: '^#docker_registry:.*', insert_after: 'docker_registry: "{{ deployvm_ip }}:4000"' }
+
+  - name: Generate multinode from inventory
+    template:
+      src: multinode.j2
+      dest: "{{ git_repos_path + 'multinode' }}"
+
+  - set_fact:
+      path2multinode: "{{ git_repos_path + kolla_ans_path + '/ansible/inventory/multinode' }}"
+
+  - name: Append rest groups to multinode file
+    shell: line=`grep -n '\[deployment\]' {{ path2multinode }} | cut -d ':' -f1` && tail -n +$line {{ path2multinode }} >> "{{ git_repos_path + 'multinode' }}"
+
+  - name: Install requirements
+    pip:
+      chdir: "{{ item[0] }}"
+      requirements: "{{ item[1] }}"
+    with_nested:
+      - [ "{{ git_repos_path + kolla_path }}", "{{ git_repos_path + kolla_ans_path }}" ]
+      - [ 'requirements.txt', 'test-requirements.txt' ]
+
+  - name: pip install .
+    pip:
+      chdir: "{{ item }}"
+      name: '.'
+    with_items:
+      - [ "{{ git_repos_path + kolla_path }}", "{{ git_repos_path + kolla_ans_path }}" ]
+
+  - name: Run setup.py
+    shell: "python setup.py install"
+    args:
+      chdir: "{{ item }}"
+    with_items:
+      - [ "{{ git_repos_path + kolla_path }}", "{{ git_repos_path + kolla_ans_path }}" ]
+
+  - name: Create folders
+    file:
+      path: "{{ item }}"
+      state: directory 
+    with_items:
+      - /etc/kolla/config/nova
+      - /etc/kolla/config/neutron
+
+  - set_fact:
+      filter_ops: RetryFilter,AvailabilityZoneFilter,RamFilter,DiskFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter,SameHostFilter
+
+  - name: Configure OpenStack Nova
+    copy:
+      content: |
+        [filter_scheduler]
+        enabled_filters = {{ filter_ops }}
+        [libvirt]
+        cpu_mode = host-passthrough
+      dest: /etc/kolla/config/nova/nova.conf
+
+  - name: Configure OpenStack Neutron
+    copy:
+      content: |
+        [DEFAULT]
+        service_plugins=neutron.services.l3_router.l3_router_plugin.L3RouterPlugin,port_security
+        [securitygroup]
+        firewall_driver = neutron.agent.firewall.NoopFirewallDriver
+        [ml2]
+        extension_drivers=port_security
+        [agent]
+        extensions=port_security
+      dest: /etc/kolla/config/neutron/neutron.conf
+
+  - name: Configure OpenStack ml2_plugin.ini
+    copy:
+      content: |
+        [ml2]
+        tenant_network_types = vxlan
+        extension_drivers = port_security
+        type_drivers = vlan,flat,local,vxlan,gre,geneve
+        mechanism_drivers = openvswitch
+        [ml2_type_flat]
+        flat_networks = public
+        [ml2_type_vlan]
+        network_vlan_ranges = public
+        [securitygroup]
+        firewall_driver = iptables_hybrid
+        [ovs]
+        datapath_type = system
+        bridge_mappings = public:br-ex
+        tunnel_bridge = br-tun
+        local_ip = {{ deployvm_ip }}
+      dest: /etc/kolla/config/neutron/ml2_plugin.ini
+
+  - name: Generate passwords
+    shell: kolla-genpwd
+
+  - name: Generate the kolla-build.conf
+    shell: tox -e genconfig
+    args:
+      chdir: "{{ git_repos_path + kolla_path }}" 
+
+  - set_fact:
+      target: "{{ git_repos_path + 'multinode' }}"
+    when: "groups['ostack'] | length > 1"
+
+  - name: Run kolla-ansible precheck
+    shell: kolla-ansible prechecks -i "{{ target }}"
+
+  - name: Build kolla-ansible
+    shell: kolla-build -b ubuntu -t source --profile default --tag pike --registry {{ deployvm_ip }}:4000 --push #executable=/bin/bash
+
+  - name: Pull images from registry
+    shell: kolla-ansible pull -i "{{ target }}"
+
+  - name: Run kolla-ansible deploy
+    shell: kolla-ansible deploy -i "{{ target }}"
+
+  - name: Create an openrc file
+    shell: kolla-ansible post-deploy
+
+  #- name: Source OpenStack env
+  #  shell: . /etc/kolla/admin-openrc.sh
+
