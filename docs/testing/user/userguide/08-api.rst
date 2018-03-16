@@ -35,7 +35,7 @@ Prepare Yardstick test environment
 Example::
 
     {
-        'action': 'prepareYardstickEnv'
+        'action': 'prepare_env'
     }
 
 This is an asynchronous API. You need to call /yardstick/asynctask API to get the task result.
@@ -45,7 +45,7 @@ Start and config an InfluxDB docker container
 Example::
 
     {
-        'action': 'createInfluxDBContainer'
+        'action': 'create_influxdb'
     }
 
 This is an asynchronous API. You need to call /yardstick/asynctask API to get the task result.
@@ -55,7 +55,7 @@ Start and config a Grafana docker container
 Example::
 
     {
-        'action': 'createGrafanaContainer'
+        'action': 'create_grafana'
     }
 
 This is an asynchronous API. You need to call /yardstick/asynctask API to get the task result.
@@ -73,9 +73,14 @@ Method: GET
 Get the status of asynchronous tasks
 Example::
 
-    http://localhost:8888/yardstick/asynctask?task_id=3f3f5e03-972a-4847-a5f8-154f1b31db8c
+    http://<SERVER IP>:<PORT>/yardstick/asynctask?task_id=3f3f5e03-972a-4847-a5f8-154f1b31db8c
 
 The returned status will be 0(running), 1(finished) and 2(failed).
+
+NOTE::
+
+    <SERVER IP>: The ip of the host where you start your yardstick container
+    <PORT>: The outside port of port mapping which set when you start start yardstick container
 
 
 /yardstick/testcases
@@ -90,7 +95,7 @@ Method: GET
 Get a list of released test cases
 Example::
 
-    http://localhost:8888/yardstick/testcases
+    http://<SERVER IP>:<PORT>/yardstick/testcases
 
 
 /yardstick/testcases/release/action
@@ -106,10 +111,10 @@ Run a released test case
 Example::
 
     {
-        'action': 'runTestCase',
+        'action': 'run_test_case',
         'args': {
             'opts': {},
-            'testcase': 'tc002'
+            'testcase': 'opnfv_yardstick_tc002'
         }
     }
 
@@ -129,7 +134,7 @@ Run a sample test case
 Example::
 
     {
-        'action': 'runTestCase',
+        'action': 'run_test_case',
         'args': {
             'opts': {},
             'testcase': 'ping'
@@ -151,7 +156,7 @@ Method: GET
 Get the documentation of a certain test case
 Example::
 
-    http://localhost:8888/yardstick/taskcases/opnfv_yardstick_tc002/docs
+    http://<SERVER IP>:<PORT>/yardstick/taskcases/opnfv_yardstick_tc002/docs
 
 
 /yardstick/testsuites/action
@@ -167,10 +172,10 @@ Run a test suite
 Example::
 
     {
-        'action': 'runTestSuite',
+        'action': 'run_test_suite',
         'args': {
             'opts': {},
-            'testcase': 'smoke'
+            'testsuite': 'opnfv_smoke'
         }
     }
 
@@ -178,6 +183,7 @@ This is an asynchronous API. You need to call /yardstick/results to get the resu
 
 
 /yardstick/tasks/<task_id>/log
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to get the real time log of test case execution.
 
@@ -188,7 +194,7 @@ Method: GET
 Get real time of test case execution
 Example::
 
-    http://localhost:8888/yardstick/tasks/14795be8-f144-4f54-81ce-43f4e3eab33f/log?index=0
+    http://<SERVER IP>:<PORT>/yardstick/tasks/14795be8-f144-4f54-81ce-43f4e3eab33f/log?index=0
 
 
 /yardstick/results
@@ -203,17 +209,18 @@ Method: GET
 Get test results of one task
 Example::
 
-    http://localhost:8888/yardstick/results?task_id=3f3f5e03-972a-4847-a5f8-154f1b31db8c
+    http://<SERVER IP>:<PORT>/yardstick/results?task_id=3f3f5e03-972a-4847-a5f8-154f1b31db8c
 
 This API will return a list of test case result
 
 
-/api/v2/yardstick/openrcs/action
+/api/v2/yardstick/openrcs
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API provides functionality of handling OpenStack credential file (openrc). For Euphrates, it supports:
 
 1. Upload an openrc file for an OpenStack environment;
-2. Update an openrc file;
+2. Update an openrc;
 3. Get openrc file information;
 4. Delete an openrc file.
 
@@ -260,12 +267,21 @@ Example::
     }
 
 
+/api/v2/yardstick/openrcs/<openrc_id>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Description: This API provides functionality of handling OpenStack credential file (openrc). For Euphrates, it supports:
+
+1. Get openrc file information;
+2. Delete an openrc file.
+
+
 METHOD: GET
 
 Get openrc file information
 Example::
 
-    http://localhost:8888/api/v2/yardstick/openrcs/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/openrcs/5g6g3e02-155a-4847-a5f8-154f1b31db8c
 
 
 METHOD: DELETE
@@ -274,16 +290,15 @@ METHOD: DELETE
 Delete openrc file
 Example::
 
-    http://localhost:8888/api/v2/yardstick/openrcs/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/openrcs/5g6g3e02-155a-4847-a5f8-154f1b31db8c
 
 
-/api/v2/yardstick/pods/action
+/api/v2/yardstick/pods
+^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API provides functionality of handling Yardstick pod file (pod.yaml). For Euphrates, it supports:
 
 1. Upload a pod file;
-2. Get pod file information;
-3. Delete an openrc file.
 
 Which API to call will depend on the parameters.
 
@@ -303,12 +318,20 @@ Example::
     }
 
 
+/api/v2/yardstick/pods/<pod_id>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Description: This API provides functionality of handling Yardstick pod file (pod.yaml). For Euphrates, it supports:
+
+1. Get pod file information;
+2. Delete an openrc file.
+
 METHOD: GET
 
 Get pod file information
 Example::
 
-    http://localhost:8888/api/v2/yardstick/pods/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/pods/5g6g3e02-155a-4847-a5f8-154f1b31db8c
 
 
 METHOD: DELETE
@@ -316,16 +339,15 @@ METHOD: DELETE
 Delete openrc file
 Example::
 
-    http://localhost:8888/api/v2/yardstick/pods/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/pods/5g6g3e02-155a-4847-a5f8-154f1b31db8c
 
 
-/api/v2/yardstick/images/action
+/api/v2/yardstick/images
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to Yardstick VM images. For Euphrates, it supports:
 
 1. Load Yardstick VM images;
-2. Get image's information;
-3. Delete images.
 
 Which API to call will depend on the parameters.
 
@@ -337,16 +359,27 @@ Load VM images
 Example::
 
     {
-        'action': 'load_images'
+        'action': 'load_image',
+        'args': {
+            'name': 'yardstick-image'
+        }
     }
 
+
+/api/v2/yardstick/images/<image_id>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Description: This API is used to do some work related to Yardstick VM images. For Euphrates, it supports:
+
+1. Get image's information;
+2. Delete images
 
 METHOD: GET
 
 Get image information
 Example::
 
-    http://localhost:8888/api/v2/yardstick/images/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/images/5g6g3e02-155a-4847-a5f8-154f1b31db8c
 
 
 METHOD: DELETE
@@ -354,19 +387,15 @@ METHOD: DELETE
 Delete images
 Example::
 
-    http://localhost:8888/api/v2/yardstick/images/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/images/5g6g3e02-155a-4847-a5f8-154f1b31db8c
 
 
-/api/v2/yardstick/tasks/action
+/api/v2/yardstick/tasks
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to yardstick tasks. For Euphrates, it supports:
 
 1. Create a Yardstick task;
-2. run a Yardstick task;
-3. Add a test case to a task;
-4. Add a test suite to a task;
-5. Get a tasks' information;
-6. Delete a task.
 
 Which API to call will depend on the parameters.
 
@@ -386,19 +415,34 @@ Example::
     }
 
 
+/api/v2/yardstick/tasks/<task_id>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Description: This API is used to do some work related to yardstick tasks. For Euphrates, it supports:
+
+1. Add a environment to a task
+2. Add a test case to a task;
+3. Add a test suite to a task;
+4. run a Yardstick task;
+5. Get a tasks' information;
+6. Delete a task.
+
+
 METHOD: PUT
 
+Add a environment to a task
 
-Run a task
 Example::
 
     {
-        'action': 'run'
+        'action': 'add_environment',
+        'args': {
+            'environment_id': 'e3cadbbb-0419-4fed-96f1-a232daa0422a'
+        }
     }
 
 
 METHOD: PUT
-
 
 Add a test case to a task
 Example::
@@ -412,8 +456,8 @@ Example::
     }
 
 
-METHOD: PUT
 
+METHOD: PUT
 
 Add a test suite to a task
 Example::
@@ -427,29 +471,41 @@ Example::
     }
 
 
+METHOD: PUT
+
+Run a task
+
+Example::
+
+    {
+        'action': 'run'
+    }
+
+
+
 METHOD: GET
 
 Get a task's information
 Example::
 
-    http://localhost:8888/api/v2/yardstick/tasks/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/tasks/5g6g3e02-155a-4847-a5f8-154f1b31db8c
 
 
 METHOD: DELETE
 
 Delete a task
+
 Example::
-    http://localhost:8888/api/v2/yardstick/tasks/5g6g3e02-155a-4847-a5f8-154f1b31db8c
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/tasks/5g6g3e02-155a-4847-a5f8-154f1b31db8c
 
 
-/api/v2/yardstick/testcases/action
+/api/v2/yardstick/testcases
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to yardstick testcases. For Euphrates, it supports:
 
 1. Upload a test case;
 2. Get all released test cases' information;
-3. Get a certain released test case's information;
-4. Delete a test case.
 
 Which API to call will depend on the parameters.
 
@@ -474,16 +530,24 @@ METHOD: GET
 Get all released test cases' information
 Example::
 
-    http://localhost:8888/api/v2/yardstick/testcases
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/testcases
 
+
+/api/v2/yardstick/testcases/<case_name>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Description: This API is used to do some work related to yardstick testcases. For Euphrates, it supports:
+
+1. Get certain released test case's information;
+2. Delete a test case.
 
 METHOD: GET
 
 
-Get a certain released test case's information
+Get certain released test case's information
 Example::
 
-    http://localhost:8888/api/v2/yardstick/testcases/opnfv_yardstick_tc002
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/testcases/opnfv_yardstick_tc002
 
 
 METHOD: DELETE
@@ -491,17 +555,16 @@ METHOD: DELETE
 
 Delete a certain test case
 Example::
-    http://localhost:8888/api/v2/yardstick/testcases/opnfv_yardstick_tc002
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/testcases/opnfv_yardstick_tc002
 
 
-/api/v2/yardstick/testsuites/action
+/api/v2/yardstick/testsuites
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to yardstick test suites. For Euphrates, it supports:
 
 1. Create a test suite;
-2. Get a certain test suite's information;
-3. Get all test suites;
-4. Delete a test case.
+2. Get all test suites;
 
 Which API to call will depend on the parameters.
 
@@ -526,19 +589,27 @@ Example::
 METHOD: GET
 
 
-Get a certain test suite's information
+Get all test suite
 Example::
 
-    http://localhost:8888/api/v2/yardstick/testsuites/<suite_name>
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/testsuites
 
+
+/api/v2/yardstick/testsuites
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Description: This API is used to do some work related to yardstick test suites. For Euphrates, it supports:
+
+1. Get certain test suite's information;
+2. Delete a test case.
 
 METHOD: GET
 
 
-Get all test suite
+Get certain test suite's information
 Example::
 
-    http://localhost:8888/api/v2/yardstick/testsuites
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/testsuites/<suite_name>
 
 
 METHOD: DELETE
@@ -547,17 +618,16 @@ METHOD: DELETE
 Delete a certain test suite
 Example::
 
-    http://localhost:8888/api/v2/yardstick/testsuites/<suite_name>
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/testsuites/<suite_name>
 
 
-/api/v2/yardstick/projects/action
+/api/v2/yardstick/projects
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to yardstick test projects. For Euphrates, it supports:
 
 1. Create a Yardstick project;
-2. Get a certain project's information;
-3. Get all projects;
-4. Delete a project.
+2. Get all projects;
 
 Which API to call will depend on the parameters.
 
@@ -579,19 +649,27 @@ Example::
 METHOD: GET
 
 
-Get a certain project's information
+Get all projects' information
 Example::
 
-    http://localhost:8888/api/v2/yardstick/projects/<project_id>
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/projects
 
+
+/api/v2/yardstick/projects
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Description: This API is used to do some work related to yardstick test projects. For Euphrates, it supports:
+
+1. Get certain project's information;
+2. Delete a project.
 
 METHOD: GET
 
 
-Get all projects' information
+Get certain project's information
 Example::
 
-    http://localhost:8888/api/v2/yardstick/projects
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/projects/<project_id>
 
 
 METHOD: DELETE
@@ -600,17 +678,16 @@ METHOD: DELETE
 Delete a certain project
 Example::
 
-    http://localhost:8888/api/v2/yardstick/projects/<project_id>
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/projects/<project_id>
 
 
-/api/v2/yardstick/containers/action
+/api/v2/yardstick/containers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to Docker containers. For Euphrates, it supports:
 
 1. Create a Grafana Docker container;
 2. Create an InfluxDB Docker container;
-3. Get a certain container's information;
-4. Delete a container.
 
 Which API to call will depend on the parameters.
 
@@ -643,13 +720,21 @@ Example::
     }
 
 
+/api/v2/yardstick/containers/<container_id>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Description: This API is used to do some work related to Docker containers. For Euphrates, it supports:
+
+1. Get certain container's information;
+2. Delete a container.
+
 METHOD: GET
 
 
-Get a certain container's information
+Get certain container's information
 Example::
 
-    http://localhost:8888/api/v2/yardstick/containers/<container_id>
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/containers/<container_id>
 
 
 METHOD: DELETE
@@ -658,4 +743,4 @@ METHOD: DELETE
 Delete a certain container
 Example::
 
-    http://localhost:8888/api/v2/yardstick/containers/<container_id>
+    http://<SERVER IP>:<PORT>/api/v2/yardstick/containers/<container_id>
