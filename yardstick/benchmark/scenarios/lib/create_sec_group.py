@@ -7,13 +7,11 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import print_function
-from __future__ import absolute_import
-
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
+from yardstick.common import openstack_utils
+from yardstick.common import exceptions
 
 LOG = logging.getLogger(__name__)
 
@@ -26,11 +24,12 @@ class CreateSecgroup(base.Scenario):
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
+        self.options = self.scenario_cfg["options"]
 
-        self.sg_name = self.options.get("sg_name", "yardstick_sec_group")
-        self.description = self.options.get("description", None)
-        self.neutron_client = op_utils.get_neutron_client()
+        self.sg_name = self.options["sg_name"]
+        self.description = self.options.get("description", "")
+        self.project_id = self.options.get("project_id")
+        self.shade_client = openstack_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -45,21 +44,16 @@ class CreateSecgroup(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        sg_id = op_utils.create_security_group_full(self.neutron_client,
-                                                    sg_name=self.sg_name,
-                                                    sg_description=self.description)
-
-        if sg_id:
-            result.update({"sg_create": 1})
-            LOG.info("Create security group successful!")
-        else:
+        sg_id = openstack_utils.create_security_group_full(
+            self.shade_client, self.sg_name, sg_description=self.description,
+            project_id=self.project_id)
+        if not sg_id:
             result.update({"sg_create": 0})
             LOG.error("Create security group failed!")
+            raise exceptions.ScenarioCreateSecurityGroupError
 
-        try:
-            keys = self.scenario_cfg.get('output', '').split()
-        except KeyError:
-            pass
-        else:
-            values = [sg_id]
-            return self._push_to_outputs(keys, values)
+        result.update({"sg_create": 1})
+        LOG.info("Create security group successful!")
+        keys = self.scenario_cfg.get("output", '').split()
+        values = [sg_id]
+        return self._push_to_outputs(keys, values)
