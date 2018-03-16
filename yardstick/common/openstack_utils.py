@@ -163,28 +163,6 @@ def get_shade_client():
 # *********************************************
 #   NOVA
 # *********************************************
-def get_instances(nova_client):
-    try:
-        return nova_client.servers.list(search_opts={'all_tenants': 1})
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [get_instances(nova_client)]")
-
-
-def get_instance_status(nova_client, instance):     # pragma: no cover
-    try:
-        return nova_client.servers.get(instance.id).status
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [get_instance_status(nova_client)]")
-
-
-def get_instance_by_name(nova_client, instance_name):   # pragma: no cover
-    try:
-        return nova_client.servers.find(name=instance_name)
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [get_instance_by_name(nova_client, '%s')]",
-                      instance_name)
-
-
 def get_aggregates(nova_client):    # pragma: no cover
     try:
         return nova_client.aggregates.list()
@@ -273,21 +251,92 @@ def create_instance(json_body):    # pragma: no cover
         return None
 
 
-def create_instance_and_wait_for_active(json_body):    # pragma: no cover
-    SLEEP = 3
-    VM_BOOT_TIMEOUT = 180
-    nova_client = get_nova_client()
-    instance = create_instance(json_body)
-    for _ in range(int(VM_BOOT_TIMEOUT / SLEEP)):
-        status = get_instance_status(nova_client, instance)
-        if status.lower() == "active":
-            return instance
-        elif status.lower() == "error":
-            log.error("The instance went to ERROR status.")
-            return None
-        time.sleep(SLEEP)
-    log.error("Timeout booting the instance.")
-    return None
+def create_instance_and_wait_for_active(shade_client, name, image,
+                                        flavor, auto_ip=True, ips=None,
+                                        ip_pool=None, root_volume=None,
+                                        terminate_volume=False, wait=True,
+                                        timeout=180, reuse_ips=True,
+                                        network=None, boot_from_volume=False,
+                                        volume_size='20', boot_volume=None,
+                                        volumes=None, nat_destination=None,
+                                        **kwargs):
+    """Create a virtual server instance.
+
+    :param name:(string) Name of the server.
+    :param image:(dict) Image dict, name or ID to boot with. Image is required
+                 unless boot_volume is given.
+    :param flavor:(dict) Flavor dict, name or ID to boot onto.
+    :param auto_ip: Whether to take actions to find a routable IP for
+                    the server.
+    :param ips: List of IPs to attach to the server.
+    :param ip_pool:(string) Name of the network or floating IP pool to get an
+                   address from.
+    :param root_volume:(string) Name or ID of a volume to boot from.
+                       (defaults to None - deprecated, use boot_volume)
+    :param boot_volume:(string) Name or ID of a volume to boot from.
+    :param terminate_volume:(bool) If booting from a volume, whether it should
+                            be deleted when the server is destroyed.
+    :param volumes:(optional) A list of volumes to attach to the server.
+    :param wait:(optional) Wait for the address to appear as assigned to the server.
+    :param timeout: Seconds to wait, defaults to 60.
+    :param reuse_ips:(bool)Whether to attempt to reuse pre-existing
+                     floating ips should a floating IP be needed.
+    :param network:(dict) Network dict or name or ID to attach the server to.
+                   Mutually exclusive with the nics parameter. Can also be be
+                   a list of network names or IDs or network dicts.
+    :param boot_from_volume:(bool) Whether to boot from volume. 'boot_volume'
+                            implies True, but boot_from_volume=True with
+                            no boot_volume is valid and will create a
+                            volume from the image and use that.
+    :param volume_size: When booting an image from volume, how big should
+                        the created volume be?
+    :param nat_destination: Which network should a created floating IP
+                            be attached to, if it's not possible to infer from
+                            the cloud's configuration.
+    :param meta:(optional) A dict of arbitrary key/value metadata to store for
+                this server. Both keys and values must be <=255 characters.
+    :param reservation_id: A UUID for the set of servers being requested.
+    :param min_count:(optional extension) The minimum number of servers to
+                     launch.
+    :param max_count:(optional extension) The maximum number of servers to
+                     launch.
+    :param security_groups: A list of security group names.
+    :param userdata: User data to pass to be exposed by the metadata server
+                     this can be a file type object as well or a string.
+    :param key_name:(optional extension) Name of previously created keypair to
+                    inject into the instance.
+    :param availability_zone: Name of the availability zone for instance
+                              placement.
+    :param block_device_mapping:(optional) A dict of block device mappings for
+                                this server.
+    :param block_device_mapping_v2:(optional) A dict of block device mappings
+                                   for this server.
+    :param nics:(optional extension) An ordered list of nics to be added to
+                 this server, with information about connected networks, fixed
+                 IPs, port etc.
+    :param scheduler_hints:(optional extension) Arbitrary key-value pairs
+                           specified by the client to help boot an instance.
+    :param config_drive:(optional extension) Value for config drive either
+                         boolean, or volume-id.
+    :param disk_config:(optional extension) Control how the disk is partitioned
+                       when the server is created. Possible values are 'AUTO'
+                       or 'MANUAL'.
+    :param admin_pass:(optional extension) Add a user supplied admin password.
+
+    :returns: The created server.
+    """
+    try:
+        instance = shade_client.create_server(
+            name, image, flavor, auto_ip=auto_ip, ips=ips, ip_pool=ip_pool,
+            root_volume=root_volume, terminate_volume=terminate_volume,
+            wait=wait, timeout=timeout, reuse_ips=reuse_ips, network=network,
+            boot_from_volume=boot_from_volume, volume_size=volume_size,
+            boot_volume=boot_volume, volumes=volumes,
+            nat_destination=nat_destination, **kwargs)
+        return instance
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [create_instance(shade_client)]. "
+                  "Exception message, '%s'", o_exc.orig_message)
 
 
 def attach_server_volume(server_id, volume_id,
@@ -451,14 +500,15 @@ def create_neutron_net(shade_client, network_name, shared=False,
     except exc.OpenStackCloudException as o_exc:
         log.error("Error [create_neutron_net(shade_client)]."
                   "Exception message, '%s'", o_exc.orig_message)
-        return None
 
 
-def delete_neutron_net(shade_client, network_id):
+def delete_neutron_net(shade_client, network_name_or_id):
     try:
-        return shade_client.delete_network(network_id)
-    except exc.OpenStackCloudException:
-        log.error("Error [delete_neutron_net(shade_client, '%s')]", network_id)
+        return shade_client.delete_network(network_name_or_id)
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [delete_neutron_net(shade_client, '%s')]. "
+                  "Exception message: %s", network_name_or_id,
+                  o_exc.orig_message)
         return False
 
 
@@ -510,7 +560,6 @@ def create_neutron_subnet(shade_client, network_name_or_id, cidr=None,
     except exc.OpenStackCloudException as o_exc:
         log.error("Error [create_neutron_subnet(shade_client)]. "
                   "Exception message: %s", o_exc.orig_message)
-        return None
 
 
 def create_neutron_router(shade_client, name=None, admin_state_up=True,
@@ -625,39 +674,6 @@ def delete_floating_ip(shade_client, floating_ip_id, retry=1):
         return False
 
 
-def get_security_groups(neutron_client):      # pragma: no cover
-    try:
-        security_groups = neutron_client.list_security_groups()[
-            'security_groups']
-        return security_groups
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [get_security_groups(neutron_client)]")
-        return None
-
-
-def get_security_group_id(neutron_client, sg_name):      # pragma: no cover
-    security_groups = get_security_groups(neutron_client)
-    id = ''
-    for sg in security_groups:
-        if sg['name'] == sg_name:
-            id = sg['id']
-            break
-    return id
-
-
-def create_security_group(neutron_client, sg_name,
-                          sg_description):      # pragma: no cover
-    json_body = {'security_group': {'name': sg_name,
-                                    'description': sg_description}}
-    try:
-        secgroup = neutron_client.create_security_group(json_body)
-        return secgroup['security_group']
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [create_security_group(neutron_client, '%s', "
-                  "'%s')]", sg_name, sg_description)
-        return None
-
-
 def create_security_group_rule(shade_client, secgroup_name_or_id,
                                port_range_min=None, port_range_max=None,
                                protocol=None, remote_ip_prefix=None,
@@ -712,42 +728,48 @@ def create_security_group_rule(shade_client, secgroup_name_or_id,
         return False
 
 
-def create_security_group_full(neutron_client, sg_name,
-                               sg_description):      # pragma: no cover
-    sg_id = get_security_group_id(neutron_client, sg_name)
-    if sg_id != '':
+def create_security_group_full(shade_client, sg_name,
+                               sg_description, project_id=None):
+    security_group = shade_client.get_security_group(sg_name)
+
+    if security_group:
         log.info("Using existing security group '%s'...", sg_name)
-    else:
-        log.info("Creating security group  '%s'...", sg_name)
-        SECGROUP = create_security_group(neutron_client,
-                                         sg_name,
-                                         sg_description)
-        if not SECGROUP:
-            log.error("Failed to create the security group...")
-            return None
+        return security_group['id']
 
-        sg_id = SECGROUP['id']
+    log.info("Creating security group  '%s'...", sg_name)
+    try:
+        security_group = shade_client.create_security_group(
+            sg_name, sg_description, project_id=project_id)
+    except (exc.OpenStackCloudException,
+            exc.OpenStackCloudUnavailableFeature) as op_exc:
+        log.error("Error [create_security_group(shade_client, %s, %s)]. "
+                  "Exception message: %s", sg_name, sg_description,
+                  op_exc.orig_message)
+        return
 
-        log.debug("Security group '%s' with ID=%s created successfully.",
-                  SECGROUP['name'], sg_id)
+    log.debug("Security group '%s' with ID=%s created successfully.",
+              security_group['name'], security_group['id'])
 
-        log.debug("Adding ICMP rules in security group '%s'...", sg_name)
-        if not create_security_group_rule(neutron_client, sg_id,
-                                          'ingress', 'icmp'):
-            log.error("Failed to create the security group rule...")
-            return None
+    log.debug("Adding ICMP rules in security group '%s'...", sg_name)
+    if not create_security_group_rule(shade_client, security_group['id'],
+                                      'ingress', 'icmp'):
+        log.error("Failed to create the security group rule...")
+        shade_client.delete_security_group(sg_name)
+        return
 
-        log.debug("Adding SSH rules in security group '%s'...", sg_name)
-        if not create_security_group_rule(
-                neutron_client, sg_id, 'ingress', 'tcp', '22', '22'):
-            log.error("Failed to create the security group rule...")
-            return None
+    log.debug("Adding SSH rules in security group '%s'...", sg_name)
+    if not create_security_group_rule(shade_client, security_group['id'],
+                                      'ingress', 'tcp', '22', '22'):
+        log.error("Failed to create the security group rule...")
+        shade_client.delete_security_group(sg_name)
+        return
 
-        if not create_security_group_rule(
-                neutron_client, sg_id, 'egress', 'tcp', '22', '22'):
-            log.error("Failed to create the security group rule...")
-            return None
-    return sg_id
+    if not create_security_group_rule(shade_client, security_group['id'],
+                                          'egress', 'tcp', '22', '22'):
+        log.error("Failed to create the security group rule...")
+        shade_client.delete_security_group(sg_name)
+        return
+    return security_group['id']
 
 
 # *********************************************
