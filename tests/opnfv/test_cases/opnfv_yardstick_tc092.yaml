@@ -1,0 +1,277 @@
+##############################################################################
+## Copyright (c) 2018 Intracom Telecom and others.
+##
+## All rights reserved. This program and the accompanying materials
+## are made available under the terms of the Apache License, Version 2.0
+## which accompanies this distribution, and is available at
+## http://www.apache.org/licenses/LICENSE-2.0
+###############################################################################
+---
+
+schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC092 config file;
+    SDN Controller resilience in HA configuration
+
+{% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set attack_host = attack_host or 'node6' %}
+
+scenarios:
+
+-
+      type: "GeneralHA"
+      options:
+          monitors:
+            - monitor_type: "general-monitor"
+              monitor_key: "ip-status"
+              key: "snat"
+              monitor_time: 50
+              host: athena
+              sla:
+                 max_outage_time: 0
+              parameter:
+                destination_ip: "8.8.8.8"
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ip-status"
+              key: "l2"
+              monitor_time: 50
+              host: athena
+              sla:
+                 max_outage_time: 0
+              parameter:
+                destination_ip: "@private_ip"
+
+          operations:
+            - operation_type: "general-operation"
+              key: "get-privateip"
+              operation_key: "get-privateip"
+              action_parameter:
+                server_name: "ares"
+              return_parameter:
+                all: "@private_ip"
+
+
+          steps:
+            - actionKey: "get-privateip"
+              actionType: "operation"
+              index: 1
+
+            - actionKey: "l2"
+              actionType: "monitor"
+              index: 2
+
+            - actionKey: "snat"
+              actionType: "monitor"
+              index: 3
+
+
+      nodes:
+        {{attack_host}}: {{attack_host}}.LF
+        athena: athena.ODLHA1
+      runner:
+        type: Duration
+        duration: 1
+      sla:
+        action: monitor
+
+
+-
+      type: "GeneralHA"
+      options:
+          attackers:
+            -
+              fault_type: "kill-process"
+              process_name: "opendaylight"
+              key: "kill-process"
+              host: {{attack_host}}
+
+          monitors:
+            - monitor_type: "process"
+              process_name: "opendaylight"
+              host: {{attack_host}}
+              key: "monitor-recovery"
+              monitor_time: 50
+              sla:
+                max_recover_time: 30
+
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ip-status"
+              key: "snat"
+              monitor_time: 70
+              host: athena
+              sla:
+                 max_outage_time: 0
+              parameter:
+                destination_ip: "8.8.8.8"
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ip-status"
+              key: "l2"
+              monitor_time: 70
+              host: athena
+              sla:
+                 max_outage_time: 0
+              parameter:
+                destination_ip: "@private_ip"
+
+          operations:
+            - operation_type: "general-operation"
+              key: "start-service"
+              host: {{attack_host}}
+              operation_key: "start-service"
+              action_parameter:
+                service: "opendaylight"
+              rollback_parameter:
+                service: "opendaylight"
+
+            - operation_type: "general-operation"
+              key: "get-privateip"
+              operation_key: "get-privateip"
+              action_parameter:
+                server_name: "ares"
+              return_parameter:
+                all: "@private_ip"
+
+
+
+          steps:
+
+            - actionKey: "monitor-recovery"
+              actionType: "monitor"
+              index: 1
+
+            - actionKey: "get-privateip"
+              actionType: "operation"
+              index: 2
+
+            - actionKey: "l2"
+              actionType: "monitor"
+              index: 3
+
+            - actionKey: "snat"
+              actionType: "monitor"
+              index: 4
+
+            - actionKey: "kill-process"
+              actionType: "attacker"
+              index: 5
+
+            - actionKey: "start-service"
+              actionType: "operation"
+              index: 6
+
+
+
+      nodes:
+        {{attack_host}}: {{attack_host}}.LF
+        athena: athena.ODLHA1
+      runner:
+        type: Duration
+        duration: 1
+      sla:
+        action: monitor
+
+-
+      type: "GeneralHA"
+      options:
+          monitors:
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ip-status"
+              key: "l2"
+              monitor_time: 80
+              host: athena
+              sla:
+                 max_outage_time: 40
+              parameter:
+                destination_ip: "@private_ip"
+
+          operations:
+            - operation_type: "general-operation"
+              key: "get-privateip"
+              operation_key: "get-privateip"
+              action_parameter:
+                server_name: "hermes"
+              return_parameter:
+                all: "@private_ip"
+
+            - operation_type: "general-operation"
+              key: "nova-create-instance"
+              operation_key: "nova-create-instance"
+              action_parameter:
+                serverconfig: "hermes yardstick-image yardstick-flavor test_one"
+              rollback_parameter:
+                serverconfig: "hermes"
+
+            - operation_type: "general-operation"
+              key: "add-server-to-secgroup"
+              operation_key: "add-server-to-secgroup"
+              action_parameter:
+                serverconfig: "hermes ODLHA1"
+              rollback_parameter:
+                serverconfig: "hermes ODLHA1"
+
+
+          steps:
+            - actionKey: "nova-create-instance"
+              actionType: "operation"
+              index: 1
+
+            - actionKey: "add-server-to-secgroup"
+              actionType: "operation"
+              index: 2
+
+            - actionKey: "get-privateip"
+              actionType: "operation"
+              index: 3
+
+            - actionKey: "l2"
+              actionType: "monitor"
+              index: 4
+
+      nodes:
+        {{attack_host}}: {{attack_host}}.LF
+        athena: athena.ODLHA1
+      runner:
+        type: Duration
+        duration: 1
+      sla:
+        action: monitor
+
+
+contexts:
+    -
+        type: Node
+        name: LF
+        file: {{file}}
+    -
+        name: ODLHA1
+        image: yardstick-image
+        flavor: yardstick-flavor
+        user: ubuntu
+        host: athena
+        placement_groups:
+            pgrp1:
+                policy: "availability"
+        servers:
+            athena:
+                floating_ip: true
+                placement: "pgrp1"
+                network_ports:
+                    test_one:
+                        - ens0
+
+            ares:
+                floating_ip: true
+                placement: "pgrp1"
+                network_ports:
+                    test_one:
+                        - ens0
+
+        networks:
+            test_one:
+                cidr: '10.0.1.0/24'
+                router: 'test_router'
+
