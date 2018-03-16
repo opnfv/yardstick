@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_28f99e80",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-16T14:38:03Z",
+      "side": 1,
+      "message": "Can you please remove all the L3 Layer references from this Spec because we are not gonna be able to implement them because of the known problem with the L3 traffic in Yardstick?",
+      "revId": "aa6daecd5f30e83925e9c3bee6c61cdd3b16a082",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a82c8e03",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-16T14:38:03Z",
+      "side": 1,
+      "message": "To determine this we are gonna need an operation script. But this script currently doesn\u0027t exist. So as a workaround we can use the recovery monitor script.",
+      "range": {
+        "startLine": 139,
+        "startChar": 17,
+        "endLine": 141,
+        "endChar": 51
+      },
+      "revId": "aa6daecd5f30e83925e9c3bee6c61cdd3b16a082",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_88bef2d2",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
         "patchSetId": 5
@@ -18,6 +58,52 @@
         "startChar": 54,
         "endLine": 146,
         "endChar": 71
+      },
+      "revId": "aa6daecd5f30e83925e9c3bee6c61cdd3b16a082",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c8391a43",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-16T14:38:03Z",
+      "side": 1,
+      "message": "We are gonna create the VM after the restart of the ODL because ODL doesn\u0027t recover on it\u0027s own.",
+      "range": {
+        "startLine": 152,
+        "startChar": 17,
+        "endLine": 153,
+        "endChar": 63
+      },
+      "revId": "aa6daecd5f30e83925e9c3bee6c61cdd3b16a082",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8816f2a5",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc092.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-16T14:38:03Z",
+      "side": 1,
+      "message": "We can not check this with the current state of Yardstick because we need to add extra functionality in Yardstick.\nI can check only the l2 from existing VM to the new VM as we did in ODL noHA testcase. I hope this is ok",
+      "range": {
+        "startLine": 181,
+        "startChar": 19,
+        "endLine": 185,
+        "endChar": 29
       },
       "revId": "aa6daecd5f30e83925e9c3bee6c61cdd3b16a082",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
