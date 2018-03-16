@@ -451,14 +451,16 @@ def create_neutron_net(shade_client, network_name, shared=False,
     except exc.OpenStackCloudException as o_exc:
         log.error("Error [create_neutron_net(shade_client)]."
                   "Exception message, '%s'", o_exc.orig_message)
-        return None
+        return
 
 
 def delete_neutron_net(shade_client, network_id):
     try:
         return shade_client.delete_network(network_id)
-    except exc.OpenStackCloudException:
-        log.error("Error [delete_neutron_net(shade_client, '%s')]", network_id)
+
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [delete_neutron_router(shade_client, '%s')]. "
+                  "Exception message: %s", network_id, o_exc.orig_message)
         return False
 
 
@@ -510,7 +512,7 @@ def create_neutron_subnet(shade_client, network_name_or_id, cidr=None,
     except exc.OpenStackCloudException as o_exc:
         log.error("Error [create_neutron_subnet(shade_client)]. "
                   "Exception message: %s", o_exc.orig_message)
-        return None
+        return
 
 
 def create_neutron_router(shade_client, name=None, admin_state_up=True,
