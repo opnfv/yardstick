@@ -14,25 +14,25 @@
 ---
 - name: Include
   include_vars:
-    file: "{{rs_file}}"
+    file: "{{ rs_file }}"
     name: infra_deploy_vars
 
 - name: Store total CPU, RAM, Disk requested resources
   set_fact:
-    vcpu_t: "{{item.vcpus|int + vcpu_t|int}}"
-    vram_t: "{{item.ram|int + vram_t|int}}"
-    disk_t: "{{item.disk|int + disk_t|int}}"
-  with_items: "{{infra_deploy_vars.nodes}}"
+    vcpu_t: "{{ item.vcpus|int + vcpu_t | int }}"
+    vram_t: "{{ item.ram|int + vram_t | int }}"
+    disk_t: "{{ item.disk|int + disk_t | int }}"
+  with_items: "{{ infra_deploy_vars.nodes }}"
 
 - name: Fail if not enough RAM
   fail:
     msg: "Failed, not enough RAM, required: {{ vram_t }}, available {{ ansible_memory_mb.nocache.free }}"
-  when: ansible_memory_mb.nocache.free < vram_t|int
+  when: ansible_memory_mb.nocache.free < vram_t | int
 
 - name: Fail if not enough CPU
   fail:
     msg: "Failed, not enough CPU, required: {{ vcpu_t }}, available {{ ansible_processor_vcpus }}"
-  when: ansible_processor_vcpus < vcpu_t|int
+  when: ansible_processor_vcpus < vcpu_t | int
 
 - name: Define default network counter
   set_fact:
@@ -40,20 +40,38 @@
 
 - name: Increment counter for every default network detected
   set_fact:
-    num_default_network_detected: "{{ num_default_network_detected|int + 1 }}"
+    num_default_network_detected: "{{ num_default_network_detected | int + 1 }}"
   when:
     - item.default_gateway is defined
     - item.default_gateway == True
-  with_items: "{{infra_deploy_vars.networks}}"
+  with_items: "{{ infra_deploy_vars.networks }}"
 
 - name: Fail if more than 1 or 0 default networks
   fail:
     msg: "Failed, there must be 1 default network: {{ num_default_network_detected }} detected"
-  when: num_default_network_detected|int != 1
+  when: num_default_network_detected | int != 1
 
 - name: Fail if not enough Disk space
   set_fact:
-    disk_avail: "{% for mount in ansible_mounts if mount.mount == '/' %}{{ (mount.size_available/1024/1024)|int }}{% endfor %}"
+    disk_avail: "{% for mount in ansible_mounts if mount.mount == '/' %}{{ (mount.size_available/1024/1024) | int }}{% endfor %}"
 - fail:
     msg: "Failed, not enough disk space, required {{ disk_t }}, available: {{ disk_avail }}"
-  when: disk_avail|int < disk_t|int
+  when: disk_avail|int < disk_t | int
+
+- set_fact:
+    ostack_nodes: "{{ ostack_nodes | default([]) + [item.openstack_node] }}"
+  when: item.openstack_node is defined
+  with_items: "{{ infra_deploy_vars.nodes }}"
+
+# all-in-one node node type must be controller, multinode requires at least one controller and one compute node
+- fail:
+    msg: "OpenStack node types currently supported: controller, compute. Check input VMs file."
+  when: ostack_nodes is undefined or ostack_nodes | length < 1
+
+- fail:
+    msg: "In all-in-one configuration OpenStack node type must be controller."
+  when: ostack_nodes | length == 1 and 'controller' not in ostack_nodes
+
+- fail:
+    msg: "At least one controller and one compute node expected when total number of OpenStack nodes is more than one."
+  when: ostack_nodes | length > 1 and not ('compute' in ostack_nodes and 'controller' in ostack_nodes)
