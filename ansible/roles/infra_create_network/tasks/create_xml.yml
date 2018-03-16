@@ -42,8 +42,13 @@
       - name: "{{ item.name }}"
       - forward:
           mode: nat
-      - bridge
-      - ip
+      - bridge:
+          name: "{{ item.name }}"
+          stp: "on"
+          delay: "0"
+      - ip:
+          address: "{{ item.host_ip }}"
+          netmask: "{{ item.netmask }}"
     pretty_print: yes
 
 - name: Add new children nodes to "forward" node
@@ -62,46 +67,6 @@
       - port:
           start: "1024"
           end: "65535"
-    pretty_print: yes
-
-- name: Add "name" attribute to "bridge" node
-  xml:
-    path: "{{ xml_file }}"
-    xpath: /network/bridge
-    attribute: name
-    value: "{{ item.name }}"
-    pretty_print: yes
-
-- name: Add "stp" attribute to "bridge" node
-  xml:
-    path: "{{ xml_file }}"
-    xpath: /network/bridge
-    attribute: stp
-    value: "on"
-    pretty_print: yes
-
-- name: Add "delay" attribute to "bridge" node
-  xml:
-    path: "{{ xml_file }}"
-    xpath: /network/bridge
-    attribute: delay
-    value: "0"
-    pretty_print: yes
-
-- name: Add "address" attribute to "ip" node
-  xml:
-    path: "{{ xml_file }}"
-    xpath: /network/ip
-    attribute: address
-    value: "{{ item.host_ip }}"
-    pretty_print: yes
-
-- name: Add "netmask" attribute to "ip" node
-  xml:
-    path: "{{ xml_file }}"
-    xpath: /network/ip
-    attribute: netmask
-    value: "{{ item.netmask }}"
     pretty_print: yes
 
 - name: Define the networks
