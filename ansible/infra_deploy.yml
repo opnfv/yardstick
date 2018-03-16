@@ -14,8 +14,77 @@
 ---
 - hosts: jumphost
 
+  tasks:
+  - set_fact:
+      proxy_host: "{{ lookup('env', 'http_proxy') | urlsplit('hostname') }}"
+      proxy_proto: "{{ lookup('env', 'http_proxy') | urlsplit('scheme') }}"
+      proxy_port: "{{ lookup('env', 'http_proxy') | urlsplit('port') }}"
+      proxy_host_ip: "{{ lookup('dig', 'silvplvisprx01.ir.intel.com') }}"
+
   roles:
-    - infra_check_requirements
     - infra_destroy_previous_configuration
+    - infra_check_requirements
     - infra_create_network
     - infra_create_vms
+    - infra_prepare_vms
+
+- hosts: deploy,regular,yardstickG
+  gather_facts: no
+  become: yes
+
+  roles:
+  - infra_rampup_stack_nodes
+
+
+- hosts: deploy
+  become: yes
+  environment: "{{ hostvars[groups['jumphost'][0]]['proxy_env'] }}"
+
+  roles:
+  - infra_deploy_openstack
+
+
+- hosts: yardstickG
+  become: yes
+
+  roles:
+  - infra_clone_yardstick
+
+
+- hosts: deploy
+  gather_facts: no
+  become: yes
+
+  tasks:
+  - name: Create external network
+    os_network:
+      name: public
+      external: yes
+      provider_physical_network: physnet1
+      provider_network_type: flat
+    when: groups['yardstickG'] is defined
+    environment: "{{ hostvars[groups['yardstickG'][0]].ostack_env }}"
+
+  - name: Create sub-network
+    os_subnet:
+      name: public-subnet
+      network_name: public
+      cidr: "{{ hostvars[groups['yardstickG'][0]].ip_netmask.stdout }}"
+      allocation_pool_start: "{{ hostvars[groups['jumphost'][0]].infra_deploy_vars.networks[1].dhcp_ip_start }}"
+      allocation_pool_end: "{{ hostvars[groups['jumphost'][0]].infra_deploy_vars.networks[1].dhcp_ip_stop }}"
+      gateway_ip: "{{ hostvars[groups['jumphost'][0]].infra_deploy_vars.networks[1].host_ip }}"
+      enable_dhcp: no
+    when: groups['yardstickG'] is defined
+    environment: "{{ hostvars[groups['yardstickG'][0]].ostack_env }}"
+
+
+- hosts: yardstickG
+  gather_facts: no
+  become: yes
+
+  tasks:
+  - name: Run nsb_setup.sh
+    shell: "{{ git_repos_path + 'yardstick/nsb_setup.sh /tmp/admin-openrc.sh' }}"
+    args:
+      chdir: "{{ git_repos_path + 'yardstick/' }}"
+    environment: "{{ ostack_env }}"
