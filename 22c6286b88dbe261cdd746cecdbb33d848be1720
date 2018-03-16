@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_adbdc06a",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc087.yaml",
+        "patchSetId": 25
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-16T10:46:12Z",
+      "side": 1,
+      "message": "I think yes you will leave the POD in a faulty status.\nNevertheless I dind\u0027t have this problem when I was testing this testcase locally. The ODL process was always starting after I was killing it.\nBut I agree with Georg the faulty status is the case for all HA testcases.",
+      "parentUuid": "5a3f45e8_2d037043",
+      "range": {
+        "startLine": 158,
+        "startChar": 13,
+        "endLine": 158,
+        "endChar": 39
+      },
+      "revId": "22c6286b88dbe261cdd746cecdbb33d848be1720",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c1245db1",
         "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc087.yaml",
         "patchSetId": 25
@@ -108,6 +132,30 @@
       "side": 1,
       "message": "Good point. In the Fuel-based deployment used by Dimitrios, the SDN controller does not recover automatically, so it needs to be restarted. In terms of test metrics, this means the recovery time is not meant to provide strongly accurate results. The test rather focuses on verifying that after a SDN controller restart, network management operations still work.",
       "parentUuid": "5a3f45e8_ad61403b",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 22
+      },
+      "revId": "22c6286b88dbe261cdd746cecdbb33d848be1720",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ad64a022",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc087.yaml",
+        "patchSetId": 25
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-03-16T10:46:12Z",
+      "side": 1,
+      "message": "+1 on what Georg said.",
+      "parentUuid": "5a3f45e8_adef8086",
       "range": {
         "startLine": 158,
         "startChar": 0,
