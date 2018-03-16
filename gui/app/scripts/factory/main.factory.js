@@ -58,6 +58,13 @@ angular.module('yardStickGui2App')
                     }
                 })
             },
+            SUTDetail: function() {
+                return $resource(Base_URL + '/api/v2/yardstick/environments/:envId/sut', { envId: "@envId" }, {
+                    'get': {
+                        method: 'GET'
+                    }
+                })
+            },
             ImageDetail: function() {
                 return $resource(Base_URL + '/api/v2/yardstick/images/:image_id', { image_id: "@image_id" }, {
                     'get': {

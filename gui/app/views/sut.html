@@ -1,0 +1,33 @@
+<!--sut management-->
+
+<div class="content">
+    <div style="display:flex;flex-direction:row;">
+        <div style="width:750px;">
+
+            <h3>{{envName}} -- SUT
+                <!--<button class="btn btn-default" style="float:right">Go Next</button>-->
+
+            </h3>
+
+            <h2>Hosts</h2>
+            <div ng-repeat="(host, info) in sutInfo">
+                <hr/>
+                <div  class="results-table" style="margin-top:30px;">
+                    <table class="table table-striped table-hover">
+                        <tbody style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            <tr ng-repeat="record in info">
+                                <td>{{ record[0] }}</td>
+                                <td>{{ record[1] }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<toaster-container></toaster-container>
+
+<style>
+</style>
