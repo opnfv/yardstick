@@ -47,8 +47,6 @@
       output:
         all: ">> /var/log/cloud-init.log"
       ssh_pwauth: True
-      bootcmd:
-        - echo 127.0.0.1 {{ node_item.hostname }} >> /etc/hosts
       users:
           - name: {{ node_item.user }}
             lock-passwd: False
