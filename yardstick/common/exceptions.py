@@ -170,3 +170,7 @@ class ScenarioDeleteFloatingIPError(YardstickException):
 
 class ScenarioCreateSecurityGroupError(YardstickException):
     message = 'Create Neutron Security Group Scenario failed'
+
+
+class ScenarioDeleteNetworkError(YardstickException):
+    message = 'Delete Neutron Network Scenario failed'
