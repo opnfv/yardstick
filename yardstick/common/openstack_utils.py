@@ -451,14 +451,15 @@ def create_neutron_net(shade_client, network_name, shared=False,
     except exc.OpenStackCloudException as o_exc:
         log.error("Error [create_neutron_net(shade_client)]."
                   "Exception message, '%s'", o_exc.orig_message)
-        return None
 
 
-def delete_neutron_net(shade_client, network_id):
+def delete_neutron_net(shade_client, network_name_or_id):
     try:
-        return shade_client.delete_network(network_id)
-    except exc.OpenStackCloudException:
-        log.error("Error [delete_neutron_net(shade_client, '%s')]", network_id)
+        return shade_client.delete_network(network_name_or_id)
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [delete_neutron_router(shade_client, '%s')]. "
+                  "Exception message: %s", network_name_or_id,
+                  o_exc.orig_message)
         return False
 
 
@@ -510,7 +511,6 @@ def create_neutron_subnet(shade_client, network_name_or_id, cidr=None,
     except exc.OpenStackCloudException as o_exc:
         log.error("Error [create_neutron_subnet(shade_client)]. "
                   "Exception message: %s", o_exc.orig_message)
-        return None
 
 
 def create_neutron_router(shade_client, name=None, admin_state_up=True,
@@ -620,7 +620,7 @@ def delete_floating_ip(shade_client, floating_ip_id, retry=1):
         return shade_client.delete_floating_ip(floating_ip_id=floating_ip_id,
                                                retry=retry)
     except exc.OpenStackCloudException as o_exc:
-        log.error("Error [delete_floating_ip(shade_client,'%s'). "
+        log.error("Error [delete_floating_ip(shade_client,'%s')]. "
                   "Exception message: %s", floating_ip_id, o_exc.orig_message)
         return False
 
