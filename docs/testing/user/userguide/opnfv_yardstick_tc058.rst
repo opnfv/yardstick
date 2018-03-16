@@ -109,8 +109,9 @@ Yardstick Test Case Description TC058
 |conditions    | with cachestat included in the image.                        |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|step 1        | Two host VMs are booted, these two hosts are in two different|
-|              | networks, the networks are connected by a virtual router     |
+|step 1        | Two host VMs are booted, these two hosts are in two          |
+|              | different networks, the networks are connected by a virtual  |
+|              | router.                                                      |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |step 1        | start monitors:                                              |
@@ -143,7 +144,13 @@ Yardstick Test Case Description TC058
 |              | Virtual machines and network created in the test case will   |
 |              | be destoryed.                                                |
 |              |                                                              |
+|              | Notice: This post-action uses 'lsb_release' command to check |
+|              | the host linux distribution and determine the OpenStack      |
+|              | service name to restart the process. Lack of 'lsb_release'   |
+|              | on the host may cause failure to restart the process.        |
+|              |                                                              |
 +--------------+------+----------------------------------+--------------------+
 |test verdict  | Fails only if SLA is not passed, or if there is a test case  |
 |              | execution problem.                                           |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
