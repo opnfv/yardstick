@@ -62,3 +62,5 @@ test_cases:
   task_args:
       huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
       "host": "node1.LF"}'
+-
+  file_name: opnfv_yardstick_tc092.yaml
