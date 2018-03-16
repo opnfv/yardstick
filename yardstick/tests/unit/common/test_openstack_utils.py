@@ -326,3 +326,66 @@ class CreateSecurityGroupRuleTestCase(unittest.TestCase):
             self.mock_shade_client, self.secgroup_name_or_id)
         mock_logger.error.assert_called_once()
         self.assertFalse(output)
+
+
+class SecurityGroupTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.sg_name = 'sg_name'
+        self.sg_description = 'sg_description'
+        self._uuid = uuidutils.generate_uuid()
+
+    @mock.patch.object(openstack_utils, '_get_security_group_id')
+    def test_create_security_group_full_id(self, mock__get_security_group_id):
+        mock__get_security_group_id.return_value = self._uuid
+        output = openstack_utils.create_security_group_full(
+            self.mock_shade_client, self.sg_name, self.sg_description)
+        mock__get_security_group_id.assert_called_once()
+        self.assertEqual(self._uuid, output)
+
+    @mock.patch.object(openstack_utils, '_get_security_group_id')
+    @mock.patch.object(openstack_utils, 'create_security_group')
+    def test_create_security_group_full_cs(self, mock_create_security_group,
+                                           mock__get_security_group_id):
+        mock__get_security_group_id.return_value = None
+        mock_create_security_group.return_value = None
+        output = openstack_utils.create_security_group_full(
+            self.mock_shade_client, self.sg_name, self.sg_description)
+        mock__get_security_group_id.assert_called_once()
+        mock_create_security_group.assert_called_once()
+        self.assertIsNone(output)
+
+    @mock.patch.object(openstack_utils, '_get_security_group_id')
+    @mock.patch.object(openstack_utils, 'create_security_group')
+    @mock.patch.object(openstack_utils, 'create_security_group_rule')
+    def test_create_security_group_full(self, mock_create_security_group_rule,
+                                        mock_create_security_group,
+                                        mock__get_security_group_id):
+        mock__get_security_group_id.return_value = None
+        mock_create_security_group.return_value = {'id': self._uuid,
+                                                   'name': 'name'}
+        mock_create_security_group_rule.return_value = True
+        output = openstack_utils.create_security_group_full(
+            self.mock_shade_client, self.sg_name, self.sg_description)
+        mock__get_security_group_id.assert_called_once()
+        mock_create_security_group.assert_called_once()
+        mock_create_security_group_rule.assert_called()
+        self.assertEqual(self._uuid, output)
+
+    @mock.patch.object(openstack_utils, '_get_security_group_id')
+    @mock.patch.object(openstack_utils, 'create_security_group')
+    @mock.patch.object(openstack_utils, 'create_security_group_rule')
+    def test_create_security_group_full_fail(
+            self, mock_create_security_group_rule, mock_create_security_group,
+            mock__get_security_group_id):
+        mock__get_security_group_id.return_value = None
+        mock_create_security_group.return_value = {'id': self._uuid,
+                                                   'name': 'name'}
+        mock_create_security_group_rule.return_value = False
+        output = openstack_utils.create_security_group_full(
+            self.mock_shade_client, self.sg_name, self.sg_description)
+        mock__get_security_group_id.assert_called_once()
+        mock_create_security_group.assert_called_once()
+        mock_create_security_group_rule.assert_called()
+        self.assertIsNone(output)
