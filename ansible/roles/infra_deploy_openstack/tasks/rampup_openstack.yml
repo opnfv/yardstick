@@ -1,0 +1,43 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Generate passwords
+  shell: kolla-genpwd
+
+- name: Generate the kolla-build.conf
+  shell: tox -e genconfig
+  args:
+    chdir: "{{ git_repos_path + kolla_path }}"
+
+- set_fact:
+    target: "{{ git_repos_path + 'all-in-one' }}"
+
+- set_fact:
+    target: "{{ git_repos_path + 'multinode' }}"
+  when: "groups['ostack'] | length > 1"
+
+- name: Run kolla-ansible precheck
+  shell: kolla-ansible prechecks -i "{{ target }}"
+
+- name: Build kolla-ansible
+  shell: kolla-build -b ubuntu -t source --profile default --tag pike --registry {{ ansible_host }}:4000 --push
+
+- name: Pull images from registry
+  shell: kolla-ansible pull -i "{{ target }}"
+
+- name: Run kolla-ansible deploy
+  shell: kolla-ansible deploy -i "{{ target }}"
+
+- name: Create an openrc file
+  shell: kolla-ansible post-deploy
