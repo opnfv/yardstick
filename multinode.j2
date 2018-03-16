@@ -1,0 +1,47 @@
+{% set control = [] %}
+{% set control_dict = {} %}
+{% set compute_dict = {} %}
+{% for host in groups['all'] %}
+{% if  hostvars[host].node_type is defined and hostvars[host].node_type == 'control' %}
+{% set control = control.extend([hostvars[host].host_ip]) %}
+{% endif %}
+{% endfor %}
+{% for host in groups['all'] %}
+{% if  hostvars[host].node_type is defined and hostvars[host].node_type == 'control' %}
+{% set control_dict = control_dict.update({hostvars[host].ansible_host: hostvars[host].ansible_default_ipv4.interface}) %}
+{% endif %}
+{% endfor %}
+{% for host in groups['all'] %}
+{% if  hostvars[host].node_type is defined and hostvars[host].node_type == 'compute' %}
+{% for iface in hostvars[host].ansible_interfaces %}
+{% if 'enp' in iface and iface != hostvars[host].ansible_default_ipv4.interface %}
+{% set compute_dict = compute_dict.update({hostvars[host].ansible_host: iface}) %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+[control]
+{% for host, iface in control_dict.items() %}
+{{ host }} ansible_ssh_user={{ hostvars[host].ansible_user }} ansible_private_key_file=/root/.ssh/id_rsa ansible_become=True network_interface={{ iface }}
+{% endfor %}
+
+[compute]
+{% for host, iface in compute_dict.items() %}
+{{ host }} ansible_ssh_user={{ hostvars[host].ansible_user }} ansible_private_key_file=/root/.ssh/id_rsa ansible_become=True network_interface={{ iface }}
+{% endfor %}
+
+[network]
+{% for host, iface in control_dict.items() %}
+{{ host }} ansible_ssh_user={{ hostvars[host].ansible_user }} ansible_private_key_file=/root/.ssh/id_rsa ansible_become=True
+{% endfor %}
+
+[monitoring]
+{% for host, iface in control_dict.items() %}
+{{ host }} ansible_ssh_user={{ hostvars[host].ansible_user }} ansible_private_key_file=/root/.ssh/id_rsa ansible_become=True
+{% endfor %}
+
+[storage]
+{% for host, iface in control_dict.items() %}
+{{ host }} ansible_ssh_user={{ hostvars[host].ansible_user }} ansible_private_key_file=/root/.ssh/id_rsa ansible_become=True
+{% endfor %}
+
