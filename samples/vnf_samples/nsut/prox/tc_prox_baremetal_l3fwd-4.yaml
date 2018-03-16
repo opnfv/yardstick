@@ -33,6 +33,7 @@ scenarios:
         "-t": ""
       prox_files:
         "configs/ipv4.lua" : ""
+      prox_generate_parameter: True
 
     tg__0:
       prox_path: /opt/nsb_bin/prox
@@ -44,7 +45,7 @@ scenarios:
   runner:
     type: Duration
     # we kill after duration, independent of test duration, so set this high
-    duration: 300
+    duration: 1800
 
 context:
   type: Node
