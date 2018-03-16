@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_a8648e22",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-16T16:08:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_348f41ce",
+      "range": {
+        "startLine": 900,
+        "startChar": 0,
+        "endLine": 922,
+        "endChar": 26
+      },
+      "revId": "eda3a47fa164b3c8e0d26c36d1b3cdbff15d9c39",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_cd712ce2",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-16T11:02:36Z",
       "side": 1,
       "message": "Instead of adding values and commenting with ``# CHANGE:``, you could put in \u003cyour_value_here\u003e\nOR angluar brackets with a short description inside e.g.:\n    \u003cyou_host_ip\u003e\n    \u003ccontroller_ip\u003e\n    \u003cthe_management_network_interface\u003e",
+      "range": {
+        "startLine": 926,
+        "startChar": 0,
+        "endLine": 928,
+        "endChar": 53
+      },
+      "revId": "eda3a47fa164b3c8e0d26c36d1b3cdbff15d9c39",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e32199a0",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-16T16:08:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_cd712ce2",
       "range": {
         "startLine": 926,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_08cdc25d",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-16T16:08:36Z",
+      "side": 1,
+      "message": "Changed",
+      "parentUuid": "5a3f45e8_94bd756b",
+      "range": {
+        "startLine": 930,
+        "startChar": 0,
+        "endLine": 931,
+        "endChar": 17
+      },
+      "revId": "eda3a47fa164b3c8e0d26c36d1b3cdbff15d9c39",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_cd164c55",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_e8e856b6",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-16T16:08:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_cd164c55",
+      "range": {
+        "startLine": 964,
+        "startChar": 2,
+        "endLine": 964,
+        "endChar": 10
+      },
+      "revId": "eda3a47fa164b3c8e0d26c36d1b3cdbff15d9c39",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_2d0d303f",
         "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
         "patchSetId": 3
@@ -105,6 +201,30 @@
       "writtenOn": "2018-03-16T11:02:36Z",
       "side": 1,
       "message": "PF should be defined this first time it is used in the document::\n   physical function (PF)",
+      "range": {
+        "startLine": 965,
+        "startChar": 21,
+        "endLine": 965,
+        "endChar": 23
+      },
+      "revId": "eda3a47fa164b3c8e0d26c36d1b3cdbff15d9c39",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_88e1d2d2",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-16T16:08:36Z",
+      "side": 1,
+      "message": "Done in L882",
+      "parentUuid": "5a3f45e8_2d0d303f",
       "range": {
         "startLine": 965,
         "startChar": 21,
