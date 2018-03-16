@@ -20,6 +20,7 @@ angular.module('yardStickGui2App')
                 $scope.constructTestSuit = constructTestSuit;
                 $scope.constructTestCase = constructTestCase;
                 $scope.getTestDeatil = getTestDeatil;
+                $scope.getTestcaseArgs = getTestcaseArgs;
                 $scope.confirmToServer = confirmToServer;
                 $scope.addEnvToTask = addEnvToTask;
             }
@@ -45,6 +46,8 @@ angular.module('yardStickGui2App')
                         if ($scope.taskDetailData.environment_id != null) {
                             getItemIdDetail($scope.taskDetailData.environment_id);
                         }
+
+                        getTestcaseArgs();
 
                     }
                 }, function(error) {
@@ -277,7 +280,6 @@ angular.module('yardStickGui2App')
 
             function getTestDeatil() {
 
-
                 if ($scope.selectType.name == 'Test Case') {
                     getTestcaseDetail();
                 } else {
@@ -307,6 +309,29 @@ angular.module('yardStickGui2App')
             }
 
 
+            function getTestcaseArgs(){
+                mainFactory.getTestcaseDetail().get({
+                    'testcasename': $scope.taskDetailData.case_name
+                }).$promise.then(function(resp){
+                    if(resp.status == 1){
+                        $scope.optionalParams = resp.result.args;
+                        var params = $scope.taskDetailData.params;
+                        if(params){
+                            angular.forEach($scope.optionalParams, function(value, name){
+                                if(name in params){
+                                    value.value = params[name];
+                                }
+                            });
+                        }
+                    }else{
+                        mainFactory.errorHandler1(resp);
+                    }
+                }, function(error){
+                    mainFactory.errorHandler2(error);
+                });
+            }
+
+
             function getTestcaseDetail() {
                 mainFactory.getTestcaseDetail().get({
                     'testcasename': $scope.selectCase
@@ -316,15 +341,13 @@ angular.module('yardStickGui2App')
 
                         $scope.displayTable = false;
                         $scope.contentInfo = response.result.testcase;
+                        $scope.optionalParams = response.result.args;
 
+                    }else{
+                        mainFactory.errorHandler1(response);
                     }
                 }, function(error) {
-                    toaster.pop({
-                        type: 'error',
-                        title: 'fail',
-                        body: 'unknow error',
-                        timeout: 3000
-                    });
+                    mainFactory.errorHandler2(error);
                 })
             }
 
@@ -426,9 +449,35 @@ angular.module('yardStickGui2App')
                 if ($scope.selectCase == 'Test Case' || $scope.taskDetailData.suite == false) {
 
                     addCasetoTask(content);
+                    addParamsToTask();
                 } else {
                     addSuitetoTask(content);
                 }
+            }
+
+
+            function addParamsToTask(){
+                var params = {}
+                angular.forEach($scope.optionalParams, function(value, name){
+                    if(value.value){
+                        params[name] = value.value;
+                    }
+                });
+
+                mainFactory.taskAddParams().put({
+                    'taskId': $stateParams.taskId,
+                    'action': 'add_params',
+                    'args': {
+                        'params': params
+                    }
+                }).$promise.then(function(resp) {
+                    if (resp.status == 1) {
+                    } else {
+                        mainFactory.errorHandler1(resp);
+                    }
+                }, function(error) {
+                    mainFactory.errorHandler2(error);
+                })
             }
 
 

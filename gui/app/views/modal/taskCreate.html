@@ -80,13 +80,20 @@
             </div>
         </div>
 
-        <div ng-show="displayTable==false">
-            <textarea ng-model="contentInfo" spellcheck="false">
 
-
-            </textarea>
-
-
+        <div ng-show="displayTable==false" style="display:flex;flex-direction:row;justify-content:space-between;margin-top:10px;">
+            <textarea class="col-md-8" ng-model="contentInfo" style="margin-top:5px;" spellcheck="false"></textarea>
+            <div class="col-md-4" style="border:1px solid #e8e8e8;margin-top:5px;margin-left:10px;padding-top:30px;">
+                <h4>Optional Paramters:</h4>
+                <form class="form-horizontal col-md-offset-2" style="margin-top:20px">
+                    <div ng-repeat="(name, value) in optionalParams" class="form-group">
+                        <label for="param{{$index}}" class="col-md-5" style="font-weight:normal;">{{ name }}:</label>
+                        <div class="col-md-5">
+                            <input type="text" ng-model="value.value" class="form-control" id="param{{$index}}">
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
 
 

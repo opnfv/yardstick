@@ -221,6 +221,14 @@ angular.module('yardStickGui2App')
                     }
                 })
             },
+
+            taskAddParams: function() {
+                return $resource(Base_URL + '/api/v2/yardstick/tasks/:taskId', { taskId: "@taskId" }, {
+                    'put': {
+                        method: 'PUT'
+                    }
+                })
+            },
             //delete operate
             deleteEnv: function() {
                 return $resource(Base_URL + '/api/v2/yardstick/environments/:env_id', { env_id: '@env_id' }, {
