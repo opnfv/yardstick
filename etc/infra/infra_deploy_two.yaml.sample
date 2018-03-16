@@ -1,0 +1,63 @@
+nodes:
+  - name: Deployment and Controller node number 1 VM
+    openstack_node: controller
+    hostname: control-01
+    interfaces:
+      - network: management
+        ip: 192.168.1.118
+        netmask: 255.255.255.0
+      - network: traffic
+        ip: 192.20.1.118
+        netmask: 255.255.255.0
+    user: ubuntu
+    password: password
+    image: /tmp/image_cntrl_1.img
+    disk: 12000
+    ram: 10000
+    vcpus: 6
+
+  - name: Compute node number 1 VM
+    openstack_node: compute
+    hostname: compute-01
+    interfaces:
+      - network: management
+        ip: 192.168.1.119
+        netmask: 255.255.255.0
+      - network: traffic
+        ip: 192.20.1.119
+        netmask: 255.255.255.0
+    user: ubuntu
+    password: password
+    image: /tmp/image_comp_1.img
+    disk: 44000
+    ram: 30000
+    vcpus: 14
+
+  - name: Jump host
+    hostname: yardstickvm
+    interfaces:
+      - network: management
+        ip: 192.168.1.120
+        netmask: 255.255.255.0
+      - network: traffic
+        ip: 192.20.1.120
+        netmask: 255.255.255.0
+    user: ubuntu
+    password: password
+    image: /tmp/image_yardstick.img
+    disk: 22000
+    ram: 10000
+    vcpus: 4
+
+networks:
+  - name: management
+    default_gateway: True
+    host_ip: 192.168.1.1
+    netmask: 255.255.255.0
+
+  - name: traffic
+    default_gateway: False  # This parameter is not mandatory, default value: False
+    host_ip: 192.20.1.1
+    netmask: 255.255.255.0
+    dhcp_ip_start: 192.20.1.200
+    dhcp_ip_stop: 192.20.1.250
