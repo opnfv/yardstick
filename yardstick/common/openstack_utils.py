@@ -713,16 +713,17 @@ def create_security_group_rule(shade_client, secgroup_name_or_id,
         return False
 
 
-def create_security_group_full(neutron_client, sg_name,
-                               sg_description):      # pragma: no cover
-    sg_id = _get_security_group_id(neutron_client, sg_name)
-    if sg_id != '':
+def create_security_group_full(shade_client, sg_name,
+                               sg_description, project_id=None):
+    sg_id = _get_security_group_id(shade_client, sg_name)
+
+    if sg_id:
         log.info("Using existing security group '%s'...", sg_name)
     else:
         log.info("Creating security group  '%s'...", sg_name)
-        SECGROUP = create_security_group(neutron_client,
-                                         sg_name,
-                                         sg_description)
+
+        SECGROUP = create_security_group(
+            shade_client, sg_name, sg_description, project_id=project_id)
         if not SECGROUP:
             log.error("Failed to create the security group...")
             return None
@@ -733,19 +734,19 @@ def create_security_group_full(neutron_client, sg_name,
                   SECGROUP['name'], sg_id)
 
         log.debug("Adding ICMP rules in security group '%s'...", sg_name)
-        if not create_security_group_rule(neutron_client, sg_id,
-                                    'ingress', 'icmp'):
+        if not create_security_group_rule(shade_client, sg_id,
+                                          'ingress', 'icmp'):
             log.error("Failed to create the security group rule...")
             return None
 
         log.debug("Adding SSH rules in security group '%s'...", sg_name)
-        if not create_security_group_rule(
-                neutron_client, sg_id, 'ingress', 'tcp', '22', '22'):
+        if not create_security_group_rule(shade_client, sg_id,
+                                          'ingress', 'tcp', '22', '22'):
             log.error("Failed to create the security group rule...")
             return None
 
-        if not create_security_group_rule(
-                neutron_client, sg_id, 'egress', 'tcp', '22', '22'):
+        if not create_security_group_rule(shade_client, sg_id,
+                                          'egress', 'tcp', '22', '22'):
             log.error("Failed to create the security group rule...")
             return None
     return sg_id

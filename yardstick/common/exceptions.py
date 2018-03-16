@@ -136,3 +136,7 @@ class ScenarioCreateFloatingIPError(YardstickException):
 
 class ScenarioDeleteFloatingIPError(YardstickException):
     message = 'Delete Neutron Floating IP Scenario failed'
+
+
+class ScenarioCreateSecurityGroupError(YardstickException):
+    message = 'Create Neutron Security Group Scenario failed'
