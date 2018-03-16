@@ -355,7 +355,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         return file_path
 
     def test___init__(self):
-        assert self.topology
+        self.assertIsNotNone(self.topology)
 
     def test__get_ip_flow_range_string(self):
         self.scenario_cfg["traffic_options"]["flow"] = \

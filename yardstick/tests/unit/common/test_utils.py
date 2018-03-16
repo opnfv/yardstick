@@ -305,8 +305,8 @@ power management:
 
 """
         socket_map = utils.SocketTopology.parse_cpuinfo(cpuinfo)
-        assert sorted(socket_map.keys()) == [0]
-        assert sorted(socket_map[0].keys()) == [2, 3, 4]
+        self.assertEqual(sorted(socket_map.keys()), [0])
+        self.assertEqual(sorted(socket_map[0].keys()), [2, 3, 4])
 
     def test_single_socket_hyperthread(self):
         cpuinfo = """\
@@ -393,11 +393,11 @@ power management:
 
 """
         socket_map = utils.SocketTopology.parse_cpuinfo(cpuinfo)
-        assert sorted(socket_map.keys()) == [0]
-        assert sorted(socket_map[0].keys()) == [1, 2, 3]
-        assert sorted(socket_map[0][1]) == [5]
-        assert sorted(socket_map[0][2]) == [6]
-        assert sorted(socket_map[0][3]) == [7]
+        self.assertEqual(sorted(socket_map.keys()), [0])
+        self.assertEqual(sorted(socket_map[0].keys()), [1, 2, 3])
+        self.assertEqual(sorted(socket_map[0][1]), [5])
+        self.assertEqual(sorted(socket_map[0][2]), [6])
+        self.assertEqual(sorted(socket_map[0][3]), [7])
 
     def test_dual_socket_hyperthread(self):
         cpuinfo = """\
@@ -592,15 +592,15 @@ power management:
 
 """
         socket_map = utils.SocketTopology.parse_cpuinfo(cpuinfo)
-        assert sorted(socket_map.keys()) == [0, 1]
-        assert sorted(socket_map[0].keys()) == [0, 1, 2]
-        assert sorted(socket_map[1].keys()) == [26, 27, 28]
-        assert sorted(socket_map[0][0]) == [44]
-        assert sorted(socket_map[0][1]) == [1]
-        assert sorted(socket_map[0][2]) == [2]
-        assert sorted(socket_map[1][26]) == [85]
-        assert sorted(socket_map[1][27]) == [86]
-        assert sorted(socket_map[1][28]) == [43, 87]
+        self.assertEqual(sorted(socket_map.keys()), [0, 1])
+        self.assertEqual(sorted(socket_map[0].keys()), [0, 1, 2])
+        self.assertEqual(sorted(socket_map[1].keys()), [26, 27, 28])
+        self.assertEqual(sorted(socket_map[0][0]), [44])
+        self.assertEqual(sorted(socket_map[0][1]), [1])
+        self.assertEqual(sorted(socket_map[0][2]), [2])
+        self.assertEqual(sorted(socket_map[1][26]), [85])
+        self.assertEqual(sorted(socket_map[1][27]), [86])
+        self.assertEqual(sorted(socket_map[1][28]), [43, 87])
 
     def test_dual_socket_no_hyperthread(self):
         cpuinfo = """\
@@ -796,11 +796,11 @@ power management:
 """
         socket_map = utils.SocketTopology.parse_cpuinfo(cpuinfo)
         processors = socket_map.processors()
-        assert processors == [1, 2, 43, 44, 85, 86, 87]
+        self.assertEqual(processors, [1, 2, 43, 44, 85, 86, 87])
         cores = socket_map.cores()
-        assert cores == [0, 1, 2, 26, 27, 28]
+        self.assertEqual(cores, [0, 1, 2, 26, 27, 28])
         sockets = socket_map.sockets()
-        assert sockets == [0, 1]
+        self.assertEqual(sockets, [0, 1])
 
 
 class ChangeObjToDictTestCase(unittest.TestCase):
