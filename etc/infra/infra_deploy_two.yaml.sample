@@ -1,0 +1,45 @@
+nodes:
+  - name: Deployment and Control node number 1 VM
+    openstack_node: control
+    hostname: control-01
+    interfaces:
+      - network: management
+        ip: 192.168.1.118
+        netmask: 255.255.255.0
+      - network: traffic
+        ip: 192.20.1.118
+        netmask: 255.255.255.0
+    user: ubuntu
+    password: password
+    image: /tmp/image_cntrl_1.img
+    disk: 11000
+    ram: 10000
+    vcpus: 4
+
+  - name: Compute node number 1 VM
+    openstack_node: compute
+    hostname: compute-01
+    interfaces:
+      - network: management
+        ip: 192.168.1.119
+        netmask: 255.255.255.0
+      - network: traffic
+        ip: 192.20.1.119
+        netmask: 255.255.255.0
+    user: ubuntu
+    password: password
+    image: /tmp/image_comp_1.img
+    disk: 12000
+    ram: 8000
+    vcpus: 8
+
+networks:
+  - name: management
+    default_gateway: True
+    host_ip: 192.168.1.1
+    netmask: 255.255.255.0
+
+  - name: traffic
+    default_gateway: False  # This parameter is not mandatory, default value: False
+    host_ip: 192.20.1.1
+    netmask: 255.255.255.0

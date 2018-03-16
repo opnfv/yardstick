@@ -1,0 +1,38 @@
+{% set control_dict = {} %}
+{% set compute_dict = {} %}
+{% for host in groups['all'] %}
+{% if  hostvars[host].node_type is defined and hostvars[host].node_type == 'control' %}
+{% set control_dict = control_dict.update({hostvars[host].ansible_host: hostvars[host].ansible_default_ipv4.interface}) %}
+{% endif %}
+{% endfor %}
+{% for host in groups['all'] %}
+{% if  hostvars[host].node_type is defined and hostvars[host].node_type == 'compute' %}
+{% for iface in hostvars[host].ansible_interfaces %}
+{% if 'enp' in iface and iface != hostvars[host].ansible_default_ipv4.interface %}
+{% set compute_dict = compute_dict.update({hostvars[host].ansible_host: iface}) %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% macro print_node(in_dict, iface_str='', cnt=1) %}
+{%- for host, iface in in_dict.items() -%}
+{% if loop.index <= cnt %}
+{% if iface_str %}
+{{ host }} ansible_ssh_user={{ hostvars[host].ansible_user }} ansible_private_key_file=/root/.ssh/id_rsa ansible_become=True {{ iface_str }}={{ iface }}
+{% else %}
+{{ host }} ansible_ssh_user={{ hostvars[host].ansible_user }} ansible_private_key_file=/root/.ssh/id_rsa ansible_become=True
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endmacro %}
+[control]
+{{ print_node(control_dict, iface_str='network_interface', cnt=control_dict | length) }}
+[compute]
+{{ print_node(compute_dict, iface_str='network_interface', cnt=compute_dict | length) }}
+[network]
+{{ print_node(control_dict, iface_str='', cnt=control_dict | length) }}
+[monitoring]
+{{ print_node(control_dict) }}
+[storage]
+{{ print_node(control_dict, iface_str='', cnt=control_dict | length) }}
+

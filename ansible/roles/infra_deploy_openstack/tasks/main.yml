@@ -1,0 +1,45 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Create a registry container
+  shell: docker ps -a | grep registry || docker run -d -p 4000:5000 --restart=always --name registry registry:2
+
+- set_fact:
+    kolla_path: "{{ 'https://git.openstack.org/openstack/kolla' | urlsplit('path') | basename }}"
+    kolla_ans_path: "{{ 'https://git.openstack.org/openstack/kolla-ansible' | urlsplit('path') | basename }}"
+
+- name: Download and install Kolla
+  include_tasks: install_kolla.yml
+
+- name: Configure Kolla
+  include_tasks: configure_kolla.yml
+
+- name: Configure Open Stack
+  include_tasks: configure_openstack.yml
+
+- name: Ramp up Open Stack
+  include_tasks: rampup_openstack.yml
+
+- name: Download OpenStack env file
+  fetch:
+    src: /etc/kolla/admin-openrc.sh
+    dest: /tmp/
+
+- name: Upload OpenStack env file
+  copy:
+    src: "{{ '/tmp/' + ansible_hostname + '/etc/kolla/admin-openrc.sh' }}"
+    dest: '/etc/kolla/admin-openrc.sh'
+  delegate_to: "{{ item }}"
+  when: "groups['regular'] is defined"
+  with_items: "{{ groups['regular'] }}"

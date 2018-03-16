@@ -1,0 +1,68 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- set_fact:
+    block_str: "{{ block_str | default('') + item.interfaces[0].ip + ' ' + item.hostname + '\n'}}"
+  with_items: "{{ infra_deploy_vars.nodes }}"
+
+- name: Delete hosts between markers
+  blockinfile:
+    path: /etc/hosts
+    marker: "# {mark} generated hosts file"
+    content: ""
+
+- name: Update /etc/hosts
+  blockinfile:
+    path: /etc/hosts
+    block: |
+      {{ block_str }}
+    marker: "# {mark} generated hosts file"
+
+- name: Clear known hosts
+  shell: ssh-keygen -f /root/.ssh/known_hosts -R "{{ item.interfaces[0].ip }}";  ssh-keygen -f /root/.ssh/known_hosts -R "{{ item.hostname }}"
+  with_items: "{{ infra_deploy_vars.nodes }}"
+
+- set_fact:
+    controls: "{{ controls|default([]) + [item.hostname] }}"
+  when: "item.openstack_node == 'control'"
+  with_items: "{{ infra_deploy_vars.nodes }}"
+
+- name: Add host control as deploy
+  add_host:
+    hostname: "{{ item.hostname }}"
+    host_ip: "{{ item.interfaces[0].ip }}"
+    groups: deploy, ostack
+    ansible_host: "{{ item.hostname }}"
+    ansible_user: "{{ item.user }}"
+    ansible_ssh_pass: "{{ item.password }}"
+    ansible_connection: ssh
+    node_type: "{{ item.openstack_node }}"
+  when: "item.hostname == controls[0]"
+  with_items: "{{ infra_deploy_vars.nodes }}"
+
+- name: Add hosts others as control, compute
+  add_host:
+    hostname: "{{ item.hostname }}"
+    host_ip: "{{ item.interfaces[0].ip }}"
+    groups: regular,ostack
+    ansible_host: "{{ item.hostname }}"
+    ansible_user: "{{ item.user }}"
+    ansible_ssh_pass: "{{ item.password }}"
+    ansible_connection: ssh
+    node_type: "{{ item.openstack_node }}"
+  when: "item.hostname != groups['deploy'][0]"
+  with_items: "{{ infra_deploy_vars.nodes }}"
+
+# Workaround: not all VMs are ready by that time
+- pause: seconds=20

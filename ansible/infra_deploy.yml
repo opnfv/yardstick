@@ -19,3 +19,37 @@
     - infra_destroy_previous_configuration
     - infra_create_network
     - infra_create_vms
+    - infra_prepare_vms
+
+  tasks:
+  - set_fact:
+      proxy_host: "{{ lookup('env', 'http_proxy') | urlsplit('hostname') }}"
+      proxy_proto: "{{ lookup('env', 'http_proxy') | urlsplit('scheme') }}"
+      proxy_port: "{{ lookup('env', 'http_proxy') | urlsplit('port') }}"
+
+  - name: Get proxy IP from hostname
+    shell: dig +short "{{ proxy_host }}"
+    register: proxy_host_ip
+
+
+- hosts: deploy,regular
+  gather_facts: no
+  become: yes
+  environment: "{{ hostvars['localhost']['proxy_env'] }}"
+  vars:
+    ssh_known_hosts_file: "/root/.ssh/known_hosts"
+
+  roles:
+  - infra_rampup_stack_nodes
+
+
+- hosts: deploy
+  become: yes
+  environment: "{{ hostvars['localhost']['proxy_env'] }}"
+  vars:
+    deployvm_ip: "{{ hostvars[ansible_host].host_ip }}"
+    git_repos_path: '/tmp/repos/'
+    target: "{{ git_repos_path + 'all-in-one' }}"
+
+  roles:
+  - infra_deploy_openstack
