@@ -44,13 +44,13 @@ class DeleteNeutronNetTestCase(unittest.TestCase):
     def test_delete_neutron_net(self):
         self.mock_shade_client.delete_network.return_value = True
         output = openstack_utils.delete_neutron_net(self.mock_shade_client,
-                                                    'network_id')
+                                                    'network_name_or_id')
         self.assertTrue(output)
 
     def test_delete_neutron_net_fail(self):
         self.mock_shade_client.delete_network.return_value = False
         output = openstack_utils.delete_neutron_net(self.mock_shade_client,
-                                                    'network_id')
+                                                    'network_name_or_id')
         self.assertFalse(output)
 
     @mock.patch.object(openstack_utils, 'log')
@@ -58,7 +58,7 @@ class DeleteNeutronNetTestCase(unittest.TestCase):
         self.mock_shade_client.delete_network.side_effect = (
             exc.OpenStackCloudException('error message'))
         output = openstack_utils.delete_neutron_net(self.mock_shade_client,
-                                                    'network_id')
+                                                    'network_name_or_id')
         self.assertFalse(output)
         mock_logger.error.assert_called_once()
 
