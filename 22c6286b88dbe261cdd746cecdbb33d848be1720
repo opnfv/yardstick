@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_8d64444a",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc087.yaml",
+        "patchSetId": 25
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-16T10:29:59Z",
+      "side": 1,
+      "message": "BTW, what happens if you kill the process but you can\u0027t restart the service? You\u0027ll leave the pod in a faulty status.",
+      "range": {
+        "startLine": 158,
+        "startChar": 13,
+        "endLine": 158,
+        "endChar": 39
+      },
+      "revId": "22c6286b88dbe261cdd746cecdbb33d848be1720",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c1245db1",
         "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc087.yaml",
         "patchSetId": 25
@@ -13,6 +36,30 @@
       "writtenOn": "2018-03-15T07:19:02Z",
       "side": 1,
       "message": "The time of process recovery can not be accurately if we restart the processes just after they killed. (If the process is intended to recover automatically) I think in the future versions we can add a feature to make the ha testing framework able to wait until some monitors stopped.",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 22
+      },
+      "revId": "22c6286b88dbe261cdd746cecdbb33d848be1720",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ad61403b",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc087.yaml",
+        "patchSetId": 25
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-16T10:29:59Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5a3f45e8_c1245db1",
       "range": {
         "startLine": 158,
         "startChar": 0,
