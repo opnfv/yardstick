@@ -14,8 +14,33 @@
 ---
 - hosts: jumphost
 
+  tasks:
+  - set_fact:
+      proxy_host: "{{ lookup('env', 'http_proxy') | urlsplit('hostname') }}"
+      proxy_proto: "{{ lookup('env', 'http_proxy') | urlsplit('scheme') }}"
+      proxy_port: "{{ lookup('env', 'http_proxy') | urlsplit('port') }}"
+
+  - set_fact:
+      proxy_host_ip: "{{ lookup('dig', proxy_host) }}"
+
   roles:
-    - infra_check_requirements
     - infra_destroy_previous_configuration
+    - infra_check_requirements
     - infra_create_network
     - infra_create_vms
+    - infra_prepare_vms
+
+- hosts: deploy,regular,yardstickG
+  gather_facts: no
+  become: yes
+
+  roles:
+  - infra_rampup_stack_nodes
+
+
+- hosts: deploy
+  become: yes
+  environment: "{{ proxy_env }}"
+
+  roles:
+  - infra_deploy_openstack
