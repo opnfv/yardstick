@@ -1,0 +1,46 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Get neutron iface
+  set_fact:
+    neutron_iface: "{{ hostvars[item].secondary_iface }}"
+  when: hostvars[item].ansible_host in groups['deploy']
+  with_items: "{{ groups['ostack'] }}"
+
+- name: Modify globals.yml
+  replace:
+    path: /etc/kolla/globals.yml
+    regexp: "{{ item.find }}"
+    replace: "{{ item.insert_after }}"
+  with_items:
+    - { find: '^#kolla_base_distro:.*', insert_after: 'kolla_base_distro: "ubuntu"' }
+    - { find: '^#kolla_install_type:.*', insert_after: 'kolla_install_type: "source"' }
+    - { find: '^#openstack_release:.*', insert_after: 'openstack_release: "pike"' }
+    - { find: 'kolla_internal_vip_address:.*', insert_after: 'kolla_internal_vip_address: "{{ deployvm_ip }}"' }
+    - { find: '^#network_interface:.*', insert_after: 'network_interface: "{{ hostvars[ansible_host].ansible_default_ipv4.interface }}"' }
+    - { find: '^#neutron_external_interface:.*', insert_after: 'neutron_external_interface: "{{ neutron_iface }}"' }
+    - { find: '^#enable_haproxy:.*', insert_after: 'enable_haproxy: "no"'}
+    - { find: '^#enable_heat:.*' , insert_after: 'enable_heat: "yes"'}
+    - { find: '^#docker_registry:.*', insert_after: 'docker_registry: "{{ ansible_host }}:4000"' }
+
+- name: Generate multinode from inventory
+  template:
+    src: templates/multinode.j2
+    dest: "{{ git_repos_path + 'multinode' }}"
+
+- set_fact:
+    path2multinode: "{{ git_repos_path + kolla_ans_path + '/ansible/inventory/multinode' }}"
+
+- name: Append rest groups to multinode file
+  shell: line=`grep -n '\[deployment\]' {{ path2multinode }} | cut -d ':' -f1` && tail -n +$line {{ path2multinode }} >> "{{ git_repos_path + 'multinode' }}"

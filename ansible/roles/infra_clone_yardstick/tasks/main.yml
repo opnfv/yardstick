@@ -1,0 +1,60 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- set_fact:
+    git_repos_path: '/tmp/repos/'
+
+- name: Clone yardstick repo
+  git:
+    repo: 'https://gerrit.opnfv.org/gerrit/yardstick'
+    dest: "{{ git_repos_path + 'yardstick' }}"
+    version: master
+  environment: "{{ hostvars[groups['jumphost'][0]]['proxy_env'] }}"
+
+- name: Update admin-openrc.sh
+  lineinfile:
+    path: /tmp/admin-openrc.sh
+    regexp: "{{ item.find }}"
+    line: "{{ item.add }}"
+  with_items:
+   - { find: 'EXTERNAL_NETWORK', add: 'export EXTERNAL_NETWORK=public' }
+   - { find: 'OS_AUTH_TYPE', add:  'export OS_AUTH_TYPE=password' }
+
+- name: Copy env file
+  shell: cp /tmp/admin-openrc.sh /tmp/admin-openrc.yaml
+
+- name: Rework as env vars
+  replace:
+    path: /tmp/admin-openrc.yaml
+    regexp: 'export\s+(.*)=(.*)'
+    replace: '\1: \2'
+
+- fetch:
+    src: /tmp/admin-openrc.yaml
+    dest: /tmp/
+    flat: yes
+
+- include_vars:
+    file: /tmp/admin-openrc.yaml
+    name: ostack_env
+
+- shell: ip address show {{ hostvars[ansible_hostname].secondary_iface }} | awk '/inet/ {print $2}'
+  register: ip_netmask

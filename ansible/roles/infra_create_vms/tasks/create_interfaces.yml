@@ -18,7 +18,7 @@
     insertafter: 'ethernets:'
     marker: "MARKER"
     block: |2
-        {{ 'enp0s%d:'| format( slot_address | int) }}
+        {{ interface_item.interface + ':' }}
           match:
             mac_address: {{ '52:54:00:5d:7d:%02x'| format( mac_address_counter | int) }}
           addresses:
