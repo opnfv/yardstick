@@ -40,6 +40,8 @@
     - install_dpdk
     - download_trex
     - install_trex
+    - download_pktgen
+    - install_pktgen
     - download_civetweb
     - install_civetweb
     - download_samplevnfs
