@@ -19,6 +19,8 @@ scenarios:
   options:
     packetsize: 64
     rate: 100
+    eth1: ens4
+    eth2: ens5
 
   host: demeter.yardstick-TC042
   target: poseidon.yardstick-TC042
@@ -34,8 +36,13 @@ scenarios:
 
 context:
   name: yardstick-TC042
-  image: yardstick-image-pktgen-ready
-  flavor: yardstick-pktgen-dpdk.flavor
+  image: yardstick-samplevnfs
+  flavor:
+    vcpus: 4
+    ram: 4096
+    disk: 7
+    extra_specs:
+      hw:mem_page_size: "large"
   user: ubuntu
 
   placement_groups:
