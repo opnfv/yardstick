@@ -1,0 +1,8 @@
+---
+pktgen_version: "3.2.12"
+pktgen_url: "http://dpdk.org/browse/apps/pktgen-dpdk/snapshot/pktgen-{{ pktgen_version }}.zip"
+pktgen_file: "{{ pktgen_url|basename }}"
+pktgen_unarchive: "{{ pktgen_file|regex_replace('[.]zip$', '') }}"
+pktgen_dest: "{{ clone_dest }}/"
+pktgen_sha256s:
+  "3.2.12": "sha256:a20aeb677fb847c0871acabb6e8f965ba3485e92f92e86e0bb5dc11c787b11d8"

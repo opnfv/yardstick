@@ -7,7 +7,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-!/bin/sh
+#!/bin/sh
 
 set -e
 
@@ -18,6 +18,11 @@ FWD_REV_MAC=$3    # MAC address of forwarding receiver in VM B
 FWD_SEND_MAC=$4   # MAC address of forwarding sender in VM B
 RATE=$5           # packet rate in percentage
 PKT_SIZE=$6       # packet size
+ETH1=$7
+ETH2=$8
+
+DPDK_VERSION="dpdk-17.02"
+PKTGEN_VERSION="pktgen-3.2.12"
 
 
 load_modules()
@@ -31,13 +36,13 @@ load_modules()
     if lsmod | grep "igb_uio" &> /dev/null ; then
     echo "igb_uio module is loaded"
     else
-    insmod /dpdk/x86_64-native-linuxapp-gcc/kmod/igb_uio.ko
+    insmod /opt/tempT/$DPDK_VERSION/x86_64-native-linuxapp-gcc/kmod/igb_uio.ko
     fi
 
     if lsmod | grep "rte_kni" &> /dev/null ; then
     echo "rte_kni module is loaded"
     else
-    insmod /dpdk/x86_64-native-linuxapp-gcc/kmod/rte_kni.ko
+    insmod /opt/tempT/$DPDK_VERSION/x86_64-native-linuxapp-gcc/kmod/rte_kni.ko
     fi
 }
 
@@ -48,8 +53,10 @@ change_permissions()
 }
 
 add_interface_to_dpdk(){
+    ip link set $ETH1 down
+    ip link set $ETH2 down
     interfaces=$(lspci |grep Eth |tail -n +2 |awk '{print $1}')
-    /dpdk/tools/dpdk-devbind.py --bind=igb_uio $interfaces
+    /opt/tempT/$DPDK_VERSION/usertools/dpdk-devbind.py --bind=igb_uio $interfaces
 
 }
 
@@ -106,20 +113,14 @@ spawn ./app/app/x86_64-native-linuxapp-gcc/pktgen -c 0x07 -n 4 -b $blacklist -- 
 expect "Pktgen>"
 send "\n"
 expect "Pktgen>"
-send "screen on\n"
+send "on\n"
 expect "Pktgen>"
 set count 10
 while { $count } {
     send "page latency\n"
-    expect {
-        timeout { send "\n" }
-        -regexp {..*} {
-            set result "${result}$expect_out(0,string)"
-            set timeout 1
-            exp_continue
-         }
-        "Pktgen>"
-    }
+    expect -re "(..*)"
+    set result "${result}$expect_out(0,string)"
+    set timeout 1
     set count [expr $count-1]
 }
 send "stop 0\n"
@@ -136,7 +137,7 @@ EOF
 run_pktgen()
 {
     blacklist=$(lspci |grep Eth |awk '{print $1}'|head -1)
-    cd /pktgen-dpdk
+    cd /opt/tempT/$PKTGEN_VERSION
     touch /home/ubuntu/result.log
     result_log="/home/ubuntu/result.log"
     sudo expect /home/ubuntu/pktgen.exp $blacklist $result_log
@@ -153,4 +154,3 @@ main()
 }
 
 main
-

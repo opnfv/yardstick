@@ -28,6 +28,7 @@ install_dependencies:
     # for IxLoad
     - libxft-dev
     - libxss-dev
+    - expect
   RedHat:
     - bc
     - fio
