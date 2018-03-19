@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_89ff1367",
+        "filename": "ansible/build_yardstick_image.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7053
+      },
+      "writtenOn": "2018-03-19T13:20:48Z",
+      "side": 1,
+      "message": "should change to \"Ubuntu\". otherwise the Task will fail with logs:\n\nTASK [package] *****************************************************************\ntask path: /home/opnfv/repos/yardstick/ansible/build_yardstick_image.yml:47\nfatal: [localhost]: FAILED! \u003d\u003e {\n    \"msg\": \"The task includes an option with an undefined variable. The error was: \u0027dict object\u0027 has no attribute u\u0027Ubuntu\u0027\\n\\nThe error appears to have been in \u0027/home/opnfv/repos/yardstick/ansible/build_yardstick_image.yml\u0027: line 47, column 7, but may\\nbe elsewhere in the file depending on the exact syntax problem.\\n\\nThe offending line appears to be:\\n\\n    - package: name\u003dkpartx state\u003dpresent\\n    - package: \\\"name\u003d{{ growpart_package[ansible_distribution] }} state\u003dpresent\\\"\\n      ^ here\\nWe could be wrong, but this one looks like it might be an issue with\\nmissing quotes.  Always quote template expression brackets when they\\nstart a value. For instance:\\n\\n    with_items:\\n      - {{ foo }}\\n\\nShould be written as:\\n\\n    with_items:\\n      - \\\"{{ foo }}\\\"\\n\\nexception type: \u003cclass \u0027ansible.errors.AnsibleUndefinedVariable\u0027\u003e\\nexception: \u0027dict object\u0027 has no attribute u\u0027Ubuntu\u0027\"\n}",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 12
+      },
+      "revId": "648d9746bf86b98716fbca9b516746975db3a096",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_69028770",
+        "filename": "ansible/build_yardstick_image.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7053
+      },
+      "writtenOn": "2018-03-19T13:20:48Z",
+      "side": 1,
+      "message": "This line works. but maybe more clear if change to \n- package: name\u003d\"{{ growpart_package[ansible_distribution] }}\" state\u003dpresent",
+      "range": {
+        "startLine": 46,
+        "startChar": 15,
+        "endLine": 46,
+        "endChar": 80
+      },
+      "revId": "648d9746bf86b98716fbca9b516746975db3a096",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
