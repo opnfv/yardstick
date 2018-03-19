@@ -576,7 +576,7 @@ Create a test suite
 Example::
 
     {
-        'action': 'create_sutie',
+        'action': 'create_suite',
         'args': {
             'name': <suite_name>,
             'testcases': [
