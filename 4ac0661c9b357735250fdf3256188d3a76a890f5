@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_86b1c2e3",
+        "filename": "ansible/roles/download_pktgen/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-19T08:11:35Z",
+      "side": 1,
+      "message": "can we use sha256 checksum to verify download is correct?\n\ne.g.\n  get_url:\n    url: \"{{ trex_url }}\"\n    dest: \"{{ trex_dest }}\"\n    validate_certs: False\n    checksum: \"{{ trex_sha256s[trex_version] }}\"",
+      "revId": "4ac0661c9b357735250fdf3256188d3a76a890f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
