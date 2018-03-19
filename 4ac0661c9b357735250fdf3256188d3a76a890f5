@@ -16,6 +16,23 @@
       "revId": "4ac0661c9b357735250fdf3256188d3a76a890f5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_66ec7690",
+        "filename": "ansible/roles/download_pktgen/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-19T08:47:59Z",
+      "side": 1,
+      "message": "please use checksum here",
+      "revId": "4ac0661c9b357735250fdf3256188d3a76a890f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
