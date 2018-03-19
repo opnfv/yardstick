@@ -106,7 +106,7 @@ install_storperf()
         echo
         echo "========== Installing storperf =========="
 
-        if ! yardstick -d plugin install plugin/CI/storperf.yaml; then
+        if ! yardstick -d plugin install ${YARDSTICK_REPO_DIR}/plugin/CI/storperf.yaml; then
             echo "Install storperf plugin FAILED";
             exit 1
         fi
