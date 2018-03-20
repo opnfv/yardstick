@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_9268dc22",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-20T13:16:14Z",
+      "side": 0,
+      "message": "The python-openstackclient is the CLI for openstack,and should be included here.",
+      "range": {
+        "startLine": 28,
+        "startChar": 49,
+        "endLine": 28,
+        "endChar": 79
+      },
+      "revId": "f85db3b267ff4f80712957671b25290754236563",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

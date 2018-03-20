@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_728430d4",
+        "filename": "requirements.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-20T13:16:14Z",
+      "side": 1,
+      "message": "The heatclient is not needed in yardstick, as shade is now being used instead.\n\nIt was in test-requirements because some of the tests still relied on heat",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 26
+      },
+      "revId": "7bcb981b7190b2b3ac7cd35c697b396fc32f7312",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3261083a",
+        "filename": "requirements.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-20T13:16:14Z",
+      "side": 1,
+      "message": "The python-openstackclient is not imported in yardstick.\nFor openstack operations in Python, we interact with the shade library.\n\nIt is the command line interface, and should be installed in hte Dockerfile.",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 71
+      },
+      "revId": "7bcb981b7190b2b3ac7cd35c697b396fc32f7312",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
