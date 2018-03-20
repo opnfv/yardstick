@@ -613,15 +613,25 @@ class TaskParser(object):       # pragma: no cover
             vnf__0: vnf_0.yardstick
         """
         def qualified_name(name):
-            node_name, context_name = name.split('.')
+            try:
+                # for openstack
+                node_name, context_name = name.split('.')
+                sep = '.'
+            except ValueError:
+                # for kubernetes, some kubernetes resources don't support
+                # name format like 'xxx.xxx', so we use '-' instead
+                # need unified later
+                node_name, context_name = name.split('-')
+                sep = '-'
+
             try:
                 ctx = next((context for context in contexts
-                       if context.assigned_name == context_name))
+                            if context.assigned_name == context_name))
             except StopIteration:
                 raise y_exc.ScenarioConfigContextNameNotFound(
                     context_name=context_name)
 
-            return '{}.{}'.format(node_name, ctx.name)
+            return '{}{}{}'.format(node_name, sep, ctx.name)
 
         if 'host' in scenario:
             scenario['host'] = qualified_name(scenario['host'])
