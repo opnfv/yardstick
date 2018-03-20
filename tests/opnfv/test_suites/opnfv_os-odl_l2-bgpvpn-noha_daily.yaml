@@ -21,7 +21,7 @@ test_cases:
       pod: ericsson-pod2
   task_args:
       ericsson-pod2: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml",
-      "host": "node1.LF","target": "node2.LF"}'
+      "host": "node1","target": "node2.LF"}'
 -
   file_name: opnfv_yardstick_tc002.yaml
 -
