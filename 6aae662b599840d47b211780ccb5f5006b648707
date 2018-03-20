@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_b25eb843",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-20T13:54:23Z",
+      "side": 1,
+      "message": "As below, literalinclude could be used",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 163,
+        "endChar": 68
+      },
+      "revId": "6aae662b599840d47b211780ccb5f5006b648707",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_d2a54448",
         "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
         "patchSetId": 2
@@ -64,6 +87,29 @@
         "startChar": 60,
         "endLine": 166,
         "endChar": 64
+      },
+      "revId": "6aae662b599840d47b211780ccb5f5006b648707",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_52481487",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-20T13:54:23Z",
+      "side": 1,
+      "message": "You could use a literalinclude here, so that this example file is rendered in the docs. You can choose what lines to include as well.\n\nhttp://www.sphinx-doc.org/en/stable/markup/code.html#directive-literalinclude",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 76
       },
       "revId": "6aae662b599840d47b211780ccb5f5006b648707",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
