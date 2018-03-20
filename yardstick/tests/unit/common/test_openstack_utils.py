@@ -165,6 +165,20 @@ class CreateNeutronRouterTestCase(unittest.TestCase):
         self.assertIsNone(output)
 
 
+class CreateRouterInterfaceTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.router = 'router'
+
+    def test_create_router_interface(self):
+        self.mock_shade_client.add_router_interface.return_value = {
+            "id": "my-interface-id"}
+        output = openstack_utils.create_router_interface(
+            self.mock_shade_client, self.router, subnet_id="my-subnet")
+        self.assertEqual("my-interface-id", output)
+
+
 class RemoveRouterInterfaceTestCase(unittest.TestCase):
 
     def setUp(self):

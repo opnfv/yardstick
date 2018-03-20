@@ -156,6 +156,10 @@ class ScenarioCreateRouterError(YardstickException):
     message = 'Create Neutron Router Scenario failed'
 
 
+class ScenarioCreateRouterIntError(YardstickException):
+    message = 'Create Router Interface Scenario failed'
+
+
 class ScenarioRemoveRouterIntError(YardstickException):
     message = 'Remove Neutron Router Interface Scenario failed'
 
