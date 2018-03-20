@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_92aa9cd0",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T10:14:27Z",
+      "side": 1,
+      "message": "1) We are using \"-\" to assign the host name plus the task ID to the VMs [1]. Using the same separator is a bad idea. Instead of this use underscore.\n2) There is a function in base.Context, \"split_name\", to do this operation. If you need something different in kubernetes, override the parent function.\n3) Provide a method in base.Context and kubernetes.KubernetesContext to do just the opposite: to format the name (what you are doing in L634)\n4) Testing: all those functions must be tested, just in case, as I said in point 1, to check that the name-taskid separator doesn\u0027t collide with the qualified name separator.\n\n[1]https://github.com/opnfv/yardstick/blob/master/yardstick/benchmark/contexts/base.py#L65\n[2]https://github.com/opnfv/yardstick/blob/master/yardstick/benchmark/contexts/base.py#L46",
+      "revId": "e0e56c49ed2fde81aaf745068429f18bc7ed4e2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
