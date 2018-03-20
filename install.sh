@@ -96,7 +96,7 @@ git config --global http.sslVerify false
 
 
 # install yardstick + dependencies
-easy_install -U pip
+easy_install -U pip==9.0.1
 pip install -r requirements.txt
 pip install -e .
 
