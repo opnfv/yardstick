@@ -251,7 +251,7 @@ main()
     load_yardstick_image
     if [ "${YARD_IMG_ARCH}" == "arm64" ]; then
         #We have overlapping IP with the real network
-        for filename in tests/opnfv/test_cases/*; do
+        for filename in ${YARDSTICK_REPO_DIR}/tests/opnfv/test_cases/*; do
             sed -i "s/cidr: '10.0.1.0\/24'/cidr: '10.3.1.0\/24'/g" "${filename}"
         done
     else
