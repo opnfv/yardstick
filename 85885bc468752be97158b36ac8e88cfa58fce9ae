@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_1d517d0e",
+        "filename": "docs/testing/user/userguide/05-operation.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-20T14:44:28Z",
+      "side": 1,
+      "message": "sometime you are using \"test cases\", sometime use \"testcases\". Please make it consistent in all places of the document.",
+      "range": {
+        "startLine": 27,
+        "startChar": 5,
+        "endLine": 27,
+        "endChar": 15
+      },
+      "revId": "85885bc468752be97158b36ac8e88cfa58fce9ae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_fd4bf156",
+        "filename": "docs/testing/user/userguide/05-operation.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-20T14:44:28Z",
+      "side": 1,
+      "message": "blank line",
+      "revId": "85885bc468752be97158b36ac8e88cfa58fce9ae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_dd46f54e",
+        "filename": "docs/testing/user/userguide/05-operation.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-20T14:44:28Z",
+      "side": 1,
+      "message": "new line",
+      "revId": "85885bc468752be97158b36ac8e88cfa58fce9ae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3d755998",
+        "filename": "docs/testing/user/userguide/05-operation.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-03-20T14:44:28Z",
+      "side": 1,
+      "message": "same and check below in the document",
+      "revId": "85885bc468752be97158b36ac8e88cfa58fce9ae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
