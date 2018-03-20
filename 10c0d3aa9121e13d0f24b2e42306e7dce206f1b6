@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_ddfef5ad",
+        "filename": "yardstick/benchmark/scenarios/lib/delete_router_interface.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T15:26:40Z",
+      "side": 1,
+      "message": "Please, remove it.",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 14
+      },
+      "revId": "10c0d3aa9121e13d0f24b2e42306e7dce206f1b6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_fd03f1b5",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T15:26:40Z",
+      "side": 1,
+      "message": "Align those lines and remove one tab indentation (remove 4 chars).",
+      "range": {
+        "startLine": 571,
+        "startChar": 6,
+        "endLine": 581,
+        "endChar": 10
+      },
+      "revId": "10c0d3aa9121e13d0f24b2e42306e7dce206f1b6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9d1bcd1b",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_delete_router_interface.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T15:26:40Z",
+      "side": 1,
+      "message": "There is no need to make this variable private",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 25
+      },
+      "revId": "10c0d3aa9121e13d0f24b2e42306e7dce206f1b6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
