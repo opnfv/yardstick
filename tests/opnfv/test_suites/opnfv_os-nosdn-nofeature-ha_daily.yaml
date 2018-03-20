@@ -55,7 +55,7 @@ test_cases:
         pod: huawei-pod1
     task_args:
         huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
-        "host": "node4.LF","target": "node5.LF"}'
+        "host": "node4","target": "node5"}'
 -
     file_name: opnfv_yardstick_tc055.yaml
     constraint:
