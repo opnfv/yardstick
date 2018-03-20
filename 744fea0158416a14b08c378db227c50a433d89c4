@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_72e9d07f",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-20T13:28:55Z",
+      "side": 0,
+      "message": "AFAIK, the YARD_IMG_ARCH still needs to be set, do not remove this.",
+      "range": {
+        "startLine": 70,
+        "startChar": 21,
+        "endLine": 70,
+        "endChar": 56
+      },
+      "revId": "744fea0158416a14b08c378db227c50a433d89c4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
