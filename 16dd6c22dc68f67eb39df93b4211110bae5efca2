@@ -45,6 +45,29 @@
       "revId": "16dd6c22dc68f67eb39df93b4211110bae5efca2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5d2ae52c",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_router.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T15:25:46Z",
+      "side": 1,
+      "message": "There is no need to make this instance variable private",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 25
+      },
+      "revId": "16dd6c22dc68f67eb39df93b4211110bae5efca2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
