@@ -1,0 +1,227 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_bddb29ec",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:34:45Z",
+      "side": 1,
+      "message": "If you want to align the text of the next note lines, follow this: http://docutils.sourceforge.net/docs/ref/rst/directives.html#specific-admonitions\n\nThe second line should start under the \"n\" letter.",
+      "revId": "e9b588f379e15705ca255ada174953065bb80f7d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3dc8b921",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:34:45Z",
+      "side": 1,
+      "message": "nope, the way to render a table is the one in the base patch.\n\nhttp://docutils.sourceforge.net/docs/ref/rst/directives.html#tables",
+      "range": {
+        "startLine": 90,
+        "startChar": 1,
+        "endLine": 110,
+        "endChar": 79
+      },
+      "revId": "e9b588f379e15705ca255ada174953065bb80f7d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_bd02093c",
+        "filename": "docs/testing/user/userguide/06-yardstick-plugin.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:34:45Z",
+      "side": 1,
+      "message": "We usually use -------- for 2nd index titles. Can you change it?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 31
+      },
+      "revId": "e9b588f379e15705ca255ada174953065bb80f7d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7de9a17f",
+        "filename": "docs/testing/user/userguide/06-yardstick-plugin.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:34:45Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 50
+      },
+      "revId": "e9b588f379e15705ca255ada174953065bb80f7d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5deca58f",
+        "filename": "docs/testing/user/userguide/06-yardstick-plugin.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:34:45Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 35
+      },
+      "revId": "e9b588f379e15705ca255ada174953065bb80f7d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ddf71558",
+        "filename": "docs/testing/user/userguide/09-api.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:34:45Z",
+      "side": 1,
+      "message": "Can you change title formatting?\n0) \u003d\u003d\u003d\u003d\u003d\n   \u003d\u003d\u003d\u003d\u003d\n1) \u003d\u003d\u003d\u003d\u003d\n2) -----\n3) ^^^^^",
+      "revId": "e9b588f379e15705ca255ada174953065bb80f7d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_fdfc9140",
+        "filename": "docs/testing/user/userguide/10-yardstick-user-interface.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:34:45Z",
+      "side": 1,
+      "message": "Can you add the headers and the correct format for titles?\n0) \u003d\u003d\u003d\u003d\u003d\n   \u003d\u003d\u003d\u003d\u003d\n1) \u003d\u003d\u003d\u003d\u003d\n2) -----\n3) ^^^^^",
+      "revId": "e9b588f379e15705ca255ada174953065bb80f7d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3d96f9f0",
+        "filename": "docs/testing/user/userguide/12-nsb-overview.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:34:45Z",
+      "side": 1,
+      "message": "Can you change the title formatting?\n0) \u003d\u003d\u003d\u003d\u003d\n   \u003d\u003d\u003d\u003d\u003d\n1) \u003d\u003d\u003d\u003d\u003d\n2) -----\n3) ^^^^^",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 8
+      },
+      "revId": "e9b588f379e15705ca255ada174953065bb80f7d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1d997d1f",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:34:45Z",
+      "side": 1,
+      "message": "ditto\n\n0) \u003d\u003d\u003d\u003d\u003d\n   \u003d\u003d\u003d\u003d\u003d\n1) \u003d\u003d\u003d\u003d\u003d\n2) -----\n3) ^^^^^",
+      "revId": "e9b588f379e15705ca255ada174953065bb80f7d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7da08143",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:34:45Z",
+      "side": 1,
+      "message": "I suggest to use http://docutils.sourceforge.net/docs/ref/rst/directives.html#tables",
+      "range": {
+        "startLine": 53,
+        "startChar": 3,
+        "endLine": 65,
+        "endChar": 37
+      },
+      "revId": "e9b588f379e15705ca255ada174953065bb80f7d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5da3054f",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:34:45Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "e9b588f379e15705ca255ada174953065bb80f7d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
