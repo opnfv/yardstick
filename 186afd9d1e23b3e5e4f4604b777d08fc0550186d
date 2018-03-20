@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_3d89d926",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T15:48:38Z",
+      "side": 1,
+      "message": "This function is only used in \"create_security_group_full\" and this is because neutron client doesn\u0027t support this functionality using the SG name, instead of using the ID.\n\nYou should implement \"create_security_group_full\" using shade and remove \"get_security_groups\" and \"get_security_group_id\"",
+      "revId": "186afd9d1e23b3e5e4f4604b777d08fc0550186d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
