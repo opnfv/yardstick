@@ -43,7 +43,6 @@ oslo.utils==3.28.0      # OSI Approved  Apache Software License
 paramiko==2.2.1         # LGPL; OSI Approved  GNU Library or Lesser General Public License (LGPL)
 pbr==3.1.1              # OSI Approved  Apache Software License; Apache License, Version 2.0
 pika==0.10.0            # BSD; OSI Approved  BSD License
-pip==9.0.1;python_version=='2.7'        # MIT
 positional==1.1.2       # OSI Approved  Apache Software License
 pycrypto==2.6.1         # Public Domain
 pyparsing==2.2.0        # MIT License; OSI Approved  MIT License
