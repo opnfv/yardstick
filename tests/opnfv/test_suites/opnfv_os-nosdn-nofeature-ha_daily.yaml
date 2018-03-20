@@ -14,6 +14,8 @@ schema: "yardstick:suite:0.1"
 name: "os-nosdn-nofeature-ha"
 test_cases_dir: "tests/opnfv/test_cases/"
 test_cases:
+
+# Generic test cases base on VM
 -
     file_name: opnfv_yardstick_tc002.yaml
 -
@@ -29,6 +31,24 @@ test_cases:
 -
     file_name: opnfv_yardstick_tc037.yaml
 -
+    file_name: opnfv_yardstick_tc069.yaml
+-
+    file_name: opnfv_yardstick_tc070.yaml
+-
+    file_name: opnfv_yardstick_tc071.yaml
+-
+    file_name: opnfv_yardstick_tc072.yaml
+-
+    file_name: opnfv_yardstick_tc076.yaml
+-
+    file_name: opnfv_yardstick_tc079.yaml
+-
+    file_name: opnfv_yardstick_tc082.yaml
+-
+    file_name: opnfv_yardstick_tc083.yaml
+
+# Generic test cases base on NODE
+-
     file_name: opnfv_yardstick_tc043.yaml
     constraint:
         installer: compass
@@ -37,13 +57,60 @@ test_cases:
         huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
         "host": "node4.LF","target": "node5.LF"}'
 -
-    file_name: opnfv_yardstick_tc019.yaml
+    file_name: opnfv_yardstick_tc055.yaml
+    constraint:
+        installer: compass
+        pod: huawei-pod1
+    task_args:
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
+        "host": "node5.yardstick-TC055"}'
+-
+    file_name: opnfv_yardstick_tc063.yaml
+    constraint:
+        installer: compass
+        pod: huawei-pod1
+    task_args:
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
+        "host": "node5.yardstick-TC063"}'
+-
+    file_name: opnfv_yardstick_tc073.yaml
+    constraint:
+        installer: compass
+        pod: huawei-pod1
+    task_args:
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+-
+    file_name: opnfv_yardstick_tc075.yaml
+    constraint:
+        installer: compass
+        pod: huawei-pod1
+    task_args:
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
+        "host": "node1.LF"}'
+
+# Feature test cases
+-
+    file_name: opnfv_yardstick_tc027.yaml
     constraint:
         installer: compass,fuel
-        pod: huawei-pod2,ericsson-pod1
+        pod: huawei-pod1,lf-pod2,ericsson-pod3,ericsson-pod4
     task_args:
-        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
-        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        lf-pod2: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
+        ericsson-pod3: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
+        ericsson-pod4: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
+-
+    file_name: opnfv_yardstick_tc074.yaml
+    constraint:
+        installer: compass
+        pod: huawei-pod1, huawei-pod2
+    task_args:
+        huawei-pod1: '{"public_network": "ext-net",
+        "StorPerf_ip": "192.168.10.6"}'
+        huawei-pod2: '{"public_network": "ext-net",
+        "StorPerf_ip": "192.168.11.2"}'
+
+# HA test cases
 -
     file_name: opnfv_yardstick_tc045.yaml
     constraint:
@@ -107,72 +174,13 @@ test_cases:
     task_args:
         default: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
-    file_name: opnfv_yardstick_tc055.yaml
-    constraint:
-        installer: compass
-        pod: huawei-pod1
-    task_args:
-        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
-        "host": "node5.yardstick-TC055"}'
--
-    file_name: opnfv_yardstick_tc063.yaml
-    constraint:
-        installer: compass
-        pod: huawei-pod1
-    task_args:
-        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
-        "host": "node5.yardstick-TC063"}'
--
-    file_name: opnfv_yardstick_tc069.yaml
--
-    file_name: opnfv_yardstick_tc070.yaml
--
-    file_name: opnfv_yardstick_tc071.yaml
--
-    file_name: opnfv_yardstick_tc072.yaml
--
-    file_name: opnfv_yardstick_tc074.yaml
-    constraint:
-        installer: compass
-        pod: huawei-pod1, huawei-pod2
-    task_args:
-        huawei-pod1: '{"public_network": "ext-net",
-        "StorPerf_ip": "192.168.10.6"}'
-        huawei-pod2: '{"public_network": "ext-net",
-        "StorPerf_ip": "192.168.11.2"}'
--
-    file_name: opnfv_yardstick_tc075.yaml
-    constraint:
-        installer: compass
-        pod: huawei-pod1
-    task_args:
-        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml",
-        "host": "node1.LF"}'
--
-    file_name: opnfv_yardstick_tc027.yaml
+    file_name: opnfv_yardstick_tc019.yaml
     constraint:
         installer: compass,fuel
-        pod: huawei-pod1,lf-pod2,ericsson-pod3,ericsson-pod4
+        pod: huawei-pod2,ericsson-pod1
     task_args:
-        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
-        lf-pod2: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
-        ericsson-pod3: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
-        ericsson-pod4: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml", "openrc":"/root/openrc", "external_network":"admin_floating_net"}'
--
-    file_name: opnfv_yardstick_tc076.yaml
--
-    file_name: opnfv_yardstick_tc079.yaml
--
-    file_name: opnfv_yardstick_tc073.yaml
-    constraint:
-        installer: compass
-        pod: huawei-pod1
-    task_args:
-        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
--
-    file_name: opnfv_yardstick_tc082.yaml
--
-    file_name: opnfv_yardstick_tc083.yaml
+        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc025.yaml
     constraint:
