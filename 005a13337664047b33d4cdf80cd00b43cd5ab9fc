@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_fdf131ce",
+        "filename": "yardstick/benchmark/scenarios/lib/create_floating_ip.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T15:35:58Z",
+      "side": 1,
+      "message": "Please, don\u0027t mix single and double quotes.\n\nBy default, single",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 72
+      },
+      "revId": "005a13337664047b33d4cdf80cd00b43cd5ab9fc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5de145fd",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T15:35:58Z",
+      "side": 1,
+      "message": "remove \"optional\" tags, you can see this in the function definition",
+      "range": {
+        "startLine": 593,
+        "startChar": 19,
+        "endLine": 593,
+        "endChar": 27
+      },
+      "revId": "005a13337664047b33d4cdf80cd00b43cd5ab9fc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_bde7a911",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T15:35:58Z",
+      "side": 1,
+      "message": "leave an space",
+      "revId": "005a13337664047b33d4cdf80cd00b43cd5ab9fc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9de2adff",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T15:35:58Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 619,
+        "startChar": 8,
+        "endLine": 619,
+        "endChar": 14
+      },
+      "revId": "005a13337664047b33d4cdf80cd00b43cd5ab9fc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3dbb99e6",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_floating_ip.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T15:35:58Z",
+      "side": 1,
+      "message": "make it public",
+      "range": {
+        "startLine": 32,
+        "startChar": 13,
+        "endLine": 32,
+        "endChar": 21
+      },
+      "revId": "005a13337664047b33d4cdf80cd00b43cd5ab9fc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1dbe9dd4",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_floating_ip.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T15:35:58Z",
+      "side": 1,
+      "message": "don\u0027t mix single and double quotes",
+      "range": {
+        "startLine": 46,
+        "startChar": 26,
+        "endLine": 47,
+        "endChar": 52
+      },
+      "revId": "005a13337664047b33d4cdf80cd00b43cd5ab9fc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7db521ed",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_floating_ip.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T15:35:58Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "005a13337664047b33d4cdf80cd00b43cd5ab9fc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_bdce8981",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T15:35:58Z",
+      "side": 1,
+      "message": "Use parentheses to brake lines, like in L207-208",
+      "range": {
+        "startLine": 199,
+        "startChar": 64,
+        "endLine": 200,
+        "endChar": 61
+      },
+      "revId": "005a13337664047b33d4cdf80cd00b43cd5ab9fc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
