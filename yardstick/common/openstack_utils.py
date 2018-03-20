@@ -556,6 +556,27 @@ def remove_gateway_router(neutron_client, router_id):      # pragma: no cover
                   router_id)
         return False
 
+def create_router_interface(shade_client, router,
+                            subnet_id=None, port_id=None):
+    """Attach a subnet or port to an internal router interface.
+
+    At least one of subnet_id or port_id must be specified. If both are given,
+    the subnet ID must correspond to the subnet id of the first IP address on
+    the port specified by the port ID, otherwise an error occurs.
+
+    :param router: The dist object of the router being changed
+    :param subnet_id:(string) The name or ID of the subnet to use for the
+        interface
+    :param port_id:(string) The ID of the port to use for the  interface
+    :returns: ID of the created interface or False
+    """
+    try:
+        interface = shade_client.add_router_interface(
+            router=router, subnet_id=subnet_id, port_id=port_id)
+        return interface['id']
+    except exc.OpenStackCloudException:
+        log.error("Error [create_router_interface(shade_client)]")
+        return False
 
 def remove_router_interface(shade_client, router, subnet_id=None,
                             port_id=None):
