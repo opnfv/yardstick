@@ -20,6 +20,7 @@ from yardstick.common.utils import result_handler
 from yardstick.benchmark.core import Param
 from yardstick.benchmark.core.task import Task
 from api.swagger import models
+from api.database.v1.handlers import TasksHandler
 
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
@@ -58,7 +59,7 @@ class V1Testsuite(ApiResource):
         task_args.update(args.get('opts', {}))
 
         param = Param(task_args)
-        task_thread = TaskThread(Task().start, param)
+        task_thread = TaskThread(Task().start, param, TasksHandler())
         task_thread.start()
 
         return result_handler(consts.API_SUCCESS, {'task_id': task_id})
