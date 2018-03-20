@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_5d866514",
+        "filename": "yardstick/benchmark/scenarios/lib/create_router.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-03-20T15:56:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_bd72097a",
+      "range": {
+        "startLine": 52,
+        "startChar": 47,
+        "endLine": 53,
+        "endChar": 31
+      },
+      "revId": "16dd6c22dc68f67eb39df93b4211110bae5efca2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_9d462d20",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 23
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_bd7cc921",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-03-20T15:56:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_9d462d20",
+      "range": {
+        "startLine": 545,
+        "startChar": 8,
+        "endLine": 545,
+        "endChar": 14
+      },
+      "revId": "16dd6c22dc68f67eb39df93b4211110bae5efca2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_5d2ae52c",
         "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_router.py",
         "patchSetId": 23
@@ -59,6 +107,30 @@
       "writtenOn": "2018-03-20T15:25:46Z",
       "side": 1,
       "message": "There is no need to make this instance variable private",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 25
+      },
+      "revId": "16dd6c22dc68f67eb39df93b4211110bae5efca2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9d774d3b",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_router.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-03-20T15:56:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_5d2ae52c",
       "range": {
         "startLine": 35,
         "startChar": 13,
