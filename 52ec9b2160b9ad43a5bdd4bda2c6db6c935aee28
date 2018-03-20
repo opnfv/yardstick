@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_9d846db2",
+        "filename": "docs/testing/user/userguide/05-operation.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:39:15Z",
+      "side": 1,
+      "message": "Fantastic!!",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "52ec9b2160b9ad43a5bdd4bda2c6db6c935aee28",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_fd93f1f7",
+        "filename": "docs/testing/user/userguide/05-operation.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:39:15Z",
+      "side": 1,
+      "message": "Please, use http://docutils.sourceforge.net/docs/ref/rst/directives.html#tables",
+      "revId": "52ec9b2160b9ad43a5bdd4bda2c6db6c935aee28",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_dd8ef5cf",
+        "filename": "docs/testing/user/userguide/05-operation.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:39:15Z",
+      "side": 1,
+      "message": "Do you need a new index for this?",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 29
+      },
+      "revId": "52ec9b2160b9ad43a5bdd4bda2c6db6c935aee28",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1dc05ddf",
+        "filename": "docs/testing/user/userguide/05-operation.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:39:15Z",
+      "side": 1,
+      "message": "lenght",
+      "range": {
+        "startLine": 300,
+        "startChar": 0,
+        "endLine": 300,
+        "endChar": 36
+      },
+      "revId": "52ec9b2160b9ad43a5bdd4bda2c6db6c935aee28",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
