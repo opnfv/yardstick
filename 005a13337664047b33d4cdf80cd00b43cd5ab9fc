@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_bd3fa924",
+        "filename": "yardstick/benchmark/scenarios/lib/create_floating_ip.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-20T16:03:11Z",
+      "side": 1,
+      "message": "You shouldn\u0027t be removing the ext_net_id. \n\nA floating IP is an IP address on one network that connects to a port on another network.\n\nPreviously, this scenario created a floating IP on the external network. This default behaviour should be preserved.\nThe network_name_or_id should fall back EXTERNAL_NETWORK if it is unset.",
+      "revId": "005a13337664047b33d4cdf80cd00b43cd5ab9fc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_fdf131ce",
         "filename": "yardstick/benchmark/scenarios/lib/create_floating_ip.py",
         "patchSetId": 15
