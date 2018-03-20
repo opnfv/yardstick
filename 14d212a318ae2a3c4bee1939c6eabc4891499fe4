@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_fdaad117",
+        "filename": "samples/storage_bottlenecks.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T16:45:20Z",
+      "side": 1,
+      "message": "It\u0027s already defined in L25",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "14d212a318ae2a3c4bee1939c6eabc4891499fe4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
