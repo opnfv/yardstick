@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d818c377",
+        "filename": "infra_deploy.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T17:34:23Z",
+      "side": 1,
+      "message": "This file should be in ./ansible/",
+      "revId": "1d9ce2d10df1c6ad16ddf7816f8039d988094bb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f81dbf67",
+        "filename": "infra_deploy.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T17:34:23Z",
+      "side": 1,
+      "message": "Everything beyond this point should be in a new role, like the ones before.",
+      "revId": "1d9ce2d10df1c6ad16ddf7816f8039d988094bb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_382727b8",
+        "filename": "infra_deploy.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T17:34:23Z",
+      "side": 1,
+      "message": "Where are those hosts definitions? Not in inventory.ini",
+      "range": {
+        "startLine": 27,
+        "startChar": 9,
+        "endLine": 27,
+        "endChar": 23
+      },
+      "revId": "1d9ce2d10df1c6ad16ddf7816f8039d988094bb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5824b3ae",
+        "filename": "infra_deploy.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T17:34:23Z",
+      "side": 1,
+      "message": "This is done in roles/set_package_installer_proxy. Copy the debian.yml implementation.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 194
+      },
+      "revId": "1d9ce2d10df1c6ad16ddf7816f8039d988094bb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b83a17cb",
+        "filename": "infra_deploy.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T17:34:23Z",
+      "side": 1,
+      "message": "Use the the ansible_pkg_manager implementation:\n\n- name: Install **** packages\n  apt:\n    name: python\n    update_cache: yes",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 52
+      },
+      "revId": "1d9ce2d10df1c6ad16ddf7816f8039d988094bb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d846034f",
+        "filename": "infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T17:34:23Z",
+      "side": 1,
+      "message": "These are going to be input variables.\n\nDefine an input variable in the main file, \"infra_deploy\".\n\n- set_fact:\n    proxy_host: \"{{ PROXY_HOST | urlsplit(\u0027hostname\u0027) }}\"\n    proxy_proto: \"{{ PROXY_PROTO | urlsplit(\u0027hostname\u0027) }}\"\n    proxy_port: \"{{ PROXY_PORT | urlsplit(\u0027hostname\u0027) }}\"\n\nAnd those variables will be given by the bash script executing the ansible script, tools/virt_ci_rampup.sh",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 70
+      },
+      "revId": "1d9ce2d10df1c6ad16ddf7816f8039d988094bb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_98aabbd0",
+        "filename": "infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-20T17:34:23Z",
+      "side": 1,
+      "message": "Where do we need this variable?",
+      "range": {
+        "startLine": 26,
+        "startChar": 12,
+        "endLine": 26,
+        "endChar": 25
+      },
+      "revId": "1d9ce2d10df1c6ad16ddf7816f8039d988094bb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
