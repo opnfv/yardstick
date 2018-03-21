@@ -16,6 +16,24 @@
       "revId": "186afd9d1e23b3e5e4f4604b777d08fc0550186d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4f6226ae",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-03-21T10:50:56Z",
+      "side": 1,
+      "message": "Removed \u0027get_security_groups\u0027 \u0026 \u0027get_security_group_id\u0027. As  shade client doesn\u0027t have support for  \u0027create_security_group_full\u0027, in order to do that shade client\u0027s \u0027get_security_group\u0027 and \u0027create_security_group\u0027 can be used.",
+      "parentUuid": "5a3f45e8_3d89d926",
+      "revId": "186afd9d1e23b3e5e4f4604b777d08fc0550186d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
