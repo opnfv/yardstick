@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_ec72207b",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen_dpdk_latency_benchmark.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-03-21T07:08:37Z",
+      "side": 1,
+      "message": "if the version change, all this need to be changed, so it\u0027s better to use as constants variable.",
+      "range": {
+        "startLine": 36,
+        "startChar": 27,
+        "endLine": 36,
+        "endChar": 32
+      },
+      "revId": "3490a097e57b5f5e52149d0d09775d0e6dec5a32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cc6da49b",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen_dpdk_latency_benchmark.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-03-21T07:08:37Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 42,
+        "startChar": 27,
+        "endLine": 42,
+        "endChar": 32
+      },
+      "revId": "3490a097e57b5f5e52149d0d09775d0e6dec5a32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2c6d2899",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen_dpdk_latency_benchmark.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-03-21T07:08:37Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 56,
+        "startChar": 20,
+        "endLine": 56,
+        "endChar": 25
+      },
+      "revId": "3490a097e57b5f5e52149d0d09775d0e6dec5a32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0c682c86",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen_dpdk_latency_benchmark.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-03-21T07:08:37Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 137,
+        "startChar": 25,
+        "endLine": 137,
+        "endChar": 31
+      },
+      "revId": "3490a097e57b5f5e52149d0d09775d0e6dec5a32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6c0610d0",
+        "filename": "yardstick/benchmark/scenarios/networking/testpmd_fwd.bash",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-03-21T07:08:37Z",
+      "side": 1,
+      "message": "same as pktgen_dpdk_latency_benchmark.bash",
+      "range": {
+        "startLine": 30,
+        "startChar": 27,
+        "endLine": 30,
+        "endChar": 32
+      },
+      "revId": "3490a097e57b5f5e52149d0d09775d0e6dec5a32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
