@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_cf77563a",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 702,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-21T11:26:24Z",
+      "side": 1,
+      "message": "If the rule is not created, remove the SG",
+      "revId": "92809d79bf0360b98843b51e10143e9b5fd5a036",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4f8ce635",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-21T11:26:24Z",
+      "side": 1,
+      "message": "return",
+      "range": {
+        "startLine": 703,
+        "startChar": 12,
+        "endLine": 703,
+        "endChar": 23
+      },
+      "revId": "92809d79bf0360b98843b51e10143e9b5fd5a036",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2f77da3b",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-21T11:26:24Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "92809d79bf0360b98843b51e10143e9b5fd5a036",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8f86ee11",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-21T11:26:24Z",
+      "side": 1,
+      "message": "return",
+      "range": {
+        "startLine": 709,
+        "startChar": 12,
+        "endLine": 709,
+        "endChar": 23
+      },
+      "revId": "92809d79bf0360b98843b51e10143e9b5fd5a036",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0f72de48",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-21T11:26:24Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "92809d79bf0360b98843b51e10143e9b5fd5a036",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ef7cd222",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-21T11:26:24Z",
+      "side": 1,
+      "message": "return",
+      "range": {
+        "startLine": 714,
+        "startChar": 12,
+        "endLine": 714,
+        "endChar": 23
+      },
+      "revId": "92809d79bf0360b98843b51e10143e9b5fd5a036",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
