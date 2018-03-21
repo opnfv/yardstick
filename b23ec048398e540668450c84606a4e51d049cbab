@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_acb5b8ef",
+        "filename": "ansible/build_yardstick_image.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-03-21T07:31:44Z",
+      "side": 1,
+      "message": "i think this should be \"losetup -a\" to show the loop devices. only losetup don\u0027t apply",
+      "range": {
+        "startLine": 125,
+        "startChar": 15,
+        "endLine": 125,
+        "endChar": 22
+      },
+      "revId": "b23ec048398e540668450c84606a4e51d049cbab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
