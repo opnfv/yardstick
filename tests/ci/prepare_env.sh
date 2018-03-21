@@ -16,6 +16,7 @@
 : ${EXTERNAL_NETWORK:='admin_floating_net'}
 : ${USER_NAME:='ubuntu'}
 : ${SSH_KEY:='/root/.ssh/id_rsa'}
+: ${DEPLOY_SCENARIO:='unknown'}
 
 # Extract network name from EXTERNAL_NETWORK
 #  e.g. EXTERNAL_NETWORK='ext-net;flat;192.168.0.2;192.168.0.253;192.168.0.1;192.168.0.0/24'
@@ -62,7 +63,68 @@ verify_connectivity() {
 }
 
 ssh_options="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+if [ "$INSTALLER_TYPE" == "apex" ]; then
 
+    # check the connection
+    verify_connectivity "${INSTALLER_IP}"
+
+    pod_yaml="$YARDSTICK_REPO_DIR/etc/yardstick/nodes/apex_baremetal/pod.yaml"
+
+    # update "ip" according to the CI env
+    ssh -l root "${INSTALLER_IP}" -i ${SSH_KEY} ${ssh_options} \
+         "source /home/stack/stackrc && openstack server list -f yaml" > node_info
+
+    controller_ips=($(awk '/control/{getline; {print $2}}' < node_info | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'))
+    compute_ips=($(awk '/compute/{getline; {print $2}}' < node_info | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'))
+    odl_ip=""
+    # Get ODL's cluster default module-shard Leader IP in HA scenario
+    if [[ ${DEPLOY_SCENARIO} == "os-odl-nofeature-ha"  ]]; then
+        for ip in "${controller_ips[@]}";
+        do
+           if [[ "$odl_ip" ]]; then
+               break
+           fi
+           for ((i=0; i<${#controller_ips[@]}; i++));
+           do
+               ODL_STATE=$(curl -s -u admin:admin -H "Accept: application/json" -H "Content-Type: application/json" \
+                           "http://"${ip}":8081/jolokia/read/org.opendaylight.controller:Category=Shards,name=member-"${i}"-shard-default-operational,type=DistributedOperationalDatastore" \
+                           | grep -o \"RaftState\"\:\"Leader\" | tr ":" "\n" | sed -n '2p' | sed 's/\"//g');
+
+               if [[ ${ODL_STATE} == "Leader" ]]; then
+                    odl_ip=${ip}
+                    break
+               fi
+           done;
+        done
+
+    elif [[ ${DEPLOY_SCENARIO} == *"odl"* ]]; then
+        odl_ip=${controller_ips[0]}
+    fi
+
+    if [[ ${controller_ips[0]} ]]; then
+        sed -i "s|ip1|${controller_ips[0]}|" "${pod_yaml}"
+    fi
+    if [[ ${controller_ips[1]} ]]; then
+        sed -i "s|ip2|${controller_ips[1]}|" "${pod_yaml}"
+    fi
+    if [[ ${controller_ips[2]} ]]; then
+        sed -i "s|ip3|${controller_ips[2]}|" "${pod_yaml}"
+    fi
+    if [[ ${compute_ips[0]} ]]; then
+        sed -i "s|ip4|${compute_ips[0]}|" "${pod_yaml}"
+    fi
+    if [[ ${compute_ips[1]} ]]; then
+        sed -i "s|ip5|${compute_ips[1]}|" "${pod_yaml}"
+    fi
+    if [[ ${odl_ip} ]]; then
+        sed -i "s|ip6|${odl_ip}|" "${pod_yaml}"
+    fi
+
+
+    # update 'key_filename' according to the CI env
+    sed -i "s|node_keyfile|${SSH_KEY}|" "${pod_yaml}"
+
+fi
 if [ "$INSTALLER_TYPE" == "fuel" ]; then
 
     # check the connection
