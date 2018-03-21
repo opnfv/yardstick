@@ -55,7 +55,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_YARDSTICK}",
+          "datasource": "yardstick",
           "description": "",
           "fill": 1,
           "id": 1,
@@ -162,7 +162,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_YARDSTICK}",
+          "datasource": "yardstick",
           "description": "",
           "fill": 1,
           "id": 3,
@@ -273,7 +273,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "${DS_YARDSTICK}",
+          "datasource": "yardstick",
           "format": "none",
           "gauge": {
             "maxValue": 100,
