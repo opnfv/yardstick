@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_8cba7c6c",
+        "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-03-21T09:40:00Z",
+      "side": 1,
+      "message": "Yes. Yardstik will render topology and traffic profile based on number of ports defined in test case",
+      "parentUuid": "5a3f45e8_b277d8d3",
+      "range": {
+        "startLine": 157,
+        "startChar": 35,
+        "endLine": 157,
+        "endChar": 94
+      },
+      "revId": "6aae662b599840d47b211780ccb5f5006b648707",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_b25eb843",
         "filename": "docs/testing/user/userguide/13-nsb_operation.rst",
         "patchSetId": 2
