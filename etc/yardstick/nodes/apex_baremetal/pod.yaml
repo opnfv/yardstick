@@ -1,0 +1,46 @@
+##############################################################################
+# Copyright (c) 2018 Intracom Telecom and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+nodes:
+-
+    name: node1
+    role: Controller
+    ip: ip1
+    user: heat-admin
+    key_filename: node_keyfile
+-
+    name: node2
+    role: Controller
+    ip: ip2
+    user: heat-admin
+    key_filename: node_keyfile
+-
+    name: node3
+    role: Controller
+    ip: ip3
+    user: heat-admin
+    key_filename: node_keyfile
+-
+    name: node4
+    role: Compute
+    ip: ip4
+    user: heat-admin
+    key_filename: node_keyfile
+-
+    name: node5
+    role: Compute
+    ip: ip5
+    user: heat-admin
+    key_filename: node_keyfile
+-
+    name: node6
+    role: Opendaylight
+    ip: ip6
+    user: heat-admin
+    key_filename: node_keyfile
