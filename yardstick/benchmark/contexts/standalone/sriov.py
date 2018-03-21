@@ -41,7 +41,8 @@ class SriovContext(Context):
         self.file_path = None
         self.sriov = []
         self.first_run = True
-        self.dpdk_devbind = ''
+        self.dpdk_devbind = os.path.join(get_nsb_option('bin_path'),
+                                         'dpdk-devbind.py')
         self.vm_names = []
         self.nfvi_host = []
         self.nodes = []
@@ -82,9 +83,6 @@ class SriovContext(Context):
             return
 
         self.connection = ssh.SSH.from_node(self.host_mgmt)
-        self.dpdk_devbind = provision_tool(
-            self.connection,
-            os.path.join(get_nsb_option("bin_path"), "dpdk-devbind.py"))
 
         #    Todo: NFVi deploy (sriov, vswitch, ovs etc) based on the config.
         StandaloneContextHelper.install_req_libs(self.connection)
