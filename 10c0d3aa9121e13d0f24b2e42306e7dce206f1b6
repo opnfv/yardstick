@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_3dd4391f",
+        "filename": "yardstick/benchmark/scenarios/lib/delete_router_interface.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-21T08:15:29Z",
+      "side": 1,
+      "message": "Remove this return.",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 14
+      },
+      "revId": "10c0d3aa9121e13d0f24b2e42306e7dce206f1b6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_fd03f1b5",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 12
