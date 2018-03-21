@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Rodolfo Alonso Hernandez <rodolfo.alonso.hernandez@intel.com>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Submitted-by: Rex Lee <limingjiang@huawei.com>
+Submitted-at: Wed, 21 Mar 2018 08:13:02 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/52409
+Project: yardstick
+Branch: refs/heads/master
