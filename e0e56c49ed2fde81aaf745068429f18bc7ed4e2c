@@ -16,6 +16,24 @@
       "revId": "e0e56c49ed2fde81aaf745068429f18bc7ed4e2c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0c302ce7",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2018-03-21T04:05:05Z",
+      "side": 1,
+      "message": "1)I don\u0027t agree using \u0027_\u0027, since we use \u0027_\u0027 in python, so user maybe use \u0027_\u0027 in server_name or context_name, so I don\u0027t think \u0027_\u0027 is a good idea.\n2)I\u0027m sorry I\u0027m still not clear about your suggestion. Can you show some demo to clarify it? From my perspective, this method  must be changed, since scenario[\u0027host\u0027](or target) may be used in our scenarios, so the value must be same as the real pod name(xxx-xxx not xxx.xxx), maybe we can use split_name in KubernetesContext to do some improvement. But for now, we can\u0027t verify some opnfv k8* scenarios for this bug, so maybe fixing it come the first.\n3)I totally agree with you about the importance of testing. In this patch: https://gerrit.opnfv.org/gerrit/#/c/52451/,  we  got this bug. To avoid similiar issue again, I think 1. we need to do lots of test(also we need to use unittest to check if our modification is correct); 2. We need to use jenkins CI to reverify it, if we do some refactor or changes, we need to check with CI to make our modification correct. BTW, if NSB test case run in CI, it would be better.",
+      "parentUuid": "5a3f45e8_92aa9cd0",
+      "revId": "e0e56c49ed2fde81aaf745068429f18bc7ed4e2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
