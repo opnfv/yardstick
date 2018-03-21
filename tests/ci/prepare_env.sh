@@ -62,7 +62,40 @@ verify_connectivity() {
 }
 
 ssh_options="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+if [ "$INSTALLER_TYPE" == "apex" ]; then
 
+    # check the connection
+    verify_connectivity "${INSTALLER_IP}"
+
+    pod_yaml="$YARDSTICK_REPO_DIR/etc/yardstick/nodes/apex_baremetal/pod.yaml"
+
+    # update "ip" according to the CI env
+    ssh -l root "${INSTALLER_IP}" -i ${SSH_KEY} ${ssh_options} \
+         "source /home/stack/stackrc && openstack server list -f yaml" > node_info
+
+    controller_ips=($(awk '/control/{getline; {print $2}}' < node_info | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'))
+    compute_ips=($(awk '/compute/{getline; {print $2}}' < node_info | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'))
+
+    if [[ ${controller_ips[0]} ]]; then
+        sed -i "s|ip1|${controller_ips[0]}|" "${pod_yaml}"
+    fi
+    if [[ ${controller_ips[1]} ]]; then
+        sed -i "s|ip2|${controller_ips[1]}|" "${pod_yaml}"
+    fi
+    if [[ ${controller_ips[2]} ]]; then
+        sed -i "s|ip3|${controller_ips[2]}|" "${pod_yaml}"
+    fi
+    if [[ ${compute_ips[0]} ]]; then
+        sed -i "s|ip4|${compute_ips[0]}|" "${pod_yaml}"
+    fi
+    if [[ ${compute_ips[1]} ]]; then
+        sed -i "s|ip5|${compute_ips[1]}|" "${pod_yaml}"
+    fi
+
+    # update 'key_filename' according to the CI env
+    sed -i "s|node_keyfile|${SSH_KEY}|" "${pod_yaml}"
+
+fi
 if [ "$INSTALLER_TYPE" == "fuel" ]; then
 
     # check the connection
