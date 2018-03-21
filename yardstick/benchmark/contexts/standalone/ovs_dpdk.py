@@ -22,7 +22,6 @@ from collections import OrderedDict
 
 from yardstick import ssh
 from yardstick.network_services.utils import get_nsb_option
-from yardstick.network_services.utils import provision_tool
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts.standalone.model import Libvirt
 from yardstick.benchmark.contexts.standalone.model import StandaloneContextHelper
@@ -57,7 +56,8 @@ class OvsDpdkContext(Context):
         self.file_path = None
         self.sriov = []
         self.first_run = True
-        self.dpdk_devbind = ''
+        self.dpdk_devbind = os.path.join(get_nsb_option('bin_path'),
+                                         'dpdk-devbind.py')
         self.vm_names = []
         self.nfvi_host = []
         self.nodes = []
@@ -240,9 +240,6 @@ class OvsDpdkContext(Context):
             return
 
         self.connection = ssh.SSH.from_node(self.host_mgmt)
-        self.dpdk_devbind = provision_tool(
-            self.connection,
-            os.path.join(get_nsb_option("bin_path"), "dpdk-devbind.py"))
 
         # Check dpdk/ovs version, if not present install
         self.check_ovs_dpdk_env()
