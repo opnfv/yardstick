@@ -144,3 +144,7 @@ class ScenarioCreateSecurityGroupError(YardstickException):
 
 class ScenarioDeleteNetworkError(YardstickException):
     message = 'Delete Neutron Network Scenario failed'
+
+
+class ScenarioCreateServerError(YardstickException):
+    message = 'Nova Create Server Scenario failed'
