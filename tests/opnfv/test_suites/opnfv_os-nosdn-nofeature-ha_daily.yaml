@@ -115,72 +115,81 @@ test_cases:
     file_name: opnfv_yardstick_tc045.yaml
     constraint:
         installer: compass,fuel
-        pod: huawei-pod2,ericsson-pod1
+        pod: huawei-pod1,lf-pod2
     task_args:
-        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
-        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        lf-pod2: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc046.yaml
     constraint:
-        installer: fuel
+        installer: compass,fuel
+        pod: huawei-pod1,lf-pod2
     task_args:
-        default: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        lf-pod2: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc047.yaml
     constraint:
         installer: compass,fuel
-        pod: huawei-pod2,ericsson-pod1
+        pod: huawei-pod1,lf-pod2
     task_args:
-        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
-        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        lf-pod2: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc048.yaml
     constraint:
         installer: compass,fuel
-        pod: huawei-pod2,ericsson-pod1
+        pod: huawei-pod1,lf-pod2
     task_args:
-        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
-        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        lf-pod2: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc049.yaml
     constraint:
-        installer: fuel
+        installer: compass,fuel
+        pod: huawei-pod1,lf-pod2
     task_args:
-        default: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        lf-pod2: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc050.yaml
     constraint:
-        installer: fuel
+        installer: compass,fuel
+        pod: huawei-pod1,lf-pod2
     task_args:
-        default: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        lf-pod2: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc051.yaml
     constraint:
         installer: compass,fuel
-        pod: huawei-pod2,ericsson-pod1
+        pod: huawei-pod1,lf-pod2
     task_args:
-        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
-        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        lf-pod2: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc052.yaml
     constraint:
-        installer: fuel
+        installer: compass,fuel
+        pod: huawei-pod1,lf-pod2
     task_args:
-        default: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        lf-pod2: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc053.yaml
     constraint:
-        installer: fuel
+        installer: compass,fuel
+        pod: huawei-pod1,lf-pod2
     task_args:
-        default: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
+        lf-pod2: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc019.yaml
     constraint:
-        installer: compass,fuel
-        pod: huawei-pod2,ericsson-pod1
+        installer: compass
+        pod: huawei-pod1
     task_args:
-        huawei-pod2: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
-        ericsson-pod1: '{"file": "etc/yardstick/nodes/fuel_baremetal/pod.yaml"}'
+        huawei-pod1: '{"file": "etc/yardstick/nodes/compass_sclab_physical/pod.yaml"}'
 -
     file_name: opnfv_yardstick_tc025.yaml
     constraint:
