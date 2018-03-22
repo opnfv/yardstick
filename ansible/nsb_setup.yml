@@ -31,6 +31,8 @@
 
 - name: start yardstick container on jumphost
   hosts: jumphost
+  vars:
+    INSTALL_BIN_PATH: /opt/nsb_bin
   tasks:
     - name: Start yardstick container
       docker_container:
@@ -47,3 +49,7 @@
           - /var/run/docker.sock:/var/run/docker.sock
           - /opt:/opt
           - /etc/localtime:/etc/localtime:ro
+        env:
+          PYTHONPATH: "{{ INSTALL_BIN_PATH }}/trex_client:{{ INSTALL_BIN_PATH }}/trex_client/stl"
+          
+                
