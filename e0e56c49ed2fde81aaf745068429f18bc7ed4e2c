@@ -52,6 +52,24 @@
       "revId": "e0e56c49ed2fde81aaf745068429f18bc7ed4e2c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e5afd3e1",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2018-03-22T07:38:05Z",
+      "side": 1,
+      "message": "node_name, context_name \u003d name.split(\u0027.\u0027), actually if in kubernetes context, \u0027xxx-xxx\u0027 do not have the second value, so it will raise ValueError. Or can you submit another patch to fix this issue? Since for other teams, this test case can run normally comes first.",
+      "parentUuid": "5a3f45e8_65758397",
+      "revId": "e0e56c49ed2fde81aaf745068429f18bc7ed4e2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
