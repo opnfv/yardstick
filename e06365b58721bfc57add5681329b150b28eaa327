@@ -117,6 +117,30 @@
       "revId": "e06365b58721bfc57add5681329b150b28eaa327",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_bb632cdc",
+        "filename": "docs/testing/user/userguide/05-operation.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-22T17:21:56Z",
+      "side": 1,
+      "message": "In this case, I\u0027m highlighting the context section, which starts 14 lines after the \"---\"",
+      "parentUuid": "5a3f45e8_c520d7b2",
+      "range": {
+        "startLine": 185,
+        "startChar": 3,
+        "endLine": 186,
+        "endChar": 24
+      },
+      "revId": "e06365b58721bfc57add5681329b150b28eaa327",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
