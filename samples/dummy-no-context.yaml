@@ -14,7 +14,7 @@ schema: "yardstick:task:0.1"
 scenarios:
 -
   type: Dummy
-
+  name: Dummy
   runner:
     type: Duration
     duration: 5

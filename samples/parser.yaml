@@ -27,3 +27,4 @@ scenarios:
 
 context:
   type: Dummy
+  name: Dummy
