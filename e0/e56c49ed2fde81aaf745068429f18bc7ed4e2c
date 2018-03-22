@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Trevor Tao <trevor.tao@arm.com>
+Code-Review+1: Qiaowei Ren <qiaowei.ren@intel.com>
+Code-Review+2: Jack Chan <chenjiankun1@huawei.com>
+Submitted-by: Jack Chan <chenjiankun1@huawei.com>
+Submitted-at: Thu, 22 Mar 2018 08:23:00 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/54171
+Project: yardstick
+Branch: refs/heads/master
