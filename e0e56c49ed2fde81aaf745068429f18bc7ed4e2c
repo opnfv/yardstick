@@ -88,6 +88,24 @@
       "revId": "e0e56c49ed2fde81aaf745068429f18bc7ed4e2c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6538e3a0",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2018-03-22T08:05:40Z",
+      "side": 1,
+      "message": "Do you mean other test case will failed or have potential risk? If not, can we merge it first, and then you upload another patch to improve it?",
+      "parentUuid": "5a3f45e8_e596b393",
+      "revId": "e0e56c49ed2fde81aaf745068429f18bc7ed4e2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
