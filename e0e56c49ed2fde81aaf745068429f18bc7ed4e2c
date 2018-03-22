@@ -34,6 +34,24 @@
       "revId": "e0e56c49ed2fde81aaf745068429f18bc7ed4e2c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_65758397",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-22T07:28:00Z",
+      "side": 1,
+      "message": "1) I\u0027m saying using \"-\" dash symbol, not \"_\" underscore. Because you didn\u0027t write any test, you didn\u0027t see your solution will fail. For example:\n    [\"node\", \"name\", \"id\"] \u003d \"node.name.id\".split(\".\")\n\n2) In this function you have:\n- The context name.\n- The context object.\nIn [1] you can see how Context implements a function to split the name in node name and context name. Create a new function in Kubernetes context to split using this new separator. Or add to Context class the separator and use it in this function.\n\n3) Instead of having L634, implement this formatting command in Context class, because this is general to a context object.\n\n  class Context():\n  ...\n  def format_qualified_name(self, node_name):\n    return \u0027{}{}{}\u0027.format(node_name, self.separator, self.name)\n    \n4) Can you point in my patch where is this bug? This patch moved the logic of the suffix, with the same behaviour in every Context. And this patch was merged 21 days ago. Anyway, this patch, if you implement the needed test cases, will fail as I said in point 1.\n\n\n[1] https://github.com/opnfv/yardstick/blob/master/yardstick/benchmark/contexts/base.py#L46",
+      "parentUuid": "5a3f45e8_0c302ce7",
+      "revId": "e0e56c49ed2fde81aaf745068429f18bc7ed4e2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
