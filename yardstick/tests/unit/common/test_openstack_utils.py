@@ -337,3 +337,32 @@ class SecurityGroupTestCase(unittest.TestCase):
         mock_create_security_group_rule.assert_called()
         self.mock_shade_client.delete_security_group(self.sg_name)
         self.assertEqual(self._uuid, output)
+
+# *********************************************
+#   NOVA
+# *********************************************
+
+
+class CreateInstanceTestCase(unittest.TestCase):
+
+    def test_create_instance_and_wait_for_active(self):
+        self.mock_shade_client = mock.Mock()
+        name = 'server_name'
+        image = 'image_name'
+        flavor = 'flavor_name'
+        self.mock_shade_client.create_server.return_value = (
+            {'name': name, 'image': image, 'flavor': flavor})
+        output = openstack_utils.create_instance_and_wait_for_active(
+            self.mock_shade_client, name, image, flavor)
+        self.assertEqual(
+            {'name': name, 'image': image, 'flavor': flavor}, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_instance_and_wait_for_active_fail(self, mock_logger):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.create_server.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.create_instance_and_wait_for_active(
+            self.mock_shade_client, 'server_name', 'image_name', 'flavor_name')
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
