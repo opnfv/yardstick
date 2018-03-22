@@ -79,7 +79,6 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
     APP_NAME = 'DpdkVnf'
     FIND_NET_CMD = "find /sys/class/net -lname '*{}*' -printf '%f'"
     NR_HUGEPAGES_PATH = '/proc/sys/vm/nr_hugepages'
-    HUGEPAGES_KB = 1024 * 1024 * 16
 
     @staticmethod
     def _update_packet_type(ip_pipeline_cfg, traffic_options):
@@ -118,7 +117,8 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
     def _setup_hugepages(self):
         meminfo = utils.read_meminfo(self.ssh_helper)
         hp_size_kb = int(meminfo['Hugepagesize'])
-        nr_hugepages = int(abs(self.HUGEPAGES_KB / hp_size_kb))
+        hugepages_gb = self.scenario_helper.all_options.get('hugepages_gb', 16)
+        nr_hugepages = int(abs(hugepages_gb * 1024 * 1024 / hp_size_kb))
         self.ssh_helper.execute('echo %s | sudo tee %s' %
                                 (nr_hugepages, self.NR_HUGEPAGES_PATH))
         hp = six.BytesIO()
