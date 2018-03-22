@@ -218,6 +218,10 @@ class ScenarioDeleteNetworkError(YardstickException):
     message = 'Delete Neutron Network Scenario failed'
 
 
+class ScenarioCreateServerError(YardstickException):
+    message = 'Nova Create Server Scenario failed'
+
+
 class ApiServerError(YardstickException):
     message = 'An unkown exception happened to Api Server!'
 
