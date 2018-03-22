@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_9ba6300f",
+        "filename": "samples/dummy-no-context.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-22T17:45:29Z",
+      "side": 1,
+      "message": "Scenarios don\u0027t need names",
+      "range": {
+        "startLine": 17,
+        "startChar": 8,
+        "endLine": 17,
+        "endChar": 13
+      },
+      "revId": "dd73270d27d678e179be8068a1a3205fb6480744",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
