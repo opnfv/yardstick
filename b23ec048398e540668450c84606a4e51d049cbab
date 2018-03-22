@@ -22,6 +22,30 @@
       "revId": "b23ec048398e540668450c84606a4e51d049cbab",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c0f3a59d",
+        "filename": "ansible/build_yardstick_image.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-22T13:21:05Z",
+      "side": 1,
+      "message": "losetup should print all devices by default\n\n-l, --list\n              If a loop device or the -a option is specified, print the default columns for either the specified loop device or all loop devices; the default is to print info about all devices.  See also --output, --noheadings --json and --raw.\n\n # losetup\nNAME       SIZELIMIT OFFSET AUTOCLEAR RO BACK-FILE\n/dev/loop0         0      0         0  0 /tmp/workspace/yardstick/yardstick-xenial-server.raw\n # losetup -a\n/dev/loop0: [66305]:32440955 (/tmp/workspace/yardstick/yardstick-xenial-server.raw)",
+      "parentUuid": "5a3f45e8_acb5b8ef",
+      "range": {
+        "startLine": 125,
+        "startChar": 15,
+        "endLine": 125,
+        "endChar": 22
+      },
+      "revId": "b23ec048398e540668450c84606a4e51d049cbab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
