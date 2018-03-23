@@ -70,39 +70,42 @@ class PktgenDPDKLatency(base.Scenario):
     def run(self, result):
         """execute the benchmark"""
 
+        options = self.scenario_cfg['options']
+        eth1 = options.get("eth1", "ens4")
+        eth2 = options.get("eth2", "ens5")
         if not self.setup_done:
             self.setup()
 
         if not self.testpmd_args:
-            self.testpmd_args = utils.get_port_mac(self.client, 'eth2')
+            self.testpmd_args = utils.get_port_mac(self.client, eth2)
 
         if not self.pktgen_args:
-            server_rev_mac = utils.get_port_mac(self.server, 'eth1')
-            server_send_mac = utils.get_port_mac(self.server, 'eth2')
-            client_src_ip = utils.get_port_ip(self.client, 'eth1')
-            client_dst_ip = utils.get_port_ip(self.client, 'eth2')
+            server_rev_mac = utils.get_port_mac(self.server, eth1)
+            server_send_mac = utils.get_port_mac(self.server, eth2)
+            client_src_ip = utils.get_port_ip(self.client, eth1)
+            client_dst_ip = utils.get_port_ip(self.client, eth2)
 
             self.pktgen_args = [client_src_ip, client_dst_ip,
                                 server_rev_mac, server_send_mac]
 
-        options = self.scenario_cfg['options']
         packetsize = options.get("packetsize", 64)
         rate = options.get("rate", 100)
 
-        cmd = "screen sudo -E bash ~/testpmd_fwd.sh %s " % (self.testpmd_args)
+        cmd = "screen sudo -E bash ~/testpmd_fwd.sh %s %s %s" % \
+            (self.testpmd_args, eth1, eth2)
         LOG.debug("Executing command: %s", cmd)
         self.server.send_command(cmd)
 
         time.sleep(1)
 
-        cmd = "screen sudo -E bash ~/pktgen_dpdk.sh %s %s %s %s %s %s" % \
+        cmd = "screen sudo -E bash ~/pktgen_dpdk.sh %s %s %s %s %s %s %s %s" % \
             (self.pktgen_args[0], self.pktgen_args[1], self.pktgen_args[2],
-             self.pktgen_args[3], rate, packetsize)
+             self.pktgen_args[3], rate, packetsize, eth1, eth2)
         LOG.debug("Executing command: %s", cmd)
         self.client.send_command(cmd)
 
         # wait for finishing test
-        time.sleep(1)
+        time.sleep(60)
 
         cmd = r"""\
 cat ~/result.log -vT \
