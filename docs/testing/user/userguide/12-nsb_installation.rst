@@ -148,6 +148,16 @@ Ansible:
   ansible_user=root
   ansible_pass=root
 
+.. note::
+
+   shh access withot password needs to be configured for all your nodes defined in ``yardstick-install-inventory.ini`` file.
+   If you want to use password authentication you need to install sshpass
+
+   .. code-block:: console
+
+     sudo apt-get install sshpass
+
+
 
 To execute an installation for a Bare-Metal or a Standalone context:
 
