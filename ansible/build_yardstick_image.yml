@@ -74,11 +74,19 @@
       command: kpartx -dv "{{ raw_imgfile }}"
       ignore_errors: true
 
+    - name: Debug dump loop devices
+      command: losetup
+      register: losetup_output
+
+    - debug:
+        var: losetup_output
+        verbosity: 2
+
     - name: delete loop devices for image file
       # use this because kpartx -dv will fail if raw_imgfile was delete
       # but in theory we could have deleted file still attached to loopback device?
       # use grep because of // and awk
-      shell: losetup -O NAME,BACK-FILE | grep "{{ raw_imgfile }}" | awk '{ print $1 }' | xargs -l1 losetup -d
+      shell: losetup -O NAME,BACK-FILE | grep "{{ raw_imgfile_basename }}" | awk '{ print $1 }' | xargs -l1 losetup -d
       ignore_errors: true
 
     - name: delete {{ raw_imgfile }}
@@ -120,14 +128,6 @@
         creates: "/dev/loop{{ item }}"
       with_sequence: start=0 end=9
       tags: mknod_devices
-
-    - name: Debug dump loop devices
-      command: losetup
-      register: losetup_output
-
-    - debug:
-        var: losetup_output
-        verbosity: 2
 
     - name: find first partition device
       command: kpartx -l "{{ raw_imgfile }}"
