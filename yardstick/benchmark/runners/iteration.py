@@ -71,6 +71,8 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
             data = {}
             errors = ""
 
+            benchmark.pre_run_wait_time(interval)
+
             try:
                 result = method(data)
             except AssertionError as assertion:
@@ -90,7 +92,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                     scenario_cfg['options']['rate'] -= delta
                     sequence = 1
                     continue
-            except Exception:
+            except Exception:  # pylint: disable=broad-except
                 errors = traceback.format_exc()
                 LOG.exception("")
             else:
@@ -99,7 +101,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                     # if we do timeout we don't care about dropping individual KPIs
                     output_queue.put(result, True, QUEUE_PUT_TIMEOUT)
 
-            time.sleep(interval)
+            benchmark.post_run_wait_time(interval)
 
             benchmark_output = {
                 'timestamp': time.time(),
