@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_91b571f0",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-23T16:38:54Z",
+      "side": 1,
+      "message": "this block",
+      "range": {
+        "startLine": 61,
+        "startChar": 16,
+        "endLine": 61,
+        "endChar": 26
+      },
+      "revId": "f4263be4828a82113fc09ab26267e74154b61963",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
