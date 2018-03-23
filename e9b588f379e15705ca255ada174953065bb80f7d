@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f67cabb7",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-23T12:46:41Z",
+      "side": 1,
+      "message": "http://docutils.sourceforge.net/docs/user/rst/quickref.html#tables\n\nThe base patch had incorrect markup for a simple table, and because the -v cell was across multiple lines, it\u0027s not suitable for a simple table markup.",
+      "parentUuid": "5a3f45e8_3dc8b921",
+      "range": {
+        "startLine": 90,
+        "startChar": 1,
+        "endLine": 110,
+        "endChar": 79
+      },
+      "revId": "e9b588f379e15705ca255ada174953065bb80f7d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_bd02093c",
         "filename": "docs/testing/user/userguide/06-yardstick-plugin.rst",
         "patchSetId": 4
