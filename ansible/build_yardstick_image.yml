@@ -78,7 +78,7 @@
       # use this because kpartx -dv will fail if raw_imgfile was delete
       # but in theory we could have deleted file still attached to loopback device?
       # use grep because of // and awk
-      shell: losetup -O NAME,BACK-FILE | grep "{{ raw_imgfile }}" | awk '{ print $1 }' | xargs -l1 losetup -d
+      shell: losetup -O NAME,BACK-FILE | grep "{{ raw_imgfile_basename }}" | awk '{ print $1 }' | xargs -l1 losetup -d
       ignore_errors: true
 
     - name: delete {{ raw_imgfile }}
