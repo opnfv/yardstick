@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_f172f50f",
+        "filename": "ansible/nsb_setup.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-23T18:50:14Z",
+      "side": 1,
+      "message": "This is done in [1].\n\nAlso I\u0027ve checked in a Yardstick container, downloaded today, that this env variable is there:\nroot@d1aa3146984d:/home/opnfv/repos# env | grep PYTHONPATH\nPYTHONPATH\u003d:/trex_client:/trex_client/stl\n\nThat\u0027s because this is not what PYTHONPATH should contain. If you take a look at [2], this is what the variable should contain. Also the trex installation method in the container is wrong. It should be the same as the ansible role \"install_trex\".\n\n[1] https://github.com/opnfv/yardstick/blob/master/docker/Dockerfile#L50\n[2] https://github.com/opnfv/yardstick/blob/master/ansible/roles/install_trex/tasks/main.yml#L38",
+      "range": {
+        "startLine": 53,
+        "startChar": 10,
+        "endLine": 53,
+        "endChar": 97
+      },
+      "revId": "42bb89d815c75d371c6ffaa0b74a179bba964dc1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
