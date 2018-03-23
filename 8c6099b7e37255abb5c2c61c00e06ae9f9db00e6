@@ -45,6 +45,30 @@
       "revId": "8c6099b7e37255abb5c2c61c00e06ae9f9db00e6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8f644123",
+        "filename": "yardstick/tests/integration/dummy-scenario-heat-context.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-23T12:46:41Z",
+      "side": 1,
+      "message": "No, I added this file, I need to change the Copyright",
+      "parentUuid": "5a3f45e8_2fe36d34",
+      "range": {
+        "startLine": 2,
+        "startChar": 1,
+        "endLine": 2,
+        "endChar": 60
+      },
+      "revId": "8c6099b7e37255abb5c2c61c00e06ae9f9db00e6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
