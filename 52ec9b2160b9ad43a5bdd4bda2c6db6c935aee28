@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_963c47e4",
+        "filename": "docs/testing/user/userguide/05-operation.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-23T12:50:26Z",
+      "side": 1,
+      "message": "Because of lines 138-144, which use multiple lines for a column, the simple table is not sufficient.",
+      "parentUuid": "5a3f45e8_fd93f1f7",
+      "revId": "52ec9b2160b9ad43a5bdd4bda2c6db6c935aee28",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_dd8ef5cf",
         "filename": "docs/testing/user/userguide/05-operation.rst",
         "patchSetId": 9
@@ -53,6 +71,30 @@
       "writtenOn": "2018-03-20T16:39:15Z",
       "side": 1,
       "message": "Do you need a new index for this?",
+      "range": {
+        "startLine": 245,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 29
+      },
+      "revId": "52ec9b2160b9ad43a5bdd4bda2c6db6c935aee28",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cfc9167b",
+        "filename": "docs/testing/user/userguide/05-operation.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-23T12:50:26Z",
+      "side": 1,
+      "message": "It\u0027s a separate section, which is part of the Heat context, but is separate from the main functionality",
+      "parentUuid": "5a3f45e8_dd8ef5cf",
       "range": {
         "startLine": 245,
         "startChar": 0,
