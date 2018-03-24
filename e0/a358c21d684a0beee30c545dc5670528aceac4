@@ -1,0 +1,11 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Kanglin Yin <14_ykl@tongji.edu.cn>
+Code-Review+1: Dimitrios Markou <mardim@intracom-telecom.com>
+Code-Review+1: Georg Kunz <georg.kunz@ericsson.com>
+Code-Review+1: Qiao Fu <fuqiao@chinamobile.com>
+Code-Review+2: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-by: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-at: Sat, 24 Mar 2018 01:46:03 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/49245
+Project: yardstick
+Branch: refs/heads/master
