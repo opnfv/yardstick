@@ -18,10 +18,9 @@
     - get_url:
         url: "{{ CLOUD_IMG_URL }}"
         dest: "{{ CLOUD_IMAGE }}"
-
-    - name: Extra cloud image kernel
-    - unarchive:
-        asdf:
+#
+#    - name: Extra cloud image kernel
+#    - unarchive:
 
     - os_image:
         name: yardstick-{{ release }}-kernel
