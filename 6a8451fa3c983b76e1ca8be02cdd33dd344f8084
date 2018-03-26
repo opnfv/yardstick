@@ -22,6 +22,30 @@
       "revId": "6a8451fa3c983b76e1ca8be02cdd33dd344f8084",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1cf05566",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-03-26T09:52:29Z",
+      "side": 1,
+      "message": "As it is very minor update. I addressed it in https://gerrit.opnfv.org/gerrit/#/c/54001/5..6/yardstick/common/openstack_utils.py",
+      "parentUuid": "5a3f45e8_b11b4d1b",
+      "range": {
+        "startLine": 623,
+        "startChar": 10,
+        "endLine": 624,
+        "endChar": 78
+      },
+      "revId": "6a8451fa3c983b76e1ca8be02cdd33dd344f8084",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
