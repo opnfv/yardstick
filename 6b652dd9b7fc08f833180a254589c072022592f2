@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_9c03c541",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-26T10:00:02Z",
+      "side": 1,
+      "message": "yep this is a problem.  shade kinda sucks sometimes.\n\nit\u0027s like we need to write a custom create_stack that does what we want.\n\nit should accept a dict, StringIO or str() for the template so we don\u0027t have to use a temporary file, and it should return the CREATE_FAILED events if there is a failure.",
+      "parentUuid": "5a3f45e8_1c62153e",
+      "range": {
+        "startLine": 26,
+        "startChar": 11,
+        "endLine": 26,
+        "endChar": 16
+      },
+      "revId": "6b652dd9b7fc08f833180a254589c072022592f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_bc732114",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_5ceadd75",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-26T10:00:02Z",
+      "side": 1,
+      "message": "I did test this.  CREATE_FAILED didn\u0027t work.  I had to run the debugger to figure it out.",
+      "parentUuid": "5a3f45e8_bc732114",
+      "range": {
+        "startLine": 69,
+        "startChar": 99,
+        "endLine": 69,
+        "endChar": 105
+      },
+      "revId": "6b652dd9b7fc08f833180a254589c072022592f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_5c5c9d7e",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2018-03-26T09:46:54Z",
       "side": 1,
       "message": "We are we using this one?",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 21
+      },
+      "revId": "6b652dd9b7fc08f833180a254589c072022592f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3ced518c",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-26T10:00:02Z",
+      "side": 1,
+      "message": "old bad, first attempt.   status_reason is always something about the rollback, not about the actual failures.  I\u0027ll delete this.",
+      "parentUuid": "5a3f45e8_5c5c9d7e",
       "range": {
         "startLine": 119,
         "startChar": 8,
