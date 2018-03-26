@@ -22,6 +22,30 @@
       "revId": "42bb89d815c75d371c6ffaa0b74a179bba964dc1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1c65f51d",
+        "filename": "ansible/nsb_setup.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-26T10:29:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_f172f50f",
+      "range": {
+        "startLine": 53,
+        "startChar": 10,
+        "endLine": 53,
+        "endChar": 97
+      },
+      "revId": "42bb89d815c75d371c6ffaa0b74a179bba964dc1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
