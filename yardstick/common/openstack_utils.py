@@ -352,15 +352,30 @@ def attach_server_volume(server_id, volume_id,
         return True
 
 
-def delete_instance(nova_client, instance_id):      # pragma: no cover
+def delete_instance(shade_client, name_or_id, wait=False, timeout=180,
+                    delete_ips=False, delete_ip_retry=1):
+    """Delete a server instance.
+
+    :param name_or_id: name or ID of the server to delete
+    :param wait:(bool) If true, waits for server to be deleted.
+    :param timeout:(int) Seconds to wait for server deletion.
+    :param delete_ips:(bool) If true, deletes any floating IPs associated with
+                      the instance.
+    :param delete_ip_retry:(int) Number of times to retry deleting
+                           any floating ips, should the first try be
+                           unsuccessful.
+    :returns: True if delete succeeded, False otherwise if the
+            server does not exist.
+    """
     try:
-        nova_client.servers.force_delete(instance_id)
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [delete_instance(nova_client, '%s')]",
-                      instance_id)
+        return shade_client.delete_server(
+            name_or_id, wait=wait, timeout=timeout, delete_ips=delete_ips,
+            delete_ip_retry=delete_ip_retry)
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [delete_instance(shade_client, '%s')]. "
+                  "Exception message: %s", name_or_id,
+                  o_exc.orig_message)
         return False
-    else:
-        return True
 
 
 def remove_host_from_aggregate(nova_client, aggregate_name,
