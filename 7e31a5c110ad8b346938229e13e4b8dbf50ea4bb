@@ -89,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_1c14d59e",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-26T08:40:26Z",
+      "side": 1,
+      "message": "This is not big deal.\n\nThe result is already defined. The try/except is catching all exceptions (except Exception as e:). If we reach this line is because there is no exception.",
+      "parentUuid": "5a3f45e8_7c3b5938",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 13
+      },
+      "revId": "7e31a5c110ad8b346938229e13e4b8dbf50ea4bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_5c001d67",
         "filename": "yardstick/cmd/commands/task.py",
         "patchSetId": 2
