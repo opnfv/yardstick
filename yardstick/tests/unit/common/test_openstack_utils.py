@@ -353,3 +353,31 @@ class CreateInstanceTestCase(unittest.TestCase):
             self.mock_shade_client, self.name)
         mock_logger.error.assert_called_once()
         self.assertIsNone(output)
+
+
+class DeleteInstanceTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.delete_server = mock.Mock()
+
+    def test_delete_instance(self):
+        self.mock_shade_client.delete_server.return_value = True
+        output = openstack_utils.delete_instance(self.mock_shade_client,
+                                                 'instance_name_id')
+        self.assertTrue(output)
+
+    def test_delete_instance_fail(self):
+        self.mock_shade_client.delete_server.return_value = False
+        output = openstack_utils.delete_instance(self.mock_shade_client,
+                                                 'instance_name_id')
+        self.assertFalse(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_delete_instance_exception(self, mock_logger):
+        self.mock_shade_client.delete_server.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.delete_instance(self.mock_shade_client,
+                                                 'instance_name_id')
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
