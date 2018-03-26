@@ -25,6 +25,7 @@ class TaskCommands(object):     # pragma: no cover
 
        Set of commands to manage benchmark tasks.
        """
+    EXIT_TEST_FAILED = 2
 
     @cliargs("inputfile", type=str, help="path to task or suite file", nargs=1)
     @cliargs("--task-args", dest="task_args",
@@ -48,18 +49,20 @@ class TaskCommands(object):     # pragma: no cover
         param = change_osloobj_to_paras(args)
         self.output_file = param.output_file
 
-        result = {}
         LOG.info('Task START')
         try:
             result = Task().start(param, **kwargs)
         except Exception as e:  # pylint: disable=broad-except
             self._write_error_data(e)
-
-        if result.get('result', {}).get('criteria') == 'PASS':
-            LOG.info('Task SUCCESS')
-        else:
             LOG.info('Task FAILED')
-            raise RuntimeError('Task Failed')
+            raise
+        else:
+            if result.get('result', {}).get('criteria') == 'PASS':
+                LOG.info('Task SUCCESS')
+            else:
+                LOG.info('Task FAILED')
+                # exit without backtrace
+                raise SystemExit(self.EXIT_TEST_FAILED)
 
     def _write_error_data(self, error):
         data = {'status': 2, 'result': str(error)}
