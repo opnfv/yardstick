@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_7c3b5938",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-26T08:30:10Z",
+      "side": 1,
+      "message": "we use the else to ensure that result is defined.",
+      "parentUuid": "5a3f45e8_1c069586",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 13
+      },
+      "revId": "7e31a5c110ad8b346938229e13e4b8dbf50ea4bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_5c001d67",
         "filename": "yardstick/cmd/commands/task.py",
         "patchSetId": 2
@@ -76,6 +100,30 @@
       "writtenOn": "2018-03-26T08:21:18Z",
       "side": 1,
       "message": "this should be, at least, log.error",
+      "range": {
+        "startLine": 62,
+        "startChar": 16,
+        "endLine": 62,
+        "endChar": 24
+      },
+      "revId": "7e31a5c110ad8b346938229e13e4b8dbf50ea4bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_dc4a6dc4",
+        "filename": "yardstick/cmd/commands/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-26T08:30:10Z",
+      "side": 1,
+      "message": "I think task failure doesn\u0027t mean an error, it just means the test failed.\n\nfailure is not error?",
+      "parentUuid": "5a3f45e8_5c001d67",
       "range": {
         "startLine": 62,
         "startChar": 16,
