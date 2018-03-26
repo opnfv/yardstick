@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_5f0e4f8e",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-26T22:09:25Z",
+      "side": 1,
+      "message": "without",
+      "range": {
+        "startLine": 153,
+        "startChar": 14,
+        "endLine": 153,
+        "endChar": 20
+      },
+      "revId": "49f4b3428577206e2681fae446b39b35c08c835c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ff163ba6",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-03-26T22:09:25Z",
+      "side": 1,
+      "message": "Please keep lines to 80 characters",
+      "revId": "49f4b3428577206e2681fae446b39b35c08c835c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
