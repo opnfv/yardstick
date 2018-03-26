@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_9cb10592",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-26T10:28:26Z",
+      "side": 1,
+      "message": "hehehe now I don\u0027t understand the unit tests implemented in heat; they used CREATED_FAILED as \"resource_status\". Anyway, if heat works OK with FAILED, it\u0027s because is implemented in this way. Thanks!",
+      "parentUuid": "5a3f45e8_dcfd4d3c",
+      "range": {
+        "startLine": 69,
+        "startChar": 99,
+        "endLine": 69,
+        "endChar": 105
+      },
+      "revId": "6b652dd9b7fc08f833180a254589c072022592f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_5c5c9d7e",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 4
