@@ -6,14 +6,11 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
-from __future__ import print_function
-from __future__ import absolute_import
-
 import logging
 
+from yardstick.common import openstack_utils
+from yardstick.common import exceptions
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
 
 LOG = logging.getLogger(__name__)
 
@@ -26,9 +23,13 @@ class DeleteServer(base.Scenario):
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
-        self.server_id = self.options.get("server_id", None)
-        self.nova_client = op_utils.get_nova_client()
+        self.options = self.scenario_cfg["options"]
+        self.server_id = self.options["server_id"]
+        self.wait = self.options.get("wait", False)
+        self.timeout = self.options.get("timeout", 180)
+        self.delete_ips = self.options.get("delete_ips", False)
+        self.delete_ip_retry = self.options.get("delete_ip_retry", 1)
+        self.shade_client = openstack_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -43,9 +44,15 @@ class DeleteServer(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        status = op_utils.delete_instance(self.nova_client,
-                                          instance_id=self.server_id)
-        if status:
-            LOG.info("Delete server successful!")
-        else:
+        status = openstack_utils.delete_instance(
+            self.shade_client, self.server_id, wait=self.wait,
+            timeout=self.timeout, delete_ips=self.delete_ips,
+            delete_ip_retry=self.delete_ip_retry)
+
+        if not status:
+            result.update({"delete_server": 0})
             LOG.error("Delete server failed!")
+            raise exceptions.ScenarioDeleteServerError
+
+        result.update({"delete_server": 1})
+        LOG.info("Delete server successful!")
