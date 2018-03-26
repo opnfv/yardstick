@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_dcfd4d3c",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-03-26T10:04:57Z",
+      "side": 1,
+      "message": "https://developer.openstack.org/api-ref/orchestration/v1/#list-resource-events\n\nresource_status (Optional)\tquery\tstring\tStack resource status. Valid resource statuses are COMPLETE, FAILED and IN_PROGRESS. This can be specified more than once to filter the results by multiple resource statuses.",
+      "parentUuid": "5a3f45e8_5ceadd75",
+      "range": {
+        "startLine": 69,
+        "startChar": 99,
+        "endLine": 69,
+        "endChar": 105
+      },
+      "revId": "6b652dd9b7fc08f833180a254589c072022592f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_5c5c9d7e",
         "filename": "yardstick/orchestrator/heat.py",
         "patchSetId": 4
