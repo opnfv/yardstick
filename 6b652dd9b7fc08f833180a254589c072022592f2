@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_1c62153e",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-26T09:46:54Z",
+      "side": 1,
+      "message": "I don\u0027t like this... but Shade currently doesn\u0027t provide publicly this API. I think we can make this exception.",
+      "range": {
+        "startLine": 26,
+        "startChar": 11,
+        "endLine": 26,
+        "endChar": 16
+      },
+      "revId": "6b652dd9b7fc08f833180a254589c072022592f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_bc732114",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-26T09:46:54Z",
+      "side": 1,
+      "message": "a) The heat command we send is CREATE. According to [1], this should be CREATED_FAILED.\n\nb) Line too long:\nyardstick/orchestrator/heat.py:69: [C0301(line-too-long), ] Line too long (108/99)\n\n[1] https://github.com/openstack/heat/blob/6ccfb11df91403069b6846cc17cd32120a8c30f1/heat/engine/api.py#L150",
+      "range": {
+        "startLine": 69,
+        "startChar": 99,
+        "endLine": 69,
+        "endChar": 105
+      },
+      "revId": "6b652dd9b7fc08f833180a254589c072022592f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5c5c9d7e",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-26T09:46:54Z",
+      "side": 1,
+      "message": "We are we using this one?",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 21
+      },
+      "revId": "6b652dd9b7fc08f833180a254589c072022592f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3c5f1174",
+        "filename": "yardstick/tests/unit/orchestrator/test_heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-26T09:46:54Z",
+      "side": 1,
+      "message": "A small function to test heat.py:L638-642 could be useful",
+      "revId": "6b652dd9b7fc08f833180a254589c072022592f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
