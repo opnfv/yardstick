@@ -8,7 +8,6 @@
 ##############################################################################
 
 import os
-import time
 import sys
 import logging
 
@@ -163,76 +162,6 @@ def get_shade_client():
 # *********************************************
 #   NOVA
 # *********************************************
-def get_aggregates(nova_client):    # pragma: no cover
-    try:
-        return nova_client.aggregates.list()
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [get_aggregates(nova_client)]")
-
-
-def get_availability_zones(nova_client):    # pragma: no cover
-    try:
-        return nova_client.availability_zones.list()
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [get_availability_zones(nova_client)]")
-
-
-def get_availability_zone_names(nova_client):   # pragma: no cover
-    try:
-        return [az.zoneName for az in get_availability_zones(nova_client)]
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [get_availability_zone_names(nova_client)]")
-
-
-def create_aggregate(nova_client, aggregate_name, av_zone):  # pragma: no cover
-    try:
-        nova_client.aggregates.create(aggregate_name, av_zone)
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [create_aggregate(nova_client, %s, %s)]",
-                      aggregate_name, av_zone)
-        return False
-    else:
-        return True
-
-
-def get_aggregate_id(nova_client, aggregate_name):      # pragma: no cover
-    try:
-        aggregates = get_aggregates(nova_client)
-        _id = next((ag.id for ag in aggregates if ag.name == aggregate_name))
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [get_aggregate_id(nova_client, %s)]",
-                      aggregate_name)
-    else:
-        return _id
-
-
-def add_host_to_aggregate(nova_client, aggregate_name,
-                          compute_host):    # pragma: no cover
-    try:
-        aggregate_id = get_aggregate_id(nova_client, aggregate_name)
-        nova_client.aggregates.add_host(aggregate_id, compute_host)
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [add_host_to_aggregate(nova_client, %s, %s)]",
-                      aggregate_name, compute_host)
-        return False
-    else:
-        return True
-
-
-def create_aggregate_with_host(nova_client, aggregate_name, av_zone,
-                               compute_host):    # pragma: no cover
-    try:
-        create_aggregate(nova_client, aggregate_name, av_zone)
-        add_host_to_aggregate(nova_client, aggregate_name, compute_host)
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [create_aggregate_with_host("
-                      "nova_client, %s, %s, %s)]",
-                      aggregate_name, av_zone, compute_host)
-        return False
-    else:
-        return True
-
-
 def create_keypair(name, key_path=None):    # pragma: no cover
     try:
         with open(key_path) as fpubkey:
@@ -241,14 +170,6 @@ def create_keypair(name, key_path=None):    # pragma: no cover
             return keypair
     except Exception:  # pylint: disable=broad-except
         log.exception("Error [create_keypair(nova_client)]")
-
-
-def create_instance(json_body):    # pragma: no cover
-    try:
-        return get_nova_client().servers.create(**json_body)
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error create instance failed")
-        return None
 
 
 def create_instance_and_wait_for_active(shade_client, name, image=None,
@@ -350,40 +271,6 @@ def delete_instance(shade_client, name_or_id, wait=False, timeout=180,
         return False
 
 
-def remove_host_from_aggregate(nova_client, aggregate_name,
-                               compute_host):  # pragma: no cover
-    try:
-        aggregate_id = get_aggregate_id(nova_client, aggregate_name)
-        nova_client.aggregates.remove_host(aggregate_id, compute_host)
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error remove_host_from_aggregate(nova_client, %s, %s)",
-                      aggregate_name, compute_host)
-        return False
-    else:
-        return True
-
-
-def remove_hosts_from_aggregate(nova_client,
-                                aggregate_name):   # pragma: no cover
-    aggregate_id = get_aggregate_id(nova_client, aggregate_name)
-    hosts = nova_client.aggregates.get(aggregate_id).hosts
-    assert(
-        all(remove_host_from_aggregate(nova_client, aggregate_name, host)
-            for host in hosts))
-
-
-def delete_aggregate(nova_client, aggregate_name):  # pragma: no cover
-    try:
-        remove_hosts_from_aggregate(nova_client, aggregate_name)
-        nova_client.aggregates.delete(aggregate_name)
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [delete_aggregate(nova_client, %s)]",
-                      aggregate_name)
-        return False
-    else:
-        return True
-
-
 def get_server_by_name(name):   # pragma: no cover
     try:
         return get_nova_client().servers.list(search_opts={'name': name})[0]
@@ -402,14 +289,6 @@ def create_flavor(name, ram, vcpus, disk, **kwargs):   # pragma: no cover
         return None
 
 
-def get_image_by_name(name):    # pragma: no cover
-    images = get_nova_client().images.list()
-    try:
-        return next((a for a in images if a.name == name))
-    except StopIteration:
-        log.exception('No image matched')
-
-
 def get_flavor_id(nova_client, flavor_name):    # pragma: no cover
     flavors = nova_client.flavors.list(detailed=True)
     flavor_id = ''
@@ -426,21 +305,6 @@ def get_flavor_by_name(name):   # pragma: no cover
         return next((a for a in flavors if a.name == name))
     except StopIteration:
         log.exception('No flavor matched')
-
-
-def check_status(status, name, iterations, interval):   # pragma: no cover
-    for _ in range(iterations):
-        try:
-            server = get_server_by_name(name)
-        except IndexError:
-            log.error('Cannot found %s server', name)
-            raise
-
-        if server.status == status:
-            return True
-
-        time.sleep(interval)
-    return False
 
 
 def delete_flavor(flavor_id):    # pragma: no cover
