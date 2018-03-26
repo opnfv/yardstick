@@ -48,18 +48,19 @@ class TaskCommands(object):     # pragma: no cover
         param = change_osloobj_to_paras(args)
         self.output_file = param.output_file
 
-        result = {}
         LOG.info('Task START')
         try:
             result = Task().start(param, **kwargs)
         except Exception as e:  # pylint: disable=broad-except
             self._write_error_data(e)
-
-        if result.get('result', {}).get('criteria') == 'PASS':
-            LOG.info('Task SUCCESS')
-        else:
             LOG.info('Task FAILED')
-            raise RuntimeError('Task Failed')
+            raise
+        else:
+            if result.get('result', {}).get('criteria') == 'PASS':
+                LOG.info('Task SUCCESS')
+            else:
+                LOG.info('Task FAILED')
+                raise RuntimeError('Task Failed')
 
     def _write_error_data(self, error):
         data = {'status': 2, 'result': str(error)}
