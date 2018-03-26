@@ -148,3 +148,7 @@ class ScenarioDeleteNetworkError(YardstickException):
 
 class ScenarioCreateServerError(YardstickException):
     message = 'Nova Create Server Scenario failed'
+
+
+class ScenarioDeleteServerError(YardstickException):
+    message = 'Delete Server Scenario failed'
