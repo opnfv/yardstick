@@ -1,0 +1,583 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_a297788f",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "You should move this at the beginning of the section (line 17) and move \"roles\" execution down\n\n\"set_fact\" could be at the beginning as \"vars\" command",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0252ac12",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 44,
+        "startChar": 7,
+        "endLine": 44,
+        "endChar": 8
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6270d0a5",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 25
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_42aaf4d4",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "this is a nit, but in OpenStack terms, we have \"controller\" and \"compute\" nodes.",
+      "range": {
+        "startLine": 69,
+        "startChar": 53,
+        "endLine": 69,
+        "endChar": 60
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8264fce5",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "OpenStack (join the words)",
+      "range": {
+        "startLine": 69,
+        "startChar": 10,
+        "endLine": 69,
+        "endChar": 20
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e26340da",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 73,
+        "startChar": 38,
+        "endLine": 73,
+        "endChar": 48
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_229d28bd",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "+1: good check of OpenStack nodes!! very good from L61 to L78",
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e2e86012",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/configure_kolla.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "We need to find a better way to do this.\n\nWe have the IPs of the interfaces. For every OpenStack node we will need at least one interface connected to the \"management\" network and other one connected to one traffic bridge.\n\nWe should:\n1) In infra_check_requirements, store the management network name, probably in the block \"Increment counter for every default network detected\". Add a new fact.\n\n2) In infra_deploy_openstack/tasks/main, read the \"rs_file\"\n- name: Include\n  include_vars:\n    file: \"{{rs_file}}\"\n    name: infra_deploy_vars\n\n3) Here, retrieve the list of IPs for this host in a list.\n\n4) Read rs_file:nodes[host]:interfaces list and retrieve the first interface IP in a NON-management network.\n    interfaces:\n      - network: management\n        ip: 192.168.1.11\n        netmask: 255.255.255.0\n      - network: traffic\n        ip: 192.20.1.11 ----\u003e this is the IP.\n        netmask: 255.255.255.0\n\n5) If this IP is in the list written in (3), perfect!!! If not, we have a big problem.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 63
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_82d99c85",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/configure_kolla.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "Just a comment, nothing to be done: If I\u0027m not wrong, no HA is the default behaviour. That means we don\u0027t need to modify this.",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 74
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_82923c9d",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "Is this variable defined?",
+      "range": {
+        "startLine": 18,
+        "startChar": 14,
+        "endLine": 18,
+        "endChar": 28
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e291809a",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "use http://docs.ansible.com/ansible/latest/modules/copy_module.html\n\n\n\"src\nLocal path to a file to copy to the remote server; can be absolute or relative. If path is a directory, it is copied recursively. In this case, if path ends with \"/\", only inside contents of that directory are copied to destination. Otherwise, if it does not end with \"/\", the directory itself with all contents is copied. This behavior is similar to Rsync.\"\n\ncopy:\n  src: \"{{ git_repos_path + kolla_ans_path + \u0027/etc/kolla/\u0027 }}\"\n  dst: \"/etc/kolla/\"",
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c28c4482",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_22eb6814",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "put this in a list\n\nwith_items:\n    - \"{{ git_repos_path + kolla_path }}\"\n    - \"{{ git_repos_path + kolla_ans_path }}\"",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 86
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_02ee2c22",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 86
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_42f834e5",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "Put a general comment on this file:\n\n---\n# This script is based on https://docs.openstack.org/kolla-ansible/queens/user/quickstart.html guide\n\n...",
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2284085d",
+        "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "Just a comment, nothing to be done here: ansible should take care of those known host clashes",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 45
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_62a7300d",
+        "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "just a nit: \"controllers\"",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 12
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_02a0ecf2",
+        "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "1) You don\u0027t need to quote this\n2) You need to check if item.openstack_node is defined: not all nodes will have this parameter. For example, Yardstick nodes won\u0027t\n\nwhen:\n  - item.openstack_node is defined\n  - item.openstack_node \u003d\u003d \u0027control\u0027",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 42
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_82ab5cd5",
+        "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "No need for quotes\n  when: item.hostname \u003d\u003d controls[0]",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e2ba2022",
+        "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "1) no need for quotes\n2) use the opposite expression to L51 to have a more explicit code\n\n   when: item.hostname !\u003d controls[0]",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 46
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c2b56432",
+        "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "Put this in the description:\n- name: workaround, not all VMs are ready by that time\n  pause: seconds\u003d20",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 48
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a2b01844",
+        "filename": "ansible/roles/infra_prepare_vms/vars/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "you are not using this variable",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 20
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_823d1cbe",
+        "filename": "etc/infra/infra_deploy_multi.yaml.sample",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "The Yardstick node is missing here",
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2276c8a4",
+        "filename": "etc/infra/infra_deploy_one.yaml.sample",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "The Yardstick node is missing here",
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_427314b1",
+        "filename": "etc/infra/infra_deploy_one.yaml.sample",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "Add a comment:\n  openstack_node: control  # if no compute nodes are defined, this is a\n                           # standalone deployment",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 3,
+        "endChar": 27
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c247244a",
+        "filename": "etc/infra/infra_deploy_one.yaml.sample",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 17,
+        "startChar": 13,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_02790c93",
+        "filename": "etc/infra/infra_deploy_two.yaml.sample",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T11:37:56Z",
+      "side": 1,
+      "message": "The Yardstick node is missing here",
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
