@@ -26,6 +26,9 @@ scenarios:
     vnf__0: vnf_0.yardstick
 
   options:
+
+    interface_speed_gbps: 10
+
     vnf__0:
       prox_path: /opt/nsb_bin/prox
       prox_config: "configs/handle_bng-4.cfg"
@@ -34,6 +37,7 @@ scenarios:
       prox_files:
         "configs/gre_table.lua" : ""
         "configs/ipv4.lua" : ""
+      prox_generate_parameter: True
 
     tg__0:
       prox_path: /opt/nsb_bin/prox
@@ -45,7 +49,7 @@ scenarios:
   runner:
     type: Duration
     # we kill after duration, independent of test duration, so set this high
-    duration: 300
+    duration: 1600
 
 context:
   name: yardstick
