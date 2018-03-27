@@ -1000,7 +1000,13 @@ class ProxDataHelper(object):
     @property
     def totals_and_pps(self):
         if self._totals_and_pps is None:
-            rx_total, tx_total = self.sut.port_stats(range(self.port_count))[6:8]
+            try:
+                rx_total, tx_total = self.sut.port_stats(range(self.port_count))[6:8]
+            except:
+                LOG.error("FAILURE Getting port stats ......using default values")
+                rx_total= 0
+                tx_total = 0
+
             pps = self.value / 100.0 * self.line_rate_to_pps()
             self._totals_and_pps = rx_total, tx_total, pps
         return self._totals_and_pps
@@ -1340,77 +1346,49 @@ class ProxBngProfileHelper(ProxProfileHelper):
         else:
             max_up_speed = value / ratio
 
+
+        # flush NICs ... empty pipeline
+        self.sut.stop_all()
+        self.sut.start(self.all_rx_cores)
+        time.sleep(2)
+
         # Initialize cores
         self.sut.stop_all()
-        time.sleep(0.5)
+        time.sleep(2)
+        self.sut.reset_stats()
 
         # Flush any packets in the NIC RX buffers, otherwise the stats will be
         # wrong.
         self.sut.start(self.all_rx_cores)
-        time.sleep(0.5)
-        self.sut.stop(self.all_rx_cores)
-        time.sleep(0.5)
-        self.sut.reset_stats()
 
-        self.sut.set_pkt_size(self.inet_cores, inet_pkt_size)
-        self.sut.set_pkt_size(self.cpe_cores, cpe_pkt_size)
 
-        self.sut.reset_values(self.cpe_cores)
-        self.sut.reset_values(self.inet_cores)
+        try:
+            # Set Packet size
+            self.sut.set_pkt_size(self.inet_cores, inet_pkt_size)
+            self.sut.set_pkt_size(self.cpe_cores, cpe_pkt_size)
 
-        # Set correct IP and UDP lengths in packet headers
-        # CPE
-        # IP length (byte 24): 26 for MAC(12), EthType(2), QinQ(8), CRC(4)
-        self.sut.set_value(self.cpe_cores, 24, cpe_pkt_size - 26, 2)
-        # UDP length (byte 46): 46 for MAC(12), EthType(2), QinQ(8), IP(20), CRC(4)
-        self.sut.set_value(self.cpe_cores, 46, cpe_pkt_size - 46, 2)
+            # Set correct IP and UDP lengths in packet headers
+            # CPE
+            # IP length (byte 24): 26 for MAC(12), EthType(2), QinQ(8), CRC(4)
+            self.sut.set_value(self.cpe_cores, 24, cpe_pkt_size - 26, 2)
+            # UDP length (byte 46): 46 for MAC(12), EthType(2), QinQ(8), IP(20), CRC(4)
+            self.sut.set_value(self.cpe_cores, 46, cpe_pkt_size - 46, 2)
 
-        # INET
-        # IP length (byte 20): 22 for MAC(12), EthType(2), MPLS(4), CRC(4)
-        self.sut.set_value(self.inet_cores, 20, inet_pkt_size - 22, 2)
-        # IP length (byte 48): 50 for MAC(12), EthType(2), MPLS(4), IP(20), GRE(8), CRC(4)
-        self.sut.set_value(self.inet_cores, 48, inet_pkt_size - 50, 2)
-        # UDP length (byte 70): 70 for MAC(12), EthType(2), MPLS(4), IP(20), GRE(8), IP(20), CRC(4)
-        self.sut.set_value(self.inet_cores, 70, inet_pkt_size - 70, 2)
+            # INET
+            # IP length (byte 20): 22 for MAC(12), EthType(2), MPLS(4), CRC(4)
+            self.sut.set_value(self.inet_cores, 20, inet_pkt_size - 22, 2)
+            # IP length (byte 48): 50 for MAC(12), EthType(2), MPLS(4), IP(20), GRE(8), CRC(4)
+            self.sut.set_value(self.inet_cores, 48, inet_pkt_size - 50, 2)
+            # UDP length (byte 70): 70 for MAC(12), EthType(2), MPLS(4), IP(20), GRE(8), IP(20), CRC(4)
+            self.sut.set_value(self.inet_cores, 70, inet_pkt_size - 70, 2)
 
-        # Sending ARP to initialize tables - need a few seconds of generation
-        # to make sure all CPEs are initialized
-        LOG.info("Initializing SUT: sending ARP packets")
-        self.sut.set_speed(self.arp_cores, 1, self.arp_task_cores)
-        self.sut.set_speed(self.inet_cores, curr_up_speed)
-        self.sut.set_speed(self.cpe_cores, curr_down_speed)
-        self.sut.start(self.arp_cores)
-        time.sleep(4)
-
-        # Ramp up the transmission speed. First go to the common speed, then
-        # increase steps for the faster one.
-        self.sut.start(self.cpe_cores + self.inet_cores + self.latency_cores)
-
-        LOG.info("Ramping up speed to %s up, %s down", max_up_speed, max_down_speed)
-
-        while (curr_up_speed < max_up_speed) or (curr_down_speed < max_down_speed):
-            # The min(..., ...) takes care of 1) floating point rounding errors
-            # that could make curr_*_speed to be slightly greater than
-            # max_*_speed and 2) max_*_speed not being an exact multiple of
-            # self._step_delta.
-            if curr_up_speed < max_up_speed:
-                curr_up_speed = min(curr_up_speed + self.step_delta, max_up_speed)
-            if curr_down_speed < max_down_speed:
-                curr_down_speed = min(curr_down_speed + self.step_delta, max_down_speed)
-
-            self.sut.set_speed(self.inet_cores, curr_up_speed)
-            self.sut.set_speed(self.cpe_cores, curr_down_speed)
-            time.sleep(self.step_time)
-
-        LOG.info("Target speeds reached. Starting real test.")
-
-        yield
-
-        self.sut.stop(self.arp_cores + self.cpe_cores + self.inet_cores)
-        LOG.info("Test ended. Flushing NIC buffers")
-        self.sut.start(self.all_rx_cores)
-        time.sleep(3)
-        self.sut.stop(self.all_rx_cores)
+            self.sut.set_speed(self.arp_cores, 1, self.arp_task_cores)
+            self.sut.set_speed(self.inet_cores, max_up_speed)
+            self.sut.set_speed(self.cpe_cores, max_down_speed)
+            self.sut.start(self.arp_cores + self.inet_cores + self.cpe_cores)
+            yield
+        finally:
+            self.sut.stop_all()
 
     def run_test(self, pkt_size, duration, value, tolerated_loss=0.0,
                  line_speed=(constants.ONE_GIGABIT_IN_BITS * constants.NIC_GBPS_DEFAULT)):
