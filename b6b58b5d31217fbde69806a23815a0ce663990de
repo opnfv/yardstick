@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_2291a847",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T14:45:46Z",
+      "side": 1,
+      "message": "This is no returning the correct IP. This is returning:\n\n$ dig proxy.ir.intel.com -t A +short\nproxy-xxxxx.com.\nproxy-xxxxxxxxx.com.\n10.102.248.16\n\n\"dig\" is supposed to return only the type A addresses using \"-t A\" parameter. You need to:\n1) send the command with -t A\ndig proxy.ir.intel.com -t A +short\n\n2) read this list an retrieve the last one",
+      "range": {
+        "startLine": 31,
+        "startChar": 11,
+        "endLine": 31,
+        "endChar": 40
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_a297788f",
         "filename": "ansible/infra_deploy.yml",
         "patchSetId": 3
@@ -18,6 +41,29 @@
         "startChar": 0,
         "endLine": 32,
         "endChar": 27
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_02946c35",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T14:45:46Z",
+      "side": 1,
+      "message": "Move this into infra_rampup_stack_nodes",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 50
       },
       "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -477,6 +523,167 @@
         "startChar": 0,
         "endLine": 15,
         "endChar": 20
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6243b014",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T14:45:46Z",
+      "side": 1,
+      "message": "Put this comment in L19",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 55
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a24c9843",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T14:45:46Z",
+      "side": 1,
+      "message": "Use the apt-get module in ansible: http://docs.ansible.com/ansible/latest/modules/apt_module.html",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8247dc1c",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T14:45:46Z",
+      "side": 1,
+      "message": "? is there something missing here?",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 8
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0263ccb1",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T14:45:46Z",
+      "side": 1,
+      "message": "We shouldn\u0027t have any value in ostacks_hosts or ostack_ips. This part should be deleted\n  ostack_hosts: \"{{ [hostvars[item].ansible_host] }}\"",
+      "range": {
+        "startLine": 25,
+        "startChar": 21,
+        "endLine": 25,
+        "endChar": 48
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e256a0d1",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T14:45:46Z",
+      "side": 1,
+      "message": "delete this",
+      "range": {
+        "startLine": 42,
+        "startChar": 32,
+        "endLine": 42,
+        "endChar": 33
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c251e4d9",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/update_conf_files.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T14:45:46Z",
+      "side": 1,
+      "message": "This should be something fixed. \"http_proxy\" and the following needed variables should be assigned previously.",
+      "range": {
+        "startLine": 78,
+        "startChar": 61,
+        "endLine": 78,
+        "endChar": 88
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_425dd4e8",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/update_conf_files.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T14:45:46Z",
+      "side": 1,
+      "message": "Here we need to write only:\n- the host name\n- localhost\n- 127.0.0.1\n- the management IP\n\nE.g.:\nno_proxy\u003d127.0.0.1,localhost,10.11.12.13,my_cool_computer",
+      "range": {
+        "startLine": 81,
+        "startChar": 56,
+        "endLine": 81,
+        "endChar": 134
       },
       "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
