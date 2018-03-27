@@ -162,14 +162,19 @@ def get_shade_client():
 # *********************************************
 #   NOVA
 # *********************************************
-def create_keypair(name, key_path=None):    # pragma: no cover
+def create_keypair(shade_client, name, public_key=None):
+    """Create a new keypair.
+
+    :param name: Name of the keypair being created.
+    :param public_key: Public key for the new keypair.
+
+    :return: Created keypair.
+    """
     try:
-        with open(key_path) as fpubkey:
-            keypair = get_nova_client().keypairs.create(
-                name=name, public_key=fpubkey.read())
-            return keypair
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [create_keypair(nova_client)]")
+        return shade_client.create_keypair(name, public_key=public_key)
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [create_keypair(shade_client)]. "
+                  "Exception message, '%s'", o_exc.orig_message)
 
 
 def create_instance_and_wait_for_active(shade_client, name, image,
