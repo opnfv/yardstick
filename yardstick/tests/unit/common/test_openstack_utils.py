@@ -400,3 +400,30 @@ class CreateKeypairTestCase(unittest.TestCase):
             self.mock_shade_client, self.name)
         mock_logger.error.assert_called_once()
         self.assertIsNone(output)
+
+
+class DeleteKeypairTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+
+    def test_delete_keypair(self):
+        self.mock_shade_client.delete_keypair.return_value = True
+        output = openstack_utils.delete_keypair(self.mock_shade_client,
+                                                'key_name')
+        self.assertTrue(output)
+
+    def test_delete_keypair_fail(self):
+        self.mock_shade_client.delete_keypair.return_value = False
+        output = openstack_utils.delete_keypair(self.mock_shade_client,
+                                                'key_name')
+        self.assertFalse(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_delete_keypair_exception(self, mock_logger):
+        self.mock_shade_client.delete_keypair.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.delete_keypair(self.mock_shade_client,
+                                                'key_name')
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
