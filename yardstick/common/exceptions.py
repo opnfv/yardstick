@@ -186,3 +186,7 @@ class ScenarioDeleteServerError(YardstickException):
 
 class ScenarioCreateKeypairError(YardstickException):
     message = 'Nova Create Keypair Scenario failed'
+
+
+class ScenarioDeleteKeypairError(YardstickException):
+    message = 'Nova Delete Keypair Scenario failed'
