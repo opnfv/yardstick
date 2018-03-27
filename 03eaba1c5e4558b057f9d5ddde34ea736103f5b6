@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_42cf94b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T12:48:13Z",
+      "side": 1,
+      "message": "We need a JIRA ticket:\n\nJIRA: YARDSTICK-xxx",
+      "revId": "03eaba1c5e4558b057f9d5ddde34ea736103f5b6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_62cc50bd",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T12:48:13Z",
+      "side": 1,
+      "message": "sudo -EH",
+      "range": {
+        "startLine": 159,
+        "startChar": 5,
+        "endLine": 159,
+        "endChar": 10
+      },
+      "revId": "03eaba1c5e4558b057f9d5ddde34ea736103f5b6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_02d58c42",
+        "filename": "docs/testing/user/userguide/12-nsb_installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-03-27T12:48:13Z",
+      "side": 1,
+      "message": "remove this line",
+      "revId": "03eaba1c5e4558b057f9d5ddde34ea736103f5b6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
