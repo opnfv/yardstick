@@ -375,3 +375,28 @@ class DeleteInstanceTestCase(unittest.TestCase):
                                                  'instance_name_id')
         mock_logger.error.assert_called_once()
         self.assertFalse(output)
+
+
+class CreateKeypairTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.name = 'key_name'
+
+    def test_create_keypair(self):
+        self.mock_shade_client.create_keypair.return_value = (
+            {'name': 'key-name', 'type': 'ssh'})
+        output = openstack_utils.create_keypair(
+            self.mock_shade_client, self.name)
+        self.assertEqual(
+            {'name': 'key-name', 'type': 'ssh'},
+            output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_keypair_fail(self, mock_logger):
+        self.mock_shade_client.create_keypair.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.create_keypair(
+            self.mock_shade_client, self.name)
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
