@@ -12,25 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
-import os
-import logging
+import io
 import collections
+import logging
+import os
+import re
 import time
 
-from collections import OrderedDict
-
 from yardstick import ssh
-from yardstick.network_services.utils import get_nsb_option
-from yardstick.network_services.utils import provision_tool
 from yardstick.benchmark.contexts.base import Context
-from yardstick.benchmark.contexts.standalone.model import Libvirt
-from yardstick.benchmark.contexts.standalone.model import StandaloneContextHelper
-from yardstick.benchmark.contexts.standalone.model import Server
-from yardstick.benchmark.contexts.standalone.model import OvsDeploy
-from yardstick.network_services.utils import PciAddress
+from yardstick.benchmark.contexts.standalone import model
+from yardstick.common import exceptions
+from yardstick.network_services import utils
+
 
 LOG = logging.getLogger(__name__)
+
+MAIN_BRIDGE = 'br0'
 
 
 class OvsDpdkContext(Context):
@@ -50,8 +48,8 @@ class OvsDpdkContext(Context):
     }
 
     DEFAULT_OVS = '2.6.0'
-
     PKILL_TEMPLATE = "pkill %s %s"
+    CMD_TIMEOUT = 30
 
     def __init__(self):
         self.file_path = None
@@ -65,8 +63,8 @@ class OvsDpdkContext(Context):
         self.attrs = {}
         self.vm_flavor = None
         self.servers = None
-        self.helper = StandaloneContextHelper()
-        self.vnf_node = Server()
+        self.helper = model.StandaloneContextHelper()
+        self.vnf_node = model.Server()
         self.ovs_properties = {}
         self.wait_for_vswitchd = 10
         super(OvsDpdkContext, self).__init__()
@@ -166,56 +164,78 @@ class OvsDpdkContext(Context):
         vpath = self.ovs_properties.get("vpath", "/usr/local")
         version = self.ovs_properties.get('version', {})
         ovs_ver = [int(x) for x in version.get('ovs', self.DEFAULT_OVS).split('.')]
-        ovs_add_port = \
-            "ovs-vsctl add-port {br} {port} -- set Interface {port} type={type_}{dpdk_args}"
-        ovs_add_queue = "ovs-vsctl set Interface {port} options:n_rxq={queue}"
-        chmod_vpath = "chmod 0777 {0}/var/run/openvswitch/dpdkvhostuser*"
+        ovs_add_port = ('ovs-vsctl add-port {br} {port} -- '
+                        'set Interface {port} type={type_}{dpdk_args}')
+        ovs_add_queue = 'ovs-vsctl set Interface {port} options:n_rxq={queue}'
+        chmod_vpath = 'chmod 0777 {0}/var/run/openvswitch/dpdkvhostuser*'
 
-        cmd_dpdk_list = [
-            "ovs-vsctl del-br br0",
-            "rm -rf {0}/var/run/openvswitch/dpdkvhostuser*".format(vpath),
-            "ovs-vsctl add-br br0 -- set bridge br0 datapath_type=netdev",
+        cmd_list = [
+            'ovs-vsctl --if-exists del-br {0}'.format(MAIN_BRIDGE),
+            'rm -rf {0}/var/run/openvswitch/dpdkvhostuser*'.format(vpath),
+            'ovs-vsctl add-br {0} -- set bridge {0} datapath_type=netdev'.
+            format(MAIN_BRIDGE)
         ]
 
-        ordered_network = OrderedDict(self.networks)
+        ordered_network = collections.OrderedDict(self.networks)
         for index, vnf in enumerate(ordered_network.values()):
             if ovs_ver >= [2, 7, 0]:
                 dpdk_args = " options:dpdk-devargs=%s" % vnf.get("phy_port")
-            dpdk_list.append(ovs_add_port.format(br='br0', port='dpdk%s' % vnf.get("port_num", 0),
-                                                 type_='dpdk', dpdk_args=dpdk_args))
-            dpdk_list.append(ovs_add_queue.format(port='dpdk%s' % vnf.get("port_num", 0),
-                                                  queue=self.ovs_properties.get("queues", 1)))
+            dpdk_list.append(ovs_add_port.format(
+                br=MAIN_BRIDGE, port='dpdk%s' % vnf.get("port_num", 0),
+                type_='dpdk', dpdk_args=dpdk_args))
+            dpdk_list.append(ovs_add_queue.format(
+                port='dpdk%s' % vnf.get("port_num", 0),
+                queue=self.ovs_properties.get("queues", 1)))
 
         # Sorting the array to make sure we execute dpdk0... in the order
         list.sort(dpdk_list)
-        cmd_dpdk_list.extend(dpdk_list)
+        cmd_list.extend(dpdk_list)
 
         # Need to do two for loop to maintain the dpdk/vhost ports.
         for index, _ in enumerate(ordered_network):
-            cmd_dpdk_list.append(ovs_add_port.format(br='br0', port='dpdkvhostuser%s' % index,
-                                                     type_='dpdkvhostuser', dpdk_args=""))
+            cmd_list.append(ovs_add_port.format(
+                br=MAIN_BRIDGE, port='dpdkvhostuser%s' % index,
+                type_='dpdkvhostuser', dpdk_args=""))
 
-        for cmd in cmd_dpdk_list:
-            LOG.info(cmd)
-            self.connection.execute(cmd)
-
-        # Fixme: add flows code
-        ovs_flow = "ovs-ofctl add-flow br0 in_port=%s,action=output:%s"
-
+        ovs_flow = ("ovs-ofctl add-flow {0} in_port=%s,action=output:%s".
+                    format(MAIN_BRIDGE))
         network_count = len(ordered_network) + 1
         for in_port, out_port in zip(range(1, network_count),
                                      range(network_count, network_count * 2)):
-            self.connection.execute(ovs_flow % (in_port, out_port))
-            self.connection.execute(ovs_flow % (out_port, in_port))
+            cmd_list.append(ovs_flow % (in_port, out_port))
+            cmd_list.append(ovs_flow % (out_port, in_port))
 
-        self.connection.execute(chmod_vpath.format(vpath))
+        cmd_list.append(chmod_vpath.format(vpath))
+
+        for cmd in cmd_list:
+            LOG.info(cmd)
+            exit_status, _, stderr = self.connection.execute(
+                cmd, timeout=self.CMD_TIMEOUT)
+            if exit_status:
+                raise exceptions.OVSSetupError(command=cmd, error=stderr)
+
+    def _check_hugepages(self):
+        meminfo = io.BytesIO()
+        self.connection.get_file_obj('/proc/meminfo', meminfo)
+        regex = re.compile(r"HugePages_Total:\s+(?P<hp_total>\d+)[\n\r]"
+                           r"HugePages_Free:\s+(?P<hp_free>\d+)")
+        match = regex.search(meminfo.getvalue().decode('utf-8'))
+        if not match:
+            raise exceptions.OVSHugepagesInfoError()
+        if int(match.group('hp_total')) == 0:
+            raise exceptions.OVSHugepagesNotConfigured()
+        if int(match.group('hp_free')) == 0:
+            raise exceptions.OVSHugepagesZeroFree(
+                total_hugepages=int(match.group('hp_total')))
 
     def cleanup_ovs_dpdk_env(self):
-        self.connection.execute("ovs-vsctl del-br br0")
+        self.connection.execute(
+            'ovs-vsctl --if-exists del-br {0}'.format(MAIN_BRIDGE))
         self.connection.execute("pkill -9 ovs")
 
     def check_ovs_dpdk_env(self):
         self.cleanup_ovs_dpdk_env()
+        self._check_hugepages()
 
         version = self.ovs_properties.get("version", {})
         ovs_ver = version.get("ovs", self.DEFAULT_OVS)
@@ -223,13 +243,15 @@ class OvsDpdkContext(Context):
 
         supported_version = self.SUPPORTED_OVS_TO_DPDK_MAP.get(ovs_ver, None)
         if supported_version is None or supported_version.split('.')[:2] != dpdk_ver[:2]:
-            raise Exception("Unsupported ovs '{}'. Please check the config...".format(ovs_ver))
+            raise exceptions.OVSUnsupportedVersion(
+                ovs_version=ovs_ver,
+                ovs_to_dpdk_map=self.SUPPORTED_OVS_TO_DPDK_MAP)
 
         status = self.connection.execute("ovs-vsctl -V | grep -i '%s'" % ovs_ver)[0]
         if status:
-            deploy = OvsDeploy(self.connection,
-                               get_nsb_option("bin_path"),
-                               self.ovs_properties)
+            deploy = model.OvsDeploy(self.connection,
+                                     utils.get_nsb_option("bin_path"),
+                                     self.ovs_properties)
             deploy.ovs_deploy()
 
     def deploy(self):
@@ -240,15 +262,15 @@ class OvsDpdkContext(Context):
             return
 
         self.connection = ssh.SSH.from_node(self.host_mgmt)
-        self.dpdk_devbind = provision_tool(
+        self.dpdk_devbind = utils.provision_tool(
             self.connection,
-            os.path.join(get_nsb_option("bin_path"), "dpdk-devbind.py"))
+            os.path.join(utils.get_nsb_option('bin_path'), 'dpdk-devbind.py'))
 
         # Check dpdk/ovs version, if not present install
         self.check_ovs_dpdk_env()
         #    Todo: NFVi deploy (sriov, vswitch, ovs etc) based on the config.
-        StandaloneContextHelper.install_req_libs(self.connection)
-        self.networks = StandaloneContextHelper.get_nic_details(
+        model.StandaloneContextHelper.install_req_libs(self.connection)
+        self.networks = model.StandaloneContextHelper.get_nic_details(
             self.connection, self.networks, self.dpdk_devbind)
 
         self.setup_ovs()
@@ -256,9 +278,8 @@ class OvsDpdkContext(Context):
         self.setup_ovs_bridge_add_flows()
         self.nodes = self.setup_ovs_dpdk_context()
         LOG.debug("Waiting for VM to come up...")
-        self.nodes = StandaloneContextHelper.wait_for_vnfs_to_start(self.connection,
-                                                                    self.servers,
-                                                                    self.nodes)
+        self.nodes = model.StandaloneContextHelper.wait_for_vnfs_to_start(
+            self.connection, self.servers, self.nodes)
 
     def undeploy(self):
 
@@ -278,7 +299,7 @@ class OvsDpdkContext(Context):
 
         # Todo: NFVi undeploy (sriov, vswitch, ovs etc) based on the config.
         for vm in self.vm_names:
-            Libvirt.check_if_vm_exists_and_delete(vm, self.connection)
+            model.Libvirt.check_if_vm_exists_and_delete(vm, self.connection)
 
     def _get_server(self, attr_name):
         """lookup server info by name from context
@@ -333,9 +354,9 @@ class OvsDpdkContext(Context):
         return result
 
     def configure_nics_for_ovs_dpdk(self):
-        portlist = OrderedDict(self.networks)
+        portlist = collections.OrderedDict(self.networks)
         for key in portlist:
-            mac = StandaloneContextHelper.get_mac_address()
+            mac = model.StandaloneContextHelper.get_mac_address()
             portlist[key].update({'mac': mac})
         self.networks = portlist
         LOG.info("Ports %s", self.networks)
@@ -344,29 +365,33 @@ class OvsDpdkContext(Context):
         vpath = self.ovs_properties.get("vpath", "/usr/local")
         vf = self.networks[vfs[0]]
         port_num = vf.get('port_num', 0)
-        vpci = PciAddress(vf['vpci'].strip())
+        vpci = utils.PciAddress(vf['vpci'].strip())
         # Generate the vpci for the interfaces
         slot = index + port_num + 10
         vf['vpci'] = \
             "{}:{}:{:02x}.{}".format(vpci.domain, vpci.bus, slot, vpci.function)
-        Libvirt.add_ovs_interface(vpath, port_num, vf['vpci'], vf['mac'], str(cfg))
+        model.Libvirt.add_ovs_interface(
+            vpath, port_num, vf['vpci'], vf['mac'], str(cfg))
 
     def setup_ovs_dpdk_context(self):
         nodes = []
 
         self.configure_nics_for_ovs_dpdk()
 
-        for index, (key, vnf) in enumerate(OrderedDict(self.servers).items()):
+        for index, (key, vnf) in enumerate(collections.OrderedDict(
+                self.servers).items()):
             cfg = '/tmp/vm_ovs_%d.xml' % index
             vm_name = "vm_%d" % index
 
             # 1. Check and delete VM if already exists
-            Libvirt.check_if_vm_exists_and_delete(vm_name, self.connection)
+            model.Libvirt.check_if_vm_exists_and_delete(vm_name,
+                                                        self.connection)
 
-            _, mac = Libvirt.build_vm_xml(self.connection, self.vm_flavor,
-                                          cfg, vm_name, index)
+            _, mac = model.Libvirt.build_vm_xml(
+                self.connection, self.vm_flavor, cfg, vm_name, index)
             # 2: Cleanup already available VMs
-            for vkey, vfs in OrderedDict(vnf["network_ports"]).items():
+            for vkey, vfs in collections.OrderedDict(
+                    vnf["network_ports"]).items():
                 if vkey == "mgmt":
                     continue
                 self._enable_interfaces(index, vfs, cfg)
@@ -376,7 +401,7 @@ class OvsDpdkContext(Context):
 
             # NOTE: launch through libvirt
             LOG.info("virsh create ...")
-            Libvirt.virsh_create_vm(self.connection, cfg)
+            model.Libvirt.virsh_create_vm(self.connection, cfg)
 
             self.vm_names.append(vm_name)
 
