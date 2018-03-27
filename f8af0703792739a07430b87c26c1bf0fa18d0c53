@@ -16,6 +16,24 @@
       "revId": "f8af0703792739a07430b87c26c1bf0fa18d0c53",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ff8c7b37",
+        "filename": "ansible/nsb_setup.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-03-27T09:11:26Z",
+      "side": 1,
+      "message": "Changing PYTHONPATH in Dockerfile does not have any impact.\nThe PYTHONPATH variable is not explicitly exported to the \ndocker container ... as far as I can see.",
+      "parentUuid": "5a3f45e8_5c6f7dfd",
+      "revId": "f8af0703792739a07430b87c26c1bf0fa18d0c53",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
