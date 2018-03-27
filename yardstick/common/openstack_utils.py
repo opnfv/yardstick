@@ -349,12 +349,18 @@ def delete_flavor(flavor_id):    # pragma: no cover
         return True
 
 
-def delete_keypair(nova_client, key):     # pragma: no cover
+def delete_keypair(shade_client, name):
+    """Delete a keypair.
+
+    :param name: Name of the keypair to delete.
+
+    :returns: True if delete succeeded, False otherwise.
+    """
     try:
-        nova_client.keypairs.delete(key=key)
-        return True
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [delete_keypair(nova_client)]")
+        return shade_client.delete_keypair(name)
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [delete_neutron_router(shade_client, '%s')]. "
+                  "Exception message: %s", name, o_exc.orig_message)
         return False
 
 
