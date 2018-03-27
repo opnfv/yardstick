@@ -13,8 +13,8 @@
 # limitations under the License.
 
 import copy
-import os
 import mock
+import os
 import unittest
 import uuid
 
@@ -82,12 +82,18 @@ class ModelLibvirtTestCase(unittest.TestCase):
         self.mock_ssh.execute.assert_called_once_with('virsh create vm_0')
 
     def test_virsh_destroy_vm(self):
-        with mock.patch("yardstick.ssh.SSH") as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = mock.Mock(return_value=(0, "a", ""))
-            ssh.return_value = ssh_mock
-        # NOTE(ralonsoh): this test doesn't cover function execution.
-        model.Libvirt.virsh_destroy_vm("vm_0", ssh_mock)
+        self.mock_ssh.execute = mock.Mock(return_value=(0, 0, 0))
+        model.Libvirt.virsh_destroy_vm('vm_0', self.mock_ssh)
+        self.mock_ssh.execute.assert_called_once_with('virsh destroy vm_0')
+
+    @mock.patch.object(model, 'LOG')
+    def test_virsh_destroy_vm_error(self, mock_logger):
+        self.mock_ssh.execute = mock.Mock(return_value=(1, 0, 'error_destroy'))
+        mock_logger.warning = mock.Mock()
+        model.Libvirt.virsh_destroy_vm('vm_0', self.mock_ssh)
+        mock_logger.warning.assert_called_once_with(
+            'Error destroying VM %s. Error: %s', 'vm_0', 'error_destroy')
+        self.mock_ssh.execute.assert_called_once_with('virsh destroy vm_0')
 
     def test_add_interface_address(self):
         xml = ElementTree.ElementTree(
