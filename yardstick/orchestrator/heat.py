@@ -15,6 +15,7 @@ import datetime
 import getpass
 import logging
 import pkg_resources
+import pprint
 import socket
 import tempfile
 import time
@@ -22,6 +23,7 @@ import time
 from oslo_serialization import jsonutils
 from oslo_utils import encodeutils
 import shade
+from shade._heat import event_utils
 
 import yardstick.common.openstack_utils as op_utils
 from yardstick.common import exceptions
@@ -62,6 +64,10 @@ class HeatStack(object):
                 timeout=timeout, **heat_parameters)
 
         self._update_stack_tracking()
+
+    def get_failures(self):
+        return event_utils.get_events(self._cloud, self._stack.id,
+                                      event_args={'resource_status': 'FAILED'})
 
     def get(self):
         """Retrieves an existing stack from the target cloud
@@ -625,6 +631,9 @@ name (i.e. %s).
             return stack
 
         if stack.status != self.HEAT_STATUS_COMPLETE:
+            for event in stack.get_failures():
+                log.error("%s", event.resource_status_reason)
+            log.error(pprint.pformat(self._template))
             raise exceptions.HeatTemplateError(stack_name=self.name)
 
         log.info("Creating stack '%s' DONE in %d secs",

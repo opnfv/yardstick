@@ -354,13 +354,30 @@ class HeatTemplateTestCase(unittest.TestCase):
             3600)
         self.assertEqual(heat_stack, ret)
 
-
     def test_create_block_status_no_complete(self):
         heat_stack = mock.Mock()
         heat_stack.status = 'other status'
+        heat_stack.get_failures.return_value = []
         with mock.patch.object(heat, 'HeatStack', return_value=heat_stack):
             self.assertRaises(exceptions.HeatTemplateError,
                               self.template.create, block=True)
+        heat_stack.create.assert_called_once_with(
+            self.template._template, self.template.heat_parameters, True,
+            3600)
+
+    def test_create_block_status_no_complete_with_reasons(self):
+        heat_stack = mock.Mock()
+        heat_stack.status = 'other status'
+        heat_stack.get_failures.return_value = [
+            mock.Mock(resource_status_reason="A reason"),
+            mock.Mock(resource_status_reason="Something else")
+        ]
+        with mock.patch.object(heat, 'HeatStack', return_value=heat_stack):
+            with mock.patch.object(heat, 'log') as mock_log:
+                self.assertRaises(exceptions.HeatTemplateError,
+                                  self.template.create, block=True)
+                mock_log.error.assert_any_call("%s", "A reason")
+                mock_log.error.assert_any_call("%s", "Something else")
         heat_stack.create.assert_called_once_with(
             self.template._template, self.template.heat_parameters, True,
             3600)
