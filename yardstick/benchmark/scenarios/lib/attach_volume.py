@@ -6,30 +6,45 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
-from __future__ import print_function
-from __future__ import absolute_import
-
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
+from yardstick.common import openstack_utils
+from yardstick.common import exceptions
 
 LOG = logging.getLogger(__name__)
 
 
 class AttachVolume(base.Scenario):
-    """Attach a volmeu to an instance"""
+    """Attach a volume to an instance
+
+     Parameters:
+         server_dict - Server dict
+                       e.g.: server_dict: {'id': a1-b2-c3-d4-e6,
+                       'status': available, 'name': '', 'attachments': []}
+        volume_dict - Volume dict
+                       e.g.: volume_dict: {'id': a1-b2-c3-d4-e6,
+                       'status': available, 'name': '', 'attachments': []}
+
+    Outputs:
+    rc - response code of attach volume to server
+        0 for success
+        1 for failure
+    """
 
     __scenario_type__ = "AttachVolume"
 
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
+        self.options = self.scenario_cfg["options"]
 
-        self.server_id = self.options.get("server_id", "TestServer")
-        self.volume_id = self.options.get("volume_id", None)
+        self.server_dict = self.options["server_dict"]
+        self.volume_dict = self.options["volume_dict"]
+        self.device = self.options.get("device")
+        self.wait = self.options.get("wait", True)
+        self.timeout = self.options.get("timeout", None)
+        self.shade_client = openstack_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -44,10 +59,14 @@ class AttachVolume(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        status = op_utils.attach_server_volume(self.server_id,
-                                               self.volume_id)
+        status = openstack_utils.attach_volume_to_server(
+            self.shade_client, self.server_dict, self.volume_dict,
+            device=self.device, wait=self.wait, timeout=self.timeout)
 
-        if status:
-            LOG.info("Attach volume to server successful!")
-        else:
-            LOG.info("Attach volume to server failed!")
+        if not status:
+            result.update({"attach_volume": 0})
+            LOG.error("Attach volume to server failed!")
+            raise exceptions.ScenarioAttachVolumeError
+
+        result.update({"attach_volume": 1})
+        LOG.info("Attach volume to server successful!")
