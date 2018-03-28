@@ -84,7 +84,7 @@ apt-get update && apt-get install -y \
     libxft-dev \
     libxss-dev \
     sudo \
-    iputils-ping
+    iputils-ping \
     rabbitmq-server
 
 if [[ "${DOCKER_ARCH}" != "aarch64" ]]; then
@@ -95,10 +95,11 @@ apt-get -y autoremove && apt-get clean
 
 git config --global http.sslVerify false
 
-# Configure and restart RabbitMQ
+# Start and configure RabbitMQ
+service rabbitmq-server restart
+rabbitmqctl start_app
 rabbitmqctl add_user yardstick yardstick
 rabbitmqctl set_permissions yardstick ".*" ".*" ".*"
-rabbitmqctl reset
 
 # install yardstick + dependencies
 easy_install -U pip==9.0.1
