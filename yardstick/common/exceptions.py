@@ -190,3 +190,7 @@ class ScenarioCreateKeypairError(YardstickException):
 
 class ScenarioDeleteKeypairError(YardstickException):
     message = 'Nova Delete Keypair Scenario failed'
+
+
+class ScenarioAttachVolumeError(YardstickException):
+    message = 'Nova Attach Volume Scenario failed'
