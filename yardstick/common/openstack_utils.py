@@ -237,17 +237,34 @@ def create_instance_and_wait_for_active(shade_client, name, image=None,
                   "Exception message, '%s'", o_exc.orig_message)
 
 
-def attach_server_volume(server_id, volume_id,
-                         device=None):    # pragma: no cover
+def attach_volume_to_server(shade_client, server, volume, device=None,
+                            wait=True, timeout=None):
+    """Attach a volume to a server.
+
+    This will attach a volume, described by the passed in volume
+    dict, to the server described by the passed in server dict on the named
+    device on the server.
+
+    If the volume is already attached to the server, or generally not
+    available, then an exception is raised. To re-attach to a server,
+    but under a different device, the user must detach it first.
+
+    :param server:(dict) The server dict to attach to.
+    :param volume:(dict) The volume dict to attach.
+    :param device:(string) The device name where the volume will attach.
+    :param wait:(bool) If true, waits for volume to be attached.
+    :param timeout: Seconds to wait for volume attachment. None is forever.
+
+    :returns: True if attached successful, False otherwise.
+    """
     try:
-        get_nova_client().volumes.create_server_volume(server_id,
-                                                       volume_id, device)
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [attach_server_volume(nova_client, '%s', '%s')]",
-                      server_id, volume_id)
-        return False
-    else:
+        shade_client.attach_volume(
+            server, volume, device=device, wait=wait, timeout=timeout)
         return True
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [attach_volume_to_server(shade_client)]. "
+                  "Exception message: %s", o_exc.orig_message)
+        return False
 
 
 def delete_instance(shade_client, name_or_id, wait=False, timeout=180,
