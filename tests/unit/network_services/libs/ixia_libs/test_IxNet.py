@@ -13,11 +13,9 @@
 # limitations under the License.
 #
 
-# Unittest for yardstick.network_services.libs.ixia_libs.IxNet
-
-from __future__ import absolute_import
-import unittest
 import mock
+import IxNetwork
+import unittest
 
 from yardstick.network_services.libs.ixia_libs.IxNet.IxNet import IxNextgen
 from yardstick.network_services.libs.ixia_libs.IxNet.IxNet import IP_VERSION_4
@@ -27,20 +25,27 @@ from yardstick.network_services.libs.ixia_libs.IxNet.IxNet import IP_VERSION_6
 UPLINK = "uplink"
 DOWNLINK = "downlink"
 
+
 class TestIxNextgen(unittest.TestCase):
 
     def test___init__(self):
         ixnet_gen = IxNextgen()
         self.assertIsNone(ixnet_gen._bidir)
 
-    @mock.patch("yardstick.network_services.libs.ixia_libs.IxNet.IxNet.sys")
-    def test_connect(self, *args):
-
+    @mock.patch.object(IxNetwork, 'IxNet')
+    def test_connect(self, mock_ixnet):
+        ixnet_instance = mock.Mock()
+        mock_ixnet.return_value = ixnet_instance
         ixnet_gen = IxNextgen()
-        ixnet_gen.get_config = mock.MagicMock()
-        ixnet_gen.get_ixnet = mock.MagicMock()
+        with mock.patch.object(ixnet_gen, 'get_config') as mock_config:
+            mock_config.return_value = {'machine': 'machine_fake',
+                                        'port': 'port_fake',
+                                        'version': 12345}
+            ixnet_gen._connect(mock.ANY)
 
-        self.assertRaises(ImportError, ixnet_gen._connect, {"py_lib_path": "/tmp"})
+        ixnet_instance.connect.assert_called_once_with(
+            'machine_fake', '-port', 'port_fake', '-version', '12345')
+        mock_config.assert_called_once()
 
     def test_clear_ixia_config(self):
         ixnet = mock.MagicMock()
@@ -659,13 +664,11 @@ class TestIxNextgen(unittest.TestCase):
                     "version": "test3",
                     "ixchassis": "test4",
                     "tcl_port": "test5",
-                    "py_lib_path": "test6",
                 },
             }
         }
 
         expected = {
-            'py_lib_path': 'test6',
             'machine': 'test1',
             'port': 'test5',
             'chassis': 'test4',
