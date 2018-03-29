@@ -121,7 +121,7 @@ class Runner(object):
     @staticmethod
     def terminate_all():
         """Terminate all runners (subprocesses)"""
-        log.debug("Terminating all runners", exc_info=True)
+        log.debug("Terminating all runners")
 
         # release dumper process as some errors before any runner is created
         if not Runner.runners:
