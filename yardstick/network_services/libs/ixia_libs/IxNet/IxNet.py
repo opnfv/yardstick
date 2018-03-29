@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
-from __future__ import print_function
-import sys
 import logging
 
 import re
 from itertools import product
+import IxNetwork
+
 
 log = logging.getLogger(__name__)
 
@@ -135,7 +134,6 @@ class IxNextgen(object):
             port.append(port0)
 
         cfg = {
-            'py_lib_path': tg_cfg["mgmt-interface"]["tg-config"]["py_lib_path"],
             'machine': tg_cfg["mgmt-interface"]["ip"],
             'port': tg_cfg["mgmt-interface"]["tg-config"]["tcl_port"],
             'chassis': tg_cfg["mgmt-interface"]["tg-config"]["ixchassis"],
@@ -186,7 +184,7 @@ class IxNextgen(object):
             self.set_random_ip_multi_attribute(ip, seeds[1], fixed_bits, random_mask, l3_count)
 
     def add_ip_header(self, params, version):
-        for it, ep, i in self.iter_over_get_lists('/traffic', 'trafficItem', "configElement", 1):
+        for _, ep, i in self.iter_over_get_lists('/traffic', 'trafficItem', "configElement", 1):
             iter1 = (v['outer_l3'] for v in params.values() if str(v['id']) == str(i))
             try:
                 l3 = next(iter1, {})
@@ -194,21 +192,13 @@ class IxNextgen(object):
             except (KeyError, IndexError):
                 continue
 
-            for ip, ip_bits, _ in self.iter_over_get_lists(ep, 'stack', 'field'):
+            for _, ip_bits, _ in self.iter_over_get_lists(ep, 'stack', 'field'):
                 self.set_random_ip_multi_attributes(ip_bits, version, seeds, l3)
 
         self.ixnet.commit()
 
     def _connect(self, tg_cfg):
         self._cfg = self.get_config(tg_cfg)
-
-        sys.path.append(self._cfg["py_lib_path"])
-        # Import IxNetwork after getting ixia lib path
-        try:
-            import IxNetwork
-        except ImportError:
-            raise
-
         self.ixnet = IxNetwork.IxNet()
 
         machine = self._cfg['machine']
@@ -292,7 +282,7 @@ class IxNextgen(object):
             self.update_ether_multi_attribute(ether, str(l2.get('srcmac', "00:00:00:00:00:01")))
 
     def ix_update_ether(self, params):
-        for ti, ep, index in self.iter_over_get_lists('/traffic', 'trafficItem',
+        for _, ep, index in self.iter_over_get_lists('/traffic', 'trafficItem',
                                                       "configElement", 1):
             iter1 = (v['outer_l2'] for v in params.values() if str(v['id']) == str(index))
             try:
@@ -300,7 +290,7 @@ class IxNextgen(object):
             except KeyError:
                 continue
 
-            for ip, ether, _ in self.iter_over_get_lists(ep, 'stack', 'field'):
+            for _, ether, _ in self.iter_over_get_lists(ep, 'stack', 'field'):
                 self.update_ether_multi_attributes(ether, l2)
 
         self.ixnet.commit()
