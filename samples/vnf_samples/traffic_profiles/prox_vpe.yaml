@@ -19,11 +19,11 @@ description:     Prox vPE traffic profile
 
 traffic_profile:
   traffic_type: ProxBinSearchProfile
-  tolerated_loss: 100.0 #0.001
+  tolerated_loss: 1.0 #0.001
   test_precision: 0.01
 # The minimum size of the Ethernet frame for the vPE test is 68 bytes.
   packet_sizes: [68]
-  duration: 5
+  duration: 60
   lower_bound: 0.0
   upper_bound: 100.0
 
