@@ -1072,7 +1072,6 @@ IxLoad:
                 lib_path: "/opt/ixia/ixos-api/8.01.0.2/lib/ixTcl1.0"
                 root_dir: "/opt/ixia/ixos-api/8.01.0.2/"
                 py_bin_path: "/opt/ixia/ixload/8.01.106.3/bin/"
-                py_lib_path: "/opt/ixia/ixnetwork/8.01.1029.14/lib/PythonApi"
                 dut_result_dir: "/mnt/ixia"
                 version: 8.1
             interfaces:
@@ -1111,9 +1110,10 @@ IxLoad:
 IxNetwork:
 ^^^^^^^^^^
 
-1. Software needed: ``IxNetworkAPI<ixnetwork verson>Linux64.bin.tgz`` (Download from ixia support site)
-                     Install - ``IxNetworkAPI<ixnetwork verson>Linux64.bin.tgz``
-2. Update pod_ixia.yaml file with ixia details.
+IxNetwork testcases use IxNetwork API Python Bindings module, which is
+installed as part of the requirements of the project.
+
+1. Update pod_ixia.yaml file with ixia details.
 
   .. code-block:: console
 
@@ -1137,7 +1137,6 @@ IxNetwork:
                 lib_path: "/opt/ixia/ixos-api/8.01.0.2/lib/ixTcl1.0"
                 root_dir: "/opt/ixia/ixos-api/8.01.0.2/"
                 py_bin_path: "/opt/ixia/ixload/8.01.106.3/bin/"
-                py_lib_path: "/opt/ixia/ixnetwork/8.01.1029.14/lib/PythonApi"
                 dut_result_dir: "/mnt/ixia"
                 version: 8.1
             interfaces:
@@ -1158,13 +1157,13 @@ IxNetwork:
 
   for sriov/ovs_dpdk pod files, please refer to above Standalone Virtualization for ovs-dpdk/sriov configuration
 
-3. Start IxNetwork TCL Server
+2. Start IxNetwork TCL Server
    You will also need to configure the IxNetwork machine to start the IXIA
    IxNetworkTclServer. This can be started like so:
 
     - Connect to the IxNetwork machine using RDP
     - Go to:     ``Start->Programs->Ixia->IxNetwork->IxNetwork 7.21.893.14 GA->IxNetworkTclServer`` (or ``IxNetworkApiServer``)
 
-4. execute testcase in samplevnf folder.
+3. execute testcase in samplevnf folder.
    eg ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml``
 

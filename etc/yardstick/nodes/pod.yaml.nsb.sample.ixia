@@ -26,7 +26,6 @@ nodes:
         lib_path: "/opt/ixia/ixos-api/8.01.0.2/lib/ixTcl1.0"
         root_dir: "/opt/ixia/ixos-api/8.01.0.2/"
         py_bin_path: "/opt/ixia/ixload/8.01.106.3/bin/"
-        py_lib_path: "/opt/ixia/ixnetwork/8.01.1029.14/lib/PythonApi"
         dut_result_dir: "/mnt/ixia"
         version: 8.1
     interfaces:
