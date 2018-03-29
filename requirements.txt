@@ -26,6 +26,7 @@ flask==0.11.1           # BSD; OSI Approved  BSD License
 functools32==3.2.3.post2; python_version <= "2.7"    # PSF license
 futures==3.1.1;python_version=='2.7'    # BSD; OSI Approved  BSD License
 influxdb==4.1.1         # MIT License; OSI Approved  MIT License
+IxNetwork==8.40.1124.9  # MIT License; OSI Approved  MIT License
 jinja2schema==0.1.4     # OSI Approved  BSD License
 keystoneauth1==3.1.0    # OSI Approved  Apache Software License
 kubernetes==3.0.0a1     # OSI Approved  Apache Software License

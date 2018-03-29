@@ -29,7 +29,6 @@ vnfd:vnfd-catalog:
                 tcl_port: '{{tg_config.tcl_port}}' # tcl server port
                 lib_path: '{{tg_config.lib_path}}'
                 root_dir: '{{tg_config.root_dir}}'
-                py_lib_path: '{{tg_config.py_lib_path}}'
                 py_bin_path: '{{tg_config.py_bin_path}}'
                 dut_result_dir: '{{tg_config.dut_result_dir}}'
                 version: '{{tg_config.version}}'
