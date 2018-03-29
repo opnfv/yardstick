@@ -49,7 +49,7 @@ scenarios:
   runner:
     type: Duration
     # we kill after duration, independent of test duration, so set this high
-    duration: 300
+    duration: 1600
 
 context:
   type: Node
