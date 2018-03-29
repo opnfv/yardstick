@@ -32,7 +32,6 @@ nodes:
       lib_path: "{{gen.tg_config.lib_path}}"
       root_dir: "{{gen.tg_config.root_dir}}"
       py_bin_path: "{{gen.tg_config.py_bin_path}}"
-      py_lib_path: "{{gen.tg_config.py_lib_path}}"
       dut_result_dir: "{{gen.tg_config.dut_result_dir}}"
       version: "{{gen.tg_config.version}}"
     interfaces:
