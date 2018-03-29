@@ -26,13 +26,12 @@ nodes:
     user: {{gen.user}}
     password: {{gen.password}}
     key_filename: {{gen.key_filename}}
-    tg_config: 
+    tg_config:
         ixchassis: "{{gen.tg_config.ixchassis}}" #ixia chassis ip
         tcl_port: "{{gen.tg_config.tcl_port}}" # tcl server port
         lib_path: "{{gen.tg_config.lib_path}}"
         root_dir: "{{gen.tg_config.root_dir}}"
         py_bin_path: "{{gen.tg_config.py_bin_path}}"
-        py_lib_path: "{{gen.tg_config.py_lib_path}}"
         dut_result_dir: "{{gen.tg_config.dut_result_dir}}"
         version: "{{gen.tg_config.version}}"
     interfaces:
