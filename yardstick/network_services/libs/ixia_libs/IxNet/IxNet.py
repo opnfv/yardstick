@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
-from __future__ import print_function
-import sys
 import logging
 
 import re
 from itertools import product
+import IxNetwork
+
 
 log = logging.getLogger(__name__)
 
@@ -135,7 +134,6 @@ class IxNextgen(object):
             port.append(port0)
 
         cfg = {
-            'py_lib_path': tg_cfg["mgmt-interface"]["tg-config"]["py_lib_path"],
             'machine': tg_cfg["mgmt-interface"]["ip"],
             'port': tg_cfg["mgmt-interface"]["tg-config"]["tcl_port"],
             'chassis': tg_cfg["mgmt-interface"]["tg-config"]["ixchassis"],
@@ -201,14 +199,6 @@ class IxNextgen(object):
 
     def _connect(self, tg_cfg):
         self._cfg = self.get_config(tg_cfg)
-
-        sys.path.append(self._cfg["py_lib_path"])
-        # Import IxNetwork after getting ixia lib path
-        try:
-            import IxNetwork
-        except ImportError:
-            raise
-
         self.ixnet = IxNetwork.IxNet()
 
         machine = self._cfg['machine']
