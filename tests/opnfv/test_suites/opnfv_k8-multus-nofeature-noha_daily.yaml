@@ -1,0 +1,18 @@
+##############################################################################
+# Copyright (c) 2017 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# k8 multus nofeature noha daily task suite
+
+schema: "yardstick:suite:0.1"
+
+name: "k8-multus-nofeature-noha"
+test_cases_dir: "tests/opnfv/test_cases/"
+test_cases:
+-
+  file_name: opnfv_yardstick_tc080.yaml
