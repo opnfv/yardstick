@@ -24,3 +24,6 @@ directory = /etc/yardstick
 command = uwsgi -i yardstick.ini
 EOF
 fi
+
+[program:rabbitmq]
+command = service rabbitmq-server restart
