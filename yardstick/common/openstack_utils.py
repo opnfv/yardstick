@@ -320,12 +320,26 @@ def delete_instance(shade_client, name_or_id, wait=False, timeout=180,
         return False
 
 
-def get_server_by_name(name):   # pragma: no cover
+def get_server(shade_client, name_or_id=None, filters=None, detailed=False,
+               bare=False):
+    """Get a server by name or ID.
+
+    :param name_or_id: Name or ID of the server.
+    :param filters:(dict) A dictionary of meta data to use for further
+                   filtering.
+    :param detailed:(bool) Whether or not to add detailed additional
+                    information.
+    :param bare:(bool) Whether to skip adding any additional information to the
+                server record.
+
+    :returns: A server ``munch.Munch`` or None if no matching server is found.
+    """
     try:
-        return get_nova_client().servers.list(search_opts={'name': name})[0]
-    except IndexError:
-        log.exception('Failed to get nova client')
-        raise
+        return shade_client.get_server(name_or_id=name_or_id, filters=filters,
+                                       detailed=detailed, bare=bare)
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [get_server(shade_client, '%s')]. "
+                  "Exception message: %s", name_or_id, o_exc.orig_message)
 
 
 def create_flavor(name, ram, vcpus, disk, **kwargs):   # pragma: no cover
