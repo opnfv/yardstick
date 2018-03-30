@@ -218,3 +218,7 @@ class ScenarioDeleteKeypairError(YardstickException):
 
 class ScenarioAttachVolumeError(YardstickException):
     message = 'Nova Attach Volume Scenario failed'
+
+
+class ScenarioGetServerError(YardstickException):
+    message = 'Nova Get Server Scenario failed'
