@@ -449,3 +449,27 @@ class AttachVolumeToServerTestCase(unittest.TestCase):
             self.mock_shade_client, self.server, self.volume)
         mock_logger.error.assert_called_once()
         self.assertFalse(output)
+
+
+class GetServerTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.get_server = mock.Mock()
+
+    def test_get_server(self):
+        _uuid = uuidutils.generate_uuid()
+        self.mock_shade_client.get_server.return_value = {
+            'name': 'server_name', 'id': _uuid}
+        output = openstack_utils.get_server(self.mock_shade_client,
+                                            'server_name_or_id')
+        self.assertEqual({'name': 'server_name', 'id': _uuid}, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_get_server_exception(self, mock_logger):
+        self.mock_shade_client.get_server.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.get_server(self.mock_shade_client,
+                                            'server_name_or_id')
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
