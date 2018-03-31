@@ -75,6 +75,16 @@ build_yardstick_image()
                 exit 1
             fi
         fi
+        if [[ $DEPLOY_SCENARIO == *[_-]ovs[_-]* ]]; then
+            ansible-playbook \
+                     -e img_property="nsb" \
+                     -e YARD_IMG_ARCH=${YARD_IMG_ARCH} \
+                     -vvv -i inventory.ini build_yardstick_image.yml
+            if [ ! -f "${QCOW_NSB_IMAGE}" ]; then
+                echo "Failed building QCOW NSB image"
+                exit 1
+            fi
+        fi
     fi
 }
 
@@ -112,6 +122,16 @@ load_yardstick_image()
             ${EXTRA_PARAMS} \
             --file ${QCOW_IMAGE} \
             yardstick-image)
+        if [[ $DEPLOY_SCENARIO == *[_-]ovs[_-]* ]]; then
+            nsb_output=$(eval openstack ${SECURE} image create \
+                --public \
+                --disk-format qcow2 \
+                --container-format bare \
+                ${EXTRA_PARAMS} \
+                --file ${QCOW_NSB_IMAGE} \
+                yardstick-samplevnfs)
+            echo "$nsb_output"
+        fi
     fi
 
     echo "$output"
@@ -232,6 +252,7 @@ create_nova_flavor()
 main()
 {
     QCOW_IMAGE="/tmp/workspace/yardstick/yardstick-image.img"
+    QCOW_NSB_IMAGE="/tmp/workspace/yardstick/yardstick-nsb-image.img"
     RAW_IMAGE="/tmp/workspace/yardstick/yardstick-image.tar.gz"
 
     if [ -f /home/opnfv/images/yardstick-image.img ];then

@@ -34,6 +34,11 @@ test_cases:
 -
   file_name: opnfv_yardstick_tc037.yaml
 -
+  file_name: opnfv_yardstick_tc042.yaml
+  constraint:
+      installer: compass
+      pod: huawei-pod1
+-
   file_name: opnfv_yardstick_tc055.yaml
   constraint:
       installer: compass
