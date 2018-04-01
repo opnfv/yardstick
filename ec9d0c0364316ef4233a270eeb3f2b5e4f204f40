@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_22408355",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-04-01T14:43:54Z",
+      "side": 1,
+      "message": "This can be kept as: ${qinq_tag_inline}",
+      "range": {
+        "startLine": 58,
+        "startChar": 47,
+        "endLine": 58,
+        "endChar": 52
+      },
+      "revId": "ec9d0c0364316ef4233a270eeb3f2b5e4f204f40",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_423dcfdd",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-04-01T14:43:54Z",
+      "side": 1,
+      "message": "Questions:\n1. what is the rationale behind this change?\n${sut_mac0} makes more sense I think other than a random mac!\n\n2. how this affects the test execution?\n\n\u003cSame for line 73\u003e",
+      "range": {
+        "startLine": 58,
+        "startChar": 11,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "ec9d0c0364316ef4233a270eeb3f2b5e4f204f40",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8226b7cc",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-04-01T14:43:54Z",
+      "side": 1,
+      "message": "This can be kept as: ${qinq_tag_inline}",
+      "range": {
+        "startLine": 73,
+        "startChar": 47,
+        "endLine": 73,
+        "endChar": 52
+      },
+      "revId": "ec9d0c0364316ef4233a270eeb3f2b5e4f204f40",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6221ebb3",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng_qos-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-04-01T14:43:54Z",
+      "side": 1,
+      "message": "same questions as of gen_bng-4.cfg file",
+      "range": {
+        "startLine": 59,
+        "startChar": 11,
+        "endLine": 59,
+        "endChar": 52
+      },
+      "revId": "ec9d0c0364316ef4233a270eeb3f2b5e4f204f40",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c230bf03",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng_qos-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-04-01T14:43:54Z",
+      "side": 1,
+      "message": "same questions as of gen_bng-4.cfg file",
+      "range": {
+        "startLine": 74,
+        "startChar": 11,
+        "endLine": 74,
+        "endChar": 52
+      },
+      "revId": "ec9d0c0364316ef4233a270eeb3f2b5e4f204f40",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a22bf392",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_bng-4.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-04-01T14:43:54Z",
+      "side": 1,
+      "message": "white space!",
+      "range": {
+        "startLine": 59,
+        "startChar": 13,
+        "endLine": 59,
+        "endChar": 14
+      },
+      "revId": "ec9d0c0364316ef4233a270eeb3f2b5e4f204f40",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
