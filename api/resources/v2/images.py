@@ -18,9 +18,8 @@ from api.database.v2.handlers import V2ImageHandler
 from api.database.v2.handlers import V2EnvironmentHandler
 from yardstick.common.utils import result_handler
 from yardstick.common.utils import source_env
-from yardstick.common.utils import change_obj_to_dict
-from yardstick.common.openstack_utils import get_nova_client
 from yardstick.common.openstack_utils import get_glance_client
+from yardstick.common.openstack_utils import get_shade_client
 from yardstick.common import constants as consts
 
 LOG = logging.getLogger(__name__)
@@ -50,35 +49,18 @@ class V2Images(ApiResource):
         except Exception:
             return result_handler(consts.API_ERROR, 'source openrc error')
 
-        nova_client = get_nova_client()
+        shade_client = get_shade_client()
         try:
-            images_list = nova_client.images.list()
+            image_list = shade_client.list_images()
         except Exception:
             return result_handler(consts.API_ERROR, 'get images error')
         else:
-            images = {i.name: self.get_info(change_obj_to_dict(i)) for i in images_list}
+            images = {i.name: format_image_info(i) for i in image_list}
 
         return result_handler(consts.API_SUCCESS, {'status': 1, 'images': images})
 
     def post(self):
         return self._dispatch_post()
-
-    def get_info(self, data):
-        try:
-            size = data['OS-EXT-IMG-SIZE:size']
-        except KeyError:
-            size = None
-        else:
-            size = float(size) / 1024 / 1024
-
-        result = {
-            'name': data.get('name', ''),
-            'discription': data.get('description', ''),
-            'size': size,
-            'status': data.get('status'),
-            'time': data.get('updated')
-        }
-        return result
 
     def load_image(self, args):
         try:
@@ -303,14 +285,14 @@ class V2Image(ApiResource):
         except ValueError:
             return result_handler(consts.API_ERROR, 'no such image id')
 
-        nova_client = get_nova_client()
-        images = nova_client.images.list()
+        shade_client = get_shade_client()
+        images = shade_client.list_images()
         try:
             image = next((i for i in images if i.name == image.name))
         except StopIteration:
             pass
 
-        return_image = self.get_info(change_obj_to_dict(image))
+        return_image = format_image_info(image)
         return_image['id'] = image_id
 
         return result_handler(consts.API_SUCCESS, {'image': return_image})
@@ -349,19 +331,15 @@ class V2Image(ApiResource):
 
         return result_handler(consts.API_SUCCESS, {'image': image_id})
 
-    def get_info(self, data):
-        try:
-            size = data['OS-EXT-IMG-SIZE:size']
-        except KeyError:
-            size = None
-        else:
-            size = float(size) / 1024 / 1024
 
-        result = {
-            'name': data.get('name', ''),
-            'description': data.get('description', ''),
-            'size': size,
-            'status': data.get('status'),
-            'time': data.get('updated')
-        }
-        return result
+def format_image_info(image):
+
+    image_dict = {
+        'name': image.name,
+        'discription': '',
+        'size': float(image.size) / 1024 / 1024,
+        'status': image.status.upper(),
+        'time': image.updated
+    }
+
+    return image_dict
