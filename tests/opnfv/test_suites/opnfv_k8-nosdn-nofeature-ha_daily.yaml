@@ -11,7 +11,7 @@
 
 schema: "yardstick:suite:0.1"
 
-name: "k8-nosdn-nofeature-noha"
+name: "k8-nosdn-nofeature-ha"
 test_cases_dir: "tests/opnfv/test_cases/"
 test_cases:
 -
