@@ -264,3 +264,20 @@ class CreateSecurityGroupRuleTestCase(unittest.TestCase):
             self.mock_shade_client, self.secgroup_name_or_id)
         mock_logger.error.assert_called_once()
         self.assertFalse(output)
+
+
+class ListImageTestCase(unittest.TestCase):
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+
+    def test_list_images(self):
+        self.mock_shade_client.list_images.return_value = []
+        openstack_utils.list_images(self.mock_shade_client)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_list_images_exception(self, mock_logger):
+        self.mock_shade_client.list_images.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        images = openstack_utils.list_images(self.mock_shade_client)
+        mock_logger.error.assert_called_once()
+        self.assertFalse(images)
