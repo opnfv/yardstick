@@ -135,7 +135,7 @@ def execute_command(cmd, **kwargs):
 def source_env(env_file):
     p = subprocess.Popen(". %s; env" % env_file, stdout=subprocess.PIPE,
                          shell=True)
-    output = p.communicate()[0]
+    output = encodeutils.safe_decode(p.communicate()[0])
     env = dict(line.split('=', 1) for line in output.splitlines() if '=' in line)
     os.environ.update(env)
     return env
