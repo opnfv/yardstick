@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_bb94bee2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-04-03T12:12:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_0233c714",
+      "range": {
+        "startLine": 11,
+        "startChar": 18,
+        "endLine": 11,
+        "endChar": 51
+      },
+      "revId": "db9e1226aab12597981aac3c399ef15a8580c6ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_a2549321",
         "filename": "samples/vnf_samples/traffic_profiles/prox_vpe.yaml",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-01T14:27:14Z",
       "side": 1,
       "message": "the commit message says the tolerated loss is set as 5% but the file shows 1%",
+      "range": {
+        "startLine": 22,
+        "startChar": 18,
+        "endLine": 22,
+        "endChar": 21
+      },
+      "revId": "db9e1226aab12597981aac3c399ef15a8580c6ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7b8a36c0",
+        "filename": "samples/vnf_samples/traffic_profiles/prox_vpe.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-04-03T12:12:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_a2549321",
       "range": {
         "startLine": 22,
         "startChar": 18,
