@@ -71,6 +71,54 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_1bd692c5",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-04-03T11:44:21Z",
+      "side": 1,
+      "message": "IT DOES NOT WORT HERE",
+      "parentUuid": "5a3f45e8_22408355",
+      "range": {
+        "startLine": 58,
+        "startChar": 47,
+        "endLine": 58,
+        "endChar": 52
+      },
+      "revId": "ec9d0c0364316ef4233a270eeb3f2b5e4f204f40",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7bdcf6e4",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-04-03T11:44:21Z",
+      "side": 1,
+      "message": "IT DOES NOT WORT HERE",
+      "parentUuid": "5a3f45e8_423dcfdd",
+      "range": {
+        "startLine": 58,
+        "startChar": 11,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "ec9d0c0364316ef4233a270eeb3f2b5e4f204f40",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_8226b7cc",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
         "patchSetId": 3
@@ -117,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_3bd38ed7",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng_qos-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-04-03T11:44:21Z",
+      "side": 1,
+      "message": "IT DOES NOT WORK of you change these to sut_mac0",
+      "parentUuid": "5a3f45e8_6221ebb3",
+      "range": {
+        "startLine": 59,
+        "startChar": 11,
+        "endLine": 59,
+        "endChar": 52
+      },
+      "revId": "ec9d0c0364316ef4233a270eeb3f2b5e4f204f40",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c230bf03",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng_qos-4.cfg",
         "patchSetId": 3
@@ -128,6 +200,30 @@
       "writtenOn": "2018-04-01T14:43:54Z",
       "side": 1,
       "message": "same questions as of gen_bng-4.cfg file",
+      "range": {
+        "startLine": 74,
+        "startChar": 11,
+        "endLine": 74,
+        "endChar": 52
+      },
+      "revId": "ec9d0c0364316ef4233a270eeb3f2b5e4f204f40",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_bbe67eb2",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng_qos-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-04-03T11:44:21Z",
+      "side": 1,
+      "message": "IT DOES NOT WORK HERE",
+      "parentUuid": "5a3f45e8_c230bf03",
       "range": {
         "startLine": 74,
         "startChar": 11,
@@ -163,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_bb4f9ebc",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_bng-4.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-04-03T11:44:21Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "5a3f45e8_a22bf392",
+      "range": {
+        "startLine": 59,
+        "startChar": 13,
+        "endLine": 59,
+        "endChar": 14
+      },
+      "revId": "ec9d0c0364316ef4233a270eeb3f2b5e4f204f40",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_9b73c214",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 3
@@ -174,6 +294,30 @@
       "writtenOn": "2018-04-03T11:22:39Z",
       "side": 1,
       "message": "arp cores should be started before the other cores.\nUntil arp has been started, all packets from inet to cpe will be dropped. It takes some time for arp to be sent for all cpes.\nIf starting all ocres simultaneously, all packets from inet will initially be dropped. So the duration of the step would influence the performance result (very short steps would result in failures, long ones would be better).",
+      "range": {
+        "startLine": 1388,
+        "startChar": 12,
+        "endLine": 1388,
+        "endChar": 77
+      },
+      "revId": "ec9d0c0364316ef4233a270eeb3f2b5e4f204f40",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5b501a5e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1388,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-04-03T11:44:21Z",
+      "side": 1,
+      "message": "Correct ... duration has been set to 60 in this test",
+      "parentUuid": "5a3f45e8_9b73c214",
       "range": {
         "startLine": 1388,
         "startChar": 12,
