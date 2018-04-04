@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_a7b5bd32",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-04T12:10:11Z",
+      "side": 1,
+      "message": "Please, add a Jira ticket.",
+      "revId": "2786a9483731780f0c028302aa17daab63b6e443",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
