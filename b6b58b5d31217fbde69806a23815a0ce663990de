@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_ad5f6940",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_2291a847",
+      "range": {
+        "startLine": 31,
+        "startChar": 11,
+        "endLine": 31,
+        "endChar": 40
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_a297788f",
         "filename": "ansible/infra_deploy.yml",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-27T11:37:56Z",
       "side": 1,
       "message": "You should move this at the beginning of the section (line 17) and move \"roles\" execution down\n\n\"set_fact\" could be at the beginning as \"vars\" command",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ed07b11a",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "5a3f45e8_a297788f",
       "range": {
         "startLine": 24,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_28286785",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_02946c35",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 50
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_0252ac12",
         "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_0230ec54",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_0252ac12",
+      "range": {
+        "startLine": 44,
+        "startChar": 7,
+        "endLine": 44,
+        "endChar": 8
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_6270d0a5",
         "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
         "patchSetId": 3
@@ -105,6 +201,30 @@
       "writtenOn": "2018-03-27T11:37:56Z",
       "side": 1,
       "message": "remove this",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 25
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_02090c95",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_6270d0a5",
       "range": {
         "startLine": 65,
         "startChar": 0,
@@ -163,6 +283,54 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_222d28ff",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_42aaf4d4",
+      "range": {
+        "startLine": 69,
+        "startChar": 53,
+        "endLine": 69,
+        "endChar": 60
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e2f3409c",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_8264fce5",
+      "range": {
+        "startLine": 69,
+        "startChar": 10,
+        "endLine": 69,
+        "endChar": 20
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_e26340da",
         "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
         "patchSetId": 3
@@ -174,6 +342,30 @@
       "writtenOn": "2018-03-27T11:37:56Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 73,
+        "startChar": 38,
+        "endLine": 73,
+        "endChar": 48
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_82f4fc87",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_e26340da",
       "range": {
         "startLine": 73,
         "startChar": 38,
@@ -203,6 +395,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_a2f93882",
+        "filename": "ansible/roles/infra_check_requirements/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "OpenStack",
+      "parentUuid": "5a3f45e8_229d28bd",
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_e2e86012",
         "filename": "ansible/roles/infra_deploy_openstack/tasks/configure_kolla.yml",
         "patchSetId": 3
@@ -214,6 +424,30 @@
       "writtenOn": "2018-03-27T11:37:56Z",
       "side": 1,
       "message": "We need to find a better way to do this.\n\nWe have the IPs of the interfaces. For every OpenStack node we will need at least one interface connected to the \"management\" network and other one connected to one traffic bridge.\n\nWe should:\n1) In infra_check_requirements, store the management network name, probably in the block \"Increment counter for every default network detected\". Add a new fact.\n\n2) In infra_deploy_openstack/tasks/main, read the \"rs_file\"\n- name: Include\n  include_vars:\n    file: \"{{rs_file}}\"\n    name: infra_deploy_vars\n\n3) Here, retrieve the list of IPs for this host in a list.\n\n4) Read rs_file:nodes[host]:interfaces list and retrieve the first interface IP in a NON-management network.\n    interfaces:\n      - network: management\n        ip: 192.168.1.11\n        netmask: 255.255.255.0\n      - network: traffic\n        ip: 192.20.1.11 ----\u003e this is the IP.\n        netmask: 255.255.255.0\n\n5) If this IP is in the list written in (3), perfect!!! If not, we have a big problem.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 63
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2206c886",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/configure_kolla.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Workaround removed, added interface name to rs_file.",
+      "parentUuid": "5a3f45e8_e2e86012",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -249,6 +483,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_a2d2d8fd",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/configure_kolla.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "The default is \u0027yes\u0027, so that is added.",
+      "parentUuid": "5a3f45e8_82d99c85",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 74
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_82923c9d",
         "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
         "patchSetId": 3
@@ -260,6 +518,30 @@
       "writtenOn": "2018-03-27T11:37:56Z",
       "side": 1,
       "message": "Is this variable defined?",
+      "range": {
+        "startLine": 18,
+        "startChar": 14,
+        "endLine": 18,
+        "endChar": 28
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_082beb82",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Yes, redefined.",
+      "parentUuid": "5a3f45e8_82923c9d",
       "range": {
         "startLine": 18,
         "startChar": 14,
@@ -289,6 +571,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_485cd325",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "copy: src is host server while deploy is a controller VM.\nWhile here copy files on deploy node occurs from one location to another.",
+      "parentUuid": "5a3f45e8_e291809a",
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c28c4482",
         "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
         "patchSetId": 3
@@ -306,6 +606,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_a842b73b",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "5a3f45e8_c28c4482",
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_22eb6814",
         "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
         "patchSetId": 3
@@ -317,6 +635,30 @@
       "writtenOn": "2018-03-27T11:37:56Z",
       "side": 1,
       "message": "put this in a list\n\nwith_items:\n    - \"{{ git_repos_path + kolla_path }}\"\n    - \"{{ git_repos_path + kolla_ans_path }}\"",
+      "range": {
+        "startLine": 45,
+        "startChar": 6,
+        "endLine": 45,
+        "endChar": 86
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4825f3a9",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_22eb6814",
       "range": {
         "startLine": 45,
         "startChar": 6,
@@ -352,6 +694,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_68226fa5",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_02ee2c22",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 52,
+        "endChar": 86
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_42f834e5",
         "filename": "ansible/roles/infra_deploy_openstack/tasks/main.yml",
         "patchSetId": 3
@@ -363,6 +729,24 @@
       "writtenOn": "2018-03-27T11:37:56Z",
       "side": 1,
       "message": "Put a general comment on this file:\n\n---\n# This script is based on https://docs.openstack.org/kolla-ansible/queens/user/quickstart.html guide\n\n...",
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_883d3bbe",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_42f834e5",
       "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -415,6 +799,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_9392909d",
+        "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_62a7300d",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 12
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_02a0ecf2",
         "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
         "patchSetId": 3
@@ -426,6 +834,30 @@
       "writtenOn": "2018-03-27T11:37:56Z",
       "side": 1,
       "message": "1) You don\u0027t need to quote this\n2) You need to check if item.openstack_node is defined: not all nodes will have this parameter. For example, Yardstick nodes won\u0027t\n\nwhen:\n  - item.openstack_node is defined\n  - item.openstack_node \u003d\u003d \u0027control\u0027",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 42
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_93c0d07d",
+        "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_02a0ecf2",
       "range": {
         "startLine": 38,
         "startChar": 8,
@@ -461,6 +893,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_73cc24bd",
+        "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_82ab5cd5",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 38
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_e2ba2022",
         "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
         "patchSetId": 3
@@ -472,6 +928,30 @@
       "writtenOn": "2018-03-27T11:37:56Z",
       "side": 1,
       "message": "1) no need for quotes\n2) use the opposite expression to L51 to have a more explicit code\n\n   when: item.hostname !\u003d controls[0]",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 64,
+        "endChar": 46
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b3c50c90",
+        "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_e2ba2022",
       "range": {
         "startLine": 64,
         "startChar": 2,
@@ -507,6 +987,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_d38c1882",
+        "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_c2b56432",
+      "range": {
+        "startLine": 67,
+        "startChar": 2,
+        "endLine": 67,
+        "endChar": 48
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_a2b01844",
         "filename": "ansible/roles/infra_prepare_vms/vars/main.yml",
         "patchSetId": 3
@@ -518,6 +1022,30 @@
       "writtenOn": "2018-03-27T11:37:56Z",
       "side": 1,
       "message": "you are not using this variable",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 20
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f3bf94f9",
+        "filename": "ansible/roles/infra_prepare_vms/vars/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "5a3f45e8_a2b01844",
       "range": {
         "startLine": 15,
         "startChar": 0,
@@ -553,6 +1081,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_133cc092",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "It\u0027s a general comment. That\u0027s why it is here.",
+      "parentUuid": "5a3f45e8_6243b014",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 55
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_a24c9843",
         "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/main.yml",
         "patchSetId": 3
@@ -564,6 +1116,30 @@
       "writtenOn": "2018-03-27T14:45:46Z",
       "side": 1,
       "message": "Use the apt-get module in ansible: http://docs.ansible.com/ansible/latest/modules/apt_module.html",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3339fca4",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Ansible modules cannot be used here except of \u0027raw\u0027.",
+      "parentUuid": "5a3f45e8_a24c9843",
       "range": {
         "startLine": 20,
         "startChar": 2,
@@ -599,6 +1175,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_73438414",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Added \u0027name:\u0027.",
+      "parentUuid": "5a3f45e8_8247dc1c",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 8
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_0263ccb1",
         "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/main.yml",
         "patchSetId": 3
@@ -610,6 +1210,30 @@
       "writtenOn": "2018-03-27T14:45:46Z",
       "side": 1,
       "message": "We shouldn\u0027t have any value in ostacks_hosts or ostack_ips. This part should be deleted\n  ostack_hosts: \"{{ [hostvars[item].ansible_host] }}\"",
+      "range": {
+        "startLine": 25,
+        "startChar": 21,
+        "endLine": 25,
+        "endChar": 48
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_531488f4",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Actually, we need hosts names to be added.",
+      "parentUuid": "5a3f45e8_0263ccb1",
       "range": {
         "startLine": 25,
         "startChar": 21,
@@ -645,6 +1269,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_d3ba5809",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_e256a0d1",
+      "range": {
+        "startLine": 42,
+        "startChar": 32,
+        "endLine": 42,
+        "endChar": 33
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c251e4d9",
         "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/update_conf_files.yml",
         "patchSetId": 3
@@ -656,6 +1304,30 @@
       "writtenOn": "2018-03-27T14:45:46Z",
       "side": 1,
       "message": "This should be something fixed. \"http_proxy\" and the following needed variables should be assigned previously.",
+      "range": {
+        "startLine": 78,
+        "startChar": 61,
+        "endLine": 78,
+        "endChar": 88
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7311c404",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/update_conf_files.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_c251e4d9",
       "range": {
         "startLine": 78,
         "startChar": 61,
@@ -691,6 +1363,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_c764484b",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/update_conf_files.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_425dd4e8",
+      "range": {
+        "startLine": 81,
+        "startChar": 56,
+        "endLine": 81,
+        "endChar": 134
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_823d1cbe",
         "filename": "etc/infra/infra_deploy_multi.yaml.sample",
         "patchSetId": 3
@@ -708,6 +1404,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f36dd499",
+        "filename": "etc/infra/infra_deploy_multi.yaml.sample",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_823d1cbe",
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_2276c8a4",
         "filename": "etc/infra/infra_deploy_one.yaml.sample",
         "patchSetId": 3
@@ -719,6 +1433,24 @@
       "writtenOn": "2018-03-27T11:37:56Z",
       "side": 1,
       "message": "The Yardstick node is missing here",
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_735a64f4",
+        "filename": "etc/infra/infra_deploy_one.yaml.sample",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_2276c8a4",
       "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -771,6 +1503,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_3360dca4",
+        "filename": "etc/infra/infra_deploy_one.yaml.sample",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_c247244a",
+      "range": {
+        "startLine": 17,
+        "startChar": 13,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_02790c93",
         "filename": "etc/infra/infra_deploy_two.yaml.sample",
         "patchSetId": 3
@@ -782,6 +1538,24 @@
       "writtenOn": "2018-03-27T11:37:56Z",
       "side": 1,
       "message": "The Yardstick node is missing here",
+      "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_535da8e8",
+        "filename": "etc/infra/infra_deploy_two.yaml.sample",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-04T17:59:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_02790c93",
       "revId": "b6b58b5d31217fbde69806a23815a0ce663990de",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
