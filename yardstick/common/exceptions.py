@@ -54,6 +54,10 @@ class YardstickException(Exception):
         return False
 
 
+class ResourceCommandError(YardstickException):
+    message = 'Command: "%(command)s" Failed, stderr: "%(stderr)s"'
+
+
 class FunctionNotImplemented(YardstickException):
     message = ('The function "%(function_name)s" is not implemented in '
                '"%(class_name)" class.')
