@@ -54,6 +54,23 @@ class YardstickException(Exception):
         return False
 
 
+class CommandFailed(Exception):
+    message = 'Command: "{cmd}" Failed, stderr: "{stderr}", SSHError: "{ssherror}"'
+
+    def __init__(self, cmd="", stderr="", ssherror=None, msg=message):
+        super(CommandFailed, self).__init__(msg.format(cmd, stderr, ssherror))
+        self.cmd = cmd
+        self.stderr = stderr
+        self.SSHError = ssherror
+
+    # def __init__(self, cmd="", stderr="", ssherror="", msg=""):
+    #     message = self.message % cmd, stderr, ssherror
+    #     super(CommandFailed, self).__init__(msg + '\n%' % message)
+    #     self.cmd = cmd
+    #     self.stderr = stderr
+    #     self.SSHError = ssherror
+
+
 class FunctionNotImplemented(YardstickException):
     message = ('The function "%(function_name)s" is not implemented in '
                '"%(class_name)" class.')
