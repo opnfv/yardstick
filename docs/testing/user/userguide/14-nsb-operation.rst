@@ -84,6 +84,116 @@ In this example we have ``TRex xe0 <-> xe0 VNF xe1 <-> xe0 UDP_Replay``
           downlink_0:
            - xe0
 
+
+Availability zone
+^^^^^^^^^^^^^^^^^
+
+The configuration of the availability zone is requred in cases where location
+of exact compute host/group of compute hosts needs to be specified for SampleVNF
+or traffic generator in the heat test case. If this is the case, please follow
+the instructions below.
+
+.. _`Create a host aggregate`:
+
+1. Create a host aggregate in the OpenStack and add the available compute hosts
+   into the aggregate group.
+
+   .. note:: Change the ``<AZ_NAME>`` (availability zone name), ``<AGG_NAME>``
+     (host aggregate name) and ``<HOST>`` (host name of one of the compute) in the
+     commands below.
+
+   .. code-block:: bash
+
+     # create host aggregate
+     openstack aggregate create --zone <AZ_NAME> --property availability_zone=<AZ_NAME> <AGG_NAME>
+     # show available hosts
+     openstack compute service list --service nova-compute
+     # add selected host into the host aggregate
+     openstack aggregate add host <AGG_NAME> <HOST>
+
+2. To specify the OpenStack location (the exact compute host or group of the hosts)
+   of SampleVNF or traffic generator in the heat test case, the ``availability_zone`` server
+   configuration option should be used. For example:
+
+   .. note:: The ``<AZ_NAME>`` (availability zone name) should be changed according
+     to the name used during the host aggregate creation steps above.
+
+   .. code-block:: yaml
+
+     context:
+       name: yardstick
+       image: yardstick-samplevnfs
+       ...
+       servers:
+         vnf__0:
+           ...
+           availability_zone: <AZ_NAME>
+           ...
+         tg__0:
+           ...
+           availability_zone: <AZ_NAME>
+           ...
+       networks:
+         ...
+
+There are two example of SampleVNF scale out test case which use the availability zone
+feature to specify the exact location of scaled VNFs and traffic generators.
+
+Those are:
+
+.. code-block:: console
+
+  <repo>/samples/vnf_samples/nsut/prox/tc_prox_heat_context_l2fwd_multiflow-2-scale-out.yaml
+  <repo>/samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_scale_out.yaml
+
+.. note:: This section describes the PROX scale-out testcase, but the same
+  procedure is used for the vFW test case.
+
+1. Before running the scale-out test case, make sure the host aggregates are
+   configured in the OpenStack environment. To check this, run the following
+   command:
+
+   .. code-block:: console
+
+     # show configured host aggregates (example)
+     openstack aggregate list
+     +----+------+-------------------+
+     | ID | Name | Availability Zone |
+     +----+------+-------------------+
+     |  4 | agg0 | AZ_NAME_0         |
+     |  5 | agg1 | AZ_NAME_1         |
+     +----+------+-------------------+
+
+2. If no host aggregates are configured, please use `steps above`__ to
+   configure them.
+
+__ `Create a host aggregate`_
+
+
+3. Run the SampleVNF PROX scale-out test case, specifying the availability
+   zone of each VNF and traffic generator as a task arguments.
+
+   .. note:: The ``az_0`` and ``az_1`` should be changed according to the host
+     aggregates created in the OpenStack.
+
+   .. code-block:: console
+
+     yardstick -d task start\
+     <repo>/samples/vnf_samples/nsut/prox/tc_prox_heat_context_l2fwd_multiflow-2-scale-out.yaml\
+       --task-args='{
+         "num_vnfs": 4, "availability_zone": {
+           "vnf_0": "az_0", "tg_0": "az_1",
+           "vnf_1": "az_0", "tg_1": "az_1",
+           "vnf_2": "az_0", "tg_2": "az_1",
+           "vnf_3": "az_0", "tg_3": "az_1"
+         }
+       }'
+
+   ``num_vnfs`` specifies how many VNFs are going to be deployed in the
+   ``heat`` contexts. ``vnf_X`` and ``tg_X`` arguments configure the
+   availability zone where the VNF and traffic generator is going to be deployed.
+
+
 Collectd KPIs
 -------------
 
@@ -242,7 +352,7 @@ Baremetal
        file: /etc/yardstick/nodes/pod.yaml
 
 Scale-Out
---------------------
+---------
 
 VNFs performance data with scale-out helps
 
