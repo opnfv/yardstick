@@ -1,0 +1,102 @@
+# Copyright (c) 2016-2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# flow definition for ACL tests - 1K flows - ipv4 only
+#
+# the number of flows defines the widest range of parameters
+# for example if srcip_range=1.0.0.1-1.0.0.255 and dst_ip_range=10.0.0.1-10.0.1.255
+# and it should define only 16 flows
+#
+#there is assumption that packets generated will have a random sequences of following addresses pairs
+# in the packets
+# 1. src=1.x.x.x(x.x.x =random from 1..255) dst=10.x.x.x (random from 1..512)
+# 2. src=1.x.x.x(x.x.x =random from 1..255) dst=10.x.x.x (random from 1..512)
+# ...
+# 512. src=1.x.x.x(x.x.x =random from 1..255) dst=10.x.x.x (random from 1..512)
+#
+# not all combination should be filled
+# Any other field with random range will be added to flow definition
+#
+# the example.yaml provides all possibilities for traffic generation
+#
+# the profile defines a public and private side to make limited traffic correlation
+# between private and public side same way as it is made by IXIA solution.
+#
+{% set num_vnfs = get(extra_args, 'num_vnfs', 1) %}
+---
+schema: "nsb:traffic_profile:0.1"
+name:            rfc2544
+description:     Traffic profile to run RFC2544 latency
+traffic_profile:
+  traffic_type : RFC2544Profile # defines traffic behavior - constant or look for highest possible throughput
+  frame_rate : 100  # pc of linerate
+  # that specifies a range (e.g. ipv4 address, port)
+{% for vnf_num in range(num_vnfs|int) %}
+uplink_{{ vnf_num }}:
+      ipv4:
+        id: {{ (vnf_num * 2) + 1 }}
+        outer_l2:
+            framesize:
+                64B: "{{get(imix, 'imix.uplink.64B', '0') }}"
+                128B: "{{get(imix, 'imix.uplink.128B', '0') }}"
+                256B: "{{get(imix, 'imix.uplink.256B', '0') }}"
+                373B: "{{get(imix, 'imix.uplink.373B', '0') }}"
+                512B: "{{get(imix, 'imix.uplink.512B', '0') }}"
+                570B: "{{get(imix, 'imix.uplink.570B', '0') }}"
+                1024B: "{{get(imix, 'imix.uplink.1024B', '0') }}"
+                1280B: "{{get(imix, 'imix.uplink.1280B', '0') }}"
+                1400B: "{{get(imix, 'imix.uplink.1400B', '0') }}"
+                1500B: "{{get(imix, 'imix.uplink.1500B', '0') }}"
+                1518B: "{{get(imix, 'imix.uplink.1518B', '0') }}"
+
+        outer_l3v4:
+            proto: "udp"
+            srcip4: "{{get(flow, 'flow.src_ip_{{ vnf_num }}', '10.0.2.1-10.0.2.255') }}"
+            dstip4: "{{get(flow, 'flow.dst_ip_{{ vnf_num }}', '10.0.3.1-10.0.3.255') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
+            ttl: 32
+            dscp: 0
+        outer_l4:
+            srcport: "{{get(flow, 'flow.src_port_{{ vnf_num }}', '1234-4321') }}"
+            dstport: "{{get(flow, 'flow.dst_port_{{ vnf_num }}', '2001-4001') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
+downlink_{{ vnf_num }}:
+      ipv4:
+        id: {{ (vnf_num * 2) + 2 }}
+        outer_l2:
+            framesize:
+                64B: "{{ get(imix, 'imix.downlink.64B', '0') }}"
+                128B: "{{ get(imix, 'imix.downlink.128B', '0') }}"
+                256B: "{{ get(imix, 'imix.downlink.256B', '0') }}"
+                373b: "{{ get(imix, 'imix.downlink.373B', '0') }}"
+                512B: "{{ get(imix, 'imix.downlink.512B', '0') }}"
+                570B: "{{get(imix, 'imix.downlink.570B', '0') }}"
+                1024B: "{{get(imix, 'imix.downlink.1024B', '0') }}"
+                1280B: "{{get(imix, 'imix.downlink.1280B', '0') }}"
+                1400B: "{{get(imix, 'imix.downlink.1400B', '0') }}"
+                1500B: "{{get(imix, 'imix.downlink.1500B', '0') }}"
+                1518B: "{{get(imix, 'imix.downlink.1518B', '0') }}"
+
+        outer_l3v4:
+            proto: "udp"
+            srcip4: "{{get(flow, 'flow.dst_ip_{{ vnf_num }}', '10.0.3.1-10.0.3.255') }}"
+            dstip4: "{{get(flow, 'flow.src_ip_{{ vnf_num }}', '10.0.2.1-10.0.2.255') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
+            ttl: 32
+            dscp: 0
+        outer_l4:
+            srcport: "{{get(flow, 'flow.dst_port_{{ vnf_num }}', '1234-4321') }}"
+            dstport: "{{get(flow, 'flow.src_port_{{ vnf_num }}', '2001-4001') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
+{% endfor %}
