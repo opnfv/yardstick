@@ -114,9 +114,10 @@
     path: "{{ INSTALL_BIN_PATH }}"
     state:  directory
 
+
 - name: copy dpdk-devbind.py to correct location
   copy:
-    src: "{{ dpdk_devbind[dpdk_version] }}"
+    src: "{{ dpdk_devbind_usertools if dpdk_version|float >= 17.02 else dpdk_devbind_tools }}"
     dest: "{{ INSTALL_BIN_PATH }}/dpdk-devbind.py"
     remote_src: yes
     force: yes
