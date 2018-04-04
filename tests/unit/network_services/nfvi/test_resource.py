@@ -19,6 +19,8 @@ import unittest
 
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.nfvi import resource, collectd
+from yardstick.common.exceptions import CommandFailed
+from yardstick import ssh as ssh_origin
 
 
 class TestResourceProfile(unittest.TestCase):
@@ -128,8 +130,33 @@ class TestResourceProfile(unittest.TestCase):
         self.assertEqual(val, ('error', 'Invalid', '', ''))
 
     def test__start_collectd(self):
-            self.assertIsNone(
-                self.resource_profile._start_collectd(self.ssh_mock, "/opt/nsb_bin"))
+        self.assertIsNone(self.resource_profile._start_collectd(self.ssh_mock,
+                                                                "/opt/nsb_bin"))
+
+        with mock.patch("yardstick.ssh.AutoConnectSSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = mock.Mock(side_effect=ssh_origin.SSHError)
+            with self.assertRaises(CommandFailed):
+                self.resource_profile._start_collectd(ssh_mock,
+                                                      "/opt/nsb_bin")
+
+            ssh_mock.execute = mock.Mock(return_value=(1, "", ""))
+            self.assertIsNone(self.resource_profile._start_collectd(ssh_mock,
+                                                                    "/opt/nsb_bin"))
+
+    def test__start_rabbitmq(self):
+        with mock.patch("yardstick.ssh.AutoConnectSSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = mock.Mock(return_value=(0, "RabbitMQ", ""))
+            self.assertIsNone(self.resource_profile._start_rabbitmq(ssh_mock))
+
+            ssh_mock.execute = mock.Mock(return_value=(0, "", ""))
+            with self.assertRaises(CommandFailed):
+                self.resource_profile._start_rabbitmq(ssh_mock)
+
+            ssh_mock.execute = mock.Mock(return_value=(1, "", ""))
+            with self.assertRaises(CommandFailed):
+                self.resource_profile._start_rabbitmq(ssh_mock)
 
     def test__prepare_collectd_conf(self):
             self.assertIsNone(
@@ -154,6 +181,7 @@ class TestResourceProfile(unittest.TestCase):
 
     def test_initiate_systemagent(self):
         self.resource_profile._start_collectd = mock.Mock()
+        self.resource_profile._start_rabbitmq = mock.Mock()
         self.assertIsNone(
             self.resource_profile.initiate_systemagent("/opt/nsb_bin"))
 
