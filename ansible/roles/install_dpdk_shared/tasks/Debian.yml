@@ -16,6 +16,7 @@
   action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
   with_items:
     - libpcap-dev
+    - libnuma-dev
 
 - name: Install kernel headers
   action: "{{ ansible_pkg_mgr }} name=linux-headers-{{ dpdk_kernel }} state=present"
