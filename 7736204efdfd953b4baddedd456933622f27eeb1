@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e79fc5b2",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_attach_volume.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-04T11:05:27Z",
+      "side": 1,
+      "message": "You are overwriting the mock variable. That means when you want to stop the mock (L39) this command doesn\u0027t have any effect.\n\nThe test execution order depends on the number of cores to execute the test in parallel. In Jenkins we have less cores and is more probable to find the error you have: when you are executing the unit tests in openstack_utils, the function \"attach_volume_to_server\" is still mocked, so you are not calling the code and you have None are return value.\n\nThis should be:\nself.mock_attach_volume_to_server \u003d ...",
+      "range": {
+        "startLine": 24,
+        "startChar": 13,
+        "endLine": 24,
+        "endChar": 42
+      },
+      "revId": "7736204efdfd953b4baddedd456933622f27eeb1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
