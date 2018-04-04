@@ -27,6 +27,7 @@ from oslo_config import cfg
 from oslo_utils.encodeutils import safe_decode
 
 from yardstick import ssh
+from yardstick.common.exceptions import CommandFailed
 from yardstick.common.task_template import finalize_for_yaml
 from yardstick.common.utils import validate_non_string_sequence
 from yardstick.network_services.nfvi.collectd import AmqpConsumer
@@ -249,59 +250,80 @@ class ResourceProfile(object):
         if status != 0:
             LOG.error("cannot find OVS socket %s", socket_path)
 
-    def _start_collectd(self, connection, bin_path):
-        LOG.debug("Starting collectd to collect NFVi stats")
-        connection.execute('sudo pkill -x -9 collectd')
-        collectd_path = os.path.join(bin_path, "collectd", "sbin", "collectd")
-        config_file_path = os.path.join(bin_path, "collectd", "etc")
-        exit_status = connection.execute("which %s > /dev/null 2>&1" % collectd_path)[0]
-        if exit_status != 0:
-            LOG.warning("%s is not present disabling", collectd_path)
-            # disable auto-provisioning because it requires Internet access
-            # collectd_installer = os.path.join(bin_path, "collectd.sh")
-            # provision_tool(connection, collectd)
-            # http_proxy = os.environ.get('http_proxy', '')
-            # https_proxy = os.environ.get('https_proxy', '')
-            # connection.execute("sudo %s '%s' '%s'" % (
-            #     collectd_installer, http_proxy, https_proxy))
-            return
-        if "ovs_stats" in self.plugins:
-            self._setup_ovs_stats(connection)
-
-        LOG.debug("Starting collectd to collect NFVi stats")
-        # ensure collectd.conf.d exists to avoid error/warning
-        connection.execute("sudo mkdir -p /etc/collectd/collectd.conf.d")
-        self._prepare_collectd_conf(config_file_path)
-
+    def _start_rabbitmq(self, connection):
         # Reset amqp queue
         LOG.debug("reset and setup amqp to collect data from collectd")
-        connection.execute("sudo rm -rf /var/lib/rabbitmq/mnesia/rabbit*")
-        connection.execute("sudo service rabbitmq-server start")
-        connection.execute("sudo rabbitmqctl stop_app")
-        connection.execute("sudo rabbitmqctl reset")
-        connection.execute("sudo rabbitmqctl start_app")
-        connection.execute("sudo service rabbitmq-server restart")
+        # ensure collectd.conf.d exists to avoid error/warning
+        cmd_list = ["sudo mkdir -p /etc/collectd/collectd.conf.d",
+                    "sudo service rabbitmq-server restart",
+                    "sudo rabbitmqctl stop_app",
+                    "sudo rabbitmqctl reset",
+                    "sudo rabbitmqctl start_app",
+                    "sudo rabbitmqctl delete_user guest",
+                    "sudo rabbitmqctl add_user admin admin",
+                    "sudo rabbitmqctl authenticate_user admin admin",
+                    "sudo rabbitmqctl set_permissions -p / admin '.*' '.*' '.*'"
+                    ]
+        for cmd in cmd_list:
+            try:
+                exit_status, stdout, stderr = connection.execute(cmd)
+                if exit_status != 0:
+                    raise CommandFailed(cmd, stderr)
+            except Exception as e:
+                if isinstance(e, ssh.SSHError):
+                    raise CommandFailed(cmd, ssherror=str(e))
+                raise
 
-        LOG.debug("Creating admin user for rabbitmq in order to collect data from collectd")
-        connection.execute("sudo rabbitmqctl delete_user guest")
-        connection.execute("sudo rabbitmqctl add_user admin admin")
-        connection.execute("sudo rabbitmqctl authenticate_user admin admin")
-        connection.execute("sudo rabbitmqctl set_permissions -p / admin '.*' '.*' '.*'")
+        # check stdout for "sudo rabbitmqctl status" command
+        cmd = "sudo rabbitmqctl status"
+        exit_status, stdout, stderr = connection.execute(cmd)
+        if not re.search("RabbitMQ", stdout):
+            message = "rabbitmqctl status don't have RabbitMQ in running apps"
+            raise CommandFailed(cmd, stderr, msg=message)
 
-        LOG.debug("Start collectd service..... %s second timeout", self.timeout)
-        # intel_pmu plug requires large numbers of files open, so try to set
-        # ulimit -n to a large value
-        connection.execute("sudo bash -c 'ulimit -n 1000000 ; %s'" % collectd_path,
-                           timeout=self.timeout)
-        LOG.debug("Done")
+    def _start_collectd(self, connection, bin_path):
+        LOG.debug("Starting collectd to collect NFVi stats")
+        collectd_path = os.path.join(bin_path, "collectd", "sbin", "collectd")
+        config_file_path = os.path.join(bin_path, "collectd", "etc")
+        self._prepare_collectd_conf(config_file_path)
+
+        try:
+            connection.execute('sudo pkill -x -9 collectd')
+            exit_status = connection.execute("which %s > /dev/null 2>&1" % collectd_path)[0]
+            if exit_status != 0:
+                LOG.warning("%s is not present disabling", collectd_path)
+                # disable auto-provisioning because it requires Internet access
+                # collectd_installer = os.path.join(bin_path, "collectd.sh")
+                # provision_tool(connection, collectd)
+                # http_proxy = os.environ.get('http_proxy', '')
+                # https_proxy = os.environ.get('https_proxy', '')
+                # connection.execute("sudo %s '%s' '%s'" % (
+                #     collectd_installer, http_proxy, https_proxy))
+                return
+            if "ovs_stats" in self.plugins:
+                self._setup_ovs_stats(connection)
+
+            LOG.debug("Starting collectd to collect NFVi stats")
+            LOG.debug("Start collectd service..... %s second timeout", self.timeout)
+            # intel_pmu plug requires large numbers of files open, so try to set
+            # ulimit -n to a large value
+            connection.execute("sudo bash -c 'ulimit -n 1000000 ; %s'" % collectd_path,
+                               timeout=self.timeout)
+            LOG.debug("Done")
+
+        except Exception as e:
+            if isinstance(e, ssh.SSHError):
+                raise CommandFailed(SSHError=str(e))
+            raise
 
     def initiate_systemagent(self, bin_path):
         """ Start system agent for NFVi collection on host """
         if self.enable:
             try:
                 self._start_collectd(self.connection, bin_path)
-            except Exception:
-                LOG.exception("Exception during collectd start")
+                self._start_rabbitmq(self.connection)
+            except CommandFailed as e:
+                LOG.exception("Exception during collectd and rabbitmq start: {}".format(e))
                 raise
 
     def start(self):
