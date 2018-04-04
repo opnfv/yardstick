@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_a7301c02",
+        "filename": "etc/yardstick/nodes/apex_baremetal/pod.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2018-04-04T20:14:38Z",
+      "side": 1,
+      "message": "we run ODL on the controllers",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "35b0a50fd912009629e70d66c98963a76b89dd8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_27140c4d",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2018-04-04T20:14:38Z",
+      "side": 1,
+      "message": "you want to find the active one right?\n\nYou can  use curl to find it.  Here are some links:\nhttps://wiki.opendaylight.org/view/CrossProject:Integration_Group:Cluster_Monitor_Tool\nhttps://github.com/opendaylight/integration-test/tree/master/tools/clustering/cluster-monitor\n\n url \u003d \"http://\" + controller[\"ip\"] + \":\" + controller[\"port\"]\\\n              + \"/jolokia/read/org.opendaylight.controller:\"",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 85,
+        "endChar": 125
+      },
+      "revId": "35b0a50fd912009629e70d66c98963a76b89dd8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
