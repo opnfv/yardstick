@@ -81,7 +81,8 @@ class CollectorTestCase(unittest.TestCase):
         pass
 
     def test_start(self, *_):
-        self.assertIsNone(self.collector.start())
+        with self.assertRaises(Exception):
+            self.collector.start()
 
     def test_stop(self, *_):
         self.assertIsNone(self.collector.stop())

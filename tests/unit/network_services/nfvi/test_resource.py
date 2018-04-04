@@ -128,8 +128,8 @@ class TestResourceProfile(unittest.TestCase):
         self.assertEqual(val, ('error', 'Invalid', '', ''))
 
     def test__start_collectd(self):
-            self.assertIsNone(
-                self.resource_profile._start_collectd(self.ssh_mock, "/opt/nsb_bin"))
+            with self.assertRaises(Exception):
+                self.resource_profile._start_collectd(self.ssh_mock, "/opt/nsb_bin")
 
     def test__prepare_collectd_conf(self):
             self.assertIsNone(
