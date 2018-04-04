@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_27408d55",
+        "filename": "ansible/standalone_ovs_scale_out_ixia_correlated_test.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-04T15:32:38Z",
+      "side": 1,
+      "message": "nit: Can you remove the trailing whitespace?",
+      "range": {
+        "startLine": 54,
+        "startChar": 16,
+        "endLine": 54,
+        "endChar": 17
+      },
+      "revId": "29068ada0e97ff97a5f41159e20bdf8fd16976f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8726c1cc",
+        "filename": "ansible/standalone_sriov_scale_out_ixia_correlated_test.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-04T15:32:38Z",
+      "side": 1,
+      "message": "nit:trailing whitespace",
+      "range": {
+        "startLine": 46,
+        "startChar": 16,
+        "endLine": 46,
+        "endChar": 17
+      },
+      "revId": "29068ada0e97ff97a5f41159e20bdf8fd16976f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e71ce579",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 1109,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-04T15:32:38Z",
+      "side": 1,
+      "message": "nit: use ``pod_ixia.yaml`` to format the file name as monospace and make it visually distinct from the other text",
+      "range": {
+        "startLine": 1109,
+        "startChar": 10,
+        "endLine": 1109,
+        "endChar": 23
+      },
+      "revId": "29068ada0e97ff97a5f41159e20bdf8fd16976f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4714b94d",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 1149,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-04T15:32:38Z",
+      "side": 1,
+      "message": "nit: if this is identical to the pod.yaml file referenced above, you could use a literalinclude block here to include the text verbatim. If it\u0027s not completely identical, you could add the comments to the original file, as it would be helpful to users trying to modify that file for their testcases",
+      "range": {
+        "startLine": 1117,
+        "startChar": 2,
+        "endLine": 1149,
+        "endChar": 50
+      },
+      "revId": "29068ada0e97ff97a5f41159e20bdf8fd16976f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2717ed52",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-04T15:32:38Z",
+      "side": 1,
+      "message": "Merge conflict not resolved.",
+      "range": {
+        "startLine": 1162,
+        "startChar": 0,
+        "endLine": 1162,
+        "endChar": 100
+      },
+      "revId": "29068ada0e97ff97a5f41159e20bdf8fd16976f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_870d2141",
+        "filename": "etc/yardstick/nodes/standalone/ixia_correlated_template.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-04T15:32:38Z",
+      "side": 1,
+      "message": "nit: whitespace",
+      "range": {
+        "startLine": 29,
+        "startChar": 14,
+        "endLine": 29,
+        "endChar": 15
+      },
+      "revId": "29068ada0e97ff97a5f41159e20bdf8fd16976f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
