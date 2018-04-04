@@ -15,6 +15,7 @@
 civetweb_dest: "{{ clone_dest }}/civetweb"
 civetweb_build_dependencies:
   Debian:
+    - libjson-c-dev=0.11-4ubuntu2
     - libjson0
     - libjson0-dev
     - libssl-dev

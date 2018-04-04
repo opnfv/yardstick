@@ -42,6 +42,14 @@
   set_fact:
     RTE_KERNELDIR: "/lib/modules/{{ dpdk_kernel }}/build"
 
+#make clean as this is a copy of the dpdk folder that has already run make
+## no T= target for clean
+- command: make -j {{ ansible_processor_vcpus }} clean O={{ dpdk_make_arch }}
+  args:
+    chdir: "{{ dpdk_shared_path }}"
+  environment:
+    RTE_KERNELDIR: "{{ RTE_KERNELDIR }}"
+
 - command: make -j {{ ansible_processor_vcpus }} config  T={{ dpdk_make_arch }} O={{ dpdk_make_arch }}
   args:
     chdir: "{{ dpdk_shared_path }}"
@@ -84,13 +92,6 @@
     dest: "{{ dpdk_shared_path }}/{{ dpdk_make_arch }}/.config"
     regexp: '^CONFIG_RTE_EAL_PMD_PATH=""'
     line: 'CONFIG_RTE_EAL_PMD_PATH="{{ dpdk_pmd_path }}"'
-
-  # no T= target for clean
-- command: make -j {{ ansible_processor_vcpus }} clean O={{ dpdk_make_arch }}
-  args:
-    chdir: "{{ dpdk_shared_path }}"
-  environment:
-    RTE_KERNELDIR: "{{ RTE_KERNELDIR }}"
 
 # TODO: disable ASLR
 

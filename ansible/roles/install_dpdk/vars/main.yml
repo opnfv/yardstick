@@ -3,7 +3,11 @@ dpdk_make_arch: x86_64-native-linuxapp-gcc
 dpdk_module_dir: "/lib/modules/{{ dpdk_kernel }}/extra"
 hugetable_mount: /mnt/huge
 dpdk_devbind:
+  "16.04": "{{ dpdk_path }}/tools/dpdk-devbind.py"
   "16.07": "{{ dpdk_path }}/tools/dpdk-devbind.py"
   "17.02": "{{ dpdk_path }}/usertools/dpdk-devbind.py"
-  "17.04": "{{ dpdk_path }}/usertools/dpdk-devbind.py"
+  "17.05": "{{ dpdk_path }}/usertools/dpdk-devbind.py"
+  "17.08": "{{ dpdk_path }}/usertools/dpdk-devbind.py"
+  "17.11": "{{ dpdk_path }}/usertools/dpdk-devbind.py"
+  "18.02": "{{ dpdk_path }}/usertools/dpdk-devbind.py"
 dpdk_pmd_path: /usr/lib/dpdk-pmd/
