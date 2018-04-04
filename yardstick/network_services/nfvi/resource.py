@@ -269,24 +269,39 @@ class ResourceProfile(object):
             self._setup_ovs_stats(connection)
 
         LOG.debug("Starting collectd to collect NFVi stats")
-        # ensure collectd.conf.d exists to avoid error/warning
-        connection.execute("sudo mkdir -p /etc/collectd/collectd.conf.d")
-        self._prepare_collectd_conf(config_file_path)
-
         # Reset amqp queue
         LOG.debug("reset and setup amqp to collect data from collectd")
-        connection.execute("sudo rm -rf /var/lib/rabbitmq/mnesia/rabbit*")
-        connection.execute("sudo service rabbitmq-server start")
-        connection.execute("sudo rabbitmqctl stop_app")
-        connection.execute("sudo rabbitmqctl reset")
-        connection.execute("sudo rabbitmqctl start_app")
-        connection.execute("sudo service rabbitmq-server restart")
+        # ensure collectd.conf.d exists to avoid error/warning
+        cmd_list = ["sudo mkdir -p /etc/collectd/collectd.conf.d",
+                    "sudo rm -rf /var/lib/rabbitmq/mnesia/rabbit*",
+                    "sudo service rabbitmq-server restart",
+                    "sudo rabbitmqctl stop_app",
+                    "sudo rabbitmqctl reset",
+                    "sudo rabbitmqctl start_app",
+                    "sudo rabbitmqctl status"
+                    ]
+        # for this commands exit_status always zero
+        stdout = ""
+        for cmd in cmd_list:
+            exit_status, stdout, stderr = connection.execute(cmd)
+
+        # check only last command output
+        if not re.search("RabbitMQ", stdout):
+            raise Exception("rabbitmqctl status don't have RabbitMQ in running apps")
+
+        self._prepare_collectd_conf(config_file_path)
 
         LOG.debug("Creating admin user for rabbitmq in order to collect data from collectd")
-        connection.execute("sudo rabbitmqctl delete_user guest")
-        connection.execute("sudo rabbitmqctl add_user admin admin")
-        connection.execute("sudo rabbitmqctl authenticate_user admin admin")
-        connection.execute("sudo rabbitmqctl set_permissions -p / admin '.*' '.*' '.*'")
+        cmd_list = ["sudo rabbitmqctl delete_user guest",
+                    "sudo rabbitmqctl add_user admin admin",
+                    "sudo rabbitmqctl authenticate_user admin admin",
+                    "sudo rabbitmqctl set_permissions -p / admin '.*' '.*' '.*'"
+                    ]
+
+        for cmd in cmd_list:
+            exit_status, stdout, stderr = connection.execute(cmd)
+            if exit_status != 0:
+                raise Exception("cmd: {}; stderr: {}".format(cmd, stderr))
 
         LOG.debug("Start collectd service..... %s second timeout", self.timeout)
         # intel_pmu plug requires large numbers of files open, so try to set
@@ -300,8 +315,8 @@ class ResourceProfile(object):
         if self.enable:
             try:
                 self._start_collectd(self.connection, bin_path)
-            except Exception:
-                LOG.exception("Exception during collectd start")
+            except Exception as e:
+                LOG.exception("Exception during collectd start: {}".format(e))
                 raise
 
     def start(self):
