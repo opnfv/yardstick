@@ -84,6 +84,57 @@ In this example we have ``TRex xe0 <-> xe0 VNF xe1 <-> xe0 UDP_Replay``
           downlink_0:
            - xe0
 
+
+Availability zone
+^^^^^^^^^^^^^^^^^
+
+The configuration of the availability zone is requred in cases where location
+of exect compute host/group of compute hosts needs to be specified for sample
+VNF or TG in the heat TC. If this is the case, please follow the instruction
+below.
+
+Create a host aggregate in the OpenStack and add the available compute hosts
+into the aggregate group.
+
+.. note:: Change the ``<AZ_NAME>`` (availability zone name), ``<AGG_NAME>``
+  (host aggregate name) and ``<HOST>`` (host name of one of the compute) in the
+  commands below.
+
+.. code-block:: bash
+
+  # create host aggregate
+  openstack aggregate create --zone <AZ_NAME> --property availability_zone=<AZ_NAME> <AGG_NAME>
+  # show available hosts
+  openstack compute service list --service nova-compute
+  # add selected host into the host aggregate
+  openstack aggregate add host <AGG_NAME> <HOST>
+
+To specify the OpenStack location (the exact compute host or group of the hosts)
+of sample VNF or TG in the heat TC, the ``availability_zone`` server
+configuration should be used. For example:
+
+.. note:: The ``<AZ_NAME>`` (availability zone name) should be changed according
+  to the name used during the host aggregate creation.
+
+.. code-block:: yaml
+
+  context:
+    name: yardstick
+    image: yardstick-samplevnfs
+    ...
+    servers:
+      vnf__0:
+        ...
+        availability_zone: <AZ_NAME>
+        ...
+      tg__0:
+        ...
+        availability_zone: <AZ_NAME>
+        ...
+    networks:
+      ...
+
+
 Collectd KPIs
 -------------
 
