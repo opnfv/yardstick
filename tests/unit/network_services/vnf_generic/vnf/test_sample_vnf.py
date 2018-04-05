@@ -1750,6 +1750,56 @@ class TestSampleVnf(unittest.TestCase):
         self.assertIsNone(sample_vnf.instantiate(scenario_cfg, {}))
         self.assertEqual(sample_vnf.nfvi_context, context2)
 
+    def test__update_collectd_options(self):
+        scenario_cfg = {'options':
+                            {'collectd':
+                                 {'interval': 3,
+                                  'plugins':
+                                      {'plugin3': {'param': 3}}},
+                             'vnf__0':
+                                 {'collectd':
+                                      {'interval': 2,
+                                       'plugins':
+                                           {'plugin3': {'param': 2},
+                                            'plugin2': {'param': 2}}}}}}
+        context_cfg = {'nodes':
+                           {'vnf__0':
+                                {'collectd':
+                                     {'interval': 1,
+                                      'plugins':
+                                          {'plugin3': {'param': 1},
+                                           'plugin2': {'param': 1},
+                                           'plugin1': {'param': 1}}}}}}
+        expected = {'interval': 1,
+                    'plugins':
+                        {'plugin3': {'param': 1},
+                         'plugin2': {'param': 1},
+                         'plugin1': {'param': 1}}}
+
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        sample_vnf = SampleVNF('vnf__0', vnfd)
+        sample_vnf._update_collectd_options(scenario_cfg, context_cfg)
+        self.assertEqual(sample_vnf.setup_helper.collectd_options, expected)
+
+    def test__update_options(self):
+        options1 = {'interval': 1,
+                    'plugins':
+                        {'plugin2': {'param': 1},
+                         'plugin1': {'param': 1}}}
+        options2 = {'interval': 2,
+                    'plugins':
+                        {'plugin2': {'param': 2},
+                         'plugin1': {'param': 2}}}
+        expected = {'interval': 1,
+                    'plugins':
+                        {'plugin2': {'param': 1},
+                         'plugin1': {'param': 1}}}
+
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf._update_options(options2, options1)
+        self.assertEqual(options2, expected)
+
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch("yardstick.ssh.SSH")
     def test_wait_for_instantiate_empty_queue(self, ssh, *args):
