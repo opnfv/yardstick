@@ -471,3 +471,25 @@ class GetServerTestCase(unittest.TestCase):
                                             'server_name_or_id')
         mock_logger.error.assert_called_once()
         self.assertIsNone(output)
+
+
+class GetFlavorTestCase(unittest.TestCase):
+
+    def test_get_flavor(self):
+        self.mock_shade_client = mock.Mock()
+        _uuid = uuidutils.generate_uuid()
+        self.mock_shade_client.get_flavor.return_value = {
+            'name': 'flavor_name', 'id': _uuid}
+        output = openstack_utils.get_flavor(self.mock_shade_client,
+                                            'flavor_name_or_id')
+        self.assertEqual({'name': 'flavor_name', 'id': _uuid}, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_get_flavor_exception(self, mock_logger):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.get_flavor.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.get_flavor(self.mock_shade_client,
+                                            'flavor_name_or_id')
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
