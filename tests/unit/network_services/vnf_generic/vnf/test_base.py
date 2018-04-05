@@ -215,10 +215,10 @@ class TestGenericVNF(unittest.TestCase):
         with self.assertRaises(TypeError) as exc:
             # pylint: disable=abstract-class-instantiated
             base.GenericVNF('vnf1', VNFD['vnfd:vnfd-catalog']['vnfd'][0])
-        msg = ("Can't instantiate abstract class GenericVNF with abstract "
-               "methods collect_kpi, instantiate, scale, terminate, "
-               "wait_for_instantiate")
-        self.assertEqual(msg, str(exc.exception))
+            msg = ("Can't instantiate abstract class GenericVNF with abstract "
+                   "methods collect_kpi, instantiate, scale, terminate, "
+                   "wait_for_instantiate")
+            self.assertEqual(msg, str(exc.exception))
 
 
 class TestGenericTrafficGen(unittest.TestCase):
