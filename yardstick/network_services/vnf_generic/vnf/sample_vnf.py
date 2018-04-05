@@ -16,6 +16,7 @@
 from collections import Mapping
 import logging
 from multiprocessing import Queue, Value, Process
+from copy import deepcopy
 
 import os
 import posixpath
@@ -226,9 +227,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
             return
 
     def get_collectd_options(self):
-        options = self.scenario_helper.all_options.get("collectd", {})
-        # override with specific node settings
-        options.update(self.scenario_helper.options.get("collectd", {}))
+        options = self.scenario_helper.options.get("collectd", {})
         return options
 
     def _setup_resources(self):
@@ -710,6 +709,7 @@ class SampleVNF(GenericVNF):
         pass
 
     def instantiate(self, scenario_cfg, context_cfg):
+        self._update_collectd_options(scenario_cfg, context_cfg)
         self.scenario_helper.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
         self.nfvi_context = Context.get_context_from_server(self.scenario_helper.nodes[self.name])
@@ -720,6 +720,54 @@ class SampleVNF(GenericVNF):
             self.deploy_helper.deploy_vnfs(self.APP_NAME)
         self.resource_helper.setup()
         self._start_vnf()
+
+    def _update_collectd_options(self, scenario_cfg, context_cfg):
+        """
+        abbreviation:
+        sc - scenario
+        cl - collectd
+        op - options
+
+        :return:
+        """
+        sc_op = scenario_cfg.get('options', {})
+        sc_cl_op = sc_op.get('collectd', {})
+        sc_vnf_op = sc_op.get(self.name, {})
+        sc_vnf_cl_op = sc_vnf_op.get('collectd', {})
+        # this
+        cl_node_options = context_cfg.get('nodes', {}).get(self.name, {}).pop('collectd', {})
+        # or this ?
+        # try:
+        #     cl_node_options = context_cfg['nodes'][self.name].pop('collectd', {})
+        # except KeyError as e:
+        #     LOG.debug("context_cfg['nodes'][{}] not exist: error {}".format(self.name, e))
+        # else:
+        #     cl_node_options = {}
+
+        options = {}
+        self._update_options(options, sc_cl_op)
+        self._update_options(options, sc_vnf_cl_op)
+        self._update_options(options, cl_node_options)
+
+        scenario_cfg.get('options', {}).get(self.name, {})['collectd'] = options
+
+    def _update_options(self, d, u):
+        u = deepcopy(u)
+        for k, v in u.items():
+            if k == 'plugins':
+                try:
+                    d[k].update(v)
+                except KeyError:
+                    d[k] = v
+
+                continue
+
+            if isinstance(v, dict):
+                # d[k] = self.update(d.get(k, {}), v)
+                d[k].update(v)
+            else:
+                d[k] = v
+        return d
 
     def wait_for_instantiate(self):
         buf = []
@@ -736,7 +784,6 @@ class SampleVNF(GenericVNF):
                     LOG.info("%s VNF is up and running.", self.APP_NAME)
                     self._vnf_up_post()
                     self.queue_wrapper.clear()
-                    self.resource_helper.start_collect()
                     return self._vnf_process.exitcode
 
                 if "PANIC" in message:
@@ -748,6 +795,9 @@ class SampleVNF(GenericVNF):
             # Send ENTER to display a new prompt in case the prompt text was corrupted
             # by other VNF output
             self.q_in.put('\r\n')
+
+    def start_collect(self):
+        self.resource_helper.start_collect()
 
     def _build_run_kwargs(self):
         self.run_kwargs = {

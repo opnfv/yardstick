@@ -28,6 +28,9 @@ class MockVnfAprrox(object):
         self.result = {}
         self.name = "vnf__1"
 
+    def start_collect(self):
+        pass
+
     def collect_kpi(self):
         self.result = {
             'pkt_in_up_stream': 100,
