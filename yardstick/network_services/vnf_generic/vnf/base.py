@@ -195,6 +195,18 @@ class GenericVNF(object):
         :return: {"kpi": value, "kpi2": value}
         """
 
+    @abc.abstractmethod
+    def start_collect(self):
+        """Start KPI collection
+        :return: None
+        """
+
+    @abc.abstractmethod
+    def stop_collect(self):
+        """Stop KPI collection
+        :return: None
+        """
+
 
 @six.add_metaclass(abc.ABCMeta)
 class GenericTrafficGen(GenericVNF):
@@ -248,6 +260,24 @@ class GenericTrafficGen(GenericVNF):
 
     def wait_for_instantiate(self):
         """Wait for an instance to load.
+
+        Optional.
+
+        :return: True/False
+        """
+        pass
+
+    def start_collect(self):
+        """Start KPI collection.
+
+        Optional.
+
+        :return: True/False
+        """
+        pass
+
+    def stop_collect(self):
+        """Stop KPI collection.
 
         Optional.
 

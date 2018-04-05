@@ -16,6 +16,7 @@
 from collections import Mapping
 import logging
 from multiprocessing import Queue, Value, Process
+from copy import deepcopy
 
 import os
 import posixpath
@@ -60,6 +61,7 @@ class SetupEnvHelper(object):
         self.vnfd_helper = vnfd_helper
         self.ssh_helper = ssh_helper
         self.scenario_helper = scenario_helper
+        self.collectd_options = {}
 
     def build_config(self):
         raise NotImplementedError
@@ -225,12 +227,6 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         if exit_status == 0:
             return
 
-    def get_collectd_options(self):
-        options = self.scenario_helper.all_options.get("collectd", {})
-        # override with specific node settings
-        options.update(self.scenario_helper.options.get("collectd", {}))
-        return options
-
     def _setup_resources(self):
         # what is this magic?  how do we know which socket is for which port?
         # what about quad-socket?
@@ -243,11 +239,11 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         # this won't work because we don't have DPDK port numbers yet
         ports = sorted(self.vnfd_helper.interfaces, key=self.vnfd_helper.port_num)
         port_names = (intf["name"] for intf in ports)
-        collectd_options = self.get_collectd_options()
-        plugins = collectd_options.get("plugins", {})
+        plugins = self.collectd_options.get("plugins", {})
+        interval = self.collectd_options.get("interval")
         # we must set timeout to be the same as the VNF otherwise KPIs will die before VNF
         return ResourceProfile(self.vnfd_helper.mgmt_interface, port_names=port_names,
-                               plugins=plugins, interval=collectd_options.get("interval"),
+                               plugins=plugins, interval=interval,
                                timeout=self.scenario_helper.timeout)
 
     def _check_interface_fields(self):
@@ -710,6 +706,7 @@ class SampleVNF(GenericVNF):
         pass
 
     def instantiate(self, scenario_cfg, context_cfg):
+        self._update_collectd_options(scenario_cfg, context_cfg)
         self.scenario_helper.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
         self.nfvi_context = Context.get_context_from_server(self.scenario_helper.nodes[self.name])
@@ -720,6 +717,56 @@ class SampleVNF(GenericVNF):
             self.deploy_helper.deploy_vnfs(self.APP_NAME)
         self.resource_helper.setup()
         self._start_vnf()
+
+    def _update_collectd_options(self, scenario_cfg, context_cfg):
+        """Update collectd configuration options
+        This function retrieves all collectd options contained in the test case
+        definition builds a single dictionary combining them. The following fragment
+        represents a test case with the collectd options and priorities (1 highest, 3 lowest):
+        ---
+        schema: yardstick:task:0.1
+        scenarios:
+        - type: NSPerf
+          nodes:
+            tg__0: trafficgen_1.yardstick
+            vnf__0: vnf.yardstick
+          options:
+            collectd:
+              <options>  # COLLECTD priority 3
+            vnf__0:
+              collectd:
+                plugins:
+                    load
+                <options> # COLLECTD priority 2
+        context:
+          type: Node
+          name: yardstick
+          nfvi_type: baremetal
+          file: /etc/yardstick/nodes/pod_ixia.yaml  # COLLECTD priority 1
+        """
+        scenario_options = scenario_cfg.get('options', {})
+        generic_options = scenario_options.get('collectd', {})
+        scenario_node_options = scenario_options.get(self.name, {}).get('collectd', {})
+        context_node_options = context_cfg['nodes'][self.name].get('collectd', {})
+
+        options = generic_options
+        self._update_options(options, scenario_node_options)
+        self._update_options(options, context_node_options)
+
+        self.setup_helper.collectd_options = options
+
+    def _update_options(self, options, updated_options):
+        """update collectd options and plugins dictionary
+        """
+        updated_options = deepcopy(updated_options)
+        for k, v in updated_options.items():
+            if isinstance(v, dict):
+                try:
+                    options[k].update(v)
+                except KeyError:
+                    options[k] = v
+            else:
+                options[k] = v
 
     def wait_for_instantiate(self):
         buf = []
@@ -736,7 +783,6 @@ class SampleVNF(GenericVNF):
                     LOG.info("%s VNF is up and running.", self.APP_NAME)
                     self._vnf_up_post()
                     self.queue_wrapper.clear()
-                    self.resource_helper.start_collect()
                     return self._vnf_process.exitcode
 
                 if "PANIC" in message:
@@ -748,6 +794,12 @@ class SampleVNF(GenericVNF):
             # Send ENTER to display a new prompt in case the prompt text was corrupted
             # by other VNF output
             self.q_in.put('\r\n')
+
+    def start_collect(self):
+        self.resource_helper.start_collect()
+
+    def stop_collect(self):
+        self.resource_helper.stop_collect()
 
     def _build_run_kwargs(self):
         self.run_kwargs = {
