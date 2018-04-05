@@ -195,6 +195,13 @@ class GenericVNF(object):
         :return: {"kpi": value, "kpi2": value}
         """
 
+    def start_collect(self):
+        """Run amqp agent
+
+        :return:
+        """
+        pass
+
 
 @six.add_metaclass(abc.ABCMeta)
 class GenericTrafficGen(GenericVNF):

@@ -41,6 +41,9 @@ class Collector(object):
             resource.start()
             resource.amqp_process_for_nfvi_kpi()
 
+        for vnf in self.vnfs:
+            vnf.start_collect()
+
     def stop(self):
         """Nothing to do, yet"""
         for resource in self.resource_profiles.values():
