@@ -198,3 +198,7 @@ class ScenarioAttachVolumeError(YardstickException):
 
 class ScenarioGetServerError(YardstickException):
     message = 'Nova Get Server Scenario failed'
+
+
+class ScenarioGetFlavorError(YardstickException):
+    message = 'Nova Get Falvor Scenario failed'
