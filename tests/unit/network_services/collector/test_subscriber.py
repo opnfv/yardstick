@@ -56,35 +56,32 @@ class CollectorTestCase(unittest.TestCase):
 
     def setUp(self):
         vnf = MockVnfAprrox()
-        self.ssh_patch = mock.patch('yardstick.network_services.nfvi.resource.ssh', autospec=True)
+        vnf.start_collect = mock.Mock()
+        vnf.stop_collect = mock.Mock()
+        self.ssh_patch = mock.patch('yardstick.ssh.AutoConnectSSH')
         mock_ssh = self.ssh_patch.start()
         mock_instance = mock.Mock()
         mock_instance.execute.return_value = 0, '', ''
-        mock_ssh.AutoConnectSSH.from_node.return_value = mock_instance
-        self.collector = subscriber.Collector([vnf], self.NODES, self.TRAFFIC_PROFILE, 1800)
+        mock_ssh.from_node.return_value = mock_instance
+        self.collector = subscriber.Collector([vnf])
 
     def tearDown(self):
         self.ssh_patch.stop()
 
     def test___init__(self, *_):
         vnf = MockVnfAprrox()
-        collector = subscriber.Collector([vnf], {}, {})
+        collector = subscriber.Collector([vnf])
         self.assertEqual(len(collector.vnfs), 1)
-        self.assertEqual(collector.traffic_profile, {})
-
-    def test___init___with_data(self, *_):
-        self.assertEqual(len(self.collector.vnfs), 1)
-        self.assertDictEqual(self.collector.traffic_profile, self.TRAFFIC_PROFILE)
-        self.assertEqual(len(self.collector.resource_profiles), 1)
-
-    def test___init___negative(self, *_):
-        pass
 
     def test_start(self, *_):
         self.assertIsNone(self.collector.start())
+        for vnf in self.collector.vnfs:
+            vnf.start_collect.assert_called_once()
 
     def test_stop(self, *_):
         self.assertIsNone(self.collector.stop())
+        for vnf in self.collector.vnfs:
+            vnf.stop_collect.assert_called_once()
 
     def test_get_kpi(self, *_):
         result = self.collector.get_kpi()
@@ -93,4 +90,4 @@ class CollectorTestCase(unittest.TestCase):
         self.assertEqual(result["vnf__1"]["pkt_drop_up_stream"], 5)
         self.assertEqual(result["vnf__1"]["pkt_in_down_stream"], 50)
         self.assertEqual(result["vnf__1"]["pkt_drop_down_stream"], 40)
-        self.assertIn('node2', result)
+        self.assertNotIn('node2', result)
