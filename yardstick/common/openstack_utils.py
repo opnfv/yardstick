@@ -363,12 +363,22 @@ def get_flavor_id(nova_client, flavor_name):    # pragma: no cover
     return flavor_id
 
 
-def get_flavor_by_name(name):   # pragma: no cover
-    flavors = get_nova_client().flavors.list()
+def get_flavor(shade_client, name_or_id, filters=None, get_extra=True):
+    """Get a flavor by name or ID.
+
+    :param name_or_id: Name or ID of the flavor.
+    :param filters: A dictionary of meta data to use for further filtering.
+    :param get_extra: Whether or not the list_flavors call should get the extra
+    flavor specs.
+
+    :returns: A flavor ``munch.Munch`` or None if no matching flavor is found.
+    """
     try:
-        return next((a for a in flavors if a.name == name))
-    except StopIteration:
-        log.exception('No flavor matched')
+        return shade_client.get_flavor(name_or_id, filters=filters,
+                                       get_extra=get_extra)
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [get_flavor(shade_client, '%s')]. "
+                  "Exception message: %s", name_or_id, o_exc.orig_message)
 
 
 def delete_flavor(flavor_id):    # pragma: no cover
