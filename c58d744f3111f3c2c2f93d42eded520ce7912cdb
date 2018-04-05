@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_6d5f1342",
+        "filename": "ansible/roles/install_dpdk/vars/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-04-05T16:56:55Z",
+      "side": 1,
+      "message": "maybe we should switch to default\n\n dpdk_devbind_default: \"{{ dpdk_path }}/usertools/dpdk-devbind.py\"\n\n dpdk_devbind:\n  \"16.04\": \"{{ dpdk_path }}/tools/dpdk-devbind.py\"\n  \"16.07\": \"{{ dpdk_path }}/tools/dpdk-devbind.py\"\n\n  copy:\n    src: \"{{ dpdk_devbind.get(dpdk_version, dpdk_devbind_default) }}\"",
+      "revId": "c58d744f3111f3c2c2f93d42eded520ce7912cdb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
