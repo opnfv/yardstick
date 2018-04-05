@@ -6,14 +6,11 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
-from __future__ import print_function
-from __future__ import absolute_import
-
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
+from yardstick.common import openstack_utils
+from yardstick.common import exceptions
 
 LOG = logging.getLogger(__name__)
 
@@ -26,8 +23,12 @@ class GetFlavor(base.Scenario):
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
-        self.flavor_name = self.options.get("flavor_name", "TestFlavor")
+        self.options = self.scenario_cfg["options"]
+        self.name_or_id = self.options["flavor_name_or_id"]
+        self.filters = self.options.get("filters")
+        self.get_extra = self.options.get("get_extra", True)
+        self.shade_client = openstack_utils.get_shade_client()
+
         self.setup_done = False
 
     def setup(self):
@@ -41,14 +42,19 @@ class GetFlavor(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        LOG.info("Querying flavor: %s", self.flavor_name)
-        flavor = op_utils.get_flavor_by_name(self.flavor_name)
-        if flavor:
-            LOG.info("Get flavor successful!")
-            values = [self._change_obj_to_dict(flavor)]
-        else:
-            LOG.info("Get flavor: no flavor matched!")
-            values = []
+        LOG.info("Querying flavor: %s", self.name_or_id)
+        flavor = openstack_utils.get_flavor(
+            self.shade_client, self.name_or_id, filters=self.filters,
+            get_extra=self.get_extra)
 
-        keys = self.scenario_cfg.get('output', '').split()
+        if not flavor:
+            result.update({"get_flavor": 0})
+            LOG.error("Get flavor failed!")
+            raise exceptions.ScenarioGetFlavorError
+
+        result.update({"get_flavor": 1})
+        LOG.info("Get flavor successful!")
+        flavor_info = flavor['flavor']
+        values = [flavor_info]
+        keys = self.scenario_cfg.get("output", '').split()
         return self._push_to_outputs(keys, values)
