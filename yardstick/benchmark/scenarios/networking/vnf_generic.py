@@ -441,7 +441,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             traffic_gen.listen_traffic(self.traffic_profile)
 
         # register collector with yardstick for KPI collection.
-        self.collector = Collector(self.vnfs, self.context_cfg["nodes"], self.traffic_profile)
+        self.collector = Collector(self.vnfs)
         self.collector.start()
 
         # Start the actual traffic
