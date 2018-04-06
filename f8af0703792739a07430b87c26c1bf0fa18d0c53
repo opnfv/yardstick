@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_56de286e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-04-06T14:17:02Z",
+      "side": 1,
+      "message": "+1\nIt\u0027s very difficult to get what is the real problem or else.",
+      "parentUuid": "5a3f45e8_9b4aa2aa",
+      "range": {
+        "startLine": 12,
+        "startChar": 45,
+        "endLine": 12,
+        "endChar": 77
+      },
+      "revId": "f8af0703792739a07430b87c26c1bf0fa18d0c53",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_5c6f7dfd",
         "filename": "ansible/nsb_setup.yml",
         "patchSetId": 3
