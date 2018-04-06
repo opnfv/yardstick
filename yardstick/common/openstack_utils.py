@@ -728,9 +728,8 @@ def delete_image(glance_client, image_id):    # pragma: no cover
 # *********************************************
 #   CINDER
 # *********************************************
-def get_volume_id(volume_name):    # pragma: no cover
-    volumes = get_cinder_client().volumes.list()
-    return next((v.id for v in volumes if v.name == volume_name), None)
+def get_volume_id(shade_client, volume_name):
+    return shade_client.get_volume_id(volume_name)
 
 
 def create_volume(cinder_client, volume_name, volume_size,
