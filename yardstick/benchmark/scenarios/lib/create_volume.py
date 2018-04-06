@@ -7,14 +7,12 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import print_function
-from __future__ import absolute_import
-
 import time
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
+from yardstick.common import openstack_utils
+from yardstick.common import exceptions
 
 LOG = logging.getLogger(__name__)
 
@@ -27,15 +25,14 @@ class CreateVolume(base.Scenario):
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
+        self.options = self.scenario_cfg["options"]
 
-        self.volume_name = self.options.get("volume_name", "TestVolume")
-        self.volume_size = self.options.get("size", 100)
-        self.image_name = self.options.get("image", None)
-        self.image_id = None
+        self.size = self.options["size"]
+        self.wait = self.options.get("wait", True)
+        self.timeout = self.options.get("timeout")
+        self.image = self.options.get("image")
 
-        self.glance_client = op_utils.get_glance_client()
-        self.cinder_client = op_utils.get_cinder_client()
+        self.shade_client = openstack_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -44,27 +41,29 @@ class CreateVolume(base.Scenario):
 
         self.setup_done = True
 
-    def run(self):
+    def run(self, result):
         """execute the test"""
 
         if not self.setup_done:
             self.setup()
 
-        self.image_id = op_utils.get_image_id(self.glance_client,
-                                              self.image_name)
+        volume = openstack_utils.create_volume(
+            self.shade_client, self.size, wait=self.wait, timeout=self.timeout,
+            image=self.image)
 
-        volume = op_utils.create_volume(self.cinder_client, self.volume_name,
-                                        self.volume_size, self.image_id)
+        if not volume:
+            result.update({"volume_create": 0})
+            LOG.error("Create volume failed!")
+            raise exceptions.ScenarioCreateVolumeError
 
-        status = volume.status
-        while(status == 'creating' or status == 'downloading'):
+        status = volume["status"]
+        while status == "creating" or status == "downloading":
             LOG.info("Volume status is: %s", status)
             time.sleep(5)
-            volume = op_utils.get_volume_by_name(self.volume_name)
-            status = volume.status
-
+            volume = openstack_utils.get_volume(self.shade_client, self.name)
+            status = volume["status"]
+        result.update({"volume_create": 1})
         LOG.info("Create volume successful!")
-
-        values = [volume.id]
-        keys = self.scenario_cfg.get('output', '').split()
+        values = [volume["id"]]
+        keys = self.scenario_cfg.get("output", '').split()
         return self._push_to_outputs(keys, values)
