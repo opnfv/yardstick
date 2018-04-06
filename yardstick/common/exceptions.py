@@ -246,6 +246,10 @@ class ScenarioGetFlavorError(YardstickException):
     message = 'Nova Get Falvor Scenario failed'
 
 
+class ScenarioCreateVolumeError(YardstickException):
+    message = 'Cinder Create Volume Scenario failed'
+
+
 class ApiServerError(YardstickException):
     message = 'An unkown exception happened to Api Server!'
 
