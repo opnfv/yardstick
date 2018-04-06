@@ -515,3 +515,47 @@ class GetVolumeIDTestCase(unittest.TestCase):
         output = openstack_utils.get_volume_id(self.mock_shade_client,
                                                'volume_name')
         self.assertIsNone(output)
+
+
+class GetVolumeTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.get_volume = mock.Mock()
+
+    def test_get_volume(self):
+        self.mock_shade_client.get_volume.return_value = {'volume'}
+        output = openstack_utils.get_volume(self.mock_shade_client,
+                                            'volume_name_or_id')
+        self.assertEqual({'volume'}, output)
+
+    def test_get_volume_None(self):
+        self.mock_shade_client.get_volume.return_value = None
+        output = openstack_utils.get_volume(self.mock_shade_client,
+                                            'volume_name_or_id')
+        self.assertIsNone(output)
+
+
+class CreateVolumeTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.size = 1
+
+    def test_create_volume(self):
+        self.mock_shade_client.create_volume.return_value = (
+            {'name': 'volume-name', 'size': self.size})
+        output = openstack_utils.create_volume(
+            self.mock_shade_client, self.size)
+        self.assertEqual(
+            {'name': 'volume-name', 'size': self.size},
+            output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_volume_fail(self, mock_logger):
+        self.mock_shade_client.create_volume.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.create_volume(self.mock_shade_client,
+                                               self.size)
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
