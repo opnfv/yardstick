@@ -22,6 +22,30 @@
       "revId": "7b2b064d189c15eb55bd3ef55d5262a3c663ceba",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_76e36433",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-06T14:19:49Z",
+      "side": 1,
+      "message": "An availability zone (in Nova) is a a tag for a host aggregate. Take a look at [1]. You can \"split\" the hosts in host aggregates and then, if you want, assign a AZ to those HA.\n\nA placement group is just a way to define, using the SameHostAffinityFilter, where to spawn the VM. In Yardstick we can define, for a placement group, [\"affinity\", \"availability\"]:\n- Affinity: try to spawn the VMs in the same host\n- Availability: just the opposite\n\n[1] https://www.mirantis.com/blog/the-first-and-final-word-on-openstack-availability-zones/",
+      "parentUuid": "5a3f45e8_0788f0e5",
+      "range": {
+        "startLine": 132,
+        "startChar": 8,
+        "endLine": 132,
+        "endChar": 36
+      },
+      "revId": "7b2b064d189c15eb55bd3ef55d5262a3c663ceba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
