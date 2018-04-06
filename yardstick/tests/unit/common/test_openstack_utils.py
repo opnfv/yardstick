@@ -505,3 +505,25 @@ class GetFlavorTestCase(unittest.TestCase):
                                             'flavor_name_or_id')
         mock_logger.error.assert_called_once()
         self.assertIsNone(output)
+
+# *********************************************
+#   CINDER
+# *********************************************
+
+
+class GetVolumeIDTestCase(unittest.TestCase):
+
+    def test_get_volume_id(self):
+        self.mock_shade_client = mock.Mock()
+        _uuid = uuidutils.generate_uuid()
+        self.mock_shade_client.get_volume_id.return_value = _uuid
+        output = openstack_utils.get_volume_id(self.mock_shade_client,
+                                               'volume_name')
+        self.assertEqual(_uuid, output)
+
+    def test_get_volume_id_None(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.get_volume_id.return_value = None
+        output = openstack_utils.get_volume_id(self.mock_shade_client,
+                                               'volume_name')
+        self.assertIsNone(output)
