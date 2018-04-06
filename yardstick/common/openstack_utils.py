@@ -773,21 +773,41 @@ def get_volume_id(shade_client, volume_name):
     return shade_client.get_volume_id(volume_name)
 
 
-def create_volume(cinder_client, volume_name, volume_size,
-                  volume_image=False):    # pragma: no cover
+def get_volume(shade_client, name_or_id, filters=None):
+    """Get a volume by name or ID.
+
+    :param name_or_id: Name or ID of the volume.
+    :param filters: A dictionary of meta data to use for further filtering.
+
+    :returns: A volume ``munch.Munch`` or None if no matching volume is found.
+    """
+    return shade_client.get_volume(name_or_id, filters=filters)
+
+
+def create_volume(shade_client, size, wait=True, timeout=None,
+                  image=None, **kwargs):
+    """Create a volume.
+
+    :param size:(string) Size, in GB of the volume to create.
+    :param wait:(bool) If true, waits for volume to be created.
+    :param timeout:(string) Seconds to wait for volume creation.
+                   None is forever.
+    :param image:(string)(optional) Image name, ID or object from which to
+                 create the volume.
+    :param name:(string)(optional) Name for the volume.
+    :param description:(string)(optional) Name for the volume.
+    :param bootable:(bool)(optional) Make this volume bootable. If set, wait
+                    will also be set to true.
+
+    :returns: The created volume object.
+
+    """
     try:
-        if volume_image:
-            volume = cinder_client.volumes.create(name=volume_name,
-                                                  size=volume_size,
-                                                  imageRef=volume_image)
-        else:
-            volume = cinder_client.volumes.create(name=volume_name,
-                                                  size=volume_size)
-        return volume
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [create_volume(cinder_client, %s)]",
-                      (volume_name, volume_size))
-        return None
+        return shade_client.create_volume(size, wait=wait, timeout=timeout,
+                                          image=image, **kwargs)
+    except (exc.OpenStackCloudException, exc.OpenStackCloudTimeout) as op_exc:
+        log.error("Failed to create_volume(shade_client). "
+                  "Exception message: %s", op_exc.orig_message)
 
 
 def delete_volume(cinder_client, volume_id,
