@@ -202,3 +202,7 @@ class ScenarioGetServerError(YardstickException):
 
 class ScenarioGetFlavorError(YardstickException):
     message = 'Nova Get Falvor Scenario failed'
+
+
+class ScenarioCreateVolumeError(YardstickException):
+    message = 'Cinder Create Volume Scenario failed'
