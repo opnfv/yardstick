@@ -11,7 +11,7 @@
 # nginx service start when boot
 supervisor_config='/etc/supervisor/conf.d/yardstick.conf'
 
-if [[ ! -e "${supervisor_config}" ]];then
+if [[ ! -e "${supervisor_config}" ]]; then
     cat << EOF > "${supervisor_config}"
 [supervisord]
 nodaemon = true
@@ -22,8 +22,8 @@ command = service nginx restart
 [program:yardstick_uwsgi]
 directory = /etc/yardstick
 command = uwsgi -i yardstick.ini
-EOF
-fi
 
 [program:rabbitmq]
 command = service rabbitmq-server restart
+EOF
+fi
