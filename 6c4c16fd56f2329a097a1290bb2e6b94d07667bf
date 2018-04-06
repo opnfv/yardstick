@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_1b432915",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-06T08:27:08Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 26,
+        "startChar": 29,
+        "endLine": 26,
+        "endChar": 65
+      },
+      "revId": "6c4c16fd56f2329a097a1290bb2e6b94d07667bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_bb3b159b",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-06T08:27:08Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 46
+      },
+      "revId": "6c4c16fd56f2329a097a1290bb2e6b94d07667bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_fb459d17",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-06T08:27:08Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 54
+      },
+      "revId": "6c4c16fd56f2329a097a1290bb2e6b94d07667bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7be34d33",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-06T08:27:08Z",
+      "side": 1,
+      "message": "This section now is irrelevant",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 58
+      },
+      "revId": "6c4c16fd56f2329a097a1290bb2e6b94d07667bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_dbd1c158",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-06T08:27:08Z",
+      "side": 1,
+      "message": "This section now is irrelevant.\n\nOnce we implement the collection of data in the physical nodes, we will put it back.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 48
+      },
+      "revId": "6c4c16fd56f2329a097a1290bb2e6b94d07667bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5bc5b18c",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-06T08:27:08Z",
+      "side": 1,
+      "message": "To be removed. The collectd data is retrieved in L62",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 76,
+        "endChar": 34
+      },
+      "revId": "6c4c16fd56f2329a097a1290bb2e6b94d07667bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9be8d911",
+        "filename": "yardstick/network_services/vnf_generic/vnf/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-06T08:27:08Z",
+      "side": 1,
+      "message": "1) I thought this was going to be a generic function to start any data collection. This function should have a list of data collector. In the case of this patch, the data collector will be collectd.\n\n2) According to (1), this function should have an input parameter, \"collectors\"\n\n3) The description should change to:\n\"\"\"Run data collection\n\n:collectors (list): list of data collector to be started\n:return: None\n\n4) This function should be an abstract method.",
+      "revId": "6c4c16fd56f2329a097a1290bb2e6b94d07667bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3b47051f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-06T08:27:08Z",
+      "side": 1,
+      "message": "I prefer not to have this kind of descriptions. Variables should be descriptive enough to know what hold. E.g.:\npriority 3: \"generic_options\"\npriority 2: \"scenario_node_options\"\npriority 1: \"context_node_options\"\n\n\nWhat should be very interesting here is a quick description of where those parameters are stored. E.g.:\n\"\"\"Update collectd configuration options\n\nThis function retrieves all collectd options contained in the test case\ndefinition builds a single dictionary combining them. The following fragment\nrepresents a test case with the collectd options and priorities (1 highest,\n3 lowest):\n\n---\nschema: yardstick:task:0.1\nscenarios:\n- type: NSPerf\n  nodes:\n    tg__0: trafficgen_1.yardstick\n    vnf__0: vnf.yardstick\n  options:\n    collectd:\n      \u003coptions\u003e  # COLLECTD PRITORITY 3\n    vnf__0:\n      collectd:\n        \u003coptions\u003e  # COLLECTD PRITORITY 2\n  runner:\n    type: Iteration\ncontext:\n  type: Node\n  name: yardstick\n  nfvi_type: baremetal\n  file: /etc/yardstick/pod_ixia.yaml  # COLLECTD PRITORITY 1\n\"\"\"",
+      "range": {
+        "startLine": 726,
+        "startChar": 0,
+        "endLine": 729,
+        "endChar": 20
+      },
+      "revId": "6c4c16fd56f2329a097a1290bb2e6b94d07667bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5bfad1bd",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 737,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-06T08:27:08Z",
+      "side": 1,
+      "message": "because of comment in L744 this should be \"get\"",
+      "range": {
+        "startLine": 737,
+        "startChar": 58,
+        "endLine": 737,
+        "endChar": 61
+      },
+      "revId": "6c4c16fd56f2329a097a1290bb2e6b94d07667bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5b73f17f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-06T08:27:08Z",
+      "side": 1,
+      "message": "Why are you modifying the input configuration? To be used in:\nsample_vnf.instantiate --\u003e\n  resource_helper.setup --\u003e\n    DpdkVnfSetupEnvHelper.setup_vnf_environment --\u003e\n      DpdkVnfSetupEnvHelper._setup_resources() ??\n\nInstead of this, you should create a variable in SetupEnvHelper class:\n    def __init__(self, vnfd_helper, ssh_helper, scenario_helper):\n        super(SetupEnvHelper, self).__init__()\n        self.collectd_options \u003d None\n\nHere you should assign options to this variable:\n    self.setup_helper.collectd_options \u003d options",
+      "revId": "6c4c16fd56f2329a097a1290bb2e6b94d07667bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
