@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f62494b0",
+        "filename": "ansible/roles/download_dpdk/defaults/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-04-06T14:01:03Z",
+      "side": 1,
+      "message": "Sounds good to me. Faster is always better.",
+      "parentUuid": "5a3f45e8_1b84c90a",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 76
+      },
+      "revId": "c58d744f3111f3c2c2f93d42eded520ce7912cdb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_4d2177b3",
         "filename": "ansible/roles/install_civetweb/defaults/main.yml",
         "patchSetId": 6
@@ -65,6 +89,29 @@
         "startChar": 20,
         "endLine": 18,
         "endChar": 33
+      },
+      "revId": "c58d744f3111f3c2c2f93d42eded520ce7912cdb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_36643ce4",
+        "filename": "ansible/roles/install_dpdk/vars/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-04-06T14:01:03Z",
+      "side": 1,
+      "message": "in 16.04 it was called: \"dpdk_nic_bind.py\"",
+      "range": {
+        "startLine": 6,
+        "startChar": 34,
+        "endLine": 6,
+        "endChar": 46
       },
       "revId": "c58d744f3111f3c2c2f93d42eded520ce7912cdb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -119,6 +166,24 @@
       "side": 1,
       "message": "I think we should check if version is 17.02 or newer use \"{{ dpdk_path }}/usertools/dpdk-devbind.py\" else use \"{{ dpdk_path }}/tools/dpdk-devbind.py\"",
       "parentUuid": "5a3f45e8_0d400f55",
+      "revId": "c58d744f3111f3c2c2f93d42eded520ce7912cdb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_566908bd",
+        "filename": "ansible/roles/install_dpdk/vars/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-04-06T14:01:03Z",
+      "side": 1,
+      "message": "I wish we could read the minds of DPDK folks. We never know when the path will change again!!",
+      "parentUuid": "5a3f45e8_5b7db11b",
       "revId": "c58d744f3111f3c2c2f93d42eded520ce7912cdb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
