@@ -22,6 +22,30 @@
       "revId": "5293564955b96ff3973f498b1f526e70e792b12b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_fcaf5392",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2018-04-08T07:30:52Z",
+      "side": 0,
+      "message": "These functions should not be removed.",
+      "parentUuid": "5a3f45e8_3c47fb1e",
+      "range": {
+        "startLine": 628,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 13
+      },
+      "revId": "5293564955b96ff3973f498b1f526e70e792b12b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
