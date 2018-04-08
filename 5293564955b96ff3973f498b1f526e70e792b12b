@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_3c47fb1e",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2018-04-08T02:45:49Z",
+      "side": 0,
+      "message": "Why remove this method?",
+      "range": {
+        "startLine": 628,
+        "startChar": 0,
+        "endLine": 645,
+        "endChar": 13
+      },
+      "revId": "5293564955b96ff3973f498b1f526e70e792b12b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
