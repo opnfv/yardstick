@@ -1,0 +1,7 @@
+Code-Review+2: Ross Brattain <ross.b.brattain@intel.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Submitted-by: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-at: Sun, 08 Apr 2018 18:12:31 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/55155
+Project: yardstick
+Branch: refs/heads/stable/fraser
