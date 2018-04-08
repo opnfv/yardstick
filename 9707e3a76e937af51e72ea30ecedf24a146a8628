@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_bc3b0b9b",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2018-04-08T02:30:59Z",
+      "side": 1,
+      "message": "Can we give the shade_client a default value?\ndef get_server(shade_client\u003dNone,...):\n    if shade_client is None:\n        shade_client \u003d get_shade_client()",
+      "range": {
+        "startLine": 296,
+        "startChar": 15,
+        "endLine": 296,
+        "endChar": 27
+      },
+      "revId": "9707e3a76e937af51e72ea30ecedf24a146a8628",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

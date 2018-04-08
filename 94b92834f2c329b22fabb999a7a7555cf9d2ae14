@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_dc3897a2",
+        "filename": "yardstick/benchmark/scenarios/lib/get_server.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2018-04-08T02:30:59Z",
+      "side": 0,
+      "message": "This message will show the user how to use it. So I don\u0027t think we should remove it.",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 20
+      },
+      "revId": "94b92834f2c329b22fabb999a7a7555cf9d2ae14",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
