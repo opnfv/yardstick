@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_532635cf",
+        "filename": "ansible/roles/download_collectd/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-09T13:20:42Z",
+      "side": 1,
+      "message": "\"version\" in git ansible module also accepts tags and branches [1]\nPlease, use the git tag or branch for version 5.8 [2]:\n  collectd-5.8\n\n[1] http://docs.ansible.com/ansible/latest/modules/git_module.html\n[2] https://github.com/collectd/collectd/tree/collectd-5.8",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 16
+      },
+      "revId": "fe39f9589ac52cf03b886b5fb7d7778de99bb89a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
