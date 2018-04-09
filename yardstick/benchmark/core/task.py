@@ -112,19 +112,20 @@ class Task(object):     # pragma: no cover
                 continue
 
             try:
-                data = self._run(tasks[i]['scenarios'],
-                                 tasks[i]['run_in_parallel'],
-                                 output_config)
+                success, data = self._run(tasks[i]['scenarios'],
+                                          tasks[i]['run_in_parallel'],
+                                          output_config)
             except KeyboardInterrupt:
                 raise
-            except Exception:  # pylint: disable=broad-except
+
+            if success:
+                LOG.info('Testcase: "%s" SUCCESS!!!', tasks[i]['case_name'])
+                testcases[tasks[i]['case_name']] = {'criteria': 'PASS',
+                                                    'tc_data': data}
+            else:
                 LOG.error('Testcase: "%s" FAILED!!!', tasks[i]['case_name'],
                           exc_info=True)
                 testcases[tasks[i]['case_name']] = {'criteria': 'FAIL',
-                                                    'tc_data': []}
-            else:
-                LOG.info('Testcase: "%s" SUCCESS!!!', tasks[i]['case_name'])
-                testcases[tasks[i]['case_name']] = {'criteria': 'PASS',
                                                     'tc_data': data}
 
             if args.keep_deploy:
@@ -240,6 +241,7 @@ class Task(object):     # pragma: no cover
 
         background_runners = []
 
+        task_success = True
         result = []
         # Start all background scenarios
         for scenario in filter(_is_background_scenario, scenarios):
@@ -258,8 +260,8 @@ class Task(object):     # pragma: no cover
             for runner in runners:
                 status = runner_join(runner, background_runners, self.outputs, result)
                 if status != 0:
-                    raise RuntimeError(
-                        "{0} runner status {1}".format(runner.__execution_type__, status))
+                    LOG.error("{0} runner status {1}".format(runner.__execution_type__, status))
+                    task_success = False
                 LOG.info("Runner ended")
         else:
             # run serially
@@ -271,8 +273,8 @@ class Task(object):     # pragma: no cover
                         LOG.error('Scenario NO.%s: "%s" ERROR!',
                                   scenarios.index(scenario) + 1,
                                   scenario.get('type'))
-                        raise RuntimeError(
-                            "{0} runner status {1}".format(runner.__execution_type__, status))
+                        LOG.error("{0} runner status {1}".format(runner.__execution_type__, status))
+                        task_success = False
                     LOG.info("Runner ended")
 
         # Abort background runners
@@ -289,7 +291,7 @@ class Task(object):     # pragma: no cover
             base_runner.Runner.release(runner)
 
             print("Background task ended")
-        return result
+        return task_success, result
 
     def atexit_handler(self):
         """handler for process termination"""
