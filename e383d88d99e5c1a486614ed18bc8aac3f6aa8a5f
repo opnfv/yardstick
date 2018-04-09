@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_a9ed8627",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-04-09T20:04:13Z",
+      "side": 1,
+      "message": "we still need to handle and mark testcase failed on any other exception.",
+      "revId": "e383d88d99e5c1a486614ed18bc8aac3f6aa8a5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_09a75a0d",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 1
@@ -19,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_e9f78ef3",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-04-09T20:04:13Z",
+      "side": 1,
+      "message": "I guess we didn\u0027t use to raise RuntimeError and raising the RuntimeError doesn\u0027t seem to make sense now that I think about it.\n\nHave to ask Jack Chan about it.\n\nrunner_join is blocking so there are always risks of hanging.\n\nthis new logic will check all the runners, but consider the task a failure if any runner fails.  Maybe certain scenarios want to ignore failures.",
+      "revId": "e383d88d99e5c1a486614ed18bc8aac3f6aa8a5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_69b53e30",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 1
@@ -30,6 +64,23 @@
       "writtenOn": "2018-04-09T19:13:34Z",
       "side": 1,
       "message": "pylint says this is too long,  we use 99 chars in yardstick",
+      "revId": "e383d88d99e5c1a486614ed18bc8aac3f6aa8a5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e92aee2a",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-04-09T20:04:13Z",
+      "side": 1,
+      "message": "this case is different than the parallel case.  We may not want to continue on other scenarios if the previous scenario fails.\n\nmaybe we need an ignore_failure flag that defaults to False?\n\n for scenario in scenarios:\n   if not _is_background...:\n     status \u003d ...\n     if status !\u003d 0:\n       ...\n       task_success \u003d False\n       if not  _can_ignore_failure(scenario):\n         break",
       "revId": "e383d88d99e5c1a486614ed18bc8aac3f6aa8a5f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
