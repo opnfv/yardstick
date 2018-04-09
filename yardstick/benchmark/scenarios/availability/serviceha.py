@@ -29,7 +29,6 @@ class ServiceHA(base.Scenario):
         self.context_cfg = context_cfg
         self.setup_done = False
         self.data = {}
-        self.pass_flag = True
 
     def setup(self):
         """scenario setup"""
@@ -73,18 +72,12 @@ class ServiceHA(base.Scenario):
         sla_pass = self.monitorMgr.verify_SLA()
         for k, v in self.data.items():
             if v == 0:
-                result['sla_pass'] = 0
-                self.pass_flag = False
-                LOG.info("The service process not found in the host envrioment, \
-the HA test case NOT pass")
-                return
+                sla_pass = False
+                LOG.info("The service process (%s) not found in the host envrioment", k)
+
+        result['sla_pass'] = 1 if sla_pass else 0
         self.monitorMgr.store_result(result)
-        if sla_pass:
-            result['sla_pass'] = 1
-            LOG.info("The HA test case PASS the SLA")
-        else:
-            result['sla_pass'] = 0
-            self.pass_flag = False
+
         assert sla_pass is True, "The HA test case NOT pass the SLA"
 
         return
@@ -93,8 +86,6 @@ the HA test case NOT pass")
         """scenario teardown"""
         for attacker in self.attackers:
             attacker.recover()
-
-        assert self.pass_flag, "The HA test case NOT passed"
 
 
 def _test():    # pragma: no cover
