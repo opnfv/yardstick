@@ -70,6 +70,30 @@
       "revId": "9707e3a76e937af51e72ea30ecedf24a146a8628",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c689e127",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-09T15:02:21Z",
+      "side": 1,
+      "message": "Same approach, i.e. def get_server(shade_client.. without any default value for shade_client, was used while replacing methods for neutron/(some)nova client with shade so in order to maintain consistency we should go with the current behavior only.",
+      "parentUuid": "5a3f45e8_bc3b0b9b",
+      "range": {
+        "startLine": 296,
+        "startChar": 15,
+        "endLine": 296,
+        "endChar": 27
+      },
+      "revId": "9707e3a76e937af51e72ea30ecedf24a146a8628",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
