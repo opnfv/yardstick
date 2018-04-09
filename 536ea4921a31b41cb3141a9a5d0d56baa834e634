@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_b3be99d2",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-09T10:03:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_70c4075f",
+      "range": {
+        "startLine": 687,
+        "startChar": 7,
+        "endLine": 688,
+        "endChar": 9
+      },
+      "revId": "536ea4921a31b41cb3141a9a5d0d56baa834e634",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_b08ccf36",
         "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-09T07:26:04Z",
       "side": 1,
       "message": "When you create a mock object, self.mock_shade_client, all members/methods of this object are already mock objects.\n\nYou can remove these lines.",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 66
+      },
+      "revId": "536ea4921a31b41cb3141a9a5d0d56baa834e634",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_13b66dfa",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-09T10:03:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_b08ccf36",
       "range": {
         "startLine": 275,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f3b821e7",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-09T10:03:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_7072474a",
+      "range": {
+        "startLine": 281,
+        "startChar": 8,
+        "endLine": 281,
+        "endChar": 31
+      },
+      "revId": "536ea4921a31b41cb3141a9a5d0d56baa834e634",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_d0907b45",
         "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
         "patchSetId": 8
@@ -82,6 +154,30 @@
       "writtenOn": "2018-04-09T07:26:04Z",
       "side": 1,
       "message": "ditto\n\ncreate_security_group_full_non_existing_security_group",
+      "range": {
+        "startLine": 290,
+        "startChar": 8,
+        "endLine": 290,
+        "endChar": 39
+      },
+      "revId": "536ea4921a31b41cb3141a9a5d0d56baa834e634",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_53cf557f",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-09T10:03:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_d0907b45",
       "range": {
         "startLine": 290,
         "startChar": 8,
