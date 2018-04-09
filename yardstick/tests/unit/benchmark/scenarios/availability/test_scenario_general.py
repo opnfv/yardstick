@@ -14,7 +14,8 @@ from yardstick.benchmark.scenarios.availability import scenario_general
 
 class ScenarioGeneralTestCase(unittest.TestCase):
 
-    def setUp(self):
+    @mock.patch.object(scenario_general, 'Director')
+    def setUp(self, *args):
         self.scenario_cfg = {
             'type': "general_scenario",
             'options': {
@@ -36,32 +37,28 @@ class ScenarioGeneralTestCase(unittest.TestCase):
             }
         }
         self.instance = scenario_general.ScenarioGeneral(self.scenario_cfg, None)
-
-        self._mock_director = mock.patch.object(scenario_general, 'Director')
-        self.mock_director = self._mock_director.start()
-        self.addCleanup(self._stop_mock)
-
-    def _stop_mock(self):
-        self._mock_director.stop()
+        self.instance.setup()
+        self.instance.director.verify.return_value = True
 
     def test_scenario_general_all_successful(self):
-        self.instance.setup()
-        self.instance.run({})
+
+        ret = {}
+        self.instance.run(ret)
         self.instance.teardown()
+        self.assertEqual(ret['sla_pass'], 1)
 
     def test_scenario_general_exception(self):
-        mock_obj = mock.Mock()
-        mock_obj.createActionPlayer.side_effect = KeyError('Wrong')
-        self.instance.director = mock_obj
+        self.instance.director.createActionPlayer.side_effect = KeyError('Wrong')
         self.instance.director.data = {}
-        self.instance.run({})
+        ret = {}
+        self.instance.run(ret)
         self.instance.teardown()
+        self.assertEqual(ret['sla_pass'], 1)
 
     def test_scenario_general_case_fail(self):
-        mock_obj = mock.Mock()
-        mock_obj.verify.return_value = False
-        self.instance.director = mock_obj
+        self.instance.director.verify.return_value = False
         self.instance.director.data = {}
-        self.instance.run({})
-        self.instance.pass_flag = True
+        ret = {}
+        self.assertRaises(AssertionError, self.instance.run, ret)
         self.instance.teardown()
+        self.assertEqual(ret['sla_pass'], 0)
