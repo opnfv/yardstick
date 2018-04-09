@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_70c4075f",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-09T07:26:04Z",
+      "side": 1,
+      "message": "Instead of having a \"else\" clause for the rest of the function, you can just do:\n\nif security_group:\n    log.info(\"Using existing security group \u0027%s\u0027...\", sg_name)\n    return security_group[\u0027id\u0027]\n\nlog.info(\"Creating security group  \u0027%s\u0027...\", sg_name)\n...",
+      "range": {
+        "startLine": 687,
+        "startChar": 7,
+        "endLine": 688,
+        "endChar": 9
+      },
+      "revId": "536ea4921a31b41cb3141a9a5d0d56baa834e634",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b08ccf36",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-09T07:26:04Z",
+      "side": 1,
+      "message": "When you create a mock object, self.mock_shade_client, all members/methods of this object are already mock objects.\n\nYou can remove these lines.",
+      "range": {
+        "startLine": 275,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 66
+      },
+      "revId": "536ea4921a31b41cb3141a9a5d0d56baa834e634",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7072474a",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-09T07:26:04Z",
+      "side": 1,
+      "message": "Rename this function to, for example, create_security_group_full_existing_security_group.\n\nThe function you are testing is \"create_security_group_full\", not \"get_security_group\".",
+      "range": {
+        "startLine": 281,
+        "startChar": 8,
+        "endLine": 281,
+        "endChar": 31
+      },
+      "revId": "536ea4921a31b41cb3141a9a5d0d56baa834e634",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d0907b45",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-09T07:26:04Z",
+      "side": 1,
+      "message": "ditto\n\ncreate_security_group_full_non_existing_security_group",
+      "range": {
+        "startLine": 290,
+        "startChar": 8,
+        "endLine": 290,
+        "endChar": 39
+      },
+      "revId": "536ea4921a31b41cb3141a9a5d0d56baa834e634",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
