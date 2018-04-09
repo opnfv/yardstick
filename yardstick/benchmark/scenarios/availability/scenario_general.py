@@ -26,7 +26,6 @@ class ScenarioGeneral(base.Scenario):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
         self.intermediate_variables = {}
-        self.pass_flag = True
 
     def setup(self):
         self.director = Director(self.scenario_cfg, self.context_cfg)
@@ -47,7 +46,7 @@ class ScenarioGeneral(base.Scenario):
                     step['actionType'], step['actionKey'])
                 if actionRollbacker:
                     self.director.executionSteps.append(actionRollbacker)
-            except Exception:
+            except Exception:  # pylint: disable=broad-except
                 LOG.exception("Exception")
                 LOG.debug(
                     "\033[91m exception when running step: %s .... \033[0m",
@@ -59,31 +58,16 @@ class ScenarioGeneral(base.Scenario):
         self.director.stopMonitors()
 
         verify_result = self.director.verify()
-
-        self.director.store_result(result)
-
         for k, v in self.director.data.items():
             if v == 0:
                 result['sla_pass'] = 0
                 verify_result = False
-                self.pass_flag = False
-                LOG.info(
-                    "\033[92m The service process not found in the host \
-envrioment, the HA test case NOT pass")
+                LOG.info("\033[92m The service process (%s) not found in the host environment", k)
 
-        if verify_result:
-            result['sla_pass'] = 1
-            LOG.info(
-                "\033[92m Congratulations, "
-                "the HA test case PASS! \033[0m")
-        else:
-            result['sla_pass'] = 0
-            self.pass_flag = False
-            LOG.info(
-                "\033[91m Aoh, the HA test case FAIL,"
-                "please check the detail debug information! \033[0m")
+        result['sla_pass'] = 1 if verify_result else 0
+        self.director.store_result(result)
+
+        assert verify_result is True, "The HA test case NOT passed"
 
     def teardown(self):
         self.director.knockoff()
-
-        assert self.pass_flag, "The HA test case NOT passed"
