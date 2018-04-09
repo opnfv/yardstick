@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_09a75a0d",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-04-09T19:13:34Z",
+      "side": 1,
+      "message": "we use %s in logging because logging does its own deferred interpolation.",
+      "revId": "e383d88d99e5c1a486614ed18bc8aac3f6aa8a5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_69b53e30",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-04-09T19:13:34Z",
+      "side": 1,
+      "message": "pylint says this is too long,  we use 99 chars in yardstick",
+      "revId": "e383d88d99e5c1a486614ed18bc8aac3f6aa8a5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
