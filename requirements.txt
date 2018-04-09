@@ -37,7 +37,7 @@ os-client-config==1.28.0    # OSI Approved  Apache Software License
 osc-lib==1.7.0          # OSI Approved  Apache Software License
 oslo.config==4.11.1     # OSI Approved  Apache Software License
 oslo.i18n==3.17.0       # OSI Approved  Apache Software License
-oslo.privsep===1.22.1   # OSI Approved  Apache Software License
+oslo.privsep==1.22.1   # OSI Approved  Apache Software License
 oslo.serialization==2.20.1  # OSI Approved  Apache Software License
 oslo.utils==3.28.0      # OSI Approved  Apache Software License
 paramiko==2.2.1         # LGPL; OSI Approved  GNU Library or Lesser General Public License (LGPL)
