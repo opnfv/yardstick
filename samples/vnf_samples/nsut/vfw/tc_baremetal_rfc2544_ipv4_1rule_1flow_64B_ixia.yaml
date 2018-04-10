@@ -39,7 +39,7 @@ scenarios:
   runner:
     type: Iteration
     iterations: 10
-    interval: 35
+    interval: 500000
   ixia_profile: ../../traffic_profiles/vfw/vfw_ipv4_profile_1flows.ixncfg
 context:
   type: Node

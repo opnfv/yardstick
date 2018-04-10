@@ -12,18 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
-from __future__ import print_function
-import sys
 import logging
 
 import re
 from itertools import product
+import IxNetwork
+
 
 log = logging.getLogger(__name__)
 
 IP_VERSION_4 = 4
 IP_VERSION_6 = 6
+PROTO_IPV4 = 'ipv4'
+PROTO_IPV6 = 'ipv6'
+PROTO_UDP = 'udp'
+PROTO_TCP = 'tcp'
+PROTO_VLAN = 'vlan'
 
 
 class TrafficStreamHelper(object):
@@ -78,17 +82,6 @@ class FramesizeHelper(object):
 
 class IxNextgen(object):
 
-    STATS_NAME_MAP = {
-        "traffic_item": 'Traffic Item',
-        "Tx_Frames": 'Tx Frames',
-        "Rx_Frames": 'Rx Frames',
-        "Tx_Frame_Rate": 'Tx Frame Rate',
-        "Rx_Frame_Rate": 'Tx Frame Rate',
-        "Store-Forward_Avg_latency_ns": 'Store-Forward Avg Latency (ns)',
-        "Store-Forward_Min_latency_ns": 'Store-Forward Min Latency (ns)',
-        "Store-Forward_Max_latency_ns": 'Store-Forward Max Latency (ns)',
-    }
-
     PORT_STATS_NAME_MAP = {
         "stat_name": 'Stat Name',
         "Frames_Tx": 'Frames Tx.',
@@ -119,11 +112,6 @@ class IxNextgen(object):
     MODE_SEEDS_DEFAULT = 'downlink', ['2048', '256']
 
     @staticmethod
-    def find_view_obj(view_name, views):
-        edited_view_name = '::ixNet::OBJ-/statistics/view:"{}"'.format(view_name)
-        return next((view for view in views if edited_view_name == view), '')
-
-    @staticmethod
     def get_config(tg_cfg):
         card = []
         port = []
@@ -152,7 +140,6 @@ class IxNextgen(object):
         self.ixnet = ixnet
         self._objRefs = dict()
         self._cfg = None
-        self._logger = logging.getLogger(__name__)
         self._params = None
         self._bidir = None
 
@@ -199,49 +186,137 @@ class IxNextgen(object):
 
         self.ixnet.commit()
 
-    def _connect(self, tg_cfg):
+    def connect(self, tg_cfg):
         self._cfg = self.get_config(tg_cfg)
-
-        sys.path.append(self._cfg["py_lib_path"])
-        # Import IxNetwork after getting ixia lib path
-        try:
-            import IxNetwork
-        except ImportError:
-            raise
-
         self.ixnet = IxNetwork.IxNet()
 
         machine = self._cfg['machine']
         port = str(self._cfg['port'])
         version = str(self._cfg['version'])
-        result = self.ixnet.connect(machine, '-port', port, '-version', version)
-        return result
+        return self.ixnet.connect(machine, '-port', port,
+                                  '-version', version)
 
-    def clear_ixia_config(self):
+    def clear_config(self):
+        """Wipe out any possible configuration present in the client"""
         self.ixnet.execute('newConfig')
 
-    def load_ixia_profile(self, profile):
-        self.ixnet.execute('loadConfig', self.ixnet.readFrom(profile))
+    def assign_ports(self):
+        """Create and assign vports for each physical port defined in config
 
-    def ix_load_config(self, profile):
-        self.clear_ixia_config()
-        self.load_ixia_profile(profile)
-
-    def ix_assign_ports(self):
-        vports = self.ixnet.getList(self.ixnet.getRoot(), 'vport')
-        ports = []
-
-        chassis = self._cfg['chassis']
-        ports = [(chassis, card, port) for card, port in
+        This configuration is present in the IXIA profile file. E.g.:
+            name: trafficgen_1
+            role: IxNet
+            interfaces:
+                xe0:
+                    vpci: "2:15" # Card:port
+                    driver: "none"
+                    dpdk_port_num: 0
+                    local_ip: "152.16.100.20"
+                    netmask: "255.255.0.0"
+                    local_mac: "00:98:10:64:14:00"
+                xe1:
+                    ...
+        """
+        chassis_ip = self._cfg['chassis']
+        ports = [(chassis_ip, card, port) for card, port in
                  zip(self._cfg['cards'], self._cfg['ports'])]
 
-        vport_list = self.ixnet.getList("/", "vport")
-        self.ixnet.execute('assignPorts', ports, [], vport_list, True)
+        log.info('Create and assign vports: %s', ports)
+        for port in ports:
+            vport = self.ixnet.add(self.ixnet.getRoot(), 'vport')
+            self.ixnet.commit()
+            self.ixnet.execute('assignPorts', [port], [], [vport], True)
+            self.ixnet.commit()
+            if self.ixnet.getAttribute(vport, '-state') != 'up':
+                log.warning('Port %s is down', vport)
+
+    def _create_traffic_item(self):
+        """Create the traffic item to hold the flow groups
+
+        The traffic item tracking by "Traffic Item" is enabled to retrieve the
+        latency statistics.
+        """
+        log.info('Create the traffic item "RFC2455"')
+        traffic_item = self.ixnet.add(self.ixnet.getRoot() + '/traffic',
+                                      'trafficItem')
+        self.ixnet.setMultiAttribute(traffic_item, '-name', 'RFC2455',
+                                     '-trafficType', 'raw')
         self.ixnet.commit()
 
-        for vport in vports:
-            if self.ixnet.getAttribute(vport, '-state') != 'up':
-                log.error("Both thr ports are down...")
+        traffic_item_id = self.ixnet.remapIds(traffic_item)[0]
+        self.ixnet.setAttribute(traffic_item_id + '/tracking',
+                                '-trackBy', 'trafficGroupId0')
+        self.ixnet.commit()
+
+    def _create_flow_groups(self):
+        """Create the flow groups between the assigned ports"""
+        traffic_item_id = self.ixnet.getList(self.ixnet.getRoot() + 'traffic',
+                                             'trafficItem')[0]
+        log.info('Create the flow groups')
+        vports = self.ixnet.getList(self.ixnet.getRoot(), 'vport')
+        uplink_ports = vports[::2]
+        downlink_ports = vports[1::2]
+        for up, down in zip(uplink_ports, downlink_ports):
+            log.info('FGs: %s <--> %s', up, down)
+            endpoint_set_1 = self.ixnet.add(traffic_item_id, 'endpointSet')
+            endpoint_set_2 = self.ixnet.add(traffic_item_id, 'endpointSet')
+            self.ixnet.setMultiAttribute(
+                endpoint_set_1,
+                '-sources', [up + ' /protocols'],
+                '-destinations', [down + '/protocols'])
+            self.ixnet.setMultiAttribute(
+                endpoint_set_2,
+                '-sources', [down + ' /protocols'],
+                '-destinations', [up + '/protocols'])
+            self.ixnet.commit()
+
+    def _append_procotol_to_stack(self, protocol_name, previous_element):
+        """Append a new element in the packet definition stack"""
+        protocol = (self.ixnet.getRoot() +
+                    '/traffic/protocolTemplate:"{}"'.format(protocol_name))
+        self.ixnet.execute('append', previous_element, protocol)
+
+    def _setup_config_elements(self):
+        """Setup the config elements
+
+        The traffic item is configured to allow individual configurations per
+        config element. The default frame configuration is applied:
+            Ethernet II: added by default
+            IPv4: element to add
+            UDP: element to add
+            Payload: added by default
+            Ethernet II (Trailer): added by default
+        :return:
+        """
+        traffic_item_id = self.ixnet.getList(self.ixnet.getRoot() + 'traffic',
+                                             'trafficItem')[0]
+        log.info('Split the frame rate distribution per config element')
+        config_elements = self.ixnet.getList(traffic_item_id, 'configElement')
+        for config_element in config_elements:
+            self.ixnet.setAttribute(config_element + '/frameRateDistribution',
+                                    '-portDistribution', 'splitRateEvenly')
+            self.ixnet.setAttribute(config_element + '/frameRateDistribution',
+                                    '-streamDistribution', 'splitRateEvenly')
+            self.ixnet.commit()
+            self._append_procotol_to_stack(
+                PROTO_UDP, config_element + '/stack:"ethernet-1"')
+            self._append_procotol_to_stack(
+                PROTO_IPV4, config_element + '/stack:"ethernet-1"')
+
+    def create_traffic_model(self):
+        """Create a traffic item and the needed flow groups
+
+        Each flow group inside the traffic item (only one is present)
+        represents the traffic between two ports:
+                        (uplink)    (downlink)
+            FlowGroup1: port1    -> port2
+            FlowGroup2: port1    <- port2
+            FlowGroup3: port3    -> port4
+            FlowGroup4: port3    <- port4
+        """
+        self._create_traffic_item()
+        self._create_flow_groups()
+        self._setup_config_elements()
 
     def ix_update_frame(self, params):
         streams = ["configElement"]
@@ -255,7 +330,7 @@ class IxNextgen(object):
 
                 self.ixnet.setMultiAttribute(helper.transmissionControl,
                                              '-type', '{0}'.format(param.get('traffic_type',
-                                                                             'continuous')),
+                                                                             'fixedDuration')),
                                              '-duration', '{0}'.format(param.get('duration',
                                                                                  "30")))
 
@@ -324,21 +399,22 @@ class IxNextgen(object):
             self.ixnet.execute('stop', '/traffic')
 
     def build_stats_map(self, view_obj, name_map):
-        return {kl: self.execute_get_column_values(view_obj, kr) for kl, kr in name_map.items()}
+        return {data_yardstick: self.ixnet.execute(
+                'getColumnValues', view_obj, data_ixia)
+            for data_yardstick, data_ixia in name_map.items()}
 
-    def execute_get_column_values(self, view_obj, name):
-        return self.ixnet.execute('getColumnValues', view_obj, name)
+    def get_statistics(self):
+        """Retrieve port and flow statistics
 
-    def ix_get_statistics(self):
-        views = self.ixnet.getList('/statistics', 'view')
-        stats = {}
-        view_obj = self.find_view_obj("Traffic Item Statistics", views)
-        stats = self.build_stats_map(view_obj, self.STATS_NAME_MAP)
+        "Port Statistics" parameters are stored in self.PORT_STATS_NAME_MAP.
+        "Flow Statistics" parameters are stored in self.LATENCY_NAME_MAP.
 
-        view_obj = self.find_view_obj("Port Statistics", views)
-        ports_stats = self.build_stats_map(view_obj, self.PORT_STATS_NAME_MAP)
-
-        view_obj = self.find_view_obj("Flow Statistics", views)
-        stats["latency"] = self.build_stats_map(view_obj, self.LATENCY_NAME_MAP)
-
-        return stats, ports_stats
+        :return: dictionary with the statistics; the keys of this dictionary
+                 are PORT_STATS_NAME_MAP and LATENCY_NAME_MAP keys.
+        """
+        port_statistics = '::ixNet::OBJ-/statistics/view:"Port Statistics"'
+        flow_statistics = '::ixNet::OBJ-/statistics/view:"Flow Statistics"'
+        stats = self.build_stats_map(port_statistics, self.PORT_STATS_NAME_MAP)
+        stats.update(self.build_stats_map(flow_statistics,
+                                          self.LATENCY_NAME_MAP))
+        return stats
