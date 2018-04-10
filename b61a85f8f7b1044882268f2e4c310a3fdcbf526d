@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_09eaba74",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2018-04-10T01:36:24Z",
+      "side": 1,
+      "message": "It\u0027s better to move it under each test.",
+      "range": {
+        "startLine": 457,
+        "startChar": 8,
+        "endLine": 457,
+        "endChar": 44
+      },
+      "revId": "b61a85f8f7b1044882268f2e4c310a3fdcbf526d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
