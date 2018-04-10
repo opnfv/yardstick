@@ -76,8 +76,6 @@ class IxiaResourceHelper(ClientResourceHelper):
 
     def generate_samples(self, ports, key=None, default=None):
         stats = self.get_stats()
-        last_result = stats[1]
-        latency = stats[0]
 
         samples = {}
         # this is not DPDK port num, but this is whatever number we gave
@@ -88,19 +86,21 @@ class IxiaResourceHelper(ClientResourceHelper):
                 intf = self.vnfd_helper.find_interface_by_port(port_num)
                 port_name = intf["name"]
                 samples[port_name] = {
-                    "rx_throughput_kps": float(last_result["Rx_Rate_Kbps"][port_num]),
-                    "tx_throughput_kps": float(last_result["Tx_Rate_Kbps"][port_num]),
-                    "rx_throughput_mbps": float(last_result["Rx_Rate_Mbps"][port_num]),
-                    "tx_throughput_mbps": float(last_result["Tx_Rate_Mbps"][port_num]),
-                    "in_packets": int(last_result["Valid_Frames_Rx"][port_num]),
-                    "out_packets": int(last_result["Frames_Tx"][port_num]),
-                    "RxThroughput": int(last_result["Valid_Frames_Rx"][port_num]) / 30,
-                    "TxThroughput": int(last_result["Frames_Tx"][port_num]) / 30,
+                    "rx_throughput_kps": float(stats["Rx_Rate_Kbps"][port_num]),
+                    "tx_throughput_kps": float(stats["Tx_Rate_Kbps"][port_num]),
+                    "rx_throughput_mbps": float(stats["Rx_Rate_Mbps"][port_num]),
+                    "tx_throughput_mbps": float(stats["Tx_Rate_Mbps"][port_num]),
+                    "in_packets": int(stats["Valid_Frames_Rx"][port_num]),
+                    "out_packets": int(stats["Frames_Tx"][port_num]),
+                    # NOTE(ralonsoh): we need to make the traffic injection
+                    # time variable.
+                    "RxThroughput": int(stats["Valid_Frames_Rx"][port_num]) / 30,
+                    "TxThroughput": int(stats["Frames_Tx"][port_num]) / 30,
                 }
                 if key:
-                    avg_latency = latency["Store-Forward_Avg_latency_ns"][port_num]
-                    min_latency = latency["Store-Forward_Min_latency_ns"][port_num]
-                    max_latency = latency["Store-Forward_Max_latency_ns"][port_num]
+                    avg_latency = stats["Store-Forward_Avg_latency_ns"][port_num]
+                    min_latency = stats["Store-Forward_Min_latency_ns"][port_num]
+                    max_latency = stats["Store-Forward_Max_latency_ns"][port_num]
                     samples[port_name][key] = \
                         {"Store-Forward_Avg_latency_ns": avg_latency,
                          "Store-Forward_Min_latency_ns": min_latency,
