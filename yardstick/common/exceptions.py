@@ -230,3 +230,7 @@ class ScenarioGetFlavorError(YardstickException):
 
 class ScenarioCreateVolumeError(YardstickException):
     message = 'Cinder Create Volume Scenario failed'
+
+
+class ScenarioDeleteVolumeError(YardstickException):
+    message = 'Cinder Delete Volume Scenario failed'
