@@ -6,14 +6,12 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
-from __future__ import print_function
-from __future__ import absolute_import
-
 import logging
 
+from yardstick.common import openstack_utils
+from yardstick.common import exceptions
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
+
 
 LOG = logging.getLogger(__name__)
 
@@ -26,10 +24,14 @@ class DetachVolume(base.Scenario):
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
+        self.options = self.scenario_cfg["options"]
 
-        self.server_id = self.options.get("server_id", "TestServer")
-        self.volume_id = self.options.get("volume_id", None)
+        self.server = self.options["server"]
+        self.volume = self.options["volume"]
+        self.wait = self.options.get("wait", True)
+        self.timeout = self.options.get("timeout")
+
+        self.shade_client = openstack_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -44,11 +46,14 @@ class DetachVolume(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        status = op_utils.detach_volume(self.server_id, self.volume_id)
+        status = openstack_utils.detach_volume(
+            self.shade_client, self.server, self.volume, wait=self.wait,
+            timeout=self.timeout)
 
-        if status:
-            result.update({"detach_volume": 1})
-            LOG.info("Detach volume from server successful!")
-        else:
+        if not status:
             result.update({"detach_volume": 0})
-            LOG.info("Detach volume from server failed!")
+            LOG.error("Detach volume from server failed!")
+            raise exceptions.ScenarioDetachVolumeError
+
+        result.update({"detach_volume": 1})
+        LOG.info("Detach volume from server successful!")

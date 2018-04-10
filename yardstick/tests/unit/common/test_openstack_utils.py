@@ -608,3 +608,25 @@ class DeleteVolumeTestCase(unittest.TestCase):
                                                'volume_name_or_id')
         mock_logger.error.assert_called_once()
         self.assertFalse(output)
+
+
+class DetachVolumeTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.server = {'server'}
+        self.volume = {'volume'}
+
+    def test_detach_volume(self):
+        output = openstack_utils.detach_volume(self.mock_shade_client,
+                                               self.server, self.volume)
+        self.assertTrue(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_detach_volume_exception(self, mock_logger):
+        self.mock_shade_client.detach_volume.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.detach_volume(self.mock_shade_client,
+                                               self.server, self.volume)
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
