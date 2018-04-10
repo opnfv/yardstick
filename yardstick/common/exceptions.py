@@ -216,3 +216,15 @@ class UploadOpenrcError(ApiServerError):
 
 class UpdateOpenrcError(ApiServerError):
     message = 'Update openrc ERROR!'
+
+
+class IxNetworkClientNotConnected(YardstickException):
+    message = 'IxNetwork client not connected to a TCL server'
+
+
+class IxNetworkFlowNotPresent(YardstickException):
+    message = 'Flow Group "%(flow_group)s" is not present'
+
+
+class IxNetworkFieldNotPresentInStackItem(YardstickException):
+    message = 'Field "%(field_name)s" not present in stack item %(stack_item)s'
