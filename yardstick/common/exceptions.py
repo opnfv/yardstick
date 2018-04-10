@@ -210,3 +210,7 @@ class ScenarioCreateVolumeError(YardstickException):
 
 class ScenarioDeleteVolumeError(YardstickException):
     message = 'Cinder Delete Volume Scenario failed'
+
+
+class ScenarioDetachVolumeError(YardstickException):
+    message = 'Cinder Detach Volume Scenario failed'
