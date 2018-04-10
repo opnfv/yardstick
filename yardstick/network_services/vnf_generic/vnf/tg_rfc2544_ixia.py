@@ -12,14 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
-
 import time
 import os
 import logging
 import sys
 
-from yardstick.common import utils
 from yardstick import error
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
@@ -64,10 +61,10 @@ class IxiaResourceHelper(ClientResourceHelper):
         self._connect()
 
     def _connect(self, client=None):
-        self.client._connect(self.vnfd_helper)
+        self.client.connect(self.vnfd_helper)
 
     def get_stats(self, *args, **kwargs):
-        return self.client.ix_get_statistics()
+        return self.client.get_statistics()
 
     def stop_collect(self):
         self._terminated.value = 1
@@ -110,6 +107,12 @@ class IxiaResourceHelper(ClientResourceHelper):
 
         return samples
 
+    def _initialize_client(self):
+        """Initialize the IXIA IxNetwork client and configure the server"""
+        self.client.clear_config()
+        self.client.assign_ports()
+        self.client.create_traffic_model()
+
     def run_traffic(self, traffic_profile):
         if self._terminated.value:
             return
@@ -119,16 +122,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         default = "00:00:00:00:00:00"
 
         self._build_ports()
-
-        # we don't know client_file_name until runtime as instantiate
-        client_file_name = \
-            utils.find_relative_file(
-                self.scenario_helper.scenario_cfg['ixia_profile'],
-                self.scenario_helper.scenario_cfg["task_path"])
-        self.client.ix_load_config(client_file_name)
-        time.sleep(WAIT_AFTER_CFG_LOAD)
-
-        self.client.ix_assign_ports()
+        self._initialize_client()
 
         mac = {}
         for port_name in self.vnfd_helper.port_pairs.all_ports:
