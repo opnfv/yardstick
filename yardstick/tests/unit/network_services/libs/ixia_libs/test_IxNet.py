@@ -17,6 +17,7 @@ import mock
 import IxNetwork
 import unittest
 
+from yardstick.network_services.libs.ixia_libs.IxNet import IxNet
 from yardstick.network_services.libs.ixia_libs.IxNet.IxNet import IxNextgen
 from yardstick.network_services.libs.ixia_libs.IxNet.IxNet import IP_VERSION_4
 from yardstick.network_services.libs.ixia_libs.IxNet.IxNet import IP_VERSION_6
@@ -27,60 +28,109 @@ DOWNLINK = "downlink"
 
 class TestIxNextgen(unittest.TestCase):
 
+    def setUp(self):
+        self.ixnet = mock.Mock()
+        self.ixnet.execute = mock.Mock()
+
     def test___init__(self):
         ixnet_gen = IxNextgen()
+        self.assertIsNone(ixnet_gen.ixnet)
+        self.assertTrue(isinstance(ixnet_gen._objRefs, dict))
+        self.assertIsNone(ixnet_gen._cfg)
+        self.assertIsNone(ixnet_gen._params)
         self.assertIsNone(ixnet_gen._bidir)
 
+    def test___init__ixnet(self):
+        ixnet_gen = IxNextgen(self.ixnet)
+        self.assertIsNotNone(ixnet_gen.ixnet)
+
+    #ELF1: Do I need more tests??
     @mock.patch.object(IxNetwork, 'IxNet')
     def test_connect(self, mock_ixnet):
-        ixnet_instance = mock.Mock()
-        mock_ixnet.return_value = ixnet_instance
+        mock_ixnet.return_value = self.ixnet
         ixnet_gen = IxNextgen()
         with mock.patch.object(ixnet_gen, 'get_config') as mock_config:
             mock_config.return_value = {'machine': 'machine_fake',
                                         'port': 'port_fake',
                                         'version': 12345}
-            ixnet_gen._connect(mock.ANY)
+            output = ixnet_gen.connect(mock.ANY)
 
-        ixnet_instance.connect.assert_called_once_with(
+        self.ixnet.connect.assert_called_once_with(
             'machine_fake', '-port', 'port_fake', '-version', '12345')
         mock_config.assert_called_once()
+        self.assertIsNotNone(output)
 
-    def test_clear_ixia_config(self):
-        ixnet = mock.MagicMock()
-        ixnet.execute = mock.Mock()
+    #ELF1
+    def test_connect_invalid_config_no_machine(self):
+        ixnet_gen = IxNextgen(self.ixnet)
 
-        ixnet_gen = IxNextgen(ixnet)
+        ixnet_gen.get_config = mock.Mock(return_value={
+            "port": "port_fake",
+            "version": "12345" })
+        self.assertRaises(KeyError, ixnet_gen.connect, mock.ANY)
+        self.ixnet.connect.assert_not_called()
 
-        result = ixnet_gen.clear_ixia_config()
-        self.assertIsNone(result)
-        self.assertEqual(ixnet.execute.call_count, 1)
+    #ELF1
+    def test_connect_invalid_config_no_port(self):
+        ixnet_gen = IxNextgen(self.ixnet)
 
-    def test_load_ixia_profile(self):
-        ixnet = mock.MagicMock()
-        ixnet.execute = mock.Mock()
+        ixnet_gen.get_config = mock.Mock(return_value={
+            "machine": "machine_fake",
+            "version": "12345" })
+        self.assertRaises(KeyError, ixnet_gen.connect, mock.ANY)
+        self.ixnet.connect.assert_not_called()
 
-        ixnet_gen = IxNextgen(ixnet)
+    #ELF1
+    def test_connect_invalid_config_no_version(self):
+        ixnet_gen = IxNextgen(self.ixnet)
 
-        result = ixnet_gen.load_ixia_profile({})
-        self.assertIsNone(result)
-        self.assertEqual(ixnet.execute.call_count, 1)
+        ixnet_gen.get_config = mock.Mock(return_value={
+            "machine": "machine_fake",
+            "port": "port_fake"})
+        self.assertRaises(KeyError, ixnet_gen.connect, mock.ANY)
+        self.ixnet.connect.assert_not_called()
 
-    def test_load_ixia_config(self):
-        ixnet = mock.MagicMock()
-        ixnet.execute = mock.Mock()
+    #ELF1
+    def test_connect_no_config(self):
+        ixnet_gen = IxNextgen(self.ixnet)
 
-        ixnet_gen = IxNextgen(ixnet)
+        ixnet_gen.get_config = mock.Mock(return_value={})
+        self.assertRaises(KeyError, ixnet_gen.connect, mock.ANY)
+        self.ixnet.connect.assert_not_called()
 
-        result = ixnet_gen.ix_load_config({})
-        self.assertIsNone(result)
-        self.assertEqual(ixnet.execute.call_count, 2)
+    # ELF1: ixnet could be an instance variable for the testcase, so it would
+    # always be set up and available.
+    def test_clear_config(self):
 
-    @mock.patch('yardstick.network_services.libs.ixia_libs.IxNet.IxNet.log')
-    def test_ix_assign_ports(self, mock_logger):
-        ixnet = mock.MagicMock()
-        ixnet.getList.return_value = [0, 1]
-        ixnet.getAttribute.side_effect = ['up', 'down']
+        ixnet_gen = IxNextgen(self.ixnet)
+
+        ixnet_gen.clear_config()
+
+        self.ixnet.execute.assert_called_once_with('newConfig')
+
+    # ELF1: Need to add more tests for assign_ports
+    # ELF1: mock using mock.patch.object
+    # ELF1: Need to add test for multiple ports and multiple calls to execute
+    def test_assign_ports(self):
+        self.ixnet.getAttribute.side_effect = ['up']
+
+        config = {
+            'chassis': '1.1.1.1',
+            'cards': ['1', '2'],
+            'ports': ['1', ],
+        }
+
+        ixnet_gen = IxNextgen(self.ixnet)
+        ixnet_gen._cfg = config
+
+        self.assertIsNone(ixnet_gen.assign_ports())
+
+        self.ixnet.execute.assert_called_once()
+        self.assertEqual(self.ixnet.commit.call_count, 2)
+        self.ixnet.getAttribute.assert_called_once()
+
+    def test_assign_ports_2_ports(self):
+        self.ixnet.getAttribute.side_effect = ['up', 'down']
 
         config = {
             'chassis': '1.1.1.1',
@@ -88,16 +138,125 @@ class TestIxNextgen(unittest.TestCase):
             'ports': ['2', '2'],
         }
 
-        ixnet_gen = IxNextgen(ixnet)
+        # ELF: ixnet_gen could be a class attribute too
+        ixnet_gen = IxNextgen(self.ixnet)
         ixnet_gen._cfg = config
 
-        result = ixnet_gen.ix_assign_ports()
-        self.assertIsNone(result)
-        self.assertEqual(ixnet.execute.call_count, 1)
-        self.assertEqual(ixnet.commit.call_count, 1)
-        self.assertEqual(ixnet.getAttribute.call_count, 2)
-        self.assertEqual(mock_logger.error.call_count, 1)
+        self.assertIsNone(ixnet_gen.assign_ports())
 
+        self.assertEqual(self.ixnet.execute.call_count, 2)
+        self.assertEqual(self.ixnet.commit.call_count, 4)
+        self.assertEqual(self.ixnet.getAttribute.call_count, 2)
+
+    #ELF
+    @mock.patch.object(IxNet, 'log')
+    def test_assign_ports_port_down(self, mock_log):
+        self.ixnet.getAttribute.return_value = 'down'
+
+        config = {
+            'chassis': '1.1.1.1',
+            'cards': ['1', '2'],
+            'ports': ['3', '4'],
+        }
+        ixnet_gen = IxNextgen(self.ixnet)
+        ixnet_gen._cfg = config
+        ixnet_gen.assign_ports()
+        mock_log.warning.assert_called()
+
+    # ELF1
+    def test_assign_ports_no_config(self):
+        ixnet_gen = IxNextgen(self.ixnet)
+        ixnet_gen._cfg = {}
+
+        self.assertRaises(KeyError, ixnet_gen.assign_ports)
+
+    def test__create_traffic_item(self):
+        #TODO(ELF): implement me (and others)
+        ixnet_gen = IxNextgen(self.ixnet)
+        self.ixnet.getRoot.return_value = "rootyrootroot"
+        self.ixnet.add.return_value = "my_new_traffic_item"
+        self.ixnet.remapIds.return_value = ["my_traffic_item_id"]
+
+        ixnet_gen._create_traffic_item()
+
+        self.ixnet.add.assert_called_once_with(
+            "rootyrootroot/traffic",
+            "trafficItem")
+        self.ixnet.setMultiAttribute.assert_called_once_with(
+            "my_new_traffic_item", "-name", "RFC2544", "-trafficType", "raw"
+        )
+        self.assertEqual(2, self.ixnet.commit.call_count)
+        self.ixnet.remapIds.assert_called_once_with("my_new_traffic_item")
+        self.ixnet.setAttribute("my_traffic_item_id/tracking",
+                                "-trackBy", "trafficGroupId0")
+
+    def test__create_flow_groups(self):
+        #ELF1: implement me!
+        # Single group
+        pass
+
+    #ELF1
+    def test__create_flow_groups_multiple_groups(self):
+        pass
+
+    #ELF1
+    def test__create_flow_groups_no_traffic_item(self):
+        # we should not enter the for loop;
+        # ixnet.execute/setAttribute should not be called
+        pass
+
+    #ELF1
+    def test__create_flow_groups_no_ports(self):
+        # this tc should actually throw an error because we try
+        # to acess the vports
+        pass
+
+    #ELF1
+    def test__append_protocol_to_stack(self):
+        ixnet_gen = IxNextgen(self.ixnet)
+        self.ixnet.getRoot.return_value = "my_root"
+        previous_element = "prev_element"
+
+        ixnet_gen._append_procotol_to_stack('my_protocol', 'prev_element')
+        self.ixnet.execute.assert_called_with(
+            'append',
+            'prev_element',
+            'my_root/traffic/protocolTemplate:"my_protocol"'
+            )
+
+    #ELF1
+    def test__setup_config_elements(self):
+        #ELF1: implement me!
+        pass
+
+    #ELF1
+    def test__setup_config_elements_no_traffic_item(self):
+        # How does ixnet react when given a null traffic item?
+        pass
+
+    #ELF1
+    def test__setup_config_elements_no_config(self):
+        # getList returns None for configElement
+        pass
+
+    #ELF1
+    @mock.patch.object(IxNextgen, "_create_traffic_item") 
+    @mock.patch.object(IxNextgen, "_create_flow_groups") 
+    @mock.patch.object(IxNextgen, "_setup_config_elements") 
+    def test_create_traffic_model(self, mock__setup_config_elements,
+                                  mock__create_flow_groups,
+                                  mock__create_traffic_item):
+        ixnet_gen = IxNextgen(self.ixnet)
+
+        ixnet_gen.create_traffic_model()
+        mock__create_traffic_item.assert_called_once()
+        mock__create_flow_groups.assert_called_once()
+        mock__setup_config_elements.assert_called_once()
+        # ELF1: Check for side effects
+
+    # ELF1: some negative testing, maybe?
+    # ELF1: Also check for the new change to this funct -- should fail
+    # for traffic type = continuous
     def test_ix_update_frame(self):
         static_traffic_params = {
             UPLINK: {
@@ -185,11 +344,10 @@ class TestIxNextgen(unittest.TestCase):
             }
         }
 
-        ixnet = mock.MagicMock()
-        ixnet.remapIds.return_value = ["0"]
-        ixnet.setMultiAttribute.return_value = [1]
-        ixnet.commit.return_value = [1]
-        ixnet.getList.side_effect = [
+        self.ixnet.remapIds.return_value = ["0"]
+        self.ixnet.setMultiAttribute.return_value = [1]
+        self.ixnet.commit.return_value = [1]
+        self.ixnet.getList.side_effect = [
             [1],
             [1],
             [1],
@@ -199,76 +357,79 @@ class TestIxNextgen(unittest.TestCase):
             ],
         ]
 
-        ixnet_gen = IxNextgen(ixnet)
+        ixnet_gen = IxNextgen(self.ixnet)
 
         result = ixnet_gen.ix_update_frame(static_traffic_params)
         self.assertIsNone(result)
-        self.assertEqual(ixnet.setMultiAttribute.call_count, 7)
-        self.assertEqual(ixnet.commit.call_count, 2)
+        self.assertEqual(self.ixnet.setMultiAttribute.call_count, 7)
+        self.assertEqual(self.ixnet.commit.call_count, 2)
+
+    #ELF1: these might be removed in a later petchset, check this!!
+    def test_update_ether_multi_attribute(self):
+        pass
+
+    #ELF1: where were there update_ether functions used?
+    # are they still needed?
+    def test_update_ether_multi_attributes(self):
+        pass
+
+    #ELF1: surely, only one of these is public, and the other two are
+    # private/helpers
+    def test_update_ether(self):
+        pass
 
     def test_ix_update_udp(self):
-        ixnet = mock.MagicMock()
-
-        ixnet_gen = IxNextgen(ixnet)
+        ixnet_gen = IxNextgen(self.ixnet)
 
         result = ixnet_gen.ix_update_udp({})
         self.assertIsNone(result)
 
+    #ELF: Is this used anywhere??
     def test_ix_update_tcp(self):
-        ixnet = mock.MagicMock()
-        ixnet_gen = IxNextgen(ixnet)
+        ixnet_gen = IxNextgen(self.ixnet)
 
         result = ixnet_gen.ix_update_tcp({})
         self.assertIsNone(result)
 
+    #ELF: more tests for Rodolfo's changes!
     def test_ix_start_traffic(self):
-        ixnet = mock.MagicMock()
-        ixnet.getList.return_value = [0]
-        ixnet.getAttribute.return_value = 'down'
+        self.ixnet.getList.return_value = [0]
+        self.ixnet.getAttribute.return_value = 'down'
 
-        ixnet_gen = IxNextgen(ixnet)
+        ixnet_gen = IxNextgen(self.ixnet)
 
         result = ixnet_gen.ix_start_traffic()
         self.assertIsNone(result)
-        self.assertEqual(ixnet.getList.call_count, 1)
-        self.assertEqual(ixnet.execute.call_count, 3)
+        self.ixnet.getList.assert_called_once()
+        self.assertEqual(self.ixnet.execute.call_count, 3)
 
+    #ELF: more tests for Rodolfo's changes
     def test_ix_stop_traffic(self):
-        ixnet = mock.MagicMock()
-        ixnet.getList.return_value = [0]
+        self.ixnet.getList.return_value = [0]
 
-        ixnet_gen = IxNextgen(ixnet)
+        ixnet_gen = IxNextgen(self.ixnet)
 
         result = ixnet_gen.ix_stop_traffic()
         self.assertIsNone(result)
-        self.assertEqual(ixnet.getList.call_count, 1)
-        self.assertEqual(ixnet.execute.call_count, 1)
+        self.ixnet.getList.assert_called_once()
+        self.ixnet.execute.assert_called_once()
 
-    def test_ix_get_statistics(self):
-        ixnet = mock.MagicMock()
-        ixnet.execute.return_value = ""
-        ixnet.getList.side_effect = [
-            [
-                '::ixNet::OBJ-/statistics/view:"Traffic Item Statistics"',
-                '::ixNet::OBJ-/statistics/view:"Port Statistics"',
-            ],
-            [
-                '::ixNet::OBJ-/statistics/view:"Flow Statistics"',
-            ],
-        ]
+    #ELF1
+    def test_build_stats_map(self):
+        pass
 
-        ixnet_gen = IxNextgen(ixnet)
+    # ELF: Needs a rename
+    # ELF: Needs more tests!
+    def test_get_statistics(self):
+        self.ixnet.execute.return_value = ""
 
-        result = ixnet_gen.ix_get_statistics()
+        ixnet_gen = IxNextgen(self.ixnet)
+
+        result = ixnet_gen.get_statistics()
         self.assertIsNotNone(result)
-        self.assertEqual(ixnet.getList.call_count, 1)
-        self.assertEqual(ixnet.execute.call_count, 20)
+        self.assertEqual(self.ixnet.execute.call_count, 12)
 
-    def test_find_view_obj_no_where(self):
-        views = ['here', 'there', 'everywhere']
-        result = IxNextgen.find_view_obj('no_where', views)
-        self.assertEqual(result, '')
-
+    #ELF: Is ip_header_v4 used?
     def test_add_ip_header_v4(self):
         static_traffic_params = {
             "uplink_0": {
@@ -354,18 +515,17 @@ class TestIxNextgen(unittest.TestCase):
             }
         }
 
-        ixnet = mock.MagicMock()
-        ixnet.remapIds.return_value = ["0"]
-        ixnet.setMultiAttribute.return_value = [1]
-        ixnet.commit.return_value = [1]
-        ixnet.getList.side_effect = [[1], [0], [0], ["srcIp", "dstIp"]]
+        self.ixnet.remapIds.return_value = ["0"]
+        self.ixnet.setMultiAttribute.return_value = [1]
+        self.ixnet.commit.return_value = [1]
+        self.ixnet.getList.side_effect = [[1], [0], [0], ["srcIp", "dstIp"]]
 
-        ixnet_gen = IxNextgen(ixnet)
+        ixnet_gen = IxNextgen(self.ixnet)
 
         result = ixnet_gen.add_ip_header(static_traffic_params, IP_VERSION_4)
         self.assertIsNone(result)
-        self.assertGreater(ixnet.setMultiAttribute.call_count, 0)
-        self.assertEqual(ixnet.commit.call_count, 1)
+        self.ixnet.setMultiAttribute.assert_called()
+        self.ixnet.commit.assert_called_once()
 
     def test_add_ip_header_v4_nothing_to_do(self):
         static_traffic_params = {
@@ -452,18 +612,17 @@ class TestIxNextgen(unittest.TestCase):
             }
         }
 
-        ixnet = mock.MagicMock()
-        ixnet.remapIds.return_value = ["0"]
-        ixnet.setMultiAttribute.return_value = [1]
-        ixnet.commit.return_value = [1]
-        ixnet.getList.side_effect = [[1], [0, 1], [0], ["srcIp", "dstIp"]]
+        self.ixnet.remapIds.return_value = ["0"]
+        self.ixnet.setMultiAttribute.return_value = [1]
+        self.ixnet.commit.return_value = [1]
+        self.ixnet.getList.side_effect = [[1], [0, 1], [0], ["srcIp", "dstIp"]]
 
-        ixnet_gen = IxNextgen(ixnet)
+        ixnet_gen = IxNextgen(self.ixnet)
 
         result = ixnet_gen.add_ip_header(static_traffic_params, IP_VERSION_4)
         self.assertIsNone(result)
-        self.assertGreater(ixnet.setMultiAttribute.call_count, 0)
-        self.assertEqual(ixnet.commit.call_count, 1)
+        self.ixnet.setMultiAttribute.assert_called()
+        self.ixnet.commit.assert_called_once()
 
     def test_add_ip_header_v6(self):
         static_traffic_profile = {
@@ -535,18 +694,17 @@ class TestIxNextgen(unittest.TestCase):
             }
         }
 
-        ixnet = mock.MagicMock()
-        ixnet.getList.side_effect = [[1], [1], [1], ["srcIp", "dstIp"]]
-        ixnet.remapIds.return_value = ["0"]
-        ixnet.setMultiAttribute.return_value = [1]
-        ixnet.commit.return_value = [1]
+        self.ixnet.getList.side_effect = [[1], [1], [1], ["srcIp", "dstIp"]]
+        self.ixnet.remapIds.return_value = ["0"]
+        self.ixnet.setMultiAttribute.return_value = [1]
+        self.ixnet.commit.return_value = [1]
 
-        ixnet_gen = IxNextgen(ixnet)
+        ixnet_gen = IxNextgen(self.ixnet)
 
         result = ixnet_gen.add_ip_header(static_traffic_profile, IP_VERSION_6)
         self.assertIsNone(result)
-        self.assertGreater(ixnet.setMultiAttribute.call_count, 0)
-        self.assertEqual(ixnet.commit.call_count, 1)
+        self.ixnet.setMultiAttribute.assert_called()
+        self.ixnet.commit.assert_called_once()
 
     def test_add_ip_header_v6_nothing_to_do(self):
         static_traffic_params = {
@@ -617,17 +775,16 @@ class TestIxNextgen(unittest.TestCase):
             }
         }
 
-        ixnet = mock.MagicMock()
-        ixnet.getList.side_effect = [[1], [0, 1], [1], ["srcIP", "dstIP"]]
-        ixnet.remapIds.return_value = ["0"]
-        ixnet.setMultiAttribute.return_value = [1]
-        ixnet.commit.return_value = [1]
+        self.ixnet.getList.side_effect = [[1], [0, 1], [1], ["srcIP", "dstIP"]]
+        self.ixnet.remapIds.return_value = ["0"]
+        self.ixnet.setMultiAttribute.return_value = [1]
+        self.ixnet.commit.return_value = [1]
 
-        ixnet_gen = IxNextgen(ixnet)
+        ixnet_gen = IxNextgen(self.ixnet)
 
         result = ixnet_gen.add_ip_header(static_traffic_params, IP_VERSION_6)
         self.assertIsNone(result)
-        self.assertEqual(ixnet.setMultiAttribute.call_count, 0)
+        self.ixnet.setMultiAttribute.assert_not_called()
 
     def test_set_random_ip_multi_attributes_bad_ip_version(self):
         bad_ip_version = object()
@@ -677,7 +834,7 @@ class TestIxNextgen(unittest.TestCase):
         }
 
         result = IxNextgen.get_config(tg_cfg)
-        self.assertDictEqual(result, expected)
+        self.assertEqual(result, expected)
 
     def test_ix_update_ether(self):
         static_traffic_params = {
@@ -763,10 +920,9 @@ class TestIxNextgen(unittest.TestCase):
             }
         }
 
-        ixnet = mock.MagicMock()
-        ixnet.setMultiAttribute.return_value = [1]
-        ixnet.commit.return_value = [1]
-        ixnet.getList.side_effect = [
+        self.ixnet.setMultiAttribute.return_value = [1]
+        self.ixnet.commit.return_value = [1]
+        self.ixnet.getList.side_effect = [
             [1],
             [1],
             [1],
@@ -776,11 +932,11 @@ class TestIxNextgen(unittest.TestCase):
             ],
         ]
 
-        ixnet_gen = IxNextgen(ixnet)
+        ixnet_gen = IxNextgen(self.ixnet)
 
         result = ixnet_gen.ix_update_ether(static_traffic_params)
         self.assertIsNone(result)
-        self.assertGreater(ixnet.setMultiAttribute.call_count, 0)
+        self.ixnet.setMultiAttribute.assert_called()
 
     def test_ix_update_ether_nothing_to_do(self):
         static_traffic_params = {
@@ -854,10 +1010,9 @@ class TestIxNextgen(unittest.TestCase):
             }
         }
 
-        ixnet = mock.MagicMock()
-        ixnet.setMultiAttribute.return_value = [1]
-        ixnet.commit.return_value = [1]
-        ixnet.getList.side_effect = [
+        self.ixnet.setMultiAttribute.return_value = [1]
+        self.ixnet.commit.return_value = [1]
+        self.ixnet.getList.side_effect = [
             [1],
             [1],
             [1],
@@ -867,8 +1022,8 @@ class TestIxNextgen(unittest.TestCase):
             ],
         ]
 
-        ixnet_gen = IxNextgen(ixnet)
+        ixnet_gen = IxNextgen(self.ixnet)
 
         result = ixnet_gen.ix_update_ether(static_traffic_params)
         self.assertIsNone(result)
-        self.assertEqual(ixnet.setMultiAttribute.call_count, 0)
+        self.ixnet.setMultiAttribute.assert_not_called()
