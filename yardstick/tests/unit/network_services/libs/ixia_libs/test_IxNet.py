@@ -17,6 +17,7 @@ import mock
 import IxNetwork
 import unittest
 
+from yardstick.common import exceptions
 from yardstick.network_services.libs.ixia_libs.IxNet import IxNet
 from yardstick.network_services.libs.ixia_libs.IxNet.IxNet import IxNextgen
 from yardstick.network_services.libs.ixia_libs.IxNet.IxNet import IP_VERSION_4
@@ -31,11 +32,13 @@ class TestIxNextgen(unittest.TestCase):
     def setUp(self):
         self.ixnet = mock.Mock()
         self.ixnet.execute = mock.Mock()
-        self.ixnet_gen = IxNextgen(self.ixnet)
+        self.ixnet_gen = IxNextgen()
+        self.ixnet_gen._ixnet = self.ixnet
 
     def test___init__(self):
         ixnet_gen = IxNextgen()
-        self.assertIsNone(ixnet_gen.ixnet)
+        with self.assertRaises(exceptions.IxNetworkClientNotConnected):
+            ixnet_gen.ixnet  # pylint: disable=pointless-statement
         self.assertTrue(isinstance(ixnet_gen._objRefs, dict))
         self.assertIsNone(ixnet_gen._cfg)
         self.assertIsNone(ixnet_gen._params)
@@ -48,6 +51,22 @@ class TestIxNextgen(unittest.TestCase):
         self.assertIsNone(self.ixnet_gen._cfg)
         self.assertIsNone(self.ixnet_gen._params)
         self.assertIsNone(self.ixnet_gen._bidir)
+
+    #ELF
+    def test_ixnet(self):
+        pass
+
+    #ELF
+    def test_ixnet_unset(self):
+        pass
+
+    #ELF
+    def test__get_config_element_by_flow_group_name(self):
+        pass
+
+    #ELF
+    def test__parse_framesize(self):
+        pass
 
     #ELF1: Do I need more tests??
     @mock.patch.object(IxNetwork, 'IxNet')
@@ -241,10 +260,23 @@ class TestIxNextgen(unittest.TestCase):
         mock__setup_config_elements.assert_called_once()
         # ELF1: Check for side effects
 
-    # ELF1: some negative testing, maybe?
-    # ELF1: Also check for the new change to this funct -- should fail
-    # for traffic type = continuous
-    def test_ix_update_frame(self):
+    #ELF 2
+    def test__get_field_in_stack_item(self):
+        pass
+
+    #ELF2
+    def test__update_frame_mac(self):
+        pass
+
+    #ELF2
+    def test_set_random_ip_multi_attribute(self):
+        pass
+
+    # ELF: need some negative testing for this method
+    # ELF: Also check for the new change to this funct
+    #  -- should fail for traffic type = continuous
+    # ELF: Why is this failing? The element exists
+    def test_update_frame(self):
         static_traffic_params = {
             UPLINK: {
                 "id": 1,
@@ -334,7 +366,8 @@ class TestIxNextgen(unittest.TestCase):
         self.ixnet.remapIds.return_value = ["0"]
         self.ixnet.setMultiAttribute.return_value = [1]
         self.ixnet.commit.return_value = [1]
-        self.ixnet.getList.side_effect = [
+        self.ixnet.getRoot.return_value = ""
+        self.ixnet.getList.return_value = [
             [1],
             [1],
             [1],
@@ -344,7 +377,7 @@ class TestIxNextgen(unittest.TestCase):
             ],
         ]
 
-        result = self.ixnet_gen.ix_update_frame(static_traffic_params)
+        result = self.ixnet_gen.update_frame(static_traffic_params)
         self.assertIsNone(result)
         self.assertEqual(self.ixnet.setMultiAttribute.call_count, 7)
         self.assertEqual(self.ixnet.commit.call_count, 2)
@@ -357,20 +390,6 @@ class TestIxNextgen(unittest.TestCase):
     # are they still needed?
     def test_update_ether_multi_attributes(self):
         pass
-
-    #ELF1: surely, only one of these is public, and the other two are
-    # private/helpers
-    def test_update_ether(self):
-        pass
-
-    def test_ix_update_udp(self):
-        result = self.ixnet_gen.ix_update_udp({})
-        self.assertIsNone(result)
-
-    #ELF: Is this used anywhere??
-    def test_ix_update_tcp(self):
-        result = self.ixnet_gen.ix_update_tcp({})
-        self.assertIsNone(result)
 
     #ELF: more tests for Rodolfo's changes!
     def test_ix_start_traffic(self):
@@ -752,12 +771,14 @@ class TestIxNextgen(unittest.TestCase):
         self.ixnet.commit.return_value = [1]
 
         result = self.ixnet_gen.add_ip_header(static_traffic_params, IP_VERSION_6)
+
         self.assertIsNone(result)
         self.ixnet.setMultiAttribute.assert_not_called()
 
     def test_set_random_ip_multi_attributes_bad_ip_version(self):
         bad_ip_version = object()
-        ixnet_gen = IxNextgen(mock.Mock())
+        ixnet_gen = IxNextgen()
+        ixnet_gen._ixnet = self.ixnet
         with self.assertRaises(ValueError):
             ixnet_gen.set_random_ip_multi_attributes(
                 mock.Mock(), bad_ip_version, mock.Mock(), mock.Mock())
@@ -804,191 +825,3 @@ class TestIxNextgen(unittest.TestCase):
 
         result = IxNextgen.get_config(tg_cfg)
         self.assertEqual(result, expected)
-
-    def test_ix_update_ether(self):
-        static_traffic_params = {
-            "uplink_0": {
-                "id": 1,
-                "bidir": "False",
-                "duration": 60,
-                "iload": "100",
-                "outer_l2": {
-                    "dstmac": "00:00:00:00:00:03",
-                    "framesPerSecond": True,
-                    "framesize": 64,
-                    "srcmac": "00:00:00:00:00:01"
-                },
-                "outer_l3": {
-                    "dscp": 0,
-                    "dstip4": "152.16.40.20",
-                    "proto": "udp",
-                    "srcip4": "152.16.100.20",
-                    "ttl": 32
-                },
-                "outer_l3v4": {
-                    "dscp": 0,
-                    "dstip4": "152.16.40.20",
-                    "proto": "udp",
-                    "srcip4": "152.16.100.20",
-                    "ttl": 32
-                },
-                "outer_l3v6": {
-                    "count": 1024,
-                    "dscp": 0,
-                    "dstip4": "152.16.100.20",
-                    "proto": "udp",
-                    "srcip4": "152.16.40.20",
-                    "ttl": 32
-                },
-                "outer_l4": {
-                    "dstport": "2001",
-                    "srcport": "1234"
-                },
-                "traffic_type": "continuous"
-            },
-            "downlink_0": {
-                "id": 2,
-                "bidir": "False",
-                "duration": 60,
-                "iload": "100",
-                "outer_l2": {
-                    "dstmac": "00:00:00:00:00:04",
-                    "framesPerSecond": True,
-                    "framesize": 64,
-                    "srcmac": "00:00:00:00:00:01"
-                },
-                "outer_l3": {
-                    "count": 1024,
-                    "dscp": 0,
-                    "dstip4": "152.16.100.20",
-                    "proto": "udp",
-                    "srcip4": "152.16.40.20",
-                    "ttl": 32
-                },
-                "outer_l3v4": {
-                    "count": 1024,
-                    "dscp": 0,
-                    "dstip4": "152.16.100.20",
-                    "proto": "udp",
-                    "srcip4": "152.16.40.20",
-                    "ttl": 32
-                },
-                "outer_l3v6": {
-                    "count": 1024,
-                    "dscp": 0,
-                    "dstip4": "152.16.100.20",
-                    "proto": "udp",
-                    "srcip4": "152.16.40.20",
-                    "ttl": 32
-                },
-                "outer_l4": {
-                    "dstport": "1234",
-                    "srcport": "2001"
-                },
-                "traffic_type": "continuous"
-            }
-        }
-
-        self.ixnet.setMultiAttribute.return_value = [1]
-        self.ixnet.commit.return_value = [1]
-        self.ixnet.getList.side_effect = [
-            [1],
-            [1],
-            [1],
-            [
-                "ethernet.header.destinationAddress",
-                "ethernet.header.sourceAddress",
-            ],
-        ]
-
-        result = self.ixnet_gen.ix_update_ether(static_traffic_params)
-        self.assertIsNone(result)
-        self.ixnet.setMultiAttribute.assert_called()
-
-    def test_ix_update_ether_nothing_to_do(self):
-        static_traffic_params = {
-            "uplink_0": {
-                "id": 1,
-                "bidir": "False",
-                "duration": 60,
-                "iload": "100",
-                "outer_l3": {
-                    "dscp": 0,
-                    "dstip4": "152.16.40.20",
-                    "proto": "udp",
-                    "srcip4": "152.16.100.20",
-                    "ttl": 32
-                },
-                "outer_l3v4": {
-                    "dscp": 0,
-                    "dstip4": "152.16.40.20",
-                    "proto": "udp",
-                    "srcip4": "152.16.100.20",
-                    "ttl": 32
-                },
-                "outer_l3v6": {
-                    "count": 1024,
-                    "dscp": 0,
-                    "dstip4": "152.16.100.20",
-                    "proto": "udp",
-                    "srcip4": "152.16.40.20",
-                    "ttl": 32
-                },
-                "outer_l4": {
-                    "dstport": "2001",
-                    "srcport": "1234"
-                },
-                "traffic_type": "continuous"
-            },
-            "downlink_0": {
-                "id": 2,
-                "bidir": "False",
-                "duration": 60,
-                "iload": "100",
-                "outer_l3": {
-                    "count": 1024,
-                    "dscp": 0,
-                    "dstip4": "152.16.100.20",
-                    "proto": "udp",
-                    "srcip4": "152.16.40.20",
-                    "ttl": 32
-                },
-                "outer_l3v4": {
-                    "count": 1024,
-                    "dscp": 0,
-                    "dstip4": "152.16.100.20",
-                    "proto": "udp",
-                    "srcip4": "152.16.40.20",
-                    "ttl": 32
-                },
-                "outer_l3v6": {
-                    "count": 1024,
-                    "dscp": 0,
-                    "dstip4": "152.16.100.20",
-                    "proto": "udp",
-                    "srcip4": "152.16.40.20",
-                    "ttl": 32
-                },
-                "outer_l4": {
-                    "dstport": "1234",
-                    "srcport": "2001"
-                },
-                "traffic_type": "continuous"
-            }
-        }
-
-        self.ixnet.setMultiAttribute.return_value = [1]
-        self.ixnet.commit.return_value = [1]
-        self.ixnet.getList.side_effect = [
-            [1],
-            [1],
-            [1],
-            [
-                "ethernet.header.destinationAddress",
-                "ethernet.header.sourceAddress",
-            ],
-        ]
-
-        result = self.ixnet_gen.ix_update_ether(static_traffic_params)
-        self.assertIsNone(result)
-        self.ixnet.setMultiAttribute.assert_not_called()
