@@ -280,7 +280,21 @@ class IxNextgen(object):
                                 '-trackBy', 'trafficGroupId0')
         self.ixnet.commit()
 
-    def ix_update_frame(self, params):
+    def update_frame(self, params):
+        """Update the L2 frame
+
+        This function updates the L2 frame options:
+        - Traffic type: "continuous", "fixedDuration".
+        - Duration: in case of traffic_type="fixedDuration", amount of seconds
+                    to inject traffic.
+        - Rate: in frames per seconds, bits per second or percentage.
+        - Type of rate
+        - Frame size: custom IMIX [1] definition; a list of packet size in
+                      bytes and the weight. E.g.:
+                      [64, 10, 128, 15, 512, 5]
+
+        [1] https://en.wikipedia.org/wiki/Internet_Mix
+        """
         streams = ["configElement"]
 
         for param in params.values():
