@@ -824,11 +824,23 @@ def delete_volume(shade_client, name_or_id=None, wait=True, timeout=None):
         return False
 
 
-def detach_volume(server_id, volume_id):      # pragma: no cover
+def detach_volume(shade_client, server_name_or_id, volume_name_or_id,
+                  wait=True, timeout=None):
+    """Detach a volume from a server.
+
+    :param server_name_or_id: The server name or id to detach from.
+    :param volume_name_or_id: The volume name or id to detach.
+    :param wait: If true, waits for volume to be detached.
+    :param timeout: Seconds to wait for volume detachment. None is forever.
+
+    :return: True on success.
+    """
     try:
-        get_nova_client().volumes.delete_server_volume(server_id, volume_id)
+        volume = shade_client.get_volume(volume_name_or_id)
+        server = get_server(shade_client, name_or_id=server_name_or_id)
+        shade_client.detach_volume(server, volume, wait=wait, timeout=timeout)
         return True
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [detach_server_volume(nova_client, '%s', '%s')]",
-                      server_id, volume_id)
+    except (exc.OpenStackCloudException, exc.OpenStackCloudTimeout) as o_exc:
+        log.error("Error [detach_volume(shade_client)]. "
+                  "Exception message: %s", o_exc.orig_message)
         return False

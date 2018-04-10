@@ -254,6 +254,10 @@ class ScenarioDeleteVolumeError(YardstickException):
     message = 'Cinder Delete Volume Scenario failed'
 
 
+class ScenarioDetachVolumeError(YardstickException):
+    message = 'Cinder Detach Volume Scenario failed'
+
+
 class ApiServerError(YardstickException):
     message = 'An unkown exception happened to Api Server!'
 
