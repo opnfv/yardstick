@@ -8,7 +8,6 @@
 ##############################################################################
 
 import os
-import sys
 import logging
 
 from keystoneauth1 import loading
@@ -810,24 +809,21 @@ def create_volume(shade_client, size, wait=True, timeout=None,
                   "Exception message: %s", op_exc.orig_message)
 
 
-def delete_volume(cinder_client, volume_id,
-                  forced=False):      # pragma: no cover
+def delete_volume(shade_client, name_or_id=None, wait=True, timeout=None):
+    """Delete a volume.
+
+    :param name_or_id:(string) Name or unique ID of the volume.
+    :param wait:(bool) If true, waits for volume to be deleted.
+    :param timeout:(string) Seconds to wait for volume deletion. None is forever.
+
+    :return:  True on success, False otherwise.
+    """
     try:
-        if forced:
-            try:
-                cinder_client.volumes.detach(volume_id)
-            except Exception:  # pylint: disable=broad-except
-                log.error(sys.exc_info()[0])
-            cinder_client.volumes.force_delete(volume_id)
-        else:
-            while True:
-                volume = get_cinder_client().volumes.get(volume_id)
-                if volume.status.lower() == 'available':
-                    break
-            cinder_client.volumes.delete(volume_id)
-        return True
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [delete_volume(cinder_client, '%s')]", volume_id)
+        return shade_client.delete_volume(name_or_id=name_or_id,
+                                          wait=wait, timeout=timeout)
+    except (exc.OpenStackCloudException, exc.OpenStackCloudTimeout) as o_exc:
+        log.error("Error [delete_volume(shade_client,'%s')]. "
+                  "Exception message: %s", name_or_id, o_exc.orig_message)
         return False
 
 
