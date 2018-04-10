@@ -421,7 +421,9 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         traffic_runners = [vnf for vnf in self.vnfs if vnf.runs_traffic]
         non_traffic_runners = [vnf for vnf in self.vnfs if not vnf.runs_traffic]
         try:
-            for vnf in chain(traffic_runners, non_traffic_runners):
+            #RAH
+            #for vnf in chain(traffic_runners, non_traffic_runners):
+            for vnf in traffic_runners:
                 LOG.info("Instantiating %s", vnf.name)
                 vnf.instantiate(self.scenario_cfg, self.context_cfg)
                 LOG.info("Waiting for %s to instantiate", vnf.name)
