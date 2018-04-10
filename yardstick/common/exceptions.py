@@ -250,6 +250,10 @@ class ScenarioCreateVolumeError(YardstickException):
     message = 'Cinder Create Volume Scenario failed'
 
 
+class ScenarioDeleteVolumeError(YardstickException):
+    message = 'Cinder Delete Volume Scenario failed'
+
+
 class ApiServerError(YardstickException):
     message = 'An unkown exception happened to Api Server!'
 
