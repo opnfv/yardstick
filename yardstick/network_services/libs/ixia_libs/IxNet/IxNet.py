@@ -14,9 +14,11 @@
 
 import logging
 
-import re
-from itertools import product
+#####from itertools import product
 import IxNetwork
+import re
+
+from yardstick.common import exceptions
 
 
 log = logging.getLogger(__name__)
@@ -24,19 +26,19 @@ log = logging.getLogger(__name__)
 IP_VERSION_4 = 4
 IP_VERSION_6 = 6
 
-
-class TrafficStreamHelper(object):
-
-    TEMPLATE = '{0.traffic_item}/{0.stream}:{0.param_id}/{1}'
-
-    def __init__(self, traffic_item, stream, param_id):
-        super(TrafficStreamHelper, self).__init__()
-        self.traffic_item = traffic_item
-        self.stream = stream
-        self.param_id = param_id
-
-    def __getattr__(self, item):
-        return self.TEMPLATE.format(self, item)
+#
+# class TrafficStreamHelper(object):
+#
+#     TEMPLATE = '{0.traffic_item}/{0.stream}:{0.param_id}/{1}'
+#
+#     def __init__(self, traffic_item, stream, param_id):
+#         super(TrafficStreamHelper, self).__init__()
+#         self.traffic_item = traffic_item
+#         self.stream = stream
+#         self.param_id = param_id
+#
+#     def __getattr__(self, item):
+#         return self.TEMPLATE.format(self, item)
 
 
 class FramesizeHelper(object):
@@ -131,12 +133,34 @@ class IxNextgen(object):
 
         return cfg
 
-    def __init__(self, ixnet=None):
-        self.ixnet = ixnet
+    def __init__(self):
+        self._ixnet = None
         self._objRefs = dict()
         self._cfg = None
         self._params = None
         self._bidir = None
+
+    @property
+    def ixnet(self):
+        if self._ixnet:
+            return self._ixnet
+        raise exceptions.IxNetworkClientNotConnected()
+
+    def _find_flow_group_by_name(self, flow_group_name):
+        """Find a flow group by its name
+
+        :param flow_group_name: (str) flow group name; this parameter is
+                                always a number (converted to string) starting
+                                from "1".
+        :return: (str) flow group reference ID or None.
+        """
+        traffic_item = self.ixnet.getList(self.ixnet.getRoot() + '/traffic',
+                                          'trafficItem')[0]
+        flow_groups = self.ixnet.getList(traffic_item, 'endpointSet')
+        for flow_group in flow_groups:
+            if (str(self.ixnet.getAttribute(flow_group, '-name')) ==
+                    flow_group_name):
+                return flow_group
 
     def iter_over_get_lists(self, x1, x2, y2, offset=0):
         for x in self.ixnet.getList(x1, x2):
@@ -183,7 +207,7 @@ class IxNextgen(object):
 
     def connect(self, tg_cfg):
         self._cfg = self.get_config(tg_cfg)
-        self.ixnet = IxNetwork.IxNet()
+        self._ixnet = IxNetwork.IxNet()
 
         machine = self._cfg['machine']
         port = str(self._cfg['port'])
@@ -253,19 +277,22 @@ class IxNextgen(object):
         vports = self.ixnet.getList(self.ixnet.getRoot(), 'vport')
         uplink_ports = vports[::2]
         downlink_ports = vports[1::2]
+        index = 0
         for up, down in zip(uplink_ports, downlink_ports):
             log.info('FGs: %s <--> %s', up, down)
             endpoint_set_1 = self.ixnet.add(traffic_item_id, 'endpointSet')
             endpoint_set_2 = self.ixnet.add(traffic_item_id, 'endpointSet')
             self.ixnet.setMultiAttribute(
-                endpoint_set_1,
+                endpoint_set_1, '-name', str(index + 1),
                 '-sources', [up + ' /protocols'],
                 '-destinations', [down + '/protocols'])
             self.ixnet.setMultiAttribute(
-                endpoint_set_2,
+                endpoint_set_2, '-name', str(index + 2),
                 '-sources', [down + ' /protocols'],
                 '-destinations', [up + '/protocols'])
             self.ixnet.commit()
+            index += 2
+
 
         self.ixnet.setAttribute(
             traffic_item_id + '/configElement:1/frameRateDistribution',
@@ -280,40 +307,69 @@ class IxNextgen(object):
                                 '-trackBy', 'trafficGroupId0')
         self.ixnet.commit()
 
-    def ix_update_frame(self, params):
-        streams = ["configElement"]
+    def update_frame(self, traffic):
+        """Update the L2 frame
 
-        for param in params.values():
-            framesize_data = FramesizeHelper()
-            traffic_items = self.ixnet.getList('/traffic', 'trafficItem')
-            param_id = param['id']
-            for traffic_item, stream in product(traffic_items, streams):
-                helper = TrafficStreamHelper(traffic_item, stream, param_id)
+        This function updates the L2 frame options:
+        - Traffic type: "continuous", "fixedDuration".
+        - Duration: in case of traffic_type="fixedDuration", amount of seconds
+                    to inject traffic.
+        - Rate: in frames per seconds or percentage.
+        - Type of rate: "framesPerSecond", "percentLineRate" ("bitsPerSecond"
+                        no used)
+        - Frame size: custom IMIX [1] definition; a list of packet size in
+                      bytes and the weight. E.g.:
+                      [64, 10, 128, 15, 512, 5]
 
-                self.ixnet.setMultiAttribute(helper.transmissionControl,
-                                             '-type', '{0}'.format(param.get('traffic_type',
-                                                                             'fixedDuration')),
-                                             '-duration', '{0}'.format(param.get('duration',
-                                                                                 "30")))
+        [1] https://en.wikipedia.org/wiki/Internet_Mix
+        :param traffic: list of traffic elements; each traffic element contains
+                        the injection parameter for each flow group.
+        """
+        ####streams = ['configElement']
+        traffic_item = self.ixnet.getList(self.ixnet.getRoot() + '/traffic',
+                                          'trafficItem')[0]
 
-                stream_frame_rate_path = helper.frameRate
-                self.ixnet.setMultiAttribute(stream_frame_rate_path, '-rate', param['iload'])
-                if param['outer_l2']['framesPerSecond']:
-                    self.ixnet.setMultiAttribute(stream_frame_rate_path,
-                                                 '-type', 'framesPerSecond')
+        for traffic_item in traffic.values():
+            flow_group = self._find_flow_group_by_name(str(traffic_item['id']))
+            if not flow_group:
+                raise exceptions.IxNetworkFlowNotPresent(
+                    flow_group=traffic_item['id'])
 
-                framesize_data.populate_data(param['outer_l2']['framesize'])
+            self.ixnet.setMultiAttribute(
+                flow_group + '/transmissionControl',
+                '-type', '{0}'.format(traffic_item.get('traffic_type', 'fixedDuration')),
+                '-duration', '{0}'.format(traffic_item.get('duration', '130')))
 
-                make_attr_args = framesize_data.make_args('-incrementFrom', '66',
-                                                          '-randomMin', '66',
-                                                          '-quadGaussian', [],
-                                                          '-type', 'weightedPairs',
-                                                          '-presetDistribution', 'cisco',
-                                                          '-incrementTo', '1518')
+            self.ixnet.commit()
 
-                self.ixnet.setMultiAttribute(helper.frameSize, *make_attr_args)
-
-                self.ixnet.commit()
+            # framesize_data = FramesizeHelper()
+            # traffic_items = self.ixnet.getList('/traffic', 'trafficItem')
+            # param_id = param['id']
+            # for _traffic_item, stream in product(traffic_items, streams):
+            #     helper = TrafficStreamHelper(_traffic_item, stream, param_id)
+            #
+            #     s
+            #
+            #     stream_frame_rate_path = helper.frameRate
+            #     self.ixnet.setMultiAttribute(stream_frame_rate_path, '-rate', param['iload'])
+            #
+            #     ###percentLineRate
+            #     if param['outer_l2']['framesPerSecond']:
+            #         self.ixnet.setMultiAttribute(stream_frame_rate_path,
+            #                                      '-type', 'framesPerSecond')
+            #
+            #     framesize_data.populate_data(param['outer_l2']['framesize'])
+            #
+            #     make_attr_args = framesize_data.make_args('-incrementFrom', '66',
+            #                                               '-randomMin', '66',
+            #                                               '-quadGaussian', [],
+            #                                               '-type', 'weightedPairs',
+            #                                               '-presetDistribution', 'cisco',
+            #                                               '-incrementTo', '1518')
+            #
+            #     self.ixnet.setMultiAttribute(helper.frameSize, *make_attr_args)
+            #
+            #     self.ixnet.commit()
 
     def update_ether_multi_attribute(self, ether, mac_addr):
         self.ixnet.setMultiAttribute(ether,
