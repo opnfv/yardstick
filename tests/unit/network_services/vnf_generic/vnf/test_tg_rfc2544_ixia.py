@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 import os
 
@@ -26,6 +25,7 @@ stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
 
 if stl_patch:
+    import yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia
     from yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia import IxiaTrafficGen
     from yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia import IxiaRfc2544Helper
     from yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia import IxiaResourceHelper
@@ -36,16 +36,27 @@ TEST_FILE_YAML = 'nsb_test_case.yaml'
 NAME = "tg__1"
 
 
-@mock.patch("yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.IxNextgen")
 class TestIxiaResourceHelper(unittest.TestCase):
-    def test___init___with_custom_rfc_helper(self, *args):
+
+    def setUp(self):
+        self._mock_IxNextgen = mock.patch.object(
+            yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia,
+            "IxNextgen")
+        self.mock_IxNextgen = self._mock_IxNextgen.start()
+
+        self.addCleanup(self._stop_mocks)
+
+    def _stop_mocks(self):
+        self._mock_IxNextgen.stop()
+
+    def test___init___with_custom_rfc_helper(self):
         class MyRfcHelper(IxiaRfc2544Helper):
             pass
 
         ixia_resource_helper = IxiaResourceHelper(mock.Mock(), MyRfcHelper)
         self.assertIsInstance(ixia_resource_helper.rfc_helper, MyRfcHelper)
 
-    def test_stop_collect_with_client(self, *args):
+    def test_stop_collect_with_client(self):
         mock_client = mock.Mock()
 
         ixia_resource_helper = IxiaResourceHelper(mock.Mock())
@@ -53,6 +64,14 @@ class TestIxiaResourceHelper(unittest.TestCase):
         ixia_resource_helper.client = mock_client
         ixia_resource_helper.stop_collect()
         self.assertEqual(mock_client.ix_stop_traffic.call_count, 1)
+
+    # NOTE(ralonsoh): to be updated in next patchset
+    def test__initialise_client(self):
+        pass
+
+    # NOTE(ralonsoh): to be updated in next patchset
+    def test_run_traffic(self):
+        pass
 
 
 @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.IxNextgen")
