@@ -14,9 +14,11 @@
 
 import logging
 
-import re
-from itertools import product
+###from itertools import product
 import IxNetwork
+###import re
+
+from yardstick.common import exceptions
 
 
 log = logging.getLogger(__name__)
@@ -28,56 +30,6 @@ PROTO_IPV6 = 'ipv6'
 PROTO_UDP = 'udp'
 PROTO_TCP = 'tcp'
 PROTO_VLAN = 'vlan'
-
-
-class TrafficStreamHelper(object):
-
-    TEMPLATE = '{0.traffic_item}/{0.stream}:{0.param_id}/{1}'
-
-    def __init__(self, traffic_item, stream, param_id):
-        super(TrafficStreamHelper, self).__init__()
-        self.traffic_item = traffic_item
-        self.stream = stream
-        self.param_id = param_id
-
-    def __getattr__(self, item):
-        return self.TEMPLATE.format(self, item)
-
-
-class FramesizeHelper(object):
-
-    def __init__(self):
-        super(FramesizeHelper, self).__init__()
-        self.weighted_pairs = []
-        self.weighted_range_pairs = []
-
-    @property
-    def weighted_pairs_arg(self):
-        return '-weightedPairs', self.weighted_pairs
-
-    @property
-    def weighted_range_pairs_arg(self):
-        return '-weightedRangePairs', self.weighted_range_pairs
-
-    def make_args(self, *args):
-        return self.weighted_pairs_arg + self.weighted_range_pairs_arg + args
-
-    def populate_data(self, framesize_data):
-        for key, value in framesize_data.items():
-            if value == '0':
-                continue
-
-            replaced = re.sub('[Bb]', '', key)
-            self.weighted_pairs.extend([
-                replaced,
-                value,
-            ])
-            pairs = [
-                replaced,
-                replaced,
-                value,
-            ]
-            self.weighted_range_pairs.append(pairs)
 
 
 class IxNextgen(object):
@@ -136,12 +88,52 @@ class IxNextgen(object):
 
         return cfg
 
-    def __init__(self, ixnet=None):
-        self.ixnet = ixnet
+    def __init__(self):
+        self._ixnet = None
         self._objRefs = dict()
         self._cfg = None
         self._params = None
         self._bidir = None
+
+    @property
+    def ixnet(self):
+        if self._ixnet:
+            return self._ixnet
+        raise exceptions.IxNetworkClientNotConnected()
+
+    def _get_config_element_by_flow_group_name(self, flow_group_name):
+        """Get a config element using the flow group name
+
+        Each named flow group contains one config element (by configuration).
+        According to the documentation, "configElements" is a list and "each
+        item in this list is aligned to the sequential order of your endpoint
+        list".
+
+        :param flow_group_name: (str) flow group name; this parameter is
+                                always a number (converted to string) starting
+                                from "1".
+        :return: (str) config element reference ID or None.
+        """
+        traffic_item = self.ixnet.getList(self.ixnet.getRoot() + '/traffic',
+                                          'trafficItem')[0]
+        flow_groups = self.ixnet.getList(traffic_item, 'endpointSet')
+        for flow_group in flow_groups:
+            if (str(self.ixnet.getAttribute(flow_group, '-name')) ==
+                    flow_group_name):
+                return traffic_item + '/configElement:' + flow_group_name
+
+    @staticmethod
+    def _parse_framesize(framesize):
+        """Parse "framesize" config param. to return a list of weighted pairs
+
+        :param framesize: dictionary of frame sizes and weights
+        :return: list of paired frame sizes and weights
+        """
+        weighted_range_pairs = []
+        for size, weight in framesize.items():
+            weighted_range_pairs.append(int(size.upper().replace('B', '')))
+            weighted_range_pairs.append(int(weight))
+        return weighted_range_pairs
 
     def iter_over_get_lists(self, x1, x2, y2, offset=0):
         for x in self.ixnet.getList(x1, x2):
@@ -149,46 +141,9 @@ class IxNextgen(object):
             for i, y in enumerate(y_list, offset):
                 yield x, y, i
 
-    def set_random_ip_multi_attribute(self, ipv4, seed, fixed_bits, random_mask, l3_count):
-        self.ixnet.setMultiAttribute(
-            ipv4,
-            '-seed', str(seed),
-            '-fixedBits', str(fixed_bits),
-            '-randomMask', str(random_mask),
-            '-valueType', 'random',
-            '-countValue', str(l3_count))
-
-    def set_random_ip_multi_attributes(self, ip, version, seeds, l3):
-        try:
-            random_mask = self.RANDOM_MASK_MAP[version]
-        except KeyError:
-            raise ValueError('Unknown version %s' % version)
-
-        l3_count = l3['count']
-        if "srcIp" in ip:
-            fixed_bits = l3['srcip4']
-            self.set_random_ip_multi_attribute(ip, seeds[0], fixed_bits, random_mask, l3_count)
-        if "dstIp" in ip:
-            fixed_bits = l3['dstip4']
-            self.set_random_ip_multi_attribute(ip, seeds[1], fixed_bits, random_mask, l3_count)
-
-    def add_ip_header(self, params, version):
-        for it, ep, i in self.iter_over_get_lists('/traffic', 'trafficItem', "configElement", 1):
-            iter1 = (v['outer_l3'] for v in params.values() if str(v['id']) == str(i))
-            try:
-                l3 = next(iter1, {})
-                seeds = self.MODE_SEEDS_MAP.get(i, self.MODE_SEEDS_DEFAULT)[1]
-            except (KeyError, IndexError):
-                continue
-
-            for ip, ip_bits, _ in self.iter_over_get_lists(ep, 'stack', 'field'):
-                self.set_random_ip_multi_attributes(ip_bits, version, seeds, l3)
-
-        self.ixnet.commit()
-
     def connect(self, tg_cfg):
         self._cfg = self.get_config(tg_cfg)
-        self.ixnet = IxNetwork.IxNet()
+        self._ixnet = IxNetwork.IxNet()
 
         machine = self._cfg['machine']
         port = str(self._cfg['port'])
@@ -256,19 +211,21 @@ class IxNextgen(object):
         vports = self.ixnet.getList(self.ixnet.getRoot(), 'vport')
         uplink_ports = vports[::2]
         downlink_ports = vports[1::2]
+        index = 0
         for up, down in zip(uplink_ports, downlink_ports):
             log.info('FGs: %s <--> %s', up, down)
             endpoint_set_1 = self.ixnet.add(traffic_item_id, 'endpointSet')
             endpoint_set_2 = self.ixnet.add(traffic_item_id, 'endpointSet')
             self.ixnet.setMultiAttribute(
-                endpoint_set_1,
+                endpoint_set_1, '-name', str(index + 1),
                 '-sources', [up + ' /protocols'],
                 '-destinations', [down + '/protocols'])
             self.ixnet.setMultiAttribute(
-                endpoint_set_2,
+                endpoint_set_2, '-name', str(index + 2),
                 '-sources', [down + ' /protocols'],
                 '-destinations', [up + '/protocols'])
             self.ixnet.commit()
+            index += 2
 
     def _append_procotol_to_stack(self, protocol_name, previous_element):
         """Append a new element in the packet definition stack"""
@@ -318,87 +275,130 @@ class IxNextgen(object):
         self._create_flow_groups()
         self._setup_config_elements()
 
-    def ix_update_frame(self, params):
-        streams = ["configElement"]
+    def _get_field_in_stack_item(self, stack_item, field_name):
+        """List all fields in a stack item an return t
 
-        for param in params.values():
-            framesize_data = FramesizeHelper()
-            traffic_items = self.ixnet.getList('/traffic', 'trafficItem')
-            param_id = param['id']
-            for traffic_item, stream in product(traffic_items, streams):
-                helper = TrafficStreamHelper(traffic_item, stream, param_id)
+        :param stack_item: (str) stack item descriptor
+        :param field_name: (str) field name
+        :return: (str) field descriptor
+        """
+        fields = self.ixnet.getList(stack_item, 'field')
+        for field in (field for field in fields if field_name in field):
+            return field
+        raise exceptions.IxNetworkFieldNotPresentInStackItem(
+            field_name=field_name, stack_item=stack_item)
 
-                self.ixnet.setMultiAttribute(helper.transmissionControl,
-                                             '-type', '{0}'.format(param.get('traffic_type',
-                                                                             'fixedDuration')),
-                                             '-duration', '{0}'.format(param.get('duration',
-                                                                                 "30")))
+    def _update_frame_mac(self, ethernet_descriptor, field, mac_address):
+        """Set the MAC address in a config element stack Ethernet field
 
-                stream_frame_rate_path = helper.frameRate
-                self.ixnet.setMultiAttribute(stream_frame_rate_path, '-rate', param['iload'])
-                if param['outer_l2']['framesPerSecond']:
-                    self.ixnet.setMultiAttribute(stream_frame_rate_path,
-                                                 '-type', 'framesPerSecond')
-
-                framesize_data.populate_data(param['outer_l2']['framesize'])
-
-                make_attr_args = framesize_data.make_args('-incrementFrom', '66',
-                                                          '-randomMin', '66',
-                                                          '-quadGaussian', [],
-                                                          '-type', 'weightedPairs',
-                                                          '-presetDistribution', 'cisco',
-                                                          '-incrementTo', '1518')
-
-                self.ixnet.setMultiAttribute(helper.frameSize, *make_attr_args)
-
-                self.ixnet.commit()
-
-    def update_ether_multi_attribute(self, ether, mac_addr):
-        self.ixnet.setMultiAttribute(ether,
-                                     '-singleValue', mac_addr,
-                                     '-fieldValue', mac_addr,
+        :param ethernet_descriptor: (str) ethernet descriptor, e.g.:
+            /traffic/trafficItem:1/configElement:1/stack:"ethernet-1"
+        :param field: (str) field name, e.g.: destinationAddress
+        :param mac_address: (str) MAC address
+        """
+        field_descriptor = self._get_field_in_stack_item(ethernet_descriptor,
+                                                         field)
+        self.ixnet.setMultiAttribute(field_descriptor,
+                                     '-singleValue', mac_address,
+                                     '-fieldValue', mac_address,
                                      '-valueType', 'singleValue')
+        self.ixnet.commit()
 
-    def update_ether_multi_attributes(self, ether, l2):
-        if "ethernet.header.destinationAddress" in ether:
-            self.update_ether_multi_attribute(ether, str(l2.get('dstmac', "00:00:00:00:00:02")))
+    def update_frame(self, traffic):
+        """Update the L2 frame
 
-        if "ethernet.header.sourceAddress" in ether:
-            self.update_ether_multi_attribute(ether, str(l2.get('srcmac', "00:00:00:00:00:01")))
+        This function updates the L2 frame options:
+        - Traffic type: "continuous", "fixedDuration".
+        - Duration: in case of traffic_type="fixedDuration", amount of seconds
+                    to inject traffic.
+        - Rate: in frames per seconds or percentage.
+        - Type of rate: "framesPerSecond" ("bitsPerSecond" and
+                        "percentLineRate" no used)
+        - Frame size: custom IMIX [1] definition; a list of packet size in
+                      bytes and the weight. E.g.:
+                      [64, 10, 128, 15, 512, 5]
 
-    def ix_update_ether(self, params):
-        for ti, ep, index in self.iter_over_get_lists('/traffic', 'trafficItem',
-                                                      "configElement", 1):
-            iter1 = (v['outer_l2'] for v in params.values() if str(v['id']) == str(index))
+        [1] https://en.wikipedia.org/wiki/Internet_Mix
+
+        :param traffic: list of traffic elements; each traffic element contains
+                        the injection parameter for each flow group.
+        """
+        for traffic_param in traffic.values():
+            config_element = self._get_config_element_by_flow_group_name(
+                str(traffic_param['id']))
+            if not config_element:
+                raise exceptions.IxNetworkFlowNotPresent(
+                    flow_group=traffic_param['id'])
+
+            type = traffic_param.get('traffic_type', 'fixedDuration')
+            duration = traffic_param.get('duration', 30)
+            rate = traffic_param['iload']
+            weighted_range_pairs = self._parse_framesize(
+                traffic_param['outer_l2']['framesize'])
+            srcmac = str(traffic_param.get('srcmac', '00:00:00:00:00:01'))
+            dstmac = str(traffic_param.get('dstmac', '00:00:00:00:00:02'))
+            # NOTE(ralonsoh): add QinQ tagging when
+            # traffic_param['outer_l2']['QinQ'] exists.
+            # s_vlan = traffic_param['outer_l2']['QinQ']['S-VLAN']
+            # c_vlan = traffic_param['outer_l2']['QinQ']['C-VLAN']
+
+            self.ixnet.setMultiAttribute(
+                config_element + '/transmissionControl',
+                '-type', type, '-duration', duration)
+            self.ixnet.setMultiAttribute(
+                config_element + '/frameRate',
+                '-rate', rate, '-type', 'framesPerSecond')
+            self.ixnet.setMultiAttribute(
+                config_element + '/frameSize',
+                '-type', 'weightedPairs',
+                '-weightedRangePairs', weighted_range_pairs)
+            self.ixnet.commit()
+
+            self._update_frame_mac(
+                config_element + '/stack:"ethernet-1"',
+                'destinationAddress', dstmac)
+            self._update_frame_mac(
+                config_element + '/stack:"ethernet-1"',
+                'sourceAddress', srcmac)
+
+    def set_random_ip_multi_attribute(self, ipv4, seed, fixed_bits, random_mask, l3_count):
+        self.ixnet.setMultiAttribute(
+            ipv4,
+            '-seed', str(seed),
+            '-fixedBits', str(fixed_bits),
+            '-randomMask', str(random_mask),
+            '-valueType', 'random',
+            '-countValue', str(l3_count))
+
+    def set_random_ip_multi_attributes(self, ip, version, seeds, l3):
+        try:
+            random_mask = self.RANDOM_MASK_MAP[version]
+        except KeyError:
+            raise ValueError('Unknown version %s' % version)
+
+        l3_count = l3['count']
+        if "srcIp" in ip:
+            fixed_bits = l3['srcip4']
+            self.set_random_ip_multi_attribute(ip, seeds[0], fixed_bits, random_mask, l3_count)
+        if "dstIp" in ip:
+            fixed_bits = l3['dstip4']
+            self.set_random_ip_multi_attribute(ip, seeds[1], fixed_bits, random_mask, l3_count)
+
+    def add_ip_header(self, params, version):
+        for it, ep, i in self.iter_over_get_lists('/traffic', 'trafficItem', "configElement", 1):
+            iter1 = (v['outer_l3'] for v in params.values() if str(v['id']) == str(i))
             try:
-                l2 = next(iter1, {})
-            except KeyError:
+                l3 = next(iter1, {})
+                seeds = self.MODE_SEEDS_MAP.get(i, self.MODE_SEEDS_DEFAULT)[1]
+            except (KeyError, IndexError):
                 continue
 
-            for ip, ether, _ in self.iter_over_get_lists(ep, 'stack', 'field'):
-                self.update_ether_multi_attributes(ether, l2)
+            for ip, ip_bits, _ in self.iter_over_get_lists(ep, 'stack', 'field'):
+                self.set_random_ip_multi_attributes(ip_bits, version, seeds, l3)
 
         self.ixnet.commit()
 
-    def ix_update_udp(self, params):
-        pass
-
-    def ix_update_tcp(self, params):
-        pass
-
-    def ix_start_traffic(self):
-        tis = self.ixnet.getList('/traffic', 'trafficItem')
-        for ti in tis:
-            self.ixnet.execute('generate', [ti])
-            self.ixnet.execute('apply', '/traffic')
-            self.ixnet.execute('start', '/traffic')
-
-    def ix_stop_traffic(self):
-        tis = self.ixnet.getList('/traffic', 'trafficItem')
-        for _ in tis:
-            self.ixnet.execute('stop', '/traffic')
-
-    def build_stats_map(self, view_obj, name_map):
+    def _build_stats_map(self, view_obj, name_map):
         return {data_yardstick: self.ixnet.execute(
                 'getColumnValues', view_obj, data_ixia)
             for data_yardstick, data_ixia in name_map.items()}
@@ -414,7 +414,20 @@ class IxNextgen(object):
         """
         port_statistics = '::ixNet::OBJ-/statistics/view:"Port Statistics"'
         flow_statistics = '::ixNet::OBJ-/statistics/view:"Flow Statistics"'
-        stats = self.build_stats_map(port_statistics, self.PORT_STATS_NAME_MAP)
-        stats.update(self.build_stats_map(flow_statistics,
+        stats = self._build_stats_map(port_statistics,
+                                      self.PORT_STATS_NAME_MAP)
+        stats.update(self._build_stats_map(flow_statistics,
                                           self.LATENCY_NAME_MAP))
         return stats
+
+    def ix_start_traffic(self):
+        tis = self.ixnet.getList('/traffic', 'trafficItem')
+        for ti in tis:
+            self.ixnet.execute('generate', [ti])
+            self.ixnet.execute('apply', '/traffic')
+            self.ixnet.execute('start', '/traffic')
+
+    def ix_stop_traffic(self):
+        tis = self.ixnet.getList('/traffic', 'trafficItem')
+        for _ in tis:
+            self.ixnet.execute('stop', '/traffic')

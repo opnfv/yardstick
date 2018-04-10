@@ -166,3 +166,15 @@ class ScenarioCreateFloatingIPError(YardstickException):
 
 class ScenarioDeleteFloatingIPError(YardstickException):
     message = 'Delete Neutron Floating IP Scenario failed'
+
+
+class IxNetworkClientNotConnected(YardstickException):
+    message = 'IxNetwork client not connected to a TCL server'
+
+
+class IxNetworkFlowNotPresent(YardstickException):
+    message = 'Flow Group "%(flow_group)s" is not present'
+
+
+class IxNetworkFieldNotPresentInStackItem(YardstickException):
+    message = 'Field "%(field_name)s" not present in stack item %(stack_item)s'

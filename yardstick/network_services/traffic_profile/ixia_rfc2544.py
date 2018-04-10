@@ -83,8 +83,7 @@ class IXIARFC2544Profile(TrexProfile):
         for key, value in traffic.items():
             if key.startswith((self.UPLINK, self.DOWNLINK)):
                 value["iload"] = str(self.rate)
-        ixia_obj.ix_update_frame(traffic)
-        ixia_obj.ix_update_ether(traffic)
+        ixia_obj.update_frame(traffic)
         ixia_obj.add_ip_header(traffic, 4)
         ixia_obj.ix_start_traffic()
         self.tmp_drop = 0
