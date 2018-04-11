@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_ad2e2d41",
+        "filename": "etc/yardstick/nodes/apex_baremetal/pod.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-04-11T13:59:42Z",
+      "side": 1,
+      "message": "I do not catch your point here. Can you please explain a bit more ?",
+      "parentUuid": "5a3f45e8_a7301c02",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "35b0a50fd912009629e70d66c98963a76b89dd8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_27140c4d",
         "filename": "tests/ci/prepare_env.sh",
         "patchSetId": 4
