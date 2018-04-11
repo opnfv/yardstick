@@ -18,7 +18,7 @@ OUTPUT_FILE=/tmp/unixbench-out.log
 # run unixbench test
 run_unixbench()
 {
-    cd /opt/tempT/UnixBench/
+    cd /opt/tempT/UnixBench/UnixBench/
     ./Run $OPTIONS > $OUTPUT_FILE
 }
 
