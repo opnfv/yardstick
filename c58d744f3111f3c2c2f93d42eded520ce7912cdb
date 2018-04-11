@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f55be184",
+        "filename": "ansible/roles/download_dpdk/defaults/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-11T10:39:36Z",
+      "side": 1,
+      "message": "The minimum version, according to the manuals, is 17.02\n[1]\n\nhttps://github.com/opnfv/yardstick/blob/ead90064d12be552bd334828d41ffffa75fad01b/docs/testing/user/userguide/12-nsb-overview.rst",
+      "parentUuid": "5a3f45e8_551615f2",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 76
+      },
+      "revId": "c58d744f3111f3c2c2f93d42eded520ce7912cdb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_4d2177b3",
         "filename": "ansible/roles/install_civetweb/defaults/main.yml",
         "patchSetId": 6
