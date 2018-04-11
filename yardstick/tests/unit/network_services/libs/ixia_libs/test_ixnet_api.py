@@ -33,6 +33,7 @@ TRAFFIC_PARAMETERS = {
             'framesize': {'64B': '25', '256B': '75'}
         },
         'outer_l3': {
+            'count': 512,
             'dscp': 0,
             'dstip4': '152.16.40.20',
             'proto': 'udp',
@@ -162,6 +163,40 @@ class TestIxNextgen(unittest.TestCase):
         output = ixnet_gen._get_config_element_by_flow_group_name(
             'flow_group_01')
         self.assertIsNone(output)
+
+    def test__get_stack_item(self):
+        ixnet_gen = ixnet_api.IxNextgen()
+        ixnet_gen._ixnet = self.ixnet
+        ixnet_gen._ixnet.getList.return_value = ['tcp1', 'tcp2', 'udp']
+        with mock.patch.object(
+                ixnet_gen, '_get_config_element_by_flow_group_name') as \
+                mock_get_cfg_element:
+            mock_get_cfg_element.return_value = 'cfg_element'
+            output = ixnet_gen._get_stack_item(mock.ANY, ixnet_api.PROTO_TCP)
+        self.assertEqual(['tcp1', 'tcp2'], output)
+
+    def test__get_stack_item_no_config_element(self):
+        ixnet_gen = ixnet_api.IxNextgen()
+        ixnet_gen._ixnet = self.ixnet
+        with mock.patch.object(
+                ixnet_gen, '_get_config_element_by_flow_group_name',
+                return_value=None):
+            with self.assertRaises(exceptions.IxNetworkFlowNotPresent):
+                ixnet_gen._get_stack_item(mock.ANY, mock.ANY)
+
+    def test__get_field_in_stack_item(self):
+        ixnet_gen = ixnet_api.IxNextgen()
+        ixnet_gen._ixnet = self.ixnet
+        ixnet_gen._ixnet.getList.return_value = ['field1', 'field2']
+        output = ixnet_gen._get_field_in_stack_item(mock.ANY, 'field2')
+        self.assertEqual('field2', output)
+
+    def test__get_field_in_stack_item_no_field_present(self):
+        ixnet_gen = ixnet_api.IxNextgen()
+        ixnet_gen._ixnet = self.ixnet
+        ixnet_gen._ixnet.getList.return_value = ['field1', 'field2']
+        with self.assertRaises(exceptions.IxNetworkFieldNotPresentInStackItem):
+            ixnet_gen._get_field_in_stack_item(mock.ANY, 'field3')
 
     def test__parse_framesize(self):
         ixnet_gen = ixnet_api.IxNextgen()
@@ -336,20 +371,6 @@ class TestIxNextgen(unittest.TestCase):
         mock__create_flow_groups.assert_called_once()
         mock__setup_config_elements.assert_called_once()
 
-    def test__get_field_in_stack_item(self):
-        ixnet_gen = ixnet_api.IxNextgen()
-        ixnet_gen._ixnet = self.ixnet
-        ixnet_gen._ixnet.getList.return_value = ['field1', 'field2']
-        output = ixnet_gen._get_field_in_stack_item(mock.ANY, 'field2')
-        self.assertEqual('field2', output)
-
-    def test__get_field_in_stack_item_field_not_present(self):
-        ixnet_gen = ixnet_api.IxNextgen()
-        ixnet_gen._ixnet = self.ixnet
-        ixnet_gen._ixnet.getList.return_value = ['field1', 'field2']
-        with self.assertRaises(exceptions.IxNetworkFieldNotPresentInStackItem):
-            ixnet_gen._get_field_in_stack_item(mock.ANY, 'field3')
-
     def test__update_frame_mac(self):
         ixnet_gen = ixnet_api.IxNextgen()
         ixnet_gen._ixnet = self.ixnet
@@ -370,7 +391,11 @@ class TestIxNextgen(unittest.TestCase):
                 ixnet_gen, '_get_config_element_by_flow_group_name',
                 return_value='cfg_element'), \
                 mock.patch.object(ixnet_gen, '_update_frame_mac') as \
-                mock_update_frame:
+                mock_update_frame, \
+                mock.patch.object(ixnet_gen, '_get_stack_item') as \
+                mock_get_stack_item:
+            mock_get_stack_item.side_effect = [['item1'], ['item2'],
+                                               ['item3'], ['item4']]
             ixnet_gen.update_frame(TRAFFIC_PARAMETERS)
 
         self.assertEqual(6, len(ixnet_gen.ixnet.setMultiAttribute.mock_calls))
@@ -385,14 +410,6 @@ class TestIxNextgen(unittest.TestCase):
             with self.assertRaises(exceptions.IxNetworkFlowNotPresent):
                 ixnet_gen.update_frame(TRAFFIC_PARAMETERS)
 
-    def test_set_random_ip_multi_attribute(self):
-        ixnet_gen = ixnet_api.IxNextgen()
-        ixnet_gen._ixnet = self.ixnet
-        ixnet_gen.set_random_ip_multi_attribute('ipv4', 20, 30, 40, 100)
-        ixnet_gen.ixnet.setMultiAttribute.assert_called_once_with(
-            'ipv4', '-seed', '20', '-fixedBits', '30', '-randomMask', '40',
-            '-valueType', 'random', '-countValue', '100')
-
     def test_get_statistics(self):
         ixnet_gen = ixnet_api.IxNextgen()
         port_statistics = '::ixNet::OBJ-/statistics/view:"Port Statistics"'
@@ -404,3 +421,36 @@ class TestIxNextgen(unittest.TestCase):
         mock_build_stats.assert_has_calls([
             mock.call(port_statistics, ixnet_gen.PORT_STATS_NAME_MAP),
             mock.call(flow_statistics, ixnet_gen.LATENCY_NAME_MAP)])
+
+    def test__update_ipv4_address(self):
+        ixnet_gen = ixnet_api.IxNextgen()
+        ixnet_gen._ixnet = self.ixnet
+        with mock.patch.object(ixnet_gen, '_get_field_in_stack_item',
+                               return_value='field_desc'):
+            ixnet_gen._update_ipv4_address(mock.ANY, mock.ANY, '192.168.1.1',
+                                           100, '255.255.255.0', 25)
+        ixnet_gen.ixnet.setMultiAttribute.assert_called_once_with(
+            'field_desc', '-seed', 100, '-fixedBits', '192.168.1.1',
+            '-randomMask', '255.255.255.0', '-valueType', 'random',
+            '-countValue', 25)
+
+    def test_update_ip_packet(self):
+        ixnet_gen = ixnet_api.IxNextgen()
+        ixnet_gen._ixnet = self.ixnet
+        with mock.patch.object(ixnet_gen, '_update_ipv4_address') as \
+                mock_update_add, \
+                mock.patch.object(ixnet_gen, '_get_stack_item'), \
+                mock.patch.object(ixnet_gen,
+                '_get_config_element_by_flow_group_name', return_value='celm'):
+            ixnet_gen.update_ip_packet(TRAFFIC_PARAMETERS)
+
+        self.assertEqual(4, len(mock_update_add.mock_calls))
+
+    def test_update_ip_packet_exception_no_config_element(self):
+        ixnet_gen = ixnet_api.IxNextgen()
+        ixnet_gen._ixnet = self.ixnet
+        with mock.patch.object(ixnet_gen,
+                               '_get_config_element_by_flow_group_name',
+                               return_value=None):
+            with self.assertRaises(exceptions.IxNetworkFlowNotPresent):
+                ixnet_gen.update_ip_packet(TRAFFIC_PARAMETERS)
