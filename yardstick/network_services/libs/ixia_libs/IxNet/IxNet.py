@@ -13,10 +13,7 @@
 # limitations under the License.
 
 import logging
-
-###from itertools import product
 import IxNetwork
-###import re
 
 from yardstick.common import exceptions
 
@@ -30,6 +27,9 @@ PROTO_IPV6 = 'ipv6'
 PROTO_UDP = 'udp'
 PROTO_TCP = 'tcp'
 PROTO_VLAN = 'vlan'
+
+IP_VERSION_4_MASK = '0.0.0.255'
+IP_VERSION_6_MASK = '0:0:0:0:0:0:0:ff'
 
 
 class IxNextgen(object):
@@ -50,11 +50,6 @@ class IxNextgen(object):
         "Store-Forward_Avg_latency_ns": 'Store-Forward Avg Latency (ns)',
         "Store-Forward_Min_latency_ns": 'Store-Forward Min Latency (ns)',
         "Store-Forward_Max_latency_ns": 'Store-Forward Max Latency (ns)',
-    }
-
-    RANDOM_MASK_MAP = {
-        IP_VERSION_4: '0.0.0.255',
-        IP_VERSION_6: '0:0:0:0:0:0:0:ff',
     }
 
     MODE_SEEDS_MAP = {
@@ -380,7 +375,14 @@ class IxNextgen(object):
             fixed_bits = l3['dstip4']
             self.set_random_ip_multi_attribute(ip, seeds[1], fixed_bits, random_mask, l3_count)
 
-    def add_ip_header(self, params, version):
+    def update_ip_packet(self, traffic):
+        """Fistro!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        
+        Only IPv4 is currently supported.
+        :param traffic: list of traffic elements; each traffic element contains
+                        the injection parameter for each flow group.
+        """"
+        #add_ip_header(self, params,):
         for it, ep, i in self.iter_over_get_lists('/traffic', 'trafficItem', "configElement", 1):
             iter1 = (v['outer_l3'] for v in params.values() if str(v['id']) == str(i))
             try:
@@ -416,7 +418,7 @@ class IxNextgen(object):
                                           self.LATENCY_NAME_MAP))
         return stats
 
-    def ix_start_traffic(self):
+    def start_traffic(self):
         tis = self.ixnet.getList('/traffic', 'trafficItem')
         for ti in tis:
             self.ixnet.execute('generate', [ti])
