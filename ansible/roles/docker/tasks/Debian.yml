@@ -12,6 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+  - name: Install docker.io if Ubuntu 17.10 or above
+    action: "{{ ansible_pkg_mgr }} name=docker.io state=present force=yes"
+    when: ansible_distribution_version >= 17.10
+
+  - name: End play if Ubuntu 17.10 or above as docker is now installed
+    meta: end_play
+    when: ansible_distribution_version >= 17.10
+
   - name: add Ubuntu docker repo
     apt_repository: repo='deb [trusted=yes] {{ ubuntu_docker_url }} ubuntu-{{ ansible_distribution_release }} main' state=present
 
