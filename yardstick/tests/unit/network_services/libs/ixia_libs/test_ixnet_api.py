@@ -363,6 +363,9 @@ class TestIxNextgen(unittest.TestCase):
             '-valueType', 'singleValue')
         ixnet_gen.ixnet.commit.assert_called_once()
 
+    # RAH
+    # self._get_stack_item(fg_id, PROTO_ETHERNET)[0],
+
     def test_update_frame(self):
         ixnet_gen = ixnet_api.IxNextgen()
         ixnet_gen._ixnet = self.ixnet
@@ -385,6 +388,10 @@ class TestIxNextgen(unittest.TestCase):
             with self.assertRaises(exceptions.IxNetworkFlowNotPresent):
                 ixnet_gen.update_frame(TRAFFIC_PARAMETERS)
 
+
+
+
+
     def test_set_random_ip_multi_attribute(self):
         ixnet_gen = ixnet_api.IxNextgen()
         ixnet_gen._ixnet = self.ixnet
@@ -404,3 +411,101 @@ class TestIxNextgen(unittest.TestCase):
         mock_build_stats.assert_has_calls([
             mock.call(port_statistics, ixnet_gen.PORT_STATS_NAME_MAP),
             mock.call(flow_statistics, ixnet_gen.LATENCY_NAME_MAP)])
+
+
+
+
+    # def _update_ipv4_address(self, ip_descriptor, field, ip_address, seed,
+    #                          mask, count):
+    #     """Set the IPv4 address in a config element stack IP field
+    #
+    #     :param ip_descriptor: (str) IP descriptor, e.g.:
+    #         /traffic/trafficItem:1/configElement:1/stack:"ipv4-2"
+    #     :param field: (str) field name, e.g.: scrIp, dstIp
+    #     :param ip_address: (str) IP address
+    #     :param seed: (int) seed length
+    #     :param mask: (str) IP address mask
+    #     :param count: (int) number of random IPs to generate
+    #     """
+    #     field_descriptor = self._get_field_in_stack_item(ip_descriptor,
+    #                                                      field)
+    #     self.ixnet.setMultiAttribute(field_descriptor,
+    #                                  '-seed', seed,
+    #                                  '-fixedBits', ip_address,
+    #                                  '-randomMask', mask,
+    #                                  '-valueType', 'random',
+    #                                  '-countValue', count)
+
+    #ELF3: Need positive tests??
+    #ELF3: Check that params are correct
+    def test__update_ipv4_address_bad_ip_version(self):
+        bad_ip_version = ""
+
+        ixnet_gen = IxNextgen()
+        ixnet_gen._ixnet = self.ixnet
+        ixnet_gen._get_field_in_stack_item = mock.Mock()
+        ixnet_gen._get_field_in_stack_item.side_effect = \
+            exceptions.IxNetworkFieldNotPresentInStackItem
+
+        with self.assertRaises(exceptions.IxNetworkFieldNotPresentInStackItem):
+            ixnet_gen._update_ipv4_address(
+                ip_descriptor=bad_ip_version, field="srcIp", ip_address=mock.Mock(),
+                seed=mock.Mock(), mask=mock.Mock(), count=mock.Mock())
+            self.ixnet.setMultiAttribute.assert_not_called()
+
+
+
+    #RAH
+    # def update_ip_packet(self, traffic):
+    #     """Update the IP packet
+    #
+    #     NOTE: Only IPv4 is currently supported.
+    #     :param traffic: list of traffic elements; each traffic element contains
+    #                     the injection parameter for each flow group.
+    #     """
+    #     # NOTE(ralonsoh): L4 configuration is not set.
+    #     for traffic_param in traffic.values():
+    #         fg_id = str(traffic_param['id'])
+    #         config_element = self._get_config_element_by_flow_group_name(
+    #             fg_id)
+    #         if not config_element:
+    #             raise exceptions.IxNetworkFlowNotPresent(
+    #                 flow_group=fg_id)
+    #
+    #         count = traffic_param['outer_l3']['count']
+    #         srcip4 = str(traffic_param['outer_l3']['srcip4'])
+    #         dstip4 = str(traffic_param['outer_l3']['dstip4'])
+    #
+    #         self._update_ipv4_address(
+    #             self._get_stack_item(fg_id, PROTO_IPV4)[0],
+    #             'srcIp', srcip4, 1, IP_VERSION_4_MASK, count)
+    #         self._update_ipv4_address(
+    #             self._get_stack_item(fg_id, PROTO_IPV4)[0],
+    #             'dstIp', dstip4, 1, IP_VERSION_4_MASK, count)
+
+            # ELF3
+
+    def test_update_ip_packet(self):
+        # create valid traffic param
+        traffic = {  # pylint: disable=unused-variable
+            "uplink": {
+                "id": 1,
+                "outer_l3": {
+                    "count": 1,
+                    "srcip4": "10.10.10.10",
+                    "dstip4": "11.11.11.11",
+                }
+            }
+        }
+        # ELF3
+
+    def test_update_ip_packet_exception_no_config_element(self):
+        # _get_config_element_by_flow returns None
+        # traffic = ??
+        # self.assertRaises(exceptions.IxNetworkFlowNotPresent,
+        # ixNetgen.update_ip_packet(traffic))
+        # Is the traffic param mutated? If so, check that, else check that
+        # update_ipv4_address is called with the right params
+
+        # make sure that get_config_element is called for each param in the traffic dict
+        pass
