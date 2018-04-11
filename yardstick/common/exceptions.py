@@ -259,3 +259,7 @@ class UploadOpenrcError(ApiServerError):
 
 class UpdateOpenrcError(ApiServerError):
     message = 'Update openrc ERROR!'
+
+
+class ScenarioCreateImageError(YardstickException):
+    message = 'Glance Create Image Scenario failed'
