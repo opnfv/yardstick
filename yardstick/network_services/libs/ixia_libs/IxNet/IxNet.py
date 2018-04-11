@@ -13,10 +13,7 @@
 # limitations under the License.
 
 import logging
-
-###from itertools import product
 import IxNetwork
-###import re
 
 from yardstick.common import exceptions
 
@@ -25,11 +22,16 @@ log = logging.getLogger(__name__)
 
 IP_VERSION_4 = 4
 IP_VERSION_6 = 6
+
+PROTO_ETHERNET = 'ethernet'
 PROTO_IPV4 = 'ipv4'
 PROTO_IPV6 = 'ipv6'
 PROTO_UDP = 'udp'
 PROTO_TCP = 'tcp'
 PROTO_VLAN = 'vlan'
+
+IP_VERSION_4_MASK = '0.0.0.255'
+IP_VERSION_6_MASK = '0:0:0:0:0:0:0:ff'
 
 
 class IxNextgen(object):
@@ -52,16 +54,11 @@ class IxNextgen(object):
         "Store-Forward_Max_latency_ns": 'Store-Forward Max Latency (ns)',
     }
 
-    RANDOM_MASK_MAP = {
-        IP_VERSION_4: '0.0.0.255',
-        IP_VERSION_6: '0:0:0:0:0:0:0:ff',
-    }
-
-    MODE_SEEDS_MAP = {
-        0: ('uplink', ['256', '2048']),
-    }
-
-    MODE_SEEDS_DEFAULT = 'downlink', ['2048', '256']
+    # MODE_SEEDS_MAP = {
+    #     0: ('uplink', ['256', '2048']),
+    # }
+    #
+    # MODE_SEEDS_DEFAULT = 'downlink', ['2048', '256']
 
     @staticmethod
     def get_config(tg_cfg):
@@ -121,6 +118,34 @@ class IxNextgen(object):
             if (str(self.ixnet.getAttribute(flow_group, '-name')) ==
                     flow_group_name):
                 return traffic_item + '/configElement:' + flow_group_name
+
+    def _get_stack_item(self, flow_group_name, protocol_name):
+        """Return the stack item given the flow group name and the proto name
+
+        :param flow_group_name: (str) flow group name
+        :param protocol_name: (str) protocol name, referred to PROTO_*
+                              constants
+        :return: list of stack item descriptors
+        """
+        celement = self._get_config_element_by_flow_group_name(flow_group_name)
+        if not celement:
+            raise exceptions.IxNetworkFlowNotPresent(
+                flow_group=flow_group_name)
+        stack_items = self.ixnet.getList(celement, 'stack')
+        return [s_i for s_i in stack_items if protocol_name in s_i]
+
+    def _get_field_in_stack_item(self, stack_item, field_name):
+        """List all fields in a stack item an return t
+
+        :param stack_item: (str) stack item descriptor
+        :param field_name: (str) field name
+        :return: (str) field descriptor
+        """
+        fields = self.ixnet.getList(stack_item, 'field')
+        for field in (field for field in fields if field_name in field):
+            return field
+        raise exceptions.IxNetworkFieldNotPresentInStackItem(
+            field_name=field_name, stack_item=stack_item)
 
     @staticmethod
     def _parse_framesize(framesize):
@@ -275,19 +300,6 @@ class IxNextgen(object):
         self._create_flow_groups()
         self._setup_config_elements()
 
-    def _get_field_in_stack_item(self, stack_item, field_name):
-        """List all fields in a stack item an return t
-
-        :param stack_item: (str) stack item descriptor
-        :param field_name: (str) field name
-        :return: (str) field descriptor
-        """
-        fields = self.ixnet.getList(stack_item, 'field')
-        for field in (field for field in fields if field_name in field):
-            return field
-        raise exceptions.IxNetworkFieldNotPresentInStackItem(
-            field_name=field_name, stack_item=stack_item)
-
     def _update_frame_mac(self, ethernet_descriptor, field, mac_address):
         """Set the MAC address in a config element stack Ethernet field
 
@@ -324,11 +336,10 @@ class IxNextgen(object):
                         the injection parameter for each flow group.
         """
         for traffic_param in traffic.values():
-            config_element = self._get_config_element_by_flow_group_name(
-                str(traffic_param['id']))
+            fg_id = str(traffic_param['id'])
+            config_element = self._get_config_element_by_flow_group_name(fg_id)
             if not config_element:
-                raise exceptions.IxNetworkFlowNotPresent(
-                    flow_group=traffic_param['id'])
+                raise exceptions.IxNetworkFlowNotPresent(flow_group=fg_id)
 
             type = traffic_param.get('traffic_type', 'fixedDuration')
             duration = traffic_param.get('duration', 30)
@@ -337,6 +348,10 @@ class IxNextgen(object):
                 traffic_param['outer_l2']['framesize'])
             srcmac = str(traffic_param.get('srcmac', '00:00:00:00:00:01'))
             dstmac = str(traffic_param.get('dstmac', '00:00:00:00:00:02'))
+            # NOTE(ralonsoh): add QinQ tagging when
+            # traffic_param['outer_l2']['QinQ'] exists.
+            # s_vlan = traffic_param['outer_l2']['QinQ']['S-VLAN']
+            # c_vlan = traffic_param['outer_l2']['QinQ']['C-VLAN']
 
             self.ixnet.setMultiAttribute(
                 config_element + '/transmissionControl',
@@ -351,52 +366,63 @@ class IxNextgen(object):
             self.ixnet.commit()
 
             self._update_frame_mac(
-                config_element + '/stack:"ethernet-1"',
+                self._get_stack_item(fg_id, PROTO_ETHERNET)[0],
                 'destinationAddress', dstmac)
             self._update_frame_mac(
-                config_element + '/stack:"ethernet-1"',
+                self._get_stack_item(fg_id, PROTO_ETHERNET)[0],
                 'sourceAddress', srcmac)
 
-    def set_random_ip_multi_attribute(self, ipv4, seed, fixed_bits, random_mask, l3_count):
-        self.ixnet.setMultiAttribute(
-            ipv4,
-            '-seed', str(seed),
-            '-fixedBits', str(fixed_bits),
-            '-randomMask', str(random_mask),
-            '-valueType', 'random',
-            '-countValue', str(l3_count))
+    def _update_ipv4_address(self, ip_descriptor, field, ip_address, seed,
+                             mask, count):
+        """Set the IPv4 address in a config element stack IP field
 
-    def set_random_ip_multi_attributes(self, ip, version, seeds, l3):
-        try:
-            random_mask = self.RANDOM_MASK_MAP[version]
-        except KeyError:
-            raise ValueError('Unknown version %s' % version)
-
-        l3_count = l3['count']
-        if "srcIp" in ip:
-            fixed_bits = l3['srcip4']
-            self.set_random_ip_multi_attribute(ip, seeds[0], fixed_bits, random_mask, l3_count)
-        if "dstIp" in ip:
-            fixed_bits = l3['dstip4']
-            self.set_random_ip_multi_attribute(ip, seeds[1], fixed_bits, random_mask, l3_count)
-
-    def add_ip_header(self, params, version):
-        for it, ep, i in self.iter_over_get_lists('/traffic', 'trafficItem', "configElement", 1):
-            iter1 = (v['outer_l3'] for v in params.values() if str(v['id']) == str(i))
-            try:
-                l3 = next(iter1, {})
-                seeds = self.MODE_SEEDS_MAP.get(i, self.MODE_SEEDS_DEFAULT)[1]
-            except (KeyError, IndexError):
-                continue
-
-            for ip, ip_bits, _ in self.iter_over_get_lists(ep, 'stack', 'field'):
-                self.set_random_ip_multi_attributes(ip_bits, version, seeds, l3)
+        :param ip_descriptor: (str) IP descriptor, e.g.:
+            /traffic/trafficItem:1/configElement:1/stack:"ipv4-2"
+        :param field: (str) field name, e.g.: scrIp, dstIp
+        :param ip_address: (str) IP address
+        :param seed: (int) seed length
+        :param mask: (str) IP address mask
+        :param count: (int) number of random IPs to generate
+        """
+        field_descriptor = self._get_field_in_stack_item(ip_descriptor,
+                                                         field)
+        self.ixnet.setMultiAttribute(field_descriptor,
+                                     '-seed', seed,
+                                     '-fixedBits', ip_address,
+                                     '-randomMask', mask,
+                                     '-valueType', 'random',
+                                     '-countValue', count)
 
         self.ixnet.commit()
 
+    def update_ip_packet(self, traffic):
+        """Update the IP packet
+        
+        NOTE: Only IPv4 is currently supported.
+        :param traffic: list of traffic elements; each traffic element contains
+                        the injection parameter for each flow group.
+        """
+        # NOTE(ralonsoh): L4 configuration is not set.
+        for traffic_param in traffic.values():
+            fg_id = str(traffic_param['id'])
+            config_element = self._get_config_element_by_flow_group_name(fg_id)
+            if not config_element:
+                raise exceptions.IxNetworkFlowNotPresent(flow_group=fg_id)
+
+            count = traffic_param['outer_l3']['count']
+            srcip4 = str(traffic_param['outer_l3']['srcip4'])
+            dstip4 = str(traffic_param['outer_l3']['dstip4'])
+
+            self._update_ipv4_address(
+                self._get_stack_item(fg_id, PROTO_IPV4)[0],
+                'srcIp', srcip4, 1, IP_VERSION_4_MASK, count)
+            self._update_ipv4_address(
+                self._get_stack_item(fg_id, PROTO_IPV4)[0],
+                'dstIp', dstip4, 1, IP_VERSION_4_MASK, count)
+
     def _build_stats_map(self, view_obj, name_map):
         return {data_yardstick: self.ixnet.execute(
-                'getColumnValues', view_obj, data_ixia)
+            'getColumnValues', view_obj, data_ixia)
             for data_yardstick, data_ixia in name_map.items()}
 
     def get_statistics(self):
@@ -416,7 +442,7 @@ class IxNextgen(object):
                                           self.LATENCY_NAME_MAP))
         return stats
 
-    def ix_start_traffic(self):
+    def start_traffic(self):
         tis = self.ixnet.getList('/traffic', 'trafficItem')
         for ti in tis:
             self.ixnet.execute('generate', [ti])
