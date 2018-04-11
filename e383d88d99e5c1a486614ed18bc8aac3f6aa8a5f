@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f5ff6165",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-04-11T11:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_a9ed8627",
+      "revId": "e383d88d99e5c1a486614ed18bc8aac3f6aa8a5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_09a75a0d",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-04-09T19:13:34Z",
       "side": 1,
       "message": "we use %s in logging because logging does its own deferred interpolation.",
+      "revId": "e383d88d99e5c1a486614ed18bc8aac3f6aa8a5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b5de790f",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-04-11T11:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_09a75a0d",
       "revId": "e383d88d99e5c1a486614ed18bc8aac3f6aa8a5f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f5e801b6",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-04-11T11:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_69b53e30",
+      "revId": "e383d88d99e5c1a486614ed18bc8aac3f6aa8a5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_e92aee2a",
         "filename": "yardstick/benchmark/core/task.py",
         "patchSetId": 1
@@ -81,6 +135,24 @@
       "writtenOn": "2018-04-09T20:04:13Z",
       "side": 1,
       "message": "this case is different than the parallel case.  We may not want to continue on other scenarios if the previous scenario fails.\n\nmaybe we need an ignore_failure flag that defaults to False?\n\n for scenario in scenarios:\n   if not _is_background...:\n     status \u003d ...\n     if status !\u003d 0:\n       ...\n       task_success \u003d False\n       if not  _can_ignore_failure(scenario):\n         break",
+      "revId": "e383d88d99e5c1a486614ed18bc8aac3f6aa8a5f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_95089d92",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-04-11T11:23:43Z",
+      "side": 1,
+      "message": "Yes. Now if the test case configures sla_action \u003d\u003d \"assert\", DurationRunner will raise AssertionError and thus the task ends. With sla_action \u003d\u003d \"monitor\" the task will continue but is marked failed. So do we also need to check it in core/task.py?",
+      "parentUuid": "5a3f45e8_e92aee2a",
       "revId": "e383d88d99e5c1a486614ed18bc8aac3f6aa8a5f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
