@@ -45,6 +45,30 @@
       "revId": "35b0a50fd912009629e70d66c98963a76b89dd8b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2dfb3dc2",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-04-11T13:58:19Z",
+      "side": 1,
+      "message": "Hello Tim thanks for reviewing this.\nI think this is an overkill for now.\nI think that if we just find which is the member-0 ODL in the clustering is ok for now.",
+      "parentUuid": "5a3f45e8_27140c4d",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 85,
+        "endChar": 125
+      },
+      "revId": "35b0a50fd912009629e70d66c98963a76b89dd8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
