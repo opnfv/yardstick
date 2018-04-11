@@ -214,3 +214,7 @@ class ScenarioDeleteVolumeError(YardstickException):
 
 class ScenarioDetachVolumeError(YardstickException):
     message = 'Cinder Detach Volume Scenario failed'
+
+
+class ScenarioCreateImageError(YardstickException):
+    message = 'Glance Create Image Scenario failed'

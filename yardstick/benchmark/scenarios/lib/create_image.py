@@ -6,14 +6,11 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
-from __future__ import print_function
-from __future__ import absolute_import
-
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
+from yardstick.common import openstack_utils
+from yardstick.common import exceptions
 
 LOG = logging.getLogger(__name__)
 
@@ -26,20 +23,23 @@ class CreateImage(base.Scenario):
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
+        self.options = self.scenario_cfg["options"]
 
-        self.image_name = self.options.get("image_name", "TestImage")
-        self.file_path = self.options.get("file_path", None)
-        self.disk_format = self.options.get("disk_format", "qcow2")
-        self.container_format = self.options.get("container_format", "bare")
-        self.min_disk = self.options.get("min_disk", 0)
-        self.min_ram = self.options.get("min_ram", 0)
-        self.protected = self.options.get("protected", False)
-        self.public = self.options.get("public", "public")
-        self.tags = self.options.get("tags", [])
-        self.custom_property = self.options.get("property", {})
+        self.name = self.options["image_name"]
+        self.file_name = self.options.get("file_name")
+        self.container = self.options.get("container", 'images')
+        self.md5 = self.options.get("md5")
+        self.sha256 = self.options.get("sha256")
+        self.disk_format = self.options.get("disk_format")
+        self.container_format = self.options.get("container_format",)
+        self.disable_vendor_agent = self.options.get("disable_vendor_agent", True)
+        self.wait = self.options.get("wait", True)
+        self.timeout = self.options.get("timeout", 3600)
+        self.allow_duplicates = self.options.get("allow_duplicates", False)
+        self.meta = self.options.get("meta")
+        self.volume = self.options.get("volume")
 
-        self.glance_client = op_utils.get_glance_client()
+        self.shade_client = openstack_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -54,19 +54,22 @@ class CreateImage(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        image_id = op_utils.create_image(self.glance_client, self.image_name,
-                                         self.file_path, self.disk_format,
-                                         self.container_format, self.min_disk,
-                                         self.min_ram, self.protected, self.tags,
-                                         self.public, **self.custom_property)
+        image_id = openstack_utils.create_image(
+            self.shade_client, self.name, filename=self.file_name,
+            container=self.container, md5=self.md5, sha256=self.sha256,
+            disk_format=self.disk_format,
+            container_format=self.container_format,
+            disable_vendor_agent=self.disable_vendor_agent, wait=self.wait,
+            timeout=self.timeout, allow_duplicates=self.allow_duplicates,
+            meta=self.meta, volume=self.volume)
 
-        if image_id:
-            LOG.info("Create image successful!")
-            values = [image_id]
+        if not image_id:
+            result.update({"image_create": 0})
+            LOG.error("Create image failed!")
+            raise exceptions.ScenarioCreateImageError
 
-        else:
-            LOG.info("Create image failed!")
-            values = []
-
+        result.update({"image_create": 1})
+        LOG.info("Create image successful!")
         keys = self.scenario_cfg.get('output', '').split()
+        values = [image_id]
         return self._push_to_outputs(keys, values)

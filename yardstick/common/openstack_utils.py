@@ -713,32 +713,64 @@ def get_image_id(glance_client, image_name):    # pragma: no cover
     return next((i.id for i in images if i.name == image_name), None)
 
 
-def create_image(glance_client, image_name, file_path, disk_format,
-                 container_format, min_disk, min_ram, protected, tag,
-                 public, **kwargs):    # pragma: no cover
-    if not os.path.isfile(file_path):
-        log.error("Error: file %s does not exist.", file_path)
-        return None
-    try:
-        image_id = get_image_id(glance_client, image_name)
-        if image_id is not None:
-            log.info("Image %s already exists.", image_name)
-        else:
-            log.info("Creating image '%s' from '%s'...", image_name, file_path)
+def create_image(shade_client, name, filename=None, container='images',
+                 md5=None, sha256=None, disk_format=None,
+                 container_format=None, disable_vendor_agent=True,
+                 wait=False, timeout=3600, allow_duplicates=False, meta=None,
+                 volume=None, **kwargs):
+    """Upload an image.
 
-            image = glance_client.images.create(
-                name=image_name, visibility=public, disk_format=disk_format,
-                container_format=container_format, min_disk=min_disk,
-                min_ram=min_ram, tags=tag, protected=protected, **kwargs)
-            image_id = image.id
-            with open(file_path) as image_data:
-                glance_client.images.upload(image_id, image_data)
+    :param name:(str) Name of the image to create. If it is a pathname of an
+                image, the name will be constructed from the extensionless
+                basename of the path.
+    :param filename:(str) The path to the file to upload, if needed.
+    :param container:(str) Name of the container in swift where images should
+                     be uploaded for import if the cloud requires such a thing.
+    :param md5:(str) md5 sum of the image file. If not given, an md5 will
+            be calculated.
+    :param sha256:(str) sha256 sum of the image file. If not given, an md5
+                  will be calculated.
+    :param disk_format:(str) The disk format the image is in.
+    :param container_format:(str) The container format the image is in.
+    :param disable_vendor_agent:(bool) Whether or not to append metadata
+                                flags to the image to inform the cloud in
+                                question to not expect a vendor agent to be running.
+    :param wait:(bool) If true, waits for image to be created.
+    :param timeout:(str) Seconds to wait for image creation.
+    :param allow_duplicates:(bool) If true, skips checks that enforce unique
+                            image name.
+    :param meta:(dict) A dict of key/value pairs to use for metadata that
+                bypasses automatic type conversion.
+    :param volume:(str) Name or ID or volume object of a volume to create an
+                  image from.
+    Additional kwargs will be passed to the image creation as additional
+    metadata for the image and will have all values converted to string
+    except for min_disk, min_ram, size and virtual_size which will be
+    converted to int.
+    If you are sure you have all of your data types correct or have an
+    advanced need to be explicit, use meta. If you are just a normal
+    consumer, using kwargs is likely the right choice.
+    If a value is in meta and kwargs, meta wins.
+    :returns: Image id
+
+    """
+    try:
+        image_id = shade_client.get_image_id(name)
+        if image_id is not None:
+            log.info("Image %s already exists.", name)
+            return image_id
+        log.info("Creating image '%s'", name)
+
+        image = shade_client.create_image(
+            name, filename=filename, container=container, md5=md5, sha256=sha256,
+            disk_format=disk_format, container_format=container_format,
+            disable_vendor_agent=disable_vendor_agent, wait=wait, timeout=timeout,
+            allow_duplicates=allow_duplicates, meta=meta, volume=volume, **kwargs)
+        image_id = image['id']
         return image_id
-    except Exception:  # pylint: disable=broad-except
-        log.error(
-            "Error [create_glance_image(glance_client, '%s', '%s', '%s')]",
-            image_name, file_path, public)
-        return None
+    except exc.OpenStackCloudException as op_exc:
+        log.error("Failed to create_image(shade_client). "
+                  "Exception message: %s", op_exc.orig_message)
 
 
 def delete_image(glance_client, image_id):    # pragma: no cover

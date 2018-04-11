@@ -630,3 +630,39 @@ class DetachVolumeTestCase(unittest.TestCase):
                                                self.server, self.volume)
         mock_logger.error.assert_called_once()
         self.assertFalse(output)
+
+
+# *********************************************
+#   GLANCE
+# *********************************************
+
+class CreateImageTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self._uuid = uuidutils.generate_uuid()
+        self.name = 'image_name'
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_image_already_exit(self, mock_logger):
+        self.mock_shade_client.get_image_id.return_value = self._uuid
+        output = openstack_utils.create_image(self.mock_shade_client, self.name)
+        mock_logger.info.assert_called_once()
+        self.assertEqual(self._uuid, output)
+
+    def test_create_image(self):
+        self.mock_shade_client.get_image_id.return_value = None
+        self.mock_shade_client.create_image.return_value = {'id': self._uuid}
+        output = openstack_utils.create_image(self.mock_shade_client, self.name)
+        self.assertEqual(self._uuid, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_image_exception(self, mock_logger):
+        self.mock_shade_client.get_image_id.return_value = None
+        self.mock_shade_client.create_image.side_effect = (
+            exc.OpenStackCloudException('error message'))
+
+        output = openstack_utils.create_image(self.mock_shade_client,
+                                              self.name)
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
