@@ -1,10 +1,14 @@
 ---
 dpdk_version: "17.02"
-dpdk_url: "http://dpdk.org/browse/dpdk/snapshot/dpdk-{{ dpdk_version }}.zip"
+dpdk_url: "http://dpdk.org/browse/dpdk/snapshot/dpdk-{{ dpdk_version }}.tar.gz"
 dpdk_file: "{{ dpdk_url|basename }}"
-dpdk_unarchive: "{{ dpdk_file|regex_replace('[.]zip$', '') }}"
+dpdk_unarchive: "{{ dpdk_file|regex_replace('[.]tar[.]gz$', '') }}"
 dpdk_dest: "{{ clone_dest }}/"
+#Note DPDK 17.08 17.11 and 18.02 are currently unsupported due to prox build issues
 dpdk_sha256s:
-  "17.02": "sha256:c675285d5eab8e7e8537a10bdae6f03c603caa80cb4bf5b055ddd482e3b7d67f"
-  "16.04": "sha256:65e587af439b21abf54c644f86ba5ce7ea65657b3272480dcd78b769d2aecac3"
-  "16.07": "sha256:46fee52f9b3ff54df869414c69f122aea8f744de5ed5f8fb275a22cc9cefe094"
+  "16.07": "sha256:d876e4b2a7101f28e7e345d3c88e66afe877d15f0159c19c5bc5bc26b7b7d788"
+  "17.02": "sha256:b07b546e910095174bdb6152bb0d7ce057cc4b79aaa74771aeee4e8a7219fb38"
+  "17.05": "sha256:763bfb7e1765efcc949e79d645dc9f1ebd16591431ba0db5ce22becd928dcd0a"
+  "17.08": "sha256:3a08addbff45c636538514e9a5838fb91ea557661a4c071e03a9a6987d46e5b6" #unsupported
+  "17.11": "sha256:77a727bb3834549985f291409c9a77a1e8be1c9329ce4c3eb19a22d1461022e4" #unsupported
+  "18.02": "sha256:f1210310fd5f01a3babe3a09d9b3e5a9db791c2ec6ecfbf94ade9f893a0632b8" #unsupported
