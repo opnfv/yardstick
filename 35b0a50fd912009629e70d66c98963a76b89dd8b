@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f65646cd",
+        "filename": "etc/yardstick/nodes/apex_baremetal/pod.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-04-12T10:07:35Z",
+      "side": 1,
+      "message": "Yes you are right probably I should add a description here and say that we are interesting only for ODL member-0 in the cluster.\nWe do not care for the ODL controllers which are not member-0.\n\nMaybe I should change that role: Opendaylight -\u003e role: Opendaylight-master to be more explanatory.\n\nI know that in HA deployment the ODL controllers are running in every Openstack controller. But that doesn\u0027t mean that we should document all of them to the pod.yaml if this is not necessary.",
+      "parentUuid": "5a3f45e8_164ad225",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "35b0a50fd912009629e70d66c98963a76b89dd8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_27140c4d",
         "filename": "tests/ci/prepare_env.sh",
         "patchSetId": 4
