@@ -75,8 +75,9 @@
       ignore_errors: true
 
     - name: Debug dump loop devices
-      command: losetup
+      command: losetup -l
       register: losetup_output
+      ignore_errors: true
 
     - debug:
         var: losetup_output
