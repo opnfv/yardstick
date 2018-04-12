@@ -33,6 +33,9 @@ PROTO_VLAN = 'vlan'
 IP_VERSION_4_MASK = '0.0.0.255'
 IP_VERSION_6_MASK = '0:0:0:0:0:0:0:ff'
 
+TRAFFIC_STATUS_STARTED = 'started'
+TRAFFIC_STATUS_STOPPED = 'stopped'
+
 
 class IxNextgen(object):
 
@@ -53,12 +56,6 @@ class IxNextgen(object):
         "Store-Forward_Min_latency_ns": 'Store-Forward Min Latency (ns)',
         "Store-Forward_Max_latency_ns": 'Store-Forward Max Latency (ns)',
     }
-
-    # MODE_SEEDS_MAP = {
-    #     0: ('uplink', ['256', '2048']),
-    # }
-    #
-    # MODE_SEEDS_DEFAULT = 'downlink', ['2048', '256']
 
     @staticmethod
     def get_config(tg_cfg):
@@ -146,6 +143,11 @@ class IxNextgen(object):
             return field
         raise exceptions.IxNetworkFieldNotPresentInStackItem(
             field_name=field_name, stack_item=stack_item)
+
+    def _get_traffic_state(self):
+        """Get traffic state"""
+        return self.ixnet.getAttribute(self.ixnet.getRoot() + 'traffic',
+                                       '-state')
 
     @staticmethod
     def _parse_framesize(framesize):

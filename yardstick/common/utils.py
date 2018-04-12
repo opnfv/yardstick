@@ -455,3 +455,24 @@ def open_relative_file(path, task_path):
         if e.errno == errno.ENOENT:
             return open(os.path.join(task_path, path))
         raise
+
+
+def wait_until_true(predicate, timeout=60, sleep=1, exception=None):
+    """Wait until callable predicate is evaluated as True
+
+    :param predicate: (func) callable deciding whether waiting should continue
+    :param timeout: (int) timeout in seconds how long should function wait
+    :param sleep: (int) polling interval for results in seconds
+    :param exception: exception instance to raise on timeout. If None is passed
+                      (default) then WaitTimeout exception is raised.
+    """
+    import eventlet
+    try:
+        with eventlet.Timeout(timeout):
+            while not predicate():
+                eventlet.sleep(sleep)
+    except eventlet.Timeout:
+        if exception is not None:
+            #pylint: disable=raising-bad-type
+            raise exception
+        raise WaitTimeout("Timed out after %d seconds" % timeout)
