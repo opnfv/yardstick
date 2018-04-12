@@ -259,7 +259,6 @@ class TestIXIATrafficGen(unittest.TestCase):
         sut = IxiaTrafficGen('vnf1', vnfd)
         sut._check_status()
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.time")
     @mock.patch("yardstick.ssh.SSH")
     def test_traffic_runner(self, mock_ssh, *args):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)

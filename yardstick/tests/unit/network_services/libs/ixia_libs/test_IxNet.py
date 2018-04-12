@@ -33,6 +33,49 @@ class TestIxNextgen(unittest.TestCase):
         self.ixnet_gen = IxNextgen()
         self.ixnet_gen._ixnet = self.ixnet
 
+    def test_get_config(self):
+        tg_cfg = {
+            "vdu": [
+                {
+                    "external-interface": [
+                        {
+                            "virtual-interface": {
+                                "vpci": "0000:07:00.1",
+                            },
+                        },
+                        {
+                            "virtual-interface": {
+                                "vpci": "0001:08:01.2",
+                            },
+                        },
+                    ],
+                },
+            ],
+            "mgmt-interface": {
+                "ip": "test1",
+                "tg-config": {
+                    "dut_result_dir": "test2",
+                    "version": "test3",
+                    "ixchassis": "test4",
+                    "tcl_port": "test5",
+                },
+            }
+        }
+
+        expected = {
+            'machine': 'test1',
+            'port': 'test5',
+            'chassis': 'test4',
+            'cards': ['0000', '0001'],
+            'ports': ['07', '08'],
+            'output_dir': 'test2',
+            'version': 'test3',
+            'bidir': True,
+        }
+
+        result = IxNextgen.get_config(tg_cfg)
+        self.assertEqual(result, expected)
+
     def test___init__(self):
         ixnet_gen = IxNextgen()
         with self.assertRaises(exceptions.IxNetworkClientNotConnected):
@@ -78,6 +121,26 @@ class TestIxNextgen(unittest.TestCase):
 
     #ELF3
     def test__get_field_in_stack_item_exception_fiel_not_present(self):
+        pass
+
+    #ELF4
+    def test__get_traffic_state(self):
+        pass
+
+    #ELF4
+    def test_is_traffic_running(self):
+        pass
+
+    #ELF4
+    def test_is_traffic_running_traffic_stopped(self):
+        pass
+
+    #ELF4
+    def test_is_traffic_stopped(self):
+        pass
+
+    #ELF4
+    def test_is_traffic_stopped_traffic_running(self):
         pass
 
     #ELF
@@ -438,28 +501,64 @@ class TestIxNextgen(unittest.TestCase):
         pass
 
     #ELF: more tests for Rodolfo's changes!
-    def test_start_traffic(self):
+    @mock.patch.object(IxNextgen, '_get_traffic_state')
+    def test_start_traffic(self, mock_ixnextgen_get_traffic_state):
         self.ixnet.getList.return_value = [0]
-        self.ixnet.getAttribute.return_value = 'down'
+
+        mock_ixnextgen_get_traffic_state.side_effect = [
+            'stopped', 'started', 'started', 'started']
 
         result = self.ixnet_gen.start_traffic()
         self.assertIsNone(result)
         self.ixnet.getList.assert_called_once()
         self.assertEqual(self.ixnet.execute.call_count, 3)
 
-    #ELF: more tests for Rodolfo's changes
-    def test_ix_stop_traffic(self):
+    #ELF4
+    @mock.patch.object(IxNextgen, '_get_traffic_state')
+    def test_start_traffic_traffic_running(
+            self, mock_ixnextgen_get_traffic_state):
         self.ixnet.getList.return_value = [0]
+        ixnet_gen = IxNextgen()
+        ixnet_gen._ixnet = self.ixnet
+        mock_ixnextgen_get_traffic_state.side_effect = [
+            'started', 'stopped', 'started']
 
-        result = self.ixnet_gen.ix_stop_traffic()
+        result = self.ixnet_gen.start_traffic()
         self.assertIsNone(result)
         self.ixnet.getList.assert_called_once()
-        self.ixnet.execute.assert_called_once()
+        self.assertEqual(self.ixnet.execute.call_count, 4)
+
+    #ELF4
+    @mock.patch.object(IxNextgen, '_get_traffic_state')
+    def test_start_traffic_wait_for_traffic_to_stop(
+            self, mock_ixnextgen_get_traffic_state):
+        self.ixnet.getList.return_value = [0]
+        mock_ixnextgen_get_traffic_state.side_effect = [
+            'started', 'started', 'started', 'stopped', 'started']
+
+        result = self.ixnet_gen.start_traffic()
+        self.assertIsNone(result)
+        self.ixnet.getList.assert_called_once()
+        self.assertEqual(self.ixnet.execute.call_count, 4)
+
+    # ELF4
+    @mock.patch.object(IxNextgen, '_get_traffic_state')
+    def test_start_traffic_wait_for_traffic_start(
+            self, mock_ixnextgen_get_traffic_state):
+        self.ixnet.getList.return_value = [0]
+        mock_ixnextgen_get_traffic_state.side_effect = [
+            'stopped', 'stopped', 'stopped', 'started']
+
+        result = self.ixnet_gen.start_traffic()
+        self.assertIsNone(result)
+        self.ixnet.getList.assert_called_once()
+        self.assertEqual(self.ixnet.execute.call_count, 3)
 
     #ELF1
     def test_build_stats_map(self):
         pass
 
+    #ELF4
     # ELF: Needs a rename
     # ELF: Needs more tests!
     def test_get_statistics(self):
@@ -485,47 +584,3 @@ class TestIxNextgen(unittest.TestCase):
                 ip_descriptor=bad_ip_version, field="srcIp", ip_address=mock.Mock(),
                 seed=mock.Mock(), mask=mock.Mock(), count=mock.Mock())
             self.ixnet.setMultiAttribute.assert_not_called()
-
-
-    def test_get_config(self):
-        tg_cfg = {
-            "vdu": [
-                {
-                    "external-interface": [
-                        {
-                            "virtual-interface": {
-                                "vpci": "0000:07:00.1",
-                            },
-                        },
-                        {
-                            "virtual-interface": {
-                                "vpci": "0001:08:01.2",
-                            },
-                        },
-                    ],
-                },
-            ],
-            "mgmt-interface": {
-                "ip": "test1",
-                "tg-config": {
-                    "dut_result_dir": "test2",
-                    "version": "test3",
-                    "ixchassis": "test4",
-                    "tcl_port": "test5",
-                },
-            }
-        }
-
-        expected = {
-            'machine': 'test1',
-            'port': 'test5',
-            'chassis': 'test4',
-            'cards': ['0000', '0001'],
-            'ports': ['07', '08'],
-            'output_dir': 'test2',
-            'version': 'test3',
-            'bidir': True,
-        }
-
-        result = IxNextgen.get_config(tg_cfg)
-        self.assertEqual(result, expected)

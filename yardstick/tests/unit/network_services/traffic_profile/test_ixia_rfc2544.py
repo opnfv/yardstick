@@ -468,7 +468,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         result = r_f_c2544_profile._ixia_traffic_generate(traffic, ixia_obj)
         self.assertIsNone(result)
 
-    def test_execute(self):
+    def test_execute_traffic(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
         traffic_generator.networks = {
             "uplink_0": ["xe0"],
@@ -478,16 +478,46 @@ class TestIXIARFC2544Profile(unittest.TestCase):
             mock.Mock(return_value=True)
         r_f_c2544_profile = IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         r_f_c2544_profile.first_run = True
+        r_f_c2544_profile.rate = 100
         r_f_c2544_profile.params = {IXIARFC2544Profile.DOWNLINK: {'iload': 10},
                                     IXIARFC2544Profile.UPLINK: {'iload': 10}}
 
         r_f_c2544_profile.get_streams = mock.Mock()
         r_f_c2544_profile.full_profile = {}
         r_f_c2544_profile._get_ixia_traffic_profile = mock.Mock()
-        r_f_c2544_profile.get_multiplier = mock.Mock()
         r_f_c2544_profile._ixia_traffic_generate = mock.Mock()
         ixia_obj = mock.MagicMock()
-        self.assertIsNone(r_f_c2544_profile.execute_traffic(traffic_generator, ixia_obj))
+        self.assertTrue(r_f_c2544_profile.execute_traffic(traffic_generator, ixia_obj))
+        self.assertFalse(r_f_c2544_profile.first_run)
+
+    #ELF4
+    def test_execute_traffic_mac_is_not_none(self):
+        pass
+
+    #ELF4
+    def test_execute_traffic_not_first_run(self):
+        traffic_generator = mock.Mock(autospec=TrexProfile)
+        traffic_generator.networks = {
+            "uplink_0": ["xe0"],
+            "downlink_0": ["xe1"],
+        }
+        traffic_generator.client = \
+            mock.Mock(return_value=True)
+        r_f_c2544_profile = IXIARFC2544Profile(self.TRAFFIC_PROFILE)
+        r_f_c2544_profile.first_run = False
+        r_f_c2544_profile.max_rate = 50.0
+        r_f_c2544_profile.min_rate = 25.0
+        r_f_c2544_profile.params = {IXIARFC2544Profile.DOWNLINK: {'iload': 10},
+                                    IXIARFC2544Profile.UPLINK: {'iload': 10}}
+
+        r_f_c2544_profile.get_streams = mock.Mock()
+        r_f_c2544_profile.full_profile = {}
+        r_f_c2544_profile._get_ixia_traffic_profile = mock.Mock()
+        r_f_c2544_profile._ixia_traffic_generate = mock.Mock()
+        ixia_obj = mock.MagicMock()
+        self.assertFalse(r_f_c2544_profile.execute_traffic(traffic_generator, ixia_obj))
+        self.assertFalse(r_f_c2544_profile.first_run)
+        self.assertEqual(37.50, r_f_c2544_profile.rate)
 
     def test_update_traffic_profile(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
@@ -523,7 +553,6 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         r_f_c2544_profile.execute = mock.Mock()
         r_f_c2544_profile._get_ixia_traffic_profile = mock.Mock()
         r_f_c2544_profile._ixia_traffic_generate = mock.Mock()
-        r_f_c2544_profile.get_multiplier = mock.Mock()
         r_f_c2544_profile.tmp_throughput = 0
         r_f_c2544_profile.tmp_drop = 0
         r_f_c2544_profile.full_profile = {}
@@ -551,7 +580,6 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         r_f_c2544_profile.execute = mock.Mock()
         r_f_c2544_profile._get_ixia_traffic_profile = mock.Mock()
         r_f_c2544_profile._ixia_traffic_generate = mock.Mock()
-        r_f_c2544_profile.get_multiplier = mock.Mock()
         r_f_c2544_profile.tmp_throughput = 0
         r_f_c2544_profile.tmp_drop = 0
         r_f_c2544_profile.full_profile = {}
@@ -568,9 +596,14 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                              "out_packets": 1002}
         tol_min = 0.0
         tolerance = 1.0
+        #ELF4: Check some actual value, instead of not None
         self.assertIsNotNone(
             r_f_c2544_profile.get_drop_percentage(samples, tol_min, tolerance,
                                                   ixia_obj))
+
+    #ELF4
+    def test_get_drop_percentage_first_run(self):
+        pass
 
     def test_get_drop_percentage_div_zero(self):
         r_f_c2544_profile = IXIARFC2544Profile(self.TRAFFIC_PROFILE)
@@ -579,7 +612,6 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         r_f_c2544_profile.execute = mock.Mock()
         r_f_c2544_profile._get_ixia_traffic_profile = mock.Mock()
         r_f_c2544_profile._ixia_traffic_generate = mock.Mock()
-        r_f_c2544_profile.get_multiplier = mock.Mock()
         r_f_c2544_profile.tmp_throughput = 0
         r_f_c2544_profile.tmp_drop = 0
         r_f_c2544_profile.full_profile = {}
@@ -600,28 +632,3 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         self.assertIsNotNone(
             r_f_c2544_profile.get_drop_percentage(samples, tol_min, tolerance,
                                                   ixia_obj))
-
-    def test_get_multiplier(self):
-        r_f_c2544_profile = IXIARFC2544Profile(self.TRAFFIC_PROFILE)
-        r_f_c2544_profile.max_rate = 100
-        r_f_c2544_profile.min_rate = 100
-        self.assertEqual("1.0", r_f_c2544_profile.get_multiplier())
-
-    def test_start_ixia_latency(self):
-        traffic_generator = mock.Mock(autospec=TrexProfile)
-        traffic_generator.networks = {
-            "uplink_0": ["xe0"],
-            "downlink_0": ["xe1"],
-        }
-        traffic_generator.client = \
-            mock.Mock(return_value=True)
-        r_f_c2544_profile = IXIARFC2544Profile(self.TRAFFIC_PROFILE)
-        r_f_c2544_profile.max_rate = 100
-        r_f_c2544_profile.min_rate = 100
-        ixia_obj = mock.MagicMock()
-        r_f_c2544_profile._get_ixia_traffic_profile = \
-            mock.Mock(return_value={})
-        r_f_c2544_profile.full_profile = {}
-        r_f_c2544_profile._ixia_traffic_generate = mock.Mock()
-        self.assertIsNone(
-            r_f_c2544_profile.start_ixia_latency(traffic_generator, ixia_obj))
