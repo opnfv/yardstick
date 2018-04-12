@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_f63f6685",
+        "filename": "ansible/roles/docker/tasks/Debian.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-12T09:53:08Z",
+      "side": 1,
+      "message": "There should be a check on the version here, so that older versions will still be supported.\n\nIf this isn\u0027t added, then a doc note is needed to say that the repos should be added.",
+      "revId": "097adcf987a194e6aea7b654d83ff2aeb66389ba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
