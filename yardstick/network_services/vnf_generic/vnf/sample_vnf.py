@@ -35,7 +35,6 @@ from yardstick.common import utils
 from yardstick.network_services import constants
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper, DpdkNode
 from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
-from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.utils import get_nsb_option
 from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
@@ -656,49 +655,6 @@ class SampleVNF(GenericVNF):
         self.used_drivers = {}
         self.vnf_port_pairs = None
         self._vnf_process = None
-
-    def _build_ports(self):
-        self._port_pairs = PortPairs(self.vnfd_helper.interfaces)
-        self.networks = self._port_pairs.networks
-        self.uplink_ports = self.vnfd_helper.port_nums(self._port_pairs.uplink_ports)
-        self.downlink_ports = self.vnfd_helper.port_nums(self._port_pairs.downlink_ports)
-        self.my_ports = self.vnfd_helper.port_nums(self._port_pairs.all_ports)
-
-    def _get_route_data(self, route_index, route_type):
-        route_iter = iter(self.vnfd_helper.vdu0.get('nd_route_tbl', []))
-        for _ in range(route_index):
-            next(route_iter, '')
-        return next(route_iter, {}).get(route_type, '')
-
-    def _get_port0localip6(self):
-        return_value = self._get_route_data(0, 'network')
-        LOG.info("_get_port0localip6 : %s", return_value)
-        return return_value
-
-    def _get_port1localip6(self):
-        return_value = self._get_route_data(1, 'network')
-        LOG.info("_get_port1localip6 : %s", return_value)
-        return return_value
-
-    def _get_port0prefixlen6(self):
-        return_value = self._get_route_data(0, 'netmask')
-        LOG.info("_get_port0prefixlen6 : %s", return_value)
-        return return_value
-
-    def _get_port1prefixlen6(self):
-        return_value = self._get_route_data(1, 'netmask')
-        LOG.info("_get_port1prefixlen6 : %s", return_value)
-        return return_value
-
-    def _get_port0gateway6(self):
-        return_value = self._get_route_data(0, 'network')
-        LOG.info("_get_port0gateway6 : %s", return_value)
-        return return_value
-
-    def _get_port1gateway6(self):
-        return_value = self._get_route_data(1, 'network')
-        LOG.info("_get_port1gateway6 : %s", return_value)
-        return return_value
 
     def _start_vnf(self):
         self.queue_wrapper = QueueFileWrapper(self.q_in, self.q_out, self.VNF_PROMPT)
