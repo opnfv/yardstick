@@ -178,3 +178,11 @@ class IxNetworkFlowNotPresent(YardstickException):
 
 class IxNetworkFieldNotPresentInStackItem(YardstickException):
     message = 'Field "%(field_name)s" not present in stack item %(stack_item)s'
+
+
+class TimerTimeout(YardstickException):
+    message = 'Timer timeout expired, %(timeout)s seconds'
+
+
+class WaitTimeout(YardstickException):
+    message = 'Wait timeout while waiting for condition'

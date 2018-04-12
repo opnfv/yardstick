@@ -12,14 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
-
-import time
 import os
 import logging
 import sys
 
-from yardstick.common import utils
 from yardstick import error
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
@@ -137,43 +133,22 @@ class IxiaResourceHelper(ClientResourceHelper):
             mac["src_mac_{}".format(port_num)] = virt_intf.get("local_mac", default)
             mac["dst_mac_{}".format(port_num)] = virt_intf.get("dst_mac", default)
 
-        samples = {}
-        # Generate ixia traffic config...
         try:
             while not self._terminated.value:
                 traffic_profile.execute_traffic(self, self.client, mac)
                 self.client_started.value = 1
-                time.sleep(45)
-                self.client.ix_stop_traffic()
                 samples = self.generate_samples(traffic_profile.ports)
                 self._queue.put(samples)
-                status, samples = traffic_profile.get_drop_percentage(samples, min_tol,
-                                                                      max_tol, self.client, mac)
+                status, samples = traffic_profile.get_drop_percentage(
+                    samples, min_tol, max_tol, self.client, mac)
 
                 current = samples['CurrentDropPercentage']
                 if min_tol <= current <= max_tol or status == 'Completed':
                     self._terminated.value = 1
+                    self._queue.put(samples)
 
-            self.client.ix_stop_traffic()
-            self._queue.put(samples)
-
-            if not self.rfc_helper.is_done():
-                self._terminated.value = 1
-                return
-
-            traffic_profile.execute_traffic(self, self.client, mac)
-            for _ in range(5):
-                time.sleep(self.LATENCY_TIME_SLEEP)
-                self.client.ix_stop_traffic()
-                samples = self.generate_samples(traffic_profile.ports, 'latency', {})
-                self._queue.put(samples)
-                traffic_profile.start_ixia_latency(self, self.client, mac)
-                if self._terminated.value:
-                    break
-
-            self.client.ix_stop_traffic()
         except Exception:  # pylint: disable=broad-except
-            LOG.exception("Run Traffic terminated")
+            LOG.exception('Run Traffic terminated')
 
         self._terminated.value = 1
 

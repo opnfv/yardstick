@@ -119,6 +119,13 @@ class IXIARFC2544Profile(TrexProfile):
             self.get_multiplier()
             self._ixia_traffic_generate(traffic, ixia_obj)
 
+    def is_traffic_running(self):
+        """Get if the traffic is running
+
+        Queries the IXIA IxNetwork driver to retrieve the state of the traffic.
+        :return: True if state=
+        """
+
     def get_multiplier(self):
         self.rate = round((self.max_rate + self.min_rate) / 2.0, 2)
         multiplier = round(self.rate / self.pps, 2)
