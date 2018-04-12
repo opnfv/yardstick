@@ -12,9 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from yardstick import tests
+import sys
 
+import mock
+
+from yardstick import tests
 
 # NOTE(ralonsoh): to be removed. Replace all occurrences of
 # tests.unit.STL_MOCKS with yardstick.tests.STL_MOCKS
 STL_MOCKS = tests.STL_MOCKS
+
+mock_stl = mock.patch.dict(sys.modules, tests.STL_MOCKS)
+mock_stl.start()

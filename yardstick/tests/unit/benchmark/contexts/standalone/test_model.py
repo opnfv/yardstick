@@ -549,5 +549,5 @@ class OvsDeployTestCase(unittest.TestCase):
                     'ovs_version': ovs_version,
                     'dpdk_version': dpdk_version,
                     'proxy': 'test_proxy'})
-            mock_execute.assert_called_once_with(cmd)
-            mock_env_get.assert_called_once_with('http_proxy', '')
+            mock_execute.assert_called_with(cmd)
+            mock_env_get.assert_called_with('http_proxy', '')
