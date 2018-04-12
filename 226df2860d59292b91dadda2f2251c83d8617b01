@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_53e0ec95",
+        "filename": "yardstick/tests/unit/apiserver/resources/v2/test_images.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-04-12T07:59:28Z",
+      "side": 1,
+      "message": "missing license info in new file",
+      "revId": "226df2860d59292b91dadda2f2251c83d8617b01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
