@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
 import logging
 
+from yardstick.network_services.libs.ixia_libs.IxNet import IxNet
 from yardstick.network_services.traffic_profile.trex_traffic_profile import \
     TrexProfile
 
@@ -105,48 +105,39 @@ class IXIARFC2544Profile(TrexProfile):
 
         self.ports = [port for port in port_generator()]
 
-    def execute_traffic(self, traffic_generator, ixia_obj, mac=None):
-        if mac is None:
-            mac = {}
+    def execute_traffic(self, traffic_generator, ixia_obj=None, mac=None):
+        mac = {} if mac is None else mac
+        first_run = self.first_run
         if self.first_run:
+            self.first_run = False
             self.full_profile = {}
             self.pg_id = 0
             self.update_traffic_profile(traffic_generator)
-            traffic = \
-                self._get_ixia_traffic_profile(self.full_profile, mac)
             self.max_rate = self.rate
             self.min_rate = 0
-            self.get_multiplier()
-            self._ixia_traffic_generate(traffic, ixia_obj)
 
-    def get_multiplier(self):
         self.rate = round((self.max_rate + self.min_rate) / 2.0, 2)
-        multiplier = round(self.rate / self.pps, 2)
-        return str(multiplier)
-
-    def start_ixia_latency(self, traffic_generator, ixia_obj, mac=None):
-        if mac is None:
-            mac = {}
-        self.update_traffic_profile(traffic_generator)
-        traffic = \
-            self._get_ixia_traffic_profile(self.full_profile, mac)
+        traffic = self._get_ixia_traffic_profile(self.full_profile, mac)
         self._ixia_traffic_generate(traffic, ixia_obj)
+        return first_run
 
-    def get_drop_percentage(self, samples, tol_min, tolerance, ixia_obj,
-                            mac=None):
-        if mac is None:
-            mac = {}
-        status = 'Running'
+    def get_drop_percentage(self, samples, tol_min, tolerance, duration=30.0,
+                            first_run=False):
+        completed = False
         drop_percent = 100
-        in_packets = sum([samples[iface]['in_packets'] for iface in samples])
-        out_packets = sum([samples[iface]['out_packets'] for iface in samples])
-        rx_throughput = \
-            sum([samples[iface]['RxThroughput'] for iface in samples])
-        tx_throughput = \
-            sum([samples[iface]['TxThroughput'] for iface in samples])
-        packet_drop = abs(out_packets - in_packets)
+        num_ifaces = len(samples)
+        in_packets_sum = sum([samples[iface]['in_packets']
+                                for iface in samples])
+        out_packets_sum = sum([samples[iface]['out_packets']
+                                 for iface in samples])
+        rx_throughput = sum([samples[iface]['RxThroughput']
+                             for iface in samples])
+        tx_throughput = sum([samples[iface]['TxThroughput']
+                             for iface in samples])
+        packet_drop = abs(out_packets_sum - in_packets_sum)
         try:
-            drop_percent = round((packet_drop / float(out_packets)) * 100, 2)
+            drop_percent = round(
+                (packet_drop / float(out_packets_sum)) * 100, 2)
         except ZeroDivisionError:
             LOG.info('No traffic is flowing')
         samples['TxThroughput'] = round(tx_throughput / 1.0, 2)
@@ -154,15 +145,15 @@ class IXIARFC2544Profile(TrexProfile):
         samples['CurrentDropPercentage'] = drop_percent
         samples['Throughput'] = self.tmp_throughput
         samples['DropPercentage'] = self.tmp_drop
+
         if drop_percent > tolerance and self.tmp_throughput == 0:
             samples['Throughput'] = round(rx_throughput / 1.0, 2)
             samples['DropPercentage'] = drop_percent
-        if self.first_run:
-            max_supported_rate = out_packets / 30.0
-            self.rate = max_supported_rate
-            self.first_run = False
-            if drop_percent <= tolerance:
-                status = 'Completed'
+
+        if first_run:
+            self.rate = out_packets_sum / duration / num_ifaces
+            completed = True if drop_percent <= tolerance else False
+
         if drop_percent > tolerance:
             self.max_rate = self.rate
         elif drop_percent < tol_min:
@@ -175,8 +166,5 @@ class IXIARFC2544Profile(TrexProfile):
         else:
             samples['Throughput'] = round(rx_throughput / 1.0, 2)
             samples['DropPercentage'] = drop_percent
-            return status, samples
-        self.get_multiplier()
-        traffic = self._get_ixia_traffic_profile(self.full_profile, mac)
-        self._ixia_traffic_generate(traffic, ixia_obj)
-        return status, samples
+
+        return completed, samples

@@ -16,6 +16,7 @@ import logging
 import IxNetwork
 
 from yardstick.common import exceptions
+from yardstick.common import utils
 
 
 log = logging.getLogger(__name__)
@@ -32,6 +33,9 @@ PROTO_VLAN = 'vlan'
 
 IP_VERSION_4_MASK = '0.0.0.255'
 IP_VERSION_6_MASK = '0:0:0:0:0:0:0:ff'
+
+TRAFFIC_STATUS_STARTED = 'started'
+TRAFFIC_STATUS_STOPPED = 'stopped'
 
 
 class IxNextgen(object):
@@ -53,12 +57,6 @@ class IxNextgen(object):
         "Store-Forward_Min_latency_ns": 'Store-Forward Min Latency (ns)',
         "Store-Forward_Max_latency_ns": 'Store-Forward Max Latency (ns)',
     }
-
-    # MODE_SEEDS_MAP = {
-    #     0: ('uplink', ['256', '2048']),
-    # }
-    #
-    # MODE_SEEDS_DEFAULT = 'downlink', ['2048', '256']
 
     @staticmethod
     def get_config(tg_cfg):
@@ -146,6 +144,19 @@ class IxNextgen(object):
             return field
         raise exceptions.IxNetworkFieldNotPresentInStackItem(
             field_name=field_name, stack_item=stack_item)
+
+    def _get_traffic_state(self):
+        """Get traffic state"""
+        return self.ixnet.getAttribute(self.ixnet.getRoot() + 'traffic',
+                                       '-state')
+
+    def is_traffic_running(self):
+        """Returns true if traffic state == TRAFFIC_STATUS_STARTED"""
+        return self._get_traffic_state() == TRAFFIC_STATUS_STARTED
+
+    def is_traffic_stopped(self):
+        """Returns true if traffic state == TRAFFIC_STATUS_STOPPED"""
+        return self._get_traffic_state() == TRAFFIC_STATUS_STOPPED
 
     @staticmethod
     def _parse_framesize(framesize):
@@ -392,7 +403,6 @@ class IxNextgen(object):
                                      '-randomMask', mask,
                                      '-valueType', 'random',
                                      '-countValue', count)
-
         self.ixnet.commit()
 
     def update_ip_packet(self, traffic):
@@ -443,13 +453,17 @@ class IxNextgen(object):
         return stats
 
     def start_traffic(self):
-        tis = self.ixnet.getList('/traffic', 'trafficItem')
-        for ti in tis:
-            self.ixnet.execute('generate', [ti])
-            self.ixnet.execute('apply', '/traffic')
-            self.ixnet.execute('start', '/traffic')
+        """Start the traffic injection in the traffic item
 
-    def ix_stop_traffic(self):
-        tis = self.ixnet.getList('/traffic', 'trafficItem')
-        for _ in tis:
+        By configuration, there is only one traffic item. This function returns
+        when the traffic state is TRAFFIC_STATUS_STARTED.
+        """
+        traffic_items = self.ixnet.getList('/traffic', 'trafficItem')
+        if self.is_traffic_running():
             self.ixnet.execute('stop', '/traffic')
+            utils.wait_until_true(lambda: self.is_traffic_stopped())
+
+        self.ixnet.execute('generate', traffic_items)
+        self.ixnet.execute('apply', '/traffic')
+        self.ixnet.execute('start', '/traffic')
+        utils.wait_until_true(lambda: self.is_traffic_running())
