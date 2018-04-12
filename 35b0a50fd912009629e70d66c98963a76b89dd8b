@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_96d7024b",
+        "filename": "etc/yardstick/nodes/apex_baremetal/pod.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-12T09:42:10Z",
+      "side": 1,
+      "message": "There is not a separate ODL node.\n\nODL will be run on node1, node2 and node3, which are the OpenStack controllers.",
+      "parentUuid": "5a3f45e8_ad2e2d41",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "35b0a50fd912009629e70d66c98963a76b89dd8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_27140c4d",
         "filename": "tests/ci/prepare_env.sh",
         "patchSetId": 4
