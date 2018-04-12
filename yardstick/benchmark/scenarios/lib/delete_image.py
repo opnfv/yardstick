@@ -7,13 +7,11 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import print_function
-from __future__ import absolute_import
-
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
+from yardstick.common import openstack_utils
+from yardstick.common import exceptions
 
 LOG = logging.getLogger(__name__)
 
@@ -26,12 +24,14 @@ class DeleteImage(base.Scenario):
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
+        self.options = self.scenario_cfg["options"]
 
-        self.image_name = self.options.get("image_name", "TestImage")
-        self.image_id = None
+        self.image_name_or_id = self.options["image_name_or_id"]
+        self.wait = self.options.get("wait", False)
+        self.timeout = self.options.get("timeout", 3600)
+        self.delete_objects = self.options.get("delete_objects", True)
 
-        self.glance_client = op_utils.get_glance_client()
+        self.shade_client = openstack_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -46,16 +46,14 @@ class DeleteImage(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        self.image_id = op_utils.get_image_id(self.glance_client, self.image_name)
-        LOG.info("Deleting image: %s", self.image_name)
-        status = op_utils.delete_image(self.glance_client, self.image_id)
+        status = openstack_utils.delete_image(
+            self.shade_client, self.image_name_or_id, wait=self.wait,
+            timeout=self.timeout, delete_objects=self.delete_objects)
 
-        if status:
-            LOG.info("Delete image successful!")
-            values = [status]
-        else:
-            LOG.info("Delete image failed!")
-            values = []
+        if not status:
+            result.update({"delete_image": 0})
+            LOG.error("Delete image failed!")
+            raise exceptions.ScenarioDeleteImageError
 
-        keys = self.scenario_cfg.get('output', '').split()
-        return self._push_to_outputs(keys, values)
+        result.update({"delete_image": 1})
+        LOG.info("Delete image successful!")
