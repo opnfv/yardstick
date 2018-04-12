@@ -34,23 +34,21 @@ Yardstick Test Case Description TC050
 |              | 2) host: which is the name of a control node being attacked. |
 |              | 3) interface: the network interface to be turned off.        |
 |              |                                                              |
-|              | There are four instance of the "close-interface" monitor:    |
+|              | The interface to be closed by the attacker can be set by the |
+|              | variable of "{{ interface_name }}"                           |
 |              | attacker1(for public netork):                                |
-|              | -fault_type: "close-interface"                               |
-|              | -host: node1                                                 |
-|              | -interface: "br-ex"                                          |
-|              | attacker2(for management netork):                            |
-|              | -fault_type: "close-interface"                               |
-|              | -host: node1                                                 |
-|              | -interface: "br-mgmt"                                        |
-|              | attacker3(for storage netork):                               |
-|              | -fault_type: "close-interface"                               |
-|              | -host: node1                                                 |
-|              | -interface: "br-storage"                                     |
-|              | attacker4(for private netork):                               |
-|              | -fault_type: "close-interface"                               |
-|              | -host: node1                                                 |
-|              | -interface: "br-mesh"                                        |
+|              |                                                              |
+|              |        attackers:                                            |
+|              |          -                                                   |
+|              |            fault_type: "general-attacker"                    |
+|              |            host: {{ attack_host }}                           |
+|              |            key: "close-br-public"                            |
+|              |            attack_key: "close-interface"                     |
+|              |            action_parameter:                                 |
+|              |              interface: {{ interface_name }}                 |
+|              |            rollback_parameter:                               |
+|              |              interface: {{ interface_name }}                 |
+|              |                                                              |
 +--------------+--------------------------------------------------------------+
 |monitors      | In this test case, the monitor named "openstack-cmd" is      |
 |              | needed. The monitor needs needs two parameters:              |
@@ -61,17 +59,17 @@ Yardstick Test Case Description TC050
 |              |                                                              |
 |              | There are four instance of the "openstack-cmd" monitor:      |
 |              | monitor1:                                                    |
-|              | -monitor_type: "openstack-cmd"                               |
-|              | -command_name: "nova image-list"                             |
+|              |     - monitor_type: "openstack-cmd"                          |
+|              |     - command_name: "nova image-list"                        |
 |              | monitor2:                                                    |
-|              | -monitor_type: "openstack-cmd"                               |
-|              | -command_name: "neutron router-list"                         |
+|              |     - monitor_type: "openstack-cmd"                          |
+|              |     - command_name: "neutron router-list"                    |
 |              | monitor3:                                                    |
-|              | -monitor_type: "openstack-cmd"                               |
-|              | -command_name: "heat stack-list"                             |
+|              |     - monitor_type: "openstack-cmd"                          |
+|              |     - command_name: "heat stack-list"                        |
 |              | monitor4:                                                    |
-|              | -monitor_type: "openstack-cmd"                               |
-|              | -command_name: "cinder list"                                 |
+|              |     - monitor_type: "openstack-cmd"                          |
+|              |     - command_name: "cinder list"                            |
 +--------------+--------------------------------------------------------------+
 |metrics       | In this test case, there is one metric:                      |
 |              | 1)service_outage_time: which indicates the maximum outage    |
@@ -109,9 +107,9 @@ Yardstick Test Case Description TC050
 +--------------+--------------------------------------------------------------+
 |step 2        | do attacker: connect the host through SSH, and then execute  |
 |              | the turnoff network interface script with param value        |
-|              | specified by  "interface".                                   |
+|              | specified by "{{ interface_name }}".                         |
 |              |                                                              |
-|              | Result: Network interfaces will be turned down.              |
+|              | Result: The specified network interface will be down.        |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |step 3        | stop monitors after a period of time specified by            |
@@ -133,3 +131,4 @@ Yardstick Test Case Description TC050
 |              | execution problem.                                           |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
+

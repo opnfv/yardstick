@@ -13,12 +13,9 @@ description: >
     Yardstick TC050 config file;
     HA test case: OpenStack Controller Node Network High Availability.
 
-{% set file = file or '/etc/yardstick/pod.yaml' %}
 {% set attack_host = attack_host or "node1" %}
-{% set external_net = external_net or 'br-ex' %}
-{% set management_net = management_net or 'br-mgmt' %}
-{% set storage_net = storage_net or 'br-storage' %}
-{% set internal_net = internal_net or 'br-mesh' %}
+{% set interface_name = interface_name or 'br-ex' %}
+{% set file = file or '/etc/yardstick/pod.yaml' %}
 
 scenarios:
   -
@@ -27,43 +24,13 @@ scenarios:
       attackers:
         -
           fault_type: "general-attacker"
-          host: {{attack_host}}
+          host: {{ attack_host }}
           key: "close-br-public"
           attack_key: "close-interface"
           action_parameter:
-            interface: {{external_net}}
+            interface: {{ interface_name }}
           rollback_parameter:
-            interface: {{external_net}}
-
-        -
-          fault_type: "general-attacker"
-          host: {{attack_host}}
-          key: "close-br-mgmt"
-          attack_key: "close-interface"
-          action_parameter:
-            interface: {{management_net}}
-          rollback_parameter:
-            interface: {{management_net}}
-
-        -
-          fault_type: "general-attacker"
-          host: {{attack_host}}
-          key: "close-br-storage"
-          attack_key: "close-interface"
-          action_parameter:
-            interface: {{storage_net}}
-          rollback_parameter:
-            interface: {{storage_net}}
-
-        -
-          fault_type: "general-attacker"
-          host: {{attack_host}}
-          key: "close-br-private"
-          attack_key: "close-interface"
-          action_parameter:
-            interface: {{internal_net}}
-          rollback_parameter:
-            interface: {{internal_net}}
+            interface: {{ interface_name }}
 
       monitors:
         -
@@ -105,48 +72,34 @@ scenarios:
 
       steps:
         -
-          actionKey: "close-br-public"
-          actionType: "attacker"
-          index: 1
-
-        -
-          actionKey: "close-br-mgmt"
-          actionType: "attacker"
-          index: 2
-
-        -
-          actionKey: "close-br-storage"
-          actionType: "attacker"
-          index: 3
-
-        -
-          actionKey: "close-br-private"
-          actionType: "attacker"
-          index: 4
-
-        -
           actionKey: "nova-image-list"
           actionType: "monitor"
-          index: 5
+          index: 1
 
         -
           actionKey: "neutron-router-list"
           actionType: "monitor"
-          index: 6
+          index: 2
 
         -
           actionKey: "heat-stack-list"
           actionType: "monitor"
-          index: 7
+          index: 3
 
         -
           actionKey: "cinder-list"
           actionType: "monitor"
-          index: 8
+          index: 4
+
+        -
+          actionKey: "close-br-public"
+          actionType: "attacker"
+          index: 5
+
 
 
     nodes:
-      {{attack_host}}: {{attack_host}}.LF
+      {{ attack_host }}: {{ attack_host }}.LF
     runner:
       type: Duration
       duration: 1
@@ -157,4 +110,4 @@ scenarios:
 context:
   type: Node
   name: LF
-  file: {{file}}
+  file: {{ file }}
