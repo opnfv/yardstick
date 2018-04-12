@@ -44,7 +44,7 @@ class TestTrafficProfile(unittest.TestCase):
         traffic_profile = base.TrafficProfile(self.TRAFFIC_PROFILE)
         self.assertEqual(self.TRAFFIC_PROFILE, traffic_profile.params)
 
-    def test_execute(self):
+    def test_execute_traffic(self):
         traffic_profile = base.TrafficProfile(self.TRAFFIC_PROFILE)
         self.assertRaises(NotImplementedError,
                           traffic_profile.execute_traffic, {})
