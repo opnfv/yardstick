@@ -1661,42 +1661,6 @@ class TestSampleVnf(unittest.TestCase):
         # test the default resource helper is MyResourceHelper, not subclass
         self.assertEqual(type(sample_vnf.resource_helper), MyResourceHelper)
 
-    def test__get_port0localip6(self):
-        sample_vnf = SampleVNF('vnf1', self.VNFD_0)
-        expected = '0064:ff9b:0:0:0:0:9810:6414'
-        result = sample_vnf._get_port0localip6()
-        self.assertEqual(result, expected)
-
-    def test__get_port1localip6(self):
-        sample_vnf = SampleVNF('vnf1', self.VNFD_0)
-        expected = '0064:ff9b:0:0:0:0:9810:2814'
-        result = sample_vnf._get_port1localip6()
-        self.assertEqual(result, expected)
-
-    def test__get_port0prefixip6(self):
-        sample_vnf = SampleVNF('vnf1', self.VNFD_0)
-        expected = '112'
-        result = sample_vnf._get_port0prefixlen6()
-        self.assertEqual(result, expected)
-
-    def test__get_port1prefixip6(self):
-        sample_vnf = SampleVNF('vnf1', self.VNFD_0)
-        expected = '112'
-        result = sample_vnf._get_port1prefixlen6()
-        self.assertEqual(result, expected)
-
-    def test__get_port0gateway6(self):
-        sample_vnf = SampleVNF('vnf1', self.VNFD_0)
-        expected = '0064:ff9b:0:0:0:0:9810:6414'
-        result = sample_vnf._get_port0gateway6()
-        self.assertEqual(result, expected)
-
-    def test__get_port1gateway6(self):
-        sample_vnf = SampleVNF('vnf1', self.VNFD_0)
-        expected = '0064:ff9b:0:0:0:0:9810:2814'
-        result = sample_vnf._get_port1gateway6()
-        self.assertEqual(result, expected)
-
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.Process')
     def test__start_vnf(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
@@ -1784,16 +1748,6 @@ class TestSampleVnf(unittest.TestCase):
         sample_vnf.resource_helper.start_collect = mock.MagicMock()
 
         self.assertEqual(sample_vnf.wait_for_instantiate(), 0)
-
-    def test__build_ports(self):
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd)
-
-        self.assertIsNone(sample_vnf._build_ports())
-        self.assertIsNotNone(sample_vnf.networks)
-        self.assertIsNotNone(sample_vnf.uplink_ports)
-        self.assertIsNotNone(sample_vnf.downlink_ports)
-        self.assertIsNotNone(sample_vnf.my_ports)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     def test_vnf_execute_with_queue_data(self, *args):
