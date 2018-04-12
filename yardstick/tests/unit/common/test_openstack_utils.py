@@ -666,3 +666,30 @@ class CreateImageTestCase(unittest.TestCase):
                                               self.name)
         mock_logger.error.assert_called_once()
         self.assertIsNone(output)
+
+
+class DeleteImageTestCase(unittest.TestCase):
+
+    def test_delete_image(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.delete_image.return_value = True
+        output = openstack_utils.delete_image(self.mock_shade_client,
+                                              'image_name_or_id')
+        self.assertTrue(output)
+
+    def test_delete_image_fail(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.delete_image.return_value = False
+        output = openstack_utils.delete_image(self.mock_shade_client,
+                                              'image_name_or_id')
+        self.assertFalse(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_delete_image_exception(self, mock_logger):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.delete_image.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.delete_image(self.mock_shade_client,
+                                              'image_name_or_id')
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
