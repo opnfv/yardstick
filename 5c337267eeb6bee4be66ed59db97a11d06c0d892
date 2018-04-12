@@ -22,6 +22,30 @@
       "revId": "5c337267eeb6bee4be66ed59db97a11d06c0d892",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a11916d9",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-12T16:23:00Z",
+      "side": 1,
+      "message": "This is only concatenating a directory and a file names to obtain the full path.",
+      "parentUuid": "5a3f45e8_b6603ea6",
+      "range": {
+        "startLine": 59,
+        "startChar": 28,
+        "endLine": 60,
+        "endChar": 59
+      },
+      "revId": "5c337267eeb6bee4be66ed59db97a11d06c0d892",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
