@@ -454,3 +454,59 @@ class TestIxNextgen(unittest.TestCase):
                                return_value=None):
             with self.assertRaises(exceptions.IxNetworkFlowNotPresent):
                 ixnet_gen.update_ip_packet(TRAFFIC_PARAMETERS)
+
+    @mock.patch.object(ixnet_api.IxNextgen, '_get_traffic_state')
+    def test_start_traffic(self, mock_ixnextgen_get_traffic_state):
+        ixnet_gen = ixnet_api.IxNextgen()
+        ixnet_gen._ixnet = self.ixnet
+        ixnet_gen._ixnet.getList.return_value = [0]
+
+        mock_ixnextgen_get_traffic_state.side_effect = [
+            'stopped', 'started', 'started', 'started']
+
+        result = ixnet_gen.start_traffic()
+        self.assertIsNone(result)
+        self.ixnet.getList.assert_called_once()
+        self.assertEqual(3, ixnet_gen._ixnet.execute.call_count)
+
+    @mock.patch.object(ixnet_api.IxNextgen, '_get_traffic_state')
+    def test_start_traffic_traffic_running(
+            self, mock_ixnextgen_get_traffic_state):
+        ixnet_gen = ixnet_api.IxNextgen()
+        ixnet_gen._ixnet = self.ixnet
+        ixnet_gen._ixnet.getList.return_value = [0]
+        mock_ixnextgen_get_traffic_state.side_effect = [
+            'started', 'stopped', 'started']
+
+        result = ixnet_gen.start_traffic()
+        self.assertIsNone(result)
+        self.ixnet.getList.assert_called_once()
+        self.assertEqual(4, ixnet_gen._ixnet.execute.call_count)
+
+    @mock.patch.object(ixnet_api.IxNextgen, '_get_traffic_state')
+    def test_start_traffic_wait_for_traffic_to_stop(
+            self, mock_ixnextgen_get_traffic_state):
+        ixnet_gen = ixnet_api.IxNextgen()
+        ixnet_gen._ixnet = self.ixnet
+        ixnet_gen._ixnet.getList.return_value = [0]
+        mock_ixnextgen_get_traffic_state.side_effect = [
+            'started', 'started', 'started', 'stopped', 'started']
+
+        result = ixnet_gen.start_traffic()
+        self.assertIsNone(result)
+        self.ixnet.getList.assert_called_once()
+        self.assertEqual(4, ixnet_gen._ixnet.execute.call_count)
+
+    @mock.patch.object(ixnet_api.IxNextgen, '_get_traffic_state')
+    def test_start_traffic_wait_for_traffic_start(
+            self, mock_ixnextgen_get_traffic_state):
+        ixnet_gen = ixnet_api.IxNextgen()
+        ixnet_gen._ixnet = self.ixnet
+        ixnet_gen._ixnet.getList.return_value = [0]
+        mock_ixnextgen_get_traffic_state.side_effect = [
+            'stopped', 'stopped', 'stopped', 'started']
+
+        result = ixnet_gen.start_traffic()
+        self.assertIsNone(result)
+        self.ixnet.getList.assert_called_once()
+        self.assertEqual(3, ixnet_gen._ixnet.execute.call_count)
