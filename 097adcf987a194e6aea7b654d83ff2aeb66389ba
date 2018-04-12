@@ -16,6 +16,24 @@
       "revId": "097adcf987a194e6aea7b654d83ff2aeb66389ba",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c139c2a5",
+        "filename": "ansible/roles/docker/tasks/Debian.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-12T14:19:48Z",
+      "side": 1,
+      "message": "This is supported in both Ubuntu 16.04 and 17.10, which are the only Debian distributions supported.\n\nWe support\n- openSuse (no version defined)\n- CentOS (no version defined)\n- Ubuntu 16.04\n- Ubuntu 17.10\n\n(Ubuntu 18.04 will be in one or two months).",
+      "parentUuid": "5a3f45e8_f63f6685",
+      "revId": "097adcf987a194e6aea7b654d83ff2aeb66389ba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
