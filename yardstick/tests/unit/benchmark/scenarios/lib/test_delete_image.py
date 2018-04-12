@@ -9,21 +9,44 @@
 import unittest
 import mock
 
-from yardstick.benchmark.scenarios.lib.delete_image import DeleteImage
+from yardstick.common import openstack_utils
+from yardstick.common import exceptions
+from yardstick.benchmark.scenarios.lib import delete_image
 
 
 class DeleteImageTestCase(unittest.TestCase):
 
-    @mock.patch('yardstick.common.openstack_utils.delete_image')
-    @mock.patch('yardstick.common.openstack_utils.get_image_id')
-    @mock.patch('yardstick.common.openstack_utils.get_glance_client')
-    def test_delete_image(self, mock_get_glance_client, mock_image_id, mock_delete_image):
-        options = {
-            'image_name': 'yardstick_test_image_01'
-        }
-        args = {"options": options}
-        obj = DeleteImage(args, {})
-        obj.run({})
-        mock_delete_image.assert_called_once()
-        mock_image_id.assert_called_once()
-        mock_get_glance_client.assert_called_once()
+    def setUp(self):
+        self._mock_delete_image = mock.patch.object(
+            openstack_utils, 'delete_image')
+        self.mock_delete_image = (
+            self._mock_delete_image.start())
+        self._mock_get_shade_client = mock.patch.object(
+            openstack_utils, 'get_shade_client')
+        self.mock_get_shade_client = self._mock_get_shade_client.start()
+        self._mock_log = mock.patch.object(delete_image, 'LOG')
+        self.mock_log = self._mock_log.start()
+        self.args = {'options': {'image_name_or_id': 'yardstick_image'}}
+        self.result = {}
+
+        self.delimg_obj = delete_image.DeleteImage(self.args, mock.ANY)
+
+        self.addCleanup(self._stop_mock)
+
+    def _stop_mock(self):
+        self._mock_delete_image.stop()
+        self._mock_get_shade_client.stop()
+        self._mock_log.stop()
+
+    def test_run(self):
+        self.mock_delete_image.return_value = True
+        self.assertIsNone(self.delimg_obj.run(self.result))
+        self.assertEqual({'delete_image': 1}, self.result)
+        self.mock_log.info.assert_called_once_with('Delete image successful!')
+
+    def test_run_fail(self):
+        self.mock_delete_image.return_value = False
+        with self.assertRaises(exceptions.ScenarioDeleteImageError):
+            self.delimg_obj.run(self.result)
+        self.assertEqual({'delete_image': 0}, self.result)
+        self.mock_log.error.assert_called_once_with('Delete image failed!')

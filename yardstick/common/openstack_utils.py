@@ -708,11 +708,6 @@ def create_security_group_full(shade_client, sg_name,
 # *********************************************
 #   GLANCE
 # *********************************************
-def get_image_id(glance_client, image_name):    # pragma: no cover
-    images = glance_client.images.list()
-    return next((i.id for i in images if i.name == image_name), None)
-
-
 def create_image(shade_client, name, filename=None, container='images',
                  md5=None, sha256=None, disk_format=None,
                  container_format=None, disable_vendor_agent=True,
@@ -773,15 +768,17 @@ def create_image(shade_client, name, filename=None, container='images',
                   "Exception message: %s", op_exc.orig_message)
 
 
-def delete_image(glance_client, image_id):    # pragma: no cover
+def delete_image(shade_client, name_or_id, wait=False, timeout=3600,
+                 delete_objects=True):
     try:
-        glance_client.images.delete(image_id)
+        return shade_client.delete_image(name_or_id, wait=wait,
+                                         timeout=timeout,
+                                         delete_objects=delete_objects)
 
-    except Exception:  # pylint: disable=broad-except
-        log.exception("Error [delete_flavor(glance_client, %s)]", image_id)
+    except exc.OpenStackCloudException as op_exc:
+        log.error("Failed to delete_image(shade_client). "
+                  "Exception message: %s", op_exc.orig_message)
         return False
-    else:
-        return True
 
 
 def list_images(shade_client=None):
