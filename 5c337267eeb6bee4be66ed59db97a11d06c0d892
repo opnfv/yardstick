@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_b6603ea6",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-12T10:03:51Z",
+      "side": 1,
+      "message": "This doesn\u0027t execute this command on the VNF, right?\nPreviously it did, during deploy(), right?",
+      "range": {
+        "startLine": 59,
+        "startChar": 28,
+        "endLine": 60,
+        "endChar": 59
+      },
+      "revId": "5c337267eeb6bee4be66ed59db97a11d06c0d892",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
