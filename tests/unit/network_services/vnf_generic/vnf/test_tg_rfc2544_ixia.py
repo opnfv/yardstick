@@ -30,7 +30,8 @@ NAME = "tg__1"
 class TestIxiaResourceHelper(unittest.TestCase):
 
     def setUp(self):
-        self._mock_IxNextgen = mock.patch.object(tg_rfc2544_ixia, 'IxNextgen')
+        self._mock_IxNextgen = mock.patch.object(tg_rfc2544_ixia,
+                                                 'IxNextgen')
         self.mock_IxNextgen = self._mock_IxNextgen.start()
         self.addCleanup(self._stop_mocks)
 
@@ -54,13 +55,19 @@ class TestIxiaResourceHelper(unittest.TestCase):
         ixia_resource_helper.stop_collect()
         self.assertEqual(mock_client.ix_stop_traffic.call_count, 1)
 
-    # NOTE(ralonsoh): to be updated in next patchset
-    def test__initialise_client(self):
-        pass
-
-    # NOTE(ralonsoh): to be updated in next patchset
     def test_run_traffic(self):
-        pass
+        mock_tprofile = mock.Mock()
+        mock_tprofile.get_drop_percentage.return_value = True, 'fake_samples'
+        ixia_rhelper = tg_rfc2544_ixia.IxiaResourceHelper(mock.Mock())
+        ixia_rhelper.rfc_helper = mock.Mock()
+        ixia_rhelper.vnfd_helper = mock.Mock()
+        ixia_rhelper.vnfd_helper.port_pairs.all_ports = []
+        with mock.patch.object(ixia_rhelper, 'generate_samples'), \
+                mock.patch.object(ixia_rhelper, '_build_ports'), \
+                mock.patch.object(ixia_rhelper, '_initialize_client'):
+            ixia_rhelper.run_traffic(mock_tprofile)
+
+        self.assertEqual('fake_samples', ixia_rhelper._queue.get())
 
 
 @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.IxNextgen")
@@ -248,7 +255,6 @@ class TestIXIATrafficGen(unittest.TestCase):
         sut = tg_rfc2544_ixia.IxiaTrafficGen('vnf1', vnfd)
         sut._check_status()
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.time")
     @mock.patch("yardstick.ssh.SSH")
     def test_traffic_runner(self, mock_ssh, *args):
         mock_traffic_profile = mock.Mock(autospec=tp_base.TrafficProfile)
