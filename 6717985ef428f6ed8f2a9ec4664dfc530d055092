@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e1e03efc",
+        "filename": "etc/yardstick/nodes/apex_baremetal/pod.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2018-04-12T15:09:17Z",
+      "side": 1,
+      "message": "why do you only care about member-0?  member-0 is not guaranteed to be leader of the cluster.",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 42,
+        "endChar": 15
+      },
+      "revId": "6717985ef428f6ed8f2a9ec4664dfc530d055092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
