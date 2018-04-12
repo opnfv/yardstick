@@ -242,3 +242,7 @@ class ScenarioDetachVolumeError(YardstickException):
 
 class ScenarioCreateImageError(YardstickException):
     message = 'Glance Create Image Scenario failed'
+
+
+class ScenarioDeleteImageError(YardstickException):
+    message = 'Glance Delete Image Scenario failed'
