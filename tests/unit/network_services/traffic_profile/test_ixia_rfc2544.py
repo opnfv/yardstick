@@ -590,22 +590,3 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         r_f_c2544_profile.max_rate = 100
         r_f_c2544_profile.min_rate = 100
         self.assertEqual("1.0", r_f_c2544_profile.get_multiplier())
-
-    def test_start_ixia_latency(self):
-        traffic_generator = mock.Mock(autospec=TrexProfile)
-        traffic_generator.networks = {
-            "uplink_0": ["xe0"],
-            "downlink_0": ["xe1"],
-        }
-        traffic_generator.client = \
-            mock.Mock(return_value=True)
-        r_f_c2544_profile = IXIARFC2544Profile(self.TRAFFIC_PROFILE)
-        r_f_c2544_profile.max_rate = 100
-        r_f_c2544_profile.min_rate = 100
-        ixia_obj = mock.MagicMock()
-        r_f_c2544_profile._get_ixia_traffic_profile = \
-            mock.Mock(return_value={})
-        r_f_c2544_profile.full_profile = {}
-        r_f_c2544_profile._ixia_traffic_generate = mock.Mock()
-        self.assertIsNone(
-            r_f_c2544_profile.start_ixia_latency(traffic_generator, ixia_obj))
