@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_36b1ce47",
+        "filename": "tests/unit/network_services/collector/test_subscriber.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-12T09:32:47Z",
+      "side": 1,
+      "message": "Are there any circumstances where this doesn\u0027t raise an exception?",
+      "range": {
+        "startLine": 85,
+        "startChar": 12,
+        "endLine": 85,
+        "endChar": 34
+      },
+      "revId": "0392ab8066c48837f794b3301ab724dc7ddc8322",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b684be5e",
+        "filename": "tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-12T09:32:47Z",
+      "side": 1,
+      "message": "There\u0027s a lot going on in start_collectd.\n\nThere are multiple possible points of failure:\n- any of the cmds fail\n- rabbit is not up\n- collectd does not come up",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 35
+      },
+      "revId": "0392ab8066c48837f794b3301ab724dc7ddc8322",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d6a86add",
+        "filename": "tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-12T09:32:47Z",
+      "side": 1,
+      "message": "Are there any times when this doesn\u0027t raise an exception?\n\nWe should be able to test success as well as failure",
+      "range": {
+        "startLine": 131,
+        "startChar": 22,
+        "endLine": 131,
+        "endChar": 46
+      },
+      "revId": "0392ab8066c48837f794b3301ab724dc7ddc8322",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f6a3e6fd",
+        "filename": "tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-12T09:32:47Z",
+      "side": 1,
+      "message": "The indentation should be offset by 4 from the previous level.",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 12
+      },
+      "revId": "0392ab8066c48837f794b3301ab724dc7ddc8322",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d67fca64",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-12T09:32:47Z",
+      "side": 1,
+      "message": "Could these all be done in a start_rabbitmq method instead?\n\nrabbitmq should be able to start completely separately from collectd.",
+      "range": {
+        "startLine": 276,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 80
+      },
+      "revId": "0392ab8066c48837f794b3301ab724dc7ddc8322",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_76b7d63a",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-12T09:32:47Z",
+      "side": 1,
+      "message": "Since this is being raised manually, you can raise a more informative exception.\n\nI suggest defining your own exception in yardstick/common/exceptions.py, and raise that here. it wold allow a more meaningful error message to be exposed.\n\nYou will also need to update the tests to make sure the custom error is raised -- they\u0027ll still pass with assertRaises(Exception), but we want to know that the specific one is raised",
+      "range": {
+        "startLine": 289,
+        "startChar": 22,
+        "endLine": 289,
+        "endChar": 31
+      },
+      "revId": "0392ab8066c48837f794b3301ab724dc7ddc8322",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_56b45a34",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-12T09:32:47Z",
+      "side": 1,
+      "message": "Don\u0027t raise Exception.\n\nI suggest creating/using a CommandFailed exception, both here and above, and passing different arguments, depending on the failed command and host",
+      "range": {
+        "startLine": 296,
+        "startChar": 18,
+        "endLine": 296,
+        "endChar": 27
+      },
+      "revId": "0392ab8066c48837f794b3301ab724dc7ddc8322",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
