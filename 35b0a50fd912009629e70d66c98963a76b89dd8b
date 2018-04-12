@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_76bcf606",
+        "filename": "etc/yardstick/nodes/apex_baremetal/pod.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-04-12T09:46:33Z",
+      "side": 1,
+      "message": "Yes I know but I am using this extra node beacuse I am interesting to have somewhere documented in which node th ODL member-0 is running because this node is the one what we are gonna use in the\nHA testcases. And yes this node will have an IP which will be the same with one of the controllers node but this is not a problem.",
+      "parentUuid": "5a3f45e8_96d7024b",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "35b0a50fd912009629e70d66c98963a76b89dd8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_27140c4d",
         "filename": "tests/ci/prepare_env.sh",
         "patchSetId": 4
