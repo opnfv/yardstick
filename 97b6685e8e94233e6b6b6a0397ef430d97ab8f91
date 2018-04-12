@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_f38018f9",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-04-12T07:26:06Z",
+      "side": 1,
+      "message": "why you check the type, does it have problem in python3?",
+      "range": {
+        "startLine": 139,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 48
+      },
+      "revId": "97b6685e8e94233e6b6b6a0397ef430d97ab8f91",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
