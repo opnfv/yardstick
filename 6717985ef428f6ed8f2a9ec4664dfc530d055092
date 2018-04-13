@@ -46,6 +46,30 @@
       "revId": "6717985ef428f6ed8f2a9ec4664dfc530d055092",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7c2df5a7",
+        "filename": "etc/yardstick/nodes/apex_baremetal/pod.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-04-13T05:42:13Z",
+      "side": 1,
+      "message": "Another thing that we can use as alternative is to try to find dynamically the leader of the default shard. But this doesn\u0027t mean that the rest of teh module-shards will have the same leader. What do you think?",
+      "parentUuid": "5a3f45e8_3c27edcb",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 42,
+        "endChar": 15
+      },
+      "revId": "6717985ef428f6ed8f2a9ec4664dfc530d055092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
