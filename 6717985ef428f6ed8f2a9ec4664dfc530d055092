@@ -70,6 +70,30 @@
       "revId": "6717985ef428f6ed8f2a9ec4664dfc530d055092",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d6918548",
+        "filename": "etc/yardstick/nodes/apex_baremetal/pod.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2018-04-13T15:31:12Z",
+      "side": 1,
+      "message": "This totally depends on how you shard the database into modules.  For OOO/Apex we only use a default shard/module, so there is only a single leader of the entire database.  I think you need to use the proper REST call in order to determine who is the leader of the cluster for the default shard and then kill that one.  It doesn\u0027t need to be hardcoded in this yaml.  It can be found quite easily with python urllib in yardstick code, by querying each OS control node (since ODL runs on control node).",
+      "parentUuid": "5a3f45e8_7c2df5a7",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 42,
+        "endChar": 15
+      },
+      "revId": "6717985ef428f6ed8f2a9ec4664dfc530d055092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
