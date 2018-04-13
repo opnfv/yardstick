@@ -22,6 +22,30 @@
       "revId": "6717985ef428f6ed8f2a9ec4664dfc530d055092",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3c27edcb",
+        "filename": "etc/yardstick/nodes/apex_baremetal/pod.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-04-13T05:37:57Z",
+      "side": 1,
+      "message": "Hmm yeah you are right. I am trying to find an effective way to kill the most significant ODL node in the cluster for my testcase so I can observe how different things behave when the the most important ODL node is down. I think the member-0 is the most important ODL node. Maybe it is not the Leader of the cluster all the time but this is something we cannot determine because IMHO different module-shards can have different Leaders. So How are we gonna take a decision of which ODL is the most significant if the different module-shards have different leaders.\n\nSo I thought that to kill the member-0 ODL it would be a compromise that could work for the testcase.\n\nWhat do you think? Can you please tell me your opinion on that?\nIf you have anything to propose please do.",
+      "parentUuid": "5a3f45e8_e1e03efc",
+      "range": {
+        "startLine": 42,
+        "startChar": 3,
+        "endLine": 42,
+        "endChar": 15
+      },
+      "revId": "6717985ef428f6ed8f2a9ec4664dfc530d055092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
