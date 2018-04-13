@@ -3,11 +3,12 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, 2016-2017 Intel Corporation.
 
+===================================
 Network Services Benchmarking (NSB)
 ===================================
 
 Abstract
---------
+========
 
 .. _Yardstick: https://wiki.opnfv.org/yardstick
 
@@ -15,10 +16,10 @@ This chapter provides an overview of the NSB, a contribution to OPNFV
 Yardstick_ from Intel.
 
 Overview
---------
+========
 
-The goal of NSB is to Extend Yardstick to perform real world VNFs and NFVi Characterization and
-benchmarking with repeatable and deterministic methods.
+The goal of NSB is to Extend Yardstick to perform real world VNFs and NFVi
+Characterization and benchmarking with repeatable and deterministic methods.
 
 The Network Service Benchmarking (NSB) extends the yardstick framework to do
 VNF characterization and benchmarking in three different execution
@@ -70,17 +71,17 @@ NSB extension includes:
         - VNF KPIs, e.g., packet_in, packet_drop, packet_fwd etc
 
 Architecture
-------------
+============
 
 The Network Service (NS) defines a set of Virtual Network Functions (VNF)
 connected together using NFV infrastructure.
 
 The Yardstick NSB extension can support multiple VNFs created by different
 vendors including traffic generators. Every VNF being tested has its
-own data model. The Network service defines a VNF modelling on base of performed
-network functionality. The part of the data model is a set of the configuration
-parameters, number of connection points used and flavor including core and
-memory amount.
+own data model. The Network service defines a VNF modelling on base of
+performed network functionality. The part of the data model is a set of the
+configuration parameters, number of connection points used and flavor including
+core and memory amount.
 
 The ETSI defines a Network Service as a set of configurable VNFs working in
 some NFV Infrastructure connecting each other using Virtual Links available
@@ -112,7 +113,7 @@ Network Service framework performs the necessary test steps. It may involve
     - Read the KPI's provided by particular VNF
 
 Components of Network Service
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------
 
   * *Models for Network Service benchmarking*: The Network Service benchmarking
     requires the proper modelling approach. The NSB provides models using Python
@@ -132,9 +133,9 @@ Components of Network Service
   same way as other VNFs being a part of benchmarked network service.
   Same as other VNFs the traffic generator are instantiated and terminated.
 
-  Every traffic generator has own configuration defined as a traffic profile and
-  a set of KPIs supported. The python models for TG is extended by specific calls
-  to listen and generate traffic.
+  Every traffic generator has own configuration defined as a traffic profile
+  and a set of KPIs supported. The python models for TG is extended by
+  specific calls to listen and generate traffic.
 
   * *The stateless TREX traffic generator*: The main traffic generator used as
     Network Service stimulus is open source TREX tool.
@@ -165,7 +166,7 @@ Components of Network Service
       - RFC2544 throughput for various loss rate defined (1% is a default)
 
 Graphical Overview
-------------------
+==================
 
 NSB Testing with yardstick framework  facilitate performance testing of various
 VNFs provided.
@@ -192,7 +193,7 @@ VNFs provided.
               Figure 1: Network Service - 2 server configuration
 
 VNFs supported for chracterization:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------
 
 1. CGNAPT - Carrier Grade Network Address and port Translation
 2. vFW - Virtual Firewall
