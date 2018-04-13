@@ -49,6 +49,23 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_969d3d69",
+        "filename": "yardstick/network_services/vnf_generic/vnf/base.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-13T15:29:14Z",
+      "side": 1,
+      "message": "You should add:\n\"Traffic measurements are always collected during injection\"",
+      "revId": "f109e40072db3d88b1d0565650d17490c23b6e09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_b6f039ff",
         "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
         "patchSetId": 3
