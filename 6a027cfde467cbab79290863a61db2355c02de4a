@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_6271cc43",
+        "filename": "yardstick/benchmark/scenarios/lib/create_sec_group.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-13T10:45:58Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5a3f45e8_42749067",
+      "revId": "6a027cfde467cbab79290863a61db2355c02de4a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c2d5401d",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 10
@@ -30,6 +48,30 @@
       "writtenOn": "2018-04-13T10:33:34Z",
       "side": 1,
       "message": "This argument is not required",
+      "range": {
+        "startLine": 684,
+        "startChar": 53,
+        "endLine": 684,
+        "endChar": 65
+      },
+      "revId": "6a027cfde467cbab79290863a61db2355c02de4a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_22cd0486",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-13T10:45:58Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5a3f45e8_c2d5401d",
       "range": {
         "startLine": 684,
         "startChar": 53,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_82c69866",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-13T10:45:58Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5a3f45e8_a7512638",
+      "range": {
+        "startLine": 692,
+        "startChar": 8,
+        "endLine": 693,
+        "endChar": 73
+      },
+      "revId": "6a027cfde467cbab79290863a61db2355c02de4a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_62154ce4",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 10
@@ -76,6 +142,30 @@
       "writtenOn": "2018-04-13T10:33:34Z",
       "side": 1,
       "message": "This causes a failure because there is no default port set...\nYou need to use more arguments than this to create the rule...\nAFAIK, you\u0027ll at least need a port of a remote IP.",
+      "range": {
+        "startLine": 705,
+        "startChar": 0,
+        "endLine": 709,
+        "endChar": 14
+      },
+      "revId": "6a027cfde467cbab79290863a61db2355c02de4a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a28f5429",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-13T10:45:58Z",
+      "side": 1,
+      "message": "The default parameters are ok. To create a SG rule you only need the name. By default, this function will create an ingress IPv4 rule for all traffic.",
+      "parentUuid": "5a3f45e8_62154ce4",
       "range": {
         "startLine": 705,
         "startChar": 0,
