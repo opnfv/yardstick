@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_42749067",
+        "filename": "yardstick/benchmark/scenarios/lib/create_sec_group.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-13T10:33:34Z",
+      "side": 1,
+      "message": "The description is a required argument in create_security_group()\n\nA string is expected.\nWhen the description is not given in the TC, then this defaults to None, which is not a valid argument.\n\nSet the default value to an empty string instead:\n    self.description \u003d self.options.get(\"description\", \"\")",
+      "revId": "6a027cfde467cbab79290863a61db2355c02de4a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c2d5401d",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-13T10:33:34Z",
+      "side": 1,
+      "message": "This argument is not required",
+      "range": {
+        "startLine": 684,
+        "startChar": 53,
+        "endLine": 684,
+        "endChar": 65
+      },
+      "revId": "6a027cfde467cbab79290863a61db2355c02de4a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_a7512638",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 10
@@ -18,6 +58,29 @@
         "startChar": 8,
         "endLine": 693,
         "endChar": 73
+      },
+      "revId": "6a027cfde467cbab79290863a61db2355c02de4a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_62154ce4",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-13T10:33:34Z",
+      "side": 1,
+      "message": "This causes a failure because there is no default port set...\nYou need to use more arguments than this to create the rule...\nAFAIK, you\u0027ll at least need a port of a remote IP.",
+      "range": {
+        "startLine": 705,
+        "startChar": 0,
+        "endLine": 709,
+        "endChar": 14
       },
       "revId": "6a027cfde467cbab79290863a61db2355c02de4a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",

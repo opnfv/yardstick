@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_826a187f",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-13T10:33:34Z",
+      "side": 0,
+      "message": "This should not have been deleted...\n\nThis creates a security group only.\n\ncreate_security_group_full creates a security group and adds rules to it.\nSo, the behaviour of the scenario is changed...",
+      "range": {
+        "startLine": 648,
+        "startChar": 0,
+        "endLine": 658,
+        "endChar": 19
+      },
+      "revId": "5be3ad75d9c46e7b816418d4ddf410b1f67110c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
