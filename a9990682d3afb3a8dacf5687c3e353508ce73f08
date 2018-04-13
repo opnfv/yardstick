@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_07aa9a84",
+        "filename": "yardstick/benchmark/scenarios/lib/create_server.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-13T07:57:23Z",
+      "side": 1,
+      "message": "This default value is too big. This should be 20",
+      "range": {
+        "startLine": 41,
+        "startChar": 59,
+        "endLine": 41,
+        "endChar": 63
+      },
+      "revId": "a9990682d3afb3a8dacf5687c3e353508ce73f08",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c78a721a",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-13T07:57:23Z",
+      "side": 1,
+      "message": "+1 well done",
+      "range": {
+        "startLine": 257,
+        "startChar": 64,
+        "endLine": 258,
+        "endChar": 51
+      },
+      "revId": "a9990682d3afb3a8dacf5687c3e353508ce73f08",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
