@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_228864c4",
+        "filename": "yardstick/benchmark/scenarios/lib/create_sec_group.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-13T12:24:41Z",
+      "side": 1,
+      "message": "In that case my suggestion would be to have it self.description \u003d self.options[\"description\"] and making it mandatory for user to pass this argument as we did with other required args.",
+      "parentUuid": "5a3f45e8_42749067",
+      "revId": "6a027cfde467cbab79290863a61db2355c02de4a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c2d5401d",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 10
@@ -84,6 +102,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_e2b95c7a",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-13T12:24:41Z",
+      "side": 1,
+      "message": "My bad don\u0027t know how I did this mistake. :( Fixed now.",
+      "parentUuid": "5a3f45e8_c2d5401d",
+      "range": {
+        "startLine": 684,
+        "startChar": 53,
+        "endLine": 684,
+        "endChar": 65
+      },
+      "revId": "6a027cfde467cbab79290863a61db2355c02de4a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_a7512638",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 10
@@ -118,6 +160,30 @@
       "writtenOn": "2018-04-13T10:45:58Z",
       "side": 1,
       "message": "+1",
+      "parentUuid": "5a3f45e8_a7512638",
+      "range": {
+        "startLine": 692,
+        "startChar": 8,
+        "endLine": 693,
+        "endChar": 73
+      },
+      "revId": "6a027cfde467cbab79290863a61db2355c02de4a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_42b2d094",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-13T12:24:41Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "5a3f45e8_a7512638",
       "range": {
         "startLine": 692,
