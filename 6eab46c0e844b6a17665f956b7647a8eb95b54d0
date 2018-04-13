@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d6b865ca",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 334
+      },
+      "writtenOn": "2018-04-13T15:36:36Z",
+      "side": 1,
+      "message": "you should check here that odl_ip was actually found and is not empty, otherwise fail this script.",
+      "revId": "6eab46c0e844b6a17665f956b7647a8eb95b54d0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
