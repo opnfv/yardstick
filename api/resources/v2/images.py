@@ -18,8 +18,7 @@ from api.database.v2.handlers import V2ImageHandler
 from api.database.v2.handlers import V2EnvironmentHandler
 from yardstick.common.utils import result_handler
 from yardstick.common.utils import source_env
-from yardstick.common.utils import change_obj_to_dict
-from yardstick.common.openstack_utils import get_nova_client
+from yardstick.common import openstack_utils
 from yardstick.common.openstack_utils import get_glance_client
 from yardstick.common import constants as consts
 
@@ -47,38 +46,20 @@ class V2Images(ApiResource):
     def get(self):
         try:
             source_env(consts.OPENRC)
-        except Exception:
+        except OSError:
             return result_handler(consts.API_ERROR, 'source openrc error')
 
-        nova_client = get_nova_client()
-        try:
-            images_list = nova_client.images.list()
-        except Exception:
+        image_list = openstack_utils.list_images()
+
+        if image_list is False:
             return result_handler(consts.API_ERROR, 'get images error')
-        else:
-            images = {i.name: self.get_info(change_obj_to_dict(i)) for i in images_list}
+
+        images = {i.name: format_image_info(i) for i in image_list}
 
         return result_handler(consts.API_SUCCESS, {'status': 1, 'images': images})
 
     def post(self):
         return self._dispatch_post()
-
-    def get_info(self, data):
-        try:
-            size = data['OS-EXT-IMG-SIZE:size']
-        except KeyError:
-            size = None
-        else:
-            size = float(size) / 1024 / 1024
-
-        result = {
-            'name': data.get('name', ''),
-            'discription': data.get('description', ''),
-            'size': size,
-            'status': data.get('status'),
-            'time': data.get('updated')
-        }
-        return result
 
     def load_image(self, args):
         try:
@@ -268,7 +249,7 @@ class V2Images(ApiResource):
         r = requests.head(url)
         try:
             file_size = int(r.headers['content-length'])
-        except Exception:
+        except (TypeError, ValueError):
             return
 
         with open(path, 'wb') as f:
@@ -303,14 +284,13 @@ class V2Image(ApiResource):
         except ValueError:
             return result_handler(consts.API_ERROR, 'no such image id')
 
-        nova_client = get_nova_client()
-        images = nova_client.images.list()
+        images = openstack_utils.list_images()
         try:
             image = next((i for i in images if i.name == image.name))
         except StopIteration:
             pass
 
-        return_image = self.get_info(change_obj_to_dict(image))
+        return_image = format_image_info(image)
         return_image['id'] = image_id
 
         return result_handler(consts.API_SUCCESS, {'image': return_image})
@@ -349,19 +329,16 @@ class V2Image(ApiResource):
 
         return result_handler(consts.API_SUCCESS, {'image': image_id})
 
-    def get_info(self, data):
-        try:
-            size = data['OS-EXT-IMG-SIZE:size']
-        except KeyError:
-            size = None
-        else:
-            size = float(size) / 1024 / 1024
 
-        result = {
-            'name': data.get('name', ''),
-            'description': data.get('description', ''),
-            'size': size,
-            'status': data.get('status'),
-            'time': data.get('updated')
-        }
-        return result
+def format_image_info(image):
+    image_dict = {}
+
+    if image is None:
+        return image_dict
+
+    image_dict['name'] = image.name
+    image_dict['size'] = float(image.size) / 1024 / 1024
+    image_dict['status'] = image.status.upper()
+    image_dict['time'] = image.updated_at
+
+    return image_dict
