@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_564d753d",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-13T15:17:18Z",
+      "side": 1,
+      "message": "These are kwargs, not positional.\n\nYou need to call:\n    create_security_group_rule(\n        shade_client, security_group[\u0027id\u0027],\n        direction\u003d\u0027egress\u0027, protocol\u003d\u0027tcp\u0027,....)",
+      "range": {
+        "startLine": 768,
+        "startChar": 43,
+        "endLine": 768,
+        "endChar": 49
+      },
+      "revId": "5113570a410173c6e2c0ff8cc136fc8d0a6877e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
