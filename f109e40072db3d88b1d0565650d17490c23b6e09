@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_16b3ed0a",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-13T15:21:39Z",
+      "side": 1,
+      "message": "Forget this comment, it\u0027s wrong.\n\nIn TGs: collect_kpi calls ClientResourceHelper.collect_kpi, which retrieves the data from the traffic generator application.\n\nIn SampleVNFs: collect_kpi calls ResourceHelper.collect_kpi(), which retrieves collectd information.\n\nSo far, we ONLY have collectd in certain Sample VNFs (but never in traffic generators).",
+      "parentUuid": "5a3f45e8_160e4de5",
+      "range": {
+        "startLine": 48,
+        "startChar": 36,
+        "endLine": 48,
+        "endChar": 47
+      },
+      "revId": "f109e40072db3d88b1d0565650d17490c23b6e09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_b6f039ff",
         "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
         "patchSetId": 3
