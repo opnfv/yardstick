@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e79cce5f",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc050.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-04-13T08:00:28Z",
+      "side": 1,
+      "message": "unnecessary indent",
+      "range": {
+        "startLine": 40,
+        "startChar": 17,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "4afc2fc6ca5c67aa01f2c4bdbdf098b7ac163233",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_277b5629",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc050.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 4321
+      },
+      "writtenOn": "2018-04-13T08:00:28Z",
+      "side": 1,
+      "message": "It might be better to set \u0027br-mgmt\u0027 as the default interface to be cut down. Since the network connection cut-down on management network can influence the commands in monitors while external network cut-down may not.",
+      "range": {
+        "startLine": 17,
+        "startChar": 43,
+        "endLine": 17,
+        "endChar": 48
+      },
+      "revId": "4afc2fc6ca5c67aa01f2c4bdbdf098b7ac163233",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
