@@ -259,6 +259,30 @@
       "revId": "6a027cfde467cbab79290863a61db2355c02de4a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b6895977",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 709,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-13T13:54:31Z",
+      "side": 1,
+      "message": "I get the following error:\n    [DEBUG] yardstick.common.openstack_utils openstack_utils.py:753 Adding ICMP rules in security group \u0027my_sec_group_test\u0027...\n    [ERROR] yardstick.common.openstack_utils openstack_utils.py:727 Failed to create_security_group_rule(shade_client). Exception message: Error creating security group rule. (400) Client Error for url: http://192.168.122.81:9696/v2.0/security-group-rules.json Invalid value for port icmp\n    [ERROR] yardstick.common.openstack_utils openstack_utils.py:756 Failed to create the security group rule...\n    [ERROR] yardstick.benchmark.scenarios.lib.create_sec_group create_sec_group.py:52 Create security group failed!",
+      "parentUuid": "5a3f45e8_a28f5429",
+      "range": {
+        "startLine": 705,
+        "startChar": 0,
+        "endLine": 709,
+        "endChar": 14
+      },
+      "revId": "6a027cfde467cbab79290863a61db2355c02de4a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
