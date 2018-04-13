@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_bcc93d28",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc050.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 4287
+      },
+      "writtenOn": "2018-04-13T02:51:47Z",
+      "side": 1,
+      "message": "Please update the tc050 document to keep them matching.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 18
+      },
+      "revId": "c8dcfe0436e44bb70f037cab21d44026fd5fdacd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
