@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_160e4de5",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-13T14:58:40Z",
+      "side": 1,
+      "message": "This will retrieve the APP measurements.\n\nWe also need the collectd kpis. Here we also need to call:\n  results[vnf.name] \u003d vnf.resource_helper.collect_kpi()",
+      "range": {
+        "startLine": 48,
+        "startChar": 36,
+        "endLine": 48,
+        "endChar": 47
+      },
+      "revId": "f109e40072db3d88b1d0565650d17490c23b6e09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b6f039ff",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-13T14:58:40Z",
+      "side": 1,
+      "message": "Where are we using this function?",
+      "range": {
+        "startLine": 721,
+        "startChar": 8,
+        "endLine": 721,
+        "endChar": 32
+      },
+      "revId": "f109e40072db3d88b1d0565650d17490c23b6e09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
