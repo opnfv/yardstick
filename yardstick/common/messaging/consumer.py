@@ -29,9 +29,9 @@ LOG = logging.getLogger(__name__)
 class NotificationHandler(object):
     """Abstract class to define a endpoint object for a MessagingConsumer"""
 
-    def __init__(self, id, ctx_pid, queue):
-        self._id = id
-        self._ctx_pid = ctx_pid
+    def __init__(self, _id, ctx_pids, queue):
+        self._id = _id
+        self._ctx_pids = ctx_pids
         self._queue = queue
 
 
@@ -43,12 +43,12 @@ class MessagingConsumer(object):
     the messages published by a `MessagingNotifier`.
     """
 
-    def __init__(self, topic, pid, endpoints, fanout=True):
+    def __init__(self, topic, pids, endpoints, fanout=True):
         """Init function.
 
         :param topic: (string) MQ exchange topic
-        :param pid: (int) PID of the process implementing the MQ Notifier which
-                    will be in the message context
+        :param pids: (list of int) list of PIDs of the processes implementing
+                     the MQ Notifier which will be in the message context
         :param endpoints: (list of class) list of classes implementing the
                           methods (see `MessagingNotifier.send_message) used by
                           the Notifier
@@ -58,7 +58,7 @@ class MessagingConsumer(object):
         :returns: `MessagingConsumer` class object
         """
 
-        self._pid = pid
+        self._pids = pids
         self._endpoints = endpoints
         self._transport = oslo_messaging.get_rpc_transport(
             cfg.CONF, url=messaging.TRANSPORT_URL)
