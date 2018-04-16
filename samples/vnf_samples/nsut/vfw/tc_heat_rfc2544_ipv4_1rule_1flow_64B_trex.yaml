@@ -26,6 +26,7 @@ scenarios:
     tg__0: trafficgen_1.yardstick
     vnf__0: vnf.yardstick
   options:
+    hugepages_gb: 6
     framesize:
       uplink: {64B: 100}
       downlink: {64B: 100}
@@ -40,16 +41,16 @@ scenarios:
       rules: acl_1rule.yaml
       vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
   runner:
-    type: Iteration
+    type: IterationIPC
     iterations: 10
-    interval: 35
+    timeout: 60
 context:
   # put node context first, so we don't HEAT deploy if node has errors
   name: yardstick
   image: yardstick-samplevnfs
   flavor:
     vcpus: 10
-    ram: 20480
+    ram: 10000
     disk: 6
     extra_specs:
       hw:cpu_sockets: 1
