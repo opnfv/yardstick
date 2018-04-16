@@ -1,0 +1,192 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_0a13ba0d",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T14:00:52Z",
+      "side": 1,
+      "message": "It makes sense",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 30
+      },
+      "revId": "6c6f75ee253d724b543c0e5a2a159c7536329d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6aa51ea1",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/delete_disk_images.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T14:00:52Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "6c6f75ee253d724b543c0e5a2a159c7536329d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_aaaba673",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/delete_network.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T14:00:52Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "6c6f75ee253d724b543c0e5a2a159c7536329d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8aa86a78",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/delete_network.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T14:00:52Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "6c6f75ee253d724b543c0e5a2a159c7536329d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_eab80eca",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/delete_network.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T14:00:52Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "6c6f75ee253d724b543c0e5a2a159c7536329d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cabd52b9",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/delete_network.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T14:00:52Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "6c6f75ee253d724b543c0e5a2a159c7536329d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6a7ebe1a",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/delete_vm.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T14:00:52Z",
+      "side": 1,
+      "message": "Let\u0027s make this easier.\n\n1) Change the input parameter. In the bash script, add the new variable with capital letters (DELETE_ALL_VMS). Change RS_FILE too.\n\n2) In the main file, infra_deploy.yml, register the variables:\n\n- hosts: localhost\n\n  vars:\n    rs_file \u003d \"{{ RS_FILE }}\"\n    delete_all_vms \u003d \"{{ DELETE_ALL_VMS| default(False) }}\"\n\n3) \"delete_all_vms\" will exist always. So this condition will be easier:\n\n  when: delete_all_vms|bool or not delete_all_vms|bool and vmhost_item in deploy_vms",
+      "revId": "6c6f75ee253d724b543c0e5a2a159c7536329d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0a9d7a59",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/delete_vm.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T14:00:52Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "6c6f75ee253d724b543c0e5a2a159c7536329d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4aa2e299",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T14:00:52Z",
+      "side": 1,
+      "message": "You should delete the old disk AFTER the deletion of the VMs",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "6c6f75ee253d724b543c0e5a2a159c7536329d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_aa01e6b0",
+        "filename": "tools/virt_ci_rampup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T14:00:52Z",
+      "side": 1,
+      "message": "Once we finish the whole development, we\u0027ll need to\n1) Document the parameters\n2) Accepted them as input parameters while executing this script.",
+      "range": {
+        "startLine": 20,
+        "startChar": 53,
+        "endLine": 20,
+        "endChar": 76
+      },
+      "revId": "6c6f75ee253d724b543c0e5a2a159c7536329d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
