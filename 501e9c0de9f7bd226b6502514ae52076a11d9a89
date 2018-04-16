@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_250ea9e5",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/delete_network.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-04-16T16:54:09Z",
+      "side": 1,
+      "message": "I don\u0027t understand when an error can appear here. would you be able to provide steps to reproduce?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 51
+      },
+      "revId": "501e9c0de9f7bd226b6502514ae52076a11d9a89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2525095c",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/delete_network.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-04-16T16:54:09Z",
+      "side": 1,
+      "message": "if we are deleting the network as well as VM we need to rename this variable",
+      "range": {
+        "startLine": 20,
+        "startChar": 8,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "501e9c0de9f7bd226b6502514ae52076a11d9a89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0513ad0d",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/delete_network.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-04-16T16:54:09Z",
+      "side": 1,
+      "message": "if no error this should be removed",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 20
+      },
+      "revId": "501e9c0de9f7bd226b6502514ae52076a11d9a89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_654d513e",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/delete_network.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-04-16T16:54:09Z",
+      "side": 1,
+      "message": "ignore_errors: yes, is dangerous. \nWhat will happen here if the bridge is up?\nYou must check to see if the bridge is present.\nYou must set the bridge to down and then remove it.",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 20
+      },
+      "revId": "501e9c0de9f7bd226b6502514ae52076a11d9a89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
