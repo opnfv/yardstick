@@ -14,18 +14,20 @@
 ---
 - name: Destroy old networks created by virt
   virt_net:
-    name: "{{ network_item.name }}"
+    name: "{{ network_item }}"
     command: destroy
-  when: network_item.name in virt_nets.list_nets
+  when:
+    - delete_all_vms is defined and ( delete_all_vms | bool or not delete_all_vms | bool and network_item in deploy_nets ) or delete_all_vms is not defined and network_item in deploy_nets
 
 # Ignoring erros as network can be created without being defined.
 # This can happen if a user manually creates a network using the virsh command.
 # If the network is not defined the undefine code will throw an error.
 - name: Undefine old networks defined by virt
   virt_net:
-    name: "{{ network_item.name }}"
+    name: "{{ network_item }}"
     command: undefine
-  when: network_item.name in virt_nets.list_nets
+  when:
+    - delete_all_vms is defined and ( delete_all_vms | bool or not delete_all_vms | bool and network_item in deploy_nets ) or delete_all_vms is not defined and network_item in deploy_nets
   ignore_errors: yes
 
 - name: Check if "ovs-vsctl" command is present
@@ -34,15 +36,14 @@
   ignore_errors: yes
 
 - name: Destroy OVS bridge if it exists
-  command: ovs-vsctl --if-exists -- del-br "{{ network_item.name }}"
-  when: ovs_vsctl_present.rc == 0
+  command: ovs-vsctl --if-exists -- del-br "{{ network_item }}"
+  when:
+    - ovs_vsctl_present.rc == 0
+    - delete_all_vms is defined and ( delete_all_vms | bool or not delete_all_vms | bool and network_item in deploy_nets ) or delete_all_vms is not defined and network_item in deploy_nets
+  ignore_errors: yes
 
-- name: Check if linux bridge is present
-  stat: path="{{ '/sys/class/net/'+network_item.name+'/brif/' }}"
-  register: check_linux_bridge
-
-- name: Remove linux bridge if it exists
-  shell: |
-    ifconfig "{{ network_item.name }}" down
-    brctl delbr "{{ network_item.name }}"
-  when: check_linux_bridge.stat.exists
+- name: Delete linux bridge is present
+  shell: brctl delbr {{ network_item.name }}
+  when:
+    - delete_all_vms is defined and ( delete_all_vms | bool or not delete_all_vms | bool and network_item in deploy_nets ) or delete_all_vms is not defined and network_item in deploy_nets
+  ignore_errors: yes

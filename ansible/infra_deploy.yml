@@ -15,7 +15,7 @@
 - hosts: jumphost
 
   roles:
-    - infra_check_requirements
     - infra_destroy_previous_configuration
+    - infra_check_requirements
     - infra_create_network
     - infra_create_vms
