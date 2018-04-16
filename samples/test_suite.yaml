@@ -20,7 +20,8 @@ test_cases:
   file_name: ping.yaml
 -
   file_name: ping-template.yaml
-  task_args: '{"packetsize": "200"}'
+  task_args:
+    dafault: '{"packetsize": "200"}'
 -
   file_name: ping-template.yaml
   task_args_file: "/tmp/test-args-file.json"
