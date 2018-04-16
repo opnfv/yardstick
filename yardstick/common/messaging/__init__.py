@@ -28,9 +28,10 @@ TRANSPORT_URL = (MQ_SERVICE + '://' + MQ_USER + ':' + MQ_PASS + '@' + SERVER +
 RPC_SERVER_EXECUTOR = 'threading'
 
 # Topics.
-RUNNER = 'runner'
+TOPIC_VNF = 'topic_vnf'
 
 # Methods.
-# RUNNER methods:
-RUNNER_INFO = 'runner_info'
-RUNNER_LOOP = 'runner_loop'
+# VNF consumers methods
+VNF_METHOD_STARTED = 'vnf_method_started'
+VNF_METHOD_FINISHED = 'vnf_method_finished'
+VNF_METHOD_ITERATION = 'vnf_method_iteration'

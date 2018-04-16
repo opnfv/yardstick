@@ -918,7 +918,7 @@ class SampleVNFTrafficGen(GenericTrafficGen):
             if not self._traffic_process.is_alive():
                 break
 
-        return self._traffic_process.is_alive()
+        return self._traffic_process.ident
 
     def collect_kpi(self):
         # check if the tg processes have exited

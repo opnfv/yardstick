@@ -51,3 +51,7 @@ class Payload(object):
     def dict_to_obj(cls, _dict):
         """Returns a Payload object built from the dictionary elements"""
         return cls(**_dict)
+
+
+class VNFPayload(Payload):
+    REQUIRED_FIELDS = {'version', 'iteration' 'kpi'}
