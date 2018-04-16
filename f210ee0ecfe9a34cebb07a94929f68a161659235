@@ -1,0 +1,302 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_2afdd66e",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:35:45Z",
+      "side": 1,
+      "message": "This is not the correct proxy. This should be \"proxy_host\"",
+      "range": {
+        "startLine": 22,
+        "startChar": 40,
+        "endLine": 22,
+        "endChar": 67
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ea62ce3c",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:35:45Z",
+      "side": 1,
+      "message": "Where is this node defined?",
+      "range": {
+        "startLine": 31,
+        "startChar": 24,
+        "endLine": 31,
+        "endChar": 34
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ca80b2c2",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:35:45Z",
+      "side": 1,
+      "message": "This is not part of this patch.",
+      "range": {
+        "startLine": 47,
+        "startChar": 1,
+        "endLine": 51,
+        "endChar": 25
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2a82f6c7",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:35:45Z",
+      "side": 1,
+      "message": "What is this?",
+      "range": {
+        "startLine": 54,
+        "startChar": 1,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6a6fde2b",
+        "filename": "ansible/roles/infra_clone_yardstick/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:35:45Z",
+      "side": 1,
+      "message": "This file shouldn\u0027t be in this patch.",
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4af7828b",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:35:45Z",
+      "side": 1,
+      "message": "Why?",
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_852fbd87",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/configure_docker.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:35:45Z",
+      "side": 1,
+      "message": "Same request",
+      "range": {
+        "startLine": 33,
+        "startChar": 33,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_25086927",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/install_packets.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:35:45Z",
+      "side": 1,
+      "message": "This is very ugly and repeated 4 times. Can you call this module from infra_rampup_stack_nodes/tasks/main with this variable as a fact? Something like \"proxy_env\"",
+      "range": {
+        "startLine": 20,
+        "startChar": 15,
+        "endLine": 20,
+        "endChar": 67
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ca38b2f1",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:35:45Z",
+      "side": 1,
+      "message": "This should be in single quotes",
+      "range": {
+        "startLine": 18,
+        "startChar": 81,
+        "endLine": 18,
+        "endChar": 86
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c506e51c",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:35:45Z",
+      "side": 1,
+      "message": "please, add something like\n\"Install Python; needed for ansible commands execution\"",
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c52d4597",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/update_conf_files.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:35:45Z",
+      "side": 1,
+      "message": "This will fail if we don\u0027t have ntp installed in the physical host (I don\u0027t have this in my server).\n\nIf we really need it, we should create a role \"infra_install_requirements\" executed before \"infra_destroy_previous_configuration\"",
+      "range": {
+        "startLine": 20,
+        "startChar": 9,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8a8eaace",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/update_conf_files.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:35:45Z",
+      "side": 1,
+      "message": "You already have those variables in the main file.",
+      "range": {
+        "startLine": 78,
+        "startChar": 5,
+        "endLine": 80,
+        "endChar": 78
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2a59568e",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/vars/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:35:45Z",
+      "side": 1,
+      "message": "You already have those variables from the main file.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 63
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_05244dad",
+        "filename": "ansible/roles/install_pktgen/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:35:45Z",
+      "side": 1,
+      "message": "Why do we need this file here??",
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
