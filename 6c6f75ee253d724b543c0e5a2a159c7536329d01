@@ -299,6 +299,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_6598b1c0",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T15:46:45Z",
+      "side": 1,
+      "message": "You are right...\n\nThe point is we shouldn\u0027t delete the VM disks before deleting the VM. We should:\n- store the list of disks\n- delete the vms\n- delete any file still present\n\nLet me ask you, why did you introduce this?",
+      "parentUuid": "5a3f45e8_aad9e623",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "6c6f75ee253d724b543c0e5a2a159c7536329d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_aa01e6b0",
         "filename": "tools/virt_ci_rampup.sh",
         "patchSetId": 2
