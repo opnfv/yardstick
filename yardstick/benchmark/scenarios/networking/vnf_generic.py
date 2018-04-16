@@ -403,9 +403,10 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         return vnfs
 
     def setup(self):
-        """ Setup infrastructure, provission VNFs & start traffic
+        """Setup infrastructure, provision VNFs & start traffic
 
-        :return:
+        :return: (list of int) PIDs of the processes controlling the traffic
+                 generators
         """
         # 1. Verify if infrastructure mapping can meet topology
         self.map_topology_to_infrastructure()
@@ -445,9 +446,12 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         self.collector.start()
 
         # Start the actual traffic
+        tg_pids = []
         for traffic_gen in traffic_runners:
             LOG.info("Starting traffic on %s", traffic_gen.name)
-            traffic_gen.run_traffic(self.traffic_profile)
+            tg_pids.append(traffic_gen.run_traffic(self.traffic_profile))
+
+        return tg_pids
 
     def run(self, result):  # yardstick API
         """ Yardstick calls run() at intervals defined in the yaml and

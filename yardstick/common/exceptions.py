@@ -137,6 +137,23 @@ class TaskRenderError(YardstickException):
     message = 'Failed to render template:\n%(input_task)s'
 
 
+class RunnerIterationIPCSetupActionNeeded(YardstickException):
+    message = ('IterationIPC needs the "setup" action to retrieve the VNF '
+               'handling processes PIDs to receive the messages sent')
+
+
+class RunnerIterationIPCNoCtxs(YardstickException):
+    message = 'Benchmark "setup" action did not return any VNF process PID'
+
+
+class TimerTimeout(YardstickException):
+    message = 'Timer timeout expired, %(timeout)s seconds'
+
+
+class WaitTimeout(YardstickException):
+    message = 'Wait timeout while waiting for condition'
+
+
 class ScenarioCreateNetworkError(YardstickException):
     message = 'Create Neutron Network Scenario failed'
 

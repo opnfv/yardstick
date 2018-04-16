@@ -28,9 +28,10 @@ TRANSPORT_URL = (MQ_SERVICE + '://' + MQ_USER + ':' + MQ_PASS + '@' + SERVER +
 RPC_SERVER_EXECUTOR = 'threading'
 
 # Topics.
-RUNNER = 'runner'
+TOPIC_TG = 'topic_traffic_generator'
 
 # Methods.
-# RUNNER methods:
-RUNNER_INFO = 'runner_info'
-RUNNER_LOOP = 'runner_loop'
+# Traffic generator consumers methods.
+TG_METHOD_STARTED = 'tg_method_started'
+TG_METHOD_FINISHED = 'tg_method_finished'
+TG_METHOD_ITERATION = 'tg_method_iteration'

@@ -18,6 +18,9 @@ import abc
 import logging
 import six
 
+from yardstick.common import messaging
+from yardstick.common.messaging import payloads
+from yardstick.common.messaging import producer
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 
 
@@ -138,6 +141,16 @@ class VnfdHelper(dict):
             yield port_name, port_num
 
 
+class TrafficGeneratorProducer(producer.MessagingProducer):
+    """Class implementing the message producer for traffic generators
+
+    This message producer must be instantiated in the process created
+    "run_traffic" process.
+    """
+    def __init__(self):
+        super(TrafficGeneratorProducer, self).__init__(messaging.TOPIC_TG)
+
+
 @six.add_metaclass(abc.ABCMeta)
 class GenericVNF(object):
     """Class providing file-like API for generic VNF implementation
@@ -204,6 +217,7 @@ class GenericTrafficGen(GenericVNF):
         super(GenericTrafficGen, self).__init__(name, vnfd)
         self.runs_traffic = True
         self.traffic_finished = False
+        self._mq_producer = None
 
     @abc.abstractmethod
     def run_traffic(self, traffic_profile):
@@ -254,3 +268,10 @@ class GenericTrafficGen(GenericVNF):
         :return: True/False
         """
         pass
+
+    def _setup_mq_producer(self):
+        """Setup the TG MQ producer to send messages between processes
+
+        :return: (derived class from ``MessagingProducer``) MQ producer object
+        """
+        return TrafficGeneratorProducer()

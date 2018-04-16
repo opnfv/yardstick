@@ -19,6 +19,7 @@ import time
 import six
 from stevedore import extension
 
+from yardstick.common.messaging import payloads
 import yardstick.common.utils as utils
 
 
