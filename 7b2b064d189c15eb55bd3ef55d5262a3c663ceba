@@ -46,6 +46,30 @@
       "revId": "7b2b064d189c15eb55bd3ef55d5262a3c663ceba",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b6d4cc47",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-16T08:23:32Z",
+      "side": 1,
+      "message": "\"availability_zone\" will enforce the creation of a VM in a particular set of hosts",
+      "parentUuid": "5a3f45e8_0788f0e5",
+      "range": {
+        "startLine": 132,
+        "startChar": 8,
+        "endLine": 132,
+        "endChar": 36
+      },
+      "revId": "7b2b064d189c15eb55bd3ef55d5262a3c663ceba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
