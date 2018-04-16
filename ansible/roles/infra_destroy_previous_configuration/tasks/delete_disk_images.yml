@@ -12,20 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-# Ignore errors as VM can be destroyed without been undefined.
-- name: Destroy old VMs
-  virt:
-    command: destroy
-    name: "{{ vmhost_item }}"
+- name: List VMs disks
+  shell: virsh domblklist {{ vmhost_item }} | awk '/\/.*/ { print $2 }'
   when:
     - delete_all_vms is defined and ( delete_all_vms | bool or not delete_all_vms | bool and vmhost_item in deploy_vms ) or delete_all_vms is not defined and vmhost_item in deploy_vms
-  ignore_errors: yes
+  register: virt_img
 
-# Ignore errors as VM can be running while undefined
-- name: Undefine old VMs
-  virt:
-    command: undefine
-    name: "{{ vmhost_item }}"
-  when:
-    - delete_all_vms is defined and ( delete_all_vms | bool or not delete_all_vms | bool and vmhost_item in deploy_vms ) or delete_all_vms is not defined and vmhost_item in deploy_vms
-  ignore_errors: yes
+- name: Delete old disk images
+  file:
+    path: "{{ item }}"
+    state: absent
+  when: virt_img.stdout_lines is defined and virt_img.stdout_lines | length > 0
+  with_items: "{{ virt_img.stdout_lines }}"
