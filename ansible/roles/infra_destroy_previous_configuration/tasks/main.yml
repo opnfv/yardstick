@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: Include
+- name: Include input file
   include_vars:
     file: "{{ rs_file }}"
     name: infra_deploy_vars
@@ -25,16 +25,40 @@
   virt: command=list_vms
   register: virt_vms
 
+- set_fact:
+    deploy_vms: "{{ deploy_vms | default([]) + [item.hostname] }}"
+  with_items: "{{ infra_deploy_vars.nodes }}"
+
+- name: Define old disk images to delete
+  shell: virsh domblklist {{ item }} | awk '/\/.*/ { print $2 }'
+  when: clean_up | bool or item in deploy_vms
+  with_items: "{{ virt_vms.list_vms }}"
+  register: virt_img
+
+- set_fact:
+    images: "{{ images | default([]) + item.stdout_lines }}"
+  when: item.stdout_lines is defined and item.stdout_lines | length > 0
+  with_items: "{{ virt_img.results }}"
+
 - name: Destroy old VMs
   include_tasks: delete_vm.yml
-  extra_vars: "{{ virt_vms }}"
   loop_control:
-    loop_var: node_item
-  with_items: "{{ infra_deploy_vars.nodes }}"
+    loop_var: vmhost_item
+  with_items: "{{ virt_vms.list_vms }}"
+
+- set_fact:
+    deploy_nets: "{{ deploy_nets | default([]) + [item.name] }}"
+  with_items: "{{ infra_deploy_vars.networks }}"
 
 - name: Delete old networks
   include_tasks: delete_network.yml
-  extra_vars: "{{ virt_nets }}"
   loop_control:
     loop_var: network_item
-  with_items: "{{ infra_deploy_vars.networks }}"
+  with_items: "{{ virt_nets.list_nets }}"
+
+- name: Delete old disk images
+  file:
+    path: "{{ item }}"
+    state: absent
+  when: images is defined and images | length > 0
+  with_items: "{{ images }}"
