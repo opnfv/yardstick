@@ -23,7 +23,7 @@ LOG = logging.getLogger(__name__)
 
 class Director(object):
     """
-    Director is used to direct a test scenaio
+    Director is used to direct a test scenario
     including the creation of action players, test result verification
     and rollback of actions.
     """
@@ -80,7 +80,7 @@ class Director(object):
         if type == ActionType.OPERATION:
             return actionplayers.OperationPlayer(self.operationMgr[key],
                                                  intermediate_variables)
-        LOG.debug("something run when creatactionplayer")
+        LOG.debug("the type is not recognized by createActionPlayer: None is returned")
 
     def createActionRollbacker(self, type, key):
         LOG.debug(
@@ -90,7 +90,7 @@ class Director(object):
         if type == ActionType.OPERATION:
             return actionrollbackers.OperationRollbacker(
                 self.operationMgr[key])
-        LOG.debug("no rollbacker created for %s", key)
+        LOG.debug("no rollbacker created for key: %s", key)
 
     def verify(self):
         result = True
@@ -99,7 +99,7 @@ class Director(object):
         if hasattr(self, 'resultCheckerMgr'):
             result &= self.resultCheckerMgr.verify()
         if result:
-            LOG.debug("monitors are passed")
+            LOG.debug("monitors results are passed")
         return result
 
     def stopMonitors(self):

@@ -47,7 +47,7 @@ class ScenarioGeneral(base.Scenario):
                 if actionRollbacker:
                     self.director.executionSteps.append(actionRollbacker)
             except Exception:  # pylint: disable=broad-except
-                LOG.exception("Exception")
+                LOG.exception("")
                 LOG.debug(
                     "\033[91m exception when running step: %s .... \033[0m",
                     orderedSteps.index(step))
@@ -67,7 +67,8 @@ class ScenarioGeneral(base.Scenario):
         result['sla_pass'] = 1 if verify_result else 0
         self.director.store_result(result)
 
-        assert verify_result is True, "The HA test case NOT passed"
+        assert verify_result is True,\
+            "%s test case SLA validation did NOT pass" % self.__scenario_type__
 
     def teardown(self):
         self.director.knockoff()

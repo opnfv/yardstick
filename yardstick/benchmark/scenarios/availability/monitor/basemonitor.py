@@ -58,8 +58,8 @@ class MonitorMgr(object):
         raise KeyError("No such monitor instance of key - %s" % item)
 
     def start_monitors(self):
-        for _monotor_instace in self._monitor_list:
-            _monotor_instace.start_monitor()
+        for monitor in self._monitor_list:
+            monitor.start_monitor()
 
     def wait_monitors(self):
         for monitor in self._monitor_list:
@@ -103,7 +103,7 @@ class BaseMonitor(multiprocessing.Process):
         for monitor in utils.itersubclasses(BaseMonitor):
             if monitor_type == monitor.__monitor_type__:
                 return monitor
-        raise RuntimeError("No such monitor_type %s" % monitor_type)
+        raise RuntimeError("No such monitor_type: %s" % monitor_type)
 
     def get_script_fullpath(self, path):
         base_path = os.path.dirname(monitor_conf_path)
