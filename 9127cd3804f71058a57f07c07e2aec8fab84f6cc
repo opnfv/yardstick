@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_453935d6",
+        "filename": "yardstick/benchmark/scenarios/lib/create_server.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-16T15:31:06Z",
+      "side": 1,
+      "message": "Yes you are right I found about it and kwargs while testing but somehow missed updating this.",
+      "parentUuid": "5a3f45e8_2a3af6e6",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 79,
+        "endChar": 42
+      },
+      "revId": "9127cd3804f71058a57f07c07e2aec8fab84f6cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_050d6d37",
         "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-16T15:26:16Z",
       "side": 1,
       "message": "This is not the correct format for the data returned.\nI believe it is:\n{\"name\": \"server-name\", \"flavor\": \"flavor-name\", \"id\": _uuid}\n\nhttps://github.com/openstack-infra/shade/blob/stable/pike/shade/openstackcloud.py#L5703-L5722",
+      "range": {
+        "startLine": 48,
+        "startChar": 12,
+        "endLine": 49,
+        "endChar": 36
+      },
+      "revId": "9127cd3804f71058a57f07c07e2aec8fab84f6cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_653c31c9",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-16T15:31:06Z",
+      "side": 1,
+      "message": "Yes. You are right. I found it while testing but missed updating it here.",
+      "parentUuid": "5a3f45e8_050d6d37",
       "range": {
         "startLine": 48,
         "startChar": 12,
