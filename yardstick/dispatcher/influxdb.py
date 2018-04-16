@@ -81,8 +81,7 @@ class InfluxdbDispatcher(DispatchBase):
         else:
             if res.status_code != 204:
                 LOG.error('Test result posting finished with status code'
-                          ' %d.', res.status_code)
-                LOG.error(res.text)
+                          ' %d, and text: %s', res.status_code, res.text)
 
     def _data_to_line_protocol(self, data, case, criteria):
         msg = {}

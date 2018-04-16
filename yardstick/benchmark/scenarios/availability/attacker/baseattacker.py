@@ -71,7 +71,7 @@ class BaseAttacker(object):
         for attacker_cls in utils.itersubclasses(BaseAttacker):
             if attacker_type == attacker_cls.__attacker_type__:
                 return attacker_cls
-        raise RuntimeError("No such runner_type %s" % attacker_type)
+        raise RuntimeError("No such runner_type: %s" % attacker_type)
 
     def get_script_fullpath(self, path):
         base_path = os.path.dirname(attacker_conf_path)

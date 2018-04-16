@@ -51,7 +51,7 @@ class ProcessAttacker(BaseAttacker):
             return int(stdout.strip('\n'))
         else:
             LOG.error(
-                "the host environment is error, stdout:%s, stderr:%s",
+                "error checking the host environment, stdout:%s, stderr:%s",
                 stdout, stderr)
         return False
 
@@ -67,4 +67,4 @@ class ProcessAttacker(BaseAttacker):
                 "sudo /bin/bash -s {0} ".format(self.service_name),
                 stdin=stdin_file)
         if exit_status:
-            LOG.info("Fail to restart service!")
+            LOG.info("Fail to restart service: %s", self.recovery_script)
