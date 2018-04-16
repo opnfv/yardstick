@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_cf9724eb",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T12:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_0f0e2ce5",
+      "range": {
+        "startLine": 92,
+        "startChar": 3,
+        "endLine": 92,
+        "endChar": 8
+      },
+      "revId": "86d0c7f6798e469f8cc1c2a4624b8164390bb848",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_ef12e007",
         "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
         "patchSetId": 4
@@ -117,6 +141,102 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_2f8848c4",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T12:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_ef12e007",
+      "range": {
+        "startLine": 92,
+        "startChar": 71,
+        "endLine": 93,
+        "endChar": 3
+      },
+      "revId": "86d0c7f6798e469f8cc1c2a4624b8164390bb848",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_af9c5810",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T12:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_2ff848c2",
+      "range": {
+        "startLine": 93,
+        "startChar": 22,
+        "endLine": 93,
+        "endChar": 24
+      },
+      "revId": "86d0c7f6798e469f8cc1c2a4624b8164390bb848",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_efa2e049",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T12:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_8f019cb1",
+      "range": {
+        "startLine": 93,
+        "startChar": 65,
+        "endLine": 93,
+        "endChar": 76
+      },
+      "revId": "86d0c7f6798e469f8cc1c2a4624b8164390bb848",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0f9e2c07",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T12:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_4ffb14c1",
+      "range": {
+        "startLine": 93,
+        "startChar": 7,
+        "endLine": 93,
+        "endChar": 9
+      },
+      "revId": "86d0c7f6798e469f8cc1c2a4624b8164390bb848",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_6ffed0af",
         "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
         "patchSetId": 4
@@ -128,6 +248,30 @@
       "writtenOn": "2018-04-16T09:44:14Z",
       "side": 1,
       "message": "Please number to steps",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 6
+      },
+      "revId": "86d0c7f6798e469f8cc1c2a4624b8164390bb848",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6f01b005",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T12:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_6ffed0af",
       "range": {
         "startLine": 96,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_8a186a76",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T12:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_4f979448",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 8
+      },
+      "revId": "86d0c7f6798e469f8cc1c2a4624b8164390bb848",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_efcdc0b8",
         "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
         "patchSetId": 4
@@ -174,6 +342,30 @@
       "writtenOn": "2018-04-16T09:44:14Z",
       "side": 1,
       "message": "Is this two example scale-out test cases?\nOR\nScale out test cases for SampleVNFs?\n\nIf it is the latter, then please use ``SampleVNF`` to reduce confusion.",
+      "range": {
+        "startLine": 352,
+        "startChar": 13,
+        "endLine": 352,
+        "endChar": 45
+      },
+      "revId": "86d0c7f6798e469f8cc1c2a4624b8164390bb848",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0f6c6c07",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T12:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_efcdc0b8",
       "range": {
         "startLine": 352,
         "startChar": 13,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_af51f837",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T12:21:16Z",
+      "side": 1,
+      "message": "Make sense :) Done.",
+      "parentUuid": "5a3f45e8_cf60c4a7",
+      "range": {
+        "startLine": 362,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 30
+      },
+      "revId": "86d0c7f6798e469f8cc1c2a4624b8164390bb848",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_ef5b00f4",
         "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
         "patchSetId": 4
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_6a3cfec8",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T12:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_ef5b00f4",
+      "range": {
+        "startLine": 365,
+        "startChar": 0,
+        "endLine": 367,
+        "endChar": 19
+      },
+      "revId": "86d0c7f6798e469f8cc1c2a4624b8164390bb848",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_6f67f0b7",
         "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
         "patchSetId": 4
@@ -243,6 +483,30 @@
       "writtenOn": "2018-04-16T09:44:14Z",
       "side": 1,
       "message": "The sequence of steps should be numbered so it is clear where each step starts and ends, and it is easy for the user to locate their place in the document if they have to come back to it.",
+      "range": {
+        "startLine": 369,
+        "startChar": 0,
+        "endLine": 369,
+        "endChar": 2
+      },
+      "revId": "86d0c7f6798e469f8cc1c2a4624b8164390bb848",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4a3942d6",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T12:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_6f67f0b7",
       "range": {
         "startLine": 369,
         "startChar": 0,
@@ -289,6 +553,54 @@
       "writtenOn": "2018-04-16T09:44:14Z",
       "side": 1,
       "message": "Since you are formatting the task args into a dict, you could put this after the testcase path, and make the formatting clearer, so that it is obvious that there is a second dict. This was not initially clear on first glance i.e.:\n\n{\n      \"num_vnfs\": 4,\n      \"availability_zone\": {\n          \"vnf_0\": \"az_0\", \"tg_0\": \"az_1\",\n          \"vnf_1\": \"az_0\", \"tg_1\": \"az_1\",\n          \"vnf_2\": \"az_0\", \"tg_2\": \"az_1\",\n          \"vnf_3\": \"az_0\", \"tg_3\": \"az_1\"\n      }\n}",
+      "range": {
+        "startLine": 377,
+        "startChar": 26,
+        "endLine": 384,
+        "endChar": 6
+      },
+      "revId": "86d0c7f6798e469f8cc1c2a4624b8164390bb848",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6f2a5091",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T12:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_8fe51c3a",
+      "range": {
+        "startLine": 384,
+        "startChar": 7,
+        "endLine": 384,
+        "endChar": 98
+      },
+      "revId": "86d0c7f6798e469f8cc1c2a4624b8164390bb848",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8f2d1cab",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T12:21:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_6fe25030",
       "range": {
         "startLine": 377,
         "startChar": 26,
