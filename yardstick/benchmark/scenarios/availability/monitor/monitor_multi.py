@@ -29,7 +29,7 @@ class MultiMonitor(basemonitor.BaseMonitor):
         monitor_cls = basemonitor.BaseMonitor.get_monitor_cls(monitor_type)
 
         monitor_number = self._config.get("monitor_number", 1)
-        for i in range(monitor_number):
+        for _ in range(monitor_number):
             monitor_ins = monitor_cls(self._config, self._context,
                                       self.monitor_data)
             self.monitors.append(monitor_ins)
@@ -62,15 +62,13 @@ class MultiMonitor(basemonitor.BaseMonitor):
         outage_time = (
             last_outage - first_outage if last_outage > first_outage else 0
         )
-        LOG.debug("outage_time is: %f", outage_time)
-
         max_outage_time = 0
         if "max_outage_time" in self._config["sla"]:
             max_outage_time = self._config["sla"]["max_outage_time"]
         elif "max_recover_time" in self._config["sla"]:
             max_outage_time = self._config["sla"]["max_recover_time"]
         else:
-            raise RuntimeError("monitor max_outage_time config is not found")
+            raise RuntimeError("'max_outage_time' or 'max_recover_time' config is not found")
         self._result = {"outage_time": outage_time}
 
         if outage_time > max_outage_time:
