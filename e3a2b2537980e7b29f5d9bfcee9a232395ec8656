@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_ef7140a9",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T08:38:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_2f3968d7",
+      "range": {
+        "startLine": 386,
+        "startChar": 0,
+        "endLine": 386,
+        "endChar": 3
+      },
+      "revId": "e3a2b2537980e7b29f5d9bfcee9a232395ec8656",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_8f323cf0",
         "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_4f6af4b3",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T08:38:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_8f323cf0",
+      "range": {
+        "startLine": 387,
+        "startChar": 19,
+        "endLine": 387,
+        "endChar": 22
+      },
+      "revId": "e3a2b2537980e7b29f5d9bfcee9a232395ec8656",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_4f3cb4c8",
         "filename": "samples/vnf_samples/traffic_profiles/ipv4_throughput_scale_out.yaml",
         "patchSetId": 3
@@ -59,6 +107,24 @@
       "writtenOn": "2018-04-16T08:23:32Z",
       "side": 1,
       "message": "Not now, but we need to remove those ansible templates from \"samples\" and substitute them with jinja2 templates.\n\n\"ipv4_throughput-scale-out.yaml\" template is an example.",
+      "revId": "e3a2b2537980e7b29f5d9bfcee9a232395ec8656",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8f607cd0",
+        "filename": "samples/vnf_samples/traffic_profiles/ipv4_throughput_scale_out.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-16T08:38:38Z",
+      "side": 1,
+      "message": "Ok, we can talk about this later once we are going to change this.",
+      "parentUuid": "5a3f45e8_4f3cb4c8",
       "revId": "e3a2b2537980e7b29f5d9bfcee9a232395ec8656",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
