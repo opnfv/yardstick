@@ -22,6 +22,30 @@
       "revId": "f3f75ea39678b6da24e5ed6a61f77586f71d0128",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0a161a55",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/delete_network.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-16T15:34:02Z",
+      "side": 0,
+      "message": "But ip link takes care of it, additionally it returns rc. Why should we use file system instead?",
+      "parentUuid": "5a3f45e8_6accfe6a",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 38
+      },
+      "revId": "f3f75ea39678b6da24e5ed6a61f77586f71d0128",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
