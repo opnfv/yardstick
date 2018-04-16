@@ -16,14 +16,14 @@
 - name: Destroy old VMs
   virt:
     command: destroy
-    name: "{{ node_item.hostname }}"
-  when: node_item.hostname in virt_vms.list_vms
+    name: "{{ vmhost_item }}"
+  when: delete_all_vms | bool or not delete_all_vms | bool and vmhost_item in deploy_vms
   ignore_errors: yes
 
 # Ignore errors as VM can be running while undefined
 - name: Undefine old VMs
   virt:
     command: undefine
-    name: "{{ node_item.hostname }}"
-  when: node_item.hostname in virt_vms.list_vms
+    name: "{{ vmhost_item }}"
+  when: delete_all_vms | bool or not delete_all_vms | bool and vmhost_item in deploy_vms
   ignore_errors: yes

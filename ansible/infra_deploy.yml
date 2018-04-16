@@ -13,9 +13,12 @@
 # limitations under the License.
 ---
 - hosts: jumphost
+  vars:
+    rs_file: "{{ RS_FILE }}"
+    delete_all_vms: "{{ DELETE_ALL_VMS | default(False) }}"
 
   roles:
-    - infra_check_requirements
     - infra_destroy_previous_configuration
+    - infra_check_requirements
     - infra_create_network
     - infra_create_vms

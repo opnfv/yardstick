@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-# Copyright (c) 2018 Intel Corporation.
+# Copyright (c) 2017-2018 Intel Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,10 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+---
+- name: List VMs disks
+  shell: virsh domblklist {{ vmhost_item }} | awk '/\/.*/ { print $2 }'
+  when: delete_all_vms | bool or not delete_all_vms | bool and vmhost_item in deploy_vms
+  register: virt_img
 
-ANSIBLE_SCRIPTS="${0%/*}/../ansible"
-
-cd ${ANSIBLE_SCRIPTS} &&\
-sudo -EH ansible-playbook \
-         -e RS_FILE='../etc/infra/infra_deploy.yaml' -e DELETE_ALL_VMS=False \
-         -i inventory.ini infra_deploy.yml
+- name: Delete old disk images
+  file:
+    path: "{{ item }}"
+    state: absent
+  when: virt_img.stdout_lines is defined and virt_img.stdout_lines | length > 0
+  with_items: "{{ virt_img.stdout_lines }}"
