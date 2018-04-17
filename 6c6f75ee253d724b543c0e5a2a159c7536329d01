@@ -323,6 +323,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_1b45cd16",
+        "filename": "ansible/roles/infra_destroy_previous_configuration/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-17T16:51:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_6598b1c0",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "6c6f75ee253d724b543c0e5a2a159c7536329d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_aa01e6b0",
         "filename": "tools/virt_ci_rampup.sh",
         "patchSetId": 2
