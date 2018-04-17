@@ -401,6 +401,29 @@
       "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9b60bed0",
+        "filename": "tools/virt_ci_rampup.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-04-17T10:57:54Z",
+      "side": 1,
+      "message": "why deploy_two and not infra_deploy.yaml",
+      "range": {
+        "startLine": 44,
+        "startChar": 45,
+        "endLine": 44,
+        "endChar": 55
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
