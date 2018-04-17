@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_20405706",
+        "filename": "ansible/roles/add_repos_jumphost/vars/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-17T08:09:27Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 120
+      },
+      "revId": "bf65df6e25897fa46fd44af4899330799b4dffe4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_00455b16",
+        "filename": "ansible/roles/configure_gui/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-17T08:09:27Z",
+      "side": 1,
+      "message": "???",
+      "range": {
+        "startLine": 20,
+        "startChar": 3,
+        "endLine": 20,
+        "endChar": 7
+      },
+      "revId": "bf65df6e25897fa46fd44af4899330799b4dffe4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_604d3f3e",
+        "filename": "ansible/roles/configure_rabbitmq/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-17T08:09:27Z",
+      "side": 1,
+      "message": "Just in case, execute:\n  $ rabbitmqctl start_app",
+      "revId": "bf65df6e25897fa46fd44af4899330799b4dffe4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a00107b1",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 13
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-17T08:09:27Z",
+      "side": 1,
+      "message": "If you are modifying these lines, you need to modify Dockerfile.aarch64.patch too",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 120
+      },
+      "revId": "bf65df6e25897fa46fd44af4899330799b4dffe4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a053c7e0",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-17T08:09:27Z",
+      "side": 1,
+      "message": "Add this line again and remove L35-36.\n\nI added L35 and L36 to avoid downloading the code from the repo and do manual testing.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 100
+      },
+      "revId": "bf65df6e25897fa46fd44af4899330799b4dffe4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_80fe8bac",
+        "filename": "install.sh",
+        "patchSetId": 13
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-17T08:09:27Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 12
+      },
+      "revId": "bf65df6e25897fa46fd44af4899330799b4dffe4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
