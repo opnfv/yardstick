@@ -128,6 +128,70 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_203a17e7",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-04-17T10:33:10Z",
+      "side": 1,
+      "message": "was this tested?...this will break the vm network.this is auto generated based on the mac address",
+      "parentUuid": "5a3f45e8_4af7828b",
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_802a0b8e",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-04-17T10:33:10Z",
+      "side": 1,
+      "message": "please use the copy module for copying http://docs.ansible.com/ansible/latest/modules/copy_module.html",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 74
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_400be329",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-04-17T10:33:10Z",
+      "side": 1,
+      "message": "https://docs.ansible.com/ansible/2.3/docker_module.html",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 111
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_852fbd87",
         "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/configure_docker.yml",
         "patchSetId": 6
@@ -294,6 +358,46 @@
       "writtenOn": "2018-04-16T15:35:45Z",
       "side": 1,
       "message": "Why do we need this file here??",
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5b15963e",
+        "filename": "etc/infra/infra_deploy_multi.yaml.sample",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-04-17T10:33:10Z",
+      "side": 1,
+      "message": "This is not a config option....you will leave the user confused when they change this and loose access to their vm. The name is auto generated depending on the mac address",
+      "range": {
+        "startLine": 13,
+        "startChar": 9,
+        "endLine": 13,
+        "endChar": 25
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3b124a57",
+        "filename": "etc/infra/infra_deploy_multi.yaml.sample",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-04-17T10:33:10Z",
+      "side": 1,
+      "message": "whitespace",
       "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
