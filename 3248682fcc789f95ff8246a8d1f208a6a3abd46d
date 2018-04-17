@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_bb065a1b",
+        "filename": "yardstick/tests/integration/dummy-scenario-heat-context.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-17T10:25:36Z",
+      "side": 1,
+      "message": "1) We should not use cirros, but yardstick vanilla image\n2) The context name should have a default value\n3) We should use yardstick flavor",
+      "revId": "3248682fcc789f95ff8246a8d1f208a6a3abd46d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
