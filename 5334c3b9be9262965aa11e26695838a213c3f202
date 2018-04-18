@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_01343cfa",
+        "filename": "yardstick/benchmark/scenarios/lib/delete_server.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-18T16:25:46Z",
+      "side": 1,
+      "message": "Why it\u0027s named \"server_name_or_id\"? In CreateServer scenario, it is named like \"name\" but not \"server_name\". So I would expect to have \"name_or_id\" in \"DeleteServer\" instead of \"server_name_or_id\".",
+      "revId": "5334c3b9be9262965aa11e26695838a213c3f202",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4111245c",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-18T16:25:46Z",
+      "side": 1,
+      "message": "This function returns False in case of exception too. So, the message should be changed.",
+      "revId": "5334c3b9be9262965aa11e26695838a213c3f202",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
