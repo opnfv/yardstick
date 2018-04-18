@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_417be47a",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-18T11:19:57Z",
+      "side": 1,
+      "message": "You could have given the file a different name (i.e. given the context a different name), so that we know that the method was only called once during this operation..\n\ne.g. self.test_context._name \u003d \u0027demo-context-does-not-exist\u0027",
+      "range": {
+        "startLine": 309,
+        "startChar": 25,
+        "endLine": 309,
+        "endChar": 40
+      },
+      "revId": "be5e495a1cb7ab97b9202900defaf00dbd773054",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
