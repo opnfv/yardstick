@@ -1,5 +1,8 @@
 ---
-dpdk_make_arch: x86_64-native-linuxapp-gcc
+dpdk_make_archs:
+ "amd64": "x86_64-native-linuxapp-gcc"
+ "arm64": "arm64-native-linuxapp-gcc"
+dpdk_make_arch: "{{ dpdk_make_archs[YARD_IMG_ARCH] }}"
 dpdk_module_dir: "/lib/modules/{{ dpdk_kernel }}/extra"
 hugetable_mount: /mnt/huge
 dpdk_pmd_path: /usr/lib/dpdk-pmd/
