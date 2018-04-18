@@ -34,6 +34,24 @@
       "revId": "6eab46c0e844b6a17665f956b7647a8eb95b54d0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e1d79049",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-04-18T11:46:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_761b51ca",
+      "revId": "6eab46c0e844b6a17665f956b7647a8eb95b54d0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
