@@ -306,7 +306,7 @@ class HeatContextTestCase(unittest.TestCase):
              'yardstick/resources/files/yardstick_key-',
              self.test_context._name])
         mock_genkeys.assert_called_once_with(key_filename)
-        mock_path_exists.assert_called_once_with(key_filename)
+        mock_path_exists.assert_any_call(key_filename)
 
     @mock.patch.object(heat, 'HeatTemplate', return_value='heat_template')
     @mock.patch.object(heat.HeatContext, '_add_resources_to_template')
