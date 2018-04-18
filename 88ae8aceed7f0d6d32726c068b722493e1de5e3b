@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_8497ba47",
+        "filename": "ansible/roles/install_dpdk_shared/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2018-04-18T21:02:20Z",
+      "side": 1,
+      "message": "I think we need \u0027armv8a\u0027 machine type (don\u0027t remember the details, maybe the people I cc\u0027ed do).\nAlso, it looks like Ubuntu is going with \u0027armv8a\u0027 too [1].\n[1] https://gerrit.fd.io/r/gitweb?p\u003ddeb_dpdk.git;a\u003dblob;f\u003ddebian/rules;h\u003de2b018cd785217a1dcb6735ab697257dac878326;hb\u003drefs/heads/17.05.x#l56",
+      "range": {
+        "startLine": 4,
+        "startChar": 17,
+        "endLine": 4,
+        "endChar": 23
+      },
+      "revId": "88ae8aceed7f0d6d32726c068b722493e1de5e3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
