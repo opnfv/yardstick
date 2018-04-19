@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_af91eff2",
+        "filename": "tests/unit/network_services/collector/test_subscriber.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-19T10:34:31Z",
+      "side": 1,
+      "message": "We don\u0027t need those methods. Those should be mocked (see L87 comment)",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 12
+      },
+      "revId": "7750b8c17d6010fb1b852e59158ea089d44b0b72",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0fa3c34f",
+        "filename": "tests/unit/network_services/collector/test_subscriber.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-19T10:34:31Z",
+      "side": 1,
+      "message": "Those tests are irrelevant",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 12
+      },
+      "revId": "7750b8c17d6010fb1b852e59158ea089d44b0b72",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6f8b67c3",
+        "filename": "tests/unit/network_services/collector/test_subscriber.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-19T10:34:31Z",
+      "side": 1,
+      "message": "You should:\n- Instantiate a Collector object, using one or many MockVnfAprrox objects\n- Mock vnf.start_collectd method\n- List how many times this method is called",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 87,
+        "endChar": 49
+      },
+      "revId": "7750b8c17d6010fb1b852e59158ea089d44b0b72",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4f882bc5",
+        "filename": "tests/unit/network_services/collector/test_subscriber.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-19T10:34:31Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 48
+      },
+      "revId": "7750b8c17d6010fb1b852e59158ea089d44b0b72",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ea012506",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_base.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-19T10:34:31Z",
+      "side": 1,
+      "message": "Inside an \"assertRaises\" context you can\u0027t execute anything after the method which raises the exception. This check must be done outside the context, like in the base patch.",
+      "range": {
+        "startLine": 218,
+        "startChar": 12,
+        "endLine": 221,
+        "endChar": 53
+      },
+      "revId": "7750b8c17d6010fb1b852e59158ea089d44b0b72",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0f3f43d7",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-19T10:34:31Z",
+      "side": 1,
+      "message": "Please, add a comment:\n\n:return: (dict) dictionary of kpis collected from the VNFs; the \n         keys are the names of the VNFs.",
+      "revId": "7750b8c17d6010fb1b852e59158ea089d44b0b72",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cf9c3b12",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-19T10:34:31Z",
+      "side": 1,
+      "message": "This function is not tested",
+      "range": {
+        "startLine": 721,
+        "startChar": 8,
+        "endLine": 721,
+        "endChar": 32
+      },
+      "revId": "7750b8c17d6010fb1b852e59158ea089d44b0b72",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2f9e7f07",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-19T10:34:31Z",
+      "side": 1,
+      "message": "This function is not tested",
+      "range": {
+        "startLine": 758,
+        "startChar": 8,
+        "endLine": 758,
+        "endChar": 23
+      },
+      "revId": "7750b8c17d6010fb1b852e59158ea089d44b0b72",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
