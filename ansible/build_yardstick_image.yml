@@ -76,18 +76,17 @@
 
     - name: Debug dump loop devices
       command: losetup -a
-      register: losetup_output
       ignore_errors: true
-
-    - debug:
-        var: losetup_output
-        verbosity: 2
 
     - name: delete loop devices for image file
       # use this because kpartx -dv will fail if raw_imgfile was delete
       # but in theory we could have deleted file still attached to loopback device?
       # use grep because of // and awk
       shell: losetup -O NAME,BACK-FILE | grep "{{ raw_imgfile_basename }}" | awk '{ print $1 }' | xargs -l1 losetup -v -d
+      ignore_errors: true
+
+    - name: Debug dump loop devices again
+      command: losetup -a
       ignore_errors: true
 
     - name: delete {{ raw_imgfile }}
