@@ -23,9 +23,11 @@ import logging
 import os
 import random
 import re
+import signal
 import socket
 import subprocess
 import sys
+import time
 
 import six
 from flask import jsonify
@@ -34,6 +36,8 @@ from oslo_serialization import jsonutils
 from oslo_utils import encodeutils
 
 import yardstick
+from yardstick.common import exceptions
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -405,15 +409,24 @@ class ErrorClass(object):
 
 
 class Timer(object):
-    def __init__(self):
+    def __init__(self, timeout=None):
         super(Timer, self).__init__()
         self.start = self.delta = None
+        self._timeout = int(timeout)
+
+    def _timeout_handler(self, *args):
+        raise exceptions.TimerTimeout(timeout=self._timeout)
 
     def __enter__(self):
         self.start = datetime.datetime.now()
+        if self._timeout:
+            signal.signal(signal.SIGALRM, self._timeout_handler)
+            signal.alarm(self._timeout)
         return self
 
     def __exit__(self, *_):
+        if self._timeout:
+            signal.alarm(0)
         self.delta = datetime.datetime.now() - self.start
 
     def __getattr__(self, item):
@@ -460,3 +473,22 @@ def open_relative_file(path, task_path):
         if e.errno == errno.ENOENT:
             return open(os.path.join(task_path, path))
         raise
+
+
+def wait_until_true(predicate, timeout=60, sleep=1, exception=None):
+    """Wait until callable predicate is evaluated as True
+
+    :param predicate: (func) callable deciding whether waiting should continue
+    :param timeout: (int) timeout in seconds how long should function wait
+    :param sleep: (int) polling interval for results in seconds
+    :param exception: exception instance to raise on timeout. If None is passed
+                      (default) then WaitTimeout exception is raised.
+    """
+    try:
+        with Timer(timeout=timeout):
+            while not predicate():
+                time.sleep(sleep)
+    except exceptions.TimerTimeout:
+        if exception and issubclass(exception, Exception):
+            raise exception
+        raise exceptions.WaitTimeout
