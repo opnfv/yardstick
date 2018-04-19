@@ -229,6 +229,9 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertRaises(y_exc.HeatTemplateError,
                           self.test_context.deploy)
 
+        # RAH: test
+        mock_path_exists.assert_called_once_with('/home/jenkins/opnfv/slave_root/workspace/yardstick-verify-master/yardstick/resources/files/yardstick_key-foo-12345678')
+        # print(mock_path_exists.mock_calls)
         mock_path_exists.assert_called_once()
         mock_resources_template.assert_called_once()
 
