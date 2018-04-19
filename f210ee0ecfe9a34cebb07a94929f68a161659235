@@ -278,6 +278,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_cf655bb6",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-04-19T07:37:23Z",
+      "side": 1,
+      "message": "I cant allow this to pass the review stage.\nThe interface name is defined by the mac address here.\nThis is not a config option.\nThere is only 1 possible value this variable can be.\nPlease change this back.",
+      "parentUuid": "5a3f45e8_6140a034",
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_802a0b8e",
         "filename": "ansible/roles/infra_deploy_openstack/tasks/install_kolla.yml",
         "patchSetId": 6
