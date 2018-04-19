@@ -75,7 +75,9 @@ build_yardstick_image()
                 exit 1
             fi
         fi
-        if [[ $DEPLOY_SCENARIO == *[_-]ovs[_-]* ]]; then
+        # DPDK compile is not enabled for arm64 yet so disable for now
+        # JIRA: YARSTICK-1124
+        if [[ ! -f "${QCOW_NSB_IMAGE}"  && ${DEPLOY_SCENARIO} == *[_-]ovs_dpdk[_-]* && "${YARD_IMG_ARCH}" != "arm64" ]]; then
             ansible-playbook \
                      -e img_property="nsb" \
                      -e YARD_IMG_ARCH=${YARD_IMG_ARCH} \
