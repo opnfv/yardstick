@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_aa327def",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7053
+      },
+      "writtenOn": "2018-04-19T11:01:11Z",
+      "side": 1,
+      "message": "maybe it menas TC042?",
+      "range": {
+        "startLine": 11,
+        "startChar": 22,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "c4b38c5b2becfc6c507fd1c56bdbf47cf41cd7b5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4aae59e7",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7053
+      },
+      "writtenOn": "2018-04-19T11:01:11Z",
+      "side": 1,
+      "message": "does it mean:\nnosdn-nofeature-ha scenario: build normal image for arm/x86\nodl-nofeature-ha scenario: build normal image for arm/x86\nnosdn-ovs-ha scenario: \nfor arm, only build normal image\nfor x86, build both normal and nsb image?",
+      "range": {
+        "startLine": 78,
+        "startChar": 6,
+        "endLine": 88,
+        "endChar": 14
+      },
+      "revId": "c4b38c5b2becfc6c507fd1c56bdbf47cf41cd7b5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
