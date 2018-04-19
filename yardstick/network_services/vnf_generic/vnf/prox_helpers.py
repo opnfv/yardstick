@@ -927,9 +927,6 @@ class ProxResourceHelper(ClientResourceHelper):
 
     def collect_kpi(self):
         result = super(ProxResourceHelper, self).collect_kpi()
-        # add in collectd kpis manually
-        if result:
-            result['collect_stats'] = self._collect_resource_kpi()
         return result
 
     def terminate(self):

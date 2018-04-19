@@ -1445,16 +1445,11 @@ class TestProxResourceHelper(unittest.TestCase):
         helper = ProxResourceHelper(mock.MagicMock())
         helper._queue = queue = mock.MagicMock()
         helper._result = {'z': 123}
-        helper.resource = resource = mock.MagicMock()
-
-        resource.check_if_system_agent_running.return_value = 0, '1234'
-        resource.amqp_collect_nfvi_kpi.return_value = 543
-        resource.check_if_system_agent_running.return_value = (0, None)
 
         queue.empty.return_value = False
         queue.get.return_value = {'a': 789}
 
-        expected = {'z': 123, 'a': 789, 'collect_stats': {'core': 543}}
+        expected = {'z': 123, 'a': 789}
         result = helper.collect_kpi()
         self.assertDictEqual(result, expected)
 
