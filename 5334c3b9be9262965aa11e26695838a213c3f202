@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_4f7b0b28",
+        "filename": "yardstick/benchmark/scenarios/lib/delete_server.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-19T08:29:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_01343cfa",
+      "revId": "5334c3b9be9262965aa11e26695838a213c3f202",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_4111245c",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 11
@@ -30,6 +48,24 @@
       "writtenOn": "2018-04-18T16:25:46Z",
       "side": 1,
       "message": "This function returns False in case of exception too. So, the message should be changed.",
+      "revId": "5334c3b9be9262965aa11e26695838a213c3f202",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_af744f36",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-19T08:29:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_4111245c",
       "revId": "5334c3b9be9262965aa11e26695838a213c3f202",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
