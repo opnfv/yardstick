@@ -217,7 +217,7 @@ class HeatContextTestCase(unittest.TestCase):
                           self.test_context._create_new_stack,
                           template)
 
-    @mock.patch.object(os.path, 'exists', return_value=True)
+    @mock.patch.object(heat, 'exists', return_value=True)
     @mock.patch.object(heat.HeatContext, '_add_resources_to_template')
     @mock.patch.object(heat.HeatContext, '_create_new_stack')
     def test_deploy_stack_creation_failed(self, mock_create,
@@ -232,7 +232,7 @@ class HeatContextTestCase(unittest.TestCase):
         mock_path_exists.assert_called_once()
         mock_resources_template.assert_called_once()
 
-    @mock.patch.object(os.path, 'exists', return_value=False)
+    @mock.patch.object(heat, 'exists', return_value=False)
     @mock.patch.object(ssh.SSH, 'gen_keys')
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_deploy(self, mock_template, mock_genkeys, mock_path_exists):
@@ -257,7 +257,7 @@ class HeatContextTestCase(unittest.TestCase):
         mock_path_exists.assert_called_once_with(key_filename)
 
     @mock.patch.object(heat, 'HeatTemplate')
-    @mock.patch.object(os.path, 'exists', return_value=False)
+    @mock.patch.object(heat, 'exists', return_value=False)
     @mock.patch.object(ssh.SSH, 'gen_keys')
     @mock.patch.object(heat.HeatContext, '_retrieve_existing_stack')
     @mock.patch.object(heat.HeatContext, '_create_new_stack')
@@ -283,7 +283,7 @@ class HeatContextTestCase(unittest.TestCase):
         mock_path_exists.assert_called_once_with(key_filename)
 
     @mock.patch.object(heat, 'HeatTemplate')
-    @mock.patch.object(os.path, 'exists', return_value=False)
+    @mock.patch.object(heat, 'exists', return_value=False)
     @mock.patch.object(ssh.SSH, 'gen_keys')
     @mock.patch.object(heat.HeatContext, '_create_new_stack')
     @mock.patch.object(heat.HeatContext, '_retrieve_existing_stack',
@@ -310,7 +310,7 @@ class HeatContextTestCase(unittest.TestCase):
 
     @mock.patch.object(heat, 'HeatTemplate', return_value='heat_template')
     @mock.patch.object(heat.HeatContext, '_add_resources_to_template')
-    @mock.patch.object(os.path, 'exists', return_value=False)
+    @mock.patch.object(heat, 'exists', return_value=False)
     @mock.patch.object(ssh.SSH, 'gen_keys')
     def test_deploy_ssh_key_before_adding_resources(self, mock_genkeys,
             mock_path_exists, mock_add_resources, *args):

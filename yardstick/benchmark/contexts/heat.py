@@ -13,6 +13,8 @@ from __future__ import print_function
 import collections
 import logging
 import os
+# because we need to mock only this one
+from os.path import exists
 import errno
 from collections import OrderedDict
 
@@ -325,7 +327,7 @@ class HeatContext(Context):
         # Permissions may have changed since creation; this can be fixed. If we
         # overwrite the file, we lose future access to VMs using this key.
         # As long as the file exists, even if it is unreadable, keep it intact
-        if not os.path.exists(self.key_filename):
+        if not exists(self.key_filename):
             SSH.gen_keys(self.key_filename)
 
         heat_template = HeatTemplate(self.name, self.template_file,
