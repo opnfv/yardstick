@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_afc60f66",
+        "filename": "yardstick/network_services/vnf_generic/vnf/base.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-04-19T08:35:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_969d3d69",
+      "revId": "f109e40072db3d88b1d0565650d17490c23b6e09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_b6f039ff",
         "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
         "patchSetId": 3
@@ -77,6 +95,30 @@
       "writtenOn": "2018-04-13T14:58:40Z",
       "side": 1,
       "message": "Where are we using this function?",
+      "range": {
+        "startLine": 721,
+        "startChar": 8,
+        "endLine": 721,
+        "endChar": 32
+      },
+      "revId": "f109e40072db3d88b1d0565650d17490c23b6e09",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6fd0871f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-04-19T08:35:27Z",
+      "side": 1,
+      "message": "L:709",
+      "parentUuid": "5a3f45e8_b6f039ff",
       "range": {
         "startLine": 721,
         "startChar": 8,
