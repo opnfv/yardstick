@@ -229,6 +229,10 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertRaises(y_exc.HeatTemplateError,
                           self.test_context.deploy)
 
+        # RAH: test
+        if len(mock_path_exists.call_args_list) > 1:
+            print(mock_path_exists.call_args_list)
+            raise Exception(mock_path_exists.call_args_list)
         mock_path_exists.assert_called_once()
         mock_resources_template.assert_called_once()
 
@@ -254,6 +258,10 @@ class HeatContextTestCase(unittest.TestCase):
              'yardstick/resources/files/yardstick_key-',
              self.test_context._name_task_id])
         mock_genkeys.assert_called_once_with(key_filename)
+        # RAH: test
+        if len(mock_path_exists.call_args_list) > 1:
+            print(mock_path_exists.call_args_list)
+            raise Exception(mock_path_exists.call_args_list)
         mock_path_exists.assert_called_once_with(key_filename)
 
     @mock.patch.object(heat, 'HeatTemplate')
@@ -280,6 +288,10 @@ class HeatContextTestCase(unittest.TestCase):
              'yardstick/resources/files/yardstick_key-',
              self.test_context._name])
         mock_genkeys.assert_called_once_with(key_filename)
+        # RAH: test
+        if len(mock_path_exists.call_args_list) > 1:
+            print(mock_path_exists.call_args_list)
+            raise Exception(mock_path_exists.call_args_list)
         mock_path_exists.assert_called_once_with(key_filename)
 
     @mock.patch.object(heat, 'HeatTemplate')
@@ -306,6 +318,10 @@ class HeatContextTestCase(unittest.TestCase):
              'yardstick/resources/files/yardstick_key-',
              self.test_context._name])
         mock_genkeys.assert_called_once_with(key_filename)
+        # RAH: test
+        if len(mock_path_exists.call_args_list) > 1:
+            print(mock_path_exists.call_args_list)
+            raise Exception(mock_path_exists.call_args_list)
         mock_path_exists.assert_any_call(key_filename)
 
     @mock.patch.object(heat, 'HeatTemplate', return_value='heat_template')
@@ -334,6 +350,10 @@ class HeatContextTestCase(unittest.TestCase):
              'yardstick/resources/files/yardstick_key-',
              self.test_context._name_task_id])
         mock_genkeys.assert_called_once_with(key_filename)
+        # RAH: test
+        if len(mock_path_exists.call_args_list) > 1:
+            print(mock_path_exists.call_args_list)
+            raise Exception(mock_path_exists.call_args_list)
         mock_path_exists.assert_called_with(key_filename)
 
         mock_call_gen_keys = mock.call.gen_keys(key_filename)
