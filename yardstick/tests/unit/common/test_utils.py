@@ -16,13 +16,15 @@ import mock
 import os
 import six
 from six.moves import configparser
+import time
 import unittest
 
 import yardstick
 from yardstick import ssh
 import yardstick.error
-from yardstick.common import utils
 from yardstick.common import constants
+from yardstick.common import utils
+from yardstick.common import exceptions
 
 
 class IterSubclassesTestCase(unittest.TestCase):
@@ -1158,3 +1160,43 @@ class ReadMeminfoTestCase(unittest.TestCase):
             output = utils.read_meminfo(ssh_client)
             mock_get_client.assert_called_once_with('/proc/meminfo', mock.ANY)
         self.assertEqual(self.MEMINFO_DICT, output)
+
+
+class TimerTestCase(unittest.TestCase):
+
+    def test__getattr(self):
+        with utils.Timer() as timer:
+            time.sleep(1)
+        self.assertEqual(1, round(timer.total_seconds(), 0))
+        self.assertEqual(1, timer.delta.seconds)
+
+    def test__enter_with_timeout(self):
+        with utils.Timer(timeout=10) as timer:
+            time.sleep(1)
+        self.assertEqual(1, round(timer.total_seconds(), 0))
+
+    def test__enter_with_timeout_exception(self):
+        with self.assertRaises(exceptions.TimerTimeout):
+            with utils.Timer(timeout=1):
+                time.sleep(2)
+
+
+class WaitUntilTrueTestCase(unittest.TestCase):
+
+    def test_no_timeout(self):
+        self.assertIsNone(utils.wait_until_true(lambda: True,
+                                                timeout=1, sleep=1))
+
+    def test_timeout_generic_exception(self):
+        with self.assertRaises(exceptions.WaitTimeout):
+            self.assertIsNone(utils.wait_until_true(lambda: False,
+                                                    timeout=1, sleep=1))
+
+    def test_timeout_given_exception(self):
+        class MyTimeoutException(exceptions.YardstickException):
+            message = 'My timeout exception'
+
+        with self.assertRaises(MyTimeoutException):
+            self.assertIsNone(
+                utils.wait_until_true(lambda: False, timeout=1, sleep=1,
+                                      exception=MyTimeoutException))

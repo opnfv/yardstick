@@ -137,6 +137,14 @@ class TaskRenderError(YardstickException):
     message = 'Failed to render template:\n%(input_task)s'
 
 
+class TimerTimeout(YardstickException):
+    message = 'Timer timeout expired, %(timeout)s seconds'
+
+
+class WaitTimeout(YardstickException):
+    message = 'Wait timeout while waiting for condition'
+
+
 class ScenarioCreateNetworkError(YardstickException):
     message = 'Create Neutron Network Scenario failed'
 
