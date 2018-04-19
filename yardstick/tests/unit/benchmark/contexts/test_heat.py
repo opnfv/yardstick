@@ -226,6 +226,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context._task_id = '1234567890'
         self.test_context._name_task_id = 'foo-12345678'
         mock_create.side_effect = y_exc.HeatTemplateError
+        mock_path_exists.reset_mock()
         self.assertRaises(y_exc.HeatTemplateError,
                           self.test_context.deploy)
 
@@ -243,6 +244,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context.template_file = '/bar/baz/some-heat-file'
         self.test_context.heat_parameters = {'image': 'cirros'}
         self.test_context.get_neutron_info = mock.MagicMock()
+        mock_path_exists.reset_mock()
         self.test_context.deploy()
 
         mock_template.assert_called_with('foo-12345678',
@@ -270,6 +272,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context.heat_parameters = {'image': 'cirros'}
         self.test_context.get_neutron_info = mock.MagicMock()
         self.test_context._flags.no_setup = True
+        mock_path_exists.reset_mock()
         self.test_context.deploy()
 
         mock_create_new_stack.assert_not_called()
@@ -296,7 +299,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context._flags.no_setup = True
         self.test_context.template_file = '/bar/baz/some-heat-file'
         self.test_context.get_neutron_info = mock.MagicMock()
-
+        mock_path_exists.reset_mock()
         self.test_context.deploy()
 
         mock_retrieve_stack.assert_called_once_with(self.test_context._name)
@@ -321,6 +324,7 @@ class HeatContextTestCase(unittest.TestCase):
         mock_manager.reset_mock()
         self.test_context._name_task_id = 'demo-12345678'
         self.test_context.get_neutron_info = mock.Mock()
+        mock_path_exists.reset_mock()
         with mock.patch.object(self.test_context, '_create_new_stack') as \
                 mock_create_stack, \
                 mock.patch.object(self.test_context, 'get_neutron_info') as \
