@@ -22,6 +22,30 @@
       "revId": "be5e495a1cb7ab97b9202900defaf00dbd773054",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ef4f7769",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-04-19T05:10:21Z",
+      "side": 1,
+      "message": "The mocks are bad\n\nhow the heck are doing exists(\u0027/home/jenkins/_netrc\u0027)?\n\n Traceback (most recent call last):\n  File \"/home/jenkins/opnfv/slave_root/workspace/yardstick-verify-master/.tox/py3/lib/python3.5/site-packages/mock/mock.py\", line 1305, in patched\n    return func(*args, **keywargs)\n  File \"/home/jenkins/opnfv/slave_root/workspace/yardstick-verify-master/yardstick/tests/unit/benchmark/contexts/test_heat.py\", line 337, in test_deploy_ssh_key_before_adding_resources\n    mock_path_exists.assert_called_with(key_filename)\n  File \"/home/jenkins/opnfv/slave_root/workspace/yardstick-verify-master/.tox/py3/lib/python3.5/site-packages/mock/mock.py\", line 937, in assert_called_with\n    six.raise_from(AssertionError(_error_message(cause)), cause)\n  File \"\u003cstring\u003e\", line 2, in raise_from\nAssertionError: Expected call: exists(\u0027/home/jenkins/opnfv/slave_root/workspace/yardstick-verify-master/yardstick/resources/files/yardstick_key-demo-12345678\u0027)\nActual call: exists(\u0027/home/jenkins/_netrc\u0027)",
+      "parentUuid": "5a3f45e8_417be47a",
+      "range": {
+        "startLine": 309,
+        "startChar": 25,
+        "endLine": 309,
+        "endChar": 40
+      },
+      "revId": "be5e495a1cb7ab97b9202900defaf00dbd773054",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
