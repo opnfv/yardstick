@@ -13,6 +13,8 @@ from __future__ import print_function
 import collections
 import logging
 import os
+# # because we need to mock only this one
+# from os.path import exists
 import errno
 from collections import OrderedDict
 

@@ -143,8 +143,8 @@ class TestMultiPortConfig(unittest.TestCase):
     def setUp(self):
         self._mock_open = mock.patch.object(six.moves.builtins, 'open')
         self.mock_open = self._mock_open.start()
-        self._mock_os = mock.patch.object(os, 'path')
-        self.mock_os = self._mock_os.start()
+        #self._mock_os_path_open = mock.patch.object(os.path, 'path')
+        #self.mock_os = self._mock_os.start()
         self._mock_config_parser = mock.patch.object(
             samplevnf_helper, 'ConfigParser')
         self.mock_config_parser = self._mock_config_parser.start()
@@ -153,7 +153,7 @@ class TestMultiPortConfig(unittest.TestCase):
 
     def _cleanup(self):
         self._mock_open.stop()
-        self._mock_os.stop()
+        #self._mock_os.stop()
         self._mock_config_parser.stop()
 
     def test_validate_ip_and_prefixlen(self):
@@ -185,7 +185,8 @@ class TestMultiPortConfig(unittest.TestCase):
             samplevnf_helper.MultiPortConfig.validate_ip_and_prefixlen(
                 '::1', '129')
 
-    def test___init__(self):
+    @mock.patch.object(os.path, 'isfile', return_value=False)
+    def test___init__(self, *args):
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = mock.Mock()
@@ -193,8 +194,8 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf = samplevnf_helper.MultiPortConfig(
             topology_file, config_tpl, tmp_file, vnfd_mock)
         self.assertEqual(0, opnfv_vnf.swq)
-        self.mock_os.path = mock.MagicMock()
-        self.mock_os.path.isfile = mock.Mock(return_value=False)
+        # self.mock_os.path = mock.MagicMock()
+        # self.mock_os.path.isfile = mock.Mock(return_value=False)
         opnfv_vnf = samplevnf_helper.MultiPortConfig(
             topology_file, config_tpl, tmp_file, vnfd_mock)
         self.assertEqual(0, opnfv_vnf.swq)
