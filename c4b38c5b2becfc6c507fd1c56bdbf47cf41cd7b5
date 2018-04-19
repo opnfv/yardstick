@@ -45,6 +45,30 @@
       "revId": "c4b38c5b2becfc6c507fd1c56bdbf47cf41cd7b5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b58e6277",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-04-19T20:03:45Z",
+      "side": 1,
+      "message": "we\u0027ll have to figure out a better scheme going forward on when to use the DPDK based image in CI.\n\nwe could just change it to *[_-]ovs_dpdk[_-]*  to only match\nopnfv_os-nosdn-kvm_ovs_dpdk-{no}ha_daily\n\nbut that might hide the underlying issue of DPDK compile support.",
+      "parentUuid": "5a3f45e8_4aae59e7",
+      "range": {
+        "startLine": 78,
+        "startChar": 6,
+        "endLine": 88,
+        "endChar": 14
+      },
+      "revId": "c4b38c5b2becfc6c507fd1c56bdbf47cf41cd7b5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
