@@ -229,6 +229,9 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertRaises(y_exc.HeatTemplateError,
                           self.test_context.deploy)
 
+        # RAH: test
+        mock_path_exists.assert_called_once_with('')
+        # print(mock_path_exists.mock_calls)
         mock_path_exists.assert_called_once()
         mock_resources_template.assert_called_once()
 
