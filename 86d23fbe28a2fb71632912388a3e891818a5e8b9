@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_2466a12a",
+        "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T16:32:44Z",
+      "side": 1,
+      "message": "I cannot remove it as it is used as group for all OpenStack VMs.",
+      "parentUuid": "5a3f45e8_848855c6",
+      "range": {
+        "startLine": 67,
+        "startChar": 18,
+        "endLine": 67,
+        "endChar": 26
+      },
+      "revId": "86d23fbe28a2fb71632912388a3e891818a5e8b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_c48eddcf",
         "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2018-04-20T16:11:25Z",
       "side": 1,
       "message": "remove this",
+      "range": {
+        "startLine": 80,
+        "startChar": 19,
+        "endLine": 80,
+        "endChar": 26
+      },
+      "revId": "86d23fbe28a2fb71632912388a3e891818a5e8b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_046ba5f2",
+        "filename": "ansible/roles/infra_prepare_vms/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T16:32:44Z",
+      "side": 1,
+      "message": "ditto",
+      "parentUuid": "5a3f45e8_c48eddcf",
       "range": {
         "startLine": 80,
         "startChar": 19,
