@@ -22,6 +22,30 @@
       "revId": "23e1ac037eca3736a94f4b08afaa600c702b72d2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b0e310a3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-04-20T09:00:38Z",
+      "side": 1,
+      "message": "Yes, Currently, we are not using the info from Prox TG, but I am in favour of keeping it there too if it\u0027s useful. Created this patch as there was a discussion that how PROX as a traffic gen is different from other traffic gens in NSB.\n  \nIn other traffic generators(HW-Ixia or SW_T-rex) we don\u0027t collect NFVI metrics. Probably they have there own collection methods, but we don\u0027t explicitly collect in NSB using collectd.",
+      "parentUuid": "5a3f45e8_305700cc",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 25
+      },
+      "revId": "23e1ac037eca3736a94f4b08afaa600c702b72d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
