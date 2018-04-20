@@ -22,6 +22,30 @@
       "revId": "761b80038514f5ef6ba12c6da91e4c1584967f0c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_84717578",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-04-20T11:32:32Z",
+      "side": 1,
+      "message": "The pod.yaml is unrelated to the scenario testcases. We can create teh same pod.yaml for all the ODL*-HA scenarios but IMHO I think that it will not be wise to add the ODL HA resiliency testcase to the BGPVPN suite for instance because the ODL HA resiliency testcase test only basic OPenstack and ODL functionality which is not related to BGP VPN . \n\nHowever I can make the change that you proposed it would be nice to have the same pod.yaml in every ODL-*-HA deployment.",
+      "parentUuid": "5a3f45e8_d0f5fc57",
+      "range": {
+        "startLine": 81,
+        "startChar": 33,
+        "endLine": 81,
+        "endChar": 52
+      },
+      "revId": "761b80038514f5ef6ba12c6da91e4c1584967f0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
