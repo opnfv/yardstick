@@ -22,6 +22,29 @@
       "revId": "50154694f8dc37726d456cfb8efddc6d3e126dbd",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b01e70b9",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7053
+      },
+      "writtenOn": "2018-04-20T08:47:53Z",
+      "side": 1,
+      "message": "Is it only compass installer has the scenario match to \"ovs_dpdk\"? After ther change, the fuel installer (x86 and arm) will not build nsb image.",
+      "range": {
+        "startLine": 80,
+        "startChar": 70,
+        "endLine": 80,
+        "endChar": 78
+      },
+      "revId": "50154694f8dc37726d456cfb8efddc6d3e126dbd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
