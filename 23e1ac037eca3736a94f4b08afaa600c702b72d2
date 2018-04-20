@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_305700cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2018-04-20T07:33:56Z",
+      "side": 1,
+      "message": "Just wondering...\nIs having those metrics not sometimes needed? For instance, to understand potential generator related issues.\nIf the Generator runs on top of OVS, we might want to view of the OVS DPDK stats in case packets were lost between the GEN and the SUT...\nShould we not keep them, so that there are stored in the db - There would not be shown by default in grafana or html report.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 25
+      },
+      "revId": "23e1ac037eca3736a94f4b08afaa600c702b72d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
