@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_a4e911e8",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T13:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_41080428",
+      "range": {
+        "startLine": 31,
+        "startChar": 24,
+        "endLine": 31,
+        "endChar": 34
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_ca80b2c2",
         "filename": "ansible/infra_deploy.yml",
         "patchSetId": 6
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "This was added as part of current task. Need to prepare jumphost to run tests.",
       "parentUuid": "5a3f45e8_ca80b2c2",
+      "range": {
+        "startLine": 47,
+        "startChar": 1,
+        "endLine": 51,
+        "endChar": 25
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_84e69513",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T13:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_8115ec41",
       "range": {
         "startLine": 47,
         "startChar": 1,
@@ -190,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_e4ef99e7",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T13:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_41564407",
+      "range": {
+        "startLine": 54,
+        "startChar": 1,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_6a6fde2b",
         "filename": "ansible/roles/infra_clone_yardstick/tasks/main.yml",
         "patchSetId": 6
@@ -219,6 +291,24 @@
       "side": 1,
       "message": "But you didn\u0027t mentioned that before.",
       "parentUuid": "5a3f45e8_6a6fde2b",
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c4ec1df6",
+        "filename": "ansible/roles/infra_clone_yardstick/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T13:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_215b382f",
       "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -290,6 +380,24 @@
       "side": 1,
       "message": "I cant allow this to pass the review stage.\nThe interface name is defined by the mac address here.\nThis is not a config option.\nThere is only 1 possible value this variable can be.\nPlease change this back.",
       "parentUuid": "5a3f45e8_6140a034",
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ef8ad719",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T13:00:28Z",
+      "side": 1,
+      "message": "Rules were not specified in ahead: what to be generated and what not! AFAIK we decided to add fields to input file when necessary. Reworked.",
+      "parentUuid": "5a3f45e8_cf655bb6",
       "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -390,6 +498,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_aaab9d73",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T13:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_416da4cb",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 111
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_852fbd87",
         "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/configure_docker.yml",
         "patchSetId": 6
@@ -413,6 +545,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_8aa86178",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/configure_docker.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T13:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_852fbd87",
+      "range": {
+        "startLine": 33,
+        "startChar": 33,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_25086927",
         "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/install_packets.yml",
         "patchSetId": 6
@@ -424,6 +580,30 @@
       "writtenOn": "2018-04-16T15:35:45Z",
       "side": 1,
       "message": "This is very ugly and repeated 4 times. Can you call this module from infra_rampup_stack_nodes/tasks/main with this variable as a fact? Something like \"proxy_env\"",
+      "range": {
+        "startLine": 20,
+        "startChar": 15,
+        "endLine": 20,
+        "endChar": 67
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cae429e3",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/install_packets.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T13:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_25086927",
       "range": {
         "startLine": 20,
         "startChar": 15,
@@ -541,6 +721,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_04c28558",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/update_conf_files.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T13:00:28Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "5a3f45e8_c52d4597",
+      "range": {
+        "startLine": 20,
+        "startChar": 9,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_8a8eaace",
         "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/update_conf_files.yml",
         "patchSetId": 6
@@ -576,6 +780,30 @@
       "side": 1,
       "message": "I prefer to use \u0027ftp_proxy_var\u0027 instead of \"{{ lookup(\u0027env\u0027, \u0027ftp_proxy\u0027) }}\"",
       "parentUuid": "5a3f45e8_8a8eaace",
+      "range": {
+        "startLine": 78,
+        "startChar": 5,
+        "endLine": 80,
+        "endChar": 78
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2ae66de8",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/tasks/update_conf_files.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T13:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_e1a2f0fb",
       "range": {
         "startLine": 78,
         "startChar": 5,
@@ -635,6 +863,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_0aebb1b0",
+        "filename": "ansible/roles/infra_rampup_stack_nodes/vars/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T13:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_21a978df",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 63
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_05244dad",
         "filename": "ansible/roles/install_pktgen/tasks/main.yml",
         "patchSetId": 6
@@ -664,6 +916,24 @@
       "side": 1,
       "message": "My mistake.",
       "parentUuid": "5a3f45e8_05244dad",
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_81e96ce8",
+        "filename": "ansible/roles/install_pktgen/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T13:00:28Z",
+      "side": 1,
+      "message": "I just deleted a file. Somehow gerrit must show something?",
+      "parentUuid": "5a3f45e8_81b16c49",
       "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -705,6 +975,30 @@
       "side": 1,
       "message": "Rodolfo didn\u0027t like the workaround I\u0027ve used previously to get interface for neutron network. So, I\u0027ve decided to have it strictly defined here. This should be well documented.",
       "parentUuid": "5a3f45e8_5b15963e",
+      "range": {
+        "startLine": 13,
+        "startChar": 9,
+        "endLine": 13,
+        "endChar": 25
+      },
+      "revId": "f210ee0ecfe9a34cebb07a94929f68a161659235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_aad9dd23",
+        "filename": "etc/infra/infra_deploy_multi.yaml.sample",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-04-20T13:00:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_a1b46835",
       "range": {
         "startLine": 13,
         "startChar": 9,
