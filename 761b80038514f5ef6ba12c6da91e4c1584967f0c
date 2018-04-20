@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d0f5fc57",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-04-20T09:01:16Z",
+      "side": 1,
+      "message": "would it not make sense to also run this test on the other ODL-HA scenarios? What about matching *os-odl*-ha here?",
+      "range": {
+        "startLine": 81,
+        "startChar": 33,
+        "endLine": 81,
+        "endChar": 52
+      },
+      "revId": "761b80038514f5ef6ba12c6da91e4c1584967f0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
