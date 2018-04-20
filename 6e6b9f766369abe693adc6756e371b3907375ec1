@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_d0c33ceb",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-20T09:17:49Z",
+      "side": 1,
+      "message": "But this will help to set result to {} for each test. FYI, it has been done in all the previous patches. Also, it was after there was a comment on [1] L46.\n\n[1] https://gerrit.opnfv.org/gerrit/#/c/51769/25/yardstick/tests/unit/benchmark/scenarios/lib/test_create_network.py",
+      "parentUuid": "5a3f45e8_f00758c8",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 24
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_70fb48c1",
         "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
         "patchSetId": 12
@@ -140,6 +164,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_b0a83021",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-20T09:17:49Z",
+      "side": 1,
+      "message": "But instead of having local variable each time for every TC it\u0027s good to have a variable self.result in setUp.",
+      "parentUuid": "5a3f45e8_300ee0e5",
+      "range": {
+        "startLine": 49,
+        "startChar": 38,
+        "endLine": 49,
+        "endChar": 49
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_1013e40d",
         "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
         "patchSetId": 12
@@ -163,6 +211,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_90a53449",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-20T09:17:49Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "5a3f45e8_1013e40d",
+      "range": {
+        "startLine": 57,
+        "startChar": 33,
+        "endLine": 57,
+        "endChar": 44
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_b018301f",
         "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
         "patchSetId": 12
@@ -174,6 +246,30 @@
       "writtenOn": "2018-04-20T07:49:06Z",
       "side": 1,
       "message": "Please, remove this.",
+      "range": {
+        "startLine": 341,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 47
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5001ec36",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-20T09:17:49Z",
+      "side": 1,
+      "message": "But it will help user to know that TC for Nova starts from here infact same has been done in openstack_utils file.",
+      "parentUuid": "5a3f45e8_b018301f",
       "range": {
         "startLine": 341,
         "startChar": 0,
