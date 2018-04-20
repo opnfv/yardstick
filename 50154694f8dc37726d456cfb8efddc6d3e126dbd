@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d0d7bc49",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-20T07:23:58Z",
+      "side": 1,
+      "message": "The original string is \"ovs\" only. Do we need \"ovs_dpdk\" explicitly?",
+      "range": {
+        "startLine": 80,
+        "startChar": 70,
+        "endLine": 80,
+        "endChar": 78
+      },
+      "revId": "50154694f8dc37726d456cfb8efddc6d3e126dbd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
