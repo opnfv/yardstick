@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d0333ca9",
+        "filename": "yardstick/benchmark/scenarios/lib/create_server.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-20T07:49:06Z",
+      "side": 1,
+      "message": "Please, don\u0027t mix single and double quotes. Don\u0027t change this now, but you mix both, not only in the same file, but in the same patch. E.g. [1] is written in single quotes\n\n[1] https://gerrit.opnfv.org/gerrit/#/c/54469/12/yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
+      "range": {
+        "startLine": 41,
+        "startChar": 44,
+        "endLine": 41,
+        "endChar": 63
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_102ac42b",
+        "filename": "yardstick/benchmark/scenarios/lib/create_server.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-20T07:49:06Z",
+      "side": 1,
+      "message": "Try so save variables:\n\n  values \u003d [server[\"id\"]]",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 28
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b06af07e",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-20T07:49:06Z",
+      "side": 1,
+      "message": "return shade_client.create_server...\n\nand remove L336",
+      "range": {
+        "startLine": 329,
+        "startChar": 8,
+        "endLine": 329,
+        "endChar": 45
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f00758c8",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-20T07:49:06Z",
+      "side": 1,
+      "message": "Don\u0027t use an instance variable to contain the results of the tests. Please, delete it.",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 24
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_70fb48c1",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-20T07:49:06Z",
+      "side": 1,
+      "message": "Move this line before L36 call. If \"create_server.CreateServer\" fails, the mocks will never be deleted.",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 40
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_300ee0e5",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-20T07:49:06Z",
+      "side": 1,
+      "message": "This should be a local variable, \"result\"",
+      "range": {
+        "startLine": 49,
+        "startChar": 38,
+        "endLine": 49,
+        "endChar": 49
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1013e40d",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-20T07:49:06Z",
+      "side": 1,
+      "message": "This should be a local variable, \"result\"",
+      "range": {
+        "startLine": 57,
+        "startChar": 33,
+        "endLine": 57,
+        "endChar": 44
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b018301f",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-20T07:49:06Z",
+      "side": 1,
+      "message": "Please, remove this.",
+      "range": {
+        "startLine": 341,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 47
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_30dc2046",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-20T07:49:06Z",
+      "side": 1,
+      "message": "This should be the same as \"self.name\", and it\u0027s not.\n\nYou are using self.name, self.image and self.flavor just once. This is not the correct use for instance variables.\n\nInstead of this, create local variables in this function and use them:\n- When defining the return_value for create_server\n- When calling the function\n- When checking the output.",
+      "range": {
+        "startLine": 356,
+        "startChar": 22,
+        "endLine": 356,
+        "endChar": 33
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
