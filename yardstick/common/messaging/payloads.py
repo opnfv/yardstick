@@ -51,3 +51,15 @@ class Payload(object):
     def dict_to_obj(cls, _dict):
         """Returns a Payload object built from the dictionary elements"""
         return cls(**_dict)
+
+
+class TrafficGeneratorPayload(Payload):
+    """Base traffic generator payload class"""
+    REQUIRED_FIELDS = {
+        'version',  # (str) version of the payload transmitted.
+        'iteration',  # (int) iteration index during the traffic injection,
+                      # starting from 1.
+        'kpi'  # (dict) collection of KPIs collected from the traffic
+               # injection. The content will depend on the generator and the
+               # traffic type.
+    }
