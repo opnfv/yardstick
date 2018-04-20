@@ -46,6 +46,29 @@
       "revId": "23e1ac037eca3736a94f4b08afaa600c702b72d2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8467b5e8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-20T10:41:49Z",
+      "side": 1,
+      "message": "Does this need to be overridden here if it\u0027s just calling the super classes\u0027s implementation?",
+      "range": {
+        "startLine": 928,
+        "startChar": 0,
+        "endLine": 930,
+        "endChar": 20
+      },
+      "revId": "23e1ac037eca3736a94f4b08afaa600c702b72d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
