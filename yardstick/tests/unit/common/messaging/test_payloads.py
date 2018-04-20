@@ -44,3 +44,22 @@ class PayloadTestCase(ut_base.BaseUnitTestCase):
         _dict = {'version': 2, 'key1': 'value100', 'key2': 'value200'}
         payload = _DummyPayload.dict_to_obj(_dict)
         self.assertEqual(set(_dict.keys()), payload._fields)
+
+
+class TrafficGeneratorPayloadTestCase(ut_base.BaseUnitTestCase):
+
+    def test_init(self):
+        tg_payload = payloads.TrafficGeneratorPayload(
+            version=1, iteration=10, kpi={'key1': 'value1'})
+        self.assertEqual(1, tg_payload.version)
+        self.assertEqual(10, tg_payload.iteration)
+        self.assertEqual({'key1': 'value1'}, tg_payload.kpi)
+        self.assertEqual(3, len(tg_payload._fields))
+
+    def test__init_missing_required_fields(self):
+        with self.assertRaises(exceptions.PayloadMissingAttributes):
+            payloads.TrafficGeneratorPayload(version=1, iteration=10)
+        with self.assertRaises(exceptions.PayloadMissingAttributes):
+            payloads.TrafficGeneratorPayload(iteration=10, kpi={})
+        with self.assertRaises(exceptions.PayloadMissingAttributes):
+            payloads.TrafficGeneratorPayload(iteration=10)
