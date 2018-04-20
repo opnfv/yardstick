@@ -45,6 +45,30 @@
       "revId": "50154694f8dc37726d456cfb8efddc6d3e126dbd",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a4d3d102",
+        "filename": "tests/ci/load_images.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2997
+      },
+      "writtenOn": "2018-04-20T13:27:53Z",
+      "side": 1,
+      "message": "Yes, Fuel uses just \u0027ovs\u0027 to show DPDK support in its scenario names, e.g.:\nhttps://build.opnfv.org/ci/view/fuel/job/fuel-os-nosdn-ovs-ha-baremetal-daily-master/",
+      "parentUuid": "5a3f45e8_b01e70b9",
+      "range": {
+        "startLine": 80,
+        "startChar": 70,
+        "endLine": 80,
+        "endChar": 78
+      },
+      "revId": "50154694f8dc37726d456cfb8efddc6d3e126dbd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
