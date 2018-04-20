@@ -124,7 +124,9 @@ load_yardstick_image()
             ${EXTRA_PARAMS} \
             --file ${QCOW_IMAGE} \
             yardstick-image)
-        if [[ $DEPLOY_SCENARIO == *[_-]ovs[_-]* ]]; then
+        # DPDK compile is not enabled for arm64 yet so disable NSB images for now
+        # JIRA: YARSTICK-1124
+        if [[ $DEPLOY_SCENARIO == *[_-]ovs_dpdk[_-]* && "${YARD_IMG_ARCH}" != "arm64" ]]; then
             nsb_output=$(eval openstack ${SECURE} image create \
                 --public \
                 --disk-format qcow2 \
