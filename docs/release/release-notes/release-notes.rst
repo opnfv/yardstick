@@ -1,7 +1,8 @@
+=======
 License
 =======
 
-OPNFV Euphrates release note for Yardstick Docs
+OPNFV Fraser release note for Yardstick Docs
 are licensed under a Creative Commons Attribution 4.0 International License.
 You should have received a copy of the license along with this.
 If not, see <http://creativecommons.org/licenses/by/4.0/>.
@@ -9,8 +10,9 @@ If not, see <http://creativecommons.org/licenses/by/4.0/>.
 The *Yardstick framework*, the *Yardstick test cases* are open-source software,
  licensed under the terms of the Apache License, Version 2.0.
 
-OPNFV Euphrates Release Note for Yardstick
-==========================================
+=======================================
+OPNFV Fraser Release Note for Yardstick
+=======================================
 
 .. toctree::
    :maxdepth: 2
@@ -23,27 +25,24 @@ OPNFV Euphrates Release Note for Yardstick
 
 
 Abstract
---------
+========
 
 This document describes the release note of Yardstick project.
 
 
 Version History
----------------
+===============
 +-------------------+-----------+---------------------------------+
 | *Date*            | *Version* | *Comment*                       |
 |                   |           |                                 |
 +-------------------+-----------+---------------------------------+
-| December 15, 2017 | 5.1.0     | Yardstick for Euphrates release |
-|                   |           |                                 |
-+-------------------+-----------+---------------------------------+
-| October 20, 2017  | 5.0.0     | Yardstick for Euphrates release |
+| April 20, 2018    | 6.0.0     | Yardstick for Fraser release    |
 |                   |           |                                 |
 +-------------------+-----------+---------------------------------+
 
 
 Important Notes
----------------
+===============
 
 The software delivered in the OPNFV Yardstick_ Project, comprising the
 *Yardstick framework*, the *Yardstick test cases* and the experimental
@@ -53,10 +52,10 @@ NFV-TST001_.
 The *Yardstick* framework is *installer*, *infrastructure* and *application*
 independent.
 
-OPNFV Euphrates Release
------------------------
+OPNFV Fraser Release
+====================
 
-This Euphrates release provides *Yardstick* as a framework for NFVI testing
+This Fraser release provides *Yardstick* as a framework for NFVI testing
 and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
 
 * Documentation generated with Sphinx
@@ -84,7 +83,7 @@ and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
 
 * Yardstick plug-in configuration yaml files, plug-in install/remove scripts
 
-For Euphrates release, the *Yardstick framework* is used for the following
+For Fraser release, the *Yardstick framework* is used for the following
 testing:
 
 * OPNFV platform testing - generic test cases to measure the categories:
@@ -95,7 +94,7 @@ testing:
 
   * Storage
 
-* OPNFV platform network service benchmarking(NSB)
+* OPNFV platform network service benchmarking (NSB)
 
   * NSB
 
@@ -115,8 +114,6 @@ testing:
 
   * VSperf
 
-  * virtual Traffic Classifier
-
 The *Yardstick framework* is developed in the OPNFV community, by the
 Yardstick_ team.
 
@@ -126,34 +123,34 @@ Yardstick_ team.
 
 
 Release Data
-------------
+============
 
 +--------------------------------+-----------------------+
 | **Project**                    | Yardstick             |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Repo/tag**                   | yardstick/opnfv-5.1.0 |
+| **Repo/tag**                   | yardstick/opnfv-6.0.0 |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Yardstick Docker image tag** | opnfv-5.1.0           |
+| **Yardstick Docker image tag** | opnfv-6.0.0           |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release designation**        | Euphrates             |
+| **Release designation**        | Fraser               |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release date**               | December 15, 2017     |
+| **Release date**               | April 27, 2018        |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Purpose of the delivery**    | OPNFV Euphrates 5.1.0 |
+| **Purpose of the delivery**    | OPNFV Fraser 6.0.0    |
 |                                |                       |
 +--------------------------------+-----------------------+
 
 
 Deliverables
-------------
+============
 
 Documents
-^^^^^^^^^
+---------
 
  - User Guide: http://docs.opnfv.org/en/stable-euphrates/submodules/yardstick/docs/testing/user/userguide/index.html
 
@@ -161,14 +158,14 @@ Documents
 
 
 Software Deliverables
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 
- - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: opnfv-5.1.0)
+ - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: opnfv-6.0.0)
 
 
 New Contexts
-############
+^^^^^^^^^^^^
 
 +--------------+-------------------------------------------+
 | **Context**  | **Description**                           |
@@ -189,7 +186,7 @@ New Contexts
 
 
 New Runners
-###########
+^^^^^^^^^^^
 
 +--------------+-------------------------------------------------------+
 | **Runner**   | **Description**                                       |
@@ -209,10 +206,17 @@ New Runners
 |              | and runs all entries sequentially                     |
 |              |                                                       |
 +--------------+-------------------------------------------------------+
+| *Dynamictp*  | A runner that searches for the max throughput with    |
+|              | binary search                                         |
+|              |                                                       |
++--------------+-------------------------------------------------------+
+| *Search*     | A runner that runs a specific time before it returns  |
+|              |                                                       |
++--------------+-------------------------------------------------------+
 
 
 New Scenarios
-#############
+^^^^^^^^^^^^^
 
 +----------------+-----------------------------------------------------+
 | **Category**   | **Delivered**                                       |
@@ -272,14 +276,6 @@ New Scenarios
 |                |                                                     |
 |                | * sfc with tacker                                   |
 |                |                                                     |
-|                | * vtc instantion validation                         |
-|                |                                                     |
-|                | * vtc instantion validation with noisy neighbors    |
-|                |                                                     |
-|                | * vtc throughput                                    |
-|                |                                                     |
-|                | * vtc throughput in the presence of noisy neighbors |
-|                |                                                     |
 |                | * networkcapacity                                   |
 |                |                                                     |
 |                | * netutilization                                    |
@@ -307,43 +303,40 @@ New Scenarios
 +----------------+-----------------------------------------------------+
 
 
-
 New Test cases
-^^^^^^^^^^^^^^
+--------------
 
 * Generic NFVI test cases
 
- * OPNFV_YARDSTICK_TCO78 - SPEC CPU 2006
+ * OPNFV_YARDSTICK_TCO84 - SPEC CPU 2006 for VM
 
- * OPNFV_YARDSTICK_TCO79 - Bonnie++
+* HA Test cases
 
-* Kubernetes Test cases
+ * OPNFV_YARDSTICK_TC087 - SDN Controller resilience in non-HA configuration
 
- * OPNFV_YARDSTICK_TCO80 - NETWORK LATENCY BETWEEN CONTAINER
+ * OPNFV_YARDSTICK_TC090 - Control node Openstack service down - database instance
 
- * OPNFV_YARDSTICK_TCO81 - NETWORK LATENCY BETWEEN CONTAINER AND VM
+ * OPNFV_YARDSTICK_TC091 - Control node Openstack service down - heat-api
 
 
 Version Change
---------------
+==============
 
 Module Version Changes
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
-This is the fifth tracked release of Yardstick. It is based on following
+This is the sixth tracked release of Yardstick. It is based on following
 upstream versions:
 
-- OpenStack Ocata
+- OpenStack Pike
 
-- OpenDayLight Nitrogen
-
-- ONOS Junco
+- OpenDayLight Oxygen
 
 
 Document Version Changes
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
-This is the fifth tracked version of the Yardstick framework in OPNFV.
+This is the sixth tracked version of the Yardstick framework in OPNFV.
 It includes the following documentation updates:
 
 - Yardstick User Guide: add "network service benchmarking(NSB)" chapter;
@@ -356,7 +349,7 @@ It includes the following documentation updates:
 
 
 Feature additions
-^^^^^^^^^^^^^^^^^
+-----------------
 
 - Yardstick RESTful API support
 
@@ -380,78 +373,43 @@ Feature additions
 
 
 Scenario Matrix
----------------
+===============
 
-For Euphrates 5.0.0, Yardstick was tested on the following scenarios:
+For Fraser 6.0.0, Yardstick was tested on the following scenarios:
 
-+--------------------------+------+---------+------+------+
-| Scenario                 | Apex | Compass | Fuel | Joid |
-+==========================+======+=========+======+======+
-| os-nosdn-nofeature-noha  |      |         | X    | X    |
-+--------------------------+------+---------+------+------+
-| os-nosdn-nofeature-ha    | X    | X       | X    | X    |
-+--------------------------+------+---------+------+------+
-| os-odl_l2-nofeature-ha   |      | X       | X    | X    |
-+--------------------------+------+---------+------+------+
-| os-odl_l2-nofeature-noha |      |         | X    |      |
-+--------------------------+------+---------+------+------+
-| os-odl_l3-nofeature-ha   | X    | X       | X    |      |
-+--------------------------+------+---------+------+------+
-| os-odl_l3-nofeature-noha |      |         | X    |      |
-+--------------------------+------+---------+------+------+
-| os-onos-sfc-ha           |      |         |      |      |
-+--------------------------+------+---------+------+------+
-| os-onos-nofeature-ha     |      | X       |      | X    |
-+--------------------------+------+---------+------+------+
-| os-onos-nofeature-noha   |      |         |      |      |
-+--------------------------+------+---------+------+------+
-| os-odl_l2-sfc-ha         |      |         | X    |      |
-+--------------------------+------+---------+------+------+
-| os-odl_l2-sfc-noha       |      |         | X    |      |
-+--------------------------+------+---------+------+------+
-| os-odl_l2-bgpvpn-ha      | X    |         | X    |      |
-+--------------------------+------+---------+------+------+
-| os-odl_l2-bgpvpn-noha    |      |         | X    |      |
-+--------------------------+------+---------+------+------+
-| os-nosdn-kvm-ha          | X    |         | X    |      |
-+--------------------------+------+---------+------+------+
-| os-nosdn-kvm-noha        |      |         | X    |      |
-+--------------------------+------+---------+------+------+
-| os-nosdn-ovs-ha          |      |         | X    |      |
-+--------------------------+------+---------+------+------+
-| os-nosdn-ovs-noha        |      |         | X    |      |
-+--------------------------+------+---------+------+------+
-| os-ocl-nofeature-ha      |      | X       |      |      |
-+--------------------------+------+---------+------+------+
-| os-nosdn-lxd-ha          |      |         |      | X    |
-+--------------------------+------+---------+------+------+
-| os-nosdn-lxd-noha        |      |         |      | X    |
-+--------------------------+------+---------+------+------+
-| os-nosdn-fdio-ha         | X    |         |      |      |
-+--------------------------+------+---------+------+------+
-| os-odl_l2-fdio-noha      | X    |         |      |      |
-+--------------------------+------+---------+------+------+
-| os-odl-gluon-noha        | X    |         |      |      |
-+--------------------------+------+---------+------+------+
-| os-nosdn-openo-ha        |      | X       |      |      |
-+--------------------------+------+---------+------+------+
-| os-nosdn-kvm_ovs_dpdk    |      |         | X    |      |
-| -noha                    |      |         |      |      |
-+--------------------------+------+---------+------+------+
-| os-nosdn-kvm_ovs_dpdk-ha |      |         | X    |      |
-+--------------------------+------+---------+------+------+
-| os-nosdn-kvm_ovs_dpdk    |      |         | X    |      |
-| _bar-ha                  |      |         |      |      |
-+--------------------------+------+---------+------+------+
-| os-nosdn-kvm_ovs_dpdk    |      |         | X    |      |
-| _bar-noha                |      |         |      |      |
-+--------------------------+------+---------+------+------+
-| opnfv_os-ovn-nofeature-  | X    |         |      |      |
-| noha_daily               |      |         |      |      |
-+--------------------------+------+---------+------+------+
++-------------------------+------+---------+----------+------+------+-------+
+|        Scenario         | Apex | Compass | Fuel-arm | Fuel | Joid | Daisy |
++=========================+======+=========+==========+======+======+=======+
+| os-nosdn-nofeature-noha |  X   |    X    |          |      |  X   |       |
++-------------------------+------+---------+----------+------+------+-------+
+| os-nosdn-nofeature-ha   |  X   |    X    |    X     |  X   |  X   |   X   |
++-------------------------+------+---------+----------+------+------+-------+
+| os-nosdn-bar-noha       |  X   |    X    |          |      |      |       |
++-------------------------+------+---------+----------+------+------+-------+
+| os-nosdn-bar-ha         |  X   |         |          |      |      |       |
++-------------------------+------+---------+----------+------+------+-------+
+| os-odl-bgpvpn-ha        |  X   |         |          |      |      |       |
++-------------------------+------+---------+----------+------+------+-------+
+| os-nosdn-calipso-noha   |  X   |         |          |      |      |       |
++-------------------------+------+---------+----------+------+------+-------+
+| os-nosdn-kvm-ha         |      |    X    |          |      |      |       |
++-------------------------+------+---------+----------+------+------+-------+
+| os-odl_l3-nofeature-ha  |      |    X    |          |      |      |       |
++-------------------------+------+---------+----------+------+------+-------+
+| os-odl-sfc-ha           |      |    X    |          |      |      |       |
++-------------------------+------+---------+----------+------+------+-------+
+| os-odl-nofeature-ha     |      |         |          |  X   |      |   X   |
++-------------------------+------+---------+----------+------+------+-------+
+| os-nosdn-ovs-ha         |      |         |          |  X   |      |       |
++-------------------------+------+---------+----------+------+------+-------+
+| k8-nosdn-nofeature-ha   |      |    X    |          |      |      |       |
++-------------------------+------+---------+----------+------+------+-------+
+| k8-nosdn-stor4nfv-noha  |      |    X    |          |      |      |       |
++-------------------------+------+---------+----------+------+------+-------+
+
 
 Test results
-------------
+============
 
 Test results are available in:
 
@@ -459,109 +417,121 @@ Test results are available in:
 
 The reporting pages can be found at:
 
-+---------------+-------------------------------------------------------------------------------------+
-| apex          | http://testresults.opnfv.org/reporting/euphrates/yardstick/status-apex.html         |
-+---------------+-------------------------------------------------------------------------------------+
-| compass       | http://testresults.opnfv.org/reporting/euphrates/yardstick/status-compass.html      |
-+---------------+-------------------------------------------------------------------------------------+
-| fuel\@x86     | http://testresults.opnfv.org/reporting/euphrates/yardstick/status-fuel@x86.html     |
-+---------------+-------------------------------------------------------------------------------------+
-| fuel\@aarch64 | http://testresults.opnfv.org/reporting/euphrates/yardstick/status-fuel@aarch64.html |
-+---------------+-------------------------------------------------------------------------------------+
-| joid          | http://testresults.opnfv.org/reporting/euphrates/yardstick/status-joid.html         |
-+---------------+-------------------------------------------------------------------------------------+
++---------------+----------------------------------------------------------------------------------+
+| apex          | http://testresults.opnfv.org/reporting/fraser/yardstick/status-apex.html         |
++---------------+----------------------------------------------------------------------------------+
+| compass       | http://testresults.opnfv.org/reporting/fraser/yardstick/status-compass.html      |
++---------------+----------------------------------------------------------------------------------+
+| fuel\@x86     | http://testresults.opnfv.org/reporting/fraser/yardstick/status-fuel@x86.html     |
++---------------+----------------------------------------------------------------------------------+
+| fuel\@aarch64 | http://testresults.opnfv.org/reporting/fraser/yardstick/status-fuel@aarch64.html |
++---------------+----------------------------------------------------------------------------------+
+| joid          | http://testresults.opnfv.org/reporting/fraser/yardstick/status-joid.html         |
++---------------+----------------------------------------------------------------------------------+
 
 Known Issues/Faults
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 
 Corrected Faults
-^^^^^^^^^^^^^^^^
+----------------
 
-Euphrates 5.1.0:
+Fraser 6.0.0:
 
-+---------------------+-------------------------------------------------------------------------+
-| **JIRA REFERENCE**  | **DESCRIPTION**                                                         |
-|                     |                                                                         |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-841 | Fix various NSB license issues                                          |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-73  | How To Work with Test Cases                                             |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-500 | VNF testing documentation                                               |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-826 | Allow overriding Heat IP addresses to match traffic generator profile   |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-828 | Refactor doc/testing/user/userguide "Yardstick Installation"            |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-830 | build_yardstick_image Ansible mount module doesn't work on Ubuntu 14.04 |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-833 | ansible_common transform password into lower case                       |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-847 | tc006, tc079, tc082 miss grafana dashboard in local deployment          |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-849 | kill process do not accurately kill the process like "nova-api"         |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-850 | tc023 miss description and tc050-58 wrong description                   |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-852 | tc078 cpu2006 fails in some situation                                   |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-854 | yardstick docker lack of trex_client                                    |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-867 | testcase tc078 have no data stored or dashboard to show results         |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-871 | Remove img_modify_playbook assignation in build_yardstick_image.yml     |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-829 | "nsb_setup.sh" doesn't parse the controller IP correctly                |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-839 | NSB Prox BM test cases to be fixed for incorporating scale-up           |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-840 | NSB Prox test documentation of vPE and LW-AFTR test cases               |
-+---------------------+-------------------------------------------------------------------------+
-| JIRA: YARDSTICK-848 | NSB "Prox" : Cleanup duplicated traffic profile                         |
-+---------------------+-------------------------------------------------------------------------+
++--------------------+----------------------------------------------------------------------------------------+
+| **JIRA REFERENCE** | **DESCRIPTION**                                                                        |
++====================+========================================================================================+
+| YARDSTICK-1003     | Prox vnf descriptor cleanup for tg and vnf                                             |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1005     | Heat stack create function doesn't work in PY3                                         |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1006     | Ansible destroy script will fail if vm has already been undefined                      |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1007     | Dockerfile patch for "aarch64" doesn't work                                            |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1008     | Bump pip packages installed in "nsb_setup.sh" script                                   |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1009     | Nginx server is down                                                                   |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1012     | constants: fix pylint warnings for OSError                                             |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1014     | Remove unused args in network_services.traffic_profile.ixia_rfc2544.IXIARFC2544Profile |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1015     | Error during the Heat stack deletion                                                   |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1016     | Allow vm to access outside world through default gateway                               |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1019     | For 'qemu-img version 2.10.1' unit 'MB' is not acceptable ansible script               |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1021     | NSB: All Sample VNF test cases timeout after 1 hour of execution                       |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1023     | NSB: yardstick report generation fails                                                 |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1025     | tc006 tc082 dashboard database source error                                            |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1028     | HeatContext.key_uuid is not needed                                                     |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1030     | heat client missing cause ci error when run "openstack stack list"                     |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1035     | Do NOT hardcode interface speed for PROX tests.                                        |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1036     | Prox: Addition of storage of extra counters for Grafana                                |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1037     | NSB PROX L3FWD Dropping packets                                                        |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1038     | Missing file which is described in the operation_conf.yaml                             |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1042     | yardstick image doesn't build for aarch64                                              |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1045     | test case tc082 and tc083 report IOError in CI when get the public key                 |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1047     | Error in string format in HeatTemplateError message                                    |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1056     | yardstick report command print error when run test case                                |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1057     | Error in string format in Taks log message                                             |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1058     | yardstick fetch wrong format image "amd64-disk1.img" for armband                       |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1059     | Reduce the log level if TRex client is no connected                                    |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1060     | yardstick plugin storperf failed on compass pod huawei-pod1                            |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1073     | Error when retrieving "options" section in "scenario"                                  |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1080     | Running Test Case in Latest Yardstick Docker Image shows Error                         |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1082     | tc043,tc055, tc063, tc075,  pass wrong node name in the ci scenario yaml               |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1094     | tc082 failed on fuel ci master                                                         |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1102     | Don't hide exception traceback from Task.start()                                       |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1107     | bad exception traceback print due to atexit_handler                                    |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1109     | opnfv_k8-nosdn-nofeature-ha_daily.yaml missing                                         |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1120     | HA test case tc050 should start monitor before attack                                  |
++--------------------+----------------------------------------------------------------------------------------+
+| YARDSTICK-1124     | [os-nosdn-ovs-ha][armpod] CI failed for TASK [install_dpdk : make dpdk]                |
++--------------------+----------------------------------------------------------------------------------------+
 
 
+Fraser 6.0.0 known restrictions/issues
+======================================
 
-
-Euphrates 5.0.0:
-
-+---------------------+--------------------------------------------+
-| **JIRA REFERENCE**  | **DESCRIPTION**                            |
-|                     |                                            |
-+---------------------+--------------------------------------------+
-| JIRA: YARDSTICK-599 | Could not load EntryPoint.parse when using |
-|                     | 'openstack -h'                             |
-+---------------------+--------------------------------------------+
-| JIRA: YARDSTICK-602 | Don't rely on staic ip addresses as they   |
-|                     | are dynamic                                |
-+---------------------+--------------------------------------------+
-
-
-Euphratess 5.0.0 known restrictions/issues
-------------------------------------------
 +-----------+-----------+----------------------------------------------+
 | Installer | Scenario  | Issue                                        |
 +===========+===========+==============================================+
-| any       | \*-bgpvpn | Floating ips not supported. Some Test cases  |
-|           |           | related to floating ips are excluded.        |
-+-----------+-----------+----------------------------------------------+
-| any       | odl_l3-\* | Some test cases related to using floating IP |
-|           |           | addresses fail because of a known ODL bug.   |
 |           |           |                                              |
 +-----------+-----------+----------------------------------------------+
-| compass   | odl_l2-\* | In some test cases, VM instance will failed  |
-|           |           | raising network interfaces.                  |
-|           |           |                                              |
-+-----------+-----------+----------------------------------------------+
-
 
 Useful links
-------------
+============
 
  - wiki project page: https://wiki.opnfv.org/display/yardstick/Yardstick
 
- - wiki Yardstick Euphrates release planing page: https://wiki.opnfv.org/display/yardstick/Yardstick+Euphrates+Release+Planning
+ - wiki Yardstick Euphrates release planing page: https://wiki.opnfv.org/display/yardstick/Release+Fraser
 
  - Yardstick repo: https://git.opnfv.org/cgit/yardstick
 
