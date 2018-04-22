@@ -118,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_3a2a3a2c",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-22T19:10:59Z",
+      "side": 1,
+      "message": "I know but I don\u0027t like it.\n\nBut this is a nit, so it\u0027s up to you. This is not an stopper.",
+      "parentUuid": "5a3f45e8_d0c33ceb",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 24
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_70fb48c1",
         "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
         "patchSetId": 12
@@ -176,6 +200,30 @@
       "side": 1,
       "message": "But instead of having local variable each time for every TC it\u0027s good to have a variable self.result in setUp.",
       "parentUuid": "5a3f45e8_300ee0e5",
+      "range": {
+        "startLine": 49,
+        "startChar": 38,
+        "endLine": 49,
+        "endChar": 49
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1a2f7e40",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-22T19:10:59Z",
+      "side": 1,
+      "message": "You are using this instance variable just in L49 and L57. \"I\" prefer to explicitly define the result in each test.\n\nAs I said, this is a nit. You don\u0027t need to change it.",
+      "parentUuid": "5a3f45e8_b0a83021",
       "range": {
         "startLine": 49,
         "startChar": 38,
@@ -270,6 +318,30 @@
       "side": 1,
       "message": "But it will help user to know that TC for Nova starts from here infact same has been done in openstack_utils file.",
       "parentUuid": "5a3f45e8_b018301f",
+      "range": {
+        "startLine": 341,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 47
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7a1fa208",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-22T19:10:59Z",
+      "side": 1,
+      "message": "Again, this is a nit. You don\u0027t need to change it.\n\nI know this is used in openstack_utils, but I do not like it at all. If the file is too big, we need to split it.",
+      "parentUuid": "5a3f45e8_5001ec36",
       "range": {
         "startLine": 341,
         "startChar": 0,
