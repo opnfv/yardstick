@@ -138,6 +138,17 @@ class VnfdHelper(dict):
             yield port_name, port_num
 
 
+class TrafficGeneratorProducer(producer.MessagingProducer):
+    """Class implementing the message producer for traffic generators
+
+    This message producer must be instantiated in the process created
+    "run_traffic" process.
+    """
+    def __init__(self, pid):
+        super(TrafficGeneratorProducer, self).__init__(messaging.TOPIC_TG,
+                                                       pid=pid)
+
+
 @six.add_metaclass(abc.ABCMeta)
 class GenericVNF(object):
     """Class providing file-like API for generic VNF implementation
