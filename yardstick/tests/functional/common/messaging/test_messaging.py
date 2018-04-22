@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import multiprocessing
-import os
 import time
 
 from yardstick.common.messaging import consumer
@@ -33,24 +32,25 @@ class DummyPayload(payloads.Payload):
 class DummyEndpoint(consumer.NotificationHandler):
 
     def info(self, ctxt, **kwargs):
-        if ctxt['pid'] == self._ctx_pid:
-            self._queue.put('ID {}, data: {}'.format(self._id, kwargs['data']))
+        if ctxt['pid'] in self._ctx_pids:
+            self._queue.put('ID {}, data: {}, pid: {}'.format(
+                self._id, kwargs['data'], ctxt['pid']))
 
 
 class DummyConsumer(consumer.MessagingConsumer):
 
-    def __init__(self, id, ctx_pid, queue):
-        self._id = id
-        endpoints = [DummyEndpoint(id, ctx_pid, queue)]
-        super(DummyConsumer, self).__init__(TOPIC, ctx_pid, endpoints)
+    def __init__(self, _id, ctx_pids, queue):
+        self._id = _id
+        endpoints = [DummyEndpoint(_id, ctx_pids, queue)]
+        super(DummyConsumer, self).__init__(TOPIC, ctx_pids, endpoints)
 
 
 class DummyProducer(producer.MessagingProducer):
     pass
 
 
-def _run_consumer(id, ctx_pid, queue):
-    _consumer = DummyConsumer(id, ctx_pid, queue)
+def _run_consumer(_id, ctx_pids, queue):
+    _consumer = DummyConsumer(_id, ctx_pids, queue)
     _consumer.start_rpc_server()
     _consumer.wait()
 
@@ -65,30 +65,35 @@ class MessagingTestCase(base.BaseFunctionalTestCase):
     def test_run_five_consumers(self):
         output_queue = multiprocessing.Queue()
         num_consumers = 10
-        ctx_id = os.getpid()
-        producer = DummyProducer(TOPIC, pid=ctx_id)
+        ctx_1 = 100001
+        ctx_2 = 100002
+        producers = [DummyProducer(TOPIC, pid=ctx_1),
+                     DummyProducer(TOPIC, pid=ctx_2)]
 
         processes = []
         for i in range(num_consumers):
             processes.append(multiprocessing.Process(
                 name='consumer_{}'.format(i),
                 target=_run_consumer,
-                args=(i, ctx_id, output_queue)))
+                args=(i, [ctx_1, ctx_2], output_queue)))
             processes[i].start()
         self.addCleanup(self._terminate_consumers, num_consumers, processes)
 
         time.sleep(2)  # Let consumers to create the listeners
-        producer.send_message(METHOD_INFO, DummyPayload(version=1,
-                                                        data='message 0'))
-        producer.send_message(METHOD_INFO, DummyPayload(version=1,
-                                                        data='message 1'))
-        time.sleep(2)  # Let consumers attend the calls
+        for producer in producers:
+            for message in ['message 0', 'message 1']:
+                producer.send_message(METHOD_INFO,
+                                      DummyPayload(version=1, data=message))
 
+        time.sleep(2)  # Let consumers attend the calls
         output = []
         while not output_queue.empty():
             output.append(output_queue.get(True, 1))
 
-        self.assertEqual(num_consumers * 2, len(output))
+        self.assertEqual(num_consumers * 4, len(output))
+        msg_template = 'ID {}, data: {}, pid: {}'
         for i in range(num_consumers):
-            self.assertIn('ID {}, data: {}'.format(1, 'message 0'), output)
-            self.assertIn('ID {}, data: {}'.format(1, 'message 1'), output)
+            for ctx in [ctx_1, ctx_2]:
+                for message in ['message 0', 'message 1']:
+                    msg = msg_template.format(i, message, ctx)
+                    self.assertIn(msg, output)
