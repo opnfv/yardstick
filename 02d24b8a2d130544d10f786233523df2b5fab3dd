@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_5adc6646",
+        "filename": "yardstick/benchmark/scenarios/lib/attach_volume.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-22T19:20:48Z",
+      "side": 1,
+      "message": "nit: this is not necessary",
+      "range": {
+        "startLine": 46,
+        "startChar": 49,
+        "endLine": 46,
+        "endChar": 55
+      },
+      "revId": "02d24b8a2d130544d10f786233523df2b5fab3dd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
