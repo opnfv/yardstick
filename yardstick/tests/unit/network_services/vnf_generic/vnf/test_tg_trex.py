@@ -395,7 +395,8 @@ class TestTrexTrafficGen(unittest.TestCase):
         self.sut.resource_helper.QUEUE_WAIT_TIME = 0
         # must generate cfg before we can run traffic so Trex port mapping is created
         self.sut.resource_helper.generate_cfg()
-        self.sut._traffic_runner(mock_traffic_profile)
+        self.sut._setup_mq_producer = mock.Mock()
+        self.sut._traffic_runner(mock_traffic_profile, mock.ANY)
 
     @mock.patch(SSH_HELPER)
     def test__generate_trex_cfg(self, ssh):
