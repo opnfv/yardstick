@@ -110,7 +110,7 @@ class IxiaResourceHelper(ClientResourceHelper):
 
         return samples
 
-    def run_traffic(self, traffic_profile):
+    def run_traffic(self, traffic_profile, *args):
         if self._terminated.value:
             return
 
