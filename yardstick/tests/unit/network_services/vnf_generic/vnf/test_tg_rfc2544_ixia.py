@@ -365,7 +365,8 @@ class TestIXIATrafficGen(unittest.TestCase):
                     mock.mock_open(), create=True)
         @mock.patch('yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.LOG.exception')
         def _traffic_runner(*args):
-            result = sut._traffic_runner(mock_traffic_profile)
+            sut._setup_mq_producer = mock.Mock(return_value='mq_producer')
+            result = sut._traffic_runner(mock_traffic_profile, mock.ANY)
             self.assertIsNone(result)
 
         _traffic_runner()
