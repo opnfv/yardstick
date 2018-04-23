@@ -1090,6 +1090,57 @@ class TestClientResourceHelper(unittest.TestCase):
 
         self.assertIs(client_resource_helper._connect(client), client)
 
+    @mock.patch.object(ClientResourceHelper, '_build_ports')
+    @mock.patch.object(ClientResourceHelper, '_run_traffic_once')
+    def test_run_traffic(self, mock_run_traffic_once, mock_build_ports):
+        client_resource_helper = ClientResourceHelper(mock.Mock())
+        client = mock.Mock()
+        traffic_profile = mock.Mock()
+        mq_producer = mock.Mock()
+        with mock.patch.object(client_resource_helper, '_connect') \
+                as mock_connect, \
+                mock.patch.object(client_resource_helper, '_terminated') \
+                as mock_terminated:
+            mock_connect.return_value = client
+            type(mock_terminated).value = mock.PropertyMock(
+                side_effect=[0, 1, lambda x: x])
+            client_resource_helper.run_traffic(traffic_profile, mq_producer)
+
+        mock_build_ports.assert_called_once()
+        traffic_profile.register_generator.assert_called_once()
+        mq_producer.tg_method_started.assert_called_once()
+        mq_producer.tg_method_finished.assert_called_once()
+        mq_producer.tg_method_iteration.assert_called_once_with(1)
+        mock_run_traffic_once.assert_called_once_with(traffic_profile)
+
+    @mock.patch.object(ClientResourceHelper, '_build_ports')
+    @mock.patch.object(ClientResourceHelper, '_run_traffic_once',
+                       side_effect=Exception)
+    def test_run_traffic_exception(self, mock_run_traffic_once,
+                                   mock_build_ports):
+        client_resource_helper = ClientResourceHelper(mock.Mock())
+        client = mock.Mock()
+        traffic_profile = mock.Mock()
+        mq_producer = mock.Mock()
+        with mock.patch.object(client_resource_helper, '_connect') \
+                as mock_connect, \
+                mock.patch.object(client_resource_helper, '_terminated') \
+                as mock_terminated:
+            mock_connect.return_value = client
+            type(mock_terminated).value = mock.PropertyMock(return_value=0)
+            mq_producer.reset_mock()
+            # NOTE(ralonsoh): "trex_stl_exceptions.STLError" is mocked
+            with self.assertRaises(Exception):
+                client_resource_helper.run_traffic(traffic_profile,
+                                                   mq_producer)
+
+        mock_build_ports.assert_called_once()
+        traffic_profile.register_generator.assert_called_once()
+        mock_run_traffic_once.assert_called_once_with(traffic_profile)
+        mq_producer.tg_method_started.assert_called_once()
+        mq_producer.tg_method_finished.assert_not_called()
+        mq_producer.tg_method_iteration.assert_not_called()
+
 
 class TestRfc2544ResourceHelper(unittest.TestCase):
 
