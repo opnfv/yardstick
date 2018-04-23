@@ -103,4 +103,4 @@ References
 
 * IEEE Std 829-2008. "Standard for Software and System Test Documentation".
 
-* OPNFV Colorado release note for Yardstick.
+* OPNFV Fraser release note for Yardstick.
