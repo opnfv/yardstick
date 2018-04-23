@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_9860b602",
+        "filename": "tests/unit/network_services/collector/test_subscriber.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-23T17:01:55Z",
+      "side": 1,
+      "message": "I can\u0027t understand why this is happening. You didn\u0027t change this code. Do you need to mock something?",
+      "range": {
+        "startLine": 84,
+        "startChar": 18,
+        "endLine": 84,
+        "endChar": 42
+      },
+      "revId": "7be4918e6d83491602737df32dc992b37a807d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_58b58e7c",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-23T17:01:55Z",
+      "side": 1,
+      "message": "You are breaking the default YardstickException. You don\u0027t need to reimplement a new exception. You can do this like:\n\nclass ResourceCommandError(YardstickException)\n   message \u003d \u0027Command: \"%(command)s\" Failed, stderr: \"%(stderr)s\", SSHError: \"%(ssherror)s\"\u0027\n\n\nBTW, name the exception with something related to the class throwing it.",
+      "range": {
+        "startLine": 57,
+        "startChar": 6,
+        "endLine": 57,
+        "endChar": 19
+      },
+      "revId": "7be4918e6d83491602737df32dc992b37a807d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9879d6ca",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-23T17:01:55Z",
+      "side": 1,
+      "message": "Delete this command. We shouldn\u0027t delete this user.",
+      "range": {
+        "startLine": 262,
+        "startChar": 19,
+        "endLine": 262,
+        "endChar": 57
+      },
+      "revId": "7be4918e6d83491602737df32dc992b37a807d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b88e52ce",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-23T17:01:55Z",
+      "side": 1,
+      "message": "Not needed because of comment in L272",
+      "range": {
+        "startLine": 268,
+        "startChar": 12,
+        "endLine": 268,
+        "endChar": 15
+      },
+      "revId": "7be4918e6d83491602737df32dc992b37a807d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_38ba426e",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-23T17:01:55Z",
+      "side": 1,
+      "message": "We don\u0027t need this catch. If ssh fails, it will return a formatted exception.",
+      "range": {
+        "startLine": 272,
+        "startChar": 12,
+        "endLine": 275,
+        "endChar": 21
+      },
+      "revId": "7be4918e6d83491602737df32dc992b37a807d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d87fdea9",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-23T17:01:55Z",
+      "side": 1,
+      "message": "This variable is not used. Use _ instead",
+      "range": {
+        "startLine": 279,
+        "startChar": 8,
+        "endLine": 279,
+        "endChar": 19
+      },
+      "revId": "7be4918e6d83491602737df32dc992b37a807d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f851fa36",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-23T17:01:55Z",
+      "side": 1,
+      "message": "This should be an specific Yardstick Exception",
+      "range": {
+        "startLine": 281,
+        "startChar": 12,
+        "endLine": 282,
+        "endChar": 57
+      },
+      "revId": "7be4918e6d83491602737df32dc992b37a807d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_38488286",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-23T17:01:55Z",
+      "side": 1,
+      "message": "Please, delete this.",
+      "range": {
+        "startLine": 295,
+        "startChar": 0,
+        "endLine": 301,
+        "endChar": 67
+      },
+      "revId": "7be4918e6d83491602737df32dc992b37a807d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_78afaa2a",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-23T17:01:55Z",
+      "side": 1,
+      "message": "We don\u0027t have access (yet) to the physical nodes. This is part of the platform metrics, which is a feature to be implemented in the future.\n\nBoth collectd and ovs metrics from platform (physical nodes), will be out next feature.",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 304,
+        "endChar": 49
+      },
+      "revId": "7be4918e6d83491602737df32dc992b37a807d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5843ce6b",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-23T17:01:55Z",
+      "side": 1,
+      "message": "Again, ssh will raise its own exception",
+      "range": {
+        "startLine": 314,
+        "startChar": 8,
+        "endLine": 317,
+        "endChar": 17
+      },
+      "revId": "7be4918e6d83491602737df32dc992b37a807d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_98b27692",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-23T17:01:55Z",
+      "side": 1,
+      "message": "You can\u0027t start collectd if the MQ is not up and running.",
+      "range": {
+        "startLine": 323,
+        "startChar": 21,
+        "endLine": 323,
+        "endChar": 36
+      },
+      "revId": "7be4918e6d83491602737df32dc992b37a807d63",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
