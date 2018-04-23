@@ -19,6 +19,7 @@ import logging
 import six
 
 from yardstick.common import messaging
+from yardstick.common.messaging import payloads
 from yardstick.common.messaging import producer
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 
@@ -149,6 +150,25 @@ class TrafficGeneratorProducer(producer.MessagingProducer):
     def __init__(self, pid):
         super(TrafficGeneratorProducer, self).__init__(messaging.TOPIC_TG,
                                                        pid=pid)
+
+    def tg_method_started(self, version=1):
+        self.send_message(
+            messaging.TG_METHOD_STARTED,
+            payloads.TrafficGeneratorPayload(version=version, iteration=0,
+                                             kpi={}))
+
+    def tg_method_finished(self, version=1):
+        self.send_message(
+            messaging.TG_METHOD_FINISHED,
+            payloads.TrafficGeneratorPayload(version=version, iteration=0,
+                                             kpi={}))
+
+    def tg_method_iteration(self, iteration, version=1, kpi=None):
+        kpi = {} if kpi is None else kpi
+        self.send_message(
+            messaging.TG_METHOD_ITERATION,
+            payloads.TrafficGeneratorPayload(version=version,
+                                             iteration=iteration, kpi=kpi))
 
 
 @six.add_metaclass(abc.ABCMeta)
