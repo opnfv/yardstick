@@ -406,7 +406,8 @@ class TestProxTrafficGen(unittest.TestCase):
         sut.setup_helper.prox_config_dict = {}
         sut._connect_client = mock.Mock(autospec=STLClient)
         sut._connect_client.get_stats = mock.Mock(return_value="0")
-        sut._traffic_runner(mock_traffic_profile)
+        sut._setup_mq_producer = mock.Mock(return_value='mq_producer')
+        sut._traffic_runner(mock_traffic_profile, mock.ANY)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.socket')
     @mock.patch(SSH_HELPER)
