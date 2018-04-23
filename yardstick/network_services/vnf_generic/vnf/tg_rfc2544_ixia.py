@@ -102,7 +102,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         self.client.assign_ports()
         self.client.create_traffic_model()
 
-    def run_traffic(self, traffic_profile):
+    def run_traffic(self, traffic_profile, *args):
         if self._terminated.value:
             return
 

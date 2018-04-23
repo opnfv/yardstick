@@ -376,8 +376,9 @@ class TestTrexTrafficGen(unittest.TestCase):
         # must generate cfg before we can run traffic so Trex port mapping is
         # created
         self.sut.resource_helper.generate_cfg()
+        self.sut._setup_mq_producer = mock.Mock()
         with mock.patch.object(self.sut.resource_helper, 'run_traffic'):
-            self.sut._traffic_runner(mock_traffic_profile)
+            self.sut._traffic_runner(mock_traffic_profile, mock.ANY)
 
     def test__generate_trex_cfg(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
