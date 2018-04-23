@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_dd47d0ba",
+        "filename": "yardstick/benchmark/scenarios/lib/create_server.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-23T09:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_d0333ca9",
+      "range": {
+        "startLine": 41,
+        "startChar": 44,
+        "endLine": 41,
+        "endChar": 63
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_102ac42b",
         "filename": "yardstick/benchmark/scenarios/lib/create_server.py",
         "patchSetId": 12
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_bd4484b7",
+        "filename": "yardstick/benchmark/scenarios/lib/create_server.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-23T09:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_102ac42b",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 28
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_b06af07e",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 12
@@ -59,6 +107,30 @@
       "writtenOn": "2018-04-20T07:49:06Z",
       "side": 1,
       "message": "return shade_client.create_server...\n\nand remove L336",
+      "range": {
+        "startLine": 329,
+        "startChar": 8,
+        "endLine": 329,
+        "endChar": 45
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_fd19ecd7",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-23T09:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_b06af07e",
       "range": {
         "startLine": 329,
         "startChar": 8,
@@ -153,6 +225,30 @@
       "writtenOn": "2018-04-20T07:49:06Z",
       "side": 1,
       "message": "Move this line before L36 call. If \"create_server.CreateServer\" fails, the mocks will never be deleted.",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 40
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5d0bc07c",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_server.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-23T09:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_70fb48c1",
       "range": {
         "startLine": 37,
         "startChar": 8,
@@ -365,6 +461,30 @@
       "writtenOn": "2018-04-20T07:49:06Z",
       "side": 1,
       "message": "This should be the same as \"self.name\", and it\u0027s not.\n\nYou are using self.name, self.image and self.flavor just once. This is not the correct use for instance variables.\n\nInstead of this, create local variables in this function and use them:\n- When defining the return_value for create_server\n- When calling the function\n- When checking the output.",
+      "range": {
+        "startLine": 356,
+        "startChar": 22,
+        "endLine": 356,
+        "endChar": 33
+      },
+      "revId": "6e6b9f766369abe693adc6756e371b3907375ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3d1074a7",
+        "filename": "yardstick/tests/unit/common/test_openstack_utils.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-23T09:27:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_30dc2046",
       "range": {
         "startLine": 356,
         "startChar": 22,
