@@ -71,7 +71,7 @@ class PingResourceHelper(ClientResourceHelper):
         self._queue = Queue()
         self._parser = PingParser(self._queue)
 
-    def run_traffic(self, traffic_profile):
+    def run_traffic(self, traffic_profile, *args):
         # drop the connection in order to force a new one
         self.ssh_helper.drop_connection()
 
