@@ -11,15 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-""" Base class implementation for generic vnf implementation """
 
 from collections import Mapping
 import logging
 from multiprocessing import Queue, Value, Process
-
 import os
 import posixpath
 import re
+import uuid
 import subprocess
 import time
 
@@ -411,12 +410,13 @@ class ClientResourceHelper(ResourceHelper):
         time.sleep(self.QUEUE_WAIT_TIME)
         self._queue.put(samples)
 
-    def run_traffic(self, traffic_profile):
+    def run_traffic(self, traffic_profile, mq_producer):
         # if we don't do this we can hang waiting for the queue to drain
         # have to do this in the subprocess
         self._queue.cancel_join_thread()
         # fixme: fix passing correct trex config file,
         # instead of searching the default path
+        mq_producer.tg_method_started()
         try:
             self._build_ports()
             self.client = self._connect()
@@ -424,8 +424,11 @@ class ClientResourceHelper(ResourceHelper):
             self.client.remove_all_streams(self.all_ports)  # remove all streams
             traffic_profile.register_generator(self)
 
+            iteration_index = 0
             while self._terminated.value == 0:
+                iteration_index += 1
                 self._run_traffic_once(traffic_profile)
+                mq_producer.tg_method_iteration(iteration_index)
 
             self.client.stop(self.all_ports)
             self.client.disconnect()
@@ -435,6 +438,8 @@ class ClientResourceHelper(ResourceHelper):
                 LOG.debug("traffic generator is stopped")
                 return  # return if trex/tg server is stopped.
             raise
+
+        mq_producer.tg_method_finished()
 
     def terminate(self):
         self._terminated.value = 1  # stop client
@@ -905,12 +910,13 @@ class SampleVNFTrafficGen(GenericTrafficGen):
                 LOG.info("%s TG Server is up and running.", self.APP_NAME)
                 return self._tg_process.exitcode
 
-    def _traffic_runner(self, traffic_profile):
+    def _traffic_runner(self, traffic_profile, mq_pid):
         # always drop connections first thing in new processes
         # so we don't get paramiko errors
         self.ssh_helper.drop_connection()
         LOG.info("Starting %s client...", self.APP_NAME)
-        self.resource_helper.run_traffic(traffic_profile)
+        self._mq_producer = self._setup_mq_producer(mq_pid)
+        self.resource_helper.run_traffic(traffic_profile, self._mq_producer)
 
     def run_traffic(self, traffic_profile):
         """ Generate traffic on the wire according to the given params.
@@ -920,10 +926,12 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         :param traffic_profile:
         :return: True/False
         """
-        name = "{}-{}-{}-{}".format(self.name, self.APP_NAME, traffic_profile.__class__.__name__,
+        name = '{}-{}-{}-{}'.format(self.name, self.APP_NAME,
+                                    traffic_profile.__class__.__name__,
                                     os.getpid())
+        mq_pid = uuid.uuid1().int
         self._traffic_process = Process(name=name, target=self._traffic_runner,
-                                        args=(traffic_profile,))
+                                        args=(traffic_profile, mq_pid))
         self._traffic_process.start()
         # Wait for traffic process to start
         while self.resource_helper.client_started.value == 0:
@@ -932,7 +940,7 @@ class SampleVNFTrafficGen(GenericTrafficGen):
             if not self._traffic_process.is_alive():
                 break
 
-        return self._traffic_process.is_alive()
+        return mq_pid
 
     def collect_kpi(self):
         # check if the tg processes have exited

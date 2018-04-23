@@ -23,6 +23,7 @@ import oslo_messaging
 import unittest
 
 from yardstick.common import messaging
+from yardstick.common.messaging import payloads
 from yardstick.network_services.vnf_generic.vnf import base
 from yardstick.ssh import SSH
 
@@ -259,3 +260,51 @@ class TrafficGeneratorProducerTestCase(unittest.TestCase):
         mock_rpcclient.assert_called_once_with('rpc_transport', 'rpc_target')
         self.assertEqual(pid, tg_producer._pid)
         self.assertEqual(messaging.TOPIC_TG, tg_producer._topic)
+
+    @mock.patch.object(oslo_messaging, 'Target', return_value='rpc_target')
+    @mock.patch.object(oslo_messaging, 'RPCClient')
+    @mock.patch.object(oslo_messaging, 'get_rpc_transport',
+                       return_value='rpc_transport')
+    @mock.patch.object(payloads, 'TrafficGeneratorPayload',
+                       return_value='tg_pload')
+    def test_tg_method_started(self, mock_tg_payload, *args):
+        tg_producer = base.TrafficGeneratorProducer(uuid.uuid1().int)
+        with mock.patch.object(tg_producer, 'send_message') as mock_message:
+            tg_producer.tg_method_started(version=10)
+
+        mock_message.assert_called_once_with(messaging.TG_METHOD_STARTED,
+                                             'tg_pload')
+        mock_tg_payload.assert_called_once_with(version=10, iteration=0,
+                                                kpi={})
+
+    @mock.patch.object(oslo_messaging, 'Target', return_value='rpc_target')
+    @mock.patch.object(oslo_messaging, 'RPCClient')
+    @mock.patch.object(oslo_messaging, 'get_rpc_transport',
+                       return_value='rpc_transport')
+    @mock.patch.object(payloads, 'TrafficGeneratorPayload',
+                       return_value='tg_pload')
+    def test_tg_method_finished(self, mock_tg_payload, *args):
+        tg_producer = base.TrafficGeneratorProducer(uuid.uuid1().int)
+        with mock.patch.object(tg_producer, 'send_message') as mock_message:
+            tg_producer.tg_method_finished(version=20)
+
+        mock_message.assert_called_once_with(messaging.TG_METHOD_FINISHED,
+                                             'tg_pload')
+        mock_tg_payload.assert_called_once_with(version=20, iteration=0,
+                                                kpi={})
+
+    @mock.patch.object(oslo_messaging, 'Target', return_value='rpc_target')
+    @mock.patch.object(oslo_messaging, 'RPCClient')
+    @mock.patch.object(oslo_messaging, 'get_rpc_transport',
+                       return_value='rpc_transport')
+    @mock.patch.object(payloads, 'TrafficGeneratorPayload',
+                       return_value='tg_pload')
+    def test_tg_method_iteration(self, mock_tg_payload, *args):
+        tg_producer = base.TrafficGeneratorProducer(uuid.uuid1().int)
+        with mock.patch.object(tg_producer, 'send_message') as mock_message:
+            tg_producer.tg_method_iteration(100, version=30, kpi={'k': 'v'})
+
+        mock_message.assert_called_once_with(messaging.TG_METHOD_ITERATION,
+                                             'tg_pload')
+        mock_tg_payload.assert_called_once_with(version=30, iteration=100,
+                                                kpi={'k': 'v'})
