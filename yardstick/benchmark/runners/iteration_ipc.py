@@ -44,7 +44,7 @@ class RunnerIterationIPCEndpoint(consumer.NotificationHandler):
     """Endpoint class for ``RunnerIterationIPCConsumer``"""
 
     def tg_method_started(self, ctxt, **kwargs):
-        if ctxt['id'] in self._ctx_pids:
+        if ctxt['id'] in self._ctx_ids:
             self._queue.put(
                 {'id': ctxt['id'],
                  'action': messaging.TG_METHOD_STARTED,
@@ -53,7 +53,7 @@ class RunnerIterationIPCEndpoint(consumer.NotificationHandler):
                 QUEUE_PUT_TIMEOUT)
 
     def tg_method_finished(self, ctxt, **kwargs):
-        if ctxt['id'] in self._ctx_pids:
+        if ctxt['id'] in self._ctx_ids:
             self._queue.put(
                 {'id': ctxt['id'],
                  'action': messaging.TG_METHOD_FINISHED,
@@ -61,7 +61,7 @@ class RunnerIterationIPCEndpoint(consumer.NotificationHandler):
                      kwargs)})
 
     def tg_method_iteration(self, ctxt, **kwargs):
-        if ctxt['id'] in self._ctx_pids:
+        if ctxt['id'] in self._ctx_ids:
             self._queue.put(
                 {'id': ctxt['id'],
                  'action': messaging.TG_METHOD_ITERATION,
@@ -124,7 +124,8 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
     if 'setup' not in run_step:
         raise exceptions.RunnerIterationIPCSetupActionNeeded()
-    producer_ctxs = benchmark.setup()
+    benchmark.setup()
+    producer_ctxs = benchmark.get_mq_ids()
     if not producer_ctxs:
         raise exceptions.RunnerIterationIPCNoCtxs()
 
