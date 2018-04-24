@@ -250,15 +250,15 @@ class TrafficGeneratorProducerTestCase(unittest.TestCase):
     @mock.patch.object(cfg, 'CONF')
     def test__init(self, mock_config, mock_transport, mock_rpcclient,
                    mock_target):
-        pid = uuid.uuid1().int
-        tg_producer = base.TrafficGeneratorProducer(pid)
+        id = uuid.uuid1().int
+        tg_producer = base.TrafficGeneratorProducer(id)
         mock_transport.assert_called_once_with(
             mock_config, url='rabbit://yardstick:yardstick@localhost:5672/')
         mock_target.assert_called_once_with(topic=messaging.TOPIC_TG,
                                             fanout=True,
                                             server=messaging.SERVER)
         mock_rpcclient.assert_called_once_with('rpc_transport', 'rpc_target')
-        self.assertEqual(pid, tg_producer._pid)
+        self.assertEqual(id, tg_producer._id)
         self.assertEqual(messaging.TOPIC_TG, tg_producer._topic)
 
     @mock.patch.object(oslo_messaging, 'Target', return_value='rpc_target')
