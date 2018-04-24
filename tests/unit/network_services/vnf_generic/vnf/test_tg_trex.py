@@ -461,9 +461,8 @@ class TestTrexTrafficGen(unittest.TestCase):
         self.sut.ssh_helper.run = mock.Mock()
         self.sut._traffic_runner = mock.Mock(return_value=0)
         self.sut.resource_helper.client_started.value = 1
-        result = self.sut.run_traffic(mock_traffic_profile)
+        self.sut.run_traffic(mock_traffic_profile)
         self.sut._traffic_process.terminate()
-        self.assertIsNotNone(result)
 
     @mock.patch(SSH_HELPER)
     def test_terminate(self, ssh):
