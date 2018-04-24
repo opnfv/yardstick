@@ -34,18 +34,18 @@ class MessagingProducer(object):
     messages in a message queue.
     """
 
-    def __init__(self, topic, pid=os.getpid(), fanout=True):
+    def __init__(self, topic, _id=os.getpid(), fanout=True):
         """Init function.
 
         :param topic: (string) MQ exchange topic
-        :param pid: (int) PID of the process implementing this MQ Notifier
+        :param id: (int) ID of the process implementing this MQ Notifier
         :param fanout: (bool) MQ clients may request that a copy of the message
                        be delivered to all servers listening on a topic by
                        setting fanout to ``True``, rather than just one of them
         :returns: `MessagingNotifier` class object
         """
         self._topic = topic
-        self._pid = pid
+        self._id = _id
         self._fanout = fanout
         self._transport = oslo_messaging.get_rpc_transport(
             cfg.CONF, url=messaging.TRANSPORT_URL)
@@ -65,6 +65,11 @@ class MessagingProducer(object):
                        consumer endpoints
         :param payload: (subclass `Payload`) payload content
         """
-        self._notifier.cast({'pid': self._pid},
+        self._notifier.cast({'id': self._id},
                             method,
                             **payload.obj_to_dict())
+
+    @property
+    def id(self):
+        """Return MQ producer ID"""
+        return self._id
