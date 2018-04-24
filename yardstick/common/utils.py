@@ -136,6 +136,11 @@ def source_env(env_file):
     p = subprocess.Popen(". %s; env" % env_file, stdout=subprocess.PIPE,
                          shell=True)
     output = p.communicate()[0]
+
+    # sometimes output type would be binary_type, and it don't have splitlines
+    # method, so we need to decode
+    if isinstance(output, six.binary_type):
+        output = encodeutils.safe_decode(output)
     env = dict(line.split('=', 1) for line in output.splitlines() if '=' in line)
     os.environ.update(env)
     return env

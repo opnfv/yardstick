@@ -733,7 +733,7 @@ def create_security_group_full(neutron_client, sg_name,
 
         log.debug("Adding ICMP rules in security group '%s'...", sg_name)
         if not create_security_group_rule(neutron_client, sg_id,
-                                    'ingress', 'icmp'):
+                                          'ingress', 'icmp'):
             log.error("Failed to create the security group rule...")
             return None
 
@@ -795,6 +795,18 @@ def delete_image(glance_client, image_id):    # pragma: no cover
         return False
     else:
         return True
+
+
+def list_images(shade_client=None):
+    if shade_client is None:
+        shade_client = get_shade_client()
+
+    try:
+        return shade_client.list_images()
+    except exc.OpenStackCloudException as o_exc:
+        log.error("Error [list_images(shade_client)]."
+                  "Exception message, '%s'", o_exc.orig_message)
+        return False
 
 
 # *********************************************
