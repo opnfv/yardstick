@@ -43,6 +43,12 @@ if [ "${YARD_IMG_ARCH}" == "arm64" ]; then
     fi
 fi
 
+cleanup_loopbacks() {
+    # try again to cleanup loopbacks in case of error
+    losetup -a
+    losetup -O NAME,BACK-FILE | awk '/yardstick/ { print $1 }' | xargs -l1 losetup -v -d || true
+}
+
 build_yardstick_image()
 {
     echo
@@ -56,6 +62,7 @@ build_yardstick_image()
             # Build the image. Retry once if the build fails
             $cmd || $cmd
 
+            cleanup_loopbacks
             if [ ! -f "${RAW_IMAGE}" ]; then
                 echo "Failed building RAW image"
                 exit 1
@@ -70,6 +77,7 @@ build_yardstick_image()
                      -e YARD_IMG_ARCH=${YARD_IMG_ARCH} \
                      -vvv -i inventory.ini build_yardstick_image.yml
 
+            cleanup_loopbacks
             if [ ! -f "${QCOW_IMAGE}" ]; then
                 echo "Failed building QCOW image"
                 exit 1
@@ -82,6 +90,7 @@ build_yardstick_image()
                      -e img_property="nsb" \
                      -e YARD_IMG_ARCH=${YARD_IMG_ARCH} \
                      -vvv -i inventory.ini build_yardstick_image.yml
+            cleanup_loopbacks
             if [ ! -f "${QCOW_NSB_IMAGE}" ]; then
                 echo "Failed building QCOW NSB image"
                 exit 1
