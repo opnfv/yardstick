@@ -119,3 +119,7 @@ class Scenario(object):
             except TypeError:
                 dic[k] = v
         return dic
+
+    def get_mq_ids(self):  # pragma: no cover
+        """Return stored MQ producer IDs, if defined"""
+        pass
