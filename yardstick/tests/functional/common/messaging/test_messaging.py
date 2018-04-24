@@ -32,25 +32,25 @@ class DummyPayload(payloads.Payload):
 class DummyEndpoint(consumer.NotificationHandler):
 
     def info(self, ctxt, **kwargs):
-        if ctxt['pid'] in self._ctx_pids:
-            self._queue.put('ID {}, data: {}, pid: {}'.format(
-                self._id, kwargs['data'], ctxt['pid']))
+        if ctxt['id'] in self._ctx_ids:
+            self._queue.put('Nr {}, data: {}, id: {}'.format(
+                self._id, kwargs['data'], ctxt['id']))
 
 
 class DummyConsumer(consumer.MessagingConsumer):
 
-    def __init__(self, _id, ctx_pids, queue):
+    def __init__(self, _id, ctx_ids, queue):
         self._id = _id
-        endpoints = [DummyEndpoint(_id, ctx_pids, queue)]
-        super(DummyConsumer, self).__init__(TOPIC, ctx_pids, endpoints)
+        endpoints = [DummyEndpoint(_id, ctx_ids, queue)]
+        super(DummyConsumer, self).__init__(TOPIC, ctx_ids, endpoints)
 
 
 class DummyProducer(producer.MessagingProducer):
     pass
 
 
-def _run_consumer(_id, ctx_pids, queue):
-    _consumer = DummyConsumer(_id, ctx_pids, queue)
+def _run_consumer(_id, ctx_ids, queue):
+    _consumer = DummyConsumer(_id, ctx_ids, queue)
     _consumer.start_rpc_server()
     _consumer.wait()
 
@@ -67,8 +67,8 @@ class MessagingTestCase(base.BaseFunctionalTestCase):
         num_consumers = 10
         ctx_1 = 100001
         ctx_2 = 100002
-        producers = [DummyProducer(TOPIC, pid=ctx_1),
-                     DummyProducer(TOPIC, pid=ctx_2)]
+        producers = [DummyProducer(TOPIC, _id=ctx_1),
+                     DummyProducer(TOPIC, _id=ctx_2)]
 
         processes = []
         for i in range(num_consumers):
@@ -91,7 +91,7 @@ class MessagingTestCase(base.BaseFunctionalTestCase):
             output.append(output_queue.get(True, 1))
 
         self.assertEqual(num_consumers * 4, len(output))
-        msg_template = 'ID {}, data: {}, pid: {}'
+        msg_template = 'Nr {}, data: {}, id: {}'
         for i in range(num_consumers):
             for ctx in [ctx_1, ctx_2]:
                 for message in ['message 0', 'message 1']:
