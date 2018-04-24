@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_93609902",
+        "filename": "tests/unit/network_services/collector/test_subscriber.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-24T08:03:30Z",
+      "side": 1,
+      "message": "To be removed, not used",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 5
+      },
+      "revId": "eb072486384f6077d39e4cb3e3b820f8db784aba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_735d0d47",
+        "filename": "tests/unit/network_services/collector/test_subscriber.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-24T08:03:30Z",
+      "side": 1,
+      "message": "To be removed, not tested",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 41
+      },
+      "revId": "eb072486384f6077d39e4cb3e3b820f8db784aba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b3531538",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_base.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-24T08:03:30Z",
+      "side": 1,
+      "message": "nit: I know the char limit is 99, but please, in new code let\u0027s limit it to 79.\n\nhttps://www.python.org/dev/peps/pep-0008/#maximum-line-length\n\nThis is a nit, you can or cannot change it. It\u0027s up to you.",
+      "range": {
+        "startLine": 219,
+        "startChar": 8,
+        "endLine": 219,
+        "endChar": 83
+      },
+      "revId": "eb072486384f6077d39e4cb3e3b820f8db784aba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_131be981",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1796,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-24T08:03:30Z",
+      "side": 1,
+      "message": "Please, add different parameters in both options, e.g.:\n\n        options1 \u003d {\u0027interval\u0027: 1,\n                    \u0027param1\u0027: \u0027value1\u0027\n                    \u0027plugins\u0027:\n                        {\u0027plugin3\u0027: {\u0027param\u0027: 3},\n                         \u0027plugin2\u0027: {\u0027param\u0027: 1},\n                         \u0027plugin1\u0027: {\u0027param\u0027: 1}}}\n        options2 \u003d {\u0027interval\u0027: 2,\n                    \u0027param2\u0027: \u0027value2\u0027\n                    \u0027plugins\u0027:\n                        {\u0027plugin4\u0027: {\u0027param\u0027: 4},                        \n                         \u0027plugin2\u0027: {\u0027param\u0027: 2},\n                         \u0027plugin1\u0027: {\u0027param\u0027: 2}}}\n        expected \u003d {\u0027interval\u0027: 1,\n                    \u0027param1\u0027: \u0027value1\u0027,\n                    \u0027param2\u0027: \u0027value2\u0027,\n                    \u0027plugins\u0027:\n                        {\u0027plugin2\u0027: {\u0027param\u0027: 1},\n                         \u0027plugin1\u0027: {\u0027param\u0027: 1},\n                         \u0027plugin3\u0027: {\u0027param\u0027: 3},\n                         \u0027plugin4\u0027: {\u0027param\u0027: 4}}}",
+      "revId": "eb072486384f6077d39e4cb3e3b820f8db784aba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_133489fa",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-24T08:03:30Z",
+      "side": 1,
+      "message": "For consistency, leave an empty line here",
+      "revId": "eb072486384f6077d39e4cb3e3b820f8db784aba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f338fdf0",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-24T08:03:30Z",
+      "side": 1,
+      "message": "Capital letter\n\nIn one liner descriptions, the quotes are in the same line. Take L760 quotes to L759.",
+      "range": {
+        "startLine": 759,
+        "startChar": 11,
+        "endLine": 759,
+        "endChar": 12
+      },
+      "revId": "eb072486384f6077d39e4cb3e3b820f8db784aba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0e029c09",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-24T08:03:30Z",
+      "side": 1,
+      "message": "Do we need this? Why do we need to keep aditional_options input untouched?",
+      "range": {
+        "startLine": 761,
+        "startChar": 8,
+        "endLine": 761,
+        "endChar": 57
+      },
+      "revId": "eb072486384f6077d39e4cb3e3b820f8db784aba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b3015508",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-24T08:03:30Z",
+      "side": 1,
+      "message": "I know exceptions are very \"cheap\" in python (compared to C++, for example). But instead of this, I prefer something more \"controlled\". Also we need to check if options[k] is a dict (if not, we can \"update\" it):\n\nfor k, v in additional_options.items():\n  if isinstance(v, dict) and k in options and isinstance(options[k], dict):\n    options[k].update(v)\n  else:\n    options[k] \u003d v",
+      "range": {
+        "startLine": 764,
+        "startChar": 16,
+        "endLine": 764,
+        "endChar": 20
+      },
+      "revId": "eb072486384f6077d39e4cb3e3b820f8db784aba",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
