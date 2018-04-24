@@ -48,7 +48,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
 
     __scenario_type__ = "NSPerf"
 
-    def __init__(self, scenario_cfg, context_cfg):  # Yardstick API
+    def __init__(self, scenario_cfg, context_cfg):  # pragma: no cover
         super(NetworkServiceTestCase, self).__init__()
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
@@ -59,6 +59,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         self.traffic_profile = None
         self.node_netdevs = {}
         self.bin_path = get_nsb_option('bin_path', '')
+        self._mq_ids = []
 
     def _get_ip_flow_range(self, ip_start_range):
 
@@ -166,18 +167,18 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         topology_yaml = vnfdgen.generate_vnfd(topology, topolgy_data)
         self.topology = topology_yaml["nsd:nsd-catalog"]["nsd"][0]
 
-    def _find_vnf_name_from_id(self, vnf_id):
+    def _find_vnf_name_from_id(self, vnf_id):  # pragma: no cover
         return next((vnfd["vnfd-id-ref"]
                      for vnfd in self.topology["constituent-vnfd"]
                      if vnf_id == vnfd["member-vnf-index"]), None)
 
-    def _find_vnfd_from_vnf_idx(self, vnf_id):
+    def _find_vnfd_from_vnf_idx(self, vnf_id):  # pragma: no cover
         return next((vnfd
                      for vnfd in self.topology["constituent-vnfd"]
                      if vnf_id == vnfd["member-vnf-index"]), None)
 
     @staticmethod
-    def find_node_if(nodes, name, if_name, vld_id):
+    def find_node_if(nodes, name, if_name, vld_id):  # pragma: no cover
         try:
             # check for xe0, xe1
             intf = nodes[name]["interfaces"][if_name]
@@ -409,11 +410,8 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         self.vnfs = vnfs
         return vnfs
 
-    def setup(self):
-        """ Setup infrastructure, provission VNFs & start traffic
-
-        :return:
-        """
+    def setup(self):  # pragma: no cover
+        """Setup infrastructure, provission VNFs & start traffic"""
         # 1. Verify if infrastructure mapping can meet topology
         self.map_topology_to_infrastructure()
         # 1a. Load VNF models
@@ -455,6 +453,11 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         for traffic_gen in traffic_runners:
             LOG.info("Starting traffic on %s", traffic_gen.name)
             traffic_gen.run_traffic(self.traffic_profile)
+            self._mq_ids.append(traffic_gen.get_mq_producer_id())
+
+    def get_mq_ids(self):  # pragma: no cover
+        """Return stored MQ producer IDs"""
+        return self._mq_ids
 
     def run(self, result):  # yardstick API
         """ Yardstick calls run() at intervals defined in the yaml and
