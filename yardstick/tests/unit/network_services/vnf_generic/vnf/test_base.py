@@ -145,6 +145,24 @@ VNFD = {
 }
 
 
+class _DummyGenericTrafficGen(base.GenericTrafficGen):
+
+    def run_traffic(self, *args):
+        pass
+
+    def terminate(self):
+        pass
+
+    def collect_kpi(self):
+        pass
+
+    def instantiate(self, *args):
+        pass
+
+    def scale(self, flavor=''):
+        pass
+
+
 class FileAbsPath(object):
     def __init__(self, module_file):
         super(FileAbsPath, self).__init__()
@@ -240,6 +258,15 @@ class GenericTrafficGenTestCase(unittest.TestCase):
                "scale, terminate")
         self.assertEqual(msg, str(exc.exception))
 
+    def test_get_mq_producer_id(self):
+        vnfd = {'benchmark': {'kpi': mock.ANY},
+                'vdu': [{'external-interface': 'ext_int'}]
+                }
+        tg = _DummyGenericTrafficGen('name', vnfd)
+        tg._mq_producer = mock.Mock()
+        tg._mq_producer.get_id.return_value = 'fake_id'
+        self.assertEqual('fake_id', tg.get_mq_producer_id())
+
 
 class TrafficGeneratorProducerTestCase(unittest.TestCase):
 
@@ -250,15 +277,15 @@ class TrafficGeneratorProducerTestCase(unittest.TestCase):
     @mock.patch.object(cfg, 'CONF')
     def test__init(self, mock_config, mock_transport, mock_rpcclient,
                    mock_target):
-        pid = uuid.uuid1().int
-        tg_producer = base.TrafficGeneratorProducer(pid)
+        _id = uuid.uuid1().int
+        tg_producer = base.TrafficGeneratorProducer(_id)
         mock_transport.assert_called_once_with(
             mock_config, url='rabbit://yardstick:yardstick@localhost:5672/')
         mock_target.assert_called_once_with(topic=messaging.TOPIC_TG,
                                             fanout=True,
                                             server=messaging.SERVER)
         mock_rpcclient.assert_called_once_with('rpc_transport', 'rpc_target')
-        self.assertEqual(pid, tg_producer._pid)
+        self.assertEqual(_id, tg_producer._id)
         self.assertEqual(messaging.TOPIC_TG, tg_producer._topic)
 
     @mock.patch.object(oslo_messaging, 'Target', return_value='rpc_target')

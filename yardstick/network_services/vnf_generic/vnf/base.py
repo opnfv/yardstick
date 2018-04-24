@@ -147,9 +147,9 @@ class TrafficGeneratorProducer(producer.MessagingProducer):
     This message producer must be instantiated in the process created
     "run_traffic" process.
     """
-    def __init__(self, pid):
+    def __init__(self, _id):
         super(TrafficGeneratorProducer, self).__init__(messaging.TOPIC_TG,
-                                                       pid=pid)
+                                                       _id=_id)
 
     def tg_method_started(self, version=1):
         self.send_message(
@@ -321,9 +321,15 @@ class GenericTrafficGen(GenericVNF):
         """
         pass
 
-    def _setup_mq_producer(self, pid):
+    @staticmethod
+    def _setup_mq_producer(id):  # pragma: no cover
         """Setup the TG MQ producer to send messages between processes
 
         :return: (derived class from ``MessagingProducer``) MQ producer object
         """
-        return TrafficGeneratorProducer(pid)
+        return TrafficGeneratorProducer(id)
+
+    def get_mq_producer_id(self):
+        """Return the MQ producer ID if initialized"""
+        if self._mq_producer:
+            return self._mq_producer.get_id()
