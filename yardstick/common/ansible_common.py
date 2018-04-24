@@ -514,7 +514,7 @@ class AnsibleCommon(object):
         parser.add_section('defaults')
         parser.set('defaults', 'host_key_checking', 'False')
 
-        cfg_path = os.path.join(directory, 'setup.cfg')
+        cfg_path = os.path.join(directory, 'ansible.cfg')
         with open(cfg_path, 'w') as f:
             parser.write(f)
 
