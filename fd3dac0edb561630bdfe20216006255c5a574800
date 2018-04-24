@@ -16,6 +16,121 @@
       "revId": "fd3dac0edb561630bdfe20216006255c5a574800",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a98ba266",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-24T14:01:35Z",
+      "side": 1,
+      "message": "These runners were already present, we can remove them, or add a note before the table:\n\n    In addition to the existing test runners (Arithmetic, Duration, Iteration, Sequence), the Fraser release includes the following new runners:\n    \u003ctable goes here\u003e\n\nAlternatively, present this section as a list of the Runners in Fraser, and mark only the new ones in bold, or add a note to say they\u0027re new in fraser.",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 72
+      },
+      "revId": "fd3dac0edb561630bdfe20216006255c5a574800",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_09ec5629",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-24T14:01:35Z",
+      "side": 1,
+      "message": "Same as above, either list only the new ones, or list them all and highlight the new ones",
+      "range": {
+        "startLine": 218,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 13
+      },
+      "revId": "fd3dac0edb561630bdfe20216006255c5a574800",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e9f00a00",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-24T14:01:35Z",
+      "side": 1,
+      "message": "If these stay, (see note above), then remove the blank lines between the bullets. You only need the blank line when changing the indentation level.",
+      "range": {
+        "startLine": 242,
+        "startChar": 18,
+        "endLine": 255,
+        "endChar": 36
+      },
+      "revId": "fd3dac0edb561630bdfe20216006255c5a574800",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_49f2de06",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-24T14:01:35Z",
+      "side": 1,
+      "message": "These are for Euphrates.\n\nUse the features we\u0027ve listed in the wiki: https://wiki.opnfv.org/display/SWREL/Fraser+Release+Key+Updates",
+      "range": {
+        "startLine": 354,
+        "startChar": 0,
+        "endLine": 372,
+        "endChar": 18
+      },
+      "revId": "fd3dac0edb561630bdfe20216006255c5a574800",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_29f792f6",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-24T14:01:35Z",
+      "side": 1,
+      "message": "Fraser",
+      "range": {
+        "startLine": 534,
+        "startChar": 18,
+        "endLine": 534,
+        "endChar": 27
+      },
+      "revId": "fd3dac0edb561630bdfe20216006255c5a574800",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
