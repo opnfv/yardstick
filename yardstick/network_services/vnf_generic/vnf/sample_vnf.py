@@ -897,12 +897,12 @@ class SampleVNFTrafficGen(GenericTrafficGen):
                 LOG.info("%s TG Server is up and running.", self.APP_NAME)
                 return self._tg_process.exitcode
 
-    def _traffic_runner(self, traffic_profile, mq_pid):
+    def _traffic_runner(self, traffic_profile, mq_id):
         # always drop connections first thing in new processes
         # so we don't get paramiko errors
         self.ssh_helper.drop_connection()
         LOG.info("Starting %s client...", self.APP_NAME)
-        self._mq_producer = self._setup_mq_producer(mq_pid)
+        self._mq_producer = self._setup_mq_producer(mq_id)
         self.resource_helper.run_traffic(traffic_profile, self._mq_producer)
 
     def run_traffic(self, traffic_profile):
@@ -916,9 +916,9 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         name = '{}-{}-{}-{}'.format(self.name, self.APP_NAME,
                                     traffic_profile.__class__.__name__,
                                     os.getpid())
-        mq_pid = uuid.uuid1().int
-        self._traffic_process = Process(name=name, target=self._traffic_runner,
-                                        args=(traffic_profile, mq_pid))
+        self._traffic_process = Process(
+            name=name, target=self._traffic_runner,
+            args=(traffic_profile, uuid.uuid1().int))
         self._traffic_process.start()
         # Wait for traffic process to start
         while self.resource_helper.client_started.value == 0:
@@ -926,8 +926,6 @@ class SampleVNFTrafficGen(GenericTrafficGen):
             # what if traffic process takes a few seconds to start?
             if not self._traffic_process.is_alive():
                 break
-
-        return mq_pid
 
     def collect_kpi(self):
         # check if the tg processes have exited
