@@ -6,15 +6,19 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-from __future__ import absolute_import
 
 import logging
 
-import six.moves.configparser as ConfigParser
-from six.moves.urllib.parse import urlsplit
+from six.moves import configparser as ConfigParser
+# NOTE(ralonsoh): pylint E0401 import error
+# https://github.com/PyCQA/pylint/issues/1640
+from six.moves.urllib.parse import urlsplit  # pylint: disable=relative-import
 from influxdb import InfluxDBClient
 
 from yardstick.common import constants as consts
+from yardstick.common import exceptions
+from yardstick import dispatcher
+
 
 logger = logging.getLogger(__name__)
 
@@ -24,12 +28,12 @@ def get_data_db_client():
     try:
         parser.read(consts.CONF_FILE)
 
-        if parser.get('DEFAULT', 'dispatcher') != 'influxdb':
-            raise RuntimeError
+        if dispatcher.INFLUXDB not in parser.get('DEFAULT', 'dispatcher'):
+            raise exceptions.InfluxDBConfigurationMissing()
 
         return _get_client(parser)
     except ConfigParser.NoOptionError:
-        logger.error('can not find the key')
+        logger.error('Can not find the key')
         raise
 
 

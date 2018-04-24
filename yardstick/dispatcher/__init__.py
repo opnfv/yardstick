@@ -7,12 +7,12 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import absolute_import
 from oslo_config import cfg
 
 import yardstick.common.utils as utils
 
-utils.import_modules_from_package("yardstick.dispatcher")
+utils.import_modules_from_package('yardstick.dispatcher')
+
 
 CONF = cfg.CONF
 OPTS = [
@@ -21,3 +21,8 @@ OPTS = [
                help='Dispatcher to store data.'),
 ]
 CONF.register_opts(OPTS)
+
+# Dispatchers
+FILE = 'file'
+HTTP = 'http'
+INFLUXDB = 'influxdb'
