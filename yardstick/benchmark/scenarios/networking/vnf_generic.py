@@ -60,6 +60,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         self.traffic_profile = None
         self.node_netdevs = {}
         self.bin_path = get_nsb_option('bin_path', '')
+        self._mq_ids = []
 
     def _get_ip_flow_range(self, ip_start_range):
 
@@ -403,10 +404,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         return vnfs
 
     def setup(self):
-        """ Setup infrastructure, provission VNFs & start traffic
-
-        :return:
-        """
+        """ Setup infrastructure, provission VNFs & start traffic"""
         # 1. Verify if infrastructure mapping can meet topology
         self.map_topology_to_infrastructure()
         # 1a. Load VNF models
@@ -448,6 +446,11 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         for traffic_gen in traffic_runners:
             LOG.info("Starting traffic on %s", traffic_gen.name)
             traffic_gen.run_traffic(self.traffic_profile)
+            self._mq_ids.append(traffic_gen.get_mq_producer_id())
+
+    def get_mq_ids(self):
+        """Return stored MQ producer IDs"""
+        return self._mq_ids
 
     def run(self, result):  # yardstick API
         """ Yardstick calls run() at intervals defined in the yaml and
