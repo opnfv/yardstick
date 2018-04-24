@@ -553,6 +553,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             tgen.verify_traffic = lambda x: verified_dict
             tgen.terminate = mock.Mock(return_value=True)
             tgen.name = "tgen__1"
+            tgen.run_traffic.return_value = 'tg_id'
             vnf = mock.Mock(autospec=GenericVNF)
             vnf.runs_traffic = False
             vnf.terminate = mock.Mock(return_value=True)
@@ -565,7 +566,6 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self.s.load_vnf_models = mock.Mock(return_value=self.s.vnfs)
             self.s._fill_traffic_profile = \
                 mock.Mock(return_value=TRAFFIC_PROFILE)
-            self.assertIsNone(self.s.setup())
 
     def test_setup_exception(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
