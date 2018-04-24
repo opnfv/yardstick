@@ -29,17 +29,17 @@ class RunnerIterationIPCEndpointTestCase(ut_base.BaseUnitTestCase):
 
     def setUp(self):
         self._id = uuid.uuid1().int
-        self._ctx_pids = [uuid.uuid1().int, uuid.uuid1().int]
+        self._ctx_ids = [uuid.uuid1().int, uuid.uuid1().int]
         self._queue = multiprocessing.Queue()
         self.runner = iteration_ipc.RunnerIterationIPCEndpoint(
-            self._id, self._ctx_pids, self._queue)
+            self._id, self._ctx_ids, self._queue)
         self._kwargs = {'version': 1, 'iteration': 10, 'kpi': {}}
         self._pload_dict = payloads.TrafficGeneratorPayload.dict_to_obj(
             self._kwargs).obj_to_dict()
 
     def test_tg_method_started(self):
         self._queue.empty()
-        ctxt = {'pid': self._ctx_pids[0]}
+        ctxt = {'id': self._ctx_ids[0]}
         self.runner.tg_method_started(ctxt, **self._kwargs)
         time.sleep(0.2)
 
@@ -48,13 +48,13 @@ class RunnerIterationIPCEndpointTestCase(ut_base.BaseUnitTestCase):
             output.append(self._queue.get(True, 1))
 
         self.assertEqual(1, len(output))
-        self.assertEqual(self._ctx_pids[0], output[0]['pid'])
+        self.assertEqual(self._ctx_ids[0], output[0]['id'])
         self.assertEqual(messaging.TG_METHOD_STARTED, output[0]['action'])
         self.assertEqual(self._pload_dict, output[0]['payload'].obj_to_dict())
 
     def test_tg_method_finished(self):
         self._queue.empty()
-        ctxt = {'pid': self._ctx_pids[0]}
+        ctxt = {'id': self._ctx_ids[0]}
         self.runner.tg_method_finished(ctxt, **self._kwargs)
         time.sleep(0.2)
 
@@ -63,13 +63,13 @@ class RunnerIterationIPCEndpointTestCase(ut_base.BaseUnitTestCase):
             output.append(self._queue.get(True, 1))
 
         self.assertEqual(1, len(output))
-        self.assertEqual(self._ctx_pids[0], output[0]['pid'])
+        self.assertEqual(self._ctx_ids[0], output[0]['id'])
         self.assertEqual(messaging.TG_METHOD_FINISHED, output[0]['action'])
         self.assertEqual(self._pload_dict, output[0]['payload'].obj_to_dict())
 
     def test_tg_method_iteration(self):
         self._queue.empty()
-        ctxt = {'pid': self._ctx_pids[0]}
+        ctxt = {'id': self._ctx_ids[0]}
         self.runner.tg_method_iteration(ctxt, **self._kwargs)
         time.sleep(0.2)
 
@@ -78,7 +78,7 @@ class RunnerIterationIPCEndpointTestCase(ut_base.BaseUnitTestCase):
             output.append(self._queue.get(True, 1))
 
         self.assertEqual(1, len(output))
-        self.assertEqual(self._ctx_pids[0], output[0]['pid'])
+        self.assertEqual(self._ctx_ids[0], output[0]['id'])
         self.assertEqual(messaging.TG_METHOD_ITERATION, output[0]['action'])
         self.assertEqual(self._pload_dict, output[0]['payload'].obj_to_dict())
 
@@ -87,22 +87,22 @@ class RunnerIterationIPCConsumerTestCase(ut_base.BaseUnitTestCase):
 
     def setUp(self):
         self._id = uuid.uuid1().int
-        self._ctx_pids = [uuid.uuid1().int, uuid.uuid1().int]
+        self._ctx_ids = [uuid.uuid1().int, uuid.uuid1().int]
         self.consumer = iteration_ipc.RunnerIterationIPCConsumer(
-            self._id, self._ctx_pids)
+            self._id, self._ctx_ids)
         self.consumer._queue = mock.Mock()
 
     def test__init(self):
-        self.assertEqual({self._ctx_pids[0]: [], self._ctx_pids[1]: []},
-                         self.consumer._kpi_per_pid)
+        self.assertEqual({self._ctx_ids[0]: [], self._ctx_ids[1]: []},
+                         self.consumer._kpi_per_id)
 
     def test_is_all_kpis_received_in_iteration(self):
         payload = payloads.TrafficGeneratorPayload(
             version=1, iteration=1, kpi={})
         msg1 = {'action': messaging.TG_METHOD_ITERATION,
-                'pid': self._ctx_pids[0], 'payload': payload}
+                'id': self._ctx_ids[0], 'payload': payload}
         msg2 = {'action': messaging.TG_METHOD_ITERATION,
-                'pid': self._ctx_pids[1], 'payload': payload}
+                'id': self._ctx_ids[1], 'payload': payload}
         self.consumer.iteration_index = 1
 
         self.consumer._queue.empty.side_effect = [False, True]

@@ -44,3 +44,10 @@ class MessagingProducerTestCase(ut_base.BaseUnitTestCase):
                 topic='test_topic', fanout=True, server=messaging.SERVER)
             mock_RPCClient.assert_called_once_with('test_rpc_transport',
                                                    'test_Target')
+
+    def test_id(self):
+        with mock.patch.object(oslo_messaging, 'RPCClient'), \
+                mock.patch.object(oslo_messaging, 'get_rpc_transport'), \
+                mock.patch.object(oslo_messaging, 'Target'):
+            msg_producer = _MessagingProducer('topic', 'id_to_check')
+        self.assertEqual('id_to_check', msg_producer.id)
