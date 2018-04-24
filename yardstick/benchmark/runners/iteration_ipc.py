@@ -44,26 +44,26 @@ class RunnerIterationIPCEndpoint(consumer.NotificationHandler):
     """Endpoint class for ``RunnerIterationIPCConsumer``"""
 
     def tg_method_started(self, ctxt, **kwargs):
-        if ctxt['pid'] in self._ctx_pids:
+        if ctxt['id'] in self._ctx_ids:
             self._queue.put(
-                {'pid': ctxt['pid'],
+                {'id': ctxt['id'],
                  'action': messaging.TG_METHOD_STARTED,
                  'payload': payloads.TrafficGeneratorPayload.dict_to_obj(
                      kwargs)},
                 QUEUE_PUT_TIMEOUT)
 
     def tg_method_finished(self, ctxt, **kwargs):
-        if ctxt['pid'] in self._ctx_pids:
+        if ctxt['id'] in self._ctx_ids:
             self._queue.put(
-                {'pid': ctxt['pid'],
+                {'id': ctxt['id'],
                  'action': messaging.TG_METHOD_FINISHED,
                  'payload': payloads.TrafficGeneratorPayload.dict_to_obj(
                      kwargs)})
 
     def tg_method_iteration(self, ctxt, **kwargs):
-        if ctxt['pid'] in self._ctx_pids:
+        if ctxt['id'] in self._ctx_ids:
             self._queue.put(
-                {'pid': ctxt['pid'],
+                {'id': ctxt['id'],
                  'action': messaging.TG_METHOD_ITERATION,
                  'payload': payloads.TrafficGeneratorPayload.dict_to_obj(
                      kwargs)})
@@ -72,13 +72,13 @@ class RunnerIterationIPCEndpoint(consumer.NotificationHandler):
 class RunnerIterationIPCConsumer(consumer.MessagingConsumer):
     """MQ consumer for "IterationIPC" runner"""
 
-    def __init__(self, _id, ctx_pids):
+    def __init__(self, _id, ctx_ids):
         self._id = _id
         self._queue = multiprocessing.Queue()
-        endpoints = [RunnerIterationIPCEndpoint(_id, ctx_pids, self._queue)]
+        endpoints = [RunnerIterationIPCEndpoint(_id, ctx_ids, self._queue)]
         super(RunnerIterationIPCConsumer, self).__init__(
-            messaging.TOPIC_TG, ctx_pids, endpoints)
-        self._kpi_per_pid = {ctx: [] for ctx in ctx_pids}
+            messaging.TOPIC_TG, ctx_ids, endpoints)
+        self._kpi_per_id = {ctx: [] for ctx in ctx_ids}
         self.iteration_index = None
 
     def is_all_kpis_received_in_iteration(self):
@@ -90,22 +90,22 @@ class RunnerIterationIPCConsumer(consumer.MessagingConsumer):
         all KPIs in the present iteration are received. E.g.:
           self.iteration_index = 2
 
-          self._kpi_per_pid = {
+          self._kpi_per_id = {
             'ctx1': [kpi0, kpi1, kpi2],
             'ctx2': [kpi0, kpi1]}          --> return False
 
-          self._kpi_per_pid = {
+          self._kpi_per_id = {
             'ctx1': [kpi0, kpi1, kpi2],
             'ctx2': [kpi0, kpi1, kpi2]}    --> return True
         """
         while not self._queue.empty():
             msg = self._queue.get(True, 1)
             if msg['action'] == messaging.TG_METHOD_ITERATION:
-                pid_iter_list = self._kpi_per_pid[msg['pid']]
-                pid_iter_list.append(msg['payload'].kpi)
+                id_iter_list = self._kpi_per_id[msg['id']]
+                id_iter_list.append(msg['payload'].kpi)
 
-        return all(len(pid_iter_list) == self.iteration_index
-                   for pid_iter_list in self._kpi_per_pid.values())
+        return all(len(id_iter_list) == self.iteration_index
+                   for id_iter_list in self._kpi_per_id.values())
 
 
 def _worker_process(queue, cls, method_name, scenario_cfg,
@@ -124,7 +124,8 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
     if 'setup' not in run_step:
         raise exceptions.RunnerIterationIPCSetupActionNeeded()
-    producer_ctxs = benchmark.setup()
+    benchmark.setup()
+    producer_ctxs = benchmark.get_mq_ids()
     if not producer_ctxs:
         raise exceptions.RunnerIterationIPCNoCtxs()
 
