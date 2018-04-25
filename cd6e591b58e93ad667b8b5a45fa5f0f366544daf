@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d7b16890",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-25T16:48:11Z",
+      "side": 1,
+      "message": "Is this the traffic bridge IP from the host?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 45
+      },
+      "revId": "cd6e591b58e93ad667b8b5a45fa5f0f366544daf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f7a4644c",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-25T16:48:11Z",
+      "side": 1,
+      "message": "Why did you move this from configure_kolla?",
+      "revId": "cd6e591b58e93ad667b8b5a45fa5f0f366544daf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b7ae5c2c",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-25T16:48:11Z",
+      "side": 1,
+      "message": "Why do we need this condition?",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 39
+      },
+      "revId": "cd6e591b58e93ad667b8b5a45fa5f0f366544daf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_17a8f01e",
+        "filename": "ansible/roles/infra_deploy_openstack/tasks/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-25T16:48:11Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 115,
+        "startChar": 2,
+        "endLine": 115,
+        "endChar": 39
+      },
+      "revId": "cd6e591b58e93ad667b8b5a45fa5f0f366544daf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
