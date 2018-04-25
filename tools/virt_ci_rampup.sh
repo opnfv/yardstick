@@ -15,7 +15,7 @@
 
 ANSIBLE_SCRIPTS="${0%/*}/../ansible"
 
-cd ${ANSIBLE_SCRIPTS} &&\
+cd ${ANSIBLE_SCRIPTS} && \
 sudo -EH ansible-playbook \
-         -e rs_file='../etc/infra/infra_deploy.yaml' \
+         -e RS_FILE='../etc/infra/infra_deploy.yaml' -e CLEAN_UP=False \
          -i inventory.ini infra_deploy.yml
