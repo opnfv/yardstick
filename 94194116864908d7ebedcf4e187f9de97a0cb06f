@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_719ce45d",
+        "filename": "api/utils/influx.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5437
+      },
+      "writtenOn": "2018-04-25T01:30:09Z",
+      "side": 1,
+      "message": "Maybe we can put it in _get_client method? It is a little strange to put the code here.",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 59
+      },
+      "revId": "94194116864908d7ebedcf4e187f9de97a0cb06f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
