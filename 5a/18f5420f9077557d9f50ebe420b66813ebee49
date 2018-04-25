@@ -1,0 +1,7 @@
+Code-Review+2: Rodolfo Alonso Hernandez <rodolfo.alonso.hernandez@intel.com>
+Verified+1: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-by: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-at: Wed, 25 Apr 2018 20:24:36 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/56495
+Project: yardstick
+Branch: refs/heads/stable/fraser
