@@ -1,0 +1,312 @@
+##############################################################################
+## Copyright (c) 2018 Intracom Telecom and others.
+##
+## All rights reserved. This program and the accompanying materials
+## are made available under the terms of the Apache License, Version 2.0
+## which accompanies this distribution, and is available at
+## http://www.apache.org/licenses/LICENSE-2.0
+###############################################################################
+---
+
+schema: "yardstick:task:0.1"
+description: >
+    Yardstick TC093 config file;
+    SDN Vswitch resilience in non-HA or HA configuration
+
+{% set file = file or '/home/opnfv/repos/yardstick/etc/yardstick/nodes/fuel_baremetal/pod.yaml' %}
+{% set attack_host_cmp_one = attack_host_cmp_one or 'node4' %}
+{% set attack_host_cmp_two = attack_host_cmp_two or 'node5' %}
+{% set systemd_service_name = systemd_service_name or 'openvswitch-switch'%}
+
+scenarios:
+
+-
+      type: "GeneralHA"
+      options:
+          monitors:
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ip-status"
+              key: "snat"
+              monitor_time: 50
+              host: athena
+              sla:
+                 max_outage_time: 0
+              parameter:
+                destination_ip: "8.8.8.8"
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ip-status"
+              key: "l2"
+              monitor_time: 50
+              host: athena
+              sla:
+                 max_outage_time: 0
+              parameter:
+                destination_ip: "@private_ip"
+
+          operations:
+            - operation_type: "general-operation"
+              key: "get-privateip"
+              operation_key: "get-privateip"
+              action_parameter:
+                server_name: "ares"
+              return_parameter:
+                all: "@private_ip"
+
+
+          steps:
+            - actionKey: "get-privateip"
+              actionType: "operation"
+              index: 1
+
+            - actionKey: "l2"
+              actionType: "monitor"
+              index: 2
+
+            - actionKey: "snat"
+              actionType: "monitor"
+              index: 3
+
+
+      nodes:
+        athena: athena.ODLnoHA1
+      runner:
+        type: Duration
+        duration: 1
+      sla:
+        action: monitor
+
+
+-
+      type: "GeneralHA"
+      options:
+          attackers:
+            -
+              fault_type: "kill-process"
+              process_name: "openvswitch"
+              key: "kill-process-cmp-one"
+              host: {{attack_host_cmp_one}}
+
+            -
+              fault_type: "kill-process"
+              process_name: "openvswitch"
+              key: "kill-process-cmp-two"
+              host: {{attack_host_cmp_two}}
+
+          monitors:
+            - monitor_type: "process"
+              process_name: "openvswitch"
+              host: {{attack_host_cmp_one}}
+              key: "monitor-recovery-cmp-one"
+              monitor_time: 50
+              sla:
+                max_recover_time: 30
+
+            - monitor_type: "process"
+              process_name: "openvswitch"
+              host: {{attack_host_cmp_two}}
+              key: "monitor-recovery-cmp-two"
+              monitor_time: 50
+              sla:
+                max_recover_time: 30
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ip-status"
+              key: "snat"
+              monitor_time: 70
+              host: athena
+              sla:
+                 max_outage_time: 20
+              parameter:
+                destination_ip: "8.8.8.8"
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ip-status"
+              key: "l2"
+              monitor_time: 70
+              host: athena
+              sla:
+                 max_outage_time: 20
+              parameter:
+                destination_ip: "@private_ip"
+
+          operations:
+            - operation_type: "general-operation"
+              key: "restart-service-cmp-one"
+              host: {{attack_host_cmp_one}}
+              operation_key: "restart-service"
+              action_parameter:
+                service: {{systemd_service_name}}
+              rollback_parameter:
+                service: "openvswitch"
+
+            - operation_type: "general-operation"
+              key: "restart-service-cmp-two"
+              host: {{attack_host_cmp_two}}
+              operation_key: "restart-service"
+              action_parameter:
+                service: {{systemd_service_name}}
+              rollback_parameter:
+                service: "openvswitch"
+
+            - operation_type: "general-operation"
+              key: "get-privateip"
+              operation_key: "get-privateip"
+              action_parameter:
+                server_name: "ares"
+              return_parameter:
+                all: "@private_ip"
+
+
+
+          steps:
+
+            - actionKey: "monitor-recovery-cmp-one"
+              actionType: "monitor"
+              index: 1
+
+            - actionKey: "monitor-recovery-cmp-two"
+              actionType: "monitor"
+              index: 2
+
+            - actionKey: "get-privateip"
+              actionType: "operation"
+              index: 3
+
+            - actionKey: "l2"
+              actionType: "monitor"
+              index: 4
+
+            - actionKey: "snat"
+              actionType: "monitor"
+              index: 5
+
+            - actionKey: "kill-process-cmp-one"
+              actionType: "attacker"
+              index: 6
+
+            - actionKey: "kill-process-cmp-two"
+              actionType: "attacker"
+              index: 7
+
+            - actionKey: "restart-service-cmp-one"
+              actionType: "operation"
+              index: 8
+
+            - actionKey: "restart-service-cmp-two"
+              actionType: "operation"
+              index: 9
+
+
+      nodes:
+        {{attack_host_cmp_one}}: {{attack_host_cmp_one}}.LF
+        {{attack_host_cmp_two}}: {{attack_host_cmp_two}}.LF
+        athena: athena.ODLnoHA1
+      runner:
+        type: Duration
+        duration: 1
+      sla:
+        action: monitor
+
+-
+      type: "GeneralHA"
+      options:
+          monitors:
+
+            - monitor_type: "general-monitor"
+              monitor_key: "ip-status"
+              key: "l2"
+              monitor_time: 80
+              host: athena
+              sla:
+                 max_outage_time: 40
+              parameter:
+                destination_ip: "@private_ip"
+
+          operations:
+            - operation_type: "general-operation"
+              key: "get-privateip"
+              operation_key: "get-privateip"
+              action_parameter:
+                server_name: "hermes"
+              return_parameter:
+                all: "@private_ip"
+
+            - operation_type: "general-operation"
+              key: "nova-create-instance"
+              operation_key: "nova-create-instance"
+              action_parameter:
+                serverconfig: "hermes yardstick-image yardstick-flavor test_one"
+              rollback_parameter:
+                serverconfig: "hermes"
+
+            - operation_type: "general-operation"
+              key: "add-server-to-secgroup"
+              operation_key: "add-server-to-secgroup"
+              action_parameter:
+                serverconfig: "hermes ODLnoHA1"
+              rollback_parameter:
+                serverconfig: "hermes ODLnoHA1"
+
+
+          steps:
+            - actionKey: "nova-create-instance"
+              actionType: "operation"
+              index: 1
+
+            - actionKey: "add-server-to-secgroup"
+              actionType: "operation"
+              index: 2
+
+            - actionKey: "get-privateip"
+              actionType: "operation"
+              index: 3
+
+            - actionKey: "l2"
+              actionType: "monitor"
+              index: 4
+
+      nodes:
+        athena: athena.ODLnoHA1
+      runner:
+        type: Duration
+        duration: 1
+      sla:
+        action: monitor
+
+
+contexts:
+    -
+        type: Node
+        name: LF
+        file: {{file}}
+    -
+        name: ODLnoHA1
+        image: yardstick-image
+        flavor: yardstick-flavor
+        user: ubuntu
+        host: athena
+        placement_groups:
+            pgrp1:
+                policy: "availability"
+        servers:
+            athena:
+                floating_ip: true
+                placement: "pgrp1"
+                network_ports:
+                    test_one:
+                        - ens0
+
+            ares:
+                floating_ip: true
+                placement: "pgrp1"
+                network_ports:
+                    test_one:
+                        - ens0
+
+        networks:
+            test_one:
+                cidr: '10.0.1.0/24'
+                router: 'test_router'
+
