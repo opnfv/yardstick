@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_ba94818b",
+        "filename": "yardstick/cmd/commands/python_wrapper.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-25T17:06:48Z",
+      "side": 1,
+      "message": "This is going to be an executable file. Add this in the first line:\n#!/usr/bin/env python",
+      "revId": "751a02015b875e7197f1c708041cc62faa201ff5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7a7f9966",
+        "filename": "yardstick/cmd/commands/python_wrapper.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-25T17:06:48Z",
+      "side": 1,
+      "message": "Do not import the class, import the module.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 33
+      },
+      "revId": "751a02015b875e7197f1c708041cc62faa201ff5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3a899175",
+        "filename": "yardstick/cmd/commands/python_wrapper.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-25T17:06:48Z",
+      "side": 1,
+      "message": "Leave an empty line",
+      "revId": "751a02015b875e7197f1c708041cc62faa201ff5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9a7a6575",
+        "filename": "yardstick/cmd/commands/python_wrapper.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-25T17:06:48Z",
+      "side": 1,
+      "message": "Leave two empty lines (pep8 coding style)",
+      "revId": "751a02015b875e7197f1c708041cc62faa201ff5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_da97cd8e",
+        "filename": "yardstick/cmd/commands/python_wrapper.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-25T17:06:48Z",
+      "side": 1,
+      "message": "Delete the comments",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 70
+      },
+      "revId": "751a02015b875e7197f1c708041cc62faa201ff5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1a8e5579",
+        "filename": "yardstick/cmd/commands/python_wrapper.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-25T17:06:48Z",
+      "side": 1,
+      "message": "leave an space",
+      "revId": "751a02015b875e7197f1c708041cc62faa201ff5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
