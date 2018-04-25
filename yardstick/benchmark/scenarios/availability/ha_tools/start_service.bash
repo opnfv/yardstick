@@ -9,11 +9,12 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Start a service and check the service is started
+# Start or restart a service and check the service is started
 
 set -e
 
 service_name=$1
+operation=${$2:-"start"} # values are "start" or "restart"
 
 Distributor=$(lsb_release -a | grep "Distributor ID" | awk '{print $3}')
 
@@ -26,7 +27,7 @@ elif [ "$service_name" = "keystone" ]; then
 fi
 
 if which systemctl 2>/dev/null; then
-    systemctl start $service_name
+    systemctl $operation $service_name
 else
-    service $service_name start
+    service $service_name $operation
 fi
