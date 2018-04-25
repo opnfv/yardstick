@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_852326a6",
+        "filename": "ansible/nsb_setup.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-04-25T20:32:38Z",
+      "side": 1,
+      "message": "switching back to latest since this is master",
+      "revId": "4b01157fb8b63c6ced7c293dc41ee77b77bc0d05",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c5388ed5",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-04-25T20:32:38Z",
+      "side": 1,
+      "message": "needs testing",
+      "revId": "4b01157fb8b63c6ced7c293dc41ee77b77bc0d05",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
