@@ -22,6 +22,30 @@
       "revId": "3acaffc4019e121d627b6734ffb5bcb8e72907d9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_dab06d45",
+        "filename": "ansible/nsb_setup.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-04-25T17:01:41Z",
+      "side": 1,
+      "message": "when run from the script, if the playbook is run standalone then we need a default here.",
+      "parentUuid": "5a3f45e8_ba3f61b3",
+      "range": {
+        "startLine": 40,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 75
+      },
+      "revId": "3acaffc4019e121d627b6734ffb5bcb8e72907d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
