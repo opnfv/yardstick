@@ -16,5 +16,3 @@ docker_project_url: https://yum.dockerproject.org
 docker_packages:
   "RedHat":
     - docker-engine-1.13.1
-  "Debian":
-    - docker-engine=1.13.1*
