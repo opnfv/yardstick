@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_3af071fd",
+        "filename": "ansible/nsb_setup.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-25T17:10:15Z",
+      "side": 1,
+      "message": "We still don\u0027t have this version in the code. We should wait, shouldn\u0027t we?",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 42
+      },
+      "revId": "5a18f5420f9077557d9f50ebe420b66813ebee49",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
