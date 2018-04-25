@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_342d2a96",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-04-25T08:51:53Z",
+      "side": 1,
+      "message": "thanks, I prefer to keep the existed runners and have the notes to be clear about fraser change as you said.",
+      "parentUuid": "5a3f45e8_a98ba266",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 72
+      },
+      "revId": "fd3dac0edb561630bdfe20216006255c5a574800",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_09ec5629",
         "filename": "docs/release/release-notes/release-notes.rst",
         "patchSetId": 6
@@ -76,6 +100,30 @@
       "writtenOn": "2018-04-24T14:01:35Z",
       "side": 1,
       "message": "If these stay, (see note above), then remove the blank lines between the bullets. You only need the blank line when changing the indentation level.",
+      "range": {
+        "startLine": 242,
+        "startChar": 18,
+        "endLine": 255,
+        "endChar": 36
+      },
+      "revId": "fd3dac0edb561630bdfe20216006255c5a574800",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_94551efc",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-04-25T08:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_e9f00a00",
       "range": {
         "startLine": 242,
         "startChar": 18,
