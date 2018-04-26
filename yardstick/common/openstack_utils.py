@@ -7,18 +7,21 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-import os
+import copy
 import logging
-
-from keystoneauth1 import loading
-from keystoneauth1 import session
-import shade
-from shade import exc
+import os
+import sys
 
 from cinderclient import client as cinderclient
 from novaclient import client as novaclient
 from glanceclient import client as glanceclient
+from keystoneauth1 import loading
+from keystoneauth1 import session
 from neutronclient.neutron import client as neutronclient
+import shade
+from shade import exc
+
+from yardstick.common import constants
 
 
 log = logging.getLogger(__name__)
@@ -154,8 +157,21 @@ def get_glance_client():    # pragma: no cover
     return glanceclient.Client(get_glance_client_version(), session=sess)
 
 
-def get_shade_client():
-    return shade.openstack_cloud()
+def get_shade_client(**os_cloud_config):
+    """Get Shade OpenStack cloud client
+
+    By default, the input parameters given to "shade.openstack_cloud" method
+    are stored in "constants.OS_CLOUD_DEFAULT_CONFIG". The input parameters
+    passed in this function, "os_cloud_config", will overwrite the default
+    ones.
+
+    :param os_cloud_config: (kwargs) input arguments for
+                            "shade.openstack_cloud" method.
+    :return: ``shade.OpenStackCloud`` object.
+    """
+    params = copy.deepcopy(constants.OS_CLOUD_DEFAULT_CONFIG)
+    params.update(os_cloud_config)
+    return shade.openstack_cloud(**params)
 
 
 # *********************************************
