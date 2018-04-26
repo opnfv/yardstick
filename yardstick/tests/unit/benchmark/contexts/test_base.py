@@ -39,6 +39,7 @@ class FlagsTestCase(ut_base.BaseUnitTestCase):
     def test___init__(self):
         self.assertFalse(self.flags.no_setup)
         self.assertFalse(self.flags.no_teardown)
+        self.assertEqual({'verify': False}, self.flags.os_cloud_config)
 
     def test___init__with_flags(self):
         flags = base.Flags(no_setup=True)
@@ -46,10 +47,12 @@ class FlagsTestCase(ut_base.BaseUnitTestCase):
         self.assertFalse(flags.no_teardown)
 
     def test_parse(self):
-        self.flags.parse(no_setup=True, no_teardown="False")
+        self.flags.parse(no_setup=True, no_teardown='False',
+                         os_cloud_config={'verify': True})
 
         self.assertTrue(self.flags.no_setup)
-        self.assertEqual(self.flags.no_teardown, "False")
+        self.assertEqual('False', self.flags.no_teardown)
+        self.assertEqual({'verify': True}, self.flags.os_cloud_config)
 
     def test_parse_forbidden_flags(self):
         self.flags.parse(foo=42)
