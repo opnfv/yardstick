@@ -17,6 +17,7 @@ import shade
 import unittest
 
 from yardstick.benchmark.contexts import node
+from yardstick.common import constants
 from yardstick.common import exceptions
 from yardstick.orchestrator import heat
 
@@ -52,6 +53,14 @@ class HeatStackTestCase(unittest.TestCase):
         self._mock_stack_delete.stop()
         self._mock_stack_get.stop()
         heat._DEPLOYED_STACKS = {}
+
+    @mock.patch.object(shade, 'openstack_cloud')
+    def test__init(self, mock_openstack_cloud):
+        os_cloud_config = {'key': 'value'}
+        heatstack = heat.HeatStack('name', os_cloud_config=os_cloud_config)
+        self.assertEqual('name', heatstack.name)
+        os_cloud_config.update(constants.OS_CLOUD_DEFAULT_CONFIG)
+        mock_openstack_cloud.assert_called_once_with(**os_cloud_config)
 
     def test_create(self):
         template = {'tkey': 'tval'}
@@ -192,7 +201,9 @@ class HeatStackTestCase(unittest.TestCase):
 class HeatTemplateTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.template = heat.HeatTemplate('test')
+        self._os_cloud_config = {'key1': 'value1'}
+        self.template = heat.HeatTemplate(
+            'test', os_cloud_config=self._os_cloud_config)
 
     def test_add_tenant_network(self):
         self.template.add_network('some-network')
@@ -337,8 +348,12 @@ class HeatTemplateTestCase(unittest.TestCase):
 
     def test_create_not_block(self):
         heat_stack = mock.Mock()
-        with mock.patch.object(heat, 'HeatStack', return_value=heat_stack):
+        with mock.patch.object(heat, 'HeatStack', return_value=heat_stack) \
+                as mock_heatstack:
             ret = self.template.create(block=False)
+
+        mock_heatstack.assert_called_once_with(
+            self.template.name, os_cloud_config=self.template._os_cloud_config)
         heat_stack.create.assert_called_once_with(
             self.template._template, self.template.heat_parameters, False,
             3600)
