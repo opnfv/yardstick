@@ -230,7 +230,7 @@ class HeatContextTestCase(ut_base.BaseUnitTestCase):
 
     @mock.patch.object(os.path, 'exists', return_value=False)
     @mock.patch.object(ssh.SSH, 'gen_keys')
-    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
+    @mock.patch.object(heat, 'HeatTemplate')
     def test_deploy(self, mock_template, mock_genkeys, mock_path_exists):
         self.test_context._name = 'foo'
         self.test_context._task_id = '1234567890'
@@ -241,9 +241,10 @@ class HeatContextTestCase(ut_base.BaseUnitTestCase):
         self.test_context.get_neutron_info = mock.MagicMock()
         self.test_context.deploy()
 
-        mock_template.assert_called_with('foo-12345678',
-                                         '/bar/baz/some-heat-file',
-                                         {'image': 'cirros'})
+        mock_template.assert_called_with(
+            'foo-12345678', template_file='/bar/baz/some-heat-file',
+            heat_parameters={'image': 'cirros'},
+            os_cloud_config=self.test_context._flags.os_cloud_config)
         self.assertIsNotNone(self.test_context.stack)
         key_filename = ''.join(
             [consts.YARDSTICK_ROOT_PATH,
