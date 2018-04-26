@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Kanglin Yin <14_ykl@tongji.edu.cn>
+Code-Review+1: Mika Rautakumpu <mika.rautakumpu@nokia.com>
+Code-Review+2: Jing Lu <lvjing5@huawei.com>
+Submitted-by: Ross Brattain <ross.b.brattain@intel.com>
+Submitted-at: Thu, 26 Apr 2018 14:11:27 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/55247
+Project: yardstick
+Branch: refs/heads/master
