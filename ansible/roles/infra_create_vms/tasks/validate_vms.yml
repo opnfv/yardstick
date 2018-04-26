@@ -1,0 +1,54 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Validate if VM is responding
+  wait_for:
+    host: "{{ item.value }}"
+    port: 22
+    timeout: 10
+  with_dict: "{{ name_ip }}"
+  register: result
+  ignore_errors: yes
+
+- name: Stop VM if it is not responding
+  virt:
+    name: "{{ item.key }}"
+    command: destroy
+  when: result is failed
+  with_dict: "{{ name_ip }}"
+
+- name: Wait for VM is being stopped
+  pause:
+    seconds: 10
+  when: result is failed
+
+- name: Start VM
+  virt:
+    name: "{{ item.key }}"
+    command: start
+  when: result is failed
+  with_dict: "{{ name_ip }}"
+
+- name: Validate if VM is responding
+  wait_for:
+    host: "{{ item.value }}"
+    port: 22
+    timeout: 10
+  when: result is failed
+  with_dict: "{{ name_ip }}"
+  register: result
+
+- fail:
+    msg: "FAILED on {{ name_ip }}"
+  when: result is failed

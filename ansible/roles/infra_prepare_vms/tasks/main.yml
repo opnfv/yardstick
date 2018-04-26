@@ -100,6 +100,3 @@
     secondary_ip: "{{ item.interfaces[1].ip }}"
   when: item.hostname == 'yardstickvm'
   with_items: "{{ infra_deploy_vars.nodes }}"
-
-- name: Workaround, not all VMs are ready by that time
-  pause: seconds=20
