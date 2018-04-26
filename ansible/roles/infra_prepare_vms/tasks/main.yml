@@ -101,5 +101,13 @@
   when: item.hostname == 'yardstickvm'
   with_items: "{{ infra_deploy_vars.nodes }}"
 
-- name: Workaround, not all VMs are ready by that time
-  pause: seconds=20
+- name: List VMs
+  virt:
+    command: list_vms
+  register: virt_vms
+
+- name: Make sure VM is reachable
+  include_tasks: validate_vms.yml
+  loop_control:
+    loop_var: vm_name
+  with_items: "{{ virt_vms.list_vms }}"
