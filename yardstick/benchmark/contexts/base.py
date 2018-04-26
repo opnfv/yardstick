@@ -16,7 +16,8 @@ class Flags(object):
     """Class to represent the status of the flags in a context"""
 
     _FLAGS = {'no_setup': False,
-              'no_teardown': False}
+              'no_teardown': False,
+              'os_cloud_config': {'verify': False}}
 
     def __init__(self, **kwargs):
         for name, value in self._FLAGS.items():
