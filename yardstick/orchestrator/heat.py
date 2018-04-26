@@ -41,10 +41,11 @@ _DEPLOYED_STACKS = {}
 class HeatStack(object):
     """Represents a Heat stack (deployed template) """
 
-    def __init__(self, name):
+    def __init__(self, name, os_cloud_config=None):
         self.name = name
         self.outputs = {}
-        self._cloud = shade.openstack_cloud()
+        os_cloud_config = {} if not os_cloud_config else os_cloud_config
+        self._cloud = shade.openstack_cloud(**os_cloud_config)
         self._stack = None
 
     def _update_stack_tracking(self):
@@ -152,10 +153,12 @@ name (i.e. %s).
         # short hand for resources part of template
         self.resources = self._template['resources']
 
-    def __init__(self, name, template_file=None, heat_parameters=None):
+    def __init__(self, name, template_file=None, heat_parameters=None,
+                 os_cloud_config=None):
         self.name = name
         self.keystone_client = None
         self.heat_parameters = {}
+        self._os_cloud_config = {} if not os_cloud_config else os_cloud_config
 
         # heat_parameters is passed to heat in stack create, empty dict when
         # yardstick creates the template (no get_param in resources part)
@@ -622,7 +625,7 @@ name (i.e. %s).
         log.info("Creating stack '%s' START", self.name)
 
         start_time = time.time()
-        stack = HeatStack(self.name)
+        stack = HeatStack(self.name, os_cloud_config=self._os_cloud_config)
         stack.create(self._template, self.heat_parameters, block, timeout)
 
         if not block:
