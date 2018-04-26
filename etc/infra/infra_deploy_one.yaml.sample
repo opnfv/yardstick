@@ -1,0 +1,46 @@
+nodes:
+  - name: Deployment, Controller and Compute single VM
+    openstack_node: controller  # if no compute nodes are defined means a standalone deployment
+    hostname: allinone
+    interfaces:
+      - network: management
+        ip: 192.168.1.21
+        netmask: 255.255.255.0
+      - network: traffic
+        ip: 192.20.1.21
+        netmask: 255.255.255.0
+    user: ubuntu
+    password: password
+    image: /tmp/image_one.img
+    disk: 22000
+    ram: 14000
+    vcpus: 12
+
+  - name: Jump host
+    hostname: yardstickvm
+    interfaces:
+      - network: management
+        ip: 192.168.1.22
+        netmask: 255.255.255.0
+      - network: traffic
+        ip: 192.20.1.22
+        netmask: 255.255.255.0
+    user: ubuntu
+    password: password
+    image: /tmp/image_yardstick.img
+    disk: 22000
+    ram: 10000
+    vcpus: 4
+
+networks:
+  - name: management
+    default_gateway: True
+    host_ip: 192.168.1.1
+    netmask: 255.255.255.0
+
+  - name: traffic
+    default_gateway: False  # This parameter is not mandatory, default value: False
+    host_ip: 192.20.1.1
+    netmask: 255.255.255.0
+    dhcp_ip_start: 192.20.1.200
+    dhcp_ip_stop: 192.20.1.250
