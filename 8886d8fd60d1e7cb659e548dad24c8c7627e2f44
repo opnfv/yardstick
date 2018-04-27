@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_10a8f18b",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-27T13:20:34Z",
+      "side": 1,
+      "message": "Size is required parameter as shade client API create_volume won\u0027t work without size parameter. Also, instead name is an optional parameter in it. https://gerrit.opnfv.org/gerrit/#/c/55405/9/yardstick/common/openstack_utils.py #L785",
+      "parentUuid": "5a3f45e8_b0cf7d7e",
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_90cc018b",
         "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2018-04-27T13:09:42Z",
       "side": 1,
       "message": "to support adding a volume name, you would have to add a new param here:\n    name\u003dself.name\n\nit\u0027s already supported by openstack_utils.create_volume",
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_108f512b",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-27T13:20:34Z",
+      "side": 1,
+      "message": "Yes I know that, but I haven\u0027t added it here as it was just an optional parameter and only actually size that is actually required. I agree it good to have labeled volume but not sure of making it compulsory for user to pass it as: 1) Actually TC/ scenario will work without name too. \n2) You only suggested that number of parameter which user should pass while executing a TC should be kept as minimum as possible.",
+      "parentUuid": "5a3f45e8_90cc018b",
       "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
