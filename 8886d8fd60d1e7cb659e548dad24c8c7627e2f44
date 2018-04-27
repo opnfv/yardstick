@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_b0cf7d7e",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-27T13:09:42Z",
+      "side": 1,
+      "message": "You should have volume name as an option here.\nIt will work without it, but it\u0027s not always useful to have unlabelled volumes",
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_90cc018b",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-27T13:09:42Z",
+      "side": 1,
+      "message": "to support adding a volume name, you would have to add a new param here:\n    name\u003dself.name\n\nit\u0027s already supported by openstack_utils.create_volume",
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
