@@ -13,6 +13,7 @@ import errno
 import mock
 
 from yardstick.common import constants as consts
+from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import node
 
 
@@ -33,9 +34,11 @@ class NodeContextTestCase(unittest.TestCase):
             'file': self._get_file_abspath(self.NODES_SAMPLE)
         }
 
-    def _remove_contexts(self):
-        if self.test_context in self.test_context.list:
-            self.test_context._delete_context()
+    @staticmethod
+    def _remove_contexts():
+        for context in base.Context.list:
+            context._delete_context()
+        base.Context.list = []
 
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
