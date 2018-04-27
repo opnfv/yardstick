@@ -10,6 +10,7 @@
 import mock
 import unittest
 
+from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import kubernetes
 
 
@@ -43,9 +44,11 @@ class KubernetesTestCase(unittest.TestCase):
         self.addCleanup(self._remove_contexts)
         self.k8s_context.init(context_cfg)
 
-    def _remove_contexts(self):
-        if self.k8s_context in self.k8s_context.list:
-            self.k8s_context._delete_context()
+    @staticmethod
+    def _remove_contexts():
+        for context in base.Context.list:
+            context._delete_context()
+        base.Context.list = []
 
     @mock.patch.object(kubernetes.KubernetesContext, '_delete_services')
     @mock.patch.object(kubernetes.KubernetesContext, '_delete_ssh_key')
