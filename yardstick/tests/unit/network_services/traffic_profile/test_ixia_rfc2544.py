@@ -13,14 +13,12 @@
 # limitations under the License.
 #
 
-from __future__ import absolute_import
-from __future__ import division
 import unittest
 import mock
 
 from copy import deepcopy
 
-from tests.unit import STL_MOCKS
+from yardstick.tests import STL_MOCKS
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
@@ -48,35 +46,55 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         },
     }
 
-    PROFILE = {'description': 'Traffic profile to run RFC2544 latency',
-               'name': 'rfc2544',
-               'traffic_profile': {'traffic_type': 'IXIARFC2544Profile',
-                                   'frame_rate': 100},
-               IXIARFC2544Profile.DOWNLINK: {'ipv4':
-                          {'outer_l2': {'framesize':
-                                        {'64B': '100', '1518B': '0',
-                                         '128B': '0', '1400B': '0',
-                                         '256B': '0', '373b': '0',
-                                         '570B': '0'}},
-                           'outer_l3v4': {'dstip4': '1.1.1.1-1.15.255.255',
-                                          'proto': 'udp', 'count': '1',
-                                          'srcip4': '90.90.1.1-90.105.255.255',
-                                          'dscp': 0, 'ttl': 32},
-                           'outer_l4': {'srcport': '2001',
-                                        'dsrport': '1234'}}},
-               IXIARFC2544Profile.UPLINK: {'ipv4':
-                           {'outer_l2': {'framesize':
-                                         {'64B': '100', '1518B': '0',
-                                          '128B': '0', '1400B': '0',
-                                          '256B': '0', '373b': '0',
-                                          '570B': '0'}},
-                            'outer_l3v4': {'dstip4': '9.9.1.1-90.105.255.255',
-                                           'proto': 'udp', 'count': '1',
-                                           'srcip4': '1.1.1.1-1.15.255.255',
-                                           'dscp': 0, 'ttl': 32},
-                            'outer_l4': {'dstport': '2001',
-                                         'srcport': '1234'}}},
-               'schema': 'isb:traffic_profile:0.1'}
+    PROFILE = {
+        'description': 'Traffic profile to run RFC2544 latency',
+        'name': 'rfc2544',
+        'traffic_profile': {
+            'traffic_type': 'IXIARFC2544Profile',
+            'frame_rate': 100},
+        IXIARFC2544Profile.DOWNLINK: {
+            'ipv4': {
+                'outer_l2': {
+                    'framesize': {
+                        '64B': '100',
+                        '1518B': '0',
+                        '128B': '0',
+                        '1400B': '0',
+                        '256B': '0',
+                        '373b': '0',
+                        '570B': '0'}},
+                'outer_l3v4': {
+                    'dstip4': '1.1.1.1-1.15.255.255',
+                    'proto': 'udp',
+                    'count': '1',
+                    'srcip4': '90.90.1.1-90.105.255.255',
+                    'dscp': 0,
+                    'ttl': 32},
+                'outer_l4': {
+                    'srcport': '2001',
+                    'dsrport': '1234'}}},
+        IXIARFC2544Profile.UPLINK: {
+            'ipv4': {
+                'outer_l2': {
+                    'framesize': {
+                        '64B': '100',
+                        '1518B': '0',
+                        '128B': '0',
+                        '1400B': '0',
+                        '256B': '0',
+                        '373b': '0',
+                        '570B': '0'}},
+                'outer_l3v4': {
+                    'dstip4': '9.9.1.1-90.105.255.255',
+                    'proto': 'udp',
+                    'count': '1',
+                    'srcip4': '1.1.1.1-1.15.255.255',
+                    'dscp': 0,
+                    'ttl': 32},
+                'outer_l4': {
+                    'dstport': '2001',
+                    'srcport': '1234'}}},
+        'schema': 'isb:traffic_profile:0.1'}
 
     def test_get_ixia_traffic_profile_error(self):
         traffic_generator = mock.Mock(autospec=TrexProfile)
@@ -215,7 +233,6 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                     "count": "1"
                 },
                 "outer_l3v6": {
-                    "count": 1024,
                     "dscp": 0,
                     "dstip4": "152.16.100.20",
                     "proto": "udp",
@@ -249,7 +266,6 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                     "ttl": 32
                 },
                 "outer_l3v4": {
-                    "count": 1024,
                     "dscp": 0,
                     "dstip4": "152.16.100.20",
                     "proto": "udp",
@@ -257,7 +273,6 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                     "ttl": 32,
                 },
                 "outer_l3v6": {
-                    "count": 1024,
                     "dscp": 0,
                     "dstip4": "152.16.100.20",
                     "proto": "udp",
@@ -408,24 +423,24 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                           'outer_l4': {'srcport': '2001',
                                        'dsrport': '1234'}}},
                         IXIARFC2544Profile.UPLINK: {'ipv4':
-                                    {'outer_l2': {'framesize':
-                                                  {'64B': '100', '1518B': '0',
-                                                   '128B': '0', '1400B': '0',
-                                                   '256B': '0', '373b': '0',
-                                                   '570B': '0'}},
-                                     'outer_l3v4':
-                                     {'dstip4': '9.9.1.1-90.105.255.255',
-                                      'proto': 'udp', 'count': '1',
-                                      'srcip4': '1.1.1.1-1.15.255.255',
-                                      'dscp': 0, 'ttl': 32},
-                                     'outer_l3v6':
-                                     {'dstip6': '9.9.1.1-90.105.255.255',
-                                      'proto': 'udp', 'count': '1',
-                                      'srcip6': '1.1.1.1-1.15.255.255',
-                                      'dscp': 0, 'ttl': 32},
+                                                    {'outer_l2': {'framesize':
+                                                                  {'64B': '100', '1518B': '0',
+                                                                   '128B': '0', '1400B': '0',
+                                                                   '256B': '0', '373b': '0',
+                                                                   '570B': '0'}},
+                                                        'outer_l3v4':
+                                                        {'dstip4': '9.9.1.1-90.105.255.255',
+                                                         'proto': 'udp', 'count': '1',
+                                                         'srcip4': '1.1.1.1-1.15.255.255',
+                                                         'dscp': 0, 'ttl': 32},
+                                                        'outer_l3v6':
+                                                        {'dstip6': '9.9.1.1-90.105.255.255',
+                                                         'proto': 'udp', 'count': '1',
+                                                         'srcip6': '1.1.1.1-1.15.255.255',
+                                                         'dscp': 0, 'ttl': 32},
 
-                                     'outer_l4': {'dstport': '2001',
-                                                  'srcport': '1234'}}},
+                                                        'outer_l4': {'dstport': '2001',
+                                                                     'srcport': '1234'}}},
                         'schema': 'isb:traffic_profile:0.1'}
         result = r_f_c2544_profile._get_ixia_traffic_profile(profile_data, mac)
         self.assertIsNotNone(result)
@@ -497,7 +512,8 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         r_f_c2544_profile.full_profile = {}
         r_f_c2544_profile.get_streams = mock.Mock()
 
-        self.assertIsNone(r_f_c2544_profile.update_traffic_profile(traffic_generator))
+        self.assertIsNone(
+            r_f_c2544_profile.update_traffic_profile(traffic_generator))
         self.assertEqual(r_f_c2544_profile.ports, ports_expected)
 
     def test_get_drop_percentage(self):
