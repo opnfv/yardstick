@@ -69,6 +69,30 @@
       "revId": "c1bb6363ddc15f985d3223bab0fcbf6ab947afc9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_10bd91b7",
+        "filename": "yardstick/benchmark/scenarios/lib/attach_volume.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-27T13:29:09Z",
+      "side": 1,
+      "message": "Yes, In that case, If we want user to pass only server_name_or_id/volume_or_id instead of dict then we need to call get_server and get_volume here and then fill server and volume dict from it and pass it here.",
+      "parentUuid": "5a3f45e8_1033d1ab",
+      "range": {
+        "startLine": 63,
+        "startChar": 31,
+        "endLine": 63,
+        "endChar": 66
+      },
+      "revId": "c1bb6363ddc15f985d3223bab0fcbf6ab947afc9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
