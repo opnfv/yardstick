@@ -13,13 +13,11 @@
 # limitations under the License.
 #
 
-from __future__ import absolute_import
-
 import unittest
 import mock
 
-from tests.unit import STL_MOCKS
-from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+from yardstick.tests import STL_MOCKS
+from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 
 
 STLClient = mock.MagicMock()

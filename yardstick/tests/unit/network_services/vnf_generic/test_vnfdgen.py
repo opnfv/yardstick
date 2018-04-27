@@ -13,11 +13,8 @@
 # limitations under the License.
 #
 
-# Unittest for yardstick.network_services.vnf_generic.vnfdgen
-
-from __future__ import absolute_import
-import unittest
 from six.moves import range
+import unittest
 
 from yardstick.common.yaml_loader import yaml_load
 from yardstick.network_services.vnf_generic import vnfdgen
@@ -202,10 +199,10 @@ TRAFFIC_PROFILE_TPL = """
 
 TRAFFIC_PROFILE = {
     UPLINK: [{"ipv4": {"outer_l2":
-                          {"framesize": {"64B": '10', "128B": '10',
-                                         "256B": '10', "373B": '10',
-                                         "570B": '10', "1400B": '10',
-                                         "1518B": '40'}}}}]}
+                       {"framesize": {"64B": '10', "128B": '10',
+                                      "256B": '10', "373B": '10',
+                                      "570B": '10', "1400B": '10',
+                                      "1518B": '40'}}}}]}
 
 
 class TestRender(unittest.TestCase):
@@ -214,12 +211,14 @@ class TestRender(unittest.TestCase):
 
         tmpl = "{{ routing_table }}"
         self.assertEqual(vnfdgen.render(tmpl, routing_table=None), u'~')
-        self.assertEqual(yaml_load(vnfdgen.render(tmpl, routing_table=None)), None)
+        self.assertIsNone(
+            yaml_load(vnfdgen.render(tmpl, routing_table=None)))
 
     def test_render_unicode_dict(self):
 
         tmpl = "{{ routing_table }}"
-        self.assertEqual(yaml_load(vnfdgen.render(tmpl, **NODE_CFG)), NODE_CFG["routing_table"])
+        self.assertEqual(yaml_load(vnfdgen.render(
+            tmpl, **NODE_CFG)), NODE_CFG["routing_table"])
 
 
 class TestVnfdGen(unittest.TestCase):
@@ -265,7 +264,6 @@ class TestVnfdGen(unittest.TestCase):
     def test_dict_flatten_only_str_key(self):
         d = {'0': 1, 0: 24, 'b': 2}
         self.assertRaises(AttributeError, vnfdgen.deepgetitem, d, 0)
-
 
     def test_generate_tp_single_var(self):
         """ Function to verify traffic profile generation with imix """
