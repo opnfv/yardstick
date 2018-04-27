@@ -18,6 +18,7 @@ import mock
 import unittest
 
 from yardstick import ssh
+from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.benchmark.contexts.standalone import sriov
 
@@ -66,9 +67,11 @@ class SriovContextTestCase(unittest.TestCase):
         self.sriov = sriov.SriovContext()
         self.addCleanup(self._remove_contexts)
 
-    def _remove_contexts(self):
-        if self.sriov in self.sriov.list:
-            self.sriov._delete_context()
+    @staticmethod
+    def _remove_contexts():
+        for context in base.Context.list:
+            context._delete_context()
+        base.Context.list = []
 
     @mock.patch.object(model, 'StandaloneContextHelper')
     @mock.patch.object(model, 'Libvirt')
