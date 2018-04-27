@@ -13,12 +13,10 @@
 # limitations under the License.
 #
 
-from __future__ import absolute_import
-
 import unittest
 import mock
 
-from tests.unit import STL_MOCKS
+from yardstick.tests import STL_MOCKS
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
@@ -32,7 +30,7 @@ if stl_patch:
 class TestProxACLProfile(unittest.TestCase):
 
     def test_run_test_with_pkt_size(self):
-        def target(*args, **kwargs):
+        def target(*args):
             runs.append(args[2])
             if args[2] < 0 or args[2] > 100:
                 raise RuntimeError(' '.join([str(args), str(runs)]))
@@ -40,13 +38,8 @@ class TestProxACLProfile(unittest.TestCase):
                 return fail_tuple, {}
             return success_tuple, {}
 
-        def get_mock_samples(*args, **kwargs):
-            if args[2] < 0:
-                raise RuntimeError(' '.join([str(args), str(runs)]))
-            return success_tuple
-
         tp_config = {
-           'traffic_profile': {
+            'traffic_profile': {
                 'upper_bound': 100.0,
                 'lower_bound': 0.0,
                 'tolerated_loss': 50.0,
@@ -55,8 +48,10 @@ class TestProxACLProfile(unittest.TestCase):
         }
 
         runs = []
-        success_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.1, 5.2, 5.3], 995, 1000, 123.4)
-        fail_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.6, 5.7, 5.8], 850, 1000, 123.4)
+        success_tuple = ProxTestDataTuple(
+            10.0, 1, 2, 3, 4, [5.1, 5.2, 5.3], 995, 1000, 123.4)
+        fail_tuple = ProxTestDataTuple(
+            10.0, 1, 2, 3, 4, [5.6, 5.7, 5.8], 850, 1000, 123.4)
 
         traffic_gen = mock.MagicMock()
 
@@ -75,4 +70,5 @@ class TestProxACLProfile(unittest.TestCase):
         profile.tolerated_loss = 100.0
         profile._profile_helper = profile_helper
 
-        profile.run_test_with_pkt_size(traffic_gen, profile.pkt_size, profile.duration)
+        profile.run_test_with_pkt_size(
+            traffic_gen, profile.pkt_size, profile.duration)

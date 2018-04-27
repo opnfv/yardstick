@@ -18,7 +18,7 @@ import mock
 import six
 import unittest
 
-from tests.unit import STL_MOCKS
+from yardstick.tests import STL_MOCKS
 from yardstick.common import exceptions as y_exc
 
 STLClient = mock.MagicMock()
