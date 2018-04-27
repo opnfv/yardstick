@@ -9,6 +9,7 @@
 
 import unittest
 
+from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import dummy
 
 
@@ -20,7 +21,12 @@ class DummyContextTestCase(unittest.TestCase):
             'task_id': '1234567890',
         }
         self.test_context = dummy.DummyContext()
-        self.addCleanup(self.test_context._delete_context)
+        self.addCleanup(self._delete_contexts)
+
+    @staticmethod
+    def _delete_contexts():
+        for context in base.Context.list:
+            context._delete_context()
 
     def test___init__(self):
         self.assertFalse(self.test_context._flags.no_setup)

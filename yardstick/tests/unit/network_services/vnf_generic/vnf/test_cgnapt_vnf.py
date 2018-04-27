@@ -19,7 +19,7 @@ import unittest
 import mock
 
 from tests.unit import STL_MOCKS
-from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from yardstick.common import utils
 
 STLClient = mock.MagicMock()
@@ -409,6 +409,22 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         self.scenario_cfg.update({"nodes": {"vnf__0": ""}})
         self.assertIsNone(cgnapt_approx_vnf.instantiate(self.scenario_cfg,
                                                         self.context_cfg))
+
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
+    @mock.patch(SSH_HELPER)
+    def test_terminate(self, ssh, *args):
+        mock_ssh(ssh)
+
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf._vnf_process = mock.MagicMock()
+        cgnapt_approx_vnf._vnf_process.terminate = mock.Mock()
+        cgnapt_approx_vnf.used_drivers = {"01:01.0": "i40e",
+                                          "01:01.1": "i40e"}
+        cgnapt_approx_vnf.vnf_execute = mock.MagicMock()
+        cgnapt_approx_vnf.dpdk_nic_bind = "dpdk_nic_bind.py"
+        cgnapt_approx_vnf._resource_collect_stop = mock.Mock()
+        self.assertIsNone(cgnapt_approx_vnf.terminate())
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
