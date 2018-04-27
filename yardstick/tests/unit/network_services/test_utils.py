@@ -13,8 +13,6 @@
 # limitations under the License.
 #
 
-# Unittest for yardstick.network_services.utils
-
 import os
 import unittest
 import mock
