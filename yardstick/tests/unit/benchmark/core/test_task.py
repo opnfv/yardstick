@@ -17,6 +17,7 @@ import six
 import unittest
 import uuid
 
+from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import dummy
 from yardstick.benchmark.core import task
 from yardstick.common import constants as consts

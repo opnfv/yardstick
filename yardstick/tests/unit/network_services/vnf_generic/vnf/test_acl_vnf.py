@@ -17,8 +17,8 @@ import unittest
 import mock
 import os
 
-from tests.unit import STL_MOCKS
-from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+from yardstick.tests import STL_MOCKS
+from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from yardstick.common import utils
 
 
@@ -323,7 +323,7 @@ class TestAclApproxVnf(unittest.TestCase):
         acl_approx_vnf.resource_helper = mock.MagicMock()
         acl_approx_vnf._build_config = mock.MagicMock()
         self.scenario_cfg['vnf_options'] = {'acl': {'cfg': "",
-                                                        'rules': ""}}
+                                                    'rules': ""}}
         acl_approx_vnf.q_out.put("pipeline>")
         acl_approx_vnf.WAIT_TIME = 0
         self.scenario_cfg.update({"nodes": {"vnf__1": ""}})

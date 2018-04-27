@@ -19,6 +19,7 @@ import mock
 import six
 import unittest
 
+from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.benchmark.contexts.standalone import ovs_dpdk
 from yardstick.common import exceptions
@@ -59,9 +60,11 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk = ovs_dpdk.OvsDpdkContext()
         self.addCleanup(self._remove_contexts)
 
-    def _remove_contexts(self):
-        if self.ovs_dpdk in self.ovs_dpdk.list:
-            self.ovs_dpdk._delete_context()
+    @staticmethod
+    def _remove_contexts():
+        for context in base.Context.list:
+            context._delete_context()
+        base.Context.list = []
 
     @mock.patch('yardstick.benchmark.contexts.standalone.model.Server')
     @mock.patch('yardstick.benchmark.contexts.standalone.model.StandaloneContextHelper')
