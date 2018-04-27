@@ -658,6 +658,7 @@ class HeatContextTestCase(unittest.TestCase):
         baz3_server.public_ip = None
         baz3_server.context.user = 'zab'
 
+        self.mock_context = mock.Mock(spec=heat.HeatContext())
         self.mock_context._name = 'bar1'
         self.test_context.stack = mock.Mock()
         self.mock_context.stack.outputs = {

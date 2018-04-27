@@ -21,9 +21,9 @@ import mock
 import six.moves.configparser as configparser
 import unittest
 
-from tests.unit import STL_MOCKS
-from tests.unit.network_services.vnf_generic.vnf.test_base import FileAbsPath
-from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+from yardstick.tests import STL_MOCKS
+from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import FileAbsPath
+from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 
@@ -631,7 +631,7 @@ class TestVpeApproxVnf(unittest.TestCase):
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.vpe_vnf.ConfigCreate")
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.vpe_vnf.open")
+    @mock.patch("six.moves.builtins.open")
     @mock.patch(SSH_HELPER)
     def test_build_config(self, ssh, *args):
         mock_ssh(ssh)
