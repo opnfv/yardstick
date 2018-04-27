@@ -37,6 +37,46 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_70a9758f",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-27T13:31:29Z",
+      "side": 1,
+      "message": "This size should be specified in GB, which is not obvious based on the `size` name. I suggest to rename it to \"size_gb\"",
+      "range": {
+        "startLine": 30,
+        "startChar": 34,
+        "endLine": 30,
+        "endChar": 38
+      },
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f09c656c",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-27T13:31:29Z",
+      "side": 1,
+      "message": "Why `name` is removed?\nWhy `description` is not configurable?",
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_90cc018b",
         "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
         "patchSetId": 9
@@ -66,6 +106,52 @@
       "side": 1,
       "message": "Yes I know that, but I haven\u0027t added it here as it was just an optional parameter and only actually size that is actually required. I agree it good to have labeled volume but not sure of making it compulsory for user to pass it as: 1) Actually TC/ scenario will work without name too. \n2) You only suggested that number of parameter which user should pass while executing a TC should be kept as minimum as possible.",
       "parentUuid": "5a3f45e8_90cc018b",
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_50b399e8",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-27T13:31:29Z",
+      "side": 1,
+      "message": "where it is defined ?",
+      "range": {
+        "startLine": 63,
+        "startChar": 67,
+        "endLine": 63,
+        "endChar": 76
+      },
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d099697a",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-27T13:31:29Z",
+      "side": 1,
+      "message": "[volume[\"id\"] and remove L67",
+      "range": {
+        "startLine": 69,
+        "startChar": 43,
+        "endLine": 69,
+        "endChar": 49
+      },
       "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
