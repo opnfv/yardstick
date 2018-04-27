@@ -119,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_307b6df6",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-27T14:36:33Z",
+      "side": 1,
+      "message": "How can I specify the description in the CreateVolume TC? How it is passed to the kwargs of create_value API?",
+      "parentUuid": "5a3f45e8_f0d8e51f",
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_90cc018b",
         "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
         "patchSetId": 9
