@@ -17,7 +17,7 @@ service_name=$1
 
 Distributor=$(lsb_release -a | grep "Distributor ID" | awk '{print $3}')
 
-if [ "$Distributor" != "Ubuntu" -a "$service_name" != "keystone" -a "$service_name" != "neutron-server" -a "$service_name" != "haproxy" ]; then
+if [ "$Distributor" != "Ubuntu" -a "$service_name" != "keystone" -a "$service_name" != "neutron-server" -a "$service_name" != "haproxy" -a "$service_name" != "openvswitch" ]; then
     service_name="openstack-"${service_name}
 elif [ "$Distributor" = "Ubuntu" -a "$service_name" = "keystone" ]; then
     service_name="apache2"
