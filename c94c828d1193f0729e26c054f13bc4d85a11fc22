@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_50a2794b",
+        "filename": "yardstick/benchmark/scenarios/lib/get_flavor.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-27T16:03:03Z",
+      "side": 1,
+      "message": "name_or_id for consistency? Please check in all test cases",
+      "revId": "c94c828d1193f0729e26c054f13bc4d85a11fc22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b08addbc",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-27T16:03:03Z",
+      "side": 1,
+      "message": ":param shade_client: ...... is missing. Here, the get_flavor() function is descried but not shade function. It doesn\u0027t make seance to describe the shade function here.",
+      "revId": "c94c828d1193f0729e26c054f13bc4d85a11fc22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
