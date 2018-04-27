@@ -16,7 +16,7 @@
 import unittest
 import mock
 
-from tests.unit import STL_MOCKS
+from yardstick.tests import STL_MOCKS
 
 
 STLClient = mock.MagicMock()
@@ -191,7 +191,8 @@ class TestRFC2544Profile(unittest.TestCase):
             mock.Mock(return_value=True)
         r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
         r_f_c2544_profile.params = self.PROFILE
-        self.assertIsNone(r_f_c2544_profile.execute_traffic(traffic_generator))
+        self.assertIsNone(
+            r_f_c2544_profile.execute_traffic(traffic_generator))
         samples = {}
         for ifname in range(1):
             name = "xe{}".format(ifname)
