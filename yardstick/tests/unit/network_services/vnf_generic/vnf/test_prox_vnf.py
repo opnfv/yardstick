@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation
+# Copyright (c) 2016-2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,27 +13,32 @@
 # limitations under the License.
 #
 
+import errno
+import os
 import unittest
 import mock
+from copy import deepcopy
 
-from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
-from tests.unit import STL_MOCKS
+from yardstick.tests import STL_MOCKS
 
 
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
-NAME = 'vnf__1'
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
 
 if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.tg_prox import ProxTrafficGen
-    from yardstick.network_services.traffic_profile.base import TrafficProfile
+    from yardstick.network_services.vnf_generic.vnf.prox_vnf import ProxApproxVnf
+    from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+
+
+NAME = "vnf__1"
 
 
 @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.time')
-class TestProxTrafficGen(unittest.TestCase):
+class TestProxApproxVnf(unittest.TestCase):
+
     VNFD0 = {
         'short-name': 'ProxVnf',
         'vdu': [
@@ -76,7 +81,8 @@ class TestProxTrafficGen(unittest.TestCase):
                             'vpci': '0000:05:00.0',
                             'local_ip': '152.16.100.19',
                             'type': 'PCI-PASSTHROUGH',
-                            'vld_id': '',
+                            'vld_id': 'downlink_0',
+                            'ifname': 'xe1',
                             'netmask': '255.255.255.0',
                             'dpdk_port_num': 0,
                             'bandwidth': '10 Gbps',
@@ -94,7 +100,8 @@ class TestProxTrafficGen(unittest.TestCase):
                             'vpci': '0000:05:00.1',
                             'local_ip': '152.16.40.19',
                             'type': 'PCI-PASSTHROUGH',
-                            'vld_id': '',
+                            'vld_id': 'uplink_0',
+                            'ifname': 'xe1',
                             'driver': "i40e",
                             'netmask': '255.255.255.0',
                             'dpdk_port_num': 1,
@@ -122,6 +129,8 @@ class TestProxTrafficGen(unittest.TestCase):
                 'packets_in',
                 'packets_fwd',
                 'packets_dropped',
+                'curr_packets_fwd',
+                'curr_packets_in'
             ],
         },
         'connection-point': [
@@ -178,7 +187,7 @@ class TestProxTrafficGen(unittest.TestCase):
                 'interfaces': {
                     'xe0': {
                         'local_iface_name': 'ens513f0',
-                        'vld_id': ProxTrafficGen.DOWNLINK,
+                        'vld_id': ProxApproxVnf.DOWNLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.40.20',
                         'dst_mac': '00:00:00:00:00:01',
@@ -212,7 +221,7 @@ class TestProxTrafficGen(unittest.TestCase):
                 'interfaces': {
                     'xe0': {
                         'local_iface_name': 'ens785f0',
-                        'vld_id': ProxTrafficGen.UPLINK,
+                        'vld_id': ProxApproxVnf.UPLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.100.20',
                         'dst_mac': '00:00:00:00:00:02',
@@ -243,7 +252,7 @@ class TestProxTrafficGen(unittest.TestCase):
                 'interfaces': {
                     'xe0': {
                         'local_iface_name': 'ens786f0',
-                        'vld_id': ProxTrafficGen.UPLINK,
+                        'vld_id': ProxApproxVnf.UPLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.100.19',
                         'dst_mac': '00:00:00:00:00:04',
@@ -255,7 +264,7 @@ class TestProxTrafficGen(unittest.TestCase):
                     },
                     'xe1': {
                         'local_iface_name': 'ens786f1',
-                        'vld_id': ProxTrafficGen.DOWNLINK,
+                        'vld_id': ProxApproxVnf.DOWNLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.40.19',
                         'dst_mac': '00:00:00:00:00:03',
@@ -304,123 +313,143 @@ class TestProxTrafficGen(unittest.TestCase):
         },
     }
 
-    TRAFFIC_PROFILE = {
-        'description': 'Binary search for max no-drop throughput over given packet sizes',
-        'name': 'prox_binsearch',
-        'schema': 'nsb:traffic_profile:0.1',
-        'traffic_profile': {
-            'duration': 5,
-            'lower_bound': 0.0,
-            'packet_sizes': [64, 65],
-            'test_precision': 1.0,
-            'tolerated_loss': 0.0,
-            'traffic_type': 'ProxBinSearchProfile',
-            'upper_bound': 100.0}}
-
     @mock.patch(SSH_HELPER)
     def test___init__(self, ssh, *args):
         mock_ssh(ssh)
-        prox_traffic_gen = ProxTrafficGen(NAME, self.VNFD0)
-        self.assertIsNone(prox_traffic_gen._tg_process)
-        self.assertIsNone(prox_traffic_gen._traffic_process)
+        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        self.assertIsNone(prox_approx_vnf._vnf_process)
+
+    @mock.patch(SSH_HELPER)
+    def test_collect_kpi_no_client(self, ssh, *args):
+        mock_ssh(ssh)
+
+        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf.resource_helper = None
+        expected = {
+            'packets_in': 0,
+            'packets_dropped': 0,
+            'packets_fwd': 0,
+            'collect_stats': {'core': {}}
+        }
+        result = prox_approx_vnf.collect_kpi()
+        self.assertEqual(result, expected)
 
     @mock.patch(SSH_HELPER)
     def test_collect_kpi(self, ssh, *args):
         mock_ssh(ssh)
 
-        prox_traffic_gen = ProxTrafficGen(NAME, self.VNFD0)
-        prox_traffic_gen._vnf_wrapper.resource_helper.resource = mock.MagicMock(
-            **{"self.check_if_system_agent_running.return_value": [False]})
-        prox_traffic_gen._vnf_wrapper.vnf_execute = mock.Mock(return_value="")
-        self.assertEqual({}, prox_traffic_gen.collect_kpi())
+        resource_helper = mock.MagicMock()
+        resource_helper.execute.return_value = list(range(12))
+        resource_helper.collect_collectd_kpi.return_value = {'core': {'result': 234}}
 
+        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf.resource_helper = resource_helper
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
-    @mock.patch(
-        'yardstick.network_services.vnf_generic.vnf.sample_vnf.CpuSysCores')
-    @mock.patch(SSH_HELPER)
-    def bad_test_instantiate(self, ssh, mock_cpu_sys_cores, *args):
-        mock_ssh(ssh)
-
-        mock_cpu_sys_cores.get_core_socket.return_value = {'0': '01234'}
-
-        mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
-        mock_traffic_profile.get_traffic_definition.return_value = "64"
-        mock_traffic_profile.params = self.TRAFFIC_PROFILE
-
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        prox_traffic_gen = ProxTrafficGen(NAME, vnfd)
-        ssh_helper = mock.MagicMock(
-            **{"execute.return_value": (0, "", ""), "bin_path": ""})
-        prox_traffic_gen.ssh_helper = ssh_helper
-        prox_traffic_gen.setup_helper.dpdk_bind_helper.ssh_helper = ssh_helper
-        prox_traffic_gen.setup_helper._setup_resources = mock.MagicMock()
-        prox_traffic_gen.setup_hugepages = mock.MagicMock()
-        prox_traffic_gen.generate_prox_config_file = mock.MagicMock()
-        prox_traffic_gen.upload_prox_config = mock.MagicMock()
-        prox_traffic_gen.setup_helper._find_used_drivers = mock.MagicMock()
-        prox_traffic_gen.setup_helper.used_drivers = {}
-        prox_traffic_gen.setup_helper.bound_pci = []
-        prox_traffic_gen._start_server = mock.Mock(return_value=0)
-        prox_traffic_gen._tg_process = mock.MagicMock()
-        prox_traffic_gen._tg_process.start = mock.Mock()
-        prox_traffic_gen._tg_process.exitcode = 0
-        prox_traffic_gen._tg_process._is_alive = mock.Mock(return_value=1)
-        prox_traffic_gen.ssh_helper = mock.MagicMock()
-        prox_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
-        scenario_cfg = {
-            'task_path': '',
-            'options': {'tg__1': {'prox_args': {'-e': '',
-                                                '-t': ''},
-                                  'prox_config': 'configs/l3-gen-2.cfg',
-                                  'prox_path': '/root/dppd-PROX-v035/build/prox'},
-                        'vnf__1': {'prox_args': {'-t': ''},
-                                   'prox_config': 'configs/l3-swap-2.cfg',
-                                   'prox_path': '/root/dppd-PROX-v035/build/prox'}
-                        }
+        expected = {
+            'packets_in': 6,
+            'packets_dropped': 1,
+            'packets_fwd': 7,
+            'collect_stats': {'core': {'result': 234}},
         }
-        prox_traffic_gen.instantiate(scenario_cfg, {})
+        result = prox_approx_vnf.collect_kpi()
+        self.assertEqual(result['packets_in'], expected['packets_in'])
+        self.assertEqual(result['packets_dropped'], expected['packets_dropped'])
+        self.assertEqual(result['packets_fwd'], expected['packets_fwd'])
+        self.assertNotEqual(result['packets_fwd'], 0)
+        self.assertNotEqual(result['packets_fwd'], 0)
 
     @mock.patch(SSH_HELPER)
-    def test__traffic_runner(self, ssh, *args):
+    def test_collect_kpi_error(self, ssh, *args):
         mock_ssh(ssh)
 
-        mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
-        mock_traffic_profile.get_traffic_definition.return_value = "64"
-        mock_traffic_profile.execute_traffic.return_value = "64"
-        mock_traffic_profile.params = self.TRAFFIC_PROFILE
+        resource_helper = mock.MagicMock()
 
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sut = ProxTrafficGen(NAME, vnfd)
-        sut._get_socket = mock.MagicMock()
-        sut.ssh_helper = mock.Mock()
-        sut.ssh_helper.run = mock.Mock()
-        sut.setup_helper.prox_config_dict = {}
-        sut._connect_client = mock.Mock(autospec=STLClient)
-        sut._connect_client.get_stats = mock.Mock(return_value="0")
-        sut._traffic_runner(mock_traffic_profile)
+        prox_approx_vnf = ProxApproxVnf(NAME, deepcopy(self.VNFD0))
+        prox_approx_vnf.resource_helper = resource_helper
+        prox_approx_vnf.vnfd_helper['vdu'][0]['external-interface'] = []
+        prox_approx_vnf.vnfd_helper.port_pairs.interfaces = []
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.socket')
+        with self.assertRaises(RuntimeError):
+            prox_approx_vnf.collect_kpi()
+
+    def _get_file_abspath(self, filename, *args):
+        curr_path = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(curr_path, filename)
+        return file_path
+
+    @mock.patch('yardstick.common.utils.open', create=True)
+    @mock.patch('yardstick.benchmark.scenarios.networking.vnf_generic.open', create=True)
+    @mock.patch('yardstick.network_services.helpers.iniparser.open', create=True)
     @mock.patch(SSH_HELPER)
-    def test_listen_traffic(self, ssh, *args):
+    def test_run_prox(self, ssh, *_):
         mock_ssh(ssh)
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        prox_traffic_gen = ProxTrafficGen(NAME, vnfd)
-        self.assertIsNone(prox_traffic_gen.listen_traffic(mock.Mock()))
+
+        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf.scenario_helper.scenario_cfg = self.SCENARIO_CFG
+        prox_approx_vnf.ssh_helper.join_bin_path.return_value = '/tool_path12/tool_file34'
+        prox_approx_vnf.setup_helper.remote_path = 'configs/file56.cfg'
+
+        expected = "sudo bash -c 'cd /tool_path12; " \
+                   "/tool_path12/tool_file34 -o cli -t  -f /tmp/l3-swap-2.cfg '"
+
+        prox_approx_vnf._run()
+        result = prox_approx_vnf.ssh_helper.run.call_args[0][0]
+        self.assertEqual(result, expected)
+
+    @mock.patch(SSH_HELPER)
+    def bad_test_instantiate(self, *args):
+        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf.scenario_helper = mock.MagicMock()
+        prox_approx_vnf.setup_helper = mock.MagicMock()
+        # we can't mock super
+        prox_approx_vnf.instantiate(self.SCENARIO_CFG, self.CONTEXT_CFG)
+        prox_approx_vnf.setup_helper.build_config.assert_called_once()
+
+    @mock.patch(SSH_HELPER)
+    def test_wait_for_instantiate_panic(self, ssh, *args):
+        mock_ssh(ssh, exec_result=(1, "", ""))
+        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf._vnf_process = mock.MagicMock(**{"is_alive.return_value": True})
+        prox_approx_vnf._run_prox = mock.Mock(return_value=0)
+        prox_approx_vnf.WAIT_TIME = 0
+        prox_approx_vnf.q_out.put("PANIC")
+        with self.assertRaises(RuntimeError):
+            prox_approx_vnf.wait_for_instantiate()
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.socket')
     @mock.patch(SSH_HELPER)
     def test_terminate(self, ssh, *args):
         mock_ssh(ssh)
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        prox_traffic_gen = ProxTrafficGen(NAME, vnfd)
-        prox_traffic_gen._terminated = mock.MagicMock()
-        prox_traffic_gen._traffic_process = mock.MagicMock()
-        prox_traffic_gen._traffic_process.terminate = mock.Mock()
-        prox_traffic_gen.ssh_helper = mock.MagicMock()
-        prox_traffic_gen.setup_helper = mock.MagicMock()
-        prox_traffic_gen.resource_helper = mock.MagicMock()
-        prox_traffic_gen._vnf_wrapper.setup_helper = mock.MagicMock()
-        prox_traffic_gen._vnf_wrapper._vnf_process = mock.MagicMock()
-        prox_traffic_gen._vnf_wrapper.resource_helper = mock.MagicMock()
-        self.assertIsNone(prox_traffic_gen.terminate())
+        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf._vnf_process = mock.MagicMock()
+        prox_approx_vnf._vnf_process.terminate = mock.Mock()
+        prox_approx_vnf.ssh_helper = mock.MagicMock()
+        prox_approx_vnf.setup_helper = mock.Mock()
+        prox_approx_vnf.resource_helper = mock.MagicMock()
+
+        self.assertIsNone(prox_approx_vnf.terminate())
+
+    @mock.patch(SSH_HELPER)
+    def test__vnf_up_post(self, ssh, *args):
+        mock_ssh(ssh)
+        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf.resource_helper = resource_helper = mock.Mock()
+
+        prox_approx_vnf._vnf_up_post()
+        self.assertEqual(resource_helper.up_post.call_count, 1)
+
+    @mock.patch(SSH_HELPER)
+    def test_vnf_execute_oserror(self, ssh, *args):
+        mock_ssh(ssh)
+        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf.resource_helper = resource_helper = mock.Mock()
+
+        resource_helper.execute.side_effect = OSError(errno.EPIPE, "")
+        prox_approx_vnf.vnf_execute("", _ignore_errors=True)
+
+        resource_helper.execute.side_effect = OSError(errno.ESHUTDOWN, "")
+        prox_approx_vnf.vnf_execute("", _ignore_errors=True)
+
+        resource_helper.execute.side_effect = OSError(errno.EADDRINUSE, "")
+        with self.assertRaises(OSError):
+            prox_approx_vnf.vnf_execute("", _ignore_errors=True)
