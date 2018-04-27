@@ -13,8 +13,6 @@
 # limitations under the License.
 #
 
-# Unittest for yardstick.network_services.vnf_generic.vnf.test_base
-
 import multiprocessing
 import os
 

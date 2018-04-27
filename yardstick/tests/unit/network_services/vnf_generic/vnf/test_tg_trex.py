@@ -14,12 +14,12 @@
 #
 
 import copy
-import mock
 
+import mock
 import unittest
 
-from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
-from tests.unit import STL_MOCKS
+from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+from yardstick.tests import STL_MOCKS
 
 
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
@@ -37,18 +37,18 @@ if stl_patch:
 
 class TestTrexTrafficGen(unittest.TestCase):
     VNFD = {'vnfd:vnfd-catalog':
-                {'vnfd':
-                     [{'short-name': 'VpeVnf',
-                       'vdu':
-                           [{'routing_table':
-                                 [{'network': '152.16.100.20',
-                                   'netmask': '255.255.255.0',
-                                   'gateway': '152.16.100.20',
-                                   'if': 'xe0'},
-                                  {'network': '152.16.40.20',
-                                   'netmask': '255.255.255.0',
-                                   'gateway': '152.16.40.20',
-                                   'if': 'xe1'}],
+            {'vnfd':
+             [{'short-name': 'VpeVnf',
+               'vdu':
+               [{'routing_table':
+                             [{'network': '152.16.100.20',
+                               'netmask': '255.255.255.0',
+                               'gateway': '152.16.100.20',
+                               'if': 'xe0'},
+                              {'network': '152.16.40.20',
+                               'netmask': '255.255.255.0',
+                               'gateway': '152.16.40.20',
+                               'if': 'xe1'}],
                              'description': 'VPE approximation using DPDK',
                              'name': 'vpevnf-baremetal',
                              'nd_route_tbl':
@@ -63,49 +63,50 @@ class TestTrexTrafficGen(unittest.TestCase):
                              'id': 'vpevnf-baremetal',
                              'external-interface':
                                  [{'virtual-interface':
-                                       {'dst_mac': '00:00:00:00:00:04',
-                                        'vpci': '0000:05:00.0',
-                                        'local_ip': '152.16.100.19',
-                                        'type': 'PCI-PASSTHROUGH',
-                                        'netmask': '255.255.255.0',
-                                        'dpdk_port_num': 0,
-                                        'bandwidth': '10 Gbps',
-                                        'driver': "i40e",
-                                        'dst_ip': '152.16.100.20',
-                                        'local_iface_name': 'xe0',
-                                        'vld_id': 'downlink_0',
-                                        'ifname': 'xe0',
-                                        'local_mac': '00:00:00:00:00:02'},
+                                   {'dst_mac': '00:00:00:00:00:04',
+                                    'vpci': '0000:05:00.0',
+                                    'local_ip': '152.16.100.19',
+                                    'type': 'PCI-PASSTHROUGH',
+                                    'netmask': '255.255.255.0',
+                                    'dpdk_port_num': 0,
+                                    'bandwidth': '10 Gbps',
+                                    'driver': "i40e",
+                                    'dst_ip': '152.16.100.20',
+                                    'local_iface_name': 'xe0',
+                                    'vld_id': 'downlink_0',
+                                    'ifname': 'xe0',
+                                    'local_mac': '00:00:00:00:00:02'},
                                    'vnfd-connection-point-ref': 'xe0',
                                    'name': 'xe0'},
                                   {'virtual-interface':
-                                       {'dst_mac': '00:00:00:00:00:03',
-                                        'vpci': '0000:05:00.1',
-                                        'local_ip': '152.16.40.19',
-                                        'type': 'PCI-PASSTHROUGH',
-                                        'driver': "i40e",
-                                        'netmask': '255.255.255.0',
-                                        'dpdk_port_num': 1,
-                                        'bandwidth': '10 Gbps',
-                                        'dst_ip': '152.16.40.20',
-                                        'local_iface_name': 'xe1',
-                                        'vld_id': 'uplink_0',
-                                        'ifname': 'xe1',
-                                        'local_mac': '00:00:00:00:00:01'},
+                                   {'dst_mac': '00:00:00:00:00:03',
+                                    'vpci': '0000:05:00.1',
+                                    'local_ip': '152.16.40.19',
+                                    'type': 'PCI-PASSTHROUGH',
+                                    'driver': "i40e",
+                                    'netmask': '255.255.255.0',
+                                    'dpdk_port_num': 1,
+                                    'bandwidth': '10 Gbps',
+                                    'dst_ip': '152.16.40.20',
+                                    'local_iface_name': 'xe1',
+                                    'vld_id': 'uplink_0',
+                                    'ifname': 'xe1',
+                                    'local_mac': '00:00:00:00:00:01'},
                                    'vnfd-connection-point-ref': 'xe1',
                                    'name': 'xe1'}]}],
-                       'description': 'Vpe approximation using DPDK',
-                       'mgmt-interface':
-                           {'vdu-id': 'vpevnf-baremetal',
-                            'host': '1.1.1.1',
-                            'password': 'r00t',
+               'description': 'Vpe approximation using DPDK',
+               'mgmt-interface':
+               {'vdu-id': 'vpevnf-baremetal',
+                'host': '1.1.1.1',
+                'password': 'r00t',
                             'user': 'root',
                             'ip': '1.1.1.1'},
-                       'benchmark':
-                           {'kpi': ['packets_in', 'packets_fwd', 'packets_dropped']},
-                       'connection-point': [{'type': 'VPORT', 'name': 'xe0'},
-                                            {'type': 'VPORT', 'name': 'xe1'}],
-                       'id': 'VpeApproxVnf', 'name': 'VPEVnfSsh'}]}}
+               'benchmark':
+               {'kpi': ['packets_in', 'packets_fwd',
+                        'packets_dropped']},
+               'connection-point': [{'type': 'VPORT', 'name': 'xe0'},
+                                    {'type': 'VPORT', 'name': 'xe1'}],
+               'id': 'VpeApproxVnf', 'name': 'VPEVnfSsh'}]}}
 
     TRAFFIC_PROFILE = {
         "schema": "isb:traffic_profile:0.1",
@@ -301,7 +302,8 @@ class TestTrexTrafficGen(unittest.TestCase):
         mock_ssh(ssh)
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
-        self.assertIsInstance(trex_traffic_gen.resource_helper, TrexResourceHelper)
+        self.assertIsInstance(
+            trex_traffic_gen.resource_helper, TrexResourceHelper)
 
     @mock.patch(SSH_HELPER)
     def test_collect_kpi(self, ssh):
@@ -334,7 +336,8 @@ class TestTrexTrafficGen(unittest.TestCase):
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
         trex_traffic_gen.setup_helper.setup_vnf_environment = mock.MagicMock()
 
-        self.assertIsNone(trex_traffic_gen.instantiate(self.SCENARIO_CFG, self.CONTEXT_CFG))
+        self.assertIsNone(trex_traffic_gen.instantiate(
+            self.SCENARIO_CFG, self.CONTEXT_CFG))
 
     @mock.patch(SSH_HELPER)
     def test_instantiate_error(self, ssh):
@@ -349,7 +352,8 @@ class TestTrexTrafficGen(unittest.TestCase):
         trex_traffic_gen.ssh_helper = mock.MagicMock()
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
         trex_traffic_gen.setup_helper.setup_vnf_environment = mock.MagicMock()
-        self.assertIsNone(trex_traffic_gen.instantiate(self.SCENARIO_CFG, self.CONTEXT_CFG))
+        self.assertIsNone(trex_traffic_gen.instantiate(
+            self.SCENARIO_CFG, self.CONTEXT_CFG))
 
     @mock.patch(SSH_HELPER)
     def test__start_server(self, ssh):
@@ -368,7 +372,8 @@ class TestTrexTrafficGen(unittest.TestCase):
         trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen.ssh_helper = mock.MagicMock()
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
-        trex_traffic_gen.scenario_helper.scenario_cfg = {"options": {NAME: {"queues_per_port": 2}}}
+        trex_traffic_gen.scenario_helper.scenario_cfg = {
+            "options": {NAME: {"queues_per_port": 2}}}
         self.assertIsNone(trex_traffic_gen._start_server())
 
     @mock.patch(SSH_HELPER)
@@ -406,42 +411,43 @@ class TestTrexTrafficGen(unittest.TestCase):
         vnfd = copy.deepcopy(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
         vnfd['vdu'][0]['external-interface'] = [
             {'virtual-interface':
-                 {'dst_mac': '00:00:00:00:00:04',
-                  'vpci': '0000:05:00.0',
-                  'local_ip': '152.16.100.19',
-                  'type': 'PCI-PASSTHROUGH',
-                  'netmask': '255.255.255.0',
-                  'dpdk_port_num': 2,
-                  'bandwidth': '10 Gbps',
-                  'driver': "i40e",
-                  'dst_ip': '152.16.100.20',
-                  'local_iface_name': 'xe0',
-                  'vld_id': 'downlink_0',
-                  'ifname': 'xe0',
-                  'local_mac': '00:00:00:00:00:02'},
+             {'dst_mac': '00:00:00:00:00:04',
+              'vpci': '0000:05:00.0',
+              'local_ip': '152.16.100.19',
+              'type': 'PCI-PASSTHROUGH',
+              'netmask': '255.255.255.0',
+              'dpdk_port_num': 2,
+              'bandwidth': '10 Gbps',
+              'driver': "i40e",
+              'dst_ip': '152.16.100.20',
+              'local_iface_name': 'xe0',
+              'vld_id': 'downlink_0',
+              'ifname': 'xe0',
+              'local_mac': '00:00:00:00:00:02'},
              'vnfd-connection-point-ref': 'xe0',
              'name': 'xe0'},
             {'virtual-interface':
-                 {'dst_mac': '00:00:00:00:00:03',
-                  'vpci': '0000:04:00.0',
-                  'local_ip': '152.16.40.19',
-                  'type': 'PCI-PASSTHROUGH',
-                  'driver': "i40e",
-                  'netmask': '255.255.255.0',
-                  'dpdk_port_num': 0,
-                  'bandwidth': '10 Gbps',
-                  'dst_ip': '152.16.40.20',
-                  'local_iface_name': 'xe1',
-                  'vld_id': 'uplink_0',
-                  'ifname': 'xe1',
-                  'local_mac': '00:00:00:00:00:01'},
+             {'dst_mac': '00:00:00:00:00:03',
+              'vpci': '0000:04:00.0',
+              'local_ip': '152.16.40.19',
+              'type': 'PCI-PASSTHROUGH',
+              'driver': "i40e",
+              'netmask': '255.255.255.0',
+              'dpdk_port_num': 0,
+              'bandwidth': '10 Gbps',
+              'dst_ip': '152.16.40.20',
+              'local_iface_name': 'xe1',
+              'vld_id': 'uplink_0',
+              'ifname': 'xe1',
+              'local_mac': '00:00:00:00:00:01'},
              'vnfd-connection-point-ref': 'xe1',
              'name': 'xe1'}]
         trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
         trex_traffic_gen.resource_helper.generate_cfg()
         trex_traffic_gen.resource_helper._build_ports()
-        self.assertEqual(sorted(trex_traffic_gen.resource_helper.all_ports), [0, 1])
+        self.assertEqual(
+            sorted(trex_traffic_gen.resource_helper.all_ports), [0, 1])
         # there is a gap in ordering
         self.assertEqual(dict(trex_traffic_gen.resource_helper.dpdk_to_trex_port_map),
                          {0: 0, 2: 1})

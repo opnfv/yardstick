@@ -13,15 +13,14 @@
 # limitations under the License.
 #
 
-from __future__ import absolute_import
-
-import unittest
-import mock
 from multiprocessing import Queue
 import multiprocessing
 
-from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
-from tests.unit import STL_MOCKS
+import mock
+import unittest
+
+from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+from yardstick.tests import STL_MOCKS
 
 SSH_HELPER = "yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper"
 
