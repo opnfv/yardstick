@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_bdb11691",
+        "filename": "tests/unit/network_services/collector/test_subscriber.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-27T08:44:53Z",
+      "side": 1,
+      "message": "This is not a valid test.\n\nI know you didn\u0027t touch the original function, but if now is failing you should change it.\n\nYou should test that, for a list of resources, you are calling successfully those methods:\n  resource.initiate_systemagent(self.bin_path)\n  resource.start()\n  resource.amqp_process_for_nfvi_kpi()\n\nSomething like:\n    def test_start(self):\n        profile \u003d mock.Mock()\n        mock_resource_profiles \u003d {1: profile}\n\n        self.collector.start()\n        profile.initiate_systemagent.assert_called_once_with(self.collector.bin_path)\n        profile.start.assert_called_once()\n        profile.amqp_process_for_nfvi_kpi.assert_called_once()",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 34
+      },
+      "revId": "c3170a5c28a8fcf7658541519b9227e3fe193f2d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_bd8ab6bc",
+        "filename": "tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-27T08:44:53Z",
+      "side": 1,
+      "message": "If you are going to create your own ssh mock object (L136 and L137), use it here too.",
+      "range": {
+        "startLine": 132,
+        "startChar": 64,
+        "endLine": 132,
+        "endChar": 77
+      },
+      "revId": "c3170a5c28a8fcf7658541519b9227e3fe193f2d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5da2924b",
+        "filename": "tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-27T08:44:53Z",
+      "side": 1,
+      "message": "If the connection is an input parameter, you don\u0027t need to mock the class, you need only to create a mock object (L136 and L137).\n\nYou don\u0027t need the SSH mock context.",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 137,
+        "endChar": 73
+      },
+      "revId": "c3170a5c28a8fcf7658541519b9227e3fe193f2d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9d87fab4",
+        "filename": "tests/unit/network_services/nfvi/test_resource.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-04-27T08:44:53Z",
+      "side": 1,
+      "message": "Same comment here.",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 50
+      },
+      "revId": "c3170a5c28a8fcf7658541519b9227e3fe193f2d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
