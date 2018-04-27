@@ -17,8 +17,8 @@ import unittest
 import mock
 import os
 
-from tests.unit import STL_MOCKS
-from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+from yardstick.tests import STL_MOCKS
+from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 
 
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
@@ -335,16 +335,18 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD_0
-        result = "stats\r\r\n\r\nUDP_Replay stats:\r\n--------------\r\n" \
-                 "Port\t\tRx Packet\t\tTx Packet\t\tRx Pkt Drop\t\tTx Pkt Drop \r\n"\
-                 "0\t\t7374156\t\t7374136\t\t\t0\t\t\t0\r\n" \
-                 "1\t\t7374316\t\t7374315\t\t\t0\t\t\t0\r\n\r\nReplay>\r\r\nReplay>"
+        get_stats_ret_val = \
+            "stats\r\r\n\r\nUDP_Replay stats:\r\n--------------\r\n" \
+            "Port\t\tRx Packet\t\tTx Packet\t\tRx Pkt Drop\t\tTx Pkt Drop \r\n"\
+            "0\t\t7374156\t\t7374136\t\t\t0\t\t\t0\r\n" \
+            "1\t\t7374316\t\t7374315\t\t\t0\t\t\t0\r\n\r\nReplay>\r\r\nReplay>"
         udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, vnfd)
         udp_replay_approx_vnf.q_in = mock.MagicMock()
         udp_replay_approx_vnf.q_out = mock.MagicMock()
         udp_replay_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
         udp_replay_approx_vnf.all_ports = ["xe0", "xe1"]
-        udp_replay_approx_vnf.get_stats = mock.Mock(return_value=result)
+        udp_replay_approx_vnf.get_stats = mock.Mock(return_value=get_stats_ret_val)
+
         result = {'collect_stats': {}, 'packets_dropped': 0,
                   'packets_fwd': 14748451, 'packets_in': 14748472}
         self.assertEqual(result, udp_replay_approx_vnf.collect_kpi())
