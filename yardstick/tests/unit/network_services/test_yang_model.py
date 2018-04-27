@@ -13,14 +13,8 @@
 # limitations under the License.
 #
 
-# Unittest for yardstick.network_services.utils
-
-from __future__ import absolute_import
-
-import unittest
 import mock
-
-import yaml
+import unittest
 
 from yardstick.network_services.yang_model import YangModel
 
@@ -95,9 +89,9 @@ class YangModelTestCase(unittest.TestCase):
         y._get_entries()
         self.assertEqual(y._rules, '')
 
-    @mock.patch('yardstick.network_services.yang_model.yaml_load')
     @mock.patch('yardstick.network_services.yang_model.open')
-    def test__read_config(self, mock_open, mock_safe_load):
+    @mock.patch('yardstick.network_services.yang_model.yaml_load')
+    def test__read_config(self, mock_safe_load, *args):
         cfg = "yang.yaml"
         y = YangModel(cfg)
         mock_safe_load.return_value = expected = {'key1': 'value1', 'key2': 'value2'}

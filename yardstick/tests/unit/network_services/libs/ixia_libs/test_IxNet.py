@@ -13,9 +13,6 @@
 # limitations under the License.
 #
 
-# Unittest for yardstick.network_services.libs.ixia_libs.IxNet
-
-from __future__ import absolute_import
 import unittest
 import mock
 
@@ -23,9 +20,9 @@ from yardstick.network_services.libs.ixia_libs.IxNet.IxNet import IxNextgen
 from yardstick.network_services.libs.ixia_libs.IxNet.IxNet import IP_VERSION_4
 from yardstick.network_services.libs.ixia_libs.IxNet.IxNet import IP_VERSION_6
 
-
 UPLINK = "uplink"
 DOWNLINK = "downlink"
+
 
 class TestIxNextgen(unittest.TestCase):
 
@@ -40,7 +37,8 @@ class TestIxNextgen(unittest.TestCase):
         ixnet_gen.get_config = mock.MagicMock()
         ixnet_gen.get_ixnet = mock.MagicMock()
 
-        self.assertRaises(ImportError, ixnet_gen._connect, {"py_lib_path": "/tmp"})
+        self.assertRaises(ImportError, ixnet_gen._connect,
+                          {"py_lib_path": "/tmp"})
 
     def test_clear_ixia_config(self):
         ixnet = mock.MagicMock()
@@ -628,11 +626,9 @@ class TestIxNextgen(unittest.TestCase):
     def test_set_random_ip_multi_attributes_bad_ip_version(self):
         bad_ip_version = object()
         ixnet_gen = IxNextgen(mock.Mock())
-        mock1 = mock.Mock()
-        mock2 = mock.Mock()
-        mock3 = mock.Mock()
         with self.assertRaises(ValueError):
-            ixnet_gen.set_random_ip_multi_attributes(mock1, bad_ip_version, mock2, mock3)
+            ixnet_gen.set_random_ip_multi_attributes(
+                mock.Mock(), bad_ip_version, mock.Mock(), mock.Mock())
 
     def test_get_config(self):
         tg_cfg = {
