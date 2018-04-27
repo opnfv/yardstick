@@ -60,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_b0d2ddfd",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-27T13:43:08Z",
+      "side": 1,
+      "message": "will update in next patch set.",
+      "parentUuid": "5a3f45e8_70a9758f",
+      "range": {
+        "startLine": 30,
+        "startChar": 34,
+        "endLine": 30,
+        "endChar": 38
+      },
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_f09c656c",
         "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
         "patchSetId": 9
@@ -71,6 +95,24 @@
       "writtenOn": "2018-04-27T13:31:29Z",
       "side": 1,
       "message": "Why `name` is removed?\nWhy `description` is not configurable?",
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f0d8e51f",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-27T13:43:08Z",
+      "side": 1,
+      "message": "\u0027name\u0027 was removed as it was just an optional parameter but actually it is required by get_volume so I\u0027ll add it back.\n\n\u0027description\u0027 was an optional parameter and is passed through kwargs in API create_volume.",
+      "parentUuid": "5a3f45e8_f09c656c",
       "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -130,6 +172,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_3006cd86",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-27T13:43:08Z",
+      "side": 1,
+      "message": "I\u0027ll add it back as it is actually required by get_volume below.",
+      "parentUuid": "5a3f45e8_d0be89ad",
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_50b399e8",
         "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
         "patchSetId": 9
@@ -153,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_100bd18e",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-27T13:43:08Z",
+      "side": 1,
+      "message": "Will fix it.",
+      "parentUuid": "5a3f45e8_50b399e8",
+      "range": {
+        "startLine": 63,
+        "startChar": 67,
+        "endLine": 63,
+        "endChar": 76
+      },
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_d099697a",
         "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
         "patchSetId": 9
@@ -164,6 +248,30 @@
       "writtenOn": "2018-04-27T13:31:29Z",
       "side": 1,
       "message": "[volume[\"id\"] and remove L67",
+      "range": {
+        "startLine": 69,
+        "startChar": 43,
+        "endLine": 69,
+        "endChar": 49
+      },
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5001d968",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-27T13:43:08Z",
+      "side": 1,
+      "message": "I think it\u0027s not something really necessary to address as in other scenarios also we used values variable in similar way.",
+      "parentUuid": "5a3f45e8_d099697a",
       "range": {
         "startLine": 69,
         "startChar": 43,
