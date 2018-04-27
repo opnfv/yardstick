@@ -22,6 +22,30 @@
       "revId": "6ad9a7a914a68007c8ab55abc4f213aedaf1e539",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d0a7a9a5",
+        "filename": "yardstick/benchmark/scenarios/lib/detach_volume.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-27T13:26:57Z",
+      "side": 1,
+      "message": "But passing only server_name_or_id/volume_or_id will not work as shade API detach volume actually except server/volume dict. \n\nIn that case, If we want user to pass only server_name_or_id/volume_or_id instead of dict then we need to call get_server and get_volume here and then fill server and volume dict from it and pass it to detach volume.",
+      "parentUuid": "5a3f45e8_d0c20952",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 54
+      },
+      "revId": "6ad9a7a914a68007c8ab55abc4f213aedaf1e539",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
