@@ -22,7 +22,7 @@ import time
 import mock
 import unittest
 
-from tests.unit import STL_MOCKS
+from yardstick.tests import STL_MOCKS
 from yardstick.common import utils
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 from yardstick.network_services import constants
@@ -314,6 +314,7 @@ class TestProxSocketHelper(unittest.TestCase):
         result = prox.get_socket()
         self.assertIs(result, mock_sock)
 
+    # TODO(elfoley): Split this into three tests
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.select')
     def test_get_data(self, mock_select):
         mock_select.select.side_effect = [[1], [0]]
@@ -910,6 +911,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = ProxDpdkVnfSetupEnvHelper._get_tx_port('section1', input_data)
         self.assertEqual(result, expected)
 
+    # TODO(elfoley): Split this into several smaller tests
     def test_write_prox_config(self):
         input_data = {}
         expected = ''
@@ -1523,6 +1525,7 @@ class TestProxResourceHelper(unittest.TestCase):
         result = helper.execute('my_command')
         self.assertEqual(result, expected)
 
+        # TODO(elfoley): Make this a separate test: test_execute_no_client
         helper.client = object()
 
         result = helper.execute('my_command')
@@ -1684,6 +1687,7 @@ class TestProxProfileHelper(unittest.TestCase):
         self.assertIs(result, helper._cpu_topology)
         self.assertIs(result, helper.cpu_topology)
 
+    # TODO(elfoley): Split this test; there are two sets of inputs/outputs
     def test_test_cores(self):
         resource_helper = mock.MagicMock()
         resource_helper.setup_helper.prox_config_data = []
@@ -1741,6 +1745,7 @@ class TestProxProfileHelper(unittest.TestCase):
         self.assertIs(result, helper._test_cores)
         self.assertIs(result, helper.test_cores)
 
+    # TODO(elfoley): Split this test; there are two sets of inputs/outputs
     def test_latency_cores(self):
         resource_helper = mock.MagicMock()
         resource_helper.setup_helper.prox_config_data = []
