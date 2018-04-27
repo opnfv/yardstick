@@ -13,13 +13,11 @@
 # limitations under the License.
 #
 
-from __future__ import absolute_import
-
 import unittest
 from contextlib import contextmanager
 import mock
 
-from tests.unit import STL_MOCKS
+from yardstick.tests import STL_MOCKS
 
 
 STLClient = mock.MagicMock()
@@ -105,7 +103,7 @@ class TestBaseParser(unittest.TestCase):
     @staticmethod
     def make_open(text_blob):
         @contextmanager
-        def internal_open(*args, **kwargs):
+        def internal_open(*args):
             yield text_blob.split('\n')
 
         return internal_open
@@ -136,7 +134,7 @@ class TestConfigParser(unittest.TestCase):
     @staticmethod
     def make_open(text_blob):
         @contextmanager
-        def internal_open(*args, **kwargs):
+        def internal_open(*args):
             yield text_blob.split('\n')
 
         return internal_open

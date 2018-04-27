@@ -700,7 +700,6 @@ class TestMultiPortConfig(unittest.TestCase):
         self.assertIsNone(result)
 
     def test_generate_arp_route_tbl(self):
-        # ELF: could n=do this in setup
         topology_file = mock.Mock()
         config_tpl = mock.Mock()
         tmp_file = ""
