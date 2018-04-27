@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_10c3d1ed",
+        "filename": "yardstick/benchmark/scenarios/lib/get_server.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-27T16:15:16Z",
+      "side": 1,
+      "message": "looks like it should be vice-versa. I understand, it\u0027s not your code, but once you are going to upload new changes, please change it. Thanks.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 21
+      },
+      "revId": "b5a65892cf0307db0c57afef9e29ecf4520e7358",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_d0eb29da",
         "filename": "yardstick/benchmark/scenarios/lib/get_server.py",
         "patchSetId": 16
@@ -13,6 +36,30 @@
       "writtenOn": "2018-04-27T12:57:52Z",
       "side": 1,
       "message": "In other testcases, name_or_id is used, can we do that here too?",
+      "range": {
+        "startLine": 52,
+        "startChar": 47,
+        "endLine": 52,
+        "endChar": 64
+      },
+      "revId": "b5a65892cf0307db0c57afef9e29ecf4520e7358",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_50b9d977",
+        "filename": "yardstick/benchmark/scenarios/lib/get_server.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-27T16:15:16Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5a3f45e8_d0eb29da",
       "range": {
         "startLine": 52,
         "startChar": 47,
