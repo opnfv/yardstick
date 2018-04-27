@@ -112,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_d0be89ad",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-27T13:34:15Z",
+      "side": 1,
+      "message": "The name parameter makes it easier to identify the volume when deleting it. The name parameter was also there before.",
+      "parentUuid": "5a3f45e8_108f512b",
+      "revId": "8886d8fd60d1e7cb659e548dad24c8c7627e2f44",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_50b399e8",
         "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
         "patchSetId": 9
