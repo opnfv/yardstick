@@ -19,8 +19,8 @@ import unittest
 import mock
 import six
 
-from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
-from tests.unit import STL_MOCKS
+from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+from yardstick.tests import STL_MOCKS
 from yardstick.benchmark.contexts.base import Context
 from yardstick.common import exceptions as y_exceptions
 from yardstick.common import utils
