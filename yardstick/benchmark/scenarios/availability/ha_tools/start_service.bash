@@ -16,11 +16,9 @@ set -e
 service_name=$1
 operation=${2-start} # values are "start" or "restart"
 
-Distributor=$(lsb_release -a | grep "Distributor ID" | awk '{print $3}')
-
-if [ "$Distributor" != "Ubuntu" -a "$service_name" != "keystone" -a "$service_name" != "neutron-server" -a "$service_name" != "haproxy" ]; then
+if [ -f /usr/bin/yum -a "$service_name" != "keystone" -a "$service_name" != "neutron-server" -a "$service_name" != "haproxy" -a "$service_name" != "openvswitch" ]; then
     service_name="openstack-"${service_name}
-elif [ "$Distributor" = "Ubuntu" -a "$service_name" = "keystone" ]; then
+elif [ -f /usr/bin/apt -a "$service_name" = "keystone" ]; then
     service_name="apache2"
 elif [ "$service_name" = "keystone" ]; then
     service_name="httpd"
