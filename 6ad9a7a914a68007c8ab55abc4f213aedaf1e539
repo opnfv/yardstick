@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d0c20952",
+        "filename": "yardstick/benchmark/scenarios/lib/detach_volume.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-27T13:11:08Z",
+      "side": 1,
+      "message": "Same comment as in the attach volume review, don\u0027t pass server and volume dicts, pass server_name_or_id and volume_name_or_id",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 54
+      },
+      "revId": "6ad9a7a914a68007c8ab55abc4f213aedaf1e539",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
