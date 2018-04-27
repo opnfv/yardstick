@@ -13,12 +13,10 @@
 # limitations under the License.
 #
 
-from __future__ import absolute_import
-
 import unittest
 import mock
 
-from tests.unit import STL_MOCKS
+from yardstick.tests import STL_MOCKS
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
