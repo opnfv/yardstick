@@ -13,12 +13,10 @@
 # limitations under the License.
 #
 
-from __future__ import absolute_import
-
 import unittest
 import mock
 
-from tests.unit import STL_MOCKS
+from yardstick.tests import STL_MOCKS
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
 
 
@@ -31,7 +29,8 @@ if stl_patch:
         TrexRfcResourceHelper
     from yardstick.network_services.vnf_generic.vnf import tg_rfc2544_trex
     from yardstick.network_services.traffic_profile.base import TrafficProfile
-    from tests.unit.network_services.vnf_generic.vnf.test_base import FileAbsPath, mock_ssh
+    from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base \
+        import FileAbsPath, mock_ssh
 
 MODULE_PATH = FileAbsPath(__file__)
 get_file_abspath = MODULE_PATH.get_path

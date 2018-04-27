@@ -35,11 +35,12 @@ class HeatContextTestCase(unittest.TestCase):
     def setUp(self):
         self.test_context = heat.HeatContext()
         self.addCleanup(self._remove_contexts)
-        self.mock_context = mock.Mock(spec=heat.HeatContext())
 
-    def _remove_contexts(self):
-        if self.test_context in self.test_context.list:
-            self.test_context._delete_context()
+    @staticmethod
+    def _remove_contexts():
+        for context in base.Context.list:
+            context._delete_context()
+        base.Context.list = []
 
     def test___init__(self):
         self.assertIsNone(self.test_context._name)
@@ -658,6 +659,7 @@ class HeatContextTestCase(unittest.TestCase):
         baz3_server.public_ip = None
         baz3_server.context.user = 'zab'
 
+        self.mock_context = mock.Mock(spec=heat.HeatContext())
         self.mock_context._name = 'bar1'
         self.test_context.stack = mock.Mock()
         self.mock_context.stack.outputs = {
