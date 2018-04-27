@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_f0ee25ec",
+        "filename": "yardstick/benchmark/scenarios/lib/attach_volume.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-27T12:56:53Z",
+      "side": 1,
+      "message": "Reason for using server and volume dict here is that user actually has to pass server dict.Shade complains about status, attachment, name keys not defined if only server_name_or_id is pass. So user has to explicitly pass the values of these keys.\n\nEarlier in patch [1] I wsa only passing the name_or_id but then TC was failing and shade was throwing an exception that above mentioned keys not set.\n\n[1] https://gerrit.opnfv.org/gerrit/#/c/54561/14..19/yardstick/benchmark/scenarios/lib/attach_volume.py",
+      "parentUuid": "5a3f45e8_302ecd43",
+      "range": {
+        "startLine": 42,
+        "startChar": 28,
+        "endLine": 42,
+        "endChar": 54
+      },
+      "revId": "c1bb6363ddc15f985d3223bab0fcbf6ab947afc9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_1033d1ab",
         "filename": "yardstick/benchmark/scenarios/lib/attach_volume.py",
         "patchSetId": 19
