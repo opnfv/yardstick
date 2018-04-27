@@ -13,7 +13,6 @@
 # limitations under the License.
 #
 
-from __future__ import absolute_import
 import unittest
 
 from yardstick.network_services.traffic_profile.base import TrafficProfile
@@ -29,7 +28,7 @@ class TestTrafficProfileGenericHTTP(unittest.TestCase):
 
     def test_execute(self):
         traffic_profile_generic_htt_p = \
-                TrafficProfileGenericHTTP(TrafficProfile)
+            TrafficProfileGenericHTTP(TrafficProfile)
         traffic_generator = {}
         self.assertIsNone(
             traffic_profile_generic_htt_p.execute(traffic_generator))

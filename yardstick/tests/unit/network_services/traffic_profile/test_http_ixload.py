@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-from __future__ import absolute_import
 import unittest
 import mock
 
@@ -187,9 +185,9 @@ class TestIxLoadTrafficGen(unittest.TestCase):
         with self.assertRaises(Exception):
             ixload.load_config_file("ixload.cfg")
 
-    @mock.patch('yardstick.network_services.traffic_profile.http_ixload.IxLoad')
     @mock.patch('yardstick.network_services.traffic_profile.http_ixload.StatCollectorUtils')
-    def test_start_http_test_connect_error(self, mock_collector_type, mock_ixload_type):
+    @mock.patch('yardstick.network_services.traffic_profile.http_ixload.IxLoad')
+    def test_start_http_test_connect_error(self, mock_ixload_type, *args):
         ports = [1, 2, 3]
         test_input = {
             "remote_server": "REMOTE_SERVER",
@@ -204,8 +202,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
 
         j = jsonutils.dump_as_bytes(test_input)
 
-        mock_ixload = mock_ixload_type()
-        mock_ixload.connect.side_effect = RuntimeError
+        mock_ixload_type.return_value.connect.side_effect = RuntimeError
 
         ixload = http_ixload.IXLOADHttpTest(j)
         ixload.results_on_windows = 'windows_result_dir'
@@ -216,7 +213,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.traffic_profile.http_ixload.IxLoad')
     @mock.patch('yardstick.network_services.traffic_profile.http_ixload.StatCollectorUtils')
-    def test_start_http_test(self, mock_collector_type, mock_ixload_type):
+    def test_start_http_test(self, *args):
         ports = [1, 2, 3]
         test_input = {
             "remote_server": "REMOTE_SERVER",
@@ -240,7 +237,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.traffic_profile.http_ixload.IxLoad')
     @mock.patch('yardstick.network_services.traffic_profile.http_ixload.StatCollectorUtils')
-    def test_start_http_test_reassign_error(self, mock_collector_type, mock_ixload_type):
+    def test_start_http_test_reassign_error(self, *args):
         ports = [1, 2, 3]
         test_input = {
             "remote_server": "REMOTE_SERVER",
@@ -264,9 +261,9 @@ class TestIxLoadTrafficGen(unittest.TestCase):
         ixload.result_dir = 'my_result_dir'
 
         ixload.start_http_test()
-        self.assertEqual(reassign_ports.call_count, 1)
+        reassign_ports.assert_called_once()
 
     @mock.patch("yardstick.network_services.traffic_profile.http_ixload.IXLOADHttpTest")
-    def test_main(self, IXLOADHttpTest):
+    def test_main(self, *args):
         args = ["1", "2", "3"]
         http_ixload.main(args)
