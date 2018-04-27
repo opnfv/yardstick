@@ -115,7 +115,8 @@ class ConfigCreate(object):
         pktq = "SWQ{0}{1}".format(self.sw_q, sink)
         return pktq
 
-    def vpe_upstream(self, vnf_cfg, index=0):
+    def vpe_upstream(self, vnf_cfg, index=0):  # pragma: no cover
+        # NOTE(ralonsoh): this function must be covered in UTs.
         parser = configparser.ConfigParser()
         parser.read(os.path.join(vnf_cfg, 'vpe_upstream'))
 
@@ -147,7 +148,8 @@ class ConfigCreate(object):
             self.n_pipeline += 1
         return parser
 
-    def vpe_downstream(self, vnf_cfg, index):
+    def vpe_downstream(self, vnf_cfg, index):  # pragma: no cover
+        # NOTE(ralonsoh): this function must be covered in UTs.
         parser = configparser.ConfigParser()
         parser.read(os.path.join(vnf_cfg, 'vpe_downstream'))
         for pipeline in parser.sections():
