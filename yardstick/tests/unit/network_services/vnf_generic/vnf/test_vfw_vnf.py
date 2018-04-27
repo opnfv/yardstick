@@ -17,8 +17,9 @@ import unittest
 import mock
 import os
 
-from tests.unit import STL_MOCKS
-from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+from yardstick.tests import STL_MOCKS
+from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+
 from yardstick.common import utils
 
 
@@ -27,20 +28,19 @@ stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
 
 if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.acl_vnf import AclApproxVnf
+    from yardstick.network_services.vnf_generic.vnf.vfw_vnf import FWApproxVnf
     from yardstick.network_services.nfvi.resource import ResourceProfile
-    from yardstick.network_services.vnf_generic.vnf.acl_vnf import AclApproxSetupEnvSetupEnvHelper
+    from yardstick.network_services.vnf_generic.vnf.vfw_vnf import FWApproxSetupEnvHelper
 
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
 
-
 name = 'vnf__1'
 
 
 @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Process")
-class TestAclApproxVnf(unittest.TestCase):
+class TestFWApproxVnf(unittest.TestCase):
     VNFD = {'vnfd:vnfd-catalog':
             {'vnfd':
              [{'short-name': 'VpeVnf',
@@ -106,7 +106,7 @@ class TestAclApproxVnf(unittest.TestCase):
                    {'kpi': ['packets_in', 'packets_fwd', 'packets_dropped']},
                'connection-point': [{'type': 'VPORT', 'name': 'xe0'},
                                     {'type': 'VPORT', 'name': 'xe1'}],
-               'id': 'AclApproxVnf', 'name': 'VPEVnfSsh'}]}}
+               'id': 'FWApproxVnf', 'name': 'VPEVnfSsh'}]}}
 
     scenario_cfg = {'options': {'packetsize': 64, 'traffic_type': 4,
                                 'rfc2544': {'allowed_drop_rate': '0.8 - 1'},
@@ -114,7 +114,7 @@ class TestAclApproxVnf(unittest.TestCase):
                                            'vnf_config': {'lb_config': 'SW',
                                                           'lb_count': 1,
                                                           'worker_config':
-                                                          '1C/1T',
+                                                              '1C/1T',
                                                           'worker_threads': 1}}
                                 },
                     'task_id': 'a70bdf4a-8e67-47a3-9dc1-273c14506eb7',
@@ -125,8 +125,8 @@ class TestAclApproxVnf(unittest.TestCase):
                                'output_filename': '/tmp/yardstick.out',
                                'runner_id': 74476, 'duration': 400,
                                'type': 'Duration'},
-                    'traffic_profile': 'ipv4_throughput_acl.yaml',
-                    'traffic_options': {'flow': 'ipv4_Packets_acl.yaml',
+                    'traffic_profile': 'ipv4_throughput_vfw.yaml',
+                    'traffic_options': {'flow': 'ipv4_Packets_vfw.yaml',
                                         'imix': 'imix_voice.yaml'},
                     'type': 'ISB',
                     'nodes': {'tg__2': 'trafficgen_2.yardstick',
@@ -142,7 +142,7 @@ class TestAclApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens513f0',
-                                       'vld_id': AclApproxVnf.DOWNLINK,
+                                       'vld_id': FWApproxVnf.DOWNLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.40.20',
                                        'dst_mac': '00:00:00:00:00:01',
@@ -170,7 +170,7 @@ class TestAclApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens785f0',
-                                       'vld_id': AclApproxVnf.UPLINK,
+                                       'vld_id': FWApproxVnf.UPLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.100.20',
                                        'dst_mac': '00:00:00:00:00:02',
@@ -195,7 +195,7 @@ class TestAclApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens786f0',
-                                       'vld_id': AclApproxVnf.UPLINK,
+                                       'vld_id': FWApproxVnf.UPLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.100.19',
                                        'dst_mac': '00:00:00:00:00:04',
@@ -205,7 +205,7 @@ class TestAclApproxVnf(unittest.TestCase):
                                        'vpci': '0000:05:00.0',
                                        'dpdk_port_num': 0},
                                'xe1': {'local_iface_name': 'ens786f1',
-                                       'vld_id': AclApproxVnf.DOWNLINK,
+                                       'vld_id': FWApproxVnf.DOWNLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.40.19',
                                        'dst_mac': '00:00:00:00:00:03',
@@ -237,12 +237,26 @@ class TestAclApproxVnf(unittest.TestCase):
                                 'network': '0064:ff9b:0:0:0:0:9810:2814',
                                 'if': 'xe1'}],
                               'password': 'r00t',
-                              'VNF model': 'acl_vnf.yaml'}}}
+                              'VNF model': 'vfw_vnf.yaml'}}}
 
     def test___init__(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
-        self.assertIsNone(acl_approx_vnf._vnf_process)
+        vfw_approx_vnf = FWApproxVnf(name, vnfd)
+        self.assertIsNone(vfw_approx_vnf._vnf_process)
+
+    STATS = """\
+p vfw stats
+
+VFW Stats
+{"VFW_counters" : {"id" : "PIPELINE4", " pkts_received": 6007180, " pkts_fw_forwarded": 6007180, " pkts_drop_fw": 0, " pkts_acl_forwarded": 6007180, "pkts_drop_without_rule" : 0, "average_pkts_in_batch" : 31, "average_internal_time_in_clocks" : 17427, "average_external_time_in_clocks" : 261120, "total_time_measures" : 189829, "ct_packets_forwarded" : 6007148, "ct_packets_dropped" : 0, "bytes_processed ": 360430800, "ct_sessions" : {"active" : 130050, "open_attempt" : 130050, "re-open_attempt" : 0, "established" : 0, "closed" : 0, "timeout" : 0}, "ct_drops" : {"out_of_window" : 0, "invalid_conn" : 0, "invalid_state_transition" : 0 "RST" : 0}}
+VFW TOTAL: pkts_received: 6007180, "pkts_fw_forwarded": 6007180, "pkts_drop_fw": 0, "fw_drops" : {"TTL_zero" : 0, "bad_size" : 0, "fragmented_packet" : 0, "unsupported_packet_types" : 0, "no_arp_entry" : 6007180}, "pkts_acl_forwarded": 6007180, "pkts_drop_without_rule": 0, "packets_last_sec" : 0, "average_packets_per_sec" : 0, "bytes_last_sec" : 0, "average_bytes_per_sec" : 0, "bytes_processed ": 360430800
+"CT TOTAL: ct_packets_forwarded" : 6007180, " ct_packets_dropped" : 0, "ct_sessions" : {"active" : 130050, "open_attempt" : 130050, "re-open_attempt" : 0, "established" : 0, "closed" : 0, "timeout" : 0}, "ct_drops" : {"out_of_window" : 0, "invalid_conn" : 0, "invalid_state_transition" : 0 "RST" : 0}
+Action ID: 00, packetCount: 2954633, byteCount: 177277980
+Action ID: 01, packetCount: 3052547, byteCount: 183152820
+pipeline>
+
+pipeline>
+"""  # noqa
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
@@ -250,14 +264,21 @@ class TestAclApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
-        acl_approx_vnf.q_in = mock.MagicMock()
-        acl_approx_vnf.q_out = mock.MagicMock()
-        acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
-        acl_approx_vnf.resource = mock.Mock(autospec=ResourceProfile)
-        acl_approx_vnf.vnf_execute = mock.Mock(return_value="")
-        result = {'packets_dropped': 0, 'packets_fwd': 0, 'packets_in': 0}
-        self.assertEqual(result, acl_approx_vnf.collect_kpi())
+        vfw_approx_vnf = FWApproxVnf(name, vnfd)
+        vfw_approx_vnf.q_in = mock.MagicMock()
+        vfw_approx_vnf.q_out = mock.MagicMock()
+        vfw_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
+        vfw_approx_vnf.resource = mock.Mock(autospec=ResourceProfile)
+        vfw_approx_vnf.resource_helper = mock.MagicMock(
+            **{'collect_kpi.return_value': {"core": {}}})
+        vfw_approx_vnf.vnf_execute = mock.Mock(return_value=self.STATS)
+        result = {
+            'packets_dropped': 0,
+            'packets_fwd': 6007180,
+            'packets_in': 6007180,
+            'collect_stats': {'core': {}},
+        }
+        self.assertEqual(result, vfw_approx_vnf.collect_kpi())
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
@@ -265,90 +286,73 @@ class TestAclApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
-        acl_approx_vnf.q_in = mock.MagicMock()
-        acl_approx_vnf.q_out = mock.MagicMock()
-        acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
+        vfw_approx_vnf = FWApproxVnf(name, vnfd)
+        vfw_approx_vnf.q_in = mock.MagicMock()
+        vfw_approx_vnf.q_out = mock.MagicMock()
+        vfw_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
         cmd = "quit"
-        self.assertEqual("", acl_approx_vnf.vnf_execute(cmd))
+        self.assertEqual(vfw_approx_vnf.vnf_execute(cmd), "")
 
     @mock.patch(SSH_HELPER)
     def test_get_stats(self, ssh, *args):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
-        acl_approx_vnf.q_in = mock.MagicMock()
-        acl_approx_vnf.q_out = mock.MagicMock()
-        acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
-        result = "ACL TOTAL: pkts_processed: 100, pkts_drop: 0, spkts_received: 100"
-        acl_approx_vnf.vnf_execute = mock.Mock(return_value=result)
-        self.assertEqual(result, acl_approx_vnf.get_stats())
+        vfw_approx_vnf = FWApproxVnf(name, vnfd)
+        vfw_approx_vnf.q_in = mock.MagicMock()
+        vfw_approx_vnf.q_out = mock.MagicMock()
+        vfw_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
+        vfw_approx_vnf.vnf_execute = mock.Mock(return_value=self.STATS)
+        self.assertEqual(self.STATS, vfw_approx_vnf.get_stats())
 
     def _get_file_abspath(self, filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(curr_path, filename)
         return file_path
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.hex")
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.eval")
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.acl_vnf.open')
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.hex")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.eval")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.open")
     @mock.patch(SSH_HELPER)
-    def test_run_acl(self, ssh, *args):
+    def test_run_vfw(self, ssh, *args):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
-        acl_approx_vnf._build_config = mock.MagicMock()
-        acl_approx_vnf.queue_wrapper = mock.MagicMock()
-        acl_approx_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
-        acl_approx_vnf.vnf_cfg = {'lb_config': 'SW',
+        vfw_approx_vnf = FWApproxVnf(name, vnfd)
+        vfw_approx_vnf._build_config = mock.MagicMock()
+        vfw_approx_vnf.queue_wrapper = mock.MagicMock()
+        vfw_approx_vnf.ssh_helper = mock.MagicMock()
+        vfw_approx_vnf.ssh_helper.run = mock.MagicMock()
+        vfw_approx_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
+        vfw_approx_vnf.vnf_cfg = {'lb_config': 'SW',
                                   'lb_count': 1,
                                   'worker_config': '1C/1T',
                                   'worker_threads': 1}
-        acl_approx_vnf.all_options = {'traffic_type': '4',
+        vfw_approx_vnf.all_options = {'traffic_type': '4',
                                       'topology': 'nsb_test_case.yaml'}
-        acl_approx_vnf._run()
-        acl_approx_vnf.ssh_helper.run.assert_called_once()
+        vfw_approx_vnf._run()
+        vfw_approx_vnf.ssh_helper.run.assert_called_once()
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.YangModel")
     @mock.patch.object(utils, 'find_relative_file')
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.YangModel")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
     def test_instantiate(self, ssh, *args):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
-        acl_approx_vnf.deploy_helper = mock.MagicMock()
-        acl_approx_vnf.resource_helper = mock.MagicMock()
-        acl_approx_vnf._build_config = mock.MagicMock()
+        vfw_approx_vnf = FWApproxVnf(name, vnfd)
+        vfw_approx_vnf.ssh_helper = ssh
+        vfw_approx_vnf.deploy_helper = mock.MagicMock()
+        vfw_approx_vnf.resource_helper = mock.MagicMock()
+        vfw_approx_vnf._build_config = mock.MagicMock()
         self.scenario_cfg['vnf_options'] = {'acl': {'cfg': "",
-                                                        'rules': ""}}
-        acl_approx_vnf.q_out.put("pipeline>")
-        acl_approx_vnf.WAIT_TIME = 0
+                                                    'rules': ""}}
         self.scenario_cfg.update({"nodes": {"vnf__1": ""}})
-        self.assertIsNone(acl_approx_vnf.instantiate(self.scenario_cfg,
-                                                     self.context_cfg))
-
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
-    @mock.patch(SSH_HELPER)
-    def test_terminate(self, ssh, *args):
-        mock_ssh(ssh)
-
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
-        acl_approx_vnf._vnf_process = mock.MagicMock()
-        acl_approx_vnf._vnf_process.terminate = mock.Mock()
-        acl_approx_vnf.used_drivers = {"01:01.0": "i40e",
-                                       "01:01.1": "i40e"}
-        acl_approx_vnf.vnf_execute = mock.MagicMock()
-        acl_approx_vnf.dpdk_devbind = "dpdk-devbind.py"
-        acl_approx_vnf._resource_collect_stop = mock.Mock()
-        self.assertIsNone(acl_approx_vnf.terminate())
+        self.assertIsNone(vfw_approx_vnf.instantiate(self.scenario_cfg, self.context_cfg))
 
 
-class TestAclApproxSetupEnvSetupEnvHelper(unittest.TestCase):
+class TestFWApproxSetupEnvHelper(unittest.TestCase):
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
     @mock.patch.object(utils, 'find_relative_file')
@@ -361,12 +365,10 @@ class TestAclApproxSetupEnvSetupEnvHelper(unittest.TestCase):
         scenario_helper.vnf_cfg = {'lb_config': 'HW'}
         scenario_helper.all_options = {}
 
-        acl_approx_setup_helper = AclApproxSetupEnvSetupEnvHelper(vnfd_helper,
-                                                                  ssh_helper,
-                                                                  scenario_helper)
+        vfw_approx_setup_helper = FWApproxSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
 
-        acl_approx_setup_helper.ssh_helper.provision_tool = mock.Mock(return_value='tool_path')
-        acl_approx_setup_helper.ssh_helper.all_ports = mock.Mock()
-        acl_approx_setup_helper.vnfd_helper.port_nums = mock.Mock(return_value=[0, 1])
-        expected = 'sudo tool_path -p 0x3 -f /tmp/acl_config -s /tmp/acl_script  --hwlb 3'
-        self.assertEqual(acl_approx_setup_helper.build_config(), expected)
+        vfw_approx_setup_helper.ssh_helper.provision_tool = mock.Mock(return_value='tool_path')
+        vfw_approx_setup_helper.ssh_helper.all_ports = mock.Mock()
+        vfw_approx_setup_helper.vnfd_helper.port_nums = mock.Mock(return_value=[0, 1])
+        expected = 'sudo tool_path -p 0x3 -f /tmp/vfw_config -s /tmp/vfw_script  --hwlb 3'
+        self.assertEqual(vfw_approx_setup_helper.build_config(), expected)
