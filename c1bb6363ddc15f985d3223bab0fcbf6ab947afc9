@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_302ecd43",
+        "filename": "yardstick/benchmark/scenarios/lib/attach_volume.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-27T12:40:25Z",
+      "side": 1,
+      "message": "Why are you using a server dict and volume dict?\n\nThe user should pass the server_name_or_id and volume_name_or_id, then the scenario will get server by name or get volume by name.\n\nThis keeps with the previous params for the testcase, AND keeps it consistent with other testcases.",
+      "range": {
+        "startLine": 42,
+        "startChar": 28,
+        "endLine": 42,
+        "endChar": 54
+      },
+      "revId": "c1bb6363ddc15f985d3223bab0fcbf6ab947afc9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1033d1ab",
+        "filename": "yardstick/benchmark/scenarios/lib/attach_volume.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-27T12:40:25Z",
+      "side": 1,
+      "message": "This server_dict and volume_dict are just the server and volume objects returned from a call to get_server or get_volume",
+      "range": {
+        "startLine": 63,
+        "startChar": 31,
+        "endLine": 63,
+        "endChar": 66
+      },
+      "revId": "c1bb6363ddc15f985d3223bab0fcbf6ab947afc9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
