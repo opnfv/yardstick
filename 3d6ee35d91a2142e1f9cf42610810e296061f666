@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_2ec30aee",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc093.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-04-28T20:14:34Z",
+      "side": 1,
+      "message": "We need to ensure that the VMs get started on the specific compute hosts on which OVS gets killed and restarted. I don\u0027t see this happening here. This could be done by means of specifying a host as availability zone (for instance).",
+      "range": {
+        "startLine": 294,
+        "startChar": 8,
+        "endLine": 307,
+        "endChar": 30
+      },
+      "revId": "3d6ee35d91a2142e1f9cf42610810e296061f666",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
