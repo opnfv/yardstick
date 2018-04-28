@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_6e151248",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc093.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-04-28T21:56:55Z",
+      "side": 1,
+      "message": "well, terminology... This reads as if the vswitches are actually highly available in the sense that they are capable of providing service even if a switch restarts. I don\u0027t think this is the case. a better term is maybe \"resilience\"",
+      "range": {
+        "startLine": 18,
+        "startChar": 70,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "cde7fa01e08edfd8c68161166ba7c8a03b30a028",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ae0a7a23",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc093.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-04-28T21:56:55Z",
+      "side": 1,
+      "message": "\"both compute nodes\" sounds like a specific reference. The text did not mention any two compute nodes before to which it can refer here.",
+      "range": {
+        "startLine": 20,
+        "startChar": 20,
+        "endLine": 20,
+        "endChar": 38
+      },
+      "revId": "cde7fa01e08edfd8c68161166ba7c8a03b30a028",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ce0d4640",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc093.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-04-28T21:56:55Z",
+      "side": 1,
+      "message": "a vswitch is always a single component on a compute node",
+      "range": {
+        "startLine": 20,
+        "startChar": 70,
+        "endLine": 21,
+        "endChar": 37
+      },
+      "revId": "cde7fa01e08edfd8c68161166ba7c8a03b30a028",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8e105e5a",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc093.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-04-28T21:56:55Z",
+      "side": 1,
+      "message": "I would relax this statement. There will certainly be packet loss when restarting the vswitch, but it should recover after some time.",
+      "range": {
+        "startLine": 38,
+        "startChar": 68,
+        "endLine": 39,
+        "endChar": 32
+      },
+      "revId": "cde7fa01e08edfd8c68161166ba7c8a03b30a028",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4e1ad67d",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc093.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-04-28T21:56:55Z",
+      "side": 1,
+      "message": "\"zero\" meaning no outage? We do expect some outage, but we also expect that the connectivity is re-established after some time.",
+      "range": {
+        "startLine": 146,
+        "startChar": 17,
+        "endLine": 147,
+        "endChar": 25
+      },
+      "revId": "cde7fa01e08edfd8c68161166ba7c8a03b30a028",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2e1f8a6d",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc093.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 585
+      },
+      "writtenOn": "2018-04-28T21:56:55Z",
+      "side": 1,
+      "message": "copy and paste artifact from a previous version? :-)",
+      "range": {
+        "startLine": 180,
+        "startChar": 18,
+        "endLine": 182,
+        "endChar": 38
+      },
+      "revId": "cde7fa01e08edfd8c68161166ba7c8a03b30a028",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
