@@ -116,6 +116,24 @@
       "revId": "ed5ac0daf28ecb76a30de4f74d2190e194c4a571",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_64a2534c",
+        "filename": "tools/run_tests.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-30T15:58:33Z",
+      "side": 1,
+      "message": "Those scenarios works, so replaced to use those scenarios in the latest patch-set.",
+      "parentUuid": "5a3f45e8_a4cf3b55",
+      "revId": "ed5ac0daf28ecb76a30de4f74d2190e194c4a571",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
