@@ -192,11 +192,20 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         port_nums = self.vnfd_helper.port_nums(ports)
         # create mask from all the dpdk port numbers
         ports_mask_hex = hex(sum(2 ** num for num in port_nums))
+
+        vnf_cfg = self.scenario_helper.vnf_cfg
+        lb_config = vnf_cfg.get('lb_config', 'SW')
+        worker_threads = vnf_cfg.get('worker_threads', 3)
+        hwlb = ''
+        if lb_config == 'HW':
+            hwlb = ' --hwlb %s' % worker_threads
+
         self.pipeline_kwargs = {
             'cfg_file': self.CFG_CONFIG,
             'script': self.CFG_SCRIPT,
             'port_mask_hex': ports_mask_hex,
             'tool_path': tool_path,
+            'hwlb': hwlb,
         }
 
     def setup_vnf_environment(self):

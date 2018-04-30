@@ -21,10 +21,10 @@ from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF, Dpd
 LOG = logging.getLogger(__name__)
 
 # CGNAPT should work the same on all systems, we can provide the binary
-CGNAPT_PIPELINE_COMMAND = 'sudo {tool_path} -p {port_mask_hex} -f {cfg_file} -s {script}'
+CGNAPT_PIPELINE_COMMAND = 'sudo {tool_path} -p {port_mask_hex} -f {cfg_file} -s {script} {hwlb}'
 WAIT_FOR_STATIC_NAPT = 4
 
-CGNAPT_COLLECT_KPI = """\
+CGNAPT_COLLECT_KPI = r"""\
 CG-NAPT(.*\n)*\
 Received\s(\d+),\
 Missed\s(\d+),\
