@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_d06689ba",
+        "filename": "tests/unit/network_services/collector/test_subscriber.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-04-30T12:25:53Z",
+      "side": 1,
+      "message": "This test will be changed in the following review \nhttps://gerrit.opnfv.org/gerrit/#/c/54979/10/tests/unit/network_services/collector/test_subscriber.py",
+      "parentUuid": "5a3f45e8_bdb11691",
+      "range": {
+        "startLine": 84,
+        "startChar": 8,
+        "endLine": 85,
+        "endChar": 34
+      },
+      "revId": "c3170a5c28a8fcf7658541519b9227e3fe193f2d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_bd8ab6bc",
         "filename": "tests/unit/network_services/nfvi/test_resource.py",
         "patchSetId": 10
