@@ -1,0 +1,54 @@
+##############################################################################
+# Copyright (c) 2018 Intel.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# Test suite for running scenarios testing OpenStack APIs
+
+schema: "yardstick:suite:0.1"
+
+name: "OpenStack API test suite"
+test_cases_dir: "yardstick/tests/integration/openstack_api"
+test_cases:
+-
+  file_name: create_flavor.yaml
+-
+  file_name: create_image.yaml
+-
+  file_name: create_keypair.yaml
+-
+  file_name: create_volume.yaml
+-
+  file_name: create_network.yaml
+-
+  file_name: create_subnet.yaml
+-
+  file_name: create_router.yaml
+-
+  file_name: create_server.yaml
+-
+  file_name: attach_volume.yaml
+-
+  file_name: get_server.yaml
+  task_args:
+    default: '{"server_name": "my-test-server"}'
+-
+  file_name: detach_volume.yaml
+-
+  file_name: delete_server.yaml
+-
+  file_name: delete_router.yaml
+-
+  file_name: delete_network.yaml
+-
+  file_name: delete_volume.yaml
+-
+  file_name: delete_keypair.yaml
+-
+  file_name: delete_image.yaml
+-
+  file_name: delete_flavor.yaml
