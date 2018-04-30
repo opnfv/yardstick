@@ -22,6 +22,30 @@
       "revId": "f6da377526847c02030bdfb11bc717121994116d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_04c26f33",
+        "filename": "yardstick/benchmark/scenarios/lib/delete_image.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-30T14:44:04Z",
+      "side": 1,
+      "message": "This default value is something which was used in shade client.",
+      "parentUuid": "5a3f45e8_24a84b8c",
+      "range": {
+        "startLine": 31,
+        "startChar": 51,
+        "endLine": 31,
+        "endChar": 55
+      },
+      "revId": "f6da377526847c02030bdfb11bc717121994116d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
