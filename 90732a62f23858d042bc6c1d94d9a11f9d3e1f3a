@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e45ca31b",
+        "filename": "yardstick/benchmark/scenarios/lib/detach_volume.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-30T12:39:16Z",
+      "side": 1,
+      "message": "This should use server_name_or_id and volume_name_or_id",
+      "range": {
+        "startLine": 40,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 54
+      },
+      "revId": "90732a62f23858d042bc6c1d94d9a11f9d3e1f3a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
