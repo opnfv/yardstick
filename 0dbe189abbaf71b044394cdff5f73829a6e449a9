@@ -22,6 +22,30 @@
       "revId": "0dbe189abbaf71b044394cdff5f73829a6e449a9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e46663ba",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-04-30T13:13:06Z",
+      "side": 1,
+      "message": "Intention of using \u0027GB\u0027 was to avoid any confusion as lower case \u0027gb\u0027 might confuse user.",
+      "parentUuid": "5a3f45e8_c473677e",
+      "range": {
+        "startLine": 30,
+        "startChar": 34,
+        "endLine": 30,
+        "endChar": 41
+      },
+      "revId": "0dbe189abbaf71b044394cdff5f73829a6e449a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
