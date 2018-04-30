@@ -22,6 +22,30 @@
       "revId": "6d417b1aab9a3b1f8899f87d3fdbe6ad1ff8a303",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_44063787",
+        "filename": "yardstick/tests/integration/openstack_api/attach_volume.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-30T15:22:34Z",
+      "side": 1,
+      "message": "This is what I get for copying and pasting",
+      "parentUuid": "5a3f45e8_44df570d",
+      "range": {
+        "startLine": 31,
+        "startChar": 13,
+        "endLine": 31,
+        "endChar": 16
+      },
+      "revId": "6d417b1aab9a3b1f8899f87d3fdbe6ad1ff8a303",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
