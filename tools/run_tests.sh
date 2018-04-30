@@ -75,6 +75,12 @@ run_functional_test() {
     fi
 }
 
+run_integration_test() {
+    wget http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img -O my-test-image-file
+    yardstick -d task start --suite yardstick/tests/integration/suite_openstack_api.yaml
+    rm -f my-test-image-file
+}
+
 if [[ $opts =~ "--unit" ]]; then
     run_tests
 fi
@@ -85,6 +91,10 @@ fi
 
 if [[ $opts =~ "--functional" ]]; then
     run_functional_test
+fi
+
+if [[ $opts =~ "--integration" ]]; then
+    run_integration_test
 fi
 
 if [[ -z $opts ]]; then
