@@ -20,7 +20,7 @@ import mock
 
 from tests.unit import STL_MOCKS
 from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
-
+from yardstick.common import utils
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
@@ -78,6 +78,32 @@ link 1 up
         helper = CgnaptApproxSetupEnvHelper(mock.Mock(), mock.Mock(), mock.Mock())
         with self.assertRaises(NotImplementedError):
             helper.scale()
+
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
+    @mock.patch.object(utils, 'find_relative_file')
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig')
+    @mock.patch.object(utils, 'open_relative_file')
+    def test_build_config(self, *args):
+        vnfd_helper = mock.Mock()
+        ssh_helper = mock.Mock()
+        scenario_helper = mock.Mock()
+        scenario_helper.vnf_cfg = {}
+        scenario_helper.all_options = {}
+
+        cgnat_approx_setup_helper = CgnaptApproxSetupEnvHelper(vnfd_helper,
+                                                               ssh_helper,
+                                                               scenario_helper)
+
+        expected = 'sudo tool_path -p 0x3 -f config -s script  --hwlb 1'
+        cgnat_approx_setup_helper._build_pipeline_kwargs = mock.Mock()
+        cgnat_approx_setup_helper.pipeline_kwargs = {
+            'cfg_file': 'config',
+            'script': 'script',
+            'port_mask_hex': '0x3',
+            'tool_path': 'tool_path',
+            'hwlb': ' --hwlb 1',
+        }
+        self.assertEqual(cgnat_approx_setup_helper.build_config(), expected)
 
 
 @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Process")
