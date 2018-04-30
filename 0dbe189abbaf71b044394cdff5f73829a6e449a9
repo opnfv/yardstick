@@ -46,6 +46,30 @@
       "revId": "0dbe189abbaf71b044394cdff5f73829a6e449a9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_840ddfea",
+        "filename": "yardstick/benchmark/scenarios/lib/create_volume.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-04-30T13:28:46Z",
+      "side": 1,
+      "message": "i Just want to be consistent in each places. I cannot find any example of upper case field name usage. For lower case I\u0027ve found some:\n\n`interface_speed_gbps`\n`hugepages_gb`\n\nSo, I suggest to change it to lower case too.",
+      "parentUuid": "5a3f45e8_e46663ba",
+      "range": {
+        "startLine": 30,
+        "startChar": 34,
+        "endLine": 30,
+        "endChar": 41
+      },
+      "revId": "0dbe189abbaf71b044394cdff5f73829a6e449a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
