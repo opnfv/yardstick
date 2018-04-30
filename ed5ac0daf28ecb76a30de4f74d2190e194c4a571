@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_04d9cf21",
+        "filename": "tools/run_tests.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-30T15:21:49Z",
+      "side": 1,
+      "message": "See below.",
+      "parentUuid": "5a3f45e8_e4a783a5",
+      "revId": "ed5ac0daf28ecb76a30de4f74d2190e194c4a571",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_04ab8f75",
         "filename": "tools/run_tests.sh",
         "patchSetId": 1
@@ -77,6 +95,24 @@
       "writtenOn": "2018-04-30T14:28:27Z",
       "side": 1,
       "message": "I suggest to replace it with DeleteFlavor scenario",
+      "revId": "ed5ac0daf28ecb76a30de4f74d2190e194c4a571",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a4cf3b55",
+        "filename": "tools/run_tests.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-04-30T15:21:49Z",
+      "side": 1,
+      "message": "The DeleteFlavor (and CreateFlavor) scenarios are still using neutron client at this stage, and we haven\u0027t tested them yet. \nIf we get those scenarios/testcases running, then we can remove the flavor createion/deletion here.",
+      "parentUuid": "5a3f45e8_44b8f7c7",
       "revId": "ed5ac0daf28ecb76a30de4f74d2190e194c4a571",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
