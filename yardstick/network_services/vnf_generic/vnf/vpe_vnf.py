@@ -31,7 +31,7 @@ from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF, Dpd
 
 LOG = logging.getLogger(__name__)
 
-VPE_PIPELINE_COMMAND = """sudo {tool_path} -p {port_mask_hex} -f {cfg_file} -s {script}"""
+VPE_PIPELINE_COMMAND = "sudo {tool_path} -p {port_mask_hex} -f {cfg_file} -s {script} {hwlb}"
 
 VPE_COLLECT_KPI = """\
 Pkts in:\\s(\\d+)\r\n\
