@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_df71720d",
+        "filename": "tools/python_wrapper.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-05-01T15:59:52Z",
+      "side": 1,
+      "message": "https://docs.python.org/2/library/optparse.html\n\nDeprecated since version 2.7: The optparse module is deprecated and will not be developed further; development will continue with the argparse module.",
+      "revId": "bb14488528276d0ea846edd93cca55173a1ec816",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_3fdfb60e",
         "filename": "tools/python_wrapper.py",
         "patchSetId": 4
@@ -13,6 +30,30 @@
       "writtenOn": "2018-05-01T13:26:07Z",
       "side": 1,
       "message": "Make this a hyphen instead, to stay consistent with other command line tools",
+      "range": {
+        "startLine": 21,
+        "startChar": 33,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "bb14488528276d0ea846edd93cca55173a1ec816",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3f62163e",
+        "filename": "tools/python_wrapper.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-05-01T15:59:52Z",
+      "side": 1,
+      "message": "argparse might auto-handle this",
+      "parentUuid": "5a3f45e8_3fdfb60e",
       "range": {
         "startLine": 21,
         "startChar": 33,
