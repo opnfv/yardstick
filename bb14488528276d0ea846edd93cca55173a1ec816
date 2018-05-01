@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_5f5d6278",
+        "filename": "tools/python_wrapper.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1402
+      },
+      "writtenOn": "2018-05-01T16:09:57Z",
+      "side": 1,
+      "message": "looks like no it won\u0027t take both, but it converts - to _ in the \n\nhttps://stackoverflow.com/questions/12834785/having-options-in-argparse-with-a-dash",
+      "parentUuid": "5a3f45e8_3f62163e",
+      "range": {
+        "startLine": 21,
+        "startChar": 33,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "bb14488528276d0ea846edd93cca55173a1ec816",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_1fe47adf",
         "filename": "tools/python_wrapper.py",
         "patchSetId": 4
