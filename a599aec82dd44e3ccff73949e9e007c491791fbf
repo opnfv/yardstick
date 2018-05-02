@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_22d31a05",
+        "filename": "ansible/install_dependencies.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-02T14:37:53Z",
+      "side": 1,
+      "message": "This script is not used by any other script/role/etc.\n\nWe should delete it.",
+      "revId": "a599aec82dd44e3ccff73949e9e007c491791fbf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
