@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_0271be75",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-02T13:04:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_df58518c",
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_df0a1178",
         "filename": "yardstick/benchmark/scenarios/availability/attacker/attacker_process.py",
         "patchSetId": 2
@@ -59,6 +77,48 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_426746b7",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/attacker_process.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-02T13:04:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_df0a1178",
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_626a4282",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/attacker_process.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-02T13:04:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_bf0f4587",
+      "range": {
+        "startLine": 54,
+        "startChar": 17,
+        "endLine": 54,
+        "endChar": 18
+      },
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_1f28f9e0",
         "filename": "yardstick/benchmark/scenarios/availability/director.py",
         "patchSetId": 2
@@ -70,6 +130,30 @@
       "writtenOn": "2018-05-02T07:53:46Z",
       "side": 1,
       "message": "This is trivial and not needed",
+      "range": {
+        "startLine": 83,
+        "startChar": 67,
+        "endLine": 83,
+        "endChar": 85
+      },
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_02f89ec1",
+        "filename": "yardstick/benchmark/scenarios/availability/director.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-02T13:04:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_1f28f9e0",
       "range": {
         "startLine": 83,
         "startChar": 67,
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_82894e77",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_command.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-02T13:04:46Z",
+      "side": 1,
+      "message": "Can this be completely removed from both monitor_command.py and monitor_process.py? The functionality is used similarly in yardstick test cases, and the unit tests in test_basemonitor.py already test MonitorMgr\u0027s relation to BaseMonitor and its subclasses.",
+      "parentUuid": "5a3f45e8_3f1b35cb",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 11
+      },
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_1f6f592c",
         "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_multi.py",
         "patchSetId": 2
@@ -116,6 +224,30 @@
       "writtenOn": "2018-05-02T07:53:46Z",
       "side": 1,
       "message": "It\u0027s ok to change the text of a log message without testing, but not the code itself. It doesn\u0027t matter if the change is trivial or logical.",
+      "range": {
+        "startLine": 60,
+        "startChar": 12,
+        "endLine": 60,
+        "endChar": 16
+      },
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6201a2ae",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_multi.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-02T13:04:46Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "5a3f45e8_1f6f592c",
       "range": {
         "startLine": 60,
         "startChar": 12,
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_42fe26af",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_process.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-02T13:04:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_ff6b8d1b",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 11
+      },
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_5f7561f8",
         "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
         "patchSetId": 2
@@ -162,6 +318,30 @@
       "writtenOn": "2018-05-02T07:53:46Z",
       "side": 1,
       "message": "Please, use parentheses [1]:\n\n\"The preferred way of wrapping long lines is by using Python\u0027s implied line continuation inside parentheses, brackets and braces. Long lines can be broken over multiple lines by wrapping expressions in parentheses. These should be used in preference to using a backslash for line continuation.\"\n\n[1] https://www.python.org/dev/peps/pep-0008/#maximum-line-length",
+      "range": {
+        "startLine": 81,
+        "startChar": 15,
+        "endLine": 82,
+        "endChar": 79
+      },
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2274ba66",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-02T13:04:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_5f7561f8",
       "range": {
         "startLine": 81,
         "startChar": 15,
