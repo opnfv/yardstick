@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_a2628a3b",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/start_service.bash",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-02T15:31:57Z",
+      "side": 1,
+      "message": "You should do a positive check for distro, i.e. if \"$Distributer\" \u003d \"xxx\" instead of assuming that the user is on only RH or ubuntu. \n\nThis prevents issues in future if additional distros are supported, and prevents issues if someone wants to run HA tests outside the gate.",
+      "range": {
+        "startLine": 20,
+        "startChar": 5,
+        "endLine": 20,
+        "endChar": 31
+      },
+      "revId": "dea0c0a8c040d717cb715d376f6b85a32835b388",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
