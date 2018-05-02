@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_02affe2a",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/restart_service.bash",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-02T16:33:24Z",
+      "side": 1,
+      "message": "This script is the same as start_service.bash, just with the modifications in L29 and L31. Does it make sense to copy-paste everything? Or just add a new parameter:\n\n  command\u003d$2  # \u0027start\u0027, \u0027restart\u0027\n\nTo avoid modifying the existing code (using start_service.bash), a default value can be set.",
+      "revId": "23d03505b9a9a8a83d6c456dbcc15d45ea5320b6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_e258128c",
         "filename": "yardstick/benchmark/scenarios/availability/ha_tools/restart_service.bash",
         "patchSetId": 4
