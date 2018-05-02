@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_df58518c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-02T07:53:46Z",
+      "side": 1,
+      "message": "Please, fill a jira ticket in [1] and add it to the commit message [2]:\n\nJIRA: YARDSTICK-XXX\n\n[1] https://jira.opnfv.org/projects/YARDSTICK/issues/\n[2] https://wiki.opnfv.org/display/DEV/Contribution+Guidelines#ContributionGuidelines-Gitcommitmessagestyle",
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_df0a1178",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/attacker_process.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-02T07:53:46Z",
+      "side": 1,
+      "message": "leave an spaceditto",
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_bf0f4587",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/attacker_process.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-02T07:53:46Z",
+      "side": 1,
+      "message": "Capital letter",
+      "range": {
+        "startLine": 54,
+        "startChar": 17,
+        "endLine": 54,
+        "endChar": 18
+      },
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1f28f9e0",
+        "filename": "yardstick/benchmark/scenarios/availability/director.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-02T07:53:46Z",
+      "side": 1,
+      "message": "This is trivial and not needed",
+      "range": {
+        "startLine": 83,
+        "startChar": 67,
+        "endLine": 83,
+        "endChar": 85
+      },
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3f1b35cb",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_command.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-02T07:53:46Z",
+      "side": 1,
+      "message": "This should be deleted.\n\nThese kind of testing must be characterized as unit testing or functional testing.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 11
+      },
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1f6f592c",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_multi.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-02T07:53:46Z",
+      "side": 1,
+      "message": "It\u0027s ok to change the text of a log message without testing, but not the code itself. It doesn\u0027t matter if the change is trivial or logical.",
+      "range": {
+        "startLine": 60,
+        "startChar": 12,
+        "endLine": 60,
+        "endChar": 16
+      },
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ff6b8d1b",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_process.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-02T07:53:46Z",
+      "side": 1,
+      "message": "ditto. This must go to UTs or FTs.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 11
+      },
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5f7561f8",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-02T07:53:46Z",
+      "side": 1,
+      "message": "Please, use parentheses [1]:\n\n\"The preferred way of wrapping long lines is by using Python\u0027s implied line continuation inside parentheses, brackets and braces. Long lines can be broken over multiple lines by wrapping expressions in parentheses. These should be used in preference to using a backslash for line continuation.\"\n\n[1] https://www.python.org/dev/peps/pep-0008/#maximum-line-length",
+      "range": {
+        "startLine": 81,
+        "startChar": 15,
+        "endLine": 82,
+        "endChar": 79
+      },
+      "revId": "de03dabc046fabfae003b7597ebb8463305c91d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
