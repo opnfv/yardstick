@@ -16,4 +16,4 @@
   hosts: all
 
   roles:
-    - install_dependencies
+    - install_dependencies_jumphost
