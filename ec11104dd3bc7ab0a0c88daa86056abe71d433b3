@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_05cd4885",
+        "filename": "yardstick/benchmark/scenarios/lib/get_server.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-02T20:23:04Z",
+      "side": 1,
+      "message": "This is not mandatory. This could be None and the server will be retrieved using the filters.",
+      "range": {
+        "startLine": 52,
+        "startChar": 38,
+        "endLine": 52,
+        "endChar": 59
+      },
+      "revId": "ec11104dd3bc7ab0a0c88daa86056abe71d433b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
