@@ -13,9 +13,6 @@
 # limitations under the License.
 #
 
-# Unittest for yardstick.network_services.collector.publisher
-
-from __future__ import absolute_import
 import unittest
 
 from yardstick.network_services.collector import publisher
