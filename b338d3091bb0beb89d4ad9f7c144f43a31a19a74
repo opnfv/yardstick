@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_22415aa9",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_multi.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-02T15:27:28Z",
+      "side": 0,
+      "message": "This is a debug message, and is not generally visible in the logs unless you use the -d/--debug flag.\n\nIMHO, it doesn\u0027t need to be removed",
+      "range": {
+        "startLine": 65,
+        "startChar": 7,
+        "endLine": 65,
+        "endChar": 52
+      },
+      "revId": "b338d3091bb0beb89d4ad9f7c144f43a31a19a74",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_82802ec1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-02T15:27:28Z",
+      "side": 1,
+      "message": "This should be \"Fix typos in logs\"\n\nThe body f the commit should specify that you\u0027re fixing a subset of the logs",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 52
+      },
+      "revId": "56fd6eaf67f8af45aba66bbe03f56ee17bd3f588",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e28132c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-02T15:27:28Z",
+      "side": 1,
+      "message": "This is a separate change.\n\nAny testcases removed should be converted to unit/functional tests if they don\u0027t already exist.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 19
+      },
+      "revId": "56fd6eaf67f8af45aba66bbe03f56ee17bd3f588",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a22d6a00",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-02T15:27:28Z",
+      "side": 1,
+      "message": "This Jira ticket should be multiple items (fix typo and increase code quality)\n\nimproving code quality should probably be an epic/theme for the Gambia release, with updates posted against the epic -- there\u0027s no need to create this epic for now though.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "56fd6eaf67f8af45aba66bbe03f56ee17bd3f588",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8232ee5c",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/attacker_process.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-02T15:27:28Z",
+      "side": 1,
+      "message": "Unless we\u0027re using the outputs, you don\u0027t have to assign these to any variable.\n\n    self.connection.execute(...",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 22
+      },
+      "revId": "56fd6eaf67f8af45aba66bbe03f56ee17bd3f588",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_e233f25f",
+        "filename": "yardstick/benchmark/scenarios/availability/attacker/attacker_process.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-02T15:27:28Z",
+      "side": 1,
+      "message": "Should be:\n   Failed to restart service: ...",
+      "revId": "56fd6eaf67f8af45aba66bbe03f56ee17bd3f588",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c238763f",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_command.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-02T15:27:28Z",
+      "side": 1,
+      "message": "This should catch subprocess.CalledProcessError [1] rather than ignoring the broad-except check\n\nhttps://docs.python.org/2/library/subprocess.html#subprocess.check_output",
+      "range": {
+        "startLine": 27,
+        "startChar": 11,
+        "endLine": 27,
+        "endChar": 20
+      },
+      "revId": "56fd6eaf67f8af45aba66bbe03f56ee17bd3f588",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_22283ae1",
+        "filename": "yardstick/benchmark/scenarios/availability/scenario_general.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-02T15:27:28Z",
+      "side": 1,
+      "message": "You should add something a bit more useful here. LOG.exception prints a stack trace, but it can be difficult to pinpoint the cause. A message saying there was an error in step X of Y, that would be more useful than a stack trace with no idea of which step it occurred in",
+      "range": {
+        "startLine": 50,
+        "startChar": 15,
+        "endLine": 50,
+        "endChar": 33
+      },
+      "revId": "56fd6eaf67f8af45aba66bbe03f56ee17bd3f588",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_421bc6c9",
+        "filename": "yardstick/benchmark/scenarios/availability/scenario_general.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-02T15:27:28Z",
+      "side": 1,
+      "message": "assert statements in Python are used as a debugging tool. They should not be used for normal operations, as they can be optimised out of the code.\n\nThis should use an if statement, and throw a custom error if the condition fails. e.g. SLAValidationFailure (which should be defined in yardstick/common/exceptions.py)\n\n    if not verify_result:\n        raise y_exc.SLAValidationError(self.__scenario_type__)\n\nThis should be addressed in a separate commit, and logged against JIRA: YARDSTICK-966",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 36
+      },
+      "revId": "56fd6eaf67f8af45aba66bbe03f56ee17bd3f588",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a27baaf3",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-02T15:27:28Z",
+      "side": 1,
+      "message": "same as in the other file, assert shouldn\u0027t be used like this",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 59
+      },
+      "revId": "56fd6eaf67f8af45aba66bbe03f56ee17bd3f588",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
