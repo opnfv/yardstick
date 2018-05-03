@@ -22,6 +22,30 @@
       "revId": "131b9f04a360ccc894510a275bd33c57634608fc",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d307aa16",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/start_service.bash",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T10:08:29Z",
+      "side": 1,
+      "message": "Because some times we need to do a restart and not just a start of a service.\n\nThis way we add the capability to start or restart the service by passing the $2 argument in the start_service.bash script.\n\nUntil now we haven\u0027t gotten the capability to restart the service we could only start a service.\n\nWith this change the user can restart or start a service but we keep the start of a service as a default operation",
+      "parentUuid": "5a3f45e8_0876fdd6",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 1
+      },
+      "revId": "131b9f04a360ccc894510a275bd33c57634608fc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
