@@ -1,0 +1,9 @@
+Code-Review+2: Rodolfo Alonso Hernandez <rodolfo.alonso.hernandez@intel.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Emma Foley <emma.l.foley@intel.com>
+Verified+1: Emma Foley <emma.l.foley@intel.com>
+Submitted-by: Emma Foley <emma.l.foley@intel.com>
+Submitted-at: Thu, 03 May 2018 10:35:18 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/54911
+Project: yardstick
+Branch: refs/heads/master
