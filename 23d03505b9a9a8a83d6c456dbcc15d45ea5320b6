@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_087b9d28",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/restart_service.bash",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-03T08:34:17Z",
+      "side": 1,
+      "message": "Exactly! PS5 in my opinion is the right path.",
+      "parentUuid": "5a3f45e8_4553d038",
+      "revId": "23d03505b9a9a8a83d6c456dbcc15d45ea5320b6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_e258128c",
         "filename": "yardstick/benchmark/scenarios/availability/ha_tools/restart_service.bash",
         "patchSetId": 4
