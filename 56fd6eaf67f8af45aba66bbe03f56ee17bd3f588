@@ -180,6 +180,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_851f986b",
+        "filename": "yardstick/benchmark/scenarios/availability/scenario_general.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-03T07:47:16Z",
+      "side": 1,
+      "message": "Yes, absolutely so. I could work on YARDSTICK-966, and change the assertion in separate places.",
+      "parentUuid": "5a3f45e8_421bc6c9",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 36
+      },
+      "revId": "56fd6eaf67f8af45aba66bbe03f56ee17bd3f588",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_a27baaf3",
         "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
         "patchSetId": 3
