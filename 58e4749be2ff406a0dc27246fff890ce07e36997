@@ -46,6 +46,30 @@
       "revId": "58e4749be2ff406a0dc27246fff890ce07e36997",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8867ad4c",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/start_service.bash",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-03T08:45:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_286f792c",
+      "range": {
+        "startLine": 17,
+        "startChar": 13,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "58e4749be2ff406a0dc27246fff890ce07e36997",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
