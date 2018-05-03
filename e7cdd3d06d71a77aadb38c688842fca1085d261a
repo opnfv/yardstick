@@ -22,6 +22,30 @@
       "revId": "e7cdd3d06d71a77aadb38c688842fca1085d261a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f3dbc679",
+        "filename": "yardstick/tests/integration/openstack_api/create_volume.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-05-03T11:59:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_c83ed5d9",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "e7cdd3d06d71a77aadb38c688842fca1085d261a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
