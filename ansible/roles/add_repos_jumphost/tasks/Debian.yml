@@ -37,8 +37,7 @@
     replace: "# deb-src "
 
 - name: Add extra architecture
-  apt:
-    dpkg_options: "add-architecture {{ extra_arch }}"
+  command: "dpkg --add-architecture {{ extra_arch }}"
 
 - name: Define the default release version
   copy:
