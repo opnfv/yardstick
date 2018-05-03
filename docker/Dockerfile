@@ -31,13 +31,13 @@ RUN pip install appdirs==1.4.0 pyopenssl==17.5.0 python-openstackclient==3.11.0 
 RUN mkdir -p ${REPOS_DIR}
 
 RUN git config --global http.sslVerify false
-##RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR}
-RUN mkdir ${YARDSTICK_REPO_DIR}
-COPY ./ ${YARDSTICK_REPO_DIR}
+RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR}
+#RUN mkdir ${YARDSTICK_REPO_DIR}
+#COPY ./ ${YARDSTICK_REPO_DIR}
 RUN git clone --depth 1 https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR}
 RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/storperf ${STORPERF_REPO_DIR}
 
-RUN ansible-playbook -vvv -e INSTALLATION_MODE="container" ${YARDSTICK_REPO_DIR}/ansible/install.yaml
+RUN ansible-playbook -c local -vvv -e INSTALLATION_MODE="container" ${YARDSTICK_REPO_DIR}/ansible/install.yaml
 
 RUN ${YARDSTICK_REPO_DIR}/docker/supervisor.sh
 
