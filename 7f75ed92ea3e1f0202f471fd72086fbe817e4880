@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e8975138",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/start_service.bash",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-03T08:34:17Z",
+      "side": 1,
+      "message": "This should be:\noperation\u003d${2-start}",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 23
+      },
+      "revId": "7f75ed92ea3e1f0202f471fd72086fbe817e4880",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
