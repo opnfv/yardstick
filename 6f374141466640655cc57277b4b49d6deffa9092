@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_f994458c",
+        "filename": "etc/yardstick/nodes/apex_virtual/pod.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-04T15:09:24Z",
+      "side": 1,
+      "message": "Are you not using ODL with the virtual?",
+      "revId": "6f374141466640655cc57277b4b49d6deffa9092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_f3891d76",
         "filename": "tests/ci/prepare_env.sh",
         "patchSetId": 9
@@ -13,6 +30,24 @@
       "writtenOn": "2018-04-23T20:29:53Z",
       "side": 1,
       "message": "Ideally we want to move this kind of thing into Ansible and stop writing tricky bash code.  Apex might even already have some Ansible to do this.\n\n\n ansible-playbook -i localhost, create_apex_pod_yaml.yml\n\nYou can do things like\n\n create_apex_pod_yaml.yaml:\n\n - hosts: localhost\n\n  tasks:\n    - name: add apex undercloud host\n      add_host:\n        name: apex_undercloud\n        ansible_ssh_host: \"{{ lookup(\u0027env\u0027, \u0027INSTALLER_IP\u0027) }}\"\n        ansible_user: root\n        ansible_ssh_private_key_file: \"{{ lookup(\u0027env\u0027, \u0027SSH_KEY\u0027) }}\"\n        ansible_ssh_extra_args: \"-o UserKnownHostsFile\u003d/dev/null -o StrictHostKeyChecking\u003dno\"\n\n - hosts: apex_undercloud\n  tasks:\n    - name: get undercloud node_info\n      shell: \"source /home/stack/stackrc \u0026\u0026 openstack server list -f yaml\"\n      register: node_info\n\n\n    - name: set node_info fact\n      set_fact:\n          apex_node_info: \"{{ node_info.stdout | from_yaml}}\"\n      when: node_info.stdout\n\n    - name: get controller ips\n      set_fact:\n        contoller_ips: \"{% for node in apex_node_info if \u0027control\u0027 in node[\u0027name\u0027 %} grep something {% %}}\"\n\nsee also https://git.opnfv.org/yardstick/tree/ansible/prepare_env.yml\n\nYou can generate pod.yaml from Jinja2 templates.\n\nFor example:\nhttps://git.opnfv.org/yardstick/tree/ansible/roles/create_fuel_pod_yaml\nhttps://git.opnfv.org/yardstick/tree/ansible/roles/create_node_pod_yaml",
+      "revId": "6f374141466640655cc57277b4b49d6deffa9092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_598e197a",
+        "filename": "tests/ci/prepare_env.sh",
+        "patchSetId": 9
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-04T15:09:24Z",
+      "side": 1,
+      "message": "I agree, this should be in ansible as well. Unfortunately, at the moment we\u0027re between ansible and bash, so it\u0027ll need to be temporarily in both as we haven\u0027t completely removed the bash scripts yet.",
+      "parentUuid": "5a3f45e8_f3891d76",
       "revId": "6f374141466640655cc57277b4b49d6deffa9092",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
