@@ -41,6 +41,7 @@ def create_service(template,
                    namespace='default',
                    wait=False,
                    **kwargs):       # pragma: no cover
+    # pylint: disable=unused-argument
     core_v1_api = get_core_api()
     metadata = client.V1ObjectMeta(**template.get('metadata', {}))
 
@@ -87,7 +88,7 @@ def create_replication_controller(template,
                                   namespace='default',
                                   wait=False,
                                   **kwargs):    # pragma: no cover
-
+    # pylint: disable=unused-argument
     core_v1_api = get_core_api()
     try:
         core_v1_api.create_namespaced_replication_controller(namespace,
@@ -102,7 +103,7 @@ def delete_replication_controller(name,
                                   namespace='default',
                                   wait=False,
                                   **kwargs):    # pragma: no cover
-
+    # pylint: disable=unused-argument
     core_v1_api = get_core_api()
     body = kwargs.get('body', client.V1DeleteOptions())
     kwargs.pop('body', None)
@@ -120,7 +121,7 @@ def delete_pod(name,
                namespace='default',
                wait=False,
                **kwargs):    # pragma: no cover
-
+    # pylint: disable=unused-argument
     core_v1_api = get_core_api()
     body = kwargs.get('body', client.V1DeleteOptions())
     kwargs.pop('body', None)
@@ -148,6 +149,7 @@ def read_pod(name,
 
 
 def read_pod_status(name, namespace='default', **kwargs):   # pragma: no cover
+    # pylint: disable=unused-argument
     return read_pod(name).status.phase
 
 
@@ -156,6 +158,7 @@ def create_config_map(name,
                       namespace='default',
                       wait=False,
                       **kwargs):   # pragma: no cover
+    # pylint: disable=unused-argument
     core_v1_api = get_core_api()
     metadata = client.V1ObjectMeta(name=name)
     body = client.V1ConfigMap(data=data, metadata=metadata)
@@ -170,6 +173,7 @@ def delete_config_map(name,
                       namespace='default',
                       wait=False,
                       **kwargs):     # pragma: no cover
+    # pylint: disable=unused-argument
     core_v1_api = get_core_api()
     body = kwargs.get('body', client.V1DeleteOptions())
     kwargs.pop('body', None)
@@ -195,3 +199,9 @@ def get_pod_list(namespace='default'):      # pragma: no cover
 def get_pod_by_name(name):  # pragma: no cover
     pod_list = get_pod_list()
     return next((n for n in pod_list.items if n.metadata.name.startswith(name)), None)
+
+
+def get_volume_types():
+    """Return the "volume" types supported by the current API"""
+    return [vtype for vtype in client.V1Volume.attribute_map.values()
+            if vtype != 'name']
