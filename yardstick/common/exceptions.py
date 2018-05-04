@@ -195,6 +195,10 @@ class WaitTimeout(YardstickException):
     message = 'Wait timeout while waiting for condition'
 
 
+class KubernetesTemplateInvalidVolumeType(YardstickException):
+    message = 'No valid "volume" types present in %(volume)s'
+
+
 class ScenarioCreateNetworkError(YardstickException):
     message = 'Create Neutron Network Scenario failed'
 
