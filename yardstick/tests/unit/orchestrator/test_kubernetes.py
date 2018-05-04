@@ -7,6 +7,8 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+import copy
+
 import mock
 
 from yardstick.common import exceptions
@@ -48,7 +50,8 @@ service ssh restart;while true ; do sleep 10000; done"
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/tmp/.ssh/",
-                                        "name": "k8s-86096c30-key"
+                                        "name": "k8s-86096c30-key",
+                                        "readOnly": False
                                     }
                                 ]
                             }
@@ -133,15 +136,61 @@ class KubernetesObjectTestCase(base.BaseUnitTestCase):
         k8s_obj = kubernetes.KubernetesObject('name', ssh_key='fake_sshkey')
         self.assertEqual(expected, k8s_obj._create_ssh_key_volume())
 
-    def test__create_volume(self):
+    def test__create_volume_item(self):
         for vol_type in kubernetes_utils.get_volume_types():
             volume = {'name': 'vol_name',
                       vol_type: 'data'}
             self.assertEqual(
-                volume, kubernetes.KubernetesObject._create_volume(volume))
+                volume,
+                kubernetes.KubernetesObject._create_volume_item(volume))
 
-    def test__create_volume_invalid_type(self):
+    def test__create_volume_item_invalid_type(self):
         volume = {'name': 'vol_name',
                   'invalid_type': 'data'}
         with self.assertRaises(exceptions.KubernetesTemplateInvalidVolumeType):
-            kubernetes.KubernetesObject._create_volume(volume)
+            kubernetes.KubernetesObject._create_volume_item(volume)
+
+    def test__create_volume_mounts(self):
+        volume_mount = {'name': 'fake_name',
+                        'mountPath': 'fake_path'}
+        ssh_vol = {'name': kubernetes.KubernetesObject.SSHKEY_DEFAULT,
+                   'mountPath': kubernetes.KubernetesObject.SSH_MOUNT_PATH,
+                   'readOnly': False}
+        expected = copy.deepcopy(volume_mount)
+        expected['readOnly'] = False
+        expected = [expected, ssh_vol]
+        k8s_obj = kubernetes.KubernetesObject('name',
+                                              volumeMounts=[volume_mount])
+        output = k8s_obj._create_volume_mounts()
+        self.assertEqual(expected, output)
+
+    def test__create_volume_mounts_no_volume_mounts(self):
+        ssh_vol = {'name': kubernetes.KubernetesObject.SSHKEY_DEFAULT,
+                   'mountPath': kubernetes.KubernetesObject.SSH_MOUNT_PATH,
+                   'readOnly': False}
+        k8s_obj = kubernetes.KubernetesObject('name')
+        output = k8s_obj._create_volume_mounts()
+        self.assertEqual([ssh_vol], output)
+
+    def test__create_volume_mounts_item(self):
+        volume_mount = {'name': 'fake_name',
+                        'mountPath': 'fake_path'}
+        expected = copy.deepcopy(volume_mount)
+        expected['readOnly'] = False
+        output = kubernetes.KubernetesObject._create_volume_mounts_item(
+            volume_mount)
+        self.assertEqual(expected, output)
+
+    def test__create_container_item(self):
+        volume_mount = {'name': 'fake_name',
+                        'mountPath': 'fake_path'}
+        args = ['arg1', 'arg2']
+        k8s_obj = kubernetes.KubernetesObject(
+            'cname', ssh_key='fake_sshkey', volumeMount=[volume_mount],
+            args=args)
+        expected = {'args': args,
+                    'command': [kubernetes.KubernetesObject.COMMAND_DEFAULT],
+                    'image': kubernetes.KubernetesObject.IMAGE_DEFAULT,
+                    'name': 'cname-container',
+                    'volumeMounts': k8s_obj._create_volume_mounts()}
+        self.assertEqual(expected, k8s_obj._create_container_item())

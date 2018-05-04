@@ -16,15 +16,21 @@ from yardstick.common import kubernetes_utils as k8s_utils
 
 class KubernetesObject(object):
 
+    SSH_MOUNT_PATH = '/tmp/.ssh/'
+    IMAGE_DEFAULT = 'openretriever/yardstick'
+    COMMAND_DEFAULT = '/bin/bash'
+    SSHKEY_DEFAULT = 'yardstick_key'
+
     def __init__(self, name, **kwargs):
         super(KubernetesObject, self).__init__()
         self.name = name
-        self.image = kwargs.get('image', 'openretriever/yardstick')
-        self.command = [kwargs.get('command', '/bin/bash')]
+        self.image = kwargs.get('image', self.IMAGE_DEFAULT)
+        self.command = [kwargs.get('command', self.COMMAND_DEFAULT)]
         self.args = kwargs.get('args', [])
-        self.ssh_key = kwargs.get('ssh_key', 'yardstick_key')
+        self.ssh_key = kwargs.get('ssh_key', self.SSHKEY_DEFAULT)
         self.node_selector = kwargs.get('nodeSelector', {})
         self._volumes = kwargs.get('volumes', [])
+        self._volume_mounts = kwargs.get('volumeMounts', [])
 
         self.template = {
             "apiVersion": "v1",
@@ -65,29 +71,19 @@ class KubernetesObject(object):
                              name)
 
     def _add_containers(self):
-        containers = [self._add_container()]
+        containers = [self._create_container_item()]
         utils.set_dict_value(self.template,
                              'spec.template.spec.containers',
                              containers)
 
-    def _add_container(self):
+    def _create_container_item(self):
+        """Create a "container" item"""
         container_name = '{}-container'.format(self.name)
-        ssh_key_mount_path = '/tmp/.ssh/'
-
-        container = {
-            "args": self.args,
-            "command": self.command,
-            "image": self.image,
-            "name": container_name,
-            "volumeMounts": [
-                {
-                    "mountPath": ssh_key_mount_path,
-                    "name": self.ssh_key
-                }
-            ]
-        }
-
-        return container
+        return {'args': self.args,
+                'command': self.command,
+                'image': self.image,
+                'name': container_name,
+                'volumeMounts': self._create_volume_mounts()}
 
     def _add_node_selector(self):
         utils.set_dict_value(self.template,
@@ -96,7 +92,7 @@ class KubernetesObject(object):
 
     def _add_volumes(self):
         """Add "volume" items to container specs, including the SSH one"""
-        volume_items = [self._create_volume(vol) for vol in self._volumes]
+        volume_items = [self._create_volume_item(vol) for vol in self._volumes]
         volume_items.append(self._create_ssh_key_volume())
         utils.set_dict_value(self.template,
                              'spec.template.spec.volumes',
@@ -108,7 +104,7 @@ class KubernetesObject(object):
                 'configMap': {'name': self.ssh_key}}
 
     @staticmethod
-    def _create_volume(volume):
+    def _create_volume_item(volume):
         """Create a "volume" item"""
         volume = copy.deepcopy(volume)
         name = volume.pop('name')
@@ -121,6 +117,22 @@ class KubernetesObject(object):
 
         return {'name': name,
                 type_name: type_data}
+
+    def _create_volume_mounts(self):
+        """Return all "volumeMounts" items per container"""
+        volume_mounts_items = [self._create_volume_mounts_item(vol)
+                               for vol in self._volume_mounts]
+        ssh_vol = {'name': self.ssh_key,
+                   'mountPath': self.SSH_MOUNT_PATH}
+        volume_mounts_items.append(self._create_volume_mounts_item(ssh_vol))
+        return volume_mounts_items
+
+    @staticmethod
+    def _create_volume_mounts_item(volume_mount):
+        """Create a "volumeMounts" item"""
+        return {'name': volume_mount['name'],
+                'mountPath': volume_mount['mountPath'],
+                'readOnly': volume_mount.get('readOnly', False)}
 
 
 class ServiceObject(object):
