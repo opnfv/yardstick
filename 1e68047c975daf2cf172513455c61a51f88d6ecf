@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_1943f142",
+        "filename": "yardstick/benchmark/scenarios/compute/lmbench.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-04T16:58:45Z",
+      "side": 1,
+      "message": "Line is too long here. It should be 80 characters",
+      "range": {
+        "startLine": 123,
+        "startChar": 78,
+        "endLine": 123,
+        "endChar": 87
+      },
+      "revId": "1e68047c975daf2cf172513455c61a51f88d6ecf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_19749166",
+        "filename": "yardstick/benchmark/scenarios/networking/iperf3.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-04T16:58:45Z",
+      "side": 1,
+      "message": "Please keep line length  to 80 characters or less",
+      "range": {
+        "startLine": 170,
+        "startChar": 51,
+        "endLine": 174,
+        "endChar": 86
+      },
+      "revId": "1e68047c975daf2cf172513455c61a51f88d6ecf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_59ef39e9",
+        "filename": "yardstick/benchmark/scenarios/networking/moongen_testpmd.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-04T16:58:45Z",
+      "side": 1,
+      "message": "line length",
+      "range": {
+        "startLine": 372,
+        "startChar": 77,
+        "endLine": 376,
+        "endChar": 79
+      },
+      "revId": "1e68047c975daf2cf172513455c61a51f88d6ecf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_39ecedf2",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-04T16:58:45Z",
+      "side": 1,
+      "message": "side note: What happens here if the first command fails and the second succeeds?\n\nThere would be no error raised, even if the service is not disabled on the server.\n\n\nSame applies wherever this pattern is seen (L136, L142, L148, L162, etc)",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 142,
+        "endChar": 52
+      },
+      "revId": "1e68047c975daf2cf172513455c61a51f88d6ecf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_79c15553",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-04T16:58:45Z",
+      "side": 1,
+      "message": "nit: s/is/was/",
+      "range": {
+        "startLine": 221,
+        "startChar": 65,
+        "endLine": 221,
+        "endChar": 67
+      },
+      "revId": "1e68047c975daf2cf172513455c61a51f88d6ecf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_99bc21de",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-04T16:58:45Z",
+      "side": 1,
+      "message": "line length",
+      "revId": "1e68047c975daf2cf172513455c61a51f88d6ecf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_39c34d58",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-04T16:58:45Z",
+      "side": 1,
+      "message": "was not collected",
+      "range": {
+        "startLine": 331,
+        "startChar": 65,
+        "endLine": 331,
+        "endChar": 67
+      },
+      "revId": "1e68047c975daf2cf172513455c61a51f88d6ecf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_79a8358d",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_search.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-04T16:58:45Z",
+      "side": 1,
+      "message": "Does this need to be a MagicMock? It doesn\u0027t look like any magic methods are needed. This could be just regular mock.Mock if you don\u0027t need the magic :)",
+      "range": {
+        "startLine": 147,
+        "startChar": 36,
+        "endLine": 147,
+        "endChar": 45
+      },
+      "revId": "1e68047c975daf2cf172513455c61a51f88d6ecf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
