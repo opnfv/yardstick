@@ -215,15 +215,15 @@ class Vsperf(base.Scenario):
         if 'sla' in self.scenario_cfg and \
            'metrics' in self.scenario_cfg['sla']:
             for metric in self.scenario_cfg['sla']['metrics'].split(','):
-                assert metric in result, \
-                    '%s is not collected by VSPERF' % (metric)
-                assert metric in self.scenario_cfg['sla'], \
-                    '%s is not defined in SLA' % (metric)
+                self.verify_SLA(metric in result,
+                                '%s was not collected by VSPERF' % metric)
+                self.verify_SLA(metric in self.scenario_cfg['sla'],
+                                '%s is not defined in SLA' % metric)
                 vs_res = float(result[metric])
                 sla_res = float(self.scenario_cfg['sla'][metric])
-                assert vs_res >= sla_res, \
-                    'VSPERF_%s(%f) < SLA_%s(%f)' % \
-                    (metric, vs_res, metric, sla_res)
+                self.verify_SLA(vs_res >= sla_res,
+                                'VSPERF_%s(%f) < SLA_%s(%f)'
+                                % (metric, vs_res, metric, sla_res))
 
     def teardown(self):
         """cleanup after the test execution"""

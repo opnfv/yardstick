@@ -223,7 +223,7 @@ class Fio(base.Scenario):
                         sla_error += "%s %d < " \
                             "sla:%s(%d); " % (k, v, k, min_v)
 
-            assert sla_error == "", sla_error
+            self.verify_SLA(sla_error == "", sla_error)
 
 
 def _test():

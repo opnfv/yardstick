@@ -259,3 +259,7 @@ class UploadOpenrcError(ApiServerError):
 
 class UpdateOpenrcError(ApiServerError):
     message = 'Update openrc ERROR!'
+
+
+class SLAValidationError(YardstickException):
+    message = '%(case_name)s SLA validation failed. Error: %(error_msg)s'
