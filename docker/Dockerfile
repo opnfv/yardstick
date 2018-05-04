@@ -31,13 +31,16 @@ RUN pip install appdirs==1.4.0 pyopenssl==17.5.0 python-openstackclient==3.11.0 
 RUN mkdir -p ${REPOS_DIR}
 
 RUN git config --global http.sslVerify false
-##RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR}
-RUN mkdir ${YARDSTICK_REPO_DIR}
-COPY ./ ${YARDSTICK_REPO_DIR}
+#For developers: To test your changes you must comment out the git clone for ${YARDSTICK_REPO_DIR}.
+#You must also uncomment the RUN and COPY commands below.
+#You must run docker build from your yardstick directory on the host.
+RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/yardstick ${YARDSTICK_REPO_DIR}
+#RUN mkdir ${YARDSTICK_REPO_DIR}
+#COPY ./ ${YARDSTICK_REPO_DIR}
 RUN git clone --depth 1 https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR}
 RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/storperf ${STORPERF_REPO_DIR}
 
-RUN ansible-playbook -vvv -e INSTALLATION_MODE="container" ${YARDSTICK_REPO_DIR}/ansible/install.yaml
+RUN ansible-playbook -c local -vvv -e INSTALLATION_MODE="container" ${YARDSTICK_REPO_DIR}/ansible/install.yaml
 
 RUN ${YARDSTICK_REPO_DIR}/docker/supervisor.sh
 
@@ -50,8 +53,8 @@ ADD http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-d
 
 COPY ./docker/exec_tests.sh /usr/local/bin/
 
-ENV NSB_DIR="/opt/nsb_bin" \
-    PYTHONPATH="${PYTHONPATH}:${NSB_DIR}/trex_client:${NSB_DIR}/trex_client/stl"
+ENV NSB_DIR="/opt/nsb_bin"
+ENV PYTHONPATH="${PYTHONPATH}:${NSB_DIR}/trex_client:${NSB_DIR}/trex_client/stl"
 
 WORKDIR ${REPOS_DIR}
 CMD ["/usr/bin/supervisord"]
