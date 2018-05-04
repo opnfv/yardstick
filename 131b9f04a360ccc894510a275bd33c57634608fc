@@ -46,6 +46,30 @@
       "revId": "131b9f04a360ccc894510a275bd33c57634608fc",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_19df716a",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/start_service.bash",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-04T15:15:35Z",
+      "side": 1,
+      "message": "I get that, it\u0027s the bash syntax I have an issue with.\n\nwhy is it operation\u003d${2-start} and not operation\u003d${2:-start}\n\nThey both do the same thing, I wanted to know why the first was chosen.",
+      "parentUuid": "5a3f45e8_d307aa16",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 1
+      },
+      "revId": "131b9f04a360ccc894510a275bd33c57634608fc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
