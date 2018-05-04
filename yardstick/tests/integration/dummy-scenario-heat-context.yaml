@@ -6,6 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+{% set context_name = context_name or "demo" %}
 ---
 # Sample Heat context config with Dummy context
 
@@ -22,9 +23,9 @@ scenarios:
 
 context:
   name: {{ context_name }}
-  image: cirros-0.3.5
-  flavor: cirros256
-  user: cirros
+  image: yardstick-image
+  flavor: yardstick-flavor
+  user: ubuntu
 
   servers:
     athena:
