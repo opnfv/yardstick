@@ -15,7 +15,7 @@ import pkg_resources
 import paramiko
 
 from yardstick.benchmark.contexts.base import Context
-from yardstick.orchestrator.kubernetes import KubernetesTemplate
+from yardstick.orchestrator import kubernetes
 from yardstick.common import kubernetes_utils as k8s_utils
 from yardstick.common import utils
 
@@ -39,11 +39,8 @@ class KubernetesContext(Context):
     def init(self, attrs):
         super(KubernetesContext, self).init(attrs)
 
-        template_cfg = attrs.get('servers', {})
-        self.template = KubernetesTemplate(self.name, template_cfg)
-
+        self.template = kubernetes.KubernetesTemplate(self.name, attrs)
         self.ssh_key = '{}-key'.format(self.name)
-
         self.key_path = self._get_key_path()
         self.public_key_path = '{}.pub'.format(self.key_path)
 
