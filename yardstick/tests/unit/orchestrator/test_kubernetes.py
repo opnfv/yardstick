@@ -47,7 +47,7 @@ service ssh restart;while true ; do sleep 10000; done"
                                 "name": "host-k8s-86096c30-container",
                                 "volumeMounts": [
                                     {
-                                        "mountPath": "/root/.ssh/",
+                                        "mountPath": "/tmp/.ssh/",
                                         "name": "k8s-86096c30-key"
                                     }
                                 ]
