@@ -247,3 +247,7 @@ class ScenarioDeleteVolumeError(YardstickException):
 
 class ScenarioDetachVolumeError(YardstickException):
     message = 'Cinder Detach Volume Scenario failed'
+
+
+class SLAValidationError(YardstickException):
+    message = '%(case_name)s SLA validation failed. Error: %(error_msg)s'

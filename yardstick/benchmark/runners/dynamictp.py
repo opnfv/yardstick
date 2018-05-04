@@ -27,6 +27,7 @@ import traceback
 import os
 
 from yardstick.benchmark.runners import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -80,10 +81,10 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
                 try:
                     method(data)
-                except AssertionError as assertion:
-                    LOG.warning("SLA validation failed: %s" % assertion.args)
+                except y_exc.SLAValidationError as error:
+                    LOG.warning("SLA validation failed: %s", error.args)
                     too_high = True
-                except Exception as e:
+                except Exception as e:  # pylint: disable=broad-except
                     errors = traceback.format_exc()
                     LOG.exception(e)
 

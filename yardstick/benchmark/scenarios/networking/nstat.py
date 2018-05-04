@@ -121,4 +121,4 @@ class Nstat(base.Scenario):
                 if rate > sla_rate:
                     sla_error += "%s rate %f > sla:%s_rate(%f); " % \
                         (i, rate, i, sla_rate)
-            assert sla_error == "", sla_error
+            self.verify_SLA(sla_error == "", sla_error)

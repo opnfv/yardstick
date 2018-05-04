@@ -100,7 +100,7 @@ class Cyclictest(base.Scenario):
 
     def _run_setup_cmd(self, client, cmd):
         LOG.debug("Run cmd: %s", cmd)
-        status, stdout, stderr = client.execute(cmd)
+        status, _, stderr = client.execute(cmd)
         if status:
             if re.search(self.REBOOT_CMD_PATTERN, cmd):
                 LOG.debug("Error on reboot")
@@ -195,7 +195,7 @@ class Cyclictest(base.Scenario):
                 if latency > sla_latency:
                     sla_error += "%s latency %d > sla:max_%s_latency(%d); " % \
                         (t, latency, t, sla_latency)
-            assert sla_error == "", sla_error
+            self.verify_SLA(sla_error == "", sla_error)
 
 
 def _test():    # pragma: no cover

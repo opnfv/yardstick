@@ -19,6 +19,7 @@ import unittest
 
 from yardstick.benchmark.runners.search import SearchRunner
 from yardstick.benchmark.runners.search import SearchRunnerHelper
+from yardstick.common import exceptions as y_exc
 
 
 class TestSearchRunnerHelper(unittest.TestCase):
@@ -143,15 +144,15 @@ class TestSearchRunner(unittest.TestCase):
     def test__worker_run_once_assertion_error_assert(self):
         runner = SearchRunner({})
         runner.sla_action = 'assert'
-        runner.worker_helper = mock.MagicMock(side_effect=AssertionError)
+        runner.worker_helper = mock.MagicMock(side_effect=y_exc.SLAValidationError)
 
-        with self.assertRaises(AssertionError):
+        with self.assertRaises(y_exc.SLAValidationError):
             runner._worker_run_once('sequence 1')
 
     def test__worker_run_once_assertion_error_monitor(self):
         runner = SearchRunner({})
         runner.sla_action = 'monitor'
-        runner.worker_helper = mock.MagicMock(side_effect=AssertionError)
+        runner.worker_helper = mock.MagicMock(side_effect=y_exc.SLAValidationError)
 
         self.assertFalse(runner._worker_run_once('sequence 1'))
 
