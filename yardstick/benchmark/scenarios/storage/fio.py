@@ -16,6 +16,7 @@ from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -223,7 +224,9 @@ class Fio(base.Scenario):
                         sla_error += "%s %d < " \
                             "sla:%s(%d); " % (k, v, k, min_v)
 
-            assert sla_error == "", sla_error
+            if sla_error != "":
+                raise y_exc.SLAValidationError(case_name=self.__scenario_type__,
+                                               error_msg=sla_error)
 
 
 def _test():

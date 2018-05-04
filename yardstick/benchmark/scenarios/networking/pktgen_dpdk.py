@@ -14,6 +14,7 @@ import time
 import yardstick.ssh as ssh
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base
+from yardstick.common import exceptions as y_exc
 
 
 LOG = logging.getLogger(__name__)
@@ -135,4 +136,6 @@ cat ~/result.log -vT \
             LOG.info("sla_max_latency: %d", sla_max_latency)
             debug_info = "avg_latency %d > sla_max_latency %d" \
                 % (avg_latency, sla_max_latency)
-            assert avg_latency <= sla_max_latency, debug_info
+            if avg_latency > sla_max_latency:
+                raise y_exc.SLAValidationError(case_name=self.__scenario_type__,
+                                               error_msg=debug_info)

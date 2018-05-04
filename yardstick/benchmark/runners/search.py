@@ -33,6 +33,7 @@ from collections import Mapping
 from six.moves import zip
 
 from yardstick.benchmark.runners import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -119,14 +120,14 @@ If the scenario ends before the time has elapsed, it will be started again.
 
         try:
             self.worker_helper(data)
-        except AssertionError as assertion:
+        except y_exc.SLAValidationError as error:
             # SLA validation failed in scenario, determine what to do now
             if self.sla_action == "assert":
                 raise
             elif self.sla_action == "monitor":
-                LOG.warning("SLA validation failed: %s", assertion.args)
-                errors = assertion.args
-        except Exception as e:
+                LOG.warning("SLA validation failed: %s", error.args)
+                errors = error.args
+        except Exception as e:  # pylint: disable=broad-except
             errors = traceback.format_exc()
             LOG.exception(e)
 

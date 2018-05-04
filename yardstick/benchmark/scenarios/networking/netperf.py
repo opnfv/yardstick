@@ -17,6 +17,7 @@ from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -138,9 +139,11 @@ class Netperf(base.Scenario):
             sla_max_mean_latency = int(
                 self.scenario_cfg["sla"]["mean_latency"])
 
-            assert mean_latency <= sla_max_mean_latency, \
-                "mean_latency %f > sla_max_mean_latency(%f); " % \
-                (mean_latency, sla_max_mean_latency)
+            if mean_latency > sla_max_mean_latency:
+                raise y_exc.SLAValidationError(case_name=self.__scenario_type__,
+                                               error_msg="mean_latency %f > "
+                                                         "sla_max_mean_latency(%f); "
+                                                          % (mean_latency, sla_max_mean_latency))
 
 
 def _test():

@@ -230,3 +230,7 @@ class ScenarioGetServerError(YardstickException):
 
 class ScenarioGetFlavorError(YardstickException):
     message = 'Nova Get Falvor Scenario failed'
+
+
+class SLAValidationError(YardstickException):
+    message = '%(case_name)s SLA validation failed. Error: %(error_msg)s'

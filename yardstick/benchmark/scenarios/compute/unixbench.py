@@ -16,6 +16,7 @@ from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -125,7 +126,9 @@ class Unixbench(base.Scenario):
                 if score < sla_score:
                     sla_error += "%s score %f < sla:%s_score(%f); " % \
                         (t, score, t, sla_score)
-            assert sla_error == "", sla_error
+            if sla_error != "":
+                raise y_exc.SLAValidationError(case_name=self.__scenario_type__,
+                                               error_msg=sla_error)
 
 
 def _test():  # pragma: no cover

@@ -18,6 +18,7 @@ from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -87,7 +88,7 @@ class Pktgen(base.Scenario):
         self.server.send_command(cmd)
         self.client.send_command(cmd)
 
-        """multiqueue setup"""
+        # multiqueue setup
         if not self._is_irqbalance_disabled():
             self._disable_irqbalance()
 
@@ -132,20 +133,20 @@ class Pktgen(base.Scenario):
     def _disable_irqbalance(self):
         cmd = "sudo sed -i -e 's/ENABLED=\"1\"/ENABLED=\"0\"/g' " \
               "/etc/default/irqbalance"
-        status, stdout, stderr = self.server.execute(cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        status, _, stderr = self.server.execute(cmd)
+        status, _, stderr = self.client.execute(cmd)
         if status:
             raise RuntimeError(stderr)
 
         cmd = "sudo service irqbalance stop"
-        status, stdout, stderr = self.server.execute(cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        status, _, stderr = self.server.execute(cmd)
+        status, _, stderr = self.client.execute(cmd)
         if status:
             raise RuntimeError(stderr)
 
         cmd = "sudo service irqbalance disable"
-        status, stdout, stderr = self.server.execute(cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        status, _, stderr = self.server.execute(cmd)
+        status, _, stderr = self.client.execute(cmd)
         if status:
             raise RuntimeError(stderr)
 
@@ -158,8 +159,8 @@ class Pktgen(base.Scenario):
             raise RuntimeError(stderr)
 
         cmd = "echo 1 | sudo tee /proc/irq/%s/smp_affinity" % (int(stdout))
-        status, stdout, stderr = self.server.execute(cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        status, _, stderr = self.server.execute(cmd)
+        status, _, stderr = self.client.execute(cmd)
         if status:
             raise RuntimeError(stderr)
 
@@ -171,8 +172,8 @@ class Pktgen(base.Scenario):
             raise RuntimeError(stderr)
 
         cmd = "echo 1 | sudo tee /proc/irq/%s/smp_affinity" % (int(stdout))
-        status, stdout, stderr = self.server.execute(cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        status, _, stderr = self.server.execute(cmd)
+        status, _, stderr = self.client.execute(cmd)
         if status:
             raise RuntimeError(stderr)
 
@@ -192,8 +193,8 @@ class Pktgen(base.Scenario):
 
             cmd = "echo %s | sudo tee /proc/irq/%s/smp_affinity" \
                 % (smp_affinity_mask, int(stdout))
-            status, stdout, stderr = self.server.execute(cmd)
-            status, stdout, stderr = self.client.execute(cmd)
+            status, _, stderr = self.server.execute(cmd)
+            status, _, stderr = self.client.execute(cmd)
             if status:
                 raise RuntimeError(stderr)
 
@@ -206,8 +207,8 @@ class Pktgen(base.Scenario):
 
             cmd = "echo %s | sudo tee /proc/irq/%s/smp_affinity" \
                 % (smp_affinity_mask, int(stdout))
-            status, stdout, stderr = self.server.execute(cmd)
-            status, stdout, stderr = self.client.execute(cmd)
+            status, _, stderr = self.server.execute(cmd)
+            status, _, stderr = self.client.execute(cmd)
             if status:
                 raise RuntimeError(stderr)
 
@@ -220,8 +221,8 @@ class Pktgen(base.Scenario):
             raise RuntimeError(stderr)
 
         cmd = "echo 1 | sudo tee /proc/irq/%s/smp_affinity" % (int(stdout))
-        status, stdout, stderr = self.server.execute(cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        status, _, stderr = self.server.execute(cmd)
+        status, _, stderr = self.client.execute(cmd)
         if status:
             raise RuntimeError(stderr)
 
@@ -240,8 +241,8 @@ class Pktgen(base.Scenario):
 
             cmd = "echo %s | sudo tee /proc/irq/%s/smp_affinity" \
                 % (smp_affinity_mask, int(stdout))
-            status, stdout, stderr = self.server.execute(cmd)
-            status, stdout, stderr = self.client.execute(cmd)
+            status, _, stderr = self.server.execute(cmd)
+            status, _, stderr = self.client.execute(cmd)
             if status:
                 raise RuntimeError(stderr)
 
@@ -282,8 +283,8 @@ class Pktgen(base.Scenario):
             cmd = "sudo ethtool -L %s combined %s" % \
                 (self.vnic_name, available_queue_number)
             LOG.debug("Executing command: %s", cmd)
-            status, stdout, stderr = self.server.execute(cmd)
-            status, stdout, stderr = self.client.execute(cmd)
+            status, _, stderr = self.server.execute(cmd)
+            status, _, stderr = self.client.execute(cmd)
             if status:
                 raise RuntimeError(stderr)
         return available_queue_number
@@ -374,8 +375,10 @@ class Pktgen(base.Scenario):
         if "sla" in self.scenario_cfg:
             LOG.debug("Lost packets %d - Lost ppm %d", (sent - received), ppm)
             sla_max_ppm = int(self.scenario_cfg["sla"]["max_ppm"])
-            assert ppm <= sla_max_ppm, "ppm %d > sla_max_ppm %d; " \
-                % (ppm, sla_max_ppm)
+            if ppm > sla_max_ppm:
+                raise y_exc.SLAValidationError(case_name=self.__scenario_type__,
+                                               error_msg="ppm %d > sla_max_ppm %d; "
+                                                         % (ppm, sla_max_ppm))
 
 
 def _test():  # pragma: no cover
