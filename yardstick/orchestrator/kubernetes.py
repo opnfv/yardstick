@@ -74,7 +74,7 @@ class KubernetesObject(object):
 
     def _add_container(self):
         container_name = '{}-container'.format(self.name)
-        ssh_key_mount_path = "/root/.ssh/"
+        ssh_key_mount_path = '/tmp/.ssh/'
 
         container = {
             "args": self.args,
