@@ -17,6 +17,7 @@ import mock
 from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.compute import cyclictest
+from yardstick.common import exceptions as y_exc
 
 
 @mock.patch('yardstick.benchmark.scenarios.compute.cyclictest.ssh')
@@ -122,7 +123,7 @@ class CyclictestTestCase(unittest.TestCase):
         sample_output = '{"min": 100, "avg": 500, "max": 1000}'
 
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, c.run, result)
+        self.assertRaises(y_exc.SLAValidationError, c.run, result)
 
     def test_cyclictest_unsuccessful_sla_avg_latency(self, mock_ssh):
 
@@ -136,7 +137,7 @@ class CyclictestTestCase(unittest.TestCase):
         sample_output = '{"min": 100, "avg": 500, "max": 1000}'
 
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, c.run, result)
+        self.assertRaises(y_exc.SLAValidationError, c.run, result)
 
     def test_cyclictest_unsuccessful_sla_max_latency(self, mock_ssh):
 
@@ -150,7 +151,7 @@ class CyclictestTestCase(unittest.TestCase):
         sample_output = '{"min": 100, "avg": 500, "max": 1000}'
 
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, c.run, result)
+        self.assertRaises(y_exc.SLAValidationError, c.run, result)
 
     def test_cyclictest_unsuccessful_script_error(self, mock_ssh):
 

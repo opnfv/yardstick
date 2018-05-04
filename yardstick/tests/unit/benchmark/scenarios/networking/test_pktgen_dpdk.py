@@ -12,6 +12,7 @@ import unittest
 
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios.networking import pktgen_dpdk
+from yardstick.common import exceptions as y_exc
 
 
 class PktgenDPDKLatencyTestCase(unittest.TestCase):
@@ -162,7 +163,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
 
         sample_output = '100\n110\n112\n130\n149\n150\n90\n150\n200\n162\n'
         self.mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, p.run, result)
+        self.assertRaises(y_exc.SLAValidationError, p.run, result)
 
     def test_pktgen_dpdk_unsuccessful_script_error(self):
 

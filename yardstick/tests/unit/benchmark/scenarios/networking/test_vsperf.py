@@ -22,6 +22,7 @@ except ImportError:
 import unittest
 
 from yardstick.benchmark.scenarios.networking import vsperf
+from yardstick import exceptions as y_exc
 
 
 @mock.patch('yardstick.benchmark.scenarios.networking.vsperf.subprocess')
@@ -124,3 +125,61 @@ class VsperfTestCase(unittest.TestCase):
 
         result = {}
         self.assertRaises(RuntimeError, p.run, result)
+
+    def test_vsperf_run_sla_fail(self, mock_ssh, *args):
+        p = vsperf.Vsperf(self.args, self.ctx)
+
+        # setup() specific mocks
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+
+        # run() specific mocks
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (
+            0, 'throughput_rx_fps\r\n123456.000\r\n', '')
+
+        result = {}
+        with self.assertRaises(y_exc.SLAValidationError) as raised:
+            p.run(result)
+
+        self.assertTrue('VSPERF_throughput_rx_fps(123456.000000) < '
+                        'SLA_throughput_rx_fps(500000.000000)'
+                        in str(raised.exception))
+
+    def test_vsperf_run_sla_fail_metric_not_collected(self, mock_ssh, *args):
+        p = vsperf.Vsperf(self.args, self.ctx)
+
+        # setup() specific mocks
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+
+        # run() specific mocks
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (
+            0, 'nonexisting_metric\r\n14797660.000\r\n', '')
+
+        result = {}
+        with self.assertRaises(y_exc.SLAValidationError) as raised:
+            p.run(result)
+
+        self.assertTrue('throughput_rx_fps was not collected by VSPERF'
+                        in str(raised.exception))
+
+    def test_vsperf_run_sla_fail_metric_not_defined_in_sla(self, mock_ssh,
+                                                           *args):
+        sample_scenario_cfg = self.args.copy()
+        del sample_scenario_cfg['sla']['throughput_rx_fps']
+        p = vsperf.Vsperf(sample_scenario_cfg, self.ctx)
+
+        # setup() specific mocks
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+
+        # run() specific mocks
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().execute.return_value = (
+            0, 'throughput_rx_fps\r\n14797660.000\r\n', '')
+
+        result = {}
+        with self.assertRaises(y_exc.SLAValidationError) as raised:
+            p.run(result)
+
+        self.assertTrue('throughput_rx_fps is not defined in SLA'
+                        in str(raised.exception))

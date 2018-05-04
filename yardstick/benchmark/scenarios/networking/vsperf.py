@@ -21,6 +21,7 @@ import csv
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -215,15 +216,21 @@ class Vsperf(base.Scenario):
         if 'sla' in self.scenario_cfg and \
            'metrics' in self.scenario_cfg['sla']:
             for metric in self.scenario_cfg['sla']['metrics'].split(','):
-                assert metric in result, \
-                    '%s is not collected by VSPERF' % (metric)
-                assert metric in self.scenario_cfg['sla'], \
-                    '%s is not defined in SLA' % (metric)
+                if metric not in result:
+                    raise y_exc.SLAValidationError(
+                        case_name=self.__scenario_type__,
+                        error_msg='%s was not collected by VSPERF' % metric)
+                if metric not in self.scenario_cfg['sla']:
+                    raise y_exc.SLAValidationError(
+                        case_name=self.__scenario_type__,
+                        error_msg='%s is not defined in SLA' % metric)
                 vs_res = float(result[metric])
                 sla_res = float(self.scenario_cfg['sla'][metric])
-                assert vs_res >= sla_res, \
-                    'VSPERF_%s(%f) < SLA_%s(%f)' % \
-                    (metric, vs_res, metric, sla_res)
+                if vs_res < sla_res:
+                    raise y_exc.SLAValidationError(
+                        case_name=self.__scenario_type__,
+                        error_msg='VSPERF_%s(%f) < SLA_%s(%f)'
+                                  % (metric, vs_res, metric, sla_res))
 
     def teardown(self):
         """cleanup after the test execution"""

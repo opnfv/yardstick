@@ -14,6 +14,7 @@ import logging
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -121,4 +122,6 @@ class Nstat(base.Scenario):
                 if rate > sla_rate:
                     sla_error += "%s rate %f > sla:%s_rate(%f); " % \
                         (i, rate, i, sla_rate)
-            assert sla_error == "", sla_error
+            if sla_error != "":
+                raise y_exc.SLAValidationError(
+                    case_name=self.__scenario_type__, error_msg=sla_error)

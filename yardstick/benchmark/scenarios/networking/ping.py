@@ -17,6 +17,7 @@ import logging
 import yardstick.ssh as ssh
 from yardstick.common import utils
 from yardstick.benchmark.scenarios import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -91,9 +92,12 @@ class Ping(base.Scenario):
                 result.update(utils.flatten_dict_key(ping_result))
                 if sla_max_rtt is not None:
                     sla_max_rtt = float(sla_max_rtt)
-                    assert rtt_result[target_vm_name] <= sla_max_rtt,\
-                        "rtt %f > sla: max_rtt(%f); " % \
-                        (rtt_result[target_vm_name], sla_max_rtt)
+                    if rtt_result[target_vm_name] > sla_max_rtt:
+                        raise y_exc.SLAValidationError(
+                            case_name=self.__scenario_type__,
+                            error_msg="rtt %f > sla: max_rtt(%f); "
+                                      % (rtt_result[target_vm_name],
+                                         sla_max_rtt))
             else:
                 LOG.error("ping '%s' '%s' timeout", options, target_vm)
                 # we need to specify a result to satisfy influxdb schema
@@ -103,12 +107,15 @@ class Ping(base.Scenario):
                 # store result before potential AssertionError
                 result.update(utils.flatten_dict_key(ping_result))
                 if sla_max_rtt is not None:
-                    raise AssertionError("packet dropped rtt {:f} > sla: max_rtt({:f})".format(
-                        rtt_result[target_vm_name], sla_max_rtt))
-
+                    raise y_exc.SLAValidationError(
+                        case_name=self.__scenario_type__,
+                        error_msg="packet dropped rtt %f > sla: max_rtt(%f)"
+                                  % (rtt_result[target_vm_name], sla_max_rtt))
                 else:
-                    raise AssertionError(
-                        "packet dropped rtt {:f}".format(rtt_result[target_vm_name]))
+                    raise y_exc.SLAValidationError(
+                        case_name=self.__scenario_type__,
+                        error_msg="packet dropped rtt %f"
+                                  % (rtt_result[target_vm_name]))
 
 
 def _test():    # pragma: no cover
