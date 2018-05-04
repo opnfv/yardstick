@@ -119,8 +119,8 @@ class Lmbench(base.Scenario):
             cmd = "sudo bash lmbench_latency_for_cache.sh %d %d" % \
                   (repetition, warmup)
         else:
-            raise RuntimeError("No such test_type: %s for Lmbench scenario",
-                               test_type)
+            raise RuntimeError("No such test_type: %s for Lmbench scenario"
+                               % test_type)
 
         LOG.debug("Executing command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
@@ -157,7 +157,7 @@ class Lmbench(base.Scenario):
                 if sla_latency < cache_latency:
                     sla_error += "latency %f > sla:max_latency(%f); " \
                         % (cache_latency, sla_latency)
-            assert sla_error == "", sla_error
+            self.verify_SLA(sla_error == "", sla_error)
 
 
 def _test():

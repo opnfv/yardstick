@@ -58,16 +58,20 @@ class ScenarioGeneral(base.Scenario):
         self.director.stopMonitors()
 
         verify_result = self.director.verify()
+        service_not_found = False
         for k, v in self.director.data.items():
             if v == 0:
-                result['sla_pass'] = 0
                 verify_result = False
+                service_not_found = True
                 LOG.info("\033[92m The service process (%s) not found in the host environment", k)
 
         result['sla_pass'] = 1 if verify_result else 0
         self.director.store_result(result)
 
-        assert verify_result is True, "The HA test case NOT passed"
+        self.verify_SLA(
+            verify_result, ("a service process was not found in the host "
+                            "environment" if service_not_found
+                            else "Director.verify() failed"))
 
     def teardown(self):
         self.director.knockoff()
