@@ -63,7 +63,8 @@ def delete_service(name,
                    **kwargs):       # pragma: no cover
     core_v1_api = get_core_api()
     try:
-        core_v1_api.delete_namespaced_service(name, namespace, **kwargs)
+        body = client.V1DeleteOptions()
+        core_v1_api.delete_namespaced_service(name, namespace, body, **kwargs)
     except ApiException:
         LOG.exception('Delete Service failed')
 
