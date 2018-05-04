@@ -24,6 +24,7 @@ import time
 import yardstick.ssh as ssh
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -231,7 +232,7 @@ class VsperfDPDK(base.Scenario):
         is_run = True
         cmd = "ip a | grep %s 2>/dev/null" % (self.tg_port1)
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        _, stdout, _ = self.client.execute(cmd)
         if stdout:
             is_run = False
         return is_run
@@ -325,15 +326,22 @@ class VsperfDPDK(base.Scenario):
         if 'sla' in self.scenario_cfg and \
            'metrics' in self.scenario_cfg['sla']:
             for metric in self.scenario_cfg['sla']['metrics'].split(','):
-                assert metric in result, \
-                    '%s is not collected by VSPERF' % (metric)
-                assert metric in self.scenario_cfg['sla'], \
-                    '%s is not defined in SLA' % (metric)
+                if metric not in result:
+                    raise y_exc.SLAValidationError(
+                        case_name=self.__scenario_type__,
+                        error_msg='%s was not collected by VSPERF'
+                                  % (metric))
+                if metric not in self.scenario_cfg['sla']:
+                    raise y_exc.SLAValidationError(
+                        case_name=self.__scenario_type__,
+                        error_msg='%s is not defined in SLA' % (metric))
                 vs_res = float(result[metric])
                 sla_res = float(self.scenario_cfg['sla'][metric])
-                assert vs_res >= sla_res, \
-                    'VSPERF_%s(%f) < SLA_%s(%f)' % \
-                    (metric, vs_res, metric, sla_res)
+                if vs_res < sla_res:
+                    raise y_exc.SLAValidationError(
+                        case_name=self.__scenario_type__,
+                        error_msg='VSPERF_%s(%f) < SLA_%s(%f)'
+                                  % (metric, vs_res, metric, sla_res))
 
     def teardown(self):
         """cleanup after the test execution"""

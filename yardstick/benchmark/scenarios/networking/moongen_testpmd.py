@@ -24,6 +24,7 @@ from oslo_serialization import jsonutils
 import yardstick.ssh as ssh
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -367,9 +368,13 @@ ports = {0,1},
             throughput_rx_mpps = int(
                 self.scenario_cfg["sla"]["throughput_rx_mpps"])
 
-            assert throughput_rx_mpps <= moongen_result["tx_mpps"], \
-                "sla_throughput_rx_mpps %f > throughput_rx_mpps(%f); " % \
-                (throughput_rx_mpps, moongen_result["tx_mpps"])
+            if throughput_rx_mpps > moongen_result["tx_mpps"]:
+                raise y_exc.SLAValidationError(
+                    case_name=self.__scenario_type__,
+                    error_msg="sla_throughput_rx_mpps %f > "
+                              "throughput_rx_mpps(%f); "
+                              % (throughput_rx_mpps,
+                                 moongen_result["tx_mpps"]))
 
     def teardown(self):
         """cleanup after the test execution"""

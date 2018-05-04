@@ -11,6 +11,7 @@ import logging
 
 from yardstick.benchmark.scenarios import base
 from yardstick.benchmark.scenarios.availability.director import Director
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -58,16 +59,22 @@ class ScenarioGeneral(base.Scenario):
         self.director.stopMonitors()
 
         verify_result = self.director.verify()
+        service_not_found = False
         for k, v in self.director.data.items():
             if v == 0:
-                result['sla_pass'] = 0
                 verify_result = False
+                service_not_found = True
                 LOG.info("\033[92m The service process (%s) not found in the host environment", k)
 
         result['sla_pass'] = 1 if verify_result else 0
         self.director.store_result(result)
 
-        assert verify_result is True, "The HA test case NOT passed"
+        if not verify_result:
+            raise y_exc.SLAValidationError(
+                case_name=self.__scenario_type__,
+                error_msg=("a service process was not found in the "
+                           "host environment" if service_not_found
+                           else "Director.verify() failed"))
 
     def teardown(self):
         self.director.knockoff()

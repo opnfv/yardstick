@@ -16,6 +16,7 @@ from oslo_serialization import jsonutils
 
 import yardstick.ssh as ssh
 from yardstick.benchmark.scenarios import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -93,7 +94,7 @@ class Perf(base.Scenario):
             % (load, duration, events_string)
 
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        status, stdout, _ = self.client.execute(cmd)
 
         if status:
             raise RuntimeError(stdout)
@@ -107,14 +108,20 @@ class Perf(base.Scenario):
                                in self.scenario_cfg['sla']
 
             if metric not in result:
-                assert False, "Metric (%s) not found." % metric
-            else:
-                if smaller_than_exp:
-                    assert result[metric] < exp_val, "%s %d >= %d (sla); " \
-                        % (metric, result[metric], exp_val)
-                else:
-                    assert result[metric] >= exp_val, "%s %d < %d (sla); " \
-                        % (metric, result[metric], exp_val)
+                raise y_exc.SLAValidationError(
+                    case_name=self.__scenario_type__,
+                    error_msg="Metric (%s) not found." % metric)
+            if smaller_than_exp:
+                if result[metric] >= exp_val:
+                    raise y_exc.SLAValidationError(
+                        case_name=self.__scenario_type__,
+                        error_msg="%s %d >= %d (sla); "
+                                  % (metric, result[metric], exp_val))
+            elif result[metric] < exp_val:
+                raise y_exc.SLAValidationError(
+                    case_name=self.__scenario_type__,
+                    error_msg="%s %d < %d (sla); "
+                              % (metric, result[metric], exp_val))
 
 
 def _test():

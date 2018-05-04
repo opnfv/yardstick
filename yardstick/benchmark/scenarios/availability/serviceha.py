@@ -12,6 +12,7 @@ import logging
 from yardstick.benchmark.scenarios import base
 from yardstick.benchmark.scenarios.availability.monitor import basemonitor
 from yardstick.benchmark.scenarios.availability.attacker import baseattacker
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -70,17 +71,22 @@ class ServiceHA(base.Scenario):
         LOG.info("Monitor '%s' stop!", self.__scenario_type__)
 
         sla_pass = self.monitorMgr.verify_SLA()
+        service_not_found = False
         for k, v in self.data.items():
             if v == 0:
                 sla_pass = False
+                service_not_found = True
                 LOG.info("The service process (%s) not found in the host envrioment", k)
 
         result['sla_pass'] = 1 if sla_pass else 0
         self.monitorMgr.store_result(result)
 
-        assert sla_pass is True, "The HA test case NOT pass the SLA"
-
-        return
+        if not sla_pass:
+            raise y_exc.SLAValidationError(
+                case_name=self.__scenario_type__,
+                error_msg=("a service process was not found in the "
+                           "host environment" if service_not_found
+                           else "MonitorMgr.verify_SLA() failed"))
 
     def teardown(self):
         """scenario teardown"""

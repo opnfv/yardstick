@@ -15,6 +15,7 @@ import time
 import yardstick.ssh as ssh
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -143,11 +144,11 @@ class PktgenDPDK(base.Scenario):
         cmd = "ip a | grep eth1 2>/dev/null"
         LOG.debug("Executing command: %s in %s", cmd, host)
         if "server" in host:
-            status, stdout, stderr = self.server.execute(cmd)
+            _, stdout, _ = self.server.execute(cmd)
             if stdout:
                 is_run = False
         else:
-            status, stdout, stderr = self.client.execute(cmd)
+            _, stdout, _ = self.client.execute(cmd)
             if stdout:
                 is_run = False
 
@@ -222,5 +223,7 @@ class PktgenDPDK(base.Scenario):
             ppm += (sent - received) % sent > 0
             LOG.debug("Lost packets %d - Lost ppm %d", (sent - received), ppm)
             sla_max_ppm = int(self.scenario_cfg["sla"]["max_ppm"])
-            assert ppm <= sla_max_ppm, "ppm %d > sla_max_ppm %d; " \
-                % (ppm, sla_max_ppm)
+            if ppm > sla_max_ppm:
+                raise y_exc.SLAValidationError(
+                    case_name=self.__scenario_type__,
+                    error_msg="ppm %d > sla_max_ppm %d; " % (ppm, sla_max_ppm))
