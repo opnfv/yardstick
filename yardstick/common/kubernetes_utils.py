@@ -41,6 +41,7 @@ def create_service(template,
                    namespace='default',
                    wait=False,
                    **kwargs):       # pragma: no cover
+    # pylint: disable=unused-argument
     core_v1_api = get_core_api()
     metadata = client.V1ObjectMeta(**template.get('metadata', {}))
 
@@ -63,7 +64,8 @@ def delete_service(name,
                    **kwargs):       # pragma: no cover
     core_v1_api = get_core_api()
     try:
-        core_v1_api.delete_namespaced_service(name, namespace, **kwargs)
+        body = client.V1DeleteOptions()
+        core_v1_api.delete_namespaced_service(name, namespace, body, **kwargs)
     except ApiException:
         LOG.exception('Delete Service failed')
 
@@ -86,7 +88,7 @@ def create_replication_controller(template,
                                   namespace='default',
                                   wait=False,
                                   **kwargs):    # pragma: no cover
-
+    # pylint: disable=unused-argument
     core_v1_api = get_core_api()
     try:
         core_v1_api.create_namespaced_replication_controller(namespace,
@@ -101,7 +103,7 @@ def delete_replication_controller(name,
                                   namespace='default',
                                   wait=False,
                                   **kwargs):    # pragma: no cover
-
+    # pylint: disable=unused-argument
     core_v1_api = get_core_api()
     body = kwargs.get('body', client.V1DeleteOptions())
     kwargs.pop('body', None)
@@ -119,7 +121,7 @@ def delete_pod(name,
                namespace='default',
                wait=False,
                **kwargs):    # pragma: no cover
-
+    # pylint: disable=unused-argument
     core_v1_api = get_core_api()
     body = kwargs.get('body', client.V1DeleteOptions())
     kwargs.pop('body', None)
@@ -147,6 +149,7 @@ def read_pod(name,
 
 
 def read_pod_status(name, namespace='default', **kwargs):   # pragma: no cover
+    # pylint: disable=unused-argument
     return read_pod(name).status.phase
 
 
@@ -155,6 +158,7 @@ def create_config_map(name,
                       namespace='default',
                       wait=False,
                       **kwargs):   # pragma: no cover
+    # pylint: disable=unused-argument
     core_v1_api = get_core_api()
     metadata = client.V1ObjectMeta(name=name)
     body = client.V1ConfigMap(data=data, metadata=metadata)
@@ -169,6 +173,7 @@ def delete_config_map(name,
                       namespace='default',
                       wait=False,
                       **kwargs):     # pragma: no cover
+    # pylint: disable=unused-argument
     core_v1_api = get_core_api()
     body = kwargs.get('body', client.V1DeleteOptions())
     kwargs.pop('body', None)
