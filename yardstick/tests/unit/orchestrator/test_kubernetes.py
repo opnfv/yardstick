@@ -180,6 +180,34 @@ class KubernetesObjectTestCase(base.BaseUnitTestCase):
         with self.assertRaises(exceptions.KubernetesTemplateInvalidVolumeType):
             kubernetes.KubernetesObject._create_volume_item(volume)
 
+    def test__add_security_context(self):
+        k8s_obj = kubernetes.KubernetesObject('pod_name')
+        self.assertNotIn('securityContext',
+                         k8s_obj.template['spec']['template']['spec'])
+
+        k8s_obj._security_context = {'key_pod': 'value_pod'}
+        k8s_obj._add_security_context()
+        self.assertEqual(
+            {'key_pod': 'value_pod'},
+            k8s_obj.template['spec']['template']['spec']['securityContext'])
+
+    def test__add_security_context_by_init(self):
+        containers = []
+        for i in range(5):
+            containers.append(
+                {'securityContext': {'key%s' % i: 'value%s' % i}})
+        _kwargs = {'containers': containers,
+                   'securityContext': {'key_pod': 'value_pod'}}
+        k8s_obj = kubernetes.KubernetesObject('pod_name', **_kwargs)
+        self.assertEqual(
+            {'key_pod': 'value_pod'},
+            k8s_obj.template['spec']['template']['spec']['securityContext'])
+        for i in range(5):
+            container = (
+                k8s_obj.template['spec']['template']['spec']['containers'][i])
+            self.assertEqual({'key%s' % i: 'value%s' % i},
+                             container['securityContext'])
+
 
 class ContainerObjectTestCase(base.BaseUnitTestCase):
 
@@ -226,4 +254,19 @@ class ContainerObjectTestCase(base.BaseUnitTestCase):
                     'image': kubernetes.ContainerObject.IMAGE_DEFAULT,
                     'name': 'cname-container',
                     'volumeMounts': container_obj._create_volume_mounts()}
+        self.assertEqual(expected, container_obj.get_container_item())
+
+    def test_get_container_item_with_security_context(self):
+        volume_mount = {'name': 'fake_name',
+                        'mountPath': 'fake_path'}
+        args = ['arg1', 'arg2']
+        container_obj = kubernetes.ContainerObject(
+            'cname', ssh_key='fake_sshkey', volumeMount=[volume_mount],
+            args=args, securityContext={'key': 'value'})
+        expected = {'args': args,
+                    'command': [kubernetes.ContainerObject.COMMAND_DEFAULT],
+                    'image': kubernetes.ContainerObject.IMAGE_DEFAULT,
+                    'name': 'cname-container',
+                    'volumeMounts': container_obj._create_volume_mounts(),
+                    'securityContext': {'key': 'value'}}
         self.assertEqual(expected, container_obj.get_container_item())
