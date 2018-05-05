@@ -110,6 +110,36 @@ service ssh restart;while true ; do sleep 10000; done']
 
 class KubernetesObjectTestCase(base.BaseUnitTestCase):
 
+    def test__init_one_container(self):
+        pod_name = 'pod_name'
+        _kwargs = {'args': ['arg1', 'arg2'],
+                   'image': 'fake_image',
+                   'command': 'fake_command'}
+        k8s_obj = kubernetes.KubernetesObject(pod_name, **_kwargs)
+        self.assertEqual(1, len(k8s_obj._containers))
+        container = k8s_obj._containers[0]
+        self.assertEqual(['arg1', 'arg2'], container._args)
+        self.assertEqual('fake_image', container._image)
+        self.assertEqual(['fake_command'], container._command)
+        self.assertEqual([], container._volume_mounts)
+
+    def test__init_multipe_containers(self):
+        pod_name = 'pod_name'
+        containers = []
+        for i in range(5):
+            containers.append({'args': ['arg1', 'arg2'],
+                               'image': 'fake_image_%s' % i,
+                               'command': 'fake_command_%s' % i})
+        _kwargs = {'containers': containers}
+        k8s_obj = kubernetes.KubernetesObject(pod_name, **_kwargs)
+        self.assertEqual(5, len(k8s_obj._containers))
+        for i in range(5):
+            container = k8s_obj._containers[i]
+            self.assertEqual(['arg1', 'arg2'], container._args)
+            self.assertEqual('fake_image_%s' % i, container._image)
+            self.assertEqual(['fake_command_%s' % i], container._command)
+            self.assertEqual([], container._volume_mounts)
+
     def test__add_volumes(self):
         volume1 = {'name': 'fake_sshkey',
                    'configMap': {'name': 'fake_sshkey'}}
@@ -150,26 +180,29 @@ class KubernetesObjectTestCase(base.BaseUnitTestCase):
         with self.assertRaises(exceptions.KubernetesTemplateInvalidVolumeType):
             kubernetes.KubernetesObject._create_volume_item(volume)
 
+
+class ContainerObjectTestCase(base.BaseUnitTestCase):
+
     def test__create_volume_mounts(self):
         volume_mount = {'name': 'fake_name',
                         'mountPath': 'fake_path'}
-        ssh_vol = {'name': kubernetes.KubernetesObject.SSHKEY_DEFAULT,
-                   'mountPath': kubernetes.KubernetesObject.SSH_MOUNT_PATH,
+        ssh_vol = {'name': 'fake_ssh_key',
+                   'mountPath': kubernetes.ContainerObject.SSH_MOUNT_PATH,
                    'readOnly': False}
         expected = copy.deepcopy(volume_mount)
         expected['readOnly'] = False
         expected = [expected, ssh_vol]
-        k8s_obj = kubernetes.KubernetesObject('name',
-                                              volumeMounts=[volume_mount])
-        output = k8s_obj._create_volume_mounts()
+        container_obj = kubernetes.ContainerObject(
+            'cname', 'fake_ssh_key', volumeMounts=[volume_mount])
+        output = container_obj._create_volume_mounts()
         self.assertEqual(expected, output)
 
     def test__create_volume_mounts_no_volume_mounts(self):
-        ssh_vol = {'name': kubernetes.KubernetesObject.SSHKEY_DEFAULT,
-                   'mountPath': kubernetes.KubernetesObject.SSH_MOUNT_PATH,
+        ssh_vol = {'name': 'fake_ssh_key2',
+                   'mountPath': kubernetes.ContainerObject.SSH_MOUNT_PATH,
                    'readOnly': False}
-        k8s_obj = kubernetes.KubernetesObject('name')
-        output = k8s_obj._create_volume_mounts()
+        container_obj = kubernetes.ContainerObject('name', 'fake_ssh_key2')
+        output = container_obj._create_volume_mounts()
         self.assertEqual([ssh_vol], output)
 
     def test__create_volume_mounts_item(self):
@@ -177,20 +210,20 @@ class KubernetesObjectTestCase(base.BaseUnitTestCase):
                         'mountPath': 'fake_path'}
         expected = copy.deepcopy(volume_mount)
         expected['readOnly'] = False
-        output = kubernetes.KubernetesObject._create_volume_mounts_item(
+        output = kubernetes.ContainerObject._create_volume_mounts_item(
             volume_mount)
         self.assertEqual(expected, output)
 
-    def test__create_container_item(self):
+    def test_get_container_item(self):
         volume_mount = {'name': 'fake_name',
                         'mountPath': 'fake_path'}
         args = ['arg1', 'arg2']
-        k8s_obj = kubernetes.KubernetesObject(
+        container_obj = kubernetes.ContainerObject(
             'cname', ssh_key='fake_sshkey', volumeMount=[volume_mount],
             args=args)
         expected = {'args': args,
-                    'command': [kubernetes.KubernetesObject.COMMAND_DEFAULT],
-                    'image': kubernetes.KubernetesObject.IMAGE_DEFAULT,
+                    'command': [kubernetes.ContainerObject.COMMAND_DEFAULT],
+                    'image': kubernetes.ContainerObject.IMAGE_DEFAULT,
                     'name': 'cname-container',
-                    'volumeMounts': k8s_obj._create_volume_mounts()}
-        self.assertEqual(expected, k8s_obj._create_container_item())
+                    'volumeMounts': container_obj._create_volume_mounts()}
+        self.assertEqual(expected, container_obj.get_container_item())
