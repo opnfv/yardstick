@@ -1,28 +1,80 @@
-Project: Test framework for verifying infrastructure compliance (yardstick)
-Project Creation Date: April 28th, 2015
-Project Category: Integration & Testing
-Lifecycle State: Incubation
-Primary Contact: ross.b.brattain@intel.com
-Project Lead: ross.b.brattain@intel.com
-Jira Project Name: Infrastructure Verification
-Jira Project Prefix: Yardstick
-Mailing list tag: [Yardstick]
-IRC: #opnfv-yardstick
-Repository: yardstick
-
-Committers:
-jean.gaoliang@huawei.com
-lvjing5@huawei.com
-wu.zhihui1@zte.com.cn
-14_ykl@tongji.edu.cn
-limingjiang@huawei.com
-trevor.cooper@intel.com
-ross.b.brattain@intel.com
-chenjiankun1@huawei.com
-rodolfo.alonso.hernandez@intel.com
-emma.l.foley@intel.com
-abhijit.sinha@intel.com
-
-Link to TSC approval: http://meetbot.opnfv.org/meetings/
-Link to approval of additional submitters:
-Link to approval of new PTL: Done via Condorcet Internet Voting Service, avaliable from Raymond Piak
+---
+project: 'Test framework for verifying infrastructure compliance (yardstick)'
+project_creation_date: 'April 28th, 2015'
+project_category: 'Integration & Testing'
+lifecycle_state: 'Incubation'
+project_lead: &opnfv_yardstick_ptl
+    name: 'Ross Brattain'
+    email: 'ross.b.brattain@intel.com'
+    id: 'rbbratta'
+    company: 'intel.com'
+    timezone: 'PST'
+primary_contact: *opnfv_yardstick_ptl
+issue_tracking:
+    type: 'jira'
+    url: 'https://jira.opnfv.org/projects/Yardstick'
+    key: 'Yardstick'
+mailing_list:
+    type: 'mailman2'
+    url: 'opnfv-tech-discuss@lists.opnfv.org'
+    tag: '[yardstick]'
+realtime_discussion:
+    type: irc
+    server: 'freenode.net'
+    channel: '#opnfv-yardstick'
+meetings:
+    - type: 'gotomeeting+irc'
+      agenda:  'https://wiki.opnfv.org/display/yardstick/Yardstick+Meetings'
+      url:  'https://global.gotomeeting.com/join/819733085'
+      server: 'freenode.net'
+      channel: '#opnfv-yardstick'
+      repeats: 'weekly'
+      time:  '08:30 UTC'
+repositories:
+    - 'yardstick'
+committers:
+    - <<: *opnfv_yardstick_ptl
+    - name: 'Kubi'
+      email: 'jean.gaoliang@huawei.com'
+      company: 'huawei.com'
+      id: 'kubi'
+    - name: 'Rex Lee'
+      email: 'limingjiang@huawei.com'
+      company: 'huawei.com'
+      id: 'rexlee8776'
+    - name: 'Jing Lu'
+      email: 'lvjing5@huawei.com'
+      company: 'huawei.com'
+      id: 'JingLu5'
+    - name: 'zhihui wu'
+      email: 'wu.zhihui1@zte.com.cn'
+      company: 'zte.com.cn'
+      id: 'wu.zhihui'
+    - name: 'Trevor Cooper'
+      email: 'trevor.cooper@intel.com'
+      company: 'intel.com'
+      id: 'trev'
+    - name: 'Jack Chan'
+      email: 'chenjiankun1@huawei.com'
+      company: 'huawei.com'
+      id: 'chenjiankun'
+    - name: 'Emma Foley'
+      email: 'emma.l.foley@intel.com'
+      company: 'intel.com'
+      id: 'elfoley'
+    - name: 'Rodolfo Alonso Hernandez'
+      email: 'rodolfo.alonso.hernandez@intel.com'
+      company: 'intel.com'
+      id: 'rodolfo.ah'
+    - name: 'Kanglin Yin'
+      email: '14_ykl@tongji.edu.cn'
+      company: 'tongji.edu.cn'
+      id: 'tjuyinkanglin'
+    - name: 'Abhijit Sinha'
+      email: 'abhijit.sinha@intel.com'
+      company: 'intel.com'
+      id: 'abhijitsinha'
+tsc:
+    # yamllint disable rule:line-length
+    approval: 'http//meetbot.opnfv.org/meetings/'
+    # yamllint enable rule:line-length
