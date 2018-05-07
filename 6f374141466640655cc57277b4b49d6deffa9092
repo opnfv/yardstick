@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_a82384a5",
+        "filename": "etc/yardstick/nodes/apex_virtual/pod.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6745
+      },
+      "writtenOn": "2018-05-07T06:37:55Z",
+      "side": 1,
+      "message": "I didn\u0027t add the ODL in virtual because ODL is not included in all the scenarios so I thought to keep virtual as simple as it gets.\n\nI thought to follow the same path as fuel: \n\nhttps://github.com/opnfv/yardstick/blob/master/etc/yardstick/nodes/fuel_virtual/pod.yaml",
+      "parentUuid": "5a3f45e8_f994458c",
+      "revId": "6f374141466640655cc57277b4b49d6deffa9092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_f3891d76",
         "filename": "tests/ci/prepare_env.sh",
         "patchSetId": 9
