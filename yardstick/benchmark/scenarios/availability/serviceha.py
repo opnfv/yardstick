@@ -35,7 +35,7 @@ class ServiceHA(base.Scenario):
         """scenario setup"""
         nodes = self.context_cfg.get("nodes", None)
         if nodes is None:
-            LOG.error("the nodes info is none")
+            LOG.error("The nodes info is none")
             return
 
         self.attackers = []
@@ -58,17 +58,17 @@ class ServiceHA(base.Scenario):
     def run(self, result):
         """execute the benchmark"""
         if not self.setup_done:
-            LOG.error("The setup not finished!")
+            LOG.error("The setup is not finished!")
             return
 
         self.monitorMgr.start_monitors()
-        LOG.info("HA monitor start!")
+        LOG.info("Monitor '%s' start!", self.__scenario_type__)
 
         for attacker in self.attackers:
             attacker.inject_fault()
 
         self.monitorMgr.wait_monitors()
-        LOG.info("HA monitor stop!")
+        LOG.info("Monitor '%s' stop!", self.__scenario_type__)
 
         sla_pass = self.monitorMgr.verify_SLA()
         for k, v in self.data.items():

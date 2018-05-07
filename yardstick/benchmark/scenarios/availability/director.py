@@ -40,7 +40,7 @@ class Director(object):
         nodes = self.context_cfg.get("nodes", None)
         # setup attackers
         if "attackers" in self.scenario_cfg["options"]:
-            LOG.debug("start init attackers...")
+            LOG.debug("Start init attackers...")
             attacker_cfgs = self.scenario_cfg["options"]["attackers"]
             self.attackerMgr = baseattacker.AttackerMgr()
             self.data = self.attackerMgr.init_attackers(attacker_cfgs,
@@ -48,19 +48,19 @@ class Director(object):
 
         # setup monitors
         if "monitors" in self.scenario_cfg["options"]:
-            LOG.debug("start init monitors...")
+            LOG.debug("Start init monitors...")
             monitor_cfgs = self.scenario_cfg["options"]["monitors"]
             self.monitorMgr = basemonitor.MonitorMgr(self.data)
             self.monitorMgr.init_monitors(monitor_cfgs, nodes)
         # setup operations
         if "operations" in self.scenario_cfg["options"]:
-            LOG.debug("start init operations...")
+            LOG.debug("Start init operations...")
             operation_cfgs = self.scenario_cfg["options"]["operations"]
             self.operationMgr = baseoperation.OperationMgr()
             self.operationMgr.init_operations(operation_cfgs, nodes)
         # setup result checker
         if "resultCheckers" in self.scenario_cfg["options"]:
-            LOG.debug("start init resultCheckers...")
+            LOG.debug("Start init resultCheckers...")
             result_check_cfgs = self.scenario_cfg["options"]["resultCheckers"]
             self.resultCheckerMgr = baseresultchecker.ResultCheckerMgr()
             self.resultCheckerMgr.init_ResultChecker(result_check_cfgs, nodes)
@@ -69,7 +69,7 @@ class Director(object):
         if intermediate_variables is None:
             intermediate_variables = {}
         LOG.debug(
-            "the type of current action is %s, the key is %s", type, key)
+            "The type of current action is %s, the key is %s", type, key)
         if type == ActionType.ATTACKER:
             return actionplayers.AttackerPlayer(self.attackerMgr[key], intermediate_variables)
         if type == ActionType.MONITOR:
@@ -80,17 +80,17 @@ class Director(object):
         if type == ActionType.OPERATION:
             return actionplayers.OperationPlayer(self.operationMgr[key],
                                                  intermediate_variables)
-        LOG.debug("something run when creatactionplayer")
+        LOG.debug("The type is not recognized by createActionPlayer")
 
     def createActionRollbacker(self, type, key):
         LOG.debug(
-            "the type of current action is %s, the key is %s", type, key)
+            "The type of current action is %s, the key is %s", type, key)
         if type == ActionType.ATTACKER:
             return actionrollbackers.AttackerRollbacker(self.attackerMgr[key])
         if type == ActionType.OPERATION:
             return actionrollbackers.OperationRollbacker(
                 self.operationMgr[key])
-        LOG.debug("no rollbacker created for %s", key)
+        LOG.debug("No rollbacker created for key: %s", key)
 
     def verify(self):
         result = True
@@ -99,7 +99,7 @@ class Director(object):
         if hasattr(self, 'resultCheckerMgr'):
             result &= self.resultCheckerMgr.verify()
         if result:
-            LOG.debug("monitors are passed")
+            LOG.debug("Monitor results are passed")
         return result
 
     def stopMonitors(self):
@@ -107,12 +107,12 @@ class Director(object):
             self.monitorMgr.wait_monitors()
 
     def knockoff(self):
-        LOG.debug("knock off ....")
+        LOG.debug("Knock off ....")
         while self.executionSteps:
             singleStep = self.executionSteps.pop()
             singleStep.rollback()
 
     def store_result(self, result):
-        LOG.debug("store result ....")
+        LOG.debug("Store result ....")
         if hasattr(self, 'monitorMgr'):
             self.monitorMgr.store_result(result)
