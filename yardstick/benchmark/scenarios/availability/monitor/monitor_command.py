@@ -24,7 +24,7 @@ def _execute_shell_command(command):
     output = []
     try:
         output = subprocess.check_output(command, shell=True)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         exitcode = -1
         LOG.error("exec command '%s' error:\n ", command, exc_info=True)
 
@@ -45,7 +45,7 @@ class MonitorOpenstackCmd(basemonitor.BaseMonitor):
             self.connection = ssh.SSH.from_node(host,
                                                 defaults={"user": "root"})
             self.connection.wait(timeout=600)
-            LOG.debug("ssh host success!")
+            LOG.debug("ssh host (%s) success!", str(host))
 
         self.check_script = self.get_script_fullpath(
             "ha_tools/check_openstack_cmd.bash")
@@ -61,22 +61,20 @@ class MonitorOpenstackCmd(basemonitor.BaseMonitor):
                 self.cmd = self.cmd + " --insecure"
 
     def monitor_func(self):
-        exit_status = 0
         exit_status, stdout = _execute_shell_command(self.cmd)
-        LOG.debug("Execute command '%s' and the stdout is:\n%s", self.cmd, stdout)
+        LOG.debug("Executed command '%s'. "
+                  "The stdout is:\n%s", self.cmd, stdout)
         if exit_status:
             return False
         return True
 
     def verify_SLA(self):
         outage_time = self._result.get('outage_time', None)
-        LOG.debug("the _result:%s", self._result)
         max_outage_time = self._config["sla"]["max_outage_time"]
         if outage_time > max_outage_time:
             LOG.info("SLA failure: %f > %f", outage_time, max_outage_time)
             return False
         else:
-            LOG.info("the sla is passed")
             return True
 
 
@@ -97,7 +95,7 @@ def _test():    # pragma: no cover
     }
     monitor_configs.append(config)
 
-    p = basemonitor.MonitorMgr()
+    p = basemonitor.MonitorMgr({})
     p.init_monitors(monitor_configs, context)
     p.start_monitors()
     p.wait_monitors()
