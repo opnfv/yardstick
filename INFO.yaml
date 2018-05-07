@@ -34,10 +34,6 @@ repositories:
     - 'yardstick'
 committers:
     - <<: *opnfv_yardstick_ptl
-    - name: 'Jörgen Karlsson'
-      email: 'jorgen.w.karlsson@ericsson.com'
-      company: 'ericsson.com'
-      id: 'jnon'
     - name: 'Kubi'
       email: 'jean.gaoliang@huawei.com'
       company: 'huawei.com'
