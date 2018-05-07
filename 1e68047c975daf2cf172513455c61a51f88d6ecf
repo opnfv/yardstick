@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_083c38c7",
+        "filename": "yardstick/benchmark/scenarios/compute/lmbench.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-07T07:01:57Z",
+      "side": 1,
+      "message": "Sorry, I did not know about this convention, I just ran the   \"yardstick/tools/coding-checks.sh\", and Yarstick\u0027s .pylintrc file says max-line-length\u003d99.",
+      "parentUuid": "5a3f45e8_1943f142",
+      "range": {
+        "startLine": 123,
+        "startChar": 78,
+        "endLine": 123,
+        "endChar": 87
+      },
+      "revId": "1e68047c975daf2cf172513455c61a51f88d6ecf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_19749166",
         "filename": "yardstick/benchmark/scenarios/networking/iperf3.py",
         "patchSetId": 1
@@ -82,6 +106,30 @@
       "writtenOn": "2018-05-04T16:58:45Z",
       "side": 1,
       "message": "side note: What happens here if the first command fails and the second succeeds?\n\nThere would be no error raised, even if the service is not disabled on the server.\n\n\nSame applies wherever this pattern is seen (L136, L142, L148, L162, etc)",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 142,
+        "endChar": 52
+      },
+      "revId": "1e68047c975daf2cf172513455c61a51f88d6ecf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4849205f",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-07T07:01:57Z",
+      "side": 1,
+      "message": "Yes, the current logic just ignores the the first command\u0027s output. Since I was only fixing pylint errors, I did not know what to do. What is the current convention: if pylint errors are emerged from files that a commit has touched, should the code logic also be checked?",
+      "parentUuid": "5a3f45e8_39ecedf2",
       "range": {
         "startLine": 142,
         "startChar": 8,
@@ -157,6 +205,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_e8110c53",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-07T07:01:57Z",
+      "side": 1,
+      "message": "Logically yes :) If bad word choices are found when doing a commit, should they be fixed as well simultaneously?",
+      "parentUuid": "5a3f45e8_39c34d58",
+      "range": {
+        "startLine": 331,
+        "startChar": 65,
+        "endLine": 331,
+        "endChar": 67
+      },
+      "revId": "1e68047c975daf2cf172513455c61a51f88d6ecf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_79a8358d",
         "filename": "yardstick/tests/unit/benchmark/runner/test_search.py",
         "patchSetId": 1
@@ -168,6 +240,30 @@
       "writtenOn": "2018-05-04T16:58:45Z",
       "side": 1,
       "message": "Does this need to be a MagicMock? It doesn\u0027t look like any magic methods are needed. This could be just regular mock.Mock if you don\u0027t need the magic :)",
+      "range": {
+        "startLine": 147,
+        "startChar": 36,
+        "endLine": 147,
+        "endChar": 45
+      },
+      "revId": "1e68047c975daf2cf172513455c61a51f88d6ecf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c81ed05e",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_search.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-07T07:01:57Z",
+      "side": 1,
+      "message": "Right, it does not need to be a MagicMock. Should I create a new ticket from this, or just do the changes in this file to this commit?",
+      "parentUuid": "5a3f45e8_79a8358d",
       "range": {
         "startLine": 147,
         "startChar": 36,
