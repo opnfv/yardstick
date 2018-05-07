@@ -57,17 +57,17 @@ class ServiceHA(base.Scenario):
     def run(self, result):
         """execute the benchmark"""
         if not self.setup_done:
-            LOG.error("The setup not finished!")
+            LOG.error("The setup is not finished!")
             return
 
         self.monitorMgr.start_monitors()
-        LOG.info("HA monitor start!")
+        LOG.info("%s monitor start!", self.__scenario_type__)
 
         for attacker in self.attackers:
             attacker.inject_fault()
 
         self.monitorMgr.wait_monitors()
-        LOG.info("HA monitor stop!")
+        LOG.info("%s monitor stop!", self.__scenario_type__)
 
         sla_pass = self.monitorMgr.verify_SLA()
         for k, v in self.data.items():
