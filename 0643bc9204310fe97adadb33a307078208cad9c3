@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_c1422b67",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7053
+      },
+      "writtenOn": "2018-05-08T15:08:01Z",
+      "side": 1,
+      "message": "it got error if use \"${YARDSTICK_REPO_DIR}/docker/exec_tests.sh\"\n\n\n...\nStep 20/24 : COPY ${YARDSTICK_REPO_DIR}/docker/exec_tests.sh /usr/local/bin/\nCOPY failed: stat /var/lib/docker/tmp/docker-builder315609016/home/opnfv/repos/yardstick/docker/exec_tests.sh: no such file or directory\n\nDo we need to set ${YARDSTICK_REPO_DIR} to correct value first?\n\nI am running:\n1. git clone https://gerrit.opnfv.org/gerrit/yardstick\n2. cd yardstick/docker\n3. patch -f Dockerfile -p1 \u003c Dockerfile.aarch64.patch\n4. docker build --pull\u003dtrue --no-cache -t opnfv/yardstick_aarch64:latest --build-arg BRANCH\u003dmaster -f Dockerfile .",
+      "parentUuid": "5a3f45e8_c1e6abaf",
+      "revId": "0643bc9204310fe97adadb33a307078208cad9c3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_01041348",
         "filename": "docker/Dockerfile.aarch64.patch",
         "patchSetId": 1
