@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_5e96fa3f",
+        "filename": "yardstick/benchmark/scenarios/availability/director.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-08T08:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_5ea8ba8c",
+      "range": {
+        "startLine": 83,
+        "startChar": 19,
+        "endLine": 83,
+        "endChar": 48
+      },
+      "revId": "19d64e6d1fefc1588e3563975316682274ce97a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_9eaec296",
         "filename": "yardstick/benchmark/scenarios/availability/director.py",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-05-08T08:14:03Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 93,
+        "startChar": 19,
+        "endLine": 93,
+        "endChar": 45
+      },
+      "revId": "19d64e6d1fefc1588e3563975316682274ce97a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9e9c025f",
+        "filename": "yardstick/benchmark/scenarios/availability/director.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-08T08:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_9eaec296",
       "range": {
         "startLine": 93,
         "startChar": 19,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_fea426a7",
+        "filename": "yardstick/benchmark/scenarios/availability/director.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-08T08:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_fe96e64a",
+      "range": {
+        "startLine": 102,
+        "startChar": 22,
+        "endLine": 102,
+        "endChar": 44
+      },
+      "revId": "19d64e6d1fefc1588e3563975316682274ce97a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_de932a59",
         "filename": "yardstick/benchmark/scenarios/availability/director.py",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_dea16a95",
+        "filename": "yardstick/benchmark/scenarios/availability/director.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-08T08:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_de932a59",
+      "range": {
+        "startLine": 110,
+        "startChar": 19,
+        "endLine": 110,
+        "endChar": 30
+      },
+      "revId": "19d64e6d1fefc1588e3563975316682274ce97a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_5ec1da52",
         "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
         "patchSetId": 4
@@ -105,6 +201,30 @@
       "writtenOn": "2018-05-08T08:14:03Z",
       "side": 1,
       "message": "Monitor \u0027%s\u0027 start/stop! may be clear.",
+      "range": {
+        "startLine": 64,
+        "startChar": 16,
+        "endLine": 64,
+        "endChar": 61
+      },
+      "revId": "19d64e6d1fefc1588e3563975316682274ce97a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1e711244",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-08T08:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_5ec1da52",
       "range": {
         "startLine": 64,
         "startChar": 16,
