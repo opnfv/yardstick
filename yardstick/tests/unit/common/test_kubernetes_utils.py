@@ -40,6 +40,23 @@ class GetExtensionsV1betaApiTestCase(base.BaseUnitTestCase):
             kubernetes_utils.get_extensions_v1beta_api()
 
 
+class GetCustomObjectsApiTestCase(base.BaseUnitTestCase):
+
+    @mock.patch.object(client, 'CustomObjectsApi', return_value='api')
+    @mock.patch.object(config, 'load_kube_config')
+    def test_execute_correct(self, mock_load_kube_config, mock_api):
+        self.assertEqual('api', kubernetes_utils.get_custom_objects_api())
+        mock_load_kube_config.assert_called_once_with(
+            config_file=constants.K8S_CONF_FILE)
+        mock_api.assert_called_once()
+
+    @mock.patch.object(config, 'load_kube_config')
+    def test_execute_exception(self, mock_load_kube_config):
+        mock_load_kube_config.side_effect = IOError
+        with self.assertRaises(exceptions.KubernetesConfigFileNotFound):
+            kubernetes_utils.get_custom_objects_api()
+
+
 class CreateCustomResourceDefinitionTestCase(base.BaseUnitTestCase):
 
     @mock.patch.object(client, 'V1beta1CustomResourceDefinition',
@@ -103,3 +120,79 @@ class DeleteCustomResourceDefinitionTestCase(base.BaseUnitTestCase):
         mock_delobj.assert_called_once()
         mock_delete_crd.delete_custom_resource_definition.\
             assert_called_once_with('name', 'del_obj')
+
+
+class CreateNetworkTestCase(base.BaseUnitTestCase):
+    @mock.patch.object(kubernetes_utils, 'get_custom_objects_api')
+    def test_execute_correct(self, mock_get_api):
+        mock_api = mock.Mock()
+        mock_get_api.return_value = mock_api
+        group = 'group.com'
+        version = mock.Mock()
+        plural = 'networks'
+        body = mock.Mock()
+
+        kubernetes_utils.create_network(
+            constants.SCOPE_CLUSTER, group, version, plural, body)
+        mock_api.create_cluster_custom_object.assert_called_once_with(
+            group, version, plural, body)
+
+        mock_api.reset_mock()
+        kubernetes_utils.create_network(
+            constants.SCOPE_NAMESPACED, group, version, plural, body)
+        mock_api.create_namespaced_custom_object.assert_called_once_with(
+            group, version, 'default', plural, body)
+
+
+    @mock.patch.object(kubernetes_utils, 'get_custom_objects_api')
+    def test_execute_exception(self, mock_get_api):
+        mock_api = mock.Mock()
+        mock_api.create_cluster_custom_object.side_effect = rest.ApiException
+        mock_get_api.return_value = mock_api
+        with self.assertRaises(exceptions.KubernetesApiException):
+            kubernetes_utils.create_network(
+                constants.SCOPE_CLUSTER, mock.ANY, mock.ANY, mock.ANY,
+                mock.ANY)
+#
+# def delete_network(scope, group, version, plural, name, namespace='default'):
+#     api = get_custom_objects_api()
+#     try:
+#         if scope == consts.SCOPE_CLUSTER:
+#             api.delete_cluster_custom_object(group, version, plural, name, {})
+#         else:
+#             api.delete_namespaced_custom_object(
+#                 group, version, namespace, plural, name, {})
+#     except ApiException as z:
+#         raise exceptions.KubernetesApiException(
+#             action='delete', resource='Custom Object: Network')
+
+class DeleteNetworkTestCase(base.BaseUnitTestCase):
+    @mock.patch.object(kubernetes_utils, 'get_custom_objects_api')
+    def test_execute_correct(self, mock_get_api):
+        mock_api = mock.Mock()
+        mock_get_api.return_value = mock_api
+        group = 'group.com'
+        version = mock.Mock()
+        plural = 'networks'
+        name = 'network'
+
+        kubernetes_utils.delete_network(
+            constants.SCOPE_CLUSTER, group, version, plural, name)
+        mock_api.delete_cluster_custom_object.assert_called_once_with(
+            group, version, plural, name, {})
+
+        mock_api.reset_mock()
+        kubernetes_utils.delete_network(
+            constants.SCOPE_NAMESPACED, group, version, plural, name)
+        mock_api.delete_namespaced_custom_object.assert_called_once_with(
+            group, version, 'default', plural, name, {})
+
+    @mock.patch.object(kubernetes_utils, 'get_custom_objects_api')
+    def test_execute_exception(self, mock_get_api):
+        mock_api = mock.Mock()
+        mock_api.delete_cluster_custom_object.side_effect = rest.ApiException
+        mock_get_api.return_value = mock_api
+        with self.assertRaises(exceptions.KubernetesApiException):
+            kubernetes_utils.delete_network(
+                constants.SCOPE_CLUSTER, mock.ANY, mock.ANY, mock.ANY,
+                mock.ANY)
