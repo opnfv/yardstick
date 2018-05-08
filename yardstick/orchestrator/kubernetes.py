@@ -195,6 +195,48 @@ class ServiceObject(object):
         k8s_utils.delete_service(self.name)
 
 
+class CustomResourceDefinitionObject(object):
+
+    MANDATORY_PARAMETERS = {'name'}
+
+    def __init__(self, ctx_name, **kwargs):
+        if not self.MANDATORY_PARAMETERS.issubset(kwargs):
+            missing_parameters = ', '.join(
+                str(param) for param in
+                (self.MANDATORY_PARAMETERS - set(kwargs)))
+            raise exceptions.KubernetesCRDObjectDefinitionError(
+                missing_parameters=missing_parameters)
+
+        singular = kwargs['name']
+        plural = singular + 's'
+        kind = singular.title()
+        version = kwargs.get('version', 'v1')
+        scope = kwargs.get('scope', 'Namespaced')
+        group = ctx_name + '.com'
+        self._name = metadata_name = plural + '.' + group
+
+        self._template = {
+            'metadata': {
+                'name': metadata_name
+            },
+            'spec': {
+                'group': group,
+                'version': version,
+                'scope': scope,
+                'names': {'plural': plural,
+                          'singular': singular,
+                          'kind': kind}
+            }
+        }
+
+    def create(self):
+        k8s_utils.create_custom_resource_definition(self._template)
+
+    def delete(self):
+        k8s_utils.delete_custom_resource_definition(self._name)
+
+
+
 class KubernetesTemplate(object):
 
     def __init__(self, name, context_cfg):
