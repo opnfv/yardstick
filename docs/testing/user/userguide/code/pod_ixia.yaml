@@ -1,0 +1,31 @@
+nodes:
+-
+    name: trafficgen_1
+    role: IxNet
+    ip: 1.2.1.1 #ixia machine ip
+    user: user
+    password: r00t
+    key_filename: /root/.ssh/id_rsa
+    tg_config:
+        ixchassis: "1.2.1.7" #ixia chassis ip
+        tcl_port: "8009" # tcl server port
+        lib_path: "/opt/ixia/ixos-api/8.01.0.2/lib/ixTcl1.0"
+        root_dir: "/opt/ixia/ixos-api/8.01.0.2/"
+        py_bin_path: "/opt/ixia/ixload/8.01.106.3/bin/"
+        dut_result_dir: "/mnt/ixia"
+        version: 8.1
+    interfaces:
+        xe0:  # logical name from topology.yaml and vnfd.yaml
+            vpci: "2:5" # Card:port
+            driver:    "none"
+            dpdk_port_num: 0
+            local_ip: "152.16.100.20"
+            netmask:   "255.255.0.0"
+            local_mac: "00:98:10:64:14:00"
+        xe1:  # logical name from topology.yaml and vnfd.yaml
+            vpci: "2:6" # [(Card, port)]
+            driver:    "none"
+            dpdk_port_num: 1
+            local_ip: "152.40.40.20"
+            netmask:   "255.255.0.0"
+            local_mac: "00:98:28:28:14:00"
