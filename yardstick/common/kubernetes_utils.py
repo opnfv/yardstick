@@ -13,6 +13,8 @@ from kubernetes import config
 from kubernetes.client.rest import ApiException
 
 from yardstick.common import constants as consts
+from yardstick.common import exceptions
+
 
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
@@ -22,10 +24,16 @@ def get_core_api():     # pragma: no cover
     try:
         config.load_kube_config(config_file=consts.K8S_CONF_FILE)
     except IOError:
-        LOG.exception('config file not found')
-        raise
-
+        raise exceptions.KubernetesConfigFileNotFound()
     return client.CoreV1Api()
+
+
+def get_extensions_v1beta_api():
+    try:
+        config.load_kube_config(config_file=consts.K8S_CONF_FILE)
+    except IOError:
+        raise exceptions.KubernetesConfigFileNotFound()
+    return client.ApiextensionsV1beta1Api()
 
 
 def get_node_list(**kwargs):        # pragma: no cover
@@ -185,6 +193,31 @@ def delete_config_map(name,
     except ApiException:
         LOG.exception('Delete config map failed')
         raise
+
+
+def create_custom_resource_definition(body):
+    api = get_extensions_v1beta_api()
+    body_obj = client.V1beta1CustomResourceDefinition(
+        spec=body['spec'], metadata=body['metadata'])
+    try:
+        api.create_custom_resource_definition(body_obj)
+    except ValueError:
+        # NOTE(ralonsoh): bug in kubernetes-client/python 6.0.0
+        # https://github.com/kubernetes-client/python/issues/491
+        pass
+    except ApiException:
+        raise exceptions.KubernetesApiException(
+            action='create', resource='CustomResourceDefinition')
+
+
+def delete_custom_resource_definition(name):
+    api = get_extensions_v1beta_api()
+    body_obj = client.V1DeleteOptions()
+    try:
+        api.delete_custom_resource_definition(name, body_obj)
+    except ApiException:
+        raise exceptions.KubernetesApiException(
+            action='delete', resource='CustomResourceDefinition')
 
 
 def get_pod_list(namespace='default'):      # pragma: no cover
