@@ -297,3 +297,75 @@ class CustomResourceDefinitionObjectTestCase(base.BaseUnitTestCase):
         with self.assertRaises(exceptions.KubernetesCRDObjectDefinitionError):
             kubernetes.CustomResourceDefinitionObject('ctx_name',
                                                       noname='name')
+
+
+class NetworkObjectTestCase(base.BaseUnitTestCase):
+
+    def setUp(self):
+        self.net_obj = kubernetes.NetworkObject(name='fake_name',
+                                                plugin='fake_plugin',
+                                                args='fake_args')
+
+    def test__init_missing_parameter(self):
+        with self.assertRaises(
+                exceptions.KubernetesNetworkObjectDefinitionError):
+            kubernetes.NetworkObject(name='name', plugin='plugin')
+        with self.assertRaises(
+                exceptions.KubernetesNetworkObjectDefinitionError):
+            kubernetes.NetworkObject(name='name', args='args')
+        with self.assertRaises(
+                exceptions.KubernetesNetworkObjectDefinitionError):
+            kubernetes.NetworkObject(args='args', plugin='plugin')
+
+    @mock.patch.object(kubernetes_utils, 'get_custom_resource_definition')
+    def test_crd(self, mock_get_crd):
+        net_obj = copy.deepcopy(self.net_obj)
+        mock_crd = mock.Mock()
+        mock_get_crd.return_value = mock_crd
+        self.assertEqual(mock_crd, net_obj.crd)
+
+    def test_template(self):
+        net_obj = copy.deepcopy(self.net_obj)
+        expected = {'apiVersion': 'group.com/v2',
+                    'kind': kubernetes.NetworkObject.KIND,
+                    'metadata': {
+                        'name': 'fake_name'},
+                    'plugin': 'fake_plugin',
+                    'args': 'fake_args'}
+        crd = mock.Mock()
+        crd.spec.group = 'group.com'
+        crd.spec.version = 'v2'
+        net_obj._crd = crd
+        self.assertEqual(expected, net_obj.template)
+
+    @mock.patch.object(kubernetes_utils, 'get_custom_resource_definition')
+    def test_group(self, mock_get_crd):
+        net_obj = copy.deepcopy(self.net_obj)
+        mock_crd = mock.Mock()
+        mock_crd.spec.group = 'fake_group'
+        mock_get_crd.return_value = mock_crd
+        self.assertEqual('fake_group', net_obj.group)
+
+    @mock.patch.object(kubernetes_utils, 'get_custom_resource_definition')
+    def test_version(self, mock_get_crd):
+        net_obj = copy.deepcopy(self.net_obj)
+        mock_crd = mock.Mock()
+        mock_crd.spec.version = 'version_4'
+        mock_get_crd.return_value = mock_crd
+        self.assertEqual('version_4', net_obj.version)
+
+    @mock.patch.object(kubernetes_utils, 'get_custom_resource_definition')
+    def test_version(self, mock_get_crd):
+        net_obj = copy.deepcopy(self.net_obj)
+        mock_crd = mock.Mock()
+        mock_crd.spec.names.plural = 'name_with_s'
+        mock_get_crd.return_value = mock_crd
+        self.assertEqual('name_with_s', net_obj.plural)
+
+    @mock.patch.object(kubernetes_utils, 'get_custom_resource_definition')
+    def test_version(self, mock_get_crd):
+        net_obj = copy.deepcopy(self.net_obj)
+        mock_crd = mock.Mock()
+        mock_crd.spec.scope = 'Cluster'
+        mock_get_crd.return_value = mock_crd
+        self.assertEqual('Cluster', net_obj.scope)
