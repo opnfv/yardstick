@@ -51,7 +51,7 @@ EXPOSE 5000 5672
 ADD http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img ${IMAGE_DIR}
 ADD http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img ${IMAGE_DIR}
 
-COPY ./docker/exec_tests.sh /usr/local/bin/
+COPY ./exec_tests.sh /usr/local/bin/
 
 ENV NSB_DIR="/opt/nsb_bin"
 ENV PYTHONPATH="${PYTHONPATH}:${NSB_DIR}/trex_client:${NSB_DIR}/trex_client/stl"
