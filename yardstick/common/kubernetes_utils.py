@@ -36,6 +36,14 @@ def get_extensions_v1beta_api():
     return client.ApiextensionsV1beta1Api()
 
 
+def get_custom_objects_api():
+    try:
+        config.load_kube_config(config_file=consts.K8S_CONF_FILE)
+    except IOError:
+        raise exceptions.KubernetesConfigFileNotFound()
+    return client.CustomObjectsApi()
+
+
 def get_node_list(**kwargs):        # pragma: no cover
     core_v1_api = get_core_api()
     try:
@@ -218,6 +226,45 @@ def delete_custom_resource_definition(name):
     except ApiException:
         raise exceptions.KubernetesApiException(
             action='delete', resource='CustomResourceDefinition')
+
+
+def get_custom_resource_definition(kind):
+    api = get_extensions_v1beta_api()
+    try:
+        crd_list = api.list_custom_resource_definition()
+        for crd_obj in (crd_obj for crd_obj in crd_list.items
+                        if crd_obj.spec.names.kind == kind):
+            return crd_obj
+        return None
+    except ApiException:
+        raise exceptions.KubernetesApiException(
+            action='delete', resource='CustomResourceDefinition')
+
+
+def create_network(scope, group, version, plural, body, namespace='default'):
+    api = get_custom_objects_api()
+    try:
+        if scope == consts.SCOPE_CLUSTER:
+            api.create_cluster_custom_object(group, version, plural, body)
+        else:
+            api.create_namespaced_custom_object(
+                group, version, namespace, plural, body)
+    except ApiException:
+        raise exceptions.KubernetesApiException(
+            action='create', resource='Custom Object: Network')
+
+
+def delete_network(scope, group, version, plural, name, namespace='default'):
+    api = get_custom_objects_api()
+    try:
+        if scope == consts.SCOPE_CLUSTER:
+            api.delete_cluster_custom_object(group, version, plural, name, {})
+        else:
+            api.delete_namespaced_custom_object(
+                group, version, namespace, plural, name, {})
+    except ApiException:
+        raise exceptions.KubernetesApiException(
+            action='delete', resource='Custom Object: Network')
 
 
 def get_pod_list(namespace='default'):      # pragma: no cover

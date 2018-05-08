@@ -91,9 +91,7 @@ class KubernetesObject(object):
                 "replicas": 1,
                 "template": {
                     "metadata": {
-                        "labels": {
-                            "app": name
-                        }
+                        "labels": {"app": name}
                     },
                     "spec": {
                         "containers": [],
@@ -237,6 +235,98 @@ class CustomResourceDefinitionObject(object):
         k8s_utils.delete_custom_resource_definition(self._name)
 
 
+class NetworkObject(object):
+
+    MANDATORY_PARAMETERS = {'name', 'plugin', 'args'}
+    KIND = 'Network'
+
+    def __init__(self, **kwargs):
+        if not self.MANDATORY_PARAMETERS.issubset(kwargs):
+            missing_parameters = ', '.join(
+                str(param) for param in
+                (self.MANDATORY_PARAMETERS - set(kwargs)))
+            raise exceptions.KubernetesNetworkObjectDefinitionError(
+                missing_parameters=missing_parameters)
+
+        self._name = kwargs['name']
+        self._plugin = kwargs['plugin']
+        self._args = kwargs['args']
+        self._crd = None
+        self._template = None
+        self._group = None
+        self._version = None
+        self._plural = None
+        self._scope = None
+
+    @property
+    def crd(self):
+        if self._crd:
+            return self._crd
+        crd = k8s_utils.get_custom_resource_definition(self.KIND)
+        if not crd:
+            raise exceptions.KubernetesNetworkObjectKindMissing()
+        self._crd = crd
+        return self._crd
+
+    @property
+    def group(self):
+        if self._group:
+            return self._group
+        self._group = self.crd.spec.group
+        return self._group
+
+    @property
+    def version(self):
+        if self._version:
+            return self._version
+        self._version = self.crd.spec.version
+        return self._version
+
+    @property
+    def plural(self):
+        if self._plural:
+            return self._plural
+        self._plural = self.crd.spec.names.plural
+        return self._plural
+
+    @property
+    def scope(self):
+        if self._scope:
+            return self._scope
+        self._scope = self.crd.spec.scope
+        return self._scope
+
+    @property
+    def template(self):
+        """"Network" object template
+
+        This template can be rendered only once the CRD "Network" is created in
+        Kubernetes. This function call must be delayed until the creation of
+        the CRD "Network".
+        """
+        if self._template:
+            return self._template
+
+        self._template = {
+            'apiVersion': '{}/{}'.format(self.group, self.version),
+            'kind': self.KIND,
+            'metadata': {
+                'name': self._name
+            },
+            'plugin': self._plugin,
+            'args': self._args
+        }
+        return self._template
+
+    def create(self):
+        k8s_utils.create_network(self.scope, self.group, self.version,
+                                 self.plural, self.template)
+
+    def delete(self):
+        k8s_utils.delete_network(self.scope, self.group, self.version,
+                                 self.plural, self._name)
+
+
 class KubernetesTemplate(object):
 
     def __init__(self, name, context_cfg):
@@ -248,6 +338,7 @@ class KubernetesTemplate(object):
         context_cfg = copy.deepcopy(context_cfg)
         servers_cfg = context_cfg.pop('servers', {})
         crd_cfg = context_cfg.pop('custom_resources', [])
+        networks_cfg = context_cfg.pop('networks', [])
         self.name = name
         self.ssh_key = '{}-key'.format(name)
 
@@ -259,7 +350,7 @@ class KubernetesTemplate(object):
         self.service_objs = [ServiceObject(s) for s in self.rcs]
         self.crd = [CustomResourceDefinitionObject(self.name, **crd)
                     for crd in crd_cfg]
-
+        self.network_objs = [NetworkObject(**nobj) for nobj in networks_cfg]
         self.pods = []
 
     def _get_rc_name(self, rc_name):
