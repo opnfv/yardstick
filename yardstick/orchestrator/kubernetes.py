@@ -195,6 +195,35 @@ class ServiceObject(object):
         k8s_utils.delete_service(self.name)
 
 
+class NetworkObject(object):
+
+    PARAMETERS = {'name', 'plugin', 'args'}
+
+    def __init__(self, **kwargs):
+        if not self.PARAMETERS.issubset(kwargs):
+            missing_parameters = ', '.join(str(param) for param in
+                                           (self.PARAMETERS - set(kwargs)))
+            raise exceptions.KubernetesNetworkObjectDefinitionError(
+                missing_parameters=missing_parameters)
+
+        self._name = kwargs['name']
+        self._template = {
+            'apiVersion': 'v1',
+            'kind': 'Network',
+            'metadata': {
+                'name': kwargs['name']
+            },
+            'plugin': kwargs['plugin'],
+            'args': kwargs['arguments']
+        }
+
+    def create(self):
+        k8s_utils.create_network(self._template)
+
+    def delete(self):
+        k8s_utils.delete_network(self._name)
+
+
 class KubernetesTemplate(object):
 
     def __init__(self, name, context_cfg):
@@ -205,6 +234,7 @@ class KubernetesTemplate(object):
         """
         context_cfg = copy.deepcopy(context_cfg)
         servers_cfg = context_cfg.pop('servers', {})
+        networks_cfg = context_cfg.pop('networks', [])
         self.name = name
         self.ssh_key = '{}-key'.format(name)
 
@@ -214,6 +244,7 @@ class KubernetesTemplate(object):
                                           **cfg)
                          for rc, cfg in servers_cfg.items()]
         self.service_objs = [ServiceObject(s) for s in self.rcs]
+        self.network_objs = [NetworkObject(**nobj) for nobj in networks_cfg]
 
         self.pods = []
 
