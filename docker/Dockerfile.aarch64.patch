@@ -1,15 +1,14 @@
-From: Cristina Pauna <cristina.pauna@enea.com>
-Date: Thu, 11 Jan 2018 19:06:26 +0200
-Subject: [PATCH] Patch for Yardstick AARCH64 Docker file
+From: ting wu <ting.wu@enea.com>
+Date: Tue, 8 May 2018 14:02:52 +0200
+Subject: [PATCH][PATCH] Patch for Yardstick AARCH64 Docker file
 
-Signed-off-by: Cristina Pauna <cristina.pauna@enea.com>
-Signed-off-by: Alexandru Nemes <alexandru.nemes@enea.com>
+Signed-off-by: ting wu <ting.wu@enea.com>
 ---
- docker/Dockerfile | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ docker/Dockerfile | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/docker/Dockerfile b/docker/Dockerfile
-index 2ee5b4c..23e5ea5 100644
+index 62ea0d0..f2f41771 100644
 --- a/docker/Dockerfile
 +++ b/docker/Dockerfile
 @@ -1,5 +1,5 @@
@@ -31,7 +30,7 @@ index 2ee5b4c..23e5ea5 100644
 
  ARG BRANCH=master
 
-@@ -24,7 +24,8 @@ ENV YARDSTICK_REPO_DIR="${REPOS_DIR}/yardstick" \
+@@ -24,7 +24,8 @@ ENV YARDSTICK_REPO_DIR="${REPOS_DIR}/yardstick/" \
      RELENG_REPO_DIR="${REPOS_DIR}/releng" \
      STORPERF_REPO_DIR="${REPOS_DIR}/storperf"
 
@@ -39,9 +38,9 @@ index 2ee5b4c..23e5ea5 100644
 +RUN apt-get update && apt-get install -y git python-setuptools python-pip iputils-ping && apt-get -y autoremove && \
 +    apt-get install -y libssl-dev && apt-get -y install libffi-dev && apt-get clean
  RUN easy_install -U setuptools==30.0.0
- RUN pip install appdirs==1.4.0 pyopenssl==17.5.0 python-openstackclient==3.11.0 python-heatclient==1.11.0
+ RUN pip install appdirs==1.4.0 pyopenssl==17.5.0 python-openstackclient==3.11.0 python-heatclient==1.11.0 ansible==2.4.2
 
-@@ -43,8 +44,8 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+@@ -48,8 +49,8 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
  # nginx=5000, rabbitmq=5672
  EXPOSE 5000 5672
 
