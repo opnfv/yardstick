@@ -218,6 +218,28 @@ def delete_custom_resource_definition(name):
         raise exceptions.KubernetesApiException(
             action='delete', resource='CustomResourceDefinition')
 
+###############################################################################
+#RAH
+def create_network(name,
+                   data,
+                   namespace='default',
+                   wait=False,
+                   **kwargs):   # pragma: no cover
+    # pylint: disable=unused-argument
+    core_v1_api = get_core_api()
+    metadata = client.V1ObjectMeta(name=name)
+    body = client.V1ConfigMap(data=data, metadata=metadata)
+    try:
+        core_v1_api.create_namespaced_config_map(namespace, body, **kwargs)
+    except ApiException:
+        LOG.exception('Create config map failed')
+        raise
+
+
+def delete_network():
+    pass
+###############################################################################
+
 
 def get_pod_list(namespace='default'):      # pragma: no cover
     core_v1_api = get_core_api()

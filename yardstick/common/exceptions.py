@@ -180,6 +180,11 @@ class KubernetesCRDObjectDefinitionError(YardstickException):
                'parameters: %(missing_parameters)s')
 
 
+class KubernetesNetworkObjectDefinitionError(YardstickException):
+    message = ('Kubernetes Network object definition error, missing '
+               'parameters: %(missing_parameters)s')
+
+
 class ScenarioCreateNetworkError(YardstickException):
     message = 'Create Neutron Network Scenario failed'
 
