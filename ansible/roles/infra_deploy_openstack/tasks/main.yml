@@ -76,6 +76,12 @@
     dest: /tmp/
     flat: yes
 
+- name: Download OpenStack env file
+  fetch:
+    src: /tmp/admin-openrc.sh
+    dest: /tmp/
+    flat: yes
+
 - include_vars:
     file: /tmp/admin-openrc.yaml
     name: ostack_env
@@ -114,12 +120,3 @@
   environment:
     - no_proxy: "{{ lookup('env', 'no_proxy') + ',' + ansible_host + ',' + hostvars[ansible_host].ansible_default_ipv4.address }}"
     - "{{ ostack_env }}"
-
-- name: Upload OpenStack env file to Yardstick VM
-  copy:
-    src: /etc/kolla/admin-openrc.sh
-    dest: '/tmp/admin-openrc.sh'
-    delegate_to: "{{ item }}"
-  when: "groups['yardstickG'] is defined"
-  with_items:
-    - "{{ groups['yardstickG'] }}"

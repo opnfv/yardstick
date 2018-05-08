@@ -44,6 +44,44 @@
 - hosts: deploy
   become: yes
   environment: "{{ proxy_env }}"
+  vars:
+    rs_file: "{{ RS_FILE }}"
 
   roles:
   - infra_deploy_openstack
+
+
+- hosts: yardstickG
+  gather_facts: no
+  become: yes
+  vars:
+    git_repos_path: '/tmp/repos/'
+
+  tasks:
+  - name: Clone yardstick repo
+    git:
+      repo: 'https://gerrit.opnfv.org/gerrit/yardstick'
+      dest: "{{ git_repos_path + 'yardstick' }}"
+      version: master
+    environment: "{{ proxy_env }}"
+
+  - name: Upload OpenStack env file to Yardstick VM
+    copy:
+      src: /tmp/admin-openrc.yaml
+      dest: /tmp/admin-openrc.yaml
+
+  - name: Upload OpenStack env file to Yardstick VM
+    copy:
+      src: /tmp/admin-openrc.sh
+      dest: /tmp/admin-openrc.sh
+
+  - name: Add openStack environment variables
+    include_vars:
+      file: /tmp/admin-openrc.yaml
+      name: ostack_env
+
+  - name: Run nsb_setup.sh
+    shell: "{{ git_repos_path + 'yardstick/nsb_setup.sh /tmp/admin-openrc.sh' }}"
+    args:
+      chdir: "{{ git_repos_path + 'yardstick/' }}"
+    environment: "{{ ostack_env }}"
