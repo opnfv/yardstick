@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_1c463a4f",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-08T17:02:07Z",
+      "side": 1,
+      "message": "MANDATORY_PARAMETERS",
+      "range": {
+        "startLine": 200,
+        "startChar": 4,
+        "endLine": 200,
+        "endChar": 14
+      },
+      "revId": "e76de3a5c1466ab4333442d13006bff3f2a67977",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7c765ea5",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-08T17:02:07Z",
+      "side": 1,
+      "message": "Add qualified ctx name",
+      "range": {
+        "startLine": 209,
+        "startChar": 7,
+        "endLine": 209,
+        "endChar": 35
+      },
+      "revId": "e76de3a5c1466ab4333442d13006bff3f2a67977",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
