@@ -164,6 +164,11 @@ class KubernetesTemplateInvalidVolumeType(YardstickException):
     message = 'No valid "volume" types present in %(volume)s'
 
 
+class KubernetesNetworkObjectDefinitionError(YardstickException):
+    message = ('Kubernetes Network object definition error, missing '
+               'parameters: %(missing_parameters)s')
+
+
 class ScenarioCreateNetworkError(YardstickException):
     message = 'Create Neutron Network Scenario failed'
 

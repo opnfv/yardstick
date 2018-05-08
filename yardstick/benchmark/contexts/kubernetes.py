@@ -48,6 +48,7 @@ class KubernetesContext(Context):
         LOG.info('Creating ssh key')
         self._set_ssh_key()
 
+        self._create_networks()
         LOG.info('Launch containers')
         self._create_rcs()
         self._create_services()
@@ -61,6 +62,7 @@ class KubernetesContext(Context):
         self._delete_rcs()
         self._delete_pods()
         self._delete_services()
+        self._delete_networks()
 
         super(KubernetesContext, self).undeploy()
 
@@ -151,3 +153,12 @@ class KubernetesContext(Context):
 
     def _get_network(self, attr_name):
         return None
+
+    def _create_networks(self):
+        """Create "Network" elements"""
+        pass
+
+    def _delete_networks(self):
+        """Delete "Network" elements"""
+        pass
+
