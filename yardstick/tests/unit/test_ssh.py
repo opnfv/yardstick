@@ -238,6 +238,25 @@ class SSHTestCase(unittest.TestCase):
         self.assertEqual("stdout fake data", stdout)
         self.assertEqual("stderr fake data", stderr)
 
+    @mock.patch("yardstick.ssh.six.moves.StringIO")
+    def test_execute_raise_on_error_passed(self, mock_string_io):
+        mock_string_io.side_effect = stdio = [mock.Mock(), mock.Mock()]
+        stdio[0].read.return_value = "stdout fake data"
+        stdio[1].read.return_value = "stderr fake data"
+        with mock.patch.object(self.test_client, "run", return_value=0) \
+                as mock_run:
+            status, stdout, stderr = self.test_client.execute(
+                "cmd",
+                stdin="fake_stdin",
+                timeout=43,
+                raise_on_error=True)
+        mock_run.assert_called_once_with(
+            "cmd", stdin="fake_stdin", stdout=stdio[0],
+            stderr=stdio[1], timeout=43, raise_on_error=True)
+        self.assertEqual(0, status)
+        self.assertEqual("stdout fake data", stdout)
+        self.assertEqual("stderr fake data", stderr)
+
     @mock.patch("yardstick.ssh.time")
     def test_wait_timeout(self, mock_time):
         mock_time.time.side_effect = [1, 50, 150]
