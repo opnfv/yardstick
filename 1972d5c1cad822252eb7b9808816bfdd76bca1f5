@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_7cf01e67",
+        "filename": "docker/Dockerfile.aarch64.patch",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 7053
+      },
+      "writtenOn": "2018-05-09T09:14:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_dc521266",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 68
+      },
+      "revId": "1972d5c1cad822252eb7b9808816bfdd76bca1f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_3c4cd6c7",
         "filename": "docker/Dockerfile.aarch64.patch",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-05-09T08:58:21Z",
       "side": 1,
       "message": "remove this",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 19
+      },
+      "revId": "1972d5c1cad822252eb7b9808816bfdd76bca1f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_dcd972f4",
+        "filename": "docker/Dockerfile.aarch64.patch",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7053
+      },
+      "writtenOn": "2018-05-09T09:14:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_3c4cd6c7",
       "range": {
         "startLine": 5,
         "startChar": 0,
