@@ -13,6 +13,7 @@ import unittest
 from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.networking import pktgen
+from yardstick import exceptions as y_exc
 
 
 @mock.patch('yardstick.benchmark.scenarios.networking.pktgen.ssh')
@@ -55,11 +56,9 @@ class PktgenTestCase(unittest.TestCase):
         p.server = mock_ssh.SSH.from_node()
         p.number_of_ports = args['options']['number_of_ports']
 
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-
         p._iptables_setup()
 
-        mock_ssh.SSH.from_node().execute.assert_called_with(
+        mock_ssh.SSH.from_node().run.assert_called_with(
             "sudo iptables -F; "
             "sudo iptables -A INPUT -p udp --dport 1000:%s -j DROP"
             % 1010, timeout=60)
@@ -74,8 +73,8 @@ class PktgenTestCase(unittest.TestCase):
         p.server = mock_ssh.SSH.from_node()
         p.number_of_ports = args['options']['number_of_ports']
 
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
-        self.assertRaises(RuntimeError, p._iptables_setup)
+        mock_ssh.SSH.from_node().run.side_effect = y_exc.SSHError
+        self.assertRaises(y_exc.SSHError, p._iptables_setup)
 
     def test_pktgen_successful_iptables_get_result(self, mock_ssh):
 
@@ -88,12 +87,14 @@ class PktgenTestCase(unittest.TestCase):
         p.number_of_ports = args['options']['number_of_ports']
 
         mock_ssh.SSH.from_node().execute.return_value = (0, '150000', '')
-        p._iptables_get_result()
+        result = p._iptables_get_result()
+        expected_result = 150000
+        self.assertEqual(result, expected_result)
 
         mock_ssh.SSH.from_node().execute.assert_called_with(
             "sudo iptables -L INPUT -vnx |"
             "awk '/dpts:1000:%s/ {{printf \"%%s\", $1}}'"
-            % 1010)
+            % 1010, raise_on_error=True)
 
     def test_pktgen_unsuccessful_iptables_get_result(self, mock_ssh):
 
@@ -106,8 +107,8 @@ class PktgenTestCase(unittest.TestCase):
         p.server = mock_ssh.SSH.from_node()
         p.number_of_ports = args['options']['number_of_ports']
 
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
-        self.assertRaises(RuntimeError, p._iptables_get_result)
+        mock_ssh.SSH.from_node().execute.side_effect = y_exc.SSHError
+        self.assertRaises(y_exc.SSHError, p._iptables_get_result)
 
     def test_pktgen_successful_no_sla(self, mock_ssh):
 
@@ -191,8 +192,8 @@ class PktgenTestCase(unittest.TestCase):
         p.server = mock_ssh.SSH.from_node()
         p.client = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
-        self.assertRaises(RuntimeError, p.run, result)
+        mock_ssh.SSH.from_node().execute.side_effect = y_exc.SSHError
+        self.assertRaises(y_exc.SSHError, p.run, result)
 
     def test_pktgen_get_vnic_driver_name(self, mock_ssh):
         args = {
@@ -213,9 +214,9 @@ class PktgenTestCase(unittest.TestCase):
         p = pktgen.Pktgen(args, self.ctx)
         p.server = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+        mock_ssh.SSH.from_node().execute.side_effect = y_exc.SSHError
 
-        self.assertRaises(RuntimeError, p._get_vnic_driver_name)
+        self.assertRaises(y_exc.SSHError, p._get_vnic_driver_name)
 
     def test_pktgen_get_sriov_queue_number(self, mock_ssh):
         args = {
@@ -236,9 +237,9 @@ class PktgenTestCase(unittest.TestCase):
         p = pktgen.Pktgen(args, self.ctx)
         p.server = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+        mock_ssh.SSH.from_node().execute.side_effect = y_exc.SSHError
 
-        self.assertRaises(RuntimeError, p._get_sriov_queue_number)
+        self.assertRaises(y_exc.SSHError, p._get_sriov_queue_number)
 
     def test_pktgen_get_available_queue_number(self, mock_ssh):
         args = {
@@ -249,11 +250,13 @@ class PktgenTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (0, '4', '')
 
-        p._get_available_queue_number()
+        result = p._get_available_queue_number()
+        expected_result = 4
+        self.assertEqual(result, expected_result)
 
         mock_ssh.SSH.from_node().execute.assert_called_with(
             "sudo ethtool -l eth0 | grep Combined | head -1 |"
-            "awk '{printf $2}'")
+            "awk '{printf $2}'", raise_on_error=True)
 
     def test_pktgen_unsuccessful_get_available_queue_number(self, mock_ssh):
         args = {
@@ -262,9 +265,9 @@ class PktgenTestCase(unittest.TestCase):
         p = pktgen.Pktgen(args, self.ctx)
         p.server = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+        mock_ssh.SSH.from_node().execute.side_effect = y_exc.SSHError
 
-        self.assertRaises(RuntimeError, p._get_available_queue_number)
+        self.assertRaises(y_exc.SSHError, p._get_available_queue_number)
 
     def test_pktgen_get_usable_queue_number(self, mock_ssh):
         args = {
@@ -275,11 +278,13 @@ class PktgenTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (0, '1', '')
 
-        p._get_usable_queue_number()
+        result = p._get_usable_queue_number()
+        expected_result = 1
+        self.assertEqual(result, expected_result)
 
         mock_ssh.SSH.from_node().execute.assert_called_with(
             "sudo ethtool -l eth0 | grep Combined | tail -1 |"
-            "awk '{printf $2}'")
+            "awk '{printf $2}'", raise_on_error=True)
 
     def test_pktgen_unsuccessful_get_usable_queue_number(self, mock_ssh):
         args = {
@@ -288,9 +293,9 @@ class PktgenTestCase(unittest.TestCase):
         p = pktgen.Pktgen(args, self.ctx)
         p.server = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+        mock_ssh.SSH.from_node().execute.side_effect = y_exc.SSHError
 
-        self.assertRaises(RuntimeError, p._get_usable_queue_number)
+        self.assertRaises(y_exc.SSHError, p._get_usable_queue_number)
 
     def test_pktgen_enable_ovs_multiqueue(self, mock_ssh):
         args = {
@@ -332,12 +337,12 @@ class PktgenTestCase(unittest.TestCase):
         p.server = mock_ssh.SSH.from_node()
         p.client = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+        mock_ssh.SSH.from_node().run.side_effect = y_exc.SSHError
 
         p._get_usable_queue_number = mock.Mock(return_value=1)
         p._get_available_queue_number = mock.Mock(return_value=4)
 
-        self.assertRaises(RuntimeError, p._enable_ovs_multiqueue)
+        self.assertRaises(y_exc.SSHError, p._enable_ovs_multiqueue)
 
     def test_pktgen_setup_irqmapping_ovs(self, mock_ssh):
         args = {
@@ -351,7 +356,7 @@ class PktgenTestCase(unittest.TestCase):
 
         p._setup_irqmapping_ovs(4)
 
-        mock_ssh.SSH.from_node().execute.assert_called_with(
+        mock_ssh.SSH.from_node().run.assert_called_with(
             "echo 8 | sudo tee /proc/irq/10/smp_affinity")
 
     def test_pktgen_setup_irqmapping_ovs_1q(self, mock_ssh):
@@ -366,7 +371,7 @@ class PktgenTestCase(unittest.TestCase):
 
         p._setup_irqmapping_ovs(1)
 
-        mock_ssh.SSH.from_node().execute.assert_called_with(
+        mock_ssh.SSH.from_node().run.assert_called_with(
             "echo 1 | sudo tee /proc/irq/10/smp_affinity")
 
     def test_pktgen_unsuccessful_setup_irqmapping_ovs(self, mock_ssh):
@@ -377,9 +382,9 @@ class PktgenTestCase(unittest.TestCase):
         p.server = mock_ssh.SSH.from_node()
         p.client = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+        mock_ssh.SSH.from_node().execute.side_effect = y_exc.SSHError
 
-        self.assertRaises(RuntimeError, p._setup_irqmapping_ovs, 4)
+        self.assertRaises(y_exc.SSHError, p._setup_irqmapping_ovs, 4)
 
     def test_pktgen_unsuccessful_setup_irqmapping_ovs_1q(self, mock_ssh):
         args = {
@@ -389,9 +394,9 @@ class PktgenTestCase(unittest.TestCase):
         p.server = mock_ssh.SSH.from_node()
         p.client = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+        mock_ssh.SSH.from_node().execute.side_effect = y_exc.SSHError
 
-        self.assertRaises(RuntimeError, p._setup_irqmapping_ovs, 1)
+        self.assertRaises(y_exc.SSHError, p._setup_irqmapping_ovs, 1)
 
     def test_pktgen_setup_irqmapping_sriov(self, mock_ssh):
         args = {
@@ -405,7 +410,7 @@ class PktgenTestCase(unittest.TestCase):
 
         p._setup_irqmapping_sriov(2)
 
-        mock_ssh.SSH.from_node().execute.assert_called_with(
+        mock_ssh.SSH.from_node().run.assert_called_with(
             "echo 2 | sudo tee /proc/irq/10/smp_affinity")
 
     def test_pktgen_setup_irqmapping_sriov_1q(self, mock_ssh):
@@ -420,7 +425,7 @@ class PktgenTestCase(unittest.TestCase):
 
         p._setup_irqmapping_sriov(1)
 
-        mock_ssh.SSH.from_node().execute.assert_called_with(
+        mock_ssh.SSH.from_node().run.assert_called_with(
             "echo 1 | sudo tee /proc/irq/10/smp_affinity")
 
     def test_pktgen_unsuccessful_setup_irqmapping_sriov(self, mock_ssh):
@@ -431,9 +436,9 @@ class PktgenTestCase(unittest.TestCase):
         p.server = mock_ssh.SSH.from_node()
         p.client = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+        mock_ssh.SSH.from_node().execute.side_effect = y_exc.SSHError
 
-        self.assertRaises(RuntimeError, p._setup_irqmapping_sriov, 2)
+        self.assertRaises(y_exc.SSHError, p._setup_irqmapping_sriov, 2)
 
     def test_pktgen_unsuccessful_setup_irqmapping_sriov_1q(self, mock_ssh):
         args = {
@@ -443,9 +448,9 @@ class PktgenTestCase(unittest.TestCase):
         p.server = mock_ssh.SSH.from_node()
         p.client = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+        mock_ssh.SSH.from_node().execute.side_effect = y_exc.SSHError
 
-        self.assertRaises(RuntimeError, p._setup_irqmapping_sriov, 1)
+        self.assertRaises(y_exc.SSHError, p._setup_irqmapping_sriov, 1)
 
     def test_pktgen_is_irqbalance_disabled(self, mock_ssh):
         args = {
@@ -456,10 +461,11 @@ class PktgenTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
 
-        p._is_irqbalance_disabled()
+        result = p._is_irqbalance_disabled()
+        self.assertFalse(result)
 
         mock_ssh.SSH.from_node().execute.assert_called_with(
-            "grep ENABLED /etc/default/irqbalance")
+            "grep ENABLED /etc/default/irqbalance", raise_on_error=True)
 
     def test_pktgen_unsuccessful_is_irqbalance_disabled(self, mock_ssh):
         args = {
@@ -468,9 +474,9 @@ class PktgenTestCase(unittest.TestCase):
         p = pktgen.Pktgen(args, self.ctx)
         p.server = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+        mock_ssh.SSH.from_node().execute.side_effect = y_exc.SSHError
 
-        self.assertRaises(RuntimeError, p._is_irqbalance_disabled)
+        self.assertRaises(y_exc.SSHError, p._is_irqbalance_disabled)
 
     def test_pktgen_disable_irqbalance(self, mock_ssh):
         args = {
@@ -480,11 +486,11 @@ class PktgenTestCase(unittest.TestCase):
         p.server = mock_ssh.SSH.from_node()
         p.client = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+        mock_ssh.SSH.from_node().run.return_value = (0, '', '')
 
         p._disable_irqbalance()
 
-        mock_ssh.SSH.from_node().execute.assert_called_with(
+        mock_ssh.SSH.from_node().run.assert_called_with(
             "sudo service irqbalance disable")
 
     def test_pktgen_unsuccessful_disable_irqbalance(self, mock_ssh):
@@ -495,9 +501,9 @@ class PktgenTestCase(unittest.TestCase):
         p.server = mock_ssh.SSH.from_node()
         p.client = mock_ssh.SSH.from_node()
 
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+        mock_ssh.SSH.from_node().run.side_effect = y_exc.SSHError
 
-        self.assertRaises(RuntimeError, p._disable_irqbalance)
+        self.assertRaises(y_exc.SSHError, p._disable_irqbalance)
 
     def test_pktgen_multiqueue_setup_ovs(self, mock_ssh):
         args = {
