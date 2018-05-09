@@ -12,6 +12,7 @@ import re
 import os
 
 import yaml
+import subprocess
 from oslo_serialization import jsonutils
 
 from api import ApiResource
@@ -55,7 +56,7 @@ class V2Openrcs(ApiResource):
         LOG.info('parsing openrc')
         try:
             openrc_data = self._get_openrc_dict()
-        except Exception:
+        except IOError:
             LOG.exception('parse openrc failed')
             return result_handler(consts.API_ERROR, 'parse openrc failed')
 
@@ -65,7 +66,7 @@ class V2Openrcs(ApiResource):
         LOG.info('writing ansible cloud conf')
         try:
             self._generate_ansible_conf_file(openrc_data)
-        except Exception:
+        except IOError:
             LOG.exception('write cloud conf failed')
             return result_handler(consts.API_ERROR, 'genarate ansible conf failed')
         LOG.info('finish writing ansible cloud conf')
@@ -100,7 +101,7 @@ class V2Openrcs(ApiResource):
         LOG.info('source openrc: %s', consts.OPENRC)
         try:
             source_env(consts.OPENRC)
-        except Exception:
+        except subprocess.CalledProcessError:
             LOG.exception('source openrc failed')
             return result_handler(consts.API_ERROR, 'source openrc failed')
         LOG.info('source openrc: Done')
@@ -111,7 +112,7 @@ class V2Openrcs(ApiResource):
         LOG.info('writing ansible cloud conf')
         try:
             self._generate_ansible_conf_file(openrc_vars)
-        except Exception:
+        except IOError:
             LOG.exception('write cloud conf failed')
             return result_handler(consts.API_ERROR, 'genarate ansible conf failed')
         LOG.info('finish writing ansible cloud conf')
@@ -174,7 +175,7 @@ class V2Openrcs(ApiResource):
 
         makedirs(consts.OPENSTACK_CONF_DIR)
         with open(consts.CLOUDS_CONF, 'w') as f:
-            yaml.dump(ansible_conf, f, default_flow_style=False)
+            yaml.safe_dump(ansible_conf, f, default_flow_style=False)
 
 
 class V2Openrc(ApiResource):
