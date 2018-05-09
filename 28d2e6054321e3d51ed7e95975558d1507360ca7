@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_b26c8fd1",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-09T17:20:34Z",
+      "side": 1,
+      "message": "\"scope\" accepts only \"Namespaced\" and \"Cluster\". This must be checked.",
+      "range": {
+        "startLine": 214,
+        "startChar": 7,
+        "endLine": 214,
+        "endChar": 49
+      },
+      "revId": "28d2e6054321e3d51ed7e95975558d1507360ca7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
