@@ -87,7 +87,7 @@ class Pktgen(base.Scenario):
         self.server.send_command(cmd)
         self.client.send_command(cmd)
 
-        """multiqueue setup"""
+        # multiqueue setup
         if not self._is_irqbalance_disabled():
             self._disable_irqbalance()
 
@@ -112,18 +112,14 @@ class Pktgen(base.Scenario):
     def _get_vnic_driver_name(self):
         cmd = "readlink /sys/class/net/%s/device/driver" % self.vnic_name
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.server.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        _, stdout, _ = self.server.execute(cmd, raise_on_error=True)
         return os.path.basename(stdout.strip())
 
     def _is_irqbalance_disabled(self):
         """Did we disable irqbalance already in the guest?"""
         is_disabled = False
         cmd = "grep ENABLED /etc/default/irqbalance"
-        status, stdout, stderr = self.server.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        _, stdout, _ = self.server.execute(cmd, raise_on_error=True)
         if "0" in stdout:
             is_disabled = True
 
@@ -132,49 +128,35 @@ class Pktgen(base.Scenario):
     def _disable_irqbalance(self):
         cmd = "sudo sed -i -e 's/ENABLED=\"1\"/ENABLED=\"0\"/g' " \
               "/etc/default/irqbalance"
-        status, stdout, stderr = self.server.execute(cmd)
-        status, stdout, stderr = self.client.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        self.server.run(cmd)
+        self.client.run(cmd)
 
         cmd = "sudo service irqbalance stop"
-        status, stdout, stderr = self.server.execute(cmd)
-        status, stdout, stderr = self.client.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        self.server.run(cmd)
+        self.client.run(cmd)
 
         cmd = "sudo service irqbalance disable"
-        status, stdout, stderr = self.server.execute(cmd)
-        status, stdout, stderr = self.client.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        self.server.run(cmd)
+        self.client.run(cmd)
 
     def _setup_irqmapping_ovs(self, queue_number):
         cmd = "grep 'virtio0-input.0' /proc/interrupts |" \
               "awk '{match($0,/ +[0-9]+/)} " \
               "{print substr($1,RSTART,RLENGTH-1)}'"
-        status, stdout, stderr = self.server.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        _, stdout, _ = self.server.execute(cmd, raise_on_error=True)
 
         cmd = "echo 1 | sudo tee /proc/irq/%s/smp_affinity" % (int(stdout))
-        status, stdout, stderr = self.server.execute(cmd)
-        status, stdout, stderr = self.client.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        self.server.run(cmd)
+        self.client.run(cmd)
 
         cmd = "grep 'virtio0-output.0' /proc/interrupts |" \
               "awk '{match($0,/ +[0-9]+/)} " \
               "{print substr($1,RSTART,RLENGTH-1)}'"
-        status, stdout, stderr = self.server.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        _, stdout, _ = self.server.execute(cmd, raise_on_error=True)
 
         cmd = "echo 1 | sudo tee /proc/irq/%s/smp_affinity" % (int(stdout))
-        status, stdout, stderr = self.server.execute(cmd)
-        status, stdout, stderr = self.client.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        self.server.run(cmd)
+        self.client.run(cmd)
 
         if queue_number == 1:
             return
@@ -186,44 +168,32 @@ class Pktgen(base.Scenario):
             cmd = "grep 'virtio0-input.%s' /proc/interrupts |" \
                   "awk '{match($0,/ +[0-9]+/)} " \
                   "{print substr($1,RSTART,RLENGTH-1)}'" % (i)
-            status, stdout, stderr = self.server.execute(cmd)
-            if status:
-                raise RuntimeError(stderr)
+            _, stdout, _ = self.server.execute(cmd, raise_on_error=True)
 
             cmd = "echo %s | sudo tee /proc/irq/%s/smp_affinity" \
                 % (smp_affinity_mask, int(stdout))
-            status, stdout, stderr = self.server.execute(cmd)
-            status, stdout, stderr = self.client.execute(cmd)
-            if status:
-                raise RuntimeError(stderr)
+            self.server.run(cmd)
+            self.client.run(cmd)
 
             cmd = "grep 'virtio0-output.%s' /proc/interrupts |" \
                   "awk '{match($0,/ +[0-9]+/)} " \
                   "{print substr($1,RSTART,RLENGTH-1)}'" % (i)
-            status, stdout, stderr = self.server.execute(cmd)
-            if status:
-                raise RuntimeError(stderr)
+            _, stdout, _ = self.server.execute(cmd, raise_on_error=True)
 
             cmd = "echo %s | sudo tee /proc/irq/%s/smp_affinity" \
                 % (smp_affinity_mask, int(stdout))
-            status, stdout, stderr = self.server.execute(cmd)
-            status, stdout, stderr = self.client.execute(cmd)
-            if status:
-                raise RuntimeError(stderr)
+            self.server.run(cmd)
+            self.client.run(cmd)
 
     def _setup_irqmapping_sriov(self, queue_number):
         cmd = "grep '%s-TxRx-0' /proc/interrupts |" \
               "awk '{match($0,/ +[0-9]+/)} " \
               "{print substr($1,RSTART,RLENGTH-1)}'" % self.vnic_name
-        status, stdout, stderr = self.server.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        _, stdout, _ = self.server.execute(cmd, raise_on_error=True)
 
         cmd = "echo 1 | sudo tee /proc/irq/%s/smp_affinity" % (int(stdout))
-        status, stdout, stderr = self.server.execute(cmd)
-        status, stdout, stderr = self.client.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        self.server.run(cmd)
+        self.client.run(cmd)
 
         if queue_number == 1:
             return
@@ -234,24 +204,18 @@ class Pktgen(base.Scenario):
             cmd = "grep '%s-TxRx-%s' /proc/interrupts |" \
                   "awk '{match($0,/ +[0-9]+/)} " \
                   "{print substr($1,RSTART,RLENGTH-1)}'" % (self.vnic_name, i)
-            status, stdout, stderr = self.server.execute(cmd)
-            if status:
-                raise RuntimeError(stderr)
+            _, stdout, _ = self.server.execute(cmd, raise_on_error=True)
 
             cmd = "echo %s | sudo tee /proc/irq/%s/smp_affinity" \
                 % (smp_affinity_mask, int(stdout))
-            status, stdout, stderr = self.server.execute(cmd)
-            status, stdout, stderr = self.client.execute(cmd)
-            if status:
-                raise RuntimeError(stderr)
+            self.server.run(cmd)
+            self.client.run(cmd)
 
     def _get_sriov_queue_number(self):
         """Get queue number from server as both VMs are the same"""
         cmd = "grep %s-TxRx- /proc/interrupts | wc -l" % self.vnic_name
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.server.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        _, stdout, _ = self.server.execute(cmd, raise_on_error=True)
         return int(stdout)
 
     def _get_available_queue_number(self):
@@ -259,9 +223,7 @@ class Pktgen(base.Scenario):
         cmd = "sudo ethtool -l %s | grep Combined | head -1 |" \
               "awk '{printf $2}'" % self.vnic_name
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.server.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        _, stdout, _ = self.server.execute(cmd, raise_on_error=True)
         return int(stdout)
 
     def _get_usable_queue_number(self):
@@ -269,9 +231,7 @@ class Pktgen(base.Scenario):
         cmd = "sudo ethtool -l %s | grep Combined | tail -1 |" \
               "awk '{printf $2}'" % self.vnic_name
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.server.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        _, stdout, _ = self.server.execute(cmd, raise_on_error=True)
         return int(stdout)
 
     def _enable_ovs_multiqueue(self):
@@ -282,10 +242,8 @@ class Pktgen(base.Scenario):
             cmd = "sudo ethtool -L %s combined %s" % \
                 (self.vnic_name, available_queue_number)
             LOG.debug("Executing command: %s", cmd)
-            status, stdout, stderr = self.server.execute(cmd)
-            status, stdout, stderr = self.client.execute(cmd)
-            if status:
-                raise RuntimeError(stderr)
+            self.server.run(cmd)
+            self.client.run(cmd)
         return available_queue_number
 
     def _iptables_setup(self):
@@ -294,9 +252,7 @@ class Pktgen(base.Scenario):
               "sudo iptables -A INPUT -p udp --dport 1000:%s -j DROP" \
               % (1000 + self.number_of_ports)
         LOG.debug("Executing command: %s", cmd)
-        status, _, stderr = self.server.execute(cmd, timeout=SSH_TIMEOUT)
-        if status:
-            raise RuntimeError(stderr)
+        self.server.run(cmd, timeout=SSH_TIMEOUT)
 
     def _iptables_get_result(self):
         """Get packet statistics from server"""
@@ -304,9 +260,7 @@ class Pktgen(base.Scenario):
               "awk '/dpts:1000:%s/ {{printf \"%%s\", $1}}'" \
               % (1000 + self.number_of_ports)
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.server.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        _, stdout, _ = self.server.execute(cmd, raise_on_error=True)
         return int(stdout)
 
     def run(self, result):
@@ -356,10 +310,8 @@ class Pktgen(base.Scenario):
                duration, queue_number, pps)
 
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd, timeout=SSH_TIMEOUT)
-
-        if status:
-            raise RuntimeError(stderr)
+        _, stdout, _ = self.client.execute(cmd, raise_on_error=True,
+                                           timeout=SSH_TIMEOUT)
 
         result.update(jsonutils.loads(stdout))
 

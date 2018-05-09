@@ -349,12 +349,14 @@ class SSH(object):
             raise SSHError(details)
         return exit_status
 
-    def execute(self, cmd, stdin=None, timeout=3600):
+    def execute(self, cmd, raise_on_error=False, stdin=None, timeout=3600):
         """Execute the specified command on the server.
 
-        :param cmd:     Command to be executed.
-        :param stdin:   Open file to be sent on process stdin.
-        :param timeout: Timeout for execution of the command.
+        :param cmd:             Command to be executed.
+        :param raise_on_error:  If True, then an SSHError will be raised when
+                                non-zero exit code.
+        :param stdin:           Open file to be sent on process stdin.
+        :param timeout:         Timeout for execution of the command.
 
         :returns: tuple (exit_status, stdout, stderr)
         """
@@ -363,7 +365,7 @@ class SSH(object):
 
         exit_status = self.run(cmd, stderr=stderr,
                                stdout=stdout, stdin=stdin,
-                               timeout=timeout, raise_on_error=False)
+                               timeout=timeout, raise_on_error=raise_on_error)
         stdout.seek(0)
         stderr.seek(0)
         return exit_status, stdout.read(), stderr.read()
