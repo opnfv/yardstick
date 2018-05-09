@@ -247,3 +247,15 @@ class ScenarioDeleteVolumeError(YardstickException):
 
 class ScenarioDetachVolumeError(YardstickException):
     message = 'Cinder Detach Volume Scenario failed'
+
+
+class ApiServerError(YardstickException):
+    message = 'An unkown exception happened to Api Server!'
+
+
+class UploadOpenrcError(ApiServerError):
+    message = 'Upload openrc ERROR!'
+
+
+class UpdateOpenrcError(ApiServerError):
+    message = 'Update openrc ERROR!'

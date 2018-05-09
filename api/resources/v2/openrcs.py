@@ -21,6 +21,7 @@ from yardstick.common import constants as consts
 from yardstick.common.utils import result_handler
 from yardstick.common.utils import makedirs
 from yardstick.common.utils import source_env
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
@@ -57,7 +58,7 @@ class V2Openrcs(ApiResource):
             openrc_data = self._get_openrc_dict()
         except Exception:
             LOG.exception('parse openrc failed')
-            return result_handler(consts.API_ERROR, 'parse openrc failed')
+            raise y_exc.UploadOpenrcError()
 
         openrc_id = str(uuid.uuid4())
         self._write_into_database(environment_id, openrc_id, openrc_data)
@@ -67,7 +68,7 @@ class V2Openrcs(ApiResource):
             self._generate_ansible_conf_file(openrc_data)
         except Exception:
             LOG.exception('write cloud conf failed')
-            return result_handler(consts.API_ERROR, 'genarate ansible conf failed')
+            raise y_exc.UploadOpenrcError()
         LOG.info('finish writing ansible cloud conf')
 
         return result_handler(consts.API_SUCCESS, {'openrc': openrc_data, 'uuid': openrc_id})
@@ -102,7 +103,7 @@ class V2Openrcs(ApiResource):
             source_env(consts.OPENRC)
         except Exception:
             LOG.exception('source openrc failed')
-            return result_handler(consts.API_ERROR, 'source openrc failed')
+            raise y_exc.UpdateOpenrcError()
         LOG.info('source openrc: Done')
 
         openrc_id = str(uuid.uuid4())
@@ -113,7 +114,7 @@ class V2Openrcs(ApiResource):
             self._generate_ansible_conf_file(openrc_vars)
         except Exception:
             LOG.exception('write cloud conf failed')
-            return result_handler(consts.API_ERROR, 'genarate ansible conf failed')
+            raise y_exc.UpdateOpenrcError()
         LOG.info('finish writing ansible cloud conf')
 
         return result_handler(consts.API_SUCCESS, {'openrc': openrc_vars, 'uuid': openrc_id})
@@ -174,7 +175,7 @@ class V2Openrcs(ApiResource):
 
         makedirs(consts.OPENSTACK_CONF_DIR)
         with open(consts.CLOUDS_CONF, 'w') as f:
-            yaml.dump(ansible_conf, f, default_flow_style=False)
+            yaml.safe_dump(ansible_conf, f, default_flow_style=False)
 
 
 class V2Openrc(ApiResource):
