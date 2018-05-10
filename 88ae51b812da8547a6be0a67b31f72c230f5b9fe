@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a3f45e8_724cc79e",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc080.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-05-10T09:53:56Z",
+      "side": 1,
+      "message": "why the dot?",
+      "range": {
+        "startLine": 43,
+        "startChar": 74,
+        "endLine": 43,
+        "endChar": 75
+      },
+      "revId": "88ae51b812da8547a6be0a67b31f72c230f5b9fe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f25f373f",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc080.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-05-10T09:53:56Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 49,
+        "startChar": 74,
+        "endLine": 49,
+        "endChar": 75
+      },
+      "revId": "88ae51b812da8547a6be0a67b31f72c230f5b9fe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1253c339",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc081.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-05-10T09:53:56Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 45,
+        "startChar": 74,
+        "endLine": 45,
+        "endChar": 75
+      },
+      "revId": "88ae51b812da8547a6be0a67b31f72c230f5b9fe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_52ceeb2e",
         "filename": "yardstick/orchestrator/kubernetes.py",
         "patchSetId": 5
