@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_124903b7",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc041.yaml",
+        "patchSetId": 21
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-05-10T09:05:54Z",
+      "side": 1,
+      "message": "white space",
+      "revId": "82af72be095f7a9ec80c0b58929491754bd0daca",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
