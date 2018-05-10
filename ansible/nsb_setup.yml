@@ -37,7 +37,7 @@
         name: yardstick
         pull: yes
         recreate: yes
-        image: opnfv/yardstick:latest
+        image: "{{ yardstick_docker_image|default('opnfv/yardstick:latest') }}"
         state: started
         restart_policy: always
         privileged: yes

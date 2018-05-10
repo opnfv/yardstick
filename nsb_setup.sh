@@ -67,8 +67,16 @@ pip install ansible==2.4.2 shade==1.22.2 docker-py==1.10.6
 
 ANSIBLE_SCRIPTS="ansible"
 
+if [[ -n ${1} ]]; then
+    yardstick_docker_image="-e yardstick_docker_image=${1}"
+else
+    yardstick_docker_image=""
+fi
+
+# no quotes for yardstick_docker_image so when empty it is removed as whitespace
 cd ${ANSIBLE_SCRIPTS} &&\
 ansible-playbook \
          -e img_property="nsb" \
+         ${yardstick_docker_image} \
          -e YARD_IMG_ARCH='amd64' ${extra_args}\
          -i yardstick-install-inventory.ini nsb_setup.yml
