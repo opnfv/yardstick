@@ -1,0 +1,14 @@
+apiVersion: "kubernetes.com/v1"
+kind: Network
+metadata:
+  name: pktgen1
+plugin: sriov
+args: '[{
+                "if0": "{{ pktgen_args.if0 }}",
+                "if0name": "{{ pktgen_args.if0name }}",
+                "dpdk": {
+                    "kernel_driver": "{{ pktgen_args.kernel_driver }}",
+                    "dpdk_driver": "{{ pktgen_args.dpdk_driver }}",
+                    "dpdk_tool": "{{ dpdk_devbind_path }}/dpdk-devbind.py"
+                }
+        }]'
