@@ -25,16 +25,14 @@ from yardstick.common import exceptions as y_exc
 class TestSearchRunnerHelper(unittest.TestCase):
 
     def test___call__(self):
-        cls = mock.MagicMock()
-        aborted = mock.MagicMock()
         scenario_cfg = {
             'runner': {},
         }
 
-        benchmark = cls()
-        method = getattr(benchmark, 'my_method')
+        benchmark = mock.Mock()
+        method = getattr(benchmark(), 'my_method')
         helper = SearchRunnerHelper(
-            cls, 'my_method', scenario_cfg, {}, aborted)
+            benchmark, 'my_method', scenario_cfg, {}, mock.Mock())
 
         with helper.get_benchmark_instance():
             helper()
@@ -42,14 +40,12 @@ class TestSearchRunnerHelper(unittest.TestCase):
         self.assertEqual(method.call_count, 1)
 
     def test___call___error(self):
-        cls = mock.MagicMock()
-        aborted = mock.MagicMock()
         scenario_cfg = {
             'runner': {},
         }
 
         helper = SearchRunnerHelper(
-            cls, 'my_method', scenario_cfg, {}, aborted)
+            mock.Mock(), 'my_method', scenario_cfg, {}, mock.Mock())
 
         with self.assertRaises(RuntimeError):
             helper()
@@ -57,8 +53,6 @@ class TestSearchRunnerHelper(unittest.TestCase):
     @mock.patch.object(time, 'sleep')
     @mock.patch.object(time, 'time')
     def test_is_not_done(self, mock_time, *args):
-        cls = mock.MagicMock()
-        aborted = mock.MagicMock()
         scenario_cfg = {
             'runner': {},
         }
@@ -66,7 +60,7 @@ class TestSearchRunnerHelper(unittest.TestCase):
         mock_time.side_effect = range(1000)
 
         helper = SearchRunnerHelper(
-            cls, 'my_method', scenario_cfg, {}, aborted)
+            mock.Mock(), 'my_method', scenario_cfg, {}, mock.Mock())
 
         index = -1
         for index in helper.is_not_done():
@@ -77,8 +71,6 @@ class TestSearchRunnerHelper(unittest.TestCase):
 
     @mock.patch.object(time, 'sleep')
     def test_is_not_done_immediate_stop(self, *args):
-        cls = mock.MagicMock()
-        aborted = mock.MagicMock()
         scenario_cfg = {
             'runner': {
                 'run_step': '',
@@ -86,7 +78,7 @@ class TestSearchRunnerHelper(unittest.TestCase):
         }
 
         helper = SearchRunnerHelper(
-            cls, 'my_method', scenario_cfg, {}, aborted)
+            mock.Mock(), 'my_method', scenario_cfg, {}, mock.Mock())
 
         index = -1
         for index in helper.is_not_done():
@@ -113,7 +105,7 @@ class TestSearchRunner(unittest.TestCase):
         }
 
         runner = SearchRunner({})
-        runner.worker_helper = mock.MagicMock(side_effect=update)
+        runner.worker_helper = mock.Mock(side_effect=update)
 
         self.assertFalse(runner._worker_run_once('sequence 1'))
 
@@ -137,14 +129,14 @@ class TestSearchRunner(unittest.TestCase):
         }
 
         runner = SearchRunner({})
-        runner.worker_helper = mock.MagicMock(side_effect=update)
+        runner.worker_helper = mock.Mock(side_effect=update)
 
         self.assertTrue(runner._worker_run_once('sequence 1'))
 
     def test__worker_run_once_assertion_error_assert(self):
         runner = SearchRunner({})
         runner.sla_action = 'assert'
-        runner.worker_helper = mock.MagicMock(side_effect=y_exc.SLAValidationError)
+        runner.worker_helper = mock.Mock(side_effect=y_exc.SLAValidationError)
 
         with self.assertRaises(y_exc.SLAValidationError):
             runner._worker_run_once('sequence 1')
@@ -152,36 +144,34 @@ class TestSearchRunner(unittest.TestCase):
     def test__worker_run_once_assertion_error_monitor(self):
         runner = SearchRunner({})
         runner.sla_action = 'monitor'
-        runner.worker_helper = mock.MagicMock(side_effect=y_exc.SLAValidationError)
+        runner.worker_helper = mock.Mock(side_effect=y_exc.SLAValidationError)
 
         self.assertFalse(runner._worker_run_once('sequence 1'))
 
     def test__worker_run_once_non_assertion_error_none(self):
         runner = SearchRunner({})
-        runner.worker_helper = mock.MagicMock(side_effect=RuntimeError)
+        runner.worker_helper = mock.Mock(side_effect=RuntimeError)
 
         self.assertTrue(runner._worker_run_once('sequence 1'))
 
     def test__worker_run_once_non_assertion_error(self):
         runner = SearchRunner({})
         runner.sla_action = 'monitor'
-        runner.worker_helper = mock.MagicMock(side_effect=RuntimeError)
+        runner.worker_helper = mock.Mock(side_effect=RuntimeError)
 
         self.assertFalse(runner._worker_run_once('sequence 1'))
 
     def test__worker_run(self):
-        cls = mock.MagicMock()
         scenario_cfg = {
             'runner': {'interval': 0, 'timeout': 1},
         }
 
         runner = SearchRunner({})
-        runner._worker_run_once = mock.MagicMock(side_effect=[0, 0, 1])
+        runner._worker_run_once = mock.Mock(side_effect=[0, 0, 1])
 
-        runner._worker_run(cls, 'my_method', scenario_cfg, {})
+        runner._worker_run(mock.Mock(), 'my_method', scenario_cfg, {})
 
     def test__worker_run_immediate_stop(self):
-        cls = mock.MagicMock()
         scenario_cfg = {
             'runner': {
                 'run_step': '',
@@ -189,15 +179,14 @@ class TestSearchRunner(unittest.TestCase):
         }
 
         runner = SearchRunner({})
-        runner._worker_run(cls, 'my_method', scenario_cfg, {})
+        runner._worker_run(mock.Mock(), 'my_method', scenario_cfg, {})
 
     @mock.patch('yardstick.benchmark.runners.search.multiprocessing')
     def test__run_benchmark(self, mock_multi_process):
-        cls = mock.MagicMock()
         scenario_cfg = {
             'runner': {},
         }
 
         runner = SearchRunner({})
-        runner._run_benchmark(cls, 'my_method', scenario_cfg, {})
+        runner._run_benchmark(mock.Mock(), 'my_method', scenario_cfg, {})
         self.assertEqual(mock_multi_process.Process.call_count, 1)
