@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_85702a41",
+        "filename": "yardstick/tests/integration/suite_openstack_api.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-11T07:42:46Z",
+      "side": 1,
+      "message": "1) There are new 21 test case files added but only 18 test cases added here.\n\n2) This file should be in integration/openstack_api folder\n\n3) Create/delete test cases should be paired, one after the other:\n - create_keypair\n - delete_keypair\n - create_volume\n - delete_volume\n - etc...\n\nIn case of having a \"get\" method:\n - create_server\n - get_server\n - delete_server\n\nIn case of method with other dependencies (e.g.: create_server): those methods should not rely on previous test cases resource generation. create_server should rely on the standard image (yardstick-vm), flavor (yardstick-flavor) and network (public).",
+      "revId": "a9bca665b2c374e99e294aa0b306653f9aa83663",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
