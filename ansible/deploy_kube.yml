@@ -1,0 +1,28 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- hosts: master
+  become: yes
+  environment: "{{ proxy_env }}"
+  roles:
+  - set_package_installer_proxy
+  - install_dependencies_kubernetes
+  - docker
+  - install_go
+  - install_kube
+  - build_cni
+  - role: download_dpdk
+    dpdk_version: "17.02.1"
+  - install_dpdk
+  - init_kubeadm

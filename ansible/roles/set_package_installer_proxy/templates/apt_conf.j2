@@ -1,3 +1,6 @@
 {% if "http_proxy" in proxy_env %}
 Acquire::http::Proxy "{{ proxy_env.http_proxy }}";
 {% endif %}
+{% if "https_proxy" in proxy_env %}
+Acquire::https::Proxy "{{ proxy_env.https_proxy }}";
+{% endif %}

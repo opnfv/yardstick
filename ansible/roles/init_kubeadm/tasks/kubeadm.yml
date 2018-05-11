@@ -1,0 +1,50 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- set_fact:
+    service_cidr_param: --service-cidr={{ kubeadm_service_cidr }}
+  when: 'kubeadm_service_cidr is defined'
+
+- set_fact:
+    pod_network_cidr_param: --pod-network-cidr={{ kubeadm_pod_network_cidr }}
+  when: 'kubeadm_pod_network_cidr is defined'
+
+- set_fact:
+    kubernetes_version: --kubernetes-version {{ kubeadm_kubernetes_version }}
+  when: 'kubeadm_kubernetes_version is defined'
+
+- name: Initialize Kubernetes cluster
+  command: >
+           kubeadm init {{ pod_network_cidr_param|default('') }}
+           {{ service_cidr_param|default('') }} {{ kubernetes_version|default('') }}
+           --ignore-preflight-errors=all
+
+- name: Create Kubernetes configuration dir
+  file: path={{ ansible_env.HOME }}/.kube state=directory
+
+- name: Setup Kubernetes environment
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: "{{ ansible_env.HOME }}/.kube/config"
+    remote_src: yes
+
+- name: Allow to schedule pods on the master
+  command: kubectl taint nodes --all node-role.kubernetes.io/master-
+
+- name: Wait for kube-dns pod to be in running state
+  command: kubectl get pods --namespace=kube-system -l k8s-app=kube-dns -o json
+  register: result
+  until: result.stdout|from_json|json_query('items[].status.phase|[0]') == "Running"
+  retries: 30
+  delay: 2
