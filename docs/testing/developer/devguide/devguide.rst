@@ -432,7 +432,8 @@ Yardstick committers and contributors to review your codes.
    :width: 800px
    :alt: Gerrit for code review
 
-You can find Yardstick people info `here <https://wiki.opnfv.org/display/yardstick/People>`_.
+You can find a list Yardstick people `here <https://wiki.opnfv.org/display/yardstick/People>`_,
+or use the ``yardstick-reviewers`` and ``yardstick-committers`` groups in gerrit.
 
 Modify the code under review in Gerrit
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
