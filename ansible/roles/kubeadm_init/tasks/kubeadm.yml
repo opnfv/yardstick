@@ -1,0 +1,40 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: initialize Kubernetes cluster
+  command: kubeadm init {{ pod_network_cidr|default('') }} {{ service_cidr|default('') }}
+  register: kubeadm_init_tmp
+
+- name: allow to schedule pods on the master
+  command: kubectl taint nodes --all node-role.kubernetes.io/master-
+  register: kubectl_tmp
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
+
+- name: Installing a pod network
+  command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
+  register: kubectl_tmp
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
+
+- name: create ubuntu kube config dir
+  file: path=/home/ubuntu/.kube state=directory owner=ubuntu group=ubuntu
+
+- name: copy kube config into the ubuntu home dir
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/ubuntu/.kube/config
+    remote_src: yes
+    group: ubuntu
+    owner: ubuntu

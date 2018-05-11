@@ -1,0 +1,85 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Get Multus CNI sources
+  git:
+    repo: https://github.com/Intel-Corp/multus-cni
+    dest: "{{ cni_src_dir }}/multus-cni"
+
+- name: Get SRIOV CNI sources
+  git:
+    repo: https://github.com/Intel-Corp/sriov-cni
+    dest: "{{ cni_src_dir }}/sriov-cni"
+
+- name: Get containernetworking CNI sources
+  git:
+    repo: https://github.com/containernetworking/cni
+    dest: "{{ cni_src_dir }}/cni"
+    version: v0.6.0
+
+- name: Get containernetworking plugins sources
+  git:
+    repo: https://github.com/containernetworking/plugins
+    dest: "{{ cni_src_dir }}/plugins"
+
+- name: Compile Multus CNI
+  command: "{{ cni_src_dir }}/multus-cni/build"
+  environment: "{{ go_env }}"
+  args:
+    chdir: "{{ cni_src_dir }}/multus-cni"
+
+- name: Compile SRIOV CNI
+  command: "{{ cni_src_dir }}/sriov-cni/build"
+  environment: "{{ go_env }}"
+  args:
+    chdir: "{{ cni_src_dir }}/sriov-cni"
+
+- name: Compile containernetworking CNI
+  command: "{{ cni_src_dir }}/cni/build.sh"
+  environment: "{{ go_env }}"
+  args:
+    chdir: "{{ cni_src_dir }}/cni"
+
+- name: Compile containernetworking CNI plugins
+  command: "{{ cni_src_dir }}/plugins/build.sh"
+  environment: "{{ go_env }}"
+  args:
+    chdir: "{{ cni_src_dir }}/plugins"
+
+- name: Get list of compiled CNI binaries
+  shell: ls -1 {{ item }}/bin/*
+  register: ls_cni_binaries_result
+  args:
+    chdir: "{{ cni_src_dir }}"
+  with_items:
+    - multus-cni
+    - sriov-cni
+    - plugins
+    - cni
+
+- name: Extract file names into a list
+  set_fact:
+    cni_binary_list: "{{ cni_binary_list|default([]) + item.stdout_lines }}"
+  with_items: "{{ ls_cni_binaries_result.results }}"
+
+- name: Create CNI binaries dir
+  file: path={{ cni_bin_dir }} state=directory
+
+- name: Copy CNI binaries into kublet bin dir
+  copy:
+    src: "{{ cni_src_dir }}/{{ item }}"
+    dest: "{{ cni_bin_dir }}/"
+    remote_src: yes
+    mode: 0755
+  with_items: "{{ cni_binary_list }}"
