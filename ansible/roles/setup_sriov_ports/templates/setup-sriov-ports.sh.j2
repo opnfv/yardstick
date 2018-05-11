@@ -1,0 +1,112 @@
+#!/bin/bash
+#
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+declare -a PFs=("{{ sriov_ports.pf_pci_ids|join('" "') }}")
+declare -A DEV_ID_IFDRIVER_MAP=(["0x10fb"]="ixgbe" ["0x10ed"]="ixgbevf")
+
+get_driver_by_dev_id ()
+{
+  local -l vid=`cat /sys/bus/pci/devices/0000:$1/vendor`;
+  local -l dev_id=`cat /sys/bus/pci/devices/0000:$1/device`;
+  if [ "$vid" == "0x8086" -a -n "${DEV_ID_IFDRIVER_MAP["$dev_id"]}" ]; then
+    echo "${DEV_ID_IFDRIVER_MAP["$dev_id"]}"
+  fi
+}
+
+check_and_fix_numa_node ()
+{
+    local -i numa_node=`cat /sys/bus/pci/devices/0000:$1/numa_node`;
+    if [ "${numa_node}" -eq -1 ]; then
+        IFS=":" read -ra OWR <<< "$1"
+        local -i p=${10#OWR[0]};
+        if [ "$p" -ge 80 ]; then
+            numa_node=1
+        else
+            numa_node=0
+        fi
+        echo $numa_node > /sys/bus/pci/devices/0000:$1/numa_node
+    fi
+}
+
+configure_vfs_on_pf ()
+{
+    vfs=`readlink /sys/bus/pci/devices/0000:$1/virtfn* | sed -ne 's/.*0000:\([0-9]\{,2\}:[0-9]\{,2\}\.[0-9]\{,2\}\)$/\1/p'`
+    for vf_pci in $vfs; do
+      vf_driver=$(get_driver_by_dev_id $vf_pci)
+      if [ -n "$vf_driver" ]; then
+        echo "Loading $vf_driver module..."
+        modprobe $vf_driver
+      else
+        echo "Unsupported driver for $1"
+        exit 1
+      fi
+    done
+    for vf_pci in $vfs; do
+      {{ dpdk_devbind_path }}/dpdk-devbind.py -b $(get_driver_by_dev_id $vf_pci) $vf_pci
+      check_and_fix_numa_node $vf_pci
+    done
+}
+
+modprobe uio
+modprobe igb_uio
+
+for PF in "${PFs[@]}";
+do
+   pf_driver=$(get_driver_by_dev_id $PF)
+   if [ -n "$pf_driver" ]; then
+     echo "Loading $pf_driver module..."
+     modprobe $pf_driver
+   else
+     echo "Unsupported driver for $1"
+     exit 1
+   fi
+done
+
+for PF in "${PFs[@]}";
+do
+  {{ dpdk_devbind_path }}/dpdk-devbind.py -b $(get_driver_by_dev_id $PF) $PF
+  check_and_fix_numa_node $PF
+  num_vfs=$(find /sys/ -name sriov_numvfs | grep "$PF")
+  if [ -f "$num_vfs" ]; then
+    echo 0 > $num_vfs
+  fi
+done
+
+t=0;
+for PF in "${PFs[@]}";
+do
+  check_and_fix_numa_node $PF
+  num_vfs=$(find /sys/ -name sriov_numvfs | grep "$PF")
+  if [ -f "$num_vfs" ]; then
+    echo {{ sriov_ports.vfs_num }} > $num_vfs
+    thex=$( printf "%x" $t )
+    pf_iface=$({{ dpdk_devbind_path }}/dpdk-devbind.py -s | grep $PF | sed 's/.*if=//g' | awk '{print $1}')
+    for vf in `seq 0 {{ sriov_ports.vfs_num|int-1 }}`; do
+      vfhex=$( printf "%x" $vf )
+      nsenter -n/proc/1/ns/net -- ip link set $pf_iface vf $vf mac "00:$thex:01:00:$vfhex:01"
+      nsenter -n/proc/1/ns/net -- ip link set $pf_iface vf $vf spoofchk off
+    done
+    nsenter -n/proc/1/ns/net -- ip link set $pf_iface promisc on
+    t=$(expr $t + 1)
+  fi
+done
+
+for PF in "${PFs[@]}";
+do
+  configure_vfs_on_pf $PF
+done
+
+exit 0
