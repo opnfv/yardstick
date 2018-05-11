@@ -31,6 +31,7 @@ class ContainerObject(object):
         self._args = kwargs.get('args', [])
         self._volume_mounts = kwargs.get('volumeMounts', [])
         self._security_context = kwargs.get('securityContext')
+        self._env = kwargs.get('env', [])
 
     def _create_volume_mounts(self):
         """Return all "volumeMounts" items per container"""
@@ -58,6 +59,11 @@ class ContainerObject(object):
                      'volumeMounts': self._create_volume_mounts()}
         if self._security_context:
             container['securityContext'] = self._security_context
+        if self._env:
+            container['env'] = []
+            for env in self._env:
+                container['env'].append({'name': env['name'],
+                                         'value': env['value']})
         return container
 
 
