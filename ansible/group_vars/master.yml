@@ -1,0 +1,39 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+cni_info:
+  multus-cni:
+    repo_url: https://github.com/Intel-Corp/multus-cni
+    repo_ver: v1.2
+    build_script: build
+  sriov-cni:
+    repo_url: https://github.com/Intel-Corp/sriov-cni
+    repo_ver: master
+    build_script: build
+  containernetworking-cni:
+    repo_url: https://github.com/containernetworking/cni
+    repo_ver: v0.6.0
+    build_script: build.sh
+  containernetworking-plugins:
+    repo_url: https://github.com/containernetworking/plugins
+    repo_ver: v0.7.1
+    build_script: build.sh
+kubeadm_kubernetes_version: 1.9.3
+# Default CIDR defined in kube-flannel.yml
+kubeadm_pod_network_cidr: 10.244.0.0/16
+kubelet_cluster_dns_ip: 172.20.0.10
+docker_daemon_config:
+  bip: 172.10.1.1/16
+  fixed-cidr: 172.10.0.0/24
+  mtu: 1500

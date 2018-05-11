@@ -1,0 +1,49 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Get CNI driver sources
+  git:
+    repo: "{{ item.value.repo_url }}"
+    dest: "{{ cni_src_dir }}/{{ item.key }}"
+    version: "{{ item.value.repo_ver }}"
+  with_dict: "{{ cni_info }}"
+
+- name: Compile CNI drivers
+  command: "{{ cni_src_dir }}/{{ item.key }}/{{ item.value.build_script }}"
+  environment: "{{ go_env }}"
+  args:
+    chdir: "{{ cni_src_dir }}/{{ item.key }}"
+  with_dict: "{{ cni_info }}"
+
+- name: Get list of compiled CNI binaries
+  shell: ls -1 {{ item.key }}/bin/*
+  register: ls_cni_binaries_result
+  args:
+    chdir: "{{ cni_src_dir }}"
+  with_dict: "{{ cni_info }}"
+
+- set_fact:
+    cni_binary_list: "{{ cni_binary_list|default([]) + item.stdout_lines }}"
+  with_items: "{{ ls_cni_binaries_result.results }}"
+
+- name: Create CNI binaries dir
+  file: path={{ cni_bin_dir }} state=directory
+
+- name: Copy CNI binaries into kublet bin dir
+  copy:
+    src: "{{ cni_src_dir }}/{{ item }}"
+    dest: "{{ cni_bin_dir }}/"
+    remote_src: yes
+    mode: 0755
+  with_items: "{{ cni_binary_list }}"
