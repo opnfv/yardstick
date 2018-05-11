@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: cmk-cluster-init-pod
+  name: cmk-cluster-init-pod
+spec:
+  serviceAccountName: cmk-serviceaccount
+  containers:
+  - args:
+      # Change this value to pass different options to cluster-init.
+      - "/cmk/cmk.py cluster-init --host-list={{ ansible_hostname }} --saname=cmk-serviceaccount --cmk-img=si-docker.ir.intel.com/vcmts-ubuntu/cmk --num-dp-cores=4 --dp-mode=spread --num-cp-cores=1 --cp-mode=spread"
+    command:
+    - "/bin/bash"
+    - "-c"
+    image: si-docker.ir.intel.com/vcmts-ubuntu/cmk
+    name: cmk-cluster-init-pod
+  restartPolicy: Never
