@@ -1,0 +1,36 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- set_fact:
+    service_cidr_param: --service-cidr={{ kubeadm_service_cidr }}
+  when: 'kubeadm_service_cidr is defined'
+
+- set_fact:
+    pod_network_cidr_param: --pod-network-cidr={{ kubeadm_pod_network_cidr }}
+  when: 'kubeadm_pod_network_cidr is defined'
+
+- name: initialize Kubernetes cluster
+  command: kubeadm init {{ pod_network_cidr_param|default('') }} {{ service_cidr_param|default('') }}
+
+- name: allow to schedule pods on the master
+  command: kubectl taint nodes --all node-role.kubernetes.io/master-
+  register: kubectl_tmp
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
+
+- name: Installing a pod network
+  command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
+  register: kubectl_tmp
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
