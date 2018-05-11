@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_05b37ae9",
+        "filename": "tests/unit/network_services/vnf_generic/vnf/test_cgnapt_vnf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-11T07:51:40Z",
+      "side": 1,
+      "message": "You are mocking the function we need to test. Formatting a string with a forced output (L99-105) is trivial.\n\nThe goal of this test should be, from the child class (in this case cgnapt_vnf) to test the actual call to \"_build_pipeline_kwargs\", take the value stored in \"_build_pipeline_kwargs\" and format the pipeline string.",
+      "range": {
+        "startLine": 98,
+        "startChar": 34,
+        "endLine": 98,
+        "endChar": 56
+      },
+      "revId": "7916433e6b0a57f3c78b9bda25d5da6a061a2d5e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
