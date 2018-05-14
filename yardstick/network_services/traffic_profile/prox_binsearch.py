@@ -116,7 +116,7 @@ class ProxBinSearchProfile(ProxProfile):
                 self.current_lower = test_value
                 successful_pkt_loss = result.pkt_loss
                 samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
-                samples["TxThroughput"] = samples["TxThroughput"] * 1000 * 1000
+                samples["TxThroughput"] = samples["TxThroughput"]
 
                 # store results with success tag in influxdb
                 success_samples = {'Success_' + key: value for key, value in samples.items()}
