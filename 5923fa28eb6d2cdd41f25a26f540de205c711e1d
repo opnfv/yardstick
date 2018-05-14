@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_5b9ec357",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-14T09:20:05Z",
+      "side": 1,
+      "message": "Please, add this description below:\n\nExample of definition in a context:\n  context:\n    type: Kubernetes\n      servers:\n        host:\n          image: ...\n          commands: ...\n          env:\n            - \u003cvariable name\u003e: \u003cvariable value\u003e\n            - \u003cvariable name\u003e: \u003cvariable value\u003e\n\nThe volume type and the definition must be one of the supported ones in Kubernetes [1].\n\n[1] https://kubernetes.io/docs/concepts/storage/volumes/#types-of-volumes",
+      "revId": "5923fa28eb6d2cdd41f25a26f540de205c711e1d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
