@@ -68,7 +68,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
         # Result Samples inc theor_max
         result_tuple = {"Result_Actual_throughput": 7.5e-07,
-                        "Result_theor_max_throughput": 0.00012340000000000002,
+                        "Result_theor_max_throughput": 123.4,
                         "Result_pktSize": 200}
         profile.queue.put.assert_called_with(result_tuple)
 
@@ -80,7 +80,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
                                 "Success_PktSize": 200,
                                 "Success_RxThroughput": 7.5e-07,
                                 "Success_Throughput": 7.5e-07,
-                                "Success_TxThroughput": 0.00012340000000000002}
+                                "Success_TxThroughput": 123.4}
 
         calls = profile.queue.put(success_result_tuple)
         profile.queue.put.assert_has_calls(calls)
