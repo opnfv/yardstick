@@ -68,7 +68,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
         # Result Samples inc theor_max
         result_tuple = {"Result_Actual_throughput": 7.5e-07,
-                        "Result_theor_max_throughput": 0.00012340000000000002,
+                        "Result_theor_max_throughput": 1.234e-10,
                         "Result_pktSize": 200}
         profile.queue.put.assert_called_with(result_tuple)
 
