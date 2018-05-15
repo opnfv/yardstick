@@ -77,6 +77,7 @@ class ContainerObject(object):
 class ReplicationControllerObject(object):
 
     SSHKEY_DEFAULT = 'yardstick_key'
+    RESTART_POLICY = ('Always', 'OnFailure', 'Never')
 
     def __init__(self, name, **kwargs):
         super(ReplicationControllerObject, self).__init__()
@@ -87,6 +88,10 @@ class ReplicationControllerObject(object):
         self._volumes = parameters.pop('volumes', [])
         self._security_context = parameters.pop('securityContext', None)
         self._networks = parameters.pop('networks', [])
+        self._restart_policy = parameters.pop('restartPolicy', 'Always')
+        if self._restart_policy not in self.RESTART_POLICY:
+            raise exceptions.KubernetesWrongRestartPolicy(
+                rpolicy=self._restart_policy)
 
         containers = parameters.pop('containers', None)
         if containers:
@@ -112,7 +117,8 @@ class ReplicationControllerObject(object):
                     "spec": {
                         "containers": [],
                         "volumes": [],
-                        "nodeSelector": {}
+                        "nodeSelector": {},
+                        "restartPolicy": self._restart_policy
                     }
                 }
             }
