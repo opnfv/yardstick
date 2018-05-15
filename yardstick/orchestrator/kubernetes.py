@@ -74,6 +74,7 @@ class ContainerObject(object):
 class KubernetesObject(object):
 
     SSHKEY_DEFAULT = 'yardstick_key'
+    RESTART_POLICY = ['Always', 'OnFailure', 'Never']
 
     def __init__(self, name, **kwargs):
         super(KubernetesObject, self).__init__()
@@ -83,6 +84,7 @@ class KubernetesObject(object):
         self.ssh_key = parameters.pop('ssh_key', self.SSHKEY_DEFAULT)
         self._volumes = parameters.pop('volumes', [])
         self._security_context = parameters.pop('securityContext', None)
+        self._restart_policy = parameters.pop('restartPolicy', 'Always')
 
         containers = parameters.pop('containers', None)
         if containers:
@@ -110,7 +112,8 @@ class KubernetesObject(object):
                     "spec": {
                         "containers": [],
                         "volumes": [],
-                        "nodeSelector": {}
+                        "nodeSelector": {},
+                        "restartPolicy": self._restart_policy
                     }
                 }
             }
