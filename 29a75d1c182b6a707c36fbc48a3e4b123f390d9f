@@ -46,6 +46,30 @@
       "revId": "29a75d1c182b6a707c36fbc48a3e4b123f390d9f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_e19ba270",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-15T15:06:55Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "1a494da4_01c84e73",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 42,
+        "endChar": 50
+      },
+      "revId": "29a75d1c182b6a707c36fbc48a3e4b123f390d9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }

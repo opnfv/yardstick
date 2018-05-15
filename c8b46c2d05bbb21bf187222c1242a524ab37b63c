@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_24047814",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-15T15:06:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_61e2f204",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 14
+      },
+      "revId": "c8b46c2d05bbb21bf187222c1242a524ab37b63c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_011a0e17",
         "filename": "ansible/install-inventory.ini",
         "patchSetId": 1
@@ -54,6 +78,24 @@
       "side": 1,
       "message": "We had a discussion and you\u0027ve asked to rename it. I cannot delete the old one though.",
       "parentUuid": "1a494da4_011a0e17",
+      "revId": "c8b46c2d05bbb21bf187222c1242a524ab37b63c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_41889622",
+        "filename": "ansible/install-inventory.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-15T15:06:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_41ba56e2",
       "revId": "c8b46c2d05bbb21bf187222c1242a524ab37b63c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -107,6 +149,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_a1787a2c",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-15T15:06:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_a1ca3a6c",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 47
+      },
+      "revId": "c8b46c2d05bbb21bf187222c1242a524ab37b63c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_c11f8608",
         "filename": "ansible/roles/configure_nginx/tasks/main.yml",
         "patchSetId": 1
@@ -118,6 +184,30 @@
       "writtenOn": "2018-05-15T10:22:25Z",
       "side": 1,
       "message": "To be removed",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 20
+      },
+      "revId": "c8b46c2d05bbb21bf187222c1242a524ab37b63c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_218d8a32",
+        "filename": "ansible/roles/configure_nginx/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-15T15:06:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_c11f8608",
       "range": {
         "startLine": 35,
         "startChar": 0,
@@ -153,6 +243,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_81829efe",
+        "filename": "ansible/roles/configure_uwsgi/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-15T15:06:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_a11cfa14",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 46
+      },
+      "revId": "c8b46c2d05bbb21bf187222c1242a524ab37b63c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_612b1231",
         "filename": "ansible/ubuntu_deploy_samplevnfs.yml",
         "patchSetId": 1
@@ -164,6 +278,24 @@
       "writtenOn": "2018-05-15T10:22:25Z",
       "side": 1,
       "message": "This should be a role.\n\nThe name is no very accurate. This should be deploy_baremetal. Inside this role there should be a specific call to an Ubuntu OS file.",
+      "revId": "c8b46c2d05bbb21bf187222c1242a524ab37b63c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_61879210",
+        "filename": "ansible/ubuntu_deploy_samplevnfs.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-15T15:06:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_612b1231",
       "revId": "c8b46c2d05bbb21bf187222c1242a524ab37b63c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
