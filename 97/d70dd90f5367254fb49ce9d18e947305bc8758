@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Code-Review+2: Emma Foley <emma.l.foley@intel.com>
+Submitted-by: Emma Foley <emma.l.foley@intel.com>
+Submitted-at: Tue, 15 May 2018 14:36:54 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/57163
+Project: yardstick
+Branch: refs/heads/stable/fraser
