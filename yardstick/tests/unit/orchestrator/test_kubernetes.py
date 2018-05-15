@@ -66,7 +66,8 @@ service ssh restart;while true ; do sleep 10000; done"
                         ],
                         "nodeSelector": {
                             "kubernetes.io/hostname": "node-01"
-                        }
+                        },
+                        "restartPolicy": "Always"
                     }
                 }
             }
@@ -77,12 +78,20 @@ service ssh restart;while true ; do sleep 10000; done"
 service ssh restart;while true ; do sleep 10000; done'],
             'ssh_key': 'k8s-86096c30-key',
             'nodeSelector': {'kubernetes.io/hostname': 'node-01'},
-            'volumes': []
+            'volumes': [],
+            'restartPolicy': 'Always'
         }
         name = 'host-k8s-86096c30'
         output_r = kubernetes.ReplicationControllerObject(
             name, **input_s).get_template()
         self.assertEqual(output_r, output_t)
+
+    def test_get_template_invalid_restart_policy(self):
+        input_s = {'restartPolicy': 'invalid_option'}
+        name = 'host-k8s-86096c30'
+        with self.assertRaises(exceptions.KubernetesWrongRestartPolicy):
+            kubernetes.ReplicationControllerObject(
+                name, **input_s).get_template()
 
 
 class GetRcPodsTestCase(base.BaseUnitTestCase):
@@ -320,6 +329,7 @@ class ContainerObjectTestCase(base.BaseUnitTestCase):
                     'resources': {'requests': {'key1': 'val1'},
                                   'limits': {'key2': 'val2'}}}
         self.assertEqual(expected, container_obj.get_container_item())
+
 
 class CustomResourceDefinitionObjectTestCase(base.BaseUnitTestCase):
 
