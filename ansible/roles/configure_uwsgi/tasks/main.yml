@@ -43,3 +43,5 @@
   template:
     src: yardstick.ini.j2
     dest: "{{ config_dir }}yardstick.ini"
+
+- shell: uwsgi -i /etc/yardstick/yardstick.ini

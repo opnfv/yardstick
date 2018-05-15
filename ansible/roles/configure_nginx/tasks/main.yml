@@ -31,3 +31,8 @@
     semanage port -m -t http_port_t  -p tcp 5000
     semanage port -m -t http_port_t  -p udp 5000
   when: ansible_os_family == "RedHat"
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted

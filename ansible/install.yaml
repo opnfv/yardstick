@@ -1,21 +1,14 @@
+# Any header here?
 ---
-- hosts: localhost
-
+- hosts: jumphost
+  become: yes
   vars:
-    arch_amd64: "amd64"
-    arch_arm64: "arm64"
-    inst_mode_container: "container"
-    inst_mode_baremetal: "baremetal"
-    ubuntu_archive:
-      amd64: "http://archive.ubuntu.com/ubuntu/"
-      arm64: "http://ports.ubuntu.com/ubuntu-ports/"
     installation_mode: "{{ INSTALLATION_MODE | default('baremetal') }}"
     yardstick_dir: "{{ YARDSTICK_DIR | default('/home/opnfv/repos/yardstick') }}"
     virtual_environment: "{{ VIRTUAL_ENVIRONMENT | default(False) }}"
     nsb_dir: "{{ NSB_DIR | default('/opt/nsb_bin/') }}"
 
   pre_tasks:
-
     - name: Create NSB binaries directory, accesible to any user
       file:
         path: "{{ nsb_dir }}"
@@ -33,10 +26,13 @@
     - install_trex
     - configure_rabbitmq
 
-  post_tasks:
 
-    - service:
-        name: nginx
-        state: restarted
-
-    - shell: uwsgi -i /etc/yardstick/yardstick.ini
+- name: Prepare baremetal server(s)
+  import_playbook: ubuntu_deploy_samplevnfs.yml
+  vars:
+    YARD_IMG_ARCH: "{{ arch_amd64 }}"
+    proxy_env:
+      http_proxy: "{{ lookup('env', 'http_proxy') }}"
+      https_proxy: "{{ lookup('env', 'https_proxy') }}"
+      ftp_proxy: "{{ lookup('env', 'ftp_proxy') }}"
+      no_proxy: "{{ lookup('env', 'no_proxy') }}"
