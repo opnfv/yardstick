@@ -297,3 +297,214 @@ The influence of the POD
 
 Fraser release
 --------------
+
+Test results per scenario and pod (lower is better):
+
+{
+
+    "os-odl-nofeature-ha:ericsson-pod1:fuel": [6.8675],
+
+    "os-nosdn-nofeature-noha:intel-pod18:joid": [6.991],
+
+    "os-nosdn-openbaton-ha:intel-pod18:joid": [7.5535],
+
+    "os-nosdn-nofeature-ha:intel-pod18:joid": [7.571],
+    "os-nosdn-ovs-ha:ericsson-pod1:fuel": [7.635],
+
+    "os-nosdn-nofeature-ha:zte-pod2:daisy": [8.153],
+
+    "os-odl-nofeature-ha:zte-pod2:daisy": [8.1935],
+
+    "os-nosdn-bar-ha:huawei-pod2:compass": [9.1715],
+
+    "os-odl-sfc-ha:huawei-pod2:compass": [9.1875],
+
+    "os-odl_l3-nofeature-ha:huawei-pod2:compass": [9.241],
+
+    "os-nosdn-nofeature-ha:huawei-pod2:compass": [9.255],
+
+    "os-nosdn-kvm-ha:huawei-pod2:compass": [9.388],
+
+    "os-nosdn-nofeature-noha:huawei-virtual4:compass": [9.5825],
+
+    "os-nosdn-nofeature-noha:huawei-pod12:joid": [9.5875],
+
+    "os-nosdn-nofeature-ha:huawei-pod12:joid": [9.6345],
+
+    "os-odl-sfc-noha:huawei-virtual4:compass": [9.6535],
+
+    "os-nosdn-nofeature-noha:ericsson-virtual2:fuel": [9.743],
+
+    "os-odl-sfc-noha:huawei-virtual3:compass": [9.82],
+
+    "os-odl-nofeature-noha:ericsson-virtual2:fuel": [9.8715],
+
+    "os-odl_l3-nofeature-noha:huawei-virtual3:compass": [9.982],
+
+    "os-nosdn-bar-noha:huawei-virtual4:compass": [10.0195],
+
+    "os-odl_l3-nofeature-noha:huawei-virtual4:compass": [10.1285],
+
+    "os-nosdn-nofeature-noha:huawei-virtual3:compass": [10.1335],
+
+    "os-nosdn-nofeature-noha:huawei-virtual2:compass": [10.22],
+
+    "os-nosdn-bar-noha:huawei-virtual3:compass": [10.2845],
+
+    "os-nosdn-ovs-noha:ericsson-virtual4:fuel": [10.4185],
+
+    "os-nosdn-ovs-noha:ericsson-virtual2:fuel": [10.4555],
+
+    "os-nosdn-kvm-noha:huawei-virtual3:compass": [10.5635],
+
+    "os-nosdn-kvm-noha:huawei-virtual4:compass": [10.6515],
+
+    "os-nosdn-nofeature-noha:ericsson-virtual3:fuel": [10.9355],
+
+    "os-odl-nofeature-noha:ericsson-virtual4:fuel": [11.2015],
+
+    "os-odl_l3-nofeature-ha:huawei-virtual3:compass": [12.984],
+
+    "os-nosdn-bar-ha:huawei-virtual3:compass": [13.306],
+
+    "os-nosdn-nofeature-ha:huawei-virtual3:compass": [13.721],
+
+    "os-nosdn-bar-ha:huawei-virtual4:compass": [14.133],
+
+    "os-nosdn-nofeature-ha:ericsson-pod1:fuel": [14.158],
+
+    "os-odl_l3-nofeature-ha:huawei-virtual4:compass": [14.375],
+
+    "os-nosdn-nofeature-ha:huawei-virtual4:compass": [14.396],
+
+    "os-nosdn-kvm-ha:huawei-virtual4:compass": [14.9375],
+
+    "os-odl-sfc-ha:huawei-virtual3:compass": [14.957],
+
+    "os-nosdn-calipso-noha:lf-pod1:apex": [16.3445],
+
+    "os-nosdn-ovs-ha:lf-pod2:fuel": [16.478],
+
+    "os-nosdn-nofeature-ha:lf-pod2:fuel": [16.4895],
+
+    "os-odl-nofeature-noha:lf-pod1:apex": [16.55],
+
+    "os-nosdn-nofeature-noha:lf-pod1:apex": [16.5665],
+
+    "os-odl-sfc-noha:lf-pod1:apex": [16.598],
+
+    "os-ovn-nofeature-noha:lf-pod1:apex": [16.805],
+
+    "os-odl-nofeature-ha:lf-pod1:apex": [16.9095],
+
+    "os-nosdn-bar-ha:lf-pod1:apex": [17.494],
+
+    "os-nosdn-bar-noha:lf-pod1:apex": [17.4995],
+
+    "os-nosdn-nofeature-ha:lf-pod1:apex": [18.094],
+
+    "os-odl-nofeature-ha:arm-pod5:fuel": [18.744],
+
+    "os-nosdn-nofeature-ha:huawei-virtual1:compass": [19.8235],
+
+    "os-odl-nofeature-ha:lf-pod2:fuel": [20.758],
+
+    "os-nosdn-kvm-ha:huawei-virtual3:compass": [26.5245],
+
+    "os-nosdn-nofeature-ha:arm-pod6:fuel": [55.667],
+
+    "os-odl-nofeature-ha:arm-pod6:fuel": [56.175],
+
+    "os-nosdn-ovs-ha:arm-pod6:fuel": [57.86]
+
+}
+
+
+The influence of the scenario
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: images/tc010_scenario_fraser.png
+   :width: 800px
+   :alt: TC010 influence of scenario
+
+{
+
+    "os-nosdn-openbaton-ha": [7.5535],
+
+    "os-odl-nofeature-ha": [8.2535],
+
+    "os-odl-sfc-ha": [9.251],
+
+    "os-nosdn-nofeature-ha": [9.464],
+
+    "os-odl-sfc-noha": [9.8265],
+
+    "os-odl_l3-nofeature-ha": [9.836],
+
+    "os-odl_l3-nofeature-noha": [10.0565],
+
+    "os-nosdn-nofeature-noha": [10.079],
+
+    "os-nosdn-kvm-ha": [10.418],
+
+    "os-nosdn-ovs-noha": [10.43],
+
+    "os-nosdn-kvm-noha": [10.603],
+
+    "os-nosdn-bar-noha": [11.067],
+
+    "os-nosdn-bar-ha": [13.911],
+
+    "os-odl-nofeature-noha": [14.046],
+
+    "os-nosdn-calipso-noha": [16.3445],
+
+    "os-nosdn-ovs-ha": [16.478],
+
+    "os-ovn-nofeature-noha": [16.805]
+
+}
+
+
+The influence of the POD
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: images/tc010_pod_fraser.png
+   :width: 800px
+   :alt: TC010 influence of the POD
+
+{
+
+    "ericsson-pod1": [7.0645],
+
+    "intel-pod18": [7.4465],
+
+    "zte-pod2": [8.1865],
+
+    "huawei-pod2": [9.236],
+
+    "huawei-pod12": [9.615],
+
+    "ericsson-virtual2": [9.8925],
+
+    "huawei-virtual2": [10.22],
+
+    "ericsson-virtual4": [10.5465],
+
+    "ericsson-virtual3": [10.9355],
+
+    "huawei-virtual3": [10.95],
+
+    "huawei-virtual4": [11.557],
+
+    "lf-pod2": [16.5595],
+
+    "lf-pod1": [16.8395],
+
+    "arm-pod5": [18.744],
+
+    "huawei-virtual1": [19.8235],
+
+    "arm-pod6": [55.804]
+
+}
