@@ -208,6 +208,16 @@ class KubernetesObjectTestCase(base.BaseUnitTestCase):
             self.assertEqual({'key%s' % i: 'value%s' % i},
                              container['securityContext'])
 
+    def test__add_networks(self):
+        k8s_obj = kubernetes.KubernetesObject(
+            'name', networks=['network1', 'network2', 'network3'])
+        k8s_obj._add_networks()
+        networks = k8s_obj.\
+            template['spec']['template']['metadata']['annotations']['networks']
+        expected = ('[{"name": "network1"}, {"name": "network2"}, '
+                    '{"name": "network3"}]')
+        self.assertEqual(expected, networks)
+
 
 class ContainerObjectTestCase(base.BaseUnitTestCase):
 

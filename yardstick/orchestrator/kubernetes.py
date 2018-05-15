@@ -9,10 +9,12 @@
 
 import copy
 
+from oslo_serialization import jsonutils
+
 from yardstick.common import constants
 from yardstick.common import exceptions
-from yardstick.common import utils
 from yardstick.common import kubernetes_utils as k8s_utils
+from yardstick.common import utils
 
 
 class ContainerObject(object):
@@ -71,6 +73,7 @@ class KubernetesObject(object):
         self.ssh_key = parameters.pop('ssh_key', self.SSHKEY_DEFAULT)
         self._volumes = parameters.pop('volumes', [])
         self._security_context = parameters.pop('securityContext', None)
+        self._networks = parameters.pop('networks', [])
 
         containers = parameters.pop('containers', None)
         if containers:
@@ -107,6 +110,7 @@ class KubernetesObject(object):
         self._add_node_selector()
         self._add_volumes()
         self._add_security_context()
+        self._add_networks()
 
     def get_template(self):
         return self.template
@@ -163,6 +167,19 @@ class KubernetesObject(object):
             utils.set_dict_value(self.template,
                                  'spec.template.spec.securityContext',
                                  self._security_context)
+
+    def _add_networks(self):
+        networks = []
+        for net in self._networks:
+            networks.append({'name': net})
+
+        if not networks:
+            return
+
+        annotations = {'networks': jsonutils.dumps(networks)}
+        utils.set_dict_value(self.template,
+                             'spec.template.metadata.annotations',
+                             annotations)
 
 
 class ServiceObject(object):
