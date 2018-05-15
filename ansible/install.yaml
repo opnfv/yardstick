@@ -1,14 +1,20 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 ---
-- hosts: localhost
-
+- hosts: jumphost
+  become: yes
   vars:
-    arch_amd64: "amd64"
-    arch_arm64: "arm64"
-    inst_mode_container: "container"
-    inst_mode_baremetal: "baremetal"
-    ubuntu_archive:
-      amd64: "http://archive.ubuntu.com/ubuntu/"
-      arm64: "http://ports.ubuntu.com/ubuntu-ports/"
     installation_mode: "{{ INSTALLATION_MODE | default('baremetal') }}"
     yardstick_dir: "{{ YARDSTICK_DIR | default('/home/opnfv/repos/yardstick') }}"
     virtual_environment: "{{ VIRTUAL_ENVIRONMENT | default(False) }}"
@@ -42,3 +48,52 @@
 
     - shell: uwsgi -i /etc/yardstick/yardstick.ini
       when: installation_mode != inst_mode_container
+
+- name: Prepare baremetal and standalone server(s)
+  hosts: yardstick-baremetal,yardstick-standalone
+  become: yes
+  vars:
+    YARD_IMG_ARCH: "{{ arch_amd64 }}"
+  environment:
+    proxy_env:
+      http_proxy: "{{ lookup('env', 'http_proxy') }}"
+      https_proxy: "{{ lookup('env', 'https_proxy') }}"
+      ftp_proxy: "{{ lookup('env', 'ftp_proxy') }}"
+      no_proxy: "{{ lookup('env', 'no_proxy') }}"
+
+  roles:
+    - add_custom_repos
+    - role: set_package_installer_proxy
+      when: proxy_env is defined and proxy_env
+    # can't update grub in chroot/docker
+    - enable_hugepages_on_boot
+    # needed for collectd plugins
+    - increase_open_file_limits
+    - install_image_dependencies
+    - role: download_dpdk
+    # dpdk_version: "17.02"
+    - install_dpdk
+    - download_trex
+    - install_trex
+    - download_civetweb
+    - install_civetweb
+    - download_samplevnfs
+    - role: install_samplevnf
+      vnf_name: PROX
+    - role: install_samplevnf
+      vnf_name: UDP_Replay
+    - role: install_samplevnf
+      vnf_name: ACL
+    - role: install_samplevnf
+      vnf_name: FW
+    - role: install_samplevnf
+      vnf_name: CGNATP
+    # build shared DPDK for collectd only, required DPDK downloaded already
+    - install_dpdk_shared
+    - install_rabbitmq
+    - download_intel_cmt_cat
+    - install_intel_cmt_cat
+    - download_pmu_tools
+    - install_pmu_tools
+    - download_collectd
+    - install_collectd
