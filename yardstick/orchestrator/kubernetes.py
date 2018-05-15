@@ -22,6 +22,7 @@ class ContainerObject(object):
     SSH_MOUNT_PATH = '/tmp/.ssh/'
     IMAGE_DEFAULT = 'openretriever/yardstick'
     COMMAND_DEFAULT = '/bin/bash'
+    RESOURCES = ['requests', 'limits']
 
     def __init__(self, name, ssh_key, **kwargs):
         self._name = name
@@ -32,6 +33,7 @@ class ContainerObject(object):
         self._volume_mounts = kwargs.get('volumeMounts', [])
         self._security_context = kwargs.get('securityContext')
         self._env = kwargs.get('env', [])
+        self._resources = kwargs.get('resources', {})
 
     def _create_volume_mounts(self):
         """Return all "volumeMounts" items per container"""
@@ -64,6 +66,11 @@ class ContainerObject(object):
             for env in self._env:
                 container['env'].append({'name': env['name'],
                                          'value': env['value']})
+        if self._resources:
+            container['resources'] = {}
+            for res in (res for res in self._resources if
+                        res in self.RESOURCES):
+                container['resources'][res] = self._resources[res]
         return container
 
 
