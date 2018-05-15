@@ -36,8 +36,9 @@ OPNFV labs, triggered by OPNFV CI pipeline, documented per test case.
    tc082-context-switches-under-load.rst
    tc083-network-throughput-between-vm.rst
 
-Test results of executed tests are avilable in Dashboard_ and logs in Jenkins_.
+Test results of executed tests are avilable in Dashboard_ and logs in Jenkins_.i
 
+Test results for Fraser release are collected from April 10, 2018 to May 13, 2018.
 
 Feature Test Results
 ====================
