@@ -260,3 +260,173 @@ The influence of the POD
 
 Fraser release
 --------------
+
+Test results per scenario and pod (lower is better):
+
+{
+
+    "os-nosdn-nofeature-ha:arm-pod6:fuel": [1],
+
+    "os-nosdn-nofeature-ha:ericsson-pod1:fuel": [1],
+
+    "os-nosdn-nofeature-ha:lf-pod2:fuel": [1],
+
+    "os-nosdn-nofeature-noha:ericsson-virtual2:fuel": [1],
+
+    "os-nosdn-nofeature-noha:ericsson-virtual3:fuel": [1],
+
+    "os-ovn-nofeature-noha:lf-pod1:apex": [1511.5],
+
+    "os-nosdn-kvm-noha:huawei-virtual3:compass": [2996],
+
+    "os-nosdn-bar-ha:huawei-virtual4:compass": [2997],
+
+    "os-nosdn-bar-noha:huawei-virtual4:compass": [2997],
+
+    "os-nosdn-kvm-ha:huawei-virtual4:compass": [2997],
+
+    "os-nosdn-nofeature-ha:huawei-virtual1:compass": [2997],
+
+    "os-nosdn-nofeature-ha:huawei-virtual3:compass": [2997],
+
+    "os-nosdn-nofeature-ha:huawei-virtual4:compass": [2997],
+
+    "os-odl-sfc-ha:huawei-virtual3:compass": [2997],
+
+    "os-odl_l3-nofeature-ha:huawei-virtual3:compass": [2997],
+
+    "os-odl_l3-nofeature-noha:huawei-virtual3:compass": [3000],
+
+    "os-odl_l3-nofeature-ha:huawei-virtual4:compass": [3003],
+
+    "os-nosdn-bar-noha:huawei-virtual3:compass": [3011],
+
+    "os-nosdn-bar-ha:huawei-virtual3:compass": [3015.5],
+
+    "os-nosdn-kvm-noha:huawei-virtual4:compass": [3019],
+
+    "os-nosdn-nofeature-noha:huawei-virtual4:compass": [3021],
+
+    "os-odl-sfc-ha:huawei-virtual4:compass": [3021],
+
+    "os-nosdn-bar-ha:huawei-pod2:compass": [3022],
+
+    "os-nosdn-bar-ha:lf-pod1:apex": [3022],
+
+    "os-nosdn-bar-noha:lf-pod1:apex": [3022],
+
+    "os-nosdn-calipso-noha:lf-pod1:apex": [3022],
+
+    "os-nosdn-kvm-ha:huawei-pod2:compass": [3022],
+
+    "os-nosdn-nofeature-ha:huawei-pod12:joid": [3022],
+
+    "os-nosdn-nofeature-ha:huawei-pod2:compass": [3022],
+
+    "os-nosdn-nofeature-ha:intel-pod18:joid": [3022],
+
+    "os-nosdn-nofeature-ha:lf-pod1:apex": [3022],
+
+    "os-nosdn-nofeature-ha:zte-pod2:daisy": [3022],
+
+    "os-nosdn-nofeature-noha:huawei-pod12:joid": [3022],
+
+    "os-nosdn-nofeature-noha:intel-pod18:joid": [3022],
+
+    "os-nosdn-nofeature-noha:lf-pod1:apex": [3022],
+
+    "os-nosdn-openbaton-ha:intel-pod18:joid": [3022],
+
+    "os-odl-sfc-ha:huawei-pod2:compass": [3022],
+
+    "os-odl_l3-nofeature-ha:huawei-pod2:compass": [3022],
+
+    "os-odl_l3-nofeature-noha:huawei-virtual4:compass": [3022],
+
+    "os-odl-sfc-noha:huawei-virtual4:compass": [3022.5],
+
+    "os-nosdn-nofeature-noha:huawei-virtual3:compass": [3023],
+
+    "os-odl-sfc-noha:huawei-virtual3:compass": [3023],
+
+    "os-nosdn-nofeature-noha:huawei-virtual2:compass": [3025]
+
+}
+
+
+The influence of the scenario
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: images/tc011_scenario_fraser.png
+   :width: 800px
+   :alt: TC011 influence of scenario
+
+{
+
+    "os-ovn-nofeature-noha": [1511.5],
+
+    "os-nosdn-kvm-noha": [2997],
+
+    "os-odl-sfc-ha": [3021],
+
+    "os-nosdn-bar-ha": [3022],
+
+    "os-nosdn-bar-noha": [3022],
+
+    "os-nosdn-calipso-noha": [3022],
+
+    "os-nosdn-kvm-ha": [3022],
+
+    "os-nosdn-nofeature-ha": [3022],
+
+    "os-nosdn-nofeature-noha": [3022],
+
+    "os-nosdn-openbaton-ha": [3022],
+
+    "os-odl_l3-nofeature-ha": [3022],
+
+    "os-odl_l3-nofeature-noha": [3022],
+
+    "os-odl-sfc-noha": [3023]
+
+}
+
+
+The influence of the POD
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: images/tc011_pod_fraser.png
+   :width: 800px
+   :alt: TC011 influence of the POD
+
+{
+
+    "arm-pod6": [1],
+
+    "ericsson-pod1": [1],
+
+    "ericsson-virtual2": [1],
+
+    "ericsson-virtual3": [1],
+
+    "lf-pod2": [1],
+
+    "huawei-virtual1": [2997],
+
+    "huawei-virtual3": [2999],
+
+    "huawei-virtual4": [3002],
+
+    "huawei-pod12": [3022],
+
+    "huawei-pod2": [3022],
+
+    "intel-pod18": [3022],
+
+    "lf-pod1": [3022],
+
+    "zte-pod2": [3022],
+
+    "huawei-virtual2": [3025]
+
+}
