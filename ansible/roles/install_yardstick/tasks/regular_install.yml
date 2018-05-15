@@ -18,5 +18,6 @@
 
 - name: Install Yardstick code
   pip:
-    name: "{{ yardstick_dir }}/."
+    name: "."
     extra_args: -e
+    chdir: "{{ yardstick_dir }}/"
