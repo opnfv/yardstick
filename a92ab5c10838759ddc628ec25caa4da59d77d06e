@@ -22,6 +22,30 @@
       "revId": "a92ab5c10838759ddc628ec25caa4da59d77d06e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_0177ae03",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-05-15T13:35:02Z",
+      "side": 1,
+      "message": "Yes. removed it now",
+      "parentUuid": "1a494da4_e1728248",
+      "range": {
+        "startLine": 119,
+        "startChar": 17,
+        "endLine": 119,
+        "endChar": 65
+      },
+      "revId": "a92ab5c10838759ddc628ec25caa4da59d77d06e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
