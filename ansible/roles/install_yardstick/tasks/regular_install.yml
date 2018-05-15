@@ -20,3 +20,4 @@
   pip:
     name: "{{ yardstick_dir }}/."
     extra_args: -e
+    chdir: "{{ yardstick_dir }}/"
