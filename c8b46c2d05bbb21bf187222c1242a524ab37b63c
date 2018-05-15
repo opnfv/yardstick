@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_41ba56e2",
+        "filename": "ansible/install-inventory.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-15T10:53:55Z",
+      "side": 1,
+      "message": "We had a discussion and you\u0027ve asked to rename it. I cannot delete the old one though.",
+      "parentUuid": "1a494da4_011a0e17",
+      "revId": "c8b46c2d05bbb21bf187222c1242a524ab37b63c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_e1ff22a9",
         "filename": "ansible/install.yaml",
         "patchSetId": 1
@@ -53,6 +71,30 @@
       "writtenOn": "2018-05-15T10:22:25Z",
       "side": 1,
       "message": "This should be a role, not an script in the main folder.",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 47
+      },
+      "revId": "c8b46c2d05bbb21bf187222c1242a524ab37b63c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_a1ca3a6c",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-15T10:53:55Z",
+      "side": 1,
+      "message": "Do you suggest to put all roles here instead?",
+      "parentUuid": "1a494da4_e1ff22a9",
       "range": {
         "startLine": 31,
         "startChar": 19,
