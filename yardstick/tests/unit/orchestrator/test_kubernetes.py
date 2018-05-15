@@ -66,7 +66,8 @@ service ssh restart;while true ; do sleep 10000; done"
                         ],
                         "nodeSelector": {
                             "kubernetes.io/hostname": "node-01"
-                        }
+                        },
+                        "restartPolicy": "Always"
                     }
                 }
             }
@@ -77,11 +78,27 @@ service ssh restart;while true ; do sleep 10000; done"
 service ssh restart;while true ; do sleep 10000; done'],
             'ssh_key': 'k8s-86096c30-key',
             'nodeSelector': {'kubernetes.io/hostname': 'node-01'},
-            'volumes': []
+            'volumes': [],
+            'restartPolicy': 'Always'
         }
         name = 'host-k8s-86096c30'
         output_r = kubernetes.KubernetesObject(name, **input_s).get_template()
         self.assertEqual(output_r, output_t)
+
+    def test_get_template_invalid_restart_policy(self):
+        with self.assertRaises(exceptions.KubernetesWrongRestartPolicy):
+            input_s = {
+                'command': '/bin/bash',
+                'args': ['-c', 'chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; \
+            service ssh restart;while true ; do sleep 10000; done'],
+                'ssh_key': 'k8s-86096c30-key',
+                'nodeSelector': {'kubernetes.io/hostname': 'node-01'},
+                'volumes': [],
+                'restartPolicy': 'invalid_option'
+            }
+            name = 'host-k8s-86096c30'
+            output_r = kubernetes.KubernetesObject(name,
+                                                   **input_s).get_template()
 
 
 class GetRcPodsTestCase(base.BaseUnitTestCase):
@@ -302,6 +319,7 @@ class ContainerObjectTestCase(base.BaseUnitTestCase):
                     'volumeMounts': container_obj._create_volume_mounts(),
                     'resources': {'requests':{'fake_var_name':'fake_value'}}}
         self.assertEqual(expected, container_obj.get_container_item())
+
 
 class CustomResourceDefinitionObjectTestCase(base.BaseUnitTestCase):
 

@@ -180,6 +180,10 @@ class KubernetesCRDObjectDefinitionError(YardstickException):
                'parameters: %(missing_parameters)s')
 
 
+class KubernetesWrongRestartPolicy(YardstickException):
+    message = 'Restart policy "%(rpolicy)s" is not valid'
+
+
 class ScenarioCreateNetworkError(YardstickException):
     message = 'Create Neutron Network Scenario failed'
 
