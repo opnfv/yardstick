@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_0ac86373",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-16T16:08:55Z",
+      "side": 1,
+      "message": "Change this parameter to the original value. This problem will be addresses in a following feature: make use of IterationIPC runner.",
+      "parentUuid": "1a494da4_0f9355fb",
+      "range": {
+        "startLine": 42,
+        "startChar": 14,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "83a355af3ea402bc69fb1599cf69c8ac6c77889a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_0ff195cd",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 5
