@@ -40,12 +40,8 @@ context:
     host:
       image: openretriever/yardstick
       command: /bin/bash
-      args: ['-c', 'mkdir /root/.ssh; cp /tmp/.ssh/authorized_keys ~/.ssh/.;
-                    chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; service ssh restart;
-                    while true ; do sleep 10000; done']
+      args: ['-c', 'chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; service ssh restart;while true ; do sleep 10000; done']
     target:
       image: openretriever/yardstick
       command: /bin/bash
-      args: ['-c', 'mkdir /root/.ssh; cp /tmp/.ssh/authorized_keys ~/.ssh/.;
-                    chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; service ssh restart;
-                    while true ; do sleep 10000; done']
+      args: ['-c', 'chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; service ssh restart;while true ; do sleep 10000; done']
