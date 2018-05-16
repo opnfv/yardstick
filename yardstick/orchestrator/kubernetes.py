@@ -61,12 +61,12 @@ class ContainerObject(object):
         return container
 
 
-class KubernetesObject(object):
+class ReplicationControllerObject(object):
 
     SSHKEY_DEFAULT = 'yardstick_key'
 
     def __init__(self, name, **kwargs):
-        super(KubernetesObject, self).__init__()
+        super(ReplicationControllerObject, self).__init__()
         parameters = copy.deepcopy(kwargs)
         self.name = name
         self.node_selector = parameters.pop('nodeSelector', {})
@@ -360,10 +360,9 @@ class KubernetesTemplate(object):
         self.ssh_key = '{}-key'.format(name)
 
         self.rcs = [self._get_rc_name(rc) for rc in servers_cfg]
-        self.k8s_objs = [KubernetesObject(self._get_rc_name(rc),
-                                          ssh_key=self.ssh_key,
-                                          **cfg)
-                         for rc, cfg in servers_cfg.items()]
+        self.k8s_objs = [ReplicationControllerObject(
+            self._get_rc_name(rc), ssh_key=self.ssh_key, **cfg)
+            for rc, cfg in servers_cfg.items()]
         self.service_objs = [ServiceObject(s) for s in self.rcs]
         self.crd = [CustomResourceDefinitionObject(self.name, **crd)
                     for crd in crd_cfg]
