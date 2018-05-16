@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_ca94bb46",
+        "filename": "yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-16T16:50:32Z",
+      "side": 1,
+      "message": "Ah. You need to pass a reference to the function in the instantiated class.",
+      "parentUuid": "1a494da4_8ab473f3",
+      "range": {
+        "startLine": 464,
+        "startChar": 34,
+        "endLine": 464,
+        "endChar": 67
+      },
+      "revId": "905f30cb6d944de0031c65e3aab1d7db96f87a52",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_0af183cd",
         "filename": "yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py",
         "patchSetId": 4
@@ -112,6 +136,29 @@
         "startChar": 30,
         "endLine": 469,
         "endChar": 63
+      },
+      "revId": "905f30cb6d944de0031c65e3aab1d7db96f87a52",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_aa916f54",
+        "filename": "yardstick/network_services/traffic_profile/base.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-16T16:50:32Z",
+      "side": 1,
+      "message": "Should the TrafficProfile class be abstract?",
+      "range": {
+        "startLine": 54,
+        "startChar": 7,
+        "endLine": 54,
+        "endChar": 35
       },
       "revId": "905f30cb6d944de0031c65e3aab1d7db96f87a52",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -154,6 +201,30 @@
       "side": 1,
       "message": "I can\u0027t pass to a class external function a reference to a class method. I need to pass the instantiated class method reference.",
       "parentUuid": "1a494da4_2a0a7fd2",
+      "range": {
+        "startLine": 142,
+        "startChar": 38,
+        "endLine": 142,
+        "endChar": 78
+      },
+      "revId": "905f30cb6d944de0031c65e3aab1d7db96f87a52",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_ea9b7770",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-16T16:50:32Z",
+      "side": 1,
+      "message": "Ah, fair enough. Thanks :)",
+      "parentUuid": "1a494da4_6ab927e9",
       "range": {
         "startLine": 142,
         "startChar": 38,
