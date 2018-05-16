@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Jing Lu <lvjing5@huawei.com>
+Submitted-by: Jing Lu <lvjing5@huawei.com>
+Submitted-at: Wed, 16 May 2018 04:05:10 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/57395
+Project: yardstick
+Branch: refs/heads/stable/fraser
