@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_cfd04dfa",
+        "filename": "tools/python_wrapper.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-05-16T10:46:21Z",
+      "side": 1,
+      "message": "this script will never be called from whiten a container. should we use the docker build command here if installation-mode\u003dcontainer?\n\nor \nshould we remove the option?",
+      "range": {
+        "startLine": 21,
+        "startChar": 22,
+        "endLine": 21,
+        "endChar": 42
+      },
+      "revId": "f421f0a8d350f0041ba309833dc5b15d9aca4ed1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
