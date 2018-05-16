@@ -96,6 +96,29 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_aaca0f6c",
+        "filename": "yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-16T16:19:00Z",
+      "side": 1,
+      "message": "This dependency needs to be met before importing.\n\nIt should be installed in requirements.txt or by test-requirements.txt\n\nIt appears that there was a dependency on knowing where the ixia libs were in order to import this before (L204-211 of the base patch).\n\nThis may be installed by the new version of the installer scripts, but we can\u0027t assume that this has been done on a system where unit tests are being run.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "83a355af3ea402bc69fb1599cf69c8ac6c77889a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_efed49f1",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
         "patchSetId": 5
