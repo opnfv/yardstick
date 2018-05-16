@@ -399,3 +399,43 @@ class NetworkObjectTestCase(base.BaseUnitTestCase):
         net_obj.delete()
         mock_delete_network.assert_called_once_with(
             'scope', 'group', 'version', 'plural', 'name')
+
+
+class ServiceNodePortObjectTestCase(base.BaseUnitTestCase):
+
+    def test__init(self):
+        with mock.patch.object(kubernetes.ServiceNodePortObject, '_add_port') \
+                as mock_add_port:
+            kubernetes.ServiceNodePortObject('fake_name',
+                                             node_ports=[{'port': 80}])
+
+        mock_add_port.assert_has_calls([mock.call(22, protocol='TCP'),
+                                        mock.call(80)])
+
+    def test__add_port(self):
+        nodeport_object = kubernetes.ServiceNodePortObject('fake_name')
+        port_ssh = {'port': 22,
+                    'protocol': 'TCP',}
+        port_definition = {'port': 80,
+                           'protocol': 'TCP',
+                           'name': 'web',
+                           'targetPort': 10080,
+                           'nodePort': 30080}
+        port = copy.deepcopy(port_definition)
+        port.pop('port')
+        nodeport_object._add_port(80, **port)
+        self.assertEqual([port_ssh, port_definition],
+                         nodeport_object.template['spec']['ports'])
+
+    @mock.patch.object(kubernetes_utils, 'create_service')
+    def test_create(self, mock_create_service):
+        nodeport_object = kubernetes.ServiceNodePortObject('fake_name')
+        nodeport_object.template = 'fake_template'
+        nodeport_object.create()
+        mock_create_service.assert_called_once_with('fake_template')
+
+    @mock.patch.object(kubernetes_utils, 'delete_service')
+    def test_delete(self, mock_delete_service):
+        nodeport_object = kubernetes.ServiceNodePortObject('fake_name')
+        nodeport_object.delete()
+        mock_delete_service.assert_called_once_with('fake_name-service')
