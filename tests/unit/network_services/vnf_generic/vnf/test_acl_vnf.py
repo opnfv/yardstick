@@ -29,6 +29,7 @@ stl_patch.start()
 if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.acl_vnf import AclApproxVnf
     from yardstick.network_services.nfvi.resource import ResourceProfile
+    from yardstick.network_services.vnf_generic.vnf.acl_vnf import AclApproxSetupEnvSetupEnvHelper
 
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
@@ -345,3 +346,27 @@ class TestAclApproxVnf(unittest.TestCase):
         acl_approx_vnf.dpdk_devbind = "dpdk-devbind.py"
         acl_approx_vnf._resource_collect_stop = mock.Mock()
         self.assertIsNone(acl_approx_vnf.terminate())
+
+
+class TestAclApproxSetupEnvSetupEnvHelper(unittest.TestCase):
+
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
+    @mock.patch.object(utils, 'find_relative_file')
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig')
+    @mock.patch.object(utils, 'open_relative_file')
+    def test_build_config(self, *args):
+        vnfd_helper = mock.Mock()
+        ssh_helper = mock.Mock()
+        scenario_helper = mock.Mock()
+        scenario_helper.vnf_cfg = {'lb_config': 'HW'}
+        scenario_helper.all_options = {}
+
+        acl_approx_setup_helper = AclApproxSetupEnvSetupEnvHelper(vnfd_helper,
+                                                                  ssh_helper,
+                                                                  scenario_helper)
+
+        acl_approx_setup_helper.ssh_helper.provision_tool = mock.Mock(return_value='tool_path')
+        acl_approx_setup_helper.ssh_helper.all_ports = mock.Mock()
+        acl_approx_setup_helper.vnfd_helper.port_nums = mock.Mock(return_value=[0, 1])
+        expected = 'sudo tool_path -p 0x3 -f /tmp/acl_config -s /tmp/acl_script  --hwlb 3'
+        self.assertEqual(acl_approx_setup_helper.build_config(), expected)

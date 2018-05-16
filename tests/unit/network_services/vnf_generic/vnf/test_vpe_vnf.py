@@ -18,7 +18,7 @@ import os
 import time
 
 import mock
-import six.moves.configparser as configparser
+from six.moves import configparser
 import unittest
 
 from tests.unit import STL_MOCKS
@@ -663,7 +663,14 @@ class TestVpeApproxVnf(unittest.TestCase):
         vpe_approx_vnf.ssh_helper.bin_path = mock.Mock()
         vpe_approx_vnf.ssh_helper.upload_config_file = mock.MagicMock()
         self.assertIsNone(vpe_approx_vnf._build_vnf_ports())
-        self.assertIsNotNone(vpe_approx_vnf.build_config())
+
+        vpe_approx_vnf.ssh_helper.provision_tool = mock.Mock(return_value='tool_path')
+        vpe_approx_vnf.ssh_helper.all_ports = mock.Mock()
+        vpe_approx_vnf.vnfd_helper.port_nums = mock.Mock(return_value=[0, 1])
+        vpe_approx_vnf.scenario_helper.vnf_cfg = {'lb_config': 'HW'}
+
+        expected = 'sudo tool_path -p 0x3 -f /tmp/vpe_config -s /tmp/vpe_script  --hwlb 3'
+        self.assertEqual(vpe_approx_vnf.build_config(), expected)
 
     @mock.patch(SSH_HELPER)
     def test_wait_for_instantiate(self, ssh):

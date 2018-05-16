@@ -30,6 +30,7 @@ stl_patch.start()
 if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.vfw_vnf import FWApproxVnf
     from yardstick.network_services.nfvi.resource import ResourceProfile
+    from yardstick.network_services.vnf_generic.vnf.vfw_vnf import FWApproxSetupEnvHelper
 
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
@@ -349,3 +350,25 @@ pipeline>
                                                     'rules': ""}}
         self.scenario_cfg.update({"nodes": {"vnf__1": ""}})
         self.assertIsNone(vfw_approx_vnf.instantiate(self.scenario_cfg, self.context_cfg))
+
+
+class TestFWApproxSetupEnvHelper(unittest.TestCase):
+
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
+    @mock.patch.object(utils, 'find_relative_file')
+    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig')
+    @mock.patch.object(utils, 'open_relative_file')
+    def test_build_config(self, *args):
+        vnfd_helper = mock.Mock()
+        ssh_helper = mock.Mock()
+        scenario_helper = mock.Mock()
+        scenario_helper.vnf_cfg = {'lb_config': 'HW'}
+        scenario_helper.all_options = {}
+
+        vfw_approx_setup_helper = FWApproxSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+
+        vfw_approx_setup_helper.ssh_helper.provision_tool = mock.Mock(return_value='tool_path')
+        vfw_approx_setup_helper.ssh_helper.all_ports = mock.Mock()
+        vfw_approx_setup_helper.vnfd_helper.port_nums = mock.Mock(return_value=[0, 1])
+        expected = 'sudo tool_path -p 0x3 -f /tmp/vfw_config -s /tmp/vfw_script  --hwlb 3'
+        self.assertEqual(vfw_approx_setup_helper.build_config(), expected)
