@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_4a2c2b4b",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-16T15:49:06Z",
+      "side": 1,
+      "message": "pylint gives the following error: Raising NoneType while only classes or instances are allowed (raising-bad-type)\n\n\nOptions to resolve this:\n2. Default to exceptions.WaitTimeout, and don\u0027t worry about checking\n\n    * This only works if an exception is immutable.\n    * If None is explicitly passed, this fails, as there would be no check.\n\nx  Ignore pylint exception\n\n   * Not good practice\n\nx  Default to some Object and check that\n\n    * Convoluted and non-intuitive\n\n1. Add a check and assignment for exception at the start of the method\n\n    * Moving the check outside the try...except, might have impact on performance",
+      "range": {
+        "startLine": 486,
+        "startChar": 1,
+        "endLine": 487,
+        "endChar": 27
+      },
+      "revId": "905f30cb6d944de0031c65e3aab1d7db96f87a52",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_aae32f04",
+        "filename": "yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-16T15:49:06Z",
+      "side": 1,
+      "message": "unnecessary lambda here?",
+      "range": {
+        "startLine": 464,
+        "startChar": 34,
+        "endLine": 464,
+        "endChar": 67
+      },
+      "revId": "905f30cb6d944de0031c65e3aab1d7db96f87a52",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_0af183cd",
+        "filename": "yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-16T15:49:06Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 469,
+        "startChar": 30,
+        "endLine": 469,
+        "endChar": 63
+      },
+      "revId": "905f30cb6d944de0031c65e3aab1d7db96f87a52",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_2a0a7fd2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-16T15:49:06Z",
+      "side": 1,
+      "message": "utils.wait_until_true takes a function as a parameter.\nThe lambda isn\u0027t necessary here, as you can pass \"self.client.is_traffic_stopped\" instead of using a lambda to pass it as a function.",
+      "range": {
+        "startLine": 142,
+        "startChar": 38,
+        "endLine": 142,
+        "endChar": 78
+      },
+      "revId": "905f30cb6d944de0031c65e3aab1d7db96f87a52",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
