@@ -163,12 +163,12 @@ class KubernetesTestCase(unittest.TestCase):
         self.k8s_context._get_node_ip()
         mock_get_node_list.assert_called_once()
 
-    @mock.patch('yardstick.orchestrator.kubernetes.ServiceObject.create')
+    @mock.patch.object(orchestrator_kubernetes.ServiceNodePortObject, 'create')
     def test_create_services(self, mock_create):
         self.k8s_context._create_services()
         mock_create.assert_called()
 
-    @mock.patch('yardstick.orchestrator.kubernetes.ServiceObject.delete')
+    @mock.patch.object(orchestrator_kubernetes.ServiceNodePortObject, 'delete')
     def test_delete_services(self, mock_delete):
         self.k8s_context._delete_services()
         mock_delete.assert_called()
