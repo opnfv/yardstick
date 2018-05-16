@@ -1,0 +1,10 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Dimitrios Markou <mardim@intracom-telecom.com>
+Code-Review+1: Juan Qiu <juan_qiu@tongji.edu.cn>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Code-Review+2: Jing Lu <lvjing5@huawei.com>
+Submitted-by: Jing Lu <lvjing5@huawei.com>
+Submitted-at: Wed, 16 May 2018 08:13:48 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/53243
+Project: yardstick
+Branch: refs/heads/master
