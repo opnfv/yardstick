@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_6f877910",
+        "filename": "ansible/install-inventory.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-16T10:25:04Z",
+      "side": 1,
+      "message": "Why did you comment this line?",
+      "revId": "f75a046dff2b9bff88d64b77109bf04616876011",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_cf7b2d28",
+        "filename": "ansible/roles/install_yardstick/tasks/regular_install.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-16T10:25:04Z",
+      "side": 1,
+      "message": "Why? We are pointing to the yardstick directory in \"name\". Why do I need to be in the same directory?",
+      "revId": "f75a046dff2b9bff88d64b77109bf04616876011",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

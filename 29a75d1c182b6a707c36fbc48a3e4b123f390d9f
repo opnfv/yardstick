@@ -70,6 +70,23 @@
       "revId": "29a75d1c182b6a707c36fbc48a3e4b123f390d9f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_8f82c5fe",
+        "filename": "ansible/yardstick-install-inventory.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-16T10:25:04Z",
+      "side": 0,
+      "message": "1) The purpose if to modify this file, not to delete it and create a new one. Doing this you will delete the git history\n\n2) We need always to keep backwards compatibility. I we delete/rename this file, we also need to modify those places where this file is called:\n- nsb_setup.sh script\n- 13-nsb-installation.rst",
+      "revId": "29a75d1c182b6a707c36fbc48a3e4b123f390d9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
