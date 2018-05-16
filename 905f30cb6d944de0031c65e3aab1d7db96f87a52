@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_2abf1fd2",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-16T16:08:03Z",
+      "side": 1,
+      "message": "This function is already merged in the master branch. I forgot to rebase this patch. Please, if you don\u0027t mind, rebase this patch.",
+      "parentUuid": "1a494da4_4a2c2b4b",
+      "range": {
+        "startLine": 486,
+        "startChar": 1,
+        "endLine": 487,
+        "endChar": 27
+      },
+      "revId": "905f30cb6d944de0031c65e3aab1d7db96f87a52",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_aae32f04",
         "filename": "yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-05-16T15:49:06Z",
       "side": 1,
       "message": "unnecessary lambda here?",
+      "range": {
+        "startLine": 464,
+        "startChar": 34,
+        "endLine": 464,
+        "endChar": 67
+      },
+      "revId": "905f30cb6d944de0031c65e3aab1d7db96f87a52",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_8ab473f3",
+        "filename": "yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-16T16:08:03Z",
+      "side": 1,
+      "message": "No. Take a look at the code. This function is expecting a function, as an input argument. The function provided will be executed every period.\n\nhttps://github.com/opnfv/yardstick/blob/master/yardstick/common/utils.py#L478-L494",
+      "parentUuid": "1a494da4_aae32f04",
       "range": {
         "startLine": 464,
         "startChar": 34,
@@ -82,6 +130,30 @@
       "writtenOn": "2018-05-16T15:49:06Z",
       "side": 1,
       "message": "utils.wait_until_true takes a function as a parameter.\nThe lambda isn\u0027t necessary here, as you can pass \"self.client.is_traffic_stopped\" instead of using a lambda to pass it as a function.",
+      "range": {
+        "startLine": 142,
+        "startChar": 38,
+        "endLine": 142,
+        "endChar": 78
+      },
+      "revId": "905f30cb6d944de0031c65e3aab1d7db96f87a52",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_6ab927e9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-16T16:08:03Z",
+      "side": 1,
+      "message": "I can\u0027t pass to a class external function a reference to a class method. I need to pass the instantiated class method reference.",
+      "parentUuid": "1a494da4_2a0a7fd2",
       "range": {
         "startLine": 142,
         "startChar": 38,
