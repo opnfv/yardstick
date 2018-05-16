@@ -22,6 +22,29 @@
       "revId": "8767e3194bf8d2a1ec918acaf8fee1d115e0bdc6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_a45a484e",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-05-16T07:50:59Z",
+      "side": 1,
+      "message": "\"restartPolicy\": check_restart_policy(self._restart_policy)\n\ndef check_restart_policy(self):\n  if self._restart_policy in RESTART_POLICY:\n    return self._restart_policy\n  else:\n    return \u0027Always\u0027",
+      "range": {
+        "startLine": 116,
+        "startChar": 41,
+        "endLine": 116,
+        "endChar": 61
+      },
+      "revId": "8767e3194bf8d2a1ec918acaf8fee1d115e0bdc6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
