@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_0f9355fb",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-16T12:58:23Z",
+      "side": 1,
+      "message": "It should be changed in all the other tc_baremetal_rfc2544_ipv4_1rule_1flow_xxB_ixia.yaml files too. \nOr maybe anywhere where Ixia is used as a TG.\nCan this be added as a separate change on top of this set of commits?",
+      "parentUuid": "1a494da4_afe34104",
+      "range": {
+        "startLine": 42,
+        "startChar": 14,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "83a355af3ea402bc69fb1599cf69c8ac6c77889a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_0ff195cd",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 5
