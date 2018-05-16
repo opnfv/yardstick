@@ -2,13 +2,16 @@
 .. License.
 .. http://creativecommons.org/licenses/by/4.0
 
-Results listed by scenario
+Results listed by test cases
 ==========================
 
-The following sections describe the yardstick results as evaluated for the
-Colorado release scenario validation runs. Each section describes the
-determined state of the specific scenario as deployed in the Colorado
-release process.
+.. _TOM: https://wiki.opnfv.org/display/testing/R+post-processing+of+the+Yardstick+results
+
+
+The following sections describe the yardstick test case results as evaluated
+for the OPNFV Fraser release scenario validation runs. Each section describes
+the determined state of the specific test case as executed in the Fraser release
+process. All test date are analyzed using TOM_ tool.
 
 Scenario Results
 ================
@@ -16,21 +19,22 @@ Scenario Results
 .. _Dashboard: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-main
 .. _Jenkins: https://build.opnfv.org/ci/view/yardstick/
 
+
 The following documents contain results of Yardstick test cases executed on
-OPNFV labs, triggered by OPNFV CI pipeline, documented per scenario.
+OPNFV labs, triggered by OPNFV CI pipeline, documented per test case.
 
 
 .. toctree::
    :maxdepth: 1
 
-   os-nosdn-nofeature-ha.rst
-   os-nosdn-nofeature-noha.rst
-   os-odl_l2-nofeature-ha.rst
-   os-odl_l2-bgpvpn-ha.rst
-   os-odl_l2-sfc-ha.rst
-   os-nosdn-kvm-ha.rst
-   os-onos-nofeature-ha.rst
-   os-onos-sfc-ha.rst
+   tc002-network-latency.rst
+   tc010-memory-read-latency.rst
+   tc011-packet-delay-variation.rst
+   tc012-memory-read-write-bandwidth.rst
+   tc014-cpu-processing-speed.rst
+   tc069-memory-write-bandwidth.rst
+   tc082-context-switches-under-load.rst
+   tc083-network-throughput-between-vm.rst
 
 Test results of executed tests are avilable in Dashboard_ and logs in Jenkins_.
 
