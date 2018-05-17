@@ -22,7 +22,8 @@ class ContainerObject(object):
     SSH_MOUNT_PATH = '/tmp/.ssh/'
     IMAGE_DEFAULT = 'openretriever/yardstick'
     COMMAND_DEFAULT = '/bin/bash'
-    RESOURCES = ['requests', 'limits']
+    RESOURCES = ('requests', 'limits')
+    PORT_OPTIONS = ('containerPort', 'hostIP', 'hostPort', 'name', 'protocol')
 
     def __init__(self, name, ssh_key, **kwargs):
         self._name = name
@@ -34,6 +35,7 @@ class ContainerObject(object):
         self._security_context = kwargs.get('securityContext')
         self._env = kwargs.get('env', [])
         self._resources = kwargs.get('resources', {})
+        self._ports = kwargs.get('ports', [])
 
     def _create_volume_mounts(self):
         """Return all "volumeMounts" items per container"""
@@ -66,6 +68,15 @@ class ContainerObject(object):
             for env in self._env:
                 container['env'].append({'name': env['name'],
                                          'value': env['value']})
+        if self._ports:
+            container['ports'] = []
+            for port in self._ports:
+                if 'containerPort' not in port.keys():
+                    raise exceptions.KubernetesContainerPortNotDefined(
+                        port=port)
+                _port = {port_option: value for port_option, value
+                         in port.items() if port_option in self.PORT_OPTIONS}
+                container['ports'].append(_port)
         if self._resources:
             container['resources'] = {}
             for res in (res for res in self._resources if
