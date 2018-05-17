@@ -88,6 +88,12 @@ class KubernetesContext(Context):
         for obj in self.template.service_objs:
             obj.delete()
 
+    def get_service(self, service_name):
+
+        
+
+        pass
+
     def _create_rcs(self):
         for obj in self.template.k8s_objs:
             self._create_rc(obj.get_template())
