@@ -290,6 +290,24 @@ class ContainerObjectTestCase(base.BaseUnitTestCase):
                              'value': 'fake_var_value'}]}
         self.assertEqual(expected, container_obj.get_container_item())
 
+    def test_get_container_item_with_ports(self):
+        volume_mount = {'name': 'fake_name',
+                        'mountPath': 'fake_path'}
+        args = ['arg1', 'arg2']
+        container_obj = kubernetes.ContainerObject(
+            'cname', ssh_key='fake_sshkey', volumeMount=[volume_mount],
+            args=args, ports=[{'portName': 'fake_port_name',
+                               'portNumber': 'fake_port_number'}])
+        expected = {'args': args,
+                    'command': [
+                        kubernetes.ContainerObject.COMMAND_DEFAULT],
+                    'image': kubernetes.ContainerObject.IMAGE_DEFAULT,
+                    'name': 'cname-container',
+                    'volumeMounts': container_obj._create_volume_mounts(),
+                    'ports': [{'portName': 'fake_port_name',
+                               'portNumber': 'fake_port_number'}]}
+        self.assertEqual(expected, container_obj.get_container_item())
+
     def test_get_container_item_with_resources(self):
         volume_mount = {'name': 'fake_name',
                         'mountPath': 'fake_path'}
