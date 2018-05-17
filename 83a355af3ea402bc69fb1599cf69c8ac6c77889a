@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_7503c873",
+        "filename": "yardstick/network_services/libs/ixia_libs/IxNet/IxNet.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-17T07:46:25Z",
+      "side": 1,
+      "message": "? I don\u0027t understand what do you mean.\n\nWhy this is not going to be installed by UTs?\n1) If you are rebasing your code, it\u0027s up to you to install manually the needed dependencies in the tox virtual environments.\n2) If you are creating from scratch the tox environments, first you will install the requirements and the the test requirements.",
+      "parentUuid": "1a494da4_aaca0f6c",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "83a355af3ea402bc69fb1599cf69c8ac6c77889a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_efed49f1",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
         "patchSetId": 5
