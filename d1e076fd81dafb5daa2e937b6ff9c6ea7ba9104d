@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_b0d71ebf",
+        "filename": "ansible/kube_deploy.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-05-17T16:49:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_b53b9037",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_753aa837",
         "filename": "ansible/kube_prepare.yml",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-05-17T08:08:04Z",
       "side": 1,
       "message": "Why this host?\n\nYou should define a new host section in install-inventory.ini",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 15,
+        "endChar": 17
+      },
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_50ee9a8c",
+        "filename": "ansible/kube_prepare.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-05-17T16:49:27Z",
+      "side": 1,
+      "message": "Added kube-inventory.ini. Will add this into next patch set.",
+      "parentUuid": "1a494da4_753aa837",
       "range": {
         "startLine": 15,
         "startChar": 9,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_30f30e75",
+        "filename": "ansible/kube_prepare.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-05-17T16:49:27Z",
+      "side": 1,
+      "message": "Copied from other scripts as a template. Will remove it as it is not required here.",
+      "parentUuid": "1a494da4_d53e1c29",
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_f54518b4",
         "filename": "ansible/roles/build_cni/tasks/main.yml",
         "patchSetId": 2
@@ -76,6 +142,24 @@
       "writtenOn": "2018-05-17T08:08:04Z",
       "side": 1,
       "message": "This driver is going to change (there is a new spec ongoing). We need to force tag \"v1.2\"",
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_f0f8864b",
+        "filename": "ansible/roles/build_cni/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-05-17T16:49:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_f54518b4",
       "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_d088eac8",
+        "filename": "ansible/roles/build_cni/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-05-17T16:49:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_55120cb5",
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_751108ac",
         "filename": "ansible/roles/build_cni/tasks/main.yml",
         "patchSetId": 2
@@ -110,6 +212,24 @@
       "writtenOn": "2018-05-17T08:08:04Z",
       "side": 1,
       "message": "And flannel",
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_109372fb",
+        "filename": "ansible/roles/build_cni/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-05-17T16:49:27Z",
+      "side": 1,
+      "message": "This is a folder names. Flannel is copied from plugins/bin.",
+      "parentUuid": "1a494da4_751108ac",
       "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_f08fe6ca",
+        "filename": "ansible/roles/docker/templates/daemon.json.j2",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-05-17T16:49:27Z",
+      "side": 1,
+      "message": "The daemon_config will be converted into json. For example, the config from group_vars:\n\ndaemon_config:\n  bip: 172.10.1.1/16\n  fixed-cidr: 172.10.0.0/24\n  mtu: 1500\n\nwill be converted to:\n{\n    \"bip\": \"172.10.1.1/16\",\n    \"fixed-cidr\": \"172.10.0.0/24\",\n    \"mtu\": 1500\n}\nUser may add any other docker configuration via group_vars daemon_config variable and those configuration will be added to /etc/docker/daemon.json w/o modifying ansible scripts.",
+      "parentUuid": "1a494da4_d5257c0b",
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_b52270ff",
         "filename": "ansible/roles/kubeadm_init/defaults/main.yml",
         "patchSetId": 2
@@ -144,6 +282,30 @@
       "writtenOn": "2018-05-17T08:08:04Z",
       "side": 1,
       "message": "Those must be input parameters",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 52
+      },
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_30682ef5",
+        "filename": "ansible/roles/kubeadm_init/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-05-17T16:49:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_b52270ff",
       "range": {
         "startLine": 15,
         "startChar": 0,
