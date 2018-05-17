@@ -6,15 +6,19 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-from __future__ import absolute_import
 
 import logging
 
-import six.moves.configparser as ConfigParser
-from six.moves.urllib.parse import urlsplit
-from influxdb import InfluxDBClient
+from six.moves import configparser as ConfigParser
+# NOTE(ralonsoh): pylint E0401 import error
+# https://github.com/PyCQA/pylint/issues/1640
+from six.moves.urllib.parse import urlsplit  # pylint: disable=relative-import
+from influxdb import client as influxdb_client
 
 from yardstick.common import constants as consts
+from yardstick.common import exceptions
+from yardstick import dispatcher
+
 
 logger = logging.getLogger(__name__)
 
@@ -23,22 +27,22 @@ def get_data_db_client():
     parser = ConfigParser.ConfigParser()
     try:
         parser.read(consts.CONF_FILE)
-
-        if parser.get('DEFAULT', 'dispatcher') != 'influxdb':
-            raise RuntimeError
-
-        return _get_client(parser)
+        return _get_influxdb_client(parser)
     except ConfigParser.NoOptionError:
-        logger.error('can not find the key')
+        logger.error('Can not find the key')
         raise
 
 
-def _get_client(parser):
+def _get_influxdb_client(parser):
+    if dispatcher.INFLUXDB not in parser.get('DEFAULT', 'dispatcher'):
+        raise exceptions.InfluxDBConfigurationMissing()
+
     ip = _get_ip(parser.get('dispatcher_influxdb', 'target'))
     user = parser.get('dispatcher_influxdb', 'username')
     password = parser.get('dispatcher_influxdb', 'password')
     db_name = parser.get('dispatcher_influxdb', 'db_name')
-    return InfluxDBClient(ip, consts.INFLUXDB_PORT, user, password, db_name)
+    return influxdb_client.InfluxDBClient(ip, consts.INFLUXDB_PORT, user,
+                                          password, db_name)
 
 
 def _get_ip(url):

@@ -63,6 +63,11 @@ class FunctionNotImplemented(YardstickException):
                '"%(class_name)" class.')
 
 
+class InfluxDBConfigurationMissing(YardstickException):
+    message = ('InfluxDB configuration is not available. Add "influxdb" as '
+               'a dispatcher and the configuration section')
+
+
 class YardstickBannedModuleImported(YardstickException):
     # pragma: no cover
     message = 'Module "%(module)s" cannnot be imported. Reason: "%(reason)s"'
