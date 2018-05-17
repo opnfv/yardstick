@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_9041420e",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_search.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-17T11:40:50Z",
+      "side": 1,
+      "message": "In this case, you don\u0027t need to keep the variables, you can plug in mock.Mock() as args to SearchRunnerHelper below",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 29
+      },
+      "revId": "41ba14783ae886d5794660866e31f37e40773001",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_b0471e1d",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_search.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-17T11:40:50Z",
+      "side": 1,
+      "message": "cls is a keyword in Python, and it shouldn\u0027t be redefined like this.\n\nAs mentioned above, you on\u0027t need the cls or aborted vars here, you can call this method with mock.Mock() instead:\n\n    helper \u003d SearchRunnerHelper(\n            mock.Mock(), \u0027my_method\u0027, scenario_cfg, {}, mock.mock())",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 15
+      },
+      "revId": "41ba14783ae886d5794660866e31f37e40773001",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_b06efe94",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_search.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-17T11:40:50Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 29
+      },
+      "revId": "41ba14783ae886d5794660866e31f37e40773001",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_106c129c",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_search.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-17T11:40:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 56
+      },
+      "revId": "41ba14783ae886d5794660866e31f37e40773001",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_f0688689",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_search.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-17T11:40:50Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 80,
+        "startChar": 9,
+        "endLine": 81,
+        "endChar": 29
+      },
+      "revId": "41ba14783ae886d5794660866e31f37e40773001",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_5005fac0",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_search.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-17T11:40:50Z",
+      "side": 1,
+      "message": "same as above, sub-in mock.Mock() below",
+      "range": {
+        "startLine": 173,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 25
+      },
+      "revId": "41ba14783ae886d5794660866e31f37e40773001",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_300aeed2",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_search.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-17T11:40:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 184,
+        "startChar": 10,
+        "endLine": 184,
+        "endChar": 25
+      },
+      "revId": "41ba14783ae886d5794660866e31f37e40773001",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_900f82e1",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_search.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-17T11:40:50Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 196,
+        "startChar": 13,
+        "endLine": 196,
+        "endChar": 14
+      },
+      "revId": "41ba14783ae886d5794660866e31f37e40773001",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
