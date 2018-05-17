@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_b53b9037",
+        "filename": "ansible/kube_deploy.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-17T08:08:04Z",
+      "side": 1,
+      "message": "These should be input parameters, in ansible/group_vars/deploy_kube.yaml",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_753aa837",
+        "filename": "ansible/kube_prepare.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-17T08:08:04Z",
+      "side": 1,
+      "message": "Why this host?\n\nYou should define a new host section in install-inventory.ini",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 15,
+        "endChar": 17
+      },
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_d53e1c29",
+        "filename": "ansible/kube_prepare.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-17T08:08:04Z",
+      "side": 1,
+      "message": "Why do we need to execute this tasks in the jumphost?",
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_f54518b4",
+        "filename": "ansible/roles/build_cni/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-17T08:08:04Z",
+      "side": 1,
+      "message": "This driver is going to change (there is a new spec ongoing). We need to force tag \"v1.2\"",
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_55120cb5",
+        "filename": "ansible/roles/build_cni/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-17T08:08:04Z",
+      "side": 1,
+      "message": "Let\u0027s retrieve latest stable version: \"v0.7.1\"",
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_751108ac",
+        "filename": "ansible/roles/build_cni/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-17T08:08:04Z",
+      "side": 1,
+      "message": "And flannel",
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_d5257c0b",
+        "filename": "ansible/roles/docker/templates/daemon.json.j2",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-17T08:08:04Z",
+      "side": 1,
+      "message": "You should create a json template and use the user input variables.",
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_b52270ff",
+        "filename": "ansible/roles/kubeadm_init/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-17T08:08:04Z",
+      "side": 1,
+      "message": "Those must be input parameters",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 52
+      },
+      "revId": "d1e076fd81dafb5daa2e937b6ff9c6ea7ba9104d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
