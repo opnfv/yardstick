@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_700e3636",
+        "filename": "ansible/install-inventory.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-17T09:55:50Z",
+      "side": 1,
+      "message": "My mistake, I\u0027ll uncomment this.",
+      "parentUuid": "1a494da4_6f877910",
+      "revId": "f75a046dff2b9bff88d64b77109bf04616876011",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_cf7b2d28",
         "filename": "ansible/roles/install_yardstick/tasks/regular_install.yml",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-05-16T10:25:04Z",
       "side": 1,
       "message": "Why? We are pointing to the yardstick directory in \"name\". Why do I need to be in the same directory?",
+      "revId": "f75a046dff2b9bff88d64b77109bf04616876011",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_f502380a",
+        "filename": "ansible/roles/install_yardstick/tasks/regular_install.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-17T09:55:50Z",
+      "side": 1,
+      "message": "Ansible version 2.4.2 and 2.4.3 throw an error there.\nSo, either \"shell: pip install yardstick {{ }}/.\" or this.\nI\u0027ll try with \u0027.\u0027 in name, later.",
+      "parentUuid": "1a494da4_cf7b2d28",
       "revId": "f75a046dff2b9bff88d64b77109bf04616876011",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false

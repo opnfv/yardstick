@@ -87,6 +87,24 @@
       "revId": "29a75d1c182b6a707c36fbc48a3e4b123f390d9f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_9009422f",
+        "filename": "ansible/yardstick-install-inventory.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-17T09:55:50Z",
+      "side": 0,
+      "message": "May I suggest to keep with the old name \"yardstick-install-inventory.ini\"? And during the clean up (separate commit) rename it.",
+      "parentUuid": "1a494da4_8f82c5fe",
+      "revId": "29a75d1c182b6a707c36fbc48a3e4b123f390d9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
