@@ -33,8 +33,7 @@ class KubernetesContext(Context):
         self.key_path = ''
         self.public_key_path = ''
         self.template = None
-
-        super(KubernetesContext, self).__init__()
+        super(KubernetesContext, self).__init__(host_name_separator='-')
 
     def init(self, attrs):
         super(KubernetesContext, self).init(attrs)

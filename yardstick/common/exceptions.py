@@ -113,7 +113,7 @@ class LibvirtCreateError(YardstickException):
 
 
 class ScenarioConfigContextNameNotFound(YardstickException):
-    message = 'Context name "%(context_name)s" not found'
+    message = 'Context for host name "%(host_name)s" not found'
 
 
 class StackCreationInterrupt(YardstickException):
