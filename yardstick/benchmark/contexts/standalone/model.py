@@ -45,7 +45,7 @@ VM_TEMPLATE = """
   <vcpu cpuset='{cpuset}'>{vcpu}</vcpu>
  {cputune}
   <os>
-    <type arch="x86_64" machine="pc-i440fx-utopic">hvm</type>
+    <type arch="x86_64" machine="pc-i440fx-xenial">hvm</type>
     <boot dev="hd" />
   </os>
   <features>
@@ -56,7 +56,7 @@ VM_TEMPLATE = """
   <cpu mode='host-passthrough'>
     <topology cores="{cpu}" sockets="{socket}" threads="{threads}" />
     <numa>
-       <cell id='0' cpus='{numa_cpus}' memory='{memory}' unit='MB' memAccess='shared'/>
+       <cell id='0' cpus='{numa_cpus}' memory='{memory}' unit='MB' />
     </numa>
   </cpu>
   <clock offset="utc">
