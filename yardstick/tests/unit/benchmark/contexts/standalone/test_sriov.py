@@ -282,7 +282,8 @@ class SriovContextTestCase(unittest.TestCase):
         mock_build_vm_xml.return_value = (xml_out, '00:00:00:00:00:01')
 
         with mock.patch.object(self.sriov, 'vnf_node') as mock_vnf_node, \
-                mock.patch.object(self.sriov, '_enable_interfaces'):
+                mock.patch.object(self.sriov, '_enable_interfaces') as \
+                mock_enable_interfaces:
             mock_vnf_node.generate_vnf_instance = mock.Mock(
                 return_value='node')
             nodes_out = self.sriov.setup_sriov_context()
@@ -295,6 +296,10 @@ class SriovContextTestCase(unittest.TestCase):
         mock_create_vm.assert_called_once_with(connection, cfg)
         mock_check.assert_called_once_with(vm_name, connection)
         mock_write_file.assert_called_once_with(cfg, xml_out)
+        mock_enable_interfaces.assert_has_calls([
+            mock.call(0, 0, ['private_0'], xml_out),
+            mock.call(0, 1, ['public_0'], xml_out)
+        ])
 
     def test__get_vf_data(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:

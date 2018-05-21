@@ -220,7 +220,7 @@ class SriovContext(Context):
             network_ports = collections.OrderedDict(
                 {k: v for k, v in vnf["network_ports"].items() if k != 'mgmt'})
             for idx, vfs in enumerate(network_ports.values()):
-                self._enable_interfaces(index, idx, vfs, cfg)
+                self._enable_interfaces(index, idx, vfs, xml_str)
 
             # copy xml to target...
             model.Libvirt.write_file(cfg, xml_str)
