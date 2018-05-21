@@ -197,10 +197,10 @@ class SriovContext(Context):
         slot = index + idx + 10
         vf['vpci'] = \
             "{}:{}:{:02x}.{}".format(vpci.domain, vpci.bus, slot, vpci.function)
-        model.Libvirt.add_sriov_interfaces(
-            vf['vpci'], vf['vf_pci']['vf_pci'], vf['mac'], str(cfg))
         self.connection.execute("ifconfig %s up" % vf['interface'])
         self.connection.execute(vf_spoofchk.format(vf['interface']))
+        return model.Libvirt.add_sriov_interfaces(
+            vf['vpci'], vf['vf_pci']['vf_pci'], vf['mac'], str(cfg))
 
     def setup_sriov_context(self):
         nodes = []
@@ -223,7 +223,7 @@ class SriovContext(Context):
             network_ports = collections.OrderedDict(
                 {k: v for k, v in vnf["network_ports"].items() if k != 'mgmt'})
             for idx, vfs in enumerate(network_ports.values()):
-                self._enable_interfaces(index, idx, vfs, cfg)
+                xml_str = self._enable_interfaces(index, idx, vfs, xml_str)
 
             # copy xml to target...
             model.Libvirt.write_file(cfg, xml_str)
