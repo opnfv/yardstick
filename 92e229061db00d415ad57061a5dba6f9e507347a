@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_b8b6e088",
+        "filename": "ansible/roles/install_samplevnf/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-21T20:39:52Z",
+      "side": 1,
+      "message": "Should this be vPE?\nAll other references to the VNF are capitalised.",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 51,
+        "endChar": 9
+      },
+      "revId": "92e229061db00d415ad57061a5dba6f9e507347a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_98bb2472",
+        "filename": "ansible/ubuntu_server_cloudimg_modify_samplevnfs.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-05-21T20:39:52Z",
+      "side": 1,
+      "message": "This should be CGNAPT, if I\u0027m not mistaken",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 57,
+        "endChar": 22
+      },
+      "revId": "92e229061db00d415ad57061a5dba6f9e507347a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
