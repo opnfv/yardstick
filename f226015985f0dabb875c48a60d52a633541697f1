@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_dd1f5e08",
+        "filename": "api/resources/v2/openrcs.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-21T09:26:59Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "f226015985f0dabb875c48a60d52a633541697f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_bd1c1215",
+        "filename": "api/resources/v2/openrcs.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-21T09:26:59Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "f226015985f0dabb875c48a60d52a633541697f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_5d2cee4a",
+        "filename": "api/resources/v2/openrcs.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-21T09:26:59Z",
+      "side": 1,
+      "message": "This way to raise exception is deprecated [1][2]\n\n  raise y_exc.UpdateOpenrcError()\n\n\n[1] https://www.python.org/dev/peps/pep-3109/\n[2] https://stackoverflow.com/questions/2052390/manually-raising-throwing-an-exception-in-python",
+      "revId": "f226015985f0dabb875c48a60d52a633541697f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_3d3122a3",
+        "filename": "api/resources/v2/openrcs.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-21T09:26:59Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "f226015985f0dabb875c48a60d52a633541697f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_bde37204",
+        "filename": "api/server.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-21T09:26:59Z",
+      "side": 1,
+      "message": "log.exception is used only before raising an exception. This should be error or warning.\n\nBe aware log.exception will print the trace",
+      "range": {
+        "startLine": 48,
+        "startChar": 12,
+        "endLine": 48,
+        "endChar": 21
+      },
+      "revId": "f226015985f0dabb875c48a60d52a633541697f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_7d2baa30",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-21T09:26:59Z",
+      "side": 1,
+      "message": "You are not using directly the exception.\n\nWhy do you need yo inherit UploadOpenrcError and UpdateOpenrcError form this class?",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 59
+      },
+      "revId": "f226015985f0dabb875c48a60d52a633541697f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
