@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_fda69a52",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_search.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-21T11:17:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_9041420e",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 29
+      },
+      "revId": "41ba14783ae886d5794660866e31f37e40773001",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_b0471e1d",
         "filename": "yardstick/tests/unit/benchmark/runner/test_search.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-05-17T11:40:50Z",
       "side": 1,
       "message": "cls is a keyword in Python, and it shouldn\u0027t be redefined like this.\n\nAs mentioned above, you on\u0027t need the cls or aborted vars here, you can call this method with mock.Mock() instead:\n\n    helper \u003d SearchRunnerHelper(\n            mock.Mock(), \u0027my_method\u0027, scenario_cfg, {}, mock.mock())",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 15
+      },
+      "revId": "41ba14783ae886d5794660866e31f37e40773001",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_5d634e1a",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_search.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-05-21T11:17:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_b0471e1d",
       "range": {
         "startLine": 37,
         "startChar": 12,
