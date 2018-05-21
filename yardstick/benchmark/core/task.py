@@ -619,27 +619,22 @@ class TaskParser(object):       # pragma: no cover
           nodes:
             tg__0: tg_0.yardstick
             vnf__0: vnf_0.yardstick
+
+        NOTE: in Kubernetes context, the separator character between the server
+        name and the context name is "-":
+        scenario:
+          host: host-k8s
+          target: target-k8s
         """
         def qualified_name(name):
-            try:
-                # for openstack
-                node_name, context_name = name.split('.')
-                sep = '.'
-            except ValueError:
-                # for kubernetes, some kubernetes resources don't support
-                # name format like 'xxx.xxx', so we use '-' instead
-                # need unified later
-                node_name, context_name = name.split('-')
-                sep = '-'
+            for context in contexts:
+                host_name, ctx_name = context.split_host_name(name)
+                if context.assigned_name == ctx_name:
+                    return '{}{}{}'.format(host_name,
+                                           context.host_name_separator,
+                                           context.name)
 
-            try:
-                ctx = next((context for context in contexts
-                            if context.assigned_name == context_name))
-            except StopIteration:
-                raise y_exc.ScenarioConfigContextNameNotFound(
-                    context_name=context_name)
-
-            return '{}{}{}'.format(node_name, sep, ctx.name)
+            raise y_exc.ScenarioConfigContextNameNotFound(host_name=name)
 
         if 'host' in scenario:
             scenario['host'] = qualified_name(scenario['host'])
