@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_935ca727",
+        "filename": "ansible/deploy_kube.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:18:50Z",
+      "side": 1,
+      "message": "This should be called install_dependencies_kubernetes",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 25
+      },
+      "revId": "53e73281537e1f10db83dc921837fead4482c1d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_73263bbc",
+        "filename": "ansible/group_vars/master.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:18:50Z",
+      "side": 1,
+      "message": "Let\u0027s use, by default, a network close to the service CIDR. Let\u0027s use 172.30.0.0/16",
+      "range": {
+        "startLine": 16,
+        "startChar": 26,
+        "endLine": 16,
+        "endChar": 36
+      },
+      "revId": "53e73281537e1f10db83dc921837fead4482c1d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_9325c7ad",
+        "filename": "ansible/roles/build_cni/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:18:50Z",
+      "side": 1,
+      "message": "nit: next time use a list variable and iterate over it.\n  repos:\n    - name: https://github.com/Intel-Corp/multus-cni\n      dest: \"{{ cni_src_dir }}/multus-cni\"\n      version: v1.2 (or master, for example)\n\nThen you can download, compile and copy the binary file with only three loops.",
+      "revId": "53e73281537e1f10db83dc921837fead4482c1d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_f3408b37",
+        "filename": "ansible/roles/docker/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:18:50Z",
+      "side": 1,
+      "message": "+1 very well! Reuse, with some conditions, what is already implemented.",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "53e73281537e1f10db83dc921837fead4482c1d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_3362f3d8",
+        "filename": "ansible/roles/init_kubeadm/defaults/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:18:50Z",
+      "side": 1,
+      "message": "This was my mistake. We don\u0027t need it",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "53e73281537e1f10db83dc921837fead4482c1d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_53a05ff4",
+        "filename": "ansible/roles/init_kubeadm/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:18:50Z",
+      "side": 1,
+      "message": "This is not needed. This will be created by the flannel service (L32, kubeadm.yml)",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 41
+      },
+      "revId": "53e73281537e1f10db83dc921837fead4482c1d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_739bdbc9",
+        "filename": "ansible/roles/init_kubeadm/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:18:50Z",
+      "side": 1,
+      "message": "You don\u0027t need to restart the service. In L20 you stopped the service and it will be started in kubeadm.yml",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 39
+      },
+      "revId": "53e73281537e1f10db83dc921837fead4482c1d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_d33d8fbd",
+        "filename": "ansible/roles/install_go/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:18:50Z",
+      "side": 1,
+      "message": "+1 good catch!",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 16,
+        "endChar": 26
+      },
+      "revId": "53e73281537e1f10db83dc921837fead4482c1d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_73747b9c",
+        "filename": "ansible/roles/install_kube/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:18:50Z",
+      "side": 1,
+      "message": "Let\u0027s fix this to 1.10",
+      "range": {
+        "startLine": 31,
+        "startChar": 11,
+        "endLine": 31,
+        "endChar": 17
+      },
+      "revId": "53e73281537e1f10db83dc921837fead4482c1d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
