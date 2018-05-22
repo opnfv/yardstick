@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_138d377c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:59:16Z",
+      "side": 1,
+      "message": "JIRA: YARDSTICK-1162",
+      "revId": "2ab83cfce9d02463bfd4df9222c811757c4bc66c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_13e4173a",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:59:16Z",
+      "side": 1,
+      "message": "If I\u0027m not wrong, in the ansible host we only have \"admin-openrc.yaml\": L73 infra_deploy_openstack/tasks/main.yaml",
+      "range": {
+        "startLine": 75,
+        "startChar": 11,
+        "endLine": 75,
+        "endChar": 31
+      },
+      "revId": "2ab83cfce9d02463bfd4df9222c811757c4bc66c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_b3f3a309",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:59:16Z",
+      "side": 1,
+      "message": "nit: not now, but in a future we will replace this with our ansible installer.",
+      "range": {
+        "startLine": 84,
+        "startChar": 33,
+        "endLine": 84,
+        "endChar": 55
+      },
+      "revId": "2ab83cfce9d02463bfd4df9222c811757c4bc66c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
