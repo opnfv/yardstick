@@ -47,14 +47,14 @@ vnf_build_dependencies:
 vnf_build_dirs:
   ACL: vACL
   FW: vFW
-  CGNATP: vCGNAPT
+  CGNAPT: vCGNAPT
   PE: vPE
   UDP_Replay: UDP_Replay
   PROX: DPPD-PROX
 vnf_app_names:
   ACL: vACL
   FW: vFW
-  CGNATP: vCGNAPT
+  CGNAPT: vCGNAPT
   PE: vPE
   UDP_Replay: UDP_Replay
   PROX: prox
