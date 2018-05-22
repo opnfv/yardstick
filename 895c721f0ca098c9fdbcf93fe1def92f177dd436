@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_f80b4829",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T07:20:52Z",
+      "side": 1,
+      "message": "Please, remove this",
+      "range": {
+        "startLine": 9,
+        "startChar": 21,
+        "endLine": 9,
+        "endChar": 25
+      },
+      "revId": "895c721f0ca098c9fdbcf93fe1def92f177dd436",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_73ff5b02",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T07:20:52Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "895c721f0ca098c9fdbcf93fe1def92f177dd436",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_18039410",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T07:20:52Z",
+      "side": 1,
+      "message": "PEP8: there should be two empty lines between classes",
+      "revId": "895c721f0ca098c9fdbcf93fe1def92f177dd436",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_5304df14",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T07:20:52Z",
+      "side": 1,
+      "message": "Please, make this constant (and RESOURCES) tuples, because are faster and consume less memory:\n    RESOURCES \u003d (\u0027requests\u0027, \u0027limits\u0027)\n    PORT_OPTIONS \u003d (\u0027containerPort\u0027, \u0027hostIP\u0027, \u0027hostPort\u0027, \u0027name\u0027, \u0027protocol\u0027)",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 16
+      },
+      "revId": "895c721f0ca098c9fdbcf93fe1def92f177dd436",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_b309e32e",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T07:20:52Z",
+      "side": 1,
+      "message": "REmove unnecessary empty lines",
+      "revId": "895c721f0ca098c9fdbcf93fe1def92f177dd436",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_331dd367",
+        "filename": "yardstick/tests/unit/orchestrator/test_kubernetes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T07:20:52Z",
+      "side": 1,
+      "message": "You have already test this in the previous test case. Here you should test the exception: add a port definition without \"containerPort\" parameter.",
+      "range": {
+        "startLine": 318,
+        "startChar": 8,
+        "endLine": 318,
+        "endChar": 59
+      },
+      "revId": "895c721f0ca098c9fdbcf93fe1def92f177dd436",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_930e6733",
+        "filename": "yardstick/tests/unit/orchestrator/test_kubernetes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T07:20:52Z",
+      "side": 1,
+      "message": "PEP8: empty line needed between functions.",
+      "revId": "895c721f0ca098c9fdbcf93fe1def92f177dd436",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
