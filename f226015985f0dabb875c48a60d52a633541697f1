@@ -93,6 +93,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_1348975a",
+        "filename": "api/server.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-05-22T08:00:19Z",
+      "side": 1,
+      "message": "got it, thanks.",
+      "parentUuid": "1a494da4_bde37204",
+      "range": {
+        "startLine": 48,
+        "startChar": 12,
+        "endLine": 48,
+        "endChar": 21
+      },
+      "revId": "f226015985f0dabb875c48a60d52a633541697f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_7d2baa30",
         "filename": "yardstick/common/exceptions.py",
         "patchSetId": 3
@@ -104,6 +128,30 @@
       "writtenOn": "2018-05-21T09:26:59Z",
       "side": 1,
       "message": "You are not using directly the exception.\n\nWhy do you need yo inherit UploadOpenrcError and UpdateOpenrcError form this class?",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 59
+      },
+      "revId": "f226015985f0dabb875c48a60d52a633541697f1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_334b135b",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-05-22T08:00:19Z",
+      "side": 1,
+      "message": "I\u0027d like to make ApiServerError the basic and common Exception for all Api errors. I\u0027ll add it into the errors for now. And I get another patch to unify the api error for all excepiton handling in API server.",
+      "parentUuid": "1a494da4_7d2baa30",
       "range": {
         "startLine": 252,
         "startChar": 0,
