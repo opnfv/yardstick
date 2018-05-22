@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_30ccae35",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T07:20:52Z",
+      "side": 1,
+      "message": "PEP8: you need to leave a blank line (L35) between class methods.",
+      "revId": "7e8614abba864de07da11a642e7ee0308812dd1d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
