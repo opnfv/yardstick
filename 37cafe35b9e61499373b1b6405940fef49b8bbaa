@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_5387bf61",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:34:39Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "37cafe35b9e61499373b1b6405940fef49b8bbaa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_7382bb53",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:34:39Z",
+      "side": 1,
+      "message": "Add two lines between class definition",
+      "revId": "37cafe35b9e61499373b1b6405940fef49b8bbaa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_d3abcfd4",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:34:39Z",
+      "side": 1,
+      "message": "Please, make this a tuple:\n   RESTART_POLICY \u003d (\u0027Always\u0027, \u0027OnFailure\u0027, \u0027Never\u0027)",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 18
+      },
+      "revId": "37cafe35b9e61499373b1b6405940fef49b8bbaa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_b37c4374",
+        "filename": "yardstick/tests/unit/orchestrator/test_kubernetes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:34:39Z",
+      "side": 1,
+      "message": "Don\u0027t mix single and double quotes. Try to use single quotes.",
+      "range": {
+        "startLine": 82,
+        "startChar": 11,
+        "endLine": 82,
+        "endChar": 37
+      },
+      "revId": "37cafe35b9e61499373b1b6405940fef49b8bbaa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_9381474d",
+        "filename": "yardstick/tests/unit/orchestrator/test_kubernetes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-22T08:34:39Z",
+      "side": 1,
+      "message": "You need to add a negative test case to check what happens if you add something different from RESTART_POLICY",
+      "revId": "37cafe35b9e61499373b1b6405940fef49b8bbaa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
