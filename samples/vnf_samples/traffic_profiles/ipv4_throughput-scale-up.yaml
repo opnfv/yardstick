@@ -44,7 +44,8 @@ description: Traffic profile to run RFC2544 latency
 traffic_profile:
   traffic_type: RFC2544Profile # defines traffic behavior - constant or look for highest possible throughput
   frame_rate: 100  # pc of linerate
-  # that specifies a range (e.g. ipv4 address, port)
+  duration: {{ duration }}
+
 {% set count = 0 %}
 {% for vport in range(vports|int) %}
 uplink_{{vport}}:
