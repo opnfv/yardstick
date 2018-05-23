@@ -77,6 +77,11 @@ class TestDummyProfile(unittest.TestCase):
 class TrafficProfileConfigTestCase(unittest.TestCase):
 
     def test__init(self):
+        tp_config_obj = base.TrafficProfileConfig({'traffic_profile': {}})
+        self.assertEqual(base.TrafficProfileConfig.DEFAULT_DURATION,
+                         tp_config_obj.duration)
+
+    def test__init_set_duration(self):
         tp_config = {'traffic_profile': {'duration': 15}}
         tp_config_obj = base.TrafficProfileConfig(tp_config)
         self.assertEqual(15, tp_config_obj.duration)
