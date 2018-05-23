@@ -628,7 +628,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                  'extra_args': {'arg1': 'value1', 'arg2': 'value2'},
                  'flow': {'flow': {}},
                  'imix': {'imix': {'64B': 100}},
-                 'uplink': {}}
+                 'uplink': {},
+                 'duration': 30}
             )
             mock_tprofile_get.assert_called_once_with(fake_vnfd)
 
