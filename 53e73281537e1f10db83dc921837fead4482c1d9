@@ -319,6 +319,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_ed3d47bd",
+        "filename": "ansible/roles/init_kubeadm/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-05-23T12:00:02Z",
+      "side": 1,
+      "message": "Reverted back, as it doesn\u0027t work w/o this.",
+      "parentUuid": "1a494da4_29f2849a",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 39
+      },
+      "revId": "53e73281537e1f10db83dc921837fead4482c1d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_d33d8fbd",
         "filename": "ansible/roles/install_go/tasks/main.yml",
         "patchSetId": 6
