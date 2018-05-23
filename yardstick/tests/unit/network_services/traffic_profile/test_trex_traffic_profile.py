@@ -140,17 +140,14 @@ class TestTrexProfile(unittest.TestCase):
         'schema': 'isb:traffic_profile:0.1'}
 
     def test___init__(self):
-        TrafficProfile.params = self.PROFILE
-        trex_profile = \
-            TrexProfile(TrafficProfile)
+        trex_profile = TrexProfile(self.PROFILE)
         self.assertEqual(trex_profile.pps, 100)
 
     def test_qinq(self):
         qinq = {"S-VLAN": {"id": 128, "priority": 0, "cfi": 0},
                 "C-VLAN": {"id": 512, "priority": 0, "cfi": 0}}
 
-        trex_profile = \
-            TrexProfile(TrafficProfile)
+        trex_profile = TrexProfile(self.PROFILE)
         self.assertIsNone(trex_profile.set_qinq(qinq))
 
         qinq = {"S-VLAN": {"id": "128-130", "priority": 0, "cfi": 0},
@@ -158,8 +155,7 @@ class TestTrexProfile(unittest.TestCase):
         self.assertIsNone(trex_profile.set_qinq(qinq))
 
     def test__set_outer_l2_fields(self):
-        trex_profile = \
-            TrexProfile(TrafficProfile)
+        trex_profile = TrexProfile(self.PROFILE)
         qinq = {"S-VLAN": {"id": 128, "priority": 0, "cfi": 0},
                 "C-VLAN": {"id": 512, "priority": 0, "cfi": 0}}
         outer_l2 = self.PROFILE[TrafficProfile.UPLINK]['ipv4']['outer_l2']
@@ -167,15 +163,13 @@ class TestTrexProfile(unittest.TestCase):
         self.assertIsNone(trex_profile._set_outer_l2_fields(outer_l2))
 
     def test__set_outer_l3v4_fields(self):
-        trex_profile = \
-            TrexProfile(TrafficProfile)
+        trex_profile = TrexProfile(self.PROFILE)
         outer_l3v4 = self.PROFILE[TrafficProfile.UPLINK]['ipv4']['outer_l3v4']
         outer_l3v4['proto'] = 'tcp'
         self.assertIsNone(trex_profile._set_outer_l3v4_fields(outer_l3v4))
 
     def test__set_outer_l3v6_fields(self):
-        trex_profile = \
-            TrexProfile(TrafficProfile)
+        trex_profile = TrexProfile(self.PROFILE)
         outer_l3v6 = self.PROFILE_v6[TrafficProfile.UPLINK]['ipv6']['outer_l3v4']
         outer_l3v6['proto'] = 'tcp'
         outer_l3v6['tc'] = 1
@@ -183,15 +177,12 @@ class TestTrexProfile(unittest.TestCase):
         self.assertIsNone(trex_profile._set_outer_l3v6_fields(outer_l3v6))
 
     def test__set_outer_l4_fields(self):
-        trex_profile = \
-            TrexProfile(TrafficProfile)
+        trex_profile = TrexProfile(self.PROFILE)
         outer_l4 = self.PROFILE[TrafficProfile.UPLINK]['ipv4']['outer_l4']
         self.assertIsNone(trex_profile._set_outer_l4_fields(outer_l4))
 
     def test_get_streams(self):
-        trex_profile = \
-            TrexProfile(TrafficProfile)
-        trex_profile.params = self.PROFILE
+        trex_profile = TrexProfile(self.PROFILE)
         profile_data = self.PROFILE[TrafficProfile.UPLINK]
         self.assertIsNotNone(trex_profile.get_streams(profile_data))
         trex_profile.pg_id = 1
@@ -203,15 +194,13 @@ class TestTrexProfile(unittest.TestCase):
         self.assertIsNotNone(trex_profile.get_streams(profile_data))
 
     def test_generate_packets(self):
-        trex_profile = \
-            TrexProfile(TrafficProfile)
+        trex_profile = TrexProfile(self.PROFILE)
         trex_profile.fsize = 10
         trex_profile.base_pkt = [10]
         self.assertIsNone(trex_profile.generate_packets())
 
     def test_generate_imix_data_error(self):
-        trex_profile = \
-            TrexProfile(TrafficProfile)
+        trex_profile = TrexProfile(self.PROFILE)
         self.assertEqual({}, trex_profile.generate_imix_data(False))
 
     def test__count_ip_ipv4(self):
@@ -237,7 +226,7 @@ class TestTrexProfile(unittest.TestCase):
             TrexProfile._count_ip(start_ip, end_ip)
 
     def test__dscp_range_action_partial_actual_count_zero(self):
-        traffic_profile = TrexProfile(TrafficProfile)
+        traffic_profile = TrexProfile(self.PROFILE)
         dscp_partial = traffic_profile._dscp_range_action_partial()
 
         flow_vars_initial_length = len(traffic_profile.vm_flow_vars)
@@ -245,7 +234,7 @@ class TestTrexProfile(unittest.TestCase):
         self.assertEqual(len(traffic_profile.vm_flow_vars), flow_vars_initial_length + 2)
 
     def test__dscp_range_action_partial_count_greater_than_actual(self):
-        traffic_profile = TrexProfile(TrafficProfile)
+        traffic_profile = TrexProfile(self.PROFILE)
         dscp_partial = traffic_profile._dscp_range_action_partial()
 
         flow_vars_initial_length = len(traffic_profile.vm_flow_vars)
@@ -253,7 +242,7 @@ class TestTrexProfile(unittest.TestCase):
         self.assertEqual(len(traffic_profile.vm_flow_vars), flow_vars_initial_length + 2)
 
     def test__udp_range_action_partial_actual_count_zero(self):
-        traffic_profile = TrexProfile(TrafficProfile)
+        traffic_profile = TrexProfile(self.PROFILE)
         traffic_profile.udp['field1'] = 'value1'
         udp_partial = traffic_profile._udp_range_action_partial('field1')
 
@@ -262,7 +251,7 @@ class TestTrexProfile(unittest.TestCase):
         self.assertEqual(len(traffic_profile.vm_flow_vars), flow_vars_initial_length + 2)
 
     def test__udp_range_action_partial_count_greater_than_actual(self):
-        traffic_profile = TrexProfile(TrafficProfile)
+        traffic_profile = TrexProfile(self.PROFILE)
         traffic_profile.udp['field1'] = 'value1'
         udp_partial = traffic_profile._udp_range_action_partial('field1', 'not_used_count')
 
@@ -271,8 +260,7 @@ class TestTrexProfile(unittest.TestCase):
         self.assertEqual(len(traffic_profile.vm_flow_vars), flow_vars_initial_length + 2)
 
     def test__general_single_action_partial(self):
-        trex_profile = TrexProfile(TrafficProfile)
-
+        trex_profile = TrexProfile(self.PROFILE)
         trex_profile._general_single_action_partial(ETHERNET)(SRC)(
             self.EXAMPLE_ETHERNET_ADDR)
         self.assertEqual(self.EXAMPLE_ETHERNET_ADDR,
@@ -293,7 +281,7 @@ class TestTrexProfile(unittest.TestCase):
         self.assertEqual(0, trex_profile.ip_packet.tos)
 
     def test__set_proto_addr(self):
-        trex_profile = TrexProfile(TrafficProfile)
+        trex_profile = TrexProfile(self.PROFILE)
 
         ether_range = "00:00:00:00:00:01-00:00:00:00:00:02"
         ip_range = "1.1.1.2-1.1.1.10"
