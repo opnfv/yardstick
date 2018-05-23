@@ -136,7 +136,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
     def _get_duration(self):
         options = self.scenario_cfg.get('options', {})
         return options.get('duration',
-                           tprofile_base.TrafficProfile.DEFAULT_DURATION)
+                           tprofile_base.TrafficProfileConfig.DEFAULT_DURATION)
 
     def _fill_traffic_profile(self):
         tprofile = self._get_traffic_profile()

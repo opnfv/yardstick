@@ -21,6 +21,8 @@ class TrafficProfileConfig(object):
 
     This object will parse and validate the traffic profile information.
     """
+    DEFAULT_DURATION = 30
+
     def __init__(self, tp_config):
         self.schema = tp_config.get('schema', 'nsb:traffic_profile:0.1')
         self.name = tp_config.get('name')
@@ -30,7 +32,7 @@ class TrafficProfileConfig(object):
         self.frame_rate = tprofile.get('frame_rate')
         self.test_precision = tprofile.get('test_precision')
         self.packet_sizes = tprofile.get('packet_sizes')
-        self.duration = tprofile.get('duration')
+        self.duration = tprofile.get('duration', self.DEFAULT_DURATION)
         self.lower_bound = tprofile.get('lower_bound')
         self.upper_bound = tprofile.get('upper_bound')
         self.step_interval = tprofile.get('step_interval')
@@ -43,7 +45,6 @@ class TrafficProfile(object):
     """
     UPLINK = "uplink"
     DOWNLINK = "downlink"
-    DEFAULT_DURATION = 30
 
     @staticmethod
     def get(tp_config):
