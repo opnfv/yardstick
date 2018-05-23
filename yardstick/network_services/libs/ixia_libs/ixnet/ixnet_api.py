@@ -329,7 +329,7 @@ class IxNextgen(object):  # pragma: no cover
                                      '-valueType', 'singleValue')
         self.ixnet.commit()
 
-    def update_frame(self, traffic):
+    def update_frame(self, traffic, duration):
         """Update the L2 frame
 
         This function updates the L2 frame options:
@@ -347,6 +347,7 @@ class IxNextgen(object):  # pragma: no cover
 
         :param traffic: list of traffic elements; each traffic element contains
                         the injection parameter for each flow group.
+        :param duration: (int) injection time in seconds.
         """
         for traffic_param in traffic.values():
             fg_id = str(traffic_param['id'])
