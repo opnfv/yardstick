@@ -82,7 +82,7 @@ class IXIARFC2544Profile(TrexProfile):
         for key, value in traffic.items():
             if key.startswith((self.UPLINK, self.DOWNLINK)):
                 value['iload'] = str(self.rate)
-        ixia_obj.update_frame(traffic)
+        ixia_obj.update_frame(traffic, self.config.duration)
         ixia_obj.update_ip_packet(traffic)
         ixia_obj.start_traffic()
 
@@ -118,11 +118,12 @@ class IXIARFC2544Profile(TrexProfile):
         self._ixia_traffic_generate(traffic, ixia_obj)
         return first_run
 
-    def get_drop_percentage(self, samples, tol_min, tolerance, duration=30.0,
+    def get_drop_percentage(self, samples, tol_min, tolerance,
                             first_run=False):
         completed = False
         drop_percent = 100
         num_ifaces = len(samples)
+        duration = self.config.duration
         in_packets_sum = sum(
             [samples[iface]['in_packets'] for iface in samples])
         out_packets_sum = sum(
@@ -146,7 +147,7 @@ class IXIARFC2544Profile(TrexProfile):
         samples['DropPercentage'] = drop_percent
 
         if first_run:
-            self.rate = out_packets_sum / duration / num_ifaces
+            self.rate = float(out_packets_sum) / duration / num_ifaces
             completed = True if drop_percent <= tolerance else False
 
         if drop_percent > tolerance:
