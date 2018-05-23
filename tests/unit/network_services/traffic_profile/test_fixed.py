@@ -104,8 +104,7 @@ class TestFixedProfile(unittest.TestCase):
                'id': 'VpeApproxVnf', 'name': 'VPEVnfSsh'}]}}
 
     def test___init__(self):
-        fixed_profile = \
-            FixedProfile(TrafficProfile)
+        fixed_profile = FixedProfile(self.TRAFFIC_PROFILE)
         self.assertIsNotNone(fixed_profile)
 
     def test_execute(self):

@@ -16,6 +16,26 @@ from yardstick.common import exceptions
 from yardstick.common import utils
 
 
+class TrafficProfileConfig(object):
+    """Class to contain the TrafficProfile class information
+
+    This object will parse and validate the traffic profile information.
+    """
+    def __init__(self, tp_config):
+        self.schema = tp_config.get('schema', 'nsb:traffic_profile:0.1')
+        self.name = tp_config.get('name')
+        self.description = tp_config.get('description')
+        tprofile = tp_config['traffic_profile']
+        self.traffic_type = tprofile.get('traffic_type')
+        self.frame_rate = tprofile.get('frame_rate')
+        self.test_precision = tprofile.get('test_precision')
+        self.packet_sizes = tprofile.get('packet_sizes')
+        self.duration = tprofile.get('duration')
+        self.lower_bound = tprofile.get('lower_bound')
+        self.upper_bound = tprofile.get('upper_bound')
+        self.step_interval = tprofile.get('step_interval')
+
+
 class TrafficProfile(object):
     """
     This class defines the behavior
@@ -23,6 +43,7 @@ class TrafficProfile(object):
     """
     UPLINK = "uplink"
     DOWNLINK = "downlink"
+    DEFAULT_DURATION = 30
 
     @staticmethod
     def get(tp_config):
@@ -43,6 +64,7 @@ class TrafficProfile(object):
         # e.g. RFC2544 start_ip, stop_ip, drop_rate,
         # IMIX = {"10K": 0.1, "100M": 0.5}
         self.params = tp_config
+        self.config = TrafficProfileConfig(tp_config)
 
     def execute_traffic(self, traffic_generator, **kawrgs):
         """ This methods defines the behavior of the traffic generator.
