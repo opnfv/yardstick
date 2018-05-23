@@ -394,7 +394,7 @@ class TestIxNextgen(unittest.TestCase):
                 mock_get_stack_item:
             mock_get_stack_item.side_effect = [['item1'], ['item2'],
                                                ['item3'], ['item4']]
-            ixnet_gen.update_frame(TRAFFIC_PARAMETERS)
+            ixnet_gen.update_frame(TRAFFIC_PARAMETERS, 50)
 
         self.assertEqual(6, len(ixnet_gen.ixnet.setMultiAttribute.mock_calls))
         self.assertEqual(4, len(mock_update_frame.mock_calls))
@@ -412,7 +412,7 @@ class TestIxNextgen(unittest.TestCase):
                 ixnet_gen, '_get_config_element_by_flow_group_name',
                 return_value=None):
             with self.assertRaises(exceptions.IxNetworkFlowNotPresent):
-                ixnet_gen.update_frame(TRAFFIC_PARAMETERS)
+                ixnet_gen.update_frame(TRAFFIC_PARAMETERS, 40)
 
     def test_get_statistics(self):
         ixnet_gen = ixnet_api.IxNextgen()
