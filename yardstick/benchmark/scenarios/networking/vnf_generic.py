@@ -133,11 +133,10 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         with utils.open_relative_file(profile, path) as infile:
             return infile.read()
 
-    def _get_topology(self):
-        topology = self.scenario_cfg["topology"]
-        path = self.scenario_cfg["task_path"]
-        with utils.open_relative_file(topology, path) as infile:
-            return infile.read()
+    def _get_duration(self):
+        options = self.scenario_cfg.get('options', {})
+        return options.get('duration',
+                           tprofile_base.TrafficProfile.DEFAULT_DURATION)
 
     def _fill_traffic_profile(self):
         tprofile = self._get_traffic_profile()
@@ -147,11 +146,16 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             'imix': self._get_traffic_imix(),
             tprofile_base.TrafficProfile.UPLINK: {},
             tprofile_base.TrafficProfile.DOWNLINK: {},
-            'extra_args': extra_args
-        }
-
+            'extra_args': extra_args,
+            'duration': self._get_duration()}
         traffic_vnfd = vnfdgen.generate_vnfd(tprofile, tprofile_data)
         self.traffic_profile = tprofile_base.TrafficProfile.get(traffic_vnfd)
+
+    def _get_topology(self):
+        topology = self.scenario_cfg["topology"]
+        path = self.scenario_cfg["task_path"]
+        with utils.open_relative_file(topology, path) as infile:
+            return infile.read()
 
     def _render_topology(self):
         topology = self._get_topology()
