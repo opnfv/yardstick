@@ -28,6 +28,7 @@ scenarios:
   sla:
     jitter: 10
     action: monitor
+    bytes_per_second: 1000
 
 context:
   name: demo
