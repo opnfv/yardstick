@@ -21,7 +21,6 @@ class TrafficProfileConfig(object):
 
     This object will parse and validate the traffic profile information.
     """
-
     DEFAULT_SCHEMA = 'nsb:traffic_profile:0.1'
     DEFAULT_FRAME_RATE = 100
     DEFAULT_DURATION = 30
