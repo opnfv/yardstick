@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_ed78a72d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-23T16:33:08Z",
+      "side": 1,
+      "message": "Please, follow the guidelines [1]:\n- Title\n- Description (several paragraphs)\n- JIRA: YARDSTICK-xxx\n- ChangeID\n- Sign\n\n[1] https://wiki.opnfv.org/display/DEV/Contribution+Guidelines#ContributionGuidelines-Gitcommitmessagestyle",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "664dc07f82d3fbff8efbdcf73d69fc82930e39d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_4d76fb3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-23T16:33:08Z",
+      "side": 1,
+      "message": "If you add the token \"JIRA: YARDSTICK-xxx\", gerrit will generate the link for you.",
+      "range": {
+        "startLine": 16,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 44
+      },
+      "revId": "664dc07f82d3fbff8efbdcf73d69fc82930e39d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
