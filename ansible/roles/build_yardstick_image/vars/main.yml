@@ -1,0 +1,31 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+boot_modes:
+  'amd64': disk1
+  'arm64': uefi1
+boot_mode: "{{ boot_modes[YARD_IMG_ARCH] }}"
+image_filename: "{{ release }}-server-cloudimg-{{ YARD_IMG_ARCH }}-{{ boot_mode }}.img"
+image_path: "{{ release }}/current/{{ image_filename }}"
+host: "{{ lookup('env', 'HOST')|default('cloud-images.ubuntu.com', true)}}"
+image_url: "{{ lookup('env', 'IMAGE_URL')|default('https://' ~ host ~ '/' ~ image_path, true) }}"
+image_dest: "{{ workspace }}/{{ image_filename }}"
+sha256sums_path: "{{ release }}/current/SHA256SUMS"
+sha256sums_filename: "{{ sha256sums_path|basename }}"
+sha256sums_url: "{{ lookup('env', 'SHA256SUMS_URL')|default('https://' ~ host ~ '/' ~ sha256sums_path, true) }}"
+workspace: "{{ lookup('env', 'workspace')|default('/tmp/workspace/yardstick', true) }}"
+raw_imgfile_basename: "yardstick-{{ release }}-server.raw"
+growpart_package:
+  RedHat: cloud-utils-growpart
+  Debian: cloud-guest-utils

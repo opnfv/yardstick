@@ -1,0 +1,104 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- debug:
+    msg: "chrooted in {{ inventory_hostname }}"
+
+- debug:
+    var: proxy_env
+    verbosity: 2
+
+- debug: msg="play_hosts={{play_hosts}}"
+
+- include_role:
+    name: "{{ role_item }}"
+  with_items:
+    - reset_resolv_conf
+    - add_custom_repos
+    - modify_cloud_config
+  loop_control:
+    loop_var: role_item
+
+- include_role:
+    name: set_package_installer_proxy
+  when: proxy_env is defined and proxy_env
+
+- include_vars: roles/install_dpdk/vars/main.yml
+  when: dpdk_make_arch is undefined
+
+- include_vars: roles/download_dpdk/defaults/main.yml
+  when: dpdk_version is undefined
+
+- include_vars: roles/download_trex/defaults/main.yml
+  when: trex_unarchive is undefined
+
+- include_vars: roles/download_civetweb/defaults/main.yml
+  when: civetweb_dest is undefined
+
+- include_role:
+    name: "{{ role_item }}"
+  with_items:
+    - install_image_dependencies
+    - enable_hugepages_on_boot    # can't update grub in chroot/docker
+    - increase_open_file_limits   # needed for collectd plugins
+    - download_dpdk
+    - install_dpdk
+    - download_trex
+    - install_trex
+    - download_pktgen
+    - install_pktgen
+    - download_civetweb
+    - install_civetweb
+    - download_samplevnfs
+  loop_control:
+    loop_var: role_item
+  environment: "{{ proxy_env }}"
+
+- include_vars: roles/install_dpdk/defaults/main.yml
+  when: INSTALL_BIN_PATH is undefined
+
+- include_vars: roles/download_samplevnfs/defaults/main.yml
+  when: samplevnf_dest is undefined
+- set_fact:
+    samplevnf_path: "{{ samplevnf_dest }}"
+- include_role:
+    name: install_samplevnf
+  with_items:
+    - PROX
+    - UDP_Replay
+    - ACL
+    - FW
+    - CGNAPT
+  loop_control:
+    loop_var: vnf_name
+
+- include_vars: roles/download_drivers/defaults/main.yml
+  when: i40evf_path is undefined
+
+- include_role:
+    name: "{{ role_item }}"
+  with_items:
+    - install_dpdk_shared  # build shared DPDK for collectd only, required DPDK downloaded already
+    - install_rabbitmq
+    - download_intel_cmt_cat
+    - install_intel_cmt_cat
+    - download_pmu_tools
+    - install_pmu_tools
+    - download_collectd
+    - install_collectd
+    - download_drivers
+    - install_drivers
+  loop_control:
+    loop_var: role_item
+  environment: "{{ proxy_env }}"
