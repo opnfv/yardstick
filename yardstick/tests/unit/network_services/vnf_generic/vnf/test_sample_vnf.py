@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 from copy import deepcopy
 
@@ -19,35 +18,27 @@ import unittest
 import mock
 import six
 
-from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
-from yardstick.tests import STL_MOCKS
 from yardstick.benchmark.contexts.base import Context
 from yardstick.common import exceptions as y_exceptions
 from yardstick.common import utils
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
+from yardstick.network_services.vnf_generic.vnf import sample_vnf
+from yardstick.network_services.vnf_generic.vnf.vnf_ssh_helper import VnfSshHelper
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFDeployHelper
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import ScenarioHelper
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import ResourceHelper
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import Rfc2544ResourceHelper
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import SetupEnvHelper
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
+from yardstick.tests.unit.network_services.vnf_generic.vnf import test_base
 
 
-class MockError(BaseException):
+class MockError(Exception):
     pass
-
-
-STLClient = mock.MagicMock()
-stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
-stl_patch.start()
-
-if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf import sample_vnf
-    from yardstick.network_services.vnf_generic.vnf.vnf_ssh_helper import VnfSshHelper
-    from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFDeployHelper
-    from yardstick.network_services.vnf_generic.vnf.sample_vnf import ScenarioHelper
-    from yardstick.network_services.vnf_generic.vnf.sample_vnf import ResourceHelper
-    from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
-    from yardstick.network_services.vnf_generic.vnf.sample_vnf import Rfc2544ResourceHelper
-    from yardstick.network_services.vnf_generic.vnf.sample_vnf import SetupEnvHelper
-    from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF
-    from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
-    from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
 
 
 class TestVnfSshHelper(unittest.TestCase):
@@ -1001,187 +992,52 @@ class TestClientResourceHelper(unittest.TestCase):
     }
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.LOG')
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.STLError',
-                new_callable=lambda: MockError)
-    def test_get_stats_not_connected(self, mock_state_error, *args):
+    @mock.patch.object(sample_vnf, 'STLError', new_callable=lambda: MockError)
+    def test_get_stats_not_connected(self, mock_stl_error, *args):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
         client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
-        client_resource_helper.client = mock.MagicMock()
-        client_resource_helper.client.get_stats.side_effect = mock_state_error
+        client_resource_helper.client = mock.Mock()
+        client_resource_helper.client.get_stats.side_effect = mock_stl_error
 
         self.assertEqual(client_resource_helper.get_stats(), {})
         client_resource_helper.client.get_stats.assert_called_once()
-
-    def test_generate_samples(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
-        client_resource_helper.client = mock.MagicMock()
-        client_resource_helper.client.get_stats.return_value = {
-            0: {
-                'rx_pps': 5.5,
-                'tx_pps': 4.9,
-                'rx_bps': 234.78,
-                'tx_bps': 243.11,
-                'ipackets': 34251,
-                'opackets': 52342,
-            },
-            1: {
-                'tx_pps': 5.9,
-                'rx_bps': 434.78,
-                'opackets': 48791,
-            },
-        }
-
-        expected = {
-            'xe0': {
-                "rx_throughput_fps": 5.5,
-                "tx_throughput_fps": 4.9,
-                "rx_throughput_mbps": 234.78,
-                "tx_throughput_mbps": 243.11,
-                "in_packets": 34251,
-                "out_packets": 52342,
-            },
-            'xe1': {
-                "rx_throughput_fps": 0.0,
-                "tx_throughput_fps": 5.9,
-                "rx_throughput_mbps": 434.78,
-                "tx_throughput_mbps": 0.0,
-                "in_packets": 0,
-                "out_packets": 48791,
-            },
-        }
-        ports = vnfd_helper.port_nums(vnfd_helper.port_pairs.all_ports)
-        result = client_resource_helper.generate_samples(ports)
-        self.assertDictEqual(result, expected)
-
-    def test_generate_samples_with_key(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
-        client_resource_helper.client = mock.MagicMock()
-        client_resource_helper.client.get_stats.return_value = {
-            'key_name': 'key_value',
-            0: {
-                'rx_pps': 5.5,
-                'tx_pps': 4.9,
-                'rx_bps': 234.78,
-                'tx_bps': 243.11,
-                'ipackets': 34251,
-                'opackets': 52342,
-            },
-            1: {
-                'tx_pps': 5.9,
-                'rx_bps': 434.78,
-                'opackets': 48791,
-            },
-        }
-
-        expected = {
-            'xe0': {
-                'key_name': 'key_value',
-                "rx_throughput_fps": 5.5,
-                "tx_throughput_fps": 4.9,
-                "rx_throughput_mbps": 234.78,
-                "tx_throughput_mbps": 243.11,
-                "in_packets": 34251,
-                "out_packets": 52342,
-            },
-            'xe1': {
-                'key_name': 'key_value',
-                "rx_throughput_fps": 0.0,
-                "tx_throughput_fps": 5.9,
-                "rx_throughput_mbps": 434.78,
-                "tx_throughput_mbps": 0.0,
-                "in_packets": 0,
-                "out_packets": 48791,
-            },
-        }
-        ports = vnfd_helper.port_nums(vnfd_helper.port_pairs.all_ports)
-        result = client_resource_helper.generate_samples(ports, 'key_name')
-        self.assertDictEqual(result, expected)
-
-    def test_generate_samples_with_key_and_default(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
-        client_resource_helper.client = mock.MagicMock()
-        client_resource_helper.client.get_stats.return_value = {
-            0: {
-                'rx_pps': 5.5,
-                'tx_pps': 4.9,
-                'rx_bps': 234.78,
-                'tx_bps': 243.11,
-                'ipackets': 34251,
-                'opackets': 52342,
-            },
-            1: {
-                'tx_pps': 5.9,
-                'rx_bps': 434.78,
-                'opackets': 48791,
-            },
-        }
-
-        expected = {
-            'xe0': {
-                'key_name': 'default',
-                "rx_throughput_fps": 5.5,
-                "tx_throughput_fps": 4.9,
-                "rx_throughput_mbps": 234.78,
-                "tx_throughput_mbps": 243.11,
-                "in_packets": 34251,
-                "out_packets": 52342,
-            },
-            'xe1': {
-                'key_name': 'default',
-                "rx_throughput_fps": 0.0,
-                "tx_throughput_fps": 5.9,
-                "rx_throughput_mbps": 434.78,
-                "tx_throughput_mbps": 0.0,
-                "in_packets": 0,
-                "out_packets": 48791,
-            },
-        }
-        ports = vnfd_helper.port_nums(vnfd_helper.port_pairs.all_ports)
-        result = client_resource_helper.generate_samples(ports, 'key_name', 'default')
-        self.assertDictEqual(result, expected)
 
     def test_clear_stats(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
         client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
         client_resource_helper.client = mock.Mock()
 
         self.assertIsNone(client_resource_helper.clear_stats())
-        client_resource_helper.client.clear_stats.assert_called_once()
+        self.assertEqual(
+            client_resource_helper.client.clear_stats.call_count, 1)
 
     def test_clear_stats_of_ports(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
         client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
         client_resource_helper.client = mock.Mock()
 
         self.assertIsNone(client_resource_helper.clear_stats([3, 4]))
-        client_resource_helper.client.clear_stats.assert_called_once()
+        self.assertEqual(
+            client_resource_helper.client.clear_stats.call_count, 1)
 
     def test_start(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
         client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
         client_resource_helper.client = mock.Mock()
 
@@ -1192,7 +1048,8 @@ class TestClientResourceHelper(unittest.TestCase):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
         client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
         client_resource_helper.client = mock.Mock()
 
@@ -1219,17 +1076,15 @@ class TestClientResourceHelper(unittest.TestCase):
         self.assertDictEqual(result, expected)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.LOG')
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.STLError',
-                new_callable=lambda: MockError)
-    def test__connect_with_failures(self, mock_error, *args):
+    @mock.patch.object(sample_vnf, 'STLError')
+    def test__connect_with_failures(self, mock_stl_error, *args):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
         client = mock.MagicMock()
-        client.connect.side_effect = mock_error
+        client.connect.side_effect = mock_stl_error(msg='msg')
 
         self.assertIs(client_resource_helper._connect(client), client)
 
@@ -1678,7 +1533,7 @@ class TestSampleVnf(unittest.TestCase):
 
     @mock.patch("yardstick.ssh.SSH")
     def test_instantiate(self, ssh):
-        mock_ssh(ssh)
+        test_base.mock_ssh(ssh)
 
         nodes = {
             'vnf1': 'name1',
@@ -1778,7 +1633,7 @@ class TestSampleVnf(unittest.TestCase):
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch("yardstick.ssh.SSH")
     def test_wait_for_instantiate_empty_queue(self, ssh, *args):
-        mock_ssh(ssh, exec_result=(1, "", ""))
+        test_base.mock_ssh(ssh, exec_result=(1, "", ""))
 
         queue_size_list = [
             0,
