@@ -409,13 +409,18 @@ class ErrorClass(object):
 
 
 class Timer(object):
-    def __init__(self, timeout=None):
+    def __init__(self, timeout=None, raise_exception=True):
         super(Timer, self).__init__()
         self.start = self.delta = None
         self._timeout = int(timeout) if timeout else None
+        self._timeout_flag = False
+        self._raise_exception = raise_exception
 
     def _timeout_handler(self, *args):
-        raise exceptions.TimerTimeout(timeout=self._timeout)
+        self._timeout_flag = True
+        if self._raise_exception:
+            raise exceptions.TimerTimeout(timeout=self._timeout)
+        self.__exit__()
 
     def __enter__(self):
         self.start = datetime.datetime.now()
@@ -431,6 +436,20 @@ class Timer(object):
 
     def __getattr__(self, item):
         return getattr(self.delta, item)
+
+    def __iter__(self):
+        self._raise_exception = False
+        return self.__enter__()
+
+    def next(self):
+        # NOTE(ralonsoh): Python 2 support.
+        if not self._timeout_flag:
+            return datetime.datetime.now()
+        raise StopIteration()
+
+    def __next__(self):
+        # NOTE(ralonsoh): Python 3 support.
+        return self.next()
 
 
 def read_meminfo(ssh_client):
