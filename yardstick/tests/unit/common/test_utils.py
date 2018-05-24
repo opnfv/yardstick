@@ -1180,6 +1180,17 @@ class TimerTestCase(unittest.TestCase):
             with utils.Timer(timeout=1):
                 time.sleep(2)
 
+    def test__enter_with_timeout_no_exception(self):
+        with utils.Timer(timeout=1, raise_exception=False):
+            time.sleep(2)
+
+    def test__iter(self):
+        iterations = []
+        for i in utils.Timer(timeout=2):
+            iterations.append(i)
+            time.sleep(1.1)
+        self.assertEqual(2, len(iterations))
+
 
 class WaitUntilTrueTestCase(unittest.TestCase):
 
