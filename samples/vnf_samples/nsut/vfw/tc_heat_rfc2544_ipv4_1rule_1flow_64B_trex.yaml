@@ -27,8 +27,8 @@ scenarios:
     vnf__0: vnf.yardstick
   options:
     framesize:
-      uplink: {64B: 100}
-      downlink: {64B: 100}
+      uplink: {64B: 50, 128B: 50}
+      downlink: {64B: 50, 128B: 50}
     flow:
       src_ip: [{'tg__0': 'xe0'}]
       dst_ip: [{'tg__0': 'xe1'}]

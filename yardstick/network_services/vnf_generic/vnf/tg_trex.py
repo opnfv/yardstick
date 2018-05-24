@@ -165,6 +165,33 @@ class TrexResourceHelper(ClientResourceHelper):
         cmd = "sudo fuser -n tcp %s %s -k > /dev/null 2>&1"
         self.ssh_helper.execute(cmd % (self.SYNC_PORT, self.ASYNC_PORT))
 
+    def _get_samples(self, ports, port_pg_id=None):
+        stats = self.get_stats(ports)
+        samples = {}
+        for pname in (intf['name'] for intf in self.vnfd_helper.interfaces):
+            port_num = self.vnfd_helper.port_num(pname)
+            port_stats = stats.get(port_num, {})
+            samples[pname] = {
+                'rx_throughput_fps': float(port_stats.get('rx_pps', 0.0)),
+                'tx_throughput_fps': float(port_stats.get('tx_pps', 0.0)),
+                'rx_throughput_bps': float(port_stats.get('rx_bps', 0.0)),
+                'tx_throughput_bps': float(port_stats.get('tx_bps', 0.0)),
+                'in_packets': int(port_stats.get('ipackets', 0)),
+                'out_packets': int(port_stats.get('opackets', 0)),
+            }
+
+            pg_id_list = port_pg_id.get_port(port_num)
+            for pg_id in pg_id_list:
+                latency_global = stats.get('latency', {})
+                if samples[pname].get('latency'):
+                    samples[pname]['latency'][pg_id] = (
+                        latency_global[pg_id]['latency'])
+                else:
+                    samples[pname]['latency'] = {
+                        pg_id: latency_global[pg_id]['latency']}
+
+        return samples
+
 
 class TrexTrafficGen(SampleVNFTrafficGen):
     """
