@@ -11,74 +11,46 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-""" Trex traffic generation definitions which implements rfc2544 """
 
-from __future__ import absolute_import
-from __future__ import print_function
-import time
-import logging
 from collections import Mapping
+import logging
+import time
 
-from yardstick.network_services.vnf_generic.vnf.tg_trex import TrexTrafficGen
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import Rfc2544ResourceHelper
-from yardstick.network_services.vnf_generic.vnf.tg_trex import TrexResourceHelper
+from yardstick.common import utils
+from yardstick.network_services.vnf_generic.vnf import sample_vnf
+from yardstick.network_services.vnf_generic.vnf import tg_trex
+
 
 LOGGING = logging.getLogger(__name__)
 
 
-class TrexRfc2544ResourceHelper(Rfc2544ResourceHelper):
+class TrexRfcResourceHelper(tg_trex.TrexResourceHelper):
 
-    def is_done(self):
-        return self.latency and self.iteration.value > 10
+    SAMPLING_PERIOD = 2
+    TRANSIENT_PERIOD = 10
 
-
-class TrexRfcResourceHelper(TrexResourceHelper):
-
-    LATENCY_TIME_SLEEP = 120
-    RUN_DURATION = 30
-    WAIT_TIME = 3
-
-    def __init__(self, setup_helper, rfc_helper_type=None):
+    def __init__(self, setup_helper):
         super(TrexRfcResourceHelper, self).__init__(setup_helper)
-
-        if rfc_helper_type is None:
-            rfc_helper_type = TrexRfc2544ResourceHelper
-
-        self.rfc2544_helper = rfc_helper_type(self.scenario_helper)
+        self.rfc2544_helper = sample_vnf.Rfc2544ResourceHelper(
+            self.scenario_helper)
 
     def _run_traffic_once(self, traffic_profile):
-        if self._terminated.value:
-            return
-
-        traffic_profile.execute_traffic(self)
         self.client_started.value = 1
-        time.sleep(self.RUN_DURATION)
-        self.client.stop(traffic_profile.ports)
-        time.sleep(self.WAIT_TIME)
-        samples = traffic_profile.get_drop_percentage(self)
-        self._queue.put(samples)
+        ports, port_pg_id = traffic_profile.execute_traffic(self)
 
-        if not self.rfc2544_helper.is_done():
-            return
+        samples = []
+        timeout = int(traffic_profile.config.duration) - self.TRANSIENT_PERIOD
+        time.sleep(self.TRANSIENT_PERIOD)
+        for _ in utils.Timer(timeout=timeout):
+            samples.append(self._get_samples(ports, port_pg_id=port_pg_id))
+            time.sleep(self.SAMPLING_PERIOD)
 
-        self.client.stop(traffic_profile.ports)
-        self.client.reset(ports=traffic_profile.ports)
-        self.client.remove_all_streams(traffic_profile.ports)
-        traffic_profile.execute_traffic_latency(samples=samples)
-        multiplier = traffic_profile.calculate_pps(samples)[1]
-        for _ in range(5):
-            time.sleep(self.LATENCY_TIME_SLEEP)
-            self.client.stop(traffic_profile.ports)
-            time.sleep(self.WAIT_TIME)
-            last_res = self.client.get_stats(traffic_profile.ports)
-            if not isinstance(last_res, Mapping):
-                self._terminated.value = 1
-                continue
-            self.generate_samples(traffic_profile.ports, 'latency', {})
-            self._queue.put(samples)
-            self.client.start(mult=str(multiplier),
-                              ports=traffic_profile.ports,
-                              duration=120, force=True)
+        traffic_profile.stop_traffic(self)
+        output = traffic_profile.get_drop_percentage(
+            samples, self.rfc2544_helper.tolerance_low,
+            self.rfc2544_helper.tolerance_high,
+            self.rfc2544_helper.correlated_traffic)
+        self._queue.put(output)
 
     def start_client(self, ports, mult=None, duration=None, force=True):
         self.client.start(ports=ports, mult=mult, duration=duration, force=force)
@@ -86,12 +58,12 @@ class TrexRfcResourceHelper(TrexResourceHelper):
     def clear_client_stats(self, ports):
         self.client.clear_stats(ports=ports)
 
-    def collect_kpi(self):
-        self.rfc2544_helper.iteration.value += 1
-        return super(TrexRfcResourceHelper, self).collect_kpi()
+    # def collect_kpi(self):
+    #     #self.rfc2544_helper.iteration.value += 1
+    #     return super(TrexRfcResourceHelper, self).collect_kpi()
 
 
-class TrexTrafficGenRFC(TrexTrafficGen):
+class TrexTrafficGenRFC(tg_trex.TrexTrafficGen):
     """
     This class handles mapping traffic profile and generating
     traffic for rfc2544 testcase.
