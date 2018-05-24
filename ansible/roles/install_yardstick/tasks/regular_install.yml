@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation.
+# Copyright (c) 2018 Intel Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,5 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- include_tasks: "{{ target_os|lower }}.yml"
+- name: Install Yardstick requirements
+  pip:
+    requirements: "{{ yardstick_dir }}/requirements.txt"
 
+- name: Install Yardstick code
+  pip:
+    name: "."
+    extra_args: -e
+    chdir: "{{ yardstick_dir }}/"

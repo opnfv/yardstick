@@ -23,6 +23,7 @@
     - debug:
         var: proxy_env
         verbosity: 2
+    - debug: msg="play_hosts={{ansible_play_batch}}"
 
   roles:
     - reset_resolv_conf

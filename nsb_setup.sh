@@ -79,4 +79,4 @@ ansible-playbook \
          -e img_property="nsb" \
          ${yardstick_docker_image} \
          -e YARD_IMG_ARCH='amd64' ${extra_args}\
-         -i install-inventory.ini nsb_setup.yml
+         -i install-inventory.ini nsb_setup.yml -vvv
