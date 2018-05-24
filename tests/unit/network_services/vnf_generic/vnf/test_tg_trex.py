@@ -11,31 +11,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 import copy
-import mock
 
+import mock
 import unittest
 
-from tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
-from tests.unit import STL_MOCKS
+from yardstick.network_services.traffic_profile import base as tp_base
+from yardstick.network_services.traffic_profile import rfc2544
+from yardstick.network_services.vnf_generic.vnf import sample_vnf
+from yardstick.network_services.vnf_generic.vnf import tg_trex
 
 
-SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
 NAME = 'vnf_1'
-
-STLClient = mock.MagicMock()
-stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
-stl_patch.start()
-
-if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.tg_trex import \
-        TrexTrafficGen, TrexResourceHelper
-    from yardstick.network_services.traffic_profile.base import TrafficProfile
 
 
 class TestTrexTrafficGen(unittest.TestCase):
+
     VNFD = {'vnfd:vnfd-catalog':
                 {'vnfd':
                      [{'short-name': 'VpeVnf',
@@ -167,7 +159,7 @@ class TestTrexTrafficGen(unittest.TestCase):
                 "interfaces": {
                     "xe0": {
                         "local_iface_name": "ens786f0",
-                        "vld_id": TrafficProfile.UPLINK,
+                        "vld_id": tp_base.TrafficProfile.UPLINK,
                         "netmask": "255.255.255.0",
                         "vpci": "0000:05:00.0",
                         "local_ip": "152.16.100.19",
@@ -179,7 +171,7 @@ class TestTrexTrafficGen(unittest.TestCase):
                     },
                     "xe1": {
                         "local_iface_name": "ens786f1",
-                        "vld_id": TrafficProfile.DOWNLINK,
+                        "vld_id": tp_base.TrafficProfile.DOWNLINK,
                         "netmask": "255.255.255.0",
                         "vpci": "0000:05:00.1",
                         "local_ip": "152.16.40.19",
@@ -235,7 +227,7 @@ class TestTrexTrafficGen(unittest.TestCase):
                 "interfaces": {
                     "xe0": {
                         "local_iface_name": "ens513f0",
-                        "vld_id": TrafficProfile.DOWNLINK,
+                        "vld_id": tp_base.TrafficProfile.DOWNLINK,
                         "netmask": "255.255.255.0",
                         "vpci": "0000:02:00.0",
                         "local_ip": "152.16.40.20",
@@ -269,7 +261,7 @@ class TestTrexTrafficGen(unittest.TestCase):
                 "interfaces": {
                     "xe0": {
                         "local_iface_name": "ens785f0",
-                        "vld_id": TrafficProfile.UPLINK,
+                        "vld_id": tp_base.TrafficProfile.UPLINK,
                         "netmask": "255.255.255.0",
                         "vpci": "0000:05:00.0",
                         "local_ip": "152.16.100.20",
@@ -296,35 +288,35 @@ class TestTrexTrafficGen(unittest.TestCase):
         }
     }
 
-    @mock.patch(SSH_HELPER)
-    def test___init__(self, ssh):
-        mock_ssh(ssh)
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
-        self.assertIsInstance(trex_traffic_gen.resource_helper, TrexResourceHelper)
+    def setUp(self):
+        self._mock_ssh_helper = mock.patch.object(sample_vnf, 'VnfSshHelper')
+        self.mock_ssh_helper = self._mock_ssh_helper.start()
+        self.addCleanup(self._stop_mocks)
 
-    @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh):
-        mock_ssh(ssh)
+    def _stop_mocks(self):
+        self._mock_ssh_helper.stop()
+
+    def test___init__(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
+        self.assertIsInstance(trex_traffic_gen.resource_helper,
+                              tg_trex.TrexResourceHelper)
+
+    def test_collect_kpi(self):
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen.resource_helper._queue.put({})
         result = trex_traffic_gen.collect_kpi()
         self.assertEqual({}, result)
 
-    @mock.patch(SSH_HELPER)
-    def test_listen_traffic(self, ssh):
-        mock_ssh(ssh)
+    def test_listen_traffic(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
         self.assertIsNone(trex_traffic_gen.listen_traffic({}))
 
-    @mock.patch(SSH_HELPER)
-    def test_instantiate(self, ssh):
-        mock_ssh(ssh)
-
+    def test_instantiate(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen._start_server = mock.Mock(return_value=0)
         trex_traffic_gen._tg_process = mock.MagicMock()
         trex_traffic_gen._tg_process.start = mock.Mock()
@@ -334,14 +326,12 @@ class TestTrexTrafficGen(unittest.TestCase):
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
         trex_traffic_gen.setup_helper.setup_vnf_environment = mock.MagicMock()
 
-        self.assertIsNone(trex_traffic_gen.instantiate(self.SCENARIO_CFG, self.CONTEXT_CFG))
+        self.assertIsNone(trex_traffic_gen.instantiate(self.SCENARIO_CFG,
+                                                       self.CONTEXT_CFG))
 
-    @mock.patch(SSH_HELPER)
-    def test_instantiate_error(self, ssh):
-        mock_ssh(ssh, exec_result=(1, "", ""))
-
+    def test_instantiate_error(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen._start_server = mock.Mock(return_value=0)
         trex_traffic_gen._tg_process = mock.MagicMock()
         trex_traffic_gen._tg_process.start = mock.Mock()
@@ -349,60 +339,53 @@ class TestTrexTrafficGen(unittest.TestCase):
         trex_traffic_gen.ssh_helper = mock.MagicMock()
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
         trex_traffic_gen.setup_helper.setup_vnf_environment = mock.MagicMock()
-        self.assertIsNone(trex_traffic_gen.instantiate(self.SCENARIO_CFG, self.CONTEXT_CFG))
+        self.assertIsNone(trex_traffic_gen.instantiate(self.SCENARIO_CFG,
+                                                       self.CONTEXT_CFG))
 
-    @mock.patch(SSH_HELPER)
-    def test__start_server(self, ssh):
-        mock_ssh(ssh)
+    def test__start_server(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen.ssh_helper = mock.MagicMock()
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
         trex_traffic_gen.scenario_helper.scenario_cfg = {}
         self.assertIsNone(trex_traffic_gen._start_server())
 
-    @mock.patch(SSH_HELPER)
-    def test__start_server_multiple_queues(self, ssh):
-        mock_ssh(ssh)
+    def test__start_server_multiple_queues(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen.ssh_helper = mock.MagicMock()
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
-        trex_traffic_gen.scenario_helper.scenario_cfg = {"options": {NAME: {"queues_per_port": 2}}}
+        trex_traffic_gen.scenario_helper.scenario_cfg = {
+            "options": {NAME: {"queues_per_port": 2}}}
         self.assertIsNone(trex_traffic_gen._start_server())
 
-    @mock.patch(SSH_HELPER)
-    def test__traffic_runner(self, ssh):
-        mock_ssh(ssh)
-
-        mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
+    def test__traffic_runner(self):
+        mock_traffic_profile = mock.Mock(autospec=tp_base.TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.execute_traffic.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        self.sut = TrexTrafficGen(NAME, vnfd)
+        self.sut = tg_trex.TrexTrafficGen(NAME, vnfd)
         self.sut.ssh_helper = mock.Mock()
         self.sut.ssh_helper.run = mock.Mock()
-        self.sut._connect_client = mock.Mock(autospec=STLClient)
+        self.sut._connect_client = mock.Mock()
         self.sut._connect_client.get_stats = mock.Mock(return_value="0")
         self.sut.resource_helper.RUN_DURATION = 0
         self.sut.resource_helper.QUEUE_WAIT_TIME = 0
-        # must generate cfg before we can run traffic so Trex port mapping is created
+        # must generate cfg before we can run traffic so Trex port mapping is
+        # created
         self.sut.resource_helper.generate_cfg()
-        self.sut._traffic_runner(mock_traffic_profile)
+        with mock.patch.object(self.sut.resource_helper, 'run_traffic'):
+            self.sut._traffic_runner(mock_traffic_profile)
 
-    @mock.patch(SSH_HELPER)
-    def test__generate_trex_cfg(self, ssh):
-        mock_ssh(ssh)
+    def test__generate_trex_cfg(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
         self.assertIsNone(trex_traffic_gen.resource_helper.generate_cfg())
 
-    @mock.patch(SSH_HELPER)
-    def test_build_ports_reversed_pci_ordering(self, ssh):
-        mock_ssh(ssh)
+    def test_build_ports_reversed_pci_ordering(self):
         vnfd = copy.deepcopy(self.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
         vnfd['vdu'][0]['external-interface'] = [
             {'virtual-interface':
@@ -437,25 +420,24 @@ class TestTrexTrafficGen(unittest.TestCase):
                   'local_mac': '00:00:00:00:00:01'},
              'vnfd-connection-point-ref': 'xe1',
              'name': 'xe1'}]
-        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
         trex_traffic_gen.resource_helper.generate_cfg()
         trex_traffic_gen.resource_helper._build_ports()
-        self.assertEqual(sorted(trex_traffic_gen.resource_helper.all_ports), [0, 1])
+        self.assertEqual(sorted(trex_traffic_gen.resource_helper.all_ports),
+                         [0, 1])
         # there is a gap in ordering
-        self.assertEqual(dict(trex_traffic_gen.resource_helper.dpdk_to_trex_port_map),
-                         {0: 0, 2: 1})
+        self.assertEqual(
+            {0: 0, 2: 1},
+            dict(trex_traffic_gen.resource_helper.dpdk_to_trex_port_map))
 
-    @mock.patch(SSH_HELPER)
-    def test_run_traffic(self, ssh):
-        mock_ssh(ssh)
-
-        mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
+    def test_run_traffic(self):
+        mock_traffic_profile = mock.Mock(autospec=tp_base.TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        self.sut = TrexTrafficGen(NAME, vnfd)
+        self.sut = tg_trex.TrexTrafficGen(NAME, vnfd)
         self.sut.ssh_helper = mock.Mock()
         self.sut.ssh_helper.run = mock.Mock()
         self.sut._traffic_runner = mock.Mock(return_value=0)
@@ -464,20 +446,60 @@ class TestTrexTrafficGen(unittest.TestCase):
         self.sut._traffic_process.terminate()
         self.assertIsNotNone(result)
 
-    @mock.patch(SSH_HELPER)
-    def test_terminate(self, ssh):
-        mock_ssh(ssh)
+    def test_terminate(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen.ssh_helper = mock.MagicMock()
         trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
         self.assertIsNone(trex_traffic_gen.terminate())
 
-    @mock.patch(SSH_HELPER)
-    def test__connect_client(self, ssh):
-        mock_ssh(ssh)
+    def test__connect_client(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
-        client = mock.Mock(autospec=STLClient)
+        trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
+        client = mock.Mock()
         client.connect = mock.Mock(return_value=0)
         self.assertIsNotNone(trex_traffic_gen.resource_helper._connect(client))
+
+
+class TrexResourceHelperTestCase(unittest.TestCase):
+
+    def test__get_samples(self):
+        mock_setup_helper = mock.Mock()
+        trex_rh = tg_trex.TrexResourceHelper(mock_setup_helper)
+        trex_rh.vnfd_helper.interfaces = [
+            {'name': 'interface1'},
+            {'name': 'interface2'}]
+        stats = {
+            10: {'rx_pps': 5, 'ipackets': 200},
+            20: {'rx_pps': 10, 'ipackets': 300},
+            'latency': {1: {'latency': 'latency_port_10_pg_id_1'},
+                        2: {'latency': 'latency_port_10_pg_id_2'},
+                        3: {'latency': 'latency_port_20_pg_id_3'},
+                        4: {'latency': 'latency_port_20_pg_id_4'}}
+        }
+        port_pg_id = rfc2544.PortPgIDMap()
+        port_pg_id.add_port(10)
+        port_pg_id.increase_pg_id()
+        port_pg_id.increase_pg_id()
+        port_pg_id.add_port(20)
+        port_pg_id.increase_pg_id()
+        port_pg_id.increase_pg_id()
+
+        with mock.patch.object(trex_rh, 'get_stats') as mock_get_stats, \
+                mock.patch.object(trex_rh.vnfd_helper, 'port_num') as \
+                mock_port_num:
+            mock_get_stats.return_value = stats
+            mock_port_num.side_effect = [10, 20]
+            output = trex_rh._get_samples([10, 20], port_pg_id=port_pg_id)
+
+        interface = output['interface1']
+        self.assertEqual(5.0, interface['rx_throughput_fps'])
+        self.assertEqual(200, interface['in_packets'])
+        self.assertEqual('latency_port_10_pg_id_1', interface['latency'][1])
+        self.assertEqual('latency_port_10_pg_id_2', interface['latency'][2])
+
+        interface = output['interface2']
+        self.assertEqual(10.0, interface['rx_throughput_fps'])
+        self.assertEqual(300, interface['in_packets'])
+        self.assertEqual('latency_port_20_pg_id_3', interface['latency'][3])
+        self.assertEqual('latency_port_20_pg_id_4', interface['latency'][4])
