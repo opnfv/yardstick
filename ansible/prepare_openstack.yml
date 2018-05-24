@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: Convert openrc_file to openrc env dict
-  hosts: jumphost
-  vars_files:
-    - yardstick_config.yml
-  roles:
-    - convert_openrc
+#- name: Convert openrc_file to openrc env dict
+#  hosts: jumphost
+#  vars_files:
+#    - yardstick_config.yml
+#  roles:
+#    - convert_openrc
 
 - name: Build Yardstick image for OpenStack
   include: build_yardstick_image.yml
@@ -25,14 +25,14 @@
     YARD_IMG_ARCH: amd64
     release: xenial
     img_property: nsb
-
-- name: Cleanup old OpenStack images and upload the new one
-  hosts: jumphost
-  vars_files:
-    - yardstick_config.yml
-  environment:
-    "{{ openrc }}"
-  roles:
-    - clean_images
-    - clean_flavors
-    - create_samplevnfs_image
+#
+#- name: Cleanup old OpenStack images and upload the new one
+#  hosts: jumphost
+#  vars_files:
+#    - yardstick_config.yml
+#  environment:
+#    "{{ openrc }}"
+#  roles:
+#    - clean_images
+#    - clean_flavors
+#    - create_samplevnfs_image

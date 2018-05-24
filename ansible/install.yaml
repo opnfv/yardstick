@@ -12,88 +12,119 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+#- hosts: jumphost
+#  become: yes
+#  vars:
+#    installation_mode: "{{ INSTALLATION_MODE | default('baremetal') }}"
+#    yardstick_dir: "{{ YARDSTICK_DIR | default('/home/opnfv/repos/yardstick') }}"
+#    virtual_environment: "{{ VIRTUAL_ENVIRONMENT | default(False) }}"
+#    nsb_dir: "{{ NSB_DIR | default('/opt/nsb_bin/') }}"
+#
+#  pre_tasks:
+#
+#    - name: Create NSB binaries directory, accesible to any user
+#      file:
+#        path: "{{ nsb_dir }}"
+#        state: directory
+#        owner: root
+#        mode: 0777
+#
+#  roles:
+#    - add_repos_jumphost
+#    - install_dependencies_jumphost
+#    - install_yardstick
+#    - configure_uwsgi
+#    - configure_nginx
+#    - download_trex
+#    - install_trex
+#    - configure_rabbitmq
+#
+#  post_tasks:
+#
+#    - service:
+#        name: nginx
+#        state: restarted
+#      when: installation_mode != inst_mode_container
+#
+#    - shell: uwsgi -i /etc/yardstick/yardstick.ini
+#      when: installation_mode != inst_mode_container
+
 - hosts: jumphost
   become: yes
   vars:
-    installation_mode: "{{ INSTALLATION_MODE | default('baremetal') }}"
-    yardstick_dir: "{{ YARDSTICK_DIR | default('/home/opnfv/repos/yardstick') }}"
-    virtual_environment: "{{ VIRTUAL_ENVIRONMENT | default(False) }}"
-    nsb_dir: "{{ NSB_DIR | default('/opt/nsb_bin/') }}"
+    img_property: "{{ IMG_PROPERTY | default(['normal', 'nsb']) }}"
+    img_arch: "{{ YARD_IMG_ARCH | default(arch_amd64) }}"
+    step: "pre_build"
 
-  pre_tasks:
+  tasks:
+    - name: Include image build
+      include_role:
+        name: build_yardstick_image
+      loop_control:
+        loop_var: image_property_item
+      with_items: "{{ img_property }}"
 
-    - name: Create NSB binaries directory, accesible to any user
-      file:
-        path: "{{ nsb_dir }}"
-        state: directory
-        owner: root
-        mode: 0777
-
-  roles:
-    - add_repos_jumphost
-    - install_dependencies_jumphost
-    - install_yardstick
-    - configure_uwsgi
-    - configure_nginx
-    - download_trex
-    - install_trex
-    - configure_rabbitmq
-
-  post_tasks:
-
-    - service:
-        name: nginx
-        state: restarted
-      when: installation_mode != inst_mode_container
-
-    - shell: uwsgi -i /etc/yardstick/yardstick.ini
-      when: installation_mode != inst_mode_container
-
-- name: Prepare baremetal and standalone server(s)
-  hosts: yardstick-baremetal,yardstick-standalone
+- hosts: chroot_image
+  connection: chroot
   become: yes
   vars:
-    YARD_IMG_ARCH: "{{ arch_amd64 }}"
-  environment:
-    proxy_env:
-      http_proxy: "{{ lookup('env', 'http_proxy') }}"
-      https_proxy: "{{ lookup('env', 'https_proxy') }}"
-      ftp_proxy: "{{ lookup('env', 'ftp_proxy') }}"
-      no_proxy: "{{ lookup('env', 'no_proxy') }}"
+    img_property: "{{ IMG_PROPERTY | default(['normal', 'nsb']) }}"
+    img_arch: "{{ YARD_IMG_ARCH | default(arch_amd64) }}"
+    step: "modify_image"
 
-  roles:
-    - add_custom_repos
-    - role: set_package_installer_proxy
-      when: proxy_env is defined and proxy_env
-    # can't update grub in chroot/docker
-    - enable_hugepages_on_boot
-    # needed for collectd plugins
-    - increase_open_file_limits
-    - install_image_dependencies
-    - role: download_dpdk
-    # dpdk_version: "17.02"
-    - install_dpdk
-    - download_trex
-    - install_trex
-    - download_civetweb
-    - install_civetweb
-    - download_samplevnfs
-    - role: install_samplevnf
-      vnf_name: PROX
-    - role: install_samplevnf
-      vnf_name: UDP_Replay
-    - role: install_samplevnf
-      vnf_name: ACL
-    - role: install_samplevnf
-      vnf_name: FW
-    - role: install_samplevnf
-      vnf_name: CGNATP
-    # build shared DPDK for collectd only, required DPDK downloaded already
-    - install_dpdk_shared
-    - install_rabbitmq
-    - download_intel_cmt_cat
-    - install_intel_cmt_cat
-    - download_pmu_tools
-    - install_pmu_tools
-    - download_collectd
-    - install_collectd
+  tasks:
+    - name: Include image build
+      include_role:
+        name: build_yardstick_image
+      loop_control:
+        loop_var: image_property_item
+      with_items: "{{ img_property }}"
+
+#- name: Prepare baremetal and standalone servers
+#  hosts: yardstick-baremetal, yardstick-standalone
+#  become: yes
+#  vars:
+#    YARD_IMG_ARCH: "{{ arch_amd64 }}"
+#  environment:
+#    proxy_env:
+#      http_proxy: "{{ lookup('env', 'http_proxy') }}"
+#      https_proxy: "{{ lookup('env', 'https_proxy') }}"
+#      ftp_proxy: "{{ lookup('env', 'ftp_proxy') }}"
+#      no_proxy: "{{ lookup('env', 'no_proxy') }}"
+#
+#  roles:
+#    - add_custom_repos
+#    - role: set_package_installer_proxy
+#      when: proxy_env is defined and proxy_env
+#    # can't update grub in chroot/docker
+#    - enable_hugepages_on_boot
+#    # needed for collectd plugins
+#    - increase_open_file_limits
+#    - install_image_dependencies
+#    - role: download_dpdk
+#    # dpdk_version: "17.02"
+#    - install_dpdk
+#    - download_trex
+#    - install_trex
+#    - download_civetweb
+#    - install_civetweb
+#    - download_samplevnfs
+#    - role: install_samplevnf
+#      vnf_name: PROX
+#    - role: install_samplevnf
+#      vnf_name: UDP_Replay
+#    - role: install_samplevnf
+#      vnf_name: ACL
+#    - role: install_samplevnf
+#      vnf_name: FW
+#    - role: install_samplevnf
+#      vnf_name: CGNATP
+#    # build shared DPDK for collectd only, required DPDK downloaded already
+#    - install_dpdk_shared
+#    - install_rabbitmq
+#    - download_intel_cmt_cat
+#    - install_intel_cmt_cat
+#    - download_pmu_tools
+#    - install_pmu_tools
+#    - download_collectd
+#    - install_collectd
