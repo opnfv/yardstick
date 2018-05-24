@@ -49,7 +49,7 @@
     - shell: uwsgi -i /etc/yardstick/yardstick.ini
       when: installation_mode != inst_mode_container
 
-- name: Prepare bare-metal server(s)
+- name: Prepare baremetal and standalone servers
   hosts: yardstick-baremetal,yardstick-standalone
   become: yes
   vars:
@@ -97,3 +97,16 @@
     - install_pmu_tools
     - download_collectd
     - install_collectd
+
+- hosts: jumphost
+  become: yes
+  vars:
+    img_property: "{{ IMG_PROPERTY | default(['normal', 'nsb']) }}"
+
+  tasks:
+    - name: Include image build
+      include_role:
+        name: build_yardstick_image
+      loop_control:
+        loop_var: image_property_item
+      with_items: "{{ img_property }}"

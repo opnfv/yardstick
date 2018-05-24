@@ -1,0 +1,44 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Include prebuild
+  include_tasks: pre_build.yml
+  vars:
+    img_prop_item: "{{ image_property_item }}"
+
+- name: Include cloudimg modify
+  include_tasks: cloudimg_modify_normal.yml
+  vars:
+    nameserver_ip: "{{ ansible_dns.nameservers[0] }}"
+  when: image_property_item == "normal"
+  delegate_to: "{{ mountdir }}"
+  connection: chroot
+  environment: "{{ proxy_env }}"
+
+- name: Include cloudimg modify
+  include_tasks: cloudimg_modify_nsb.yml
+  vars:
+    nameserver_ip: "{{ ansible_dns.nameservers[0] }}"
+  when: image_property_item == "nsb"
+  delegate_to: "{{ mountdir }}"
+  connection: chroot
+  environment: "{{ proxy_env }}"
+
+- name: Include post build
+  include_tasks: post_build.yml
+  vars:
+     img_prop_item: "{{ image_property_item }}"
+
+- debug:
+    msg: "yardstick normal image = {{ imgfile }}"
