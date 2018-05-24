@@ -137,7 +137,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
     def _get_duration(self):
         options = self.scenario_cfg.get('options', {})
         return options.get('duration',
-                           tprofile_base.TrafficProfile.DEFAULT_DURATION)
+                           tprofile_base.TrafficProfileConfig.DEFAULT_DURATION)
 
     def _fill_traffic_profile(self):
         tprofile = self._get_traffic_profile()
@@ -425,7 +425,9 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         traffic_runners = [vnf for vnf in self.vnfs if vnf.runs_traffic]
         non_traffic_runners = [vnf for vnf in self.vnfs if not vnf.runs_traffic]
         try:
-            for vnf in chain(traffic_runners, non_traffic_runners):
+            #RAH
+            #for vnf in chain(traffic_runners, non_traffic_runners):
+            for vnf in traffic_runners:
                 LOG.info("Instantiating %s", vnf.name)
                 vnf.instantiate(self.scenario_cfg, self.context_cfg)
                 LOG.info("Waiting for %s to instantiate", vnf.name)
@@ -445,8 +447,9 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             traffic_gen.listen_traffic(self.traffic_profile)
 
         # register collector with yardstick for KPI collection.
-        self.collector = Collector(self.vnfs)
-        self.collector.start()
+        #RAH
+        # self.collector = Collector(self.vnfs)
+        # self.collector.start()
 
         # Start the actual traffic
         for traffic_gen in traffic_runners:

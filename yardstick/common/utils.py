@@ -409,13 +409,16 @@ class ErrorClass(object):
 
 
 class Timer(object):
-    def __init__(self, timeout=None):
+    def __init__(self, timeout=None, raise_exception=True):
         super(Timer, self).__init__()
         self.start = self.delta = None
         self._timeout = int(timeout) if timeout else None
+        self._raise_exception = raise_exception
 
     def _timeout_handler(self, *args):
-        raise exceptions.TimerTimeout(timeout=self._timeout)
+        if self._raise_exception:
+            raise exceptions.TimerTimeout(timeout=self._timeout)
+        self.__exit__()
 
     def __enter__(self):
         self.start = datetime.datetime.now()

@@ -19,9 +19,6 @@ from random import SystemRandom
 import ipaddress
 
 import six
-
-from yardstick.common import exceptions as y_exc
-from yardstick.network_services.traffic_profile import base
 from trex_stl_lib.trex_stl_client import STLStream
 from trex_stl_lib.trex_stl_streams import STLFlowLatencyStats
 from trex_stl_lib.trex_stl_streams import STLTXCont
@@ -33,6 +30,10 @@ from trex_stl_lib.trex_stl_packet_builder_scapy import STLPktBuilder
 from trex_stl_lib.trex_stl_packet_builder_scapy import STLScVmRaw
 from trex_stl_lib.trex_stl_packet_builder_scapy import STLVmFixIpv4
 from trex_stl_lib import api as Pkt
+
+from yardstick.common import exceptions as y_exc
+from yardstick.network_services.traffic_profile import base
+
 
 SRC = 'src'
 DST = 'dst'
@@ -341,115 +342,6 @@ class TrexProfile(base.TrafficProfile):
             self._set_proto_addr(UDP, SRC_PORT, outer_l4['srcport'], outer_l4['count'])
         if 'dstport' in outer_l4:
             self._set_proto_addr(UDP, DST_PORT, outer_l4['dstport'], outer_l4['count'])
-
-    def generate_imix_data(self, packet_definition):
-        """ generate packet size for a given traffic profile """
-        imix_count = {}
-        imix_data = {}
-        if not packet_definition:
-            return imix_count
-        imix = packet_definition.get('framesize')
-        if imix:
-            for size in imix:
-                data = imix[size]
-                imix_data[int(size[:-1])] = int(data)
-            imix_sum = sum(imix_data.values())
-            if imix_sum > 100:
-                raise SystemExit("Error in IMIX data")
-            elif imix_sum < 100:
-                imix_data[64] = imix_data.get(64, 0) + (100 - imix_sum)
-
-            avg_size = 0.0
-            for size in imix_data:
-                count = int(imix_data[size])
-                if count:
-                    avg_size += round(size * count / 100, 2)
-                    pps = round(self.pps * count / 100, 0)
-                    imix_count[size] = pps
-            self.rate = round(1342177280 / avg_size, 0) * 2
-            logging.debug("Imax: %s rate: %s", imix_count, self.rate)
-        return imix_count
-
-    def get_streams(self, profile_data):
-        """ generate trex stream
-        :param profile_data:
-        :type profile_data:
-        """
-        self.streams = []
-        self.pps = self.params['traffic_profile'].get('frame_rate', 100)
-        for packet_name in profile_data:
-            outer_l2 = profile_data[packet_name].get('outer_l2')
-            imix_data = self.generate_imix_data(outer_l2)
-            if not imix_data:
-                imix_data = {64: self.pps}
-            self.generate_vm(profile_data[packet_name])
-            for size in imix_data:
-                self._generate_streams(size, imix_data[size])
-        self._generate_profile()
-        return self.profile
-
-    def generate_vm(self, packet_definition):
-        """ generate  trex vm with flows setup """
-        self.ether_packet = Pkt.Ether()
-        self.ip_packet = Pkt.IP()
-        self.ip6_packet = None
-        self.udp_packet = Pkt.UDP()
-        self.udp[DST_PORT] = 'UDP.dport'
-        self.udp[SRC_PORT] = 'UDP.sport'
-        self.qinq = False
-        self.vm_flow_vars = []
-        outer_l2 = packet_definition.get('outer_l2', None)
-        outer_l3v4 = packet_definition.get('outer_l3v4', None)
-        outer_l3v6 = packet_definition.get('outer_l3v6', None)
-        outer_l4 = packet_definition.get('outer_l4', None)
-        if outer_l2:
-            self._set_outer_l2_fields(outer_l2)
-        if outer_l3v4:
-            self._set_outer_l3v4_fields(outer_l3v4)
-        if outer_l3v6:
-            self._set_outer_l3v6_fields(outer_l3v6)
-        if outer_l4:
-            self._set_outer_l4_fields(outer_l4)
-        self.trex_vm = STLScVmRaw(self.vm_flow_vars)
-
-    def generate_packets(self):
-        """ generate packets from trex TG """
-        base_pkt = self.base_pkt
-        size = self.fsize - 4
-        pad = max(0, size - len(base_pkt)) * 'x'
-        self.packets = [STLPktBuilder(pkt=base_pkt / pad,
-                                      vm=vm) for vm in self.vms]
-
-    def _create_single_packet(self, size=64):
-        size = size - 4
-        ether_packet = self.ether_packet
-        ip_packet = self.ip6_packet if self.ip6_packet else self.ip_packet
-        udp_packet = self.udp_packet
-        if self.qinq:
-            qinq_packet = self.qinq_packet
-            base_pkt = ether_packet / qinq_packet / ip_packet / udp_packet
-        else:
-            base_pkt = ether_packet / ip_packet / udp_packet
-        pad = max(0, size - len(base_pkt)) * 'x'
-        packet = STLPktBuilder(pkt=base_pkt / pad, vm=self.trex_vm)
-        return packet
-
-    def _create_single_stream(self, packet_size, pps, isg=0):
-        packet = self._create_single_packet(packet_size)
-        if self.pg_id:
-            self.pg_id += 1
-            stl_flow = STLFlowLatencyStats(pg_id=self.pg_id)
-            stream = STLStream(isg=isg, packet=packet, mode=STLTXCont(pps=pps),
-                               flow_stats=stl_flow)
-        else:
-            stream = STLStream(isg=isg, packet=packet, mode=STLTXCont(pps=pps))
-        return stream
-
-    def _generate_streams(self, packet_size, pps):
-        self.streams.append(self._create_single_stream(packet_size, pps))
-
-    def _generate_profile(self):
-        self.profile = STLProfile(self.streams)
 
     @classmethod
     def _count_ip(cls, start_ip, end_ip):

@@ -165,6 +165,42 @@ class TrexResourceHelper(ClientResourceHelper):
         cmd = "sudo fuser -n tcp %s %s -k > /dev/null 2>&1"
         self.ssh_helper.execute(cmd % (self.SYNC_PORT, self.ASYNC_PORT))
 
+    def _get_samples(self, ports, port_pg_id=None):
+        stats = self.get_stats(ports)
+        # key_value = last_result.get(key, default)
+        #
+        # if not isinstance(last_result, Mapping):  # added for mock unit test
+        #     self._terminated.value = 1
+        #     return {}
+
+        samples = {}
+        for pname in (intf['name'] for intf in self.vnfd_helper.interfaces):
+            port_num = self.vnfd_helper.port_num(pname)
+            port_stats = stats.get(port_num, {})
+            samples[pname] = {
+                'rx_throughput_fps': float(port_stats.get('rx_pps', 0.0)),
+                'tx_throughput_fps': float(port_stats.get('tx_pps', 0.0)),
+                'rx_throughput_bps': float(port_stats.get('rx_bps', 0.0)),
+                'tx_throughput_bps': float(port_stats.get('tx_bps', 0.0)),
+            }
+
+        if port_pg_id:
+            samples[pname]
+
+            # if port in ports:
+            #     xe_value = last_result.get(port, {})
+            #     samples[name] = {
+            #         "rx_throughput_fps": float(xe_value.get("rx_pps", 0.0)),
+            #         "tx_throughput_fps": float(xe_value.get("tx_pps", 0.0)),
+            #         "rx_throughput_mbps": float(xe_value.get("rx_bps", 0.0)),
+            #         "tx_throughput_mbps": float(xe_value.get("tx_bps", 0.0)),
+            #         "in_packets": int(xe_value.get("ipackets", 0)),
+            #         "out_packets": int(xe_value.get("opackets", 0)),
+            #     }
+            #     # if key:
+            #     #     samples[name][key] = key_value
+        return samples
+
 
 class TrexTrafficGen(SampleVNFTrafficGen):
     """
