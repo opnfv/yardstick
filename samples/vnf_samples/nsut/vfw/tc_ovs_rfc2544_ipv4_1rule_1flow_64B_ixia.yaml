@@ -80,13 +80,13 @@ contexts:
      networks:
        uplink_0:
          port_num: 0
-         phy_port: "0000:07:00.0"
+         phy_port: "0000:06:00.0"
          vpci: "0000:00:07.0"
          cidr: '152.16.100.10/24'
          gateway_ip: '152.16.100.20'
        downlink_0:
          port_num: 1
-         phy_port: "0000:07:00.1"
+         phy_port: "0000:06:00.1"
          vpci: "0000:00:08.0"
          cidr: '152.16.40.10/24'
          gateway_ip: '152.16.100.20'
