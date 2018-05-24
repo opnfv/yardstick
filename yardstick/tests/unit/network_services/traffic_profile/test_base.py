@@ -77,6 +77,12 @@ class TestDummyProfile(unittest.TestCase):
 class TrafficProfileConfigTestCase(unittest.TestCase):
 
     def test__init(self):
-        tp_config = {'traffic_profile': {'duration': 15}}
+        tp_config = {'traffic_profile': {'packet_sizes': {'64B': 100}}}
         tp_config_obj = base.TrafficProfileConfig(tp_config)
-        self.assertEqual(15, tp_config_obj.duration)
+        self.assertEqual({'64B': 100}, tp_config_obj.packet_sizes)
+        self.assertEqual(base.TrafficProfileConfig.DEFAULT_SCHEMA,
+                         tp_config_obj.schema)
+        self.assertEqual(base.TrafficProfileConfig.DEFAULT_FRAME_RATE,
+                         tp_config_obj.frame_rate)
+        self.assertEqual(base.TrafficProfileConfig.DEFAULT_DURATION,
+                         tp_config_obj.duration)
