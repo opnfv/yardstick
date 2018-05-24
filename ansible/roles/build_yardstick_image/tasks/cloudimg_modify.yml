@@ -1,0 +1,344 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+#vars:
+#  # used to install the tools
+#  clone_dir: /tmp/yardstick-clone
+
+- debug:
+    msg: "chrooted in {{ inventory_hostname }}"
+
+- debug:
+    var: proxy_env
+    verbosity: 2
+
+#- include_role:
+#    name: "{{ item }}"
+#  with_items:
+#    - reset_resolv_conf
+#    - add_custom_repos
+#    - modify_cloud_config
+#    #- role: set_package_installer_proxy
+#    #  when: proxy_env is defined and proxy_env
+#    - install_image_dependencies
+- set_fact:
+    ansible_python_interpreter: "/usr/bin/python3"
+- include_role:
+#- import_role:
+    name: reset_resolv_conf
+#  vars:
+#    ansible_python_interpreter: "/usr/bin/python3"
+
+- include_role:
+#- import_role:
+    name: add_custom_repos
+#  vars:
+#    ansible_python_interpreter: "/usr/bin/python3"
+
+- include_role:
+#- import_role:
+    name: modify_cloud_config
+#  vars:
+#    ansible_python_interpreter: "/usr/bin/python3"
+
+- include_role:
+#- import_role:
+    name: set_package_installer_proxy
+  when: proxy_env is defined and proxy_env
+#  vars:
+#    ansible_python_interpreter: "/usr/bin/python3"
+
+- include_role:
+#- import_role:
+    name: install_image_dependencies
+#  vars:
+#    ansible_python_interpreter: "/usr/bin/python3"
+
+#- include_role:
+#    name: "{{ item }}"
+#  when: img_prop_item == "normal"
+#  with_items:
+#    - download_l2fwd
+#    - download_unixbench
+#    - install_unixbench
+#    - download_ramspeed
+#    - install_ramspeed
+#    - download_cachestat
+#    # there is no install for cachestat
+#    #- install_cachestat
+
+- include_role:
+#- import_role:
+    name: download_l2fwd
+  when: img_prop_item == "normal"
+
+- include_role:
+#- import_role:
+    name: download_unixbench
+  when: img_prop_item == "normal"
+
+#- include_vars: roles/download_unixbench/defaults/main.yml
+#  when: unixbench_dest is undefined
+- set_fact:
+    unixbench_dest: "{{ clone_dest }}/UnixBench"
+- include_role:
+#- import_role:
+    name: install_unixbench
+  when: img_prop_item == "normal"
+
+- include_role:
+#- import_role:
+    name: download_ramspeed
+  when: img_prop_item == "normal"
+
+#- include_vars: roles/download_ramspeed/defaults/main.yml
+#  when: ramspeed_dest is undefined
+- set_fact:
+    ramspeed_dest: "{{ clone_dest }}/RAMspeed"
+    ramspeed_release: ramspeed-2.6.0
+- include_role:
+#- import_role:
+    name: install_ramspeed
+  when: img_prop_item == "normal"
+
+- include_role:
+#- import_role:
+    name: download_cachestat
+  when: img_prop_item == "normal"
+
+#- include_role:
+#    name: "{{ role_item }}"
+#  when: img_prop_item == "nsb"
+#  with_items:
+#    # can't update grub in chroot/docker
+#    - enable_hugepages_on_boot
+#    # needed for collectd plugins
+#    - increase_open_file_limits
+#    - download_dpdk
+#    #- role: download_dpdk
+#    # dpdk_version: "17.02"
+#    - install_dpdk
+#    - download_trex
+#    - install_trex
+#    - download_pktgen
+#    - install_pktgen
+#    - download_civetweb
+#    - install_civetweb
+#    - download_samplevnfs
+##    - role: install_samplevnf
+##      vnf_name: PROX
+##    - role: install_samplevnf
+##      vnf_name: UDP_Replay
+##    - role: install_samplevnf
+##      vnf_name: ACL
+##    - role: install_samplevnf
+##      vnf_name: FW
+##    - role: install_samplevnf
+##      vnf_name: CGNATP
+#    # build shared DPDK for collectd only, required DPDK downloaded already
+#    - install_dpdk_shared
+#    - install_rabbitmq
+#    - download_intel_cmt_cat
+#    - install_intel_cmt_cat
+#    - download_pmu_tools
+#    - install_pmu_tools
+#    - download_collectd
+#    - install_collectd
+#    - download_drivers
+#    - install_drivers
+
+- include_role:     # can't update grub in chroot/docker
+#- import_role:
+    name: enable_hugepages_on_boot
+  when: img_prop_item == "nsb"
+
+- include_role:     # needed for collectd plugins
+#- import_role:
+    name: increase_open_file_limits
+  when: img_prop_item == "nsb"
+- set_fact:
+    dpdk_make_archs:
+     "amd64": "x86_64-native-linuxapp-gcc"
+     "arm64": "arm64-native-linuxapp-gcc"
+- set_fact:
+    dpdk_make_arch: "{{ dpdk_make_archs[YARD_IMG_ARCH] }}"
+- include_role:
+#- import_role:
+    name: download_dpdk
+  when: img_prop_item == "nsb"
+
+#- include_vars: roles/install_dpdk/vars/main.yml
+#  when: dpdk_make_arch is undefined
+- set_fact:
+    dpdk_version: "17.02"
+    dpdk_dest: "{{ clone_dest }}/"
+- set_fact:
+    dpdk_url: "http://dpdk.org/browse/dpdk/snapshot/dpdk-{{ dpdk_version }}.tar.gz"
+- set_fact:
+    dpdk_file: "{{ dpdk_url|basename }}"
+- set_fact:
+    dpdk_unarchive: "{{ dpdk_file|regex_replace('[.]tar[.]gz$', '') }}"
+- set_fact:
+    dpdk_path: "{{ dpdk_dest }}/{{ dpdk_unarchive }}"
+- include_role:
+#- import_role:
+    name: install_dpdk
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: download_trex
+  when: img_prop_item == "nsb"
+
+#- include_vars: roles/download_trex/defaults/main.yml
+- set_fact:
+    trex_dest: "{{ clone_dest }}/"
+    trex_version: v2.28
+- set_fact:
+    trex_url: "https://trex-tgn.cisco.com/trex/release/{{ trex_version }}.tar.gz"
+- set_fact:
+    trex_file: "{{ trex_url|basename }}"
+- set_fact:
+    trex_unarchive: "{{ trex_file|regex_replace('[.]tar.gz$', '') }}"
+- include_role:
+#- import_role:
+    name: install_trex
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: download_pktgen
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: install_pktgen
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: download_civetweb
+  when: img_prop_item == "nsb"
+
+#- include_vars: roles/download_civetweb/defaults/main.yml
+- set_fact:
+    civetweb_dest: "{{ clone_dest }}/civetweb"
+- include_role:
+#- import_role:
+    name: install_civetweb
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: download_samplevnfs
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: install_samplevnf
+  vars:
+    vnf_name: PROX
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: install_samplevnf
+  vars:
+    vnf_name: UDP_Replay
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: install_samplevnf
+  vars:
+    vnf_name: ACL
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: install_samplevnf
+  vars:
+    vnf_name: FW
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: install_samplevnf
+  vars:
+    vnf_name: CGNATP
+  when: img_prop_item == "nsb"
+
+#- include_role:
+#    name: install_samplevnf
+#  when: img_prop_item == "nsb"
+#  with_items:
+#    - PROX
+#    - UDP_Replay
+#    - ACL
+#    - FW
+#    - CGNATP
+#  loop_control:
+#    loop_var: vnf_name
+##  vars:
+##    vnf_name: PROX
+
+- include_role:     # build shared DPDK for collectd only, required DPDK downloaded already
+#- import_role:
+    name: install_dpdk_shared
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: install_rabbitmq
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: download_intel_cmt_cat
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: install_intel_cmt_cat
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: download_pmu_tools
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: install_pmu_tools
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: download_collectd
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: install_collectd
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: download_drivers
+  when: img_prop_item == "nsb"
+
+- include_role:
+#- import_role:
+    name: install_drivers
+  when: img_prop_item == "nsb"

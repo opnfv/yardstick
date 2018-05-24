@@ -97,3 +97,13 @@
     - install_pmu_tools
     - download_collectd
     - install_collectd
+
+- hosts: jumphost # yardstick-baremetal
+  become: yes
+  vars:
+    img_property: "{{ IMG_PROPERTY | default(['nsb']) }}"
+    #img_property: "{{ IMG_PROPERTY | default(['normal', 'nsb']) }}"
+
+  roles:
+  - role: build_yardstick_image
+    image_property: "{{ img_property }}"
