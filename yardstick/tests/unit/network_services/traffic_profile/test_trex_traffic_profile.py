@@ -181,28 +181,6 @@ class TestTrexProfile(unittest.TestCase):
         outer_l4 = self.PROFILE[TrafficProfile.UPLINK]['ipv4']['outer_l4']
         self.assertIsNone(trex_profile._set_outer_l4_fields(outer_l4))
 
-    def test_get_streams(self):
-        trex_profile = TrexProfile(self.PROFILE)
-        profile_data = self.PROFILE[TrafficProfile.UPLINK]
-        self.assertIsNotNone(trex_profile.get_streams(profile_data))
-        trex_profile.pg_id = 1
-        self.assertIsNotNone(trex_profile.get_streams(profile_data))
-        trex_profile.params = self.PROFILE_v6
-        trex_profile.profile_data = self.PROFILE_v6[TrafficProfile.UPLINK]
-        self.assertIsNotNone(trex_profile.get_streams(profile_data))
-        trex_profile.pg_id = 1
-        self.assertIsNotNone(trex_profile.get_streams(profile_data))
-
-    def test_generate_packets(self):
-        trex_profile = TrexProfile(self.PROFILE)
-        trex_profile.fsize = 10
-        trex_profile.base_pkt = [10]
-        self.assertIsNone(trex_profile.generate_packets())
-
-    def test_generate_imix_data_error(self):
-        trex_profile = TrexProfile(self.PROFILE)
-        self.assertEqual({}, trex_profile.generate_imix_data(False))
-
     def test__count_ip_ipv4(self):
         start, end, count = TrexProfile._count_ip('1.1.1.1', '1.2.3.4')
         self.assertEqual('1.1.1.1', str(start))
