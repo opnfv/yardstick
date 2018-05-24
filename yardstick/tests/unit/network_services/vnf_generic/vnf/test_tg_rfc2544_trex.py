@@ -11,44 +11,37 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-import unittest
 import mock
+import unittest
 
-from yardstick.tests import STL_MOCKS
-SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
-
-
-STLClient = mock.MagicMock()
-stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
-stl_patch.start()
-
-if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.tg_rfc2544_trex import TrexTrafficGenRFC, \
-        TrexRfcResourceHelper
-    from yardstick.network_services.vnf_generic.vnf import tg_rfc2544_trex
-    from yardstick.network_services.traffic_profile.base import TrafficProfile
-    from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base \
-        import FileAbsPath, mock_ssh
-
-MODULE_PATH = FileAbsPath(__file__)
-get_file_abspath = MODULE_PATH.get_path
+from yardstick.network_services.traffic_profile import base as tp_base
+from yardstick.network_services.vnf_generic.vnf import sample_vnf
+from yardstick.network_services.vnf_generic.vnf import tg_rfc2544_trex
 
 
 class TestTrexRfcResouceHelper(unittest.TestCase):
 
-    @mock.patch('yardstick.network_services.helpers.samplevnf_helper.MultiPortConfig')
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_rfc2544_trex.time")
-    @mock.patch(SSH_HELPER)
-    def test__run_traffic_once(self, ssh, *_):
-        mock_ssh(ssh)
+    def test__run_traffic_once(self):
+        mock_setup_helper = mock.Mock()
+        mock_traffic_profile = mock.Mock()
+        mock_traffic_profile.config.duration = 3
+        mock_traffic_profile.execute_traffic.return_value = ('fake_ports',
+                                                             'port_pg_id_map')
+        mock_traffic_profile.get_drop_percentage.return_value = 'percentage'
+        rfc_rh = tg_rfc2544_trex.TrexRfcResourceHelper(mock_setup_helper)
+        rfc_rh.TRANSIENT_PERIOD = 0
+        rfc_rh.rfc2544_helper = mock.Mock()
 
-        mock_traffic_profile = mock.MagicMock(autospec=TrafficProfile,
-                                              **{'get_drop_percentage.return_value': {}})
-        sut = TrexRfcResourceHelper(mock.MagicMock(), mock.MagicMock())
-        sut.client = mock.MagicMock()
-        sut._run_traffic_once(mock_traffic_profile)
+        with mock.patch.object(rfc_rh, '_get_samples') as mock_get_samples:
+            rfc_rh._run_traffic_once(mock_traffic_profile)
+
+        mock_traffic_profile.execute_traffic.assert_called_once_with(rfc_rh)
+        mock_traffic_profile.stop_traffic.assert_called_once_with(rfc_rh)
+        mock_traffic_profile.stop_traffic.assert_called_once()
+        mock_get_samples.assert_has_calls([
+            mock.call('fake_ports', port_pg_id='port_pg_id_map'),
+            mock.call('fake_ports', port_pg_id='port_pg_id_map')])
 
 
 class TestTrexTrafficGenRFC(unittest.TestCase):
@@ -219,33 +212,24 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         'schema': 'yardstick:task:0.1',
     }
 
-    @mock.patch(SSH_HELPER)
-    def test___init__(self, ssh):
-        mock_ssh(ssh)
-        trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
+    def setUp(self):
+        self._mock_ssh_helper = mock.patch.object(sample_vnf, 'VnfSshHelper')
+        self.mock_ssh_helper = self._mock_ssh_helper.start()
+        self.addCleanup(self._stop_mocks)
+
+    def _stop_mocks(self):
+        self._mock_ssh_helper.stop()
+
+    def test___init__(self):
+        trex_traffic_gen = tg_rfc2544_trex.TrexTrafficGenRFC('vnf1', self.VNFD_0)
         self.assertIsNotNone(trex_traffic_gen.resource_helper._terminated.value)
 
-    @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh):
-        mock_ssh(ssh)
-        trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
-        self.assertEqual(trex_traffic_gen.collect_kpi(), {})
-
-    @mock.patch(SSH_HELPER)
-    def test_listen_traffic(self, ssh):
-        mock_ssh(ssh)
-        trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
-        self.assertIsNone(trex_traffic_gen.listen_traffic({}))
-
-    @mock.patch(SSH_HELPER)
-    def test_instantiate(self, ssh):
-        mock_ssh(ssh)
-
-        mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
+    def test_instantiate(self):
+        mock_traffic_profile = mock.Mock(autospec=tp_base.TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
 
-        trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
+        trex_traffic_gen = tg_rfc2544_trex.TrexTrafficGenRFC('vnf1', self.VNFD_0)
         trex_traffic_gen._start_server = mock.Mock(return_value=0)
         trex_traffic_gen.resource_helper = mock.MagicMock()
         trex_traffic_gen.setup_helper.setup_vnf_environment = mock.MagicMock()
@@ -274,15 +258,12 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         scenario_cfg.update({"nodes": ["tg_1", "vnf_1"]})
         self.assertIsNone(trex_traffic_gen.instantiate(scenario_cfg, {}))
 
-    @mock.patch(SSH_HELPER)
-    def test_instantiate_error(self, ssh):
-        mock_ssh(ssh, exec_result=(1, "", ""))
-
-        mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
+    def test_instantiate_error(self):
+        mock_traffic_profile = mock.Mock(autospec=tp_base.TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
 
-        trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
+        trex_traffic_gen = tg_rfc2544_trex.TrexTrafficGenRFC('vnf1', self.VNFD_0)
         trex_traffic_gen.resource_helper = mock.MagicMock()
         trex_traffic_gen.setup_helper.setup_vnf_environment = mock.MagicMock()
         scenario_cfg = {
@@ -310,29 +291,3 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             },
         }
         trex_traffic_gen.instantiate(scenario_cfg, {})
-
-    @mock.patch(SSH_HELPER)
-    def test__start_server(self, ssh):
-        mock_ssh(ssh)
-        trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
-        trex_traffic_gen.resource_helper = mock.MagicMock()
-        self.assertIsNone(trex_traffic_gen._start_server())
-
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_rfc2544_trex.time")
-    @mock.patch(SSH_HELPER)
-    def test__generate_trex_cfg(self, ssh, _):
-        mock_ssh(ssh)
-
-        trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
-        trex_traffic_gen.ssh_helper = mock.MagicMock()
-        trex_traffic_gen.resource_helper.ssh_helper = mock.MagicMock()
-        self.assertIsNone(trex_traffic_gen.resource_helper.generate_cfg())
-
-    def test_terminate(self):
-        with mock.patch(SSH_HELPER) as ssh:
-            ssh_mock = mock.Mock(autospec=ssh.SSH)
-            ssh_mock.execute = mock.Mock(return_value=(0, "", ""))
-            ssh.from_node.return_value = ssh_mock
-            trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
-            trex_traffic_gen.resource_helper = mock.MagicMock()
-            self.assertIsNone(trex_traffic_gen.terminate())

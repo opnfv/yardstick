@@ -11,19 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-""" Base class implementation for generic vnf implementation """
 
-from collections import Mapping
 import logging
 from multiprocessing import Queue, Value, Process
 
 import os
 import posixpath
 import re
+import six
 import subprocess
 import time
-
-import six
 
 from trex_stl_lib.trex_stl_client import LoggerApi
 from trex_stl_lib.trex_stl_client import STLClient
@@ -375,39 +372,14 @@ class ClientResourceHelper(ResourceHelper):
             LOG.error('TRex client not connected')
             return {}
 
-    def generate_samples(self, ports, key=None, default=None):
-        # needs to be used ports
-        last_result = self.get_stats(ports)
-        key_value = last_result.get(key, default)
-
-        if not isinstance(last_result, Mapping):  # added for mock unit test
-            self._terminated.value = 1
-            return {}
-
-        samples = {}
-        # recalculate port for interface and see if it matches ports provided
-        for intf in self.vnfd_helper.interfaces:
-            name = intf["name"]
-            port = self.vnfd_helper.port_num(name)
-            if port in ports:
-                xe_value = last_result.get(port, {})
-                samples[name] = {
-                    "rx_throughput_fps": float(xe_value.get("rx_pps", 0.0)),
-                    "tx_throughput_fps": float(xe_value.get("tx_pps", 0.0)),
-                    "rx_throughput_mbps": float(xe_value.get("rx_bps", 0.0)),
-                    "tx_throughput_mbps": float(xe_value.get("tx_bps", 0.0)),
-                    "in_packets": int(xe_value.get("ipackets", 0)),
-                    "out_packets": int(xe_value.get("opackets", 0)),
-                }
-                if key:
-                    samples[name][key] = key_value
-        return samples
+    def _get_samples(self, ports, port_pg_id=False):
+        raise NotImplementedError()
 
     def _run_traffic_once(self, traffic_profile):
         traffic_profile.execute_traffic(self)
         self.client_started.value = 1
         time.sleep(self.RUN_DURATION)
-        samples = self.generate_samples(traffic_profile.ports)
+        samples = self._get_samples(traffic_profile.ports)
         time.sleep(self.QUEUE_WAIT_TIME)
         self._queue.put(samples)
 
