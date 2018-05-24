@@ -1,5 +1,5 @@
 ---
-dpdk_version: "17.02.1"
+dpdk_version: "17.05"
 dpdk_url: "http://fast.dpdk.org/rel/dpdk-{{ dpdk_version }}.tar.xz"
 dpdk_file: "{{ dpdk_url|basename }}"
 dpdk_unarchive: "{{ dpdk_file|regex_replace('[.]tar[.]xz$', '') }}"

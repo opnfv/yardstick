@@ -1,0 +1,46 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: convert image to image file
+  command: qemu-img convert -c -o compat=0.10 -O qcow2 {{ raw_imgfile }} {{ imgfile }}
+
+# Post build yardstick image
+- group_by:
+    key: image_builder
+
+- name: remove ubuntu policy-rc.d workaround
+  file:
+    path: "{{ mountdir }}/usr/sbin/policy-rc.d"
+    state: absent
+  when: "target_os == 'Ubuntu'"
+
+- name: cleanup fake tmp fstab
+  file:
+    path: "{{ fake_fstab }}"
+    state: absent
+
+- mount:
+    name: "{{ mountdir }}/proc"
+    state: unmounted
+
+- mount:
+    name: "{{ mountdir }}"
+    state: unmounted
+
+- name: kpartx -dv to delete all image partition device nodes
+  command: kpartx -dv "{{ raw_imgfile }}"
+  ignore_errors: true
+
+- debug:
+    msg: "yardstick image = {{ imgfile }}"
