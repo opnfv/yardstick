@@ -11,33 +11,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-import unittest
 import mock
 
-from yardstick.tests import STL_MOCKS
+from trex_stl_lib import api as Pkt
+from trex_stl_lib import trex_stl_client
+from trex_stl_lib import trex_stl_packet_builder_scapy
+from trex_stl_lib import trex_stl_streams
+
+from yardstick.network_services.traffic_profile import rfc2544
+from yardstick.tests.unit import base
 
 
-STLClient = mock.MagicMock()
-stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
-stl_patch.start()
-
-if stl_patch:
-    from yardstick.network_services.traffic_profile.trex_traffic_profile \
-        import TrexProfile
-    from yardstick.network_services.traffic_profile.rfc2544 import \
-        RFC2544Profile
-
-
-class TestRFC2544Profile(unittest.TestCase):
+class TestRFC2544Profile(base.BaseUnitTestCase):
     TRAFFIC_PROFILE = {
         "schema": "isb:traffic_profile:0.1",
         "name": "fixed",
         "description": "Fixed traffic profile to run UDP traffic",
         "traffic_profile": {
             "traffic_type": "FixedTraffic",
-            "frame_rate": 100,  # pps
+            "frame_rate": 100,
             "flow_number": 10,
             "frame_size": 64}}
 
@@ -45,233 +38,251 @@ class TestRFC2544Profile(unittest.TestCase):
                'name': 'rfc2544',
                'traffic_profile': {'traffic_type': 'RFC2544Profile',
                                    'frame_rate': 100},
-               'downlink_0': {'ipv4':
-                              {'outer_l2': {'framesize':
-                                            {'64B': '100', '1518B': '0',
-                                             '128B': '0', '1400B': '0',
-                                             '256B': '0', '373b': '0',
-                                             '570B': '0'}},
-                               'outer_l3v4': {'dstip4': '1.1.1.1-1.15.255.255',
-                                              'proto': 'udp',
-                                              'srcip4': '90.90.1.1-90.105.255.255',
-                                              'dscp': 0, 'ttl': 32, 'count': 1},
-                               'outer_l4': {'srcport': '2001',
-                                            'dsrport': '1234', 'count': 1}}},
-               'uplink_0': {'ipv4':
-                            {'outer_l2': {'framesize':
-                                          {'64B': '100', '1518B': '0',
-                                           '128B': '0', '1400B': '0',
-                                           '256B': '0', '373b': '0',
-                                           '570B': '0'}},
-                             'outer_l3v4': {'dstip4': '9.9.1.1-90.105.255.255',
-                                            'proto': 'udp',
-                                            'srcip4': '1.1.1.1-1.15.255.255',
-                                            'dscp': 0, 'ttl': 32, 'count': 1},
-                             'outer_l4': {'dstport': '2001',
-                                          'srcport': '1234', 'count': 1}}},
+               'downlink_0':
+                   {'ipv4':
+                        {'outer_l2':
+                             {'framesize':
+                                  {'64B': '100', '1518B': '0',
+                                   '128B': '0', '1400B': '0',
+                                   '256B': '0', '373b': '0',
+                                   '570B': '0'}},
+                         'outer_l3v4':
+                             {'dstip4': '1.1.1.1-1.15.255.255',
+                              'proto': 'udp',
+                              'srcip4': '90.90.1.1-90.105.255.255',
+                              'dscp': 0, 'ttl': 32, 'count': 1},
+                         'outer_l4':
+                             {'srcport': '2001',
+                              'dsrport': '1234', 'count': 1}}},
+               'uplink_0':
+                   {'ipv4':
+                        {'outer_l2':
+                             {'framesize':
+                                  {'64B': '100', '1518B': '0',
+                                   '128B': '0', '1400B': '0',
+                                   '256B': '0', '373b': '0',
+                                   '570B': '0'}},
+                         'outer_l3v4':
+                             {'dstip4': '9.9.1.1-90.105.255.255',
+                              'proto': 'udp',
+                              'srcip4': '1.1.1.1-1.15.255.255',
+                              'dscp': 0, 'ttl': 32, 'count': 1},
+                         'outer_l4':
+                             {'dstport': '2001',
+                              'srcport': '1234', 'count': 1}}},
                'schema': 'isb:traffic_profile:0.1'}
 
     def test___init__(self):
-        r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
-        self.assertIsNotNone(r_f_c2544_profile.rate)
+        rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
+        self.assertEqual(rfc2544_profile.max_rate, rfc2544_profile.rate)
+        self.assertEqual(0, rfc2544_profile.min_rate)
 
-    def test_execute(self):
-        traffic_generator = mock.Mock(autospec=TrexProfile)
-        traffic_generator.networks = {
-            "uplink_0": ["xe0"],
-            "downlink_0": ["xe1"],
-        }
-        traffic_generator.client.return_value = True
-        r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
-        r_f_c2544_profile.params = self.PROFILE
-        r_f_c2544_profile.first_run = True
-        self.assertIsNone(r_f_c2544_profile.execute_traffic(traffic_generator))
+    def test_stop_traffic(self):
+        rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
+        mock_generator = mock.Mock()
+        rfc2544_profile.stop_traffic(traffic_generator=mock_generator)
+        mock_generator.client.stop.assert_called_once()
+        mock_generator.client.reset.assert_called_once()
+        mock_generator.client.remove_all_streams.assert_called_once()
+
+    def test_execute_traffic(self):
+        rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
+        mock_generator = mock.Mock()
+        mock_generator.networks = {
+            'downlink_0': ['xe0', 'xe1'],
+            'uplink_0': ['xe2', 'xe3'],
+            'downlink_1': []}
+        mock_generator.port_num.side_effect = [10, 20, 30, 40]
+        mock_generator.rfc2544_helper.correlated_traffic = False
+        rfc2544_profile.params = {
+            'downlink_0': 'profile1',
+            'uplink_0': 'profile2'}
+
+        with mock.patch.object(rfc2544_profile, '_create_profile') as \
+                mock_create_profile:
+            rfc2544_profile.execute_traffic(traffic_generator=mock_generator)
+        mock_create_profile.assert_has_calls([
+            mock.call('profile1', rfc2544_profile.rate, mock.ANY),
+            mock.call('profile1', rfc2544_profile.rate, mock.ANY),
+            mock.call('profile2', rfc2544_profile.rate, mock.ANY),
+            mock.call('profile2', rfc2544_profile.rate, mock.ANY)])
+        mock_generator.client.add_streams.assert_has_calls([
+            mock.call(mock.ANY, ports=[10]),
+            mock.call(mock.ANY, ports=[20]),
+            mock.call(mock.ANY, ports=[30]),
+            mock.call(mock.ANY, ports=[40])])
+        mock_generator.client.start(ports=[10, 20, 30, 40],
+                                    duration=rfc2544_profile.config.duration,
+                                    force=True)
+
+    @mock.patch.object(trex_stl_streams, 'STLProfile')
+    def test__create_profile(self, mock_stl_profile):
+        rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
+        port_pg_id = mock.ANY
+        profile_data = {'packetid_1': {'outer_l2': {'framesize': 'imix_info'}}}
+        rate = 100
+        with mock.patch.object(rfc2544_profile, '_create_imix_data') as \
+                mock_create_imix, \
+                mock.patch.object(rfc2544_profile, '_create_vm') as \
+                mock_create_vm, \
+                mock.patch.object(rfc2544_profile, '_create_streams') as \
+                mock_create_streams:
+            mock_create_imix.return_value = 'imix_data'
+            mock_create_streams.return_value = ['stream1']
+            rfc2544_profile._create_profile(profile_data, rate, port_pg_id)
+
+        mock_create_imix.assert_called_once_with('imix_info')
+        mock_create_vm.assert_called_once_with(
+            {'outer_l2': {'framesize': 'imix_info'}})
+        mock_create_streams.assert_called_once_with('imix_data', 100,
+                                                    port_pg_id)
+        mock_stl_profile.assert_called_once_with(['stream1'])
+
+    def test__create_imix_data(self):
+        rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
+        data = {'64B': 50, '128B': 50}
+        self.assertEqual({'64': 50.0, '128': 50.0},
+                         rfc2544_profile._create_imix_data(data))
+        data = {'64B': 1, '128b': 3}
+        self.assertEqual({'64': 25.0, '128': 75.0},
+                         rfc2544_profile._create_imix_data(data))
+        data = {}
+        self.assertEqual({}, rfc2544_profile._create_imix_data(data))
+
+    def test__create_vm(self):
+        packet = {'outer_l2': 'l2_definition'}
+        rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
+        with mock.patch.object(rfc2544_profile, '_set_outer_l2_fields') as \
+                mock_l2_fileds:
+            rfc2544_profile._create_vm(packet)
+        mock_l2_fileds.assert_called_once_with('l2_definition')
+
+    @mock.patch.object(trex_stl_packet_builder_scapy, 'STLPktBuilder',
+                       return_value='packet')
+    def test__create_single_packet(self, mock_pktbuilder):
+        size = 128
+        rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
+        rfc2544_profile.ether_packet = Pkt.Eth()
+        rfc2544_profile.ip_packet = Pkt.IP()
+        rfc2544_profile.udp_packet = Pkt.UDP()
+        rfc2544_profile.trex_vm = 'trex_vm'
+        base_pkt = (rfc2544_profile.ether_packet / rfc2544_profile.ip_packet /
+                    rfc2544_profile.udp_packet)
+        pad = (size - len(base_pkt)) * 'x'
+        output = rfc2544_profile._create_single_packet(size=size)
+        mock_pktbuilder.assert_called_once_with(pkt=base_pkt / pad,
+                                                vm='trex_vm')
+        self.assertEqual(output, 'packet')
+
+    @mock.patch.object(trex_stl_packet_builder_scapy, 'STLPktBuilder',
+                       return_value='packet')
+    def test__create_single_packet_qinq(self, mock_pktbuilder):
+        size = 128
+        rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
+        rfc2544_profile.ether_packet = Pkt.Eth()
+        rfc2544_profile.ip_packet = Pkt.IP()
+        rfc2544_profile.udp_packet = Pkt.UDP()
+        rfc2544_profile.trex_vm = 'trex_vm'
+        rfc2544_profile.qinq = True
+        rfc2544_profile.qinq_packet = Pkt.Dot1Q(vlan=1) / Pkt.Dot1Q(vlan=2)
+        base_pkt = (rfc2544_profile.ether_packet /
+                    rfc2544_profile.qinq_packet / rfc2544_profile.ip_packet /
+                    rfc2544_profile.udp_packet)
+        pad = (size - len(base_pkt)) * 'x'
+        output = rfc2544_profile._create_single_packet(size=size)
+        mock_pktbuilder.assert_called_once_with(pkt=base_pkt / pad,
+                                                vm='trex_vm')
+        self.assertEqual(output, 'packet')
+
+    @mock.patch.object(trex_stl_streams, 'STLFlowLatencyStats')
+    @mock.patch.object(trex_stl_streams, 'STLTXCont')
+    @mock.patch.object(trex_stl_client, 'STLStream')
+    def test__create_streams(self, mock_stream, mock_txcont, mock_latency):
+        imix_data = {'64': 25, '512': 75}
+        rate = 35
+        port_pg_id = rfc2544.PortPgIDMap()
+        port_pg_id.add_port(10)
+        mock_stream.side_effect = ['stream1', 'stream2']
+        mock_txcont.side_effect = ['txcont1', 'txcont2']
+        mock_latency.side_effect = ['latency1', 'latency2']
+        rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
+        with mock.patch.object(rfc2544_profile, '_create_single_packet'):
+            output = rfc2544_profile._create_streams(imix_data, rate,
+                                                     port_pg_id)
+        self.assertEqual(['stream1', 'stream2'], output)
+        mock_latency.assert_has_calls([
+            mock.call(pg_id=1), mock.call(pg_id=2)])
+        mock_txcont.assert_has_calls([
+            mock.call(percentage=float(25 * 35) / 100),
+            mock.call(percentage=float(75 * 35) / 100)], any_order=True)
 
     def test_get_drop_percentage(self):
-        traffic_generator = mock.Mock(autospec=TrexProfile)
-        traffic_generator.networks = {
-            "uplink_0": ["xe0"],
-            "downlink_0": ["xe1"],
-        }
-        traffic_generator.client.return_value = True
+        rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
+        samples = [
+            {'xe1': {'tx_throughput_fps': 100,
+                     'rx_throughput_fps': 101,
+                     'out_packets': 2000,
+                     'in_packets': 2010},
+             'xe2': {'tx_throughput_fps': 200,
+                     'rx_throughput_fps': 201,
+                     'out_packets': 4000,
+                     'in_packets': 4010}},
+            {'xe1': {'tx_throughput_fps': 106,
+                     'rx_throughput_fps': 108,
+                     'out_packets': 2031,
+                     'in_packets': 2040,
+                     'latency': 'Latency1'},
+             'xe2': {'tx_throughput_fps': 203,
+                     'rx_throughput_fps': 215,
+                     'out_packets': 4025,
+                     'in_packets': 4040,
+                     'latency': 'Latency2'}}
+        ]
+        output = rfc2544_profile.get_drop_percentage(samples, 0, 0, False)
+        expected = {'DropPercentage': 0.3963,
+                    'Latency': {'xe1': 'Latency1', 'xe2': 'Latency2'},
+                    'RxThroughput': 312.5,
+                    'TxThroughput': 304.5,
+                    'CurrentDropPercentage': 0.3963,
+                    'Rate': 100,
+                    'Throughput': 312.5}
+        self.assertEqual(expected, output)
 
-        r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
-        r_f_c2544_profile.params = self.PROFILE
-        r_f_c2544_profile.register_generator(traffic_generator)
-        self.assertIsNone(r_f_c2544_profile.execute_traffic(traffic_generator))
 
-        samples = {}
-        for ifname in range(1):
-            name = "xe{}".format(ifname)
-            samples[name] = {
-                "rx_throughput_fps": 20,
-                "tx_throughput_fps": 20,
-                "rx_throughput_mbps": 10,
-                "tx_throughput_mbps": 10,
-                "in_packets": 1000,
-                "out_packets": 1000,
-            }
+class PortPgIDMapTestCase(base.BaseUnitTestCase):
 
-        expected = {
-            'DropPercentage': 0.0,
-            'RxThroughput': 100 / 3.0,
-            'TxThroughput': 100 / 3.0,
-            'CurrentDropPercentage': 0.0,
-            'Throughput': 66.66666666666667,
-            'xe0': {
-                'tx_throughput_fps': 20,
-                'in_packets': 1000,
-                'out_packets': 1000,
-                'rx_throughput_mbps': 10,
-                'tx_throughput_mbps': 10,
-                'rx_throughput_fps': 20,
-            },
-        }
-        traffic_generator.generate_samples.return_value = samples
-        traffic_generator.RUN_DURATION = 30
-        traffic_generator.rfc2544_helper.tolerance_low = 0.0001
-        traffic_generator.rfc2544_helper.tolerance_high = 0.0001
-        result = r_f_c2544_profile.get_drop_percentage(traffic_generator)
-        self.assertDictEqual(result, expected)
+    def test_add_port(self):
+        port_pg_id_map = rfc2544.PortPgIDMap()
+        port_pg_id_map.add_port(10)
+        self.assertEqual(10, port_pg_id_map._last_port)
+        self.assertEqual([], port_pg_id_map._port_pg_id_map[10])
 
-    def test_get_drop_percentage_update(self):
-        traffic_generator = mock.Mock(autospec=RFC2544Profile)
-        traffic_generator.networks = {
-            "uplink_0": ["xe0"],
-            "downlink_0": ["xe1"],
-        }
-        traffic_generator.client = mock.Mock(return_value=True)
+    def test_get_pg_ids(self):
+        port_pg_id_map = rfc2544.PortPgIDMap()
+        port_pg_id_map.add_port(10)
+        port_pg_id_map.increase_pg_id()
+        port_pg_id_map.increase_pg_id()
+        port_pg_id_map.add_port(20)
+        port_pg_id_map.increase_pg_id()
+        self.assertEqual([1, 2], port_pg_id_map.get_pg_ids(10))
+        self.assertEqual([3], port_pg_id_map.get_pg_ids(20))
 
-        r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
-        r_f_c2544_profile.params = self.PROFILE
-        r_f_c2544_profile.register_generator(traffic_generator)
-        self.assertIsNone(r_f_c2544_profile.execute_traffic())
+    def test_increase_pg_id_no_port(self):
+        port_pg_id_map = rfc2544.PortPgIDMap()
+        self.assertIsNone(port_pg_id_map.increase_pg_id())
 
-        samples = {}
-        for ifname in range(1):
-            name = "xe{}".format(ifname)
-            samples[name] = {
-                "rx_throughput_fps": 20,
-                "tx_throughput_fps": 20,
-                "rx_throughput_mbps": 10,
-                "tx_throughput_mbps": 10,
-                "in_packets": 1000,
-                "out_packets": 1002,
-            }
-        expected = {
-            'DropPercentage': 0.1996,
-            'RxThroughput': 33.333333333333336,
-            'TxThroughput': 33.4,
-            'CurrentDropPercentage': 0.1996,
-            'Throughput': 66.66666666666667,
-            'xe0': {
-                'tx_throughput_fps': 20,
-                'in_packets': 1000,
-                'out_packets': 1002,
-                'rx_throughput_mbps': 10,
-                'tx_throughput_mbps': 10,
-                'rx_throughput_fps': 20,
-            },
-        }
-        traffic_generator.generate_samples = mock.MagicMock(
-            return_value=samples)
-        traffic_generator.RUN_DURATION = 30
-        traffic_generator.rfc2544_helper.tolerance_low = 0.0001
-        traffic_generator.rfc2544_helper.tolerance_high = 0.0001
-        result = r_f_c2544_profile.get_drop_percentage(traffic_generator)
-        self.assertDictEqual(expected, result)
+    def test_increase_pg_id_last_port(self):
+        port_pg_id_map = rfc2544.PortPgIDMap()
+        port_pg_id_map.add_port(10)
+        self.assertEqual(1, port_pg_id_map.increase_pg_id())
+        self.assertEqual([1], port_pg_id_map.get_pg_ids(10))
+        self.assertEqual(10, port_pg_id_map._last_port)
 
-    def test_get_drop_percentage_div_zero(self):
-        traffic_generator = mock.Mock(autospec=TrexProfile)
-        traffic_generator.networks = {
-            "uplink_0": ["xe0"],
-            "downlink_0": ["xe1"],
-        }
-        traffic_generator.client = \
-            mock.Mock(return_value=True)
-        r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
-        r_f_c2544_profile.params = self.PROFILE
-        self.assertIsNone(
-            r_f_c2544_profile.execute_traffic(traffic_generator))
-        samples = {}
-        for ifname in range(1):
-            name = "xe{}".format(ifname)
-            samples[name] = {"rx_throughput_fps": 20,
-                             "tx_throughput_fps": 20,
-                             "rx_throughput_mbps": 10,
-                             "tx_throughput_mbps": 10,
-                             "in_packets": 1000,
-                             "out_packets": 0}
-        r_f_c2544_profile.throughput_max = 0
-        expected = {
-            'DropPercentage': 100.0, 'RxThroughput': 100 / 3.0,
-            'TxThroughput': 0.0, 'CurrentDropPercentage': 100.0,
-            'Throughput': 66.66666666666667,
-            'xe0': {
-                'tx_throughput_fps': 20, 'in_packets': 1000,
-                'out_packets': 0, 'rx_throughput_mbps': 10,
-                'tx_throughput_mbps': 10, 'rx_throughput_fps': 20
-            }
-        }
-        traffic_generator.generate_samples = mock.Mock(return_value=samples)
-        traffic_generator.RUN_DURATION = 30
-        traffic_generator.rfc2544_helper.tolerance_low = 0.0001
-        traffic_generator.rfc2544_helper.tolerance_high = 0.0001
-        self.assertDictEqual(expected,
-                             r_f_c2544_profile.get_drop_percentage(traffic_generator))
-
-    def test_get_multiplier(self):
-        r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
-        r_f_c2544_profile.max_rate = 100
-        r_f_c2544_profile.min_rate = 100
-        self.assertEqual("1.0", r_f_c2544_profile.get_multiplier())
-
-    def test_calculate_pps(self):
-        r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
-        r_f_c2544_profile.rate = 100
-        r_f_c2544_profile.pps = 100
-        samples = {'Throughput': 4549093.33}
-        self.assertEqual((2274546.67, 1.0),
-                         r_f_c2544_profile.calculate_pps(samples))
-
-    def test_create_single_stream(self):
-        r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
-        r_f_c2544_profile._create_single_packet = mock.MagicMock()
-        r_f_c2544_profile.pg_id = 1
-        self.assertIsNotNone(
-            r_f_c2544_profile.create_single_stream(64, 2274546.67))
-
-    def test_create_single_stream_no_pg_id(self):
-        r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
-        r_f_c2544_profile._create_single_packet = mock.MagicMock()
-        r_f_c2544_profile.pg_id = 0
-        self.assertIsNotNone(
-            r_f_c2544_profile.create_single_stream(64, 2274546.67))
-
-    def test_execute_latency(self):
-        traffic_generator = mock.Mock(autospec=TrexProfile)
-        traffic_generator.networks = {
-            "private_0": ["xe0"],
-            "public_0": ["xe1"],
-        }
-        traffic_generator.client = \
-            mock.Mock(return_value=True)
-        r_f_c2544_profile = RFC2544Profile(self.TRAFFIC_PROFILE)
-        r_f_c2544_profile.params = self.PROFILE
-        r_f_c2544_profile.first_run = True
-        samples = {}
-        for ifname in range(1):
-            name = "xe{}".format(ifname)
-            samples[name] = {"rx_throughput_fps": 20,
-                             "tx_throughput_fps": 20,
-                             "rx_throughput_mbps": 10,
-                             "tx_throughput_mbps": 10,
-                             "in_packets": 1000,
-                             "out_packets": 0}
-
-        samples['Throughput'] = 4549093.33
-        r_f_c2544_profile.calculate_pps = mock.Mock(return_value=[2274546.67,
-                                                                  1.0])
-
-        self.assertIsNone(r_f_c2544_profile.execute_latency(traffic_generator,
-                                                            samples))
+    def test_increase_pg_id(self):
+        port_pg_id_map = rfc2544.PortPgIDMap()
+        port_pg_id_map.add_port(10)
+        port_pg_id_map.increase_pg_id()
+        self.assertEqual(2, port_pg_id_map.increase_pg_id(port=20))
+        self.assertEqual([1], port_pg_id_map.get_pg_ids(10))
+        self.assertEqual([2], port_pg_id_map.get_pg_ids(20))
+        self.assertEqual(20, port_pg_id_map._last_port)
