@@ -22,7 +22,7 @@
     "angular-sanitize": "^1.6.5"
   },
    "resolutions": {
-    "angular": "~1.6.x"
+    "angular": "~1.7.x"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
