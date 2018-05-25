@@ -60,15 +60,16 @@ class ServicehaTestCase(unittest.TestCase):
         p.setup()
         self.assertTrue(p.setup_done)
 
-    # def test__serviceha_run_sla_error(self, mock_attacker, mock_monitor):
-    #     p = serviceha.ServiceHA(self.args, self.ctx)
+    @mock.patch.object(serviceha, 'baseattacker')
+    @mock.patch.object(serviceha, 'basemonitor')
+    def test__serviceha_run_sla_error(self, mock_monitor, *args):
+        p = serviceha.ServiceHA(self.args, self.ctx)
 
-    #     p.setup()
-    #     self.assertEqual(p.setup_done, True)
+        p.setup()
+        self.assertEqual(p.setup_done, True)
 
-    #     result = {}
-    #     result["outage_time"] = 10
-    #     mock_monitor.Monitor().get_result.return_value = result
+        mock_monitor.MonitorMgr().verify_SLA.return_value = False
 
-    #     ret = {}
-    #     self.assertRaises(AssertionError, p.run, ret)
+        ret = {}
+        self.assertRaises(AssertionError, p.run, ret)
+        self.assertEqual(ret['sla_pass'], 0)
