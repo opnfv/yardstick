@@ -36,6 +36,9 @@ Version History
 | *Date*            | *Version* | *Comment*                       |
 |                   |           |                                 |
 +-------------------+-----------+---------------------------------+
+| May 25, 2018      | 6.1.0     | Yardstick for Fraser release    |
+|                   |           |                                 |
++-------------------+-----------+---------------------------------+
 | April 27, 2018    | 6.0.0     | Yardstick for Fraser release    |
 |                   |           |                                 |
 +-------------------+-----------+---------------------------------+
@@ -117,19 +120,19 @@ Release Data
 | **Project**                    | Yardstick             |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Repo/tag**                   | yardstick/opnfv-6.0.0 |
+| **Repo/tag**                   | yardstick/opnfv-6.1.0 |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Yardstick Docker image tag** | opnfv-6.0.0           |
+| **Yardstick Docker image tag** | opnfv-6.1.0           |
 |                                |                       |
 +--------------------------------+-----------------------+
 | **Release designation**        | Fraser                |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release date**               | April 27, 2018        |
+| **Release date**               | May 25, 2018          |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Purpose of the delivery**    | OPNFV Fraser 6.0.0    |
+| **Purpose of the delivery**    | OPNFV Fraser 6.1.0    |
 |                                |                       |
 +--------------------------------+-----------------------+
 
@@ -148,7 +151,7 @@ Documents
 Software Deliverables
 ---------------------
 
- - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: opnfv-6.0.0)
+ - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: opnfv-6.1.0)
 
 List of Contexts
 ^^^^^^^^^^^^^^^^
@@ -174,7 +177,7 @@ List of Contexts
 List of Runners
 ^^^^^^^^^^^^^^^
 
-Note: Yardstick Fraser 6.0.0 add two new Runners, "Dynamictp" and "Search".
+.. note:: Yardstick Fraser 6.0.0 add two new Runners, "Dynamictp" and "Search".
 
 +---------------+-------------------------------------------------------+
 | **Runner**    | **Description**                                       |
@@ -271,6 +274,8 @@ List of Scenarios
 New Test cases
 --------------
 
+.. note:: Yardstick Fraser 6.1.0 added two new test cases, "TC092" and "TC093".
+
 * Generic NFVI test cases
 
  * OPNFV_YARDSTICK_TCO84 - SPEC CPU 2006 for VM
@@ -280,6 +285,8 @@ New Test cases
  * OPNFV_YARDSTICK_TC087 - SDN Controller resilience in non-HA configuration
  * OPNFV_YARDSTICK_TC090 - Control node Openstack service down - database instance
  * OPNFV_YARDSTICK_TC091 - Control node Openstack service down - heat-api
+ * OPNFV_YARDSTICK_TC092 - SDN Controller resilience in HA configuration
+ * OPNFV_YARDSTICK_TC093 - SDN Vswitch resilience in non-HA or HA configuration
 
 
 Version Change
@@ -383,6 +390,28 @@ Known Issues/Faults
 
 Corrected Faults
 ----------------
+
+Fraser 6.1.0:
+
++--------------------+--------------------------------------------------------------------------+
+| **JIRA REFERENCE** |                             **DESCRIPTION**                              |
++====================+==========================================================================+
+|   YARDSTICK-995    | Test case spec for SDN Virtual Switch resilience                         |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1097   | Add pod.yaml file for APEX installer                                     |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1122   | Remove unused code in SampleVNF                                          |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1125   | Update samples/test_suite.yaml                                           |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1132   | Document for Euphrates test case results                                 |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1138   | Support Restart Operation                                                |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1142   | start_service script fails to start openvswitch service in centos distro |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1165   | Bugfix: openrc api dump should be safe_dump                              |
++--------------------+--------------------------------------------------------------------------+
 
 Fraser 6.0.0:
 
