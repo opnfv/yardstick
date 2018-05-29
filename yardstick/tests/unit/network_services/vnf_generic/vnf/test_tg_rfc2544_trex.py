@@ -225,11 +225,21 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
         self.assertIsNotNone(trex_traffic_gen.resource_helper._terminated.value)
 
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh):
+    def test_collect_kpi(self, ssh, mock_context):
+        mock_context.get_physical_node_from_server.return_value = 'mock_node'
+
         mock_ssh(ssh)
         trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
-        self.assertEqual(trex_traffic_gen.collect_kpi(), {})
+        trex_traffic_gen.scenario_helper.scenario_cfg = {
+            'nodes': {trex_traffic_gen.name: "mock"}
+        }
+        expected = {
+            'physical_node': 'mock_node',
+            'collect_stats': {},
+        }
+        self.assertEqual(trex_traffic_gen.collect_kpi(), expected)
 
     @mock.patch(SSH_HELPER)
     def test_listen_traffic(self, ssh):
@@ -237,9 +247,11 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         trex_traffic_gen = TrexTrafficGenRFC('vnf1', self.VNFD_0)
         self.assertIsNone(trex_traffic_gen.listen_traffic({}))
 
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_instantiate(self, ssh):
+    def test_instantiate(self, ssh, mock_context):
         mock_ssh(ssh)
+        mock_context.get_context_from_server = mock.Mock(return_value='fake_context')
 
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
@@ -271,12 +283,14 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             },
         }
         tg_rfc2544_trex.WAIT_TIME = 3
-        scenario_cfg.update({"nodes": ["tg_1", "vnf_1"]})
+        scenario_cfg.update({"nodes": {"tg_1": {}, "vnf1": {}}})
         self.assertIsNone(trex_traffic_gen.instantiate(scenario_cfg, {}))
 
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_instantiate_error(self, ssh):
+    def test_instantiate_error(self, ssh, mock_context):
         mock_ssh(ssh, exec_result=(1, "", ""))
+        mock_context.get_context_from_server = mock.Mock(return_value='fake_context')
 
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
@@ -287,10 +301,10 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         trex_traffic_gen.setup_helper.setup_vnf_environment = mock.MagicMock()
         scenario_cfg = {
             "tc": "tc_baremetal_rfc2544_ipv4_1flow_64B",
-            "nodes": [
-                "tg_1",
-                "vnf_1",
-            ],
+            "nodes": {
+                "tg_1": {},
+                "vnf1": {}
+            },
             "topology": 'nsb_test_case.yaml',
             'options': {
                 'packetsize': 64,
