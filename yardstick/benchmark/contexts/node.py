@@ -135,6 +135,22 @@ class NodeContext(Context):
             playbook = os.path.join(ANSIBLE_DIR, playbook)
         return playbook
 
+    def _get_physical_nodes(self):
+        return self.nodes
+
+    def _get_physical_node_for_server(self, attr_name):
+        node_name, name = self.split_name(attr_name)
+        if name is None or self.name != name:
+            return None
+
+        matching_nodes = (n for n in self.nodes if n["name"] == node_name)
+        try:
+            node = dict(next(matching_nodes))
+        except StopIteration:
+            return None
+
+        return "{}.{}".format(node["name"], self.name.split("-")[0])
+
     def _get_server(self, attr_name):
         """lookup server info by name from context
         attr_name: a name for a server listed in nodes config file

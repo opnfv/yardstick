@@ -217,14 +217,26 @@ class TestRouterVNF(unittest.TestCase):
         self.assertDictEqual(stats, self.STATS)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.router_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh, _):
+    def test_collect_kpi(self, ssh, mock_context, _):
         m = mock_ssh(ssh)
+
+        mock_context.get_physical_node_from_server.return_value = 'mock_node'
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         router_vnf = RouterVNF(name, vnfd)
+        router_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {router_vnf.name: "mock"}
+        }
         router_vnf.ssh_helper = m
-        result = {'packets_dropped': 0, 'packets_fwd': 0, 'packets_in': 0, 'link_stats': {}}
+        result = {
+            'physical_node': 'mock_node',
+            'packets_dropped': 0,
+            'packets_fwd': 0,
+            'packets_in': 0,
+            'link_stats': {}
+        }
         self.assertEqual(result, router_vnf.collect_kpi())
 
     @mock.patch(SSH_HELPER)
