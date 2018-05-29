@@ -21,9 +21,10 @@ from yardstick.network_services.traffic_profile import base as tp_base
 from yardstick.network_services.traffic_profile import rfc2544
 from yardstick.network_services.vnf_generic.vnf import sample_vnf
 from yardstick.network_services.vnf_generic.vnf import tg_trex
+from yardstick.benchmark.contexts import base as ctx_base
 
 
-NAME = 'vnf_1'
+NAME = 'vnf__1'
 
 
 class TestTrexTrafficGen(unittest.TestCase):
@@ -303,19 +304,28 @@ class TestTrexTrafficGen(unittest.TestCase):
         self.assertIsInstance(trex_traffic_gen.resource_helper,
                               tg_trex.TrexResourceHelper)
 
-    def test_collect_kpi(self):
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
+    def test_collect_kpi(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen.scenario_helper.scenario_cfg = {
+            'nodes': {trex_traffic_gen.name: "mock"}
+        }
         trex_traffic_gen.resource_helper._queue.put({})
         result = trex_traffic_gen.collect_kpi()
-        self.assertEqual({}, result)
+        expected = {
+            'physical_node': 'mock_node',
+            'collect_stats': {}
+        }
+        self.assertEqual(expected, result)
 
     def test_listen_traffic(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
         self.assertIsNone(trex_traffic_gen.listen_traffic({}))
 
-    def test_instantiate(self):
+    @mock.patch.object(ctx_base.Context, 'get_context_from_server', return_value='fake_context')
+    def test_instantiate(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen._start_server = mock.Mock(return_value=0)
@@ -329,7 +339,8 @@ class TestTrexTrafficGen(unittest.TestCase):
         self.assertIsNone(trex_traffic_gen.instantiate(self.SCENARIO_CFG,
                                                        self.CONTEXT_CFG))
 
-    def test_instantiate_error(self):
+    @mock.patch.object(ctx_base.Context, 'get_context_from_server', return_value='fake_context')
+    def test_instantiate_error(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         trex_traffic_gen = tg_trex.TrexTrafficGen(NAME, vnfd)
         trex_traffic_gen._start_server = mock.Mock(return_value=0)
