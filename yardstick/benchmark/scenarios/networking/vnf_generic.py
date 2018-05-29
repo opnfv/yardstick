@@ -36,6 +36,8 @@ from yardstick.network_services import traffic_profile
 from yardstick.network_services.traffic_profile import base as tprofile_base
 from yardstick.network_services.utils import get_nsb_option
 from yardstick import ssh
+from yardstick.benchmark.contexts.standalone.ovs_dpdk import OvsDpdkContext
+from yardstick.benchmark.contexts.node import NodeContext
 
 traffic_profile.register_modules()
 
@@ -440,8 +442,21 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         for traffic_gen in traffic_runners:
             traffic_gen.listen_traffic(self.traffic_profile)
 
+        contexts = set()
+        nodes = {}
+        for vnf in self.vnfs:
+            contexts.add(vnf.nfvi_context)
+
+        for context in contexts:
+            if isinstance(context, OvsDpdkContext):
+                for host in context.nfvi_host:
+                    nodes.update({host['name']: host})
+            elif isinstance(context, NodeContext):
+                for node in context.nodes:
+                    nodes.update({node['name']: node})
+
         # register collector with yardstick for KPI collection.
-        self.collector = Collector(self.vnfs)
+        self.collector = Collector(self.vnfs, nodes)
         self.collector.start()
 
         # Start the actual traffic
