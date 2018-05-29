@@ -23,7 +23,7 @@ from yardstick.tests import STL_MOCKS
 
 
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
-NAME = 'vnf_1'
+NAME = 'vnf__1'
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
@@ -305,14 +305,25 @@ class TestTrexTrafficGen(unittest.TestCase):
         self.assertIsInstance(
             trex_traffic_gen.resource_helper, TrexResourceHelper)
 
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh):
+    def test_collect_kpi(self, ssh, mock_context):
         mock_ssh(ssh)
+
+        mock_context.get_physical_node_from_server.return_value = 'mock_node'
+
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
+        trex_traffic_gen.scenario_helper.scenario_cfg = {
+            'nodes': {trex_traffic_gen.name: "mock"}
+        }
         trex_traffic_gen.resource_helper._queue.put({})
         result = trex_traffic_gen.collect_kpi()
-        self.assertEqual({}, result)
+        expected = {
+            'physical_node': 'mock_node',
+            'collect_stats': {}
+        }
+        self.assertEqual(expected, result)
 
     @mock.patch(SSH_HELPER)
     def test_listen_traffic(self, ssh):
@@ -321,9 +332,11 @@ class TestTrexTrafficGen(unittest.TestCase):
         trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
         self.assertIsNone(trex_traffic_gen.listen_traffic({}))
 
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_instantiate(self, ssh):
+    def test_instantiate(self, ssh, mock_context):
         mock_ssh(ssh)
+        mock_context.get_context_from_server = mock.Mock(return_value='fake_context')
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
@@ -339,9 +352,11 @@ class TestTrexTrafficGen(unittest.TestCase):
         self.assertIsNone(trex_traffic_gen.instantiate(
             self.SCENARIO_CFG, self.CONTEXT_CFG))
 
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_instantiate_error(self, ssh):
+    def test_instantiate_error(self, ssh, mock_context):
         mock_ssh(ssh, exec_result=(1, "", ""))
+        mock_context.get_context_from_server = mock.Mock(return_value='fake_context')
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         trex_traffic_gen = TrexTrafficGen(NAME, vnfd)
