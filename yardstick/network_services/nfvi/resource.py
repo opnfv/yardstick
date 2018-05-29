@@ -282,10 +282,11 @@ class ResourceProfile(object):
         self._prepare_collectd_conf(config_file_path)
 
         connection.execute('sudo pkill -x -9 collectd')
-        exit_status = connection.execute("which %s > /dev/null 2>&1" % collectd_path)[0]
+        cmd = "which %s > /dev/null 2>&1" % collectd_path
+        exit_status, _, stderr = connection.execute(cmd)
         if exit_status != 0:
-            LOG.warning("%s is not present disabling", collectd_path)
-            return
+            raise ResourceCommandError(command=cmd, stderr=stderr)
+
         if "ovs_stats" in self.plugins:
             self._setup_ovs_stats(connection)
 
@@ -293,8 +294,12 @@ class ResourceProfile(object):
         LOG.debug("Start collectd service..... %s second timeout", self.timeout)
         # intel_pmu plug requires large numbers of files open, so try to set
         # ulimit -n to a large value
-        connection.execute("sudo bash -c 'ulimit -n 1000000 ; %s'" % collectd_path,
-                           timeout=self.timeout)
+
+        cmd = "sudo bash -c 'ulimit -n 1000000 ; %s'" % collectd_path
+        exit_status, _, stderr = connection.execute(cmd, timeout=self.timeout)
+        if exit_status != 0:
+            raise ResourceCommandError(command=cmd, stderr=stderr)
+
         LOG.debug("Done")
 
     def initiate_systemagent(self, bin_path):

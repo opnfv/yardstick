@@ -18,6 +18,7 @@ import mock
 import unittest
 
 from yardstick.common import exceptions
+from yardstick.common.exceptions import ResourceCommandError
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.nfvi import resource, collectd
 
@@ -139,8 +140,8 @@ class TestResourceProfile(unittest.TestCase):
             self.resource_profile._start_collectd(ssh_mock, "/opt/nsb_bin")
 
         ssh_mock.execute = mock.Mock(return_value=(1, "", ""))
-        self.assertIsNone(self.resource_profile._start_collectd(ssh_mock,
-                                                                "/opt/nsb_bin"))
+        with self.assertRaises(ResourceCommandError):
+            self.resource_profile._start_collectd(ssh_mock, "/opt/nsb_bin")
 
     def test__start_rabbitmq(self):
         ssh_mock = mock.Mock()
