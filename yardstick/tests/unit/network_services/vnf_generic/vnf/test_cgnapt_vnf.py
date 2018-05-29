@@ -322,9 +322,13 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         self.assertIsNone(cgnapt_approx_vnf._vnf_process)
 
     @mock.patch.object(process, 'check_if_process_failed')
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     def test_collect_kpi(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {cgnapt_approx_vnf.name: "mock"}
+        }
         cgnapt_approx_vnf._vnf_process = mock.MagicMock(
             **{"is_alive.return_value": True, "exitcode": None})
         cgnapt_approx_vnf.q_in = mock.MagicMock()
@@ -332,7 +336,12 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         cgnapt_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
         cgnapt_approx_vnf.resource = mock.Mock(
             autospec=resource.ResourceProfile)
-        result = {'packets_dropped': 0, 'packets_fwd': 0, 'packets_in': 0}
+        result = {
+            'physical_node': 'mock_node',
+            'packets_dropped': 0,
+            'packets_fwd': 0,
+            'packets_in': 0
+        }
         with mock.patch.object(cgnapt_approx_vnf, 'get_stats',
                                return_value=''):
             self.assertEqual(result, cgnapt_approx_vnf.collect_kpi())

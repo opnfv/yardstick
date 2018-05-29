@@ -23,6 +23,7 @@ from yardstick.tests import STL_MOCKS
 from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from yardstick.common import utils
 from yardstick.common import exceptions
+from yardstick.benchmark.contexts import base as ctx_base
 
 
 STLClient = mock.MagicMock()
@@ -30,7 +31,7 @@ stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
 
 if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.acl_vnf import AclApproxVnf
+    from yardstick.network_services.vnf_generic.vnf import acl_vnf
     from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
     from yardstick.network_services.nfvi.resource import ResourceProfile
     from yardstick.network_services.vnf_generic.vnf.acl_vnf import AclApproxSetupEnvSetupEnvHelper
@@ -146,7 +147,7 @@ class TestAclApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens513f0',
-                                       'vld_id': AclApproxVnf.DOWNLINK,
+                                       'vld_id': acl_vnf.AclApproxVnf.DOWNLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.40.20',
                                        'dst_mac': '00:00:00:00:00:01',
@@ -174,7 +175,7 @@ class TestAclApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens785f0',
-                                       'vld_id': AclApproxVnf.UPLINK,
+                                       'vld_id': acl_vnf.AclApproxVnf.UPLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.100.20',
                                        'dst_mac': '00:00:00:00:00:02',
@@ -199,7 +200,7 @@ class TestAclApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens786f0',
-                                       'vld_id': AclApproxVnf.UPLINK,
+                                       'vld_id': acl_vnf.AclApproxVnf.UPLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.100.19',
                                        'dst_mac': '00:00:00:00:00:04',
@@ -209,7 +210,7 @@ class TestAclApproxVnf(unittest.TestCase):
                                        'vpci': '0000:05:00.0',
                                        'dpdk_port_num': 0},
                                'xe1': {'local_iface_name': 'ens786f1',
-                                       'vld_id': AclApproxVnf.DOWNLINK,
+                                       'vld_id': acl_vnf.AclApproxVnf.DOWNLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.40.19',
                                        'dst_mac': '00:00:00:00:00:03',
@@ -245,22 +246,31 @@ class TestAclApproxVnf(unittest.TestCase):
 
     def test___init__(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
+        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd)
         self.assertIsNone(acl_approx_vnf._vnf_process)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     @mock.patch(SSH_HELPER)
     def test_collect_kpi(self, ssh, *args):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
+        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd)
+        acl_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {acl_approx_vnf.name: "mock"}
+        }
         acl_approx_vnf.q_in = mock.MagicMock()
         acl_approx_vnf.q_out = mock.MagicMock()
         acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
         acl_approx_vnf.resource = mock.Mock(autospec=ResourceProfile)
         acl_approx_vnf.vnf_execute = mock.Mock(return_value="")
-        result = {'packets_dropped': 0, 'packets_fwd': 0, 'packets_in': 0}
+        result = {
+            'physical_node': 'mock_node',
+            'packets_dropped': 0,
+            'packets_fwd': 0,
+            'packets_in': 0
+        }
         self.assertEqual(result, acl_approx_vnf.collect_kpi())
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
@@ -269,7 +279,7 @@ class TestAclApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
+        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd)
         acl_approx_vnf.q_in = mock.MagicMock()
         acl_approx_vnf.q_out = mock.MagicMock()
         acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
@@ -281,7 +291,7 @@ class TestAclApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
+        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd)
         acl_approx_vnf.q_in = mock.MagicMock()
         acl_approx_vnf.q_out = mock.MagicMock()
         acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
@@ -302,7 +312,7 @@ class TestAclApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
+        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd)
         acl_approx_vnf._build_config = mock.MagicMock()
         acl_approx_vnf.queue_wrapper = mock.MagicMock()
         acl_approx_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
@@ -322,7 +332,7 @@ class TestAclApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
+        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd)
         acl_approx_vnf.deploy_helper = mock.MagicMock()
         acl_approx_vnf.resource_helper = mock.MagicMock()
         acl_approx_vnf._build_config = mock.MagicMock()
@@ -340,7 +350,7 @@ class TestAclApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = AclApproxVnf(name, vnfd)
+        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd)
         acl_approx_vnf._vnf_process = mock.MagicMock()
         acl_approx_vnf._vnf_process.terminate = mock.Mock()
         acl_approx_vnf.used_drivers = {"01:01.0": "i40e",

@@ -25,6 +25,8 @@ from yardstick.common.constants import YARDSTICK_ROOT_PATH
 
 class DummyContextClass(Context):
 
+    __context_type__ = "Dummy"
+
     def __init__(self, host_name_separator='.'):
         super(DummyContextClass, self).__init__\
             (host_name_separator=host_name_separator)

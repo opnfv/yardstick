@@ -47,7 +47,6 @@ class RouterVNF(SampleVNF):
     def instantiate(self, scenario_cfg, context_cfg):
         self.scenario_helper.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
-        self.nfvi_context = Context.get_context_from_server(self.scenario_helper.nodes[self.name])
         self.configure_routes(self.name, scenario_cfg, context_cfg)
 
     def wait_for_instantiate(self):
@@ -107,8 +106,11 @@ class RouterVNF(SampleVNF):
         stdout = self.ssh_helper.execute(ip_link_stats)[1]
         link_stats = self.get_stats(stdout)
         # get RX/TX from link_stats and assign to results
+        physical_node = Context.get_physical_node_from_server(
+            self.scenario_helper.nodes[self.name])
 
         result = {
+            "physical_node": physical_node,
             "packets_in": 0,
             "packets_dropped": 0,
             "packets_fwd": 0,

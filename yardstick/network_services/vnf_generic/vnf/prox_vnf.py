@@ -21,6 +21,7 @@ from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxDpdkVnfS
 from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF
 from yardstick.network_services import constants
+from yardstick.benchmark.contexts import base as context_base
 
 LOG = logging.getLogger(__name__)
 
@@ -68,13 +69,19 @@ class ProxApproxVnf(SampleVNF):
     def collect_kpi(self):
         # we can't get KPIs if the VNF is down
         check_if_process_failed(self._vnf_process, 0.01)
+
+        physical_node = context_base.Context.get_physical_node_from_server(
+            self.scenario_helper.nodes[self.name])
+
+        result = {"physical_node": physical_node}
+
         if self.resource_helper is None:
-            result = {
+            result.update({
                 "packets_in": 0,
                 "packets_dropped": 0,
                 "packets_fwd": 0,
                 "collect_stats": {"core": {}},
-            }
+            })
             return result
 
         if (self.tsc_hz == 0):
@@ -102,14 +109,14 @@ class ProxApproxVnf(SampleVNF):
 
         tsc = tsc / port_count
 
-        result = {
+        result.update({
             "packets_in": rx_total,
             "packets_dropped": max((tx_total - rx_total), 0),
             "packets_fwd": tx_total,
             # we share ProxResourceHelper with TG, but we want to collect
             # collectd KPIs here and not TG KPIs, so use a different method name
             "collect_stats": self.resource_helper.collect_collectd_kpi(),
-        }
+        })
         try:
             curr_packets_in = int(((rx_total - self.prev_packets_in) * self.tsc_hz)
                                 / (tsc - self.prev_tsc))

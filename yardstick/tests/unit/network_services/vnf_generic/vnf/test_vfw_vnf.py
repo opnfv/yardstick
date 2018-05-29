@@ -21,7 +21,7 @@ from yardstick.tests import STL_MOCKS
 from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 
 from yardstick.common import utils
-
+from yardstick.benchmark.contexts import base as ctx_base
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
@@ -259,12 +259,15 @@ pipeline>
 """  # noqa
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     @mock.patch(SSH_HELPER)
     def test_collect_kpi(self, ssh, *args):
         mock_ssh(ssh)
-
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         vfw_approx_vnf = FWApproxVnf(name, vnfd)
+        vfw_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {vfw_approx_vnf.name: "mock"}
+        }
         vfw_approx_vnf.q_in = mock.MagicMock()
         vfw_approx_vnf.q_out = mock.MagicMock()
         vfw_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
@@ -273,6 +276,7 @@ pipeline>
             **{'collect_kpi.return_value': {"core": {}}})
         vfw_approx_vnf.vnf_execute = mock.Mock(return_value=self.STATS)
         result = {
+            'physical_node': 'mock_node',
             'packets_dropped': 0,
             'packets_fwd': 6007180,
             'packets_in': 6007180,
@@ -334,7 +338,7 @@ pipeline>
         vfw_approx_vnf.ssh_helper.run.assert_called_once()
 
     @mock.patch.object(utils, 'find_relative_file')
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
+    @mock.patch.object(ctx_base.Context, 'get_context_from_server')
     @mock.patch(SSH_HELPER)
     def test_instantiate(self, ssh, *args):
         mock_ssh(ssh)
