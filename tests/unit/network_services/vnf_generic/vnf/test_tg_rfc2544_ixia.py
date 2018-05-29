@@ -172,7 +172,8 @@ class TestIXIATrafficGen(unittest.TestCase):
             ixnet_traffic_gen = IxiaTrafficGen(NAME, vnfd)
             self.assertIsNone(ixnet_traffic_gen.listen_traffic({}))
 
-    def test_instantiate(self, *args):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
+    def test_instantiate(self, mock_context, *args):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -194,6 +195,9 @@ class TestIXIATrafficGen(unittest.TestCase):
                                                                            '1C/1T',
                                                                        'worker_threads': 1}}
                                              }})
+            scenario_cfg.update({
+                'nodes': {ixnet_traffic_gen.name: "mock"}
+            })
             ixnet_traffic_gen.topology = ""
             ixnet_traffic_gen.get_ixobj = mock.MagicMock()
             ixnet_traffic_gen._ixia_traffic_gen = mock.MagicMock()
@@ -202,17 +206,28 @@ class TestIXIATrafficGen(unittest.TestCase):
                 IOError,
                 ixnet_traffic_gen.instantiate(scenario_cfg, {}))
 
-    def test_collect_kpi(self, *args):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
+    def test_collect_kpi(self, mock_context, *args):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
+
+            mock_context.get_physical_node_from_server.return_value = 'mock_node'
+
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ixnet_traffic_gen = IxiaTrafficGen(NAME, vnfd)
+            ixnet_traffic_gen.scenario_helper.scenario_cfg = {
+                'nodes': {ixnet_traffic_gen.name: "mock"}
+            }
             ixnet_traffic_gen.data = {}
             restult = ixnet_traffic_gen.collect_kpi()
-            self.assertEqual({}, restult)
+            expected = {
+                'physical_node': 'mock_node',
+                'collect_stats': {},
+            }
+            self.assertEqual(expected, restult)
 
     def test_terminate(self, *args):
         with mock.patch("yardstick.ssh.SSH") as ssh:
