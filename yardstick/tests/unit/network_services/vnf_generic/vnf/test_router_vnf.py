@@ -18,6 +18,7 @@ import mock
 
 from yardstick.tests import STL_MOCKS
 from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+from yardstick.benchmark.contexts import base as ctx_base
 
 
 STLClient = mock.MagicMock()
@@ -214,15 +215,25 @@ class TestRouterVNF(unittest.TestCase):
         stats = RouterVNF.get_stats(self.IP_SHOW_STATS_OUTPUT)
         self.assertDictEqual(stats, self.STATS)
 
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh, _):
+    def test_collect_kpi(self, ssh, *args):
         m = mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         router_vnf = RouterVNF(name, vnfd)
+        router_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {router_vnf.name: "mock"}
+        }
         router_vnf.ssh_helper = m
-        result = {'packets_dropped': 0, 'packets_fwd': 0, 'packets_in': 0, 'link_stats': {}}
+        result = {
+            'physical_node': 'mock_node',
+            'packets_dropped': 0,
+            'packets_fwd': 0,
+            'packets_in': 0,
+            'link_stats': {}
+        }
         self.assertEqual(result, router_vnf.collect_kpi())
 
     @mock.patch(SSH_HELPER)
@@ -235,9 +246,9 @@ class TestRouterVNF(unittest.TestCase):
         router_vnf._run()
         router_vnf.ssh_helper.drop_connection.assert_called_once()
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.router_vnf.Context")
+    @mock.patch.object(ctx_base, 'Context')
     @mock.patch(SSH_HELPER)
-    def test_instantiate(self, ssh, _):
+    def test_instantiate(self, ssh, *args):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]

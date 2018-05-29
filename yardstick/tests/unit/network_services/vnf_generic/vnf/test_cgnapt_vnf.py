@@ -11,25 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 from copy import deepcopy
-import os
-import unittest
+import time
+
 import mock
+import unittest
 
-from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
+from yardstick.benchmark.contexts import base as ctx_base
 from yardstick.common import utils
-
-from yardstick.network_services.vnf_generic.vnf.cgnapt_vnf import CgnaptApproxVnf, \
-    CgnaptApproxSetupEnvHelper
+from yardstick.common import process
 from yardstick.network_services.vnf_generic.vnf import cgnapt_vnf
-from yardstick.network_services.nfvi.resource import ResourceProfile
+from yardstick.network_services.vnf_generic.vnf import sample_vnf
+from yardstick.network_services.nfvi import resource
+
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
-SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
-
-
 name = 'vnf__0'
 
 
@@ -37,8 +34,9 @@ class TestCgnaptApproxSetupEnvHelper(unittest.TestCase):
 
     def test__generate_ip_from_pool(self):
 
-        ip = CgnaptApproxSetupEnvHelper._generate_ip_from_pool("1.2.3.4")
-        self.assertEqual(next(ip), '1.2.3.4')
+        _ip = '1.2.3.4'
+        ip = cgnapt_vnf.CgnaptApproxSetupEnvHelper._generate_ip_from_pool(_ip)
+        self.assertEqual(next(ip), _ip)
         self.assertEqual(next(ip), '1.2.4.4')
         self.assertEqual(next(ip), '1.2.5.4')
 
@@ -57,19 +55,22 @@ link 1 up
 """
         header = "This is a header"
 
-        out = CgnaptApproxSetupEnvHelper._update_cgnat_script_file(header, sample.splitlines())
+        out = cgnapt_vnf.CgnaptApproxSetupEnvHelper._update_cgnat_script_file(
+            header, sample.splitlines())
         self.assertNotIn("This is a header", out)
 
     def test__get_cgnapt_config(self):
         vnfd_helper = mock.MagicMock()
         vnfd_helper.port_pairs.uplink_ports = [{"name": 'a'}, {"name": "b"}, {"name": "c"}]
 
-        helper = CgnaptApproxSetupEnvHelper(vnfd_helper, mock.Mock(), mock.Mock())
+        helper = cgnapt_vnf.CgnaptApproxSetupEnvHelper(
+            vnfd_helper, mock.Mock(), mock.Mock())
         result = helper._get_cgnapt_config()
         self.assertIsNotNone(result)
 
     def test_scale(self):
-        helper = CgnaptApproxSetupEnvHelper(mock.Mock(), mock.Mock(), mock.Mock())
+        helper = cgnapt_vnf.CgnaptApproxSetupEnvHelper(
+            mock.Mock(), mock.Mock(), mock.Mock())
         with self.assertRaises(NotImplementedError):
             helper.scale()
 
@@ -85,9 +86,8 @@ link 1 up
         scenario_helper.options = {}
         scenario_helper.all_options = {}
 
-        cgnat_approx_setup_helper = CgnaptApproxSetupEnvHelper(vnfd_helper,
-                                                               ssh_helper,
-                                                               scenario_helper)
+        cgnat_approx_setup_helper = cgnapt_vnf.CgnaptApproxSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
 
         cgnat_approx_setup_helper.ssh_helper.provision_tool = mock.Mock(return_value='tool_path')
         cgnat_approx_setup_helper.ssh_helper.all_ports = mock.Mock()
@@ -96,7 +96,7 @@ link 1 up
         self.assertEqual(cgnat_approx_setup_helper.build_config(), expected)
 
 
-@mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Process")
+@mock.patch.object(sample_vnf, 'Process')
 class TestCgnaptApproxVnf(unittest.TestCase):
     VNFD = {'vnfd:vnfd-catalog':
             {'vnfd':
@@ -216,7 +216,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens513f0',
-                                       'vld_id': CgnaptApproxVnf.DOWNLINK,
+                                       'vld_id': cgnapt_vnf.CgnaptApproxVnf.DOWNLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.40.20',
                                        'dst_mac': '00:00:00:00:00:01',
@@ -244,7 +244,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens785f0',
-                                       'vld_id': CgnaptApproxVnf.UPLINK,
+                                       'vld_id': cgnapt_vnf.CgnaptApproxVnf.UPLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.100.20',
                                        'dst_mac': '00:00:00:00:00:02',
@@ -269,7 +269,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                               'ip': '1.2.1.1',
                               'interfaces':
                               {'xe0': {'local_iface_name': 'ens786f0',
-                                       'vld_id': CgnaptApproxVnf.UPLINK,
+                                       'vld_id': cgnapt_vnf.CgnaptApproxVnf.UPLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.100.19',
                                        'dst_mac': '00:00:00:00:00:04',
@@ -279,7 +279,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
                                        'vpci': '0000:05:00.0',
                                        'dpdk_port_num': 0},
                                'xe1': {'local_iface_name': 'ens786f1',
-                                       'vld_id': CgnaptApproxVnf.DOWNLINK,
+                                       'vld_id': cgnapt_vnf.CgnaptApproxVnf.DOWNLINK,
                                        'netmask': '255.255.255.0',
                                        'local_ip': '152.16.40.19',
                                        'dst_mac': '00:00:00:00:00:03',
@@ -318,81 +318,68 @@ class TestCgnaptApproxVnf(unittest.TestCase):
 
     def test___init__(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
         self.assertIsNone(cgnapt_approx_vnf._vnf_process)
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
-    @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh, *args):
-        mock_ssh(ssh)
-
+    @mock.patch.object(process, 'check_if_process_failed')
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
+    def test_collect_kpi(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {cgnapt_approx_vnf.name: "mock"}
+        }
         cgnapt_approx_vnf._vnf_process = mock.MagicMock(
             **{"is_alive.return_value": True, "exitcode": None})
         cgnapt_approx_vnf.q_in = mock.MagicMock()
         cgnapt_approx_vnf.q_out = mock.MagicMock()
         cgnapt_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
-        cgnapt_approx_vnf.resource = mock.Mock(autospec=ResourceProfile)
-        result = {'packets_dropped': 0, 'packets_fwd': 0, 'packets_in': 0}
-        self.assertEqual(result, cgnapt_approx_vnf.collect_kpi())
+        cgnapt_approx_vnf.resource = mock.Mock(
+            autospec=resource.ResourceProfile)
+        result = {
+            'physical_node': 'mock_node',
+            'packets_dropped': 0,
+            'packets_fwd': 0,
+            'packets_in': 0
+        }
+        with mock.patch.object(cgnapt_approx_vnf, 'get_stats',
+                               return_value=''):
+            self.assertEqual(result, cgnapt_approx_vnf.collect_kpi())
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
-    @mock.patch(SSH_HELPER)
-    def test_vnf_execute_command(self, ssh, *args):
-        mock_ssh(ssh)
-
+    @mock.patch.object(time, 'sleep')
+    def test_vnf_execute_command(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
-        cgnapt_approx_vnf.q_in = mock.MagicMock()
-        cgnapt_approx_vnf.q_out = mock.MagicMock()
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf.q_in = mock.Mock()
+        cgnapt_approx_vnf.q_out = mock.Mock()
         cgnapt_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
-        cmd = "quit"
-        self.assertEqual("", cgnapt_approx_vnf.vnf_execute(cmd))
+        self.assertEqual("", cgnapt_approx_vnf.vnf_execute('quit'))
 
-    @mock.patch(SSH_HELPER)
-    def test_get_stats(self, ssh, *args):
-        mock_ssh(ssh)
-
+    def test_get_stats(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
-        cgnapt_approx_vnf.q_in = mock.MagicMock()
-        cgnapt_approx_vnf.q_out = mock.MagicMock()
-        cgnapt_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
-        result = \
-            "CG-NAPT(.*\n)*Received 100, Missed 0, Dropped 0,Translated 100,ingress"
-        cgnapt_approx_vnf.vnf_execute = mock.Mock(return_value=result)
-        self.assertListEqual(list(result), list(cgnapt_approx_vnf.get_stats()))
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
+        with mock.patch.object(cgnapt_approx_vnf, 'vnf_execute') as mock_exec:
+            mock_exec.return_value = 'output'
+            self.assertEqual('output', cgnapt_approx_vnf.get_stats())
 
-    def _get_file_abspath(self, filename):
-        curr_path = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(curr_path, filename)
-        return file_path
+        mock_exec.assert_called_once_with('p cgnapt stats')
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.cgnapt_vnf.hex")
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.cgnapt_vnf.eval")
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.cgnapt_vnf.open')
-    @mock.patch(SSH_HELPER)
-    def test_run_vcgnapt(self, ssh, *args):
-        mock_ssh(ssh)
-
+    def test_run_vcgnapt(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
-        cgnapt_approx_vnf._build_config = mock.MagicMock()
-        cgnapt_approx_vnf.queue_wrapper = mock.MagicMock()
-        cgnapt_approx_vnf.ssh_helper = mock.MagicMock()
-        cgnapt_approx_vnf.ssh_helper.run = mock.MagicMock()
-        cgnapt_approx_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
-        cgnapt_approx_vnf._run()
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf.ssh_helper = mock.Mock()
+        cgnapt_approx_vnf.setup_helper = mock.Mock()
+        with mock.patch.object(cgnapt_approx_vnf, '_build_config'), \
+                mock.patch.object(cgnapt_approx_vnf, '_build_run_kwargs'):
+            cgnapt_approx_vnf._run()
+
         cgnapt_approx_vnf.ssh_helper.run.assert_called_once()
+        cgnapt_approx_vnf.setup_helper.kill_vnf.assert_called_once()
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
-    @mock.patch(SSH_HELPER)
-    def test_instantiate(self, ssh, *args):
-        mock_ssh(ssh)
-
+    @mock.patch.object(ctx_base.Context, 'get_context_from_server')
+    def test_instantiate(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
         cgnapt_approx_vnf.deploy_helper = mock.MagicMock()
         cgnapt_approx_vnf.resource_helper = mock.MagicMock()
         cgnapt_approx_vnf._build_config = mock.MagicMock()
@@ -401,51 +388,25 @@ class TestCgnaptApproxVnf(unittest.TestCase):
         cgnapt_approx_vnf.q_out.put("pipeline>")
         cgnapt_vnf.WAIT_TIME = 3
         self.scenario_cfg.update({"nodes": {"vnf__0": ""}})
-        self.assertIsNone(cgnapt_approx_vnf.instantiate(self.scenario_cfg,
-                                                        self.context_cfg))
+        with mock.patch.object(cgnapt_approx_vnf, '_start_vnf'):
+            self.assertIsNone(cgnapt_approx_vnf.instantiate(
+                self.scenario_cfg, self.context_cfg))
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
-    @mock.patch(SSH_HELPER)
-    def test_terminate(self, ssh, *args):
-        mock_ssh(ssh)
-
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
-        cgnapt_approx_vnf._vnf_process = mock.MagicMock()
-        cgnapt_approx_vnf._vnf_process.terminate = mock.Mock()
-        cgnapt_approx_vnf.used_drivers = {"01:01.0": "i40e",
-                                          "01:01.1": "i40e"}
-        cgnapt_approx_vnf.vnf_execute = mock.MagicMock()
-        cgnapt_approx_vnf.dpdk_nic_bind = "dpdk_nic_bind.py"
-        cgnapt_approx_vnf._resource_collect_stop = mock.Mock()
-        self.assertIsNone(cgnapt_approx_vnf.terminate())
-
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
-    @mock.patch(SSH_HELPER)
-    def test__vnf_up_post(self, ssh, *args):
-        mock_ssh(ssh)
-
+    @mock.patch.object(time, 'sleep')
+    def test__vnf_up_post(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         self.scenario_cfg['options'][name]['napt'] = 'static'
-
-        cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
-        cgnapt_approx_vnf._vnf_process = mock.MagicMock()
-        cgnapt_approx_vnf._vnf_process.terminate = mock.Mock()
-        cgnapt_approx_vnf.vnf_execute = mock.MagicMock()
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf.vnf_execute = mock.Mock()
         cgnapt_approx_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
-        cgnapt_approx_vnf._resource_collect_stop = mock.Mock()
-        cgnapt_approx_vnf._vnf_up_post()
+        with mock.patch.object(cgnapt_approx_vnf, 'setup_helper') as \
+                mock_setup_helper:
+            mock_setup_helper._generate_ip_from_pool.return_value = ['ip1']
+            mock_setup_helper._get_cgnapt_config.return_value = ['gw_ip1']
+            cgnapt_approx_vnf._vnf_up_post()
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
-    @mock.patch(SSH_HELPER)
-    def test__vnf_up_post_short(self, ssh, *args):
-        mock_ssh(ssh)
-
+    def test__vnf_up_post_short(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = CgnaptApproxVnf(name, vnfd)
-        cgnapt_approx_vnf._vnf_process = mock.MagicMock()
-        cgnapt_approx_vnf._vnf_process.terminate = mock.Mock()
-        cgnapt_approx_vnf.vnf_execute = mock.MagicMock()
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
         cgnapt_approx_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
-        cgnapt_approx_vnf._resource_collect_stop = mock.Mock()
         cgnapt_approx_vnf._vnf_up_post()

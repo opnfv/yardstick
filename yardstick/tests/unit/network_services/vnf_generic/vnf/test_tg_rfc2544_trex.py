@@ -20,6 +20,7 @@ import unittest
 from yardstick.network_services.traffic_profile import base as tp_base
 from yardstick.network_services.vnf_generic.vnf import sample_vnf
 from yardstick.network_services.vnf_generic.vnf import tg_rfc2544_trex
+from yardstick.benchmark.contexts import base as ctx_base
 
 
 class TestTrexRfcResouceHelper(unittest.TestCase):
@@ -226,7 +227,20 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         trex_traffic_gen = tg_rfc2544_trex.TrexTrafficGenRFC('vnf1', self.VNFD_0)
         self.assertIsNotNone(trex_traffic_gen.resource_helper._terminated.value)
 
-    def test_instantiate(self):
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
+    def test_collect_kpi(self, *args):
+        trex_traffic_gen = tg_rfc2544_trex.TrexTrafficGenRFC('vnf1', self.VNFD_0)
+        trex_traffic_gen.scenario_helper.scenario_cfg = {
+            'nodes': {trex_traffic_gen.name: "mock"}
+        }
+        expected = {
+            'physical_node': 'mock_node',
+            'collect_stats': {},
+        }
+        self.assertEqual(trex_traffic_gen.collect_kpi(), expected)
+
+    @mock.patch.object(ctx_base.Context, 'get_context_from_server', return_value='fake_context')
+    def test_instantiate(self, *args):
         mock_traffic_profile = mock.Mock(autospec=tp_base.TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
@@ -257,10 +271,11 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
             },
         }
         tg_rfc2544_trex.WAIT_TIME = 3
-        scenario_cfg.update({"nodes": ["tg_1", "vnf_1"]})
+        scenario_cfg.update({"nodes": {"tg_1": {}, "vnf1": {}}})
         self.assertIsNone(trex_traffic_gen.instantiate(scenario_cfg, {}))
 
-    def test_instantiate_error(self):
+    @mock.patch.object(ctx_base.Context, 'get_context_from_server', return_value='fake_context')
+    def test_instantiate_error(self, *args):
         mock_traffic_profile = mock.Mock(autospec=tp_base.TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
@@ -270,10 +285,10 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         trex_traffic_gen.setup_helper.setup_vnf_environment = mock.MagicMock()
         scenario_cfg = {
             "tc": "tc_baremetal_rfc2544_ipv4_1flow_64B",
-            "nodes": [
-                "tg_1",
-                "vnf_1",
-            ],
+            "nodes": {
+                "tg_1": {},
+                "vnf1": {}
+            },
             "topology": 'nsb_test_case.yaml',
             'options': {
                 'packetsize': 64,

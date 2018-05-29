@@ -81,6 +81,9 @@ class Context(object):
             self.file_path = os.path.join(YARDSTICK_ROOT_PATH, file_path)
             cfg = utils.read_yaml_file(self.file_path)
 
+        for node in cfg["nodes"]:
+            node["ctx_type"] = self.__context_type__
+
         self.nodes.extend(cfg["nodes"])
         self.controllers.extend([node for node in cfg["nodes"]
                                  if node.get("role") == "Controller"])
