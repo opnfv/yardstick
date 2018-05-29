@@ -137,17 +137,28 @@ class TestIxLoadTrafficGen(unittest.TestCase):
             ixload_traffic_gen = IxLoadTrafficGen(NAME, vnfd)
             self.assertIsNone(ixload_traffic_gen.resource_helper.data)
 
-    def test_collect_kpi(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
+    def test_collect_kpi(self, mock_context):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
+
+            mock_context.get_physical_node_from_server.return_value = 'mock_node'
+
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ixload_traffic_gen = IxLoadTrafficGen(NAME, vnfd)
+            ixload_traffic_gen.scenario_helper.scenario_cfg = {
+                'nodes': {ixload_traffic_gen.name: "mock"}
+            }
             ixload_traffic_gen.data = {}
             restult = ixload_traffic_gen.collect_kpi()
-            self.assertEqual({}, restult)
+            expected = {
+                'physical_node': 'mock_node',
+                'collect_stats': {},
+            }
+            self.assertEqual(expected, restult)
 
     def test_listen_traffic(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -161,8 +172,10 @@ class TestIxLoadTrafficGen(unittest.TestCase):
 
     @mock.patch.object(utils, 'find_relative_file')
     @mock.patch.object(utils, 'makedirs')
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.shutil")
-    def test_instantiate(self, *args):
+    def test_instantiate(self, shutil, mock_context, *args):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -170,12 +183,16 @@ class TestIxLoadTrafficGen(unittest.TestCase):
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
+
+            mock_context.get_conext_from_server.return_value = 'mock_node'
+
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ixload_traffic_gen = IxLoadTrafficGen(NAME, vnfd)
             scenario_cfg = {'tc': "nsb_test_case",
                             'ixia_profile': "ixload.cfg",
                             'task_path': "/path/to/task"}
             ixload_traffic_gen.RESULTS_MOUNT = "/tmp/result"
+            shutil.copy = mock.Mock()
             scenario_cfg.update({'options': {'packetsize': 64, 'traffic_type': 4,
                                              'rfc2544': {'allowed_drop_rate': '0.8 - 1'},
                                              'vnf__1': {'rules': 'acl_1rule.yaml',
@@ -185,17 +202,21 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                                                                        '1C/1T',
                                                                        'worker_threads': 1}}
                                              }})
+            scenario_cfg.update({
+                'nodes': {ixload_traffic_gen.name: "mock"}
+            })
             with mock.patch.object(six.moves.builtins, 'open',
                                    create=True) as mock_open:
                 mock_open.return_value = mock.MagicMock()
                 ixload_traffic_gen.instantiate(scenario_cfg, {})
 
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.open")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.min")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.max")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.len")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.shutil")
-    def test_run_traffic(self, *args):
+    def test_run_traffic(self, shutil, *args):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
@@ -216,15 +237,17 @@ class TestIxLoadTrafficGen(unittest.TestCase):
             sut.connection = mock.Mock()
             sut.connection.run = mock.Mock()
             sut._traffic_runner = mock.Mock(return_value=0)
+            shutil.copy = mock.Mock()
             result = sut.run_traffic(mock_traffic_profile)
             self.assertIsNone(result)
 
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.open")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.min")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.max")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.len")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.shutil")
-    def test_run_traffic_csv(self, *args):
+    def test_run_traffic_csv(self, shutil, *args):
         mock_traffic_profile = mock.Mock(autospec=TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
@@ -245,6 +268,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
             sut.connection = mock.Mock()
             sut.connection.run = mock.Mock()
             sut._traffic_runner = mock.Mock(return_value=0)
+            shutil.copy = mock.Mock()
             subprocess.call(["touch", "/tmp/1.csv"])
             sut.rel_bin_path = mock.Mock(return_value="/tmp/*.csv")
             result = sut.run_traffic(mock_traffic_profile)
@@ -257,8 +281,9 @@ class TestIxLoadTrafficGen(unittest.TestCase):
         ixload_traffic_gen = IxLoadTrafficGen(NAME, vnfd)
         self.assertIsNone(ixload_traffic_gen.terminate())
 
-    @mock.patch("yardstick.ssh.SSH")
-    def test_parse_csv_read(self, mock_ssh):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
+    @mock.patch.object(ssh, 'SSH')
+    def test_parse_csv_read(self, mock_ssh, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         kpi_data = {
             'HTTP Total Throughput (Kbps)': 1,
@@ -280,8 +305,9 @@ class TestIxLoadTrafficGen(unittest.TestCase):
         for key_left, key_right in IxLoadResourceHelper.KPI_LIST.items():
             self.assertEqual(result[key_left][-1], int(kpi_data[key_right]))
 
-    @mock.patch("yardstick.ssh.SSH")
-    def test_parse_csv_read_value_error(self, mock_ssh):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
+    @mock.patch.object(ssh, 'SSH')
+    def test_parse_csv_read_value_error(self, mock_ssh, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         http_reader = [{
             'HTTP Total Throughput (Kbps)': 1,
@@ -301,8 +327,9 @@ class TestIxLoadTrafficGen(unittest.TestCase):
         ixload_traffic_gen.resource_helper.parse_csv_read(http_reader)
         self.assertDictEqual(ixload_traffic_gen.resource_helper.result, init_value)
 
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
     @mock.patch.object(ssh, 'SSH')
-    def test_parse_csv_read_error(self, mock_ssh):
+    def test_parse_csv_read_error(self, mock_ssh, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         http_reader = [{
             'HTTP Total Throughput (Kbps)': 1,

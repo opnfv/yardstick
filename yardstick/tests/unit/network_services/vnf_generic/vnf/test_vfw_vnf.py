@@ -259,12 +259,18 @@ pipeline>
 """  # noqa
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh, *args):
+    def test_collect_kpi(self, ssh, mock_context, *args):
         mock_ssh(ssh)
+
+        mock_context.get_physical_node_from_server.return_value = 'mock_node'
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         vfw_approx_vnf = FWApproxVnf(name, vnfd)
+        vfw_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {vfw_approx_vnf.name: "mock"}
+        }
         vfw_approx_vnf.q_in = mock.MagicMock()
         vfw_approx_vnf.q_out = mock.MagicMock()
         vfw_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
@@ -273,6 +279,7 @@ pipeline>
             **{'collect_kpi.return_value': {"core": {}}})
         vfw_approx_vnf.vnf_execute = mock.Mock(return_value=self.STATS)
         result = {
+            'physical_node': 'mock_node',
             'packets_dropped': 0,
             'packets_fwd': 6007180,
             'packets_in': 6007180,
