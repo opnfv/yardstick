@@ -125,17 +125,28 @@ class TestIxLoadTrafficGen(unittest.TestCase):
             ixload_traffic_gen = IxLoadTrafficGen(NAME, vnfd)
             self.assertIsNone(ixload_traffic_gen.resource_helper.data)
 
-    def test_collect_kpi(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
+    def test_collect_kpi(self, mock_context):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
+
+            mock_context.get_physical_node_from_server.return_value = 'mock_node'
+
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ixload_traffic_gen = IxLoadTrafficGen(NAME, vnfd)
+            ixload_traffic_gen.scenario_helper.scenario_cfg = {
+                'nodes': {ixload_traffic_gen.name: "mock"}
+            }
             ixload_traffic_gen.data = {}
             restult = ixload_traffic_gen.collect_kpi()
-            self.assertEqual({}, restult)
+            expected = {
+                'physical_node': 'mock_node',
+                'collect_stats': {},
+            }
+            self.assertEqual(expected, restult)
 
     def test_listen_traffic(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -150,8 +161,9 @@ class TestIxLoadTrafficGen(unittest.TestCase):
     @mock.patch.object(utils, 'find_relative_file')
     @mock.patch.object(utils, 'makedirs')
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.call")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.tg_ixload.shutil")
-    def test_instantiate(self, shutil, *args):
+    def test_instantiate(self, shutil, mock_context, *args):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
@@ -159,6 +171,9 @@ class TestIxLoadTrafficGen(unittest.TestCase):
             ssh_mock.run = \
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
+
+            mock_context.get_conext_from_server.return_value = 'mock_node'
+
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ixload_traffic_gen = IxLoadTrafficGen(NAME, vnfd)
             scenario_cfg = {'tc': "nsb_test_case",
@@ -175,6 +190,9 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                                                                        '1C/1T',
                                                                        'worker_threads': 1}}
                                              }})
+            scenario_cfg.update({
+                'nodes': {ixload_traffic_gen.name: "mock"}
+            })
             with mock.patch.object(six.moves.builtins, 'open',
                                    create=True) as mock_open:
                 mock_open.return_value = mock.MagicMock()

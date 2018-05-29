@@ -168,6 +168,20 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertEqual(result['user'], 'root')
         self.assertEqual(result['key_filename'], '/root/.yardstick_key')
 
+    def test__get_physical_node_for_server(self):
+        self.test_context.init(self.attrs)
+
+        # When server is not from this context
+        result = self.test_context._get_physical_node_for_server('node1.another-context')
+        self.assertIsNone(result)
+
+        # When node_name is not from this context
+        result = self.test_context._get_physical_node_for_server('fake.foo-12345678')
+        self.assertIsNone(result)
+
+        result = self.test_context._get_physical_node_for_server('node1.foo-12345678')
+        self.assertEqual(result, 'node1.foo')
+
     @mock.patch('{}.NodeContext._dispatch_script'.format(PREFIX))
     def test_deploy(self, dispatch_script_mock):
         obj = node.NodeContext()

@@ -1676,8 +1676,9 @@ class TestSampleVnf(unittest.TestCase):
         self.assertIsNotNone(sample_vnf.queue_wrapper)
         self.assertIsNotNone(sample_vnf._vnf_process)
 
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch("yardstick.ssh.SSH")
-    def test_instantiate(self, ssh):
+    def test_instantiate(self, ssh, mock_context):
         mock_ssh(ssh)
 
         nodes = {
@@ -1685,24 +1686,11 @@ class TestSampleVnf(unittest.TestCase):
             'vnf2': 'name2',
         }
 
-        context1 = mock.Mock()
-        context1._get_server.return_value = None
-        context2 = mock.Mock()
-        context2._get_server.return_value = context2
-
-        try:
-            Context.list.clear()
-        except AttributeError:
-            # clear() but works in Py2.7
-            Context.list[:] = []
-
-        Context.list.extend([
-            context1,
-            context2,
-        ])
-
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {sample_vnf.name: "mock"}
+        }
         sample_vnf.APP_NAME = 'sample1'
         sample_vnf._start_server = mock.Mock(return_value=0)
         sample_vnf._vnf_process = mock.MagicMock()
@@ -1715,7 +1703,6 @@ class TestSampleVnf(unittest.TestCase):
         }
 
         self.assertIsNone(sample_vnf.instantiate(scenario_cfg, {}))
-        self.assertEqual(sample_vnf.nfvi_context, context2)
 
     def test__update_collectd_options(self):
         scenario_cfg = {'options':
@@ -1852,9 +1839,15 @@ class TestSampleVnf(unittest.TestCase):
 
         self.assertEqual(sample_vnf.get_stats(), 'the stats')
 
-    def test_collect_kpi(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
+    def test_collect_kpi(self, mock_context):
+        mock_context.get_physical_node_from_server.return_value = 'mock_node'
+
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {sample_vnf.name: "mock"}
+        }
         sample_vnf.APP_NAME = 'sample1'
         sample_vnf.COLLECT_KPI = r'\s(\d+)\D*(\d+)\D*(\d+)'
         sample_vnf.COLLECT_MAP = {
@@ -1871,18 +1864,26 @@ class TestSampleVnf(unittest.TestCase):
             'k2': 34,
             'k3': 91,
             'collect_stats': {},
+            'physical_node': 'mock_node'
         }
         result = sample_vnf.collect_kpi()
         self.assertDictEqual(result, expected)
 
-    def test_collect_kpi_default(self):
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
+    def test_collect_kpi_default(self, mock_context):
+        mock_context.get_physical_node_from_server.return_value = 'mock_node'
+
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {sample_vnf.name: "mock"}
+        }
         sample_vnf.APP_NAME = 'sample1'
         sample_vnf.COLLECT_KPI = r'\s(\d+)\D*(\d+)\D*(\d+)'
         sample_vnf.get_stats = mock.Mock(return_value='')
 
         expected = {
+            'physical_node': 'mock_node',
             'packets_in': 0,
             'packets_fwd': 0,
             'packets_dropped': 0,
