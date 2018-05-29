@@ -4,11 +4,11 @@ project_creation_date: 'April 28th, 2015'
 project_category: 'Integration & Testing'
 lifecycle_state: 'Incubation'
 project_lead: &opnfv_yardstick_ptl
-    name: 'Ross Brattain'
-    email: 'ross.b.brattain@intel.com'
-    id: 'rbbratta'
-    company: 'intel.com'
-    timezone: 'PST'
+    name: 'Rex Lee'
+    email: 'limingjiang@huawei.com'
+    company: 'huawei.com'
+    id: 'rexlee8776'
+    timezone: 'UTC+8'
 primary_contact: *opnfv_yardstick_ptl
 issue_tracking:
     type: 'jira'
@@ -24,12 +24,12 @@ realtime_discussion:
     channel: '#opnfv-yardstick'
 meetings:
     - type: 'gotomeeting+irc'
-      agenda:  'https://wiki.opnfv.org/display/yardstick/Yardstick+Meetings'
-      url:  'https://global.gotomeeting.com/join/819733085'
+      agenda: 'https://wiki.opnfv.org/display/yardstick/Yardstick+Meetings'
+      url: 'https://global.gotomeeting.com/join/819733085'
       server: 'freenode.net'
       channel: '#opnfv-yardstick'
       repeats: 'weekly'
-      time:  '08:30 UTC'
+      time: '08:30 UTC'
 repositories:
     - 'yardstick'
 committers:
@@ -38,10 +38,6 @@ committers:
       email: 'jean.gaoliang@huawei.com'
       company: 'huawei.com'
       id: 'kubi'
-    - name: 'Rex Lee'
-      email: 'limingjiang@huawei.com'
-      company: 'huawei.com'
-      id: 'rexlee8776'
     - name: 'Jing Lu'
       email: 'lvjing5@huawei.com'
       company: 'huawei.com'
@@ -74,6 +70,10 @@ committers:
       email: 'abhijit.sinha@intel.com'
       company: 'intel.com'
       id: 'abhijitsinha'
+    - name: 'Ross Brattain'
+      email: 'ross.b.brattain@intel.com'
+      id: 'rbbratta'
+      company: 'intel.com'
 tsc:
     # yamllint disable rule:line-length
     approval: 'http//meetbot.opnfv.org/meetings/'
