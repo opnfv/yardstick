@@ -324,15 +324,25 @@ class TestProxTrafficGen(unittest.TestCase):
         self.assertIsNone(prox_traffic_gen._tg_process)
         self.assertIsNone(prox_traffic_gen._traffic_process)
 
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh, *args):
+    def test_collect_kpi(self, ssh, mock_context, *args):
         mock_ssh(ssh)
 
+        mock_context.get_physical_node_from_server.return_value = 'mock_node'
+
         prox_traffic_gen = ProxTrafficGen(NAME, self.VNFD0)
+        prox_traffic_gen.scenario_helper.scenario_cfg = {
+            'nodes': {prox_traffic_gen.name: "mock"}
+        }
         prox_traffic_gen._vnf_wrapper.resource_helper.resource = mock.MagicMock(
             **{"self.check_if_system_agent_running.return_value": [False]})
         prox_traffic_gen._vnf_wrapper.vnf_execute = mock.Mock(return_value="")
-        self.assertEqual({}, prox_traffic_gen.collect_kpi())
+        expected = {
+            'collect_stats': {},
+            'physical_node': 'mock_node'
+        }
+        self.assertEqual(prox_traffic_gen.collect_kpi(), expected)
 
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
