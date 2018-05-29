@@ -21,6 +21,7 @@ import unittest
 from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
 from yardstick.network_services.traffic_profile import base as tp_base
 from yardstick.network_services.vnf_generic.vnf import tg_rfc2544_ixia
+from yardstick.benchmark.contexts import base as ctx_base
 
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
@@ -186,6 +187,7 @@ class TestIXIATrafficGen(unittest.TestCase):
             ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd)
             self.assertIsNone(ixnet_traffic_gen.listen_traffic({}))
 
+    @mock.patch.object(ctx_base.Context, 'get_context_from_server', return_value='fake_context')
     def test_instantiate(self, *args):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
@@ -212,6 +214,9 @@ class TestIXIATrafficGen(unittest.TestCase):
                                 'lb_count': 1,
                                 'worker_config': '1C/1T',
                                 'worker_threads': 1}}}})
+            scenario_cfg.update({
+                'nodes': {ixnet_traffic_gen.name: "mock"}
+            })
             ixnet_traffic_gen.topology = ""
             ixnet_traffic_gen.get_ixobj = mock.MagicMock()
             ixnet_traffic_gen._ixia_traffic_gen = mock.MagicMock()
@@ -220,17 +225,26 @@ class TestIXIATrafficGen(unittest.TestCase):
                 IOError,
                 ixnet_traffic_gen.instantiate(scenario_cfg, {}))
 
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     def test_collect_kpi(self, *args):
         with mock.patch("yardstick.ssh.SSH") as ssh:
             ssh_mock = mock.Mock(autospec=ssh.SSH)
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
+
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd)
+            ixnet_traffic_gen.scenario_helper.scenario_cfg = {
+                'nodes': {ixnet_traffic_gen.name: "mock"}
+            }
             ixnet_traffic_gen.data = {}
             restult = ixnet_traffic_gen.collect_kpi()
-            self.assertEqual({}, restult)
+
+            expected = {'collect_stats': {},
+                        'physical_node': 'mock_node'}
+
+            self.assertEqual(expected, restult)
 
     def test_terminate(self, *args):
         with mock.patch("yardstick.ssh.SSH") as ssh:
