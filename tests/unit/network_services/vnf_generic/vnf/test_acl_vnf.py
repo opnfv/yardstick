@@ -245,18 +245,29 @@ class TestAclApproxVnf(unittest.TestCase):
         self.assertIsNone(acl_approx_vnf._vnf_process)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh, *args):
+    def test_collect_kpi(self, ssh, mock_context, *args):
         mock_ssh(ssh)
+
+        mock_context.get_physical_node_from_server.return_value = 'mock_node'
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         acl_approx_vnf = AclApproxVnf(name, vnfd)
+        acl_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {acl_approx_vnf.name: "mock"}
+        }
         acl_approx_vnf.q_in = mock.MagicMock()
         acl_approx_vnf.q_out = mock.MagicMock()
         acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
         acl_approx_vnf.resource = mock.Mock(autospec=ResourceProfile)
         acl_approx_vnf.vnf_execute = mock.Mock(return_value="")
-        result = {'packets_dropped': 0, 'packets_fwd': 0, 'packets_in': 0}
+        result = {
+            'physical_node': 'mock_node',
+            'packets_dropped': 0,
+            'packets_fwd': 0,
+            'packets_in': 0
+        }
         self.assertEqual(result, acl_approx_vnf.collect_kpi())
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")

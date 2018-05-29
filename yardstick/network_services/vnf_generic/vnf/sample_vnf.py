@@ -41,7 +41,7 @@ from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
 from yardstick.network_services.vnf_generic.vnf.vnf_ssh_helper import VnfSshHelper
-
+from yardstick.benchmark.contexts.node import NodeContext
 
 LOG = logging.getLogger(__name__)
 
@@ -309,6 +309,7 @@ class ResourceHelper(object):
         self.resource = None
         self.setup_helper = setup_helper
         self.ssh_helper = setup_helper.ssh_helper
+        self.enable = True
 
     def setup(self):
         self.resource = self.setup_helper.setup_vnf_environment()
@@ -316,22 +317,28 @@ class ResourceHelper(object):
     def generate_cfg(self):
         pass
 
+    def update_from_context(self, context):
+        """Disable resource helper in case of baremetal context."""
+        if isinstance(context, NodeContext):
+            self.enable = False
+
     def _collect_resource_kpi(self):
         result = {}
         status = self.resource.check_if_system_agent_running("collectd")[0]
-        if status == 0:
+        if status == 0 and self.enable:
             result = self.resource.amqp_collect_nfvi_kpi()
 
         result = {"core": result}
         return result
 
     def start_collect(self):
-        self.resource.initiate_systemagent(self.ssh_helper.bin_path)
-        self.resource.start()
-        self.resource.amqp_process_for_nfvi_kpi()
+        if self.enable:
+            self.resource.initiate_systemagent(self.ssh_helper.bin_path)
+            self.resource.start()
+            self.resource.amqp_process_for_nfvi_kpi()
 
     def stop_collect(self):
-        if self.resource:
+        if self.resource and self.enable:
             self.resource.stop()
 
     def collect_kpi(self):
@@ -646,7 +653,6 @@ class SampleVNF(GenericVNF):
         self.resource_helper = resource_helper_type(self.setup_helper)
 
         self.context_cfg = None
-        self.nfvi_context = None
         self.pipeline_kwargs = {}
         self.uplink_ports = None
         self.downlink_ports = None
@@ -673,8 +679,9 @@ class SampleVNF(GenericVNF):
         self._update_collectd_options(scenario_cfg, context_cfg)
         self.scenario_helper.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
-        self.nfvi_context = Context.get_context_from_server(self.scenario_helper.nodes[self.name])
-        # self.nfvi_context = None
+        self.resource_helper.update_from_context(
+            Context.get_context_from_server(self.scenario_helper.nodes[self.name])
+        )
 
         # vnf deploy is unsupported, use ansible playbooks
         if self.scenario_helper.options.get("vnf_deploy", False):
@@ -828,15 +835,18 @@ class SampleVNF(GenericVNF):
         check_if_process_failed(self._vnf_process)
         stats = self.get_stats()
         m = re.search(self.COLLECT_KPI, stats, re.MULTILINE)
+        physical_node = Context.get_physical_node_from_server(
+            self.scenario_helper.nodes[self.name])
+
+        result = {"physical_node": physical_node}
         if m:
-            result = {k: int(m.group(v)) for k, v in self.COLLECT_MAP.items()}
+            result.update({k: int(m.group(v)) for k, v in self.COLLECT_MAP.items()})
             result["collect_stats"] = self.resource_helper.collect_kpi()
         else:
-            result = {
-                "packets_in": 0,
-                "packets_fwd": 0,
-                "packets_dropped": 0,
-            }
+            result.update({"packets_in": 0,
+                           "packets_fwd": 0,
+                           "packets_dropped": 0})
+
         LOG.debug("%s collect KPIs %s", self.APP_NAME, result)
         return result
 
@@ -882,6 +892,10 @@ class SampleVNFTrafficGen(GenericTrafficGen):
 
     def instantiate(self, scenario_cfg, context_cfg):
         self.scenario_helper.scenario_cfg = scenario_cfg
+        self.resource_helper.update_from_context(
+            Context.get_context_from_server(self.scenario_helper.nodes[self.name])
+        )
+
         self.resource_helper.setup()
         # must generate_cfg after DPDK bind because we need port number
         self.resource_helper.generate_cfg()
@@ -936,9 +950,14 @@ class SampleVNFTrafficGen(GenericTrafficGen):
 
     def collect_kpi(self):
         # check if the tg processes have exited
+        physical_node = Context.get_physical_node_from_server(
+            self.scenario_helper.nodes[self.name])
+
+        result = {"physical_node": physical_node}
         for proc in (self._tg_process, self._traffic_process):
             check_if_process_failed(proc)
-        result = self.resource_helper.collect_kpi()
+
+        result["collect_stats"] = self.resource_helper.collect_kpi()
         LOG.debug("%s collect KPIs %s", self.APP_NAME, result)
         return result
 

@@ -330,9 +330,12 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         self.assertIsNone(udp_replay_approx_vnf._vnf_process)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.udp_replay.Context")
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh, *args):
+    def test_collect_kpi(self, ssh, mock_context, *args):
         mock_ssh(ssh)
+
+        mock_context.get_physical_node_from_server.return_value = 'mock_node'
 
         vnfd = self.VNFD_0
         result = "stats\r\r\n\r\nUDP_Replay stats:\r\n--------------\r\n" \
@@ -340,13 +343,21 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
                  "0\t\t7374156\t\t7374136\t\t\t0\t\t\t0\r\n" \
                  "1\t\t7374316\t\t7374315\t\t\t0\t\t\t0\r\n\r\nReplay>\r\r\nReplay>"
         udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, vnfd)
+        udp_replay_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {udp_replay_approx_vnf.name: "mock"}
+        }
         udp_replay_approx_vnf.q_in = mock.MagicMock()
         udp_replay_approx_vnf.q_out = mock.MagicMock()
         udp_replay_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
         udp_replay_approx_vnf.all_ports = ["xe0", "xe1"]
         udp_replay_approx_vnf.get_stats = mock.Mock(return_value=result)
-        result = {'collect_stats': {}, 'packets_dropped': 0,
-                  'packets_fwd': 14748451, 'packets_in': 14748472}
+        result = {
+            'physical_node': 'mock_node',
+            'collect_stats': {},
+            'packets_dropped': 0,
+            'packets_fwd': 14748451,
+            'packets_in': 14748472
+        }
         self.assertEqual(result, udp_replay_approx_vnf.collect_kpi())
 
     @mock.patch(SSH_HELPER)
@@ -370,10 +381,14 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.udp_replay.Context")
     @mock.patch(SSH_HELPER)
     def test__build_config(self, ssh, mock_context, *args):
         mock_ssh(ssh)
+
+        nfvi_context = mock.Mock()
+        nfvi_context.attrs = {'nfvi_type': 'baremetal'}
+        mock_context.get_context_from_server.return_value = nfvi_context
 
         udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
         udp_replay_approx_vnf.queue_wrapper = mock.MagicMock()
@@ -391,13 +406,16 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         self.assertEqual(cmd_line, expected)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.udp_replay.open')
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.udp_replay.Context")
     @mock.patch(SSH_HELPER)
     def test__build_pipeline_kwargs(self, ssh, mock_context, *args):
         mock_ssh(ssh)
+
+        nfvi_context = mock.Mock()
+        nfvi_context.attrs = {'nfvi_type': 'baremetal'}
+        mock_context.get_context_from_server.return_value = nfvi_context
+
         udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
-        udp_replay_approx_vnf.nfvi_context = mock_context
-        udp_replay_approx_vnf.nfvi_context.attrs = {'nfvi_type': 'baremetal'}
         udp_replay_approx_vnf.setup_helper.bound_pci = ['0000:00:0.1', '0000:00:0.3']
         udp_replay_approx_vnf.all_ports = ["xe0", "xe1"]
         udp_replay_approx_vnf.ssh_helper.provision_tool = mock.MagicMock(return_value="tool_path")
