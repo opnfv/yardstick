@@ -28,6 +28,7 @@ from yardstick.common.process import check_if_process_failed
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 from yardstick.network_services.pipeline import PipelineRules
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF, DpdkVnfSetupEnvHelper
+from yardstick.benchmark.contexts.base import Context
 
 LOG = logging.getLogger(__name__)
 
@@ -302,7 +303,11 @@ class VpeApproxVnf(SampleVNF):
     def collect_kpi(self):
         # we can't get KPIs if the VNF is down
         check_if_process_failed(self._vnf_process)
+        physical_node = Context.get_physical_node_from_server(
+            self.scenario_helper.nodes[self.name])
+
         result = {
+            "physical_node": physical_node,
             'pkt_in_up_stream': 0,
             'pkt_drop_up_stream': 0,
             'pkt_in_down_stream': 0,

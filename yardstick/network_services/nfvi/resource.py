@@ -31,6 +31,7 @@ from yardstick.common.exceptions import ResourceCommandError
 from yardstick.common.task_template import finalize_for_yaml
 from yardstick.common.utils import validate_non_string_sequence
 from yardstick.network_services.nfvi.collectd import AmqpConsumer
+from yardstick.benchmark.contexts import heat
 
 
 LOG = logging.getLogger(__name__)
@@ -52,7 +53,8 @@ class ResourceProfile(object):
     DEFAULT_TIMEOUT = 3600
     OVS_SOCKET_PATH = "/usr/local/var/run/openvswitch/db.sock"
 
-    def __init__(self, mgmt, port_names=None, plugins=None, interval=None, timeout=None):
+    def __init__(self, mgmt, port_names=None, plugins=None,
+                 interval=None, timeout=None, reset_rabbitmq=True):
 
         if plugins is None:
             self.plugins = {}
@@ -77,6 +79,7 @@ class ResourceProfile(object):
         # we need to save mgmt so we can connect to port 5672
         self.mgmt = mgmt
         self.connection = ssh.AutoConnectSSH.from_node(mgmt)
+        self.__reset_rabbitmq = reset_rabbitmq
 
     @classmethod
     def make_from_node(cls, node, timeout):
@@ -87,7 +90,10 @@ class ResourceProfile(object):
         plugins = collectd_options.get("plugins", {})
         interval = collectd_options.get("interval")
 
-        return cls(node, plugins=plugins, interval=interval, timeout=timeout)
+        reset_rabbitmq = (False if node.get("ctx_type") == heat.HeatContext.__context_type__
+                          else True)
+        return cls(node, plugins=plugins, interval=interval,
+                   timeout=timeout, reset_rabbitmq=reset_rabbitmq)
 
     def check_if_system_agent_running(self, process):
         """ verify if system agent is running """
@@ -210,11 +216,14 @@ class ResourceProfile(object):
         if not self.enable:
             return {}
 
+        if self.check_if_system_agent_running("collectd")[0] != 0:
+            return {}
+
         metric = {}
         while not self._queue.empty():
             metric.update(self._queue.get())
-        msg = self.parse_collectd_result(metric)
-        return msg
+
+        return self.parse_collectd_result(metric)
 
     def _provide_config_file(self, config_file_path, nfvi_cfg, template_kwargs):
         template = pkg_resources.resource_string("yardstick.network_services.nfvi",
@@ -250,7 +259,7 @@ class ResourceProfile(object):
         if status != 0:
             LOG.error("cannot find OVS socket %s", socket_path)
 
-    def _start_rabbitmq(self, connection):
+    def _reset_rabbitmq(self, connection):
         # Reset amqp queue
         LOG.debug("reset and setup amqp to collect data from collectd")
         # ensure collectd.conf.d exists to avoid error/warning
@@ -263,10 +272,39 @@ class ResourceProfile(object):
                     "sudo rabbitmqctl authenticate_user admin admin",
                     "sudo rabbitmqctl set_permissions -p / admin '.*' '.*' '.*'"
                     ]
+
         for cmd in cmd_list:
-                exit_status, stdout, stderr = connection.execute(cmd)
-                if exit_status != 0:
-                    raise ResourceCommandError(command=cmd, stderr=stderr)
+            exit_status, _, stderr = connection.execute(cmd)
+            if exit_status != 0:
+                raise ResourceCommandError(command=cmd, stderr=stderr)
+
+    def _check_rabbitmq_user(self, connection, user='admin'):
+        exit_status, stdout, _ = connection.execute("sudo rabbitmqctl list_users")
+        if exit_status == 0:
+            for line in stdout.split('\n')[1:]:
+                if line.split('\t')[0] == user:
+                    return True
+
+    def _set_rabbitmq_admin_user(self, connection):
+        LOG.debug("add admin user to amqp")
+        cmd_list = ["sudo rabbitmqctl add_user admin admin",
+                    "sudo rabbitmqctl authenticate_user admin admin",
+                    "sudo rabbitmqctl set_permissions -p / admin '.*' '.*' '.*'"
+                    ]
+
+        for cmd in cmd_list:
+            exit_status, stdout, stderr = connection.execute(cmd)
+            if exit_status != 0:
+                raise ResourceCommandError(command=cmd, stdout=stdout, stderr=stderr)
+
+    def _start_rabbitmq(self, connection):
+        if self.__reset_rabbitmq:
+            self._reset_rabbitmq(connection)
+        else:
+            if not self._check_rabbitmq_user(connection):
+                self._set_rabbitmq_admin_user(connection)
+            else:
+                self._reset_rabbitmq(connection)
 
         # check stdout for "sudo rabbitmqctl status" command
         cmd = "sudo rabbitmqctl status"
@@ -282,10 +320,11 @@ class ResourceProfile(object):
         self._prepare_collectd_conf(config_file_path)
 
         connection.execute('sudo pkill -x -9 collectd')
-        exit_status = connection.execute("which %s > /dev/null 2>&1" % collectd_path)[0]
+        cmd = "which %s > /dev/null 2>&1" % collectd_path
+        exit_status, _, stderr = connection.execute(cmd)
         if exit_status != 0:
-            LOG.warning("%s is not present disabling", collectd_path)
-            return
+            raise ResourceCommandError(command=cmd, stderr=stderr)
+
         if "ovs_stats" in self.plugins:
             self._setup_ovs_stats(connection)
 
@@ -293,8 +332,12 @@ class ResourceProfile(object):
         LOG.debug("Start collectd service..... %s second timeout", self.timeout)
         # intel_pmu plug requires large numbers of files open, so try to set
         # ulimit -n to a large value
-        connection.execute("sudo bash -c 'ulimit -n 1000000 ; %s'" % collectd_path,
-                           timeout=self.timeout)
+
+        cmd = "sudo bash -c 'ulimit -n 1000000 ; %s'" % collectd_path
+        exit_status, _, stderr = connection.execute(cmd, timeout=self.timeout)
+        if exit_status != 0:
+            raise ResourceCommandError(command=cmd, stderr=stderr)
+
         LOG.debug("Done")
 
     def initiate_systemagent(self, bin_path):
@@ -334,5 +377,7 @@ class ResourceProfile(object):
         if pid:
             self.connection.execute('sudo kill -9 "%s"' % pid)
         self.connection.execute('sudo pkill -9 "%s"' % agent)
-        self.connection.execute('sudo service rabbitmq-server stop')
-        self.connection.execute("sudo rabbitmqctl stop_app")
+
+        if self.__reset_rabbitmq:
+            self.connection.execute('sudo service rabbitmq-server stop')
+            self.connection.execute("sudo rabbitmqctl stop_app")

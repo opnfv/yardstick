@@ -19,7 +19,7 @@ from yardstick.common.process import check_if_process_failed
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
-
+from yardstick.benchmark.contexts.base import Context
 
 LOG = logging.getLogger(__name__)
 
@@ -79,9 +79,10 @@ class UdpReplayApproxVnf(SampleVNF):
         ports_mask_hex = hex(sum(2 ** num for num in port_nums))
         # one core extra for master
         cpu_mask_hex = hex(2 ** (number_of_ports + 1) - 1)
+        nfvi_context = Context.get_context_from_server(self.scenario_helper.nodes[self.name])
         hw_csum = ""
         if (not self.scenario_helper.options.get('hw_csum', False) or
-                self.nfvi_context.attrs.get('nfvi_type') not in self.HW_OFFLOADING_NFVI_TYPES):
+                nfvi_context.attrs.get('nfvi_type') not in self.HW_OFFLOADING_NFVI_TYPES):
             hw_csum = '--no-hw-csum'
 
         # tuples of (FLD_PORT, FLD_QUEUE, FLD_LCORE)
@@ -116,7 +117,12 @@ class UdpReplayApproxVnf(SampleVNF):
         stats = self.get_stats()
         stats_words = stats.split()
         split_stats = stats_words[stats_words.index('0'):][:number_of_ports * 5]
+
+        physical_node = Context.get_physical_node_from_server(
+            self.scenario_helper.nodes[self.name])
+
         result = {
+            "physical_node": physical_node,
             "packets_in": get_sum(1),
             "packets_fwd": get_sum(2),
             "packets_dropped": get_sum(3) + get_sum(4),

@@ -26,6 +26,7 @@ from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import File
 from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from yardstick.network_services.vnf_generic.vnf.base import QueueFileWrapper
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
+from yardstick.benchmark.contexts import base as ctx_base
 
 
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
@@ -547,8 +548,9 @@ class TestVpeApproxVnf(unittest.TestCase):
         vpe_approx_vnf = VpeApproxVnf(NAME, self.VNFD_0)
         self.assertIsNone(vpe_approx_vnf._vnf_process)
 
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi_sa_not_running(self, ssh):
+    def test_collect_kpi_sa_not_running(self, ssh, *args):
         mock_ssh(ssh)
 
         resource = mock.Mock(autospec=ResourceProfile)
@@ -557,12 +559,16 @@ class TestVpeApproxVnf(unittest.TestCase):
         resource.check_if_system_agent_running.return_value = (1, None)
 
         vpe_approx_vnf = VpeApproxVnf(NAME, self.VNFD_0)
+        vpe_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {vpe_approx_vnf.name: "mock"}
+        }
         vpe_approx_vnf.q_in = mock.MagicMock()
         vpe_approx_vnf.q_out = mock.MagicMock()
         vpe_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
         vpe_approx_vnf.resource_helper.resource = resource
 
         expected = {
+            'physical_node': 'mock_node',
             'pkt_in_down_stream': 0,
             'pkt_in_up_stream': 0,
             'pkt_drop_down_stream': 0,
@@ -571,8 +577,9 @@ class TestVpeApproxVnf(unittest.TestCase):
         }
         self.assertEqual(vpe_approx_vnf.collect_kpi(), expected)
 
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi_sa_running(self, ssh):
+    def test_collect_kpi_sa_running(self, ssh, *args):
         mock_ssh(ssh)
 
         resource = mock.Mock(autospec=ResourceProfile)
@@ -580,12 +587,16 @@ class TestVpeApproxVnf(unittest.TestCase):
         resource.amqp_collect_nfvi_kpi.return_value = {'foo': 234}
 
         vpe_approx_vnf = VpeApproxVnf(NAME, self.VNFD_0)
+        vpe_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {vpe_approx_vnf.name: "mock"}
+        }
         vpe_approx_vnf.q_in = mock.MagicMock()
         vpe_approx_vnf.q_out = mock.MagicMock()
         vpe_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
         vpe_approx_vnf.resource_helper.resource = resource
 
         expected = {
+            'physical_node': 'mock_node',
             'pkt_in_down_stream': 0,
             'pkt_in_up_stream': 0,
             'pkt_drop_down_stream': 0,
@@ -634,7 +645,6 @@ class TestVpeApproxVnf(unittest.TestCase):
         self.assertIsNone(vpe_approx_vnf._run())
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig")
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.vpe_vnf.ConfigCreate")
     @mock.patch("six.moves.builtins.open")
     @mock.patch(SSH_HELPER)
