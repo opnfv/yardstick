@@ -35,6 +35,7 @@ from yardstick.network_services import traffic_profile
 from yardstick.network_services.traffic_profile import base as tprofile_base
 from yardstick.network_services.utils import get_nsb_option
 from yardstick import ssh
+from yardstick.benchmark.contexts.base import Context
 
 traffic_profile.register_modules()
 
@@ -444,7 +445,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             traffic_gen.listen_traffic(self.traffic_profile)
 
         # register collector with yardstick for KPI collection.
-        self.collector = Collector(self.vnfs)
+        self.collector = Collector(self.vnfs, Context.get_physical_nodes())
         self.collector.start()
 
         # Start the actual traffic
