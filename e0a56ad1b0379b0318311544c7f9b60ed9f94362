@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_822baaea",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_image.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-05-29T10:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_eeaee2e6",
+      "revId": "e0a56ad1b0379b0318311544c7f9b60ed9f94362",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_4e871662",
         "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_image.py",
         "patchSetId": 9
@@ -59,6 +77,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_62301e57",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_image.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-05-29T10:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_4e871662",
+      "range": {
+        "startLine": 47,
+        "startChar": 26,
+        "endLine": 47,
+        "endChar": 40
+      },
+      "revId": "e0a56ad1b0379b0318311544c7f9b60ed9f94362",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_8e811e4d",
         "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_image.py",
         "patchSetId": 9
@@ -70,6 +112,30 @@
       "writtenOn": "2018-05-22T14:21:59Z",
       "side": 1,
       "message": "should be single quotes",
+      "range": {
+        "startLine": 55,
+        "startChar": 26,
+        "endLine": 55,
+        "endChar": 40
+      },
+      "revId": "e0a56ad1b0379b0318311544c7f9b60ed9f94362",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_c235b247",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/lib/test_create_image.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-05-29T10:33:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_8e811e4d",
       "range": {
         "startLine": 55,
         "startChar": 26,
