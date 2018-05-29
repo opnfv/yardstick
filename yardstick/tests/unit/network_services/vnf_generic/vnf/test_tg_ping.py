@@ -21,6 +21,7 @@ import unittest
 
 from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from yardstick.tests import STL_MOCKS
+from yardstick.benchmark.contexts import base as ctx_base
 
 SSH_HELPER = "yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper"
 
@@ -253,14 +254,25 @@ class TestPingTrafficGen(unittest.TestCase):
         self.assertNotEqual(ext_ifs[0]['virtual-interface']['local_iface_name'], 'if_name_1')
         self.assertNotEqual(ext_ifs[1]['virtual-interface']['local_iface_name'], 'if_name_2')
 
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     @mock.patch("yardstick.ssh.SSH")
-    def test_collect_kpi(self, ssh):
+    def test_collect_kpi(self, ssh, *args):
         mock_ssh(ssh, exec_result=(0, "success", ""))
+
         ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0)
+        ping_traffic_gen.scenario_helper.scenario_cfg = {
+            'nodes': {ping_traffic_gen.name: "mock"}
+        }
         ping_traffic_gen._queue = Queue()
         ping_traffic_gen._queue.put({})
-        ping_traffic_gen.collect_kpi()
-        self.assertEqual(ping_traffic_gen._result, {})
+        expected = {
+            'physical_node': 'mock_node',
+            'collect_stats': {}
+        }
+        # NOTE: Why we check _result but not collect_kpi() return value
+        # self.assertEqual(ping_traffic_gen._result, {})
+        self.assertEqual(ping_traffic_gen.collect_kpi(), expected)
+
 
     @mock.patch(SSH_HELPER)
     def test_instantiate(self, ssh):

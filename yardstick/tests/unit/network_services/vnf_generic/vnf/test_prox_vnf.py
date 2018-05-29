@@ -20,6 +20,7 @@ import mock
 from copy import deepcopy
 
 from yardstick.tests import STL_MOCKS
+from yardstick.benchmark.contexts import base as ctx_base
 
 
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'
@@ -29,7 +30,7 @@ stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
 stl_patch.start()
 
 if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.prox_vnf import ProxApproxVnf
+    from yardstick.network_services.vnf_generic.vnf import prox_vnf
     from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 
 
@@ -187,7 +188,7 @@ class TestProxApproxVnf(unittest.TestCase):
                 'interfaces': {
                     'xe0': {
                         'local_iface_name': 'ens513f0',
-                        'vld_id': ProxApproxVnf.DOWNLINK,
+                        'vld_id': prox_vnf.ProxApproxVnf.DOWNLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.40.20',
                         'dst_mac': '00:00:00:00:00:01',
@@ -221,7 +222,7 @@ class TestProxApproxVnf(unittest.TestCase):
                 'interfaces': {
                     'xe0': {
                         'local_iface_name': 'ens785f0',
-                        'vld_id': ProxApproxVnf.UPLINK,
+                        'vld_id': prox_vnf.ProxApproxVnf.UPLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.100.20',
                         'dst_mac': '00:00:00:00:00:02',
@@ -252,7 +253,7 @@ class TestProxApproxVnf(unittest.TestCase):
                 'interfaces': {
                     'xe0': {
                         'local_iface_name': 'ens786f0',
-                        'vld_id': ProxApproxVnf.UPLINK,
+                        'vld_id': prox_vnf.ProxApproxVnf.UPLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.100.19',
                         'dst_mac': '00:00:00:00:00:04',
@@ -264,7 +265,7 @@ class TestProxApproxVnf(unittest.TestCase):
                     },
                     'xe1': {
                         'local_iface_name': 'ens786f1',
-                        'vld_id': ProxApproxVnf.DOWNLINK,
+                        'vld_id': prox_vnf.ProxApproxVnf.DOWNLINK,
                         'netmask': '255.255.255.0',
                         'local_ip': '152.16.40.19',
                         'dst_mac': '00:00:00:00:00:03',
@@ -316,16 +317,21 @@ class TestProxApproxVnf(unittest.TestCase):
     @mock.patch(SSH_HELPER)
     def test___init__(self, ssh, *args):
         mock_ssh(ssh)
-        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
         self.assertIsNone(prox_approx_vnf._vnf_process)
 
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     @mock.patch(SSH_HELPER)
     def test_collect_kpi_no_client(self, ssh, *args):
         mock_ssh(ssh)
 
-        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {prox_approx_vnf.name: "mock"}
+        }
         prox_approx_vnf.resource_helper = None
         expected = {
+            'physical_node': 'mock_node',
             'packets_in': 0,
             'packets_dropped': 0,
             'packets_fwd': 0,
@@ -334,6 +340,7 @@ class TestProxApproxVnf(unittest.TestCase):
         result = prox_approx_vnf.collect_kpi()
         self.assertEqual(result, expected)
 
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     @mock.patch(SSH_HELPER)
     def test_collect_kpi(self, ssh, *args):
         mock_ssh(ssh)
@@ -343,10 +350,14 @@ class TestProxApproxVnf(unittest.TestCase):
                                                 [2, 1, 2, 3, 4, 5], [3, 1, 2, 3, 4, 5]]
         resource_helper.collect_collectd_kpi.return_value = {'core': {'result': 234}}
 
-        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {prox_approx_vnf.name: "mock"}
+        }
         prox_approx_vnf.resource_helper = resource_helper
 
         expected = {
+            'physical_node': 'mock_node',
             'packets_in': 4,
             'packets_dropped': 4,
             'packets_fwd': 8,
@@ -359,13 +370,16 @@ class TestProxApproxVnf(unittest.TestCase):
         self.assertNotEqual(result['packets_fwd'], 0)
         self.assertNotEqual(result['packets_fwd'], 0)
 
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     @mock.patch(SSH_HELPER)
     def test_collect_kpi_error(self, ssh, *args):
         mock_ssh(ssh)
 
         resource_helper = mock.MagicMock()
-
-        prox_approx_vnf = ProxApproxVnf(NAME, deepcopy(self.VNFD0))
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, deepcopy(self.VNFD0))
+        prox_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {prox_approx_vnf.name: "mock"}
+        }
         prox_approx_vnf.resource_helper = resource_helper
         prox_approx_vnf.vnfd_helper['vdu'][0]['external-interface'] = []
         prox_approx_vnf.vnfd_helper.port_pairs.interfaces = []
@@ -385,7 +399,7 @@ class TestProxApproxVnf(unittest.TestCase):
     def test_run_prox(self, ssh, *_):
         mock_ssh(ssh)
 
-        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
         prox_approx_vnf.scenario_helper.scenario_cfg = self.SCENARIO_CFG
         prox_approx_vnf.ssh_helper.join_bin_path.return_value = '/tool_path12/tool_file34'
         prox_approx_vnf.setup_helper.remote_path = 'configs/file56.cfg'
@@ -399,7 +413,7 @@ class TestProxApproxVnf(unittest.TestCase):
 
     @mock.patch(SSH_HELPER)
     def bad_test_instantiate(self, *args):
-        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
         prox_approx_vnf.scenario_helper = mock.MagicMock()
         prox_approx_vnf.setup_helper = mock.MagicMock()
         # we can't mock super
@@ -409,7 +423,7 @@ class TestProxApproxVnf(unittest.TestCase):
     @mock.patch(SSH_HELPER)
     def test_wait_for_instantiate_panic(self, ssh, *args):
         mock_ssh(ssh, exec_result=(1, "", ""))
-        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
         prox_approx_vnf._vnf_process = mock.MagicMock(**{"is_alive.return_value": True})
         prox_approx_vnf._run_prox = mock.Mock(return_value=0)
         prox_approx_vnf.WAIT_TIME = 0
@@ -421,7 +435,7 @@ class TestProxApproxVnf(unittest.TestCase):
     @mock.patch(SSH_HELPER)
     def test_terminate(self, ssh, *args):
         mock_ssh(ssh)
-        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
         prox_approx_vnf._vnf_process = mock.MagicMock()
         prox_approx_vnf._vnf_process.terminate = mock.Mock()
         prox_approx_vnf.ssh_helper = mock.MagicMock()
@@ -433,7 +447,7 @@ class TestProxApproxVnf(unittest.TestCase):
     @mock.patch(SSH_HELPER)
     def test__vnf_up_post(self, ssh, *args):
         mock_ssh(ssh)
-        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
         prox_approx_vnf.resource_helper = resource_helper = mock.Mock()
 
         prox_approx_vnf._vnf_up_post()
@@ -442,7 +456,7 @@ class TestProxApproxVnf(unittest.TestCase):
     @mock.patch(SSH_HELPER)
     def test_vnf_execute_oserror(self, ssh, *args):
         mock_ssh(ssh)
-        prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
         prox_approx_vnf.resource_helper = resource_helper = mock.Mock()
 
         resource_helper.execute.side_effect = OSError(errno.EPIPE, "")
