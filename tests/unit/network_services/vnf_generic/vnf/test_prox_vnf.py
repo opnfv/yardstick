@@ -319,13 +319,20 @@ class TestProxApproxVnf(unittest.TestCase):
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
         self.assertIsNone(prox_approx_vnf._vnf_process)
 
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.prox_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi_no_client(self, ssh, *args):
+    def test_collect_kpi_no_client(self, ssh, mock_context, *args):
         mock_ssh(ssh)
 
+        mock_context.get_physical_node_from_server.return_value = 'mock_node'
+
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {prox_approx_vnf.name: "mock"}
+        }
         prox_approx_vnf.resource_helper = None
         expected = {
+            'physical_node': 'mock_node',
             'packets_in': 0,
             'packets_dropped': 0,
             'packets_fwd': 0,
@@ -334,18 +341,25 @@ class TestProxApproxVnf(unittest.TestCase):
         result = prox_approx_vnf.collect_kpi()
         self.assertEqual(result, expected)
 
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.prox_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi(self, ssh, *args):
+    def test_collect_kpi(self, ssh, mock_context, *args):
         mock_ssh(ssh)
+
+        mock_context.get_physical_node_from_server.return_value = 'mock_node'
 
         resource_helper = mock.MagicMock()
         resource_helper.execute.return_value = list(range(12))
         resource_helper.collect_collectd_kpi.return_value = {'core': {'result': 234}}
 
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {prox_approx_vnf.name: "mock"}
+        }
         prox_approx_vnf.resource_helper = resource_helper
 
         expected = {
+            'physical_node': 'mock_node',
             'packets_in': 6,
             'packets_dropped': 1,
             'packets_fwd': 7,
@@ -358,13 +372,18 @@ class TestProxApproxVnf(unittest.TestCase):
         self.assertNotEqual(result['packets_fwd'], 0)
         self.assertNotEqual(result['packets_fwd'], 0)
 
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.prox_vnf.Context")
     @mock.patch(SSH_HELPER)
-    def test_collect_kpi_error(self, ssh, *args):
+    def test_collect_kpi_error(self, ssh, mock_context, *args):
         mock_ssh(ssh)
 
         resource_helper = mock.MagicMock()
+        mock_context.get_physical_node_from_server.return_value = 'mock_node'
 
         prox_approx_vnf = ProxApproxVnf(NAME, deepcopy(self.VNFD0))
+        prox_approx_vnf.scenario_helper.scenario_cfg = {
+            'nodes': {prox_approx_vnf.name: "mock"}
+        }
         prox_approx_vnf.resource_helper = resource_helper
         prox_approx_vnf.vnfd_helper['vdu'][0]['external-interface'] = []
         prox_approx_vnf.vnfd_helper.port_pairs.interfaces = []

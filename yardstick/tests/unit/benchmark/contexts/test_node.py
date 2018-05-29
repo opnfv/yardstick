@@ -14,6 +14,7 @@ import mock
 
 from yardstick.common import constants as consts
 from yardstick.benchmark.contexts import node
+from yardstick.common.exceptions import ContextUpdateCollectdForNodeError
 
 
 class NodeContextTestCase(unittest.TestCase):
@@ -167,6 +168,34 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertEqual(result['name'], 'node1.foo-12345678')
         self.assertEqual(result['user'], 'root')
         self.assertEqual(result['key_filename'], '/root/.yardstick_key')
+
+    def test__get_physical_node_for_server(self):
+        self.test_context.init(self.attrs)
+
+        # When server is not from this context
+        result = self.test_context._get_physical_node_for_server('node1.another-context')
+        self.assertIsNone(result)
+
+        # When node_name is not from this context
+        result = self.test_context._get_physical_node_for_server('fake.foo-12345678')
+        self.assertIsNone(result)
+
+        result = self.test_context._get_physical_node_for_server('node1.foo-12345678')
+        self.assertEqual(result, 'node1.foo')
+
+    def test_update_collectd_options_for_node(self):
+        self.test_context.init(self.attrs)
+        options = {'collectd': {'interval': 5}}
+
+        with self.assertRaises(ContextUpdateCollectdForNodeError):
+            self.test_context.update_collectd_options_for_node(options, 'fake.foo-12345678')
+
+        self.test_context.update_collectd_options_for_node(options, 'node1.foo-12345678')
+
+        node_collectd_options = [node for node in self.test_context.nodes
+                                 if node['name'] == 'node1'][0]['collectd']
+
+        self.assertEquals(node_collectd_options, options)
 
     @mock.patch('{}.NodeContext._dispatch_script'.format(PREFIX))
     def test_deploy(self, dispatch_script_mock):
