@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_99bf9cd0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-30T11:59:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_d9464423",
+      "revId": "1a65d64995209d6089deba82cf68f12bec18ca50",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_19ac2ced",
         "filename": "ansible/install.yaml",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2018-05-30T08:43:22Z",
       "side": 1,
       "message": "Why this comment?",
+      "range": {
+        "startLine": 101,
+        "startChar": 17,
+        "endLine": 101,
+        "endChar": 39
+      },
+      "revId": "1a65d64995209d6089deba82cf68f12bec18ca50",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_f926a067",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-30T11:59:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_19ac2ced",
       "range": {
         "startLine": 101,
         "startChar": 17,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_39200849",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-30T11:59:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_b9825850",
+      "range": {
+        "startLine": 107,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 36
+      },
+      "revId": "1a65d64995209d6089deba82cf68f12bec18ca50",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_d9cf64af",
         "filename": "ansible/roles/build_yardstick_image/tasks/main.yml",
         "patchSetId": 3
@@ -76,6 +142,30 @@
       "writtenOn": "2018-05-30T08:43:22Z",
       "side": 1,
       "message": "Each VNF type has entity enough to have each own yaml file.\n- cloudimg_modify_normal\n- cloudimg_modify_nsb\n\n--\u003e doing this, each file will be more readable",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 32
+      },
+      "revId": "1a65d64995209d6089deba82cf68f12bec18ca50",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_99d83c55",
+        "filename": "ansible/roles/build_yardstick_image/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-30T11:59:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_d9cf64af",
       "range": {
         "startLine": 20,
         "startChar": 0,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_191d4c10",
+        "filename": "ansible/roles/build_yardstick_image/tasks/post_build.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-30T11:59:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_39c48891",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 30
+      },
+      "revId": "1a65d64995209d6089deba82cf68f12bec18ca50",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_f9ca20a0",
         "filename": "ansible/roles/build_yardstick_image/tasks/pre_build.yml",
         "patchSetId": 3
@@ -122,6 +236,30 @@
       "writtenOn": "2018-05-30T08:43:22Z",
       "side": 1,
       "message": "Instead of having a different variable name for each value, you should have only one fact:\n\n- set_fact:\n    imgfile: \"{{ normal_image_file }}\"\n  when: img_prop_item \u003d\u003d \"normal\"",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 30
+      },
+      "revId": "1a65d64995209d6089deba82cf68f12bec18ca50",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_791a9018",
+        "filename": "ansible/roles/build_yardstick_image/tasks/pre_build.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-05-30T11:59:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_f9ca20a0",
       "range": {
         "startLine": 26,
         "startChar": 0,
