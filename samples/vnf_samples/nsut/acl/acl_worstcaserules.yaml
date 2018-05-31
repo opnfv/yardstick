@@ -11,37 +11,33 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-access-list1:
-  acl:
-    access-list-entries:
-    - ace:
-        ace-oper-data:
-          match-counter: 0
-        actions: drop,count
-        matches:
-          destination-ipv4-network: 152.16.40.20/24
-          destination-port-range:
-            lower-port: 0
-            upper-port: 65535
-          source-ipv4-network: 0.0.0.0/0
-          source-port-range:
-            lower-port: 0
-            upper-port: 65535
-        rule-name: rule1588
-    - ace:
-        ace-oper-data:
-          match-counter: 0
-        actions: drop,count
-        matches:
-          destination-ipv4-network: 0.0.0.0/0
-          destination-port-range:
-            lower-port: 0
-            upper-port: 65535
-          source-ipv4-network: 152.16.100.20/24
-          source-port-range:
-            lower-port: 0
-            upper-port: 65535
-        rule-name: rule1589
-    acl-name: sample-ipv4-acl
-    acl-type: ipv4-acl
+---
+access-list-entries:
+  -
+    ace-oper-data:
+      match-counter: 0
+    actions: [drop,count]
+    matches:
+      destination-ipv4-network: 152.16.40.20/24
+      destination-port-range:
+        lower-port: 0
+        upper-port: 65535
+      source-ipv4-network: 0.0.0.0/0
+      source-port-range:
+        lower-port: 0
+        upper-port: 65535
+    rule-name: rule1588
+  -
+    ace-oper-data:
+      match-counter: 0
+    actions: [drop,count]
+    matches:
+      destination-ipv4-network: 0.0.0.0/0
+      destination-port-range:
+        lower-port: 0
+        upper-port: 65535
+      source-ipv4-network: 152.16.100.20/24
+      source-port-range:
+        lower-port: 0
+        upper-port: 65535
+    rule-name: rule1589

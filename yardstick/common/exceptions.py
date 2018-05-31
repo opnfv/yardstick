@@ -313,3 +313,12 @@ class IxNetworkFieldNotPresentInStackItem(YardstickException):
 
 class SLAValidationError(YardstickException):
     message = '%(case_name)s SLA validation failed. Error: %(error_msg)s'
+
+
+class AclMissingActionArguments(YardstickException):
+    message = ('Missing ACL action parameter '
+               '[action=%(action_name)s parameter=%(action_param)s]')
+
+
+class AclUknownActionTemplate(YardstickException):
+    message = 'No ACL CLI template found for "%(action_name)s" action'
