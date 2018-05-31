@@ -572,6 +572,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
         scenario_helper.vnf_cfg = {}
+        scenario_helper.options = {}
         scenario_helper.all_options = {}
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
 
@@ -583,6 +584,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         self.assertGreaterEqual(mock_multi_port_config.generate_config.call_count, 1)
         self.assertGreaterEqual(mock_multi_port_config.generate_script.call_count, 1)
 
+        scenario_helper.options = {'rules': 'fake_file'}
         scenario_helper.vnf_cfg = {'file': 'fake_file'}
         dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
         mock_open_rf.side_effect = mock.mock_open(read_data='fake_data')
@@ -590,7 +592,7 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
 
         result = dpdk_setup_helper.build_config()
 
-        mock_open_rf.assert_called_once()
+        mock_open_rf.assert_called()
         self.assertEqual(result, expected)
         self.assertGreaterEqual(ssh_helper.upload_config_file.call_count, 2)
         self.assertGreaterEqual(mock_find.call_count, 1)

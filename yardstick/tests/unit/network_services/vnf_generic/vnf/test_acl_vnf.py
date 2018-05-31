@@ -311,7 +311,6 @@ class TestAclApproxVnf(unittest.TestCase):
         acl_approx_vnf._run()
         acl_approx_vnf.ssh_helper.run.assert_called_once()
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.YangModel")
     @mock.patch.object(utils, 'find_relative_file')
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
@@ -359,14 +358,17 @@ class TestAclApproxSetupEnvSetupEnvHelper(unittest.TestCase):
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
         scenario_helper.vnf_cfg = {'lb_config': 'HW'}
+        scenario_helper.options = {}
         scenario_helper.all_options = {}
 
         acl_approx_setup_helper = AclApproxSetupEnvSetupEnvHelper(vnfd_helper,
                                                                   ssh_helper,
                                                                   scenario_helper)
 
+        acl_approx_setup_helper.get_flows_config = mock.Mock()
         acl_approx_setup_helper.ssh_helper.provision_tool = mock.Mock(return_value='tool_path')
         acl_approx_setup_helper.ssh_helper.all_ports = mock.Mock()
         acl_approx_setup_helper.vnfd_helper.port_nums = mock.Mock(return_value=[0, 1])
         expected = 'sudo tool_path -p 0x3 -f /tmp/acl_config -s /tmp/acl_script  --hwlb 3'
         self.assertEqual(acl_approx_setup_helper.build_config(), expected)
+        acl_approx_setup_helper.get_flows_config.assert_called_once()
