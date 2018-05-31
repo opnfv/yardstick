@@ -11,14 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+---
 access-list1:
   acl:
     access-list-entries:
     - ace:
-        ace-oper-data:
-          match-counter: 0
-        actions: drop,count
+        actions: [drop,count]
         matches:
           destination-ipv4-network: 152.16.40.20/24
           destination-port-range:
@@ -30,9 +28,7 @@ access-list1:
             upper-port: 65535
         rule-name: rule1588
     - ace:
-        ace-oper-data:
-          match-counter: 0
-        actions: drop,count
+        actions: [drop,count]
         matches:
           destination-ipv4-network: 0.0.0.0/0
           destination-port-range:
