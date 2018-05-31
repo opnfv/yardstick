@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_0fcb3e73",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-31T16:26:54Z",
+      "side": 1,
+      "message": "You are right!",
+      "parentUuid": "1a494da4_afd04a54",
+      "range": {
+        "startLine": 442,
+        "startChar": 0,
+        "endLine": 446,
+        "endChar": 19
+      },
+      "revId": "bf77209d8c7a4e4ebba6aa9b0dfda22692aab525",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_6fe76241",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 11
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_2fcefa83",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-31T16:26:54Z",
+      "side": 1,
+      "message": "No, the instant time",
+      "parentUuid": "1a494da4_6fe76241",
+      "range": {
+        "startLine": 451,
+        "startChar": 19,
+        "endLine": 451,
+        "endChar": 42
+      },
+      "revId": "bf77209d8c7a4e4ebba6aa9b0dfda22692aab525",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_8fd58e45",
         "filename": "yardstick/common/utils.py",
         "patchSetId": 11
@@ -59,6 +107,24 @@
       "writtenOn": "2018-05-31T13:23:56Z",
       "side": 1,
       "message": "As a suggestion, it would be safer to add __del__() \n methods too that will set ALRM handler as it was before __init__() call.\n\ne.g:\ndef __del__(self):\n  signal.signal(signal.SIGALRM, self._prev_handler)\n\nSince, this is not in scope of the task, this comment can be skipped.",
+      "revId": "bf77209d8c7a4e4ebba6aa9b0dfda22692aab525",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_8fa62ec0",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-05-31T16:26:54Z",
+      "side": 1,
+      "message": "The signal is activated when:\n- Accessing to the context, using __enter__. The signal will be stopped or an exception will be risen.\n- Using the iterator, but in this case, the timeout handler will call exit and the signal will be reset.",
+      "parentUuid": "1a494da4_8fd58e45",
       "revId": "bf77209d8c7a4e4ebba6aa9b0dfda22692aab525",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
