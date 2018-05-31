@@ -14,9 +14,8 @@
 
 import logging
 
-from yardstick.common import utils
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF, DpdkVnfSetupEnvHelper
-from yardstick.network_services.yang_model import YangModel
+from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF
+from yardstick.network_services.vnf_generic.vnf.acl_vnf import AclApproxSetupEnvSetupEnvHelper
 
 LOG = logging.getLogger(__name__)
 
@@ -27,7 +26,7 @@ FW_COLLECT_KPI = (r"""VFW TOTAL:[^p]+pkts_received"?:\s(\d+),[^p]+pkts_fw_forwar
                   r"""[^p]+pkts_drop_fw"?:\s(\d+),\s""")
 
 
-class FWApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
+class FWApproxSetupEnvHelper(AclApproxSetupEnvSetupEnvHelper):
 
     APP_NAME = "vFW"
     CFG_CONFIG = "/tmp/vfw_config"
@@ -37,6 +36,8 @@ class FWApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
     SW_DEFAULT_CORE = 5
     HW_DEFAULT_CORE = 2
     VNF_TYPE = "VFW"
+    RULE_CMD = "vfw"
+    DEFAULT_FWD_ACTIONS = ["accept", "count", "conntrack"]
 
 
 class FWApproxVnf(SampleVNF):
@@ -56,12 +57,6 @@ class FWApproxVnf(SampleVNF):
             setup_env_helper_type = FWApproxSetupEnvHelper
 
         super(FWApproxVnf, self).__init__(name, vnfd, setup_env_helper_type, resource_helper_type)
-        self.vfw_rules = None
 
     def _start_vnf(self):
-        yang_model_path = utils.find_relative_file(
-            self.scenario_helper.options['rules'],
-            self.scenario_helper.task_path)
-        yang_model = YangModel(yang_model_path)
-        self.vfw_rules = yang_model.get_rules()
         super(FWApproxVnf, self)._start_vnf()
