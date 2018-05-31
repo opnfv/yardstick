@@ -16,6 +16,7 @@
 import unittest
 import mock
 import os
+import re
 
 from yardstick.tests import STL_MOCKS
 from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
@@ -28,6 +29,7 @@ stl_patch.start()
 
 if stl_patch:
     from yardstick.network_services.vnf_generic.vnf.acl_vnf import AclApproxVnf
+    from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
     from yardstick.network_services.nfvi.resource import ResourceProfile
     from yardstick.network_services.vnf_generic.vnf.acl_vnf import AclApproxSetupEnvSetupEnvHelper
 
@@ -311,7 +313,6 @@ class TestAclApproxVnf(unittest.TestCase):
         acl_approx_vnf._run()
         acl_approx_vnf.ssh_helper.run.assert_called_once()
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.acl_vnf.YangModel")
     @mock.patch.object(utils, 'find_relative_file')
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
@@ -350,6 +351,127 @@ class TestAclApproxVnf(unittest.TestCase):
 
 class TestAclApproxSetupEnvSetupEnvHelper(unittest.TestCase):
 
+    ACL_CONFIG = {"access-list1": {
+                    "acl": {
+                      "access-list-entries": [
+                        {
+                          "ace": {
+                            "actions": [
+                              "count",
+                              {"fwd": {
+                                  "port": 0
+                                }
+                              }
+                            ],
+                            "matches": {
+                              "destination-ipv4-network": "152.16.0.0/24",
+                              "destination-port-range": {
+                                "lower-port": 0,
+                                "upper-port": 65535
+                              },
+                              "source-ipv4-network": "0.0.0.0/0",
+                              "source-port-range": {
+                                "lower-port": 0,
+                                "upper-port": 65535
+                              },
+                              "protocol-mask": 255,
+                              "protocol": 127,
+                              "priority": 1
+                            },
+                            "rule-name": "rule1588"
+                          }
+                        }
+                      ],
+                      "acl-name": "sample-ipv4-acl",
+                      "acl-type": "ipv4-acl"
+                    }
+                 }}
+
+    def test_get_default_flows(self):
+        """Check if default ACL SampleVNF CLI commands are
+        generated correctly"""
+        ssh_helper = mock.Mock()
+        vnfd_helper = VnfdHelper({'vdu': [
+            {'external-interface': [
+                {
+                    'virtual-interface': {
+                        'local_ip': '152.16.100.19',
+                        'netmask': '255.255.255.0',
+                        'dpdk_port_num': 0,
+                        'dst_ip': '152.16.100.20',
+                        'vld_id': 'uplink_0',
+                        'ifname': 'xe0',
+                    },
+                    'vnfd-connection-point-ref': 'xe0',
+                    'name': 'xe0'
+                },
+                {
+                    'virtual-interface': {
+                        'local_ip': '152.16.40.19',
+                        'netmask': '255.255.255.0',
+                        'dpdk_port_num': 1,
+                        'dst_ip': '152.16.40.20',
+                        'vld_id': 'downlink_0',
+                        'ifname': 'xe1',
+                    },
+                    'vnfd-connection-point-ref': 'xe1',
+                    'name': 'xe1'
+                }
+            ]}
+        ]})
+        setup_helper = AclApproxSetupEnvSetupEnvHelper(vnfd_helper, ssh_helper, None)
+        self.check_acl_commands(setup_helper.get_flows_config(), [
+            # format: (<cli pattern>, <number of expected matches>)
+            ("^p action add [0-9]+ accept$", 2),
+            ("^p action add [0-9]+ count$", 2),
+            ("^p action add [0-9]+ fwd 1$", 1),
+            ("^p action add [0-9]+ fwd 0$", 1),
+            ("^p acl add 1 152.16.100.0 24 152.16.40.0 24 0 65535 0 65535 0 0 [0-9]+$", 1),
+            ("^p acl add 1 152.16.40.0 24 152.16.100.0 24 0 65535 0 65535 0 0 [0-9]+$", 1),
+            ("^p acl applyruleset$", 1)
+        ])
+
+    @mock.patch.object(AclApproxSetupEnvSetupEnvHelper, 'get_default_flows')
+    def test_get_flows_config(self, get_default_flows):
+        """Check if provided ACL config can be converted to
+        ACL SampleVNF CLI commands correctly"""
+        ssh_helper = mock.Mock()
+        setup_helper = AclApproxSetupEnvSetupEnvHelper(None, ssh_helper, None)
+        get_default_flows.return_value = ({}, [])
+        self.check_acl_commands(setup_helper.get_flows_config(self.ACL_CONFIG), [
+            # format: (<cli pattern>, <number of expected matches>)
+            ("^p action add [0-9]+ count$", 1),
+            ("^p action add [0-9]+ fwd 0$", 1),
+            ("^p acl add 1 0.0.0.0 0 152.16.0.0 24 0 65535 0 65535 127 0 [0-9]+$", 1),
+            ("^p acl applyruleset$", 1)
+        ])
+
+    def check_acl_commands(self, config, expected_cli_patterns):
+        """Check if expected ACL CLI commands (given as a list of patterns,
+        `expected_cli_patterns` parameter) present in SampleVNF ACL
+        configuration (given as a multiline string, `config` parameter)"""
+        # Example of expected config:
+        # ---------------------------
+        # p action add 1 accept
+        # p action add 1 fwd 1
+        # p action add 2 accept
+        # p action add 2 count
+        # p action add 2 fwd 0
+        # p acl add 1 152.16.100.0 24 152.16.40.0 24 0 65535 0 65535 0 0 1
+        # p acl add 1 152.16.40.0 24 152.16.100.0 24 0 65535 0 65535 0 0 2
+        # p acl applyruleset
+        # ---------------------------
+        # NOTE: The config above consists of actions ids, which are actually
+        # unknown (generated at runtime), thus it's incorrect just to compare
+        # the example ACL config above with the configuration returned by
+        # get_flows_config() function. It's more correct to use CLI patterns
+        # (RE) to find the required SampleVNF CLI commands in the multiline
+        # string (SampleVNF ACL configuration).
+        for pattern, num_of_match in expected_cli_patterns:
+            # format: (<cli pattern>, <number of expected matches>)
+            result = re.findall(pattern, config, re.MULTILINE)
+            self.assertEqual(len(result), num_of_match)
+
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
     @mock.patch.object(utils, 'find_relative_file')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig')
@@ -359,14 +481,17 @@ class TestAclApproxSetupEnvSetupEnvHelper(unittest.TestCase):
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
         scenario_helper.vnf_cfg = {'lb_config': 'HW'}
+        scenario_helper.options = {}
         scenario_helper.all_options = {}
 
         acl_approx_setup_helper = AclApproxSetupEnvSetupEnvHelper(vnfd_helper,
                                                                   ssh_helper,
                                                                   scenario_helper)
 
+        acl_approx_setup_helper.get_flows_config = mock.Mock()
         acl_approx_setup_helper.ssh_helper.provision_tool = mock.Mock(return_value='tool_path')
         acl_approx_setup_helper.ssh_helper.all_ports = mock.Mock()
         acl_approx_setup_helper.vnfd_helper.port_nums = mock.Mock(return_value=[0, 1])
         expected = 'sudo tool_path -p 0x3 -f /tmp/acl_config -s /tmp/acl_script  --hwlb 3'
         self.assertEqual(acl_approx_setup_helper.build_config(), expected)
+        acl_approx_setup_helper.get_flows_config.assert_called_once()
