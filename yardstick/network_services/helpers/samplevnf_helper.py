@@ -245,6 +245,7 @@ class MultiPortConfig(object):
         self.ports_len = 0
         self.prv_que_handler = None
         self.vnfd = None
+        self.actions = None
         self.rules = None
         self.pktq_out = []
 
@@ -639,12 +640,14 @@ class MultiPortConfig(object):
 
     def generate_action_config(self):
         port_list = (self.vnfd_helper.port_num(p) for p in self.all_ports)
+        actions_config = self.actions if self.actions else ''
         if self.vnf_type == "VFW":
             template = FW_ACTION_TEMPLATE
         else:
             template = ACTION_TEMPLATE
 
-        return ''.join((template.format(port) for port in port_list))
+        new_actions_config = ''.join((template.format(port) for port in port_list))
+        return '\n'.join([actions_config, new_actions_config])
 
     def get_ip_from_port(self, port):
         # we can't use gateway because in OpenStack gateways interfer with floating ip routing
@@ -695,7 +698,7 @@ class MultiPortConfig(object):
         acl_apply = "\np %s applyruleset" % cmd
         new_rules_config = '\n'.join(pattern.format(*values) for values
                                      in chain(new_rules, new_ipv6_rules))
-        return ''.join([rules_config, new_rules_config, acl_apply])
+        return '\n'.join([rules_config, new_rules_config, acl_apply])
 
     def generate_script_data(self):
         self._port_pairs = PortPairs(self.vnfd_helper.interfaces)
@@ -722,8 +725,9 @@ class MultiPortConfig(object):
 
         return script_data
 
-    def generate_script(self, vnfd, rules=None):
+    def generate_script(self, vnfd, actions=None, rules=None):
         self.vnfd = vnfd
+        self.actions = actions
         self.rules = rules
         script_data = self.generate_script_data()
         script = SCRIPT_TPL.format(**script_data)

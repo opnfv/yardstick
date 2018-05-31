@@ -113,6 +113,8 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         self.socket = None
         self.used_drivers = None
         self.dpdk_bind_helper = DpdkBindHelper(ssh_helper)
+        self._rules_config = None
+        self._actions_config = None
 
     def _setup_hugepages(self):
         meminfo = utils.read_meminfo(self.ssh_helper)
@@ -176,11 +178,25 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
             new_config = self._update_packet_type(new_config, traffic_options)
         self.ssh_helper.upload_config_file(config_basename, new_config)
         self.ssh_helper.upload_config_file(script_basename,
-                                           multiport.generate_script(self.vnfd_helper))
+            multiport.generate_script(self.vnfd_helper,
+                                      self.get_actions_config(),
+                                      self.get_rules_config()))
 
         LOG.info("Provision and start the %s", self.APP_NAME)
         self._build_pipeline_kwargs()
         return self.PIPELINE_COMMAND.format(**self.pipeline_kwargs)
+
+    def get_rules_config(self):
+        return self._rules_config
+
+    def get_actions_config(self):
+        return self._actions_config
+
+    def set_rules_config(self, rules_config):
+        self._rules_config = rules_config
+
+    def set_actions_config(self, actions_config):
+        self._actions_config = actions_config
 
     def _build_pipeline_kwargs(self):
         tool_path = self.ssh_helper.provision_tool(tool_file=self.APP_NAME)

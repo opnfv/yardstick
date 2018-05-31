@@ -25,12 +25,15 @@ LOG = logging.getLogger(__name__)
 
 class YangModel(object):
 
-    RULE_TEMPLATE = "p acl add 1 {0} {1} {2} {3} {4} {5} {6} {7} 0 0 {8}"
+    RULE_TEMPLATE = "p vfw add 1 {0} {1} {2} {3} {4} {5} {6} {7} 0 0 {8}"
+    ACTION_TEMPLATE = "p action add {action_id} {action}"
+    ACTION_PORT_TEMPLATE = "p action add {action_id} {action} {port}"
 
     def __init__(self, config_file):
         super(YangModel, self).__init__()
         self._config_file = config_file
         self._options = {}
+        self._actions = ''
         self._rules = ''
 
     @property
@@ -56,8 +59,31 @@ class YangModel(object):
         if not self._options:
             return ''
 
-        rule_list = []
-        for ace in self._options['access-list1']['acl']['access-list-entries']:
+        rule_list, action_list = [], []
+        for index, ace in enumerate(self._options['access-list1']['acl']['access-list-entries']):
+            _action_template_map = {
+                "accept": self.ACTION_TEMPLATE,
+                "drop": self.ACTION_TEMPLATE,
+                "count": self.ACTION_TEMPLATE,
+                "fwd": self.ACTION_PORT_TEMPLATE,
+                "nat": self.ACTION_PORT_TEMPLATE
+            }
+            # TEMPORARY WORKAROUND:
+            # The id of auto-generaged actions by SampleVNF starting from 0. We
+            # cannot use 0+a ids in our case. To workaround this, we can start
+            # from highest action id. Max number of actions is 10000 in sampleVNF.
+            # https://git.opnfv.org/samplevnf/tree/common/VIL/acl/lib_acl.h#n36).
+            # So, starting from highest id 9999 from now.
+            action_id = 9999 - index
+            # Get list of rule actions
+            action_list.append('')  # add an extra new line
+            for action in ace['ace']['actions'].split(','):
+                # TODO: The `fwd` & `nat` actions require addition CLI argiments
+                #       to configure the action like port. For now, set fwd port
+                #       to 0.
+                action_list.append(_action_template_map[action].format(
+                    action_id=action_id, action=action, port=0))
+
             # TODO: resolve ports using topology file and nodes'
             # ids: public or private.
             matches = ace['ace']['matches']
@@ -88,7 +114,7 @@ class YangModel(object):
                                                        upper_dport,
                                                        lower_sport,
                                                        upper_sport,
-                                                       0))
+                                                       action_id))
             rule_list.append(self.RULE_TEMPLATE.format(port1_local_network,
                                                        port1_prefix,
                                                        port0_local_network,
@@ -97,9 +123,16 @@ class YangModel(object):
                                                        upper_sport,
                                                        lower_dport,
                                                        upper_dport,
-                                                       1))
+                                                       action_id))
 
         self._rules = '\n'.join(rule_list)
+        self._actions = '\n'.join(action_list)
+
+    def get_actions(self):
+        if not self._actions:
+            self._read_config()
+            self._get_entries()
+        return self._actions
 
     def get_rules(self):
         if not self._rules:

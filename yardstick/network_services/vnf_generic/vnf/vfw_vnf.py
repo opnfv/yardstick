@@ -63,5 +63,6 @@ class FWApproxVnf(SampleVNF):
             self.scenario_helper.options['rules'],
             self.scenario_helper.task_path)
         yang_model = YangModel(yang_model_path)
-        self.vfw_rules = yang_model.get_rules()
+        self.setup_helper.set_rules_config(yang_model.get_rules())
+        self.setup_helper.set_actions_config(yang_model.get_actions())
         super(FWApproxVnf, self)._start_vnf()
