@@ -227,7 +227,7 @@ class TestMultiPortConfig(unittest.TestCase):
             mock.Mock(return_value={'link_config': 0, 'arp_config': '',
                                     'arp_config6': '', 'actions': '',
                                     'arp_route_tbl': '', 'arp_route_tbl6': '',
-                                    'rules': ''})
+                                    'flows': ''})
         opnfv_vnf.port_pair_list = [("xe0", "xe1")]
         self.assertIsNotNone(opnfv_vnf.generate_script(self.VNFD))
         opnfv_vnf.lb_config = 'HW'
@@ -252,66 +252,6 @@ class TestMultiPortConfig(unittest.TestCase):
         opnfv_vnf.generate_action_config = mock.Mock()
         opnfv_vnf.generate_rule_config = mock.Mock()
         self.assertIsNotNone(opnfv_vnf.generate_script_data())
-
-    def test_generate_rule_config(self):
-        topology_file = mock.Mock()
-        config_tpl = mock.Mock()
-        tmp_file = mock.Mock()
-        vnfd_mock = mock.MagicMock()
-        opnfv_vnf = samplevnf_helper.MultiPortConfig(
-            topology_file, config_tpl, tmp_file, vnfd_mock)
-        opnfv_vnf.get_config_tpl_data = mock.MagicMock()
-        opnfv_vnf.socket = 0
-        opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
-        opnfv_vnf.generate_script_data = \
-            mock.Mock(return_value={'link_config': 0, 'arp_config': '',
-                                    'arp_config6': '', 'actions': '',
-                                    'rules': ''})
-        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
-        opnfv_vnf.get_port_pairs = mock.Mock()
-        opnfv_vnf.vnf_type = 'ACL'
-        opnfv_vnf.get_ports_gateway = mock.Mock(return_value=u'1.1.1.1')
-        opnfv_vnf.get_netmask_gateway = mock.Mock(
-            return_value=u'255.255.255.0')
-        opnfv_vnf.get_ports_gateway6 = mock.Mock(return_value=u'1.1.1.1')
-        opnfv_vnf.get_netmask_gateway6 = mock.Mock(
-            return_value=u'255.255.255.0')
-        opnfv_vnf.txrx_pipeline = ''
-        opnfv_vnf.vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        opnfv_vnf.interfaces = opnfv_vnf.vnfd['vdu'][0]['external-interface']
-        opnfv_vnf.rules = ''
-        self.assertIsNotNone(opnfv_vnf.generate_rule_config())
-        opnfv_vnf.rules = 'new'
-        self.assertIsNotNone(opnfv_vnf.generate_rule_config())
-
-    def test_generate_action_config(self):
-        topology_file = mock.Mock()
-        config_tpl = mock.Mock()
-        tmp_file = mock.Mock()
-        vnfd_mock = mock.MagicMock()
-        opnfv_vnf = samplevnf_helper.MultiPortConfig(
-            topology_file, config_tpl, tmp_file, vnfd_mock)
-        opnfv_vnf.get_config_tpl_data = mock.MagicMock()
-        opnfv_vnf.socket = 0
-        opnfv_vnf.start_core = 0
-        opnfv_vnf.update_write_parser = mock.MagicMock()
-        opnfv_vnf.generate_script_data = \
-            mock.Mock(return_value={'link_config': 0, 'arp_config': '',
-                                    'arp_config6': '', 'actions': '',
-                                    'rules': ''})
-        opnfv_vnf.port_pair_list = [("xe0", "xe1")]
-        opnfv_vnf.get_port_pairs = mock.Mock()
-        opnfv_vnf.vnf_type = 'VFW'
-        opnfv_vnf.get_ports_gateway = mock.Mock(return_value=u'1.1.1.1')
-        opnfv_vnf.get_netmask_gateway = mock.Mock(
-            return_value=u'255.255.255.0')
-        opnfv_vnf.get_ports_gateway6 = mock.Mock(return_value=u'1.1.1.1')
-        opnfv_vnf.get_netmask_gateway6 = mock.Mock(
-            return_value=u'255.255.255.0')
-        opnfv_vnf.txrx_pipeline = ''
-        opnfv_vnf.rules = ''
-        self.assertIsNotNone(opnfv_vnf.generate_action_config())
 
     def test_generate_arp_config6(self):
         topology_file = mock.Mock()

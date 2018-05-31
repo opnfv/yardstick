@@ -334,7 +334,6 @@ pipeline>
         vfw_approx_vnf.ssh_helper.run.assert_called_once()
 
     @mock.patch.object(utils, 'find_relative_file')
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.vfw_vnf.YangModel")
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.Context")
     @mock.patch(SSH_HELPER)
     def test_instantiate(self, ssh, *args):
@@ -363,12 +362,15 @@ class TestFWApproxSetupEnvHelper(unittest.TestCase):
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
         scenario_helper.vnf_cfg = {'lb_config': 'HW'}
+        scenario_helper.options = {}
         scenario_helper.all_options = {}
 
         vfw_approx_setup_helper = FWApproxSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        vfw_approx_setup_helper.get_flows_config = mock.Mock()
 
         vfw_approx_setup_helper.ssh_helper.provision_tool = mock.Mock(return_value='tool_path')
         vfw_approx_setup_helper.ssh_helper.all_ports = mock.Mock()
         vfw_approx_setup_helper.vnfd_helper.port_nums = mock.Mock(return_value=[0, 1])
         expected = 'sudo tool_path -p 0x3 -f /tmp/vfw_config -s /tmp/vfw_script  --hwlb 3'
         self.assertEqual(vfw_approx_setup_helper.build_config(), expected)
+        vfw_approx_setup_helper.get_flows_config.assert_called_once()
