@@ -34,19 +34,6 @@ link {0} config {1} {2}
 link {0} up
 """
 
-ACTION_TEMPLATE = """\
-p action add {0} accept
-p action add {0} fwd {0}
-p action add {0} count
-"""
-
-FW_ACTION_TEMPLATE = """\
-p action add {0} accept
-p action add {0} fwd {0}
-p action add {0} count
-p action add {0} conntrack
-"""
-
 # This sets up a basic passthrough with no rules
 SCRIPT_TPL = """
 {link_config}
@@ -59,9 +46,7 @@ SCRIPT_TPL = """
 
 {arp_route_tbl6}
 
-{actions}
-
-{rules}
+{flows}
 
 """
 
@@ -245,7 +230,7 @@ class MultiPortConfig(object):
         self.ports_len = 0
         self.prv_que_handler = None
         self.vnfd = None
-        self.rules = None
+        self.flows = None
         self.pktq_out = []
 
     @staticmethod
@@ -542,7 +527,7 @@ class MultiPortConfig(object):
                 self.update_write_parser(self.loadb_tpl)
                 self.start_core += 1
 
-            for i in range(self.worker_threads):
+            for _ in range(self.worker_threads):
                 vnf_data = self.generate_vnf_data()
                 if not self.vnf_tpl:
                     self.vnf_tpl = {}
@@ -637,65 +622,8 @@ class MultiPortConfig(object):
 
         return '\n'.join(('p {3} arpadd {0} {1} {2}'.format(*values) for values in arp_config6))
 
-    def generate_action_config(self):
-        port_list = (self.vnfd_helper.port_num(p) for p in self.all_ports)
-        if self.vnf_type == "VFW":
-            template = FW_ACTION_TEMPLATE
-        else:
-            template = ACTION_TEMPLATE
-
-        return ''.join((template.format(port) for port in port_list))
-
-    def get_ip_from_port(self, port):
-        # we can't use gateway because in OpenStack gateways interfer with floating ip routing
-        # return self.make_ip_addr(self.get_ports_gateway(port), self.get_netmask_gateway(port))
-        vintf = self.vnfd_helper.find_interface(name=port)["virtual-interface"]
-        ip = vintf["local_ip"]
-        netmask = vintf["netmask"]
-        return self.make_ip_addr(ip, netmask)
-
-    def get_network_and_prefixlen_from_ip_of_port(self, port):
-        ip_addr = self.get_ip_from_port(port)
-        # handle cases with no gateway
-        if ip_addr:
-            return ip_addr.network.network_address.exploded, ip_addr.network.prefixlen
-        else:
-            return None, None
-
-    def generate_rule_config(self):
-        cmd = 'acl' if self.vnf_type == "ACL" else "vfw"
-        rules_config = self.rules if self.rules else ''
-        new_rules = []
-        new_ipv6_rules = []
-        pattern = 'p {0} add {1} {2} {3} {4} {5} 0 65535 0 65535 0 0 {6}'
-        for src_intf, dst_intf in self.port_pair_list:
-            src_port = self.vnfd_helper.port_num(src_intf)
-            dst_port = self.vnfd_helper.port_num(dst_intf)
-
-            src_net, src_prefix_len = self.get_network_and_prefixlen_from_ip_of_port(src_intf)
-            dst_net, dst_prefix_len = self.get_network_and_prefixlen_from_ip_of_port(dst_intf)
-            # ignore entires with empty values
-            if all((src_net, src_prefix_len, dst_net, dst_prefix_len)):
-                new_rules.append((cmd, self.txrx_pipeline, src_net, src_prefix_len,
-                                  dst_net, dst_prefix_len, dst_port))
-                new_rules.append((cmd, self.txrx_pipeline, dst_net, dst_prefix_len,
-                                  src_net, src_prefix_len, src_port))
-
-            # src_net = self.get_ports_gateway6(port_pair[0])
-            # src_prefix_len = self.get_netmask_gateway6(port_pair[0])
-            # dst_net = self.get_ports_gateway6(port_pair[1])
-            # dst_prefix_len = self.get_netmask_gateway6(port_pair[0])
-            # # ignore entires with empty values
-            # if all((src_net, src_prefix_len, dst_net, dst_prefix_len)):
-            #     new_ipv6_rules.append((cmd, self.txrx_pipeline, src_net, src_prefix_len,
-            #                            dst_net, dst_prefix_len, dst_port))
-            #     new_ipv6_rules.append((cmd, self.txrx_pipeline, dst_net, dst_prefix_len,
-            #                            src_net, src_prefix_len, src_port))
-
-        acl_apply = "\np %s applyruleset" % cmd
-        new_rules_config = '\n'.join(pattern.format(*values) for values
-                                     in chain(new_rules, new_ipv6_rules))
-        return ''.join([rules_config, new_rules_config, acl_apply])
+    def get_flows_config(self):
+        return self.flows if self.flows else ''
 
     def generate_script_data(self):
         self._port_pairs = PortPairs(self.vnfd_helper.interfaces)
@@ -707,24 +635,15 @@ class MultiPortConfig(object):
             # disable IPv6 for now
             # 'arp_config6': self.generate_arp_config6(),
             'arp_config6': "",
-            'arp_config': self.generate_arp_config(),
             'arp_route_tbl': self.generate_arp_route_tbl(),
             'arp_route_tbl6': "",
-            'actions': '',
-            'rules': '',
+            'flows': self.get_flows_config()
         }
-
-        if self.vnf_type in ('ACL', 'VFW'):
-            script_data.update({
-                'actions': self.generate_action_config(),
-                'rules': self.generate_rule_config(),
-            })
-
         return script_data
 
-    def generate_script(self, vnfd, rules=None):
+    def generate_script(self, vnfd, flows=None):
         self.vnfd = vnfd
-        self.rules = rules
+        self.flows = flows
         script_data = self.generate_script_data()
         script = SCRIPT_TPL.format(**script_data)
         if self.lb_config == self.HW_LB:

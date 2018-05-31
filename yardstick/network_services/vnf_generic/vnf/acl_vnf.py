@@ -13,10 +13,12 @@
 # limitations under the License.
 
 import logging
+import ipaddress
+import six
 
-from yardstick.common import utils
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF, DpdkVnfSetupEnvHelper
-from yardstick.network_services.yang_model import YangModel
+from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig, PortPairs
+from itertools import chain
 
 LOG = logging.getLogger(__name__)
 
@@ -38,6 +40,186 @@ class AclApproxSetupEnvSetupEnvHelper(DpdkVnfSetupEnvHelper):
     SW_DEFAULT_CORE = 5
     DEFAULT_CONFIG_TPL_CFG = "acl.cfg"
     VNF_TYPE = "ACL"
+    RULE_CMD = "acl"
+
+    DEFAULT_PRIORITY = 1
+    DEFAULT_PROTOCOL = 0
+    DEFAULT_PROTOCOL_MASK = 0
+
+    def __init__(self, vnfd_helper, ssh_helper, scenario_helper):
+        super(AclApproxSetupEnvSetupEnvHelper, self).__init__(vnfd_helper,
+                                                              ssh_helper,
+                                                              scenario_helper)
+        self.action_id = 0
+
+    def get_ip_from_port(self, port):
+        # we can't use gateway because in OpenStack gateways interfere with floating ip routing
+        # return self.make_ip_addr(self.get_ports_gateway(port), self.get_netmask_gateway(port))
+        vintf = self.vnfd_helper.find_interface(name=port)["virtual-interface"]
+        return MultiPortConfig.make_ip_addr(vintf["local_ip"], vintf["netmask"])
+
+    def get_network_and_prefixlen_from_ip_of_port(self, port):
+        ip_addr = self.get_ip_from_port(port)
+        # handle cases with no gateway
+        if ip_addr:
+            return ip_addr.network.network_address.exploded, ip_addr.network.prefixlen
+        else:
+            return None, None
+
+    def get_new_action_id(self):
+        """Get new action id"""
+        self.action_id += 1
+        return self.action_id
+
+    def get_default_fwd_actions(self):
+        """Default actions to be applied to SampleVNF. Please note,
+        that this list is extended with `fwd` action when default
+        actions are generated.
+        """
+        return ["accept", "count"]
+
+    def get_default_flows(self):
+        """Get default actions/rules
+        Returns: (<actions>, <rules>)
+            <actions>:
+                 { <action_id>: [ <list of actions> ]}
+            Example:
+                 { 0 : [ "accept", "count", {"fwd" : "port": 0} ], ... }
+            <rules>:
+                 [ {"src_ip": "x.x.x.x", "src_ip_mask", 24, ...}, ... ]
+            Note:
+                See `generate_rule_cmds()` to get list of possible map keys.
+        """
+        actions, rules = {}, []
+        _port_pairs = PortPairs(self.vnfd_helper.interfaces)
+        port_pair_list = _port_pairs.port_pair_list
+        for src_intf, dst_intf in port_pair_list:
+            # get port numbers of the interfaces
+            src_port = self.vnfd_helper.port_num(src_intf)
+            dst_port = self.vnfd_helper.port_num(dst_intf)
+            # get interface addresses and prefixes
+            src_net, src_prefix_len = self.get_network_and_prefixlen_from_ip_of_port(src_intf)
+            dst_net, dst_prefix_len = self.get_network_and_prefixlen_from_ip_of_port(dst_intf)
+            # ignore entries with empty values
+            if all((src_net, src_prefix_len, dst_net, dst_prefix_len)):
+                # flow: src_net:dst_net -> dst_port
+                action_id = self.get_new_action_id()
+                actions[action_id] = self.get_default_fwd_actions()
+                actions[action_id].append({"fwd": {"port": dst_port}})
+                rules.append({"priority": 1, 'cmd': self.RULE_CMD,
+                    "src_ip": src_net, "src_ip_mask": src_prefix_len,
+                    "dst_ip": dst_net, "dst_ip_mask": dst_prefix_len,
+                    "src_port_from": 0, "src_port_to": 65535,
+                    "dst_port_from": 0, "dst_port_to": 65535,
+                    "protocol": 0, "protocol_mask": 0,
+                    "action_id": action_id})
+                # flow: dst_net:src_net -> src_port
+                action_id = self.get_new_action_id()
+                actions[action_id] = self.get_default_fwd_actions()
+                actions[action_id].append({"fwd": {"port": src_port}})
+                rules.append({"cmd":self.RULE_CMD, "priority": 1,
+                    "src_ip": dst_net, "src_ip_mask": dst_prefix_len,
+                    "dst_ip": src_net, "dst_ip_mask": src_prefix_len,
+                    "src_port_from": 0, "src_port_to": 65535,
+                    "dst_port_from": 0, "dst_port_to": 65535,
+                    "protocol": 0, "protocol_mask": 0,
+                    "action_id": action_id})
+        return actions, rules
+
+    def get_flows(self, options):
+        """Get actions/rules based on provided options.
+        The `options` is a dict representing the ACL rules configuration
+        file. Result is the same as described in `get_default_flows()`.
+        """
+        actions, rules = {}, []
+        for ace in options['access-list1']['acl']['access-list-entries']:
+            # Get list of actions
+            action_id = self.get_new_action_id()
+            actions[action_id] = ace['ace']['actions']
+            # Get list of rules
+            rule = {'action_id': action_id, 'cmd': self.RULE_CMD}
+            matches = ace['ace']['matches']
+            # Destination nestwork
+            dst_ipv4_net = matches['destination-ipv4-network']
+            dst_ipv4_net_ip = ipaddress.ip_interface(six.text_type(dst_ipv4_net))
+            rule['dst_ip'] = dst_ipv4_net_ip.network.network_address.exploded
+            rule['dst_ip_mask'] = dst_ipv4_net_ip.network.prefixlen
+            # Source network
+            src_ipv4_net = matches['source-ipv4-network']
+            src_ipv4_net_ip = ipaddress.ip_interface(six.text_type(src_ipv4_net))
+            rule['src_ip'] = src_ipv4_net_ip.network.network_address.exploded
+            rule['src_ip_mask'] = src_ipv4_net_ip.network.prefixlen
+            # Destination lower/upper port
+            rule['dst_port_from'] = matches['destination-port-range']['lower-port']
+            rule['dst_port_to'] = matches['destination-port-range']['upper-port']
+            # Source lower/upper port
+            rule['src_port_from'] = matches['source-port-range']['lower-port']
+            rule['src_port_to'] = matches['source-port-range']['upper-port']
+            # Priority
+            rule['priority'] = matches.get('priority', self.DEFAULT_PRIORITY)
+            # Protocol/protocol mask
+            rule['protocol'] = matches.get('protocol', self.DEFAULT_PROTOCOL)
+            rule['protocol_mask'] = matches.get('protocol_mask',
+                                                 self.DEFAULT_PROTOCOL_MASK)
+            rules.append(rule)
+        return actions, rules
+
+    def generate_rule_cmds(self, rules, apply_rules=False):
+        """Convert rules into list of SampleVNF CLI commands"""
+        rule_template = ("p {cmd} add {priority} {src_ip} {src_ip_mask} "
+                         "{dst_ip} {dst_ip_mask} {src_port_from} {src_port_to} "
+                         "{dst_port_from} {dst_port_to} {protocol} "
+                         "{protocol_mask} {action_id}")
+        rule_cmd_list = []
+        for rule in rules:
+            rule_cmd_list.append(rule_template.format(**rule))
+        if apply_rules:
+            # add command to apply all rules at the end
+            rule_cmd_list.append("p {cmd} applyruleset".format(cmd=self.RULE_CMD))
+        return rule_cmd_list
+
+    def generate_action_cmds(self, actions):
+        """Convert actions into list of SampleVNF CLI commands"""
+        _action_template_map = {
+            "fwd": "p action add {action_id} fwd {port}",
+            "nat": "p action add {action_id} nat {port}"
+        }
+        action_cmd_list = []
+        for action_id, actions in actions.iteritems():
+            for action in actions:
+                if isinstance(action, dict):
+                    for action_name in action.keys():
+                        # user provided an action name with addition options
+                        # e.g.: {"fwd": {"port": 0}}
+                        # format action CLI command and add it to the list
+                        template = _action_template_map[action_name]
+                        action_cmd_list.append(template.format(
+                            action_id=action_id, **action[action_name]))
+                else:
+                    # user provided an action name w/o addition options
+                    # e.g.: "accept", "count"
+                    action_cmd_list.append(
+                        "p action add {action_id} {action}".format(
+                        action_id=action_id, action=action))
+        return action_cmd_list
+
+    def get_flows_config(self, options=None):
+        """Get action/rules configuration commands (string) to be
+        applied to SampleVNF to configure ACL rules (flows).
+        """
+        action_cmd_list, rule_cmd_list = [], []
+        if options:
+            # if file name is set, read actions/rules from the file
+            actions, rules = self.get_flows(options)
+            action_cmd_list = self.generate_action_cmds(actions)
+            rule_cmd_list = self.generate_rule_cmds(rules)
+        # default actions/rules
+        dft_actions, dft_rules = self.get_default_flows()
+        dft_action_cmd_list = self.generate_action_cmds(dft_actions)
+        dft_rule_cmd_list = self.generate_rule_cmds(dft_rules, apply_rules=True)
+        # generate multi-line commands to add actions/rules
+        return '\n'.join(chain(action_cmd_list, dft_action_cmd_list,
+                               rule_cmd_list, dft_rule_cmd_list))
 
 
 class AclApproxVnf(SampleVNF):
@@ -57,12 +239,6 @@ class AclApproxVnf(SampleVNF):
             setup_env_helper_type = AclApproxSetupEnvSetupEnvHelper
 
         super(AclApproxVnf, self).__init__(name, vnfd, setup_env_helper_type, resource_helper_type)
-        self.acl_rules = None
 
     def _start_vnf(self):
-        yang_model_path = utils.find_relative_file(
-            self.scenario_helper.options['rules'],
-            self.scenario_helper.task_path)
-        yang_model = YangModel(yang_model_path)
-        self.acl_rules = yang_model.get_rules()
         super(AclApproxVnf, self)._start_vnf()

@@ -47,6 +47,7 @@ class VnfSshHelper(AutoConnectSSH):
 
     def upload_config_file(self, prefix, content):
         cfg_file = os.path.join(constants.REMOTE_TMP, prefix)
+        LOG.debug(cfg_file)
         LOG.debug(content)
         file_obj = StringIO(content)
         self.put_file_obj(file_obj, cfg_file)
