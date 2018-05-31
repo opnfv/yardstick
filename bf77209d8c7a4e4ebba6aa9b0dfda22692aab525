@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_afd04a54",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-05-31T13:23:56Z",
+      "side": 1,
+      "message": "return self.__enter__()",
+      "range": {
+        "startLine": 442,
+        "startChar": 0,
+        "endLine": 446,
+        "endChar": 19
+      },
+      "revId": "bf77209d8c7a4e4ebba6aa9b0dfda22692aab525",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_6fe76241",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-05-31T13:23:56Z",
+      "side": 1,
+      "message": "datetime.datetime.now() - self.start maybe?",
+      "range": {
+        "startLine": 451,
+        "startChar": 19,
+        "endLine": 451,
+        "endChar": 42
+      },
+      "revId": "bf77209d8c7a4e4ebba6aa9b0dfda22692aab525",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_8fd58e45",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-05-31T13:23:56Z",
+      "side": 1,
+      "message": "As a suggestion, it would be safer to add __del__() \n methods too that will set ALRM handler as it was before __init__() call.\n\ne.g:\ndef __del__(self):\n  signal.signal(signal.SIGALRM, self._prev_handler)\n\nSince, this is not in scope of the task, this comment can be skipped.",
+      "revId": "bf77209d8c7a4e4ebba6aa9b0dfda22692aab525",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
