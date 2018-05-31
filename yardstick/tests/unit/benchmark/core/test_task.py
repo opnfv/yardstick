@@ -357,6 +357,11 @@ key2:
                 }
             }
 
+    @staticmethod
+    def _remove_context(context):
+        if context:
+            context._delete_context()
+
     def test__change_node_names(self):
 
         ctx_attrs = {
@@ -371,6 +376,7 @@ key2:
             }
 
         my_context = dummy.DummyContext()
+        self.addCleanup(self._remove_context, my_context)
         my_context.init(ctx_attrs)
 
         expected_scenario = {
@@ -413,6 +419,7 @@ key2:
             }
 
         my_context = dummy.DummyContext()
+        self.addCleanup(self._remove_context, my_context)
         my_context.init(ctx_attrs)
 
         scenario = copy.deepcopy(self.scenario)
@@ -428,6 +435,7 @@ key2:
         }
 
         my_context = dummy.DummyContext()
+        self.addCleanup(self._remove_context, my_context)
         my_context.init(ctx_attrs)
         scenario = copy.deepcopy(self.scenario)
         scenario['options'] = None
@@ -442,6 +450,7 @@ key2:
         }
 
         my_context = dummy.DummyContext()
+        self.addCleanup(self._remove_context, my_context)
         my_context.init(ctx_attrs)
         scenario = copy.deepcopy(self.scenario)
         scenario['options']['server_name'] = None
