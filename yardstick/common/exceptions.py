@@ -137,6 +137,14 @@ class LibvirtQemuImageCreateError(YardstickException):
                '%(base_image)s. Error: %(error)s.')
 
 
+class SSHError(YardstickException):
+    message = '%(error_msg)s'
+
+
+class SSHTimeout(SSHError):
+    pass
+
+
 class ScenarioConfigContextNameNotFound(YardstickException):
     message = 'Context name "%(context_name)s" not found'
 
