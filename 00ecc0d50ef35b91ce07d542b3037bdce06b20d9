@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_2ae70814",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_duration.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-01T13:34:57Z",
+      "side": 1,
+      "message": "The _worker_process should also be tested to make sure it behaves as desired.\ne.g.\n* correct results pushed to the queue\n* different args have the desired effect\n* Exceptions in different stages are picked up correctly\n* etc",
+      "revId": "00ecc0d50ef35b91ce07d542b3037bdce06b20d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_4a17f4ed",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_duration.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-01T13:34:57Z",
+      "side": 1,
+      "message": "Please import multiprocessing above, and use mock.patch.object(multiprocessing, \u0027Process\u0027) to mock only the \"Process\" member.\n\nThis also avoids masking import errors.",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 71
+      },
+      "revId": "00ecc0d50ef35b91ce07d542b3037bdce06b20d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_0a1dec0f",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_duration.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-01T13:34:57Z",
+      "side": 1,
+      "message": "You can use mock_multiprocessing.assert_called_once() instead.",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 68
+      },
+      "revId": "00ecc0d50ef35b91ce07d542b3037bdce06b20d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_eadd2044",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_duration.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-01T13:34:57Z",
+      "side": 1,
+      "message": "As well as making sure the Process object is created, you should also make sure that the process is started.\n\nmock_multiprocessing_process.start.assert_called_once()",
+      "revId": "00ecc0d50ef35b91ce07d542b3037bdce06b20d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
