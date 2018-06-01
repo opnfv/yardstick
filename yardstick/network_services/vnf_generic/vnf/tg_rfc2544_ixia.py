@@ -12,15 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
-
 import time
 import os
 import logging
 import sys
 
+from yardstick.common import exceptions
 from yardstick.common import utils
-from yardstick import error
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import Rfc2544ResourceHelper
@@ -36,7 +34,7 @@ sys.path.append(IXNET_LIB)
 try:
     from IxNet import IxNextgen
 except ImportError:
-    IxNextgen = error.ErrorClass
+    IxNextgen = exceptions.ErrorClass
 
 
 class IxiaRfc2544Helper(Rfc2544ResourceHelper):
