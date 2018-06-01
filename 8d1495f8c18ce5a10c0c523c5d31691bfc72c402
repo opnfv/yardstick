@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_0a6fac93",
+        "filename": "yardstick/network_services/traffic_profile/rfc2544.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-01T14:14:22Z",
+      "side": 1,
+      "message": "You are right",
+      "parentUuid": "1a494da4_4fa70650",
+      "revId": "8d1495f8c18ce5a10c0c523c5d31691bfc72c402",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_af632a19",
         "filename": "yardstick/network_services/traffic_profile/rfc2544.py",
         "patchSetId": 12
@@ -77,6 +95,30 @@
       "writtenOn": "2018-06-01T08:01:45Z",
       "side": 1,
       "message": "This is not port map but list of pg_ids. Better to name it something like pg_id_list instead.",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 16
+      },
+      "revId": "8d1495f8c18ce5a10c0c523c5d31691bfc72c402",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_6a6c709d",
+        "filename": "yardstick/network_services/traffic_profile/rfc2544.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-01T14:14:22Z",
+      "side": 1,
+      "message": "Again, you are right. I\u0027m always very punctilious on these details but sometime I forget it!",
+      "parentUuid": "1a494da4_af632a19",
       "range": {
         "startLine": 61,
         "startChar": 8,
