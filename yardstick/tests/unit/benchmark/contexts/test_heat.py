@@ -13,29 +13,26 @@ import logging
 import os
 
 import mock
-import unittest
 
+from yardstick import ssh
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import heat
 from yardstick.benchmark.contexts import model
 from yardstick.common import constants as consts
 from yardstick.common import exceptions as y_exc
-from yardstick import ssh
+from yardstick.tests.unit import base as ut_base
 
 
 LOG = logging.getLogger(__name__)
 
 
-class HeatContextTestCase(unittest.TestCase):
-
-    def __init__(self, *args, **kwargs):
-        super(HeatContextTestCase, self).__init__(*args, **kwargs)
-        self.name_iter = ('vnf{:03}'.format(x) for x in count(0, step=3))
+class HeatContextTestCase(ut_base.BaseUnitTestCase):
 
     def setUp(self):
         self.test_context = heat.HeatContext()
         self.addCleanup(self._remove_contexts)
         self.mock_context = mock.Mock(spec=heat.HeatContext())
+        self.name_iter = ('vnf{:03}'.format(x) for x in count(0, step=3))
 
     def _remove_contexts(self):
         if self.test_context in self.test_context.list:
