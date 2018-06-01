@@ -120,10 +120,11 @@ class ProxBinSearchProfile(ProxProfile):
                 # store results with success tag in influxdb
                 success_samples = {'Success_' + key: value for key, value in samples.items()}
 
-                success_samples["Success_rx_total"] = int(result.rx_total / diff_time)
-                success_samples["Success_tx_total"] = int(result.tx_total / diff_time)
-                success_samples["Success_can_be_lost"] = int(result.can_be_lost / diff_time)
-                success_samples["Success_drop_total"] = int(result.drop_total / diff_time)
+                # Store number of packets based statistics (we already have throughput)
+                success_samples["Success_rx_total"] = int(result.rx_total)
+                success_samples["Success_tx_total"] = int(result.tx_total)
+                success_samples["Success_can_be_lost"] = int(result.can_be_lost)
+                success_samples["Success_drop_total"] = int(result.drop_total)
                 self.queue.put(success_samples)
 
                 # Store Actual throughput for result samples
@@ -133,20 +134,16 @@ class ProxBinSearchProfile(ProxProfile):
                 LOG.debug("Failure... Decreasing upper bound")
                 self.current_upper = test_value
                 samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
+                # samples  contains data such as Latency, Throughput, number of packets
+                # Hence they should not be divided by the time difference
 
-            for k in samples:
-                    tmp = samples[k]
-                    if isinstance(tmp, dict):
-                        for k2 in tmp:
-                            samples[k][k2] = int(samples[k][k2] / diff_time)
-
-            if theor_max_thruput < samples["TxThroughput"]:
-                theor_max_thruput = samples['TxThroughput']
+            if theor_max_thruput < samples["RequestedTxThroughput"]:
+                theor_max_thruput = samples['RequestedTxThroughput']
                 self.queue.put({'theor_max_throughput': theor_max_thruput})
 
             LOG.debug("Collect TG KPIs %s %s", datetime.datetime.now(), samples)
             self.queue.put(samples)
 
         result_samples["Result_pktSize"] = pkt_size
-        result_samples["Result_theor_max_throughput"] = theor_max_thruput/(1000 * 1000)
+        result_samples["Result_theor_max_throughput"] = theor_max_thruput
         self.queue.put(result_samples)
