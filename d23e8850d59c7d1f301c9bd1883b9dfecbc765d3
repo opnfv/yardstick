@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_ea5a4082",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-01T16:00:08Z",
+      "side": 1,
+      "message": "This is correct and I agree with this.",
+      "revId": "d23e8850d59c7d1f301c9bd1883b9dfecbc765d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_8a657c47",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-01T16:00:08Z",
+      "side": 1,
+      "message": "grafana dashboards need to be modified as we are renaming \"TxThroughput\" to \"RequestedTxThroughput\"\n\nCan be done as a separate commmit, but I thought its important to bring up here.",
+      "revId": "d23e8850d59c7d1f301c9bd1883b9dfecbc765d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_2a6d4833",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-01T16:00:08Z",
+      "side": 1,
+      "message": "white space",
+      "range": {
+        "startLine": 192,
+        "startChar": 79,
+        "endLine": 192,
+        "endChar": 80
+      },
+      "revId": "d23e8850d59c7d1f301c9bd1883b9dfecbc765d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_6a775003",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-01T16:00:08Z",
+      "side": 1,
+      "message": "what is the rationale for returning multiple boolean values here?",
+      "range": {
+        "startLine": 321,
+        "startChar": 16,
+        "endLine": 321,
+        "endChar": 33
+      },
+      "revId": "d23e8850d59c7d1f301c9bd1883b9dfecbc765d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_4a7414fd",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-01T16:00:08Z",
+      "side": 1,
+      "message": "crossing the line length limit. split into multiple lines.",
+      "revId": "d23e8850d59c7d1f301c9bd1883b9dfecbc765d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
