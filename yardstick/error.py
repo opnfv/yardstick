@@ -13,16 +13,6 @@
 # limitations under the License.
 
 
-class SSHError(Exception):
-    """Class handles ssh connection error exception"""
-    pass
-
-
-class SSHTimeout(SSHError):
-    """Class handles ssh connection timeout exception"""
-    pass
-
-
 class IncorrectConfig(Exception):
     """Class handles incorrect configuration during setup"""
     pass

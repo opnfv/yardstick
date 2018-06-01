@@ -112,6 +112,14 @@ class LibvirtCreateError(YardstickException):
     message = 'Error creating the virtual machine. Error: %(error)s.'
 
 
+class SSHError(YardstickException):
+    message = '%(error_msg)s'
+
+
+class SSHTimeout(SSHError):
+    pass
+
+
 class ScenarioConfigContextNameNotFound(YardstickException):
     message = 'Context name "%(context_name)s" not found'
 

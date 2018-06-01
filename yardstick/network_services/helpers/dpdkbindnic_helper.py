@@ -18,12 +18,12 @@ import re
 from collections import defaultdict
 from itertools import chain
 
+from yardstick.common import exceptions
 from yardstick.common.utils import validate_non_string_sequence
 from yardstick.error import IncorrectConfig
 from yardstick.error import IncorrectSetup
 from yardstick.error import IncorrectNodeSetup
-from yardstick.error import SSHTimeout
-from yardstick.error import SSHError
+
 
 NETWORK_KERNEL = 'network_kernel'
 NETWORK_DPDK = 'network_dpdk'
@@ -98,7 +98,8 @@ class DpdkInterface(object):
             # if we don't find all the keys then don't update
             pass
 
-        except (IncorrectNodeSetup, SSHError, SSHTimeout):
+        except (IncorrectNodeSetup, exceptions.SSHError,
+                exceptions.SSHTimeout):
             raise IncorrectConfig(
                 "Unable to probe missing interface fields '%s', on node %s "
                 "SSH Error" % (', '.join(self.missing_fields), self.dpdk_node.node_key))
