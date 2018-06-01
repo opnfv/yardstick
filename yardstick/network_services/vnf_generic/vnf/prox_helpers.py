@@ -44,6 +44,8 @@ SECTION_CONTENTS = 1
 
 LOG = logging.getLogger(__name__)
 LOG.setLevel(logging.DEBUG)
+LOG_RESULT = logging.getLogger('yardstick')
+LOG_RESULT.setLevel(logging.DEBUG)
 
 BITS_PER_BYTE = 8
 RETRY_SECONDS = 60
@@ -123,7 +125,8 @@ class TotStatsTuple(namedtuple('TotStats', 'rx,tx,tsc,hz')):
 
 class ProxTestDataTuple(namedtuple('ProxTestDataTuple', 'tolerated,tsc_hz,delta_rx,'
                                                         'delta_tx,delta_tsc,'
-                                                        'latency,rx_total,tx_total,pps')):
+                                                        'latency,rx_total,tx_total,'
+                                                        'requested_pps')):
     @property
     def pkt_loss(self):
         try:
@@ -132,9 +135,14 @@ class ProxTestDataTuple(namedtuple('ProxTestDataTuple', 'tolerated,tsc_hz,delta_
             return 100.0
 
     @property
-    def mpps(self):
+    def tx_mpps(self):
         # calculate the effective throughput in Mpps
         return float(self.delta_tx) * self.tsc_hz / self.delta_tsc / 1e6
+
+    @property
+    def rx_mpps(self):
+        # calculate the effective throughput in Mpps
+        return float(self.delta_rx) * self.tsc_hz / self.delta_tsc / 1e6
 
     @property
     def can_be_lost(self):
@@ -162,11 +170,12 @@ class ProxTestDataTuple(namedtuple('ProxTestDataTuple', 'tolerated,tsc_hz,delta_
         ]
 
         samples = {
-            "Throughput": self.mpps,
+            "Throughput": self.rx_mpps,
+            "RxThroughput": self.rx_mpps,
             "DropPackets": pkt_loss,
             "CurrentDropPackets": pkt_loss,
-            "TxThroughput": self.pps / 1e6,
-            "RxThroughput": self.mpps,
+            "RequestedTxThroughput": self.requested_pps / 1e6,
+            "TxThroughput": self.tx_mpps,
             "PktSize": pkt_size,
         }
         if port_samples:
@@ -177,11 +186,12 @@ class ProxTestDataTuple(namedtuple('ProxTestDataTuple', 'tolerated,tsc_hz,delta_
 
     def log_data(self, logger=None):
         if logger is None:
-            logger = LOG
+            logger = LOG_RESULT
 
         template = "RX: %d; TX: %d; dropped: %d (tolerated: %d)"
-        logger.debug(template, self.rx_total, self.tx_total, self.drop_total, self.can_be_lost)
-        logger.debug("Mpps configured: %f; Mpps effective %f", self.pps / 1e6, self.mpps)
+        logger.info(template, self.rx_total, self.tx_total, self.drop_total, self.can_be_lost)
+        logger.info("Mpps configured: %f; Mpps generated %f; Mpps received %f",
+                    self.requested_pps / 1e6, self.tx_mpps, self.rx_mpps)
 
 
 class PacketDump(object):
@@ -288,7 +298,7 @@ class ProxSocketHelper(object):
             if mode != 'pktdump':
                 # Regular 1-line message. Stop reading from the socket.
                 LOG.debug("Regular response read")
-                return ret_str
+                return ret_str, True
 
             LOG.debug("Packet dump header read: [%s]", ret_str)
 
@@ -309,11 +319,11 @@ class ProxSocketHelper(object):
                 # Return boolean instead of string to signal
                 # successful reception of the packet dump.
                 LOG.debug("Packet dump stored, returning")
-                return True
+                return True, False
 
             index = data_end + 1
 
-        return ret_str
+        return ret_str, False
 
     def get_data(self, pkt_dump_only=False, timeout=1):
         """ read data from the socket """
@@ -352,7 +362,9 @@ class ProxSocketHelper(object):
         ret_str = ""
         for status in iter(is_ready, False):
             decoded_data = self._sock.recv(256).decode('utf-8')
-            ret_str = self._parse_socket_data(decoded_data, pkt_dump_only)
+            ret_str, done = self._parse_socket_data(decoded_data, pkt_dump_only)
+            if (done):
+                break
 
         LOG.debug("Received data from socket: [%s]", ret_str)
         return ret_str if status else ''
@@ -1001,8 +1013,8 @@ class ProxDataHelper(object):
     def totals_and_pps(self):
         if self._totals_and_pps is None:
             rx_total, tx_total = self.sut.port_stats(range(self.port_count))[6:8]
-            pps = self.value / 100.0 * self.line_rate_to_pps()
-            self._totals_and_pps = rx_total, tx_total, pps
+            requested_pps = self.value / 100.0 * self.line_rate_to_pps()
+            self._totals_and_pps = rx_total, tx_total, requested_pps
         return self._totals_and_pps
 
     @property
@@ -1014,7 +1026,7 @@ class ProxDataHelper(object):
         return self.totals_and_pps[1]
 
     @property
-    def pps(self):
+    def requested_pps(self):
         return self.totals_and_pps[2]
 
     @property
@@ -1055,7 +1067,7 @@ class ProxDataHelper(object):
             self.latency,
             self.rx_total,
             self.tx_total,
-            self.pps,
+            self.requested_pps,
         )
         self.result_tuple.log_data()
 
@@ -1134,6 +1146,7 @@ class ProxProfileHelper(object):
             self.sut.set_pkt_size(self.test_cores, pkt_size)
             self.sut.set_speed(self.test_cores, value)
             self.sut.start_all()
+            time.sleep(1)
             yield
         finally:
             self.sut.stop_all()
@@ -1246,6 +1259,7 @@ class ProxMplsProfileHelper(ProxProfileHelper):
             ratio = 1.0 * (pkt_size - 4 + 20) / (pkt_size + 20)
             self.sut.set_speed(self.plain_cores, value * ratio)
             self.sut.start_all()
+            time.sleep(1)
             yield
         finally:
             self.sut.stop_all()
