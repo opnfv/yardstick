@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_cacf84af",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd-2.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-01T12:16:35Z",
+      "side": 1,
+      "message": "OK, finally got it, but that was confusing at first place, when looking at the contents of the inline packet...\nI now understand that PROX will use this 32bits signature value to overwrite into the packet at offset 46, which initially contains 0x07060504 in the inline packet.\nI was confused by the similar look (although completely different) between this signature value and the additional trailing bytes \"00 01 02 03 04 05 06 07\".\nFor the sake of clarity, you might want to rewrite these trailing bytes as \"AA AA AA AA 55 55 55 55\" (A for lAtency and 5 for 5ignature) or \"FF FF FF FF 67 45 23 01\" or anything that would bring some relevant visual cue instead of possible confusion. ;-)\nSimilarly, you might want to select some magic number for this signature, to make it easily visible in packet dumps, such as \"CA FE DE CA\" for example...",
+      "range": {
+        "startLine": 55,
+        "startChar": 10,
+        "endLine": 55,
+        "endChar": 20
+      },
+      "revId": "c8d49edd03645a69d81553b4c30f539255e48afa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
