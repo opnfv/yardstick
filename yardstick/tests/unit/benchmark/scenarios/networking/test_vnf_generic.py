@@ -20,11 +20,11 @@ import mock
 import unittest
 
 from yardstick import tests
+from yardstick.common import exceptions
 from yardstick.common import utils
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.traffic_profile import base
 from yardstick.network_services.vnf_generic import vnfdgen
-from yardstick.error import IncorrectConfig
 from yardstick.network_services.vnf_generic.vnf.base import GenericTrafficGen
 from yardstick.network_services.vnf_generic.vnf.base import GenericVNF
 
@@ -423,7 +423,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         with mock.patch.dict(sys.modules, tests.STL_MOCKS):
             self.assertIsNotNone(self.s.get_vnf_impl(vnfd))
 
-        with self.assertRaises(vnf_generic.IncorrectConfig) as raised:
+        with self.assertRaises(exceptions.IncorrectConfig) as raised:
             self.s.get_vnf_impl('NonExistentClass')
 
         exc_str = str(raised.exception)
@@ -465,7 +465,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
 
         cfg_patch = mock.patch.object(self.s, 'context_cfg', cfg)
         with cfg_patch:
-            with self.assertRaises(IncorrectConfig):
+            with self.assertRaises(exceptions.IncorrectConfig):
                 self.s.map_topology_to_infrastructure()
 
     def test_map_topology_to_infrastructure_config_invalid(self):
@@ -482,7 +482,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
 
         config_patch = mock.patch.object(self.s, 'context_cfg', cfg)
         with config_patch:
-            with self.assertRaises(IncorrectConfig):
+            with self.assertRaises(exceptions.IncorrectConfig):
                 self.s.map_topology_to_infrastructure()
 
     def test__resolve_topology_invalid_config(self):
@@ -496,7 +496,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             for interface in self.tg__1['interfaces'].values():
                 del interface['local_mac']
 
-            with self.assertRaises(vnf_generic.IncorrectConfig) as raised:
+            with self.assertRaises(exceptions.IncorrectConfig) as raised:
                 self.s._resolve_topology()
 
             self.assertIn('not found', str(raised.exception))
@@ -509,7 +509,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self.s.topology["vld"][0]['vnfd-connection-point-ref'].append(
                 self.s.topology["vld"][0]['vnfd-connection-point-ref'][0])
 
-            with self.assertRaises(vnf_generic.IncorrectConfig) as raised:
+            with self.assertRaises(exceptions.IncorrectConfig) as raised:
                 self.s._resolve_topology()
 
             self.assertIn('wrong endpoint count', str(raised.exception))
@@ -518,7 +518,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self.s.topology["vld"][0]['vnfd-connection-point-ref'] = \
                 self.s.topology["vld"][0]['vnfd-connection-point-ref'][:1]
 
-            with self.assertRaises(vnf_generic.IncorrectConfig) as raised:
+            with self.assertRaises(exceptions.IncorrectConfig) as raised:
                 self.s._resolve_topology()
 
             self.assertIn('wrong endpoint count', str(raised.exception))

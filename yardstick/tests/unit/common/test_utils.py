@@ -21,7 +21,6 @@ import unittest
 
 import yardstick
 from yardstick import ssh
-import yardstick.error
 from yardstick.common import constants
 from yardstick.common import utils
 from yardstick.common import exceptions

@@ -155,6 +155,18 @@ class SSHTimeout(SSHError):
     pass
 
 
+class IncorrectConfig(YardstickException):
+    message = '%(error_msg)s'
+
+
+class IncorrectSetup(YardstickException):
+    message = '%(error_msg)s'
+
+
+class IncorrectNodeSetup(IncorrectSetup):
+    pass
+
+
 class ScenarioConfigContextNameNotFound(YardstickException):
     message = 'Context name "%(context_name)s" not found'
 

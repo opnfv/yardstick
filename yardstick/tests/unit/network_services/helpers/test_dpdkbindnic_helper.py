@@ -18,9 +18,6 @@ import unittest
 import os
 
 from yardstick.common import exceptions
-from yardstick.error import IncorrectConfig
-from yardstick.error import IncorrectNodeSetup
-from yardstick.error import IncorrectSetup
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkInterface
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkNode
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper
@@ -143,12 +140,13 @@ class TestDpdkInterface(unittest.TestCase):
 
     def test_probe_missing_values_negative(self):
         mock_dpdk_node = mock.Mock()
-        mock_dpdk_node.netdevs.values.side_effect = IncorrectNodeSetup
+        mock_dpdk_node.netdevs.values.side_effect = (
+            exceptions.IncorrectNodeSetup(error_msg=''))
 
         interface = {'local_mac': '0a:de:ad:be:ef:f5'}
         dpdk_intf = DpdkInterface(mock_dpdk_node, interface)
 
-        with self.assertRaises(IncorrectConfig):
+        with self.assertRaises(exceptions.IncorrectConfig):
             dpdk_intf.probe_missing_values()
 
 
@@ -214,7 +212,7 @@ class TestDpdkNode(unittest.TestCase):
     def test_check(self):
         def update():
             if not mock_force_rebind.called:
-                raise IncorrectConfig
+                raise exceptions.IncorrectConfig(error_msg='')
 
             interfaces[0]['virtual-interface'].update({
                 'vpci': '0000:01:02.1',
@@ -249,7 +247,7 @@ class TestDpdkNode(unittest.TestCase):
 
         dpdk_node = DpdkNode(NAME, self.INTERFACES, mock_ssh_helper)
 
-        with self.assertRaises(IncorrectSetup):
+        with self.assertRaises(exceptions.IncorrectSetup):
             dpdk_node.check()
 
     def test_probe_netdevs(self):
