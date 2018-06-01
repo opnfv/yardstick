@@ -17,6 +17,7 @@ import errno
 import mock
 import unittest
 
+from yardstick.common import exceptions
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.nfvi import resource, collectd
 
