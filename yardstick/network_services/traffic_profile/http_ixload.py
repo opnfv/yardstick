@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
-from __future__ import print_function
-
 import sys
 import os
 import logging
@@ -27,22 +24,14 @@ try:
 except ImportError:
     import json as jsonutils
 
-
-class ErrorClass(object):
-
-    def __init__(self, *args, **kwargs):
-        if 'test' not in kwargs:
-            raise RuntimeError
-
-    def __getattr__(self, item):
-        raise AttributeError
-
+from yardstick.common import exceptions
 
 try:
     from IxLoad import IxLoad, StatCollectorUtils
 except ImportError:
-    IxLoad = ErrorClass
-    StatCollectorUtils = ErrorClass
+    IxLoad = exceptions.ErrorClass
+    StatCollectorUtils = exceptions.ErrorClass
+
 
 LOG = logging.getLogger(__name__)
 CSV_FILEPATH_NAME = 'IxL_statResults.csv'
@@ -93,7 +82,7 @@ def validate_non_string_sequence(value, default=None, raise_exc=None):
     if isinstance(value, collections.Sequence) and not isinstance(value, str):
         return value
     if raise_exc:
-        raise raise_exc
+        raise raise_exc  # pylint: disable=raising-bad-type
     return default
 
 
@@ -218,7 +207,7 @@ class IXLOADHttpTest(object):
         #  ---- Remap ports ----
         try:
             self.reassign_ports(test, repository, self.ports_to_reassign)
-        except Exception:
+        except Exception:  # pylint: disable=broad-except
             LOG.exception("Exception occurred during reassign_ports")
 
         # -----------------------------------------------------------------------
