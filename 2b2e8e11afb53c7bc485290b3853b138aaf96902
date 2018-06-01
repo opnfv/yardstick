@@ -16,6 +16,24 @@
       "revId": "2b2e8e11afb53c7bc485290b3853b138aaf96902",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_ea99a06f",
+        "filename": "yardstick/tests/unit/common/test_exceptions.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-01T14:56:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_6a03d0b8",
+      "revId": "2b2e8e11afb53c7bc485290b3853b138aaf96902",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
