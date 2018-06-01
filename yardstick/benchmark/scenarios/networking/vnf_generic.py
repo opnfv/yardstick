@@ -13,20 +13,19 @@
 # limitations under the License.
 
 import copy
-import logging
-import time
-
 import ipaddress
 from itertools import chain
+import logging
 import os
 import sys
+import time
 
 import six
 import yaml
 
 from yardstick.benchmark.scenarios import base as scenario_base
-from yardstick.error import IncorrectConfig
 from yardstick.common.constants import LOG_DIR
+from yardstick.common import exceptions
 from yardstick.common.process import terminate_children
 from yardstick.common import utils
 from yardstick.network_services.collector.subscriber import Collector
@@ -190,8 +189,9 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             try:
                 node0_data, node1_data = vld["vnfd-connection-point-ref"]
             except (ValueError, TypeError):
-                raise IncorrectConfig("Topology file corrupted, "
-                                      "wrong endpoint count for connection")
+                raise exceptions.IncorrectConfig(
+                    error_msg='Topology file corrupted, wrong endpoint count '
+                              'for connection')
 
             node0_name = self._find_vnf_name_from_id(node0_data["member-vnf-index-ref"])
             node1_name = self._find_vnf_name_from_id(node1_data["member-vnf-index-ref"])
@@ -237,15 +237,17 @@ class NetworkServiceTestCase(scenario_base.Scenario):
 
             except KeyError:
                 LOG.exception("")
-                raise IncorrectConfig("Required interface not found, "
-                                      "topology file corrupted")
+                raise exceptions.IncorrectConfig(
+                    error_msg='Required interface not found, topology file '
+                              'corrupted')
 
         for vld in self.topology['vld']:
             try:
                 node0_data, node1_data = vld["vnfd-connection-point-ref"]
             except (ValueError, TypeError):
-                raise IncorrectConfig("Topology file corrupted, "
-                                      "wrong endpoint count for connection")
+                raise exceptions.IncorrectConfig(
+                    error_msg='Topology file corrupted, wrong endpoint count '
+                              'for connection')
 
             node0_name = self._find_vnf_name_from_id(node0_data["member-vnf-index-ref"])
             node1_name = self._find_vnf_name_from_id(node1_data["member-vnf-index-ref"])
@@ -330,8 +332,9 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         except StopIteration:
             pass
 
-        raise IncorrectConfig("No implementation for %s found in %s" %
-                              (expected_name, classes_found))
+        message = ('No implementation for %s found in %s'
+                   % (expected_name, classes_found))
+        raise exceptions.IncorrectConfig(error_msg=message)
 
     @staticmethod
     def create_interfaces_from_node(vnfd, node):

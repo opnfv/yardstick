@@ -20,9 +20,6 @@ from itertools import chain
 
 from yardstick.common import exceptions
 from yardstick.common.utils import validate_non_string_sequence
-from yardstick.error import IncorrectConfig
-from yardstick.error import IncorrectSetup
-from yardstick.error import IncorrectNodeSetup
 
 
 NETWORK_KERNEL = 'network_kernel'
@@ -51,7 +48,7 @@ class DpdkInterface(object):
         try:
             assert self.local_mac
         except (AssertionError, KeyError):
-            raise IncorrectConfig
+            raise exceptions.IncorrectConfig(error_msg='')
 
     @property
     def local_mac(self):
@@ -98,11 +95,12 @@ class DpdkInterface(object):
             # if we don't find all the keys then don't update
             pass
 
-        except (IncorrectNodeSetup, exceptions.SSHError,
+        except (exceptions.IncorrectNodeSetup, exceptions.SSHError,
                 exceptions.SSHTimeout):
-            raise IncorrectConfig(
-                "Unable to probe missing interface fields '%s', on node %s "
-                "SSH Error" % (', '.join(self.missing_fields), self.dpdk_node.node_key))
+            message = ('Unable to probe missing interface fields "%s", on '
+                       'node %s SSH Error' % (', '.join(self.missing_fields),
+                                              self.dpdk_node.node_key))
+            raise exceptions.IncorrectConfig(error_msg=message)
 
 
 class DpdkNode(object):
@@ -119,11 +117,12 @@ class DpdkNode(object):
         try:
             self.dpdk_interfaces = {intf['name']: DpdkInterface(self, intf['virtual-interface'])
                                     for intf in self.interfaces}
-        except IncorrectConfig:
+        except exceptions.IncorrectConfig:
             template = "MAC address is required for all interfaces, missing on: {}"
             errors = (intf['name'] for intf in self.interfaces if
                       'local_mac' not in intf['virtual-interface'])
-            raise IncorrectSetup(template.format(", ".join(errors)))
+            raise exceptions.IncorrectSetup(
+                error_msg=template.format(", ".join(errors)))
 
     @property
     def dpdk_helper(self):
@@ -177,7 +176,7 @@ class DpdkNode(object):
                 self._probe_netdevs()
                 try:
                     self._probe_missing_values()
-                except IncorrectConfig:
+                except exceptions.IncorrectConfig:
                     # ignore for now
                     pass
 
@@ -194,7 +193,7 @@ class DpdkNode(object):
                       missing_fields)
             errors = "\n".join(errors)
             if errors:
-                raise IncorrectSetup(errors)
+                raise exceptions.IncorrectSetup(error_msg=errors)
 
         finally:
             self._dpdk_helper = None
