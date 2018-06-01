@@ -987,14 +987,6 @@ class TestUtils(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             utils.validate_non_string_sequence(1, raise_exc=RuntimeError)
 
-    def test_error_class(self):
-        with self.assertRaises(RuntimeError):
-            yardstick.error.ErrorClass()
-
-        error_instance = yardstick.error.ErrorClass(test='')
-        with self.assertRaises(AttributeError):
-            error_instance.get_name()
-
 
 class TestUtilsIpAddrMethods(unittest.TestCase):
 

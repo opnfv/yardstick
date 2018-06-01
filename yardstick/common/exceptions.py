@@ -21,6 +21,16 @@ class ProcessExecutionError(RuntimeError):
         self.returncode = returncode
 
 
+class ErrorClass(object):
+
+    def __init__(self, *args, **kwargs):
+        if 'test' not in kwargs:
+            raise RuntimeError
+
+    def __getattr__(self, item):
+        raise AttributeError
+
+
 class YardstickException(Exception):
     """Base Yardstick Exception.
 

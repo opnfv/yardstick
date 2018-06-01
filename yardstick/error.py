@@ -36,13 +36,3 @@ class IncorrectSetup(Exception):
 class IncorrectNodeSetup(IncorrectSetup):
     """Class handles incorrect setup during setup"""
     pass
-
-
-class ErrorClass(object):
-
-    def __init__(self, *args, **kwargs):
-        if 'test' not in kwargs:
-            raise RuntimeError
-
-    def __getattr__(self, item):
-        raise AttributeError
