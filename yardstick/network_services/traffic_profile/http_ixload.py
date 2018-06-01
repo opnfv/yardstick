@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
-from __future__ import print_function
-
 import sys
 import os
 import logging
@@ -27,22 +24,14 @@ try:
 except ImportError:
     import json as jsonutils
 
-
-class ErrorClass(object):
-
-    def __init__(self, *args, **kwargs):
-        if 'test' not in kwargs:
-            raise RuntimeError
-
-    def __getattr__(self, item):
-        raise AttributeError
-
+from yardstick.common import exceptions
 
 try:
     from IxLoad import IxLoad, StatCollectorUtils
 except ImportError:
-    IxLoad = ErrorClass
-    StatCollectorUtils = ErrorClass
+    IxLoad = exceptions.ErrorClass
+    StatCollectorUtils = exceptions.ErrorClass
+
 
 LOG = logging.getLogger(__name__)
 CSV_FILEPATH_NAME = 'IxL_statResults.csv'
