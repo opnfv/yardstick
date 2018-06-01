@@ -151,12 +151,12 @@ class TestProxTestDataTuple(unittest.TestCase):
         self.assertEqual(prox_test_data.latency, 6)
         self.assertEqual(prox_test_data.rx_total, 7)
         self.assertEqual(prox_test_data.tx_total, 8)
-        self.assertEqual(prox_test_data.pps, 9)
+        self.assertEqual(prox_test_data.requested_pps, 9)
 
     def test_properties(self):
         prox_test_data = ProxTestDataTuple(1, 2, 3, 4, 5, 6, 7, 8, 9)
         self.assertEqual(prox_test_data.pkt_loss, 12.5)
-        self.assertEqual(prox_test_data.mpps, 1.6 / 1e6)
+        self.assertEqual(prox_test_data.tx_mpps, 1.6 / 1e6)
         self.assertEqual(prox_test_data.can_be_lost, 0)
         self.assertEqual(prox_test_data.drop_total, 1)
         self.assertFalse(prox_test_data.success)
@@ -172,11 +172,12 @@ class TestProxTestDataTuple(unittest.TestCase):
         prox_test_data = ProxTestDataTuple(1, 2, 3, 4, 5, [6.1, 6.9, 6.4], 7, 8, 9)
 
         expected = {
-            "Throughput": 1.6 / 1e6,
+            "Throughput": 1.2 / 1e6,
             "DropPackets": 12.5,
             "CurrentDropPackets": 12.5,
-            "TxThroughput": 9 / 1e6,
-            "RxThroughput": 1.6 / 1e6,
+            "RequestedTxThroughput": 9 / 1e6,
+            "TxThroughput": 1.6 / 1e6,
+            "RxThroughput": 1.2 / 1e6,
             "PktSize": 64,
             "PortSample": 1,
             "LatencyMin": 6.1,
@@ -187,11 +188,12 @@ class TestProxTestDataTuple(unittest.TestCase):
         self.assertDictEqual(result, expected)
 
         expected = {
-            "Throughput": 1.6 / 1e6,
+            "Throughput": 1.2 / 1e6,
             "DropPackets": 0.123,
             "CurrentDropPackets": 0.123,
-            "TxThroughput": 9 / 1e6,
-            "RxThroughput": 1.6 / 1e6,
+            "RequestedTxThroughput": 9 / 1e6,
+            "TxThroughput": 1.6 / 1e6,
+            "RxThroughput": 1.2 / 1e6,
             "PktSize": 64,
             "LatencyMin": 6.1,
             "LatencyMax": 6.9,
@@ -200,7 +202,7 @@ class TestProxTestDataTuple(unittest.TestCase):
         result = prox_test_data.get_samples(64, 0.123)
         self.assertDictEqual(result, expected)
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.LOG')
+    @mock.patch('yardstick.LOG_RESULT')
     def test_log_data(self, mock_logger):
         my_mock_logger = mock.MagicMock()
         prox_test_data = ProxTestDataTuple(1, 2, 3, 4, 5, [6.1, 6.9, 6.4], 7, 8, 9)
@@ -334,17 +336,17 @@ class TestProxSocketHelper(unittest.TestCase):
         mock_select.select.side_effect = chain([[object()], [None]], repeat([1], 3))
         mock_recv.decode.return_value = PACKET_DUMP_2
         ret = prox.get_data()
-        self.assertEqual(mock_select.select.call_count, 2)
+        self.assertEqual(mock_select.select.call_count, 1)
         self.assertEqual(ret, 'jumped over')
         self.assertEqual(len(prox._pkt_dumps), 3)
 
     def test__parse_socket_data_mixed_data(self):
         prox = ProxSocketHelper(mock.MagicMock())
-        ret = prox._parse_socket_data(PACKET_DUMP_NON_1, False)
+        ret, _ = prox._parse_socket_data(PACKET_DUMP_NON_1, False)
         self.assertEqual(ret, 'not_a_dump,1,2')
         self.assertEqual(len(prox._pkt_dumps), 0)
 
-        ret = prox._parse_socket_data(PACKET_DUMP_MIXED_1, False)
+        ret, _ = prox._parse_socket_data(PACKET_DUMP_MIXED_1, False)
         self.assertEqual(ret, 'not_a_dump,1,2')
         self.assertEqual(len(prox._pkt_dumps), 1)
 
@@ -356,18 +358,18 @@ class TestProxSocketHelper(unittest.TestCase):
         with self.assertRaises(ValueError):
             prox._parse_socket_data(PACKET_DUMP_BAD_2, False)
 
-        ret = prox._parse_socket_data(PACKET_DUMP_BAD_3, False)
+        ret, _ = prox._parse_socket_data(PACKET_DUMP_BAD_3, False)
         self.assertEqual(ret, 'pktdump,3')
 
     def test__parse_socket_data_pkt_dump_only(self):
         prox = ProxSocketHelper(mock.MagicMock())
-        ret = prox._parse_socket_data('', True)
+        ret, _ = prox._parse_socket_data('', True)
         self.assertFalse(ret)
 
-        ret = prox._parse_socket_data(PACKET_DUMP_1, True)
+        ret, _ = prox._parse_socket_data(PACKET_DUMP_1, True)
         self.assertTrue(ret)
 
-        ret = prox._parse_socket_data(PACKET_DUMP_2, True)
+        ret, _ = prox._parse_socket_data(PACKET_DUMP_2, True)
         self.assertTrue(ret)
 
     def test_put_command(self):
@@ -1542,7 +1544,7 @@ class TestProxDataHelper(unittest.TestCase):
 
         self.assertEqual(data_helper.rx_total, 6)
         self.assertEqual(data_helper.tx_total, 7)
-        self.assertEqual(data_helper.pps, 6.25e6)
+        self.assertEqual(data_helper.requested_pps, 6.25e6)
 
     def test_samples(self):
         vnfd_helper = mock.MagicMock()

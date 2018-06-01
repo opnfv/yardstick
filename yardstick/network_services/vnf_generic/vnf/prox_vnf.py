@@ -44,7 +44,8 @@ class ProxApproxVnf(SampleVNF):
 
         self.prev_packets_in = 0
         self.prev_packets_sent = 0
-        self.prev_time = time.time()
+        self.prev_tsc = 0
+        self.tsc_hz = 0
         super(ProxApproxVnf, self).__init__(name, vnfd, setup_env_helper_type,
                                             resource_helper_type)
 
@@ -68,8 +69,7 @@ class ProxApproxVnf(SampleVNF):
 
     def collect_kpi(self):
         # we can't get KPIs if the VNF is down
-        check_if_process_failed(self._vnf_process)
-
+        check_if_process_failed(self._vnf_process, 0.01)
         if self.resource_helper is None:
             result = {
                 "packets_in": 0,
@@ -79,6 +79,12 @@ class ProxApproxVnf(SampleVNF):
             }
             return result
 
+        if (self.tsc_hz == 0):
+            self.tsc_hz = float(self.resource_helper.sut.hz())
+            LOG.debug("TSC = %f", self.tsc_hz)
+            if (self.tsc_hz == 0):
+                raise RuntimeError("Unable to retrieve TSC")
+
         # use all_ports so we only use ports matched in topology
         port_count = len(self.vnfd_helper.port_pairs.all_ports)
         if port_count not in {1, 2, 4}:
@@ -86,10 +92,10 @@ class ProxApproxVnf(SampleVNF):
                                "1, 2 or 4 ports only supported at this time")
 
         self.port_stats = self.vnf_execute('port_stats', range(port_count))
-        curr_time = time.time()
         try:
             rx_total = self.port_stats[6]
             tx_total = self.port_stats[7]
+            tsc = self.port_stats[10]
         except IndexError:
             LOG.debug("port_stats parse fail ")
             # return empty dict so we don't mess up existing KPIs
@@ -103,15 +109,17 @@ class ProxApproxVnf(SampleVNF):
             # collectd KPIs here and not TG KPIs, so use a different method name
             "collect_stats": self.resource_helper.collect_collectd_kpi(),
         }
-        curr_packets_in = int((rx_total - self.prev_packets_in) / (curr_time - self.prev_time))
-        curr_packets_fwd = int((tx_total - self.prev_packets_sent) / (curr_time - self.prev_time))
+        curr_packets_in = int(((rx_total - self.prev_packets_in) * self.tsc_hz) 
+                                / (tsc - self.prev_tsc) * port_count)
+        curr_packets_fwd = int(((tx_total - self.prev_packets_sent) * self.tsc_hz) 
+                                / (tsc - self.prev_tsc) * port_count)
 
         result["curr_packets_in"] = curr_packets_in
         result["curr_packets_fwd"] = curr_packets_fwd
 
         self.prev_packets_in = rx_total
         self.prev_packets_sent = tx_total
-        self.prev_time = curr_time
+        self.prev_tsc = tsc
 
         LOG.debug("%s collect KPIs %s %s", self.APP_NAME, datetime.datetime.now(), result)
         return result
