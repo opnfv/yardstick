@@ -19,15 +19,15 @@ from six.moves import configparser
 import time
 import unittest
 
-import yardstick
 from yardstick import ssh
 import yardstick.error
 from yardstick.common import constants
 from yardstick.common import utils
 from yardstick.common import exceptions
+from yardstick.tests.unit import base as ut_base
 
 
-class IterSubclassesTestCase(unittest.TestCase):
+class IterSubclassesTestCase(ut_base.BaseUnitTestCase):
     # Disclaimer: this class is a modified copy from
     # rally/tests/unit/common/plugin/test_discover.py
     # Copyright 2015: Mirantis Inc.
@@ -48,7 +48,7 @@ class IterSubclassesTestCase(unittest.TestCase):
         self.assertEqual([B, C, D], list(utils.itersubclasses(A)))
 
 
-class ImportModulesFromPackageTestCase(unittest.TestCase):
+class ImportModulesFromPackageTestCase(ut_base.BaseUnitTestCase):
 
     @mock.patch('yardstick.common.utils.os.walk')
     def test_import_modules_from_package_no_mod(self, mock_walk):
@@ -73,7 +73,7 @@ class ImportModulesFromPackageTestCase(unittest.TestCase):
         mock_import_module.assert_called_once_with('bar.baz')
 
 
-class GetParaFromYaml(unittest.TestCase):
+class GetParaFromYaml(ut_base.BaseUnitTestCase):
 
     @mock.patch('yardstick.common.utils.os.environ.get')
     def test_get_param_para_not_found(self, get_env):
@@ -97,7 +97,7 @@ class GetParaFromYaml(unittest.TestCase):
         return file_path
 
 
-class CommonUtilTestCase(unittest.TestCase):
+class CommonUtilTestCase(ut_base.BaseUnitTestCase):
 
     def setUp(self):
         self.data = {
@@ -187,14 +187,14 @@ class CommonUtilTestCase(unittest.TestCase):
         self.assertEqual(mock_open.call_count, mock_open_call_count)
 
 
-class TestMacAddressToHex(unittest.TestCase):
+class TestMacAddressToHex(ut_base.BaseUnitTestCase):
 
     def test_mac_address_to_hex_list(self):
         self.assertEqual(utils.mac_address_to_hex_list("ea:3e:e1:9a:99:e8"),
                          ['0xea', '0x3e', '0xe1', '0x9a', '0x99', '0xe8'])
 
 
-class TranslateToStrTestCase(unittest.TestCase):
+class TranslateToStrTestCase(ut_base.BaseUnitTestCase):
 
     def test_translate_to_str_unicode(self):
         input_str = u'hello'
@@ -220,7 +220,7 @@ class TranslateToStrTestCase(unittest.TestCase):
         self.assertIs(input_value, result)
 
 
-class TestParseCpuInfo(unittest.TestCase):
+class TestParseCpuInfo(ut_base.BaseUnitTestCase):
 
     def test_single_socket_no_hyperthread(self):
         cpuinfo = """\
@@ -805,7 +805,7 @@ power management:
         self.assertEqual(sockets, [0, 1])
 
 
-class ChangeObjToDictTestCase(unittest.TestCase):
+class ChangeObjToDictTestCase(ut_base.BaseUnitTestCase):
 
     def test_change_obj_to_dict(self):
         class A(object):
@@ -818,7 +818,7 @@ class ChangeObjToDictTestCase(unittest.TestCase):
         self.assertEqual(obj_r, obj_s)
 
 
-class SetDictValueTestCase(unittest.TestCase):
+class SetDictValueTestCase(ut_base.BaseUnitTestCase):
 
     def test_set_dict_value(self):
         input_dic = {
@@ -828,7 +828,7 @@ class SetDictValueTestCase(unittest.TestCase):
         self.assertEqual(output_dic.get('welcome', {}).get('to'), 'yardstick')
 
 
-class RemoveFileTestCase(unittest.TestCase):
+class RemoveFileTestCase(ut_base.BaseUnitTestCase):
 
     def test_remove_file(self):
         try:
@@ -838,7 +838,83 @@ class RemoveFileTestCase(unittest.TestCase):
             self.assertTrue(isinstance(e, OSError))
 
 
-class TestUtils(unittest.TestCase):
+class ParseIniFileTestCase(ut_base.BaseUnitTestCase):
+
+    def setUp(self):
+        self._mock_config_parser_type = mock.patch.object(configparser,
+                                                          'ConfigParser')
+        self.mock_config_parser_type = self._mock_config_parser_type.start()
+        self.addCleanup(self._stop_mocks)
+
+    def _stop_mocks(self):
+        self._mock_config_parser_type.stop()
+
+    def test_parse_ini_file(self):
+        defaults = {'default1': 'value1',
+                    'default2': 'value2'}
+        s1 = {'key1': 'value11',
+              'key2': 'value22'}
+        s2 = {'key1': 'value123',
+              'key2': 'value234'}
+
+        mock_config_parser = mock.Mock()
+        self.mock_config_parser_type.return_value = mock_config_parser
+        mock_config_parser.read.return_value = True
+        mock_config_parser.sections.return_value = ['s1', 's2']
+        mock_config_parser.items.side_effect = iter([
+            defaults.items(),
+            s1.items(),
+            s2.items(),
+        ])
+
+        expected = {'DEFAULT': defaults,
+                    's1': s1,
+                    's2': s2}
+        result = utils.parse_ini_file('my_path')
+        self.assertDictEqual(expected, result)
+
+    @mock.patch.object(utils, 'logger')
+    def test_parse_ini_file_missing_section_header(self, *args):
+        mock_config_parser = mock.Mock()
+        self.mock_config_parser_type.return_value = mock_config_parser
+        mock_config_parser.read.side_effect = (
+            configparser.MissingSectionHeaderError(
+                mock.Mock(), 321, mock.Mock()))
+
+        with self.assertRaises(configparser.MissingSectionHeaderError):
+            utils.parse_ini_file('my_path')
+
+    def test_parse_ini_file_no_file(self):
+        mock_config_parser = mock.Mock()
+        self.mock_config_parser_type.return_value = mock_config_parser
+        mock_config_parser.read.return_value = False
+        with self.assertRaises(RuntimeError):
+            utils.parse_ini_file('my_path')
+
+    def test_parse_ini_file_no_default_section_header(self):
+        s1 = {'key1': 'value11',
+              'key2': 'value22'}
+        s2 = {'key1': 'value123',
+              'key2': 'value234'}
+
+        mock_config_parser = mock.Mock()
+        self.mock_config_parser_type.return_value = mock_config_parser
+        mock_config_parser.read.return_value = True
+        mock_config_parser.sections.return_value = ['s1', 's2']
+        mock_config_parser.items.side_effect = iter([
+            configparser.NoSectionError(mock.Mock()),
+            s1.items(),
+            s2.items(),
+        ])
+
+        expected = {'DEFAULT': {},
+                    's1': s1,
+                    's2': s2}
+        result = utils.parse_ini_file('my_path')
+        self.assertDictEqual(expected, result)
+
+
+class TestUtils(ut_base.BaseUnitTestCase):
 
     @mock.patch('yardstick.common.utils.os.makedirs')
     def test_makedirs(self, *_):
@@ -895,82 +971,6 @@ class TestUtils(unittest.TestCase):
         os.environ.clear()
         os.environ.update(base_env)
 
-    @mock.patch('yardstick.common.utils.configparser.ConfigParser')
-    def test_parse_ini_file(self, mock_config_parser_type):
-        defaults = {
-            'default1': 'value1',
-            'default2': 'value2',
-        }
-        s1 = {
-            'key1': 'value11',
-            'key2': 'value22',
-        }
-        s2 = {
-            'key1': 'value123',
-            'key2': 'value234',
-        }
-
-        mock_config_parser = mock_config_parser_type()
-        mock_config_parser.read.return_value = True
-        mock_config_parser.sections.return_value = ['s1', 's2']
-        mock_config_parser.items.side_effect = iter([
-            defaults.items(),
-            s1.items(),
-            s2.items(),
-        ])
-
-        expected = {
-            'DEFAULT': defaults,
-            's1': s1,
-            's2': s2,
-        }
-        result = utils.parse_ini_file('my_path')
-        self.assertDictEqual(result, expected)
-
-    @mock.patch('yardstick.common.utils.configparser.ConfigParser')
-    def test_parse_ini_file_missing_section_header(self, mock_config_parser_type):
-        mock_config_parser = mock_config_parser_type()
-        mock_config_parser.read.side_effect = \
-            configparser.MissingSectionHeaderError(mock.Mock(), 321, mock.Mock())
-
-        with self.assertRaises(configparser.MissingSectionHeaderError):
-            utils.parse_ini_file('my_path')
-
-    @mock.patch('yardstick.common.utils.configparser.ConfigParser')
-    def test_parse_ini_file_no_file(self, mock_config_parser_type):
-        mock_config_parser = mock_config_parser_type()
-        mock_config_parser.read.return_value = False
-        with self.assertRaises(RuntimeError):
-            utils.parse_ini_file('my_path')
-
-    @mock.patch('yardstick.common.utils.configparser.ConfigParser')
-    def test_parse_ini_file_no_default_section_header(self, mock_config_parser_type):
-        s1 = {
-            'key1': 'value11',
-            'key2': 'value22',
-        }
-        s2 = {
-            'key1': 'value123',
-            'key2': 'value234',
-        }
-
-        mock_config_parser = mock_config_parser_type()
-        mock_config_parser.read.return_value = True
-        mock_config_parser.sections.return_value = ['s1', 's2']
-        mock_config_parser.items.side_effect = iter([
-            configparser.NoSectionError(mock.Mock()),
-            s1.items(),
-            s2.items(),
-        ])
-
-        expected = {
-            'DEFAULT': {},
-            's1': s1,
-            's2': s2,
-        }
-        result = utils.parse_ini_file('my_path')
-        self.assertDictEqual(result, expected)
-
     def test_join_non_strings(self):
         self.assertEqual(utils.join_non_strings(':'), '')
         self.assertEqual(utils.join_non_strings(':', 'a'), 'a')
@@ -998,7 +998,7 @@ class TestUtils(unittest.TestCase):
             error_instance.get_name()
 
 
-class TestUtilsIpAddrMethods(unittest.TestCase):
+class TestUtilsIpAddrMethods(ut_base.BaseUnitTestCase):
 
     GOOD_IP_V4_ADDRESS_STR_LIST = [
         u'0.0.0.0',
@@ -1125,7 +1125,7 @@ class TestUtilsIpAddrMethods(unittest.TestCase):
             self.assertEqual(utils.ip_to_hex(value), value)
 
 
-class SafeDecodeUtf8TestCase(unittest.TestCase):
+class SafeDecodeUtf8TestCase(ut_base.BaseUnitTestCase):
 
     @unittest.skipIf(six.PY2,
                      'This test should only be launched with Python 3.x')
@@ -1136,7 +1136,7 @@ class SafeDecodeUtf8TestCase(unittest.TestCase):
         self.assertEqual('this is a byte array', out)
 
 
-class ReadMeminfoTestCase(unittest.TestCase):
+class ReadMeminfoTestCase(ut_base.BaseUnitTestCase):
 
     MEMINFO = (b'MemTotal:       65860500 kB\n'
                b'MemFree:        28690900 kB\n'
@@ -1162,7 +1162,7 @@ class ReadMeminfoTestCase(unittest.TestCase):
         self.assertEqual(self.MEMINFO_DICT, output)
 
 
-class TimerTestCase(unittest.TestCase):
+class TimerTestCase(ut_base.BaseUnitTestCase):
 
     def test__getattr(self):
         with utils.Timer() as timer:
@@ -1181,7 +1181,7 @@ class TimerTestCase(unittest.TestCase):
                 time.sleep(2)
 
 
-class WaitUntilTrueTestCase(unittest.TestCase):
+class WaitUntilTrueTestCase(ut_base.BaseUnitTestCase):
 
     def test_no_timeout(self):
         self.assertIsNone(utils.wait_until_true(lambda: True,
