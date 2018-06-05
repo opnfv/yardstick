@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_1f9a6b14",
+        "filename": "yardstick/benchmark/runners/iteration_ipc.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-05T16:24:11Z",
+      "side": 1,
+      "message": "Not at all",
+      "parentUuid": "da5c1566_bce6ed14",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 43
+      },
+      "revId": "dbab39c68b0340a52629dcbfe23c756fa766f1e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_5fb063f4",
         "filename": "yardstick/benchmark/runners/iteration_ipc.py",
         "patchSetId": 18
@@ -36,6 +60,24 @@
       "writtenOn": "2018-06-05T13:57:05Z",
       "side": 1,
       "message": "Could you please add a comment what is the meaning of the return value. What we compare here. E.g.:\n\nMake sure that all KPIs have been received per each PID. \ne.g. length of [kpi0, kpi1, kpi2, ...] should be \u003d\u003d number of runner iterations.\n\nAlso, the name `check_iteration_status` is not clear enough for the user. It would be better to rename it something like:\nis_all_kpis_received(self)",
+      "revId": "dbab39c68b0340a52629dcbfe23c756fa766f1e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ffa97725",
+        "filename": "yardstick/benchmark/runners/iteration_ipc.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-05T16:24:11Z",
+      "side": 1,
+      "message": "You are right. I\u0027ll change the name of the function and I\u0027ll add a description.",
+      "parentUuid": "da5c1566_5fb063f4",
       "revId": "dbab39c68b0340a52629dcbfe23c756fa766f1e9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_9f731be7",
+        "filename": "yardstick/benchmark/runners/iteration_ipc.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-05T16:24:11Z",
+      "side": 1,
+      "message": "Correct!",
+      "parentUuid": "da5c1566_3fd3ef39",
+      "revId": "dbab39c68b0340a52629dcbfe23c756fa766f1e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_bc242dc7",
         "filename": "yardstick/benchmark/runners/iteration_ipc.py",
         "patchSetId": 18
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_df7d93b3",
+        "filename": "yardstick/benchmark/runners/iteration_ipc.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-05T16:24:11Z",
+      "side": 1,
+      "message": "We are going to implement this feature in NSPerf. This is done in https://gerrit.opnfv.org/gerrit/#/c/56281.\n\nAny other scenario without this feature implemented will fail. That\u0027s why I added this check.",
+      "parentUuid": "da5c1566_bc242dc7",
+      "revId": "dbab39c68b0340a52629dcbfe23c756fa766f1e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_bc5d4d4b",
         "filename": "yardstick/benchmark/runners/iteration_ipc.py",
         "patchSetId": 18
@@ -87,6 +165,24 @@
       "writtenOn": "2018-06-05T09:04:57Z",
       "side": 1,
       "message": "while True?",
+      "revId": "dbab39c68b0340a52629dcbfe23c756fa766f1e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ff80578d",
+        "filename": "yardstick/benchmark/runners/iteration_ipc.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-05T16:24:11Z",
+      "side": 1,
+      "message": "This is both creating and endless loop and checking this condition.",
+      "parentUuid": "da5c1566_bc5d4d4b",
       "revId": "dbab39c68b0340a52629dcbfe23c756fa766f1e9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -122,6 +218,24 @@
       "side": 1,
       "message": "Understand now",
       "parentUuid": "da5c1566_1c68b9f4",
+      "revId": "dbab39c68b0340a52629dcbfe23c756fa766f1e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_1f4f0b94",
+        "filename": "yardstick/common/messaging/payloads.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-05T16:24:11Z",
+      "side": 1,
+      "message": "Hehehehe, I\u0027m using a lazy loading of the class attributes.",
+      "parentUuid": "da5c1566_df5113da",
       "revId": "dbab39c68b0340a52629dcbfe23c756fa766f1e9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
