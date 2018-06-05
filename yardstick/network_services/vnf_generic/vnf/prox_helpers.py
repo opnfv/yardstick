@@ -325,7 +325,7 @@ class ProxSocketHelper(object):
 
         return ret_str, False
 
-    def get_data(self, pkt_dump_only=False, timeout=1):
+    def get_data(self, pkt_dump_only=False, timeout=0.01):
         """ read data from the socket """
 
         # This method behaves slightly differently depending on whether it is
