@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_ff769705",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-05T14:53:46Z",
+      "side": 1,
+      "message": "Suggest to add new method to get MQ producer ID (e.g. get_mq_producer_id()) instead and do not modify return value. Something else may relay on it.",
+      "revId": "a9b324465d450d43fd341afe6d410115a8cdf16e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
