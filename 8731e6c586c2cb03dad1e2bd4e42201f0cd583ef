@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_bf125f56",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-05T09:58:30Z",
+      "side": 1,
+      "message": "This is not changed.\nYou should place the new method between _get_topology and _fill_traffic_profile instead of moving _get_topology",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 32
+      },
+      "revId": "8731e6c586c2cb03dad1e2bd4e42201f0cd583ef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_9f3ddbbe",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_base.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-05T09:58:30Z",
+      "side": 1,
+      "message": "According to the commit message, the duration should default to 30.\n\nCan you add another test to check the default case?",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 79,
+        "endChar": 18
+      },
+      "revId": "8731e6c586c2cb03dad1e2bd4e42201f0cd583ef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_1f526b13",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_http.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-05T09:58:30Z",
+      "side": 1,
+      "message": "s/_htt_p/http/g",
+      "range": {
+        "startLine": 25,
+        "startChar": 32,
+        "endLine": 25,
+        "endChar": 37
+      },
+      "revId": "8731e6c586c2cb03dad1e2bd4e42201f0cd583ef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_bf409f36",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_trex_traffic_profile.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-05T09:58:30Z",
+      "side": 1,
+      "message": "Since the majority of tests use this, could it be made into an instance variable, and taken care of in setUp()?",
+      "range": {
+        "startLine": 143,
+        "startChar": 8,
+        "endLine": 143,
+        "endChar": 48
+      },
+      "revId": "8731e6c586c2cb03dad1e2bd4e42201f0cd583ef",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
