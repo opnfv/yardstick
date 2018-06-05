@@ -89,15 +89,13 @@ class ProxApproxVnf(SampleVNF):
             raise RuntimeError("Failed ..Invalid no of ports .. "
                                "1, 2 or 4 ports only supported at this time")
 
-        self.port_stats = self.vnf_execute('port_stats', range(port_count))
-        try:
-            rx_total = self.port_stats[6]
-            tx_total = self.port_stats[7]
-            tsc = self.port_stats[10]
-        except IndexError:
-            LOG.debug("port_stats parse fail ")
-            # return empty dict so we don't mess up existing KPIs
-            return {}
+        all_port_stats = self.vnf_execute('multi port stats', range(port_count))
+        rx_total = tx_total = 0
+        for single_port_stats in all_port_stats:
+            rx_total = rx_total + single_port_stats[1]
+            tx_total = tx_total + single_port_stats[2]
+
+        tsc = single_port_stats[5]
 
         result = {
             "packets_in": rx_total,
@@ -107,10 +105,17 @@ class ProxApproxVnf(SampleVNF):
             # collectd KPIs here and not TG KPIs, so use a different method name
             "collect_stats": self.resource_helper.collect_collectd_kpi(),
         }
-        curr_packets_in = int(((rx_total - self.prev_packets_in) * self.tsc_hz)
+        try:
+            curr_packets_in = int(((rx_total - self.prev_packets_in) * self.tsc_hz)
                                 / (tsc - self.prev_tsc) * port_count)
-        curr_packets_fwd = int(((tx_total - self.prev_packets_sent) * self.tsc_hz)
+        except ZeroDivisionError:
+            curr_packets_in = 0
+
+        try:
+            curr_packets_fwd = int(((tx_total - self.prev_packets_sent) * self.tsc_hz)
                                 / (tsc - self.prev_tsc) * port_count)
+        except ZeroDivisionError:
+            curr_packets_fwd = 0
 
         result["curr_packets_in"] = curr_packets_in
         result["curr_packets_fwd"] = curr_packets_fwd
