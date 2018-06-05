@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "da5c1566_3fee4f8c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/base.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-05T15:01:16Z",
+      "side": 1,
+      "message": "Where these messages are handled? IterationIPC runner doesn\u0027t handle them.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 53
+      },
+      "revId": "a9b324465d450d43fd341afe6d410115a8cdf16e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_ff769705",
         "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
         "patchSetId": 13
