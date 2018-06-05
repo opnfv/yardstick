@@ -339,16 +339,17 @@ class TestProxApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         resource_helper = mock.MagicMock()
-        resource_helper.execute.return_value = list(range(12))
+        resource_helper.execute.return_value = [[0, 1, 2, 3, 4, 5], [1, 1, 2, 3, 4, 5],
+                                                [2, 1, 2, 3, 4, 5], [3, 1, 2, 3, 4, 5]]
         resource_helper.collect_collectd_kpi.return_value = {'core': {'result': 234}}
 
         prox_approx_vnf = ProxApproxVnf(NAME, self.VNFD0)
         prox_approx_vnf.resource_helper = resource_helper
 
         expected = {
-            'packets_in': 6,
-            'packets_dropped': 1,
-            'packets_fwd': 7,
+            'packets_in': 4,
+            'packets_dropped': 4,
+            'packets_fwd': 8,
             'collect_stats': {'core': {'result': 234}},
         }
         result = prox_approx_vnf.collect_kpi()
