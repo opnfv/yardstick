@@ -89,7 +89,7 @@ class ProxApproxVnf(SampleVNF):
             raise RuntimeError("Failed ..Invalid no of ports .. "
                                "1, 2 or 4 ports only supported at this time")
 
-        self.port_stats = self.vnf_execute('port_stats', range(port_count))
+        self.port_stats = self.vnf_execute('port_stats', range(port_count)) 
         try:
             rx_total = self.port_stats[6]
             tx_total = self.port_stats[7]
