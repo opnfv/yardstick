@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "da5c1566_ffe4d7ad",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-05T14:59:59Z",
+      "side": 1,
+      "message": "I assume this is list of MQ producer ids.",
+      "range": {
+        "startLine": 408,
+        "startChar": 31,
+        "endLine": 408,
+        "endChar": 35
+      },
+      "revId": "90b491bf2492a7b788905f788d7afdcae9aed469",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_0ace8c5a",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 13
@@ -13,6 +36,30 @@
       "writtenOn": "2018-06-01T15:22:04Z",
       "side": 1,
       "message": "not sure that this is a right place for this logic. if you want setup function to return PIDs it should return PIDs of  all controlled processes not just TGs. \nAlso you can add new interface method to Scenario class or if this specific to the NetworkServiceTestCase - create a new get method there",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 454,
+        "endChar": 22
+      },
+      "revId": "90b491bf2492a7b788905f788d7afdcae9aed469",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_9fd79bbf",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-05T14:59:59Z",
+      "side": 1,
+      "message": "As I understand, this is not process id, but MQ producer ID that run_traffic() returns. I recommend to add new method into traffic_gen like get_mq_producer_id() instead that will return this ID. Also, please rename `pid` to `mq_pid` in all places where pid means MQ producer ID. So, it will not be confused anymore.",
+      "parentUuid": "1a494da4_0ace8c5a",
       "range": {
         "startLine": 449,
         "startChar": 0,
