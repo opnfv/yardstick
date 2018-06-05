@@ -315,7 +315,7 @@ class ProxSocketHelper(object):
 
         return ret_str
 
-    def get_data(self, pkt_dump_only=False, timeout=1):
+    def get_data(self, pkt_dump_only=False, timeout=0.01):
         """ read data from the socket """
 
         # This method behaves slightly differently depending on whether it is
@@ -519,6 +519,51 @@ class ProxSocketHelper(object):
             drop += int(ret[2])
             tsc = int(ret[3])
         return rx, tx, drop, tsc
+
+    def multi_port_stats(self, ports):
+        """get counter values from all ports port"""
+
+        ports_str = ""
+        for port in ports:
+            ports_str = ports_str + str(port) + ","
+        ports_str = ports_str[:-1]
+
+        ports_all_data = []
+        tot_result = [0] * len(ports)
+
+        retry_counter = 0
+        port_index = 0
+        while (len(ports) is not len(ports_all_data)) and (retry_counter < 10):
+            self.put_command("multi port stats {}\n".format(ports_str))
+            ports_all_data = self.get_data().split(";")
+
+            if len(ports) is len(ports_all_data):
+                for port_data_str in ports_all_data:
+
+                    try:
+                        tot_result[port_index] = [try_int(s, 0) for s in port_data_str.split(",")]
+                    except (IndexError, TypeError):
+                        LOG.error("Port Index error %d  %s - retrying ", port_index, port_data_str)
+
+                    if (len(tot_result[port_index]) is not 6) or \
+                                    tot_result[port_index][0] is not ports[port_index]:
+                        ports_all_data = []
+                        tot_result = [0] * len(ports)
+                        port_index = 0
+                        time.sleep(0.1)
+                        LOG.error("Corrupted PACKET %s - retrying", port_data_str)
+                        break
+                    else:
+                        port_index = port_index + 1
+            else:
+                LOG.error("Empty / too much data - retry -%s-", ports_all_data)
+                ports_all_data = []
+                tot_result = [0] * len(ports)
+                port_index = 0
+                time.sleep(0.1)
+
+            retry_counter = retry_counter + 1
+        return tot_result
 
     def port_stats(self, ports):
         """get counter values from a specific port"""
@@ -1000,9 +1045,13 @@ class ProxDataHelper(object):
     @property
     def totals_and_pps(self):
         if self._totals_and_pps is None:
-            rx_total, tx_total = self.sut.port_stats(range(self.port_count))[6:8]
-            pps = self.value / 100.0 * self.line_rate_to_pps()
-            self._totals_and_pps = rx_total, tx_total, pps
+            rx_total = tx_total = 0
+            all_ports = self.sut.multi_port_stats(range(self.port_count))
+            for port in all_ports:
+                rx_total = rx_total + port[1]
+                tx_total = tx_total + port[2]
+            requested_pps = self.value / 100.0 * self.line_rate_to_pps()
+            self._totals_and_pps = rx_total, tx_total, requested_pps
         return self._totals_and_pps
 
     @property
@@ -1020,19 +1069,18 @@ class ProxDataHelper(object):
     @property
     def samples(self):
         samples = {}
+        ports = []
+        port_names = []
         for port_name, port_num in self.vnfd_helper.ports_iter():
-            try:
-                port_rx_total, port_tx_total = self.sut.port_stats([port_num])[6:8]
-                samples[port_name] = {
-                    "in_packets": port_rx_total,
-                    "out_packets": port_tx_total,
-                }
-            except (KeyError, TypeError, NameError, MemoryError, ValueError,
-                    SystemError, BufferError):
-                samples[port_name] = {
-                    "in_packets": 0,
-                    "out_packets": 0,
-                }
+            ports.append(port_num)
+            port_names.append(port_name)
+
+        results = self.sut.multi_port_stats(ports)
+        for result in results:
+            port_num = result[0]
+            samples[port_names[port_num]] = {
+                    "in_packets": result[1],
+                    "out_packets": result[2]}
         return samples
 
     def __enter__(self):
