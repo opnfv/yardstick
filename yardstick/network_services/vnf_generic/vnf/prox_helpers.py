@@ -1153,12 +1153,29 @@ class ProxProfileHelper(object):
 
         return cores
 
+    def pct_10gbps(self, value, line_speed):
+        """Get rate in percent of 10 Gbps.
+
+        Returns the rate in percent of 10 Gbps.
+        For instance 100.0 = 10 Gbps; 400.0 = 40 Gbps.
+
+        Args:
+            value (float): percent of line rate (100.0 = line rate).
+            line_speed (int): line rate speed, in bits per second.
+
+        Returns:
+            [float]. Represents the rate in percent of 10Gbps.
+        """
+      return (value * line_speed /
+               (constants.ONE_GIGABIT_IN_BITS * constants.NIC_GBPS_DEFAULT))
+
     def run_test(self, pkt_size, duration, value, tolerated_loss=0.0,
                  line_speed=(constants.ONE_GIGABIT_IN_BITS * constants.NIC_GBPS_DEFAULT)):
         data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
                                      value, tolerated_loss, line_speed)
 
-        with data_helper, self.traffic_context(pkt_size, value):
+        with data_helper, self.traffic_context(pkt_size,
+                                               self.pct_10gbps(value, line_speed)):
             with data_helper.measure_tot_stats():
                 time.sleep(duration)
                 # Getting statistics to calculate PPS at right speed....
@@ -1417,7 +1434,8 @@ class ProxBngProfileHelper(ProxProfileHelper):
         data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
                                      value, tolerated_loss, line_speed)
 
-        with data_helper, self.traffic_context(pkt_size, value):
+        with data_helper, self.traffic_context(pkt_size,
+                                               self.pct_10gbps(value, line_speed)):
             with data_helper.measure_tot_stats():
                 time.sleep(duration)
                 # Getting statistics to calculate PPS at right speed....
@@ -1606,7 +1624,8 @@ class ProxVpeProfileHelper(ProxProfileHelper):
         data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
                                      value, tolerated_loss, line_speed)
 
-        with data_helper, self.traffic_context(pkt_size, value):
+        with data_helper, self.traffic_context(pkt_size,
+                                               self.pct_10gbps(value, line_speed)):
             with data_helper.measure_tot_stats():
                 time.sleep(duration)
                 # Getting statistics to calculate PPS at right speed....
@@ -1797,7 +1816,8 @@ class ProxlwAFTRProfileHelper(ProxProfileHelper):
         data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
                                      value, tolerated_loss, line_speed)
 
-        with data_helper, self.traffic_context(pkt_size, value):
+        with data_helper, self.traffic_context(pkt_size,
+                                               self.pct_10gbps(value, line_speed)):
             with data_helper.measure_tot_stats():
                 time.sleep(duration)
                 # Getting statistics to calculate PPS at right speed....
