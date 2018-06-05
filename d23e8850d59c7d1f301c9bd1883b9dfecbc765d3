@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_fc198523",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2018-06-05T08:58:43Z",
+      "side": 1,
+      "message": "Agreed. Gerrit 58139 shows an example of such a dashboard. Other dashboards need to be updated when we agree on the dashboard framework.",
+      "parentUuid": "1a494da4_8a657c47",
+      "revId": "d23e8850d59c7d1f301c9bd1883b9dfecbc765d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_2a6d4833",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 1
@@ -70,6 +88,30 @@
       "writtenOn": "2018-06-01T16:00:08Z",
       "side": 1,
       "message": "what is the rationale for returning multiple boolean values here?",
+      "range": {
+        "startLine": 321,
+        "startChar": 16,
+        "endLine": 321,
+        "endChar": 33
+      },
+      "revId": "d23e8850d59c7d1f301c9bd1883b9dfecbc765d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_5ce23104",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2018-06-05T08:58:43Z",
+      "side": 1,
+      "message": "The goal is to try to avoid calling select when not necessary, to prevent timeouts.\nPrevious implementation was calling select multiple times, until it timeouts. This resulted in rather slow statistics collection, and difficulty to collect many statistics.\nThe code was expecting, when (mode !\u003d \u0027pktdump\u0027) regular 1-line message; hence there were no reason to call select again in those cases.\nThe second return value tells whether select should be called further.",
+      "parentUuid": "1a494da4_6a775003",
       "range": {
         "startLine": 321,
         "startChar": 16,
