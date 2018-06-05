@@ -25,6 +25,40 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_5fb063f4",
+        "filename": "yardstick/benchmark/runners/iteration_ipc.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-05T13:57:05Z",
+      "side": 1,
+      "message": "Could you please add a comment what is the meaning of the return value. What we compare here. E.g.:\n\nMake sure that all KPIs have been received per each PID. \ne.g. length of [kpi0, kpi1, kpi2, ...] should be \u003d\u003d number of runner iterations.\n\nAlso, the name `check_iteration_status` is not clear enough for the user. It would be better to rename it something like:\nis_all_kpis_received(self)",
+      "revId": "dbab39c68b0340a52629dcbfe23c756fa766f1e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_3fd3ef39",
+        "filename": "yardstick/benchmark/runners/iteration_ipc.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-05T13:57:05Z",
+      "side": 1,
+      "message": "mq_queue is not used in the _worker_process function. Please move it into RunnerIterationIPCConsumer class where the queue is used.",
+      "revId": "dbab39c68b0340a52629dcbfe23c756fa766f1e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_bc242dc7",
         "filename": "yardstick/benchmark/runners/iteration_ipc.py",
         "patchSetId": 18
