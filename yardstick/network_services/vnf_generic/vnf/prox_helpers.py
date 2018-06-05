@@ -1158,7 +1158,8 @@ class ProxProfileHelper(object):
         data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
                                      value, tolerated_loss, line_speed)
 
-        with data_helper, self.traffic_context(pkt_size, value):
+        with data_helper, self.traffic_context(pkt_size, value * line_speed /
+                (constants.ONE_GIGABIT_IN_BITS * constants.NIC_GBPS_DEFAULT)):
             with data_helper.measure_tot_stats():
                 time.sleep(duration)
                 # Getting statistics to calculate PPS at right speed....
