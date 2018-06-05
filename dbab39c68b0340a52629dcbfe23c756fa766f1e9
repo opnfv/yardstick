@@ -25,6 +25,40 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_bc242dc7",
+        "filename": "yardstick/benchmark/runners/iteration_ipc.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-05T09:04:57Z",
+      "side": 1,
+      "message": "Looks like we have to fix all scenarios as right now setup() function of all scenario doesn\u0027t return any value.",
+      "revId": "dbab39c68b0340a52629dcbfe23c756fa766f1e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_bc5d4d4b",
+        "filename": "yardstick/benchmark/runners/iteration_ipc.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-05T09:04:57Z",
+      "side": 1,
+      "message": "while True?",
+      "revId": "dbab39c68b0340a52629dcbfe23c756fa766f1e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_1c68b9f4",
         "filename": "yardstick/common/messaging/payloads.py",
         "patchSetId": 18
