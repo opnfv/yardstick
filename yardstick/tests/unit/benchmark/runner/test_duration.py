@@ -220,3 +220,165 @@ class DurationRunnerTest(unittest.TestCase):
             self.assertEqual(result['errors'], '')
             self.assertEqual(result['data'], {'my_key': count})
             self.assertEqual(result['sequence'], count)
+
+
+    def test__worker_process_no_sla_assert(self):
+        scenario_cfg = {
+            'runner': {'duration': 0}
+        }
+
+        my_benchmark = mock.Mock()
+        my_benchmark.my_method = mock.Mock(side_effect=AssertionError)
+        my_benchmark_cls = mock.Mock(return_value=my_benchmark)
+
+        _worker_process(mock.Mock(), my_benchmark_cls, 'my_method',
+                        scenario_cfg, {}, multiprocessing.Event(), mock.Mock())
+
+        my_benchmark_cls.assert_called_once_with(scenario_cfg, {})
+        my_benchmark.setup.assert_called_once()
+        my_benchmark.pre_run_wait_time.assert_called_once_with(1)
+        my_benchmark.my_method.assert_called_once_with({})
+        my_benchmark.post_run_wait_time.assert_called_once_with(1)
+        my_benchmark.teardown.assert_called_once()
+
+    def test__worker_process_sla_assert(self):
+        scenario_cfg = {
+            'runner': {},
+            'sla': {}
+        }
+
+        my_benchmark = mock.Mock()
+        my_benchmark.my_method = mock.Mock(side_effect=AssertionError)
+        my_benchmark_cls = mock.Mock(return_value=my_benchmark)
+
+        with self.assertRaises(AssertionError):
+            _worker_process(mock.Mock(), my_benchmark_cls, 'my_method',
+                            scenario_cfg, {}, multiprocessing.Event(),
+                            mock.Mock())
+
+    def test__worker_process_sla_assert_cfg(self):
+        scenario_cfg = {
+            'runner': {},
+            'sla': {'action': 'assert'}
+        }
+
+        my_benchmark = mock.Mock()
+        my_benchmark.my_method = mock.Mock(side_effect=AssertionError)
+        my_benchmark_cls = mock.Mock(return_value=my_benchmark)
+
+        with self.assertRaises(AssertionError):
+            _worker_process(mock.Mock(), my_benchmark_cls, 'my_method',
+                            scenario_cfg, {}, multiprocessing.Event(),
+                            mock.Mock())
+
+    def test__worker_process_sla_monitor(self):
+        scenario_cfg = {
+            'runner': {'duration': 0},
+            'sla': {'action': 'monitor'}
+        }
+
+        my_benchmark = mock.Mock()
+        my_benchmark.my_method = mock.Mock(side_effect=AssertionError)
+        my_benchmark_cls = mock.Mock(return_value=my_benchmark)
+
+        _worker_process(mock.Mock(), my_benchmark_cls, 'my_method',
+                        scenario_cfg, {}, multiprocessing.Event(), mock.Mock())
+
+        my_benchmark_cls.assert_called_once_with(scenario_cfg, {})
+        my_benchmark.setup.assert_called_once()
+        my_benchmark.pre_run_wait_time.assert_called_once_with(1)
+        my_benchmark.my_method.assert_called_once_with({})
+        my_benchmark.post_run_wait_time.assert_called_once_with(1)
+        my_benchmark.teardown.assert_called_once()
+
+    def test__worker_process_sla_monitor_queue(self):
+        def my_method(data):
+            data['my_key'] = 'my_value'
+            raise AssertionError('my_SLA_error')
+
+        scenario_cfg = {
+            'runner': {'duration': 0},
+            'sla': {'action': 'monitor'}
+        }
+
+        queue = multiprocessing.Queue()
+        my_benchmark = mock.Mock()
+        my_benchmark.my_method = my_method
+        my_benchmark_cls = mock.Mock(return_value=my_benchmark)
+
+        start_time = time.time()
+        _worker_process(queue, my_benchmark_cls, 'my_method', scenario_cfg,
+                        {}, multiprocessing.Event(), mock.Mock())
+
+        result = queue.get()
+        self.assertGreater(result['timestamp'], start_time)
+        self.assertEqual(result['errors'], ('my_SLA_error',))
+        self.assertEqual(result['data'], {'my_key': 'my_value'})
+        self.assertEqual(result['sequence'], 1)
+
+    def test__worker_process_broad_exception(self):
+        class BroadException(Exception):
+            pass
+
+        scenario_cfg = {
+            'runner': {}
+        }
+
+        my_benchmark = mock.Mock()
+        my_benchmark.my_method = mock.Mock(side_effect=BroadException)
+        my_benchmark_cls = mock.Mock(return_value=my_benchmark)
+
+        _worker_process(mock.Mock(), my_benchmark_cls, 'my_method',
+                        scenario_cfg, {}, multiprocessing.Event(), mock.Mock())
+
+        my_benchmark_cls.assert_called_once_with(scenario_cfg, {})
+        my_benchmark.setup.assert_called_once()
+        my_benchmark.pre_run_wait_time.assert_called_once_with(1)
+        my_benchmark.my_method.assert_called_once_with({})
+        my_benchmark.post_run_wait_time.assert_called_once_with(1)
+        my_benchmark.teardown.assert_called_once()
+
+    def test__worker_process_broad_exception_result(self):
+        class BroadException(Exception):
+            pass
+
+        def my_method(data):
+            data['my_key'] = 'my_value'
+            raise BroadException
+
+        scenario_cfg = {
+            'runner': {}
+        }
+
+        queue = multiprocessing.Queue()
+        my_benchmark = mock.Mock()
+        my_benchmark.my_method = my_method
+        my_benchmark_cls = mock.Mock(return_value=my_benchmark)
+
+        start_time = time.time()
+        _worker_process(queue, my_benchmark_cls, 'my_method', scenario_cfg,
+                        {}, multiprocessing.Event(), mock.Mock())
+
+        result = queue.get()
+        self.assertGreater(result['timestamp'], start_time)
+        self.assertNotEqual(result['errors'], '')
+        self.assertEqual(result['data'], {'my_key': 'my_value'})
+        self.assertEqual(result['sequence'], 1)
+
+    def test__worker_process_benchmark_teardown_broad_exception(self):
+        class BroadException(Exception):
+            pass
+
+        scenario_cfg = {
+            'runner': {'duration': 0}
+        }
+
+        my_benchmark = mock.Mock()
+        my_benchmark.teardown = mock.Mock(side_effect=BroadException)
+        my_benchmark_cls = mock.Mock(return_value=my_benchmark)
+
+        with self.assertRaises(SystemExit) as raised:
+            _worker_process(mock.Mock(), my_benchmark_cls, 'my_method',
+                            scenario_cfg, {}, multiprocessing.Event(),
+                            mock.Mock())
+        self.assertEqual(raised.exception.code, 1)
