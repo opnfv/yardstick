@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_6d5dbde9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/base.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-06T14:16:09Z",
+      "side": 1,
+      "message": "Those methods are implemented an ready to be used in any other TG, if needed.",
+      "parentUuid": "da5c1566_3fee4f8c",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 53
+      },
+      "revId": "a9b324465d450d43fd341afe6d410115a8cdf16e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_ff769705",
         "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
         "patchSetId": 13
@@ -36,6 +60,24 @@
       "writtenOn": "2018-06-05T14:53:46Z",
       "side": 1,
       "message": "Suggest to add new method to get MQ producer ID (e.g. get_mq_producer_id()) instead and do not modify return value. Something else may relay on it.",
+      "revId": "a9b324465d450d43fd341afe6d410115a8cdf16e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_8d0f71e1",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-06T14:16:09Z",
+      "side": 1,
+      "message": "The only place where this function is called is [1] and the output is not used. Actually I\u0027m using this output in the following patch [2].\n\n[1] https://github.com/opnfv/yardstick/blob/master/yardstick/benchmark/scenarios/networking/vnf_generic.py#L450\n[2] https://gerrit.opnfv.org/gerrit/#/c/56335/13/yardstick/benchmark/scenarios/networking/vnf_generic.py",
+      "parentUuid": "da5c1566_ff769705",
       "revId": "a9b324465d450d43fd341afe6d410115a8cdf16e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
