@@ -13,10 +13,8 @@ import mock
 import unittest
 from subprocess import CalledProcessError
 
-
 from yardstick.benchmark.runners import base
 from yardstick.benchmark.runners import iteration
-
 
 class ActionTestCase(unittest.TestCase):
 
@@ -30,7 +28,7 @@ class ActionTestCase(unittest.TestCase):
     def test__single_action(self, mock_subprocess):
         mock_subprocess.check_output.side_effect = CalledProcessError(-1, '')
 
-        base._single_action(0, "echo", mock.MagicMock())
+         base._single_action(0, "echo", mock.MagicMock())
 
     @mock.patch("yardstick.benchmark.runners.base.subprocess")
     def test__periodic_action(self, mock_subprocess):
