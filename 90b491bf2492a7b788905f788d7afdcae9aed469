@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_8d265167",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-06T15:35:17Z",
+      "side": 1,
+      "message": "Actually you are right, MQ ID is a better description.",
+      "parentUuid": "da5c1566_ffe4d7ad",
+      "range": {
+        "startLine": 408,
+        "startChar": 31,
+        "endLine": 408,
+        "endChar": 35
+      },
+      "revId": "90b491bf2492a7b788905f788d7afdcae9aed469",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_0ace8c5a",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 13
@@ -59,6 +83,54 @@
       "writtenOn": "2018-06-05T14:59:59Z",
       "side": 1,
       "message": "As I understand, this is not process id, but MQ producer ID that run_traffic() returns. I recommend to add new method into traffic_gen like get_mq_producer_id() instead that will return this ID. Also, please rename `pid` to `mq_pid` in all places where pid means MQ producer ID. So, it will not be confused anymore.",
+      "parentUuid": "1a494da4_0ace8c5a",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 454,
+        "endChar": 22
+      },
+      "revId": "90b491bf2492a7b788905f788d7afdcae9aed469",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ad2235ff",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-06T15:35:17Z",
+      "side": 1,
+      "message": "You are right, I need to modify this name.\n\nI\u0027ll implement in the TG a property to return, if exists, the mq_producer_id.",
+      "parentUuid": "da5c1566_9fd79bbf",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 454,
+        "endChar": 22
+      },
+      "revId": "90b491bf2492a7b788905f788d7afdcae9aed469",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_6d113dac",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-06T15:35:17Z",
+      "side": 1,
+      "message": "You are right. I don\u0027t want to modify the Scenario API, but it\u0027s OK to add a new method in this class to provide this information.",
       "parentUuid": "1a494da4_0ace8c5a",
       "range": {
         "startLine": 449,
