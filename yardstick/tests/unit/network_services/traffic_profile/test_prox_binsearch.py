@@ -17,6 +17,7 @@ import unittest
 import mock
 
 from yardstick.tests import STL_MOCKS
+from yardstick.network_services import constants
 
 STLClient = mock.MagicMock()
 stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
@@ -51,6 +52,11 @@ class TestProxBinSearchProfile(unittest.TestCase):
         fail_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.6, 5.7, 5.8], 850, 1000, 123.4)
 
         traffic_generator = mock.MagicMock()
+        attrs1 = {'get.return_value' : 10000}
+        traffic_generator.scenario_helper.all_options.configure_mock(**attrs1)
+
+        attrs2 = {'setdefault.return_value' : 0}
+        traffic_generator.scenario_helper.scenario_cfg["runner"].configure_mock(**attrs2)
 
         profile_helper = mock.MagicMock()
         profile_helper.run_test = target
@@ -60,13 +66,13 @@ class TestProxBinSearchProfile(unittest.TestCase):
         profile._profile_helper = profile_helper
 
         profile.execute_traffic(traffic_generator)
-        self.assertEqual(round(profile.current_lower, 2), 74.69)
-        self.assertEqual(round(profile.current_upper, 2), 76.09)
+        self.assertEqual(round(profile.current_lower, 2), 10.0)
+        self.assertEqual(round(profile.current_upper, 2), 11.41)
         self.assertEqual(len(runs), 7)
 
         # Result Samples inc theor_max
         result_tuple = {'Result_Actual_throughput': 5e-07,
-                        'Result_theor_max_throughput': 0.00012340000000000002,
+                        'Result_theor_max_throughput': 7.5e-07,
                         'Result_pktSize': 200}
 
         profile.queue.put.assert_called_with(result_tuple)
@@ -123,6 +129,11 @@ class TestProxBinSearchProfile(unittest.TestCase):
         fail_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.6, 5.7, 5.8], 850, 1000, 123.4)
 
         traffic_generator = mock.MagicMock()
+        attrs1 = {'get.return_value': 10000}
+        traffic_generator.scenario_helper.all_options.configure_mock(**attrs1)
+
+        attrs2 = {'setdefault.return_value': 0}
+        traffic_generator.scenario_helper.scenario_cfg["runner"].configure_mock(**attrs2)
 
         profile_helper = mock.MagicMock()
         profile_helper.run_test = target
@@ -132,8 +143,8 @@ class TestProxBinSearchProfile(unittest.TestCase):
         profile._profile_helper = profile_helper
 
         profile.execute_traffic(traffic_generator)
-        self.assertEqual(round(profile.current_lower, 2), 24.06)
-        self.assertEqual(round(profile.current_upper, 2), 25.47)
+        self.assertEqual(round(profile.current_lower, 2), 10.0)
+        self.assertEqual(round(profile.current_upper, 2), 11.41)
         self.assertEqual(len(runs), 7)
 
     def test_execute_3(self):
@@ -172,7 +183,8 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
 
         # Result Samples
-        result_tuple = {"Result_theor_max_throughput": 0, "Result_pktSize": 200}
+        result_tuple = {'Result_Actual_throughput': 0, "Result_theor_max_throughput": 0,
+                        "Result_pktSize": 200}
         profile.queue.put.assert_called_with(result_tuple)
 
         # Check for success_ tuple (None expected)
