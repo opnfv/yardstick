@@ -51,6 +51,11 @@ class TestProxBinSearchProfile(unittest.TestCase):
         fail_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.6, 5.7, 5.8], 850, 1000, 123.4)
 
         traffic_generator = mock.MagicMock()
+        attrs1 = {'get.return_value' : 10}
+        traffic_generator.scenario_helper.all_options.configure_mock(**attrs1)
+
+        attrs2 = {'__getitem__.return_value' : 10, 'get.return_value': 10}
+        traffic_generator.scenario_helper.scenario_cfg["runner"].configure_mock(**attrs2)
 
         profile_helper = mock.MagicMock()
         profile_helper.run_test = target
@@ -60,9 +65,10 @@ class TestProxBinSearchProfile(unittest.TestCase):
         profile._profile_helper = profile_helper
 
         profile.execute_traffic(traffic_generator)
+
         self.assertEqual(round(profile.current_lower, 2), 74.69)
         self.assertEqual(round(profile.current_upper, 2), 76.09)
-        self.assertEqual(len(runs), 7)
+        self.assertEqual(len(runs), 77)
 
         # Result Samples inc theor_max
         result_tuple = {"Result_Actual_throughput": 7.5e-07,
@@ -122,6 +128,11 @@ class TestProxBinSearchProfile(unittest.TestCase):
         fail_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.6, 5.7, 5.8], 850, 1000, 123.4)
 
         traffic_generator = mock.MagicMock()
+        attrs1 = {'get.return_value': 10}
+        traffic_generator.scenario_helper.all_options.configure_mock(**attrs1)
+
+        attrs2 = {'__getitem__.return_value': 0, 'get.return_value': 0}
+        traffic_generator.scenario_helper.scenario_cfg["runner"].configure_mock(**attrs2)
 
         profile_helper = mock.MagicMock()
         profile_helper.run_test = target
@@ -171,7 +182,8 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
 
         # Result Samples
-        result_tuple = {"Result_theor_max_throughput": 0, "Result_pktSize": 200}
+        result_tuple = {'Result_Actual_throughput': 0, "Result_theor_max_throughput": 0,
+                        "Result_pktSize": 200}
         profile.queue.put.assert_called_with(result_tuple)
 
         # Check for success_ tuple (None expected)
@@ -181,3 +193,81 @@ class TestProxBinSearchProfile(unittest.TestCase):
                 for k in call_detail:
                     if "Success_" in k:
                         self.assertRaises(AttributeError)
+
+    def test_execute_4(self):
+
+        def target(*args, **_):
+            runs.append(args[2])
+            if args[2] < 0 or args[2] > 100:
+                raise RuntimeError(' '.join([str(args), str(runs)]))
+            if args[2] > 75.0:
+                return fail_tuple, {}
+            return success_tuple, {}
+
+        tp_config = {
+            'traffic_profile': {
+                'packet_sizes': [200],
+                'test_precision': 2.0,
+                'tolerated_loss': 0.001,
+            },
+        }
+
+        runs = []
+        success_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.1, 5.2, 5.3], 995, 1000, 123.4)
+        fail_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.6, 5.7, 5.8], 850, 1000, 123.4)
+
+        traffic_generator = mock.MagicMock()
+        attrs1 = {'get.return_value': 100000}
+        traffic_generator.scenario_helper.all_options.configure_mock(**attrs1)
+
+        attrs2 = {'__getitem__.return_value': 0, 'get.return_value': 0}
+        traffic_generator.scenario_helper.scenario_cfg["runner"].configure_mock(**attrs2)
+
+        profile_helper = mock.MagicMock()
+        profile_helper.run_test = target
+
+        profile = ProxBinSearchProfile(tp_config)
+        profile.init(mock.MagicMock())
+        profile._profile_helper = profile_helper
+
+        profile.execute_traffic(traffic_generator)
+        self.assertEqual(round(profile.current_lower, 2), 74.69)
+        self.assertEqual(round(profile.current_upper, 2), 76.09)
+        self.assertEqual(len(runs), 7)
+
+        # Result Samples inc theor_max
+        result_tuple = {'Result_Actual_throughput': 7.5e-07,
+                        'Result_theor_max_throughput': 0.00012340000000000002,
+                        'Result_pktSize': 200}
+
+        profile.queue.put.assert_called_with(result_tuple)
+
+        success_result_tuple = {"Success_CurrentDropPackets": 0.5,
+                                "Success_DropPackets": 0.5,
+                                "Success_LatencyAvg": 5.3,
+                                "Success_LatencyMax": 5.2,
+                                "Success_LatencyMin": 5.1,
+                                "Success_PktSize": 200,
+                                "Success_RxThroughput": 7.5e-07,
+                                "Success_Throughput": 7.5e-07,
+                                "Success_TxThroughput": 0.00012340000000000002}
+
+        calls = profile.queue.put(success_result_tuple)
+        profile.queue.put.assert_has_calls(calls)
+
+        success_result_tuple2 = {"Success_CurrentDropPackets": 0.5,
+                                 "Success_DropPackets": 0.5,
+                                 "Success_LatencyAvg": 5.3,
+                                 "Success_LatencyMax": 5.2,
+                                 "Success_LatencyMin": 5.1,
+                                 "Success_PktSize": 200,
+                                 "Success_RxThroughput": 7.5e-07,
+                                 "Success_Throughput": 7.5e-07,
+                                 "Success_TxThroughput": 123.4,
+                                 "Success_can_be_lost": 409600,
+                                 "Success_drop_total": 20480,
+                                 "Success_rx_total": 4075520,
+                                 "Success_tx_total": 4096000}
+
+        calls = profile.queue.put(success_result_tuple2)
+        profile.queue.put.assert_has_calls(calls)
