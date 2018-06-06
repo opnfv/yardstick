@@ -56,47 +56,34 @@ class VsperfDPDKTestCase(unittest.TestCase):
                 'action': 'monitor',
             }
         }
-
-        self.scenario = vsperf_dpdk.VsperfDPDK(self.args, self.ctx)
-
         self._mock_ssh = mock.patch(
             'yardstick.benchmark.scenarios.networking.vsperf_dpdk.ssh')
         self.mock_ssh = self._mock_ssh.start()
         self._mock_subprocess_call = mock.patch.object(subprocess, 'call')
         self.mock_subprocess_call = self._mock_subprocess_call.start()
+        self.mock_subprocess_call().execute.return_value = None
 
         self.addCleanup(self._cleanup)
+
+        self.scenario = vsperf_dpdk.VsperfDPDK(self.args, self.ctx)
 
     def _cleanup(self):
         self._mock_ssh.stop()
         self._mock_subprocess_call.stop()
 
     def test_setup(self):
-        # setup() specific mocks
-        self.mock_subprocess_call().execute.return_value = None
-
         self.scenario.setup()
         self.assertIsNotNone(self.scenario.client)
         self.assertTrue(self.scenario.setup_done)
 
     def test_teardown(self):
-        # setup() specific mocks
-        self.mock_subprocess_call().execute.return_value = None
-
         self.scenario.setup()
-        self.assertIsNotNone(self.scenario.client)
-        self.assertTrue(self.scenario.setup_done)
 
         self.scenario.teardown()
         self.assertFalse(self.scenario.setup_done)
 
     def test_is_dpdk_setup_no(self):
-        # setup() specific mocks
-        self.mock_subprocess_call().execute.return_value = None
-
         self.scenario.setup()
-        self.assertIsNotNone(self.scenario.client)
-        self.assertTrue(self.scenario.setup_done)
 
         # is_dpdk_setup() specific mocks
         self.mock_ssh.SSH.from_node().execute.return_value = (0, 'dummy', '')
@@ -105,12 +92,7 @@ class VsperfDPDKTestCase(unittest.TestCase):
         self.assertFalse(result)
 
     def test_is_dpdk_setup_yes(self):
-        # setup() specific mocks
-        self.mock_subprocess_call().execute.return_value = None
-
         self.scenario.setup()
-        self.assertIsNotNone(self.scenario.client)
-        self.assertTrue(self.scenario.setup_done)
 
         # is_dpdk_setup() specific mocks
         self.mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
@@ -120,12 +102,7 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
     @mock.patch.object(time, 'sleep')
     def test_dpdk_setup_first(self, *args):
-        # setup() specific mocks
-        self.mock_subprocess_call().execute.return_value = None
-
         self.scenario.setup()
-        self.assertIsNotNone(self.scenario.client)
-        self.assertTrue(self.scenario.setup_done)
 
         # is_dpdk_setup() specific mocks
         self.mock_ssh.SSH.from_node().execute.return_value = (0, 'dummy', '')
@@ -138,11 +115,8 @@ class VsperfDPDKTestCase(unittest.TestCase):
     def test_dpdk_setup_next(self, *args):
         # setup() specific mocks
         self.mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        self.mock_subprocess_call().execute.return_value = None
 
         self.scenario.setup()
-        self.assertIsNotNone(self.scenario.client)
-        self.assertTrue(self.scenario.setup_done)
 
         self.scenario.dpdk_setup()
         self.assertTrue(self.scenario._is_dpdk_setup())
@@ -150,10 +124,8 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
     @mock.patch.object(time, 'sleep')
     def test_dpdk_setup_runtime_error(self, *args):
-
         # setup specific mocks
         self.mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        self.mock_subprocess_call().execute.return_value = None
 
         self.scenario.setup()
         self.assertIsNotNone(self.scenario.client)
@@ -167,14 +139,10 @@ class VsperfDPDKTestCase(unittest.TestCase):
     def test_run_ok(self, *args):
         # setup() specific mocks
         self.mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        self.mock_subprocess_call().execute.return_value = None
 
         self.scenario.setup()
-        self.assertIsNotNone(self.scenario.client)
-        self.assertTrue(self.scenario.setup_done)
 
         # run() specific mocks
-        self.mock_subprocess_call().execute.return_value = None
         self.mock_ssh.SSH.from_node().execute.return_value = (
             0, 'throughput_rx_fps\r\n14797660.000\r\n', '')
 
@@ -186,11 +154,8 @@ class VsperfDPDKTestCase(unittest.TestCase):
     def test_run_failed_vsperf_execution(self):
         # setup() specific mocks
         self.mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        self.mock_subprocess_call().execute.return_value = None
 
         self.scenario.setup()
-        self.assertIsNotNone(self.scenario.client)
-        self.assertTrue(self.scenario.setup_done)
 
         self.mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
 
@@ -200,14 +165,10 @@ class VsperfDPDKTestCase(unittest.TestCase):
     def test_run_falied_csv_report(self):
         # setup() specific mocks
         self.mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        self.mock_subprocess_call().execute.return_value = None
 
         self.scenario.setup()
-        self.assertIsNotNone(self.scenario.client)
-        self.assertTrue(self.scenario.setup_done)
 
         # run() specific mocks
-        self.mock_subprocess_call().execute.return_value = None
         self.mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
 
         result = {}
@@ -218,7 +179,6 @@ class VsperfDPDKTestCase(unittest.TestCase):
     def test_vsperf_run_sla_fail(self, mock_subprocess_check_output, *args):
         # setup() specific mocks
         self.mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        self.mock_subprocess_call().return_value = None
 
         self.scenario.setup()
 
@@ -241,7 +201,6 @@ class VsperfDPDKTestCase(unittest.TestCase):
             self, mock_subprocess_check_output, *args):
         # setup() specific mocks
         self.mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        self.mock_subprocess_call().return_value = None
 
         self.scenario.setup()
 
@@ -263,7 +222,6 @@ class VsperfDPDKTestCase(unittest.TestCase):
             self, mock_subprocess_check_output, *args):
         # setup() specific mocks
         self.mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        self.mock_subprocess_call().return_value = None
 
         self.scenario.setup()
         del self.scenario.scenario_cfg['sla']['throughput_rx_fps']
