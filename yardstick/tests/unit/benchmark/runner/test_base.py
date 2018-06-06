@@ -11,12 +11,13 @@ import time
 
 import mock
 import unittest
-from subprocess import CalledProcessError
 
+from subprocess import CalledProcessError
 
 from yardstick.benchmark.runners import base
 from yardstick.benchmark.runners import iteration
-
+from yardstick.benchmark.runners import duration
+from yardstick.benchmark.runners import proxduration
 
 class ActionTestCase(unittest.TestCase):
 
@@ -30,7 +31,41 @@ class ActionTestCase(unittest.TestCase):
     def test__single_action(self, mock_subprocess):
         mock_subprocess.check_output.side_effect = CalledProcessError(-1, '')
 
-        base._single_action(0, "echo", mock.MagicMock())
+    def test_duration_runner(self):
+
+        scenario_cfg = {'type': 'NSPerf', 'tc': 'test_file', 'task_id': 'task-id_str', 'task_path': '.',
+                        'topology': 'dummp-topology',
+                        'runner': {'duration': 5, 'sampled': False, 'type': 'Duration'}}
+        context_cfg = {'method_name': 'run'}
+
+        mock_runner = duration.DurationRunner(mock.MagicMock() )
+        mock_runner.result_queue = mock.MagicMock()
+        mock_runner.output_queue = mock.MagicMock()
+        mock_runner._run_benchmark(mock.MagicMock(), 'my_method',  scenario_cfg, context_cfg)
+
+    def test_proxduration_runner(self):
+
+        scenario_cfg = {'type': 'NSPerf', 'tc': 'test_file', 'task_id': 'task-id_str', 'task_path': '.',
+                        'topology': 'dummp-topology',
+                        'runner': {'duration': 5, 'sampled': False, 'type': 'ProxDuration'}}
+        context_cfg = {'method_name': 'run'}
+
+        mock_runner = proxduration.ProxDurationRunner(mock.Mock())
+        mock_runner.result_queue = mock.MagicMock()
+        mock_runner.output_queue = mock.MagicMock()
+        mock_runner._run_benchmark(mock.Mock(), 'my_method', scenario_cfg, context_cfg)
+
+    def test_proxduration_runner2(self):
+
+        scenario_cfg = {'type': 'NSPerf', 'tc': 'test_file', 'task_id': 'task-id_str', 'task_path': '.',
+                        'topology': 'dummp-topology', 'sla': {'action': 'dummy'},
+                        'runner': {'duration': 5, 'sampled': True, 'type': 'ProxDuration'}}
+        context_cfg = {'method_name': 'run'}
+
+        mock_runner = proxduration.ProxDurationRunner(mock.Mock())
+        mock_runner.result_queue = mock.MagicMock()
+        mock_runner.output_queue = mock.MagicMock()
+        mock_runner._run_benchmark(mock.Mock(), 'my_method', scenario_cfg, context_cfg)
 
     @mock.patch("yardstick.benchmark.runners.base.subprocess")
     def test__periodic_action(self, mock_subprocess):
