@@ -21,6 +21,7 @@ import time
 
 from yardstick.network_services.traffic_profile.prox_profile import ProxProfile
 from yardstick.network_services import constants
+from yardstick.common import constants as overall_constants
 
 LOG = logging.getLogger(__name__)
 
@@ -84,9 +85,14 @@ class ProxBinSearchProfile(ProxProfile):
         # success, the binary search will complete on an integer multiple
         # of the precision, rather than on a fraction of it.
 
-        theor_max_thruput = 0
+        theor_max_thruput = actual_max_thruput = 0
 
         result_samples = {}
+        rate_samples = {}
+        pos_retry = 0
+        neg_retry = 0
+        total_retry = 0
+        ok_retry = 0
 
         # Store one time only value in influxdb
         single_samples = {
@@ -102,52 +108,85 @@ class ProxBinSearchProfile(ProxProfile):
         successful_pkt_loss = 0.0
         line_speed = traffic_gen.scenario_helper.all_options.get(
             "interface_speed_gbps", constants.NIC_GBPS_DEFAULT) * constants.ONE_GIGABIT_IN_BITS
+
+        ok_retry = traffic_gen.scenario_helper.scenario_cfg["runner"].get("confirmation", 0)
         for test_value in self.bounds_iterator(LOG):
-            result, port_samples = self._profile_helper.run_test(pkt_size, duration,
-                                                                 test_value,
-                                                                 self.tolerated_loss,
-                                                                 line_speed)
-            self.curr_time = time.time()
-            diff_time = self.curr_time - self.prev_time
-            self.prev_time = self.curr_time
+            pos_retry = 0
+            neg_retry = 0
+            total_retry = 0
 
-            if result.success:
-                LOG.debug("Success! Increasing lower bound")
-                self.current_lower = test_value
-                successful_pkt_loss = result.pkt_loss
-                samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
-                samples["TxThroughput"] = samples["TxThroughput"] * 1000 * 1000
+            rate_samples["MAX_Rate"] = self.current_upper
+            rate_samples["MIN_Rate"] = self.current_lower
+            rate_samples["Test_Rate"] = test_value
+            self.queue.put(rate_samples, True, overall_constants.QUEUE_PUT_TIMEOUT)
+            while (pos_retry <= ok_retry) and (neg_retry <= ok_retry):
 
-                # store results with success tag in influxdb
-                success_samples = {'Success_' + key: value for key, value in samples.items()}
+                total_retry = total_retry + 1
+                result, port_samples = self._profile_helper.run_test(pkt_size, duration,
+                                                                     test_value,
+                                                                     self.tolerated_loss,
+                                                                     line_speed)
+                if (total_retry > (ok_retry * 3)) and (ok_retry is not 0):
+                    LOG.info("Failure.!! .. RETRY EXCEEDED ... decrease lower bound")
 
-                success_samples["Success_rx_total"] = int(result.rx_total / diff_time)
-                success_samples["Success_tx_total"] = int(result.tx_total / diff_time)
-                success_samples["Success_can_be_lost"] = int(result.can_be_lost / diff_time)
-                success_samples["Success_drop_total"] = int(result.drop_total / diff_time)
-                self.queue.put(success_samples)
+                    successful_pkt_loss = result.pkt_loss
+                    samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
 
-                # Store Actual throughput for result samples
-                result_samples["Result_Actual_throughput"] = \
-                    success_samples["Success_RxThroughput"]
-            else:
-                LOG.debug("Failure... Decreasing upper bound")
-                self.current_upper = test_value
-                samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
+                    self.current_upper = test_value
+                    neg_retry = total_retry
+                elif result.success:
+                    if (pos_retry < ok_retry) and (ok_retry is not 0):
+                        neg_retry = 0
+                        LOG.info("Success! ... confirm retry")
 
-            for k in samples:
-                    tmp = samples[k]
-                    if isinstance(tmp, dict):
-                        for k2 in tmp:
-                            samples[k][k2] = int(samples[k][k2] / diff_time)
+                        successful_pkt_loss = result.pkt_loss
+                        samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
 
-            if theor_max_thruput < samples["TxThroughput"]:
-                theor_max_thruput = samples['TxThroughput']
-                self.queue.put({'theor_max_throughput': theor_max_thruput})
+                    else:
+                        LOG.info("Success! Increasing lower bound")
+                        self.current_lower = test_value
 
-            LOG.debug("Collect TG KPIs %s %s", datetime.datetime.now(), samples)
-            self.queue.put(samples)
+                        successful_pkt_loss = result.pkt_loss
+                        samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
+
+                        # store results with success tag in influxdb
+                        success_samples = \
+                            {'Success_' + key: value for key, value in samples.items()}
+
+                        success_samples["Success_rx_total"] = int(result.rx_total)
+                        success_samples["Success_tx_total"] = int(result.tx_total)
+                        success_samples["Success_can_be_lost"] = int(result.can_be_lost)
+                        success_samples["Success_drop_total"] = int(result.drop_total)
+                        success_samples["Success_RxThroughput"] = samples["RxThroughput"]
+                        LOG.info(">>>##>>Collect SUCCESS TG KPIs %s %s",
+                                 datetime.datetime.now(), success_samples)
+                        self.queue.put(success_samples, True, overall_constants.QUEUE_PUT_TIMEOUT)
+
+                        # Store Actual throughput for result samples
+                        actual_max_thruput = success_samples["Success_RxThroughput"]
+
+                    pos_retry = pos_retry + 1
+
+                else:
+                    if (neg_retry < ok_retry) and (ok_retry is not 0):
+
+                        pos_retry = 0
+                        LOG.info("failure! ... confirm retry")
+                    else:
+                        LOG.info("Failure... Decreasing upper bound")
+                        self.current_upper = test_value
+
+                    neg_retry = neg_retry + 1
+                    samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
+
+                if theor_max_thruput < samples["TxThroughput"]:
+                    theor_max_thruput = samples['TxThroughput']
+                    self.queue.put({'theor_max_throughput': theor_max_thruput})
+
+                LOG.info(">>>##>>Collect TG KPIs %s %s", datetime.datetime.now(), samples)
+                self.queue.put(samples, True, overall_constants.QUEUE_PUT_TIMEOUT)
 
         result_samples["Result_pktSize"] = pkt_size
-        result_samples["Result_theor_max_throughput"] = theor_max_thruput/ (1000 * 1000)
+        result_samples["Result_theor_max_throughput"] = theor_max_thruput
+        result_samples["Result_Actual_throughput"] = actual_max_thruput
         self.queue.put(result_samples)
