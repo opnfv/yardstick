@@ -825,7 +825,7 @@ class SampleVNF(GenericVNF):
 
     def collect_kpi(self):
         # we can't get KPIs if the VNF is down
-        check_if_process_failed(self._vnf_process)
+        check_if_process_failed(self._vnf_process, 0.01)
         stats = self.get_stats()
         m = re.search(self.COLLECT_KPI, stats, re.MULTILINE)
         if m:
