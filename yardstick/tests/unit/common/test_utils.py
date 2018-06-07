@@ -893,7 +893,7 @@ class TestUtils(unittest.TestCase):
         os.environ.clear()
         os.environ.update(base_env)
 
-    @mock.patch('yardstick.common.utils.configparser.ConfigParser')
+    @mock.patch.object(configparser, 'ConfigParser')
     def test_parse_ini_file(self, mock_config_parser_type):
         defaults = {
             'default1': 'value1',
@@ -925,23 +925,26 @@ class TestUtils(unittest.TestCase):
         result = utils.parse_ini_file('my_path')
         self.assertDictEqual(result, expected)
 
-    @mock.patch('yardstick.common.utils.configparser.ConfigParser')
-    def test_parse_ini_file_missing_section_header(self, mock_config_parser_type):
+    @mock.patch.object(utils, 'logger')
+    @mock.patch.object(configparser, 'ConfigParser')
+    def test_parse_ini_file_missing_section_header(
+            self, mock_config_parser_type, *args):
         mock_config_parser = mock_config_parser_type()
-        mock_config_parser.read.side_effect = \
-            configparser.MissingSectionHeaderError(mock.Mock(), 321, mock.Mock())
+        mock_config_parser.read.side_effect = (
+            configparser.MissingSectionHeaderError(mock.Mock(), 321,
+                                                   mock.Mock()))
 
         with self.assertRaises(configparser.MissingSectionHeaderError):
             utils.parse_ini_file('my_path')
 
-    @mock.patch('yardstick.common.utils.configparser.ConfigParser')
+    @mock.patch.object(configparser, 'ConfigParser')
     def test_parse_ini_file_no_file(self, mock_config_parser_type):
         mock_config_parser = mock_config_parser_type()
         mock_config_parser.read.return_value = False
         with self.assertRaises(RuntimeError):
             utils.parse_ini_file('my_path')
 
-    @mock.patch('yardstick.common.utils.configparser.ConfigParser')
+    @mock.patch.object(configparser, 'ConfigParser')
     def test_parse_ini_file_no_default_section_header(self, mock_config_parser_type):
         s1 = {
             'key1': 'value11',
