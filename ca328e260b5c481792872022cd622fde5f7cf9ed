@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_c8c9575c",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd-2.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-07T11:26:39Z",
+      "side": 1,
+      "message": "OK, that\u0027s nicer and avoids confusion with the trailing bytes.\nBut this will show in packet dumps as \"CA DE FE CA\" ;-)",
+      "range": {
+        "startLine": 55,
+        "startChar": 10,
+        "endLine": 55,
+        "endChar": 20
+      },
+      "revId": "ca328e260b5c481792872022cd622fde5f7cf9ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
