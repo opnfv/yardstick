@@ -22,6 +22,30 @@
       "revId": "16cf78f72592d5e10e2954eebf77d2289b95312a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_28945336",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_bng-4.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2018-06-07T10:31:28Z",
+      "side": 1,
+      "message": "The idea is to have it here as an example, to make it easy for users to change. If not in, users will have to go to documentation (or code) to understand how to change the interface speed.",
+      "parentUuid": "da5c1566_adacf536",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 24
+      },
+      "revId": "16cf78f72592d5e10e2954eebf77d2289b95312a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
