@@ -1576,7 +1576,7 @@ class TestProxDataHelper(unittest.TestCase):
 
         self.assertEqual(data_helper.rx_total, 4)
         self.assertEqual(data_helper.tx_total, 8)
-        self.assertEqual(data_helper.requested_pps, 6.25e6)
+        self.assertEqual(data_helper.pps, 6.25e6)
 
     def test_samples(self):
         vnfd_helper = mock.MagicMock()
