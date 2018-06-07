@@ -236,7 +236,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
         self.assertEqual(len(runs), 7)
 
         # Result Samples inc theor_max
-        result_tuple = {'Result_Actual_throughput': 5e-07,
+        result_tuple = {'Result_Actual_throughput': 7.5e-07,
                         'Result_theor_max_throughput': 0.00012340000000000002,
                         'Result_pktSize': 200}
 
