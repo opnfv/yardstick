@@ -45,7 +45,7 @@ scenarios:
   runner:
     type: Duration
     # we kill after duration, independent of test duration, so set this high
-    duration: 1800
+    duration: 33300
 
 context:
   name: yardstick
@@ -85,12 +85,12 @@ context:
       gateway_ip: 'null'
       port_security_enabled: False
       enable_dhcp: 'false'
-    downlink_1:
+    uplink_1:
       cidr: '10.0.4.0/24'
       gateway_ip: 'null'
       port_security_enabled: False
       enable_dhcp: 'false'
-    downlink_2:
+    downlink_1:
       cidr: '10.0.5.0/24'
       gateway_ip: 'null'
       port_security_enabled: False
