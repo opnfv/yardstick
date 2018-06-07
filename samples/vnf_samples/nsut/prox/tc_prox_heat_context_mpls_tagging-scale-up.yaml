@@ -79,14 +79,15 @@ context:
   networks:
     mgmt:
       cidr: '10.0.1.0/24'
-    uplink_0:
-      cidr: '10.0.2.0/24'
+{% for vport in range(1,vports,2|int) %}
+    uplink_{{ loop.index0 }}:
+      cidr: '10.0.{{ vport+1 }}.0/24'
       gateway_ip: 'null'
       port_security_enabled: False
       enable_dhcp: 'false'
-{% for vport in range(vports-1|int) %}
-    downlink_{{ vport }}:
-      cidr: '10.0.{{ vport+3 }}.0/24'
+
+    downlink_{{ loop.index0 }}:
+      cidr: '10.0.{{ vport+2 }}.0/24'
       gateway_ip: 'null'
       port_security_enabled: False
       enable_dhcp: 'false'
