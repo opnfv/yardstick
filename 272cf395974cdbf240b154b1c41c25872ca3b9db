@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_08e7cf41",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-07T08:31:00Z",
+      "side": 1,
+      "message": "\"_get_physical_nodes\" and \"_get_physical_node_from_server\" must be abstract functions in base.Context, and these functions must be implemented in the child classes.",
+      "range": {
+        "startLine": 180,
+        "startChar": 8,
+        "endLine": 180,
+        "endChar": 27
+      },
+      "revId": "272cf395974cdbf240b154b1c41c25872ca3b9db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_483707b1",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-07T08:31:00Z",
+      "side": 1,
+      "message": "This section logic and \"update_collectd_options_for_node\" initial section are almost the same.\n\nWhy don\u0027t you use \"_get_server\"?",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 23
+      },
+      "revId": "272cf395974cdbf240b154b1c41c25872ca3b9db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_48e9c719",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-07T08:31:00Z",
+      "side": 1,
+      "message": "OvsDpdkContext and SRIOVContext should implement the same functions and in the same way.",
+      "revId": "272cf395974cdbf240b154b1c41c25872ca3b9db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c895d789",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-07T08:31:00Z",
+      "side": 1,
+      "message": "As you can see in [1], in Standalone contexts (SR-IOV and OVS-DPDK), the host_mgmt information comes from the first nfvi_host item. This is the information used to access to the physical host and spawn the VMs.\n\nSo this function is trivial:\ndef _get_physical_node_for_server(self, *args):\n  return self.nfvi_host[0]\n\nBTW: I need to take a look at this parsing function and\n1) Document that only one physical node per context is accepted.\n2) Make nfvi_host NOT a list.\n\n[1] https://github.com/opnfv/yardstick/blob/master/yardstick/benchmark/contexts/standalone/model.py#L405",
+      "range": {
+        "startLine": 313,
+        "startChar": 8,
+        "endLine": 313,
+        "endChar": 76
+      },
+      "revId": "272cf395974cdbf240b154b1c41c25872ca3b9db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_283c5393",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-07T08:31:00Z",
+      "side": 1,
+      "message": "Avoid using intermediate variables if possible:\n\n  self.collector \u003d Collector(self.vnfs, Context.get_physical_nodes())",
+      "range": {
+        "startLine": 446,
+        "startChar": 46,
+        "endLine": 446,
+        "endChar": 51
+      },
+      "revId": "272cf395974cdbf240b154b1c41c25872ca3b9db",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
