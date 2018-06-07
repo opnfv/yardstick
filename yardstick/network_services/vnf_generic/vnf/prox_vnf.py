@@ -92,7 +92,6 @@ class ProxApproxVnf(SampleVNF):
             for single_port_stats in all_port_stats:
                 rx_total = rx_total + single_port_stats[1]
                 tx_total = tx_total + single_port_stats[2]
-                tsc = single_port_stats[5]
         except (TypeError, IndexError):
             LOG.error("Invalid data ...")
             return {}
