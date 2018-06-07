@@ -936,11 +936,15 @@ class TestUtils(unittest.TestCase):
         with self.assertRaises(configparser.MissingSectionHeaderError):
             utils.parse_ini_file('my_path')
 
+    @mock.patch.object(utils, 'logger')
     @mock.patch('yardstick.common.utils.configparser.ConfigParser')
-    def test_parse_ini_file_no_file(self, mock_config_parser_type):
+    def test_parse_ini_file_missing_section_header(
+            self, mock_config_parser_type, *args):
         mock_config_parser = mock_config_parser_type()
-        mock_config_parser.read.return_value = False
-        with self.assertRaises(RuntimeError):
+        mock_config_parser.read.side_effect = \
+            configparser.MissingSectionHeaderError(mock.Mock(), 321, mock.Mock())
+
+        with self.assertRaises(configparser.MissingSectionHeaderError):
             utils.parse_ini_file('my_path')
 
     @mock.patch('yardstick.common.utils.configparser.ConfigParser')
