@@ -22,6 +22,76 @@
       "revId": "c8d49edd03645a69d81553b4c30f539255e48afa",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_68b92be9",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd-2.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-07T09:42:26Z",
+      "side": 1,
+      "message": "Agree with Patrice here.\nThere is a famous magic word used(in HEX) in many industries called: [CA FE BA BE] sounds cool too!",
+      "parentUuid": "1a494da4_cacf84af",
+      "range": {
+        "startLine": 55,
+        "startChar": 10,
+        "endLine": 55,
+        "endChar": 20
+      },
+      "revId": "c8d49edd03645a69d81553b4c30f539255e48afa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_8a3c5c95",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd-2.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-07T09:42:26Z",
+      "side": 1,
+      "message": "Isn\u0027t this supposed to be \"sut_mac1\"?",
+      "range": {
+        "startLine": 64,
+        "startChar": 13,
+        "endLine": 64,
+        "endChar": 21
+      },
+      "revId": "c8d49edd03645a69d81553b4c30f539255e48afa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_88b47ff3",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l3fwd-2.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-07T09:42:26Z",
+      "side": 1,
+      "message": "should be mac1 for sut and tester",
+      "range": {
+        "startLine": 64,
+        "startChar": 11,
+        "endLine": 64,
+        "endChar": 37
+      },
+      "revId": "c8d49edd03645a69d81553b4c30f539255e48afa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
