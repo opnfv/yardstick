@@ -267,3 +267,7 @@ class ScenarioCreateImageError(YardstickException):
 
 class ScenarioDeleteImageError(YardstickException):
     message = 'Glance Delete Image Scenario failed'
+
+
+class SLAValidationError(YardstickException):
+    message = '%(case_name)s SLA validation failed. Error: %(error_msg)s'

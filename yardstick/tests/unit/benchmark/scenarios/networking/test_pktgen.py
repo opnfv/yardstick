@@ -13,6 +13,7 @@ import unittest
 from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.networking import pktgen
+from yardstick.common import exceptions as y_exc
 
 
 @mock.patch('yardstick.benchmark.scenarios.networking.pktgen.ssh')
@@ -176,7 +177,7 @@ class PktgenTestCase(unittest.TestCase):
         sample_output = '{"packets_per_second": 9753, "errors": 0, \
             "packets_sent": 149776, "packetsize": 60, "flows": 110}'
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, p.run, result)
+        self.assertRaises(y_exc.SLAValidationError, p.run, result)
 
     def test_pktgen_unsuccessful_script_error(self, mock_ssh):
 
