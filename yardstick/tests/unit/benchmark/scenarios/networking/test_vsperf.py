@@ -20,23 +20,26 @@ try:
 except ImportError:
     import mock
 import unittest
+import subprocess
+import yardstick.ssh as ssh
 
 from yardstick.benchmark.scenarios.networking import vsperf
+from yardstick import exceptions as y_exc
 
 
-@mock.patch('yardstick.benchmark.scenarios.networking.vsperf.subprocess')
-@mock.patch('yardstick.benchmark.scenarios.networking.vsperf.ssh')
+@mock.patch.object(subprocess, 'call')
+@mock.patch.object(ssh, 'SSH')
 class VsperfTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.ctx = {
+        ctx = {
             "host": {
                 "ip": "10.229.47.137",
                 "user": "ubuntu",
                 "password": "ubuntu",
             },
         }
-        self.args = {
+        args = {
             'options': {
                 'testname': 'p2p_rfc2544_continuous',
                 'traffic_type': 'continuous',
@@ -57,70 +60,88 @@ class VsperfTestCase(unittest.TestCase):
             }
         }
 
-    def test_vsperf_setup(self, mock_ssh, mock_subprocess):
-        p = vsperf.Vsperf(self.args, self.ctx)
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
+        self.scenario = vsperf.Vsperf(args, ctx)
 
-        p.setup()
-        self.assertIsNotNone(p.client)
-        self.assertTrue(p.setup_done)
+    def test_vsperf_setup(self, *args):
+        self.scenario.setup()
+        self.assertIsNotNone(self.scenario.client)
+        self.assertTrue(self.scenario.setup_done)
 
-    def test_vsperf_teardown(self, mock_ssh, mock_subprocess):
-        p = vsperf.Vsperf(self.args, self.ctx)
+    def test_vsperf_teardown(self, *args):
+        self.scenario.setup()
+        self.assertIsNotNone(self.scenario.client)
+        self.assertTrue(self.scenario.setup_done)
 
-        # setup() specific mocks
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
+        self.scenario.teardown()
+        self.assertFalse(self.scenario.setup_done)
 
-        p.setup()
-        self.assertIsNotNone(p.client)
-        self.assertTrue(p.setup_done)
+    def test_vsperf_run_ok(self, mock_SSH, *args):
+        self.scenario.setup()
 
-        p.teardown()
-        self.assertFalse(p.setup_done)
-
-    def test_vsperf_run_ok(self, mock_ssh, mock_subprocess):
-        p = vsperf.Vsperf(self.args, self.ctx)
-
-        # setup() specific mocks
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
-
-        # run() specific mocks
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        mock_ssh.SSH.from_node().execute.return_value = (
+        mock_SSH.from_node().execute.return_value = (
             0, 'throughput_rx_fps\r\n14797660.000\r\n', '')
 
         result = {}
-        p.run(result)
+        self.scenario.run(result)
 
         self.assertEqual(result['throughput_rx_fps'], '14797660.000')
 
-    def test_vsperf_run_falied_vsperf_execution(self, mock_ssh,
-                                                mock_subprocess):
-        p = vsperf.Vsperf(self.args, self.ctx)
-
-        # setup() specific mocks
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
-
-        # run() specific mocks
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+    def test_vsperf_run_ok_setup_not_done(self, mock_SSH, *args):
+        mock_SSH.from_node().execute.return_value = (
+            0, 'throughput_rx_fps\r\n14797660.000\r\n', '')
 
         result = {}
-        self.assertRaises(RuntimeError, p.run, result)
+        self.scenario.run(result)
 
-    def test_vsperf_run_falied_csv_report(self, mock_ssh, mock_subprocess):
-        p = vsperf.Vsperf(self.args, self.ctx)
+        self.assertTrue(self.scenario.setup_done)
+        self.assertEqual(result['throughput_rx_fps'], '14797660.000')
 
-        # setup() specific mocks
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
+    def test_vsperf_run_failed_vsperf_execution(self, mock_SSH, *args):
+        mock_SSH.from_node().execute.side_effect = ((0, '', ''),
+                                                    (1, '', ''))
 
-        # run() specific mocks
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+        self.assertRaises(RuntimeError, self.scenario.run, {})
+        self.assertEqual(mock_SSH.from_node().execute.call_count, 2)
 
-        result = {}
-        self.assertRaises(RuntimeError, p.run, result)
+    def test_vsperf_run_failed_csv_report(self, mock_SSH, *args):
+        mock_SSH.from_node().execute.side_effect = ((0, '', ''),
+                                                    (0, '', ''),
+                                                    (1, '', ''))
+
+        self.assertRaises(RuntimeError, self.scenario.run, {})
+        self.assertEqual(mock_SSH.from_node().execute.call_count, 3)
+
+    def test_vsperf_run_sla_fail(self, mock_SSH, *args):
+        mock_SSH.from_node().execute.return_value = (
+            0, 'throughput_rx_fps\r\n123456.000\r\n', '')
+
+        with self.assertRaises(y_exc.SLAValidationError) as raised:
+            self.scenario.run({})
+
+        self.assertTrue('VSPERF_throughput_rx_fps(123456.000000) < '
+                        'SLA_throughput_rx_fps(500000.000000)'
+                        in str(raised.exception))
+
+    def test_vsperf_run_sla_fail_metric_not_collected(self, mock_SSH, *args):
+        mock_SSH.from_node().execute.return_value = (
+            0, 'nonexisting_metric\r\n14797660.000\r\n', '')
+
+        with self.assertRaises(y_exc.SLAValidationError) as raised:
+            self.scenario.run({})
+
+        self.assertTrue('throughput_rx_fps was not collected by VSPERF'
+                        in str(raised.exception))
+
+    def test_vsperf_run_sla_fail_metric_not_defined_in_sla(self, mock_SSH,
+                                                           *args):
+        del self.scenario.scenario_cfg['sla']['throughput_rx_fps']
+        self.scenario.setup()
+
+        mock_SSH.from_node().execute.return_value = (
+            0, 'throughput_rx_fps\r\n14797660.000\r\n', '')
+
+        with self.assertRaises(y_exc.SLAValidationError) as raised:
+            self.scenario.run({})
+
+        self.assertTrue('throughput_rx_fps is not defined in SLA'
+                        in str(raised.exception))
