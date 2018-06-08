@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_62a4ac57",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vsperf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-08T08:58:29Z",
+      "side": 1,
+      "message": "There is no call to setup() here.\n\nThe call to setup() should be added here (and other tests in this testcase)",
+      "range": {
+        "startLine": 172,
+        "startChar": 8,
+        "endLine": 173,
+        "endChar": 67
+      },
+      "revId": "ff85776e6ec749b8485825e8657ab333cc24cefb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_829f4003",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vsperf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-08T08:58:29Z",
+      "side": 1,
+      "message": "This over writes the return value of the previous line.\n\nThis will be the return value for each call to ssh.\n\nIf you need mock_ssh to return different values each time it is called, you should use side_effect[1] instead.\n\n    mock_ssh.SSH.from_node().execute.side_effect \u003d [\n        (0, \u0027\u0027, \u0027\u0027),\n        (0, \u0027throughput_rx_fps\\r\\n14797660.000\\r\\n\u0027, \u0027\u0027)]\n\nIf you don\u0027t want to do this, you can instead mock the methods in which SSH is called.\n\n[1] https://docs.python.org/3/library/unittest.mock.html#unittest.mock.Mock.side_effect",
+      "range": {
+        "startLine": 177,
+        "startChar": 7,
+        "endLine": 178,
+        "endChar": 59
+      },
+      "revId": "ff85776e6ec749b8485825e8657ab333cc24cefb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
