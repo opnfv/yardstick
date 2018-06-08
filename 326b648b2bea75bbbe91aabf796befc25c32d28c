@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_6e0e5336",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 1804,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-08T10:17:43Z",
+      "side": 1,
+      "message": "This looks too much like a magic number to me. Can you add a small helper method to do this calculation?\nThen it is clearer what is happening here.",
+      "range": {
+        "startLine": 1803,
+        "startChar": 57,
+        "endLine": 1804,
+        "endChar": 76
+      },
+      "revId": "326b648b2bea75bbbe91aabf796befc25c32d28c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
