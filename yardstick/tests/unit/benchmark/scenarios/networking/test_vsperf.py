@@ -12,31 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Unittest for yardstick.benchmark.scenarios.networking.vsperf.Vsperf
-
-from __future__ import absolute_import
-try:
-    from unittest import mock
-except ImportError:
-    import mock
+import mock
 import unittest
+import subprocess
+import yardstick.ssh as ssh
 
 from yardstick.benchmark.scenarios.networking import vsperf
+from yardstick import exceptions as y_exc
 
 
-@mock.patch('yardstick.benchmark.scenarios.networking.vsperf.subprocess')
-@mock.patch('yardstick.benchmark.scenarios.networking.vsperf.ssh')
 class VsperfTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.ctx = {
+        self.context_cfg = {
             "host": {
                 "ip": "10.229.47.137",
                 "user": "ubuntu",
                 "password": "ubuntu",
             },
         }
-        self.args = {
+        self.scenario_cfg = {
             'options': {
                 'testname': 'p2p_rfc2544_continuous',
                 'traffic_type': 'continuous',
@@ -57,70 +52,154 @@ class VsperfTestCase(unittest.TestCase):
             }
         }
 
-    def test_vsperf_setup(self, mock_ssh, mock_subprocess):
-        p = vsperf.Vsperf(self.args, self.ctx)
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
+        self._mock_SSH = mock.patch.object(ssh, 'SSH')
+        self.mock_SSH = self._mock_SSH.start()
+        self.mock_SSH.from_node().execute.return_value = (0, '', '')
 
-        p.setup()
-        self.assertIsNotNone(p.client)
-        self.assertTrue(p.setup_done)
+        self._mock_subprocess_call = mock.patch.object(subprocess, 'call')
+        self.mock_subprocess_call = self._mock_subprocess_call.start()
+        self.mock_subprocess_call.return_value = None
 
-    def test_vsperf_teardown(self, mock_ssh, mock_subprocess):
-        p = vsperf.Vsperf(self.args, self.ctx)
+        self.addCleanup(self._stop_mock)
 
-        # setup() specific mocks
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
+        self.scenario = vsperf.Vsperf(self.scenario_cfg, self.context_cfg)
 
-        p.setup()
-        self.assertIsNotNone(p.client)
-        self.assertTrue(p.setup_done)
+    def _stop_mock(self):
+        self._mock_SSH.stop()
+        self._mock_subprocess_call.stop()
 
-        p.teardown()
-        self.assertFalse(p.setup_done)
+    def test_setup(self):
+        self.scenario.setup()
+        self.assertIsNotNone(self.scenario.client)
+        self.assertTrue(self.scenario.setup_done)
 
-    def test_vsperf_run_ok(self, mock_ssh, mock_subprocess):
-        p = vsperf.Vsperf(self.args, self.ctx)
+    def test_setup_tg_port_not_set(self):
+        del self.scenario_cfg['options']['trafficgen_port1']
+        del self.scenario_cfg['options']['trafficgen_port2']
+        scenario = vsperf.Vsperf(self.scenario_cfg, self.context_cfg)
+        scenario.setup()
 
-        # setup() specific mocks
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
+        self.mock_subprocess_call.assert_called_once_with(
+            'setup_yardstick.sh setup', shell=True)
+        self.assertIsNone(scenario.tg_port1)
+        self.assertIsNone(scenario.tg_port2)
+        self.assertIsNotNone(scenario.client)
+        self.assertTrue(scenario.setup_done)
 
-        # run() specific mocks
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        mock_ssh.SSH.from_node().execute.return_value = (
+    def test_setup_no_setup_script(self):
+        del self.scenario_cfg['options']['setup_script']
+        scenario = vsperf.Vsperf(self.scenario_cfg, self.context_cfg)
+        scenario.setup()
+
+        self.mock_subprocess_call.assert_has_calls(
+            (mock.call('sudo bash -c "ovs-vsctl add-port br-ex eth1"',
+                       shell=True),
+             mock.call('sudo bash -c "ovs-vsctl add-port br-ex eth3"',
+                       shell=True)))
+        self.assertEqual(2, self.mock_subprocess_call.call_count)
+        self.assertIsNone(scenario.setup_script)
+        self.assertIsNotNone(scenario.client)
+        self.assertTrue(scenario.setup_done)
+
+    def test_run_ok(self):
+        self.scenario.setup()
+
+        self.mock_SSH.from_node().execute.return_value = (
             0, 'throughput_rx_fps\r\n14797660.000\r\n', '')
 
         result = {}
-        p.run(result)
+        self.scenario.run(result)
 
         self.assertEqual(result['throughput_rx_fps'], '14797660.000')
 
-    def test_vsperf_run_falied_vsperf_execution(self, mock_ssh,
-                                                mock_subprocess):
-        p = vsperf.Vsperf(self.args, self.ctx)
-
-        # setup() specific mocks
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
-
-        # run() specific mocks
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+    def test_run_ok_setup_not_done(self):
+        self.mock_SSH.from_node().execute.return_value = (
+            0, 'throughput_rx_fps\r\n14797660.000\r\n', '')
 
         result = {}
-        self.assertRaises(RuntimeError, p.run, result)
+        self.scenario.run(result)
 
-    def test_vsperf_run_falied_csv_report(self, mock_ssh, mock_subprocess):
-        p = vsperf.Vsperf(self.args, self.ctx)
+        self.assertTrue(self.scenario.setup_done)
+        self.assertEqual(result['throughput_rx_fps'], '14797660.000')
 
-        # setup() specific mocks
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        mock_subprocess.call().execute.return_value = None
+    def test_run_failed_vsperf_execution(self):
+        self.mock_SSH.from_node().execute.side_effect = ((0, '', ''),
+                                                         (1, '', ''))
 
-        # run() specific mocks
-        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
+        with self.assertRaises(RuntimeError):
+            self.scenario.run({})
+        self.assertEqual(self.mock_SSH.from_node().execute.call_count, 2)
 
-        result = {}
-        self.assertRaises(RuntimeError, p.run, result)
+    def test_run_failed_csv_report(self):
+        self.mock_SSH.from_node().execute.side_effect = ((0, '', ''),
+                                                         (0, '', ''),
+                                                         (1, '', ''))
+
+        with self.assertRaises(RuntimeError):
+            self.scenario.run({})
+        self.assertEqual(self.mock_SSH.from_node().execute.call_count, 3)
+
+    def test_run_sla_fail(self):
+        self.mock_SSH.from_node().execute.return_value = (
+            0, 'throughput_rx_fps\r\n123456.000\r\n', '')
+
+        with self.assertRaises(y_exc.SLAValidationError) as raised:
+            self.scenario.run({})
+
+        self.assertTrue('VSPERF_throughput_rx_fps(123456.000000) < '
+                        'SLA_throughput_rx_fps(500000.000000)'
+                        in str(raised.exception))
+
+    def test_run_sla_fail_metric_not_collected(self):
+        self.mock_SSH.from_node().execute.return_value = (
+            0, 'nonexisting_metric\r\n14797660.000\r\n', '')
+
+        with self.assertRaises(y_exc.SLAValidationError) as raised:
+            self.scenario.run({})
+
+        self.assertTrue('throughput_rx_fps was not collected by VSPERF'
+                        in str(raised.exception))
+
+    def test_run_sla_fail_metric_not_defined_in_sla(self):
+        del self.scenario_cfg['sla']['throughput_rx_fps']
+        scenario = vsperf.Vsperf(self.scenario_cfg, self.context_cfg)
+        scenario.setup()
+
+        self.mock_SSH.from_node().execute.return_value = (
+            0, 'throughput_rx_fps\r\n14797660.000\r\n', '')
+
+        with self.assertRaises(y_exc.SLAValidationError) as raised:
+            scenario.run({})
+        self.assertTrue('throughput_rx_fps is not defined in SLA'
+                        in str(raised.exception))
+
+    def test_teardown(self):
+        self.scenario.setup()
+        self.assertIsNotNone(self.scenario.client)
+        self.assertTrue(self.scenario.setup_done)
+
+        self.scenario.teardown()
+        self.assertFalse(self.scenario.setup_done)
+
+    def test_teardown_tg_port_not_set(self):
+        del self.scenario_cfg['options']['trafficgen_port1']
+        del self.scenario_cfg['options']['trafficgen_port2']
+        scenario = vsperf.Vsperf(self.scenario_cfg, self.context_cfg)
+        scenario.teardown()
+
+        self.mock_subprocess_call.assert_called_once_with(
+            'setup_yardstick.sh teardown', shell=True)
+        self.assertFalse(scenario.setup_done)
+
+    def test_teardown_no_setup_script(self):
+        del self.scenario_cfg['options']['setup_script']
+        scenario = vsperf.Vsperf(self.scenario_cfg, self.context_cfg)
+        scenario.teardown()
+
+        self.mock_subprocess_call.assert_has_calls(
+            (mock.call('sudo bash -c "ovs-vsctl del-port br-ex eth1"',
+                       shell=True),
+             mock.call('sudo bash -c "ovs-vsctl del-port br-ex eth3"',
+                       shell=True)))
+        self.assertEqual(2, self.mock_subprocess_call.call_count)
+        self.assertFalse(scenario.setup_done)
