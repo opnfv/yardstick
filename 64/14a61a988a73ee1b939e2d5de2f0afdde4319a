@@ -1,0 +1,11 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: John O'Loughlin <john.oloughlin@intel.com>
+Code-Review+1: Taras Chornyi <tarasx.chornyi@intel.com>
+Code-Review+1: Volodymyr Mytnyk <volodymyrx.mytnyk@intel.com>
+Code-Review+1: Emma Foley <emma.l.foley@intel.com>
+Code-Review+2: Rodolfo Alonso Hernandez <rodolfo.alonso.hernandez@intel.com>
+Submitted-by: Rodolfo Alonso Hernandez <rodolfo.alonso.hernandez@intel.com>
+Submitted-at: Fri, 08 Jun 2018 10:38:42 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/57671
+Project: yardstick
+Branch: refs/heads/master
