@@ -17,6 +17,7 @@ import mock
 from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.compute import lmbench
+from yardstick.common import exceptions as y_exc
 
 
 # pylint: disable=unused-argument
@@ -144,7 +145,7 @@ class LmbenchTestCase(unittest.TestCase):
 
         sample_output = '[{"latency": 37.5, "size": 0.00049}]'
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, l.run, self.result)
+        self.assertRaises(y_exc.SLAValidationError, l.run, self.result)
 
     def test_unsuccessful_bandwidth_run_sla(self, mock_ssh):
 
@@ -162,7 +163,7 @@ class LmbenchTestCase(unittest.TestCase):
 
         sample_output = '{"size(MB)": 0.262144, "bandwidth(MBps)": 9925.5}'
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, l.run, self.result)
+        self.assertRaises(y_exc.SLAValidationError, l.run, self.result)
 
     def test_successful_latency_for_cache_run_sla(self, mock_ssh):
 

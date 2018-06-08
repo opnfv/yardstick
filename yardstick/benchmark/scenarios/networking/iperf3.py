@@ -92,7 +92,7 @@ For more info see http://software.es.net/iperf
     def teardown(self):
         LOG.debug("teardown")
         self.host.close()
-        status, stdout, stderr = self.target.execute("pkill iperf3")
+        status, _, stderr = self.target.execute("pkill iperf3")
         if status:
             LOG.warning(stderr)
         self.target.close()
@@ -145,7 +145,7 @@ For more info see http://software.es.net/iperf
 
         LOG.debug("Executing command: %s", cmd)
 
-        status, stdout, stderr = self.host.execute(cmd)
+        status, stdout, _ = self.host.execute(cmd)
         if status:
             # error cause in json dict on stdout
             raise RuntimeError(stdout)
@@ -165,16 +165,17 @@ For more info see http://software.es.net/iperf
                 bit_per_second = \
                     int(iperf_result["end"]["sum_received"]["bits_per_second"])
                 bytes_per_second = bit_per_second / 8
-                assert bytes_per_second >= sla_bytes_per_second, \
-                    "bytes_per_second %d < sla:bytes_per_second (%d); " % \
-                    (bytes_per_second, sla_bytes_per_second)
+                self.verify_SLA(
+                    bytes_per_second >= sla_bytes_per_second,
+                    "bytes_per_second %d < sla:bytes_per_second (%d); "
+                    % (bytes_per_second, sla_bytes_per_second))
             else:
                 sla_jitter = float(sla_iperf["jitter"])
 
                 jitter_ms = float(iperf_result["end"]["sum"]["jitter_ms"])
-                assert jitter_ms <= sla_jitter, \
-                    "jitter_ms  %f > sla:jitter %f; " % \
-                    (jitter_ms, sla_jitter)
+                self.verify_SLA(jitter_ms <= sla_jitter,
+                                "jitter_ms  %f > sla:jitter %f; "
+                                % (jitter_ms, sla_jitter))
 
 
 def _test():

@@ -125,7 +125,7 @@ class Unixbench(base.Scenario):
                 if score < sla_score:
                     sla_error += "%s score %f < sla:%s_score(%f); " % \
                         (t, score, t, sla_score)
-            assert sla_error == "", sla_error
+            self.verify_SLA(sla_error == "", sla_error)
 
 
 def _test():  # pragma: no cover

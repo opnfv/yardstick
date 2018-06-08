@@ -18,6 +18,7 @@ import mock
 from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.storage import fio
+from yardstick.common import exceptions as y_exc
 
 
 @mock.patch('yardstick.benchmark.scenarios.storage.fio.ssh')
@@ -203,7 +204,7 @@ class FioTestCase(unittest.TestCase):
 
         sample_output = self._read_sample_output(self.sample_output['rw'])
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, p.run, result)
+        self.assertRaises(y_exc.SLAValidationError, p.run, result)
 
     def test_fio_successful_bw_iops_sla(self, mock_ssh):
 
@@ -252,7 +253,7 @@ class FioTestCase(unittest.TestCase):
 
         sample_output = self._read_sample_output(self.sample_output['rw'])
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, p.run, result)
+        self.assertRaises(y_exc.SLAValidationError, p.run, result)
 
     def test_fio_unsuccessful_script_error(self, mock_ssh):
 

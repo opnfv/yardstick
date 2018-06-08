@@ -11,6 +11,7 @@ import mock
 import unittest
 
 from yardstick.benchmark.scenarios.availability import serviceha
+from yardstick.common import exceptions as y_exc
 
 
 class ServicehaTestCase(unittest.TestCase):
@@ -78,7 +79,23 @@ class ServicehaTestCase(unittest.TestCase):
         mock_monitor.MonitorMgr().verify_SLA.return_value = False
 
         ret = {}
-        self.assertRaises(AssertionError, p.run, ret)
+        self.assertRaises(y_exc.SLAValidationError, p.run, ret)
+        self.assertEqual(ret['sla_pass'], 0)
+
+    @mock.patch.object(serviceha, 'baseattacker')
+    @mock.patch.object(serviceha, 'basemonitor')
+    def test__serviceha_run_service_not_found_sla_error(self, mock_monitor,
+                                                        *args):
+        p = serviceha.ServiceHA(self.args, self.ctx)
+
+        p.setup()
+        self.assertTrue(p.setup_done)
+        p.data["kill-process"] = 0
+
+        mock_monitor.MonitorMgr().verify_SLA.return_value = True
+
+        ret = {}
+        self.assertRaises(y_exc.SLAValidationError, p.run, ret)
         self.assertEqual(ret['sla_pass'], 0)
 
     @mock.patch.object(serviceha, 'baseattacker')

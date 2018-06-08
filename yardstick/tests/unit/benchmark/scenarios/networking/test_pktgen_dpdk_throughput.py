@@ -16,6 +16,7 @@ from oslo_serialization import jsonutils
 import mock
 
 from yardstick.benchmark.scenarios.networking import pktgen_dpdk_throughput
+from yardstick.common import exceptions as y_exc
 
 
 # pylint: disable=unused-argument
@@ -131,7 +132,7 @@ class PktgenDPDKTestCase(unittest.TestCase):
         sample_output = '{"packets_per_second": 9753, "errors": 0, \
             "packets_sent": 149776, "flows": 110}'
         mock_ssh.SSH().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, p.run, result)
+        self.assertRaises(y_exc.SLAValidationError, p.run, result)
 
     def test_pktgen_dpdk_throughput_unsuccessful_script_error(
             self, mock_ssh):

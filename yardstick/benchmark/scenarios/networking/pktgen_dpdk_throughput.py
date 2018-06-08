@@ -143,11 +143,11 @@ class PktgenDPDK(base.Scenario):
         cmd = "ip a | grep eth1 2>/dev/null"
         LOG.debug("Executing command: %s in %s", cmd, host)
         if "server" in host:
-            status, stdout, stderr = self.server.execute(cmd)
+            _, stdout, _ = self.server.execute(cmd)
             if stdout:
                 is_run = False
         else:
-            status, stdout, stderr = self.client.execute(cmd)
+            _, stdout, _ = self.client.execute(cmd)
             if stdout:
                 is_run = False
 
@@ -222,5 +222,5 @@ class PktgenDPDK(base.Scenario):
             ppm += (sent - received) % sent > 0
             LOG.debug("Lost packets %d - Lost ppm %d", (sent - received), ppm)
             sla_max_ppm = int(self.scenario_cfg["sla"]["max_ppm"])
-            assert ppm <= sla_max_ppm, "ppm %d > sla_max_ppm %d; " \
-                % (ppm, sla_max_ppm)
+            self.verify_SLA(ppm <= sla_max_ppm, "ppm %d > sla_max_ppm %d; "
+                                                % (ppm, sla_max_ppm))
