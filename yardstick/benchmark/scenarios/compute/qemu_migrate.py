@@ -56,7 +56,7 @@ class QemuMigrate(base.Scenario):
 
     def _run_setup_cmd(self, client, cmd):
         LOG.debug("Run cmd: %s", cmd)
-        status, stdout, stderr = client.execute(cmd)
+        status, _, stderr = client.execute(cmd)
         if status:
             if re.search(self.REBOOT_CMD_PATTERN, cmd):
                 LOG.debug("Error on reboot")
@@ -127,7 +127,7 @@ class QemuMigrate(base.Scenario):
                 if timevalue > sla_time:
                     sla_error += "%s timevalue %d > sla:max_%s(%d); " % \
                         (t, timevalue, t, sla_time)
-            assert sla_error == "", sla_error
+            self.verify_SLA(sla_error == "", sla_error)
 
 
 def _test():    # pragma: no cover

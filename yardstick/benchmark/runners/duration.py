@@ -27,6 +27,7 @@ import traceback
 import time
 
 from yardstick.benchmark.runners import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -70,13 +71,13 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
         try:
             result = method(data)
-        except AssertionError as assertion:
+        except y_exc.SLAValidationError as error:
             # SLA validation failed in scenario, determine what to do now
             if sla_action == "assert":
                 raise
             elif sla_action == "monitor":
-                LOG.warning("SLA validation failed: %s", assertion.args)
-                errors = assertion.args
+                LOG.warning("SLA validation failed: %s", error.args)
+                errors = error.args
         # catch all exceptions because with multiprocessing we can have un-picklable exception
         # problems  https://bugs.python.org/issue9400
         except Exception:  # pylint: disable=broad-except

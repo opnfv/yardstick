@@ -17,6 +17,7 @@ import mock
 from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.compute import qemu_migrate
+from yardstick.common import exceptions as y_exc
 
 
 @mock.patch('yardstick.benchmark.scenarios.compute.qemu_migrate.ssh')
@@ -116,7 +117,7 @@ class QemuMigrateTestCase(unittest.TestCase):
         sample_output = '{"totaltime": 15, "downtime": 2, "setuptime": 1}'
 
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, q.run, result)
+        self.assertRaises(y_exc.SLAValidationError, q.run, result)
 
     def test_qemu_migrate_unsuccessful_sla_downtime(self, mock_ssh):
 
@@ -129,7 +130,7 @@ class QemuMigrateTestCase(unittest.TestCase):
         sample_output = '{"totaltime": 15, "downtime": 2, "setuptime": 1}'
 
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, q.run, result)
+        self.assertRaises(y_exc.SLAValidationError, q.run, result)
 
     def test_qemu_migrate_unsuccessful_sla_setuptime(self, mock_ssh):
 
@@ -142,7 +143,7 @@ class QemuMigrateTestCase(unittest.TestCase):
         sample_output = '{"totaltime": 15, "downtime": 2, "setuptime": 1}'
 
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, q.run, result)
+        self.assertRaises(y_exc.SLAValidationError, q.run, result)
 
     def test_qemu_migrate_unsuccessful_script_error(self, mock_ssh):
 

@@ -17,6 +17,7 @@ import mock
 from oslo_serialization import jsonutils
 
 from yardstick.benchmark.scenarios.compute import unixbench
+from yardstick.common import exceptions as y_exc
 
 
 @mock.patch('yardstick.benchmark.scenarios.compute.unixbench.ssh')
@@ -122,7 +123,7 @@ class UnixbenchTestCase(unittest.TestCase):
         sample_output = '{"single_score":"200.7","parallel_score":"4395.9"}'
 
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, u.run, result)
+        self.assertRaises(y_exc.SLAValidationError, u.run, result)
 
     def test_unixbench_unsuccessful_sla_parallel_score(self, mock_ssh):
 
@@ -137,7 +138,7 @@ class UnixbenchTestCase(unittest.TestCase):
         sample_output = '{"signle_score":"2251.7","parallel_score":"3395.9"}'
 
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, u.run, result)
+        self.assertRaises(y_exc.SLAValidationError, u.run, result)
 
     def test_unixbench_unsuccessful_script_error(self, mock_ssh):
 

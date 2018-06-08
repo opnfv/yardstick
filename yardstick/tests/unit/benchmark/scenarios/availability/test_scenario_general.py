@@ -11,6 +11,7 @@ import mock
 import unittest
 
 from yardstick.benchmark.scenarios.availability import scenario_general
+from yardstick.common import exceptions as y_exc
 
 class ScenarioGeneralTestCase(unittest.TestCase):
 
@@ -59,6 +60,14 @@ class ScenarioGeneralTestCase(unittest.TestCase):
         self.instance.director.verify.return_value = False
         self.instance.director.data = {}
         ret = {}
-        self.assertRaises(AssertionError, self.instance.run, ret)
+        self.assertRaises(y_exc.SLAValidationError, self.instance.run, ret)
+        self.instance.teardown()
+        self.assertEqual(ret['sla_pass'], 0)
+
+    def test_scenario_general_case_service_not_found_fail(self):
+        self.instance.director.verify.return_value = True
+        self.instance.director.data = {"general-attacker": 0}
+        ret = {}
+        self.assertRaises(y_exc.SLAValidationError, self.instance.run, ret)
         self.instance.teardown()
         self.assertEqual(ret['sla_pass'], 0)
