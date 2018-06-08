@@ -156,9 +156,10 @@ class NetperfNode(base.Scenario):
             sla_max_mean_latency = int(
                 self.scenario_cfg["sla"]["mean_latency"])
 
-            assert mean_latency <= sla_max_mean_latency, \
-                "mean_latency %f > sla_max_mean_latency(%f); " % \
-                (mean_latency, sla_max_mean_latency)
+            self.verify_SLA(
+                mean_latency <= sla_max_mean_latency,
+                "mean_latency %f > sla_max_mean_latency(%f); "
+                % (mean_latency, sla_max_mean_latency))
 
     def teardown(self):
         """remove netperf from nodes after test"""

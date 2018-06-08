@@ -14,6 +14,7 @@ import mock
 import unittest
 
 from yardstick.benchmark.scenarios.networking import ping
+from yardstick.common import exceptions as y_exc
 
 
 class PingTestCase(unittest.TestCase):
@@ -74,7 +75,7 @@ class PingTestCase(unittest.TestCase):
         p = ping.Ping(args, self.ctx)
 
         mock_ssh.SSH.from_node().execute.return_value = (0, '100', '')
-        self.assertRaises(AssertionError, p.run, result)
+        self.assertRaises(y_exc.SLAValidationError, p.run, result)
 
     @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
     def test_ping_unsuccessful_script_error(self, mock_ssh):
