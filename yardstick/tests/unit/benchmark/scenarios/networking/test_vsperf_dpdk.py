@@ -19,6 +19,7 @@ import mock
 import unittest
 
 from yardstick.benchmark.scenarios.networking import vsperf_dpdk
+from yardstick import exceptions as y_exc
 
 
 class VsperfDPDKTestCase(unittest.TestCase):
@@ -211,3 +212,47 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
         result = {}
         self.assertRaises(RuntimeError, self.scenario.run, result)
+
+    @mock.patch.object(time, 'sleep')
+    @mock.patch.object(subprocess, 'check_output')
+    def test_vsperf_run_sla_fail(self, *args):
+        self.scenario.setup()
+
+        self.mock_ssh.SSH.from_node().execute.return_value = (
+            0, 'throughput_rx_fps\r\n123456.000\r\n', '')
+
+        with self.assertRaises(y_exc.SLAValidationError) as raised:
+            self.scenario.run({})
+
+        self.assertIn('VSPERF_throughput_rx_fps(123456.000000) < '
+                      'SLA_throughput_rx_fps(500000.000000)',
+                      str(raised.exception))
+
+    @mock.patch.object(time, 'sleep')
+    @mock.patch.object(subprocess, 'check_output')
+    def test_vsperf_run_sla_fail_metric_not_collected(self, *args):
+        self.scenario.setup()
+
+        self.mock_ssh.SSH.from_node().execute.return_value = (
+            0, 'nonexisting_metric\r\n123456.000\r\n', '')
+
+        with self.assertRaises(y_exc.SLAValidationError) as raised:
+            self.scenario.run({})
+
+        self.assertIn('throughput_rx_fps was not collected by VSPERF',
+                      str(raised.exception))
+
+    @mock.patch.object(time, 'sleep')
+    @mock.patch.object(subprocess, 'check_output')
+    def test_vsperf_run_sla_fail_sla_not_defined(self, *args):
+        del self.scenario.scenario_cfg['sla']['throughput_rx_fps']
+        self.scenario.setup()
+
+        self.mock_ssh.SSH.from_node().execute.return_value = (
+            0, 'throughput_rx_fps\r\n14797660.000\r\n', '')
+
+        with self.assertRaises(y_exc.SLAValidationError) as raised:
+            self.scenario.run({})
+
+        self.assertIn('throughput_rx_fps is not defined in SLA',
+                      str(raised.exception))
