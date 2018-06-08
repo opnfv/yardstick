@@ -7,6 +7,8 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+import time
+
 import mock
 import unittest
 
@@ -86,13 +88,19 @@ class BaseMonitorTestCase(unittest.TestCase):
             'sla': {'max_outage_time': 5}
         }
 
+    def _close_queue(self, instace):
+        time.sleep(0.1)
+        instace._queue.close()
+
     def test__basemonitor_start_wait_successful(self):
         ins = basemonitor.BaseMonitor(self.monitor_cfg, None, {"nova-api": 10})
+        self.addCleanup(self._close_queue, ins)
         ins.start_monitor()
         ins.wait_monitor()
 
     def test__basemonitor_all_successful(self):
         ins = self.MonitorSimple(self.monitor_cfg, None, {"nova-api": 10})
+        self.addCleanup(self._close_queue, ins)
         ins.setup()
         ins.run()
         ins.verify_SLA()
@@ -100,16 +108,12 @@ class BaseMonitorTestCase(unittest.TestCase):
     @mock.patch.object(basemonitor, 'multiprocessing')
     def test__basemonitor_func_false(self, mock_multiprocess):
         ins = self.MonitorSimple(self.monitor_cfg, None, {"nova-api": 10})
+        self.addCleanup(self._close_queue, ins)
         ins.setup()
         mock_multiprocess.Event().is_set.return_value = False
         ins.run()
         ins.verify_SLA()
 
-    # TODO(elfoley): fix this test to not throw an error
     def test__basemonitor_getmonitorcls_successfule(self):
-        cls = None
-        try:
-            cls = basemonitor.BaseMonitor.get_monitor_cls(self.monitor_cfg)
-        except Exception:  # pylint: disable=broad-except
-            pass
-        self.assertIsNone(cls)
+        with self.assertRaises(RuntimeError):
+            basemonitor.BaseMonitor.get_monitor_cls(self.monitor_cfg)
