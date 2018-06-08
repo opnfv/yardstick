@@ -7,6 +7,8 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+import time
+
 import mock
 import unittest
 
@@ -90,12 +92,16 @@ class BaseMonitorTestCase(unittest.TestCase):
         ins = basemonitor.BaseMonitor(self.monitor_cfg, None, {"nova-api": 10})
         ins.start_monitor()
         ins.wait_monitor()
+        time.sleep(0.1)
+        ins._queue.close()
 
     def test__basemonitor_all_successful(self):
         ins = self.MonitorSimple(self.monitor_cfg, None, {"nova-api": 10})
         ins.setup()
         ins.run()
         ins.verify_SLA()
+        time.sleep(0.1)
+        ins._queue.close()
 
     @mock.patch.object(basemonitor, 'multiprocessing')
     def test__basemonitor_func_false(self, mock_multiprocess):
@@ -104,12 +110,9 @@ class BaseMonitorTestCase(unittest.TestCase):
         mock_multiprocess.Event().is_set.return_value = False
         ins.run()
         ins.verify_SLA()
+        time.sleep(0.1)
+        ins._queue.close()
 
-    # TODO(elfoley): fix this test to not throw an error
     def test__basemonitor_getmonitorcls_successfule(self):
-        cls = None
-        try:
-            cls = basemonitor.BaseMonitor.get_monitor_cls(self.monitor_cfg)
-        except Exception:  # pylint: disable=broad-except
-            pass
-        self.assertIsNone(cls)
+        with self.assertRaises(RuntimeError):
+            basemonitor.BaseMonitor.get_monitor_cls(self.monitor_cfg)
