@@ -12,11 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+import errno
+
+import mock
+
 from yardstick.benchmark.contexts import base
+from yardstick.benchmark.contexts.base import Context
 from yardstick.tests.unit import base as ut_base
+from yardstick.common.constants import YARDSTICK_ROOT_PATH
 
 
-class DummyContextClass(base.Context):
+class DummyContextClass(Context):
+
+    def __init__(self, host_name_separator='.'):
+        super(DummyContextClass, self).__init__\
+            (host_name_separator=host_name_separator)
+        self.nodes = []
+        self.controllers = []
+        self.computes = []
+        self.baremetals = []
 
     def _get_network(self, *args):
         pass
@@ -28,6 +43,12 @@ class DummyContextClass(base.Context):
         pass
 
     def undeploy(self):
+        pass
+
+    def _get_physical_nodes(self):
+        pass
+
+    def _get_physical_node_for_server(self, server_name):
         pass
 
 
@@ -87,3 +108,64 @@ class ContextTestCase(ut_base.BaseUnitTestCase):
         config_name = 'host_name-ctx_name'
         self.assertEqual(('host_name', 'ctx_name'),
                          ctx_obj.split_host_name(config_name))
+
+    def test_get_physical_nodes(self):
+        ctx_obj = DummyContextClass()
+        self.addCleanup(self._remove_ctx, ctx_obj)
+
+        result = Context.get_physical_nodes()
+
+        self.assertEqual(result, {None: None})
+
+    @mock.patch.object(Context, 'get_context_from_server')
+    def test_get_physical_node_from_server(self, mock_get_ctx):
+        ctx_obj = DummyContextClass()
+        self.addCleanup(self._remove_ctx, ctx_obj)
+
+        mock_get_ctx.return_value = ctx_obj
+
+        result = Context.get_physical_node_from_server("mock_server")
+
+        mock_get_ctx.assert_called_once()
+        self.assertIsNone(result)
+
+    @mock.patch('yardstick.common.utils.read_yaml_file')
+    def test_read_pod_file(self, mock_read_yaml_file):
+        attrs = {'name': 'foo',
+                 'task_id': '12345678',
+                 'file': 'pod.yaml'
+                 }
+
+        ctx_obj = DummyContextClass()
+        cfg = {"nodes": [
+                    {
+                        "name": "node1",
+                        "role": "Controller",
+                        "ip": "10.229.47.137",
+                        "user": "root",
+                        "key_filename": "/root/.yardstick_key"
+                    },
+                    {
+                        "name": "node2",
+                        "role": "Compute",
+                        "ip": "10.229.47.139",
+                        "user": "root",
+                        "key_filename": "/root/.yardstick_key"
+                    }
+                ]
+            }
+
+        mock_read_yaml_file.return_value = cfg
+        result = ctx_obj.read_pod_file(attrs)
+        self.assertEqual(result, cfg)
+
+        mock_read_yaml_file.side_effect = IOError(errno.EPERM, '')
+        with self.assertRaises(IOError):
+            ctx_obj.read_pod_file(attrs)
+
+        mock_read_yaml_file.side_effect = IOError(errno.ENOENT, '')
+        with self.assertRaises(IOError):
+            ctx_obj.read_pod_file(attrs)
+
+        file_path = os.path.join(YARDSTICK_ROOT_PATH, 'pod.yaml')
+        self.assertEqual(ctx_obj.file_path, file_path)
