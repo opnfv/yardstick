@@ -12,9 +12,10 @@ import unittest
 
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import kubernetes
+from yardstick.orchestrator import kubernetes as orchestrator_kubernetes
 
 
-context_cfg = {
+CONTEXT_CFG = {
     'type': 'Kubernetes',
     'name': 'k8s',
     'task_id': '1234567890',
@@ -22,14 +23,14 @@ context_cfg = {
         'host': {
             'image': 'openretriever/yardstick',
             'command': '/bin/bash',
-            'args': ['-c', 'chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; \
-service ssh restart;while true ; do sleep 10000; done']
+            'args': ['-c', 'chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; '
+                     'service ssh restart;while true ; do sleep 10000; done']
         },
         'target': {
             'image': 'openretriever/yardstick',
             'command': '/bin/bash',
-            'args': ['-c', 'chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; \
-service ssh restart;while true ; do sleep 10000; done']
+            'args': ['-c', 'chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; '
+                     'service ssh restart;while true ; do sleep 10000; done']
         }
     }
 }
@@ -42,7 +43,7 @@ class KubernetesTestCase(unittest.TestCase):
     def setUp(self):
         self.k8s_context = kubernetes.KubernetesContext()
         self.addCleanup(self._remove_contexts)
-        self.k8s_context.init(context_cfg)
+        self.k8s_context.init(CONTEXT_CFG)
 
     @staticmethod
     def _remove_contexts():
@@ -68,7 +69,8 @@ class KubernetesTestCase(unittest.TestCase):
 
     @mock.patch.object(kubernetes.KubernetesContext, '_create_services')
     @mock.patch.object(kubernetes.KubernetesContext, '_wait_until_running')
-    @mock.patch.object(kubernetes.KubernetesTemplate, 'get_rc_pods')
+    @mock.patch.object(orchestrator_kubernetes.KubernetesTemplate,
+                       'get_rc_pods')
     @mock.patch.object(kubernetes.KubernetesContext, '_create_rcs')
     @mock.patch.object(kubernetes.KubernetesContext, '_set_ssh_key')
     def test_deploy(self,
@@ -170,3 +172,11 @@ class KubernetesTestCase(unittest.TestCase):
     def test_delete_services(self, mock_delete):
         self.k8s_context._delete_services()
         mock_delete.assert_called()
+
+    def test__get_physical_nodes(self):
+        result = self.k8s_context._get_physical_nodes()
+        self.assertIsNone(result)
+
+    def test__get_physical_node_for_server(self):
+        result = self.k8s_context._get_physical_node_for_server("fake")
+        self.assertIsNone(result)
