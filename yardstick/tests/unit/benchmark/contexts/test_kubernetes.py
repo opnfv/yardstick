@@ -182,3 +182,11 @@ class KubernetesTestCase(unittest.TestCase):
         mock_k8stemplate.assert_called_once_with(self.k8s_context.name,
                                                  CONTEXT_CFG)
         self.assertEqual('fake_template', self.k8s_context.template)
+
+    def test__get_physical_nodes(self):
+        result = self.k8s_context._get_physical_nodes()
+        self.assertIsNone(result)
+
+    def test__get_physical_node_for_server(self):
+        result = self.k8s_context._get_physical_node_for_server("fake")
+        self.assertIsNone(result)
