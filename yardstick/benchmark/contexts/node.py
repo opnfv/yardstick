@@ -8,7 +8,6 @@
 ##############################################################################
 
 from __future__ import absolute_import
-import errno
 import subprocess
 import os
 import collections
@@ -22,7 +21,7 @@ from yardstick import ssh
 from yardstick.benchmark.contexts.base import Context
 from yardstick.common.constants import ANSIBLE_DIR, YARDSTICK_ROOT_PATH
 from yardstick.common.ansible_common import AnsibleCommon
-from yardstick.common.yaml_loader import yaml_load
+from yardstick.common.exceptions import ContextUpdateCollectdForNodeError
 
 LOG = logging.getLogger(__name__)
 
@@ -49,40 +48,11 @@ class NodeContext(Context):
         }
         super(NodeContext, self).__init__()
 
-    def read_config_file(self):
-        """Read from config file"""
-
-        with open(self.file_path) as stream:
-            LOG.info("Parsing pod file: %s", self.file_path)
-            cfg = yaml_load(stream)
-        return cfg
-
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
         super(NodeContext, self).init(attrs)
 
-        self.file_path = file_path = attrs.get("file", "pod.yaml")
-
-        try:
-            cfg = self.read_config_file()
-        except IOError as io_error:
-            if io_error.errno != errno.ENOENT:
-                raise
-
-            self.file_path = os.path.join(YARDSTICK_ROOT_PATH, file_path)
-            cfg = self.read_config_file()
-
-        self.nodes.extend(cfg["nodes"])
-        self.controllers.extend([node for node in cfg["nodes"]
-                                 if node.get("role") == "Controller"])
-        self.computes.extend([node for node in cfg["nodes"]
-                              if node.get("role") == "Compute"])
-        self.baremetals.extend([node for node in cfg["nodes"]
-                                if node.get("role") == "Baremetal"])
-        LOG.debug("Nodes: %r", self.nodes)
-        LOG.debug("Controllers: %r", self.controllers)
-        LOG.debug("Computes: %r", self.computes)
-        LOG.debug("BareMetals: %r", self.baremetals)
+        cfg = self.read_pod_file(attrs)
 
         self.env = attrs.get('env', {})
         self.attrs = attrs
@@ -134,6 +104,32 @@ class NodeContext(Context):
             #  make relative paths absolute in ANSIBLE_DIR
             playbook = os.path.join(ANSIBLE_DIR, playbook)
         return playbook
+
+    def _get_physical_nodes(self):
+        return self.nodes
+
+    def _get_physical_node_for_server(self, server_name):
+
+        node_name, context_name = self.split_host_name(server_name)
+
+        if context_name is None or self.name != context_name:
+            return None
+
+        for n in (n for n in self.nodes if n["name"] == node_name):
+            return "{}.{}".format(n["name"], self._name)
+
+        return None
+
+    def update_collectd_options_for_node(self, options, attr_name):
+        node_name, _ = self.split_host_name(attr_name)
+
+        matching_nodes = (n for n in self.nodes if n["name"] == node_name)
+        try:
+            node = next(matching_nodes)
+        except StopIteration:
+            raise ContextUpdateCollectdForNodeError(attr_name=attr_name)
+
+        node["collectd"] = options
 
     def _get_server(self, attr_name):
         """lookup server info by name from context

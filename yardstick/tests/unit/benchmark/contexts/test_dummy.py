@@ -76,3 +76,11 @@ class DummyContextTestCase(unittest.TestCase):
         self.assertEqual(result, None)
 
         self.test_context.undeploy()
+
+    def test__get_physical_nodes(self):
+        result = self.test_context._get_physical_nodes()
+        self.assertIsNone(result)
+
+    def test__get_physical_node_for_server(self):
+        result = self.test_context._get_physical_node_for_server("fake")
+        self.assertIsNone(result)
