@@ -1,0 +1,216 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_e54a8126",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-11T16:00:40Z",
+      "side": 1,
+      "message": "Why are you using this string to store the node info?\n\nInstead of:\n  {\u0027ctx1\u0027: [node1, node2]\n   \u0027ctx2\u0027: [node3, node4]}",
+      "range": {
+        "startLine": 139,
+        "startChar": 16,
+        "endLine": 139,
+        "endChar": 65
+      },
+      "revId": "4aeca9999ea31140d3828acb01d61e455dbd1d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_055215dd",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-11T16:00:40Z",
+      "side": 1,
+      "message": "This method should be defined in this class. At least an abstract method.",
+      "range": {
+        "startLine": 148,
+        "startChar": 24,
+        "endLine": 148,
+        "endChar": 53
+      },
+      "revId": "4aeca9999ea31140d3828acb01d61e455dbd1d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c5477d1c",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-11T16:00:40Z",
+      "side": 1,
+      "message": "If this is an abstract method, it should not return anything\n\nPlease, add at least a one liner docstring.",
+      "range": {
+        "startLine": 182,
+        "startChar": 8,
+        "endLine": 182,
+        "endChar": 17
+      },
+      "revId": "4aeca9999ea31140d3828acb01d61e455dbd1d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_a55889fb",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-11T16:00:40Z",
+      "side": 1,
+      "message": "This is very generic and it\u0027s used in other classes (standalone).\n\nYou should implement this function in utils, naming it something like \"read_yaml_file\".",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 18
+      },
+      "revId": "4aeca9999ea31140d3828acb01d61e455dbd1d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_0569758b",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-11T16:00:40Z",
+      "side": 1,
+      "message": "I\u0027ll wait until the final implementation",
+      "revId": "4aeca9999ea31140d3828acb01d61e455dbd1d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c5f5bdcc",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-11T16:00:40Z",
+      "side": 1,
+      "message": "\"ctx_name\", just to make code more clear",
+      "range": {
+        "startLine": 305,
+        "startChar": 19,
+        "endLine": 305,
+        "endChar": 23
+      },
+      "revId": "4aeca9999ea31140d3828acb01d61e455dbd1d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_0517b5ee",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-11T16:00:40Z",
+      "side": 1,
+      "message": "unneeded",
+      "range": {
+        "startLine": 309,
+        "startChar": 49,
+        "endLine": 309,
+        "endChar": 56
+      },
+      "revId": "4aeca9999ea31140d3828acb01d61e455dbd1d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_251ab917",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-11T16:00:40Z",
+      "side": 1,
+      "message": "Why this string formatting?",
+      "revId": "4aeca9999ea31140d3828acb01d61e455dbd1d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c5e3fd03",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-11T16:00:40Z",
+      "side": 1,
+      "message": "same comments",
+      "revId": "4aeca9999ea31140d3828acb01d61e455dbd1d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_25f119ce",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-11T16:00:40Z",
+      "side": 1,
+      "message": "To avoid apostrophe in messages, you can use \"Cannot\"",
+      "range": {
+        "startLine": 62,
+        "startChar": 15,
+        "endLine": 62,
+        "endChar": 19
+      },
+      "revId": "4aeca9999ea31140d3828acb01d61e455dbd1d01",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
