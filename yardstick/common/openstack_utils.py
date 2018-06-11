@@ -173,6 +173,15 @@ def get_shade_client(**os_cloud_config):
     params.update(os_cloud_config)
     return shade.openstack_cloud(**params)
 
+def get_shade_operator_client(**os_cloud_config):
+    """Get Shade Operator cloud client
+
+    :return: ``shade.OperatorCloud`` object.
+    """
+    params = copy.deepcopy(constants.OS_CLOUD_DEFAULT_CONFIG)
+    params.update(os_cloud_config)
+    return shade.operator_cloud(**params)
+
 
 # *********************************************
 #   NOVA
