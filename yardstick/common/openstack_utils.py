@@ -157,6 +157,15 @@ def get_glance_client():    # pragma: no cover
 def get_shade_client():
     return shade.openstack_cloud()
 
+def get_shade_operator_client(**os_cloud_config):
+    """Get Shade Operator cloud client
+
+    :return: ``shade.OperatorCloud`` object.
+    """
+    params = copy.deepcopy(constants.OS_CLOUD_DEFAULT_CONFIG)
+    params.update(os_cloud_config)
+    return shade.operator_cloud(**params)
+
 
 # *********************************************
 #   NOVA

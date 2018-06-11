@@ -6,17 +6,23 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-import abc
-import six
 
-import yardstick.common.utils as utils
+import abc
+import errno
+import six
+import os
+
+from yardstick.common import constants
+from yardstick.common import utils
+from yardstick.common.constants import YARDSTICK_ROOT_PATH
 
 
 class Flags(object):
     """Class to represent the status of the flags in a context"""
 
     _FLAGS = {'no_setup': False,
-              'no_teardown': False}
+              'no_teardown': False,
+              'os_cloud_config': constants.OS_CLOUD_DEFAULT_CONFIG}
 
     def __init__(self, **kwargs):
         for name, value in self._FLAGS.items():
@@ -47,6 +53,7 @@ class Context(object):
         self._flags = Flags()
         self._name = None
         self._task_id = None
+        self.file_path = None
         self._host_name_separator = host_name_separator
 
     def init(self, attrs):
@@ -62,6 +69,26 @@ class Context(object):
                 and self._host_name_separator in name):
             return tuple(name.split(self._host_name_separator, 1))
         return None, None
+
+    def read_pod_file(self, attrs):
+        self.file_path = file_path = attrs.get("file", "pod.yaml")
+        try:
+            cfg = utils.read_yaml_file(self.file_path)
+        except IOError as io_error:
+            if io_error.errno != errno.ENOENT:
+                raise
+
+            self.file_path = os.path.join(YARDSTICK_ROOT_PATH, file_path)
+            cfg = utils.read_yaml_file(self.file_path)
+
+        self.nodes.extend(cfg["nodes"])
+        self.controllers.extend([node for node in cfg["nodes"]
+                                 if node.get("role") == "Controller"])
+        self.computes.extend([node for node in cfg["nodes"]
+                              if node.get("role") == "Compute"])
+        self.baremetals.extend([node for node in cfg["nodes"]
+                                if node.get("role") == "Baremetal"])
+        return cfg
 
     @property
     def name(self):
@@ -128,6 +155,25 @@ class Context(object):
                              attr_name)
 
     @staticmethod
+    def get_physical_nodes():
+        """return physical node names for all contexts"""
+        physical_nodes = {}
+        for context in Context.list:
+            nodes = context._get_physical_nodes()
+            physical_nodes.update({context._name: nodes})
+
+        return physical_nodes
+
+    @staticmethod
+    def get_physical_node_from_server(server_name):
+        """return physical nodes for all contexts"""
+        context = Context.get_context_from_server(server_name)
+        if context == None:
+            return  None
+
+        return context._get_physical_node_for_server(server_name)
+
+    @staticmethod
     def get_context_from_server(attr_name):
         """lookup context info by name from node config
         attr_name: either a name of the node created by yardstick or a dict
@@ -156,3 +202,15 @@ class Context(object):
         except StopIteration:
             raise ValueError("context not found for server %r" %
                              attr_name)
+
+    @abc.abstractmethod
+    def _get_physical_nodes(self):
+        """return the list of physical nodes in context"""
+
+    @abc.abstractmethod
+    def _get_physical_node_for_server(self, server_name):
+        """ Find physical node for given server
+
+        :param server_name: (string) Server name in scenario
+        :return string:  <node_name>.<context_name>
+        """

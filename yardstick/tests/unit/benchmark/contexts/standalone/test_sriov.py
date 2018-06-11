@@ -62,7 +62,7 @@ class SriovContextTestCase(unittest.TestCase):
         self.attrs = {
             'name': 'foo',
             'task_id': '1234567890',
-            'file': self._get_file_abspath(self.NODES_SRIOV_SAMPLE)
+            'file': self._get_file_abspath(self.NODES_SRIOV_SAMPLE),
         }
         self.sriov = sriov.SriovContext()
         self.addCleanup(self._remove_contexts)
@@ -170,6 +170,22 @@ class SriovContextTestCase(unittest.TestCase):
         self.assertEqual(result['name'], 'node1.foo-12345678')
         self.assertEqual(result['user'], 'root')
         self.assertEqual(result['key_filename'], '/root/.yardstick_key')
+
+    def test__get_physical_node_for_server(self):
+        attrs = self.attrs
+        attrs.update({'servers': {'server1': {}}})
+        self.sriov.init(attrs)
+
+        # When server is not from this context
+        result = self.sriov._get_physical_node_for_server('server1.another-context')
+        self.assertIsNone(result)
+
+        # When node_name is not from this context
+        result = self.sriov._get_physical_node_for_server('fake.foo-12345678')
+        self.assertIsNone(result)
+
+        result = self.sriov._get_physical_node_for_server('server1.foo-12345678')
+        self.assertEqual(result, 'node5.foo')
 
     def test__get_server_no_task_id(self):
         self.attrs['flags'] = {'no_setup': True}
