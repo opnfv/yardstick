@@ -12,7 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+import mock
 from yardstick.benchmark.contexts import base
+from yardstick.benchmark.contexts.base import Context
 from yardstick.tests.unit import base as ut_base
 
 
@@ -29,6 +32,12 @@ class DummyContextClass(base.Context):
 
     def undeploy(self):
         pass
+
+    def _get_physical_nodes(self):
+        return None
+
+    def _get_physical_node_for_server(self, server_name):
+        return None
 
 
 class FlagsTestCase(ut_base.BaseUnitTestCase):
@@ -87,3 +96,17 @@ class ContextTestCase(ut_base.BaseUnitTestCase):
         config_name = 'host_name-ctx_name'
         self.assertEqual(('host_name', 'ctx_name'),
                          ctx_obj.split_host_name(config_name))
+
+    def test_get_physical_nodes(self):
+        physical_nodes = [{'name': 'fake'}]
+        context = mock.Mock()
+        context._name = "fake_name"
+        context._get_physical_nodes = mock.Mock(return_value=physical_nodes)
+        Context.list = [context]
+
+        result = Context.get_physical_nodes()
+        Context.list = []
+
+        expected = {'fake_name': [{'name': 'fake'}]}
+
+        self.assertEquals(result, expected)

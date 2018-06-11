@@ -170,3 +170,11 @@ class KubernetesTestCase(unittest.TestCase):
     def test_delete_services(self, mock_delete):
         self.k8s_context._delete_services()
         mock_delete.assert_called()
+
+    def test__get_physical_nodes(self):
+        result = self.k8s_context._get_physical_nodes()
+        self.assertIsNone(result)
+
+    def test__get_physical_node_for_server(self):
+        result = self.k8s_context._get_physical_node_for_server("fake")
+        self.assertIsNone(result)

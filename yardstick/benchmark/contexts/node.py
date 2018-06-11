@@ -22,7 +22,8 @@ from yardstick import ssh
 from yardstick.benchmark.contexts.base import Context
 from yardstick.common.constants import ANSIBLE_DIR, YARDSTICK_ROOT_PATH
 from yardstick.common.ansible_common import AnsibleCommon
-from yardstick.common.yaml_loader import yaml_load
+from yardstick.common.utils import read_yaml_file
+from yardstick.common.exceptions import ContextUpdateCollectdForNodeError
 
 LOG = logging.getLogger(__name__)
 
@@ -49,14 +50,6 @@ class NodeContext(Context):
         }
         super(NodeContext, self).__init__()
 
-    def read_config_file(self):
-        """Read from config file"""
-
-        with open(self.file_path) as stream:
-            LOG.info("Parsing pod file: %s", self.file_path)
-            cfg = yaml_load(stream)
-        return cfg
-
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
         super(NodeContext, self).init(attrs)
@@ -64,13 +57,13 @@ class NodeContext(Context):
         self.file_path = file_path = attrs.get("file", "pod.yaml")
 
         try:
-            cfg = self.read_config_file()
+            cfg = read_yaml_file(self.file_path)
         except IOError as io_error:
             if io_error.errno != errno.ENOENT:
                 raise
 
             self.file_path = os.path.join(YARDSTICK_ROOT_PATH, file_path)
-            cfg = self.read_config_file()
+            cfg = read_yaml_file(self.file_path)
 
         self.nodes.extend(cfg["nodes"])
         self.controllers.extend([node for node in cfg["nodes"]
@@ -134,6 +127,34 @@ class NodeContext(Context):
             #  make relative paths absolute in ANSIBLE_DIR
             playbook = os.path.join(ANSIBLE_DIR, playbook)
         return playbook
+
+    def _get_physical_nodes(self):
+        return self.nodes
+
+    def _get_physical_node_for_server(self, server_name):
+
+        node_name, context_name = self.split_host_name(server_name)
+
+        if context_name is None or self.name != context_name:
+            return None
+
+        matching_nodes = [n for n in self.nodes if n["name"] == node_name]
+
+        if len(matching_nodes):
+            return "{}.{}".format(node_name, self._name)
+        else:
+            return None
+
+    def update_collectd_options_for_node(self, options, attr_name):
+        node_name, _ = self.split_host_name(attr_name)
+
+        matching_nodes = (n for n in self.nodes if n["name"] == node_name)
+        try:
+            node = next(matching_nodes)
+        except StopIteration:
+            raise ContextUpdateCollectdForNodeError(attr_name=attr_name)
+
+        node["collectd"] = options
 
     def _get_server(self, attr_name):
         """lookup server info by name from context
