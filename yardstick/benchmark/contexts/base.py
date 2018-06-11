@@ -129,6 +129,25 @@ class Context(object):
                              attr_name)
 
     @staticmethod
+    def get_physical_nodes():
+        """return physical nodes for all contexts"""
+        physical_nodes = {}
+        for context in Context.list:
+            nodes = context._get_physical_nodes()
+            physical_nodes.update({context._name: nodes})
+
+        return physical_nodes
+
+    @staticmethod
+    def get_physical_node_from_server(server_name):
+        """return physical nodes for all contexts"""
+        context = Context.get_context_from_server(server_name)
+        if context == None:
+            return  None
+
+        return  context._get_physical_node_for_server(server_name)
+
+    @staticmethod
     def get_context_from_server(attr_name):
         """lookup context info by name from node config
         attr_name: either a name of the node created by yardstick or a dict
@@ -157,3 +176,18 @@ class Context(object):
         except StopIteration:
             raise ValueError("context not found for server %r" %
                              attr_name)
+
+    @abc.abstractmethod
+    def _get_physical_nodes(self):
+        """return the list of physical nodes in context"""
+        pass
+
+    @abc.abstractmethod
+    def _get_physical_node_for_server(self, server_name):
+        """return the string in format <node_name>.<context_name>
+        which describe the physical node where server is running
+        For example: 'node1.yardstick_baremetal'
+
+        @:param server_name name of server in scenario (vnf.yardstick)
+        """
+        pass
