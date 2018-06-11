@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_226c6f9c",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-11T07:38:03Z",
+      "side": 1,
+      "message": "This decision tree should be tested.",
+      "range": {
+        "startLine": 551,
+        "startChar": 0,
+        "endLine": 563,
+        "endChar": 46
+      },
+      "revId": "8bb2e16666200e3b379495683c2e1bdeb02aa588",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
