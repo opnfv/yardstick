@@ -23,6 +23,7 @@ from yardstick.benchmark.contexts.base import Context
 from yardstick.common.constants import ANSIBLE_DIR, YARDSTICK_ROOT_PATH
 from yardstick.common.ansible_common import AnsibleCommon
 from yardstick.common.yaml_loader import yaml_load
+from yardstick.common.exceptions import ContextUpdateCollectdForNodeError
 
 LOG = logging.getLogger(__name__)
 
@@ -134,6 +135,27 @@ class NodeContext(Context):
             #  make relative paths absolute in ANSIBLE_DIR
             playbook = os.path.join(ANSIBLE_DIR, playbook)
         return playbook
+
+    def _get_physical_nodes(self):
+        return self.nodes
+
+    def _get_physical_node_for_server(self, attr_name):
+        node = self._get_server(attr_name)
+        if node:
+            return node["name"].split("-")[0]
+        else:
+            return None
+
+    def update_collectd_options_for_node(self, options, attr_name):
+        node_name, _ = self.split_name(attr_name)
+
+        matching_nodes = (n for n in self.nodes if n["name"] == node_name)
+        try:
+            node = next(matching_nodes)
+        except StopIteration:
+            raise ContextUpdateCollectdForNodeError(attr_name=attr_name)
+
+        node["collectd"] = options
 
     def _get_server(self, attr_name):
         """lookup server info by name from context
