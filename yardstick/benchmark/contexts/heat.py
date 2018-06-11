@@ -29,6 +29,7 @@ from yardstick.common import constants as consts
 from yardstick.common import utils
 from yardstick.common.utils import source_env
 from yardstick.ssh import SSH
+from yardstick.common import openstack_utils
 
 LOG = logging.getLogger(__name__)
 
@@ -68,6 +69,12 @@ class HeatContext(Context):
         self.shade_client = None
         self.heat_timeout = None
         self.key_filename = None
+        self.shade_client = None
+        self.operator_client = None
+        self.nodes = []
+        self.controllers = []
+        self.computes = []
+        self.baremetals = []
         super(HeatContext, self).__init__()
 
     @staticmethod
@@ -95,6 +102,14 @@ class HeatContext(Context):
         self._user = attrs.get("user")
 
         self.template_file = attrs.get("heat_template")
+
+        self.shade_client = openstack_utils.get_shade_client()
+        self.operator_client = openstack_utils.get_shade_operator_client()
+
+        try:
+            self.read_pod_file(attrs)
+        except IOError:
+            LOG.warning("No pod file specified. NVFi metrics will be disabled")
 
         self.heat_timeout = attrs.get("timeout", DEFAULT_HEAT_TIMEOUT)
         if self.template_file:
@@ -528,3 +543,30 @@ class HeatContext(Context):
             "physical_network": network.physical_network,
         }
         return result
+
+    def _get_physical_nodes(self):
+        return self.nodes
+
+    def _get_physical_node_for_server(self, server_name):
+        node_name, ctx_name = self.split_host_name(server_name)
+        if ctx_name is None or self.name != ctx_name:
+            return None
+
+        matching_nodes = [s for s in self.servers if s.name == node_name]
+        if len(matching_nodes) == 0:
+            return None
+
+        server = openstack_utils.get_server(self.shade_client,
+                                            name_or_id=server_name)
+
+        if server:
+            server = server.toDict()
+            list_hypervisors = self.operator_client.list_hypervisors()
+
+            for hypervisor in list_hypervisors:
+                if hypervisor.hypervisor_hostname == server['OS-EXT-SRV-ATTR:hypervisor_hostname']:
+                    for node in self.nodes:
+                        if node['ip'] == hypervisor.host_ip:
+                            return "{}.{}".format(node['name'], self._name)
+
+        return None
