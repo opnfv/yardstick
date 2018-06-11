@@ -13,8 +13,10 @@
 # limitations under the License.
 
 import unittest
+import mock
 
 from yardstick.benchmark.contexts import base
+from yardstick.benchmark.contexts.base import Context
 
 
 class FlagsTestCase(unittest.TestCase):
@@ -44,3 +46,20 @@ class FlagsTestCase(unittest.TestCase):
         self.flags.parse(foo=42)
         with self.assertRaises(AttributeError):
             _ = self.flags.foo
+
+
+class ContextTestCase(unittest.TestCase):
+
+    def test_get_physical_nodes(self):
+        physical_nodes = [{'name': 'fake'}]
+        context = mock.Mock()
+        context._name = "fake_name"
+        context._get_physical_nodes = mock.Mock(return_value=physical_nodes)
+        Context.list = [context]
+
+        result = Context.get_physical_nodes()
+        Context.list = []
+
+        expected = {'fake_name': [{'name': 'fake'}]}
+
+        self.assertEquals(result, expected)
