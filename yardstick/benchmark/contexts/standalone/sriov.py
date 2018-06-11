@@ -106,6 +106,23 @@ class SriovContext(Context):
             build_vfs = "echo 0 > /sys/bus/pci/devices/{0}/sriov_numvfs"
             self.connection.execute(build_vfs.format(ports.get('phy_port')))
 
+    def _get_physical_nodes(self):
+        return self.nfvi_host
+
+    def _get_physical_node_for_server(self, server_name):
+        """NOTE: As I understand  self.nfvi_host always contain only one host.
+        But we need to check that provided server is from this context
+        """
+        node_name, ctx_name = self.split_name(server_name)
+        if ctx_name is None or self.name != ctx_name:
+            return None
+
+        matching_nodes = [s for s in self.servers if s == node_name]
+        if len(matching_nodes) == 0:
+            return None
+
+        return "{}.{}".format(self.nfvi_host[0]["name"], self.name.split('-')[0])
+
     def _get_server(self, attr_name):
         """lookup server info by name from context
 
