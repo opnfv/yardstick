@@ -15,6 +15,7 @@ import mock
 from yardstick.common import constants as consts
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import node
+from yardstick.common import exceptions
 
 
 class NodeContextTestCase(unittest.TestCase):
@@ -55,8 +56,9 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertEqual(self.test_context.env, {})
         self.assertEqual(self.test_context.attrs, {})
 
+    @mock.patch('yardstick.common.utils.read_yaml_file')
     @mock.patch('{}.os.path.join'.format(PREFIX))
-    def test_init_negative(self, mock_path_join):
+    def test_init_negative(self, mock_path_join, read_mock):
         special_path = '/foo/bar/error_file'
         error_path = self._get_file_abspath("error_file")
 
@@ -68,7 +70,6 @@ class NodeContextTestCase(unittest.TestCase):
         # we can't count mock_path_join calls because
         # it can catch join calls for .pyc files.
         mock_path_join.side_effect = path_join
-        self.test_context.read_config_file = read_mock = mock.Mock()
         read_calls = 0
 
         with self.assertRaises(KeyError):
@@ -86,7 +87,7 @@ class NodeContextTestCase(unittest.TestCase):
             self.test_context.init(attrs)
 
         read_calls += 1
-        self.assertEqual(read_mock.called, read_calls)
+        self.assertEqual(read_mock.call_count, read_calls)
         self.assertIn(attrs['file'], self.test_context.file_path)
         self.assertEqual(raised.exception.errno, errno.EBUSY)
         self.assertEqual(str(raised.exception), str(read_mock.side_effect))
@@ -100,11 +101,6 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertEqual(self.test_context.file_path, special_path)
         self.assertEqual(raised.exception.errno, errno.ENOENT)
         self.assertEqual(str(raised.exception), str(read_mock.side_effect))
-
-    def test_read_config_file(self):
-        self.test_context.init(self.attrs)
-
-        self.assertIsNotNone(self.test_context.read_config_file())
 
     def test__dispatch_script(self):
         self.test_context.init(self.attrs)
@@ -170,6 +166,39 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertEqual(result['name'], 'node1.foo-12345678')
         self.assertEqual(result['user'], 'root')
         self.assertEqual(result['key_filename'], '/root/.yardstick_key')
+
+    def test__get_physical_nodes(self):
+        self.test_context.init(self.attrs)
+        nodes = self.test_context._get_physical_nodes()
+        self.assertEquals(nodes, self.test_context.nodes)
+
+    def test__get_physical_node_for_server(self):
+        self.test_context.init(self.attrs)
+
+        # When server is not from this context
+        result = self.test_context._get_physical_node_for_server('node1.another-context')
+        self.assertIsNone(result)
+
+        # When node_name is not from this context
+        result = self.test_context._get_physical_node_for_server('fake.foo-12345678')
+        self.assertIsNone(result)
+
+        result = self.test_context._get_physical_node_for_server('node1.foo-12345678')
+        self.assertEqual(result, 'node1.foo')
+
+    def test_update_collectd_options_for_node(self):
+        self.test_context.init(self.attrs)
+        options = {'collectd': {'interval': 5}}
+
+        with self.assertRaises(exceptions.ContextUpdateCollectdForNodeError):
+            self.test_context.update_collectd_options_for_node(options, 'fake.foo-12345678')
+
+        self.test_context.update_collectd_options_for_node(options, 'node1.foo-12345678')
+
+        node_collectd_options = [node for node in self.test_context.nodes
+                                 if node['name'] == 'node1'][0]['collectd']
+
+        self.assertEquals(node_collectd_options, options)
 
     @mock.patch('{}.NodeContext._dispatch_script'.format(PREFIX))
     def test_deploy(self, dispatch_script_mock):

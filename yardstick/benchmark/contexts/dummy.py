@@ -32,3 +32,9 @@ class DummyContext(Context):
 
     def _get_network(self, attr_name):
         return None
+
+    def _get_physical_nodes(self):
+        return None
+
+    def _get_physical_node_for_server(self, server_name):
+        return None

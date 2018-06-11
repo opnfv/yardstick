@@ -290,6 +290,22 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.assertEqual(result['user'], 'root')
         self.assertEqual(result['key_filename'], '/root/.yardstick_key')
 
+    def test__get_physical_node_for_server(self):
+        attrs = self.attrs
+        attrs.update({'servers': {'server1': {}}})
+        self.ovs_dpdk.init(attrs)
+
+        # When server is not from this context
+        result = self.ovs_dpdk._get_physical_node_for_server('server1.another-context')
+        self.assertIsNone(result)
+
+        # When node_name is not from this context
+        result = self.ovs_dpdk._get_physical_node_for_server('fake.foo-12345678')
+        self.assertIsNone(result)
+
+        result = self.ovs_dpdk._get_physical_node_for_server('server1.foo-12345678')
+        self.assertEqual(result, 'node5.foo')
+
     # TODO(elfoley): Split this test for networks that exist and networks that
     #                don't
     def test__get_network(self):

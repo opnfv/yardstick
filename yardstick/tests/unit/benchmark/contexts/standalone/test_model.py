@@ -315,11 +315,6 @@ class StandaloneContextHelperTestCase(unittest.TestCase):
         file_path = os.path.join(curr_path, filename)
         return file_path
 
-    def test_read_config_file(self):
-        self.helper.file_path = self._get_file_abspath(self.NODE_SAMPLE)
-        status = self.helper.read_config_file()
-        self.assertIsNotNone(status)
-
     def test_parse_pod_file(self):
         self.helper.file_path = self._get_file_abspath("dummy")
         self.assertRaises(IOError, self.helper.parse_pod_file,

@@ -10,8 +10,10 @@
 from oslo_utils import uuidutils
 import unittest
 import mock
-
+import shade
 from shade import exc
+
+from yardstick.common import constants
 from yardstick.common import openstack_utils
 
 
@@ -35,22 +37,50 @@ class GetHeatApiVersionTestCase(unittest.TestCase):
             self.assertEqual(api_version, expected_result)
 
 
+class GetShadeClientTestCase(unittest.TestCase):
+
+    @mock.patch.object(shade, 'openstack_cloud', return_value='os_client')
+    def test_get_shade_client(self, mock_openstack_cloud):
+        os_cloud_config = {'param1': True, 'param2': 'value2'}
+        self.assertEqual('os_client',
+                         openstack_utils.get_shade_client(**os_cloud_config))
+        os_cloud_config.update(constants.OS_CLOUD_DEFAULT_CONFIG)
+        mock_openstack_cloud.assert_called_once_with(**os_cloud_config)
+
+        mock_openstack_cloud.reset_mock()
+        os_cloud_config = {'verify': True, 'param2': 'value2'}
+        self.assertEqual('os_client',
+                         openstack_utils.get_shade_client(**os_cloud_config))
+        mock_openstack_cloud.assert_called_once_with(**os_cloud_config)
+
+    @mock.patch.object(shade, 'openstack_cloud', return_value='os_client')
+    def test_get_shade_client_no_parameters(self, mock_openstack_cloud):
+        self.assertEqual('os_client', openstack_utils.get_shade_client())
+        mock_openstack_cloud.assert_called_once_with(
+            **constants.OS_CLOUD_DEFAULT_CONFIG)
+
+    @mock.patch.object(shade, 'operator_cloud', return_value='os_client')
+    def test_get_shade_operator_client(self, mock_operator_cloud):
+        self.assertEqual('os_client', openstack_utils.get_shade_operator_client())
+        mock_operator_cloud.assert_called_once_with(
+            **constants.OS_CLOUD_DEFAULT_CONFIG)
+
+
 class DeleteNeutronNetTestCase(unittest.TestCase):
 
     def setUp(self):
         self.mock_shade_client = mock.Mock()
-        self.mock_shade_client.delete_network = mock.Mock()
 
     def test_delete_neutron_net(self):
         self.mock_shade_client.delete_network.return_value = True
         output = openstack_utils.delete_neutron_net(self.mock_shade_client,
-                                                    'network_id')
+                                                    'network_name_or_id')
         self.assertTrue(output)
 
     def test_delete_neutron_net_fail(self):
         self.mock_shade_client.delete_network.return_value = False
         output = openstack_utils.delete_neutron_net(self.mock_shade_client,
-                                                    'network_id')
+                                                    'network_name_or_id')
         self.assertFalse(output)
 
     @mock.patch.object(openstack_utils, 'log')
@@ -58,7 +88,7 @@ class DeleteNeutronNetTestCase(unittest.TestCase):
         self.mock_shade_client.delete_network.side_effect = (
             exc.OpenStackCloudException('error message'))
         output = openstack_utils.delete_neutron_net(self.mock_shade_client,
-                                                    'network_id')
+                                                    'network_name_or_id')
         self.assertFalse(output)
         mock_logger.error.assert_called_once()
 
@@ -282,3 +312,416 @@ class ListImageTestCase(unittest.TestCase):
         images = openstack_utils.list_images(mock_shade_client)
         mock_logger.error.assert_called_once()
         self.assertFalse(images)
+
+
+class SecurityGroupTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.sg_name = 'sg_name'
+        self.sg_description = 'sg_description'
+        self._uuid = uuidutils.generate_uuid()
+
+    def test_create_security_group_full_existing_security_group(self):
+        self.mock_shade_client.get_security_group.return_value = (
+            {'name': 'name', 'id': self._uuid})
+        output = openstack_utils.create_security_group_full(
+            self.mock_shade_client, self.sg_name, self.sg_description)
+        self.mock_shade_client.get_security_group.assert_called_once()
+        self.assertEqual(self._uuid, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_security_group_full_non_existing_security_group(
+            self, mock_logger):
+        self.mock_shade_client.get_security_group.return_value = None
+        self.mock_shade_client.create_security_group.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.create_security_group_full(
+            self.mock_shade_client, self.sg_name, self.sg_description)
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
+
+    @mock.patch.object(openstack_utils, 'create_security_group_rule')
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_security_group_full_create_rule_fail(
+            self, mock_logger, mock_create_security_group_rule):
+        self.mock_shade_client.get_security_group.return_value = None
+        self.mock_shade_client.create_security_group.return_value = (
+            {'name': 'name', 'id': self._uuid})
+        mock_create_security_group_rule.return_value = False
+        output = openstack_utils.create_security_group_full(
+            self.mock_shade_client, self.sg_name, self.sg_description)
+        mock_create_security_group_rule.assert_called()
+        self.mock_shade_client.delete_security_group(self.sg_name)
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
+
+    @mock.patch.object(openstack_utils, 'create_security_group_rule')
+    def test_create_security_group_full(
+            self, mock_create_security_group_rule):
+        self.mock_shade_client.get_security_group.return_value = None
+        self.mock_shade_client.create_security_group.return_value = (
+            {'name': 'name', 'id': self._uuid})
+        mock_create_security_group_rule.return_value = True
+        output = openstack_utils.create_security_group_full(
+            self.mock_shade_client, self.sg_name, self.sg_description)
+        mock_create_security_group_rule.assert_called()
+        self.mock_shade_client.delete_security_group(self.sg_name)
+        self.assertEqual(self._uuid, output)
+
+# *********************************************
+#   NOVA
+# *********************************************
+
+
+class CreateInstanceTestCase(unittest.TestCase):
+
+    def test_create_instance_and_wait_for_active(self):
+        self.mock_shade_client = mock.Mock()
+        name = 'server_name'
+        image = 'image_name'
+        flavor = 'flavor_name'
+        self.mock_shade_client.create_server.return_value = (
+            {'name': name, 'image': image, 'flavor': flavor})
+        output = openstack_utils.create_instance_and_wait_for_active(
+            self.mock_shade_client, name, image, flavor)
+        self.assertEqual(
+            {'name': name, 'image': image, 'flavor': flavor}, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_instance_and_wait_for_active_fail(self, mock_logger):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.create_server.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.create_instance_and_wait_for_active(
+            self.mock_shade_client, 'server_name', 'image_name', 'flavor_name')
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
+
+
+class DeleteInstanceTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+
+    def test_delete_instance(self):
+        self.mock_shade_client.delete_server.return_value = True
+        output = openstack_utils.delete_instance(self.mock_shade_client,
+                                                 'instance_name_id')
+        self.assertTrue(output)
+
+    def test_delete_instance_fail(self):
+        self.mock_shade_client.delete_server.return_value = False
+        output = openstack_utils.delete_instance(self.mock_shade_client,
+                                                 'instance_name_id')
+        self.assertFalse(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_delete_instance_exception(self, mock_logger):
+        self.mock_shade_client.delete_server.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.delete_instance(self.mock_shade_client,
+                                                 'instance_name_id')
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
+
+
+class CreateKeypairTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.name = 'key_name'
+
+    def test_create_keypair(self):
+        self.mock_shade_client.create_keypair.return_value = (
+            {'name': 'key-name', 'type': 'ssh'})
+        output = openstack_utils.create_keypair(
+            self.mock_shade_client, self.name)
+        self.assertEqual(
+            {'name': 'key-name', 'type': 'ssh'},
+            output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_keypair_fail(self, mock_logger):
+        self.mock_shade_client.create_keypair.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.create_keypair(
+            self.mock_shade_client, self.name)
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
+
+
+class DeleteKeypairTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+
+    def test_delete_keypair(self):
+        self.mock_shade_client.delete_keypair.return_value = True
+        output = openstack_utils.delete_keypair(self.mock_shade_client,
+                                                'key_name')
+        self.assertTrue(output)
+
+    def test_delete_keypair_fail(self):
+        self.mock_shade_client.delete_keypair.return_value = False
+        output = openstack_utils.delete_keypair(self.mock_shade_client,
+                                                'key_name')
+        self.assertFalse(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_delete_keypair_exception(self, mock_logger):
+        self.mock_shade_client.delete_keypair.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.delete_keypair(self.mock_shade_client,
+                                                'key_name')
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
+
+
+class AttachVolumeToServerTestCase(unittest.TestCase):
+
+    def test_attach_volume_to_server(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.get_server.return_value = {'server_dict'}
+        self.mock_shade_client.get_volume.return_value = {'volume_dict'}
+        self.mock_shade_client.attach_volume.return_value = True
+        output = openstack_utils.attach_volume_to_server(
+            self.mock_shade_client, 'server_name_or_id', 'volume_name_or_id')
+        self.assertTrue(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_attach_volume_to_server_fail(self, mock_logger):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.attach_volume.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.attach_volume_to_server(
+            self.mock_shade_client, 'server_name_or_id', 'volume_name_or_id')
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
+
+
+class GetServerTestCase(unittest.TestCase):
+
+    def test_get_server(self):
+        self.mock_shade_client = mock.Mock()
+        _uuid = uuidutils.generate_uuid()
+        self.mock_shade_client.get_server.return_value = {
+            'name': 'server_name', 'id': _uuid}
+        output = openstack_utils.get_server(self.mock_shade_client,
+                                            'server_name_or_id')
+        self.assertEqual({'name': 'server_name', 'id': _uuid}, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_get_server_exception(self, mock_logger):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.get_server.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.get_server(self.mock_shade_client,
+                                            'server_name_or_id')
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
+
+
+class GetFlavorTestCase(unittest.TestCase):
+
+    def test_get_flavor(self):
+        self.mock_shade_client = mock.Mock()
+        _uuid = uuidutils.generate_uuid()
+        self.mock_shade_client.get_flavor.return_value = {
+            'name': 'flavor_name', 'id': _uuid}
+        output = openstack_utils.get_flavor(self.mock_shade_client,
+                                            'flavor_name_or_id')
+        self.assertEqual({'name': 'flavor_name', 'id': _uuid}, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_get_flavor_exception(self, mock_logger):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.get_flavor.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.get_flavor(self.mock_shade_client,
+                                            'flavor_name_or_id')
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
+
+# *********************************************
+#   CINDER
+# *********************************************
+
+
+class GetVolumeIDTestCase(unittest.TestCase):
+
+    def test_get_volume_id(self):
+        self.mock_shade_client = mock.Mock()
+        _uuid = uuidutils.generate_uuid()
+        self.mock_shade_client.get_volume_id.return_value = _uuid
+        output = openstack_utils.get_volume_id(self.mock_shade_client,
+                                               'volume_name')
+        self.assertEqual(_uuid, output)
+
+    def test_get_volume_id_None(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.get_volume_id.return_value = None
+        output = openstack_utils.get_volume_id(self.mock_shade_client,
+                                               'volume_name')
+        self.assertIsNone(output)
+
+
+class GetVolumeTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.get_volume = mock.Mock()
+
+    def test_get_volume(self):
+        self.mock_shade_client.get_volume.return_value = {'volume'}
+        output = openstack_utils.get_volume(self.mock_shade_client,
+                                            'volume_name_or_id')
+        self.assertEqual({'volume'}, output)
+
+    def test_get_volume_None(self):
+        self.mock_shade_client.get_volume.return_value = None
+        output = openstack_utils.get_volume(self.mock_shade_client,
+                                            'volume_name_or_id')
+        self.assertIsNone(output)
+
+
+class CreateVolumeTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self.size = 1
+
+    def test_create_volume(self):
+        self.mock_shade_client.create_volume.return_value = (
+            {'name': 'volume-name', 'size': self.size})
+        output = openstack_utils.create_volume(
+            self.mock_shade_client, self.size)
+        self.assertEqual(
+            {'name': 'volume-name', 'size': self.size},
+            output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_volume_fail(self, mock_logger):
+        self.mock_shade_client.create_volume.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.create_volume(self.mock_shade_client,
+                                               self.size)
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
+
+
+class DeleteVolumeTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+
+    def test_delete_volume(self):
+        self.mock_shade_client.delete_volume.return_value = True
+        output = openstack_utils.delete_volume(self.mock_shade_client,
+                                               'volume_name_or_id')
+        self.assertTrue(output)
+
+    def test_delete_volume_fail(self):
+        self.mock_shade_client.delete_volume.return_value = False
+        output = openstack_utils.delete_volume(self.mock_shade_client,
+                                               'volume_name_or_id')
+        self.assertFalse(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_delete_volume_exception(self, mock_logger):
+        self.mock_shade_client.delete_volume.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.delete_volume(self.mock_shade_client,
+                                               'volume_name_or_id')
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
+
+
+class DetachVolumeTestCase(unittest.TestCase):
+
+    @mock.patch.object(openstack_utils, 'get_server')
+    def test_detach_volume(self, mock_get_server):
+        self.mock_shade_client = mock.Mock()
+        mock_get_server.return_value = {'server_dict'}
+        self.mock_shade_client.get_volume.return_value = {'volume_dict'}
+        output = openstack_utils.detach_volume(self.mock_shade_client,
+                                               'server_name_or_id',
+                                               'volume_name_or_id')
+        self.assertTrue(output)
+
+    @mock.patch.object(openstack_utils, 'get_server')
+    @mock.patch.object(openstack_utils, 'log')
+    def test_detach_volume_exception(self, mock_logger, mock_get_server):
+        self.mock_shade_client = mock.Mock()
+        mock_get_server.return_value = {'server_dict'}
+        self.mock_shade_client.get_volume.return_value = {'volume_dict'}
+        self.mock_shade_client.detach_volume.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.detach_volume(self.mock_shade_client,
+                                               'server_name_or_id',
+                                               'volume_name_or_id')
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
+
+
+# *********************************************
+#   GLANCE
+# *********************************************
+
+class CreateImageTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.mock_shade_client = mock.Mock()
+        self._uuid = uuidutils.generate_uuid()
+        self.name = 'image_name'
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_image_already_exit(self, mock_logger):
+        self.mock_shade_client.get_image_id.return_value = self._uuid
+        output = openstack_utils.create_image(self.mock_shade_client, self.name)
+        mock_logger.info.assert_called_once()
+        self.assertEqual(self._uuid, output)
+
+    def test_create_image(self):
+        self.mock_shade_client.get_image_id.return_value = None
+        self.mock_shade_client.create_image.return_value = {'id': self._uuid}
+        output = openstack_utils.create_image(self.mock_shade_client, self.name)
+        self.assertEqual(self._uuid, output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_create_image_exception(self, mock_logger):
+        self.mock_shade_client.get_image_id.return_value = None
+        self.mock_shade_client.create_image.side_effect = (
+            exc.OpenStackCloudException('error message'))
+
+        output = openstack_utils.create_image(self.mock_shade_client,
+                                              self.name)
+        mock_logger.error.assert_called_once()
+        self.assertIsNone(output)
+
+
+class DeleteImageTestCase(unittest.TestCase):
+
+    def test_delete_image(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.delete_image.return_value = True
+        output = openstack_utils.delete_image(self.mock_shade_client,
+                                              'image_name_or_id')
+        self.assertTrue(output)
+
+    def test_delete_image_fail(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.delete_image.return_value = False
+        output = openstack_utils.delete_image(self.mock_shade_client,
+                                              'image_name_or_id')
+        self.assertFalse(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_delete_image_exception(self, mock_logger):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.delete_image.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.delete_image(self.mock_shade_client,
+                                              'image_name_or_id')
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
