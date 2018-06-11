@@ -59,6 +59,12 @@ class GetShadeClientTestCase(unittest.TestCase):
         mock_openstack_cloud.assert_called_once_with(
             **constants.OS_CLOUD_DEFAULT_CONFIG)
 
+    @mock.patch.object(shade, 'operator_cloud', return_value='os_client')
+    def test_get_shade_operator_client(self, mock_operator_cloud):
+        self.assertEqual('os_client', openstack_utils.get_shade_operator_client())
+        mock_operator_cloud.assert_called_once_with(
+            **constants.OS_CLOUD_DEFAULT_CONFIG)
+
 
 class DeleteNeutronNetTestCase(unittest.TestCase):
 

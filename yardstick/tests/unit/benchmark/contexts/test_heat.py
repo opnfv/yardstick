@@ -12,30 +12,53 @@ import logging
 import os
 
 import mock
+import unittest
 
-from yardstick import ssh
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import heat
 from yardstick.benchmark.contexts import model
 from yardstick.common import constants as consts
 from yardstick.common import exceptions as y_exc
-from yardstick.tests.unit import base as ut_base
+from yardstick.common import openstack_utils
+from yardstick import ssh
 
 
 LOG = logging.getLogger(__name__)
 
 
-class HeatContextTestCase(ut_base.BaseUnitTestCase):
+class HeatContextTestCase(unittest.TestCase):
+
+    HEAT_POD_SAMPLE = {
+        "nodes": [
+            {
+                "name": "node1",
+                "role": "Controller",
+                "ip": "10.229.47.137",
+                "user": "root",
+                "key_filename": "/root/.yardstick_key"
+            },
+            {
+                "name": "node2",
+                "role": "Compute",
+                "ip": "10.229.47.139",
+                "user": "root",
+                "key_filename": "/root/.yardstick_key"
+            }
+        ]
+    }
+
+    def __init__(self, *args, **kwargs):
+
+        super(HeatContextTestCase, self).__init__(*args, **kwargs)
 
     def setUp(self):
         self.test_context = heat.HeatContext()
         self.addCleanup(self._remove_contexts)
+        self.mock_context = mock.Mock(spec=heat.HeatContext())
 
-    @staticmethod
-    def _remove_contexts():
-        for context in base.Context.list:
-            context._delete_context()
-        base.Context.list = []
+    def _remove_contexts(self):
+        if self.test_context in self.test_context.list:
+            self.test_context._delete_context()
 
     def test___init__(self):
         self.assertIsNone(self.test_context._name)
@@ -57,24 +80,29 @@ class HeatContextTestCase(ut_base.BaseUnitTestCase):
         self.assertIsNone(self.test_context.heat_parameters)
         self.assertIsNone(self.test_context.key_filename)
 
+    @mock.patch('yardstick.common.utils.read_yaml_file')
     @mock.patch('yardstick.benchmark.contexts.heat.PlacementGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.ServerGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.Network')
     @mock.patch('yardstick.benchmark.contexts.heat.Server')
-    def test_init(self, mock_server, mock_network, mock_sg, mock_pg):
+    def test_init(self, mock_server, mock_network, mock_sg, mock_pg, mock_read_yaml):
 
+        mock_read_yaml.return_value = self.HEAT_POD_SAMPLE
         pgs = {'pgrp1': {'policy': 'availability'}}
         sgs = {'servergroup1': {'policy': 'affinity'}}
         networks = {'bar': {'cidr': '10.0.1.0/24'}}
         servers = {'baz': {'floating_ip': True, 'placement': 'pgrp1'}}
         attrs = {'name': 'foo',
+                 'file': 'pod.yaml',
                  'task_id': '1234567890',
                  'placement_groups': pgs,
                  'server_groups': sgs,
                  'networks': networks,
                  'servers': servers}
 
-        self.test_context.init(attrs)
+        with mock.patch.object(openstack_utils, 'get_shade_client'), \
+             mock.patch.object(openstack_utils, 'get_shade_operator_client'):
+            self.test_context.init(attrs)
 
         self.assertFalse(self.test_context._flags.no_setup)
         self.assertFalse(self.test_context._flags.no_teardown)
@@ -128,13 +156,17 @@ class HeatContextTestCase(ut_base.BaseUnitTestCase):
                  'server_groups': {},
                  'networks': {},
                  'servers': {},
+                 'file': "pod.yaml",
                  'flags': {
                      'no_setup': True,
                      'no_teardown': True,
                      },
                 }
 
-        self.test_context.init(attrs)
+        with mock.patch.object(openstack_utils, 'get_shade_client'), \
+             mock.patch.object(openstack_utils, 'get_shade_operator_client'):
+            self.test_context.init(attrs)
+
         self.assertTrue(self.test_context._flags.no_setup)
         self.assertTrue(self.test_context._flags.no_teardown)
 
@@ -654,7 +686,6 @@ class HeatContextTestCase(ut_base.BaseUnitTestCase):
         baz3_server.public_ip = None
         baz3_server.context.user = 'zab'
 
-        self.mock_context = mock.Mock(spec=heat.HeatContext())
         self.mock_context._name = 'bar1'
         self.test_context.stack = mock.Mock()
         self.mock_context.stack.outputs = {
@@ -722,3 +753,56 @@ class HeatContextTestCase(ut_base.BaseUnitTestCase):
         }
         result = self.test_context._get_network(attr_name)
         self.assertDictEqual(result, expected)
+
+    def _get_file_abspath(self, filename):
+        curr_path = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(curr_path, filename)
+        return file_path
+
+    def test__get_physical_nodes(self):
+        self.test_context.nodes = {}
+        nodes = self.test_context._get_physical_nodes()
+        self.assertEquals(nodes, {})
+
+    @mock.patch('yardstick.common.utils.read_yaml_file')
+    def test__get_physical_node_for_server(self, mock_read_yaml):
+        attrs = {'name': 'foo',
+                 'task_id': '12345678',
+                 'file': "pod.yaml",
+                 'servers': {'vnf': {}},
+                 'networks': {'mgmt': {'cidr': '10.0.1.0/24'}}
+                 }
+
+        with mock.patch.object(openstack_utils, 'get_shade_client'), \
+             mock.patch.object(openstack_utils, 'get_shade_operator_client'):
+            mock_read_yaml.return_value = self.HEAT_POD_SAMPLE
+            self.test_context.init(attrs)
+
+        with mock.patch('yardstick.common.openstack_utils.get_server') as mock_get_server:
+            mock_get_server.return_value = {'vnf': {}}
+
+            # When server is not from this context
+            result = self.test_context._get_physical_node_for_server('node1.foo-context')
+            self.assertIsNone(result)
+
+            # When node_name is not from this context
+            result = self.test_context._get_physical_node_for_server('fake.foo-12345678')
+            self.assertIsNone(result)
+
+            mock_munch = mock.Mock()
+            mock_munch.toDict = mock.Mock(return_value={
+                'OS-EXT-SRV-ATTR:hypervisor_hostname': 'hypervisor_hostname'
+            })
+            mock_get_server.return_value = mock_munch
+
+            hypervisor = mock.Mock()
+            hypervisor.hypervisor_hostname = 'hypervisor_hostname'
+            hypervisor.host_ip = '10.229.47.137'
+
+            self.test_context.operator_client.list_hypervisors = mock.Mock(
+                return_value=[hypervisor])
+
+            mock_get_server.return_value = mock_munch
+
+            result = self.test_context._get_physical_node_for_server('vnf.foo-12345678')
+            self.assertEqual(result, 'node1.foo')
