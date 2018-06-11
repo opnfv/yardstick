@@ -68,6 +68,10 @@ class ResourceCommandError(YardstickException):
     message = 'Command: "%(command)s" Failed, stderr: "%(stderr)s"'
 
 
+class ContextUpdateCollectdForNodeError(YardstickException):
+    message = 'Cannot find node %(attr_name)s'
+
+
 class FunctionNotImplemented(YardstickException):
     message = ('The function "%(function_name)s" is not implemented in '
                '"%(class_name)" class.')
