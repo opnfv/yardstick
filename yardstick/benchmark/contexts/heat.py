@@ -29,6 +29,8 @@ from yardstick.common import constants as consts
 from yardstick.common import utils
 from yardstick.common.utils import source_env
 from yardstick.ssh import SSH
+from yardstick.common.utils import read_yaml_file
+from yardstick.common import openstack_utils
 
 LOG = logging.getLogger(__name__)
 
@@ -68,6 +70,12 @@ class HeatContext(Context):
         self.shade_client = None
         self.heat_timeout = None
         self.key_filename = None
+        self.file_path = None
+        self.shade_client = None
+        self.nodes = []
+        self.controllers = []
+        self.computes = []
+        self.baremetals = []
         super(HeatContext, self).__init__()
 
     @staticmethod
@@ -95,6 +103,25 @@ class HeatContext(Context):
         self._user = attrs.get("user")
 
         self.template_file = attrs.get("heat_template")
+
+        self.file_path = attrs.get("file", "pod.yaml")
+
+        self.shade_client = openstack_utils.get_shade_client()
+
+        cfg = read_yaml_file(self.file_path)
+
+        self.nodes.extend(cfg["nodes"])
+        self.controllers.extend([node for node in cfg["nodes"]
+                                 if node.get("role") == "Controller"])
+        self.computes.extend([node for node in cfg["nodes"]
+                              if node.get("role") == "Compute"])
+        self.baremetals.extend([node for node in cfg["nodes"]
+                                if node.get("role") == "Baremetal"])
+
+        LOG.debug("Nodes: %r", self.nodes)
+        LOG.debug("Controllers: %r", self.controllers)
+        LOG.debug("Computes: %r", self.computes)
+        LOG.debug("BareMetals: %r", self.baremetals)
 
         self.heat_timeout = attrs.get("timeout", DEFAULT_HEAT_TIMEOUT)
         if self.template_file:
@@ -528,3 +555,24 @@ class HeatContext(Context):
             "physical_network": network.physical_network,
         }
         return result
+
+    def _get_physical_nodes(self):
+        return self.nodes
+
+    def _get_physical_node_for_server(self, server_name):
+        node_name, name = self.split_name(server_name)
+        if name is None or self.name != name:
+            return None
+
+        matching_nodes = [s for s in self.servers if s.name == node_name]
+        if len(matching_nodes) == 0:
+            return None
+
+        server = openstack_utils.get_server(self.shade_client,
+                                            name_or_id=node_name)
+
+        if server:
+            pass
+            # TODO: return node for server
+
+        return None
