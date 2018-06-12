@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_05f9754d",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_duration.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 2175
+      },
+      "writtenOn": "2018-06-12T07:22:48Z",
+      "side": 1,
+      "message": "extra blank line, could be removed",
+      "revId": "5a08189169f0c29a03fc8d62ac3a961051be5c1c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
