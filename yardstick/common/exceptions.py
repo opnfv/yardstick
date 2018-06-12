@@ -21,6 +21,16 @@ class ProcessExecutionError(RuntimeError):
         self.returncode = returncode
 
 
+class ErrorClass(object):
+
+    def __init__(self, *args, **kwargs):
+        if 'test' not in kwargs:
+            raise RuntimeError
+
+    def __getattr__(self, item):
+        raise AttributeError
+
+
 class YardstickException(Exception):
     """Base Yardstick Exception.
 
@@ -135,6 +145,26 @@ class LibvirtQemuImageBaseImageNotPresent(YardstickException):
 class LibvirtQemuImageCreateError(YardstickException):
     message = ('Error creating the qemu image for %(vm_image)s. Base image: '
                '%(base_image)s. Error: %(error)s.')
+
+
+class SSHError(YardstickException):
+    message = '%(error_msg)s'
+
+
+class SSHTimeout(SSHError):
+    pass
+
+
+class IncorrectConfig(YardstickException):
+    message = '%(error_msg)s'
+
+
+class IncorrectSetup(YardstickException):
+    message = '%(error_msg)s'
+
+
+class IncorrectNodeSetup(IncorrectSetup):
+    pass
 
 
 class ScenarioConfigContextNameNotFound(YardstickException):

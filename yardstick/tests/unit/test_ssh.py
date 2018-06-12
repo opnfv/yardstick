@@ -13,10 +13,6 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-# yardstick comment: this file is a modified copy of
-# rally/tests/unit/common/test_sshutils.py
-
-from __future__ import absolute_import
 import os
 import socket
 import unittest
@@ -26,8 +22,8 @@ from itertools import count
 import mock
 from oslo_utils import encodeutils
 
+from yardstick.common import exceptions
 from yardstick import ssh
-from yardstick.ssh import SSHError, SSHTimeout
 from yardstick.ssh import SSH
 from yardstick.ssh import AutoConnectSSH
 
@@ -127,7 +123,7 @@ class SSHTestCase(unittest.TestCase):
         dss = mock_paramiko.dsskey.DSSKey
         rsa.from_private_key.side_effect = mock_paramiko.SSHException
         dss.from_private_key.side_effect = mock_paramiko.SSHException
-        self.assertRaises(ssh.SSHError, self.test_client._get_pkey, "key")
+        self.assertRaises(exceptions.SSHError, self.test_client._get_pkey, "key")
 
     @mock.patch("yardstick.ssh.six.moves.StringIO")
     @mock.patch("yardstick.ssh.paramiko")
@@ -194,7 +190,7 @@ class SSHTestCase(unittest.TestCase):
 
         test_ssh = ssh.SSH("admin", "example.net", pkey="key")
 
-        with self.assertRaises(SSHError) as raised:
+        with self.assertRaises(exceptions.SSHError) as raised:
             test_ssh._get_client()
 
         self.assertEqual(mock_paramiko.SSHClient.call_count, 1)
@@ -245,18 +241,18 @@ class SSHTestCase(unittest.TestCase):
     @mock.patch("yardstick.ssh.time")
     def test_wait_timeout(self, mock_time):
         mock_time.time.side_effect = [1, 50, 150]
-        self.test_client.execute = mock.Mock(side_effect=[ssh.SSHError,
-                                                          ssh.SSHError,
+        self.test_client.execute = mock.Mock(side_effect=[exceptions.SSHError,
+                                                          exceptions.SSHError,
                                                           0])
-        self.assertRaises(ssh.SSHTimeout, self.test_client.wait)
+        self.assertRaises(exceptions.SSHTimeout, self.test_client.wait)
         self.assertEqual([mock.call("uname")] * 2,
                          self.test_client.execute.mock_calls)
 
     @mock.patch("yardstick.ssh.time")
     def test_wait(self, mock_time):
         mock_time.time.side_effect = [1, 50, 100]
-        self.test_client.execute = mock.Mock(side_effect=[ssh.SSHError,
-                                                          ssh.SSHError,
+        self.test_client.execute = mock.Mock(side_effect=[exceptions.SSHError,
+                                                          exceptions.SSHError,
                                                           0])
         self.test_client.wait()
         self.assertEqual([mock.call("uname")] * 3,
@@ -333,7 +329,7 @@ class SSHRunTestCase(unittest.TestCase):
     def test_run_nonzero_status(self, mock_select):
         mock_select.select.return_value = ([], [], [])
         self.fake_session.recv_exit_status.return_value = 1
-        self.assertRaises(ssh.SSHError, self.test_client.run, "cmd")
+        self.assertRaises(exceptions.SSHError, self.test_client.run, "cmd")
         self.assertEqual(1, self.test_client.run("cmd", raise_on_error=False))
 
     @mock.patch("yardstick.ssh.select")
@@ -401,7 +397,7 @@ class SSHRunTestCase(unittest.TestCase):
     def test_run_select_error(self, mock_select):
         self.fake_session.exit_status_ready.return_value = False
         mock_select.select.return_value = ([], [], [True])
-        self.assertRaises(ssh.SSHError, self.test_client.run, "cmd")
+        self.assertRaises(exceptions.SSHError, self.test_client.run, "cmd")
 
     @mock.patch("yardstick.ssh.time")
     @mock.patch("yardstick.ssh.select")
@@ -409,7 +405,7 @@ class SSHRunTestCase(unittest.TestCase):
         mock_time.time.side_effect = [1, 3700]
         mock_select.select.return_value = ([], [], [])
         self.fake_session.exit_status_ready.return_value = False
-        self.assertRaises(ssh.SSHTimeout, self.test_client.run, "cmd")
+        self.assertRaises(exceptions.SSHTimeout, self.test_client.run, "cmd")
 
     @mock.patch("yardstick.ssh.open", create=True)
     def test__put_file_shell(self, mock_open):
@@ -529,9 +525,9 @@ class TestAutoConnectSSH(unittest.TestCase):
 
         auto_connect_ssh = AutoConnectSSH('user1', 'host1', wait=10)
         auto_connect_ssh._get_client = mock__get_client = mock.Mock()
-        mock__get_client.side_effect = SSHError
+        mock__get_client.side_effect = exceptions.SSHError
 
-        with self.assertRaises(SSHTimeout):
+        with self.assertRaises(exceptions.SSHTimeout):
             auto_connect_ssh._connect()
 
         self.assertEqual(mock_time.time.call_count, 12)

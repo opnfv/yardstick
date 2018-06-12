@@ -17,10 +17,10 @@ import errno
 import mock
 import unittest
 
+from yardstick.common import exceptions
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.nfvi import resource, collectd
-from yardstick.common.exceptions import ResourceCommandError
-from yardstick import ssh
+
 
 class TestResourceProfile(unittest.TestCase):
     VNFD = {'vnfd:vnfd-catalog':
@@ -134,8 +134,8 @@ class TestResourceProfile(unittest.TestCase):
         self.assertIsNone(self.resource_profile._start_collectd(ssh_mock,
                                                                 "/opt/nsb_bin"))
 
-        ssh_mock.execute = mock.Mock(side_effect=ssh.SSHError)
-        with self.assertRaises(ssh.SSHError):
+        ssh_mock.execute = mock.Mock(side_effect=exceptions.SSHError)
+        with self.assertRaises(exceptions.SSHError):
             self.resource_profile._start_collectd(ssh_mock, "/opt/nsb_bin")
 
         ssh_mock.execute = mock.Mock(return_value=(1, "", ""))
@@ -148,11 +148,11 @@ class TestResourceProfile(unittest.TestCase):
         self.assertIsNone(self.resource_profile._start_rabbitmq(ssh_mock))
 
         ssh_mock.execute = mock.Mock(return_value=(0, "", ""))
-        with self.assertRaises(ResourceCommandError):
+        with self.assertRaises(exceptions.ResourceCommandError):
             self.resource_profile._start_rabbitmq(ssh_mock)
 
         ssh_mock.execute = mock.Mock(return_value=(1, "", ""))
-        with self.assertRaises(ResourceCommandError):
+        with self.assertRaises(exceptions.ResourceCommandError):
             self.resource_profile._start_rabbitmq(ssh_mock)
 
     def test__prepare_collectd_conf(self):
