@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_e2dc3777",
+        "filename": "samples/vnf_samples/nsut/prox/prox-tg-topology-4.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2018-06-12T08:08:31Z",
+      "side": 1,
+      "message": "When thinking about l2 or l3 use cases, I was initially confused by the terminology \"uplink\" and \"downlink\". This terminology makes mostly sense for PROX use cases such as the BNG, where there is an uplink and a downlink (resp. between CPE to BNG and between BNG and network). It is probably OK to use the same terminology for other use cases such as l2 and l3 (eventough it limits them in using an even number of interfaces, which should not be a requirements for use cases such as l2 or l3 fwd). However, I think that the names are confusing - is there any reason, to use vnf_to_tg for downlink and tg_to_vnf for uplink? This lets think that those links are uni-directional. There are all bi-directional links between vnf and tg. Why not using always vnf__0 to tg__0",
+      "revId": "2b68b72a36a07ed99c0fa9955b299c7d336fb89f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
