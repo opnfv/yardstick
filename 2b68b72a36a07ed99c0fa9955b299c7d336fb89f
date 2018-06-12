@@ -16,6 +16,24 @@
       "revId": "2b68b72a36a07ed99c0fa9955b299c7d336fb89f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_bb642ae6",
+        "filename": "samples/vnf_samples/nsut/prox/prox-tg-topology-4.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-12T17:51:39Z",
+      "side": 1,
+      "message": "Initially, these links were named as private and public and yes they seem like unidirectional.\nIdeally:\nUplink (private -\u003e public \u003d\u003d generator -\u003e SUT)\nDownlink (public -\u003e private \u003d\u003d SUT -\u003e generator)\n\nSome examples are there in vFW:\n1. 2 node with 4 port topology: https://git.opnfv.org/yardstick/tree/samples/vnf_samples/nsut/vfw/vfw-tg-topology-4port.yaml\n\n2. 3 node with 4 port topology:\nhttps://git.opnfv.org/yardstick/tree/samples/vnf_samples/nsut/vfw/vfw-tg-topology-3node-4.yaml",
+      "parentUuid": "da5c1566_e2dc3777",
+      "revId": "2b68b72a36a07ed99c0fa9955b299c7d336fb89f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
