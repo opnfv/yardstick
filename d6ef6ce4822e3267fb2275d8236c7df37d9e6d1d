@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_db40fe37",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vsperf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-12T16:39:57Z",
+      "side": 1,
+      "message": "As well as creating the VSPerf scenario, you need to set up the return values for the mocks, as these now don\u0027t have an explicit return_value set -- by default, return_value is set to mock.Mock().",
+      "revId": "d6ef6ce4822e3267fb2275d8236c7df37d9e6d1d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
