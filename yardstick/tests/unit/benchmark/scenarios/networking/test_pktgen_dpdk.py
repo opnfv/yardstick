@@ -12,6 +12,7 @@ import unittest
 
 import yardstick.common.utils as utils
 from yardstick.benchmark.scenarios.networking import pktgen_dpdk
+from yardstick import exceptions as y_exc
 
 
 class PktgenDPDKLatencyTestCase(unittest.TestCase):
@@ -164,7 +165,7 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
         self.mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
         self.assertRaises(AssertionError, p.run, result)
 
-    def test_pktgen_dpdk_unsuccessful_script_error(self):
+    def test_pktgen_dpdk_run_unsuccessful_get_port_mac(self):
 
         args = {
             'options': {'packetsize': 60},
@@ -176,3 +177,19 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
 
         self.mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p.run, result)
+
+    def test_pktgen_dpdk_run_unsuccessful_script_error(self):
+        args = {
+            'options': {'packetsize': 60}
+        }
+
+        p = pktgen_dpdk.PktgenDPDKLatency(args, self.ctx)
+
+        self.mock_ssh.SSH.from_node().execute.side_effect = ((0, '', ''),
+                                                             (0, '', ''),
+                                                             (0, '', ''),
+                                                             (0, '', ''),
+                                                             (0, '', ''),
+                                                             y_exc.SSHError)
+        self.assertRaises(y_exc.SSHError, p.run, {})
+        self.assertEqual(self.mock_ssh.SSH.from_node().execute.call_count, 6)

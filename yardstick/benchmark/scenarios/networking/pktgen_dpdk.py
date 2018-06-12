@@ -113,10 +113,7 @@ cat ~/result.log -vT \
 {print substr($0,RSTART,RLENGTH)}' \
 |grep -v ^$ |awk '{if ($2 != 0) print $2}'\
 """
-        client_status, client_stdout, client_stderr = self.client.execute(cmd)
-
-        if client_status:
-            raise RuntimeError(client_stderr)
+        _, client_stdout, _ = self.client.execute(cmd, raise_on_error=True)
 
         avg_latency = 0
         if client_stdout:
