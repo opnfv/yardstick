@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_855d85ec",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_l2fwd-4.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-12T10:37:13Z",
+      "side": 1,
+      "message": "1. This test is for all packet lenghts [64, 128, 256 etc...\n2. Because of the Confirmation .. it needs to run each \n   interval at lease twice\n3. Under no circumstance could you get a 64byte packet to \n   a valid result in 300 seconds\n4. This is a configurable paramter",
+      "parentUuid": "da5c1566_ceae7fe7",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 18
+      },
+      "revId": "a4ffa32b6db406373c7bb51a5b224afd137958c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_6eaad3d5",
         "filename": "yardstick/benchmark/runners/proxduration.py",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_e571e178",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-12T10:37:13Z",
+      "side": 1,
+      "message": "could be ... but should it be removed with the JIRA ticket.. NO",
+      "parentUuid": "da5c1566_6eaad3d5",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 3
+      },
+      "revId": "a4ffa32b6db406373c7bb51a5b224afd137958c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_aeab4bd5",
         "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
         "patchSetId": 10
@@ -59,6 +107,24 @@
       "writtenOn": "2018-06-08T12:24:15Z",
       "side": 1,
       "message": "cross line limit",
+      "revId": "a4ffa32b6db406373c7bb51a5b224afd137958c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c56e5d96",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-12T10:37:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_aeab4bd5",
       "revId": "a4ffa32b6db406373c7bb51a5b224afd137958c8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
