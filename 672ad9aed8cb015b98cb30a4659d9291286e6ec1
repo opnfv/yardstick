@@ -1,0 +1,268 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_568de530",
+        "filename": "samples/vnf_samples/nsut/acl/acl_1rule.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:01:00Z",
+      "side": 1,
+      "message": "it doesn\u0027t make sense to have to have this extra indexation.\n\naccess-list-entries:\n- actions: [..]\n  matches: ...\n  ...\n\n- actions: [..]",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 9
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_b68281fe",
+        "filename": "samples/vnf_samples/nsut/acl/acl_rules.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:01:00Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 9
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_96877d0f",
+        "filename": "samples/vnf_samples/nsut/vfw/acl_1rule.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:01:00Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 9
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_764d8972",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:01:00Z",
+      "side": 1,
+      "message": "Those variables not to be accessible from the outside, should be private",
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_76baa9e2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:01:00Z",
+      "side": 1,
+      "message": "It doesn\u0027t make sense to import MultiportConfig here\n\nImplement make_ip_addr in common/utils.py, close to the IP methods",
+      "range": {
+        "startLine": 59,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 30
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d63d75bd",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:01:00Z",
+      "side": 1,
+      "message": "This should be a property: action_id",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 25
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_36c83174",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:01:00Z",
+      "side": 1,
+      "message": "It doesn\u0027t make sense to have this. Create a class constant",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 79,
+        "endChar": 34
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d691f553",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:01:00Z",
+      "side": 1,
+      "message": "IMO, this is more clear and easier to read if you build a dict in one command:\n\nrule \u003d {\n  \u0027dst_ip\u0027: ...\n  \u0027dst_ip_mask\u0027: ...\n\n}",
+      "range": {
+        "startLine": 145,
+        "startChar": 11,
+        "endLine": 163,
+        "endChar": 76
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_7682a953",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:01:00Z",
+      "side": 1,
+      "message": "PLease, document in this method how many actions do we accept, and the possible parameters.",
+      "range": {
+        "startLine": 190,
+        "startChar": 30,
+        "endLine": 190,
+        "endChar": 36
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_5687a561",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:01:00Z",
+      "side": 1,
+      "message": "You must lookup for the specific parameter. In this case \"port\". If this parameter doesn\u0027t exist, then raise an exception",
+      "range": {
+        "startLine": 197,
+        "startChar": 49,
+        "endLine": 197,
+        "endChar": 70
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_369f9161",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vfw_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:01:00Z",
+      "side": 1,
+      "message": "ditto: make a constant",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 47
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_b699e170",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vnf_ssh_helper.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:01:00Z",
+      "side": 1,
+      "message": "Can you write something like: \"Config file name: xxxx\"",
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
