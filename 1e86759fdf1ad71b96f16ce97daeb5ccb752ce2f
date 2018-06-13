@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_51ee8f23",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vsperf_dpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T17:25:54Z",
+      "side": 1,
+      "message": "You should use the mock framework instead:\n  mock_call_obj \u003d mock.Mock()\n  mock_call_obj.execute.return_value \u003d None\n  self.mock_subprocess_call.return_value \u003d mock_call_obj",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 56
+      },
+      "revId": "1e86759fdf1ad71b96f16ce97daeb5ccb752ce2f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
