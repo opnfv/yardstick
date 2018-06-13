@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_f6c9995b",
+        "filename": "yardstick/benchmark/scenarios/networking/pktgen.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:09:38Z",
+      "side": 1,
+      "message": "I know this is in the description but I don\u0027t understand why did you remove the status check",
+      "revId": "3668eb97bddfec1229e3f72f77b7170fb6d61593",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_b6b0c1de",
+        "filename": "yardstick/ssh.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 351,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:09:38Z",
+      "side": 1,
+      "message": "Please, don\u0027t add new parameters changing the order of the previous ones.",
+      "range": {
+        "startLine": 351,
+        "startChar": 27,
+        "endLine": 351,
+        "endChar": 47
+      },
+      "revId": "3668eb97bddfec1229e3f72f77b7170fb6d61593",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_96b5bdcf",
+        "filename": "yardstick/ssh.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:09:38Z",
+      "side": 1,
+      "message": "This should be:\n\n        :param cmd: (str) Command to be executed.\n        :param raise_on_error: (bool) If True, then an SSHError will be raised when\n                               non-zero exit code.\n        :param stdin: (StringIO) Open file to be sent on process stdin.\n        :param timeout: (int) Timeout for execution of the command.",
+      "range": {
+        "startLine": 354,
+        "startChar": 0,
+        "endLine": 358,
+        "endChar": 69
+      },
+      "revId": "3668eb97bddfec1229e3f72f77b7170fb6d61593",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_56e205d6",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:09:38Z",
+      "side": 1,
+      "message": "Unneeded vars:\nself.assertEqual(4, p._get_usable_queue_number())",
+      "revId": "3668eb97bddfec1229e3f72f77b7170fb6d61593",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_76dd8914",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-13T14:09:38Z",
+      "side": 1,
+      "message": "Unneeded vars:\nself.assertEqual(1, p._get_usable_queue_number())",
+      "range": {
+        "startLine": 283,
+        "startChar": 25,
+        "endLine": 283,
+        "endChar": 48
+      },
+      "revId": "3668eb97bddfec1229e3f72f77b7170fb6d61593",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
