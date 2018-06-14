@@ -290,7 +290,12 @@ no data length value
 class TestProxSocketHelper(unittest.TestCase):
 
     def setUp(self):
-        self.mock_time_sleep = mock.patch.object(time, 'sleep').start()
+        self._mock_time_sleep = mock.patch.object(time, 'sleep')
+        self.mock_time_sleep = self._mock_time_sleep.start()
+        self.addCleanup(self._stop_mocks)
+
+    def _stop_mocks(self):
+        self._mock_time_sleep.stop()
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.socket')
     def test___init__(self, mock_socket):
