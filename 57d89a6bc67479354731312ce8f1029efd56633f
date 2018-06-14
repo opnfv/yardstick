@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_ac0fcee0",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-06-14T09:05:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_96bbfd71",
+      "revId": "57d89a6bc67479354731312ce8f1029efd56633f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_369311fc",
         "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2018-06-13T15:25:00Z",
       "side": 1,
       "message": "You are using this in every test. Why don\u0027t you move it to setUp()",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 73
+      },
+      "revId": "57d89a6bc67479354731312ce8f1029efd56633f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ecf8a6c6",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-06-14T09:05:50Z",
+      "side": 1,
+      "message": "In two of the cases I modified the configuration before passing it to the constructor. I thought it would then be bad to put it to setUp() ?",
+      "parentUuid": "da5c1566_369311fc",
       "range": {
         "startLine": 56,
         "startChar": 8,
