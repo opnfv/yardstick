@@ -81,6 +81,30 @@
       "revId": "57d89a6bc67479354731312ce8f1029efd56633f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_cce32204",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-14T09:29:38Z",
+      "side": 1,
+      "message": "In the cases where you overwrite the config, you can choose not to use self.scenario.\n\nIn most other cases, it is reasonable to expect that the scenario is already initialised (consistently) prior to the start of the test.",
+      "parentUuid": "da5c1566_ecf8a6c6",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 73
+      },
+      "revId": "57d89a6bc67479354731312ce8f1029efd56633f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
