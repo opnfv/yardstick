@@ -18,7 +18,7 @@ import os
 import time
 
 import mock
-import six.moves.configparser as configparser
+from six.moves import configparser
 import unittest
 
 from yardstick.tests import STL_MOCKS
@@ -536,7 +536,12 @@ class TestVpeApproxVnf(unittest.TestCase):
     }
 
     def setUp(self):
-        self.mock_sleep = mock.patch.object(time, 'sleep').start()
+        self._mock_time_sleep = mock.patch.object(time, 'sleep')
+        self.mock_time_sleep = self._mock_time_sleep.start()
+        self.addCleanup(self._stop_mocks)
+
+    def _stop_mocks(self):
+        self._mock_time_sleep.stop()
 
     def test___init__(self):
         vpe_approx_vnf = VpeApproxVnf(NAME, self.VNFD_0)
