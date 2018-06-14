@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_2c49fed0",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-14T13:20:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_16d88d1c",
+      "range": {
+        "startLine": 183,
+        "startChar": 8,
+        "endLine": 183,
+        "endChar": 12
+      },
+      "revId": "8b744dbbe0380bc89f52ed6b6b9cf46360108714",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_b6fe016a",
         "filename": "yardstick/benchmark/contexts/base.py",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-13T15:19:57Z",
       "side": 1,
       "message": "This should have:\n- One line description\n- Description\n- Params:\n\n  :param server_name: (type) \u003cdescription\u003e",
+      "range": {
+        "startLine": 187,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 70
+      },
+      "revId": "8b744dbbe0380bc89f52ed6b6b9cf46360108714",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ac0cee95",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-14T13:20:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_b6fe016a",
       "range": {
         "startLine": 187,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_8c112aaf",
+        "filename": "yardstick/benchmark/contexts/base.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-14T13:20:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_7604697e",
+      "range": {
+        "startLine": 193,
+        "startChar": 8,
+        "endLine": 193,
+        "endChar": 12
+      },
+      "revId": "8b744dbbe0380bc89f52ed6b6b9cf46360108714",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_36f2f19a",
         "filename": "yardstick/benchmark/contexts/dummy.py",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_ec25460b",
+        "filename": "yardstick/benchmark/contexts/dummy.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-14T13:20:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_36f2f19a",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 40,
+        "endChar": 17
+      },
+      "revId": "8b744dbbe0380bc89f52ed6b6b9cf46360108714",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_5665e543",
         "filename": "yardstick/benchmark/contexts/heat.py",
         "patchSetId": 4
@@ -105,6 +201,30 @@
       "writtenOn": "2018-06-13T15:19:57Z",
       "side": 1,
       "message": "this should be \"hypervisor_hostname\"",
+      "range": {
+        "startLine": 581,
+        "startChar": 77,
+        "endLine": 581,
+        "endChar": 81
+      },
+      "revId": "8b744dbbe0380bc89f52ed6b6b9cf46360108714",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_acd18ecf",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-14T13:20:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_5665e543",
       "range": {
         "startLine": 581,
         "startChar": 77,
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_0c1d1abe",
+        "filename": "yardstick/benchmark/contexts/kubernetes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-14T13:20:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_569a0515",
+      "range": {
+        "startLine": 162,
+        "startChar": 15,
+        "endLine": 162,
+        "endChar": 17
+      },
+      "revId": "8b744dbbe0380bc89f52ed6b6b9cf46360108714",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_b69f2103",
         "filename": "yardstick/benchmark/contexts/node.py",
         "patchSetId": 4
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_0c74fafb",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-14T13:20:03Z",
+      "side": 1,
+      "message": "node name is appended with task id \nyardstick/benchmark/core/task.py:591",
+      "parentUuid": "da5c1566_b69f2103",
+      "range": {
+        "startLine": 137,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 45
+      },
+      "revId": "8b744dbbe0380bc89f52ed6b6b9cf46360108714",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_96a49d58",
         "filename": "yardstick/common/openstack_utils.py",
         "patchSetId": 4
@@ -197,6 +365,30 @@
       "writtenOn": "2018-06-13T15:19:57Z",
       "side": 1,
       "message": "You can retrieve the hypervisors with the openstack_cloud client.",
+      "range": {
+        "startLine": 175,
+        "startChar": 4,
+        "endLine": 175,
+        "endChar": 29
+      },
+      "revId": "8b744dbbe0380bc89f52ed6b6b9cf46360108714",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ec53866a",
+        "filename": "yardstick/common/openstack_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-14T13:20:03Z",
+      "side": 1,
+      "message": "can you please point me to the api call. \nAll I\u0027ve found is a list_hypervisors method of operator_cloud",
+      "parentUuid": "da5c1566_96a49d58",
       "range": {
         "startLine": 175,
         "startChar": 4,
