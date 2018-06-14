@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_ac206e9c",
+        "filename": "tools/cover.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-14T07:39:40Z",
+      "side": 0,
+      "message": "You need to keep this",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 20
+      },
+      "revId": "760d1a74271a6306da0659c72f05b497183c632a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_8c25aaad",
+        "filename": "tools/cover.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-14T07:39:40Z",
+      "side": 0,
+      "message": "You need to keep this.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 20
+      },
+      "revId": "760d1a74271a6306da0659c72f05b497183c632a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

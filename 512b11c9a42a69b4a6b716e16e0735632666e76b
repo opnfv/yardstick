@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_2c345edd",
+        "filename": "tools/cover.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-14T07:39:40Z",
+      "side": 1,
+      "message": "At this point, before executing any test, you should delete any \"coverage\" test. You should execute \"coverage erase\"",
+      "revId": "512b11c9a42a69b4a6b716e16e0735632666e76b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_8c0e4a33",
+        "filename": "tools/cover.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-14T07:39:40Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 46
+      },
+      "revId": "512b11c9a42a69b4a6b716e16e0735632666e76b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ec126657",
+        "filename": "tools/cover.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-14T07:39:40Z",
+      "side": 1,
+      "message": "remove this",
+      "range": {
+        "startLine": 75,
+        "startChar": 20,
+        "endLine": 75,
+        "endChar": 46
+      },
+      "revId": "512b11c9a42a69b4a6b716e16e0735632666e76b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
