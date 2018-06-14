@@ -386,8 +386,14 @@ class ProxSocketHelper(object):
 
     def stop(self, cores, task=''):
         """ stop specific cores on the remote instance """
-        LOG.debug("Stopping cores %s", cores)
-        self.put_command("stop {} {}\n".format(join_non_strings(',', cores), task))
+
+        tmpcores = []
+        for core in cores:
+            if core not in tmpcores:
+                tmpcores.append(core)
+
+        LOG.debug("Stopping cores %s", tmpcores)
+        self.put_command("stop {} {}\n".format(join_non_strings(',', tmpcores), task))
         time.sleep(3)
 
     def start_all(self):
@@ -397,8 +403,14 @@ class ProxSocketHelper(object):
 
     def start(self, cores):
         """ start specific cores on the remote instance """
-        LOG.debug("Starting cores %s", cores)
-        self.put_command("start {}\n".format(join_non_strings(',', cores)))
+
+        tmpcores = []
+        for core in cores:
+            if core not in tmpcores:
+                tmpcores.append(core)
+
+        LOG.debug("Starting cores %s", tmpcores)
+        self.put_command("start {}\n".format(join_non_strings(',', tmpcores)))
         time.sleep(3)
 
     def reset_stats(self):
