@@ -304,7 +304,7 @@ class OvsDpdkContext(Context):
         Keyword arguments:
         attr_name -- A name for a server listed in nodes config file
         """
-        node_name, name = self.split_name(attr_name)
+        node_name, name = self.split_host_name(attr_name)
         if name is None or self.name != name:
             return None
 

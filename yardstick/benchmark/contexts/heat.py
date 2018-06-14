@@ -465,7 +465,7 @@ class HeatContext(Context):
         with attribute name mapping when using external heat templates
         """
         if isinstance(attr_name, collections.Mapping):
-            node_name, cname = self.split_name(attr_name['name'])
+            node_name, cname = self.split_host_name(attr_name['name'])
             if cname is None or cname != self.name:
                 return None
 

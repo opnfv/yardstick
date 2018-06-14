@@ -45,20 +45,12 @@ class Context(object):
     list = []
     SHORT_TASK_ID_LEN = 8
 
-    @staticmethod
-    def split_name(name, sep='.'):
-        try:
-            name_iter = iter(name.split(sep))
-        except AttributeError:
-            # name is not a string
-            return None, None
-        return next(name_iter), next(name_iter, None)
-
-    def __init__(self):
+    def __init__(self, host_name_separator='.'):
         Context.list.append(self)
         self._flags = Flags()
         self._name = None
         self._task_id = None
+        self._host_name_separator = host_name_separator
 
     def init(self, attrs):
         """Initiate context"""
@@ -67,6 +59,12 @@ class Context(object):
         self._flags.parse(**attrs.get('flags', {}))
         self._name_task_id = '{}-{}'.format(
             self._name, self._task_id[:self.SHORT_TASK_ID_LEN])
+
+    def split_host_name(self, name):
+        if (isinstance(name, six.string_types)
+                and self._host_name_separator in name):
+            return tuple(name.split(self._host_name_separator, 1))
+        return None, None
 
     @property
     def name(self):
@@ -78,6 +76,10 @@ class Context(object):
     @property
     def assigned_name(self):
         return self._name
+
+    @property
+    def host_name_separator(self):
+        return self._host_name_separator
 
     @staticmethod
     def get_cls(context_type):
