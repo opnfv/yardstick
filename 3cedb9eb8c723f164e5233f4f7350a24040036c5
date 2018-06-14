@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_6c7936fc",
+        "filename": "tests/opnfv/test_suites/opnfv_os-odl-ovs-noha_daily.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 4291
+      },
+      "writtenOn": "2018-06-14T12:18:47Z",
+      "side": 1,
+      "message": "Should be fuel?",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 24
+      },
+      "revId": "3cedb9eb8c723f164e5233f4f7350a24040036c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
