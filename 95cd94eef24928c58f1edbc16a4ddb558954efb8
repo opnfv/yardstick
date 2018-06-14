@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_c792dd9e",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-14T17:08:00Z",
+      "side": 1,
+      "message": "Order the imports alphabetically. This line should be in L26\n\nImport the module, not the class. This is the way to track the origin.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 53
+      },
+      "revId": "95cd94eef24928c58f1edbc16a4ddb558954efb8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_2790f994",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-14T17:08:00Z",
+      "side": 1,
+      "message": "Between imports and code should be 2 blank lines.",
+      "revId": "95cd94eef24928c58f1edbc16a4ddb558954efb8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_078df57b",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-14T17:08:00Z",
+      "side": 1,
+      "message": "2 blank lines",
+      "revId": "95cd94eef24928c58f1edbc16a4ddb558954efb8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_67e9511a",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-14T17:08:00Z",
+      "side": 1,
+      "message": "We don\u0027t need to store this parameter as an object variable",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "95cd94eef24928c58f1edbc16a4ddb558954efb8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_47eecd23",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-14T17:08:00Z",
+      "side": 1,
+      "message": "This is not valid anymore",
+      "range": {
+        "startLine": 106,
+        "startChar": 12,
+        "endLine": 106,
+        "endChar": 65
+      },
+      "revId": "95cd94eef24928c58f1edbc16a4ddb558954efb8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
