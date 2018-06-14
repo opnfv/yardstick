@@ -39,11 +39,13 @@ app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024 * 1024
 
 Swagger(app)
 
-api = Api(app)
+api = Api(app, errors=consts.API_ERRORS)
 
 
 @app.teardown_request
 def shutdown_session(exception=None):
+    if exception:
+        LOG.warning(exception.message)
     db_session.remove()
 
 

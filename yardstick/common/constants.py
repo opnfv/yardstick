@@ -145,6 +145,21 @@ BASE_URL = 'http://localhost:5000'
 ENV_ACTION_API = BASE_URL + '/yardstick/env/action'
 ASYNC_TASK_API = BASE_URL + '/yardstick/asynctask'
 
+API_ERRORS = {
+    'UploadOpenrcError': {
+        'message': "Upload openrc ERROR!",
+        'status': API_ERROR,
+    },
+    'UpdateOpenrcError': {
+        'message': "Update openrc ERROR!",
+        'status': API_ERROR,
+    },
+    'ApiServerError': {
+        'message': "An unkown exception happened to Api Server!",
+        'status': API_ERROR,
+    },
+}
+
 # flags
 IS_EXISTING = 'is_existing'
 IS_PUBLIC = 'is_public'

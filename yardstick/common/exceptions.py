@@ -166,3 +166,15 @@ class ScenarioCreateFloatingIPError(YardstickException):
 
 class ScenarioDeleteFloatingIPError(YardstickException):
     message = 'Delete Neutron Floating IP Scenario failed'
+
+
+class ApiServerError(YardstickException):
+    message = 'An unkown exception happened to Api Server!'
+
+
+class UploadOpenrcError(ApiServerError):
+    message = 'Upload openrc ERROR!'
+
+
+class UpdateOpenrcError(ApiServerError):
+    message = 'Update openrc ERROR!'
