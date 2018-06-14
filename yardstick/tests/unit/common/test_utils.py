@@ -19,6 +19,7 @@ from six.moves import configparser
 import time
 import unittest
 
+import yardstick
 from yardstick import ssh
 from yardstick.common import constants
 from yardstick.common import utils
