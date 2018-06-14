@@ -78,13 +78,10 @@ context:
   networks:
     test:
       cidr: '10.0.1.0/24'
-      {% if provider == "vlan" %}
+      {% if provider == "vlan" or provider == "sriov" %}
       provider: {{provider}}
       physical_network: {{physical_network}}
         {% if segmentation_id %}
       segmentation_id: {{segmentation_id}}
         {% endif %}
       {% endif %}
-    #test-sriov:
-      #cidr: '10.0.1.0/24'
-      #provider: "sriov"
