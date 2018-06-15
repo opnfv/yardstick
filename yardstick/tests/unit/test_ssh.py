@@ -193,10 +193,10 @@ class SSHTestCase(unittest.TestCase):
         with self.assertRaises(exceptions.SSHError) as raised:
             test_ssh._get_client()
 
-        self.assertEqual(mock_paramiko.SSHClient.call_count, 1)
-        self.assertEqual(mock_paramiko.AutoAddPolicy.call_count, 1)
-        self.assertEqual(fake_client.set_missing_host_key_policy.call_count, 1)
-        self.assertEqual(fake_client.connect.call_count, 1)
+        mock_paramiko.SSHClient.assert_called_once()
+        mock_paramiko.AutoAddPolicy.assert_called_once()
+        fake_client.set_missing_host_key_policy.assert_called_once()
+        fake_client.connect.assert_called_once()
         exc_str = str(raised.exception)
         self.assertIn('raised during connect', exc_str)
         self.assertIn('MyError', exc_str)
@@ -510,7 +510,7 @@ class TestAutoConnectSSH(unittest.TestCase):
         auto_connect_ssh._get_client = mock__get_client = mock.Mock()
 
         auto_connect_ssh._connect()
-        self.assertEqual(mock__get_client.call_count, 1)
+        mock__get_client.assert_called_once()
 
     def test___init___negative(self):
         with self.assertRaises(TypeError):
@@ -543,7 +543,7 @@ class TestAutoConnectSSH(unittest.TestCase):
 
         auto_connect_ssh.get_file_obj('remote/path', mock.Mock())
 
-        self.assertEqual(mock_sftp.getfo.call_count, 1)
+        mock_sftp.getfo.assert_called_once()
 
     def test__make_dict(self):
         auto_connect_ssh = AutoConnectSSH('user1', 'host1')
@@ -580,7 +580,7 @@ class TestAutoConnectSSH(unittest.TestCase):
 
         auto_connect_ssh.put('a', 'z')
         with mock_scp_client_type() as mock_scp_client:
-            self.assertEqual(mock_scp_client.put.call_count, 1)
+            mock_scp_client.put.assert_called_once()
 
     @mock.patch('yardstick.ssh.SCPClient')
     def test_get(self, mock_scp_client_type):
@@ -589,7 +589,7 @@ class TestAutoConnectSSH(unittest.TestCase):
 
         auto_connect_ssh.get('a', 'z')
         with mock_scp_client_type() as mock_scp_client:
-            self.assertEqual(mock_scp_client.get.call_count, 1)
+            mock_scp_client.get.assert_called_once()
 
     def test_put_file(self):
         auto_connect_ssh = AutoConnectSSH('user1', 'host1')
@@ -597,4 +597,4 @@ class TestAutoConnectSSH(unittest.TestCase):
         auto_connect_ssh._put_file_sftp = mock_put_sftp = mock.Mock()
 
         auto_connect_ssh.put_file('a', 'b')
-        self.assertEqual(mock_put_sftp.call_count, 1)
+        mock_put_sftp.assert_called_once()
