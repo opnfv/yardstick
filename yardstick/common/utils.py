@@ -194,20 +194,16 @@ def parse_ini_file(path):
 
 def get_port_mac(sshclient, port):
     cmd = "ifconfig |grep HWaddr |grep %s |awk '{print $5}' " % port
-    status, stdout, stderr = sshclient.execute(cmd)
+    _, stdout, _ = sshclient.execute(cmd, raise_on_error=True)
 
-    if status:
-        raise RuntimeError(stderr)
     return stdout.rstrip()
 
 
 def get_port_ip(sshclient, port):
     cmd = "ifconfig %s |grep 'inet addr' |awk '{print $2}' " \
         "|cut -d ':' -f2 " % port
-    status, stdout, stderr = sshclient.execute(cmd)
+    _, stdout, _ = sshclient.execute(cmd, raise_on_error=True)
 
-    if status:
-        raise RuntimeError(stderr)
     return stdout.rstrip()
 
 
