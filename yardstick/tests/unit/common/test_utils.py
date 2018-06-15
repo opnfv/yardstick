@@ -1194,3 +1194,35 @@ class WaitUntilTrueTestCase(unittest.TestCase):
             self.assertIsNone(
                 utils.wait_until_true(lambda: False, timeout=1, sleep=1,
                                       exception=MyTimeoutException))
+
+
+class GetPortMacTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.ssh_client = mock.Mock()
+        self.ssh_client.execute.return_value = (0, 'foo    ', '')
+
+    def test_ssh_client_execute_called(self):
+        utils.get_port_mac(self.ssh_client, 99)
+        self.ssh_client.execute.assert_called_once_with(
+            "ifconfig |grep HWaddr |grep 99 |awk '{print $5}' ",
+            raise_on_error=True)
+
+    def test_return_value(self):
+        self.assertEqual('foo', utils.get_port_mac(self.ssh_client, 99))
+
+
+class GetPortIPTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.ssh_client = mock.Mock()
+        self.ssh_client.execute.return_value = (0, 'foo    ', '')
+
+    def test_ssh_client_execute_called(self):
+        utils.get_port_ip(self.ssh_client, 99)
+        self.ssh_client.execute.assert_called_once_with(
+            "ifconfig 99 |grep 'inet addr' |awk '{print $2}' |cut -d ':' -f2 ",
+            raise_on_error=True)
+
+    def test_return_value(self):
+        self.assertEqual('foo', utils.get_port_ip(self.ssh_client, 99))

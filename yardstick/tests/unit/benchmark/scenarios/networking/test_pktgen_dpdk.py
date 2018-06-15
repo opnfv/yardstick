@@ -73,25 +73,14 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
 
         self.mock_SSH.from_node().execute.assert_called_with(
             "ifconfig eth1 |grep 'inet addr' "
-            "|awk '{print $2}' |cut -d ':' -f2 ")
+            "|awk '{print $2}' |cut -d ':' -f2 ", raise_on_error=True)
 
-    def test_unsuccessful_get_port_ip(self):
-        self.mock_SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
-
-        with self.assertRaises(RuntimeError):
-            utils.get_port_ip(self.scenario.server, "eth1")
-
-    def test_successful_get_port_mac(self):
+    def test_get_port_mac(self):
         utils.get_port_mac(self.scenario.server, "eth1")
 
         self.mock_SSH.from_node().execute.assert_called_with(
-            "ifconfig |grep HWaddr |grep eth1 |awk '{print $5}' ")
-
-    def test_unsuccessful_get_port_mac(self):
-        self.mock_SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
-
-        with self.assertRaises(RuntimeError):
-            utils.get_port_mac(self.scenario.server, "eth1")
+            "ifconfig |grep HWaddr |grep eth1 |awk '{print $5}' ",
+            raise_on_error=True)
 
     def test_successful_no_sla(self):
         sample_output = '100\n110\n112\n130\n149\n150\n90\n150\n200\n162\n'
@@ -126,12 +115,6 @@ class PktgenDPDKLatencyTestCase(unittest.TestCase):
 
         with self.assertRaises(AssertionError):
             scenario.run({})
-
-    def test_run_unsuccessful_get_port_mac(self):
-        self.mock_SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
-
-        with self.assertRaises(RuntimeError):
-            self.scenario.run({})
 
     def test_run_unsuccessful_script_error(self):
         self.mock_SSH.from_node().execute.side_effect = ((0, '', ''),
