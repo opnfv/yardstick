@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_0795f43f",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/availability/test_basemonitor.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-15T10:40:53Z",
+      "side": 1,
+      "message": "Would it be worth adding these in a tearDown() or cleanUp method?\n\n    time.sleep(0.1)\n    if ins:\n        ins._queue.close()",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "760d1a74271a6306da0659c72f05b497183c632a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
