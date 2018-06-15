@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_07033510",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vsperf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-06-15T08:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_0748555a",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 38
+      },
+      "revId": "0bcde7f0a003ffbdc57cf27ae159efbfd4e542c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_6774b19c",
         "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vsperf.py",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-14T15:47:50Z",
       "side": 1,
       "message": "This can be replaced with \"import mock\"",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 14
+      },
+      "revId": "0bcde7f0a003ffbdc57cf27ae159efbfd4e542c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_6704b015",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vsperf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-06-15T08:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_6774b19c",
       "range": {
         "startLine": 18,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_a70ec832",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vsperf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-06-15T08:24:21Z",
+      "side": 1,
+      "message": "Good point! I implemented the test cases as you suggested.",
+      "parentUuid": "da5c1566_27b9192f",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 49
+      },
+      "revId": "0bcde7f0a003ffbdc57cf27ae159efbfd4e542c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_a77c0974",
         "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vsperf.py",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-14T15:47:50Z",
       "side": 1,
       "message": "I suggest the same as above:\n    - test_teardown_tg_port_not_set\n    - test_teardown_no_setup_script",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 35
+      },
+      "revId": "0bcde7f0a003ffbdc57cf27ae159efbfd4e542c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c7093c2e",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vsperf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-06-15T08:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_a77c0974",
       "range": {
         "startLine": 82,
         "startChar": 4,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_471d2c66",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vsperf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-06-15T08:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_4787ed61",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 50
+      },
+      "revId": "0bcde7f0a003ffbdc57cf27ae159efbfd4e542c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_8781054d",
         "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vsperf.py",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2018-06-14T15:47:50Z",
       "side": 1,
       "message": "nit: this can just be called test_run(self) (same for other tests, they can be test_*, instead of test_vsperf_*)",
+      "range": {
+        "startLine": 90,
+        "startChar": 23,
+        "endLine": 90,
+        "endChar": 26
+      },
+      "revId": "0bcde7f0a003ffbdc57cf27ae159efbfd4e542c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_271ab86e",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vsperf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-06-15T08:24:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_8781054d",
       "range": {
         "startLine": 90,
         "startChar": 23,
