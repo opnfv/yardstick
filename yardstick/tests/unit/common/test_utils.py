@@ -1346,3 +1346,35 @@ class SendSocketCommandTestCase(unittest.TestCase):
         mock_socket_obj.connect_ex.assert_called_once_with(('host', 22))
         mock_socket_obj.sendall.assert_called_once_with(six.b('command'))
         mock_socket_obj.close.assert_called_once()
+
+
+class GetPortMacTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.ssh_client = mock.Mock()
+        self.ssh_client.execute.return_value = (0, 'foo    ', '')
+
+    def test_ssh_client_execute_called(self):
+        utils.get_port_mac(self.ssh_client, 99)
+        self.ssh_client.execute.assert_called_once_with(
+            "ifconfig |grep HWaddr |grep 99 |awk '{print $5}' ",
+            raise_on_error=True)
+
+    def test_return_value(self):
+        self.assertEqual('foo', utils.get_port_mac(self.ssh_client, 99))
+
+
+class GetPortIPTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.ssh_client = mock.Mock()
+        self.ssh_client.execute.return_value = (0, 'foo    ', '')
+
+    def test_ssh_client_execute_called(self):
+        utils.get_port_ip(self.ssh_client, 99)
+        self.ssh_client.execute.assert_called_once_with(
+            "ifconfig 99 |grep 'inet addr' |awk '{print $2}' |cut -d ':' -f2 ",
+            raise_on_error=True)
+
+    def test_return_value(self):
+        self.assertEqual('foo', utils.get_port_ip(self.ssh_client, 99))
