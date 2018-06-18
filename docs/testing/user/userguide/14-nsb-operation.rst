@@ -313,3 +313,116 @@ options section.
       options:
         tg_0:
           queues_per_port: 2
+
+
+Standalone configuration
+------------------------
+
+NSB supports certain Standalone deployment configurations.
+There two types of Standalone contexts available: OVS-DPDK and SRIOV.
+
+
+Standalone with OVS-DPDK
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+SampleVNF image is spawned inside a VM on a baremetal server.
+OVS with DPDK is installed on target baremetal.
+Note that Ubuntu 17.10 requires DPDK v.17.05 and DPDK v.17.05 requires OVS v.2.8.0.
+
+Default values for OVS-DPDK:
+
+  * queues: 4
+  * lcore_mask: ""
+  * pmd_cpu_mask: "0x6"
+
+Sample of test case file
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+  1. Prepare SampleVNF image and copy it to "flavor/images".
+  2. Prepare context files for TREX and SampleVNF under "contexts/file".
+  3. Add bridge named "br-int" to the baremetal where SampleVNF image is deployed.
+  4. Modify "networks/phy_port" accordingly to the baremetal setup.
+  5. Run test from
+     ``<repo>/samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
+
+.. code-block:: yaml
+
+
+    schema: yardstick:task:0.1
+    scenarios:
+    - type: NSPerf
+      traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
+      topology: acl-tg-topology.yaml
+      nodes:
+        tg__0: tg__0.yardstick
+        vnf__0: vnf__0.yardstick
+      options:
+        framesize:
+          uplink: {64B: 100}
+          downlink: {64B: 100}
+        flow:
+          src_ip: [{'tg__0': 'xe0'}]
+          dst_ip: [{'tg__0': 'xe1'}]
+          count: 1
+        traffic_type: 4
+        rfc2544:
+          allowed_drop_rate: 0.0001 - 0.0001
+        vnf__0:
+          rules: acl_1rule.yaml
+          vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+      runner:
+        type: Iteration
+        iterations: 10
+        interval: 35
+    contexts:
+       - name: yardstick
+         type: Node
+         file: etc/yardstick/nodes/standalone/pod_trex.yaml
+       - type: StandaloneOvsDpdk
+         name: yardstick
+         file: etc/yardstick/nodes/standalone/host_ovs.yaml
+         vm_deploy: True
+         ovs_properties:
+           version:
+             ovs: 2.8.0
+             dpdk: 17.05.2
+           pmd_threads: 2
+           ram:
+             socket_0: 2048
+             socket_1: 2048
+           lcore_mask: ""
+           pmd_cpu_mask: "0x6"
+           queues: 4
+           vpath: "/usr/local"
+
+         flavor:
+           images: "/var/lib/libvirt/images/yardstick-nsb-image.img"
+           ram: 4096
+           extra_specs:
+             hw:cpu_sockets: 1
+             hw:cpu_cores: 6
+             hw:cpu_threads: 2
+           user: ""
+           password: ""
+         servers:
+           vnf__0:
+             network_ports:
+               mgmt:
+                 cidr: '1.1.1.7/24'
+               xe0:
+                 - uplink_0
+               xe1:
+                 - downlink_0
+         networks:
+           uplink_0:
+             port_num: 0
+             phy_port: "0000:05:00.0"
+             vpci: "0000:00:07.0"
+             cidr: '152.16.100.10/24'
+             gateway_ip: '152.16.100.20'
+           downlink_0:
+             port_num: 1
+             phy_port: "0000:05:00.1"
+             vpci: "0000:00:08.0"
+             cidr: '152.16.40.10/24'
+             gateway_ip: '152.16.100.20'

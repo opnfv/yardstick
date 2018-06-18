@@ -56,6 +56,8 @@ contexts:
          socket_0: 2048
          socket_1: 2048
        queues: 4
+       lcore_mask: ""
+       pmd_cpu_mask: "0x6"
        vpath: "/usr/local"
 
      flavor:
