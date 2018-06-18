@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_ad7227e3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T10:01:52Z",
+      "side": 1,
+      "message": "Add in a brief description as to why this is needed.\nWhy does the rate need to be expressed as a percentage of 10Gbps?",
+      "revId": "799313c51a06f66cfe6c9bb7f1854d15dde887eb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_cd6ddb06",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T10:01:52Z",
+      "side": 1,
+      "message": ":param var_name: (type) description\n\n:param value: (float) Percent of line rate (100.0 \u003d line rate\n:param line_speed: (int) Line rate speed, in bits per second",
+      "range": {
+        "startLine": 1162,
+        "startChar": 8,
+        "endLine": 1164,
+        "endChar": 66
+      },
+      "revId": "799313c51a06f66cfe6c9bb7f1854d15dde887eb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_8d63e319",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T10:01:52Z",
+      "side": 1,
+      "message": ":return: (type) description.\n\n:return: (float) The rate as percentage of 10Gbps.",
+      "range": {
+        "startLine": 1166,
+        "startChar": 8,
+        "endLine": 1167,
+        "endChar": 62
+      },
+      "revId": "799313c51a06f66cfe6c9bb7f1854d15dde887eb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
