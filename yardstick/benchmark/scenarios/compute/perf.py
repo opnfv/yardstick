@@ -93,7 +93,7 @@ class Perf(base.Scenario):
             % (load, duration, events_string)
 
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        status, stdout, _ = self.client.execute(cmd)
 
         if status:
             raise RuntimeError(stdout)
@@ -105,16 +105,14 @@ class Perf(base.Scenario):
             exp_val = self.scenario_cfg['sla']['expected_value']
             smaller_than_exp = 'smaller_than_expected' \
                                in self.scenario_cfg['sla']
-
-            if metric not in result:
-                assert False, "Metric (%s) not found." % metric
-            else:
-                if smaller_than_exp:
-                    assert result[metric] < exp_val, "%s %d >= %d (sla); " \
-                        % (metric, result[metric], exp_val)
-                else:
-                    assert result[metric] >= exp_val, "%s %d < %d (sla); " \
-                        % (metric, result[metric], exp_val)
+            self.verify_SLA(metric in result,
+                            "Metric (%s) not found." % metric)
+            self.verify_SLA(
+                not smaller_than_exp,
+                "%s %d >= %d (sla); " % (metric, result[metric], exp_val))
+            self.verify_SLA(
+                result[metric] >= exp_val,
+                "%s %d < %d (sla); " % (metric, result[metric], exp_val))
 
 
 def _test():
