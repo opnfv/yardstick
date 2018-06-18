@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_f0d7d8bd",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1178,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-18T15:28:24Z",
+      "side": 1,
+      "message": "white spaces",
+      "revId": "b6a55651f4a40a40db3287406583682a08c30ec5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
