@@ -42,10 +42,10 @@ scenarios:
 contexts:
    - name: yardstick
      type: Node
-     file: /etc/yardstick/nodes/standalone/pod_trex.yaml
+     file: etc/yardstick/nodes/standalone/pod_trex.yaml
    - type: StandaloneOvsDpdk
      name: yardstick
-     file: /etc/yardstick/nodes/standalone/pod_ovs.yaml
+     file: etc/yardstick/nodes/standalone/host_ovs.yaml
      vm_deploy: True
      ovs_properties:
        version:
@@ -56,10 +56,12 @@ contexts:
          socket_0: 2048
          socket_1: 2048
        queues: 4
+       lcore_mask: ""
+       pmd_cpu_mask: "0x6"
        vpath: "/usr/local"
 
      flavor:
-       images: "/var/lib/libvirt/images/ubuntu.qcow2"
+       images: "/var/lib/libvirt/images/yardstick-nsb-image.img"
        ram: 4096
        extra_specs:
          hw:cpu_sockets: 1
