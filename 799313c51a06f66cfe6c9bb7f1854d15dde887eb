@@ -62,6 +62,29 @@
       "revId": "799313c51a06f66cfe6c9bb7f1854d15dde887eb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ed737fe5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T10:21:53Z",
+      "side": 1,
+      "message": "This needs to be 8 spaces",
+      "range": {
+        "startLine": 1169,
+        "startChar": 0,
+        "endLine": 1169,
+        "endChar": 6
+      },
+      "revId": "799313c51a06f66cfe6c9bb7f1854d15dde887eb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
