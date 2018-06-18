@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_f047d81b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T12:54:01Z",
+      "side": 1,
+      "message": "Please, never refer to an internal Jira ticket in an external commit",
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_f06eb895",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T12:54:01Z",
+      "side": 1,
+      "message": "Explain briefly which parameters are accepted in the OVS-DPDK configuration (cpu mask, core mask)\n\npmd-cpu-mask: http://docs.openvswitch.org/en/latest/intro/install/dpdk/#enable-hyperthreading\n\nlcore mask: http://docs.openvswitch.org/en/latest/intro/install/dpdk/#setup-ovs",
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_b01440f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T12:54:01Z",
+      "side": 1,
+      "message": "Add the same information in the Jira ticket. We need to document just a bit more what we have done.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 20
+      },
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
