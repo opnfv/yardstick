@@ -22,6 +22,30 @@
       "revId": "760d1a74271a6306da0659c72f05b497183c632a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_6d176fa4",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/availability/test_basemonitor.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:23:02Z",
+      "side": 1,
+      "message": "Yes, this is the correct way.",
+      "parentUuid": "da5c1566_0795f43f",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "760d1a74271a6306da0659c72f05b497183c632a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
