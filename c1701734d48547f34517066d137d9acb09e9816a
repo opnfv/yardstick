@@ -1,0 +1,463 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_6d8daf31",
+        "filename": "yardstick/benchmark/contexts/node.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "You can speed up this:\n\nfor n in (n for n in self.nodes if n[\"name\"] \u003d\u003d node_name):\n    return ...",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 30
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_6dbbefc4",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "Remove this and add a method description with this comment.",
+      "range": {
+        "startLine": 313,
+        "startChar": 0,
+        "endLine": 313,
+        "endChar": 76
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_4ddb8b1b",
+        "filename": "yardstick/tests/unit/benchmark/contexts/heat_pod_sample.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "This is something frequently done in the UTs but should be avoided: we shouldn\u0027t allow, during unit testing, to have access to the file system.\n\nInstead of this, if we need a class to have this information, we should mock the method parsing this info.",
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_6de2cfd6",
+        "filename": "yardstick/tests/unit/benchmark/contexts/standalone/test_ovs_dpdk.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "You should add this information only in the test case, to be more explicit.",
+      "range": {
+        "startLine": 59,
+        "startChar": 12,
+        "endLine": 59,
+        "endChar": 38
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_adb507cf",
+        "filename": "yardstick/tests/unit/benchmark/contexts/standalone/test_ovs_dpdk.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "Tests should be self explanatory",
+      "range": {
+        "startLine": 297,
+        "startChar": 0,
+        "endLine": 297,
+        "endChar": 46
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_adece7c8",
+        "filename": "yardstick/tests/unit/benchmark/contexts/standalone/test_sriov.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 66,
+        "startChar": 12,
+        "endLine": 66,
+        "endChar": 38
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_cde79be3",
+        "filename": "yardstick/tests/unit/benchmark/contexts/standalone/test_sriov.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "Ditto. UTs should be self explanatory. We should add comments.",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 46
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_cd82fbff",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_base.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "There should be only one empty space\n\nMock library should be imported in other section because it doesn\u0027t belong to the project:\n\n   import mock \n\n   from yardstick....",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 11
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_0d7cf31f",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_base.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "DummyContextClass is just a wrapper for the abstract class. The abstract method should not be implemented. That means, those methods should not return None.\n\nI know \"pass\" gives you the same output, None, but this is a way of saying that this method is not explicitly implemented.",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 19
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ed789f2d",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_base.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "Why do we have DummyContextClass? We are testing base.context using this class.",
+      "range": {
+        "startLine": 102,
+        "startChar": 17,
+        "endLine": 102,
+        "endChar": 29
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_4d76eb3f",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_base.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "This is not needed if you use DummyContextClass",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 32
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_2d73b74e",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_base.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "This should be done using self.addCleanup",
+      "range": {
+        "startLine": 108,
+        "startChar": 7,
+        "endLine": 108,
+        "endChar": 25
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_8d8f6323",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_base.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "You need to add tests for \"get_physical_node_from_server\"",
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_0d3fd326",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "Where do you need this var?",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_4df26b9b",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "As said, if you want to have this file content, don\u0027t access to the file system but mock the parsing method.",
+      "range": {
+        "startLine": 39,
+        "startChar": 61,
+        "endLine": 39,
+        "endChar": 81
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_2def37b2",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "When mocking, is more realistic to mock a class method instead of an absolute method.\n\nwith mock.patch.object(openstack_utils, \u0027get_shade_operator_client\u0027): ...",
+      "range": {
+        "startLine": 85,
+        "startChar": 24,
+        "endLine": 85,
+        "endChar": 75
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_8d2be3ea",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "Do you need to mock \"get_shade_client\"? If you are mocking \"get_shade_operator_client\" I think this is not needed.",
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_6d300f57",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_cd35db47",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 757,
+        "startChar": 12,
+        "endLine": 759,
+        "endChar": 41
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_4d49cbcf",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_node.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "Do not import a class, import the whole module.",
+      "range": {
+        "startLine": 18,
+        "startChar": 40,
+        "endLine": 18,
+        "endChar": 73
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ed3b7f36",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_node.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-18T08:16:58Z",
+      "side": 1,
+      "message": "This method is implemented in \"common.utils\", not \"benchmark.context.node\"",
+      "range": {
+        "startLine": 59,
+        "startChar": 51,
+        "endLine": 59,
+        "endChar": 65
+      },
+      "revId": "c1701734d48547f34517066d137d9acb09e9816a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
