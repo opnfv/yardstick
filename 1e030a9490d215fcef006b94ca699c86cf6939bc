@@ -56,6 +56,276 @@
       "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_f0ca386d",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T13:00:33Z",
+      "side": 1,
+      "message": "Please add a description of \"Standalone\" e.g. supports provisioning a VM in a standalone visualised environment (e.g. kvm, qemu).",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 321,
+        "endChar": 58
+      },
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_50c84474",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T13:00:33Z",
+      "side": 1,
+      "message": "When you say there are two types of standalone context available, you need to state what that means.\nIn this case, it\u0027s types networking devices/drivers, correct?",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 69
+      },
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_7063c8b1",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T13:00:33Z",
+      "side": 1,
+      "message": "s/inside/in/",
+      "range": {
+        "startLine": 328,
+        "startChar": 27,
+        "endLine": 328,
+        "endChar": 33
+      },
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_b05d60ec",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T13:00:33Z",
+      "side": 1,
+      "message": "use \"the baremetal server\" because it is clearer that it refers to the same server in the above line",
+      "range": {
+        "startLine": 329,
+        "startChar": 30,
+        "endLine": 329,
+        "endChar": 47
+      },
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_506cc49c",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T13:00:33Z",
+      "side": 1,
+      "message": "Use the .. note: directive here, as it will render the note in a way that draws the user\u0027s attention to it.\n\nhttps://thomas-cokelaer.info/tutorials/sphinx/rest_syntax.html#colored-boxes-note-seealso-todo-and-warnings",
+      "range": {
+        "startLine": 330,
+        "startChar": 0,
+        "endLine": 330,
+        "endChar": 83
+      },
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d00f34e0",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T13:00:33Z",
+      "side": 1,
+      "message": "Sample test case file\n\nno need for the \"of\"",
+      "range": {
+        "startLine": 338,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 24
+      },
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_f0f518cc",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T13:00:33Z",
+      "side": 1,
+      "message": "use backticks, so that this is rendered as monospaced font\n\n    ``flavor/images``",
+      "range": {
+        "startLine": 341,
+        "startChar": 44,
+        "endLine": 341,
+        "endChar": 59
+      },
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_500324b8",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T13:00:33Z",
+      "side": 1,
+      "message": "ditto, use monospaced",
+      "range": {
+        "startLine": 342,
+        "startChar": 56,
+        "endLine": 342,
+        "endChar": 71
+      },
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_300030aa",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T13:00:33Z",
+      "side": 1,
+      "message": "monospaced",
+      "range": {
+        "startLine": 343,
+        "startChar": 22,
+        "endLine": 343,
+        "endChar": 30
+      },
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_902c9c4c",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T13:00:33Z",
+      "side": 1,
+      "message": "monospaced",
+      "range": {
+        "startLine": 344,
+        "startChar": 12,
+        "endLine": 344,
+        "endChar": 31
+      },
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_b02ba02f",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T13:00:33Z",
+      "side": 1,
+      "message": "Remove these blank lines",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 0
+      },
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_501a0418",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-18T13:00:33Z",
+      "side": 1,
+      "message": "If this is a copy of the `\u003crepo\u003e/samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml file, you can use literalinclude instead, so that this doc won\u0027t become obsolete when a trivial change is made to the TC file\n\nhttp://www.sphinx-doc.org/en/stable/markup/code.html#directive-literalinclude",
+      "revId": "1e030a9490d215fcef006b94ca699c86cf6939bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
