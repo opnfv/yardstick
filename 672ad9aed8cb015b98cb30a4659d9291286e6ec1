@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_b049e08d",
+        "filename": "samples/vnf_samples/nsut/acl/acl_1rule.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-19T13:29:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_568de530",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 9
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_b68281fe",
         "filename": "samples/vnf_samples/nsut/acl/acl_rules.yaml",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-13T14:01:00Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 9
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_105ecc45",
+        "filename": "samples/vnf_samples/nsut/acl/acl_rules.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-19T13:29:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_b68281fe",
       "range": {
         "startLine": 18,
         "startChar": 6,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_360308ba",
+        "filename": "samples/vnf_samples/nsut/vfw/acl_1rule.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-19T13:29:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_96877d0f",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 18,
+        "endChar": 9
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_764d8972",
         "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
         "patchSetId": 3
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_50584456",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-19T13:29:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_764d8972",
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_76baa9e2",
         "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
         "patchSetId": 3
@@ -99,6 +189,30 @@
       "writtenOn": "2018-06-13T14:01:00Z",
       "side": 1,
       "message": "It doesn\u0027t make sense to import MultiportConfig here\n\nImplement make_ip_addr in common/utils.py, close to the IP methods",
+      "range": {
+        "startLine": 59,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 30
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_3055d01d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-19T13:29:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_76baa9e2",
       "range": {
         "startLine": 59,
         "startChar": 15,
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_90313c0e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-19T13:29:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_d63d75bd",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 25
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_36c83174",
         "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
         "patchSetId": 3
@@ -145,6 +283,30 @@
       "writtenOn": "2018-06-13T14:01:00Z",
       "side": 1,
       "message": "It doesn\u0027t make sense to have this. Create a class constant",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 79,
+        "endChar": 34
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_70362805",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-19T13:29:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_36c83174",
       "range": {
         "startLine": 74,
         "startChar": 2,
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_d03bb4e9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-19T13:29:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_d691f553",
+      "range": {
+        "startLine": 145,
+        "startChar": 11,
+        "endLine": 163,
+        "endChar": 76
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_7682a953",
         "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
         "patchSetId": 3
@@ -191,6 +377,30 @@
       "writtenOn": "2018-06-13T14:01:00Z",
       "side": 1,
       "message": "PLease, document in this method how many actions do we accept, and the possible parameters.",
+      "range": {
+        "startLine": 190,
+        "startChar": 30,
+        "endLine": 190,
+        "endChar": 36
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d66e0c96",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-19T13:29:56Z",
+      "side": 1,
+      "message": "Any SampleVNF may support different actions. Also, there was an agreement to not do any validation of provided by user list of action. The list is documented in SampleVNF documentation.\n\n\"Supported list of actions are limited by SampleVNF. User should be responsible to specify correct action name(s). Yardstick should take the provided action by user and apply it to SampleVNF. No validation should be done by Yardstick.\"\n\nAnyway, it would be goo to put this information into the comment. Thx.",
+      "parentUuid": "da5c1566_7682a953",
       "range": {
         "startLine": 190,
         "startChar": 30,
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_961494f6",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-19T13:29:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_5687a561",
+      "range": {
+        "startLine": 197,
+        "startChar": 49,
+        "endLine": 197,
+        "endChar": 70
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_369f9161",
         "filename": "yardstick/network_services/vnf_generic/vnf/vfw_vnf.py",
         "patchSetId": 3
@@ -249,6 +483,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_f6f870c6",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vfw_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-19T13:29:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_369f9161",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 47
+      },
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_b699e170",
         "filename": "yardstick/network_services/vnf_generic/vnf/vnf_ssh_helper.py",
         "patchSetId": 3
@@ -260,6 +518,24 @@
       "writtenOn": "2018-06-13T14:01:00Z",
       "side": 1,
       "message": "Can you write something like: \"Config file name: xxxx\"",
+      "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d6f56ccc",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vnf_ssh_helper.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-19T13:29:56Z",
+      "side": 1,
+      "message": "These changes supposed not to be added ... but I think it will be better to add this change and format as you suggest. It will be useful.",
+      "parentUuid": "da5c1566_b699e170",
       "revId": "672ad9aed8cb015b98cb30a4659d9291286e6ec1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
