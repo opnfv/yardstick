@@ -43,6 +43,13 @@ class ServicehaTestCase(unittest.TestCase):
         }
         sla = {"outage_time": 5}
         self.args = {"options": options, "sla": sla}
+        self.test__serviceha = serviceha.ServiceHA(self.args, self.ctx)
+
+    def test___init__(self):
+
+        self.assertEqual(self.test__serviceha.data, {})
+        self.assertFalse(self.test__serviceha.setup_done)
+        self.assertFalse(self.test__serviceha.sla_pass)
 
     # NOTE(elfoley): This should be split into test_setup and test_run
     # NOTE(elfoley): This should explicitly test outcomes and states
@@ -73,6 +80,7 @@ class ServicehaTestCase(unittest.TestCase):
 
         ret = {}
         self.assertRaises(y_exc.SLAValidationError, p.run, ret)
+        self.assertEqual(p.sla_pass, False)
         self.assertEqual(ret['sla_pass'], 0)
 
     @mock.patch.object(serviceha, 'baseattacker')
