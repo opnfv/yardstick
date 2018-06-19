@@ -19,7 +19,7 @@ description:     Prox BNG traffic profile
 
 traffic_profile:
   traffic_type: ProxBinSearchProfile
-  tolerated_loss: 100.0 #0.001
+  tolerated_loss: 5
   test_precision: 0.01
 # The minimum size of the Ethernet frame for the BNG test is 78 bytes.
   packet_sizes: [78]
