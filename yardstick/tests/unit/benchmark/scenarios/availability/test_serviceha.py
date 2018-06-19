@@ -42,6 +42,13 @@ class ServicehaTestCase(unittest.TestCase):
         }
         sla = {"outage_time": 5}
         self.args = {"options": options, "sla": sla}
+        self.test__serviceha = serviceha.ServiceHA(self.args, self.ctx)
+
+    def test___init__(self):
+
+        self.assertEqual(self.test__serviceha.data, {})
+        self.assertFalse(self.test__serviceha.setup_done)
+        self.assertFalse(self.test__serviceha.sla_pass)
 
     # NOTE(elfoley): This should be split into test_setup and test_run
     # NOTE(elfoley): This should explicitly test outcomes and states
@@ -73,3 +80,18 @@ class ServicehaTestCase(unittest.TestCase):
         ret = {}
         self.assertRaises(AssertionError, p.run, ret)
         self.assertEqual(ret['sla_pass'], 0)
+
+    @mock.patch.object(serviceha, 'baseattacker')
+    @mock.patch.object(serviceha, 'basemonitor')
+    def test__serviceha_no_teardown_when_sla_pass(self, mock_monitor,
+                                                  *args):
+        p = serviceha.ServiceHA(self.args, self.ctx)
+        p.setup()
+        self.assertTrue(p.setup_done)
+        mock_monitor.MonitorMgr().verify_SLA.return_value = True
+        ret = {}
+        p.run(ret)
+        attacker = mock.Mock()
+        p.attackers = [attacker]
+        p.teardown()
+        attacker.recover.assert_not_called()
