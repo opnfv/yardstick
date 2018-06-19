@@ -14,16 +14,26 @@ import os
 import time
 
 from yardstick.benchmark.runners import arithmetic
+from yardstick.common import exceptions as y_exc
 
 
 class ArithmeticRunnerTest(unittest.TestCase):
     class MyMethod(object):
-        def __init__(self):
+        SLA_VALIDATION_ERROR_SIDE_EFFECT = 1
+        BROAD_EXCEPTION_SIDE_EFFECT = 2
+
+        def __init__(self, side_effect=0):
             self.count = 101
+            self.side_effect = side_effect
 
         def __call__(self, data):
             self.count += 1
             data['my_key'] = self.count
+            if self.side_effect == self.SLA_VALIDATION_ERROR_SIDE_EFFECT:
+                raise y_exc.SLAValidationError(case_name='My Case',
+                                               error_msg='my error message')
+            elif self.side_effect == self.BROAD_EXCEPTION_SIDE_EFFECT:
+                raise y_exc.YardstickException
             return self.count
 
     def setUp(self):
@@ -218,3 +228,219 @@ class ArithmeticRunnerTest(unittest.TestCase):
             self.assertEqual(result['sequence'], count)
             self.assertGreater(result['timestamp'], timestamp)
             timestamp = result['timestamp']
+
+    def test__worker_process_except_sla_validation_error_no_sla_cfg(self):
+        self.benchmark.my_method = mock.Mock(
+            side_effect=y_exc.SLAValidationError)
+
+        arithmetic._worker_process(mock.Mock(), self.benchmark_cls,
+                                   'my_method', self.scenario_cfg, {},
+                                   multiprocessing.Event(), mock.Mock())
+
+        self._assert_defaults__worker_process_run_setup_and_teardown()
+        self.assertEqual(self.benchmark.my_method.call_count, 8)
+        self.assertDictEqual(self.scenario_cfg['options'],
+                             {'stride': 128, 'size': 2000})
+
+    def test__worker_process_output_on_sla_validation_error_no_sla_cfg(self):
+        self.benchmark.my_method = self.MyMethod(
+            side_effect=self.MyMethod.SLA_VALIDATION_ERROR_SIDE_EFFECT)
+
+        queue = multiprocessing.Queue()
+        output_queue = multiprocessing.Queue()
+        timestamp = time.time()
+        arithmetic._worker_process(queue, self.benchmark_cls, 'my_method',
+                                   self.scenario_cfg, {},
+                                   multiprocessing.Event(), output_queue)
+        time.sleep(0.01)
+
+        self._assert_defaults__worker_process_run_setup_and_teardown()
+        self.assertEqual(self.benchmark.my_method.count, 109)
+        self.assertDictEqual(self.scenario_cfg['options'],
+                             {'stride': 128, 'size': 2000})
+        count = 0
+        while not queue.empty():
+            count += 1
+            result = queue.get()
+            self.assertEqual(result['errors'], '')
+            self.assertEqual(result['data'], {'my_key': count + 101})
+            self.assertEqual(result['sequence'], count)
+            self.assertGreater(result['timestamp'], timestamp)
+            timestamp = result['timestamp']
+        self.assertEqual(count, 8)
+        self.assertTrue(output_queue.empty())
+
+    def test__worker_process_except_sla_validation_error_sla_cfg_monitor(self):
+        self.scenario_cfg['sla'] = {'action': 'monitor'}
+        self.benchmark.my_method = mock.Mock(
+            side_effect=y_exc.SLAValidationError)
+
+        arithmetic._worker_process(mock.Mock(), self.benchmark_cls,
+                                   'my_method', self.scenario_cfg, {},
+                                   multiprocessing.Event(), mock.Mock())
+
+        self._assert_defaults__worker_process_run_setup_and_teardown()
+        self.assertEqual(self.benchmark.my_method.call_count, 8)
+        self.assertDictEqual(self.scenario_cfg['options'],
+                             {'stride': 128, 'size': 2000})
+
+    def test__worker_process_output_sla_validation_error_sla_cfg_monitor(self):
+        self.scenario_cfg['sla'] = {'action': 'monitor'}
+        self.benchmark.my_method = self.MyMethod(
+            side_effect=self.MyMethod.SLA_VALIDATION_ERROR_SIDE_EFFECT)
+
+        queue = multiprocessing.Queue()
+        output_queue = multiprocessing.Queue()
+        timestamp = time.time()
+        arithmetic._worker_process(queue, self.benchmark_cls, 'my_method',
+                                   self.scenario_cfg, {},
+                                   multiprocessing.Event(), output_queue)
+        time.sleep(0.01)
+
+        self._assert_defaults__worker_process_run_setup_and_teardown()
+        self.assertEqual(self.benchmark.my_method.count, 109)
+        self.assertDictEqual(self.scenario_cfg['options'],
+                             {'stride': 128, 'size': 2000})
+        count = 0
+        while not queue.empty():
+            count += 1
+            result = queue.get()
+            self.assertEqual(result['errors'],
+                             ('My Case SLA validation failed. '
+                              'Error: my error message',))
+            self.assertEqual(result['data'], {'my_key': count + 101})
+            self.assertEqual(result['sequence'], count)
+            self.assertGreater(result['timestamp'], timestamp)
+            timestamp = result['timestamp']
+        self.assertEqual(count, 8)
+        self.assertTrue(output_queue.empty())
+
+    def test__worker_process_raise_sla_validation_error_sla_cfg_assert(self):
+        self.scenario_cfg['sla'] = {'action': 'assert'}
+        self.benchmark.my_method = mock.Mock(
+            side_effect=y_exc.SLAValidationError)
+
+        with self.assertRaises(y_exc.SLAValidationError):
+            arithmetic._worker_process(mock.Mock(), self.benchmark_cls,
+                                       'my_method', self.scenario_cfg, {},
+                                       multiprocessing.Event(), mock.Mock())
+        self.benchmark_cls.assert_called_once_with(self.scenario_cfg, {})
+        self.benchmark.my_method.assert_called_once()
+        self.benchmark.setup.assert_called_once()
+        self.benchmark.teardown.assert_not_called()
+
+    def test__worker_process_output_sla_validation_error_sla_cfg_assert(self):
+        self.scenario_cfg['sla'] = {'action': 'assert'}
+        self.benchmark.my_method = self.MyMethod(
+            side_effect=self.MyMethod.SLA_VALIDATION_ERROR_SIDE_EFFECT)
+
+        queue = multiprocessing.Queue()
+        output_queue = multiprocessing.Queue()
+        with self.assertRaisesRegexp(
+                y_exc.SLAValidationError,
+                'My Case SLA validation failed. Error: my error message'):
+            arithmetic._worker_process(queue, self.benchmark_cls, 'my_method',
+                                       self.scenario_cfg, {},
+                                       multiprocessing.Event(), output_queue)
+        time.sleep(0.01)
+
+        self.benchmark_cls.assert_called_once_with(self.scenario_cfg, {})
+        self.benchmark.setup.assert_called_once()
+        self.assertEqual(self.benchmark.my_method.count, 102)
+        self.benchmark.teardown.assert_not_called()
+        self.assertTrue(queue.empty())
+        self.assertTrue(output_queue.empty())
+
+    def test__worker_process_broad_exception_no_sla_cfg_early_exit(self):
+        self.benchmark.my_method = mock.Mock(
+            side_effect=y_exc.YardstickException)
+
+        arithmetic._worker_process(mock.Mock(), self.benchmark_cls,
+                                   'my_method', self.scenario_cfg, {},
+                                   multiprocessing.Event(), mock.Mock())
+
+        self._assert_defaults__worker_process_run_setup_and_teardown()
+        self.benchmark.my_method.assert_called_once()
+        self.assertDictEqual(self.scenario_cfg['options'],
+                             {'stride': 64, 'size': 500})
+
+    def test__worker_process_output_on_broad_exception_no_sla_cfg(self):
+        self.benchmark.my_method = self.MyMethod(
+            side_effect=self.MyMethod.BROAD_EXCEPTION_SIDE_EFFECT)
+
+        queue = multiprocessing.Queue()
+        output_queue = multiprocessing.Queue()
+        timestamp = time.time()
+        arithmetic._worker_process(queue, self.benchmark_cls, 'my_method',
+                                   self.scenario_cfg, {},
+                                   multiprocessing.Event(), output_queue)
+        time.sleep(0.01)
+
+        self._assert_defaults__worker_process_run_setup_and_teardown()
+        self.assertEqual(self.benchmark.my_method.count, 102)
+        self.assertDictEqual(self.scenario_cfg['options'],
+                             {'stride': 64, 'size': 500})
+        self.assertEqual(queue.qsize(), 1)
+        result = queue.get()
+        self.assertGreater(result['timestamp'], timestamp)
+        self.assertEqual(result['data'], {'my_key': 102})
+        self.assertRegexpMatches(
+            result['errors'],
+            'YardstickException: An unknown exception occurred.')
+        self.assertEqual(result['sequence'], 1)
+        self.assertTrue(output_queue.empty())
+
+    def test__worker_process_broad_exception_sla_cfg_not_none(self):
+        self.scenario_cfg['sla'] = {'action': 'some action'}
+        self.benchmark.my_method = mock.Mock(
+            side_effect=y_exc.YardstickException)
+
+        arithmetic._worker_process(mock.Mock(), self.benchmark_cls,
+                                   'my_method', self.scenario_cfg, {},
+                                   multiprocessing.Event(), mock.Mock())
+
+        self._assert_defaults__worker_process_run_setup_and_teardown()
+        self.assertEqual(self.benchmark.my_method.call_count, 8)
+        self.assertDictEqual(self.scenario_cfg['options'],
+                             {'stride': 128, 'size': 2000})
+
+    def test__worker_process_output_on_broad_exception_sla_cfg_not_none(self):
+        self.scenario_cfg['sla'] = {'action': 'some action'}
+        self.benchmark.my_method = self.MyMethod(
+            side_effect=self.MyMethod.BROAD_EXCEPTION_SIDE_EFFECT)
+
+        queue = multiprocessing.Queue()
+        output_queue = multiprocessing.Queue()
+        timestamp = time.time()
+        arithmetic._worker_process(queue, self.benchmark_cls, 'my_method',
+                                   self.scenario_cfg, {},
+                                   multiprocessing.Event(), output_queue)
+        time.sleep(0.01)
+
+        self._assert_defaults__worker_process_run_setup_and_teardown()
+        self.assertEqual(self.benchmark.my_method.count, 109)
+        self.assertDictEqual(self.scenario_cfg['options'],
+                             {'stride': 128, 'size': 2000})
+        self.assertTrue(output_queue.empty())
+        count = 0
+        while not queue.empty():
+            count += 1
+            result = queue.get()
+            self.assertGreater(result['timestamp'], timestamp)
+            self.assertEqual(result['data'], {'my_key': count + 101})
+            self.assertRegexpMatches(
+                result['errors'],
+                'YardstickException: An unknown exception occurred.')
+            self.assertEqual(result['sequence'], count)
+
+    def test__worker_process_benchmark_teardown_on_broad_exception(self):
+        self.benchmark.teardown = mock.Mock(
+            side_effect=y_exc.YardstickException)
+
+        with self.assertRaises(SystemExit) as raised:
+            arithmetic._worker_process(mock.Mock(), self.benchmark_cls,
+                                       'my_method', self.scenario_cfg, {},
+                                       multiprocessing.Event(), mock.Mock())
+        self.assertEqual(raised.exception.code, 1)
+        self._assert_defaults__worker_process_run_setup_and_teardown()
+        self.assertEqual(self.benchmark.my_method.call_count, 8)
