@@ -29,6 +29,7 @@ class ServiceHA(base.Scenario):
         self.context_cfg = context_cfg
         self.setup_done = False
         self.data = {}
+        self.sla_pass = False
 
     def setup(self):
         """scenario setup"""
@@ -69,26 +70,28 @@ class ServiceHA(base.Scenario):
         self.monitorMgr.wait_monitors()
         LOG.info("Monitor '%s' stop!", self.__scenario_type__)
 
-        sla_pass = self.monitorMgr.verify_SLA()
+        self.sla_pass = self.monitorMgr.verify_SLA()
         service_not_found = False
         for k, v in self.data.items():
             if v == 0:
-                sla_pass = False
+                self.sla_pass = False
                 service_not_found = True
                 LOG.info("The service process (%s) not found in the host envrioment", k)
 
-        result['sla_pass'] = 1 if sla_pass else 0
+        result['sla_pass'] = 1 if self.sla_pass else 0
         self.monitorMgr.store_result(result)
 
         self.verify_SLA(
-            sla_pass, ("a service process was not found in the host "
-                       "environment" if service_not_found
-                       else "MonitorMgr.verify_SLA() failed"))
+            self.sla_pass, ("a service process was not found in the host "
+                            "environment" if service_not_found
+                            else "MonitorMgr.verify_SLA() failed"))
 
     def teardown(self):
         """scenario teardown"""
-        for attacker in self.attackers:
-            attacker.recover()
+        # only recover when sla not pass
+        if not self.sla_pass:
+            for attacker in self.attackers:
+                attacker.recover()
 
 
 def _test():    # pragma: no cover

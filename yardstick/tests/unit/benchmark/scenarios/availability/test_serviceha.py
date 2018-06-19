@@ -73,6 +73,7 @@ class ServicehaTestCase(unittest.TestCase):
 
         ret = {}
         self.assertRaises(y_exc.SLAValidationError, p.run, ret)
+        self.assertEqual(p.sla_pass, False)
         self.assertEqual(ret['sla_pass'], 0)
 
     @mock.patch.object(serviceha, 'baseattacker')
