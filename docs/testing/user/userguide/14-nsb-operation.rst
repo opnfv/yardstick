@@ -313,3 +313,39 @@ options section.
       options:
         tg_0:
           queues_per_port: 2
+
+
+Standalone configuration
+------------------------
+
+NSB supports certain Standalone deployment configurations.
+Standalone supports provisioning a VM in a standalone visualised environment using kvm/qemu.
+There two types of Standalone contexts available: OVS-DPDK and SRIOV.
+OVS-DPDK uses OVS network with DPDK drivers.
+SRIOV enables network traffic to bypass the software switch layer of the Hyper-V stack.
+
+Standalone with OVS-DPDK
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+SampleVNF image is spawned in a VM on a baremetal server.
+OVS with DPDK is installed on the baremetal server.
+
+.. note:: Ubuntu 17.10 requires DPDK v.17.05 and higher, DPDK v.17.05 requires OVS v.2.8.0.
+
+Default values for OVS-DPDK:
+
+  * queues: 4
+  * lcore_mask: ""
+  * pmd_cpu_mask: "0x6"
+
+Sample test case file
+^^^^^^^^^^^^^^^^^^^^^
+
+  1. Prepare SampleVNF image and copy it to ``flavor/images``.
+  2. Prepare context files for TREX and SampleVNF under ``contexts/file``.
+  3. Add bridge named ``br-int`` to the baremetal where SampleVNF image is deployed.
+  4. Modify ``networks/phy_port`` accordingly to the baremetal setup.
+  5. Run test from:
+
+.. literalinclude:: /submodules/yardstick/samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml
+   :language: yaml
