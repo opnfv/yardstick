@@ -13,7 +13,6 @@
 # limitations under the License.
 """ Trex acts as traffic generation and vnf definitions based on IETS Spec """
 
-from __future__ import absolute_import
 import logging
 import os
 
@@ -24,6 +23,7 @@ from yardstick.network_services.utils import get_nsb_option
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
+
 
 LOG = logging.getLogger(__name__)
 
@@ -164,6 +164,30 @@ class TrexResourceHelper(ClientResourceHelper):
         super(TrexResourceHelper, self).terminate()
         cmd = "sudo fuser -n tcp %s %s -k > /dev/null 2>&1"
         self.ssh_helper.execute(cmd % (self.SYNC_PORT, self.ASYNC_PORT))
+
+    def _get_samples(self, ports, port_pg_id=None):
+        stats = self.get_stats(ports)
+        samples = {}
+        for pname in (intf['name'] for intf in self.vnfd_helper.interfaces):
+            port_num = self.vnfd_helper.port_num(pname)
+            port_stats = stats.get(port_num, {})
+            samples[pname] = {
+                'rx_throughput_fps': float(port_stats.get('rx_pps', 0.0)),
+                'tx_throughput_fps': float(port_stats.get('tx_pps', 0.0)),
+                'rx_throughput_bps': float(port_stats.get('rx_bps', 0.0)),
+                'tx_throughput_bps': float(port_stats.get('tx_bps', 0.0)),
+                'in_packets': int(port_stats.get('ipackets', 0)),
+                'out_packets': int(port_stats.get('opackets', 0)),
+            }
+
+            pg_id_list = port_pg_id.get_pg_ids(port_num)
+            samples[pname]['latency'] = {}
+            for pg_id in pg_id_list:
+                latency_global = stats.get('latency', {})
+                pg_latency = latency_global.get(pg_id, {}).get('latency')
+                samples[pname]['latency'][pg_id] = pg_latency
+
+        return samples
 
 
 class TrexTrafficGen(SampleVNFTrafficGen):
