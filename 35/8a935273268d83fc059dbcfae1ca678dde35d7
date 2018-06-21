@@ -1,0 +1,7 @@
+Code-Review+2: Rodolfo Alonso Hernandez <rodolfo.alonso.hernandez@intel.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Submitted-by: Emma Foley <emma.l.foley@intel.com>
+Submitted-at: Thu, 21 Jun 2018 15:38:46 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/58793
+Project: yardstick
+Branch: refs/heads/stable/fraser
