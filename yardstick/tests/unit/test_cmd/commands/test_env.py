@@ -6,60 +6,64 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-from __future__ import absolute_import
-import unittest
+
+import os
+import sys
+
 import mock
 import uuid
 
-from yardstick.cmd.commands.env import EnvCommand
+from yardstick.cmd.commands import env
+from yardstick.tests.unit import base
 
 
-class EnvCommandTestCase(unittest.TestCase):
+class EnvCommandTestCase(base.BaseUnitTestCase):
 
-    @mock.patch('yardstick.cmd.commands.env.EnvCommand._start_async_task')
-    @mock.patch('yardstick.cmd.commands.env.EnvCommand._check_status')
+    @mock.patch.object(env.EnvCommand, '_start_async_task')
+    @mock.patch.object(env.EnvCommand, '_check_status')
     def test_do_influxdb(self, check_status_mock, start_async_task_mock):
-        env = EnvCommand()
-        env.do_influxdb({})
+        _env = env.EnvCommand()
+        _env.do_influxdb({})
         start_async_task_mock.assert_called_once()
         check_status_mock.assert_called_once()
 
-    @mock.patch('yardstick.cmd.commands.env.EnvCommand._start_async_task')
-    @mock.patch('yardstick.cmd.commands.env.EnvCommand._check_status')
+    @mock.patch.object(env.EnvCommand, '_start_async_task')
+    @mock.patch.object(env.EnvCommand, '_check_status')
     def test_do_grafana(self, check_status_mock, start_async_task_mock):
-        env = EnvCommand()
-        env.do_grafana({})
+        _env = env.EnvCommand()
+        _env.do_grafana({})
         start_async_task_mock.assert_called_once()
         check_status_mock.assert_called_once()
 
-    @mock.patch('yardstick.cmd.commands.env.EnvCommand._start_async_task')
-    @mock.patch('yardstick.cmd.commands.env.EnvCommand._check_status')
+    @mock.patch.object(env.EnvCommand, '_start_async_task')
+    @mock.patch.object(env.EnvCommand, '_check_status')
     def test_do_prepare(self, check_status_mock, start_async_task_mock):
-        env = EnvCommand()
-        env.do_prepare({})
+        _env = env.EnvCommand()
+        _env.do_prepare({})
         start_async_task_mock.assert_called_once()
         check_status_mock.assert_called_once()
 
-    @mock.patch('yardstick.cmd.commands.env.HttpClient.post')
+    @mock.patch.object(env.HttpClient, 'post')
     def test_start_async_task(self, post_mock):
         data = {'action': 'create_grafana'}
-        EnvCommand()._start_async_task(data)
+        env.EnvCommand()._start_async_task(data)
         post_mock.assert_called_once()
 
-    @mock.patch('yardstick.cmd.commands.env.HttpClient.get')
-    @mock.patch('yardstick.cmd.commands.env.EnvCommand._print_status')
-    def test_check_status(self, print_mock, get_mock):
-        # pylint: disable=unused-argument
-        # NOTE(ralonsoh): the pylint exception must be removed. The mocked
-        # command call must be tested.
+    @mock.patch.object(env.HttpClient, 'get')
+    @mock.patch.object(env.EnvCommand, '_print_status')
+    def test_check_status(self, mock_print, mock_get):
         task_id = str(uuid.uuid4())
-        get_mock.return_value = {'status': 2, 'result': 'error'}
-        status = EnvCommand()._check_status(task_id, 'hello world')
-        self.assertEqual(status, 2)
+        mock_get.return_value = {'status': 2, 'result': 'error'}
+        self.assertEqual(
+            2, env.EnvCommand()._check_status(task_id, 'hello world'))
+        self.assertEqual(2, mock_print.call_count)
 
-    def test_print_status(self):
-        try:
-            EnvCommand()._print_status('hello', 'word')
-        except Exception as e:  # pylint: disable=broad-except
-            # NOTE(ralonsoh): try to reduce the scope of this exception.
-            self.assertIsInstance(e, IndexError)
+    @mock.patch.object(sys, 'stdout')
+    @mock.patch.object(os, 'popen')
+    def test_print_status(self, mock_popen, mock_stdout):
+        mock_popen_obj = mock.Mock()
+        mock_popen_obj.read.return_value = ''
+        mock_popen.return_value = mock_popen_obj
+        env.EnvCommand()._print_status('hello', 'word')
+        mock_stdout.write.assert_not_called()
+        mock_stdout.flush.assert_not_called()
