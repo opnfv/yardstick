@@ -72,4 +72,5 @@ class ServicehaTestCase(unittest.TestCase):
 
         ret = {}
         self.assertRaises(AssertionError, p.run, ret)
+        self.assertEqual(p.sla_pass, False)
         self.assertEqual(ret['sla_pass'], 0)
