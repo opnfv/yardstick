@@ -14,4 +14,4 @@ Yardstick test results
 
 .. include:: ./overview.rst
 .. include:: ./results.rst
-.. include:: ./euphrates_fraser_comparsion.rst
+.. include:: ./euphrates_fraser_comparison.rst

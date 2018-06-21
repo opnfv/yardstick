@@ -70,8 +70,6 @@ The influence of the scenario
    :width: 800px
    :alt: TC082 influence of scenario
 
-the influence of the scenario
-
 {
 
     "os-nosdn-nofeature-ha": [505],
@@ -87,8 +85,6 @@ The influence of the POD
 .. image:: images/tc082_pod.png
    :width: 800px
    :alt: TC082 influence of the POD
-
-the influence of the POD
 
 {
 
@@ -127,3 +123,65 @@ the influence of the POD
 
 Fraser release
 --------------
+
+Test results per scenario and pod (lower is better):
+
+{
+
+    "os-nosdn-nofeature-ha:zte-pod2:daisy": [306.5],
+
+    "os-nosdn-nofeature-ha:lf-pod2:fuel": [337.5],
+
+    "os-nosdn-nofeature-ha:intel-pod18:joid": [343.5],
+
+    "os-nosdn-nofeature-ha:huawei-pod12:joid": [399],
+
+    "os-nosdn-nofeature-ha:lf-pod1:apex": [454],
+
+    "os-nosdn-nofeature-ha:huawei-pod2:compass": [544.5],
+
+    "os-nosdn-nofeature-ha:huawei-virtual4:compass": [1138],
+
+    "os-nosdn-nofeature-ha:ericsson-pod1:fuel": [1305],
+
+    "os-nosdn-nofeature-ha:huawei-virtual3:compass": [1433],
+
+    "os-nosdn-nofeature-ha:huawei-virtual1:compass": [1470],
+
+    "os-nosdn-nofeature-ha:arm-pod6:fuel": [1738.5]
+
+}
+
+
+The influence of the POD
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: images/tc082_pod_fraser.png
+   :width: 800px
+   :alt: TC082 influence of the POD
+
+{
+
+    "zte-pod2": [306.5],
+
+    "lf-pod2": [337.5],
+
+    "intel-pod18": [343.5],
+
+    "huawei-pod12": [399],
+
+    "lf-pod1": [454],
+
+    "huawei-pod2": [544.5],
+
+    "huawei-virtual4": [1138],
+
+    "ericsson-pod1": [1305],
+
+    "huawei-virtual3": [1433],
+
+    "huawei-virtual1": [1470],
+
+    "arm-pod6": [1738.5]
+
+}
