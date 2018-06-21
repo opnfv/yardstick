@@ -6,16 +6,16 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-import unittest
 
 import mock
 
+from yardstick.common.exceptions import UnsupportedPodFormatError
 from yardstick.service.environment import Environment
 from yardstick.service.environment import AnsibleCommon
-from yardstick.common.exceptions import UnsupportedPodFormatError
+from yardstick.tests.unit import base as ut_base
 
 
-class EnvironmentTestCase(unittest.TestCase):
+class EnvironmentTestCase(ut_base.BaseUnitTestCase):
 
     def test_get_sut_info(self):
         pod_info = {
@@ -31,11 +31,11 @@ class EnvironmentTestCase(unittest.TestCase):
             ]
         }
 
-        AnsibleCommon.gen_inventory_ini_dict = mock.MagicMock()
-        AnsibleCommon.get_sut_info = mock.MagicMock(return_value={'node1': {}})
-
-        env = Environment(pod=pod_info)
-        env.get_sut_info()
+        with mock.patch.object(AnsibleCommon, 'gen_inventory_ini_dict'), \
+                mock.patch.object(AnsibleCommon, 'get_sut_info',
+                                  return_value={'node1': {}}):
+            env = Environment(pod=pod_info)
+            env.get_sut_info()
 
     def test_get_sut_info_pod_str(self):
         pod_info = 'nodes'
@@ -43,7 +43,3 @@ class EnvironmentTestCase(unittest.TestCase):
         env = Environment(pod=pod_info)
         with self.assertRaises(UnsupportedPodFormatError):
             env.get_sut_info()
-
-
-if __name__ == '__main__':
-    unittest.main()
