@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_d08294ff",
+        "filename": "yardstick/tests/unit/network_services/libs/ixia_libs/test_ixnet_api.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-21T13:00:48Z",
+      "side": 1,
+      "message": "Indentation",
+      "revId": "52abc8a5c94fd990089caf070034375d6879b533",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_b087200f",
+        "filename": "yardstick/tests/unit/network_services/libs/ixia_libs/test_ixnet_api.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-21T13:00:48Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "52abc8a5c94fd990089caf070034375d6879b533",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
