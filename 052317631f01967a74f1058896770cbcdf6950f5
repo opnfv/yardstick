@@ -22,6 +22,30 @@
       "revId": "052317631f01967a74f1058896770cbcdf6950f5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_4673654d",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-21T22:32:36Z",
+      "side": 1,
+      "message": "Just realised that its fixed in another patch. So its Ok.",
+      "parentUuid": "da5c1566_e68279ff",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 2
+      },
+      "revId": "052317631f01967a74f1058896770cbcdf6950f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
