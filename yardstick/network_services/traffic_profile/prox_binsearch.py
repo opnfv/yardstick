@@ -119,7 +119,7 @@ class ProxBinSearchProfile(ProxProfile):
             rate_samples["Test_Rate"] = test_value
             self.queue.put(rate_samples, True, constants.QUEUE_PUT_TIMEOUT)
             LOG.info("Checking MAX %s MIN %s TEST %s",
-		self.current_upper, self.lower_bound, test_value)
+                     self.current_upper, self.lower_bound, test_value)
             while (pos_retry <= ok_retry) and (neg_retry <= ok_retry):
 
                 total_retry = total_retry + 1
@@ -159,6 +159,8 @@ class ProxBinSearchProfile(ProxProfile):
                         success_samples["Success_can_be_lost"] = int(result.can_be_lost)
                         success_samples["Success_drop_total"] = int(result.drop_total)
                         success_samples["Success_RxThroughput"] = samples["RxThroughput"]
+                        success_samples["Success_RxThroughput_gbps"] = \
+                            (samples["RxThroughput"] / 1000) * (pkt_size * 8)
                         LOG.info(">>>##>>Collect SUCCESS TG KPIs %s %s",
                                  datetime.datetime.now(), success_samples)
                         self.queue.put(success_samples, True, constants.QUEUE_PUT_TIMEOUT)
