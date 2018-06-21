@@ -17,7 +17,8 @@ import unittest
 
 import os
 
-from yardstick.error import IncorrectConfig, SSHError
+from yardstick.common import exceptions
+from yardstick.error import IncorrectConfig
 from yardstick.error import IncorrectNodeSetup
 from yardstick.error import IncorrectSetup
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkInterface
@@ -244,7 +245,7 @@ class TestDpdkNode(unittest.TestCase):
         mock_ssh_helper = mock.Mock()
         mock_ssh_helper.execute.return_value = 0, '', ''
 
-        mock_intf_type().check.side_effect = SSHError
+        mock_intf_type().check.side_effect = exceptions.SSHError
 
         dpdk_node = DpdkNode(NAME, self.INTERFACES, mock_ssh_helper)
 
