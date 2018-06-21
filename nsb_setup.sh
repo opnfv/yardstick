@@ -63,7 +63,7 @@ for i in "${pkg[@]}"; do
     fi
 done
 
-pip install ansible==2.4.2 shade==1.22.2 docker-py==1.10.6
+pip install ansible==2.5.5 shade==1.22.2 docker-py==1.10.6
 
 ANSIBLE_SCRIPTS="ansible"
 

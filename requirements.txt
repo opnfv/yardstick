@@ -11,7 +11,7 @@ Babel==2.3.4            # BSD; OSI Approved  BSD License
 Jinja2==2.9.6           # BSD; OSI Approved  BSD License
 SQLAlchemy==1.1.12      # MIT License; OSI Approved  MIT License
 PTable==0.9.2           # BSD (3 clause); OSI Approved  BSD License
-ansible==2.4.2          # GPLv3; OSI Approved  GNU General Public License v3 or later (GPLv3+)
+ansible==2.5.5          # GPLv3; OSI Approved  GNU General Public License v3 or later (GPLv3+)
 backport-ipaddress==0.1; python_version <= "2.7"    # OSI Approved  Python Software Foundation License
 chainmap==1.0.2         # Python Software Foundation License; OSI Approved  Python Software Foundation License
 cmd2==0.8.6             # MIT License; OSI Approved  MIT License
