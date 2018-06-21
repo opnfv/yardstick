@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_d31459f7",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-21T12:59:45Z",
+      "side": 1,
+      "message": "two blank lines",
+      "revId": "dfeb6e86dbadb40d05052002353f49cef971c80e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_33f955c9",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-21T12:59:45Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "dfeb6e86dbadb40d05052002353f49cef971c80e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_131d3110",
+        "filename": "yardstick/network_services/helpers/samplevnf_helper.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-21T12:59:45Z",
+      "side": 1,
+      "message": "from yardstick.common import utils",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 38
+      },
+      "revId": "dfeb6e86dbadb40d05052002353f49cef971c80e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_33203549",
+        "filename": "yardstick/network_services/vnf_generic/vnf/acl_vnf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-21T12:59:45Z",
+      "side": 1,
+      "message": "Not needed.",
+      "range": {
+        "startLine": 255,
+        "startChar": 1,
+        "endLine": 256,
+        "endChar": 46
+      },
+      "revId": "dfeb6e86dbadb40d05052002353f49cef971c80e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d32bb92e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-21T12:59:45Z",
+      "side": 1,
+      "message": "Please, again: don\u0027t import classes or functions. Import modules.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 50
+      },
+      "revId": "dfeb6e86dbadb40d05052002353f49cef971c80e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_530049aa",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vfw_vnf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-21T12:59:45Z",
+      "side": 1,
+      "message": "We don\u0027t need this anymore",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 45
+      },
+      "revId": "dfeb6e86dbadb40d05052002353f49cef971c80e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
