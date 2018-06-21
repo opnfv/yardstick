@@ -242,18 +242,19 @@ class SriovContextTestCase(unittest.TestCase):
         self.assertIsNone(self.sriov.configure_nics_for_sriov())
 
     @mock.patch.object(ssh, 'SSH', return_value=(0, "a", ""))
-    @mock.patch.object(model, 'Libvirt')
-    def test__enable_interfaces(self, mock_libvirt, mock_ssh):
-        # pylint: disable=unused-argument
-        # NOTE(ralonsoh): the pylint exception should be removed.
+    @mock.patch.object(model.Libvirt, 'add_sriov_interfaces',
+                       return_value='out_xml')
+    def test__enable_interfaces(self, mock_add_sriov, mock_ssh):
         self.sriov.vm_deploy = True
         self.sriov.connection = mock_ssh
         self.sriov.vm_names = ['vm_0', 'vm_1']
         self.sriov.drivers = []
         self.sriov.networks = self.NETWORKS
-        self.sriov.get_vf_data = mock.Mock(return_value="")
-        self.assertIsNone(self.sriov._enable_interfaces(
-            0, 0, ["private_0"], 'test'))
+        self.assertEqual(
+            'out_xml',
+            self.sriov._enable_interfaces(0, 0, ['private_0'], 'test'))
+        mock_add_sriov.assert_called_once_with(
+            '0000:00:0a.0', 0, self.NETWORKS['private_0']['mac'], 'test')
 
     @mock.patch.object(model.Libvirt, 'build_vm_xml')
     @mock.patch.object(model.Libvirt, 'check_if_vm_exists_and_delete')
@@ -282,7 +283,9 @@ class SriovContextTestCase(unittest.TestCase):
         mock_build_vm_xml.return_value = (xml_out, '00:00:00:00:00:01')
 
         with mock.patch.object(self.sriov, 'vnf_node') as mock_vnf_node, \
-                mock.patch.object(self.sriov, '_enable_interfaces'):
+                mock.patch.object(self.sriov, '_enable_interfaces') as \
+                mock_enable_interfaces:
+            mock_enable_interfaces.return_value = 'out_xml'
             mock_vnf_node.generate_vnf_instance = mock.Mock(
                 return_value='node')
             nodes_out = self.sriov.setup_sriov_context()
@@ -294,7 +297,10 @@ class SriovContextTestCase(unittest.TestCase):
             connection, 'flavor', vm_name, 0)
         mock_create_vm.assert_called_once_with(connection, cfg)
         mock_check.assert_called_once_with(vm_name, connection)
-        mock_write_file.assert_called_once_with(cfg, xml_out)
+        mock_write_file.assert_called_once_with(cfg, 'out_xml')
+        mock_enable_interfaces.assert_has_calls([
+            mock.call(0, mock.ANY, ['private_0'], mock.ANY),
+            mock.call(0, mock.ANY, ['public_0'], mock.ANY)], any_order=True)
 
     def test__get_vf_data(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
