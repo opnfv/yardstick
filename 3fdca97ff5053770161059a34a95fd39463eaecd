@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_c69e5556",
+        "filename": "samples/vnf_samples/nsut/vfw/acl_1rule.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-21T22:42:54Z",
+      "side": 1,
+      "message": "isn\u0027t there an extra action of conntrack in vFW? How is this file different from the acl file?",
+      "revId": "3fdca97ff5053770161059a34a95fd39463eaecd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
