@@ -1,0 +1,53 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+{% set num_vnfs = get(extra_args, 'num_vnfs', 1) %}
+---
+nsd:nsd-catalog:
+    nsd:
+    -   id: prox-tg-topology
+        name: prox-tg-topology
+        short-name: prox-tg-topology
+        description: prox-tg-topology
+        constituent-vnfd:
+{% for vnf_num in range(num_vnfs|int) %}
+        -   member-vnf-index: '{{ (vnf_num * 2) + 1 }}'
+            vnfd-id-ref: tg__{{ vnf_num }}
+            VNF model: ../../vnf_descriptors/tg_prox_tpl.yaml
+        -   member-vnf-index: '{{ (vnf_num * 2) + 2 }}'
+            vnfd-id-ref: vnf__{{ vnf_num }}
+            VNF model: ../../vnf_descriptors/prox_vnf.yaml
+{% endfor %}
+        vld:
+{% for vnf_num in range(num_vnfs|int) %}
+        -   id: uplink_{{ vnf_num }}
+            name: tg__{{ vnf_num }} to vnf__{{ vnf_num }} link {{ (vnf_num * 2) + 1 }}
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: '{{ (vnf_num * 2) + 1 }}'
+                vnfd-connection-point-ref: xe0
+                vnfd-id-ref: tg__{{ vnf_num }}
+            -   member-vnf-index-ref: '{{ (vnf_num * 2) + 2 }}'
+                vnfd-connection-point-ref: xe0
+                vnfd-id-ref: vnf__{{ vnf_num }}
+        -   id: downlink_{{ vnf_num }}
+            name: vnf__{{ vnf_num }} to tg__{{ vnf_num }} link {{ (vnf_num * 2) + 2 }}
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: '{{ (vnf_num * 2) + 1 }}'
+                vnfd-connection-point-ref: xe1
+                vnfd-id-ref: vnf__{{ vnf_num }}
+            -   member-vnf-index-ref: '{{ (vnf_num * 2) + 2 }}'
+                vnfd-connection-point-ref: xe1
+                vnfd-id-ref: tg__{{ vnf_num }}
+{% endfor %}
