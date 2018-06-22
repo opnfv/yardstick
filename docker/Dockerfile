@@ -51,6 +51,8 @@ EXPOSE 5000 5672
 ADD http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img ${IMAGE_DIR}
 ADD http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-disk1.img ${IMAGE_DIR}
 
+# For developers: when `docker build ...` is running from YARDSTICK_REPO_DIR, please change
+#                 path `./exec_tests.sh` -> `./docker/exec_tests.sh``.
 COPY ./exec_tests.sh /usr/local/bin/
 
 ENV NSB_DIR="/opt/nsb_bin"
