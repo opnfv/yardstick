@@ -29,6 +29,7 @@ from yardstick.benchmark.contexts.base import Context
 from yardstick.common import exceptions as y_exceptions
 from yardstick.common.process import check_if_process_failed
 from yardstick.common import utils
+from yardstick.common import yaml_loader
 from yardstick.network_services import constants
 from yardstick.network_services.helpers.dpdkbindnic_helper import DpdkBindHelper, DpdkNode
 from yardstick.network_services.helpers.samplevnf_helper import MultiPortConfig
@@ -141,6 +142,13 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
             'vnf_type': self.VNF_TYPE,
         }
 
+        # read actions/rules from file
+        acl_options = None
+        acl_file_name = self.scenario_helper.options.get('rules')
+        if acl_file_name:
+            with utils.open_relative_file(acl_file_name, task_path) as infile:
+                acl_options = yaml_loader.yaml_load(infile)
+
         config_tpl_cfg = utils.find_relative_file(self.DEFAULT_CONFIG_TPL_CFG,
                                                   task_path)
         config_basename = posixpath.basename(self.CFG_CONFIG)
@@ -173,11 +181,16 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
             new_config = self._update_packet_type(new_config, traffic_options)
         self.ssh_helper.upload_config_file(config_basename, new_config)
         self.ssh_helper.upload_config_file(script_basename,
-                                           multiport.generate_script(self.vnfd_helper))
+            multiport.generate_script(self.vnfd_helper,
+                                      self.get_flows_config(acl_options)))
 
         LOG.info("Provision and start the %s", self.APP_NAME)
         self._build_pipeline_kwargs()
         return self.PIPELINE_COMMAND.format(**self.pipeline_kwargs)
+
+    def get_flows_config(self, options=None): # pylint: disable=unused-argument
+        """No actions/rules (flows) by default"""
+        return None
 
     def _build_pipeline_kwargs(self):
         tool_path = self.ssh_helper.provision_tool(tool_file=self.APP_NAME)

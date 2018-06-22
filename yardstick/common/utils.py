@@ -306,6 +306,19 @@ def get_ip_version(ip_addr):
         return address.version
 
 
+def make_ip_addr(ip, mask):
+    """
+    :param ip[str]: ip adddress
+    :param mask[str]: /24 prefix of 255.255.255.0 netmask
+    :return: IPv4Interface object
+    """
+    try:
+        return ipaddress.ip_interface(six.text_type('/'.join([ip, mask])))
+    except (TypeError, ValueError):
+        # None so we can skip later
+        return None
+
+
 def ip_to_hex(ip_addr, separator=''):
     try:
         address = ipaddress.ip_address(six.text_type(ip_addr))
