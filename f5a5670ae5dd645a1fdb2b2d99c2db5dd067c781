@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_a9ffb200",
+        "filename": "ansible/roles/download_dpdk/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-22T09:22:04Z",
+      "side": 1,
+      "message": "I think we should not change this path, or else we will end up maintaining the path again.",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 58
+      },
+      "revId": "f5a5670ae5dd645a1fdb2b2d99c2db5dd067c781",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
