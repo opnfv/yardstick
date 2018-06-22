@@ -58,7 +58,7 @@ class CollectorTestCase(unittest.TestCase):
         self.assertEqual(len(collector.vnfs), 1)
 
     def test_start(self, *_):
-        self.assertIsNone(self.collector.start())
+        self.collector.start()
         for vnf in self.collector.vnfs:
             vnf.start_collect.assert_called_once()
 
