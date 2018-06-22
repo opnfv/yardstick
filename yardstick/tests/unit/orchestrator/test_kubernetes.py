@@ -67,7 +67,10 @@ service ssh restart;while true ; do sleep 10000; done"
                         "nodeSelector": {
                             "kubernetes.io/hostname": "node-01"
                         },
-                        "restartPolicy": "Always"
+                        "restartPolicy": "Always",
+                        "tolerations": [
+                            {"operator": "Exists"}
+                        ]
                     }
                 }
             }
@@ -221,6 +224,30 @@ class KubernetesObjectTestCase(base.BaseUnitTestCase):
                 k8s_obj.template['spec']['template']['spec']['containers'][i])
             self.assertEqual({'key%s' % i: 'value%s' % i},
                              container['securityContext'])
+
+    def test__add_tolerations(self):
+        _kwargs = {'tolerations': [{'key': 'key1',
+                                    'value': 'value2',
+                                    'effect': 'effect3',
+                                    'operator': 'operator4',
+                                    'wrong_key': 'error_key'}]
+                   }
+        k8s_obj = kubernetes.KubernetesObject('pod_name', **_kwargs)
+        k8s_obj._add_tolerations()
+        _tol = k8s_obj.template['spec']['template']['spec']['tolerations']
+        self.assertEqual(1, len(_tol))
+        self.assertEqual({'key': 'key1',
+                          'value': 'value2',
+                          'effect': 'effect3',
+                          'operator': 'operator4'},
+                         _tol[0])
+
+    def test__add_tolerations_default(self):
+        k8s_obj = kubernetes.KubernetesObject('pod_name')
+        k8s_obj._add_tolerations()
+        _tol = k8s_obj.template['spec']['template']['spec']['tolerations']
+        self.assertEqual(1, len(_tol))
+        self.assertEqual({'operator': 'Exists'}, _tol[0])
 
 
 class ContainerObjectTestCase(base.BaseUnitTestCase):

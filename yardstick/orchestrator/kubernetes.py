@@ -87,6 +87,7 @@ class KubernetesObject(object):
 
     SSHKEY_DEFAULT = 'yardstick_key'
     RESTART_POLICY = ('Always', 'OnFailure', 'Never')
+    TOLERATIONS_KEYS = ('key', 'value', 'effect', 'operator')
 
     def __init__(self, name, **kwargs):
         super(KubernetesObject, self).__init__()
@@ -96,6 +97,7 @@ class KubernetesObject(object):
         self.ssh_key = parameters.pop('ssh_key', self.SSHKEY_DEFAULT)
         self._volumes = parameters.pop('volumes', [])
         self._security_context = parameters.pop('securityContext', None)
+        self._tolerations = parameters.pop('tolerations', [])
         self._restart_policy = parameters.pop('restartPolicy', 'Always')
         if self._restart_policy not in self.RESTART_POLICY:
             raise exceptions.KubernetesWrongRestartPolicy(
@@ -127,7 +129,8 @@ class KubernetesObject(object):
                         "containers": [],
                         "volumes": [],
                         "nodeSelector": {},
-                        "restartPolicy": self._restart_policy
+                        "restartPolicy": self._restart_policy,
+                        "tolerations": []
                     }
                 }
             }
@@ -138,6 +141,7 @@ class KubernetesObject(object):
         self._add_node_selector()
         self._add_volumes()
         self._add_security_context()
+        self._add_tolerations()
 
     def get_template(self):
         return self.template
@@ -194,6 +198,18 @@ class KubernetesObject(object):
             utils.set_dict_value(self.template,
                                  'spec.template.spec.securityContext',
                                  self._security_context)
+
+    def _add_tolerations(self):
+        tolerations = []
+        for tol in self._tolerations:
+            tolerations.append({k: tol[k] for k in tol
+                                if k in self.TOLERATIONS_KEYS})
+
+        tolerations = ([{'operator': 'Exists'}] if not tolerations
+                       else tolerations)
+        utils.set_dict_value(self.template,
+                             'spec.template.spec.tolerations',
+                             tolerations)
 
 
 class ServiceObject(object):
