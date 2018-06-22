@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_06096d31",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-22T09:25:07Z",
+      "side": 1,
+      "message": "You need to add a check for this to test___init__",
+      "range": {
+        "startLine": 32,
+        "startChar": 7,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "2e873d724d92f26e2e740f6009a50b1cfc8536b5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e909aa2d",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-22T09:25:07Z",
+      "side": 1,
+      "message": "You need to add a test to verify that this is set to False at this stage",
+      "range": {
+        "startLine": 77,
+        "startChar": 10,
+        "endLine": 77,
+        "endChar": 37
+      },
+      "revId": "2e873d724d92f26e2e740f6009a50b1cfc8536b5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c90e6634",
+        "filename": "yardstick/benchmark/scenarios/availability/serviceha.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-22T09:25:07Z",
+      "side": 1,
+      "message": "This needs to be checked in a unittest",
+      "range": {
+        "startLine": 89,
+        "startChar": 1,
+        "endLine": 94,
+        "endChar": 34
+      },
+      "revId": "2e873d724d92f26e2e740f6009a50b1cfc8536b5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
