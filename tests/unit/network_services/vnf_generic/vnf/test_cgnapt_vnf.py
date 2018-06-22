@@ -88,6 +88,7 @@ link 1 up
         ssh_helper = mock.Mock()
         scenario_helper = mock.Mock()
         scenario_helper.vnf_cfg = {'lb_config': 'HW'}
+        scenario_helper.options = {}
         scenario_helper.all_options = {}
 
         cgnat_approx_setup_helper = CgnaptApproxSetupEnvHelper(vnfd_helper,
