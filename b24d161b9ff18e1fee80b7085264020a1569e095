@@ -34,6 +34,24 @@
       "revId": "b24d161b9ff18e1fee80b7085264020a1569e095",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_09adfe31",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_bng-4.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-22T15:49:08Z",
+      "side": 1,
+      "message": "Ok we can leave it to user to configure and capture in prox dev guide",
+      "parentUuid": "da5c1566_66066922",
+      "revId": "b24d161b9ff18e1fee80b7085264020a1569e095",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
