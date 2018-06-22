@@ -16,6 +16,24 @@
       "revId": "3fdca97ff5053770161059a34a95fd39463eaecd",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c6401559",
+        "filename": "samples/vnf_samples/nsut/vfw/acl_1rule.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-06-22T08:45:48Z",
+      "side": 1,
+      "message": "1. The actions/rules in this file haven\u0027t been modified and left as was before. Only format of this file has been fixed.\n2. This file is very similar to ACL but not the same. The IP addresses are different.\n3. vFW \u0026 vACL VNF create/apply default actions/rules first and then apply rules from the configuration file. The raw SampleVNF CLI commands of vFW can be found at http://paste.openstack.org/show/723304/. The vFW have conntrack action by default, the vACL doesn\u0027t ( see http://paste.openstack.org/show/723303/).",
+      "parentUuid": "da5c1566_c69e5556",
+      "revId": "3fdca97ff5053770161059a34a95fd39463eaecd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
