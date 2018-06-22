@@ -26,10 +26,11 @@ class HttpClient(object):
         while True:
             try:
                 response = requests.post(url, data=data, headers=headers)
+                response.raise_for_status()
                 result = response.json()
                 logger.debug('The result is: %s', result)
                 return result
-            except Exception:
+            except Exception: # pylint: disable=broad-except
                 if time.time() > t_end:
                     logger.exception('')
                     raise
@@ -37,4 +38,5 @@ class HttpClient(object):
 
     def get(self, url):
         response = requests.get(url)
+        response.raise_for_status()
         return response.json()
