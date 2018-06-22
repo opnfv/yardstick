@@ -1,0 +1,197 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_0448452c",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-22T20:08:17Z",
+      "side": 1,
+      "message": "Shouldn\u0027t that read as follows:\n\nfrom yardstick.network_services import constants\nQUEUE_PUT_TIMEOUT \u003d constants.QUEUE_PUT_TIMEOUT\n\ninstead of hardcoding here?\nSee also comments for yardstick/network_services/constants.py line 20.",
+      "revId": "43b6093a01055cf3065ebeeb31e7f99194fa43fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_44e4fd3a",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-22T20:08:17Z",
+      "side": 1,
+      "message": "Looks like the \"else:\" statement is missing...\nPossibly this ProxDuration runner could have been implemented as a variation inside the Duration runner, that would have been enabled by a \"sampled: yes\" parameter.\nIn other words, what behavior would be expect when selecting both ProxDuration runner and \"sampled: no\" parameter?",
+      "revId": "43b6093a01055cf3065ebeeb31e7f99194fa43fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_84ee1521",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-22T20:08:17Z",
+      "side": 1,
+      "message": "This file is based on yardstick/benchmark/runners/duration.py, which has been reworked in the meantime by https://gerrit.opnfv.org/gerrit/57061, which has converted SLA validation from assert statements raising generic AssertionError exceptions to self.verify_SLA() calls raising custom \nyardstick.common.exceptions.SLAValidationError exceptions.\nAlthough NSPerf scenario in yardstick/benchmark/scenarios/networking/vnf_generic.py did not raise AssertionError exceptions and does not raise yardstick.common.exceptions.SLAValidationError exceptions either, this line should be reworked to match the new SLA validation handling, as now implemented in yardstick/benchmark/runners/duration.py.",
+      "revId": "43b6093a01055cf3065ebeeb31e7f99194fa43fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e4ca71a0",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-22T20:08:17Z",
+      "side": 1,
+      "message": "Shouldn\u0027t commented out code (inherited from Duration runner) be removed from the commit?",
+      "revId": "43b6093a01055cf3065ebeeb31e7f99194fa43fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_24c46991",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-22T20:08:17Z",
+      "side": 1,
+      "message": "Looks like actual default (line 44) is 60 seconds.\nDiscrepancy inherited from Duration runner.",
+      "revId": "43b6093a01055cf3065ebeeb31e7f99194fa43fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c4cf6daf",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-22T20:08:17Z",
+      "side": 1,
+      "message": "Please document additional parameters for this runner: sampled and confirmation",
+      "revId": "43b6093a01055cf3065ebeeb31e7f99194fa43fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e458b1fc",
+        "filename": "yardstick/network_services/constants.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-22T20:08:17Z",
+      "side": 1,
+      "message": "This constant is used by ProxBinSearchProfile in yardstick/network_services/traffic_profile/prox_binsearch.py\nWhat might be confusing is that a constant with the same name is locally defined and used by the Duration, Iteration and ProxDuration runners.\nIt might have been more appropriate to define this constant from yardstick/common/constants.py, if it serves a common purpose, or to name it differently here.",
+      "revId": "43b6093a01055cf3065ebeeb31e7f99194fa43fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_840a95d0",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-22T20:08:17Z",
+      "side": 1,
+      "message": "Do we really need to call setdefault() here?\nIn yardstick/benchmark/runners/proxduration.py, runner parameters are obtained using get()\nAnyway, this parameter is only retrieved from this line, so no side-effect, but no added value either.",
+      "range": {
+        "startLine": 111,
+        "startChar": 70,
+        "endLine": 111,
+        "endChar": 80
+      },
+      "revId": "43b6093a01055cf3065ebeeb31e7f99194fa43fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c4148df7",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-22T20:08:17Z",
+      "side": 1,
+      "message": "Shouldn\u0027t that be moved between lines 123 and 124?\nThe variables tested in this if statement do not depend on the test result, so running the test looks like a waste of time before checking for this \"retry exceeded\" condition.",
+      "revId": "43b6093a01055cf3065ebeeb31e7f99194fa43fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_24f909c9",
+        "filename": "yardstick/tests/unit/benchmark/core/test_task.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-22T20:08:17Z",
+      "side": 1,
+      "message": "Not sure about unit tests...\nJust wondering whether the Ping scenario is relevant to test the ProxDuration runner.",
+      "revId": "43b6093a01055cf3065ebeeb31e7f99194fa43fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_8431f5a4",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-22T20:08:17Z",
+      "side": 1,
+      "message": "See https://gerrit.opnfv.org/gerrit/#/c/57061/9/yardstick/tests/unit/benchmark/runner/test_search.py regarding AssertionError, but don\u0027t use MagicMock, later replaced by https://gerrit.opnfv.org/gerrit/57323\nSame for lines 246, 250, 262, 266, 278 and 294.",
+      "revId": "43b6093a01055cf3065ebeeb31e7f99194fa43fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
