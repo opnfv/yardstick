@@ -607,12 +607,15 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         dpdk_setup_helper.CFG_SCRIPT = 'script'
         dpdk_setup_helper.pipeline_kwargs = {}
         dpdk_setup_helper.all_ports = [0, 1, 2]
+        dpdk_setup_helper.scenario_helper.vnf_cfg = {'lb_config': 'HW',
+                                                     'worker_threads': 1}
 
         expected = {
             'cfg_file': 'config',
             'script': 'script',
             'port_mask_hex': '0x3',
             'tool_path': 'tool_path',
+            'hwlb': ' --hwlb 1',
         }
         dpdk_setup_helper._build_pipeline_kwargs()
         self.assertDictEqual(dpdk_setup_helper.pipeline_kwargs, expected)
