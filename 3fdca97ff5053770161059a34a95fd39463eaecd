@@ -34,6 +34,24 @@
       "revId": "3fdca97ff5053770161059a34a95fd39463eaecd",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_06220db9",
+        "filename": "samples/vnf_samples/nsut/vfw/acl_1rule.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-22T08:51:37Z",
+      "side": 1,
+      "message": "OK got it. One more question, Which test case has been validated with this change?",
+      "parentUuid": "da5c1566_c6401559",
+      "revId": "3fdca97ff5053770161059a34a95fd39463eaecd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
