@@ -489,6 +489,27 @@ The final step consists in pushing the newly modified commit to Gerrit::
 
   git review
 
+Backporting changes to stable branches
+--------------------------------------
+During the release cycle, when master and the stable/<release> branch have
+diverged, it may be necessary to backport (cherry-pick) changes top the
+stable/<release> branch once they have merged to master.
+These changes should be identified by the committers reviewing the patch.
+Changes should be backported as soon as possible after merging of the original
+code.
+
+The process for backporting is as follows:
+
+* Committer A merges a change to master (process for normal changes).
+* Committer A cherry-picks the change to stable/<release> branch (if the bug
+  has been identified for backporting).
+* The original author should review the code and verify that it still works
+  (and give a +1).
+* Committer B reviews the change, +2’s it and merges to stable/<release>.
+
+A backported change needs a +1 and a +2 from a committer who didn’t propose
+the change (i.e. minimum 3 people involved).
+
 
 Plugins
 -------
