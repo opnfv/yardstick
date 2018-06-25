@@ -199,3 +199,9 @@ def get_pod_list(namespace='default'):      # pragma: no cover
 def get_pod_by_name(name):  # pragma: no cover
     pod_list = get_pod_list()
     return next((n for n in pod_list.items if n.metadata.name.startswith(name)), None)
+
+
+def get_volume_types():
+    """Return the "volume" types supported by the current API"""
+    return [vtype for vtype in client.V1Volume.attribute_map.values()
+            if vtype != 'name']

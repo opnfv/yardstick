@@ -7,9 +7,9 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import absolute_import
-from __future__ import print_function
+import copy
 
+from yardstick.common import exceptions
 from yardstick.common import utils
 from yardstick.common import kubernetes_utils as k8s_utils
 
@@ -24,8 +24,7 @@ class KubernetesObject(object):
         self.args = kwargs.get('args', [])
         self.ssh_key = kwargs.get('ssh_key', 'yardstick_key')
         self.node_selector = kwargs.get('nodeSelector', {})
-
-        self.volumes = []
+        self._volumes = kwargs.get('volumes', [])
 
         self.template = {
             "apiVersion": "v1",
@@ -53,7 +52,6 @@ class KubernetesObject(object):
         self._change_value_according_name(name)
         self._add_containers()
         self._add_node_selector()
-        self._add_ssh_key_volume()
         self._add_volumes()
 
     def get_template(self):
@@ -97,21 +95,32 @@ class KubernetesObject(object):
                              self.node_selector)
 
     def _add_volumes(self):
+        """Add "volume" items to container specs, including the SSH one"""
+        volume_items = [self._create_volume(vol) for vol in self._volumes]
+        volume_items.append(self._create_ssh_key_volume())
         utils.set_dict_value(self.template,
                              'spec.template.spec.volumes',
-                             self.volumes)
+                             volume_items)
 
-    def _add_volume(self, volume):
-        self.volumes.append(volume)
+    def _create_ssh_key_volume(self):
+        """Create a "volume" item of type "configMap" for the SSH key"""
+        return {'name': self.ssh_key,
+                'configMap': {'name': self.ssh_key}}
 
-    def _add_ssh_key_volume(self):
-        key_volume = {
-            "configMap": {
-                "name": self.ssh_key
-            },
-            "name": self.ssh_key
-        }
-        self._add_volume(key_volume)
+    @staticmethod
+    def _create_volume(volume):
+        """Create a "volume" item"""
+        volume = copy.deepcopy(volume)
+        name = volume.pop('name')
+        for key in (k for k in volume if k in k8s_utils.get_volume_types()):
+            type_name = key
+            type_data = volume[key]
+            break
+        else:
+            raise exceptions.KubernetesTemplateInvalidVolumeType(volume=volume)
+
+        return {'name': name,
+                type_name: type_data}
 
 
 class ServiceObject(object):
@@ -145,15 +154,22 @@ class ServiceObject(object):
 
 class KubernetesTemplate(object):
 
-    def __init__(self, name, template_cfg):
+    def __init__(self, name, context_cfg):
+        """KubernetesTemplate object initialization
+
+        :param name: (str) name of the Kubernetes context
+        :param context_cfg: (dict) context definition
+        """
+        context_cfg = copy.deepcopy(context_cfg)
+        servers_cfg = context_cfg.pop('servers', {})
         self.name = name
         self.ssh_key = '{}-key'.format(name)
 
-        self.rcs = [self._get_rc_name(rc) for rc in template_cfg]
+        self.rcs = [self._get_rc_name(rc) for rc in servers_cfg]
         self.k8s_objs = [KubernetesObject(self._get_rc_name(rc),
                                           ssh_key=self.ssh_key,
                                           **cfg)
-                         for rc, cfg in template_cfg.items()]
+                         for rc, cfg in servers_cfg.items()]
         self.service_objs = [ServiceObject(s) for s in self.rcs]
 
         self.pods = []
