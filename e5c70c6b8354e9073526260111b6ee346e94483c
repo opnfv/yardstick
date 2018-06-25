@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_9f602037",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-25T11:08:04Z",
+      "side": 1,
+      "message": "In module with so many imports (some of them with the same name, \"base\"), it\u0027s useful to rename it:\n  ... import base as context_base",
+      "range": {
+        "startLine": 26,
+        "startChar": 41,
+        "endLine": 26,
+        "endChar": 45
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_7f654c44",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-25T11:08:04Z",
+      "side": 1,
+      "message": "We should avoid redundant loops and nested conditions:\n\n  for node in (node for node in nodes if node.get(\u0027collectd\u0027)):",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 30
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_3f4bd4b1",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-25T11:08:04Z",
+      "side": 1,
+      "message": "We should change the Resource.amqp_collect_nfvi_kpi method.\n\nWe should return information for all nodes, regardless if the collect process is working or not.\n\nIn case of not having metrics, Resource.amqp_collect_nfvi_kpi will return {}\n\nReview Resource. \"enable\" flag is not used outside.",
+      "range": {
+        "startLine": 73,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 24
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_1fdb70ee",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-25T11:08:04Z",
+      "side": 1,
+      "message": "Import the module, not the class",
+      "range": {
+        "startLine": 34,
+        "startChar": 33,
+        "endLine": 34,
+        "endChar": 57
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_5faa081a",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-25T11:08:04Z",
+      "side": 1,
+      "message": "Those class member variables not accessible from the outside, should be private",
+      "range": {
+        "startLine": 82,
+        "startChar": 13,
+        "endLine": 82,
+        "endChar": 27
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_3fa75451",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-25T11:08:04Z",
+      "side": 1,
+      "message": "More pythonic:\n  reset_rabbitmq \u003d (False if node.get(\u0027ctx_type\u0027) \u003d\u003d HeatContext.__context_type__\n                    else True)",
+      "range": {
+        "startLine": 93,
+        "startChar": 7,
+        "endLine": 96,
+        "endChar": 33
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_9f63001a",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-25T11:08:04Z",
+      "side": 1,
+      "message": "This code can be in an specific function, \"_check_rabbitmq_admin_user\", or more generic \"_check_rabbitmq_user\" with an argument, \"user\"",
+      "range": {
+        "startLine": 286,
+        "startChar": 12,
+        "endLine": 291,
+        "endChar": 29
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_5f9328fa",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-25T11:08:04Z",
+      "side": 1,
+      "message": "Make a function for this piece of code. Something like \"_set_rabbitmq_admin_user\"",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 48
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ffacbc37",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-25T11:08:04Z",
+      "side": 1,
+      "message": "import module, not class",
+      "range": {
+        "startLine": 24,
+        "startChar": 33,
+        "endLine": 24,
+        "endChar": 53
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_7f68acf5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-25T11:08:04Z",
+      "side": 1,
+      "message": "private member",
+      "range": {
+        "startLine": 309,
+        "startChar": 13,
+        "endLine": 309,
+        "endChar": 19
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_df6d7806",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-25T11:08:04Z",
+      "side": 1,
+      "message": "private method",
+      "range": {
+        "startLine": 317,
+        "startChar": 8,
+        "endLine": 317,
+        "endChar": 27
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_1fb0908a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-25T11:08:04Z",
+      "side": 1,
+      "message": "Method docstrings should have a one line title: https://www.python.org/dev/peps/pep-0257/",
+      "range": {
+        "startLine": 318,
+        "startChar": 11,
+        "endLine": 319,
+        "endChar": 63
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ff731ce5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-25T11:08:04Z",
+      "side": 1,
+      "message": "Why this? We are going to retrieve the VNF metrics, which include the node metrics by default. This is not needed",
+      "range": {
+        "startLine": 322,
+        "startChar": 12,
+        "endLine": 323,
+        "endChar": 63
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_5f81688e",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_acl_vnf.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-25T11:08:04Z",
+      "side": 1,
+      "message": "Please, in general:\n1) Try to use mock.patch.object. This implies the module must be loaded.\n\n2) Don\u0027t mock the module import (sample_vnf.Context) but the class itself (yardstick.benchmark.contexts.base.Context)",
+      "range": {
+        "startLine": 248,
+        "startChar": 3,
+        "endLine": 248,
+        "endChar": 80
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
