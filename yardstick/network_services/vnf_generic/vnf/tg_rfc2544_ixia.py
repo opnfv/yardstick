@@ -12,12 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
 import logging
-import sys
 
-from yardstick.common import exceptions
 from yardstick.common import utils
+from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import Rfc2544ResourceHelper
@@ -27,14 +25,6 @@ LOG = logging.getLogger(__name__)
 
 WAIT_AFTER_CFG_LOAD = 10
 WAIT_FOR_TRAFFIC = 30
-IXIA_LIB = os.path.dirname(os.path.realpath(__file__))
-IXNET_LIB = os.path.join(IXIA_LIB, "../../libs/ixia_libs/IxNet")
-sys.path.append(IXNET_LIB)
-
-try:
-    from IxNet import IxNextgen
-except ImportError:
-    IxNextgen = exceptions.ErrorClass
 
 
 class IxiaRfc2544Helper(Rfc2544ResourceHelper):
@@ -51,7 +41,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         super(IxiaResourceHelper, self).__init__(setup_helper)
         self.scenario_helper = setup_helper.scenario_helper
 
-        self.client = IxNextgen()
+        self.client = ixnet_api.IxNextgen()
 
         if rfc_helper_type is None:
             rfc_helper_type = IxiaRfc2544Helper
@@ -69,8 +59,6 @@ class IxiaResourceHelper(ClientResourceHelper):
 
     def stop_collect(self):
         self._terminated.value = 1
-        if self.client:
-            self.client.ix_stop_traffic()
 
     def generate_samples(self, ports, key=None, default=None):
         stats = self.get_stats()
