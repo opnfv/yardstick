@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_75d56d42",
+        "filename": "yardstick/tests/unit/orchestrator/test_kubernetes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-06-25T16:42:30Z",
+      "side": 1,
+      "message": "Should there be a negative testcase, for when an invalid toleration is added?",
+      "revId": "bf263641deaa2f04ce950e9c4bc19e5d59eefc96",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
