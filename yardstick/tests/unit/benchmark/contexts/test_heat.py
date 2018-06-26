@@ -225,7 +225,7 @@ class HeatContextTestCase(ut_base.BaseUnitTestCase):
         self.assertRaises(y_exc.HeatTemplateError,
                           self.test_context.deploy)
 
-        mock_path_exists.assert_called_once()
+        mock_path_exists.assert_called()
         mock_resources_template.assert_called_once()
 
     @mock.patch.object(os.path, 'exists', return_value=False)
@@ -250,7 +250,7 @@ class HeatContextTestCase(ut_base.BaseUnitTestCase):
              'yardstick/resources/files/yardstick_key-',
              self.test_context._name_task_id])
         mock_genkeys.assert_called_once_with(key_filename)
-        mock_path_exists.assert_called()
+        mock_path_exists.assert_any_call(key_filename)
 
     @mock.patch.object(heat, 'HeatTemplate')
     @mock.patch.object(os.path, 'exists', return_value=False)
@@ -276,7 +276,7 @@ class HeatContextTestCase(ut_base.BaseUnitTestCase):
              'yardstick/resources/files/yardstick_key-',
              self.test_context._name])
         mock_genkeys.assert_called_once_with(key_filename)
-        mock_path_exists.assert_called_once_with(key_filename)
+        mock_path_exists.assert_any_call(key_filename)
 
     @mock.patch.object(heat, 'HeatTemplate')
     @mock.patch.object(os.path, 'exists', return_value=False)
@@ -292,7 +292,6 @@ class HeatContextTestCase(ut_base.BaseUnitTestCase):
         self.test_context._flags.no_setup = True
         self.test_context.template_file = '/bar/baz/some-heat-file'
         self.test_context.get_neutron_info = mock.MagicMock()
-
         self.test_context.deploy()
 
         mock_retrieve_stack.assert_called_once_with(self.test_context._name)
@@ -330,7 +329,7 @@ class HeatContextTestCase(ut_base.BaseUnitTestCase):
              'yardstick/resources/files/yardstick_key-',
              self.test_context._name_task_id])
         mock_genkeys.assert_called_once_with(key_filename)
-        mock_path_exists.assert_called_with(key_filename)
+        mock_path_exists.assert_any_call(key_filename)
 
         mock_call_gen_keys = mock.call.gen_keys(key_filename)
         mock_call_add_resources = (

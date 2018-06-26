@@ -422,7 +422,7 @@ class OvsDeployTestCase(unittest.TestCase):
 
     def setUp(self):
         self._mock_ssh = mock.patch.object(ssh, 'SSH')
-        self.mock_ssh = self._mock_ssh .start()
+        self.mock_ssh = self._mock_ssh.start()
         self.ovs_deploy = model.OvsDeploy(self.mock_ssh,
                                           '/tmp/dpdk-devbind.py',
                                           self.OVS_DETAILS)
