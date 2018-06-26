@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_75c56c5a",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-26T09:57:25Z",
+      "side": 1,
+      "message": "I\u0027m still not convinced here.\nWhat is the value of doing nothing during a test?\nIn other words, if \"sampled: yes\" is mandatory for ProxDuration runner to perform anything useful, then there is no point in keeping such a parameter.\nIf nobody would ever select both ProxDuration runner and \"sampled: no\" parameter, then please delete this parameter altogether.",
+      "parentUuid": "da5c1566_fa9faa4e",
+      "revId": "43b6093a01055cf3065ebeeb31e7f99194fa43fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_84ee1521",
         "filename": "yardstick/benchmark/runners/proxduration.py",
         "patchSetId": 25
@@ -206,6 +224,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "da5c1566_c4cf6daf",
+      "revId": "43b6093a01055cf3065ebeeb31e7f99194fa43fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d588b824",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 25
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-26T09:57:25Z",
+      "side": 1,
+      "message": "Thanks. What about \"confirmation\" parameter, retrieved by run_test_with_pkt_size() method of ProxBinSearchProfile class in yardstick/network_services/traffic_profile/prox_binsearch.py?",
+      "parentUuid": "da5c1566_bab532cf",
       "revId": "43b6093a01055cf3065ebeeb31e7f99194fa43fb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
