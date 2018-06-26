@@ -37,7 +37,7 @@
     - configure_nginx
     - configure_gui
     - download_trex
-    - install_trex
+    - install_trex_pip
     - configure_rabbitmq
 
   post_tasks:
@@ -75,7 +75,7 @@
     # dpdk_version: "17.02"
     - install_dpdk
     - download_trex
-    - install_trex
+    - install_trex_pip
     - download_civetweb
     - install_civetweb
     - download_samplevnfs

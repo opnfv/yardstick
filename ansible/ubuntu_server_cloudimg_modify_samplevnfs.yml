@@ -39,7 +39,7 @@
 #      dpdk_version: "17.02"
     - install_dpdk
     - download_trex
-    - install_trex
+    - install_trex_pip
     - download_pktgen
     - install_pktgen
     - download_civetweb

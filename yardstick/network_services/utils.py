@@ -32,10 +32,7 @@ OPTS = [
                help='bin_path for VNFs location.'),
     cfg.StrOpt('trex_path',
                default=os.path.join(NSB_ROOT, 'trex/scripts'),
-               help='trex automation lib path.'),
-    cfg.StrOpt('trex_client_lib',
-               default=os.path.join(NSB_ROOT, 'trex_client/stl'),
-               help='trex python library path.'),
+               help='trex automation lib path.')
 ]
 CONF.register_opts(OPTS, group="nsb")
 

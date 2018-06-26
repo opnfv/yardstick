@@ -29,6 +29,7 @@ install_dependencies:
     - libxft-dev
     - libxss-dev
     - expect
+    - python3-pip
   RedHat:
     - bc
     - fio
@@ -49,3 +50,4 @@ install_dependencies:
     - sysstat
     - unzip
     - python-devel
+    - python3-pip
