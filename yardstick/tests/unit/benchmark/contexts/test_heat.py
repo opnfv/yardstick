@@ -8,7 +8,6 @@
 ##############################################################################
 
 from collections import OrderedDict
-from itertools import count
 import logging
 import os
 
@@ -31,12 +30,12 @@ class HeatContextTestCase(ut_base.BaseUnitTestCase):
     def setUp(self):
         self.test_context = heat.HeatContext()
         self.addCleanup(self._remove_contexts)
-        self.mock_context = mock.Mock(spec=heat.HeatContext())
-        self.name_iter = ('vnf{:03}'.format(x) for x in count(0, step=3))
 
-    def _remove_contexts(self):
-        if self.test_context in self.test_context.list:
-            self.test_context._delete_context()
+    @staticmethod
+    def _remove_contexts():
+        for context in base.Context.list:
+            context._delete_context()
+        base.Context.list = []
 
     def test___init__(self):
         self.assertIsNone(self.test_context._name)
@@ -251,7 +250,7 @@ class HeatContextTestCase(ut_base.BaseUnitTestCase):
              'yardstick/resources/files/yardstick_key-',
              self.test_context._name_task_id])
         mock_genkeys.assert_called_once_with(key_filename)
-        mock_path_exists.assert_called_once_with(key_filename)
+        mock_path_exists.assert_called()
 
     @mock.patch.object(heat, 'HeatTemplate')
     @mock.patch.object(os.path, 'exists', return_value=False)
@@ -655,6 +654,7 @@ class HeatContextTestCase(ut_base.BaseUnitTestCase):
         baz3_server.public_ip = None
         baz3_server.context.user = 'zab'
 
+        self.mock_context = mock.Mock(spec=heat.HeatContext())
         self.mock_context._name = 'bar1'
         self.test_context.stack = mock.Mock()
         self.mock_context.stack.outputs = {

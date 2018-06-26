@@ -17,6 +17,7 @@ import six
 import unittest
 import uuid
 
+from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import dummy
 from yardstick.benchmark.core import task
 from yardstick.common import constants as consts
@@ -358,9 +359,10 @@ key2:
             }
 
     @staticmethod
-    def _remove_context(context):
-        if context:
+    def _remove_contexts():
+        for context in base.Context.list:
             context._delete_context()
+        base.Context.list = []
 
     def test__change_node_names(self):
 
@@ -376,7 +378,7 @@ key2:
             }
 
         my_context = dummy.DummyContext()
-        self.addCleanup(self._remove_context, my_context)
+        self.addCleanup(self._remove_contexts)
         my_context.init(ctx_attrs)
 
         expected_scenario = {
@@ -419,7 +421,7 @@ key2:
             }
 
         my_context = dummy.DummyContext()
-        self.addCleanup(self._remove_context, my_context)
+        self.addCleanup(self._remove_contexts)
         my_context.init(ctx_attrs)
 
         scenario = copy.deepcopy(self.scenario)
@@ -435,7 +437,7 @@ key2:
         }
 
         my_context = dummy.DummyContext()
-        self.addCleanup(self._remove_context, my_context)
+        self.addCleanup(self._remove_contexts)
         my_context.init(ctx_attrs)
         scenario = copy.deepcopy(self.scenario)
         scenario['options'] = None
@@ -450,7 +452,7 @@ key2:
         }
 
         my_context = dummy.DummyContext()
-        self.addCleanup(self._remove_context, my_context)
+        self.addCleanup(self._remove_contexts)
         my_context.init(ctx_attrs)
         scenario = copy.deepcopy(self.scenario)
         scenario['options']['server_name'] = None
