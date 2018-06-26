@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_1b59bffe",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-26T17:04:18Z",
+      "side": 1,
+      "message": "I would have expected 0.01 here... as done on line 88 by PS30.\nSince Jenkins seems happy with it, so shall I.",
+      "range": {
+        "startLine": 122,
+        "startChar": 68,
+        "endLine": 122,
+        "endChar": 69
+      },
+      "revId": "2e447af9a5a54355aa20028813660d07d1bd2e18",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_5b72177d",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-26T17:04:18Z",
+      "side": 1,
+      "message": "I would have expected 0.5 here... as done on line 88 by PS30.\nSince Jenkins seems happy with it, so shall I.",
+      "range": {
+        "startLine": 158,
+        "startChar": 68,
+        "endLine": 158,
+        "endChar": 69
+      },
+      "revId": "2e447af9a5a54355aa20028813660d07d1bd2e18",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
