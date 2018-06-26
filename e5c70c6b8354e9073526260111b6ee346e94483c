@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_da12a661",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-26T11:32:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_9f602037",
+      "range": {
+        "startLine": 26,
+        "startChar": 41,
+        "endLine": 26,
+        "endChar": 45
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_7f654c44",
         "filename": "yardstick/network_services/collector/subscriber.py",
         "patchSetId": 13
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-25T11:08:04Z",
       "side": 1,
       "message": "We should avoid redundant loops and nested conditions:\n\n  for node in (node for node in nodes if node.get(\u0027collectd\u0027)):",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 30
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ba17f250",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-26T11:32:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_7f654c44",
       "range": {
         "startLine": 35,
         "startChar": 11,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_fa084a2f",
+        "filename": "yardstick/network_services/collector/subscriber.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-26T11:32:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_3f4bd4b1",
+      "range": {
+        "startLine": 73,
+        "startChar": 12,
+        "endLine": 74,
+        "endChar": 24
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_1fdb70ee",
         "filename": "yardstick/network_services/nfvi/resource.py",
         "patchSetId": 13
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-25T11:08:04Z",
       "side": 1,
       "message": "Import the module, not the class",
+      "range": {
+        "startLine": 34,
+        "startChar": 33,
+        "endLine": 34,
+        "endChar": 57
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_3a03e210",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-26T11:32:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_1fdb70ee",
       "range": {
         "startLine": 34,
         "startChar": 33,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_1513515d",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-26T11:32:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_3fa75451",
+      "range": {
+        "startLine": 93,
+        "startChar": 7,
+        "endLine": 96,
+        "endChar": 33
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_9f63001a",
         "filename": "yardstick/network_services/nfvi/resource.py",
         "patchSetId": 13
@@ -151,6 +271,30 @@
       "writtenOn": "2018-06-25T11:08:04Z",
       "side": 1,
       "message": "This code can be in an specific function, \"_check_rabbitmq_admin_user\", or more generic \"_check_rabbitmq_user\" with an argument, \"user\"",
+      "range": {
+        "startLine": 286,
+        "startChar": 12,
+        "endLine": 291,
+        "endChar": 29
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_351ad56e",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-26T11:32:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_9f63001a",
       "range": {
         "startLine": 286,
         "startChar": 12,
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_551dc965",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-26T11:32:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_5f9328fa",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 305,
+        "endChar": 48
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_ffacbc37",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
         "patchSetId": 13
@@ -197,6 +365,30 @@
       "writtenOn": "2018-06-25T11:08:04Z",
       "side": 1,
       "message": "import module, not class",
+      "range": {
+        "startLine": 24,
+        "startChar": 33,
+        "endLine": 24,
+        "endChar": 53
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_952641b9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-26T11:32:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_ffacbc37",
       "range": {
         "startLine": 24,
         "startChar": 33,
@@ -255,6 +447,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_153a31cd",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-26T11:32:14Z",
+      "side": 1,
+      "message": "this method can not be private. we are calling it in SaplmeVNF ad SampleVNFTrafficGen",
+      "parentUuid": "da5c1566_df6d7806",
+      "range": {
+        "startLine": 317,
+        "startChar": 8,
+        "endLine": 317,
+        "endChar": 27
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_1fb0908a",
         "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
         "patchSetId": 13
@@ -278,6 +494,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_f5369de6",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-26T11:32:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_1fb0908a",
+      "range": {
+        "startLine": 318,
+        "startChar": 11,
+        "endLine": 319,
+        "endChar": 63
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_ff731ce5",
         "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
         "patchSetId": 13
@@ -289,6 +529,30 @@
       "writtenOn": "2018-06-25T11:08:04Z",
       "side": 1,
       "message": "Why this? We are going to retrieve the VNF metrics, which include the node metrics by default. This is not needed",
+      "range": {
+        "startLine": 322,
+        "startChar": 12,
+        "endLine": 323,
+        "endChar": 63
+      },
+      "revId": "e5c70c6b8354e9073526260111b6ee346e94483c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_5534a9dd",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-06-26T11:32:14Z",
+      "side": 1,
+      "message": "this is needed to set merged collectd options to node description in context object. This is needed for Collector to start collect with appropriate configuration.",
+      "parentUuid": "da5c1566_ff731ce5",
       "range": {
         "startLine": 322,
         "startChar": 12,
