@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_5b969795",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-26T16:02:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_58db3ded",
+      "revId": "a04640b8b87d7e311e7a4dc6eb20a43efad722b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_b89a5912",
         "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
         "patchSetId": 30
@@ -30,6 +48,24 @@
       "writtenOn": "2018-06-26T15:08:01Z",
       "side": 1,
       "message": "Useless NOP line, whole dict overwritten on next line.",
+      "revId": "a04640b8b87d7e311e7a4dc6eb20a43efad722b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_3b93e3a4",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-26T16:02:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_b89a5912",
       "revId": "a04640b8b87d7e311e7a4dc6eb20a43efad722b2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
