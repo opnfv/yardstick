@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_f88851e9",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-26T14:53:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_b8a099f5",
+      "range": {
+        "startLine": 41,
+        "startChar": 39,
+        "endLine": 41,
+        "endChar": 51
+      },
+      "revId": "841c5d46d747df76fd3d6be7f1889ac6741af412",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_187d456f",
         "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
         "patchSetId": 29
@@ -36,6 +60,24 @@
       "writtenOn": "2018-06-26T13:19:39Z",
       "side": 1,
       "message": "Again, \"proxduration\" looks weird here.\nOr did you mean \"interval\"?\nAnyway, this line looks like a NOP, because the whole self.scenario_cfg[\u0027runner\u0027] dict is overwritten on the next line.",
+      "revId": "841c5d46d747df76fd3d6be7f1889ac6741af412",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_586dfd31",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-26T14:53:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_187d456f",
       "revId": "841c5d46d747df76fd3d6be7f1889ac6741af412",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_386ac91a",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-26T14:53:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_58ddfd6f",
+      "revId": "841c5d46d747df76fd3d6be7f1889ac6741af412",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_58c4dd91",
         "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
         "patchSetId": 29
@@ -70,6 +130,24 @@
       "writtenOn": "2018-06-26T13:19:39Z",
       "side": 1,
       "message": "Same comment as for line 88.",
+      "revId": "841c5d46d747df76fd3d6be7f1889ac6741af412",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_98779502",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
+        "patchSetId": 29
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-26T14:53:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_58c4dd91",
       "revId": "841c5d46d747df76fd3d6be7f1889ac6741af412",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
