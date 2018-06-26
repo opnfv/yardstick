@@ -95,7 +95,6 @@ class IXIARFC2544Profile(TrexProfile):
                 if not profile_data:
                     continue
                 self.profile_data = profile_data
-                self.get_streams(self.profile_data)
                 self.full_profile.update({vld_id: self.profile_data})
                 for intf in intfs:
                     yield traffic_generator.vnfd_helper.port_num(intf)
