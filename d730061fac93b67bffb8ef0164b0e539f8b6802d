@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_b549c58d",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-06-26T02:06:48Z",
+      "side": 1,
+      "message": "I think this need to be bolded to emphases",
+      "range": {
+        "startLine": 498,
+        "startChar": 29,
+        "endLine": 498,
+        "endChar": 48
+      },
+      "revId": "d730061fac93b67bffb8ef0164b0e539f8b6802d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_5581498e",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-06-26T02:06:48Z",
+      "side": 1,
+      "message": "besides the commit and review process, the committer author need also mark the JIRA ticket\u0027s fix version to be double versions, e.g.  6.2.0/7.0.0",
+      "range": {
+        "startLine": 501,
+        "startChar": 0,
+        "endLine": 501,
+        "endChar": 42
+      },
+      "revId": "d730061fac93b67bffb8ef0164b0e539f8b6802d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_754f2d93",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-06-26T02:06:48Z",
+      "side": 1,
+      "message": "+2 and merges it to",
+      "range": {
+        "startLine": 508,
+        "startChar": 33,
+        "endLine": 508,
+        "endChar": 56
+      },
+      "revId": "d730061fac93b67bffb8ef0164b0e539f8b6802d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d5443976",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-06-26T02:06:48Z",
+      "side": 1,
+      "message": "you may quote \"+1\" and \"+2\" to be more clear, just suggestion.",
+      "range": {
+        "startLine": 510,
+        "startChar": 28,
+        "endLine": 510,
+        "endChar": 30
+      },
+      "revId": "d730061fac93b67bffb8ef0164b0e539f8b6802d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
