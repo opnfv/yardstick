@@ -205,6 +205,8 @@ class SriovContext(Context):
         #   1 : modprobe host_driver with num_vfs
         self.configure_nics_for_sriov()
 
+
+
         for index, (key, vnf) in enumerate(collections.OrderedDict(
                 self.servers).items()):
             cfg = '/tmp/vm_sriov_%s.xml' % str(index)

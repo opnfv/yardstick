@@ -328,10 +328,10 @@
     state: directory
     mode: 0755
 
-- name: Generate iso image
+- name: Generate iso image (for cloud init)
   shell: >
-    genisoimage -output {{ image_dir+node_item.hostname+'-ci-data.img' }} -volid cidata -joliet
-    -r {{ '/tmp/'+node_item.hostname+'/network-config' }} {{ '/tmp/'+node_item.hostname+'/user-data' }} {{ '/tmp/'+node_item.hostname+'/meta-data' }}
+    genisoimage -output standalone-ci-data.img -volid cidata -joliet
+    -r  {{ '/tmp/'+node_item.hostname+'/user-data' }}
     &>> {{ '/tmp/'+node_item.hostname+'/hostname.log' }}
 
 - name: Copy and convert the ubuntu image

@@ -375,6 +375,9 @@ class OvsDpdkContext(Context):
 
         self.configure_nics_for_ovs_dpdk()
 
+
+
+
         for index, (key, vnf) in enumerate(collections.OrderedDict(
                 self.servers).items()):
             cfg = '/tmp/vm_ovs_%d.xml' % index

@@ -1,0 +1,9 @@
+---
+- hosts: jumphost
+  roles:
+    - download_trex
+    - role: install_trex_pip
+      #install_binaries: False
+      install_binaries: True
+
+

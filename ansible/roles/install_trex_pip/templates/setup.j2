@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation.
+# Copyright (c) 2018 Intel Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,16 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
----
-- name: OS pre-workarounds
-  include: "{{ ansible_os_family }}.yml"
 
-- name: Install core packages
-  action: "{{ ansible_pkg_mgr }} name={{ item }} state=latest update_cache=yes"
-  register: pkg_mgr_results
-  retries: "{{ pkg_mgr_retries }}"
-  until: pkg_mgr_results|success
-  with_items: "{{ install_dependencies[ansible_os_family] }}"
+from setuptools import setup, find_packages
 
-#- name: Install pip/pip3 (needed for TRex installation)
-#  shell: easy_install pip
+
+setup(
+    name="trex_stl_lib",
+    version={{ _trex_version }},
+    packages=find_packages(),
+    include_package_data=False,
+    url="https://trex-tgn.cisco.com/trex/release/",
+    extras_require={},
+    entry_points={},
+    scripts=[]
+)
