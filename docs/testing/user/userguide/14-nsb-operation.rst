@@ -264,7 +264,7 @@ We set the VCPUs and memory using the ``--task-args`` options
 
 .. code-block:: console
 
-  yardstick task start --task-args='{"mem": 10480, "vcpus": 4, "ports": 2}' \
+  yardstick task start --task-args='{"mem": 10480, "vcpus": 4, "vports": 2}' \
   samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_scale-up.yaml
 
 In order to support ports scale-up, traffic and topology templates need to be used in testcase.
