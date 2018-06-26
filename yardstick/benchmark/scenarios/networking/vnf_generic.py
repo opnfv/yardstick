@@ -17,7 +17,6 @@ import ipaddress
 from itertools import chain
 import logging
 import os
-import sys
 import time
 
 import six
@@ -372,9 +371,6 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         :param context_cfg:
         :return:
         """
-        trex_lib_path = get_nsb_option('trex_client_lib')
-        sys.path[:] = list(chain([trex_lib_path], (x for x in sys.path if x != trex_lib_path)))
-
         if scenario_cfg is None:
             scenario_cfg = self.scenario_cfg
 
