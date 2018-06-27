@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_4986cdba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T17:59:53Z",
+      "side": 1,
+      "message": "Note for my +1: check DATS method to not count ARP packets",
+      "revId": "48c9e48dcff498c8f51ec507d4107bc658b82d82",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_a99329f9",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
+        "patchSetId": 9
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T17:59:53Z",
+      "side": 1,
+      "message": "Note for my +1: complexity of traffic flows reduced by a factor 8",
+      "revId": "48c9e48dcff498c8f51ec507d4107bc658b82d82",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
