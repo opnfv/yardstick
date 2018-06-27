@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_297d596f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T13:58:48Z",
+      "side": 1,
+      "message": "Core 1 generates CPE0 and ARP0\n... would require a rework ... not for this release",
+      "parentUuid": "da5c1566_de4a9582",
+      "revId": "1b0a4d0ab122250e17be34979991fc7aa376e564",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_e94d2174",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2018-06-27T13:50:11Z",
       "side": 1,
       "message": "I would have preferred:\n; dst_ip: [10,11].[odd 1..255].[16,48,80,112,144,176,208,240].[odd 1..255]",
+      "revId": "1b0a4d0ab122250e17be34979991fc7aa376e564",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_0982154f",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T13:58:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_e94d2174",
       "revId": "1b0a4d0ab122250e17be34979991fc7aa376e564",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_69963196",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T13:58:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_2958b931",
+      "revId": "1b0a4d0ab122250e17be34979991fc7aa376e564",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_6968f1ba",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng_qos-4.cfg",
         "patchSetId": 6
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_49936da3",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng_qos-4.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T13:58:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_6968f1ba",
+      "revId": "1b0a4d0ab122250e17be34979991fc7aa376e564",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_a96209d6",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng_qos-4.cfg",
         "patchSetId": 6
@@ -81,6 +153,24 @@
       "writtenOn": "2018-06-27T13:50:11Z",
       "side": 1,
       "message": "ditto",
+      "revId": "1b0a4d0ab122250e17be34979991fc7aa376e564",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_898d857e",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng_qos-4.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T13:58:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_a96209d6",
       "revId": "1b0a4d0ab122250e17be34979991fc7aa376e564",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
