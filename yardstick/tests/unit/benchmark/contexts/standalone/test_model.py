@@ -46,6 +46,16 @@ XML_SAMPLE_INTERFACE = """<?xml version="1.0"?>
 
 class ModelLibvirtTestCase(unittest.TestCase):
 
+    XML_STR = model.VM_TEMPLATE.format(
+        vm_name="vm_name",
+        random_uuid=uuid.uuid4(),
+        mac_addr="00:01:02:03:04:05",
+        memory=2048, vcpu=2, cpu=2,
+        numa_cpus=0 - 10,
+        socket=1, threads=1,
+        vm_image="/var/lib/libvirt/images/yardstick-nsb-image.img",
+        cpuset=2 - 10, cputune='')
+
     def setUp(self):
         self.pci_address_str = '0001:04:03.2'
         self.pci_address = utils.PciAddress(self.pci_address_str)
@@ -66,34 +76,34 @@ class ModelLibvirtTestCase(unittest.TestCase):
             ssh_mock.execute = mock.Mock(return_value=(0, "a", ""))
             ssh.return_value = ssh_mock
         # NOTE(ralonsoh): this test doesn't cover function execution.
-        model.Libvirt.check_if_vm_exists_and_delete("vm_0", ssh_mock)
+        model.Libvirt.check_if_vm_exists_and_delete('vm-0', ssh_mock)
 
     def test_virsh_create_vm(self):
         self.mock_ssh.execute = mock.Mock(return_value=(0, 0, 0))
-        model.Libvirt.virsh_create_vm(self.mock_ssh, 'vm_0')
-        self.mock_ssh.execute.assert_called_once_with('virsh create vm_0')
+        model.Libvirt.virsh_create_vm(self.mock_ssh, 'vm-0')
+        self.mock_ssh.execute.assert_called_once_with('virsh create vm-0')
 
     def test_virsh_create_vm_error(self):
         self.mock_ssh.execute = mock.Mock(return_value=(1, 0, 'error_create'))
         with self.assertRaises(exceptions.LibvirtCreateError) as exc:
-            model.Libvirt.virsh_create_vm(self.mock_ssh, 'vm_0')
+            model.Libvirt.virsh_create_vm(self.mock_ssh, 'vm-0')
         self.assertEqual('Error creating the virtual machine. Error: '
                          'error_create.', str(exc.exception))
-        self.mock_ssh.execute.assert_called_once_with('virsh create vm_0')
+        self.mock_ssh.execute.assert_called_once_with('virsh create vm-0')
 
     def test_virsh_destroy_vm(self):
         self.mock_ssh.execute = mock.Mock(return_value=(0, 0, 0))
-        model.Libvirt.virsh_destroy_vm('vm_0', self.mock_ssh)
-        self.mock_ssh.execute.assert_called_once_with('virsh destroy vm_0')
+        model.Libvirt.virsh_destroy_vm('vm-0', self.mock_ssh)
+        self.mock_ssh.execute.assert_called_once_with('virsh destroy vm-0')
 
     @mock.patch.object(model, 'LOG')
     def test_virsh_destroy_vm_error(self, mock_logger):
         self.mock_ssh.execute = mock.Mock(return_value=(1, 0, 'error_destroy'))
         mock_logger.warning = mock.Mock()
-        model.Libvirt.virsh_destroy_vm('vm_0', self.mock_ssh)
+        model.Libvirt.virsh_destroy_vm('vm-0', self.mock_ssh)
         mock_logger.warning.assert_called_once_with(
-            'Error destroying VM %s. Error: %s', 'vm_0', 'error_destroy')
-        self.mock_ssh.execute.assert_called_once_with('virsh destroy vm_0')
+            'Error destroying VM %s. Error: %s', 'vm-0', 'error_destroy')
+        self.mock_ssh.execute.assert_called_once_with('virsh destroy vm-0')
 
     def test_add_interface_address(self):
         xml = ElementTree.ElementTree(
@@ -171,6 +181,56 @@ class ModelLibvirtTestCase(unittest.TestCase):
         self.assertEqual('0x' + vm_pci.split(':')[2].split('.')[1],
                          interface_address.get('function'))
 
+    def test_add_cdrom(self):
+        xml_input = copy.deepcopy(XML_SAMPLE)
+        xml_output = model.Libvirt.add_cdrom('/var/lib/libvirt/images/data.img', xml_input)
+
+        root = ElementTree.fromstring(xml_output)
+        et_out = ElementTree.ElementTree(element=root)
+        disk = et_out.find('devices').find('disk')
+        self.assertEqual('file', disk.get('type'))
+        self.assertEqual('cdrom', disk.get('device'))
+        driver = disk.find('driver')
+        self.assertEqual('qemu', driver.get('name'))
+        self.assertEqual('raw', driver.get('type'))
+        source = disk.find('source')
+        self.assertEqual('/var/lib/libvirt/images/data.img', source.get('file'))
+        target = disk.find('target')
+        self.assertEqual('hdb', target.get('dev'))
+        self.assertIsNotNone(disk.find('readonly'))
+
+    def test_gen_cdrom_image(self):
+        self.mock_ssh.execute = mock.Mock(return_value=(0, 0, 0))
+        root = ElementTree.fromstring(self.XML_STR)
+        hostname = root.find('name').text
+        meta_data = "/tmp/meta-data"
+        user_data = "/tmp/user-data"
+        file_path = "/tmp/cdrom-0.img"
+        key_filename = "id_rsa"
+        pub_key_str = "KEY"
+        user = 'root'
+        user_config = ["    - name: {user_name}",
+                       "      ssh_authorized_keys:",
+                       "        - {pub_key_str}"]
+
+        user_conf = os.linesep.join(user_config).format(pub_key_str=pub_key_str, user_name=user)
+        with mock.patch('six.moves.builtins.open', mock.mock_open(read_data=pub_key_str),
+                        create=True) as mock_file:
+            with open(key_filename, "r") as h:
+                result = h.read()
+            model.Libvirt.gen_cdrom_image(self.mock_ssh, file_path, hostname, user, key_filename)
+            mock_file.assert_called_with(".".join([key_filename, "pub"]), "r")
+        self.assertEqual(result, pub_key_str)
+
+        self.mock_ssh.execute.assert_has_calls([
+            mock.call("touch %s" % meta_data),
+            mock.call(model.USER_DATA_TEMPLATE.format(user_file=user_data, host=hostname,
+                                                      user_config=user_conf)),
+            mock.call("genisoimage -output {0} -volid cidata"
+                      " -joliet -r {1} {2}".format(file_path, meta_data, user_data)),
+            mock.call("rm {0} {1}".format(meta_data, user_data))
+        ])
+
     def test_create_snapshot_qemu(self):
         self.mock_ssh.execute = mock.Mock(return_value=(0, 0, 0))
         index = 1
@@ -210,6 +270,19 @@ class ModelLibvirtTestCase(unittest.TestCase):
         mock_basename.assert_has_calls([mock.call(base_image)])
         self.mock_ssh.put_file.assert_called_once_with(base_image,
                                                        '/tmp/base_image')
+
+    @mock.patch.object(model.Libvirt, 'gen_cdrom_image')
+    def test_check_update_key(self, mock_gen_cdrom_image):
+        node = {'user': 'defuser', 'key_filename': '/home/ubuntu/id_rsa'}
+        cdrom_img = "/var/lib/libvirt/images/data.img"
+        id_name = 'fake_name'
+        key_filename = node.get('key_filename')
+        root = ElementTree.fromstring(self.XML_STR)
+        hostname = root.find('name').text
+        model.StandaloneContextHelper.check_update_key(self.mock_ssh, node, hostname, id_name,
+                                                       cdrom_img)
+        mock_gen_cdrom_image.assert_called_once_with(self.mock_ssh, cdrom_img, hostname,
+                                                     node.get('user'), key_filename)
 
     @mock.patch.object(os, 'access', return_value=False)
     def test_create_snapshot_qemu_no_image_local(self, mock_os_access):
@@ -253,18 +326,20 @@ class ModelLibvirtTestCase(unittest.TestCase):
         mac = model.StandaloneContextHelper.get_mac_address(0x00)
         _uuid = uuid.uuid4()
         connection = mock.Mock()
+        cdrom_img = '/tmp/cdrom-0.img'
         with mock.patch.object(model.StandaloneContextHelper,
                                'get_mac_address', return_value=mac) as \
                 mock_get_mac_address, \
                 mock.patch.object(uuid, 'uuid4', return_value=_uuid):
             xml_out, mac = model.Libvirt.build_vm_xml(
-                connection, flavor, 'vm_name', 100)
+                connection, flavor, 'vm_name', 100, cdrom_img)
 
         xml_ref = model.VM_TEMPLATE.format(vm_name='vm_name',
             random_uuid=_uuid, mac_addr=mac, memory='1024', vcpu='8', cpu='4',
             numa_cpus='0-7', socket='3', threads='2',
             vm_image='qemu_image', cpuset='4,5', cputune='cool')
-        self.assertEqual(xml_ref, xml_out)
+        xml_ref = model.Libvirt.add_cdrom(cdrom_img, xml_ref)
+        self.assertEqual(xml_out, xml_ref)
         mock_get_mac_address.assert_called_once_with(0x00)
         mock_create_snapshot_qemu.assert_called_once_with(
             connection, 100, 'images')
@@ -295,6 +370,7 @@ class ModelLibvirtTestCase(unittest.TestCase):
             ssh.return_value = ssh_mock
         status = model.Libvirt.pin_vcpu_for_perf(ssh_mock, 4)
         self.assertIsNotNone(status)
+
 
 class StandaloneContextHelperTestCase(unittest.TestCase):
 
@@ -463,7 +539,7 @@ class ServerTestCase(unittest.TestCase):
             }
         }
         status = self.server.generate_vnf_instance(
-            {}, self.NETWORKS, '1.1.1.1/24', 'vm_0', vnf, '00:00:00:00:00:01')
+            {}, self.NETWORKS, '1.1.1.1/24', 'vm-0', vnf, '00:00:00:00:00:01')
         self.assertIsNotNone(status)
 
 
