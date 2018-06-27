@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_c9177da2",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_bng-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T17:01:32Z",
+      "side": 1,
+      "message": "Child of scenarios:\n\nSibling of options",
+      "parentUuid": "da5c1566_89ee25eb",
+      "revId": "37d0d6d3c1231fefdf4192032516d62e25de1168",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_89c5855d",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_bng_qos-4.yaml",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2018-06-27T15:45:24Z",
       "side": 1,
       "message": "Here, runner is child of options.\nWhich indentation is correct?",
+      "revId": "37d0d6d3c1231fefdf4192032516d62e25de1168",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e91241b3",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_bng_qos-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T17:01:32Z",
+      "side": 1,
+      "message": "Child of scenarios:\nSibling of options\n\nwill update",
+      "parentUuid": "da5c1566_89c5855d",
       "revId": "37d0d6d3c1231fefdf4192032516d62e25de1168",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_a94969d2",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_bng-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T17:01:32Z",
+      "side": 1,
+      "message": "Child of scenarios:\n\nSibling of options",
+      "parentUuid": "da5c1566_e9a1a1aa",
+      "revId": "37d0d6d3c1231fefdf4192032516d62e25de1168",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_c9a65dc1",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_bng_qos-4.yaml",
         "patchSetId": 8
@@ -64,6 +118,24 @@
       "writtenOn": "2018-06-27T15:45:24Z",
       "side": 1,
       "message": "Sibling here too.",
+      "revId": "37d0d6d3c1231fefdf4192032516d62e25de1168",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_493c0d30",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_bng_qos-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T17:01:32Z",
+      "side": 1,
+      "message": "Child of scenarios:\n\nSibling of options",
+      "parentUuid": "da5c1566_c9a65dc1",
       "revId": "37d0d6d3c1231fefdf4192032516d62e25de1168",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
