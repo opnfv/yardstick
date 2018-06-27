@@ -19,8 +19,8 @@ scenarios:
   traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
   topology: acl-tg-topology.yaml
   nodes:
-    tg__0: tg__0.yardstick
-    vnf__0: vnf.yardstick
+    tg__0: trafficgen_1.yardstick
+    vnf__0: vnf_1.yardstick
   options:
     framesize:
       uplink: {64B: 100}
@@ -42,22 +42,21 @@ scenarios:
 contexts:
    - name: yardstick
      type: Node
-     file: /etc/yardstick/nodes/standalone/pod_trex.yaml
+     file: etc/yardstick/nodes/standalone/pod_trex.yaml
    - type: StandaloneSriov
-     file: /etc/yardstick/nodes/standalone/host_sriov.yaml
+     file: etc/yardstick/nodes/standalone/host_sriov.yaml
      name: yardstick
      vm_deploy: True
      flavor:
-       images: "/var/lib/libvirt/images/ubuntu.qcow2"
+       images: "/var/lib/libvirt/images/yardstick-nsb-image.img"
        ram: 4096
        extra_specs:
          hw:cpu_sockets: 1
          hw:cpu_cores: 6
          hw:cpu_threads: 2
        user: ""
-       password: ""
      servers:
-       vnf:
+       vnf_1:
          network_ports:
            mgmt:
              cidr: '1.1.1.61/24'

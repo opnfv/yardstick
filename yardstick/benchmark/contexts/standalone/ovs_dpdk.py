@@ -378,7 +378,7 @@ class OvsDpdkContext(Context):
         for index, (key, vnf) in enumerate(collections.OrderedDict(
                 self.servers).items()):
             cfg = '/tmp/vm_ovs_%d.xml' % index
-            vm_name = "vm_%d" % index
+            vm_name = "vm-%d" % index
 
             # 1. Check and delete VM if already exists
             model.Libvirt.check_if_vm_exists_and_delete(vm_name,
@@ -391,20 +391,32 @@ class OvsDpdkContext(Context):
                         if vfs_name != 'mgmt']:
                 xml_str = self._enable_interfaces(index, vfs, xml_str)
 
+            # Add CD-ROM device
+            cdrom_img = "/tmp/cdrom-%d.img" % index
+            xml_str = model.Libvirt.add_cdrom(cdrom_img, xml_str)
+
             # copy xml to target...
             model.Libvirt.write_file(cfg, xml_str)
             self.connection.put(cfg, cfg)
+
+            node = self.vnf_node.generate_vnf_instance(self.vm_flavor,
+                                                       self.networks,
+                                                       self.host_mgmt.get('ip'),
+                                                       key, vnf, mac)
+            # Generate public/private keys if password or private key file is not provided
+            node = model.StandaloneContextHelper.check_update_key(self.connection,
+                                                                  node,
+                                                                  vm_name,
+                                                                  self.name,
+                                                                  cdrom_img)
+
+            # store vnf node details
+            nodes.append(node)
 
             # NOTE: launch through libvirt
             LOG.info("virsh create ...")
             model.Libvirt.virsh_create_vm(self.connection, cfg)
 
             self.vm_names.append(vm_name)
-
-            # build vnf node details
-            nodes.append(self.vnf_node.generate_vnf_instance(self.vm_flavor,
-                                                             self.networks,
-                                                             self.host_mgmt.get('ip'),
-                                                             key, vnf, mac))
 
         return nodes

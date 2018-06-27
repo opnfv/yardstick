@@ -19,8 +19,8 @@ scenarios:
   traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
   topology: acl-tg-topology.yaml
   nodes:
-    tg__0: tg__0.yardstick
-    vnf__0: vnf__0.yardstick
+    tg__0: trafficgen_1.yardstick
+    vnf__0: vnf_1.yardstick
   options:
     framesize:
       uplink: {64B: 100}
@@ -68,9 +68,8 @@ contexts:
          hw:cpu_cores: 6
          hw:cpu_threads: 2
        user: ""
-       password: ""
      servers:
-       vnf__0:
+       vnf_1:
          network_ports:
            mgmt:
              cidr: '1.1.1.7/24'
