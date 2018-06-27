@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_89ee25eb",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_bng-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T15:45:24Z",
+      "side": 1,
+      "message": "Sorry, just noticed that indentation for this block is different than in samples/vnf_samples/nsut/prox/tc_prox_baremetal_bng_qos-4.yaml \nDoes it make a difference in YAML? Is runner supposed to be sibling or child of options?",
+      "revId": "37d0d6d3c1231fefdf4192032516d62e25de1168",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_89c5855d",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_bng_qos-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T15:45:24Z",
+      "side": 1,
+      "message": "Here, runner is child of options.\nWhich indentation is correct?",
+      "revId": "37d0d6d3c1231fefdf4192032516d62e25de1168",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e9a1a1aa",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_bng-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T15:45:24Z",
+      "side": 1,
+      "message": "Here, runner is sibling of options.",
+      "revId": "37d0d6d3c1231fefdf4192032516d62e25de1168",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c9a65dc1",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_bng_qos-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T15:45:24Z",
+      "side": 1,
+      "message": "Sibling here too.",
+      "revId": "37d0d6d3c1231fefdf4192032516d62e25de1168",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
