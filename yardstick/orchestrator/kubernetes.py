@@ -14,23 +14,66 @@ from yardstick.common import utils
 from yardstick.common import kubernetes_utils as k8s_utils
 
 
-class KubernetesObject(object):
+class ContainerObject(object):
 
     SSH_MOUNT_PATH = '/tmp/.ssh/'
     IMAGE_DEFAULT = 'openretriever/yardstick'
     COMMAND_DEFAULT = '/bin/bash'
+
+    def __init__(self, name, ssh_key, **kwargs):
+        self._name = name
+        self._ssh_key = ssh_key
+        self._image = kwargs.get('image', self.IMAGE_DEFAULT)
+        self._command = [kwargs.get('command', self.COMMAND_DEFAULT)]
+        self._args = kwargs.get('args', [])
+        self._volume_mounts = kwargs.get('volumeMounts', [])
+
+    def _create_volume_mounts(self):
+        """Return all "volumeMounts" items per container"""
+        volume_mounts_items = [self._create_volume_mounts_item(vol)
+                               for vol in self._volume_mounts]
+        ssh_vol = {'name': self._ssh_key,
+                   'mountPath': self.SSH_MOUNT_PATH}
+        volume_mounts_items.append(self._create_volume_mounts_item(ssh_vol))
+        return volume_mounts_items
+
+    @staticmethod
+    def _create_volume_mounts_item(volume_mount):
+        """Create a "volumeMounts" item"""
+        return {'name': volume_mount['name'],
+                'mountPath': volume_mount['mountPath'],
+                'readOnly': volume_mount.get('readOnly', False)}
+
+    def get_container_item(self):
+        """Create a "container" item"""
+        container_name = '{}-container'.format(self._name)
+        return {'args': self._args,
+                'command': self._command,
+                'image': self._image,
+                'name': container_name,
+                'volumeMounts': self._create_volume_mounts()}
+
+
+class KubernetesObject(object):
+
     SSHKEY_DEFAULT = 'yardstick_key'
 
     def __init__(self, name, **kwargs):
         super(KubernetesObject, self).__init__()
+        parameters = copy.deepcopy(kwargs)
         self.name = name
-        self.image = kwargs.get('image', self.IMAGE_DEFAULT)
-        self.command = [kwargs.get('command', self.COMMAND_DEFAULT)]
-        self.args = kwargs.get('args', [])
-        self.ssh_key = kwargs.get('ssh_key', self.SSHKEY_DEFAULT)
-        self.node_selector = kwargs.get('nodeSelector', {})
-        self._volumes = kwargs.get('volumes', [])
-        self._volume_mounts = kwargs.get('volumeMounts', [])
+        self.node_selector = parameters.pop('nodeSelector', {})
+        self.ssh_key = parameters.pop('ssh_key', self.SSHKEY_DEFAULT)
+        self._volumes = parameters.pop('volumes', [])
+
+        containers = parameters.pop('containers', None)
+        if containers:
+            self._containers = [
+                ContainerObject(self.name, self.ssh_key, **container)
+                for container in containers]
+        else:
+            self._containers = [
+                ContainerObject(self.name, self.ssh_key, **parameters)]
 
         self.template = {
             "apiVersion": "v1",
@@ -71,19 +114,11 @@ class KubernetesObject(object):
                              name)
 
     def _add_containers(self):
-        containers = [self._create_container_item()]
+        containers = [container.get_container_item()
+                      for container in self._containers]
         utils.set_dict_value(self.template,
                              'spec.template.spec.containers',
                              containers)
-
-    def _create_container_item(self):
-        """Create a "container" item"""
-        container_name = '{}-container'.format(self.name)
-        return {'args': self.args,
-                'command': self.command,
-                'image': self.image,
-                'name': container_name,
-                'volumeMounts': self._create_volume_mounts()}
 
     def _add_node_selector(self):
         utils.set_dict_value(self.template,
@@ -117,22 +152,6 @@ class KubernetesObject(object):
 
         return {'name': name,
                 type_name: type_data}
-
-    def _create_volume_mounts(self):
-        """Return all "volumeMounts" items per container"""
-        volume_mounts_items = [self._create_volume_mounts_item(vol)
-                               for vol in self._volume_mounts]
-        ssh_vol = {'name': self.ssh_key,
-                   'mountPath': self.SSH_MOUNT_PATH}
-        volume_mounts_items.append(self._create_volume_mounts_item(ssh_vol))
-        return volume_mounts_items
-
-    @staticmethod
-    def _create_volume_mounts_item(volume_mount):
-        """Create a "volumeMounts" item"""
-        return {'name': volume_mount['name'],
-                'mountPath': volume_mount['mountPath'],
-                'readOnly': volume_mount.get('readOnly', False)}
 
 
 class ServiceObject(object):
