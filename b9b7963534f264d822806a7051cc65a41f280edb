@@ -22,6 +22,29 @@
       "revId": "b9b7963534f264d822806a7051cc65a41f280edb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_29def93f",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T15:32:02Z",
+      "side": 1,
+      "message": "You should add 20 to this value, in order to take into account: preamble, start of frame and inter-packet gap.\nSee https://en.wikipedia.org/wiki/Ethernet_frame#Structure\nMpps \u003d Gbps * 1000 / 8 / (pkt_size + 20)\nGbps \u003d Mpps / 1000 * 8 * (pkt_size + 20)",
+      "range": {
+        "startLine": 163,
+        "startChar": 64,
+        "endLine": 163,
+        "endChar": 72
+      },
+      "revId": "b9b7963534f264d822806a7051cc65a41f280edb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
