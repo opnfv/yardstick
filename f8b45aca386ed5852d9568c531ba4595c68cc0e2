@@ -1,0 +1,506 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_3be4830c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "from",
+      "range": {
+        "startLine": 16,
+        "startChar": 46,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_5be7b712",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 21
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "dependent",
+      "range": {
+        "startLine": 19,
+        "startChar": 15,
+        "endLine": 19,
+        "endChar": 24
+      },
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_9bf14fd0",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "To be deleted, or replaced by \"at once\" or similar wording",
+      "range": {
+        "startLine": 536,
+        "startChar": 45,
+        "endLine": 536,
+        "endChar": 49
+      },
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_dbbaa7e0",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "These 4 lines could read:\nports_str \u003d \",\".join(map(str, ports))",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_9b9f8f5f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "There is no point in retrying. If the list of ports is valid, PROX will return a semi-colon-separated list of port stats for them. If the list of ports is wrong at the first place, PROX will not return anything, whatever how many times we ask.",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_fe14b9f6",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "This test opens the door to future incompatibilities.\nThe PROX command might be enhanced to return more stats per port. The distinct semi-colon and comma separators allow for this. We should simply check here that we have at least 6 values per port, so this should read \"\u003c 6\".",
+      "range": {
+        "startLine": 560,
+        "startChar": 52,
+        "endLine": 560,
+        "endChar": 60
+      },
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_5b95f73e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "There is no guarantee that PROX returns port stats in the same order as the provided list of ports, especially if that list is not in ascending order.\nAgreed, PROX currently returns port stats in the same order, so there is no issue at the moment.\nIn order to support a possible different order, tot_result might need to be converted from list to dict, with port id as the key and returned array of stats as the item.",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e43708af",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "So the type of the returned value is different, depending on whether an error occured or not:\n- list of port-count 0s on error\n- list of port-count lists of stats on success\n\nWouldn\u0027t it be easier for callers, if we would simply return False (or None) on error? Easy to check, no need to try/catch on TypeError when indexing one of the 0s as if it was a list...",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_deb615dc",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 1061,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "Why not self.vnfd_helper.port_pairs.all_ports here?\nOr, since translation seems needed:\n[self.vnfd_helper.port_num(port_name) for port_name in self.vnfd_helper.port_pairs.all_ports]",
+      "range": {
+        "startLine": 1061,
+        "startChar": 50,
+        "endLine": 1061,
+        "endChar": 72
+      },
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_de88d524",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "This boldly assumes that ports[i] \u003d\u003d i.\nIt works as long as the list of ports is continuous, ascending and starts from 0. To support more generic situations, port_names should be converted from list to dict, which only requires changing lines 1085 and 1088 as follows:\n1085: port_names \u003d {}\n1088: port_names[port_num] \u003d port_name",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c48da433",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "Aren\u0027t default values for keys \"curr_packets_in\" and \"curr_packets_fwd\" missing here?",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_9eadbd8b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "Why not self.vnfd_helper.port_pairs.all_ports here?\nOr, since translation seems needed:\n[self.vnfd_helper.port_num(port_name) for port_name in self.vnfd_helper.port_pairs.all_ports]",
+      "range": {
+        "startLine": 92,
+        "startChar": 62,
+        "endLine": 92,
+        "endChar": 79
+      },
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_44acf4ed",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "Compared to the Base version, the \"tsc\" variable here will contain the value of the tsc for the last port, rather than the weird sum of tsc for all ports.\nThree options:\n- either keep line 98 as is, and remove \"* port_count\" from lines 113 and 120\n- or keep lines 113 and 120 as is, and sum the tsc values here on line 98\n- or remove the weird-looking \"* port_count\" from lines 113 and 120, sum the tsc values here on line 98, and divide tsc by port_count below line 101 to explicitly show that an average tsc is used\n\nI would vote for third option.",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_04479c20",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "multi_port_stats method should return False (or None) on error, so that we can easily check it and return an empty dict in that case\nSee https://gerrit.opnfv.org/gerrit/#/c/58261/21/yardstick/network_services/vnf_generic/vnf/prox_helpers.py@578",
+      "range": {
+        "startLine": 99,
+        "startChar": 16,
+        "endLine": 99,
+        "endChar": 25
+      },
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_247d806f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "Might have to be removed, see comment for line 98.",
+      "range": {
+        "startLine": 113,
+        "startChar": 56,
+        "endLine": 113,
+        "endChar": 68
+      },
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_a44b5058",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "You could have avoided the double \"try/except ZeroDivisionError\", simply by first checking whether tsc is the same as self.prev_tsc\nWould make the code more readable in my opinion.",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_0482fc4e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "Might have to be removed, see comment for line 98.",
+      "range": {
+        "startLine": 120,
+        "startChar": 56,
+        "endLine": 120,
+        "endChar": 68
+      },
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_a45510c8",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "multi_port_stats method should return False (or None) on error\nSee https://gerrit.opnfv.org/gerrit/#/c/58261/21/yardstick/network_services/vnf_generic/vnf/prox_helpers.py@578",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_84528cdb",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e45ee8e8",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e4d38836",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 1571,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "Using a different list of ports, e.g. [1,2], would exhibit some of the mistakes in the code.\nIf all_ports is supposed to be a list of names (or a dict), then the mapping from port-name to port-id should also be added to the unit test.",
+      "range": {
+        "startLine": 1571,
+        "startChar": 43,
+        "endLine": 1571,
+        "endChar": 57
+      },
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_84172ced",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 1587,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "So the previous version of this unit test broke the bold assumption (https://gerrit.opnfv.org/gerrit/#/c/58261/21/yardstick/network_services/vnf_generic/vnf/prox_helpers.py@1093) and the solution was to rewrite the unit test, rather than fixing the code?",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e4a1c8aa",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_vnf.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "Ports for these unit tests are defined below.",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_04b15cf8",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_vnf.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "This unit test seems broken.\nAccording to lines 77-116, this unit test is configured with only 2 ports, but the mock\u0027ed execute method here returns stats for 4 ports, and the collect_kpi method happily sums them up.\nTo involve the port_count in this unit test, we should also check result[\"curr_packets_in\"] and result[\"curr_packets_fwd\"].",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_2483c005",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_vnf.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "Expected values for keys \u0027curr_packets_in\u0027 and \u0027curr_packets_fwd\u0027 can be computed, considering that the \"previous\" values used by the collect_kpi method are 0.\nSince resource_helper is a MagicMock, tsc_hz is likely 1.0, see https://docs.python.org/dev/library/unittest.mock.html#magic-mock",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_249aa063",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_vnf.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 1,
+      "message": "Those 2 lines are useless/duplicate, since \u0027packets_fwd\u0027 was already checked on line 358.\nWe should add checks for \u0027curr_packets_in\u0027 and \u0027curr_packets_fwd\u0027 here instead.",
+      "revId": "f8b45aca386ed5852d9568c531ba4595c68cc0e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

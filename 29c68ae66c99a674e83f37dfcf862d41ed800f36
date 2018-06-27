@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_5e54c553",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T23:19:22Z",
+      "side": 0,
+      "message": "Something weird was hidden there!\nThe port_stats method (https://gerrit.opnfv.org/gerrit/#/c/58261/21/yardstick/network_services/vnf_generic/vnf/prox_helpers.py@580) sums up the values it receives for each port. So this \"tsc\" variable contains the sum of the respective tsc values.\nThis is the reason for the multiplication by port_count on lines 111 and 113 below, which converts it into an average tsc value.",
+      "revId": "29c68ae66c99a674e83f37dfcf862d41ed800f36",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
