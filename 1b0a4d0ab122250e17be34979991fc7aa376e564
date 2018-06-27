@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_89e4653c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T14:49:04Z",
+      "side": 1,
+      "message": "Fully agree that this would be for later.\nBut core 1 only generates ARP, task 0 to cpe0 and task 1 to cpe1, while cores 2 and 3 generate QinQ to cpe0 and cpe1 respectively. So no rework needed about what cores do.",
+      "parentUuid": "da5c1566_297d596f",
+      "revId": "1b0a4d0ab122250e17be34979991fc7aa376e564",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_e94d2174",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
         "patchSetId": 6
