@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_7ef9c94c",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T13:18:44Z",
+      "side": 1,
+      "message": "To be consistent with other Gen files.\n\nThe sut_mac0 is extracted from the topology by NSB.",
+      "parentUuid": "da5c1566_3e3c712f",
+      "revId": "b24d161b9ff18e1fee80b7085264020a1569e095",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_d82c6d4d",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
         "patchSetId": 3
@@ -65,6 +83,24 @@
       "writtenOn": "2018-06-27T12:45:27Z",
       "side": 1,
       "message": "If you change the random mask, please also update this commented line (for all cores).",
+      "revId": "b24d161b9ff18e1fee80b7085264020a1569e095",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_3e8631ba",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T13:18:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_5e3fa525",
       "revId": "b24d161b9ff18e1fee80b7085264020a1569e095",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -130,6 +166,30 @@
       "side": 1,
       "message": "10.0.0.0 and 11.0.0.0 might indeed be problematic, so last bit at 1 would fix them. Not sure we should also avoid other combinations.\nThe main problem here is that we are reducing the complexity of traffic flows by a factor 8, so the test is possibly much easier for the SUT BNG.\nMight be considered a temporary workaround, until we have random_ip keyword.",
       "parentUuid": "da5c1566_bee241d3",
+      "range": {
+        "startLine": 116,
+        "startChar": 22,
+        "endLine": 116,
+        "endChar": 27
+      },
+      "revId": "b24d161b9ff18e1fee80b7085264020a1569e095",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_5e8965c9",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T13:18:44Z",
+      "side": 1,
+      "message": "Correct\nWe will not have the RANDOM_IP for this release",
+      "parentUuid": "da5c1566_fe3af934",
       "range": {
         "startLine": 116,
         "startChar": 22,
