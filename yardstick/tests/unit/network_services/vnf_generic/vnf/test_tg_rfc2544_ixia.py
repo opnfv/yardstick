@@ -18,8 +18,9 @@ import mock
 import six
 import unittest
 
-from yardstick.network_services.vnf_generic.vnf import tg_rfc2544_ixia
+from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
 from yardstick.network_services.traffic_profile import base as tp_base
+from yardstick.network_services.vnf_generic.vnf import tg_rfc2544_ixia
 
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
@@ -30,8 +31,7 @@ NAME = "tg__1"
 class TestIxiaResourceHelper(unittest.TestCase):
 
     def setUp(self):
-        self._mock_IxNextgen = mock.patch.object(tg_rfc2544_ixia,
-                                                 'IxNextgen')
+        self._mock_IxNextgen = mock.patch.object(ixnet_api, 'IxNextgen')
         self.mock_IxNextgen = self._mock_IxNextgen.start()
         self.addCleanup(self._stop_mocks)
 
@@ -48,12 +48,10 @@ class TestIxiaResourceHelper(unittest.TestCase):
 
     def test_stop_collect_with_client(self):
         mock_client = mock.Mock()
-
         ixia_resource_helper = tg_rfc2544_ixia.IxiaResourceHelper(mock.Mock())
-
         ixia_resource_helper.client = mock_client
         ixia_resource_helper.stop_collect()
-        self.assertEqual(mock_client.ix_stop_traffic.call_count, 1)
+        self.assertEqual(1, ixia_resource_helper._terminated.value)
 
     def test_run_traffic(self):
         mock_tprofile = mock.Mock()
@@ -70,8 +68,7 @@ class TestIxiaResourceHelper(unittest.TestCase):
         self.assertEqual('fake_samples', ixia_rhelper._queue.get())
 
 
-@mock.patch(
-    "yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.IxNextgen")
+@mock.patch.object(tg_rfc2544_ixia, 'ixnet_api')
 class TestIXIATrafficGen(unittest.TestCase):
     VNFD = {'vnfd:vnfd-catalog':
             {'vnfd':
