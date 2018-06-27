@@ -45,6 +45,30 @@
       "revId": "b9b7963534f264d822806a7051cc65a41f280edb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_299a7963",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T16:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_29def93f",
+      "range": {
+        "startLine": 163,
+        "startChar": 64,
+        "endLine": 163,
+        "endChar": 72
+      },
+      "revId": "b9b7963534f264d822806a7051cc65a41f280edb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
