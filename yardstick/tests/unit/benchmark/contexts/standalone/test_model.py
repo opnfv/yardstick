@@ -191,7 +191,7 @@ class ModelLibvirtTestCase(unittest.TestCase):
     def test_create_snapshot_qemu_no_image_remote(self,
             mock_os_access, mock_normpath, mock_basename):
         self.mock_ssh.execute = mock.Mock(
-            side_effect=[(0, 0, 0), (1, 0, 0), (0, 0, 0), (0, 0, 0)])
+            side_effect=[(0, 0, 0), (1, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0)])
         index = 1
         vm_image = '/var/lib/libvirt/images/%s.qcow2' % index
         base_image = '/tmp/base_image'
@@ -201,6 +201,7 @@ class ModelLibvirtTestCase(unittest.TestCase):
         self.mock_ssh.execute.assert_has_calls([
             mock.call('rm -- "%s"' % vm_image),
             mock.call('test -r %s' % base_image),
+            mock.call('mkdir -p "/tmp"'),
             mock.call('mv -- "/tmp/%s" "%s"' % ('base_image', base_image)),
             mock.call('qemu-img create -f qcow2 -o backing_file=%s %s' %
                       (base_image, vm_image))
