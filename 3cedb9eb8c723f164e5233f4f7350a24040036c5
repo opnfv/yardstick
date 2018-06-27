@@ -46,6 +46,30 @@
       "revId": "3cedb9eb8c723f164e5233f4f7350a24040036c5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_be524111",
+        "filename": "tests/opnfv/test_suites/opnfv_os-odl-ovs-noha_daily.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7053
+      },
+      "writtenOn": "2018-06-27T08:43:11Z",
+      "side": 1,
+      "message": "This testsuite is for fuel/mcp. Without this file, the testsuite will fail with error \"Test suite \"opnfv_os-odl-ovs-noha_daily.yaml\" does not exist\". \n\nhttps://build.opnfv.org/ci/job/yardstick-fuel-virtual-daily-master/3186/console\n\nRegarding the testcase tc011(and tc063/tc075), if fuel also support the testcase, we can add fuel into installer list, it will be like:\n\ninstaller: compass, fuel\npod: huawei-pod1, lf-pod2",
+      "parentUuid": "da5c1566_0c035a10",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 24
+      },
+      "revId": "3cedb9eb8c723f164e5233f4f7350a24040036c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
