@@ -24,6 +24,7 @@ from yardstick.benchmark.contexts.standalone import model
 from yardstick.benchmark.contexts.standalone import ovs_dpdk
 from yardstick.common import exceptions
 from yardstick.network_services import utils
+from yardstick.common import constants as consts
 
 
 class OvsDpdkContextTestCase(unittest.TestCase):
@@ -368,12 +369,16 @@ class OvsDpdkContextTestCase(unittest.TestCase):
             'fake_path', 0, self.NETWORKS['private_0']['vpci'],
             self.NETWORKS['private_0']['mac'], 'test')
 
+    @mock.patch.object(model.StandaloneContextHelper, 'check_update_key')
+    @mock.patch.object(model.Libvirt, 'add_cdrom')
+    @mock.patch.object(model.Libvirt, 'gen_cdrom_image')
     @mock.patch.object(model.Libvirt, 'write_file')
     @mock.patch.object(model.Libvirt, 'build_vm_xml')
     @mock.patch.object(model.Libvirt, 'check_if_vm_exists_and_delete')
     @mock.patch.object(model.Libvirt, 'virsh_create_vm')
-    def test_setup_ovs_dpdk_context(self, mock_create_vm, mock_check_if_exists,
-                                    mock_build_xml, mock_write_file):
+    def test_setup_ovs_dpdk_context(self, mock_create_vm, mock_check_if_exists, mock_build_xml,
+                                    mock_write_file, mock_gen_cdrom_image, mock_add_cdrom,
+                                    mock_check_update_key):
         self.ovs_dpdk.vm_deploy = True
         self.ovs_dpdk.connection = mock.Mock()
         self.ovs_dpdk.vm_names = ['vm_0', 'vm_1']
@@ -390,15 +395,24 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk.networks = self.NETWORKS
         self.ovs_dpdk.host_mgmt = {}
         self.ovs_dpdk.flavor = {}
+        self.ovs_dpdk.file_path = '/var/lib/libvirt/images/cdrom_iso.img'
         self.ovs_dpdk.configure_nics_for_ovs_dpdk = mock.Mock(return_value="")
+        self.ovs_dpdk._name_task_id = 'fake_name'
         xml_str = mock.Mock()
         mock_build_xml.return_value = (xml_str, '00:00:00:00:00:01')
+        mock_add_cdrom.return_value = xml_str
+        key_filename = ''.join(
+            [consts.YARDSTICK_ROOT_PATH,
+             'yardstick/resources/files/yardstick_key-',
+             self.ovs_dpdk._name_task_id])
         self.ovs_dpdk._enable_interfaces = mock.Mock(return_value=xml_str)
         vnf_instance = mock.Mock()
+        vnf_instance_2 = mock.Mock()
+        mock_check_update_key.return_value = vnf_instance_2
         self.ovs_dpdk.vnf_node.generate_vnf_instance = mock.Mock(
             return_value=vnf_instance)
 
-        self.assertEqual([vnf_instance],
+        self.assertEqual([vnf_instance_2],
                          self.ovs_dpdk.setup_ovs_dpdk_context())
         mock_create_vm.assert_called_once_with(
             self.ovs_dpdk.connection, '/tmp/vm_ovs_0.xml')
@@ -407,6 +421,13 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         mock_build_xml.assert_called_once_with(
             self.ovs_dpdk.connection, self.ovs_dpdk.vm_flavor, 'vm_0', 0)
         mock_write_file.assert_called_once_with('/tmp/vm_ovs_0.xml', xml_str)
+        mock_gen_cdrom_image.assert_called_once_with(self.ovs_dpdk.connection,
+                                                     self.ovs_dpdk.file_path)
+        mock_add_cdrom.assert_called_once_with(self.ovs_dpdk.file_path, xml_str)
+        mock_check_update_key.assert_called_once_with(self.ovs_dpdk.connection,
+                                                      vnf_instance,
+                                                      xml_str,
+                                                      key_filename)
 
     @mock.patch.object(io, 'BytesIO')
     def test__check_hugepages(self, mock_bytesio):
