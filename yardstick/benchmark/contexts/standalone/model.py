@@ -89,6 +89,33 @@ VM_TEMPLATE = """
   </devices>
 </domain>
 """
+
+meta = """
+cat > {meta} <<EOF
+instance-id: {host}
+local-hostname: {host}
+EOF
+"""
+
+user = """
+cat > {user} <<EOF
+#cloud-config
+preserve_hostname: False
+hostname: {host}
+output:
+  all: ">> /var/log/cloud-init.log"
+ssh_pwauth: True
+users:
+    - name: ubuntu
+      lock-passwd: False
+      plain_text_passwd: password
+      chpasswd:
+        expire: False
+      sudo: ALL=(ALL) NOPASSWD:ALL
+      ssh_pwauth: True
+EOF
+"""
+
 WAIT_FOR_BOOT = 30
 
 
@@ -250,8 +277,11 @@ class Libvirt(object):
             # NOTE(ralonsoh): done in two steps to avoid root permission
             # issues.
             LOG.info('Copy %s from execution host to remote host', base_image)
-            file_name = os.path.basename(os.path.normpath(base_image))
+            norm_path = os.path.normpath(base_image)
+            file_name = os.path.basename(norm_path)
             connection.put_file(base_image, '/tmp/%s' % file_name)
+            dir_name = os.path.dirname(norm_path)
+            connection.execute('mkdir -p "%s"' % dir_name)
             status, _, error = connection.execute(
                 'mv -- "/tmp/%s" "%s"' % (file_name, base_image))
             if status:
@@ -320,6 +350,64 @@ class Libvirt(object):
         et = ET.ElementTree(element=root)
         et.write(file_name, encoding='utf-8', method='xml')
 
+    @classmethod
+    def add_cdrom(cls, file_path, xml_str):
+        """Add a DPDK OVS 'interface' XML node in 'devices' node
+
+        <devices>
+            <disk type='file' device='cdrom'>
+              <driver name='qemu' type='raw'/>
+              <source file='/var/lib/libvirt/images/data.img'/>
+              <target dev='hdb'/>
+              <readonly/>
+            </disk>
+            ...
+        </devices>
+        """
+
+        root = ET.fromstring(xml_str)
+        device = root.find('devices')
+
+        disk = ET.SubElement(device, 'disk')
+        disk.set('type', 'file')
+        disk.set('device', 'cdrom')
+
+        driver = ET.SubElement(disk, 'driver')
+        driver.set('name', 'qemu')
+        driver.set('type', 'raw')
+
+        source = ET.SubElement(disk, 'source')
+        source.set('file', file_path)
+
+        target = ET.SubElement(disk, 'target')
+        target.set('dev', 'hdb')
+
+        ET.SubElement(disk, 'readonly')
+
+        return ET.tostring(root)
+
+    @staticmethod
+    def gen_cdrom_image(connection, file_path):
+        """Generate ISO image for CD-ROM """
+
+        hostname = "ubuntuvm"
+        meta_data = "/tmp/{}/meta-data".format(hostname)
+        user_data = "/tmp/{}/user-data".format(hostname)
+
+        cmd_lst = [
+            "mkdir -p /tmp/{}".format(hostname),
+            meta.format(meta=meta_data, host=hostname),
+            user.format(user=user_data, host=hostname),
+            "genisoimage -output {0} -volid cidata -joliet -r {1} {2}".format(file_path, meta_data, user_data),
+        ]
+        for cmd in cmd_lst:
+            LOG.info(cmd)
+            status, out, error = connection.execute(cmd)
+            LOG.debug(out)
+            LOG.debug(error)
+            if status:
+                raise exceptions.LibvirtQemuImageCreateError(error=error)
+
 
 class StandaloneContextHelper(object):
     """ This class handles all the common code for standalone
@@ -331,7 +419,7 @@ class StandaloneContextHelper(object):
     @staticmethod
     def install_req_libs(connection, extra_pkgs=None):
         extra_pkgs = extra_pkgs or []
-        pkgs = ["qemu-kvm", "libvirt-bin", "bridge-utils", "numactl", "fping"]
+        pkgs = ["qemu-kvm", "libvirt-bin", "bridge-utils", "numactl", "fping", "libguestfs-tools", "genisoimage"]
         pkgs.extend(extra_pkgs)
         cmd_template = "dpkg-query -W --showformat='${Status}\\n' \"%s\"|grep 'ok installed'"
         for pkg in pkgs:
@@ -464,6 +552,35 @@ class StandaloneContextHelper(object):
             if ip:
                 node["ip"] = ip
         return nodes
+
+    @classmethod
+    def check_update_key(cls, connection, node, xml_str, key_filename):
+        # Generate public/private keys if password or private key file is not provided
+        key_file = node.get('key_filename')
+        password = node.get('password')
+        if not key_file and not password:
+            ssh.SSH.gen_keys(key_filename)
+            node['key_filename'] = key_filename
+        # Update image with public key
+        vm_user = node.get('user')
+        if not vm_user:
+            LOG.error("No user defined to access VM")
+        key_filename = node.get('key_filename')
+        if key_filename:
+            m = re.search(r'<disk device="disk".*?<source file="((/[\w.-]+)+)"\s*/>', xml_str, re.S)
+            LOG.debug("Matched: %s", m)
+            if m:
+                vm_image = m.group(1).rstrip()
+                pubkey_file = ".".join([key_filename, "pub"])
+                dst_pubkey_file = '/tmp/%s' % os.path.basename(pubkey_file)
+                connection.put_file(pubkey_file, dst_pubkey_file)
+                add_key_cmd = ('virt-sysprep -a %s --ssh-inject %s:file:%s' % (vm_image, vm_user, dst_pubkey_file))
+                LOG.debug("Update key command: %s", add_key_cmd)
+                status, out, error = connection.execute(add_key_cmd)
+                connection.execute('rm "%s*"' % dst_pubkey_file)
+                if status:
+                    LOG.error("Public key not added to the VM image, error: %s", error)
+        return node
 
 
 class Server(object):
