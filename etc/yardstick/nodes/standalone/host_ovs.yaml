@@ -16,6 +16,6 @@ nodes:
 -
     name: ovs_dpdk
     role: OvsDpdk
-    ip: 192.168.100.101
-    user: ""
-    password: ""
+    ip: 10.237.211.170
+    user: "root"
+    password: "nsbpassword"
