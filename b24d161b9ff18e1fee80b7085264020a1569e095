@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_3ec75147",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T12:18:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_d82c6d4d",
+      "revId": "b24d161b9ff18e1fee80b7085264020a1569e095",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_189a6563",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2018-06-26T14:09:10Z",
       "side": 1,
       "message": "We use class \u0027A\u0027 as using 10.x.x.x or 11.x.x.x\nClass A addresses should be:\n- First Byte: from 1 to 127\n- Other 24 bits: value from 0.0.1 to 255.255.254 (avoid 0.0.0 and 255.255.255)\n\nSo, I understand the last \u00271\u0027 (to avoid 0.0.0). 255.255.255 is already avoided (thanks to the \u00270\u0027 around byte 8, 9, 10...).\nWhy the other \u00271\u0027?",
+      "range": {
+        "startLine": 116,
+        "startChar": 22,
+        "endLine": 116,
+        "endChar": 27
+      },
+      "revId": "b24d161b9ff18e1fee80b7085264020a1569e095",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_bee241d3",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_bng-4.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-27T12:18:27Z",
+      "side": 1,
+      "message": "I wanted to avoid X.0.y.z or x.y.0.z or x.y.z.0\n0000101X XXXXXXX1 XXX10000 XXXXXXX1 \n10/11    Non Zero Non Zero Non Zero",
+      "parentUuid": "da5c1566_189a6563",
       "range": {
         "startLine": 116,
         "startChar": 22,
