@@ -160,6 +160,8 @@ class ProxBinSearchProfile(ProxProfile):
                         success_samples["Success_can_be_lost"] = int(result.can_be_lost)
                         success_samples["Success_drop_total"] = int(result.drop_total)
                         success_samples["Success_RxThroughput"] = samples["RxThroughput"]
+                        success_samples["Success_RxThroughput_gbps"] = \
+                            (samples["RxThroughput"] / 1000) * ((pkt_size + 20)* 8)
                         LOG.info(">>>##>>Collect SUCCESS TG KPIs %s %s",
                                  datetime.datetime.now(), success_samples)
                         self.queue.put(success_samples, True, overall_constants.QUEUE_PUT_TIMEOUT)
