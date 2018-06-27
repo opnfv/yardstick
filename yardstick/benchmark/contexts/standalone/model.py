@@ -89,6 +89,35 @@ VM_TEMPLATE = """
   </devices>
 </domain>
 """
+
+META_DATA_TEMPLATE = """
+cat > {meta} <<EOF
+instance-id: {uuid}
+local-hostname: {host}
+EOF
+"""
+
+USER_DATA_TEMPLATE = """
+cat > {user} <<EOF
+#cloud-config
+preserve_hostname: True
+output:
+  all: ">> /var/log/cloud-init.log"
+ssh_pwauth: True
+users:
+    - name: {user_name}
+      ssh_authorized_keys:
+        - {pub_key_str}
+    - name: ubuntu
+      lock-passwd: False
+      plain_text_passwd: password
+      chpasswd:
+        expire: False
+      sudo: ALL=(ALL) NOPASSWD:ALL
+      ssh_pwauth: True
+EOF
+"""
+
 WAIT_FOR_BOOT = 30
 
 
@@ -250,8 +279,11 @@ class Libvirt(object):
             # NOTE(ralonsoh): done in two steps to avoid root permission
             # issues.
             LOG.info('Copy %s from execution host to remote host', base_image)
-            file_name = os.path.basename(os.path.normpath(base_image))
+            norm_path = os.path.normpath(base_image)
+            file_name = os.path.basename(norm_path)
             connection.put_file(base_image, '/tmp/%s' % file_name)
+            dir_name = os.path.dirname(norm_path)
+            connection.execute('mkdir -p "%s"' % dir_name)
             status, _, error = connection.execute(
                 'mv -- "/tmp/%s" "%s"' % (file_name, base_image))
             if status:
@@ -320,6 +352,71 @@ class Libvirt(object):
         et = ET.ElementTree(element=root)
         et.write(file_name, encoding='utf-8', method='xml')
 
+    @classmethod
+    def add_cdrom(cls, file_path, xml_str):
+        """Add a DPDK OVS 'interface' XML node in 'devices' node
+
+        <devices>
+            <disk type='file' device='cdrom'>
+              <driver name='qemu' type='raw'/>
+              <source file='/var/lib/libvirt/images/data.img'/>
+              <target dev='hdb'/>
+              <readonly/>
+            </disk>
+            ...
+        </devices>
+        """
+
+        root = ET.fromstring(xml_str)
+        device = root.find('devices')
+
+        disk = ET.SubElement(device, 'disk')
+        disk.set('type', 'file')
+        disk.set('device', 'cdrom')
+
+        driver = ET.SubElement(disk, 'driver')
+        driver.set('name', 'qemu')
+        driver.set('type', 'raw')
+
+        source = ET.SubElement(disk, 'source')
+        source.set('file', file_path)
+
+        target = ET.SubElement(disk, 'target')
+        target.set('dev', 'hdb')
+
+        ET.SubElement(disk, 'readonly')
+        return ET.tostring(root)
+
+    @staticmethod
+    def gen_cdrom_image(connection, file_path, key_filename, xml_str, vm_user):
+        """Generate ISO image for CD-ROM """
+
+        root = ET.fromstring(xml_str)
+        hostname = root.find('name').text
+        uuid = root.find('uuid').text
+
+        meta_data = "/tmp/{}/meta-data".format(hostname)
+        user_data = "/tmp/{}/user-data".format(hostname)
+        with open(".".join([key_filename, "pub"]), "r") as pub_key_file:
+            pub_key_str = pub_key_file.read().rstrip()
+
+        cmd_lst = [
+            "mkdir -p /tmp/{}".format(hostname),
+            META_DATA_TEMPLATE.format(meta=meta_data, host=hostname, uuid=uuid),
+            USER_DATA_TEMPLATE.format(user=user_data, host=hostname, pub_key_str=pub_key_str,
+                                      user_name=vm_user),
+            "genisoimage -output {0} -volid cidata -joliet -r {1} {2}".format(file_path,
+                                                                              meta_data,
+                                                                              user_data),
+            "rm {0} {1}".format(meta_data, user_data),
+        ]
+        for cmd in cmd_lst:
+            LOG.info(cmd)
+            status, out, error = connection.execute(cmd)
+            LOG.debug(out)
+            if status:
+                raise exceptions.LibvirtQemuImageCreateError(error=error)
+
 
 class StandaloneContextHelper(object):
     """ This class handles all the common code for standalone
@@ -331,7 +428,7 @@ class StandaloneContextHelper(object):
     @staticmethod
     def install_req_libs(connection, extra_pkgs=None):
         extra_pkgs = extra_pkgs or []
-        pkgs = ["qemu-kvm", "libvirt-bin", "bridge-utils", "numactl", "fping"]
+        pkgs = ["qemu-kvm", "libvirt-bin", "bridge-utils", "numactl", "fping", "genisoimage"]
         pkgs.extend(extra_pkgs)
         cmd_template = "dpkg-query -W --showformat='${Status}\\n' \"%s\"|grep 'ok installed'"
         for pkg in pkgs:
@@ -464,6 +561,23 @@ class StandaloneContextHelper(object):
             if ip:
                 node["ip"] = ip
         return nodes
+
+    @classmethod
+    def check_update_key(cls, connection, node, xml_str, name, cdrom_img):
+        # Generate public/private keys if password or private key file is not provided
+        key_file = node.get('key_filename')
+        password = node.get('password')
+        if not key_file and not password:
+            key_filename = ''.join(
+                [constants.YARDSTICK_ROOT_PATH,
+                 'yardstick/resources/files/yardstick_key-',
+                 name])
+            ssh.SSH.gen_keys(key_filename)
+            node['key_filename'] = key_filename
+        # Update image with public key
+        key_filename = node.get('key_filename')
+        Libvirt.gen_cdrom_image(connection, cdrom_img, key_filename, xml_str, node.get('user'))
+        return node
 
 
 class Server(object):

@@ -46,6 +46,16 @@ XML_SAMPLE_INTERFACE = """<?xml version="1.0"?>
 
 class ModelLibvirtTestCase(unittest.TestCase):
 
+    XML_STR = model.VM_TEMPLATE.format(
+        vm_name="vm_name",
+        random_uuid=uuid.uuid4(),
+        mac_addr="00:01:02:03:04:05",
+        memory=2048, vcpu=2, cpu=2,
+        numa_cpus=0 - 10,
+        socket=1, threads=1,
+        vm_image="/var/lib/libvirt/images/yardstick-nsb-image.img",
+        cpuset=2 - 10, cputune='')
+
     def setUp(self):
         self.pci_address_str = '0001:04:03.2'
         self.pci_address = utils.PciAddress(self.pci_address_str)
@@ -171,6 +181,55 @@ class ModelLibvirtTestCase(unittest.TestCase):
         self.assertEqual('0x' + vm_pci.split(':')[2].split('.')[1],
                          interface_address.get('function'))
 
+    def test_add_cdrom(self):
+        xml_input = copy.deepcopy(XML_SAMPLE)
+        xml_output = model.Libvirt.add_cdrom('/var/lib/libvirt/images/data.img', xml_input)
+
+        root = ElementTree.fromstring(xml_output)
+        et_out = ElementTree.ElementTree(element=root)
+        disk = et_out.find('devices').find('disk')
+        self.assertEqual('file', disk.get('type'))
+        self.assertEqual('cdrom', disk.get('device'))
+        driver = disk.find('driver')
+        self.assertEqual('qemu', driver.get('name'))
+        self.assertEqual('raw', driver.get('type'))
+        source = disk.find('source')
+        self.assertEqual('/var/lib/libvirt/images/data.img', source.get('file'))
+        target = disk.find('target')
+        self.assertEqual('hdb', target.get('dev'))
+        self.assertNotEqual(None, disk.find('readonly'))
+
+    def test_gen_cdrom_image(self):
+        self.mock_ssh.execute = mock.Mock(return_value=(0, 0, 0))
+        root = ElementTree.fromstring(self.XML_STR)
+        hostname = root.find('name').text
+        uuid64 = root.find('uuid').text
+        meta_data = "/tmp/{}/meta-data".format(hostname)
+        user_data = "/tmp/{}/user-data".format(hostname)
+        file_path = "/var/lib/libvirt/images/data.img"
+        key_filename = "id_rsa"
+        pub_key_str = "KEY"
+        user = 'root'
+
+        with mock.patch('six.moves.builtins.open', mock.mock_open(read_data=pub_key_str),
+                        create=True) as mock_file:
+            with open(key_filename, "r") as h:
+                result = h.read()
+            model.Libvirt.gen_cdrom_image(self.mock_ssh, file_path, key_filename, self.XML_STR,
+                                          user)
+            mock_file.assert_called_with(".".join([key_filename, "pub"]), "r")
+        self.assertEqual(result, pub_key_str)
+
+        self.mock_ssh.execute.assert_has_calls([
+            mock.call("mkdir -p /tmp/{}".format(hostname)),
+            mock.call(model.META_DATA_TEMPLATE.format(meta=meta_data, host=hostname, uuid=uuid64)),
+            mock.call(model.USER_DATA_TEMPLATE.format(user=user_data, user_name=user,
+                                                      pub_key_str=pub_key_str)),
+            mock.call("genisoimage -output {0} -volid cidata"
+                      " -joliet -r {1} {2}".format(file_path, meta_data, user_data)),
+            mock.call("rm {0} {1}".format(meta_data, user_data))
+        ])
+
     def test_create_snapshot_qemu(self):
         self.mock_ssh.execute = mock.Mock(return_value=(0, 0, 0))
         index = 1
@@ -191,7 +250,7 @@ class ModelLibvirtTestCase(unittest.TestCase):
     def test_create_snapshot_qemu_no_image_remote(self,
             mock_os_access, mock_normpath, mock_basename):
         self.mock_ssh.execute = mock.Mock(
-            side_effect=[(0, 0, 0), (1, 0, 0), (0, 0, 0), (0, 0, 0)])
+            side_effect=[(0, 0, 0), (1, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0)])
         index = 1
         vm_image = '/var/lib/libvirt/images/%s.qcow2' % index
         base_image = '/tmp/base_image'
@@ -201,6 +260,7 @@ class ModelLibvirtTestCase(unittest.TestCase):
         self.mock_ssh.execute.assert_has_calls([
             mock.call('rm -- "%s"' % vm_image),
             mock.call('test -r %s' % base_image),
+            mock.call('mkdir -p "/tmp"'),
             mock.call('mv -- "/tmp/%s" "%s"' % ('base_image', base_image)),
             mock.call('qemu-img create -f qcow2 -o backing_file=%s %s' %
                       (base_image, vm_image))
@@ -210,6 +270,17 @@ class ModelLibvirtTestCase(unittest.TestCase):
         mock_basename.assert_has_calls([mock.call(base_image)])
         self.mock_ssh.put_file.assert_called_once_with(base_image,
                                                        '/tmp/base_image')
+
+    @mock.patch.object(model.Libvirt, 'gen_cdrom_image')
+    def test_check_update_key(self, mock_gen_cdrom_image):
+        node = {'user': 'defuser', 'key_filename': '/home/ubuntu/id_rsa'}
+        cdrom_img = "/var/lib/libvirt/images/data.img"
+        name = 'fake_name'
+        key_filename = node.get('key_filename')
+        model.StandaloneContextHelper.check_update_key(self.mock_ssh, node, self.XML_STR, name,
+                                                       cdrom_img)
+        mock_gen_cdrom_image.assert_called_once_with(self.mock_ssh, cdrom_img, key_filename,
+                                                     self.XML_STR, node.get('user'))
 
     @mock.patch.object(os, 'access', return_value=False)
     def test_create_snapshot_qemu_no_image_local(self, mock_os_access):
@@ -295,6 +366,7 @@ class ModelLibvirtTestCase(unittest.TestCase):
             ssh.return_value = ssh_mock
         status = model.Libvirt.pin_vcpu_for_perf(ssh_mock, 4)
         self.assertIsNotNone(status)
+
 
 class StandaloneContextHelperTestCase(unittest.TestCase):
 
