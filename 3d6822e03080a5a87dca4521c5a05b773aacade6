@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_2910b900",
+        "filename": "samples/vnf_samples/nsut/prox/configs/handle_bng-4.cfg",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-27T14:49:04Z",
+      "side": 1,
+      "message": "Good to have more worker cores for BNG.\nWhat about BNG-QOS?\nSee samples/vnf_samples/nsut/prox/configs/handle_bng_qos-4.cfg",
+      "revId": "3d6822e03080a5a87dca4521c5a05b773aacade6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
