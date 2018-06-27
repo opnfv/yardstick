@@ -71,4 +71,4 @@ cd ${ANSIBLE_SCRIPTS} &&\
 ansible-playbook \
          -e img_property="nsb" \
          -e YARD_IMG_ARCH='amd64' ${extra_args}\
-         -i yardstick-install-inventory.ini nsb_setup.yml
+         -i install-inventory.ini nsb_setup.yml
