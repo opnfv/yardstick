@@ -230,6 +230,10 @@ class ScenarioCreateKeypairError(YardstickException):
     message = 'Nova Create Keypair Scenario failed'
 
 
+class ScenarioDeleteKeypairError(YardstickException):
+    message = 'Nova Delete Keypair Scenario failed'
+
+
 class ApiServerError(YardstickException):
     message = 'An unkown exception happened to Api Server!'
 
