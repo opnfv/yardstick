@@ -14,6 +14,7 @@ import os
 
 from yardstick.common import constants
 from yardstick.common import utils
+from yardstick.common import yaml_loader
 from yardstick.common.constants import YARDSTICK_ROOT_PATH
 
 
@@ -73,13 +74,13 @@ class Context(object):
     def read_pod_file(self, attrs):
         self.file_path = file_path = attrs.get("file", "pod.yaml")
         try:
-            cfg = utils.read_yaml_file(self.file_path)
+            cfg = yaml_loader.read_yaml_file(self.file_path)
         except IOError as io_error:
             if io_error.errno != errno.ENOENT:
                 raise
 
             self.file_path = os.path.join(YARDSTICK_ROOT_PATH, file_path)
-            cfg = utils.read_yaml_file(self.file_path)
+            cfg = yaml_loader.read_yaml_file(self.file_path)
 
         self.nodes.extend(cfg["nodes"])
         self.controllers.extend([node for node in cfg["nodes"]

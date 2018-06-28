@@ -528,11 +528,3 @@ def wait_until_true(predicate, timeout=60, sleep=1, exception=None):
         if exception and issubclass(exception, Exception):
             raise exception  # pylint: disable=raising-bad-type
         raise exceptions.WaitTimeout
-
-
-def read_yaml_file(path):
-    """Read yaml file"""
-
-    with open(path) as stream:
-        data = yaml_load(stream)
-    return data
