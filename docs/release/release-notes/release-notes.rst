@@ -36,6 +36,9 @@ Version History
 | *Date*            | *Version* | *Comment*                       |
 |                   |           |                                 |
 +-------------------+-----------+---------------------------------+
+| Jun 29, 2018      | 6.2.0     | Yardstick for Fraser release    |
+|                   |           |                                 |
++-------------------+-----------+---------------------------------+
 | May 25, 2018      | 6.1.0     | Yardstick for Fraser release    |
 |                   |           |                                 |
 +-------------------+-----------+---------------------------------+
@@ -120,19 +123,19 @@ Release Data
 | **Project**                    | Yardstick             |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Repo/tag**                   | yardstick/opnfv-6.1.0 |
+| **Repo/tag**                   | yardstick/opnfv-6.2.0 |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Yardstick Docker image tag** | opnfv-6.1.0           |
+| **Yardstick Docker image tag** | opnfv-6.2.0           |
 |                                |                       |
 +--------------------------------+-----------------------+
 | **Release designation**        | Fraser                |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release date**               | May 25, 2018          |
+| **Release date**               | Jun 29, 2018          |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Purpose of the delivery**    | OPNFV Fraser 6.1.0    |
+| **Purpose of the delivery**    | OPNFV Fraser 6.2.0    |
 |                                |                       |
 +--------------------------------+-----------------------+
 
@@ -151,7 +154,7 @@ Documents
 Software Deliverables
 ---------------------
 
- - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: opnfv-6.1.0)
+ - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: opnfv-6.2.0)
 
 List of Contexts
 ^^^^^^^^^^^^^^^^
@@ -390,6 +393,84 @@ Known Issues/Faults
 
 Corrected Faults
 ----------------
+
+Fraser 6.2.0:
+
++--------------------+--------------------------------------------------------------------------+
+| **JIRA REFERENCE** |                             **DESCRIPTION**                              |
++====================+==========================================================================+
+|   YARDSTICK-1246   | Update pmd/lcore mask for OVS-DPDK context                               |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-837    | Move tests: unit/network_services/{lib/,collector/,*.py}                 |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1144   | Correctly set PYTHONPATH in Dockerfile                                   |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1205   | Set "cmd2" library to version 0.8.6                                      |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1204   | Bump oslo.messaging version to 5.36.0                                    |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1210   | Remove __init__ method overriding in HeatContextTestCase                 |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1189   | Error when adding SR-IOV interfaces in SR-IOV context                    |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1214   | Remove AnsibleCommon class method mock                                   |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1159   | Add --hwlb options as a command line argument for SampleVNF              |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1203   | Add scale out TCs with availability zone support                         |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1167   | Do not start collectd twice when SampleVNF is running on Baremetal       |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1188   | Add "host_name_separator" variable to Context class                      |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1112   | MQ startup process refactor                                              |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1229   | Cleanup BaseMonitor unit tests                                           |
++--------------------+--------------------------------------------------------------------------+
+|         -          | Configure ACL via static file                                            |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1191   | Use TRex release v2.41 to support both x86 and aarch64                   |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1106   | Add IxNetwork API Python Binding package                                 |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1224   | Cleanup TestYardstickNSCli class                                         |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1225   | Remove print out of logger exception in TestUtils                        |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1194   | Add "duration" parameter to test case definition                         |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1209   | Remove instantiated contexts in "test_task"                              |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1192   | Standalone XML machine type is not longer valid                          |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1197   | Refactor RFC2455 TRex traffic profile injection                          |
++--------------------+--------------------------------------------------------------------------+
+|         -          | Fix "os.path" mock problems during tests                                 |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1218   | Refactor "utils.parse_ini_file" testing                                  |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1179   | Start nginx and uwsgi servicies only in not container mode               |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1177   | Install dependencies: bare-metal, standalone                             |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1126   | Migrate install.sh script to ansible                                     |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1146   | Fix nsb_setup.sh script                                                  |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1247   | NSB setup inventory name changed                                         |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1116   | Changed IxNextgen library load in IXIA RFC2544 traffic generator call.   |
++--------------------+--------------------------------------------------------------------------+
+|         -          | Corrected scale-up command line arguments                                |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-878    | OpenStack client replacement                                             |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1222   | Bugfix: HA kill process recovery has a conflict                          |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1139   | Add "os_cloud_config" as a new context flag parameter                    |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1255   | Extended Context class with get_physical_nodes functionality             |
++--------------------+--------------------------------------------------------------------------+
 
 Fraser 6.1.0:
 
