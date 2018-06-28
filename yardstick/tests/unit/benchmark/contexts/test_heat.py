@@ -20,6 +20,7 @@ from yardstick.benchmark.contexts import model
 from yardstick.common import constants as consts
 from yardstick.common import exceptions as y_exc
 from yardstick.common import openstack_utils
+from yardstick.common import yaml_loader
 from yardstick import ssh
 
 
@@ -80,12 +81,13 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertIsNone(self.test_context.heat_parameters)
         self.assertIsNone(self.test_context.key_filename)
 
-    @mock.patch('yardstick.common.utils.read_yaml_file')
+    @mock.patch.object(yaml_loader, 'read_yaml_file')
     @mock.patch('yardstick.benchmark.contexts.heat.PlacementGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.ServerGroup')
     @mock.patch('yardstick.benchmark.contexts.heat.Network')
     @mock.patch('yardstick.benchmark.contexts.heat.Server')
-    def test_init(self, mock_server, mock_network, mock_sg, mock_pg, mock_read_yaml):
+    def test_init(self, mock_server, mock_network, mock_sg, mock_pg,
+                  mock_read_yaml):
 
         mock_read_yaml.return_value = self.HEAT_POD_SAMPLE
         pgs = {'pgrp1': {'policy': 'availability'}}
@@ -764,7 +766,7 @@ class HeatContextTestCase(unittest.TestCase):
         nodes = self.test_context._get_physical_nodes()
         self.assertEquals(nodes, {})
 
-    @mock.patch('yardstick.common.utils.read_yaml_file')
+    @mock.patch.object(yaml_loader, 'read_yaml_file')
     def test__get_physical_node_for_server(self, mock_read_yaml):
         attrs = {'name': 'foo',
                  'task_id': '12345678',

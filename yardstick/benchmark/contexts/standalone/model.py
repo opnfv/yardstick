@@ -26,7 +26,7 @@ import xml.etree.ElementTree as ET
 from yardstick import ssh
 from yardstick.common import constants
 from yardstick.common import exceptions
-from yardstick.common.utils import read_yaml_file
+from yardstick.common import yaml_loader
 from yardstick.network_services.utils import PciAddress
 from yardstick.network_services.helpers.cpu import CpuSysCores
 
@@ -399,13 +399,13 @@ class StandaloneContextHelper(object):
         nodes = []
         nfvi_host = []
         try:
-            cfg = read_yaml_file(self.file_path)
+            cfg = yaml_loader.read_yaml_file(self.file_path)
         except IOError as io_error:
             if io_error.errno != errno.ENOENT:
                 raise
             self.file_path = os.path.join(constants.YARDSTICK_ROOT_PATH,
                                           file_path)
-            cfg = read_yaml_file(self.file_path)
+            cfg = yaml_loader.read_yaml_file(self.file_path)
 
         nodes.extend([node for node in cfg["nodes"] if str(node["role"]) != nfvi_role])
         nfvi_host.extend([node for node in cfg["nodes"] if str(node["role"]) == nfvi_role])
