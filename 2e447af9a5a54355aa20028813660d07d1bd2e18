@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "da5c1566_0f5e95e6",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-28T08:06:08Z",
+      "side": 1,
+      "message": "What is this about? A whole new runner class only for this?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 32
+      },
+      "revId": "2e447af9a5a54355aa20028813660d07d1bd2e18",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_1b59bffe",
         "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
         "patchSetId": 31
