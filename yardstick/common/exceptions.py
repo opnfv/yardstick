@@ -270,6 +270,10 @@ class UpdateOpenrcError(ApiServerError):
     message = 'Update openrc ERROR!'
 
 
+class ScenarioCreateImageError(YardstickException):
+    message = 'Glance Create Image Scenario failed'
+
+
 class IxNetworkClientNotConnected(YardstickException):
     message = 'IxNetwork client not connected to a TCL server'
 
