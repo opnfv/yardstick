@@ -10,7 +10,8 @@
 import logging
 
 from yardstick.benchmark.scenarios import base
-import yardstick.common.openstack_utils as op_utils
+from yardstick.common import openstack_utils
+from yardstick.common import exceptions
 
 
 LOG = logging.getLogger(__name__)
@@ -24,11 +25,11 @@ class DeleteNetwork(base.Scenario):
     def __init__(self, scenario_cfg, context_cfg):
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
-        self.options = self.scenario_cfg['options']
+        self.options = self.scenario_cfg["options"]
 
-        self.network_id = self.options.get("network_id", None)
+        self.network_name_or_id = self.options["network_name_or_id"]
 
-        self.shade_client = op_utils.get_shade_client()
+        self.shade_client = openstack_utils.get_shade_client()
 
         self.setup_done = False
 
@@ -43,12 +44,13 @@ class DeleteNetwork(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        status = op_utils.delete_neutron_net(self.shade_client,
-                                             network_id=self.network_id)
-        if status:
-            result.update({"delete_network": 1})
-            LOG.info("Delete network successful!")
-        else:
+        status = openstack_utils.delete_neutron_net(self.shade_client,
+                                                    self.network_name_or_id)
+
+        if not status:
             result.update({"delete_network": 0})
             LOG.error("Delete network failed!")
-        return status
+            raise exceptions.ScenarioDeleteNetworkError
+
+        result.update({"delete_network": 1})
+        LOG.info("Delete network successful!")

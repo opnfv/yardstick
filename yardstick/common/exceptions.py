@@ -214,6 +214,10 @@ class ScenarioCreateSecurityGroupError(YardstickException):
     message = 'Create Neutron Security Group Scenario failed'
 
 
+class ScenarioDeleteNetworkError(YardstickException):
+    message = 'Delete Neutron Network Scenario failed'
+
+
 class ApiServerError(YardstickException):
     message = 'An unkown exception happened to Api Server!'
 
