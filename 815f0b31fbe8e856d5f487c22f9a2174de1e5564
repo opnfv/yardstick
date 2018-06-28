@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_aff169cf",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-28T09:26:21Z",
+      "side": 1,
+      "message": "This line depends on https://gerrit.opnfv.org/gerrit/58345, which has not been merged to stable/fraser yet.",
+      "revId": "815f0b31fbe8e856d5f487c22f9a2174de1e5564",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
