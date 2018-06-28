@@ -1104,7 +1104,9 @@ class ProxDataHelper(object):
             port_num = result[0]
             samples[port_names[port_num]] = {
                     "in_packets": result[1],
-                    "out_packets": result[2]}
+                    "out_packets": result[2],
+                    "tsc": result[5],
+                    "hz": self.tsc_hz}
         return samples
 
     def __enter__(self):

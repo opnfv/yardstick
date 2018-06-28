@@ -1593,12 +1593,16 @@ class TestProxDataHelper(unittest.TestCase):
 
         expected = {
             'xe0': {
+                'hz': None,
                 'in_packets': 1,
                 'out_packets': 2,
+                'tsc': 5
             },
             'xe1': {
+                'hz': None,
                 'in_packets': 11,
                 'out_packets': 12,
+                'tsc': 5
             },
         }
         result = data_helper.samples
