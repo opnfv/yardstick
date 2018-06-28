@@ -22,6 +22,30 @@
       "revId": "4fa5f55df98067fa703f673809c2d80c512fde6b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_6f7751d5",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-28T11:33:55Z",
+      "side": 1,
+      "message": "Sure. If you review the history of this file, the first and only committer is an Intel engineer.",
+      "parentUuid": "da5c1566_6fb0f18b",
+      "range": {
+        "startLine": 1,
+        "startChar": 21,
+        "endLine": 1,
+        "endChar": 38
+      },
+      "revId": "4fa5f55df98067fa703f673809c2d80c512fde6b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
