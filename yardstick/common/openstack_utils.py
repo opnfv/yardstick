@@ -625,39 +625,6 @@ def delete_floating_ip(shade_client, floating_ip_id, retry=1):
         return False
 
 
-def get_security_groups(neutron_client):      # pragma: no cover
-    try:
-        security_groups = neutron_client.list_security_groups()[
-            'security_groups']
-        return security_groups
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [get_security_groups(neutron_client)]")
-        return None
-
-
-def get_security_group_id(neutron_client, sg_name):      # pragma: no cover
-    security_groups = get_security_groups(neutron_client)
-    id = ''
-    for sg in security_groups:
-        if sg['name'] == sg_name:
-            id = sg['id']
-            break
-    return id
-
-
-def create_security_group(neutron_client, sg_name,
-                          sg_description):      # pragma: no cover
-    json_body = {'security_group': {'name': sg_name,
-                                    'description': sg_description}}
-    try:
-        secgroup = neutron_client.create_security_group(json_body)
-        return secgroup['security_group']
-    except Exception:  # pylint: disable=broad-except
-        log.error("Error [create_security_group(neutron_client, '%s', "
-                  "'%s')]", sg_name, sg_description)
-        return None
-
-
 def create_security_group_rule(shade_client, secgroup_name_or_id,
                                port_range_min=None, port_range_max=None,
                                protocol=None, remote_ip_prefix=None,
@@ -712,42 +679,52 @@ def create_security_group_rule(shade_client, secgroup_name_or_id,
         return False
 
 
-def create_security_group_full(neutron_client, sg_name,
-                               sg_description):      # pragma: no cover
-    sg_id = get_security_group_id(neutron_client, sg_name)
-    if sg_id != '':
+def create_security_group_full(shade_client, sg_name,
+                               sg_description, project_id=None):
+    security_group = shade_client.get_security_group(sg_name)
+
+    if security_group:
         log.info("Using existing security group '%s'...", sg_name)
-    else:
-        log.info("Creating security group  '%s'...", sg_name)
-        SECGROUP = create_security_group(neutron_client,
-                                         sg_name,
-                                         sg_description)
-        if not SECGROUP:
-            log.error("Failed to create the security group...")
-            return None
+        return security_group['id']
 
-        sg_id = SECGROUP['id']
+    log.info("Creating security group  '%s'...", sg_name)
+    try:
+        security_group = shade_client.create_security_group(
+            sg_name, sg_description, project_id=project_id)
+    except (exc.OpenStackCloudException,
+            exc.OpenStackCloudUnavailableFeature) as op_exc:
+        log.error("Error [create_security_group(shade_client, %s, %s)]. "
+                  "Exception message: %s", sg_name, sg_description,
+                  op_exc.orig_message)
+        return
 
-        log.debug("Security group '%s' with ID=%s created successfully.",
-                  SECGROUP['name'], sg_id)
+    log.debug("Security group '%s' with ID=%s created successfully.",
+              security_group['name'], security_group['id'])
 
-        log.debug("Adding ICMP rules in security group '%s'...", sg_name)
-        if not create_security_group_rule(neutron_client, sg_id,
-                                          'ingress', 'icmp'):
-            log.error("Failed to create the security group rule...")
-            return None
+    log.debug("Adding ICMP rules in security group '%s'...", sg_name)
+    if not create_security_group_rule(shade_client, security_group['id'],
+                                      direction='ingress', protocol='icmp'):
+        log.error("Failed to create the security group rule...")
+        shade_client.delete_security_group(sg_name)
+        return
 
-        log.debug("Adding SSH rules in security group '%s'...", sg_name)
-        if not create_security_group_rule(
-                neutron_client, sg_id, 'ingress', 'tcp', '22', '22'):
-            log.error("Failed to create the security group rule...")
-            return None
+    log.debug("Adding SSH rules in security group '%s'...", sg_name)
+    if not create_security_group_rule(shade_client, security_group['id'],
+                                      direction='ingress', protocol='tcp',
+                                      port_range_min='22',
+                                      port_range_max='22'):
+        log.error("Failed to create the security group rule...")
+        shade_client.delete_security_group(sg_name)
+        return
 
-        if not create_security_group_rule(
-                neutron_client, sg_id, 'egress', 'tcp', '22', '22'):
-            log.error("Failed to create the security group rule...")
-            return None
-    return sg_id
+    if not create_security_group_rule(shade_client, security_group['id'],
+                                      direction='egress', protocol='tcp',
+                                      port_range_min='22',
+                                      port_range_max='22'):
+        log.error("Failed to create the security group rule...")
+        shade_client.delete_security_group(sg_name)
+        return
+    return security_group['id']
 
 
 # *********************************************
