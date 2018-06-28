@@ -167,3 +167,6 @@ IS_PUBLIC = 'is_public'
 # general
 TESTCASE_PRE = 'opnfv_yardstick_'
 TESTSUITE_PRE = 'opnfv_'
+
+# OpenStack cloud default config parameters
+OS_CLOUD_DEFAULT_CONFIG = {'verify': False}

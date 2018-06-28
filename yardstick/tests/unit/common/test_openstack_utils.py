@@ -10,8 +10,10 @@
 from oslo_utils import uuidutils
 import unittest
 import mock
-
+import shade
 from shade import exc
+
+from yardstick.common import constants
 from yardstick.common import openstack_utils
 
 
@@ -33,6 +35,29 @@ class GetHeatApiVersionTestCase(unittest.TestCase):
         with mock.patch.dict('os.environ', {API: '2'}, clear=True):
             api_version = openstack_utils.get_heat_api_version()
             self.assertEqual(api_version, expected_result)
+
+
+class GetShadeClientTestCase(unittest.TestCase):
+
+    @mock.patch.object(shade, 'openstack_cloud', return_value='os_client')
+    def test_get_shade_client(self, mock_openstack_cloud):
+        os_cloud_config = {'param1': True, 'param2': 'value2'}
+        self.assertEqual('os_client',
+                         openstack_utils.get_shade_client(**os_cloud_config))
+        os_cloud_config.update(constants.OS_CLOUD_DEFAULT_CONFIG)
+        mock_openstack_cloud.assert_called_once_with(**os_cloud_config)
+
+        mock_openstack_cloud.reset_mock()
+        os_cloud_config = {'verify': True, 'param2': 'value2'}
+        self.assertEqual('os_client',
+                         openstack_utils.get_shade_client(**os_cloud_config))
+        mock_openstack_cloud.assert_called_once_with(**os_cloud_config)
+
+    @mock.patch.object(shade, 'openstack_cloud', return_value='os_client')
+    def test_get_shade_client_no_parameters(self, mock_openstack_cloud):
+        self.assertEqual('os_client', openstack_utils.get_shade_client())
+        mock_openstack_cloud.assert_called_once_with(
+            **constants.OS_CLOUD_DEFAULT_CONFIG)
 
 
 class DeleteNeutronNetTestCase(unittest.TestCase):

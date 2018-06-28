@@ -325,8 +325,10 @@ class HeatContext(Context):
         if not os.path.exists(self.key_filename):
             SSH.gen_keys(self.key_filename)
 
-        heat_template = HeatTemplate(self.name, self.template_file,
-                                     self.heat_parameters)
+        heat_template = HeatTemplate(
+            self.name, template_file=self.template_file,
+            heat_parameters=self.heat_parameters,
+            os_cloud_config=self._flags.os_cloud_config)
 
         if self.template_file is None:
             self._add_resources_to_template(heat_template)
