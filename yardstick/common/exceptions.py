@@ -238,6 +238,10 @@ class ScenarioAttachVolumeError(YardstickException):
     message = 'Nova Attach Volume Scenario failed'
 
 
+class ScenarioGetServerError(YardstickException):
+    message = 'Nova Get Server Scenario failed'
+
+
 class ApiServerError(YardstickException):
     message = 'An unkown exception happened to Api Server!'
 
