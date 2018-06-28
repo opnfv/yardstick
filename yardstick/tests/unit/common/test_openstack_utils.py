@@ -7,11 +7,13 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from oslo_utils import uuidutils
-import unittest
+import os
+
 import mock
+from oslo_utils import uuidutils
 import shade
 from shade import exc
+import unittest
 
 from yardstick.common import constants
 from yardstick.common import openstack_utils
@@ -28,11 +30,12 @@ class GetCredentialsTestCase(unittest.TestCase):
 
 class GetHeatApiVersionTestCase(unittest.TestCase):
 
-    def test_get_heat_api_version_check_result(self):
+    @mock.patch.object(openstack_utils, 'log')
+    def test_get_heat_api_version_check_result(self, *args):
         API = 'HEAT_API_VERSION'
         expected_result = '2'
 
-        with mock.patch.dict('os.environ', {API: '2'}, clear=True):
+        with mock.patch.dict(os.environ, {API: '2'}, clear=True):
             api_version = openstack_utils.get_heat_api_version()
             self.assertEqual(api_version, expected_result)
 
@@ -277,6 +280,12 @@ class CreateSecurityGroupRuleTestCase(unittest.TestCase):
         self.mock_shade_client = mock.Mock()
         self.secgroup_name_or_id = 'sg_name_id'
         self.mock_shade_client.create_security_group_rule = mock.Mock()
+        self._mock_log = mock.patch.object(openstack_utils, 'log')
+        self.mock_log = self._mock_log.start()
+        self.addCleanup(self._stop_mock)
+
+    def _stop_mock(self):
+        self._mock_log.stop()
 
     def test_create_security_group_rule(self):
         self.mock_shade_client.create_security_group_rule.return_value = (
@@ -285,14 +294,13 @@ class CreateSecurityGroupRuleTestCase(unittest.TestCase):
             self.mock_shade_client, self.secgroup_name_or_id)
         self.assertTrue(output)
 
-    @mock.patch.object(openstack_utils, 'log')
-    def test_create_security_group_rule_exception(self, mock_logger):
+    def test_create_security_group_rule_exception(self):
         self.mock_shade_client.create_security_group_rule.side_effect = (
             exc.OpenStackCloudException('error message'))
 
         output = openstack_utils.create_security_group_rule(
             self.mock_shade_client, self.secgroup_name_or_id)
-        mock_logger.error.assert_called_once()
+        self.mock_log.error.assert_called_once()
         self.assertFalse(output)
 
 
@@ -321,6 +329,12 @@ class SecurityGroupTestCase(unittest.TestCase):
         self.sg_name = 'sg_name'
         self.sg_description = 'sg_description'
         self._uuid = uuidutils.generate_uuid()
+        self._mock_log = mock.patch.object(openstack_utils, 'log')
+        self.mock_log = self._mock_log.start()
+        self.addCleanup(self._stop_mock)
+
+    def _stop_mock(self):
+        self._mock_log.stop()
 
     def test_create_security_group_full_existing_security_group(self):
         self.mock_shade_client.get_security_group.return_value = (
@@ -330,21 +344,18 @@ class SecurityGroupTestCase(unittest.TestCase):
         self.mock_shade_client.get_security_group.assert_called_once()
         self.assertEqual(self._uuid, output)
 
-    @mock.patch.object(openstack_utils, 'log')
-    def test_create_security_group_full_non_existing_security_group(
-            self, mock_logger):
+    def test_create_security_group_full_non_existing_security_group(self):
         self.mock_shade_client.get_security_group.return_value = None
         self.mock_shade_client.create_security_group.side_effect = (
             exc.OpenStackCloudException('error message'))
         output = openstack_utils.create_security_group_full(
             self.mock_shade_client, self.sg_name, self.sg_description)
-        mock_logger.error.assert_called_once()
+        self.mock_log.error.assert_called_once()
         self.assertIsNone(output)
 
     @mock.patch.object(openstack_utils, 'create_security_group_rule')
-    @mock.patch.object(openstack_utils, 'log')
     def test_create_security_group_full_create_rule_fail(
-            self, mock_logger, mock_create_security_group_rule):
+            self, mock_create_security_group_rule):
         self.mock_shade_client.get_security_group.return_value = None
         self.mock_shade_client.create_security_group.return_value = (
             {'name': 'name', 'id': self._uuid})
@@ -353,7 +364,7 @@ class SecurityGroupTestCase(unittest.TestCase):
             self.mock_shade_client, self.sg_name, self.sg_description)
         mock_create_security_group_rule.assert_called()
         self.mock_shade_client.delete_security_group(self.sg_name)
-        mock_logger.error.assert_called_once()
+        self.mock_log.error.assert_called_once()
         self.assertIsNone(output)
 
     @mock.patch.object(openstack_utils, 'create_security_group_rule')
@@ -368,10 +379,6 @@ class SecurityGroupTestCase(unittest.TestCase):
         mock_create_security_group_rule.assert_called()
         self.mock_shade_client.delete_security_group(self.sg_name)
         self.assertEqual(self._uuid, output)
-
-# *********************************************
-#   NOVA
-# *********************************************
 
 
 class CreateInstanceTestCase(unittest.TestCase):
@@ -543,10 +550,6 @@ class GetFlavorTestCase(unittest.TestCase):
         mock_logger.error.assert_called_once()
         self.assertIsNone(output)
 
-# *********************************************
-#   CINDER
-# *********************************************
-
 
 class GetVolumeIDTestCase(unittest.TestCase):
 
@@ -664,22 +667,23 @@ class DetachVolumeTestCase(unittest.TestCase):
         self.assertFalse(output)
 
 
-# *********************************************
-#   GLANCE
-# *********************************************
-
 class CreateImageTestCase(unittest.TestCase):
 
     def setUp(self):
         self.mock_shade_client = mock.Mock()
         self._uuid = uuidutils.generate_uuid()
         self.name = 'image_name'
+        self._mock_log = mock.patch.object(openstack_utils, 'log')
+        self.mock_log = self._mock_log.start()
+        self.addCleanup(self._stop_mock)
 
-    @mock.patch.object(openstack_utils, 'log')
-    def test_create_image_already_exit(self, mock_logger):
+    def _stop_mock(self):
+        self._mock_log.stop()
+
+    def test_create_image_already_exit(self):
         self.mock_shade_client.get_image_id.return_value = self._uuid
         output = openstack_utils.create_image(self.mock_shade_client, self.name)
-        mock_logger.info.assert_called_once()
+        self.mock_log.info.assert_called_once()
         self.assertEqual(self._uuid, output)
 
     def test_create_image(self):
@@ -688,15 +692,14 @@ class CreateImageTestCase(unittest.TestCase):
         output = openstack_utils.create_image(self.mock_shade_client, self.name)
         self.assertEqual(self._uuid, output)
 
-    @mock.patch.object(openstack_utils, 'log')
-    def test_create_image_exception(self, mock_logger):
+    def test_create_image_exception(self):
         self.mock_shade_client.get_image_id.return_value = None
         self.mock_shade_client.create_image.side_effect = (
             exc.OpenStackCloudException('error message'))
 
         output = openstack_utils.create_image(self.mock_shade_client,
                                               self.name)
-        mock_logger.error.assert_called_once()
+        self.mock_log.error.assert_called_once()
         self.assertIsNone(output)
 
 
