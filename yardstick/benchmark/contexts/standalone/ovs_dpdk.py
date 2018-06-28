@@ -299,6 +299,21 @@ class OvsDpdkContext(Context):
         for vm in self.vm_names:
             model.Libvirt.check_if_vm_exists_and_delete(vm, self.connection)
 
+    def _get_physical_nodes(self):
+        return self.nfvi_host
+
+    def _get_physical_node_for_server(self, server_name):
+        node_name, ctx_name = self.split_host_name(server_name)
+        if ctx_name is None or self.name != ctx_name:
+            return None
+
+        matching_nodes = [s for s in self.servers if s == node_name]
+        if len(matching_nodes) == 0:
+            return None
+
+        # self.nfvi_host always contain only one host
+        return "{}.{}".format(self.nfvi_host[0]["name"], self._name)
+
     def _get_server(self, attr_name):
         """lookup server info by name from context
 
