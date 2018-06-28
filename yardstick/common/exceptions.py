@@ -242,6 +242,10 @@ class ScenarioGetServerError(YardstickException):
     message = 'Nova Get Server Scenario failed'
 
 
+class ScenarioGetFlavorError(YardstickException):
+    message = 'Nova Get Falvor Scenario failed'
+
+
 class ApiServerError(YardstickException):
     message = 'An unkown exception happened to Api Server!'
 
