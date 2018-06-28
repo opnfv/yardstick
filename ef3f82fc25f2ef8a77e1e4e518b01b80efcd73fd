@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_cabbebc2",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-06-28T17:03:51Z",
+      "side": 1,
+      "message": "The new runner is just needed for PROX and hence its separate. It can be merged to the original duration runner, but that will need an exhaustive testing. For now, this feature looks critical to get metrics sampled at per sec.",
+      "revId": "ef3f82fc25f2ef8a77e1e4e518b01b80efcd73fd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
