@@ -604,3 +604,30 @@ class DeleteVolumeTestCase(unittest.TestCase):
                                                'volume_name_or_id')
         mock_logger.error.assert_called_once()
         self.assertFalse(output)
+
+
+class DetachVolumeTestCase(unittest.TestCase):
+
+    @mock.patch.object(openstack_utils, 'get_server')
+    def test_detach_volume(self, mock_get_server):
+        self.mock_shade_client = mock.Mock()
+        mock_get_server.return_value = {'server_dict'}
+        self.mock_shade_client.get_volume.return_value = {'volume_dict'}
+        output = openstack_utils.detach_volume(self.mock_shade_client,
+                                               'server_name_or_id',
+                                               'volume_name_or_id')
+        self.assertTrue(output)
+
+    @mock.patch.object(openstack_utils, 'get_server')
+    @mock.patch.object(openstack_utils, 'log')
+    def test_detach_volume_exception(self, mock_logger, mock_get_server):
+        self.mock_shade_client = mock.Mock()
+        mock_get_server.return_value = {'server_dict'}
+        self.mock_shade_client.get_volume.return_value = {'volume_dict'}
+        self.mock_shade_client.detach_volume.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.detach_volume(self.mock_shade_client,
+                                               'server_name_or_id',
+                                               'volume_name_or_id')
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
