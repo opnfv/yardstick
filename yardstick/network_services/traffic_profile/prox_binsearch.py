@@ -35,6 +35,8 @@ class ProxBinSearchProfile(ProxProfile):
         super(ProxBinSearchProfile, self).__init__(tp_config)
         self.current_lower = self.lower_bound
         self.current_upper = self.upper_bound
+        self.curr_samples = None
+        self.prev_samples = None
 
     @property
     def delta(self):
@@ -188,7 +190,38 @@ class ProxBinSearchProfile(ProxProfile):
                     self.queue.put({'theor_max_throughput': theor_max_thruput})
 
                 LOG.info(">>>##>>Collect TG KPIs %s %s", datetime.datetime.now(), samples)
-                self.queue.put(samples, True, overall_constants.QUEUE_PUT_TIMEOUT)
+
+                try:
+                    new_samples = {}
+                    self.curr_samples = samples
+                    for sample_name, sample in samples.items():
+                        if sample_name.startswith("xe"):
+                            try:
+                                tmp_in = \
+                                    int(((sample["in_packets"] - self.prev_samples[sample_name]["in_packets"]) *
+                                          self.prev_samples[sample_name]["hz"]
+                                            / (sample["tsc"] - self.prev_samples[sample_name]["tsc"])))
+                            except:
+                                tmp_in = 0
+
+                            try:
+                                tmp_out = \
+                                  int(((sample["out_packets"] - self.prev_samples[sample_name]["out_packets"]) *
+                                        self.prev_samples[sample_name]["hz"]
+                                          / (sample["tsc"] - self.prev_samples[sample_name]["tsc"])))
+                            except:
+                                tmp_out = 0
+
+                            new_samples[sample_name] = {"in_packets": tmp_in, "out_packets": tmp_out}
+                            LOG.info(">> NAME %s PREV %s CURR %s NEW %s", sample_name, self.prev_samples[sample_name],
+                                     sample, new_samples[sample_name])
+                        else:
+                            new_samples[sample_name] = sample
+                except:
+                    new_samples = samples
+
+                self.prev_samples = self.curr_samples
+                self.queue.put(new_samples, True, overall_constants.QUEUE_PUT_TIMEOUT)
 
         LOG.info(">>>##>> Result Reached PktSize %s Theor_Max_Thruput %s Actual_throughput %s",
                  pkt_size, theor_max_thruput, actual_max_thruput)
