@@ -18,19 +18,13 @@ import os
 import unittest
 import mock
 
-from tests.unit import STL_MOCKS
 from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from yardstick.common import utils
 
-STLClient = mock.MagicMock()
-stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
-stl_patch.start()
-
-if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.cgnapt_vnf import CgnaptApproxVnf, \
-        CgnaptApproxSetupEnvHelper
-    from yardstick.network_services.vnf_generic.vnf import cgnapt_vnf
-    from yardstick.network_services.nfvi.resource import ResourceProfile
+from yardstick.network_services.vnf_generic.vnf.cgnapt_vnf import CgnaptApproxVnf, \
+    CgnaptApproxSetupEnvHelper
+from yardstick.network_services.vnf_generic.vnf import cgnapt_vnf
+from yardstick.network_services.nfvi.resource import ResourceProfile
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
 SSH_HELPER = 'yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper'

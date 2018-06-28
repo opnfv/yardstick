@@ -44,14 +44,12 @@ run_coverage_test() {
     baseline_report=$(mktemp -t yardstick_coverageXXXXXXX)
 
     find . -type f -name "*.pyc" -delete
+    coverage erase
 
-    # Temporarily run tests from two directories, until all tests have moved
-    coverage run -p -m unittest discover ./tests/unit
     coverage run -p -m unittest discover ./yardstick/tests/unit
     coverage combine
 
-    # Temporarily omit yardstick/tests from the report
-    coverage report --omit=yardstick/tests/*/* > ${baseline_report}
+    coverage report > ${baseline_report}
     coverage erase
 
     # debug awk
@@ -72,13 +70,10 @@ run_coverage_test() {
 
     find . -type f -name "*.pyc" -delete
 
-    # Temporarily run tests from two directories, until all tests have moved
-    coverage run -p -m unittest discover ./tests/unit
     coverage run -p -m unittest discover ./yardstick/tests/unit
     coverage combine
 
-    # Temporarily omit yardstick/tests from the report
-    coverage report --omit=yardstick/tests/*/* > ${current_report}
+    coverage report > ${current_report}
     coverage erase
 
     rm -rf cover-$PY_VER
