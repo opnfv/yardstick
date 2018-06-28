@@ -36,6 +36,9 @@ Version History
 | *Date*            | *Version* | *Comment*                       |
 |                   |           |                                 |
 +-------------------+-----------+---------------------------------+
+| Jun 29, 2018      | 6.2.0     | Yardstick for Fraser release    |
+|                   |           |                                 |
++-------------------+-----------+---------------------------------+
 | May 25, 2018      | 6.1.0     | Yardstick for Fraser release    |
 |                   |           |                                 |
 +-------------------+-----------+---------------------------------+
@@ -120,19 +123,19 @@ Release Data
 | **Project**                    | Yardstick             |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Repo/tag**                   | yardstick/opnfv-6.1.0 |
+| **Repo/tag**                   | yardstick/opnfv-6.2.0 |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Yardstick Docker image tag** | opnfv-6.1.0           |
+| **Yardstick Docker image tag** | opnfv-6.2.0           |
 |                                |                       |
 +--------------------------------+-----------------------+
 | **Release designation**        | Fraser                |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release date**               | May 25, 2018          |
+| **Release date**               | Jun 29, 2018          |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Purpose of the delivery**    | OPNFV Fraser 6.1.0    |
+| **Purpose of the delivery**    | OPNFV Fraser 6.2.0    |
 |                                |                       |
 +--------------------------------+-----------------------+
 
@@ -151,7 +154,7 @@ Documents
 Software Deliverables
 ---------------------
 
- - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: opnfv-6.1.0)
+ - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: opnfv-6.2.0)
 
 List of Contexts
 ^^^^^^^^^^^^^^^^
@@ -391,6 +394,158 @@ Known Issues/Faults
 Corrected Faults
 ----------------
 
+Fraser 6.2.0:
+
++--------------------+--------------------------------------------------------------------------+
+| **JIRA REFERENCE** |                             **DESCRIPTION**                              |
++====================+==========================================================================+
+|   YARDSTICK-1246   | Update pmd/lcore mask for OVS-DPDK context                               |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-837    | Move tests: unit/network_services/{lib/,collector/,*.py}                 |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1144   | Correctly set PYTHONPATH in Dockerfile                                   |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1205   | Set "cmd2" library to version 0.8.6                                      |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1204   | Bump oslo.messaging version to 5.36.0                                    |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1210   | Remove __init__ method overriding in HeatContextTestCase                 |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1189   | Error when adding SR-IOV interfaces in SR-IOV context                    |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1214   | Remove AnsibleCommon class method mock                                   |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1159   | Add --hwlb options as a command line argument for SampleVNF              |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1203   | Add scale out TCs with availability zone support                         |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1167   | Do not start collectd twice when SampleVNF is running on Baremetal       |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1188   | Add "host_name_separator" variable to Context class                      |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1112   | MQ startup process refactor                                              |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1229   | Cleanup BaseMonitor unit tests                                           |
++--------------------+--------------------------------------------------------------------------+
+|         -          | Configure ACL via static file                                            |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1191   | Use TRex release v2.41 to support both x86 and aarch64                   |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1214   |   Add IxNetwork API Python Binding package                               |
++--------------------+--------------------------------------------------------------------------+
+
+Fraser 6.1.0:
+
++--------------------+--------------------------------------------------------------------------+
+| **JIRA REFERENCE** |                             **DESCRIPTION**                              |
++====================+==========================================================================+
+|   YARDSTICK-995    | Test case spec for SDN Virtual Switch resilience                         |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1097   | Add pod.yaml file for APEX installer                                     |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1122   | Remove unused code in SampleVNF                                          |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1125   | Update samples/test_suite.yaml                                           |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1132   | Document for Euphrates test case results                                 |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1138   | Support Restart Operation                                                |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1142   | start_service script fails to start openvswitch service in centos distro |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1165   | Bugfix: openrc api dump should be safe_dump                              |
++--------------------+--------------------------------------------------------------------------+
+
+Fraser 6.0.0:
+
++--------------------+--------------------------------------------------------------------------+
+| **JIRA REFERENCE** |                             **DESCRIPTION**                              |
++====================+==========================================================================+
+|   YARDSTICK-831    | tc053 kill haproxy wrong                                                 |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-842    | load image fails when there's cirros image exist                         |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-857    | tc006 failed due to volume attached to different location "/dev/vdc"     |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-874    | Specify supported architecture for Ubuntu backports repository           |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-875    | Check if multiverse repository is available in Ubuntu                    |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-893    | Fix proxy env handling and ansible multinode support                     |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-899    | Variable local_iface_name is read before it is set                       |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-900    | Section in "upload_yardstick_image.yml" invalid                          |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-911    | Remove 'inconsistent-return-statements' from Pylint checks               |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-989    | Yardstick real-time influxdb KPI reporting regressions                   |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-994    | NSB set-up build script for baremetal broken                             |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-996    | Error in address input format in "_ip_range_action_partial"              |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1003   | Prox vnf descriptor cleanup for tg and vnf                               |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1006   | Ansible destroy script will fail if vm has already been undefined        |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1012   | constants: fix pylint warnings for OSError                               |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1014   | Remove unused args in                                                    |
+|                    | network_services.traffic_profile.ixia_rfc2544.IXIARFC2544Profile         |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1016   | Allow vm to access outside world through default gateway                 |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1019   | For 'qemu-img version 2.10.1' unit 'MB' is not acceptable ansible script |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1021   | NSB: All Sample VNF test cases timeout after 1 hour of execution         |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1036   | Prox: Addition of storage of extra counters for Grafana                  |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1038   | Missing file which is described in the operation_conf.yaml               |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1047   | Error in string format in HeatTemplateError message                      |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1056   | yardstick report command print error when run test case                  |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1059   | Reduce the log level if TRex client is no connected                      |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1073   | Error when retrieving "options" section in "scenario"                    |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1080   | Running Test Case in Latest Yardstick Docker Image shows Error           |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1082   | tc043,tc055, tc063, tc075,  pass wrong node name in the ci scenario yaml |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1102   | Don't hide exception traceback from Task.start()                         |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1107   | bad exception traceback print due to atexit_handler                      |
++--------------------+--------------------------------------------------------------------------+
+|   YARDSTICK-1120   | HA test case tc050 should start monitor before attack                    |
++--------------------+--------------------------------------------------------------------------+
+
+Fraser 6.0.0 known restrictions/issues
+======================================
+
++-----------+-----------+----------------------------------------------+
+| Installer | Scenario  | Issue                                        |
++===========+===========+==============================================+
+|           |           |                                              |
++-----------+-----------+----------------------------------------------+
+
+Useful links
+============
+
+ - wiki project page: https://wiki.opnfv.org/display/yardstick/Yardstick
+
+ - wiki Yardstick Fraser release planing page: https://wiki.opnfv.org/display/yardstick/Release+Fraser
+
+ - Yardstick repo: https://git.opnfv.org/cgit/yardstick
+
+ - Yardstick CI dashboard: https://build.opnfv.org/ci/view/yardstick
+
+ - Yardstick grafana dashboard: http://testresults.opnfv.org/grafana/
+
+ - Yardstick IRC chanel: #opnfv-yardstick
 Fraser 6.1.0:
 
 +--------------------+--------------------------------------------------------------------------+
