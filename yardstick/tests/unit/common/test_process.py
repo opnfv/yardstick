@@ -90,10 +90,11 @@ class ExecuteTestCase(unittest.TestCase):
             additional_env=self.additional_env)
         self.assertEqual(self.stdout, out)
 
-    def test_execute_exception(self):
+    @mock.patch.object(process, 'LOG')
+    def test_execute_exception(self, *args):
         self.obj.returncode = self.RET_CODE_WRONG
-        self.assertRaises(exceptions.ProcessExecutionError, process.execute,
-                          self.input_cmd, additional_env=self.additional_env)
+        with self.assertRaises(exceptions.ProcessExecutionError):
+            process.execute(self.input_cmd, additional_env=self.additional_env)
         self.obj.communicate.assert_called_once_with(None)
 
     def test_execute_with_extra_code(self):
@@ -107,7 +108,8 @@ class ExecuteTestCase(unittest.TestCase):
             additional_env=self.additional_env)
         self.assertEqual(self.stdout, out)
 
-    def test_execute_exception_no_check(self):
+    @mock.patch.object(process, 'LOG')
+    def test_execute_exception_no_check(self, *args):
         self.obj.returncode = self.RET_CODE_WRONG
         out = process.execute(self.input_cmd,
                               additional_env=self.additional_env,
