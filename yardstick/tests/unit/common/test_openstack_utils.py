@@ -445,3 +445,25 @@ class DeleteKeypairTestCase(unittest.TestCase):
                                                 'key_name')
         mock_logger.error.assert_called_once()
         self.assertFalse(output)
+
+
+class AttachVolumeToServerTestCase(unittest.TestCase):
+
+    def test_attach_volume_to_server(self):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.get_server.return_value = {'server_dict'}
+        self.mock_shade_client.get_volume.return_value = {'volume_dict'}
+        self.mock_shade_client.attach_volume.return_value = True
+        output = openstack_utils.attach_volume_to_server(
+            self.mock_shade_client, 'server_name_or_id', 'volume_name_or_id')
+        self.assertTrue(output)
+
+    @mock.patch.object(openstack_utils, 'log')
+    def test_attach_volume_to_server_fail(self, mock_logger):
+        self.mock_shade_client = mock.Mock()
+        self.mock_shade_client.attach_volume.side_effect = (
+            exc.OpenStackCloudException('error message'))
+        output = openstack_utils.attach_volume_to_server(
+            self.mock_shade_client, 'server_name_or_id', 'volume_name_or_id')
+        mock_logger.error.assert_called_once()
+        self.assertFalse(output)
