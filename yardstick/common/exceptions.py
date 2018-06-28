@@ -274,6 +274,10 @@ class ScenarioCreateImageError(YardstickException):
     message = 'Glance Create Image Scenario failed'
 
 
+class ScenarioDeleteImageError(YardstickException):
+    message = 'Glance Delete Image Scenario failed'
+
+
 class IxNetworkClientNotConnected(YardstickException):
     message = 'IxNetwork client not connected to a TCL server'
 
