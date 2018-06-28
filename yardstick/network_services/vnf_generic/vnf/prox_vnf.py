@@ -90,15 +90,17 @@ class ProxApproxVnf(SampleVNF):
                                "1, 2 or 4 ports only supported at this time")
 
         all_port_stats = self.vnf_execute('multi_port_stats', range(port_count))
-        rx_total = tx_total = 0
+        rx_total = tx_total = tsc = 0
         try:
             for single_port_stats in all_port_stats:
                 rx_total = rx_total + single_port_stats[1]
                 tx_total = tx_total + single_port_stats[2]
-                tsc = single_port_stats[5]
+                tsc = tsc + single_port_stats[5]
         except (TypeError, IndexError):
             LOG.error("Invalid data ...")
             return {}
+
+        tsc = tsc / port_count
 
         result = {
             "packets_in": rx_total,
@@ -110,14 +112,14 @@ class ProxApproxVnf(SampleVNF):
         }
         try:
             curr_packets_in = int(((rx_total - self.prev_packets_in) * self.tsc_hz)
-                                / (tsc - self.prev_tsc) * port_count)
+                                / (tsc - self.prev_tsc))
         except ZeroDivisionError:
             LOG.error("Error.... Divide by Zero")
             curr_packets_in = 0
 
         try:
             curr_packets_fwd = int(((tx_total - self.prev_packets_sent) * self.tsc_hz)
-                                / (tsc - self.prev_tsc) * port_count)
+                                / (tsc - self.prev_tsc))
         except ZeroDivisionError:
             LOG.error("Error.... Divide by Zero")
             curr_packets_fwd = 0
