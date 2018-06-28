@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_cf949d39",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 31
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-28T10:07:23Z",
+      "side": 1,
+      "message": "A whole new runner class to add:\n - To be able to turn on/off sampling (Previous)\n - More accurate time (This)",
+      "parentUuid": "da5c1566_0f5e95e6",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 32
+      },
+      "revId": "2e447af9a5a54355aa20028813660d07d1bd2e18",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_1b59bffe",
         "filename": "yardstick/tests/unit/benchmark/runner/test_proxduration.py",
         "patchSetId": 31
