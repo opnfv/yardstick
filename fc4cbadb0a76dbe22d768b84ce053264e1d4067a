@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_b4189d85",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-29T16:28:39Z",
+      "side": 1,
+      "message": "parameters",
+      "range": {
+        "startLine": 300,
+        "startChar": 17,
+        "endLine": 300,
+        "endChar": 28
+      },
+      "revId": "fc4cbadb0a76dbe22d768b84ce053264e1d4067a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_5403010f",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-29T16:28:39Z",
+      "side": 1,
+      "message": "Duration\nPlease check Emma\u0027s PS3. You reverted her spell-checking with your PS4.",
+      "range": {
+        "startLine": 1281,
+        "startChar": 36,
+        "endLine": 1281,
+        "endChar": 44
+      },
+      "revId": "fc4cbadb0a76dbe22d768b84ce053264e1d4067a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_f76e97c8",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-29T16:28:39Z",
+      "side": 1,
+      "message": "sent\nI won\u0027t further detail other fixes from PS3 that PS4 has undone.",
+      "range": {
+        "startLine": 1283,
+        "startChar": 25,
+        "endLine": 1283,
+        "endChar": 29
+      },
+      "revId": "fc4cbadb0a76dbe22d768b84ce053264e1d4067a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_774ba759",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-29T16:28:39Z",
+      "side": 1,
+      "message": "Latency",
+      "range": {
+        "startLine": 1322,
+        "startChar": 15,
+        "endLine": 1322,
+        "endChar": 23
+      },
+      "revId": "fc4cbadb0a76dbe22d768b84ce053264e1d4067a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
