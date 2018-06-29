@@ -14,3 +14,4 @@ Yardstick Developer Guide
    :numbered:
 
    devguide
+   devguide_nsn_prox
