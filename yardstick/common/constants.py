@@ -119,6 +119,7 @@ INFLUXDB_DB_NAME = get_param('influxdb.db_name', 'yardstick')
 INFLUXDB_IMAGE = get_param('influxdb.image', 'tutum/influxdb')
 INFLUXDB_TAG = get_param('influxdb.tag', '0.13')
 INFLUXDB_DASHBOARD_PORT = 8083
+QUEUE_PUT_TIMEOUT = 10
 
 # grafana
 GRAFANA_IP = get_param('grafana.ip', SERVER_IP)
