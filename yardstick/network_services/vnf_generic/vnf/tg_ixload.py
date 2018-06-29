@@ -20,7 +20,7 @@ import os
 import shutil
 
 from collections import OrderedDict
-from subprocess import call
+import subprocess
 
 from yardstick.common import utils
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
@@ -101,7 +101,7 @@ class IxLoadResourceHelper(ClientResourceHelper):
         LOG.debug(cmd)
 
         if not os.path.ismount(self.RESULTS_MOUNT):
-            call(cmd, shell=True)
+            subprocess.call(cmd, shell=True)
 
         shutil.rmtree(self.RESULTS_MOUNT, ignore_errors=True)
         utils.makedirs(self.RESULTS_MOUNT)
@@ -157,7 +157,7 @@ class IxLoadTrafficGen(SampleVNFTrafficGen):
             args="'%s'" % ixload_config)
 
         LOG.debug(cmd)
-        call(cmd, shell=True)
+        subprocess.call(cmd, shell=True)
 
         with open(self.ssh_helper.join_bin_path("ixLoad_HTTP_Client.csv")) as csv_file:
             lines = csv_file.readlines()[10:]
@@ -172,5 +172,5 @@ class IxLoadTrafficGen(SampleVNFTrafficGen):
         self.resource_helper.data = self.resource_helper.make_aggregates()
 
     def terminate(self):
-        call(["pkill", "-9", "http_ixload.py"])
+        subprocess.call(["pkill", "-9", "http_ixload.py"])
         super(IxLoadTrafficGen, self).terminate()
