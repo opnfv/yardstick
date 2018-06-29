@@ -37,6 +37,7 @@ import six
 from six.moves import range
 
 from yardstick.benchmark.runners import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -86,7 +87,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         loop_iter = six.moves.zip(*param_iters)
     else:
         LOG.warning("iter_type unrecognized: %s", iter_type)
-        raise TypeError("iter_type unrecognized: %s", iter_type)
+        raise TypeError("iter_type unrecognized: %s" % iter_type)
 
     # Populate options and run the requested method for each value combination
     for comb_values in loop_iter:
@@ -105,14 +106,14 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
         try:
             result = method(data)
-        except AssertionError as assertion:
+        except y_exc.SLAValidationError as error:
             # SLA validation failed in scenario, determine what to do now
             if sla_action == "assert":
                 raise
             elif sla_action == "monitor":
-                LOG.warning("SLA validation failed: %s", assertion.args)
-                errors = assertion.args
-        except Exception as e:
+                LOG.warning("SLA validation failed: %s", error.args)
+                errors = error.args
+        except Exception as e:  # pylint: disable=broad-except
             errors = traceback.format_exc()
             LOG.exception(e)
         else:

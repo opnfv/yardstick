@@ -18,6 +18,7 @@ from oslo_serialization import jsonutils
 
 from yardstick.common import utils
 from yardstick.benchmark.scenarios.compute import ramspeed
+from yardstick.common import exceptions as y_exc
 
 
 @mock.patch('yardstick.benchmark.scenarios.compute.ramspeed.ssh')
@@ -146,7 +147,7 @@ class RamspeedTestCase(unittest.TestCase):
  "Block_size(kb)": 16384, "Bandwidth(MBps)": 14128.94}, {"Test_type":\
  "INTEGER & WRITING", "Block_size(kb)": 32768, "Bandwidth(MBps)": 8340.85}]}'
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, r.run, self.result)
+        self.assertRaises(y_exc.SLAValidationError, r.run, self.result)
 
     def test_ramspeed_unsuccessful_script_error(self, mock_ssh):
         options = {
@@ -219,7 +220,7 @@ class RamspeedTestCase(unittest.TestCase):
  "Bandwidth(MBps)": 1300.27}, {"Test_type": "INTEGER AVERAGE:",\
  "Bandwidth(MBps)": 2401.58}]}'
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, r.run, self.result)
+        self.assertRaises(y_exc.SLAValidationError, r.run, self.result)
 
     def test_ramspeed_unsuccessful_unknown_type_run(self, mock_ssh):
         options = {

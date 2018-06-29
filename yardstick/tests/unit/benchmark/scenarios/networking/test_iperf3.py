@@ -19,6 +19,7 @@ from oslo_serialization import jsonutils
 
 from yardstick.common import utils
 from yardstick.benchmark.scenarios.networking import iperf3
+from yardstick.common import exceptions as y_exc
 
 
 @mock.patch('yardstick.benchmark.scenarios.networking.iperf3.ssh')
@@ -118,7 +119,7 @@ class IperfTestCase(unittest.TestCase):
 
         sample_output = self._read_sample_output(self.output_name_tcp)
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, p.run, result)
+        self.assertRaises(y_exc.SLAValidationError, p.run, result)
 
     def test_iperf_successful_sla_jitter(self, mock_ssh):
         options = {"protocol": "udp", "bandwidth": "20m"}
@@ -152,7 +153,7 @@ class IperfTestCase(unittest.TestCase):
 
         sample_output = self._read_sample_output(self.output_name_udp)
         mock_ssh.SSH.from_node().execute.return_value = (0, sample_output, '')
-        self.assertRaises(AssertionError, p.run, result)
+        self.assertRaises(y_exc.SLAValidationError, p.run, result)
 
     def test_iperf_successful_tcp_protocal(self, mock_ssh):
         options = {"protocol": "tcp", "nodelay": "yes"}

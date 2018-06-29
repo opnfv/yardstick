@@ -59,8 +59,7 @@ class Ping6(base.Scenario):  # pragma: no cover
             self._ssh_host(node_name)
             self.client._put_file_shell(
                 self.pre_setup_script, '~/pre_setup.sh')
-            status, stdout, stderr = self.client.execute(
-                "sudo bash pre_setup.sh")
+            self.client.execute("sudo bash pre_setup.sh")
 
     def _get_controller_node(self, host_list):
         for host_name in host_list:
@@ -122,7 +121,7 @@ class Ping6(base.Scenario):  # pragma: no cover
         cmd = "sudo bash %s %s %s" % \
               (setup_bash_file, self.openrc, self.external_network)
         LOG.debug("Executing setup command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
+        self.client.execute(cmd)
 
         self.setup_done = True
 
@@ -171,8 +170,9 @@ class Ping6(base.Scenario):  # pragma: no cover
             result["rtt"] = float(stdout)
             if "sla" in self.scenario_cfg:
                 sla_max_rtt = int(self.scenario_cfg["sla"]["max_rtt"])
-                assert result["rtt"] <= sla_max_rtt, \
-                    "rtt %f > sla:max_rtt(%f); " % (result["rtt"], sla_max_rtt)
+                self.verify_SLA(result["rtt"] <= sla_max_rtt,
+                                "rtt %f > sla:max_rtt(%f); "
+                                % (result["rtt"], sla_max_rtt))
         else:
             LOG.error("ping6 timeout!!!")
         self.run_done = True
@@ -216,5 +216,4 @@ class Ping6(base.Scenario):  # pragma: no cover
             self._ssh_host(node_name)
             self.client._put_file_shell(
                 self.post_teardown_script, '~/post_teardown.sh')
-            status, stdout, stderr = self.client.execute(
-                "sudo bash post_teardown.sh")
+            self.client.execute("sudo bash post_teardown.sh")

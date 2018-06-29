@@ -121,8 +121,8 @@ class Ramspeed(base.Scenario):
                   (test_id, load, block_size)
         # only the test_id 1-6 will be used in this scenario
         else:
-            raise RuntimeError("No such type_id: %s for Ramspeed scenario",
-                               test_id)
+            raise RuntimeError("No such type_id: %s for Ramspeed scenario"
+                               % test_id)
 
         LOG.debug("Executing command: %s", cmd)
         status, stdout, stderr = self.client.execute(cmd)
@@ -140,4 +140,4 @@ class Ramspeed(base.Scenario):
                 if bw < sla_min_bw:
                     sla_error += "Bandwidth %f < " \
                         "sla:min_bandwidth(%f)" % (bw, sla_min_bw)
-            assert sla_error == "", sla_error
+            self.verify_SLA(sla_error == "", sla_error)

@@ -135,4 +135,4 @@ cat ~/result.log -vT \
             LOG.info("sla_max_latency: %d", sla_max_latency)
             debug_info = "avg_latency %d > sla_max_latency %d" \
                 % (avg_latency, sla_max_latency)
-            assert avg_latency <= sla_max_latency, debug_info
+            self.verify_SLA(avg_latency <= sla_max_latency, debug_info)

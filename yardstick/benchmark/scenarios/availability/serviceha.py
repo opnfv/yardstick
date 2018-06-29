@@ -71,6 +71,7 @@ class ServiceHA(base.Scenario):
         LOG.info("Monitor '%s' stop!", self.__scenario_type__)
 
         self.sla_pass = self.monitorMgr.verify_SLA()
+        service_not_found = False
         for k, v in self.data.items():
             if v == 0:
                 self.sla_pass = False
@@ -79,9 +80,10 @@ class ServiceHA(base.Scenario):
         result['sla_pass'] = 1 if self.sla_pass else 0
         self.monitorMgr.store_result(result)
 
-        assert self.sla_pass is True, "The HA test case NOT pass the SLA"
-
-        return
+        self.verify_SLA(
+            self.sla_pass, ("a service process was not found in the host "
+                            "environment" if service_not_found
+                            else "MonitorMgr.verify_SLA() failed"))
 
     def teardown(self):
         """scenario teardown"""

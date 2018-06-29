@@ -20,6 +20,7 @@ import six
 from stevedore import extension
 
 import yardstick.common.utils as utils
+from yardstick.common import exceptions as y_exc
 
 
 def _iter_scenario_classes(scenario_type=None):
@@ -60,6 +61,11 @@ class Scenario(object):
     def post_run_wait_time(self, time_seconds):
         """Time waited after executing the run method"""
         time.sleep(time_seconds)
+
+    def verify_SLA(self, condition, error_msg):
+        if not condition:
+            raise y_exc.SLAValidationError(
+                case_name=self.__scenario_type__, error_msg=error_msg)
 
     @staticmethod
     def get_types():

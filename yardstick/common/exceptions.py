@@ -301,3 +301,7 @@ class AclMissingActionArguments(YardstickException):
 
 class AclUknownActionTemplate(YardstickException):
     message = 'No ACL CLI template found for "%(action_name)s" action'
+
+
+class SLAValidationError(YardstickException):
+    message = '%(case_name)s SLA validation failed. Error: %(error_msg)s'
