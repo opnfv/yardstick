@@ -90,12 +90,12 @@ context:
       gateway_ip: 'null'
       port_security_enabled: False
       enable_dhcp: 'false'
-    downlink_1:
+    uplink_1:
       cidr: '10.0.4.0/24'
       gateway_ip: 'null'
       port_security_enabled: False
       enable_dhcp: 'false'
-    downlink_2:
+    downlink_1:
       cidr: '10.0.5.0/24'
       gateway_ip: 'null'
       port_security_enabled: False
