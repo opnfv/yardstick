@@ -31,15 +31,17 @@ class GetDataDbClientTestCase(base.BaseUnitTestCase):
         _mock_parser.read.assert_called_once_with(constants.CONF_FILE)
         mock_get_client.assert_called_once_with(_mock_parser)
 
+    @mock.patch.object(influx.logger, 'error')
     @mock.patch.object(influx, '_get_influxdb_client',
                        return_value='fake_client')
     @mock.patch.object(influx.ConfigParser, 'ConfigParser')
-    def test_get_data_db_client_parsing_error(self, mock_parser,
-                                              mock_get_client):
+    def test_get_data_db_client_parsing_error(
+            self, mock_parser, mock_get_client, *args):
         _mock_parser = mock.Mock()
         mock_parser.return_value = _mock_parser
         mock_parser.NoOptionError = configparser.NoOptionError
-        mock_get_client.side_effect = configparser.NoOptionError('option', 'section')
+        mock_get_client.side_effect = configparser.NoOptionError('option',
+                                                                 'section')
         with self.assertRaises(configparser.NoOptionError):
             influx.get_data_db_client()
 
