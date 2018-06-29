@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_c118f186",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1290,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-29T13:31:32Z",
+      "side": 1,
+      "message": "Weird. Do we measure packets lost by the generator?\nI guess it should be SUT here.",
+      "range": {
+        "startLine": 1290,
+        "startChar": 37,
+        "endLine": 1290,
+        "endChar": 58
+      },
+      "revId": "8f64c205e6a99076a9d534c42a3a3c253bc8bd9b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d40ef133",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-06-29T13:31:32Z",
+      "side": 1,
+      "message": "Weird. We can\u0027t change the line rate. It\u0027s physically defined at 10Gbps, 25Gbps, 40Gbps...\nIs this instead \"something\" shown in percentage of line rate?",
+      "range": {
+        "startLine": 1293,
+        "startChar": 7,
+        "endLine": 1293,
+        "endChar": 26
+      },
+      "revId": "8f64c205e6a99076a9d534c42a3a3c253bc8bd9b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
