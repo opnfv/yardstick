@@ -1,0 +1,10 @@
+Code-Review+1: Michael Polenchuk <mpolenchuk@mirantis.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Cristina Pauna <cristina.pauna@enea.com>
+Code-Review+1: Ace Lee <liyin11@huawei.com>
+Code-Review+2: Emma Foley <emma.l.foley@intel.com>
+Submitted-by: Rex Lee <limingjiang@huawei.com>
+Submitted-at: Fri, 29 Jun 2018 01:47:01 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/58187
+Project: yardstick
+Branch: refs/heads/master
