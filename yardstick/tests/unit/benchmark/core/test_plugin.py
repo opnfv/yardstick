@@ -12,6 +12,7 @@ import os
 import pkg_resources
 
 import mock
+import six
 import testtools
 
 from yardstick import ssh
@@ -48,13 +49,17 @@ deployment:
         self.mock_ssh_from_node.return_value = self.mock_ssh_obj
         self.mock_ssh_obj.wait = mock.Mock()
         self.mock_ssh_obj._put_file_shell = mock.Mock()
+        self._mock_log_info = mock.patch.object(plugin.LOG, 'info')
+        self.mock_log_info = self._mock_log_info.start()
 
         self.addCleanup(self._cleanup)
 
     def _cleanup(self):
         self._mock_ssh_from_node.stop()
+        self._mock_log_info.stop()
 
-    def test_install(self):
+    @mock.patch.object(six.moves.builtins, 'print')
+    def test_install(self, *args):
         args = mock.Mock()
         args.input_file = [mock.Mock()]
         with mock.patch.object(self.plugin, '_install_setup') as \
@@ -65,7 +70,8 @@ deployment:
                                                  PluginTestCase.DEPLOYMENT)
             mock_run.assert_called_once_with(PluginTestCase.NAME)
 
-    def test_remove(self):
+    @mock.patch.object(six.moves.builtins, 'print')
+    def test_remove(self, *args):
         args = mock.Mock()
         args.input_file = [mock.Mock()]
         with mock.patch.object(self.plugin, '_remove_setup') as \
