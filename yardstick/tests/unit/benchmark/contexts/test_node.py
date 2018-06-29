@@ -170,7 +170,7 @@ class NodeContextTestCase(unittest.TestCase):
     def test__get_physical_nodes(self):
         self.test_context.init(self.attrs)
         nodes = self.test_context._get_physical_nodes()
-        self.assertEquals(nodes, self.test_context.nodes)
+        self.assertEqual(nodes, self.test_context.nodes)
 
     def test__get_physical_node_for_server(self):
         self.test_context.init(self.attrs)
@@ -198,7 +198,7 @@ class NodeContextTestCase(unittest.TestCase):
         node_collectd_options = [node for node in self.test_context.nodes
                                  if node['name'] == 'node1'][0]['collectd']
 
-        self.assertEquals(node_collectd_options, options)
+        self.assertEqual(node_collectd_options, options)
 
     @mock.patch('{}.NodeContext._dispatch_script'.format(PREFIX))
     def test_deploy(self, dispatch_script_mock):
