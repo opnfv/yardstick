@@ -54,7 +54,8 @@ class VsperfTestCase(unittest.TestCase):
 
         self._mock_SSH = mock.patch.object(ssh, 'SSH')
         self.mock_SSH = self._mock_SSH.start()
-        self.mock_SSH.from_node().execute.return_value = (0, '', '')
+        self.mock_SSH.from_node().execute.return_value = (
+            0, 'throughput_rx_fps\r\n14797660.000\r\n', '')
 
         self._mock_subprocess_call = mock.patch.object(subprocess, 'call')
         self.mock_subprocess_call = self._mock_subprocess_call.start()
@@ -104,40 +105,30 @@ class VsperfTestCase(unittest.TestCase):
     def test_run_ok(self):
         self.scenario.setup()
 
-        self.mock_SSH.from_node().execute.return_value = (
-            0, 'throughput_rx_fps\r\n14797660.000\r\n', '')
-
         result = {}
         self.scenario.run(result)
 
         self.assertEqual(result['throughput_rx_fps'], '14797660.000')
 
     def test_run_ok_setup_not_done(self):
-        self.mock_SSH.from_node().execute.return_value = (
-            0, 'throughput_rx_fps\r\n14797660.000\r\n', '')
-
         result = {}
         self.scenario.run(result)
 
         self.assertTrue(self.scenario.setup_done)
         self.assertEqual(result['throughput_rx_fps'], '14797660.000')
 
-    def test_run_failed_vsperf_execution(self):
-        self.mock_SSH.from_node().execute.side_effect = ((0, '', ''),
-                                                         (1, '', ''))
+    def test_run_ssh_command_call_counts(self):
+        self.scenario.run({})
 
-        with self.assertRaises(RuntimeError):
-            self.scenario.run({})
         self.assertEqual(self.mock_SSH.from_node().execute.call_count, 2)
+        self.mock_SSH.from_node().run.assert_called_once()
 
-    def test_run_failed_csv_report(self):
-        self.mock_SSH.from_node().execute.side_effect = ((0, '', ''),
-                                                         (0, '', ''),
-                                                         (1, '', ''))
+    def test_run_faulty_result_csv(self):
+        self.mock_SSH.from_node().execute.return_value = (
+            0, 'faulty output not csv', '')
 
-        with self.assertRaises(RuntimeError):
+        with self.assertRaises(ValueError):
             self.scenario.run({})
-        self.assertEqual(self.mock_SSH.from_node().execute.call_count, 3)
 
     def test_run_sla_fail(self):
         self.mock_SSH.from_node().execute.return_value = (
@@ -164,9 +155,6 @@ class VsperfTestCase(unittest.TestCase):
         del self.scenario_cfg['sla']['throughput_rx_fps']
         scenario = vsperf.Vsperf(self.scenario_cfg, self.context_cfg)
         scenario.setup()
-
-        self.mock_SSH.from_node().execute.return_value = (
-            0, 'throughput_rx_fps\r\n14797660.000\r\n', '')
 
         with self.assertRaises(y_exc.SLAValidationError) as raised:
             scenario.run({})
