@@ -193,22 +193,20 @@ class Vsperf(base.Scenario):
             cmd += "--conf-file ~/vsperf.conf "
         cmd += "--test-params=\"%s\"" % (';'.join(test_params))
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
-
-        if status:
-            raise RuntimeError(stderr)
+        self.client.run(cmd)
 
         # get test results
         cmd = "cat /tmp/results*/result.csv"
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
-
-        if status:
-            raise RuntimeError(stderr)
+        _, stdout, _ = self.client.execute(cmd, raise_on_error=True)
 
         # convert result.csv to JSON format
         reader = csv.DictReader(stdout.split('\r\n'))
-        result.update(next(reader))
+        try:
+            result.update(next(reader))
+        except StopIteration:
+            LOG.warning("Could not parse result.csv, see DEBUG logs")
+            return
 
         # sla check; go through all defined SLAs and check if values measured
         # by VSPERF are higher then those defined by SLAs

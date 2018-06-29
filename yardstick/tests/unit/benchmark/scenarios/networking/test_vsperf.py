@@ -122,22 +122,11 @@ class VsperfTestCase(unittest.TestCase):
         self.assertTrue(self.scenario.setup_done)
         self.assertEqual(result['throughput_rx_fps'], '14797660.000')
 
-    def test_run_failed_vsperf_execution(self):
-        self.mock_SSH.from_node().execute.side_effect = ((0, '', ''),
-                                                         (1, '', ''))
+    def test_run_ssh_command_call_counts(self):
+        self.scenario.run({})
 
-        with self.assertRaises(RuntimeError):
-            self.scenario.run({})
         self.assertEqual(self.mock_SSH.from_node().execute.call_count, 2)
-
-    def test_run_failed_csv_report(self):
-        self.mock_SSH.from_node().execute.side_effect = ((0, '', ''),
-                                                         (0, '', ''),
-                                                         (1, '', ''))
-
-        with self.assertRaises(RuntimeError):
-            self.scenario.run({})
-        self.assertEqual(self.mock_SSH.from_node().execute.call_count, 3)
+        self.mock_SSH.from_node().run.assert_called_once()
 
     def test_run_sla_fail(self):
         self.mock_SSH.from_node().execute.return_value = (
