@@ -244,10 +244,13 @@ Now let's examine the components of the file in detail
 3. ``nodes`` - This names the Traffic Generator and the System
    under Test. Does not need to change.
 
-4. ``prox_path`` - Location of the Prox executable on the traffic
+4. ``interface_speed_gbps`` - This is an optional parameter. If not present
+   the system defaults to 10Gbps. This defines the speed of the interfaces.
+
+5. ``prox_path`` - Location of the Prox executable on the traffic
    generator (Either baremetal or Openstack Virtual Machine)
 
-5. ``prox_config`` - This is the ``SUT Config File``.
+6. ``prox_config`` - This is the ``SUT Config File``.
    In this case it is ``handle_l2fwd-2.cfg``
 
    A number of additional parameters can be added. This example
@@ -285,16 +288,28 @@ Now let's examine the components of the file in detail
    of a file called ``parameters.lua``, which contains information
    retrieved from either the hardware or the openstack configuration.
 
-6. ``prox_args`` - this specifies the command line arguments to start
+7. ``prox_args`` - this specifies the command line arguments to start
    prox. See `prox command line`_.
 
-7. ``prox_config`` - This specifies the Traffic Generator config file.
+8. ``prox_config`` - This specifies the Traffic Generator config file.
 
-8. ``runner`` - This is set to ``Duration`` - This specified that the
+9. ``runner`` - This is set to ``ProxDuration`` - This specified that the
    test run for a set duration. Other runner types are available
-   but it is recommend to use ``Duration``
+   but it is recommend to use ``ProxDuration``
+   
+   The following Parameters are supported
+   
+   ``interval`` - (optional) - This specifies the sampling interval. Default is 60secs
+  
+   ``sampled`` - (optional) - This specifies if sampling information is required - Default ``no``
+   
+   ``duration`` - This is the length of the test. 
+   
+   ``confirmation`` - This specifies the number of confirmation retests to be made before a decision
+   to increase or decrease line speed.
 
-9. ``context`` - This is ``context`` for a 2 port Baremetal configuration.
+10. ``context`` - This is ``context`` for a 2 port Baremetal configuration.
+
    If a 4 port configuration was required then file
    ``prox-baremetal-4.yaml`` would be used. This is the NSB Prox
    baremetal configuration file.
@@ -371,14 +386,18 @@ See this prox_vpe.yaml as example::
 We will use ``tc_prox_heat_context_l2fwd-2.yaml`` as a example to show
 you how to understand the test description file.
 
-.. image:: images/PROX_Test_HEAT_Script.png
+.. image:: images/PROX_Test_HEAT_Script1.png
    :width: 800px
-   :alt: NSB PROX Test Description File
+   :alt: NSB PROX Test Description File - Part 1
+ 
+.. image:: images/PROX_Test_HEAT_Script2.png
+   :width: 800px
+   :alt: NSB PROX Test Description File - Part 2
 
 Now lets examine the components of the file in detail
 
-Sections 1 to 8 are exactly the same in Baremetal and in Heat. Section
-``9`` is replaced with sections A to F. Section 9 was for a baremetal
+Sections 1 to 9 are exactly the same in Baremetal and in Heat. Section
+``10`` is replaced with sections A to F. Section 9 was for a baremetal
 configuration file. This has no place in a heat configuration.
 
 A. ``image`` - yardstick-samplevnfs. This is the name of the image
@@ -418,12 +437,12 @@ F. ``networks`` - is composed of a management network labeled ``mgmt``
         gateway_ip: 'null'
         port_security_enabled: False
         enable_dhcp: 'false'
-      downlink_1:
+      uplink_1:
         cidr: '10.0.4.0/24'
         gateway_ip: 'null'
         port_security_enabled: False
         enable_dhcp: 'false'
-      downlink_2:
+      downlink_1:
         cidr: '10.0.5.0/24'
         gateway_ip: 'null'
         port_security_enabled: False
@@ -1228,7 +1247,69 @@ Where
     4) ir.intel.com = local no proxy
 
 
+*How to Understand the Grafana output?*
+---------------------------------------
 
+         .. image:: images/PROX_Grafana_1.png
+            :width: 1000px
+            :alt: NSB PROX Grafana_1
+            
+         .. image:: images/PROX_Grafana_2.png
+            :width: 1000px
+            :alt: NSB PROX Grafana_2
+          
+         .. image:: images/PROX_Grafana_3.png
+            :width: 1000px
+            :alt: NSB PROX Grafana_3
+            
+                    
+         .. image:: images/PROX_Grafana_4.png
+            :width: 1000px
+            :alt: NSB PROX Grafana_4
+            
+            
+A. Test Parameters - Test interval, Duartion, Tolerated Loss and Test Precision
+
+B. Overall No of Packets send and received during test
+
+C. Generator Stats - Packets sent, received and attempted by Generator
+
+D. Packets Size
+
+E. No of packets received by SUT
+
+F. No of packets forwarded by SUT
+
+G. This is the number of packets sent by the generator per port, for each interval.
+
+H. This is the number of packets received by the generator per port, for each interval.
+
+I. This is the number of packets Send, received and lost by the generator that meet the
+   success criteria
+   
+J. This is changes in Line Rate over a test, The MAX and the MIN should converge to within the interval specified as the ``test-precision``.
+
+K. This is the Packets Size suppported during test. If "N/A" appears in any field the result has not been decided.
+
+L. This is the calculated throughput in MPPS for this line rate.
+
+M. This is the actual No, of Packets sent by generator.
+
+N. This is the actual No. of pacakets received by the generator
+
+O. This is the total No. of packets sent.
+
+P. This is the total No. of Packets dropped.
+
+Q. Thisis the actual no of packets dropped.
+
+R. This is the accptable no of packets that can be dropped.
+
+S. This is the test Throughput in Gbps
+
+T. This is thhe Latencey per Port 
+
+U. This is the CPU Utilization
 
 
 
