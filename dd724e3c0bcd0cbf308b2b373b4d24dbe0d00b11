@@ -22,6 +22,47 @@
       "revId": "dd724e3c0bcd0cbf308b2b373b4d24dbe0d00b11",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_41f981c7",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-29T08:21:36Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "da5c1566_f55a1d4f",
+      "range": {
+        "startLine": 14,
+        "startChar": 39,
+        "endLine": 14,
+        "endChar": 48
+      },
+      "revId": "dd724e3c0bcd0cbf308b2b373b4d24dbe0d00b11",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_21f60dd8",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-29T08:21:36Z",
+      "side": 1,
+      "message": "If you are reformatting this file, please crop the lines",
+      "revId": "dd724e3c0bcd0cbf308b2b373b4d24dbe0d00b11",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
