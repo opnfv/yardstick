@@ -244,10 +244,13 @@ Now let's examine the components of the file in detail
 3. ``nodes`` - This names the Traffic Generator and the System
    under Test. Does not need to change.
 
-4. ``prox_path`` - Location of the Prox executable on the traffic
+4. ``interface_speed_gbps`` - This is an optional parameter. If not present
+   the system defaults to 10Gbps. This defines the speed of the interfaces.
+
+5. ``prox_path`` - Location of the Prox executable on the traffic
    generator (Either baremetal or Openstack Virtual Machine)
 
-5. ``prox_config`` - This is the ``SUT Config File``.
+6. ``prox_config`` - This is the ``SUT Config File``.
    In this case it is ``handle_l2fwd-2.cfg``
 
    A number of additional parameters can be added. This example
@@ -285,16 +288,31 @@ Now let's examine the components of the file in detail
    of a file called ``parameters.lua``, which contains information
    retrieved from either the hardware or the openstack configuration.
 
-6. ``prox_args`` - this specifies the command line arguments to start
+7. ``prox_args`` - this specifies the command line arguments to start
    prox. See `prox command line`_.
 
-7. ``prox_config`` - This specifies the Traffic Generator config file.
+8. ``prox_config`` - This specifies the Traffic Generator config file.
 
-8. ``runner`` - This is set to ``Duration`` - This specified that the
-   test run for a set duration. Other runner types are available
-   but it is recommend to use ``Duration``
+9. ``runner`` - This is set to ``ProxDuration`` - This specifies that the
+   test runs for a set duration. Other runner types are available
+   but it is recommend to use ``ProxDuration``
 
-9. ``context`` - This is ``context`` for a 2 port Baremetal configuration.
+   The following parrameters are supported
+
+   ``interval`` - (optional) - This specifies the sampling interval.
+   Default is 1 sec
+
+   ``sampled`` - (optional) - This specifies if sampling information is
+   required. Default ``no``
+
+   ``duration`` - This is the length of the test in seconds. Default 
+   is 60 seconds.
+
+   ``confirmation`` - This specifies the number of confirmation retests to
+   be made before deciding to increase or decrease line speed. Default 0.
+
+10. ``context`` - This is ``context`` for a 2 port Baremetal configuration.
+
    If a 4 port configuration was required then file
    ``prox-baremetal-4.yaml`` would be used. This is the NSB Prox
    baremetal configuration file.
@@ -304,7 +322,8 @@ Now let's examine the components of the file in detail
 *Traffic Profile file*
 ----------------------
 
-This describes the details of the traffic flow. In this case ``prox_binsearch.yaml`` is used.
+This describes the details of the traffic flow. In this case 
+``prox_binsearch.yaml`` is used.
 
 .. image:: images/PROX_Traffic_profile.png
    :width: 800px
@@ -326,21 +345,29 @@ This describes the details of the traffic flow. In this case ``prox_binsearch.ya
 
    Custom traffic types can be created by creating a new traffic profile class.
 
-3. ``tolerated_loss`` - This specifies the percentage of packets that can be lost/dropped before
-   we declare success or failure. Success is Transmitted-Packets from Traffic Generator is greater than or equal to
+3. ``tolerated_loss`` - This specifies the percentage of packets that
+   can be lost/dropped before
+   we declare success or failure. Success is Transmitted-Packets from
+   Traffic Generator is greater than or equal to
    packets received by Traffic Generator plus tolerated loss.
 
-4. ``test_precision`` - This specifies the precision of the test results. For some tests the success criteria
-   may never be achieved because the test precision may be greater than the successful throughput. For finer
-   results increase the precision by making this value smaller.
+4. ``test_precision`` - This specifies the precision of the test
+   results. For some tests the success criteria may never be
+   achieved because the test precision may be greater than the
+   successful throughput. For finer results increase the precision
+   by making this value smaller.
 
-5. ``packet_sizes`` - This specifies the range of packets size this test is run for.
+5. ``packet_sizes`` - This specifies the range of packets size this
+   test is run for.
 
-6. ``duration`` - This specifies the sample duration that the test uses to check for success or failure.
+6. ``duration`` - This specifies the sample duration that the test
+   uses to check for success or failure.
 
-7. ``lower_bound`` - This specifies the test initial lower bound sample rate. On success this value is increased.
+7. ``lower_bound`` - This specifies the test initial lower bound sample rate.
+   On success this value is increased.
 
-8. ``upper_bound`` - This specifies the test initial upper bound sample rate. On success this value is decreased.
+8. ``upper_bound`` - This specifies the test initial upper bound sample rate.
+   On success this value is decreased.
 
 Other traffic profiles exist eg prox_ACL.yaml which does not
 compare what is received with what is transmitted. It just
@@ -371,14 +398,18 @@ See this prox_vpe.yaml as example::
 We will use ``tc_prox_heat_context_l2fwd-2.yaml`` as a example to show
 you how to understand the test description file.
 
-.. image:: images/PROX_Test_HEAT_Script.png
+.. image:: images/PROX_Test_HEAT_Script1.png
    :width: 800px
-   :alt: NSB PROX Test Description File
+   :alt: NSB PROX Test Description File - Part 1
+
+.. image:: images/PROX_Test_HEAT_Script2.png
+   :width: 800px
+   :alt: NSB PROX Test Description File - Part 2
 
 Now lets examine the components of the file in detail
 
-Sections 1 to 8 are exactly the same in Baremetal and in Heat. Section
-``9`` is replaced with sections A to F. Section 9 was for a baremetal
+Sections 1 to 9 are exactly the same in Baremetal and in Heat. Section
+``10`` is replaced with sections A to F. Section 10 was for a baremetal
 configuration file. This has no place in a heat configuration.
 
 A. ``image`` - yardstick-samplevnfs. This is the name of the image
@@ -418,12 +449,12 @@ F. ``networks`` - is composed of a management network labeled ``mgmt``
         gateway_ip: 'null'
         port_security_enabled: False
         enable_dhcp: 'false'
-      downlink_1:
+      uplink_1:
         cidr: '10.0.4.0/24'
         gateway_ip: 'null'
         port_security_enabled: False
         enable_dhcp: 'false'
-      downlink_2:
+      downlink_1:
         cidr: '10.0.5.0/24'
         gateway_ip: 'null'
         port_security_enabled: False
@@ -1033,7 +1064,7 @@ If PROX NSB does not work on baremetal, problem is either in network configurati
      1. What is received on 0 is transmitted on 1, received on 1 transmitted on 0,
         received on 2 transmitted on 3 and received on 3 transmitted on 2.
      2. No packets are Failed.
-     3. No Packets are discarded.
+     3. No packets are discarded.
 
   We can also dump the packets being received or transmitted via the following commands. ::
 
@@ -1228,7 +1259,68 @@ Where
     4) ir.intel.com = local no proxy
 
 
+*How to Understand the Grafana output?*
+---------------------------------------
 
+         .. image:: images/PROX_Grafana_1.png
+            :width: 1000px
+            :alt: NSB PROX Grafana_1
+
+         .. image:: images/PROX_Grafana_2.png
+            :width: 1000px
+            :alt: NSB PROX Grafana_2
+
+         .. image:: images/PROX_Grafana_3.png
+            :width: 1000px
+            :alt: NSB PROX Grafana_3
+
+         .. image:: images/PROX_Grafana_4.png
+            :width: 1000px
+            :alt: NSB PROX Grafana_4
+
+A. Test Parameters - Test interval, Duartion, Tolerated Loss and Test Precision
+
+B. Overall No of packets send and received during test
+
+C. Generator Stats - packets sent, received and attempted by Generator
+
+D. Packets Size
+
+E. No of packets received by SUT
+
+F. No of packets forwarded by SUT
+
+G. This is the number of packets sent by the generator per port, for each interval.
+
+H. This is the number of packets received by the generator per port, for each interval.
+
+I. This is the number of packets Send, received and lost by the generator that meet the
+   success criteria
+
+J. This is changes in Line Rate over a test, The MAX and the MIN should converge to within the interval specified as the ``test-precision``.
+
+K. This is the packets Size supported during test. If "N/A" appears in any field the result has not been decided.
+
+L. This is the calculated throughput in MPPS(Million Packets Per second) for this line rate.
+
+M. This is the actual No, of packets sent by the generator in MPPS
+
+N. This is the actual No. of packets received by the generator in MPPS
+
+O. This is the total No. of packets sent by SUT.
+
+P. This is the total No. of packets received by the SUT
+
+Q. This is the total No. of packets dropped. (These packets were sent by the generator but not
+   received back by the generator, these may be dropped by the SUT or the Generator)
+
+R. This is the tolerated no of packets that can be dropped.
+
+S. This is the test Throughput in Gbps
+
+T. This is the Latencey per Port
+
+U. This is the CPU Utilization
 
 
 
