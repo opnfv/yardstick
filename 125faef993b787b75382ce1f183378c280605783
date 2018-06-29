@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_01de693f",
+        "filename": "yardstick/network_services/nfvi/resource.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-29T08:41:48Z",
+      "side": 1,
+      "message": "avoid name mangling, there is no need. Just create a private member",
+      "range": {
+        "startLine": 82,
+        "startChar": 13,
+        "endLine": 82,
+        "endChar": 15
+      },
+      "revId": "125faef993b787b75382ce1f183378c280605783",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e1e25502",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-29T08:41:48Z",
+      "side": 1,
+      "message": "ditto, avoid name mangling, just make it private\n__enable --\u003e _enable",
+      "range": {
+        "startLine": 322,
+        "startChar": 13,
+        "endLine": 322,
+        "endChar": 15
+      },
+      "revId": "125faef993b787b75382ce1f183378c280605783",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_41e7c112",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-06-29T08:41:48Z",
+      "side": 1,
+      "message": "import the module, not the class\n  from yardstick.benchmark.contexts import base as ctx_base",
+      "range": {
+        "startLine": 31,
+        "startChar": 46,
+        "endLine": 31,
+        "endChar": 53
+      },
+      "revId": "125faef993b787b75382ce1f183378c280605783",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
