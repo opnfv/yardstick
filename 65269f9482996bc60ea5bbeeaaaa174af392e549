@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_b4fffd00",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-29T13:12:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_c1bc716f",
+      "range": {
+        "startLine": 299,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 3
+      },
+      "revId": "65269f9482996bc60ea5bbeeaaaa174af392e549",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_a1c17de6",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2018-06-29T12:51:45Z",
       "side": 1,
       "message": "Wrap the lines at 80 characters.",
+      "revId": "65269f9482996bc60ea5bbeeaaaa174af392e549",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_94047916",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-06-29T13:12:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_a1c17de6",
       "revId": "65269f9482996bc60ea5bbeeaaaa174af392e549",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
