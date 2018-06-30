@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Rodolfo Alonso Hernandez <rodolfo.alonso.hernandez@intel.com>
+Submitted-by: Rodolfo Alonso Hernandez <rodolfo.alonso.hernandez@intel.com>
+Submitted-at: Sat, 30 Jun 2018 15:04:15 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/59391
+Project: yardstick
+Branch: refs/heads/stable/fraser
