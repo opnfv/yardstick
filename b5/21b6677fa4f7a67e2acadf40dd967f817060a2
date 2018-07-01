@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Submitted-by: Rex Lee <limingjiang@huawei.com>
+Submitted-at: Sun, 01 Jul 2018 10:20:54 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/59401
+Project: yardstick
+Branch: refs/heads/stable/fraser
