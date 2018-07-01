@@ -35,6 +35,7 @@
     - install_yardstick
     - configure_uwsgi
     - configure_nginx
+    - configure_gui
     - download_trex
     - install_trex
     - configure_rabbitmq
