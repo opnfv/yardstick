@@ -1,4 +1,3 @@
-
 # Copyright (c) 2016-2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 from itertools import repeat, chain
 import os
@@ -22,39 +20,21 @@ import time
 import mock
 import unittest
 
-from yardstick.tests import STL_MOCKS
 from yardstick.common import utils
-from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 from yardstick.network_services import constants
+from yardstick.network_services.vnf_generic.vnf import base as vnf_base
+from yardstick.network_services.vnf_generic.vnf import prox_helpers
+from yardstick.network_services.vnf_generic.vnf import sample_vnf
 
-STLClient = mock.MagicMock()
-stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
-stl_patch.start()
-
-if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.sample_vnf import ScenarioHelper
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxSocketHelper
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import PacketDump
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import CoreSocketTuple
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxTestDataTuple
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxDpdkVnfSetupEnvHelper
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import TotStatsTuple
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxDataHelper
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxResourceHelper
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxProfileHelper
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxMplsProfileHelper
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxBngProfileHelper
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxVpeProfileHelper
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxlwAFTRProfileHelper
 
 class TestCoreTuple(unittest.TestCase):
     def test___init__(self):
-        core_tuple = CoreSocketTuple('core 5s6')
+        core_tuple = prox_helpers.CoreSocketTuple('core 5s6')
         self.assertEqual(core_tuple.core_id, 5)
         self.assertEqual(core_tuple.socket_id, 6)
         self.assertFalse(core_tuple.is_hyperthread())
 
-        core_tuple = CoreSocketTuple('core 5s6h')
+        core_tuple = prox_helpers.CoreSocketTuple('core 5s6h')
         self.assertEqual(core_tuple.core_id, 5)
         self.assertEqual(core_tuple.socket_id, 6)
         self.assertTrue(core_tuple.is_hyperthread())
@@ -82,7 +62,7 @@ class TestCoreTuple(unittest.TestCase):
 
         for bad_input in bad_inputs:
             with self.assertRaises(ValueError):
-                CoreSocketTuple(bad_input)
+                prox_helpers.CoreSocketTuple(bad_input)
 
     def test_find_in_topology(self):
         topology_in = {
@@ -94,20 +74,20 @@ class TestCoreTuple(unittest.TestCase):
             },
         }
 
-        core_tuple = CoreSocketTuple('core 5s6')
+        core_tuple = prox_helpers.CoreSocketTuple('core 5s6')
 
         expected = 'a'
         result = core_tuple.find_in_topology(topology_in)
         self.assertEqual(result, expected)
 
-        core_tuple = CoreSocketTuple('core 5s6h')
+        core_tuple = prox_helpers.CoreSocketTuple('core 5s6h')
 
         expected = 'c'
         result = core_tuple.find_in_topology(topology_in)
         self.assertEqual(result, expected)
 
     def test_find_in_topology_negative(self):
-        core_tuple = CoreSocketTuple('core 6s5')
+        core_tuple = prox_helpers.CoreSocketTuple('core 6s5')
         with self.assertRaises(ValueError):
             # no socket key
             core_tuple.find_in_topology({})
@@ -120,7 +100,7 @@ class TestCoreTuple(unittest.TestCase):
             # no first value (as needed by non-hyperthread core)
             core_tuple.find_in_topology({5: {6: {'key1': []}}})
 
-        core_tuple = CoreSocketTuple('core 6s5h')
+        core_tuple = prox_helpers.CoreSocketTuple('core 6s5h')
         with self.assertRaises(ValueError):
             # no second value (as needed by hyperthread core)
             core_tuple.find_in_topology({5: {6: {'key1': ['e']}}})
@@ -130,20 +110,21 @@ class TestTotStatsTuple(unittest.TestCase):
     def test___new___negative(self):
         with self.assertRaises(TypeError):
             # no values
-            TotStatsTuple()
+            prox_helpers.TotStatsTuple()
 
         with self.assertRaises(TypeError):
             # one, non-integer value
-            TotStatsTuple('a')
+            prox_helpers.TotStatsTuple('a')
 
         with self.assertRaises(TypeError):
             # too many values
-            TotStatsTuple(3, 4, 5, 6, 7)
+            prox_helpers.TotStatsTuple(3, 4, 5, 6, 7)
 
 
 class TestProxTestDataTuple(unittest.TestCase):
     def test___init__(self):
-        prox_test_data = ProxTestDataTuple(1, 2, 3, 4, 5, 6, 7, 8, 9)
+        prox_test_data = prox_helpers.ProxTestDataTuple(
+            1, 2, 3, 4, 5, 6, 7, 8, 9)
         self.assertEqual(prox_test_data.tolerated, 1)
         self.assertEqual(prox_test_data.tsc_hz, 2)
         self.assertEqual(prox_test_data.delta_rx, 3)
@@ -155,22 +136,26 @@ class TestProxTestDataTuple(unittest.TestCase):
         self.assertEqual(prox_test_data.requested_pps, 9)
 
     def test_properties(self):
-        prox_test_data = ProxTestDataTuple(1, 2, 3, 4, 5, 6, 7, 8, 9)
+        prox_test_data = prox_helpers.ProxTestDataTuple(
+            1, 2, 3, 4, 5, 6, 7, 8, 9)
         self.assertEqual(prox_test_data.pkt_loss, 12.5)
         self.assertEqual(prox_test_data.tx_mpps, 1.6 / 1e6)
         self.assertEqual(prox_test_data.can_be_lost, 0)
         self.assertEqual(prox_test_data.drop_total, 1)
         self.assertFalse(prox_test_data.success)
 
-        prox_test_data = ProxTestDataTuple(10, 2, 3, 4, 5, 6, 997, 998, 9)
+        prox_test_data = prox_helpers.ProxTestDataTuple(
+            10, 2, 3, 4, 5, 6, 997, 998, 9)
         self.assertTrue(prox_test_data.success)
 
     def test_pkt_loss_zero_division(self):
-        prox_test_data = ProxTestDataTuple(1, 2, 3, 4, 5, 6, 7, 0, 9)
+        prox_test_data = prox_helpers.ProxTestDataTuple(
+            1, 2, 3, 4, 5, 6, 7, 0, 9)
         self.assertEqual(prox_test_data.pkt_loss, 100.0)
 
     def test_get_samples(self):
-        prox_test_data = ProxTestDataTuple(1, 2, 3, 4, 5, [6.1, 6.9, 6.4], 7, 8, 9)
+        prox_test_data = prox_helpers.ProxTestDataTuple(
+            1, 2, 3, 4, 5, [6.1, 6.9, 6.4], 7, 8, 9)
 
         expected = {
             "Throughput": 1.2 / 1e6,
@@ -206,7 +191,8 @@ class TestProxTestDataTuple(unittest.TestCase):
     @mock.patch('yardstick.LOG_RESULT', create=True)
     def test_log_data(self, mock_logger):
         my_mock_logger = mock.MagicMock()
-        prox_test_data = ProxTestDataTuple(1, 2, 3, 4, 5, [6.1, 6.9, 6.4], 7, 8, 9)
+        prox_test_data = prox_helpers.ProxTestDataTuple(
+            1, 2, 3, 4, 5, [6.1, 6.9, 6.4], 7, 8, 9)
         prox_test_data.log_data()
 
         my_mock_logger.debug.assert_not_called()
@@ -222,23 +208,24 @@ class TestPacketDump(unittest.TestCase):
     PAYLOAD = "payload"
 
     def test__init__(self):
-        PacketDump("port_id", len(self.PAYLOAD), self.PAYLOAD)
+        prox_helpers.PacketDump("port_id", len(self.PAYLOAD), self.PAYLOAD)
 
     def test___str__(self):
         expected = '<PacketDump port: port_id payload: {}>'.format(self.PAYLOAD)
-        dump1 = PacketDump("port_id", len(self.PAYLOAD), self.PAYLOAD)
+        dump1 = prox_helpers.PacketDump(
+            "port_id", len(self.PAYLOAD), self.PAYLOAD)
         self.assertEqual(str(dump1), expected)
 
     def test_port_id(self):
-        p = PacketDump("port_id", len(self.PAYLOAD), self.PAYLOAD)
+        p = prox_helpers.PacketDump("port_id", len(self.PAYLOAD), self.PAYLOAD)
         self.assertEqual(p.port_id, "port_id")
 
     def test_data_len(self):
-        p = PacketDump("port_id", len(self.PAYLOAD), self.PAYLOAD)
+        p = prox_helpers.PacketDump("port_id", len(self.PAYLOAD), self.PAYLOAD)
         self.assertEqual(p.data_len, len(self.PAYLOAD))
 
     def test_payload(self):
-        p = PacketDump("port_id", len(self.PAYLOAD), self.PAYLOAD)
+        p = prox_helpers.PacketDump("port_id", len(self.PAYLOAD), self.PAYLOAD)
         self.assertEqual(p.payload(), self.PAYLOAD)
 
         self.assertEqual(p.payload(3), self.PAYLOAD[3:])
@@ -301,33 +288,33 @@ class TestProxSocketHelper(unittest.TestCase):
     def _stop_mocks(self):
         self._mock_time_sleep.stop()
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.socket')
+    @mock.patch.object(prox_helpers, 'socket')
     def test___init__(self, mock_socket):
         expected = mock_socket.socket()
-        prox = ProxSocketHelper()
+        prox = prox_helpers.ProxSocketHelper()
         result = prox._sock
         self.assertEqual(result, expected)
 
     def test_connect(self):
         mock_sock = mock.MagicMock()
-        prox = ProxSocketHelper(mock_sock)
+        prox = prox_helpers.ProxSocketHelper(mock_sock)
         prox.connect('10.20.30.40', 23456)
         mock_sock.connect.assert_called_once()
 
     def test_get_sock(self):
         mock_sock = mock.MagicMock()
-        prox = ProxSocketHelper(mock_sock)
+        prox = prox_helpers.ProxSocketHelper(mock_sock)
         result = prox.get_socket()
         self.assertIs(result, mock_sock)
 
     # TODO(elfoley): Split this into three tests
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.select')
+    @mock.patch.object(prox_helpers, 'select')
     def test_get_data(self, mock_select):
         mock_select.select.side_effect = [[1], [0]]
         mock_socket = mock.MagicMock()
         mock_recv = mock_socket.recv()
         mock_recv.decode.return_value = ""
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         ret = prox.get_data()
         self.assertEqual(ret, "")
         self.assertEqual(len(prox._pkt_dumps), 0)
@@ -349,7 +336,7 @@ class TestProxSocketHelper(unittest.TestCase):
         self.assertEqual(len(prox._pkt_dumps), 3)
 
     def test__parse_socket_data_mixed_data(self):
-        prox = ProxSocketHelper(mock.MagicMock())
+        prox = prox_helpers.ProxSocketHelper(mock.MagicMock())
         ret, _ = prox._parse_socket_data(PACKET_DUMP_NON_1, False)
         self.assertEqual(ret, 'not_a_dump,1,2')
         self.assertEqual(len(prox._pkt_dumps), 0)
@@ -359,7 +346,7 @@ class TestProxSocketHelper(unittest.TestCase):
         self.assertEqual(len(prox._pkt_dumps), 1)
 
     def test__parse_socket_data_bad_data(self):
-        prox = ProxSocketHelper(mock.MagicMock())
+        prox = prox_helpers.ProxSocketHelper(mock.MagicMock())
         with self.assertRaises(ValueError):
             prox._parse_socket_data(PACKET_DUMP_BAD_1, False)
 
@@ -370,7 +357,7 @@ class TestProxSocketHelper(unittest.TestCase):
         self.assertEqual(ret, 'pktdump,3')
 
     def test__parse_socket_data_pkt_dump_only(self):
-        prox = ProxSocketHelper(mock.MagicMock())
+        prox = prox_helpers.ProxSocketHelper(mock.MagicMock())
         ret, _ = prox._parse_socket_data('', True)
         self.assertFalse(ret)
 
@@ -382,20 +369,20 @@ class TestProxSocketHelper(unittest.TestCase):
 
     def test_put_command(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.put_command("data")
         mock_socket.sendall.assert_called_once()
 
     def test_put_command_socket_error(self):
         mock_socket = mock.MagicMock()
         mock_socket.sendall.side_effect = OSError
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.put_command("data")
         mock_socket.sendall.assert_called_once()
 
     def test_get_packet_dump(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox._pkt_dumps = []
         self.assertIsNone(prox.get_packet_dump())
 
@@ -405,61 +392,61 @@ class TestProxSocketHelper(unittest.TestCase):
 
     def test_stop_all_reset(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.stop_all_reset()
         mock_socket.sendall.assert_called()
 
     def test_stop_all(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.stop_all()
         mock_socket.sendall.assert_called()
 
     def test_stop(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.stop([3, 4, 5], 16)
         mock_socket.sendall.assert_called()
 
     def test_start_all(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.start_all()
         mock_socket.sendall.assert_called()
 
     def test_start(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.start([3, 4, 5])
         mock_socket.sendall.assert_called()
 
     def test_reset_stats(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.reset_stats()
         mock_socket.sendall.assert_called()
 
     def test_set_pkt_size(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.set_pkt_size([3, 4, 5], 1024)
         self.assertEqual(mock_socket.sendall.call_count, 3)
 
     def test_set_value(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.set_value([3, 4, 5], 10, 20, 30)
         self.assertEqual(mock_socket.sendall.call_count, 3)
 
     def test_reset_values(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.reset_values([3, 4, 5])
         self.assertEqual(mock_socket.sendall.call_count, 3)
 
     def test_set_speed(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.set_speed([3, 4, 5], 1000)
         self.assertEqual(mock_socket.sendall.call_count, 3)
 
@@ -476,7 +463,7 @@ class TestProxSocketHelper(unittest.TestCase):
         ]
 
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.set_speed = set_speed = mock.MagicMock()
         prox.slope_speed(core_data, 5)
         self.assertEqual(set_speed.call_count, 20)
@@ -487,7 +474,7 @@ class TestProxSocketHelper(unittest.TestCase):
 
     def test_set_pps(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.set_pps([3, 4, 5], 1000, 512)
         self.assertEqual(mock_socket.sendall.call_count, 3)
 
@@ -501,7 +488,7 @@ class TestProxSocketHelper(unittest.TestCase):
         ]
 
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(side_effect=latency_output)
 
         expected = (
@@ -524,7 +511,7 @@ class TestProxSocketHelper(unittest.TestCase):
 
     def test_get_all_tot_stats_error(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(return_value='3,4,5')
         expected = [0, 0, 0, 0]
         result = prox.get_all_tot_stats()
@@ -532,7 +519,7 @@ class TestProxSocketHelper(unittest.TestCase):
 
     def test_get_all_tot_stats(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(return_value='3,4,5,6')
         expected = 3, 4, 5, 6
         result = prox.get_all_tot_stats()
@@ -540,7 +527,7 @@ class TestProxSocketHelper(unittest.TestCase):
 
     def test_hz(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(return_value='3,4,5,6')
         expected = 6
         result = prox.hz()
@@ -554,16 +541,16 @@ class TestProxSocketHelper(unittest.TestCase):
         ]
 
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(side_effect=core_stats)
         expected = 21, 24, 27, 14
         result = prox.core_stats([3, 4, 5], 16)
         self.assertEqual(result, expected)
 
-    def test_multi_port_stats(self):
-
+    @mock.patch.object(prox_helpers.LOG, 'error')
+    def test_multi_port_stats(self, *args):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(return_value='0,1,2,3,4,5;1,1,2,3,4,5')
         expected = [[0, 1, 2, 3, 4, 5], [1, 1, 2, 3, 4, 5]]
         result = prox.multi_port_stats([0, 1])
@@ -593,7 +580,7 @@ class TestProxSocketHelper(unittest.TestCase):
         ]
 
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(side_effect=port_stats)
         expected = [16, 26, 36, 46, 56, 66, 76, 86, 96, 106, 116, 126]
         result = prox.port_stats([3, 4, 5])
@@ -610,7 +597,7 @@ class TestProxSocketHelper(unittest.TestCase):
         ]
 
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(side_effect=get_data_output)
         expected = {
             'start_tot': start_tot,
@@ -623,7 +610,7 @@ class TestProxSocketHelper(unittest.TestCase):
 
     def test_tot_stats(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(return_value='3,4,5,6')
         expected = 3, 4, 5
         result = prox.tot_stats()
@@ -631,7 +618,7 @@ class TestProxSocketHelper(unittest.TestCase):
 
     def test_tot_ierrors(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.get_data = mock.MagicMock(return_value='3,4,5,6')
         expected = 3, 3
         result = prox.tot_ierrors()
@@ -639,25 +626,25 @@ class TestProxSocketHelper(unittest.TestCase):
 
     def test_set_count(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.set_count(432, [3, 4, 5])
         self.assertEqual(mock_socket.sendall.call_count, 3)
 
     def test_dump_rx(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.dump_rx(3, 5, 8)
         mock_socket.sendall.assert_called_once()
 
     def test_quit(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.quit()
         mock_socket.sendall.assert_called()
 
     def test_force_quit(self):
         mock_socket = mock.MagicMock()
-        prox = ProxSocketHelper(mock_socket)
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
         prox.force_quit()
         mock_socket.sendall.assert_called()
 
@@ -769,8 +756,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
     }
 
     def test_global_section(self):
-        setup_helper = ProxDpdkVnfSetupEnvHelper(mock.MagicMock(), mock.MagicMock(),
-                                                 mock.MagicMock())
+        setup_helper = prox_helpers.ProxDpdkVnfSetupEnvHelper(
+            mock.MagicMock(), mock.MagicMock(), mock.MagicMock())
 
         setup_helper._prox_config_data = [('a', [])]
 
@@ -818,8 +805,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         self.assertEqual(result, global_section[1])
 
     def test_find_in_section(self):
-        setup_helper = ProxDpdkVnfSetupEnvHelper(mock.MagicMock(), mock.MagicMock(),
-                                                 mock.MagicMock())
+        setup_helper = prox_helpers.ProxDpdkVnfSetupEnvHelper(
+            mock.MagicMock(), mock.MagicMock(), mock.MagicMock())
 
         setup_helper._prox_config_data = [
             ('global', [
@@ -872,44 +859,51 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         # empty string
         input_str = ''
         expected = ''
-        result = ProxDpdkVnfSetupEnvHelper._replace_quoted_with_value(input_str, 'cat')
+        result = (prox_helpers.ProxDpdkVnfSetupEnvHelper.
+                  _replace_quoted_with_value(input_str, 'cat'))
         self.assertEqual(result, expected)
 
         # no quoted substring
         input_str = 'lion tiger bear'
         expected = 'lion tiger bear'
-        result = ProxDpdkVnfSetupEnvHelper._replace_quoted_with_value(input_str, 'cat')
+        result = (prox_helpers.ProxDpdkVnfSetupEnvHelper.
+                  _replace_quoted_with_value(input_str, 'cat'))
         self.assertEqual(result, expected)
 
         # partially quoted substring
         input_str = 'lion "tiger bear'
         expected = 'lion "tiger bear'
-        result = ProxDpdkVnfSetupEnvHelper._replace_quoted_with_value(input_str, 'cat')
+        result = (prox_helpers.ProxDpdkVnfSetupEnvHelper.
+                  _replace_quoted_with_value(input_str, 'cat'))
         self.assertEqual(result, expected)
 
         # one quoted substring
         input_str = 'lion "tiger" bear'
         expected = 'lion "cat" bear'
-        result = ProxDpdkVnfSetupEnvHelper._replace_quoted_with_value(input_str, 'cat')
+        result = (prox_helpers.ProxDpdkVnfSetupEnvHelper.
+                  _replace_quoted_with_value(input_str, 'cat'))
         self.assertEqual(result, expected)
 
         # two quoted substrings
         input_str = 'lion "tiger" bear "shark" whale'
         expected = 'lion "cat" bear "shark" whale'
-        result = ProxDpdkVnfSetupEnvHelper._replace_quoted_with_value(input_str, 'cat')
+        result = (prox_helpers.ProxDpdkVnfSetupEnvHelper.
+                  _replace_quoted_with_value(input_str, 'cat'))
         self.assertEqual(result, expected)
 
         # two quoted substrings, both replaced
         input_str = 'lion "tiger" bear "shark" whale'
         expected = 'lion "cat" bear "cat" whale'
-        result = ProxDpdkVnfSetupEnvHelper._replace_quoted_with_value(input_str, 'cat', 2)
+        result = (prox_helpers.ProxDpdkVnfSetupEnvHelper.
+                  _replace_quoted_with_value(input_str, 'cat', 2))
         self.assertEqual(result, expected)
 
     def test__get_tx_port(self):
         # no data
         input_data = {'section1': []}
         expected = -1
-        result = ProxDpdkVnfSetupEnvHelper._get_tx_port('section1', input_data)
+        result = (prox_helpers.ProxDpdkVnfSetupEnvHelper.
+                  _get_tx_port('section1', input_data))
         self.assertEqual(result, expected)
 
         # data for other section
@@ -921,7 +915,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             ],
         }
         expected = -1
-        result = ProxDpdkVnfSetupEnvHelper._get_tx_port('section1', input_data)
+        result = (prox_helpers.ProxDpdkVnfSetupEnvHelper.
+                  _get_tx_port('section1', input_data))
         self.assertEqual(result, expected)
 
         # data for section
@@ -930,7 +925,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             ('tx port', '3'),
         ]
         expected = 3
-        result = ProxDpdkVnfSetupEnvHelper._get_tx_port('section1', input_data)
+        result = (prox_helpers.ProxDpdkVnfSetupEnvHelper.
+                  _get_tx_port('section1', input_data))
         self.assertEqual(result, expected)
 
         # more data for section,
@@ -939,14 +935,16 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             ('tx port', '1', 'and more', 234),
         ])
         expected = 1
-        result = ProxDpdkVnfSetupEnvHelper._get_tx_port('section1', input_data)
+        result = (prox_helpers.ProxDpdkVnfSetupEnvHelper.
+                  _get_tx_port('section1', input_data))
         self.assertEqual(result, expected)
 
     # TODO(elfoley): Split this into several smaller tests
     def test_write_prox_config(self):
         input_data = {}
         expected = ''
-        result = ProxDpdkVnfSetupEnvHelper.write_prox_config(input_data)
+        result = (prox_helpers.ProxDpdkVnfSetupEnvHelper.
+                  write_prox_config(input_data))
         self.assertEqual(result, expected)
 
         input_data = [
@@ -956,7 +954,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             ],
         ]
         expected = '[section1]'
-        result = ProxDpdkVnfSetupEnvHelper.write_prox_config(input_data)
+        result = (prox_helpers.ProxDpdkVnfSetupEnvHelper.
+                  write_prox_config(input_data))
         self.assertEqual(result, expected)
 
         input_data = [
@@ -983,12 +982,13 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             'key3=234',
             'key4=multi-line\n\tvalue',
         ])
-        result = ProxDpdkVnfSetupEnvHelper.write_prox_config(input_data)
+        result = (prox_helpers.ProxDpdkVnfSetupEnvHelper.
+                  write_prox_config(input_data))
         self.assertEqual(result, expected)
 
     def test_prox_config_data(self):
-        setup_helper = ProxDpdkVnfSetupEnvHelper(mock.MagicMock(), mock.MagicMock(),
-                                                 mock.MagicMock())
+        setup_helper = prox_helpers.ProxDpdkVnfSetupEnvHelper(
+            mock.MagicMock(), mock.MagicMock(), mock.MagicMock())
 
         setup_helper.config_queue = config_queue = mock.MagicMock()
         config_queue.get.return_value = expected = [('s', [('a', 3), ('b', 45)])]
@@ -1009,7 +1009,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
 
         vnfd_helper = mock.MagicMock()
         ssh_helper = mock.MagicMock()
-        scenario_helper = ScenarioHelper('vnf1')
+        scenario_helper = sample_vnf.ScenarioHelper('vnf1')
         scenario_helper.scenario_cfg = {
             'task_path': 'a/b',
             'options': {
@@ -1017,7 +1017,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             },
         }
 
-        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        helper = prox_helpers.ProxDpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
         helper.copy_to_target = mock.MagicMock(return_value='3')
         helper.generate_prox_config_file = mock.MagicMock(return_value='4')
         helper.upload_prox_config = mock.MagicMock(return_value='5')
@@ -1043,7 +1044,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         mock_find_path.side_effect = ['1', '2']
         vnfd_helper = mock.MagicMock()
         ssh_helper = mock.MagicMock()
-        scenario_helper = ScenarioHelper('vnf1')
+        scenario_helper = sample_vnf.ScenarioHelper('vnf1')
         scenario_helper.scenario_cfg = {
             'task_path': 'a/b',
             'options': {
@@ -1052,7 +1053,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         }
 
         vnfd_helper.port_pairs.all_ports = ['xe0', 'xe1', 'xe2', 'xe3']
-        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        helper = prox_helpers.ProxDpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
         helper.copy_to_target = mock.MagicMock(side_effect=['33', '34', '35'])
         helper.generate_prox_config_file = mock.MagicMock(return_value='44')
         helper.upload_prox_config = mock.MagicMock(return_value='55')
@@ -1078,7 +1080,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         mock_find_path.side_effect = ['1', '2'] + [str(i) for i in range(len(vnf1['prox_files']))]
         vnfd_helper = mock.MagicMock()
         ssh_helper = mock.MagicMock()
-        scenario_helper = ScenarioHelper('vnf1')
+        scenario_helper = sample_vnf.ScenarioHelper('vnf1')
         scenario_helper.scenario_cfg = {
             'task_path': 'a/b',
             'options': {
@@ -1086,7 +1088,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
             },
         }
 
-        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        helper = prox_helpers.ProxDpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
         helper.copy_to_target = mock.MagicMock(side_effect=['33', '34', '35'])
         helper.generate_prox_config_file = mock.MagicMock(return_value='44')
         helper.upload_prox_config = mock.MagicMock(return_value='55')
@@ -1115,7 +1118,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         vnfd_helper = mock.Mock()
         ssh_helper = mock.Mock()
         ssh_helper.join_bin_path.return_value = '/opt/nsb_bin/prox'
-        scenario_helper = ScenarioHelper('vnf1')
+        scenario_helper = sample_vnf.ScenarioHelper('vnf1')
         scenario_helper.scenario_cfg = {
             'task_path': 'a/b',
             'options': {
@@ -1126,8 +1129,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         expected = ("sudo bash -c 'cd /opt/nsb_bin; /opt/nsb_bin/prox -o cli "
                     "-f  -f /tmp/prox.cfg '")
 
-        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper,
-                                           scenario_helper)
+        helper = prox_helpers.ProxDpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
         with mock.patch.object(helper, 'build_config_file') as mock_cfg_file:
             helper.remote_path = '/tmp/prox.cfg'
             prox_cmd = helper.build_config()
@@ -1139,7 +1142,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         ssh_helper = mock.MagicMock()
         scenario_helper = mock.MagicMock()
 
-        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        helper = prox_helpers.ProxDpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
         helper.additional_files = {"ipv4.lua": "/tmp/ipv4.lua"}
         res = helper._insert_additional_file('dofile("ipv4.lua")')
         self.assertEqual(res, 'dofile("/tmp/ipv4.lua")')
@@ -1155,11 +1159,12 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
 
         mock_parser_type.side_effect = init
 
-        vnfd_helper = VnfdHelper(self.VNFD0)
+        vnfd_helper = vnf_base.VnfdHelper(self.VNFD0)
         ssh_helper = mock.MagicMock()
         scenario_helper = mock.MagicMock()
 
-        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        helper = prox_helpers.ProxDpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
         helper.additional_files = {}
 
         expected = []
@@ -1244,7 +1249,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         ssh_helper = mock.MagicMock()
         scenario_helper = mock.MagicMock()
 
-        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        helper = prox_helpers.ProxDpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
         helper.additional_files = {}
         helper.remote_prox_file_name = 'remote'
         vnfd_helper.interfaces = [
@@ -1290,7 +1296,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         ssh_helper = mock.MagicMock()
         scenario_helper = mock.MagicMock()
 
-        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        helper = prox_helpers.ProxDpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
 
         expected = 'a/b'
         result = helper.put_string_to_file('my long string', 'a/b')
@@ -1302,7 +1309,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         ssh_helper = mock.MagicMock()
         scenario_helper = mock.MagicMock()
 
-        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        helper = prox_helpers.ProxDpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
         expected = '/tmp/c'
         result = helper.copy_to_target('a/b', 'c')
         self.assertEqual(result, expected)
@@ -1313,7 +1321,8 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         ssh_helper = mock.MagicMock()
         scenario_helper = mock.MagicMock()
 
-        helper = ProxDpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        helper = prox_helpers.ProxDpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
         helper.write_prox_config = mock.MagicMock(return_value='a long string')
         expected = '/tmp/a'
         result = helper.upload_prox_config('a', {})
@@ -1432,7 +1441,8 @@ class TestProxResourceHelper(unittest.TestCase):
             'nor here',
             'and still not',
         ]
-        result = ProxResourceHelper.find_pci('target', input_str_list)
+        result = prox_helpers.ProxResourceHelper.find_pci('target',
+                                                          input_str_list)
         self.assertFalse(result)
 
         input_str_list = [
@@ -1441,13 +1451,14 @@ class TestProxResourceHelper(unittest.TestCase):
             'this is a target',
             'did we miss it',
         ]
-        result = ProxResourceHelper.find_pci('target', input_str_list)
+        result = prox_helpers.ProxResourceHelper.find_pci('target',
+                                                          input_str_list)
         self.assertTrue(result)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.RETRY_INTERVAL', 0)
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.ProxSocketHelper')
     def test_sut(self, *args):
-        helper = ProxResourceHelper(mock.MagicMock())
+        helper = prox_helpers.ProxResourceHelper(mock.MagicMock())
         self.assertIsNone(helper.client)
         result = helper.sut
         self.assertIsNotNone(result)
@@ -1458,7 +1469,7 @@ class TestProxResourceHelper(unittest.TestCase):
         setup_helper = mock.MagicMock()
         setup_helper.find_in_section.return_value = expected = 'prox type'
 
-        helper = ProxResourceHelper(setup_helper)
+        helper = prox_helpers.ProxResourceHelper(setup_helper)
 
         self.assertIsNone(helper._test_type)
         self.assertEqual(helper.test_type, expected)
@@ -1466,7 +1477,7 @@ class TestProxResourceHelper(unittest.TestCase):
         self.assertEqual(helper.test_type, expected)
 
     def test_collect_collectd_kpi(self):
-        helper = ProxResourceHelper(mock.MagicMock())
+        helper = prox_helpers.ProxResourceHelper(mock.MagicMock())
         helper.resource = resource = mock.MagicMock()
 
         resource.check_if_system_agent_running.return_value = 0, '1234'
@@ -1478,7 +1489,7 @@ class TestProxResourceHelper(unittest.TestCase):
         self.assertDictEqual(result, expected)
 
     def test_collect_kpi(self):
-        helper = ProxResourceHelper(mock.MagicMock())
+        helper = prox_helpers.ProxResourceHelper(mock.MagicMock())
         helper._queue = queue = mock.MagicMock()
         helper._result = {'z': 123}
         helper.resource = resource = mock.MagicMock()
@@ -1503,7 +1514,7 @@ class TestProxResourceHelper(unittest.TestCase):
         setup_helper = mock.MagicMock()
         setup_helper.vnfd_helper.interfaces = []
 
-        helper = ProxResourceHelper(setup_helper)
+        helper = prox_helpers.ProxResourceHelper(setup_helper)
 
         result = helper._connect()
         self.assertIs(result, client)
@@ -1515,41 +1526,41 @@ class TestProxResourceHelper(unittest.TestCase):
 
     def test_run_traffic(self):
         setup_helper = mock.MagicMock()
-        helper = ProxResourceHelper(setup_helper)
+        helper = prox_helpers.ProxResourceHelper(setup_helper)
         traffic_profile = mock.MagicMock(**{"done": True})
         helper.run_traffic(traffic_profile)
         self.assertEqual(helper._terminated.value, 1)
 
     def test__run_traffic_once(self):
         setup_helper = mock.MagicMock()
-        helper = ProxResourceHelper(setup_helper)
+        helper = prox_helpers.ProxResourceHelper(setup_helper)
         traffic_profile = mock.MagicMock(**{"done": True})
         helper._run_traffic_once(traffic_profile)
         self.assertEqual(helper._terminated.value, 1)
 
     def test_start_collect(self):
         setup_helper = mock.MagicMock()
-        helper = ProxResourceHelper(setup_helper)
+        helper = prox_helpers.ProxResourceHelper(setup_helper)
         helper.resource = resource = mock.MagicMock()
         self.assertIsNone(helper.start_collect())
         resource.start.assert_called_once()
 
     def test_terminate(self):
         setup_helper = mock.MagicMock()
-        helper = ProxResourceHelper(setup_helper)
+        helper = prox_helpers.ProxResourceHelper(setup_helper)
         with self.assertRaises(NotImplementedError):
             helper.terminate()
 
     def test_up_post(self):
         setup_helper = mock.MagicMock()
-        helper = ProxResourceHelper(setup_helper)
+        helper = prox_helpers.ProxResourceHelper(setup_helper)
         helper.client = expected = mock.MagicMock()
         result = helper.up_post()
         self.assertEqual(result, expected)
 
     def test_execute(self):
         setup_helper = mock.MagicMock()
-        helper = ProxResourceHelper(setup_helper)
+        helper = prox_helpers.ProxResourceHelper(setup_helper)
         helper.client = mock.MagicMock()
 
         expected = helper.client.my_command()
@@ -1574,7 +1585,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut.multi_port_stats.return_value = [[0, 1, 2, 3, 4, 5], [1, 1, 2, 3, 4, 5],
                                              [2, 1, 2, 3, 4, 5], [3, 1, 2, 3, 4, 5]]
 
-        data_helper = ProxDataHelper(
+        data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
             constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
 
@@ -1589,7 +1600,8 @@ class TestProxDataHelper(unittest.TestCase):
         sut = mock.MagicMock()
         sut.multi_port_stats.return_value = [[0, 1, 2, 3, 4, 5], [1, 11, 12, 3, 4, 5]]
 
-        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, None, None)
+        data_helper = prox_helpers.ProxDataHelper(
+            vnfd_helper, sut, None, None, None, None)
 
         expected = {
             'xe0': {
@@ -1612,17 +1624,19 @@ class TestProxDataHelper(unittest.TestCase):
         sut = mock.MagicMock()
         sut.port_stats.return_value = list(range(10))
 
-        data_helper = ProxDataHelper(vnfd_helper, sut, None, None,
+        data_helper = prox_helpers.ProxDataHelper(vnfd_helper, sut, None, None,
             5.4, constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
         data_helper._totals_and_pps = 12, 32, 4.5
         data_helper.tsc_hz = 9.8
-        data_helper.measured_stats = {'delta': TotStatsTuple(6.1, 6.2, 6.3, 6.4)}
+        data_helper.measured_stats = {
+            'delta': prox_helpers.TotStatsTuple(6.1, 6.2, 6.3, 6.4)}
         data_helper.latency = 7
 
         self.assertIsNone(data_helper.result_tuple)
         self.assertEqual(data_helper.line_speed, 10000000000)
 
-        expected = ProxTestDataTuple(5.4, 9.8, 6.1, 6.2, 6.3, 7, 12, 32, 4.5)
+        expected = prox_helpers.ProxTestDataTuple(
+            5.4, 9.8, 6.1, 6.2, 6.3, 7, 12, 32, 4.5)
         with data_helper:
             pass
 
@@ -1635,7 +1649,8 @@ class TestProxDataHelper(unittest.TestCase):
     def test___enter___negative(self):
         vnfd_helper = mock.MagicMock()
 
-        data_helper = ProxDataHelper(vnfd_helper, None, None, None, None, None)
+        data_helper = prox_helpers.ProxDataHelper(
+            vnfd_helper, None, None, None, None, None)
 
         vnfd_helper.port_pairs.all_ports = []
         with self.assertRaises(AssertionError):
@@ -1654,17 +1669,18 @@ class TestProxDataHelper(unittest.TestCase):
         start = (3, 4, 1, 2)
         end = (9, 7, 6, 8)
 
-        sut = ProxSocketHelper(mock.MagicMock())
+        sut = prox_helpers.ProxSocketHelper(mock.MagicMock())
         sut.get_all_tot_stats = mock.MagicMock(side_effect=[start, end])
 
-        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, 5.4, None)
+        data_helper = prox_helpers.ProxDataHelper(
+            vnfd_helper, sut, None, None, 5.4, None)
 
         self.assertIsNone(data_helper.measured_stats)
 
         expected = {
             'start_tot': start,
             'end_tot': end,
-            'delta': TotStatsTuple(6, 3, 5, 6),
+            'delta': prox_helpers.TotStatsTuple(6, 3, 5, 6),
         }
         with data_helper.measure_tot_stats():
             pass
@@ -1678,7 +1694,8 @@ class TestProxDataHelper(unittest.TestCase):
         sut = mock.MagicMock()
         sut.hz.return_value = '54.6'
 
-        data_helper = ProxDataHelper(vnfd_helper, sut, None, None, None, None)
+        data_helper = prox_helpers.ProxDataHelper(
+            vnfd_helper, sut, None, None, None, None)
 
         self.assertIsNone(data_helper.tsc_hz)
 
@@ -1697,12 +1714,13 @@ class TestProxProfileHelper(unittest.TestCase):
         mock_type2.__prox_profile_type__ = 'my_type'
         mock_utils.itersubclasses.return_value = [mock_type1, mock_type2]
 
-        self.assertEqual(ProxProfileHelper.get_cls('my_type'), mock_type2)
+        self.assertEqual(prox_helpers.ProxProfileHelper.get_cls('my_type'),
+                         mock_type2)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.utils')
     def test_get_cls_default(self, mock_utils):
         mock_utils.itersubclasses.return_value = []
-        ProxProfileHelper.get_cls('my_type')
+        prox_helpers.ProxProfileHelper.get_cls('my_type')
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.SocketTopology')
     def test_cpu_topology(self, mock_socket_topology):
@@ -1711,7 +1729,7 @@ class TestProxProfileHelper(unittest.TestCase):
         resource_helper = mock.MagicMock()
         resource_helper.setup_helper.ssh_helper.execute.return_value = 0, 'output', ''
 
-        helper = ProxProfileHelper(resource_helper)
+        helper = prox_helpers.ProxProfileHelper(resource_helper)
         self.assertIsNone(helper._cpu_topology)
         result = helper.cpu_topology
         self.assertEqual(result, 432)
@@ -1723,7 +1741,7 @@ class TestProxProfileHelper(unittest.TestCase):
         resource_helper = mock.MagicMock()
         resource_helper.setup_helper.prox_config_data = []
 
-        helper = ProxProfileHelper(resource_helper)
+        helper = prox_helpers.ProxProfileHelper(resource_helper)
         helper._cpu_topology = []
 
         expected = []
@@ -1751,7 +1769,7 @@ class TestProxProfileHelper(unittest.TestCase):
             ]),
         ]
 
-        helper = ProxProfileHelper(resource_helper)
+        helper = prox_helpers.ProxProfileHelper(resource_helper)
         helper._cpu_topology = {
             1: {
                 3: {
@@ -1781,7 +1799,7 @@ class TestProxProfileHelper(unittest.TestCase):
         resource_helper = mock.MagicMock()
         resource_helper.setup_helper.prox_config_data = []
 
-        helper = ProxProfileHelper(resource_helper)
+        helper = prox_helpers.ProxProfileHelper(resource_helper)
         helper._cpu_topology = []
 
         expected = []
@@ -1809,7 +1827,7 @@ class TestProxProfileHelper(unittest.TestCase):
             ]),
         ]
 
-        helper = ProxProfileHelper(resource_helper)
+        helper = prox_helpers.ProxProfileHelper(resource_helper)
         helper._cpu_topology = {
             1: {
                 3: {
@@ -1835,7 +1853,7 @@ class TestProxProfileHelper(unittest.TestCase):
         self.assertIs(result, helper.latency_cores)
 
     def test_all_rx_cores(self):
-        helper = ProxBngProfileHelper(mock.MagicMock())
+        helper = prox_helpers.ProxBngProfileHelper(mock.MagicMock())
         helper._latency_cores = expected = [3, 4, 6]
         helper._test_cores = [5, 2, 1]
 
@@ -1865,7 +1883,7 @@ class TestProxProfileHelper(unittest.TestCase):
             ]),
         ]
 
-        helper = ProxProfileHelper(resource_helper)
+        helper = prox_helpers.ProxProfileHelper(resource_helper)
         helper._cpu_topology = {
             0: {
                 1: {
@@ -1891,7 +1909,7 @@ class TestProxProfileHelper(unittest.TestCase):
         resource_helper = mock.MagicMock()
         resource_helper.setup_helper.vnfd_helper.interfaces = []
 
-        helper = ProxProfileHelper(resource_helper)
+        helper = prox_helpers.ProxProfileHelper(resource_helper)
         helper._latency_cores = []
 
         expected = []
@@ -1910,7 +1928,7 @@ class TestProxProfileHelper(unittest.TestCase):
         setup_helper = mock.MagicMock()
         setup_helper.vnfd_helper.interfaces = []
 
-        helper = ProxProfileHelper(setup_helper)
+        helper = prox_helpers.ProxProfileHelper(setup_helper)
         helper._cpu_topology = {
             0: {
                 1: {
@@ -1975,7 +1993,7 @@ class TestProxProfileHelper(unittest.TestCase):
         resource_helper.vnfd_helper.port_pairs.all_ports = list(range(2))
         resource_helper.sut.port_stats.return_value = list(range(10))
 
-        helper = ProxProfileHelper(resource_helper)
+        helper = prox_helpers.ProxProfileHelper(resource_helper)
 
         helper.run_test(120, 5, 6.5,
                         constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
@@ -2008,7 +2026,7 @@ class TestProxMplsProfileHelper(unittest.TestCase):
             ]),
         ]
 
-        helper = ProxMplsProfileHelper(resource_helper)
+        helper = prox_helpers.ProxMplsProfileHelper(resource_helper)
         helper._cpu_topology = {
             0: {
                 1: {
@@ -2035,7 +2053,7 @@ class TestProxMplsProfileHelper(unittest.TestCase):
 
     def test_traffic_context(self):
         setup_helper = mock.MagicMock()
-        helper = ProxMplsProfileHelper(setup_helper)
+        helper = prox_helpers.ProxMplsProfileHelper(setup_helper)
 
         with helper.traffic_context(120, 5.4):
             pass
@@ -2078,7 +2096,7 @@ class TestProxBngProfileHelper(unittest.TestCase):
             ]),
         ]
 
-        helper = ProxBngProfileHelper(resource_helper)
+        helper = prox_helpers.ProxBngProfileHelper(resource_helper)
         helper._cpu_topology = {
             0: {
                 1: {
@@ -2122,7 +2140,7 @@ class TestProxBngProfileHelper(unittest.TestCase):
         resource_helper.vnfd_helper.port_pairs.all_ports = list(range(2))
         resource_helper.sut.port_stats.return_value = list(range(10))
 
-        helper = ProxBngProfileHelper(resource_helper)
+        helper = prox_helpers.ProxBngProfileHelper(resource_helper)
 
         helper.run_test(120, 5, 6.5,
                         constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
@@ -2159,7 +2177,7 @@ class TestProxVpeProfileHelper(unittest.TestCase):
             ]),
         ]
 
-        helper = ProxVpeProfileHelper(resource_helper)
+        helper = prox_helpers.ProxVpeProfileHelper(resource_helper)
         helper._cpu_topology = {
             0: {
                 1: {
@@ -2206,7 +2224,7 @@ class TestProxVpeProfileHelper(unittest.TestCase):
             ]),
         ]
 
-        helper = ProxVpeProfileHelper(resource_helper)
+        helper = prox_helpers.ProxVpeProfileHelper(resource_helper)
         helper._port_list = {
             0: {
                 1: {
@@ -2240,7 +2258,7 @@ class TestProxVpeProfileHelper(unittest.TestCase):
         resource_helper.vnfd_helper.port_pairs.all_ports = list(range(2))
         resource_helper.sut.port_stats.return_value = list(range(10))
 
-        helper = ProxVpeProfileHelper(resource_helper)
+        helper = prox_helpers.ProxVpeProfileHelper(resource_helper)
 
         helper.run_test(120, 5, 6.5)
         helper.run_test(-1000, 5, 6.5)  # negative pkt_size is the only way to make ratio > 1
@@ -2273,7 +2291,7 @@ class TestProxlwAFTRProfileHelper(unittest.TestCase):
             ]),
         ]
 
-        helper = ProxlwAFTRProfileHelper(resource_helper)
+        helper = prox_helpers.ProxlwAFTRProfileHelper(resource_helper)
         helper._cpu_topology = {
             0: {
                 1: {
@@ -2320,7 +2338,7 @@ class TestProxlwAFTRProfileHelper(unittest.TestCase):
             ]),
         ]
 
-        helper = ProxlwAFTRProfileHelper(resource_helper)
+        helper = prox_helpers.ProxlwAFTRProfileHelper(resource_helper)
         helper._port_list = {
             0: {
                 1: {
@@ -2354,7 +2372,7 @@ class TestProxlwAFTRProfileHelper(unittest.TestCase):
         resource_helper.vnfd_helper.port_pairs.all_ports = list(range(2))
         resource_helper.sut.port_stats.return_value = list(range(10))
 
-        helper = ProxlwAFTRProfileHelper(resource_helper)
+        helper = prox_helpers.ProxlwAFTRProfileHelper(resource_helper)
 
         helper.run_test(120, 5, 6.5)
         helper.run_test(-1000, 5, 6.5)  # negative pkt_size is the only way to make ratio > 1
