@@ -12,9 +12,13 @@ import unittest
 import multiprocessing
 import os
 import time
+import logging
 
 from yardstick.benchmark.runners import proxduration
 from yardstick.common import exceptions as y_exc
+
+
+logging.disable(logging.CRITICAL)
 
 
 class ProxDurationRunnerTest(unittest.TestCase):
@@ -38,7 +42,7 @@ class ProxDurationRunnerTest(unittest.TestCase):
 
     def setUp(self):
         self.scenario_cfg = {
-            'runner': {'interval': 0, "duration": 0},
+            'runner': {'interval': 0, 'duration': 0},
             'type': 'some_type'
         }
 
@@ -69,26 +73,29 @@ class ProxDurationRunnerTest(unittest.TestCase):
     @mock.patch.object(os, 'getpid')
     def test__worker_process_runner_id(self, mock_os_getpid):
         mock_os_getpid.return_value = 101
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 1}
-        proxduration._worker_process(mock.Mock(), self.benchmark_cls, 'my_method',
-                                 self.scenario_cfg, {},
-                                 multiprocessing.Event(), mock.Mock())
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 1}
+
+        proxduration._worker_process(mock.Mock(), self.benchmark_cls,
+                                     'my_method', self.scenario_cfg, {},
+                                     multiprocessing.Event(), mock.Mock())
 
         self.assertEqual(self.scenario_cfg['runner']['runner_id'], 101)
 
     def test__worker_process_called_with_cfg(self):
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 1}
-        proxduration._worker_process(mock.Mock(), self.benchmark_cls, 'my_method',
-                                 self.scenario_cfg, {},
-                                 multiprocessing.Event(), mock.Mock())
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 1}
+
+        proxduration._worker_process(mock.Mock(), self.benchmark_cls,
+                                     'my_method', self.scenario_cfg, {},
+                                     multiprocessing.Event(), mock.Mock())
 
         self._assert_defaults__worker_run_setup_and_teardown()
 
     def test__worker_process_called_with_cfg_loop(self):
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 0.01}
-        proxduration._worker_process(mock.Mock(), self.benchmark_cls, 'my_method',
-                                 self.scenario_cfg, {},
-                                 multiprocessing.Event(), mock.Mock())
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 0.01}
+
+        proxduration._worker_process(mock.Mock(), self.benchmark_cls,
+                                     'my_method', self.scenario_cfg, {},
+                                     multiprocessing.Event(), mock.Mock())
 
         self._assert_defaults__worker_run_setup_and_teardown()
         self.assertGreater(self.benchmark.my_method.call_count, 2)
@@ -99,8 +106,9 @@ class ProxDurationRunnerTest(unittest.TestCase):
         aborted = multiprocessing.Event()
         aborted.set()
 
-        proxduration._worker_process(mock.Mock(), self.benchmark_cls, 'my_method',
-                                 scenario_cfg, {}, aborted, mock.Mock())
+        proxduration._worker_process(mock.Mock(), self.benchmark_cls,
+                                     'my_method', scenario_cfg, {}, aborted,
+                                     mock.Mock())
 
         self.benchmark_cls.assert_called_once_with(scenario_cfg, {})
         self.benchmark.setup.assert_called_once()
@@ -108,24 +116,25 @@ class ProxDurationRunnerTest(unittest.TestCase):
 
     def test__worker_process_output_queue(self):
         self.benchmark.my_method = mock.Mock(return_value='my_result')
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 1}
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 1}
+
         output_queue = multiprocessing.Queue()
-        proxduration._worker_process(mock.Mock(), self.benchmark_cls, 'my_method',
-                                 self.scenario_cfg, {},
-                                 multiprocessing.Event(), output_queue)
+        proxduration._worker_process(mock.Mock(), self.benchmark_cls,
+                                     'my_method', self.scenario_cfg, {},
+                                     multiprocessing.Event(), output_queue)
         time.sleep(0.1)
 
         self._assert_defaults__worker_run_setup_and_teardown()
         self.assertEquals(output_queue.get(), 'my_result')
 
     def test__worker_process_output_queue_multiple_iterations(self):
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 1}
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 1}
         self.benchmark.my_method = self.MyMethod()
 
         output_queue = multiprocessing.Queue()
-        proxduration._worker_process(mock.Mock(), self.benchmark_cls, 'my_method',
-                                 self.scenario_cfg, {},
-                                 multiprocessing.Event(), output_queue)
+        proxduration._worker_process(mock.Mock(), self.benchmark_cls,
+                                     'my_method', self.scenario_cfg, {},
+                                     multiprocessing.Event(), output_queue)
         time.sleep(0.1)
 
         self._assert_defaults__worker_run_setup_and_teardown()
@@ -138,12 +147,12 @@ class ProxDurationRunnerTest(unittest.TestCase):
 
     def test__worker_process_queue(self):
         self.benchmark.my_method = self.MyMethod()
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 1}
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 1}
         queue = multiprocessing.Queue()
         timestamp = time.time()
         proxduration._worker_process(queue, self.benchmark_cls, 'my_method',
-                                 self.scenario_cfg, {},
-                                 multiprocessing.Event(), mock.Mock())
+                                     self.scenario_cfg, {},
+                                     multiprocessing.Event(), mock.Mock())
         time.sleep(0.1)
 
         self._assert_defaults__worker_run_setup_and_teardown()
@@ -155,14 +164,14 @@ class ProxDurationRunnerTest(unittest.TestCase):
         self.assertEqual(result['sequence'], 1)
 
     def test__worker_process_queue_multiple_iterations(self):
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 1}
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 1}
         self.benchmark.my_method = self.MyMethod()
 
         queue = multiprocessing.Queue()
         timestamp = time.time()
         proxduration._worker_process(queue, self.benchmark_cls, 'my_method',
-                                 self.scenario_cfg, {},
-                                 multiprocessing.Event(), mock.Mock())
+                                     self.scenario_cfg, {},
+                                     multiprocessing.Event(), mock.Mock())
         time.sleep(0.1)
 
         self._assert_defaults__worker_run_setup_and_teardown()
@@ -180,50 +189,50 @@ class ProxDurationRunnerTest(unittest.TestCase):
     def test__worker_process_except_sla_validation_error_no_sla_cfg(self):
         self.benchmark.my_method = mock.Mock(
             side_effect=y_exc.SLAValidationError)
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 1}
-        proxduration._worker_process(mock.Mock(), self.benchmark_cls, 'my_method',
-                                 self.scenario_cfg, {},
-                                 multiprocessing.Event(), mock.Mock())
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 1}
+        proxduration._worker_process(mock.Mock(), self.benchmark_cls,
+                                     'my_method', self.scenario_cfg, {},
+                                     multiprocessing.Event(), mock.Mock())
 
         self._assert_defaults__worker_run_setup_and_teardown()
 
     def test__worker_process_except_sla_validation_error_sla_cfg_monitor(self):
         self.scenario_cfg['sla'] = {'action': 'monitor'}
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 1}
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 1}
         self.benchmark.my_method = mock.Mock(
             side_effect=y_exc.SLAValidationError)
 
-        proxduration._worker_process(mock.Mock(), self.benchmark_cls, 'my_method',
-                                 self.scenario_cfg, {},
-                                 multiprocessing.Event(), mock.Mock())
+        proxduration._worker_process(mock.Mock(), self.benchmark_cls,
+                                     'my_method', self.scenario_cfg, {},
+                                     multiprocessing.Event(), mock.Mock())
 
         self._assert_defaults__worker_run_setup_and_teardown()
 
     def test__worker_process_raise_sla_validation_error_sla_cfg_default(self):
         self.scenario_cfg['sla'] = {}
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 1}
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 1}
         self.benchmark.my_method = mock.Mock(
             side_effect=y_exc.SLAValidationError)
 
         with self.assertRaises(y_exc.SLAValidationError):
             proxduration._worker_process(mock.Mock(), self.benchmark_cls,
-                                     'my_method', self.scenario_cfg, {},
-                                     multiprocessing.Event(), mock.Mock())
+                                         'my_method', self.scenario_cfg, {},
+                                         multiprocessing.Event(), mock.Mock())
 
         self.benchmark_cls.assert_called_once_with(self.scenario_cfg, {})
         self.benchmark.setup.assert_called_once()
         self.benchmark.my_method.assert_called_once_with({})
 
     def test__worker_process_raise_sla_validation_error_sla_cfg_assert(self):
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 1}
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 1}
         self.scenario_cfg['sla'] = {'action': 'assert'}
         self.benchmark.my_method = mock.Mock(
             side_effect=y_exc.SLAValidationError)
 
         with self.assertRaises(y_exc.SLAValidationError):
             proxduration._worker_process(mock.Mock(), self.benchmark_cls,
-                                     'my_method', self.scenario_cfg, {},
-                                     multiprocessing.Event(), mock.Mock())
+                                         'my_method', self.scenario_cfg, {},
+                                         multiprocessing.Event(), mock.Mock())
 
         self.benchmark_cls.assert_called_once_with(self.scenario_cfg, {})
         self.benchmark.setup.assert_called_once()
@@ -231,15 +240,15 @@ class ProxDurationRunnerTest(unittest.TestCase):
 
     def test__worker_process_queue_on_sla_validation_error_monitor(self):
         self.scenario_cfg['sla'] = {'action': 'monitor'}
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 1}
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 1}
         self.benchmark.my_method = self.MyMethod(
             side_effect=self.MyMethod.SLA_VALIDATION_ERROR_SIDE_EFFECT)
 
         queue = multiprocessing.Queue()
         timestamp = time.time()
         proxduration._worker_process(queue, self.benchmark_cls, 'my_method',
-                                 self.scenario_cfg, {},
-                                 multiprocessing.Event(), mock.Mock())
+                                     self.scenario_cfg, {},
+                                     multiprocessing.Event(), mock.Mock())
         time.sleep(0.1)
 
         self._assert_defaults__worker_run_setup_and_teardown()
@@ -254,10 +263,10 @@ class ProxDurationRunnerTest(unittest.TestCase):
     def test__worker_process_broad_exception(self):
         self.benchmark.my_method = mock.Mock(
             side_effect=y_exc.YardstickException)
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 1}
-        proxduration._worker_process(mock.Mock(), self.benchmark_cls, 'my_method',
-                                 self.scenario_cfg, {},
-                                 multiprocessing.Event(), mock.Mock())
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 1}
+        proxduration._worker_process(mock.Mock(), self.benchmark_cls,
+                                     'my_method', self.scenario_cfg, {},
+                                     multiprocessing.Event(), mock.Mock())
 
         self._assert_defaults__worker_run_setup_and_teardown()
 
@@ -265,12 +274,12 @@ class ProxDurationRunnerTest(unittest.TestCase):
         self.benchmark.my_method = self.MyMethod(
             side_effect=self.MyMethod.BROAD_EXCEPTION_SIDE_EFFECT)
 
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 1}
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 1}
         queue = multiprocessing.Queue()
         timestamp = time.time()
         proxduration._worker_process(queue, self.benchmark_cls, 'my_method',
-                                 self.scenario_cfg, {},
-                                 multiprocessing.Event(), mock.Mock())
+                                     self.scenario_cfg, {},
+                                     multiprocessing.Event(), mock.Mock())
         time.sleep(0.1)
 
         self._assert_defaults__worker_run_setup_and_teardown()
@@ -285,11 +294,11 @@ class ProxDurationRunnerTest(unittest.TestCase):
         self.benchmark.teardown = mock.Mock(
             side_effect=y_exc.YardstickException)
 
-        self.scenario_cfg["runner"] = {"sampled": True, "duration": 1}
+        self.scenario_cfg['runner'] = {'sampled': True, 'duration': 1}
 
         with self.assertRaises(SystemExit) as raised:
             proxduration._worker_process(mock.Mock(), self.benchmark_cls,
-                                     'my_method', self.scenario_cfg, {},
-                                     multiprocessing.Event(), mock.Mock())
+                                         'my_method', self.scenario_cfg, {},
+                                         multiprocessing.Event(), mock.Mock())
         self.assertEqual(raised.exception.code, 1)
         self._assert_defaults__worker_run_setup_and_teardown()
