@@ -205,22 +205,17 @@ class VsperfDPDK(base.Scenario):
             self.client.send_command(cmd)
         else:
             cmd = "cat ~/.testpmd.macaddr.port1"
-            status, stdout, stderr = self.client.execute(cmd)
-            if status:
-                raise RuntimeError(stderr)
+            _, stdout, _ = self.client.execute(cmd, raise_on_error=True)
             self.tgen_port1_mac = stdout
+
             cmd = "cat ~/.testpmd.macaddr.port2"
-            status, stdout, stderr = self.client.execute(cmd)
-            if status:
-                raise RuntimeError(stderr)
+            _, stdout, _ = self.client.execute(cmd, raise_on_error=True)
             self.tgen_port2_mac = stdout
 
         cmd = "screen -d -m sudo -E bash ~/testpmd_vsperf.sh %s %s" % \
             (self.moongen_port1_mac, self.moongen_port2_mac)
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        self.client.run(cmd)
 
         time.sleep(1)
 
@@ -245,7 +240,7 @@ class VsperfDPDK(base.Scenario):
             self.setup()
 
         # remove results from previous tests
-        self.client.execute("rm -rf /tmp/results*")
+        self.client.run("rm -rf /tmp/results*", raise_on_error=False)
 
         # get vsperf options
         options = self.scenario_cfg['options']
@@ -291,9 +286,7 @@ class VsperfDPDK(base.Scenario):
         cmd = "sshpass -p yardstick ssh-copy-id -o StrictHostKeyChecking=no " \
               "root@%s -p 22" % (self.moongen_host_ip)
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
-        if status:
-            raise RuntimeError(stderr)
+        self.client.run(cmd)
 
         # execute vsperf
         cmd = "source ~/vsperfenv/bin/activate ; cd vswitchperf ; "
@@ -302,22 +295,19 @@ class VsperfDPDK(base.Scenario):
             cmd += "--conf-file ~/vsperf.conf "
         cmd += "--test-params=\"%s\"" % (';'.join(test_params))
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
-
-        if status:
-            raise RuntimeError(stderr)
+        self.client.run(cmd)
 
         # get test results
         cmd = "cat /tmp/results*/result.csv"
         LOG.debug("Executing command: %s", cmd)
-        status, stdout, stderr = self.client.execute(cmd)
-
-        if status:
-            raise RuntimeError(stderr)
+        _, stdout, _ = self.client.execute(cmd, raise_on_error=True)
 
         # convert result.csv to JSON format
         reader = csv.DictReader(stdout.split('\r\n'))
-        result.update(next(reader))
+        try:
+            result.update(next(reader))
+        except StopIteration:
+            pass
         result['nrFlows'] = multistream
 
         # sla check; go through all defined SLAs and check if values measured

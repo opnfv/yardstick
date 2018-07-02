@@ -148,20 +148,6 @@ class VsperfDPDKTestCase(unittest.TestCase):
         self.assertTrue(self.scenario._is_dpdk_setup())
         self.assertTrue(self.scenario.dpdk_setup_done)
 
-    @mock.patch.object(time, 'sleep')
-    def test_dpdk_setup_runtime_error(self, *args):
-
-        # setup specific mocks
-        self.mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        self.mock_subprocess_call().execute.return_value = None
-
-        self.scenario.setup()
-        self.assertIsNotNone(self.scenario.client)
-        self.mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
-        self.assertTrue(self.scenario.setup_done)
-
-        self.assertRaises(RuntimeError, self.scenario.dpdk_setup)
-
     @mock.patch.object(subprocess, 'check_output')
     @mock.patch('time.sleep')
     def test_run_ok(self, *args):
@@ -182,36 +168,6 @@ class VsperfDPDKTestCase(unittest.TestCase):
         self.scenario.run(result)
 
         self.assertEqual(result['throughput_rx_fps'], '14797660.000')
-
-    def test_run_failed_vsperf_execution(self):
-        # setup() specific mocks
-        self.mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        self.mock_subprocess_call().execute.return_value = None
-
-        self.scenario.setup()
-        self.assertIsNotNone(self.scenario.client)
-        self.assertTrue(self.scenario.setup_done)
-
-        self.mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
-
-        result = {}
-        self.assertRaises(RuntimeError, self.scenario.run, result)
-
-    def test_run_falied_csv_report(self):
-        # setup() specific mocks
-        self.mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
-        self.mock_subprocess_call().execute.return_value = None
-
-        self.scenario.setup()
-        self.assertIsNotNone(self.scenario.client)
-        self.assertTrue(self.scenario.setup_done)
-
-        # run() specific mocks
-        self.mock_subprocess_call().execute.return_value = None
-        self.mock_ssh.SSH.from_node().execute.return_value = (1, '', '')
-
-        result = {}
-        self.assertRaises(RuntimeError, self.scenario.run, result)
 
     @mock.patch.object(time, 'sleep')
     @mock.patch.object(subprocess, 'check_output')
@@ -235,6 +191,20 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
         self.mock_ssh.SSH.from_node().execute.return_value = (
             0, 'nonexisting_metric\r\n123456.000\r\n', '')
+
+        with self.assertRaises(y_exc.SLAValidationError) as raised:
+            self.scenario.run({})
+
+        self.assertIn('throughput_rx_fps was not collected by VSPERF',
+                      str(raised.exception))
+
+    @mock.patch.object(time, 'sleep')
+    @mock.patch.object(subprocess, 'check_output')
+    def test_vsperf_run_sla_fail_metric_not_collected_faulty_csv(self, *args):
+        self.scenario.setup()
+
+        self.mock_ssh.SSH.from_node().execute.return_value = (
+            0, 'faulty output not csv', '')
 
         with self.assertRaises(y_exc.SLAValidationError) as raised:
             self.scenario.run({})
