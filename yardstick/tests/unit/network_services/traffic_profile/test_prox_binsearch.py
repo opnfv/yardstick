@@ -11,23 +11,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 import unittest
 import mock
 
-from yardstick.tests import STL_MOCKS
-
-STLClient = mock.MagicMock()
-stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
-stl_patch.start()
-
-if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxTestDataTuple
-    from yardstick.network_services.traffic_profile.prox_binsearch import ProxBinSearchProfile
+from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxTestDataTuple
+from yardstick.network_services.traffic_profile import prox_binsearch
 
 
 class TestProxBinSearchProfile(unittest.TestCase):
+
+    def setUp(self):
+        self._mock_log_info = mock.patch.object(prox_binsearch.LOG, 'info')
+        self.mock_log_info = self._mock_log_info.start()
+        self.addCleanup(self._stop_mocks)
+
+    def _stop_mocks(self):
+        self._mock_log_info.stop()
 
     def test_execute_1(self):
         def target(*args, **_):
@@ -60,7 +60,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
         profile_helper = mock.MagicMock()
         profile_helper.run_test = target
 
-        profile = ProxBinSearchProfile(tp_config)
+        profile = prox_binsearch.ProxBinSearchProfile(tp_config)
         profile.init(mock.MagicMock())
         profile._profile_helper = profile_helper
 
@@ -138,7 +138,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
         profile_helper = mock.MagicMock()
         profile_helper.run_test = target
 
-        profile = ProxBinSearchProfile(tp_config)
+        profile = prox_binsearch.ProxBinSearchProfile(tp_config)
         profile.init(mock.MagicMock())
         profile._profile_helper = profile_helper
 
@@ -173,7 +173,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
         profile_helper = mock.MagicMock()
         profile_helper.run_test = target
 
-        profile = ProxBinSearchProfile(tp_config)
+        profile = prox_binsearch.ProxBinSearchProfile(tp_config)
         profile.init(mock.MagicMock())
         profile._profile_helper = profile_helper
 
@@ -227,7 +227,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
         profile_helper = mock.MagicMock()
         profile_helper.run_test = target
 
-        profile = ProxBinSearchProfile(tp_config)
+        profile = prox_binsearch.ProxBinSearchProfile(tp_config)
         profile.init(mock.MagicMock())
         profile._profile_helper = profile_helper
 
