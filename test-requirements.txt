@@ -14,8 +14,8 @@ testtools==2.3.0            # OSI Approved  MIT License
 unittest2==1.1.0            # OSI Approved  BSD License
 
 # NOTE(ralonsoh): to be removed, only for coverage support
-python-heatclient==1.8.1        # OSI Approved  Apache Software License
+python-heatclient==1.11.0        # OSI Approved  Apache Software License
 
-# Yardstick F release <-> OpenStack Pike release
-openstack_requirements==1.1.0   # OSI Approved  Apache Software License
--e git+https://github.com/openstack/requirements.git@stable/pike#egg=os_requirements
+# Yardstick G release <-> OpenStack Queen release
+openstack_requirements==1.2.0   # OSI Approved  Apache Software License
+-e git+https://github.com/openstack/requirements.git@stable/queens#egg=os_requirements
