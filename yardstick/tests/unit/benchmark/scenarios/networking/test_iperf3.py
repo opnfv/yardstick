@@ -7,10 +7,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.benchmark.scenarios.networking.iperf3.Iperf
-
-from __future__ import absolute_import
-
 import os
 import unittest
 
@@ -22,7 +18,7 @@ from yardstick.benchmark.scenarios.networking import iperf3
 from yardstick.common import exceptions as y_exc
 
 
-@mock.patch('yardstick.benchmark.scenarios.networking.iperf3.ssh')
+@mock.patch.object(iperf3, 'ssh')
 class IperfTestCase(unittest.TestCase):
     output_name_tcp = 'iperf3_sample_output.json'
     output_name_udp = 'iperf3_sample_output_udp.json'
@@ -41,9 +37,14 @@ class IperfTestCase(unittest.TestCase):
                 'ipaddr': '172.16.0.138',
             }
         }
+        self._mock_log_info = mock.patch.object(iperf3.LOG, 'info')
+        self.mock_log_info = self._mock_log_info.start()
+        self.addCleanup(self._stop_mocks)
+
+    def _stop_mocks(self):
+        self._mock_log_info.stop()
 
     def test_iperf_successful_setup(self, mock_ssh):
-
         p = iperf3.Iperf({}, self.ctx)
         mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
 
@@ -53,13 +54,11 @@ class IperfTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.assert_called_with("iperf3 -s -D")
 
     def test_iperf_unsuccessful_setup(self, mock_ssh):
-
         p = iperf3.Iperf({}, self.ctx)
         mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p.setup)
 
     def test_iperf_successful_teardown(self, mock_ssh):
-
         p = iperf3.Iperf({}, self.ctx)
         mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
         p.host = mock_ssh.SSH.from_node()
@@ -70,7 +69,6 @@ class IperfTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.assert_called_with("pkill iperf3")
 
     def test_iperf_successful_no_sla(self, mock_ssh):
-
         options = {}
         args = {'options': options}
         result = {}
@@ -86,7 +84,6 @@ class IperfTestCase(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     def test_iperf_successful_sla(self, mock_ssh):
-
         options = {}
         args = {
             'options': options,
@@ -105,7 +102,6 @@ class IperfTestCase(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     def test_iperf_unsuccessful_sla(self, mock_ssh):
-
         options = {}
         args = {
             'options': options,
@@ -174,7 +170,6 @@ class IperfTestCase(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     def test_iperf_unsuccessful_script_error(self, mock_ssh):
-
         options = {}
         args = {'options': options}
         result = {}
@@ -186,7 +181,8 @@ class IperfTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p.run, result)
 
-    def _read_sample_output(self, filename):
+    @staticmethod
+    def _read_sample_output(filename):
         curr_path = os.path.dirname(os.path.abspath(__file__))
         output = os.path.join(curr_path, filename)
         with open(output) as f:
