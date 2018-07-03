@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from copy import deepcopy
+import copy
 
 import mock
 import unittest
@@ -440,6 +440,12 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         result = r_f_c2544_profile._get_ixia_traffic_profile(profile_data, mac)
         self.assertIsNotNone(result)
 
+    def test__init__(self):
+        t_profile_data = copy.deepcopy(self.TRAFFIC_PROFILE)
+        t_profile_data['traffic_profile']['frame_rate'] = 12345678
+        r_f_c2544_profile = ixia_rfc2544.IXIARFC2544Profile(t_profile_data)
+        self.assertEqual(12345678, r_f_c2544_profile.rate)
+
     def test__get_ixia_traffic_profile_default_args(self):
         r_f_c2544_profile = ixia_rfc2544.IXIARFC2544Profile(
             self.TRAFFIC_PROFILE)
@@ -521,7 +527,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         traffic_generator.vnfd_helper.port_num.side_effect = ports_expected
         traffic_generator.client.return_value = True
 
-        traffic_profile = deepcopy(self.TRAFFIC_PROFILE)
+        traffic_profile = copy.deepcopy(self.TRAFFIC_PROFILE)
         traffic_profile.update({
             "uplink_0": ["xe0"],
             "downlink_0": ["xe1", "xe2"],

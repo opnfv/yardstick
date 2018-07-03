@@ -25,6 +25,10 @@ class IXIARFC2544Profile(TrexProfile):
     UPLINK = 'uplink'
     DOWNLINK = 'downlink'
 
+    def __init__(self, yaml_data):
+        super(IXIARFC2544Profile, self).__init__(yaml_data)
+        self.rate = self.config.frame_rate
+
     def _get_ixia_traffic_profile(self, profile_data, mac=None):
         if mac is None:
             mac = {}
