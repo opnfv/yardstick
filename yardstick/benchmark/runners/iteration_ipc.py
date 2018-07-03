@@ -26,7 +26,7 @@ import traceback
 
 import os
 
-from yardstick.benchmark.runners import base
+from yardstick.benchmark.runners import base as base_runner
 from yardstick.common import exceptions
 from yardstick.common import messaging
 from yardstick.common import utils
@@ -131,6 +131,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
     mq_consumer = RunnerIterationIPCConsumer(os.getpid(), producer_ctxs)
     mq_consumer.start_rpc_server()
+    mq_producer = base_runner.RunnerProducer(scenario_cfg['task_id'])
 
     iteration_index = 1
     while 'run' in run_step:
@@ -181,7 +182,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
     mq_consumer.stop_rpc_server()
 
 
-class IterationIPCRunner(base.Runner):
+class IterationIPCRunner(base_runner.Runner):
     """Run a scenario for a configurable number of times.
 
     Each iteration has a configurable timeout. The loop control depends on the
