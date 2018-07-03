@@ -37,10 +37,39 @@
 #    name: pip
 #    state: latest
 
-- name: install yardstick without virtual environment
-  include_tasks: regular_install.yml
+- name: Install Yardstick requirements (venv)
+  pip:
+    requirements: "{{ yardstick_dir }}/requirements.txt"
+    virtualenv: "{{ yardstick_dir }}/virtualenv"
+  async: 300
+  poll: 0
+  register: pip_installer
+  when: virtual_environment == True
+
+- name: Install Yardstick requirements
+  pip:
+    requirements: "{{ yardstick_dir }}/requirements.txt"
+  async: 300
+  poll: 0
+  register: pip_installer
   when: virtual_environment == False
 
-- name: install yardstick with virtual environment
-  include_tasks: virtual_install.yml
+- name: Check install Yardstick requirements
+  async_status:
+    jid: "{{ pip_installer.ansible_job_id }}"
+  register: job_result
+  until: job_result.finished
+  retries: 100
+
+- name: Install Yardstick code (venv)
+  pip:
+    name: "{{ yardstick_dir }}/"
+    editable: True
+    virtualenv: "{{ yardstick_dir }}/virtualenv"
   when: virtual_environment == True
+
+- name: Install Yardstick code
+  pip:
+    name: "{{ yardstick_dir }}/"
+    editable: True
+  when: virtual_environment == False
