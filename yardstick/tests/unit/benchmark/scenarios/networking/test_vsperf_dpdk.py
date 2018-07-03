@@ -18,8 +18,8 @@ import time
 import mock
 import unittest
 
-from yardstick.benchmark.scenarios.networking import vsperf_dpdk
 from yardstick import exceptions as y_exc
+from yardstick.benchmark.scenarios.networking import vsperf_dpdk
 
 
 class VsperfDPDKTestCase(unittest.TestCase):
@@ -59,17 +59,18 @@ class VsperfDPDKTestCase(unittest.TestCase):
 
         self.scenario = vsperf_dpdk.VsperfDPDK(self.args, self.ctx)
 
-        self._mock_ssh = mock.patch(
-            'yardstick.benchmark.scenarios.networking.vsperf_dpdk.ssh')
+        self._mock_ssh = mock.patch.object(vsperf_dpdk, 'ssh')
         self.mock_ssh = self._mock_ssh.start()
         self._mock_subprocess_call = mock.patch.object(subprocess, 'call')
         self.mock_subprocess_call = self._mock_subprocess_call.start()
-
+        self._mock_log_info = mock.patch.object(vsperf_dpdk.LOG, 'info')
+        self.mock_log_info = self._mock_log_info.start()
         self.addCleanup(self._cleanup)
 
     def _cleanup(self):
         self._mock_ssh.stop()
         self._mock_subprocess_call.stop()
+        self._mock_log_info.stop()
 
     def test_setup(self):
         # setup() specific mocks
