@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_c8b64edc",
+        "filename": "ansible/roles/download_samplevnfs/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-07-03T15:36:54Z",
+      "side": 1,
+      "message": "Alternatively, since samplevnf is a dependency of yardstick here, we might want to provide a specific sha1, e.g. as done in ansible/roles/download_collectd/defaults/main.yml\nAs of now, the relevant sha1 for samplevnf would be 692702c10772e13b533c908ed3f95a430ad476ce (https://gerrit.opnfv.org/gerrit/gitweb?p\u003dsamplevnf.git;a\u003dcommit;h\u003d692702c10772e13b533c908ed3f95a430ad476ce)\nThis would provide finer control, and reproducibility, on exactly which samplevnf version we want to use from yardstick.",
+      "range": {
+        "startLine": 4,
+        "startChar": 20,
+        "endLine": 4,
+        "endChar": 33
+      },
+      "revId": "41777f75f551e6c448d21c9cf29d4e2967268f98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
