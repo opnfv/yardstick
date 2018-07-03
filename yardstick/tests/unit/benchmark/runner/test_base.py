@@ -10,36 +10,40 @@
 import time
 
 import mock
-import unittest
-from subprocess import CalledProcessError
+import subprocess
 
-
-from yardstick.benchmark.runners import base
+from yardstick.benchmark.runners import base as runner_base
 from yardstick.benchmark.runners import iteration
+from yardstick.tests.unit import base as ut_base
 
 
-class ActionTestCase(unittest.TestCase):
+class ActionTestCase(ut_base.BaseUnitTestCase):
 
-    @mock.patch("yardstick.benchmark.runners.base.subprocess")
+    def setUp(self):
+        self._mock_log = mock.patch.object(runner_base.log, 'error')
+        self.mock_log = self._mock_log.start()
+        self.addCleanup(self._stop_mocks)
+
+    def _stop_mocks(self):
+        self._mock_log.stop()
+
+    @mock.patch.object(subprocess, 'check_output')
     def test__execute_shell_command(self, mock_subprocess):
-        mock_subprocess.check_output.side_effect = CalledProcessError(-1, '')
+        mock_subprocess.side_effect = subprocess.CalledProcessError(-1, '')
+        self.assertEqual(runner_base._execute_shell_command("")[0], -1)
 
-        self.assertEqual(base._execute_shell_command("")[0], -1)
-
-    @mock.patch("yardstick.benchmark.runners.base.subprocess")
+    @mock.patch.object(subprocess, 'check_output')
     def test__single_action(self, mock_subprocess):
-        mock_subprocess.check_output.side_effect = CalledProcessError(-1, '')
+        mock_subprocess.side_effect = subprocess.CalledProcessError(-1, '')
+        runner_base._single_action(0, 'echo', mock.Mock())
 
-        base._single_action(0, "echo", mock.MagicMock())
-
-    @mock.patch("yardstick.benchmark.runners.base.subprocess")
+    @mock.patch.object(subprocess, 'check_output')
     def test__periodic_action(self, mock_subprocess):
-        mock_subprocess.check_output.side_effect = CalledProcessError(-1, '')
+        mock_subprocess.side_effect = subprocess.CalledProcessError(-1, '')
+        runner_base._periodic_action(0, 'echo', mock.Mock())
 
-        base._periodic_action(0, "echo", mock.MagicMock())
 
-
-class RunnerTestCase(unittest.TestCase):
+class RunnerTestCase(ut_base.BaseUnitTestCase):
 
     def setUp(self):
         config = {
@@ -86,7 +90,7 @@ class RunnerTestCase(unittest.TestCase):
         self.assertEqual(idle_result, actual_result)
 
     def test__run_benchmark(self):
-        runner = base.Runner(mock.Mock())
+        runner = runner_base.Runner(mock.Mock())
 
         with self.assertRaises(NotImplementedError):
             runner._run_benchmark(mock.Mock(), mock.Mock(), mock.Mock(), mock.Mock())
