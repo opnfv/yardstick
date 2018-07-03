@@ -63,3 +63,11 @@ class TrafficGeneratorPayload(Payload):
                # injection. The content will depend on the generator and the
                # traffic type.
     }
+
+
+class RunnerPayload(Payload):
+    """Base runner payload class"""
+    REQUIRED_FIELDS = {
+        'version',  # (str) version of the payload transmitted.
+        'data'  # (dict) generic container of data to be used if needed.
+    }
