@@ -46,6 +46,30 @@
       "revId": "41777f75f551e6c448d21c9cf29d4e2967268f98",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_884e16c0",
+        "filename": "ansible/roles/download_samplevnfs/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-07-03T17:05:25Z",
+      "side": 1,
+      "message": "I can understand your point.\nHowever, please take a quick look at the history of stable/fraser branch of samplevnf: https://gerrit.opnfv.org/gerrit/gitweb?p\u003dsamplevnf.git;a\u003dshortlog;h\u003drefs/heads/stable/fraser\nThere are already 3 tags in it (6.0.0, 6.1.0, 6.2.0), not counting the older 5.1 tags.\nWhen users install yardstick/NSB, what they get might be different, even if they always install \"stable/fraser\".\nSo are we sure that we want to use the (possibly moving) tip of that branch?",
+      "parentUuid": "da5c1566_28c70a47",
+      "range": {
+        "startLine": 4,
+        "startChar": 20,
+        "endLine": 4,
+        "endChar": 33
+      },
+      "revId": "41777f75f551e6c448d21c9cf29d4e2967268f98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
