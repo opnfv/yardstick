@@ -63,3 +63,20 @@ class TrafficGeneratorPayloadTestCase(ut_base.BaseUnitTestCase):
             payloads.TrafficGeneratorPayload(iteration=10, kpi={})
         with self.assertRaises(exceptions.PayloadMissingAttributes):
             payloads.TrafficGeneratorPayload(iteration=10)
+
+
+class RunnerPayloadTestCase(ut_base.BaseUnitTestCase):
+
+    def test_init(self):
+        runner_payload = payloads.RunnerPayload(version=5,
+                                                data={'key1': 'value1'})
+        self.assertEqual(5, runner_payload.version)
+        self.assertEqual({'key1': 'value1'}, runner_payload.data)
+
+    def test__init_missing_required_fields(self):
+        with self.assertRaises(exceptions.PayloadMissingAttributes):
+            payloads.RunnerPayload(version=1)
+        with self.assertRaises(exceptions.PayloadMissingAttributes):
+            payloads.RunnerPayload(data=None)
+        with self.assertRaises(exceptions.PayloadMissingAttributes):
+            payloads.RunnerPayload()
