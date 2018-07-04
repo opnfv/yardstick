@@ -1,0 +1,7 @@
+Code-Review+2: Abhijit Sinha <abhijit.sinha@intel.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Submitted-by: Rodolfo Alonso Hernandez <rodolfo.alonso.hernandez@intel.com>
+Submitted-at: Wed, 04 Jul 2018 10:24:38 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/58911
+Project: yardstick
+Branch: refs/heads/master
