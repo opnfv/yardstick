@@ -436,6 +436,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self._get_file_abspath("tg_trex_tpl.yaml")
         self.context_cfg["nodes"]['vnf__1']['VNF model'] = \
             self._get_file_abspath("tg_trex_tpl.yaml")
+        self.context_cfg['task_id'] = 'fake_task_id'
 
         vnf = mock.Mock(autospec=GenericVNF)
         self.s.get_vnf_impl = mock.Mock(return_value=vnf)

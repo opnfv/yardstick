@@ -30,6 +30,7 @@ class NotificationHandler(object):
     """Abstract class to define a endpoint object for a MessagingConsumer"""
 
     def __init__(self, _id, ctx_ids, queue):
+        super(NotificationHandler, self).__init__()
         self._id = _id
         self._ctx_ids = ctx_ids
         self._queue = queue

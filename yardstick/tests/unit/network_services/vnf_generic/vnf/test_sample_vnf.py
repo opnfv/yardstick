@@ -1543,7 +1543,7 @@ class TestSampleVnf(unittest.TestCase):
     }
 
     def test___init__(self):
-        sample_vnf = SampleVNF('vnf1', self.VNFD_0)
+        sample_vnf = SampleVNF('vnf1', self.VNFD_0, 'task_id')
 
         self.assertEqual(sample_vnf.name, 'vnf1')
         self.assertDictEqual(sample_vnf.vnfd_helper, self.VNFD_0)
@@ -1561,7 +1561,8 @@ class TestSampleVnf(unittest.TestCase):
         class MyResourceHelper(ResourceHelper):
             pass
 
-        sample_vnf = SampleVNF('vnf1', self.VNFD_0, MySetupEnvHelper, MyResourceHelper)
+        sample_vnf = SampleVNF('vnf1', self.VNFD_0, 'task_id',
+                               MySetupEnvHelper, MyResourceHelper)
 
         self.assertEqual(sample_vnf.name, 'vnf1')
         self.assertDictEqual(sample_vnf.vnfd_helper, self.VNFD_0)
@@ -1575,7 +1576,7 @@ class TestSampleVnf(unittest.TestCase):
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.Process')
     def test__start_vnf(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
         sample_vnf._run = mock.Mock()
 
         self.assertIsNone(sample_vnf.queue_wrapper)
@@ -1594,7 +1595,7 @@ class TestSampleVnf(unittest.TestCase):
         }
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
         sample_vnf.scenario_helper.scenario_cfg = {
             'nodes': {sample_vnf.name: 'mock'}
         }
@@ -1638,7 +1639,7 @@ class TestSampleVnf(unittest.TestCase):
                          'plugin1': {'param': 1}}}
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf__0', vnfd)
+        sample_vnf = SampleVNF('vnf__0', vnfd, 'task_id')
         sample_vnf._update_collectd_options(scenario_cfg, context_cfg)
         self.assertEqual(sample_vnf.setup_helper.collectd_options, expected)
 
@@ -1665,7 +1666,7 @@ class TestSampleVnf(unittest.TestCase):
                          'plugin1': {'param': 1}}}
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
         sample_vnf._update_options(options2, options1)
         self.assertEqual(options2, expected)
 
@@ -1687,7 +1688,7 @@ class TestSampleVnf(unittest.TestCase):
         ]
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
         sample_vnf.APP_NAME = 'sample1'
         sample_vnf.WAIT_TIME_FOR_SCRIPT = 0
         sample_vnf._start_server = mock.Mock(return_value=0)
@@ -1718,7 +1719,7 @@ class TestSampleVnf(unittest.TestCase):
         ]
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
         sample_vnf.APP_NAME = 'sample1'
         sample_vnf.q_out = mock.Mock()
         sample_vnf.q_out.qsize.side_effect = iter(queue_size_list)
@@ -1728,7 +1729,7 @@ class TestSampleVnf(unittest.TestCase):
 
     def test_terminate_without_vnf_process(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
         sample_vnf.APP_NAME = 'sample1'
         sample_vnf.vnf_execute = mock.Mock()
         sample_vnf.ssh_helper = mock.Mock()
@@ -1739,7 +1740,7 @@ class TestSampleVnf(unittest.TestCase):
 
     def test_get_stats(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
         sample_vnf.APP_NAME = 'sample1'
         sample_vnf.APP_WORD = 'sample1'
         sample_vnf.vnf_execute = mock.Mock(return_value='the stats')
@@ -1749,7 +1750,7 @@ class TestSampleVnf(unittest.TestCase):
     @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     def test_collect_kpi(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
         sample_vnf.scenario_helper.scenario_cfg = {
             'nodes': {sample_vnf.name: "mock"}
         }
@@ -1777,7 +1778,7 @@ class TestSampleVnf(unittest.TestCase):
     @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     def test_collect_kpi_default(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
         sample_vnf.scenario_helper.scenario_cfg = {
             'nodes': {sample_vnf.name: "mock"}
         }
@@ -1796,7 +1797,7 @@ class TestSampleVnf(unittest.TestCase):
 
     def test_scale(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
         self.assertRaises(y_exceptions.FunctionNotImplemented,
                           sample_vnf.scale)
 
@@ -1804,7 +1805,7 @@ class TestSampleVnf(unittest.TestCase):
         test_cmd = 'test cmd'
         run_kwargs = {'arg1': 'val1', 'arg2': 'val2'}
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd)
+        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
         sample_vnf.ssh_helper = mock.Mock()
         sample_vnf.setup_helper = mock.Mock()
         with mock.patch.object(sample_vnf, '_build_config',
@@ -1940,30 +1941,30 @@ class TestSampleVNFTrafficGen(unittest.TestCase):
     }
 
     def test__check_status(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0)
+        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
 
         with self.assertRaises(NotImplementedError):
             sample_vnf_tg._check_status()
 
     def test_listen_traffic(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0)
+        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
 
         sample_vnf_tg.listen_traffic(mock.Mock())
 
     def test_verify_traffic(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0)
+        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
 
         sample_vnf_tg.verify_traffic(mock.Mock())
 
     def test_terminate(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0)
+        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
         sample_vnf_tg._traffic_process = mock.Mock()
         sample_vnf_tg._tg_process = mock.Mock()
 
         sample_vnf_tg.terminate()
 
     def test__wait_for_process(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0)
+        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
         with mock.patch.object(sample_vnf_tg, '_check_status',
                                return_value=0) as mock_status, \
                 mock.patch.object(sample_vnf_tg, '_tg_process') as mock_proc:
@@ -1974,14 +1975,14 @@ class TestSampleVNFTrafficGen(unittest.TestCase):
             mock_status.assert_called_once()
 
     def test__wait_for_process_not_alive(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0)
+        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
         with mock.patch.object(sample_vnf_tg, '_tg_process') as mock_proc:
             mock_proc.is_alive.return_value = False
             self.assertRaises(RuntimeError, sample_vnf_tg._wait_for_process)
             mock_proc.is_alive.assert_called_once()
 
     def test__wait_for_process_delayed(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0)
+        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
         with mock.patch.object(sample_vnf_tg, '_check_status',
                                side_effect=[1, 0]) as mock_status, \
                 mock.patch.object(sample_vnf_tg,
@@ -1993,6 +1994,6 @@ class TestSampleVNFTrafficGen(unittest.TestCase):
             mock_status.assert_has_calls([mock.call(), mock.call()])
 
     def test_scale(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0)
+        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
         self.assertRaises(y_exceptions.FunctionNotImplemented,
                           sample_vnf_tg.scale)

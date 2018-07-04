@@ -120,7 +120,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
     @mock.patch.object(ssh, 'SSH')
     def test___init__(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         self.assertIsNone(ixload_traffic_gen.resource_helper.data)
 
     @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server',
@@ -128,7 +128,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
     @mock.patch.object(ssh, 'SSH')
     def test_collect_kpi(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         ixload_traffic_gen.scenario_helper.scenario_cfg = {
             'nodes': {ixload_traffic_gen.name: "mock"}
         }
@@ -143,7 +143,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
     @mock.patch.object(ssh, 'SSH')
     def test_listen_traffic(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         self.assertIsNone(ixload_traffic_gen.listen_traffic({}))
 
     @mock.patch.object(utils, 'find_relative_file')
@@ -153,7 +153,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
     @mock.patch.object(ssh, 'SSH')
     def test_instantiate(self, mock_shutil, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         scenario_cfg = {'tc': "nsb_test_case",
                         'ixia_profile': "ixload.cfg",
                         'task_path': "/path/to/task"}
@@ -192,7 +192,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                                                     "1.1.1.1"})
         vnfd["mgmt-interface"]["tg-config"].update({"py_bin_path":
                                                     "/root"})
-        sut = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        sut = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         sut.connection = mock.Mock()
         sut.connection.run = mock.Mock()
         sut._traffic_runner = mock.Mock(return_value=0)
@@ -215,7 +215,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                                                     "1.1.1.1"})
         vnfd["mgmt-interface"]["tg-config"].update({"py_bin_path":
                                                     "/root"})
-        sut = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        sut = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         sut.connection = mock.Mock()
         sut.connection.run = mock.Mock()
         sut._traffic_runner = mock.Mock(return_value=0)
@@ -226,7 +226,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
     @mock.patch.object(ssh, 'SSH')
     def test_terminate(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         self.assertIsNone(ixload_traffic_gen.terminate())
 
     @mock.patch.object(ssh, 'SSH')
@@ -245,7 +245,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
         mock_ssh_type.execute.return_value = 0, "", ""
         mock_ssh.from_node.return_value = mock_ssh_type
 
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         result = ixload_traffic_gen.resource_helper.result
 
         ixload_traffic_gen.resource_helper.parse_csv_read(http_reader)
@@ -268,7 +268,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
         mock_ssh_type.execute.return_value = 0, "", ""
         mock_ssh.from_node.return_value = mock_ssh_type
 
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         init_value = ixload_traffic_gen.resource_helper.result
 
         ixload_traffic_gen.resource_helper.parse_csv_read(http_reader)
@@ -288,7 +288,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
         mock_ssh_type.execute.return_value = 0, "", ""
         mock_ssh.from_node.return_value = mock_ssh_type
 
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
 
         with self.assertRaises(KeyError):
             ixload_traffic_gen.resource_helper.parse_csv_read(http_reader)
