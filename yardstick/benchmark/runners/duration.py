@@ -74,6 +74,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         except y_exc.SLAValidationError as error:
             # SLA validation failed in scenario, determine what to do now
             if sla_action == "assert":
+                benchmark.teardown()
                 raise
             elif sla_action == "monitor":
                 LOG.warning("SLA validation failed: %s", error.args)
