@@ -317,7 +317,7 @@ class TestProxApproxVnf(unittest.TestCase):
     @mock.patch(SSH_HELPER)
     def test___init__(self, ssh, *args):
         mock_ssh(ssh)
-        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0, 'task_id')
         self.assertIsNone(prox_approx_vnf._vnf_process)
 
     @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
@@ -325,7 +325,7 @@ class TestProxApproxVnf(unittest.TestCase):
     def test_collect_kpi_no_client(self, ssh, *args):
         mock_ssh(ssh)
 
-        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0, 'task_id')
         prox_approx_vnf.scenario_helper.scenario_cfg = {
             'nodes': {prox_approx_vnf.name: "mock"}
         }
@@ -350,7 +350,7 @@ class TestProxApproxVnf(unittest.TestCase):
                                                 [2, 1, 2, 3, 4, 5], [3, 1, 2, 3, 4, 5]]
         resource_helper.collect_collectd_kpi.return_value = {'core': {'result': 234}}
 
-        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0, 'task_id')
         prox_approx_vnf.scenario_helper.scenario_cfg = {
             'nodes': {prox_approx_vnf.name: "mock"}
         }
@@ -376,7 +376,8 @@ class TestProxApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         resource_helper = mock.MagicMock()
-        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, deepcopy(self.VNFD0))
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, deepcopy(self.VNFD0),
+                                                 'task_id')
         prox_approx_vnf.scenario_helper.scenario_cfg = {
             'nodes': {prox_approx_vnf.name: "mock"}
         }
@@ -399,7 +400,7 @@ class TestProxApproxVnf(unittest.TestCase):
     def test_run_prox(self, ssh, *_):
         mock_ssh(ssh)
 
-        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0, 'task_id')
         prox_approx_vnf.scenario_helper.scenario_cfg = self.SCENARIO_CFG
         prox_approx_vnf.ssh_helper.join_bin_path.return_value = '/tool_path12/tool_file34'
         prox_approx_vnf.setup_helper.remote_path = 'configs/file56.cfg'
@@ -413,7 +414,7 @@ class TestProxApproxVnf(unittest.TestCase):
 
     @mock.patch(SSH_HELPER)
     def bad_test_instantiate(self, *args):
-        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0, 'task_id')
         prox_approx_vnf.scenario_helper = mock.MagicMock()
         prox_approx_vnf.setup_helper = mock.MagicMock()
         # we can't mock super
@@ -423,7 +424,7 @@ class TestProxApproxVnf(unittest.TestCase):
     @mock.patch(SSH_HELPER)
     def test_wait_for_instantiate_panic(self, ssh, *args):
         mock_ssh(ssh, exec_result=(1, "", ""))
-        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0, 'task_id')
         prox_approx_vnf._vnf_process = mock.MagicMock(**{"is_alive.return_value": True})
         prox_approx_vnf._run_prox = mock.Mock(return_value=0)
         prox_approx_vnf.WAIT_TIME = 0
@@ -435,7 +436,7 @@ class TestProxApproxVnf(unittest.TestCase):
     @mock.patch(SSH_HELPER)
     def test_terminate(self, ssh, *args):
         mock_ssh(ssh)
-        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0, 'task_id')
         prox_approx_vnf._vnf_process = mock.MagicMock()
         prox_approx_vnf._vnf_process.terminate = mock.Mock()
         prox_approx_vnf.ssh_helper = mock.MagicMock()
@@ -447,7 +448,7 @@ class TestProxApproxVnf(unittest.TestCase):
     @mock.patch(SSH_HELPER)
     def test__vnf_up_post(self, ssh, *args):
         mock_ssh(ssh)
-        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0, 'task_id')
         prox_approx_vnf.resource_helper = resource_helper = mock.Mock()
 
         prox_approx_vnf._vnf_up_post()
@@ -456,7 +457,7 @@ class TestProxApproxVnf(unittest.TestCase):
     @mock.patch(SSH_HELPER)
     def test_vnf_execute_oserror(self, ssh, *args):
         mock_ssh(ssh)
-        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
+        prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0, 'task_id')
         prox_approx_vnf.resource_helper = resource_helper = mock.Mock()
 
         resource_helper.execute.side_effect = OSError(errno.EPIPE, "")

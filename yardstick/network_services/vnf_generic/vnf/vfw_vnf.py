@@ -52,8 +52,9 @@ class FWApproxVnf(SampleVNF):
         'packets_dropped': 3,
     }
 
-    def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
+    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+                 resource_helper_type=None):
         if setup_env_helper_type is None:
             setup_env_helper_type = FWApproxSetupEnvHelper
-
-        super(FWApproxVnf, self).__init__(name, vnfd, setup_env_helper_type, resource_helper_type)
+        super(FWApproxVnf, self).__init__(
+            name, vnfd, task_id, setup_env_helper_type, resource_helper_type)
