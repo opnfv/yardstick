@@ -406,7 +406,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
                 pass
             self.create_interfaces_from_node(vnfd, node)
             vnf_impl = self.get_vnf_impl(vnfd['id'])
-            vnf_instance = vnf_impl(node_name, vnfd)
+            vnf_instance = vnf_impl(node_name, vnfd, context_cfg['task_id'])
             vnfs.append(vnf_instance)
 
         self.vnfs = vnfs

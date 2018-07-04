@@ -60,15 +60,14 @@ class UdpReplayApproxVnf(SampleVNF):
 
     PIPELINE_COMMAND = REPLAY_PIPELINE_COMMAND
 
-    def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
+    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+                 resource_helper_type=None):
         if resource_helper_type is None:
             resource_helper_type = UdpReplayResourceHelper
-
         if setup_env_helper_type is None:
             setup_env_helper_type = UdpReplaySetupEnvHelper
-
-        super(UdpReplayApproxVnf, self).__init__(name, vnfd, setup_env_helper_type,
-                                                 resource_helper_type)
+        super(UdpReplayApproxVnf, self).__init__(
+            name, vnfd, task_id, setup_env_helper_type, resource_helper_type)
 
     def _build_pipeline_kwargs(self):
         ports = self.vnfd_helper.port_pairs.all_ports
