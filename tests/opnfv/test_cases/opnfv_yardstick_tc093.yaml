@@ -75,7 +75,7 @@ scenarios:
         type: Duration
         duration: 1
       sla:
-        action: monitor
+        action: assert
 
 
 -
@@ -208,7 +208,7 @@ scenarios:
         type: Duration
         duration: 1
       sla:
-        action: monitor
+        action: assert
 
 -
       type: "GeneralHA"
@@ -274,7 +274,7 @@ scenarios:
         type: Duration
         duration: 1
       sla:
-        action: monitor
+        action: assert
 
 
 contexts:
