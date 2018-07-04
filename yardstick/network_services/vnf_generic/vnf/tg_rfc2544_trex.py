@@ -64,9 +64,9 @@ class TrexTrafficGenRFC(tg_trex.TrexTrafficGen):
     traffic for rfc2544 testcase.
     """
 
-    def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
+    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+                 resource_helper_type=None):
         if resource_helper_type is None:
             resource_helper_type = TrexRfcResourceHelper
-
-        super(TrexTrafficGenRFC, self).__init__(name, vnfd, setup_env_helper_type,
-                                                resource_helper_type)
+        super(TrexTrafficGenRFC, self).__init__(
+            name, vnfd, task_id, setup_env_helper_type, resource_helper_type)

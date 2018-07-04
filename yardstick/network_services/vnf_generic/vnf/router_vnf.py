@@ -34,7 +34,8 @@ class RouterVNF(SampleVNF):
 
     WAIT_TIME = 1
 
-    def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
+    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+                 resource_helper_type=None):
         if setup_env_helper_type is None:
             setup_env_helper_type = DpdkVnfSetupEnvHelper
 
@@ -42,7 +43,8 @@ class RouterVNF(SampleVNF):
         vnfd['mgmt-interface'].pop("pkey", "")
         vnfd['mgmt-interface']['password'] = 'password'
 
-        super(RouterVNF, self).__init__(name, vnfd, setup_env_helper_type, resource_helper_type)
+        super(RouterVNF, self).__init__(
+            name, vnfd, task_id, setup_env_helper_type, resource_helper_type)
 
     def instantiate(self, scenario_cfg, context_cfg):
         self.scenario_helper.scenario_cfg = scenario_cfg

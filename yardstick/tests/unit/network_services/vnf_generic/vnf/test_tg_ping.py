@@ -20,21 +20,15 @@ import mock
 import unittest
 
 from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
-from yardstick.tests import STL_MOCKS
 from yardstick.benchmark.contexts import base as ctx_base
+from yardstick.network_services.vnf_generic.vnf.tg_ping import PingParser
+from yardstick.network_services.vnf_generic.vnf.tg_ping import PingTrafficGen
+from yardstick.network_services.vnf_generic.vnf.tg_ping import PingResourceHelper
+from yardstick.network_services.vnf_generic.vnf.tg_ping import PingSetupEnvHelper
+from yardstick.network_services.vnf_generic.vnf.vnf_ssh_helper import VnfSshHelper
+
 
 SSH_HELPER = "yardstick.network_services.vnf_generic.vnf.sample_vnf.VnfSshHelper"
-
-STLClient = mock.MagicMock()
-stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
-stl_patch.start()
-
-if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.tg_ping import PingParser
-    from yardstick.network_services.vnf_generic.vnf.tg_ping import PingTrafficGen
-    from yardstick.network_services.vnf_generic.vnf.tg_ping import PingResourceHelper
-    from yardstick.network_services.vnf_generic.vnf.tg_ping import PingSetupEnvHelper
-    from yardstick.network_services.vnf_generic.vnf.vnf_ssh_helper import VnfSshHelper
 
 
 class TestPingResourceHelper(unittest.TestCase):
@@ -232,7 +226,7 @@ class TestPingTrafficGen(unittest.TestCase):
     @mock.patch("yardstick.ssh.SSH")
     def test___init__(self, ssh):
         ssh.from_node.return_value.execute.return_value = 0, "success", ""
-        ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0)
+        ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0, 'task_id')
 
         self.assertIsInstance(ping_traffic_gen.setup_helper, PingSetupEnvHelper)
         self.assertIsInstance(ping_traffic_gen.resource_helper, PingResourceHelper)
@@ -249,7 +243,7 @@ class TestPingTrafficGen(unittest.TestCase):
             (0, 'if_name_2', ''),
         ]
         ssh.from_node.return_value.execute.side_effect = iter(execute_result_data)
-        ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0)
+        ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0, 'task_id')
         ext_ifs = ping_traffic_gen.vnfd_helper.interfaces
         self.assertNotEqual(ext_ifs[0]['virtual-interface']['local_iface_name'], 'if_name_1')
         self.assertNotEqual(ext_ifs[1]['virtual-interface']['local_iface_name'], 'if_name_2')
@@ -259,7 +253,7 @@ class TestPingTrafficGen(unittest.TestCase):
     def test_collect_kpi(self, ssh, *args):
         mock_ssh(ssh, exec_result=(0, "success", ""))
 
-        ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0)
+        ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0, 'task_id')
         ping_traffic_gen.scenario_helper.scenario_cfg = {
             'nodes': {ping_traffic_gen.name: "mock"}
         }
@@ -277,7 +271,7 @@ class TestPingTrafficGen(unittest.TestCase):
     @mock.patch(SSH_HELPER)
     def test_instantiate(self, ssh):
         mock_ssh(ssh, spec=VnfSshHelper, exec_result=(0, "success", ""))
-        ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0)
+        ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0, 'task_id')
         ping_traffic_gen.setup_helper.ssh_helper = mock.MagicMock(
             **{"execute.return_value": (0, "xe0_fake", "")})
         self.assertIsInstance(ping_traffic_gen.ssh_helper, mock.Mock)
@@ -292,7 +286,7 @@ class TestPingTrafficGen(unittest.TestCase):
         self.assertIsNotNone(ping_traffic_gen._result)
 
     def test_listen_traffic(self):
-        ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0)
+        ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0, 'task_id')
         self.assertIsNone(ping_traffic_gen.listen_traffic({}))
 
     @mock.patch("yardstick.ssh.SSH")
@@ -300,5 +294,5 @@ class TestPingTrafficGen(unittest.TestCase):
         ssh.from_node.return_value.execute.return_value = 0, "success", ""
         ssh.from_node.return_value.run.return_value = 0, "success", ""
 
-        ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0)
+        ping_traffic_gen = PingTrafficGen('vnf1', self.VNFD_0, 'task_id')
         self.assertIsNone(ping_traffic_gen.terminate())
