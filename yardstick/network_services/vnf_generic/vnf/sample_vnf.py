@@ -619,6 +619,7 @@ class ScenarioHelper(object):
         test_timeout = self.options.get('timeout', constants.DEFAULT_VNF_TIMEOUT)
         return test_duration if test_duration > test_timeout else test_timeout
 
+
 class SampleVNF(GenericVNF):
     """ Class providing file-like API for generic VNF implementation """
 
@@ -628,8 +629,9 @@ class SampleVNF(GenericVNF):
     APP_NAME = "SampleVNF"
     # we run the VNF interactively, so the ssh command will timeout after this long
 
-    def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
-        super(SampleVNF, self).__init__(name, vnfd)
+    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+                 resource_helper_type=None):
+        super(SampleVNF, self).__init__(name, vnfd, task_id)
         self.bin_path = get_nsb_option('bin_path', '')
 
         self.scenario_helper = ScenarioHelper(self.name)
@@ -860,8 +862,9 @@ class SampleVNFTrafficGen(GenericTrafficGen):
     APP_NAME = 'Sample'
     RUN_WAIT = 1
 
-    def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
-        super(SampleVNFTrafficGen, self).__init__(name, vnfd)
+    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+                 resource_helper_type=None):
+        super(SampleVNFTrafficGen, self).__init__(name, vnfd, task_id)
         self.bin_path = get_nsb_option('bin_path', '')
 
         self.scenario_helper = ScenarioHelper(self.name)

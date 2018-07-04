@@ -11,22 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 import unittest
 import mock
 
-from yardstick.tests import STL_MOCKS
 from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import mock_ssh
 from yardstick.benchmark.contexts import base as ctx_base
-
-
-STLClient = mock.MagicMock()
-stl_patch = mock.patch.dict("sys.modules", STL_MOCKS)
-stl_patch.start()
-
-if stl_patch:
-    from yardstick.network_services.vnf_generic.vnf.router_vnf import RouterVNF
+from yardstick.network_services.vnf_generic.vnf.router_vnf import RouterVNF
 
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
@@ -208,7 +199,7 @@ class TestRouterVNF(unittest.TestCase):
 
     def test___init__(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        router_vnf = RouterVNF(name, vnfd)
+        router_vnf = RouterVNF(name, vnfd, 'task_id')
         self.assertIsNone(router_vnf._vnf_process)
 
     def test_get_stats(self):
@@ -222,7 +213,7 @@ class TestRouterVNF(unittest.TestCase):
         m = mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        router_vnf = RouterVNF(name, vnfd)
+        router_vnf = RouterVNF(name, vnfd, 'task_id')
         router_vnf.scenario_helper.scenario_cfg = {
             'nodes': {router_vnf.name: "mock"}
         }
@@ -241,7 +232,7 @@ class TestRouterVNF(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        router_vnf = RouterVNF(name, vnfd)
+        router_vnf = RouterVNF(name, vnfd, 'task_id')
         router_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
         router_vnf._run()
         router_vnf.ssh_helper.drop_connection.assert_called_once()
@@ -252,7 +243,7 @@ class TestRouterVNF(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        router_vnf = RouterVNF(name, vnfd)
+        router_vnf = RouterVNF(name, vnfd, 'task_id')
         router_vnf.WAIT_TIME = 0
         router_vnf.INTERFACE_WAIT = 0
         self.scenario_cfg.update({"nodes": {"vnf__1": ""}})
@@ -265,7 +256,7 @@ class TestRouterVNF(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        router_vnf = RouterVNF(name, vnfd)
+        router_vnf = RouterVNF(name, vnfd, 'task_id')
         router_vnf._vnf_process = mock.MagicMock()
         router_vnf._vnf_process.terminate = mock.Mock()
         self.assertIsNone(router_vnf.terminate())

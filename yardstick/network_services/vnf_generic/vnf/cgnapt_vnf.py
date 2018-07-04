@@ -85,12 +85,12 @@ class CgnaptApproxVnf(SampleVNF):
         "packets_dropped": 4,
     }
 
-    def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
+    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+                 resource_helper_type=None):
         if setup_env_helper_type is None:
             setup_env_helper_type = CgnaptApproxSetupEnvHelper
-
-        super(CgnaptApproxVnf, self).__init__(name, vnfd, setup_env_helper_type,
-                                              resource_helper_type)
+        super(CgnaptApproxVnf, self).__init__(
+            name, vnfd, task_id, setup_env_helper_type, resource_helper_type)
 
     def _vnf_up_post(self):
         super(CgnaptApproxVnf, self)._vnf_up_post()

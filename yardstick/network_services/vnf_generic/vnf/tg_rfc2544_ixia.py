@@ -157,12 +157,12 @@ class IxiaTrafficGen(SampleVNFTrafficGen):
 
     APP_NAME = 'Ixia'
 
-    def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
+    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+                 resource_helper_type=None):
         if resource_helper_type is None:
             resource_helper_type = IxiaResourceHelper
-
-        super(IxiaTrafficGen, self).__init__(name, vnfd, setup_env_helper_type,
-                                             resource_helper_type)
+        super(IxiaTrafficGen, self).__init__(
+            name, vnfd, task_id, setup_env_helper_type, resource_helper_type)
         self._ixia_traffic_gen = None
         self.ixia_file_name = ''
         self.vnf_port_pairs = []
