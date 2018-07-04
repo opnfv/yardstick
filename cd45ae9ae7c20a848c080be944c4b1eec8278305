@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_03f4a9f0",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-04T15:25:43Z",
+      "side": 1,
+      "message": "Why do we need this file? Why do we need to overwrite the local hostname or the instance id?",
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_a3a69dbf",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-04T15:25:43Z",
+      "side": 1,
+      "message": "In capital letters\n\nShould be something like USER_METADATA_TEMPLATE",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 4
+      },
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_03aca99f",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-04T15:25:43Z",
+      "side": 1,
+      "message": "Do we need to modify this?",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 16
+      },
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c37911fe",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-04T15:25:43Z",
+      "side": 1,
+      "message": "1) Where do you create theses files?\n\n2) You should delete them after the cdrom iamge creation",
+      "range": {
+        "startLine": 394,
+        "startChar": 8,
+        "endLine": 394,
+        "endChar": 17
+      },
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_a37e9de2",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-04T15:25:43Z",
+      "side": 1,
+      "message": "Delete this. THis should happen only if status and in this case we raise an exception",
+      "range": {
+        "startLine": 409,
+        "startChar": 12,
+        "endLine": 409,
+        "endChar": 28
+      },
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e3ed358d",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-04T15:25:43Z",
+      "side": 1,
+      "message": "If key_file is None, then you can generate here the key filename, instead of passing it as an argument.",
+      "range": {
+        "startLine": 562,
+        "startChar": 7,
+        "endLine": 562,
+        "endChar": 43
+      },
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c39591e5",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-04T15:25:43Z",
+      "side": 1,
+      "message": "Why? If not, add a default user, root.\n\nActually, this user name is always there: https://github.com/opnfv/yardstick/blob/master/yardstick/benchmark/contexts/standalone/model.py#L499\n\nThis should be:\n  vm_user \u003d node[\u0027user\u0027]",
+      "range": {
+        "startLine": 569,
+        "startChar": 8,
+        "endLine": 570,
+        "endChar": 53
+      },
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e3a41559",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-04T15:25:43Z",
+      "side": 1,
+      "message": "No, no this way. We are creating this xml node. We MUST know what is in there.\n\nIf we have the generated private ssh key, we can send it in the cloud init meta data file. We don\u0027t need to modify the image.\n\nhttps://cloudinit.readthedocs.io/en/latest/topics/examples.html#configure-instances-ssh-keys",
+      "range": {
+        "startLine": 573,
+        "startChar": 1,
+        "endLine": 575,
+        "endChar": 39
+      },
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e3f895e7",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-04T15:25:43Z",
+      "side": 1,
+      "message": "Import the libraries in alphabetical order",
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_c3a111ab",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-04T15:25:43Z",
+      "side": 1,
+      "message": "This file should be in /tmp.\n\nCreate a file name like in L380. There could be several VM and each VM should have its own CDROM image.",
+      "range": {
+        "startLine": 395,
+        "startChar": 25,
+        "endLine": 395,
+        "endChar": 62
+      },
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_4302213f",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-04T15:25:43Z",
+      "side": 1,
+      "message": "See comment in check_update_key. There is no need to create this variable here.",
+      "range": {
+        "startLine": 410,
+        "startChar": 12,
+        "endLine": 413,
+        "endChar": 28
+      },
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
