@@ -223,12 +223,14 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         self._mock_ssh_helper.stop()
 
     def test___init__(self):
-        trex_traffic_gen = tg_rfc2544_trex.TrexTrafficGenRFC('vnf1', self.VNFD_0)
+        trex_traffic_gen = tg_rfc2544_trex.TrexTrafficGenRFC(
+            'vnf1', self.VNFD_0, 'task_id')
         self.assertIsNotNone(trex_traffic_gen.resource_helper._terminated.value)
 
     @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     def test_collect_kpi(self, *args):
-        trex_traffic_gen = tg_rfc2544_trex.TrexTrafficGenRFC('vnf1', self.VNFD_0)
+        trex_traffic_gen = tg_rfc2544_trex.TrexTrafficGenRFC(
+            'vnf1', self.VNFD_0, 'task_id')
         trex_traffic_gen.scenario_helper.scenario_cfg = {
             'nodes': {trex_traffic_gen.name: "mock"}
         }
@@ -244,7 +246,8 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
 
-        trex_traffic_gen = tg_rfc2544_trex.TrexTrafficGenRFC('vnf1', self.VNFD_0)
+        trex_traffic_gen = tg_rfc2544_trex.TrexTrafficGenRFC(
+            'vnf1', self.VNFD_0, 'task_id')
         trex_traffic_gen._start_server = mock.Mock(return_value=0)
         trex_traffic_gen.resource_helper = mock.MagicMock()
         trex_traffic_gen.setup_helper.setup_vnf_environment = mock.MagicMock()
@@ -279,7 +282,8 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         mock_traffic_profile.get_traffic_definition.return_value = "64"
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
 
-        trex_traffic_gen = tg_rfc2544_trex.TrexTrafficGenRFC('vnf1', self.VNFD_0)
+        trex_traffic_gen = tg_rfc2544_trex.TrexTrafficGenRFC(
+            'vnf1', self.VNFD_0, 'task_id')
         trex_traffic_gen.resource_helper = mock.MagicMock()
         trex_traffic_gen.setup_helper.setup_vnf_environment = mock.MagicMock()
         scenario_cfg = {
