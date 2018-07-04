@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-""" Base class implementation for generic vnf implementation """
 
 import abc
 
@@ -19,6 +18,7 @@ import logging
 import six
 
 from yardstick.common import messaging
+from yardstick.common.messaging import consumer
 from yardstick.common.messaging import payloads
 from yardstick.common.messaging import producer
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
@@ -175,6 +175,37 @@ class TrafficGeneratorProducer(producer.MessagingProducer):
 
 
 @six.add_metaclass(abc.ABCMeta)
+class GenericVNFEndpoint(consumer.NotificationHandler):
+    """Endpoint class for ``GenericVNFConsumer``"""
+
+    @abc.abstractmethod
+    def runner_method_start_iteration(self, ctxt, **kwargs):
+        """Endpoint when RUNNER_METHOD_START_ITERATION is received
+
+        :param ctxt: (dict) {'id': <Producer ID>}
+        :param kwargs: (dict) ``payloads.RunnerPayload`` context
+        """
+
+    @abc.abstractmethod
+    def runner_method_stop_iteration(self, ctxt, **kwargs):
+        """Endpoint when RUNNER_METHOD_STOP_ITERATION is received
+
+        :param ctxt: (dict) {'id': <Producer ID>}
+        :param kwargs: (dict) ``payloads.RunnerPayload`` context
+        """
+
+
+class GenericVNFConsumer(consumer.MessagingConsumer):
+    """MQ consumer for ``GenericVNF`` derived classes"""
+
+    def __init__(self, ctx_ids, endpoints):
+        if not isinstance(endpoints, list):
+            endpoints = [endpoints]
+        super(GenericVNFConsumer, self).__init__(messaging.TOPIC_RUNNER,
+                                                 ctx_ids, endpoints)
+
+
+@six.add_metaclass(abc.ABCMeta)
 class GenericVNF(object):
     """Class providing file-like API for generic VNF implementation
 
@@ -186,8 +217,9 @@ class GenericVNF(object):
     UPLINK = PortPairs.UPLINK
     DOWNLINK = PortPairs.DOWNLINK
 
-    def __init__(self, name, vnfd):
+    def __init__(self, name, vnfd, task_id):
         self.name = name
+        self._task_id = task_id
         self.vnfd_helper = VnfdHelper(vnfd)
         # List of statistics we can obtain from this VNF
         # - ETSI MANO 6.3.1.1 monitoring_parameter
@@ -246,10 +278,10 @@ class GenericVNF(object):
 
 @six.add_metaclass(abc.ABCMeta)
 class GenericTrafficGen(GenericVNF):
-    """ Class providing file-like API for generic traffic generator """
+    """Class providing file-like API for generic traffic generator"""
 
-    def __init__(self, name, vnfd):
-        super(GenericTrafficGen, self).__init__(name, vnfd)
+    def __init__(self, name, vnfd, task_id):
+        super(GenericTrafficGen, self).__init__(name, vnfd, task_id)
         self.runs_traffic = True
         self.traffic_finished = False
         self._mq_producer = None

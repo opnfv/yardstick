@@ -103,14 +103,14 @@ class PingTrafficGen(SampleVNFTrafficGen):
     APP_NAME = 'Ping'
     RUN_WAIT = 4
 
-    def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
+    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+                 resource_helper_type=None):
         if setup_env_helper_type is None:
             setup_env_helper_type = PingSetupEnvHelper
         if resource_helper_type is None:
             resource_helper_type = PingResourceHelper
-
-        super(PingTrafficGen, self).__init__(name, vnfd, setup_env_helper_type,
-                                             resource_helper_type)
+        super(PingTrafficGen, self).__init__(
+            name, vnfd, task_id, setup_env_helper_type, resource_helper_type)
         self._result = {}
 
     def _check_status(self):
