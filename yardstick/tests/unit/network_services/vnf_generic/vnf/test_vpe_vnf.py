@@ -549,7 +549,7 @@ class TestVpeApproxVnf(unittest.TestCase):
         self._mock_time_sleep.stop()
 
     def test___init__(self):
-        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0)
+        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0, 'task_id')
         self.assertIsNone(vpe_approx_vnf._vnf_process)
 
     @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server',
@@ -563,7 +563,7 @@ class TestVpeApproxVnf(unittest.TestCase):
         resource.amqp_collect_nfvi_kpi.return_value = {'foo': 234}
         resource.check_if_system_agent_running.return_value = (1, None)
 
-        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0)
+        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0, 'task_id')
         vpe_approx_vnf.scenario_helper.scenario_cfg = {
             'nodes': {vpe_approx_vnf.name: "mock"}
         }
@@ -592,7 +592,7 @@ class TestVpeApproxVnf(unittest.TestCase):
         resource.check_if_system_agent_running.return_value = 0, '1234'
         resource.amqp_collect_nfvi_kpi.return_value = {'foo': 234}
 
-        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0)
+        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0, 'task_id')
         vpe_approx_vnf.scenario_helper.scenario_cfg = {
             'nodes': {vpe_approx_vnf.name: "mock"}
         }
@@ -614,7 +614,7 @@ class TestVpeApproxVnf(unittest.TestCase):
     @mock.patch.object(sample_vnf, 'VnfSshHelper')
     def test_vnf_execute(self, ssh):
         test_base.mock_ssh(ssh)
-        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0)
+        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0, 'task_id')
         vpe_approx_vnf.q_in = mock.MagicMock()
         vpe_approx_vnf.q_out = mock.MagicMock()
         vpe_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
@@ -624,7 +624,7 @@ class TestVpeApproxVnf(unittest.TestCase):
     def test_run_vpe(self, ssh):
         test_base.mock_ssh(ssh)
 
-        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0)
+        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0, 'task_id')
         vpe_approx_vnf.tc_file_name = get_file_abspath(TEST_FILE_YAML)
         vpe_approx_vnf.vnf_cfg = {
             'lb_config': 'SW',
@@ -707,7 +707,7 @@ class TestVpeApproxVnf(unittest.TestCase):
 
         mock_resource = mock.MagicMock()
 
-        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0)
+        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0, 'task_id')
         vpe_approx_vnf._vnf_process = mock_process
         vpe_approx_vnf.q_out = mock_q_out
         vpe_approx_vnf.queue_wrapper = mock.Mock(
@@ -732,7 +732,7 @@ class TestVpeApproxVnf(unittest.TestCase):
 
         mock_resource = mock.MagicMock()
 
-        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0)
+        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0, 'task_id')
         vpe_approx_vnf._vnf_process = mock_process
         vpe_approx_vnf.q_out = mock_q_out
         vpe_approx_vnf.queue_wrapper = mock.Mock(
@@ -751,7 +751,7 @@ class TestVpeApproxVnf(unittest.TestCase):
 
         mock_resource = mock.MagicMock()
 
-        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0)
+        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0, 'task_id')
         vpe_approx_vnf._vnf_process = mock_process
         vpe_approx_vnf.resource_helper.resource = mock_resource
 
@@ -770,7 +770,7 @@ class TestVpeApproxVnf(unittest.TestCase):
 
         mock_resource = mock.MagicMock()
 
-        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0)
+        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0, 'task_id')
         vpe_approx_vnf._vnf_process = mock_process
         vpe_approx_vnf.resource_helper.resource = mock_resource
 
@@ -795,7 +795,7 @@ class TestVpeApproxVnf(unittest.TestCase):
 
         mock_resource = mock.MagicMock()
 
-        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0)
+        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0, 'task_id')
         vpe_approx_vnf._vnf_process = mock_process
         vpe_approx_vnf.q_out = mock_q_out
         vpe_approx_vnf.resource_helper.resource = mock_resource
@@ -809,7 +809,7 @@ class TestVpeApproxVnf(unittest.TestCase):
     def test_terminate(self, ssh):
         test_base.mock_ssh(ssh)
 
-        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0)
+        vpe_approx_vnf = vpe_vnf.VpeApproxVnf(NAME, self.VNFD_0, 'task_id')
         vpe_approx_vnf._vnf_process = mock.MagicMock()
         vpe_approx_vnf._resource_collect_stop = mock.Mock()
         vpe_approx_vnf.resource_helper = mock.MagicMock()

@@ -126,14 +126,14 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
 
     def test___init__(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         self.assertIsNone(ixload_traffic_gen.resource_helper.data)
 
     @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server',
                        return_value='mock_node')
     def test_collect_kpi(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         ixload_traffic_gen.scenario_helper.scenario_cfg = {
             'nodes': {ixload_traffic_gen.name: "mock"}
         }
@@ -147,7 +147,7 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
 
     def test_listen_traffic(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         self.assertIsNone(ixload_traffic_gen.listen_traffic({}))
 
     @mock.patch.object(utils, 'find_relative_file')
@@ -156,7 +156,7 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
     @mock.patch.object(tg_ixload, 'shutil')
     def test_instantiate(self, mock_shutil, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         scenario_cfg = {'tc': "nsb_test_case",
                         'ixia_profile': "ixload.cfg",
                         'task_path': "/path/to/task"}
@@ -194,7 +194,7 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
         vnfd['mgmt-interface'].update({'tg-config': {}})
         vnfd['mgmt-interface']['tg-config'].update({'ixchassis': '1.1.1.1'})
         vnfd['mgmt-interface']['tg-config'].update({'py_bin_path': '/root'})
-        sut = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        sut = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         sut.connection = mock.Mock()
         sut._traffic_runner = mock.Mock(return_value=0)
         result = sut.run_traffic(mock_traffic_profile)
@@ -213,7 +213,7 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
         vnfd['mgmt-interface'].update({'tg-config': {}})
         vnfd['mgmt-interface']['tg-config'].update({'ixchassis': '1.1.1.1'})
         vnfd['mgmt-interface']['tg-config'].update({'py_bin_path': '/root'})
-        sut = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        sut = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         sut.connection = mock.Mock()
         sut._traffic_runner = mock.Mock(return_value=0)
         subprocess.call(['touch', '/tmp/1.csv'])
@@ -223,7 +223,7 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
 
     def test_terminate(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         self.assertIsNone(ixload_traffic_gen.terminate())
 
     def test_parse_csv_read(self):
@@ -236,7 +236,7 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
             'HTTP Transaction Rate': True,
         }
         http_reader = [kpi_data]
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         result = ixload_traffic_gen.resource_helper.result
         ixload_traffic_gen.resource_helper.parse_csv_read(http_reader)
         for k_left, k_right in tg_ixload.IxLoadResourceHelper.KPI_LIST.items():
@@ -251,7 +251,7 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
             'HTTP Connection Rate': 4,
             'HTTP Transaction Rate': 5,
         }]
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         init_value = ixload_traffic_gen.resource_helper.result
         ixload_traffic_gen.resource_helper.parse_csv_read(http_reader)
         self.assertDictEqual(ixload_traffic_gen.resource_helper.result,
@@ -265,6 +265,7 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
             'HTTP Concurrent Connections': 3,
             'HTTP Transaction Rate': 5,
         }]
-        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd)
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
+
         with self.assertRaises(KeyError):
             ixload_traffic_gen.resource_helper.parse_csv_read(http_reader)
