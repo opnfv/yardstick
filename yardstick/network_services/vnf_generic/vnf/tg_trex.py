@@ -198,15 +198,14 @@ class TrexTrafficGen(SampleVNFTrafficGen):
 
     APP_NAME = 'TRex'
 
-    def __init__(self, name, vnfd, setup_env_helper_type=None, resource_helper_type=None):
+    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+                 resource_helper_type=None):
         if resource_helper_type is None:
             resource_helper_type = TrexResourceHelper
-
         if setup_env_helper_type is None:
             setup_env_helper_type = TrexDpdkVnfSetupEnvHelper
-
-        super(TrexTrafficGen, self).__init__(name, vnfd, setup_env_helper_type,
-                                             resource_helper_type)
+        super(TrexTrafficGen, self).__init__(
+            name, vnfd, task_id, setup_env_helper_type, resource_helper_type)
 
     def _check_status(self):
         return self.resource_helper.check_status()

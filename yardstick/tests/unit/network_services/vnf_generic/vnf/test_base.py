@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 import multiprocessing
 import os
@@ -26,6 +25,7 @@ from yardstick.common import messaging
 from yardstick.common.messaging import payloads
 from yardstick.network_services.vnf_generic.vnf import base
 from yardstick.ssh import SSH
+from yardstick.tests.unit import base as ut_base
 
 
 IP_PIPELINE_CFG_FILE_TPL = ("arp_route_tbl = ({port0_local_ip_hex},"
@@ -229,22 +229,23 @@ class TestQueueFileWrapper(unittest.TestCase):
         self.assertIsNotNone(queue_file_wrapper.q_out.empty())
 
 
-class TestGenericVNF(unittest.TestCase):
+class TestGenericVNF(ut_base.BaseUnitTestCase):
 
     def test_definition(self):
         """Make sure that the abstract class cannot be instantiated"""
         with self.assertRaises(TypeError) as exc:
             # pylint: disable=abstract-class-instantiated
-            base.GenericVNF('vnf1', VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+            base.GenericVNF('vnf1', VNFD['vnfd:vnfd-catalog']['vnfd'][0],
+                            'task_id')
 
-        msg = ("Can't instantiate abstract class GenericVNF with abstract methods "
-               "collect_kpi, instantiate, scale, start_collect, "
+        msg = ("Can't instantiate abstract class GenericVNF with abstract "
+               "methods collect_kpi, instantiate, scale, start_collect, "
                "stop_collect, terminate, wait_for_instantiate")
 
         self.assertEqual(msg, str(exc.exception))
 
 
-class GenericTrafficGenTestCase(unittest.TestCase):
+class GenericTrafficGenTestCase(ut_base.BaseUnitTestCase):
 
     def test_definition(self):
         """Make sure that the abstract class cannot be instantiated"""
@@ -252,7 +253,7 @@ class GenericTrafficGenTestCase(unittest.TestCase):
         name = 'vnf1'
         with self.assertRaises(TypeError) as exc:
             # pylint: disable=abstract-class-instantiated
-            base.GenericTrafficGen(name, vnfd)
+            base.GenericTrafficGen(name, vnfd, 'task_id')
         msg = ("Can't instantiate abstract class GenericTrafficGen with "
                "abstract methods collect_kpi, instantiate, run_traffic, "
                "scale, terminate")
@@ -262,13 +263,13 @@ class GenericTrafficGenTestCase(unittest.TestCase):
         vnfd = {'benchmark': {'kpi': mock.ANY},
                 'vdu': [{'external-interface': 'ext_int'}]
                 }
-        tg = _DummyGenericTrafficGen('name', vnfd)
+        tg = _DummyGenericTrafficGen('name', vnfd, 'task_id')
         tg._mq_producer = mock.Mock()
         tg._mq_producer.get_id.return_value = 'fake_id'
         self.assertEqual('fake_id', tg.get_mq_producer_id())
 
 
-class TrafficGeneratorProducerTestCase(unittest.TestCase):
+class TrafficGeneratorProducerTestCase(ut_base.BaseUnitTestCase):
 
     @mock.patch.object(oslo_messaging, 'Target', return_value='rpc_target')
     @mock.patch.object(oslo_messaging, 'RPCClient')
@@ -335,3 +336,13 @@ class TrafficGeneratorProducerTestCase(unittest.TestCase):
                                              'tg_pload')
         mock_tg_payload.assert_called_once_with(version=30, iteration=100,
                                                 kpi={'k': 'v'})
+
+
+class GenericVNFConsumerTestCase(ut_base.BaseUnitTestCase):
+
+    def test__init(self):
+        endpoints = 'endpoint_1'
+        _ids = [uuid.uuid1().int]
+        gvnf_consumer = base.GenericVNFConsumer(_ids, endpoints)
+        self.assertEqual(_ids, gvnf_consumer._ids)
+        self.assertEqual([endpoints], gvnf_consumer._endpoints)

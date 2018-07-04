@@ -14,4 +14,4 @@ source = yardstick
 [report]
 ignore_errors = True
 precision = 3
-omit = yardstick/vTC/*
+omit = yardstick/vTC/*,yardstick/tests/functional/*

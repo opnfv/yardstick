@@ -177,7 +177,7 @@ class TestIXIATrafficGen(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             # NOTE(ralonsoh): check the object returned.
-            tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd)
+            tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd, 'task_id')
 
     def test_listen_traffic(self, *args):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -186,7 +186,8 @@ class TestIXIATrafficGen(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd)
+            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd,
+                                                               'task_id')
             self.assertIsNone(ixnet_traffic_gen.listen_traffic({}))
 
     @mock.patch.object(ctx_base.Context, 'get_context_from_server', return_value='fake_context')
@@ -199,7 +200,8 @@ class TestIXIATrafficGen(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd)
+            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd,
+                                                               'task_id')
             scenario_cfg = {'tc': "nsb_test_case", "topology": "",
                             'ixia_profile': "ixload.cfg"}
             scenario_cfg.update(
@@ -236,7 +238,8 @@ class TestIXIATrafficGen(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
 
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd)
+            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd,
+                                                               'task_id')
             ixnet_traffic_gen.scenario_helper.scenario_cfg = {
                 'nodes': {ixnet_traffic_gen.name: "mock"}
             }
@@ -255,7 +258,8 @@ class TestIXIATrafficGen(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
-            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd)
+            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd,
+                                                               'task_id')
             ixnet_traffic_gen._terminated = mock.MagicMock()
             ixnet_traffic_gen._terminated.value = 0
             ixnet_traffic_gen._ixia_traffic_gen = mock.MagicMock()
@@ -271,7 +275,7 @@ class TestIXIATrafficGen(unittest.TestCase):
 
     def test__check_status(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sut = tg_rfc2544_ixia.IxiaTrafficGen('vnf1', vnfd)
+        sut = tg_rfc2544_ixia.IxiaTrafficGen('vnf1', vnfd, 'task_id')
         sut._check_status()
 
     @mock.patch("yardstick.ssh.SSH")
@@ -337,7 +341,7 @@ class TestIXIATrafficGen(unittest.TestCase):
         mock_traffic_profile.get_drop_percentage.return_value = [
             'Completed', samples]
 
-        sut = tg_rfc2544_ixia.IxiaTrafficGen(name, vnfd)
+        sut = tg_rfc2544_ixia.IxiaTrafficGen(name, vnfd, 'task_id')
         sut.vnf_port_pairs = [[[0], [1]]]
         sut.tc_file_name = self._get_file_abspath(TEST_FILE_YAML)
         sut.topology = ""
