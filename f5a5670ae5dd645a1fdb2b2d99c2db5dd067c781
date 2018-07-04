@@ -46,6 +46,30 @@
       "revId": "f5a5670ae5dd645a1fdb2b2d99c2db5dd067c781",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_63e2c5a0",
+        "filename": "ansible/roles/download_dpdk/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-07-04T15:04:55Z",
+      "side": 1,
+      "message": "Ok. Either way, it works now so we can go ahead with it.",
+      "parentUuid": "da5c1566_69e75a41",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 58
+      },
+      "revId": "f5a5670ae5dd645a1fdb2b2d99c2db5dd067c781",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
