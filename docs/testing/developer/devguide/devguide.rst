@@ -1,16 +1,42 @@
+..
+      Licensed under the Apache License, Version 2.0 (the "License"); you may
+      not use this file except in compliance with the License. You may obtain
+      a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+      WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+      License for the specific language governing permissions and limitations
+      under the License.
+
+      Convention for heading levels in Yardstick documentation:
+
+      =======  Heading 0 (reserved for the title in a document)
+      -------  Heading 1
+      ~~~~~~~  Heading 2
+      +++++++  Heading 3
+      '''''''  Heading 4
+
+      Avoid deeper levels because they do not render well.
+
 Introduction
-=============
+------------
 
-Yardstick is a project dealing with performance testing. Yardstick produces its own test cases but can also be considered as a framework to support feature project testing.
+Yardstick is a project dealing with performance testing. Yardstick produces
+its own test cases but can also be considered as a framework to support feature
+project testing.
 
-Yardstick developed a test API that can be used by any OPNFV project. Therefore there are many ways to contribute to Yardstick.
+Yardstick developed a test API that can be used by any OPNFV project. Therefore
+there are many ways to contribute to Yardstick.
 
 You can:
 
 * Develop new test cases
 * Review codes
 * Develop Yardstick API / framework
-* Develop Yardstick grafana dashboards and  Yardstick reporting page
+* Develop Yardstick grafana dashboards and Yardstick reporting page
 * Write Yardstick documentation
 
 This developer guide describes how to interact with the Yardstick project.
@@ -19,28 +45,30 @@ part is a list of “How to” to help you to join the Yardstick family whatever
 your field of interest is.
 
 Where can I find some help to start?
---------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. _`user guide`: http://artifacts.opnfv.org/yardstick/danube/1.0/docs/stesting_user_userguide/index.html
 .. _`wiki page`: https://wiki.opnfv.org/display/yardstick/
 
 This guide is made for you. You can have a look at the `user guide`_.
 There are also references on documentation, video tutorials, tips in the
-project `wiki page`_. You can also directly contact us by mail with [Yardstick] prefix in the title at opnfv-tech-discuss@lists.opnfv.org or on the IRC chan #opnfv-yardstick.
+project `wiki page`_. You can also directly contact us by mail with [Yardstick]
+prefix in the subject at opnfv-tech-discuss@lists.opnfv.org or on the IRC chan
+#opnfv-yardstick.
 
 
 Yardstick developer areas
-==========================
+-------------------------
 
 Yardstick framework
---------------------
+~~~~~~~~~~~~~~~~~~~
 
-Yardstick can be considered as a framework. Yardstick is release as a docker
+Yardstick can be considered as a framework. Yardstick is released as a docker
 file, including tools, scripts and a CLI to prepare the environement and run
-tests. It simplifies the integration of external test suites in CI pipeline
-and provide commodity tools to collect and display results.
+tests. It simplifies the integration of external test suites in CI pipelines
+and provides commodity tools to collect and display results.
 
-Since Danube, test categories also known as tiers have been created to group
+Since Danube, test categories (also known as tiers) have been created to group
 similar tests, provide consistant sub-lists and at the end optimize test
 duration for CI (see How To section).
 
@@ -56,44 +84,54 @@ The tiers are:
 
 
 How Todos?
-===========
+----------
 
 How Yardstick works?
----------------------
+~~~~~~~~~~~~~~~~~~~~
 
 The installation and configuration of the Yardstick is described in the `user guide`_.
 
 How to work with test cases?
-----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sample Test cases
++++++++++++++++++
+
+Yardstick provides many sample test cases which are located at ``samples`` directory of repo.
+
+Sample test cases are designed with the following goals:
+
+1. Helping user better understand Yardstick features (including new feature and
+   new test capacity).
+
+2. Helping developer to debug a new feature and test case before it is
+   offically released.
+
+3. Helping other developers understand and verify the new patch before the
+   patch is merged.
+
+Developers should upload their sample test cases as well when they are
+uploading a new patch which is about the Yardstick new test case or new feature.
 
 
-**Sample Test cases**
+OPNFV Release Test cases
+++++++++++++++++++++++++
 
-Yardstick provides many sample test cases which are located at "samples" directory of repo.
-
-Sample test cases are designed as following goals:
-
-1. Helping user better understand yardstick features(including new feature and new test capacity).
-
-2. Helping developer to debug his new feature and test case before it is offical released.
-
-3. Helping other developers understand and verify the new patch before the patch merged.
-
-So developers should upload your sample test case as well when they are trying to upload a new patch which is about the yardstick new test case or new feature.
+OPNFV Release test cases are located at ``yardstick/tests/opnfv/test_cases``.
+These test cases are run by OPNFV CI jobs, which means these test cases should
+be more mature than sample test cases.
+OPNFV scenario owners can select related test cases and add them into the test
+suites which represent their scenario.
 
 
-**OPNFV Release Test cases**
-
-OPNFV Release test cases which are located at "tests/opnfv/test_cases" of repo.
-those test cases are runing by OPNFV CI jobs, It means those test cases should be more mature than sample test cases.
-OPNFV scenario owners can select related test cases and add them into the test suites which is represent the scenario.
-
-
-**Test case Description File**
+Test case Description File
+++++++++++++++++++++++++++
 
 This section will introduce the meaning of the Test case description file.
-we will use ping.yaml as a example to show you how to understand the test case description file.
-In this Yaml file, you can easily find it consists of two sections. One is “Scenarios”,  the other is “Context”.::
+we will use ping.yaml as a example to show you how to understand the test case
+description file.
+This ``yaml`` file consists of two sections. One is ``scenarios``,  the other
+is ``context``.::
 
   ---
     # Sample benchmark task config file
@@ -150,18 +188,32 @@ In this Yaml file, you can easily find it consists of two sections. One is “Sc
          {% endif %}
 
 
-"Contexts" section is the description of pre-condition of testing. As ping.yaml shown, you can configure the image, flavor , name ,affinity and network of Test VM(servers),  with this section, you will get a pre-condition env for Testing.
-Yardstick will automatic setup the stack which are described in this section.
-In fact, yardstick use convert this section to heat template and setup the VMs by heat-client (Meanwhile, yardstick can support to convert this section to Kubernetes template to setup containers).
+The ``contexts`` section is the description of pre-condition of testing. As
+``ping.yaml`` shows, you can configure the image, flavor, name, affinity and
+network of Test VM (servers),  with this section, you will get a pre-condition
+env for Testing.
+Yardstick will automatically setup the stack which are described in this
+section.
+Yardstick converts this section to heat template and sets up the VMs with
+heat-client (Yardstick can also support to convert this section to Kubernetes
+template to setup containers).
 
-Two Test VMs(athena and ares) are configured by keyword "servers".
-"flavor" will determine how many vCPU, how much memory for test VMs.
-As "yardstick-flavor" is a basic flavor which will be automatically created when you run command "yardstick env prepare". "yardstick-flavor" is "1 vCPU 1G RAM,3G Disk".
-"image" is the image name of test VMs. if you use cirros.3.5.0, you need fill the username of this image into "user". the "policy" of placement of Test VMs have two values (affinity and availability).
-"availability" means anti-affinity. In "network" section, you can configure which provide network and physical_network you want Test VMs use.
-you may need to configure segmentation_id when your network is vlan.
+In the examples above, two Test VMs (athena and ares) are configured by
+keyword ``servers``.
+``flavor`` will determine how many vCPU, how much memory for test VMs.
+As ``yardstick-flavor`` is a basic flavor which will be automatically created
+when you run command ``yardstick env prepare``. ``yardstick-flavor`` is
+``1 vCPU 1G RAM,3G Disk``.
+``image`` is the image name of test VMs. If you use ``cirros.3.5.0``, you need
+fill the username of this image into ``user``.
+The ``policy`` of placement of Test VMs have two values (``affinity`` and
+``availability``). ``availability`` means anti-affinity.
+In the ``network`` section, you can configure which ``provider`` network and
+``physical_network`` you want Test VMs to use.
+You may need to configure ``segmentation_id`` when your network is vlan.
 
-Moreover, you can configure your specific flavor as below, yardstick will setup the stack for you. ::
+Moreover, you can configure your specific flavor as below, Yardstick will setup
+the stack for you. ::
 
   flavor:
     name: yardstick-new-flavor
@@ -170,7 +222,8 @@ Moreover, you can configure your specific flavor as below, yardstick will setup 
     disk: 2
 
 
-Besides default heat stack, yardstick also allow you to setup other two types stack. they are "Node" and "Kubernetes". ::
+Besides default ``Heat`` context, Yardstick also allows you to setup two other
+types of context. They are ``Node`` and ``Kubernetes``. ::
 
   context:
     type: Kubernetes
@@ -183,48 +236,64 @@ and ::
     name: LF
 
 
+The ``scenarios`` section is the description of testing steps, you can
+orchestrate the complex testing step through scenarios.
 
-"Scenarios" section is the description of testing step, you can orchestrate the complex testing step through orchestrate scenarios.
+Each scenario will do one testing step.
+In one scenario, you can configure the type of scenario (operation), ``runner``
+type and ``sla`` of the scenario.
 
-Each scenario will do one testing step, In one scenario, you can configure the type of scenario(operation), runner type and SLA of the scenario.
+For TC002, We only have one step, which is Ping from host VM to target VM. In
+this step, we also have some detailed operations implemented (such as ssh to
+VM, ping from VM1 to VM2. Get the latency, verify the SLA, report the result).
 
-For TC002, We only have one step , that is Ping from host VM to target VM. In this step, we also have some detail operation implement ( such as ssh to VM, ping from VM1 to VM2. Get the latency, verify the SLA, report the result).
+If you want to get this implementation details implement, you can check with
+the scenario.py file. For Ping scenario, you can find it in Yardstick repo
+(``yardstick/yardstick/benchmark/scenarios/networking/ping.py``).
 
-If you want to get this detail implement , you can check with the scenario.py file. For Ping scenario, you can find it in yardstick repo ( yardstick / yardstick / benchmark / scenarios / networking / ping.py)
+After you select the type of scenario (such as Ping), you will select one type
+of ``runner``, there are 4 types of runner. ``Iteration`` and ``Duration`` are
+the most commonly used, and the default is ``Iteration``.
 
-after you select the type of scenario( such as Ping), you will select one type of runner, there are 4 types of runner. Usually, we use the "Iteration" and "Duration". and Default is "Iteration".
-For Iteration, you can specify the iteration number and interval of iteration. ::
+For ``Iteration``, you can specify the iteration number and interval of iteration. ::
 
   runner:
     type: Iteration
     iterations: 10
     interval: 1
 
-That means yardstick will iterate the 10 times of Ping test and the interval of each iteration is one second.
+That means Yardstick will repeat the Ping test 10 times and the interval of
+each iteration is one second.
 
-For Duration, you can specify the duration of this scenario and the interval of each ping test. ::
+For ``Duration``, you can specify the duration of this scenario and the
+interval of each ping test. ::
 
   runner:
     type: Duration
     duration: 60
     interval: 10
 
-That means yardstick will run the ping test as loop until the total time of this scenario reach the 60s and the interval of each loop is ten seconds.
+That means Yardstick will run the ping test as loop until the total time of
+this scenario reaches 60s and the interval of each loop is ten seconds.
 
 
-SLA is the criterion of this scenario. that depends on the scenario. different scenario can have different SLA metric.
+SLA is the criterion of this scenario. This depends on the scenario. Different
+scenarios can have different SLA metric.
 
 
-**How to write a new test case**
+How to write a new test case
+++++++++++++++++++++++++++++
 
-Yardstick already provide a library of testing step. that means yardstick provide lots of type scenario.
+Yardstick already provides a library of testing steps (i.e. different types of
+scenario).
 
-Basiclly, What you need to do is to orchestrate the scenario from the library.
+Basically, what you need to do is to orchestrate the scenario from the library.
 
-Here, We will show two cases. One is how to write a simple test case, the other is how to write a quite complex test case.
-
+Here, we will show two cases. One is how to write a simple test case, the other
+is how to write a quite complex test case.
 
 Write a new simple test case
+''''''''''''''''''''''''''''
 
 First, you can image a basic test case description as below.
 
@@ -314,7 +383,7 @@ First, you can image a basic test case description as below.
 TODO
 
 How can I contribute to Yardstick?
------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you are already a contributor of any OPNFV project, you can contribute to
 Yardstick. If you are totally new to OPNFV, you must first create your Linux
@@ -329,7 +398,7 @@ We distinguish 2 levels of contributors:
 Yardstick commitors are promoted by the Yardstick contributors.
 
 Gerrit & JIRA introduction
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++
 
 .. _Gerrit: https://www.gerritcodereview.com/
 .. _`OPNFV Gerrit`: http://gerrit.opnfv.org/
@@ -338,7 +407,8 @@ Gerrit & JIRA introduction
 
 OPNFV uses Gerrit_ for web based code review and repository management for the
 Git Version Control System. You can access `OPNFV Gerrit`_. Please note that
-you need to have Linux Foundation ID in order to use OPNFV Gerrit. You can get one from this link_.
+you need to have Linux Foundation ID in order to use OPNFV Gerrit. You can get
+one from this link_.
 
 OPNFV uses JIRA_ for issue management. An important principle of change
 management is to have two-way trace-ability between issue management
@@ -350,14 +420,16 @@ If you want to contribute to Yardstick, you can pick a issue from Yardstick's
 JIRA dashboard or you can create you own issue and submit it to JIRA.
 
 Install Git and Git-reviews
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++++++++
 
 Installing and configuring Git and Git-Review is necessary in order to submit
-code to Gerrit. The `Getting to the code <https://wiki.opnfv.org/display/DEV/Developer+Getting+Started>`_ page will provide you with some help for that.
+code to Gerrit. The
+`Getting to the code <https://wiki.opnfv.org/display/DEV/Developer+Getting+Started>`_
+page will provide you with some help for that.
 
 
 Verify your patch locally before submitting
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++++++++++++++++++++++++
 
 Once you finish a patch, you can submit it to Gerrit for code review. A
 developer sends a new patch to Gerrit will trigger patch verify job on Jenkins
@@ -366,7 +438,8 @@ code coverage test. Before you submit your patch, it is recommended to run the
 patch verification in your local environment first.
 
 Open a terminal window and set the project's directory to the working
-directory using the ``cd`` command. Assume that ``YARDSTICK_REPO_DIR`` is the path to the Yardstick project folder on your computer::
+directory using the ``cd`` command. Assume that ``YARDSTICK_REPO_DIR`` is the
+path to the Yardstick project folder on your computer::
 
   cd $YARDSTICK_REPO_DIR
 
@@ -377,7 +450,7 @@ Verify your patch::
 It is used in CI but also by the CLI.
 
 Submit the code with Git
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++
 
 Tell Git which files you would like to take into account for the next commit.
 This is called 'staging' the files, by placing them into the staging area,
@@ -417,7 +490,7 @@ to the commits, and eventually navigate among the latter more easily.
 `This document`_ happened to be very clear and useful to get started with that.
 
 Push the code to Gerrit for review
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++++++++++
 
 Now that the code has been comitted into your local Git repository the
 following step is to push it online to Gerrit for it to be reviewed. The
@@ -432,27 +505,27 @@ Yardstick committers and contributors to review your codes.
    :width: 800px
    :alt: Gerrit for code review
 
-You can find a list Yardstick people `here <https://wiki.opnfv.org/display/yardstick/People>`_,
-or use the ``yardstick-reviewers`` and ``yardstick-committers`` groups in gerrit.
+You can find a list Yardstick people
+`here <https://wiki.opnfv.org/display/yardstick/People>`_, or use the
+``yardstick-reviewers`` and ``yardstick-committers`` groups in gerrit.
 
 Modify the code under review in Gerrit
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++++++++++++++
 
 At the same time the code is being reviewed in Gerrit, you may need to edit it
 to make some changes and then send it back for review. The following steps go
 through the procedure.
 
 Once you have modified/edited your code files under your IDE, you will have to
-stage them. The 'status' command is very helpful at this point as it provides
-an overview of Git's current state::
+stage them. The ``git status`` command is very helpful at this point as it
+provides an overview of Git's current state::
 
   git status
 
-The output of the command provides us with the files that have been modified
-after the latest commit.
+This command lists the files that have been modified since the last commit.
 
 You can now stage the files that have been modified as part of the Gerrit code
-review edition/modification/improvement using ``git add`` command. It is now
+review addition/modification/improvement using ``git add`` command. It is now
 time to commit the newly modified files, but the objective here is not to
 create a new commit, we simply want to inject the new changes into the
 previous commit. You can achieve that with the '--amend' option on the
@@ -469,7 +542,8 @@ The final step consists in pushing the newly modified commit to Gerrit::
 
 
 Plugins
-==========
+-------
 
-For information about Yardstick plugins, refer to the chapter **Installing a plug-in into Yardstick** in the `user guide`_.
+For information about Yardstick plugins, refer to the chapter
+**Installing a plug-in into Yardstick** in the `user guide`_.
 
