@@ -70,6 +70,30 @@
       "revId": "41777f75f551e6c448d21c9cf29d4e2967268f98",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_836279d6",
+        "filename": "ansible/roles/download_samplevnfs/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-04T06:57:48Z",
+      "side": 1,
+      "message": "Propose a patch to make this parameter variable and configurable by user",
+      "parentUuid": "da5c1566_884e16c0",
+      "range": {
+        "startLine": 4,
+        "startChar": 20,
+        "endLine": 4,
+        "endChar": 33
+      },
+      "revId": "41777f75f551e6c448d21c9cf29d4e2967268f98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
