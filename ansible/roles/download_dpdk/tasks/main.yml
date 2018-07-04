@@ -25,7 +25,7 @@
     url: "{{ dpdk_url }}"
     dest: "{{ dpdk_dest }}"
     validate_certs: False
-    checksum: "{{ dpdk_sha256s[dpdk_version] }}"
+    checksum: "{{ dpdk_md5[dpdk_version] }}"
 
 - unarchive:
     src: "{{ dpdk_dest }}/{{ dpdk_file }}"
