@@ -318,14 +318,14 @@ class TestCgnaptApproxVnf(unittest.TestCase):
 
     def test___init__(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd, 'task_id')
         self.assertIsNone(cgnapt_approx_vnf._vnf_process)
 
     @mock.patch.object(process, 'check_if_process_failed')
     @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     def test_collect_kpi(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd, 'task_id')
         cgnapt_approx_vnf.scenario_helper.scenario_cfg = {
             'nodes': {cgnapt_approx_vnf.name: "mock"}
         }
@@ -349,7 +349,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
     @mock.patch.object(time, 'sleep')
     def test_vnf_execute_command(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd, 'task_id')
         cgnapt_approx_vnf.q_in = mock.Mock()
         cgnapt_approx_vnf.q_out = mock.Mock()
         cgnapt_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
@@ -357,7 +357,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
 
     def test_get_stats(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd, 'task_id')
         with mock.patch.object(cgnapt_approx_vnf, 'vnf_execute') as mock_exec:
             mock_exec.return_value = 'output'
             self.assertEqual('output', cgnapt_approx_vnf.get_stats())
@@ -366,7 +366,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
 
     def test_run_vcgnapt(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd, 'task_id')
         cgnapt_approx_vnf.ssh_helper = mock.Mock()
         cgnapt_approx_vnf.setup_helper = mock.Mock()
         with mock.patch.object(cgnapt_approx_vnf, '_build_config'), \
@@ -379,7 +379,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
     @mock.patch.object(ctx_base.Context, 'get_context_from_server')
     def test_instantiate(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd, 'task_id')
         cgnapt_approx_vnf.deploy_helper = mock.MagicMock()
         cgnapt_approx_vnf.resource_helper = mock.MagicMock()
         cgnapt_approx_vnf._build_config = mock.MagicMock()
@@ -396,7 +396,7 @@ class TestCgnaptApproxVnf(unittest.TestCase):
     def test__vnf_up_post(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         self.scenario_cfg['options'][name]['napt'] = 'static'
-        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd, 'task_id')
         cgnapt_approx_vnf.vnf_execute = mock.Mock()
         cgnapt_approx_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
         with mock.patch.object(cgnapt_approx_vnf, 'setup_helper') as \
@@ -407,6 +407,6 @@ class TestCgnaptApproxVnf(unittest.TestCase):
 
     def test__vnf_up_post_short(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd)
+        cgnapt_approx_vnf = cgnapt_vnf.CgnaptApproxVnf(name, vnfd, 'task_id')
         cgnapt_approx_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
         cgnapt_approx_vnf._vnf_up_post()
