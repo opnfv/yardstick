@@ -551,26 +551,64 @@ class TestProxSocketHelper(unittest.TestCase):
     def test_multi_port_stats(self, *args):
         mock_socket = mock.MagicMock()
         prox = prox_helpers.ProxSocketHelper(mock_socket)
-        prox.get_data = mock.MagicMock(return_value='0,1,2,3,4,5;1,1,2,3,4,5')
-        expected = [[0, 1, 2, 3, 4, 5], [1, 1, 2, 3, 4, 5]]
+        prox.get_data = mock.MagicMock(
+            return_value='0,1,2,3,4,5;1,1,2,3,4,5')
+        expected = (True, [[0, 1, 2, 3, 4, 5], [1, 1, 2, 3, 4, 5]])
         result = prox.multi_port_stats([0, 1])
         self.assertEqual(result, expected)
 
-        prox.get_data = mock.MagicMock(return_value='0,1,2,3,4,5;1,1,2,3,4,5')
+        prox.get_data = mock.MagicMock(
+            return_value='0,1,2,3,4,5;1,1,2,3,4,5')
         result = prox.multi_port_stats([0])
-        expected = [0]
+        expected = (False, [0])
         self.assertEqual(result, expected)
 
-        prox.get_data = mock.MagicMock(return_value='0,1,2,3;1,1,2,3,4,5')
+        prox.get_data = mock.MagicMock(
+            return_value='0,1,2,3,4,5;1,1,2,3,4,5')
+        result = prox.multi_port_stats([0, 1, 2])
+        expected = (False, [0] * 3)
+        self.assertEqual(result, expected)
+
+        prox.get_data = mock.MagicMock(
+            return_value='0,1,2,3;1,1,2,3,4,5')
         result = prox.multi_port_stats([0, 1])
-        expected = [0] * 2
+        expected = (False, [0] * 2)
         self.assertEqual(result, expected)
 
-        prox.get_data = mock.MagicMock(return_value='99,1,2,3,4,5;1,1,2,3,4,5')
-        expected = [0] * 2
+        prox.get_data = mock.MagicMock(
+            return_value='99,1,2,3,4,5;1,1,2,3,4,5')
+        expected = (False, [0] * 2)
         result = prox.multi_port_stats([0, 1])
         self.assertEqual(result, expected)
 
+        prox.get_data = mock.MagicMock(
+            return_value='2,21,22,23,24,25;1,11,12,13,14,15;0,1,2,3,4,5')
+        expected = [[0, 1, 2, 3, 4, 5], [1, 11, 12, 13, 14, 15],
+                    [2, 1, 2, 3, 4, 5]]
+        sample1 = [0, 1, 2, 3, 4, 5]
+        sample2 = [1, 11, 12, 13, 14, 15]
+        sample3 = [2, 21, 22, 23, 24, 25]
+        ok, result = prox.multi_port_stats([1, 2, 0])
+        self.assertEqual(len(result), len(expected))
+        self.assertTrue(ok)
+        self.assertTrue(sample1 in result)
+        self.assertTrue(sample2 in result)
+        self.assertTrue(sample3 in result)
+
+        prox.get_data = mock.MagicMock(
+            return_value='6,21,22,23,24,25;1,11,12,13,14,15;0,1,2,3,4,5')
+        expected = [[0, 1, 2, 3, 4, 5], [1, 1, 2, 3, 4, 5],
+                    [2, 1, 2, 3, 4, 5]]
+        ok, result = prox.multi_port_stats([1, 6, 0])
+        sample1 = [0, 1, 2, 3, 4, 5]
+        sample2 = [1, 11, 12, 13, 14, 15]
+        sample3 = [6, 21, 22, 23, 24, 25]
+
+        self.assertEqual(len(result), len(expected))
+        self.assertTrue(ok)
+        self.assertTrue(sample1 in result)
+        self.assertTrue(sample2 in result)
+        self.assertTrue(sample3 in result)
 
     def test_port_stats(self):
         port_stats = [
@@ -1582,8 +1620,9 @@ class TestProxDataHelper(unittest.TestCase):
         vnfd_helper.port_pairs.all_ports = list(range(4))
 
         sut = mock.MagicMock()
-        sut.multi_port_stats.return_value = [[0, 1, 2, 3, 4, 5], [1, 1, 2, 3, 4, 5],
-                                             [2, 1, 2, 3, 4, 5], [3, 1, 2, 3, 4, 5]]
+        sut.multi_port_stats.return_value = (True,
+                                             [[0, 1, 2, 3, 4, 5], [1, 1, 2, 3, 4, 5],
+                                              [2, 1, 2, 3, 4, 5], [3, 1, 2, 3, 4, 5]])
 
         data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
@@ -1591,14 +1630,59 @@ class TestProxDataHelper(unittest.TestCase):
 
         self.assertEqual(data_helper.rx_total, 4)
         self.assertEqual(data_helper.tx_total, 8)
-        self.assertEqual(data_helper.requested_pps, 6.25e6)
+        self.assertEqual(data_helper.requested_pps, 6250000.0)
+
+        vnfd_helper = mock.MagicMock()
+        vnfd_helper.port_pairs.all_ports = [3, 4]
+
+        sut = mock.MagicMock()
+        sut.multi_port_stats.return_value = (True,
+                                             [[3, 1, 2, 3, 4, 5], [4, 1, 2, 3, 4, 5]])
+
+        data_helper = prox_helpers.ProxDataHelper(
+            vnfd_helper, sut, pkt_size, 25, None,
+            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+
+        self.assertEqual(data_helper.rx_total, 2)
+        self.assertEqual(data_helper.tx_total, 4)
+        self.assertEqual(data_helper.requested_pps, 3125000.0)
+
+        vnfd_helper = mock.MagicMock()
+        vnfd_helper.port_pairs.all_ports = [0, 1, 2, 3, 4, 6, 7]
+
+        sut = mock.MagicMock()
+        sut.multi_port_stats.return_value = (True,
+                                             [[8, 1, 2, 3, 4, 5], [9, 1, 2, 3, 4, 5]])
+
+        data_helper = prox_helpers.ProxDataHelper(
+            vnfd_helper, sut, pkt_size, 25, None,
+            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+
+        self.assertEqual(data_helper.rx_total, 2)
+        self.assertEqual(data_helper.tx_total, 4)
+        self.assertEqual(data_helper.requested_pps, 10937500.0)
+
+        vnfd_helper = mock.MagicMock()
+        vnfd_helper.port_pairs.all_ports = []
+
+        sut = mock.MagicMock()
+        sut.multi_port_stats.return_value = (True,
+                                             [[8, 1, 2, 3, 4, 5], [9, 1, 2, 3, 4, 5]])
+
+        data_helper = prox_herlpers.ProxDataHelper(
+            vnfd_helper, sut, pkt_size, 25, None,
+            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+
+        self.assertEqual(data_helper.rx_total, 2)
+        self.assertEqual(data_helper.tx_total, 4)
+        self.assertEqual(data_helper.requested_pps, 0.0)
 
     def test_samples(self):
         vnfd_helper = mock.MagicMock()
         vnfd_helper.ports_iter.return_value = [('xe0', 0), ('xe1', 1)]
 
         sut = mock.MagicMock()
-        sut.multi_port_stats.return_value = [[0, 1, 2, 3, 4, 5], [1, 11, 12, 3, 4, 5]]
+        sut.multi_port_stats.return_value = (True, [[0, 1, 2, 3, 4, 5], [1, 11, 12, 3, 4, 5]])
 
         data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, None, None, None, None)
@@ -1623,6 +1707,7 @@ class TestProxDataHelper(unittest.TestCase):
 
         sut = mock.MagicMock()
         sut.port_stats.return_value = list(range(10))
+        sut.multi_port_stats.return_value = (True, list(range(10)))
 
         data_helper = prox_helpers.ProxDataHelper(vnfd_helper, sut, None, None,
             5.4, constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
@@ -1977,6 +2062,8 @@ class TestProxProfileHelper(unittest.TestCase):
         client = mock.MagicMock()
         client.hz.return_value = 2
         client.port_stats.return_value = tuple(range(12))
+        client.multi_port_stats.return_value = (True, [[0, 1, 1, 2, 4, 5],
+                                                       [1, 1, 2, 3, 4, 5]])
 
         helper.client = client
         helper.get_latency = mock.MagicMock(return_value=[3.3, 3.6, 3.8])
@@ -1992,6 +2079,8 @@ class TestProxProfileHelper(unittest.TestCase):
         resource_helper.step_delta = 0.4
         resource_helper.vnfd_helper.port_pairs.all_ports = list(range(2))
         resource_helper.sut.port_stats.return_value = list(range(10))
+        resource_helper.sut.multi_port_stats.return_value = (True, [[0, 1, 1, 2, 4, 5],
+                                                                    [1, 1, 2, 3, 4, 5]])
 
         helper = prox_helpers.ProxProfileHelper(resource_helper)
 
@@ -2139,6 +2228,8 @@ class TestProxBngProfileHelper(unittest.TestCase):
         resource_helper.step_delta = 0.4
         resource_helper.vnfd_helper.port_pairs.all_ports = list(range(2))
         resource_helper.sut.port_stats.return_value = list(range(10))
+        resource_helper.sut.multi_port_stats.return_value = (True, [[0, 1, 1, 2, 4, 5],
+                                                                    [1, 1, 2, 3, 4, 5]])
 
         helper = prox_helpers.ProxBngProfileHelper(resource_helper)
 
@@ -2257,6 +2348,8 @@ class TestProxVpeProfileHelper(unittest.TestCase):
         resource_helper.step_delta = 0.4
         resource_helper.vnfd_helper.port_pairs.all_ports = list(range(2))
         resource_helper.sut.port_stats.return_value = list(range(10))
+        resource_helper.sut.multi_port_stats.return_value = (True, [[0, 1, 1, 2, 4, 5],
+                                                                    [1, 1, 2, 3, 4, 5]])
 
         helper = prox_helpers.ProxVpeProfileHelper(resource_helper)
 
@@ -2371,6 +2464,8 @@ class TestProxlwAFTRProfileHelper(unittest.TestCase):
         resource_helper.step_delta = 0.4
         resource_helper.vnfd_helper.port_pairs.all_ports = list(range(2))
         resource_helper.sut.port_stats.return_value = list(range(10))
+        resource_helper.sut.multi_port_stats.return_value = (True, [[0, 1, 2, 4, 6, 5],
+                                                                    [1, 1, 2, 3, 4, 5]])
 
         helper = prox_helpers.ProxlwAFTRProfileHelper(resource_helper)
 
