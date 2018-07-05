@@ -22,6 +22,30 @@
       "revId": "3aed8d1ad85f8a128a22a0a0f2436eb94562799f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e306d41f",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 28
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-05T12:16:02Z",
+      "side": 1,
+      "message": "Newer mind..... It\u0027s base changes :) Side effect of comparing PS vs PS.",
+      "parentUuid": "da5c1566_031e6870",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 0
+      },
+      "revId": "3aed8d1ad85f8a128a22a0a0f2436eb94562799f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
