@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_460fce30",
+        "filename": "ansible/roles/install_trex_pip/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-07-05T12:49:33Z",
+      "side": 1,
+      "message": "How does this file affects running the t-rex based test cases from yardstick docker container?",
+      "revId": "d305e47122eeea9b253ce6fb5c83cf96afcc492e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_660ad222",
+        "filename": "ansible/roles/install_trex_pip/templates/setup.j2",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-07-05T12:49:33Z",
+      "side": 1,
+      "message": "what are doing in this file?\nHow are we controlling the t-rex version?",
+      "revId": "d305e47122eeea9b253ce6fb5c83cf96afcc492e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
