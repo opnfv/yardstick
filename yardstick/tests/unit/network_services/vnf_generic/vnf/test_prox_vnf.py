@@ -335,6 +335,8 @@ class TestProxApproxVnf(unittest.TestCase):
             'packets_in': 0,
             'packets_dropped': 0,
             'packets_fwd': 0,
+            'curr_packets_in': 0,
+            'curr_packets_fwd': 0,
             'collect_stats': {'core': {}}
         }
         result = prox_approx_vnf.collect_kpi()
@@ -346,8 +348,8 @@ class TestProxApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         resource_helper = mock.MagicMock()
-        resource_helper.execute.return_value = [[0, 1, 2, 3, 4, 5], [1, 1, 2, 3, 4, 5],
-                                                [2, 1, 2, 3, 4, 5], [3, 1, 2, 3, 4, 5]]
+        resource_helper.execute.return_value = (True,
+                                                [[0, 1, 2, 3, 4, 5], [1, 1, 2, 3, 4, 5]])
         resource_helper.collect_collectd_kpi.return_value = {'core': {'result': 234}}
 
         prox_approx_vnf = prox_vnf.ProxApproxVnf(NAME, self.VNFD0)
@@ -358,17 +360,17 @@ class TestProxApproxVnf(unittest.TestCase):
 
         expected = {
             'physical_node': 'mock_node',
-            'packets_in': 4,
-            'packets_dropped': 4,
-            'packets_fwd': 8,
+            'packets_in': 2,
+            'packets_dropped': 2,
+            'packets_fwd': 4,
             'collect_stats': {'core': {'result': 234}},
         }
         result = prox_approx_vnf.collect_kpi()
         self.assertEqual(result['packets_in'], expected['packets_in'])
         self.assertEqual(result['packets_dropped'], expected['packets_dropped'])
         self.assertEqual(result['packets_fwd'], expected['packets_fwd'])
-        self.assertNotEqual(result['packets_fwd'], 0)
-        self.assertNotEqual(result['packets_fwd'], 0)
+        self.assertEqual(result['curr_packets_in'], 0)
+        self.assertEqual(result['curr_packets_fwd'], 0)
 
     @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     @mock.patch(SSH_HELPER)
