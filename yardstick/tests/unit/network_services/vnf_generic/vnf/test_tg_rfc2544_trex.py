@@ -15,10 +15,11 @@
 import mock
 import unittest
 
+from yardstick.benchmark import contexts
+from yardstick.benchmark.contexts import base as ctx_base
 from yardstick.network_services.traffic_profile import base as tp_base
 from yardstick.network_services.vnf_generic.vnf import sample_vnf
 from yardstick.network_services.vnf_generic.vnf import tg_rfc2544_trex
-from yardstick.benchmark.contexts import base as ctx_base
 
 
 class TestTrexRfcResouceHelper(unittest.TestCase):
@@ -206,7 +207,7 @@ class TestTrexTrafficGenRFC(unittest.TestCase):
         ],
         'context': {
             'nfvi_type': 'baremetal',
-            'type': 'Node',
+            'type': contexts.CONTEXT_NODE,
             'name': 'yardstick',
             'file': '/etc/yardstick/nodes/pod.yaml',
         },

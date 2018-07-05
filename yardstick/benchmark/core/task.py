@@ -22,7 +22,8 @@ import collections
 from six.moves import filter
 from jinja2 import Environment
 
-from yardstick.benchmark.contexts.base import Context
+from yardstick.benchmark import contexts
+from yardstick.benchmark.contexts import base as base_context
 from yardstick.benchmark.runners import base as base_runner
 from yardstick.common.constants import CONF_FILE
 from yardstick.common.yaml_loader import yaml_load
@@ -359,7 +360,7 @@ class Task(object):     # pragma: no cover
             if is_ip_addr(target):
                 context_cfg['target'] = {"ipaddr": target}
             else:
-                context_cfg['target'] = Context.get_server(target)
+                context_cfg['target'] = base_context.Context.get_server(target)
                 if self._is_same_context(cfg["host"], target):
                     context_cfg['target']["ipaddr"] = context_cfg['target']["private_ip"]
                 else:
@@ -367,7 +368,7 @@ class Task(object):     # pragma: no cover
 
         host_name = server_name.get('host', scenario_cfg.get('host'))
         if host_name:
-            context_cfg['host'] = Context.get_server(host_name)
+            context_cfg['host'] = base_context.Context.get_server(host_name)
 
         for item in [server_name, scenario_cfg]:
             try:
@@ -384,7 +385,8 @@ class Task(object):     # pragma: no cover
                     ip_list.append(target)
                     context_cfg['target'] = {}
                 else:
-                    context_cfg['target'] = Context.get_server(target)
+                    context_cfg['target'] = (
+                        base_context.Context.get_server(target))
                     if self._is_same_context(scenario_cfg["host"],
                                              target):
                         ip_list.append(context_cfg["target"]["private_ip"])
@@ -412,7 +414,8 @@ class Task(object):     # pragma: no cover
         with attribute name mapping when using external heat templates
         """
         for context in self.contexts:
-            if context.__context_type__ not in {"Heat", "Kubernetes"}:
+            if context.__context_type__ not in {contexts.CONTEXT_HEAT,
+                                                contexts.CONTEXT_KUBERNETES}:
                 continue
 
             host = context._get_server(host_attr)
@@ -553,19 +556,19 @@ class TaskParser(object):       # pragma: no cover
         elif "contexts" in cfg:
             context_cfgs = cfg["contexts"]
         else:
-            context_cfgs = [{"type": "Dummy"}]
+            context_cfgs = [{"type": contexts.CONTEXT_DUMMY}]
 
-        contexts = []
+        _contexts = []
         for cfg_attrs in context_cfgs:
 
             cfg_attrs['task_id'] = task_id
             # default to Heat context because we are testing OpenStack
-            context_type = cfg_attrs.get("type", "Heat")
-            context = Context.get(context_type)
+            context_type = cfg_attrs.get("type", contexts.CONTEXT_HEAT)
+            context = base_context.Context.get(context_type)
             context.init(cfg_attrs)
             # Update the name in case the context has used the name_suffix
             cfg_attrs['name'] = context.name
-            contexts.append(context)
+            _contexts.append(context)
 
         run_in_parallel = cfg.get("run_in_parallel", False)
 
@@ -578,17 +581,17 @@ class TaskParser(object):       # pragma: no cover
             # relative to task path
             scenario["task_path"] = os.path.dirname(self.path)
 
-            self._change_node_names(scenario, contexts)
+            self._change_node_names(scenario, _contexts)
 
         # TODO we need something better here, a class that represent the file
         return {'scenarios': cfg['scenarios'],
                 'run_in_parallel': run_in_parallel,
                 'meet_precondition': meet_precondition,
-                'contexts': contexts,
+                'contexts': _contexts,
                 'rendered': rendered}
 
     @staticmethod
-    def _change_node_names(scenario, contexts):
+    def _change_node_names(scenario, _contexts):
         """Change the node names in a scenario, depending on the context config
 
         The nodes (VMs or physical servers) are referred in the context section
@@ -627,7 +630,7 @@ class TaskParser(object):       # pragma: no cover
           target: target-k8s
         """
         def qualified_name(name):
-            for context in contexts:
+            for context in _contexts:
                 host_name, ctx_name = context.split_host_name(name)
                 if context.assigned_name == ctx_name:
                     return '{}{}{}'.format(host_name,
@@ -718,7 +721,8 @@ def _is_background_scenario(scenario):
 def parse_nodes_with_context(scenario_cfg):
     """parse the 'nodes' fields in scenario """
     # ensure consistency in node instantiation order
-    return OrderedDict((nodename, Context.get_server(scenario_cfg["nodes"][nodename]))
+    return OrderedDict((nodename, base_context.Context.get_server(
+                        scenario_cfg["nodes"][nodename]))
                        for nodename in sorted(scenario_cfg["nodes"]))
 
 
@@ -734,7 +738,7 @@ def get_networks_from_nodes(nodes):
             network_name = interface.get('network_name')
             if not network_name:
                 continue
-            network = Context.get_network(network_name)
+            network = base_context.Context.get_network(network_name)
             if network:
                 networks[network['name']] = network
     return networks
