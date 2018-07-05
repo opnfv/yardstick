@@ -325,6 +325,26 @@ class ProxSocketHelper(object):
 
         return ret_str, False
 
+    def get_string(self, pkt_dump_only=False, timeout=0.01):
+
+        def is_ready():
+            # recv() is blocking, so avoid calling it when no data is waiting.
+            ready = select.select([self._sock], [], [], timeout)
+            return bool(ready[0])
+
+        status = False
+        ret_str = ""
+        while status is False:
+            for status in iter(is_ready, False):
+                decoded_data = self._sock.recv(256).decode('utf-8')
+                ret_str, done = self._parse_socket_data(decoded_data, pkt_dump_only)
+                if (done):
+                    status = True
+                    break
+
+        LOG.debug("Received data from socket: [%s]", ret_str)
+        return status, ret_str
+
     def get_data(self, pkt_dump_only=False, timeout=0.01):
         """ read data from the socket """
 
@@ -545,49 +565,44 @@ class ProxSocketHelper(object):
         return rx, tx, drop, tsc
 
     def multi_port_stats(self, ports):
-        """get counter values from all ports port"""
+        """get counter values from all  ports at once"""
 
-        ports_str = ""
-        for port in ports:
-            ports_str = ports_str + str(port) + ","
-        ports_str = ports_str[:-1]
-
+        ports_str = ",".join(map(str, ports))
         ports_all_data = []
         tot_result = [0] * len(ports)
 
-        retry_counter = 0
         port_index = 0
-        while (len(ports) is not len(ports_all_data)) and (retry_counter < 10):
+        while (len(ports) is not len(ports_all_data)):
             self.put_command("multi port stats {}\n".format(ports_str))
-            ports_all_data = self.get_data().split(";")
+            status, ports_all_data_str = self.get_string()
+
+            if not status:
+                return False, []
+
+            ports_all_data = ports_all_data_str.split(";")
 
             if len(ports) is len(ports_all_data):
                 for port_data_str in ports_all_data:
 
+                    tmpdata = []
                     try:
-                        tot_result[port_index] = [try_int(s, 0) for s in port_data_str.split(",")]
+                        tmpdata = [try_int(s, 0) for s in port_data_str.split(",")]
                     except (IndexError, TypeError):
-                        LOG.error("Port Index error %d  %s - retrying ", port_index, port_data_str)
+                        LOG.error("Unpacking data error %s", port_data_str)
+                        return False, []
 
-                    if (len(tot_result[port_index]) is not 6) or \
-                                    tot_result[port_index][0] is not ports[port_index]:
-                        ports_all_data = []
-                        tot_result = [0] * len(ports)
-                        port_index = 0
-                        time.sleep(0.1)
+                    if (len(tmpdata) < 6) or tmpdata[0] not in ports:
                         LOG.error("Corrupted PACKET %s - retrying", port_data_str)
-                        break
+                        return False, []
                     else:
+                        tot_result[port_index] = tmpdata
                         port_index = port_index + 1
             else:
                 LOG.error("Empty / too much data - retry -%s-", ports_all_data)
-                ports_all_data = []
-                tot_result = [0] * len(ports)
-                port_index = 0
-                time.sleep(0.1)
+                return False, []
 
-            retry_counter = retry_counter + 1
-        return tot_result
+        LOG.debug("Multi port packet ..OK.. %s", tot_result)
+        return True, tot_result
 
     def port_stats(self, ports):
         """get counter values from a specific port"""
@@ -1070,12 +1085,15 @@ class ProxDataHelper(object):
     def totals_and_pps(self):
         if self._totals_and_pps is None:
             rx_total = tx_total = 0
-            all_ports = self.sut.multi_port_stats(range(self.port_count))
-            for port in all_ports:
-                rx_total = rx_total + port[1]
-                tx_total = tx_total + port[2]
-            requested_pps = self.value / 100.0 * self.line_rate_to_pps()
-            self._totals_and_pps = rx_total, tx_total, requested_pps
+            ok, all_ports = self.sut.multi_port_stats([
+                self.vnfd_helper.port_num(port_name)
+                for port_name in self.vnfd_helper.port_pairs.all_ports])
+            if ok:
+                for port in all_ports:
+                    rx_total = rx_total + port[1]
+                    tx_total = tx_total + port[2]
+                requested_pps = self.value / 100.0 * self.line_rate_to_pps()
+                self._totals_and_pps = rx_total, tx_total, requested_pps
         return self._totals_and_pps
 
     @property
@@ -1094,17 +1112,21 @@ class ProxDataHelper(object):
     def samples(self):
         samples = {}
         ports = []
-        port_names = []
+        port_names = {}
         for port_name, port_num in self.vnfd_helper.ports_iter():
             ports.append(port_num)
-            port_names.append(port_name)
+            port_names[port_num] = port_name
 
-        results = self.sut.multi_port_stats(ports)
-        for result in results:
-            port_num = result[0]
-            samples[port_names[port_num]] = {
-                    "in_packets": result[1],
-                    "out_packets": result[2]}
+        ok, results = self.sut.multi_port_stats(ports)
+        if ok:
+            for result in results:
+                port_num = result[0]
+                try:
+                    samples[port_names[port_num]] = {
+                        "in_packets": result[1],
+                        "out_packets": result[2]}
+                except (IndexError, KeyError):
+                    pass
         return samples
 
     def __enter__(self):
