@@ -20,11 +20,12 @@ import re
 import time
 
 from yardstick import ssh
-from yardstick.network_services.utils import get_nsb_option
-from yardstick.benchmark.contexts.base import Context
+from yardstick.benchmark import contexts
+from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.common import exceptions
 from yardstick.network_services import utils
+from yardstick.network_services.utils import get_nsb_option
 
 
 LOG = logging.getLogger(__name__)
@@ -32,12 +33,12 @@ LOG = logging.getLogger(__name__)
 MAIN_BRIDGE = 'br0'
 
 
-class OvsDpdkContext(Context):
+class OvsDpdkContext(base.Context):
     """ This class handles OVS standalone nodes - VM running on Non-Managed NFVi
     Configuration: ovs_dpdk
     """
 
-    __context_type__ = "StandaloneOvsDpdk"
+    __context_type__ = contexts.CONTEXT_STANDALONEOVSDPDK
 
     SUPPORTED_OVS_TO_DPDK_MAP = {
         '2.6.0': '16.07.1',

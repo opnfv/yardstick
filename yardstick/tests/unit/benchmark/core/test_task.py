@@ -28,7 +28,7 @@ from yardstick.common import utils
 
 class TaskTestCase(unittest.TestCase):
 
-    @mock.patch.object(task, 'Context')
+    @mock.patch.object(base, 'Context')
     def test_parse_nodes_with_context_same_context(self, mock_context):
         scenario_cfg = {
             "nodes": {
@@ -69,7 +69,7 @@ class TaskTestCase(unittest.TestCase):
                                                            dispatcher2])
         self.assertIsNone(t._do_output(output_config, {}))
 
-    @mock.patch.object(task, 'Context')
+    @mock.patch.object(base, 'Context')
     def test_parse_networks_from_nodes(self, mock_context):
         nodes = {
             'node1': {
@@ -133,7 +133,7 @@ class TaskTestCase(unittest.TestCase):
         self.assertEqual(mock_context.get_network.call_count, expected_get_network_calls)
         self.assertDictEqual(networks, expected)
 
-    @mock.patch.object(task, 'Context')
+    @mock.patch.object(base, 'Context')
     @mock.patch.object(task, 'base_runner')
     def test_run(self, mock_base_runner, *args):
         scenario = {
@@ -156,7 +156,7 @@ class TaskTestCase(unittest.TestCase):
         t._run([scenario], False, "yardstick.out")
         runner.run.assert_called_once()
 
-    @mock.patch.object(task, 'Context')
+    @mock.patch.object(base, 'Context')
     @mock.patch.object(task, 'base_runner')
     def test_run_ProxDuration(self, mock_base_runner, *args):
         scenario = {
