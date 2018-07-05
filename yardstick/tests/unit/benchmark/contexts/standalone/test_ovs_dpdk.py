@@ -58,13 +58,19 @@ class OvsDpdkContextTestCase(unittest.TestCase):
             'file': self._get_file_abspath(self.NODES_ovs_dpdk_SAMPLE)
         }
         self.ovs_dpdk = ovs_dpdk.OvsDpdkContext()
+        self._mock_log = mock.patch.object(ovs_dpdk, 'LOG')
+        self.mock_log = self._mock_log.start()
         self.addCleanup(self._remove_contexts)
+        self.addCleanup(self._stop_mocks)
 
     @staticmethod
     def _remove_contexts():
         for context in base.Context.list:
             context._delete_context()
         base.Context.list = []
+
+    def _stop_mocks(self):
+        self._mock_log.stop()
 
     @mock.patch('yardstick.benchmark.contexts.standalone.model.Server')
     @mock.patch('yardstick.benchmark.contexts.standalone.model.StandaloneContextHelper')
