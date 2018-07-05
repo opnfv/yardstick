@@ -13,6 +13,7 @@ import unittest
 from yardstick.benchmark.scenarios.availability import scenario_general
 from yardstick.common import exceptions as y_exc
 
+
 class ScenarioGeneralTestCase(unittest.TestCase):
 
     @mock.patch.object(scenario_general, 'Director')
@@ -37,19 +38,21 @@ class ScenarioGeneralTestCase(unittest.TestCase):
                         'index': 2}]
             }
         }
-        self.instance = scenario_general.ScenarioGeneral(self.scenario_cfg, None)
+        self.instance = scenario_general.ScenarioGeneral(self.scenario_cfg,
+                                                         None)
         self.instance.setup()
         self.instance.director.verify.return_value = True
 
     def test_scenario_general_all_successful(self):
-
         ret = {}
         self.instance.run(ret)
         self.instance.teardown()
         self.assertEqual(ret['sla_pass'], 1)
 
-    def test_scenario_general_exception(self):
-        self.instance.director.createActionPlayer.side_effect = KeyError('Wrong')
+    @mock.patch.object(scenario_general.LOG, 'exception')
+    def test_scenario_general_exception(self, *args):
+        self.instance.director.createActionPlayer.side_effect = (
+            KeyError('Wrong'))
         self.instance.director.data = {}
         ret = {}
         self.instance.run(ret)
