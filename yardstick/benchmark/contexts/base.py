@@ -201,6 +201,9 @@ class Context(object):
         """
 
         networks = (context._get_network(attr_name) for context in Context.list)
+        #RAH
+        # networks = [context._get_network(attr_name) for context in
+        #             Context.list]
         try:
             return next(n for n in networks if n)
         except StopIteration:

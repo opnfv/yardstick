@@ -7,23 +7,25 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import absolute_import
+import collections
 import logging
-import time
 import pkg_resources
+import time
 
 import paramiko
 
-from yardstick.benchmark.contexts.base import Context
+from yardstick.benchmark.contexts import base as ctx_base
+from yardstick.benchmark.contexts import model
 from yardstick.orchestrator import kubernetes
 from yardstick.common import kubernetes_utils as k8s_utils
 from yardstick.common import utils
+
 
 LOG = logging.getLogger(__name__)
 BITS_LENGTH = 2048
 
 
-class KubernetesContext(Context):
+class KubernetesContext(ctx_base.Context):
     """Class that handle nodes info"""
 
     __context_type__ = "Kubernetes"
@@ -42,6 +44,15 @@ class KubernetesContext(Context):
         self.ssh_key = '{}-key'.format(self.name)
         self.key_path = self._get_key_path()
         self.public_key_path = '{}.pub'.format(self.key_path)
+        self._networks = collections.OrderedDict(
+            (net_name, model.Network(net_name, self, network))
+            for net_name, network in attrs['networks'].items())
+
+        # for name, server_attrs in sorted(attrs["servers"].items()):
+        #     server = Server(name, self, server_attrs)
+        #     self.servers.append(server)
+        #     self._server_map[server.dn] = server
+
 
     def deploy(self):
         LOG.info('Creating ssh key')
@@ -90,7 +101,7 @@ class KubernetesContext(Context):
             obj.delete()
 
     def _create_rcs(self):
-        for obj in self.template.k8s_objs:
+        for obj in self.template.rc_objs:
             self._create_rc(obj.get_template())
 
     def _create_rc(self, template):
@@ -159,12 +170,13 @@ class KubernetesContext(Context):
         service = k8s_utils.get_service_by_name(service_name).ports[0]
 
         host = {
-            'name': service.name,
+            'name': name,
             'ip': self._get_node_ip(),
             'private_ip': k8s_utils.get_pod_by_name(name).status.pod_ip,
             'ssh_port': service.node_port,
             'user': 'root',
             'key_filename': self.key_path,
+            'interfaces': self._get_interfaces(name)
         }
 
         return host
@@ -172,8 +184,58 @@ class KubernetesContext(Context):
     def _get_node_ip(self):
         return k8s_utils.get_node_list().items[0].status.addresses[0].address
 
-    def _get_network(self, attr_name):
-        return None
+    def _get_network(self, net_name):
+        """Retrieves the network object, searching by name
+
+        :param net_name: (str) replication controller name.
+        :return: #RAH
+        """
+        network = self._networks.get(net_name)
+        if not network:
+            return
+        result = {'name': net_name}
+        return result
+
+        a=1
+        # if not isinstance(attr_name, collections.Mapping):
+        #     network = self.networks.get(attr_name)
+        #
+        # else:
+        #     # Don't generalize too much  Just support vld_id
+        #     vld_id = attr_name.get('vld_id', {})
+        #     # for node context networks are dicts
+        #     iter1 = (n for n in self.networks.values() if n.get('vld_id') == vld_id)
+        #     network = next(iter1, None)
+        #
+        # if network is None:
+        #     return None
+        #
+        # result = {
+        #     # name is required
+        #     "name": network["name"],
+        #     "vld_id": network.get("vld_id"),
+        #     "segmentation_id": network.get("segmentation_id"),
+        #     "network_type": network.get("network_type"),
+        #     "physical_network": network.get("physical_network"),
+        # }
+        # return result
+        pass
+
+    def _get_interfaces(self, rc_name):
+        """Retrieves the network list of a replication controller
+
+        :param rc_name: (str) replication controller name.
+        :return: (dict) names and information of the networks used in this
+                 replication controller; those networks must be defined in the
+                 Kubernetes cluster.
+        """
+        rc = self.template.get_rc_by_name(rc_name)
+        if not rc:
+            return {}
+        return {name: {'network_name': name,
+                       'local_mac': None,
+                       'local_ip': None}
+                for name in rc.networks}
 
     def _get_physical_nodes(self):
         return None
