@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_a63a2acb",
+        "filename": "ansible/roles/install_trex_pip/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-05T13:03:59Z",
+      "side": 1,
+      "message": "This change forces the user to:\n- Redeploy Yardstick in the Jumphost (execute the installer again).\n- If using the docker container, download the latest version.\n\nYardstick, with this patch, won\u0027t work with Fraser containers.",
+      "parentUuid": "da5c1566_460fce30",
+      "revId": "d305e47122eeea9b253ce6fb5c83cf96afcc492e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_660ad222",
         "filename": "ansible/roles/install_trex_pip/templates/setup.j2",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2018-07-05T12:49:33Z",
       "side": 1,
       "message": "what are doing in this file?\nHow are we controlling the t-rex version?",
+      "revId": "d305e47122eeea9b253ce6fb5c83cf96afcc492e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_4626aeb8",
+        "filename": "ansible/roles/install_trex_pip/templates/setup.j2",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-05T13:03:59Z",
+      "side": 1,
+      "message": "This is the minimum file needed to create a setup file to be used by pip. Having this file in the stl directory we can execute \"pip install -e .\" to deploy the STL libraries on the server.",
+      "parentUuid": "da5c1566_660ad222",
       "revId": "d305e47122eeea9b253ce6fb5c83cf96afcc492e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
