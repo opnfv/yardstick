@@ -29,20 +29,20 @@ futures==3.1.1;python_version=='2.7'    # BSD; OSI Approved  BSD License
 influxdb==4.1.1         # MIT License; OSI Approved  MIT License
 IxNetwork==8.40.1124.9  # MIT License; OSI Approved  MIT License
 jinja2schema==0.1.4     # OSI Approved  BSD License
-keystoneauth1==3.1.0    # OSI Approved  Apache Software License
+keystoneauth1==3.3.0    # OSI Approved  Apache Software License
 kubernetes==6.0.0       # OSI Approved  Apache Software License
 mock==2.0.0             # OSI Approved  BSD License; `BSD License`_; http://github.com/testing-cabal/mock/blob/master/LICENSE.txt
 msgpack-python==0.4.8   # OSI Approved  Apache Software License
 netaddr==0.7.19         # BSD License; OSI Approved  BSD License; OSI Approved  MIT License
 netifaces==0.10.6       # MIT License; OSI Approved  MIT License
 os-client-config==1.28.0    # OSI Approved  Apache Software License
-osc-lib==1.7.0          # OSI Approved  Apache Software License
-oslo.config==4.11.1     # OSI Approved  Apache Software License
+osc-lib==1.8.0          # OSI Approved  Apache Software License
+oslo.config==5.1.0     # OSI Approved  Apache Software License
 oslo.i18n==3.17.0       # OSI Approved  Apache Software License
-oslo.messaging===5.36.0 # OSI Approved  Apache Software License
-oslo.privsep===1.22.1   # OSI Approved  Apache Software License
+oslo.messaging==5.36.0 # OSI Approved  Apache Software License
+oslo.privsep==1.23.0   # OSI Approved  Apache Software License
 oslo.serialization==2.20.1  # OSI Approved  Apache Software License
-oslo.utils==3.28.0      # OSI Approved  Apache Software License
+oslo.utils==3.33.0      # OSI Approved  Apache Software License
 paramiko==2.2.1         # LGPL; OSI Approved  GNU Library or Lesser General Public License (LGPL)
 pbr==3.1.1              # OSI Approved  Apache Software License; Apache License, Version 2.0
 pika==0.10.0            # BSD; OSI Approved  BSD License
@@ -52,13 +52,13 @@ pycrypto==2.6.1         # Public Domain
 pyparsing==2.2.0        # MIT License; OSI Approved  MIT License
 pyroute2==0.4.21        # dual license GPLv2+ and Apache v2; OSI Approved  GNU General Public License v2 or later (GPLv2+); OSI Approved  Apache Software License
 pyrsistent==0.14.1      # LICENSE.mit; OSI Approved  MIT License
-python-cinderclient==3.1.0      # OSI Approved  Apache Software License
+python-cinderclient==3.3.0      # OSI Approved  Apache Software License
 python-glanceclient==2.8.0      # OSI Approved  Apache Software License
 python-keystoneclient==3.13.0   # OSI Approved  Apache Software License
 python-neutronclient==6.5.0     # OSI Approved  Apache Software License
 python-novaclient==9.1.1        # OSI Approved  Apache Software License
 pyzmq==16.0.2           # LGPL+BSD; OSI Approved  GNU Library or Lesser General Public License (LGPL); OSI Approved  BSD License
-requests==2.11.1        # Apache 2.0; OSI Approved  Apache Software License
+requests==2.14.2        # Apache 2.0; OSI Approved  Apache Software License
 requestsexceptions==1.3.0   # OSI Approved  Apache Software License
 scp==0.10.2             # LGPL
 shade==1.22.2           # OSI Approved  Apache Software License
