@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2017 Intel Corporation
+# Copyright (c) 2016-2018 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ from __future__ import absolute_import
 
 import logging
 import multiprocessing
+import time
 
 from yardstick.network_services.traffic_profile.base import TrafficProfile
 from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxProfileHelper
@@ -117,6 +118,7 @@ class ProxProfile(TrafficProfile):
         try:
             pkt_size = next(self.pkt_size_iterator)
         except StopIteration:
+            time.sleep(5)
             self.done.set()
             return
 
