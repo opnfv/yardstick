@@ -17,6 +17,7 @@ from __future__ import absolute_import
 
 import logging
 import multiprocessing
+import time
 
 from yardstick.network_services.traffic_profile.base import TrafficProfile
 from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxProfileHelper
@@ -117,6 +118,7 @@ class ProxProfile(TrafficProfile):
         try:
             pkt_size = next(self.pkt_size_iterator)
         except StopIteration:
+            time.sleep(5)
             self.done.set()
             return
 

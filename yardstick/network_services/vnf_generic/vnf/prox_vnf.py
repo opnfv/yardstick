@@ -15,6 +15,7 @@
 import errno
 import logging
 import datetime
+import time
 
 from yardstick.common.process import check_if_process_failed
 from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxDpdkVnfSetupEnvHelper
@@ -81,6 +82,8 @@ class ProxApproxVnf(SampleVNF):
                 "packets_in": 0,
                 "packets_dropped": 0,
                 "packets_fwd": 0,
+                "curr_packets_in": 0,
+                "curr_packets_fwd": 0,
                 "collect_stats": {"core": {}},
             })
             return result
@@ -97,15 +100,26 @@ class ProxApproxVnf(SampleVNF):
             raise RuntimeError("Failed ..Invalid no of ports .. "
                                "1, 2 or 4 ports only supported at this time")
 
-        all_port_stats = self.vnf_execute('multi_port_stats', range(port_count))
-        rx_total = tx_total = tsc = 0
-        try:
-            for single_port_stats in all_port_stats:
-                rx_total = rx_total + single_port_stats[1]
-                tx_total = tx_total + single_port_stats[2]
-                tsc = tsc + single_port_stats[5]
-        except (TypeError, IndexError):
-            LOG.error("Invalid data ...")
+        tmpPorts = [self.vnfd_helper.port_num(port_name)
+                    for port_name in self.vnfd_helper.port_pairs.all_ports]
+        ok = False
+        timeout = time.time() + constants.RETRY_TIMEOUT
+        while not ok:
+            ok, all_port_stats = self.vnf_execute('multi_port_stats', tmpPorts)
+            if time.time() > timeout:
+                    break
+
+        if ok:
+            rx_total = tx_total = tsc = 0
+            try:
+                for single_port_stats in all_port_stats:
+                    rx_total = rx_total + single_port_stats[1]
+                    tx_total = tx_total + single_port_stats[2]
+                    tsc = tsc + single_port_stats[5]
+            except (TypeError, IndexError):
+                LOG.error("Invalid data ...")
+                return {}
+        else:
             return {}
 
         tsc = tsc / port_count
@@ -124,6 +138,10 @@ class ProxApproxVnf(SampleVNF):
         except ZeroDivisionError:
             LOG.error("Error.... Divide by Zero")
             curr_packets_in = 0
+            curr_packets_fwd = 0
+        else:
+            curr_packets_in = int(((rx_total - self.prev_packets_in) * self.tsc_hz)
+                                / (tsc - self.prev_tsc))
 
         try:
             curr_packets_fwd = int(((tx_total - self.prev_packets_sent) * self.tsc_hz)
