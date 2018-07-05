@@ -19,6 +19,7 @@ import mock
 
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts.base import Context
+from yardstick.common import yaml_loader
 from yardstick.tests.unit import base as ut_base
 from yardstick.common.constants import YARDSTICK_ROOT_PATH
 
@@ -131,7 +132,7 @@ class ContextTestCase(ut_base.BaseUnitTestCase):
         mock_get_ctx.assert_called_once()
         self.assertIsNone(result)
 
-    @mock.patch('yardstick.common.utils.read_yaml_file')
+    @mock.patch.object(yaml_loader, 'read_yaml_file')
     def test_read_pod_file(self, mock_read_yaml_file):
         attrs = {'name': 'foo',
                  'task_id': '12345678',

@@ -10,10 +10,6 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-# yardstick: this file is copied from python-heatclient and slightly modified
-
-from __future__ import absolute_import
-
 import yaml
 
 
@@ -23,6 +19,7 @@ if hasattr(yaml, 'CSafeLoader'):
 else:
     yaml_loader = type('CustomLoader', (yaml.SafeLoader,), {})
 
+
 if hasattr(yaml, 'CSafeDumper'):
     yaml_dumper = yaml.CSafeDumper
 else:
@@ -31,3 +28,10 @@ else:
 
 def yaml_load(tmpl_str):
     return yaml.load(tmpl_str, Loader=yaml_loader)
+
+
+def read_yaml_file(path):
+    """Read yaml file"""
+    with open(path) as stream:
+        data = yaml_load(stream)
+        return data

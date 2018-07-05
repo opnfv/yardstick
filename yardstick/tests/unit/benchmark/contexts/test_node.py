@@ -8,14 +8,16 @@
 ##############################################################################
 
 import os
-import unittest
 import errno
-import mock
 
-from yardstick.common import constants as consts
+import mock
+import unittest
+
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import node
+from yardstick.common import constants as consts
 from yardstick.common import exceptions
+from yardstick.common import yaml_loader
 
 
 class NodeContextTestCase(unittest.TestCase):
@@ -56,7 +58,7 @@ class NodeContextTestCase(unittest.TestCase):
         self.assertEqual(self.test_context.env, {})
         self.assertEqual(self.test_context.attrs, {})
 
-    @mock.patch('yardstick.common.utils.read_yaml_file')
+    @mock.patch.object(yaml_loader, 'read_yaml_file')
     @mock.patch('{}.os.path.join'.format(PREFIX))
     def test_init_negative(self, mock_path_join, read_mock):
         special_path = '/foo/bar/error_file'
