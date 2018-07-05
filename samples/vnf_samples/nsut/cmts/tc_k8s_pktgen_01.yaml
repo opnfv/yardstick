@@ -1,0 +1,150 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+schema: yardstick:task:0.1
+scenarios:
+- type: NSPerf
+  #traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml  #RAH: to be modifieds
+  topology: cmts-tg-topology.yaml
+  nodes:
+    tg__0: trafficgen-k8syardstick
+    vnf__0: vnf-k8syardstick
+  options: {}
+    #framesize:
+    #  uplink: {64B: 100}
+    #  downlink: {64B: 100}
+    #flow:
+    #  src_ip: [{'tg__0': 'xe0'}]
+    #  dst_ip: [{'tg__0': 'xe1'}]
+    #  count: 1
+    #traffic_type: 4
+    #rfc2544:
+    #  allowed_drop_rate: 0.0001 - 0.0001
+    #vnf__0:
+    #  rules: acl_1rule.yaml
+    #  vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+  runner:
+    type: IterationIPC
+    iterations: 3
+    interval: 15
+context:
+  name: k8syardstick
+  type: Kubernetes
+
+  servers:
+    vnf:
+      #image: openretriever/yardstick
+      image: si-docker.ir.intel.com/vcmts-ubuntu/vcmts-pktgen-uepi
+      command: /bin/bash
+      args: ["/opt/bin/cmk isolate --conf-dir=/etc/cmk --socket-id=0 --pool=dataplane sleep 3600"]
+      networks:
+        - flannel
+        - sriov01
+      env:
+        - name: LUA_PATH
+          value: "/vcmts/Pktgen.lua"
+        - name: CMK_PROC_FS
+          value: "/host/proc"
+      resources:
+        requests:
+          pod.alpha.kubernetes.io/opaque-int-resource-cmk: "1"
+      ports:
+        - containerPort: 22022
+      volumeMounts:
+        - name: hugepages
+          mountPath: /dev/hugepages
+        - name: sysfs
+          mountPath: /sys
+        - name: sriov
+          mountPath: /sriov-cni
+        - name: host-proc
+          mountPath: /host/proc
+          readOnly: true
+        - name: cmk-install-dir
+          mountPath: /opt/bin
+        - name: cmk-conf-dir
+          mountPath: /etc/cmk
+      securityContext:
+        allowPrivilegeEscalation: true
+        privileged: true
+      volumes:
+        - name: hugepages
+          hostPath:
+            path: /dev/hugepages
+        - name: sysfs
+          hostPath:
+            path: /sys
+        - name: sriov
+          hostPath:
+            path: /var/lib/cni/sriov
+        - name: cmk-install-dir
+          hostPath:
+            path: /opt/bin
+        - name: host-proc
+          hostPath:
+            path: /proc
+        - name: cmk-conf-dir
+          hostPath:
+          hostPath:
+            path: /etc/cmk
+
+#    vnf:
+#      #simage: openretriever/yardstick
+#      image: si-docker.ir.intel.com/vcmts-ubuntu/vcmts-pktgen-uepi
+#      command: /bin/bash
+#      args: ['-c', 'while true ; do sleep 10000; done']
+#      networks:
+#        - flannel
+#        - sriov01
+
+
+    trafficgen:
+      #simage: openretriever/yardstick
+      image: si-docker.ir.intel.com/vcmts-ubuntu/vcmts-pktgen-uepi
+      command: /bin/bash
+      args: ['-c', 'while true ; do sleep 10000; done']
+      networks:
+        - flannel
+        - sriov01
+
+
+  networks:
+    - name: flannel
+      args: '[{ "delegate": { "isDefaultGateway": true }}]'
+      plugin: flannel
+    - name: sriov01
+      plugin: sriov
+      args: '[{"if0": "ens802f0",
+               "if0name": "net0",
+               "dpdk": {
+                   "kernel_driver": "i40evf",
+                   "dpdk_driver": "igb_uio",
+                   "dpdk_tool": "/opt/nsb_bin/dpdk-devbind.py"}
+             }]'
+
+
+#  networks:
+#    mgmt:
+#      cidr: '10.0.1.0/24'
+#    xe0:
+#      cidr: '10.0.2.0/24'
+#      gateway_ip: 'null'
+#      port_security_enabled: False
+#      enable_dhcp: 'false'
+#    xe1:
+#      cidr: '10.0.3.0/24'
+#      gateway_ip: 'null'
+#      port_security_enabled: False
+#      enable_dhcp: 'false'
+

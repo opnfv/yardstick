@@ -165,6 +165,7 @@ class KubernetesContext(Context):
             'ssh_port': service.node_port,
             'user': 'root',
             'key_filename': self.key_path,
+            'interfaces': {}
         }
 
         return host
