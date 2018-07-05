@@ -81,6 +81,8 @@ class ProxApproxVnf(SampleVNF):
                 "packets_in": 0,
                 "packets_dropped": 0,
                 "packets_fwd": 0,
+                "curr_packets_in": 0,
+                "curr_packets_fwd": 0,
                 "collect_stats": {"core": {}},
             })
             return result
@@ -97,7 +99,13 @@ class ProxApproxVnf(SampleVNF):
             raise RuntimeError("Failed ..Invalid no of ports .. "
                                "1, 2 or 4 ports only supported at this time")
 
-        all_port_stats = self.vnf_execute('multi_port_stats', range(port_count))
+        tmpPorts = [self.vnfd_helper.port_num(port_name)
+                    for port_name in self.vnfd_helper.port_pairs.all_ports]
+        ok, all_port_stats = self.vnf_execute('multi_port_stats', tmpPorts)
+        if not ok:
+            LOG.error("Invalid data returned from Multi port stats...")
+            return {}
+
         rx_total = tx_total = tsc = 0
         try:
             for single_port_stats in all_port_stats:
@@ -118,19 +126,17 @@ class ProxApproxVnf(SampleVNF):
             # collectd KPIs here and not TG KPIs, so use a different method name
             "collect_stats": self.resource_helper.collect_collectd_kpi(),
         })
-        try:
-            curr_packets_in = int(((rx_total - self.prev_packets_in) * self.tsc_hz)
-                                / (tsc - self.prev_tsc))
-        except ZeroDivisionError:
+
+        if tsc == self.prev_tsc:
             LOG.error("Error.... Divide by Zero")
             curr_packets_in = 0
+            curr_packets_fwd = 0
+        else:
+            curr_packets_in = int(((rx_total - self.prev_packets_in) * self.tsc_hz)
+                                / (tsc - self.prev_tsc))
 
-        try:
             curr_packets_fwd = int(((tx_total - self.prev_packets_sent) * self.tsc_hz)
                                 / (tsc - self.prev_tsc))
-        except ZeroDivisionError:
-            LOG.error("Error.... Divide by Zero")
-            curr_packets_fwd = 0
 
         result["curr_packets_in"] = curr_packets_in
         result["curr_packets_fwd"] = curr_packets_fwd
