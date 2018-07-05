@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_86cba671",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-05T19:23:37Z",
+      "side": 1,
+      "message": "I think so. I\u0027ll check it.",
+      "parentUuid": "da5c1566_03f4a9f0",
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_a3a69dbf",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 8
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_66b5b2ed",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-05T19:23:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_a3a69dbf",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 4
+      },
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_03aca99f",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 8
@@ -53,6 +95,30 @@
       "writtenOn": "2018-07-04T15:25:43Z",
       "side": 1,
       "message": "Do we need to modify this?",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 16
+      },
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e6c8a276",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-05T19:23:37Z",
+      "side": 1,
+      "message": "I guess no.",
+      "parentUuid": "da5c1566_03aca99f",
       "range": {
         "startLine": 104,
         "startChar": 0,
@@ -111,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_26bbbae6",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-05T19:23:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_a37e9de2",
+      "range": {
+        "startLine": 409,
+        "startChar": 12,
+        "endLine": 409,
+        "endChar": 28
+      },
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_e3ed358d",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 8
@@ -145,6 +235,30 @@
       "writtenOn": "2018-07-04T15:25:43Z",
       "side": 1,
       "message": "Why? If not, add a default user, root.\n\nActually, this user name is always there: https://github.com/opnfv/yardstick/blob/master/yardstick/benchmark/contexts/standalone/model.py#L499\n\nThis should be:\n  vm_user \u003d node[\u0027user\u0027]",
+      "range": {
+        "startLine": 569,
+        "startChar": 8,
+        "endLine": 570,
+        "endChar": 53
+      },
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_a6ceaa81",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-05T19:23:37Z",
+      "side": 1,
+      "message": "Deleted.",
+      "parentUuid": "da5c1566_c39591e5",
       "range": {
         "startLine": 569,
         "startChar": 8,
@@ -197,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_c6ee3eec",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-05T19:23:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_e3f895e7",
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_c3a111ab",
         "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
         "patchSetId": 8
@@ -208,6 +340,30 @@
       "writtenOn": "2018-07-04T15:25:43Z",
       "side": 1,
       "message": "This file should be in /tmp.\n\nCreate a file name like in L380. There could be several VM and each VM should have its own CDROM image.",
+      "range": {
+        "startLine": 395,
+        "startChar": 25,
+        "endLine": 395,
+        "endChar": 62
+      },
+      "revId": "cd45ae9ae7c20a848c080be944c4b1eec8278305",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_46ba2edf",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-05T19:23:37Z",
+      "side": 1,
+      "message": "This file is used by libvirt which searches for files in the default image location.",
+      "parentUuid": "da5c1566_c3a111ab",
       "range": {
         "startLine": 395,
         "startChar": 25,
