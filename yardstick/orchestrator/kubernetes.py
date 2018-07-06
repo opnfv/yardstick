@@ -182,33 +182,49 @@ class ReplicationControllerObject(object):
                              annotations)
 
 
-class ServiceObject(object):
+class ServiceNodePortObject(object):
 
-    def __init__(self, name):
-        self.name = '{}-service'.format(name)
+    def __init__(self, name, **kwargs):
+        """Service kind "NodePort" object
+
+        :param name: (string) name of the Service
+        :param kwargs: (dict) node_ports -> (list) port, name, targetPort,
+                                                   nodePort
+        """
+        self._name = '{}-service'.format(name)
         self.template = {
-            'metadata': {
-                'name': '{}-service'.format(name)
-            },
+            'metadata': {'name': '{}-service'.format(name)},
             'spec': {
                 'type': 'NodePort',
-                'ports': [
-                    {
-                        'port': 22,
-                        'protocol': 'TCP'
-                    }
-                ],
-                'selector': {
-                    'app': name
-                }
+                'ports': [],
+                'selector': {'app': name}
             }
         }
+
+        self._add_port(22, protocol='TCP')
+        node_ports = copy.deepcopy(kwargs.get('node_ports', []))
+        for port in node_ports:
+            port_number = port.pop('port')
+            self._add_port(port_number, **port)
+
+    def _add_port(self, port, protocol=None, name=None, targetPort=None,
+                  nodePort=None):
+        _port = {'port': port}
+        if protocol:
+            _port['protocol'] = protocol
+        if name:
+            _port['name'] = name
+        if targetPort:
+            _port['targetPort'] = targetPort
+        if nodePort:
+            _port['nodePort'] = nodePort
+        self.template['spec']['ports'].append(_port)
 
     def create(self):
         k8s_utils.create_service(self.template)
 
     def delete(self):
-        k8s_utils.delete_service(self.name)
+        k8s_utils.delete_service(self._name)
 
 
 class CustomResourceDefinitionObject(object):
@@ -359,11 +375,12 @@ class KubernetesTemplate(object):
         self.name = name
         self.ssh_key = '{}-key'.format(name)
 
-        self.rcs = [self._get_rc_name(rc) for rc in servers_cfg]
+        self.rcs = {self._get_rc_name(rc): cfg
+                    for rc, cfg in servers_cfg.items()}
         self.k8s_objs = [ReplicationControllerObject(
-            self._get_rc_name(rc), ssh_key=self.ssh_key, **cfg)
-            for rc, cfg in servers_cfg.items()]
-        self.service_objs = [ServiceObject(s) for s in self.rcs]
+            rc, ssh_key=self.ssh_key, **cfg) for rc, cfg in self.rcs.items()]
+        self.service_objs = [ServiceNodePortObject(rc, **cfg)
+                             for rc, cfg in self.rcs.items()]
         self.crd = [CustomResourceDefinitionObject(self.name, **crd)
                     for crd in crd_cfg]
         self.network_objs = [NetworkObject(**nobj) for nobj in networks_cfg]
