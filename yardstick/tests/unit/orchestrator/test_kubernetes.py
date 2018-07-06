@@ -340,13 +340,10 @@ class NetworkObjectTestCase(base.BaseUnitTestCase):
     def test__init_missing_parameter(self):
         with self.assertRaises(
                 exceptions.KubernetesNetworkObjectDefinitionError):
-            kubernetes.NetworkObject(name='name', plugin='plugin')
+            kubernetes.NetworkObject('network_name', plugin='plugin')
         with self.assertRaises(
                 exceptions.KubernetesNetworkObjectDefinitionError):
-            kubernetes.NetworkObject(name='name', args='args')
-        with self.assertRaises(
-                exceptions.KubernetesNetworkObjectDefinitionError):
-            kubernetes.NetworkObject(args='args', plugin='plugin')
+            kubernetes.NetworkObject('network_name', args='args')
 
     @mock.patch.object(kubernetes_utils, 'get_custom_resource_definition')
     def test_crd(self, mock_get_crd):

@@ -276,10 +276,10 @@ class CustomResourceDefinitionObject(object):
 
 class NetworkObject(object):
 
-    MANDATORY_PARAMETERS = {'name', 'plugin', 'args'}
+    MANDATORY_PARAMETERS = {'plugin', 'args'}
     KIND = 'Network'
 
-    def __init__(self, **kwargs):
+    def __init__(self, name, **kwargs):
         if not self.MANDATORY_PARAMETERS.issubset(kwargs):
             missing_parameters = ', '.join(
                 str(param) for param in
@@ -287,7 +287,7 @@ class NetworkObject(object):
             raise exceptions.KubernetesNetworkObjectDefinitionError(
                 missing_parameters=missing_parameters)
 
-        self._name = kwargs['name']
+        self._name = name
         self._plugin = kwargs['plugin']
         self._args = kwargs['args']
         self._crd = None
@@ -377,7 +377,7 @@ class KubernetesTemplate(object):
         context_cfg = copy.deepcopy(context_cfg)
         servers_cfg = context_cfg.pop('servers', {})
         crd_cfg = context_cfg.pop('custom_resources', [])
-        networks_cfg = context_cfg.pop('networks', [])
+        networks_cfg = context_cfg.pop('networks', {})
         self.name = name
         self.ssh_key = '{}-key'.format(name)
 
@@ -389,7 +389,8 @@ class KubernetesTemplate(object):
                              for rc, cfg in self.rcs.items()]
         self.crd = [CustomResourceDefinitionObject(self.name, **crd)
                     for crd in crd_cfg]
-        self.network_objs = [NetworkObject(**nobj) for nobj in networks_cfg]
+        self.network_objs = [NetworkObject(net_name, **net_data)
+                             for net_name, net_data in networks_cfg.items()]
         self.pods = []
 
     def _get_rc_name(self, rc_name):
