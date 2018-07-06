@@ -80,7 +80,8 @@ service ssh restart;while true ; do sleep 10000; done'],
             'volumes': []
         }
         name = 'host-k8s-86096c30'
-        output_r = kubernetes.KubernetesObject(name, **input_s).get_template()
+        output_r = kubernetes.ReplicationControllerObject(
+            name, **input_s).get_template()
         self.assertEqual(output_r, output_t)
 
 
@@ -108,14 +109,14 @@ service ssh restart;while true ; do sleep 10000; done']
         self.assertEqual(pods, [])
 
 
-class KubernetesObjectTestCase(base.BaseUnitTestCase):
+class ReplicationControllerObjectTestCase(base.BaseUnitTestCase):
 
     def test__init_one_container(self):
         pod_name = 'pod_name'
         _kwargs = {'args': ['arg1', 'arg2'],
                    'image': 'fake_image',
                    'command': 'fake_command'}
-        k8s_obj = kubernetes.KubernetesObject(pod_name, **_kwargs)
+        k8s_obj = kubernetes.ReplicationControllerObject(pod_name, **_kwargs)
         self.assertEqual(1, len(k8s_obj._containers))
         container = k8s_obj._containers[0]
         self.assertEqual(['arg1', 'arg2'], container._args)
@@ -131,7 +132,7 @@ class KubernetesObjectTestCase(base.BaseUnitTestCase):
                                'image': 'fake_image_%s' % i,
                                'command': 'fake_command_%s' % i})
         _kwargs = {'containers': containers}
-        k8s_obj = kubernetes.KubernetesObject(pod_name, **_kwargs)
+        k8s_obj = kubernetes.ReplicationControllerObject(pod_name, **_kwargs)
         self.assertEqual(5, len(k8s_obj._containers))
         for i in range(5):
             container = k8s_obj._containers[i]
@@ -145,8 +146,8 @@ class KubernetesObjectTestCase(base.BaseUnitTestCase):
                    'configMap': {'name': 'fake_sshkey'}}
         volume2 = {'name': 'volume2',
                    'configMap': 'data'}
-        k8s_obj = kubernetes.KubernetesObject('name', ssh_key='fake_sshkey',
-                                              volumes=[volume2])
+        k8s_obj = kubernetes.ReplicationControllerObject(
+            'name', ssh_key='fake_sshkey', volumes=[volume2])
         k8s_obj._add_volumes()
         volumes = k8s_obj.template['spec']['template']['spec']['volumes']
         self.assertEqual(sorted([volume1, volume2], key=lambda k: k['name']),
@@ -155,7 +156,8 @@ class KubernetesObjectTestCase(base.BaseUnitTestCase):
     def test__add_volumes_no_volumes(self):
         volume1 = {'name': 'fake_sshkey',
                    'configMap': {'name': 'fake_sshkey'}}
-        k8s_obj = kubernetes.KubernetesObject('name', ssh_key='fake_sshkey')
+        k8s_obj = kubernetes.ReplicationControllerObject(
+            'name', ssh_key='fake_sshkey')
         k8s_obj._add_volumes()
         volumes = k8s_obj.template['spec']['template']['spec']['volumes']
         self.assertEqual([volume1], volumes)
@@ -163,7 +165,8 @@ class KubernetesObjectTestCase(base.BaseUnitTestCase):
     def test__create_ssh_key_volume(self):
         expected = {'name': 'fake_sshkey',
                     'configMap': {'name': 'fake_sshkey'}}
-        k8s_obj = kubernetes.KubernetesObject('name', ssh_key='fake_sshkey')
+        k8s_obj = kubernetes.ReplicationControllerObject(
+            'name', ssh_key='fake_sshkey')
         self.assertEqual(expected, k8s_obj._create_ssh_key_volume())
 
     def test__create_volume_item(self):
@@ -172,16 +175,17 @@ class KubernetesObjectTestCase(base.BaseUnitTestCase):
                       vol_type: 'data'}
             self.assertEqual(
                 volume,
-                kubernetes.KubernetesObject._create_volume_item(volume))
+                kubernetes.ReplicationControllerObject.
+                    _create_volume_item(volume))
 
     def test__create_volume_item_invalid_type(self):
         volume = {'name': 'vol_name',
                   'invalid_type': 'data'}
         with self.assertRaises(exceptions.KubernetesTemplateInvalidVolumeType):
-            kubernetes.KubernetesObject._create_volume_item(volume)
+            kubernetes.ReplicationControllerObject._create_volume_item(volume)
 
     def test__add_security_context(self):
-        k8s_obj = kubernetes.KubernetesObject('pod_name')
+        k8s_obj = kubernetes.ReplicationControllerObject('pod_name')
         self.assertNotIn('securityContext',
                          k8s_obj.template['spec']['template']['spec'])
 
@@ -198,7 +202,7 @@ class KubernetesObjectTestCase(base.BaseUnitTestCase):
                 {'securityContext': {'key%s' % i: 'value%s' % i}})
         _kwargs = {'containers': containers,
                    'securityContext': {'key_pod': 'value_pod'}}
-        k8s_obj = kubernetes.KubernetesObject('pod_name', **_kwargs)
+        k8s_obj = kubernetes.ReplicationControllerObject('pod_name', **_kwargs)
         self.assertEqual(
             {'key_pod': 'value_pod'},
             k8s_obj.template['spec']['template']['spec']['securityContext'])
@@ -209,7 +213,7 @@ class KubernetesObjectTestCase(base.BaseUnitTestCase):
                              container['securityContext'])
 
     def test__add_networks(self):
-        k8s_obj = kubernetes.KubernetesObject(
+        k8s_obj = kubernetes.ReplicationControllerObject(
             'name', networks=['network1', 'network2', 'network3'])
         k8s_obj._add_networks()
         networks = k8s_obj.\
