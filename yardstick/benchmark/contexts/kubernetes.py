@@ -48,6 +48,7 @@ class KubernetesContext(Context):
         self._set_ssh_key()
 
         self._create_crd()
+        self._create_networks()
         LOG.info('Launch containers')
         self._create_rcs()
         self._create_services()
@@ -61,6 +62,7 @@ class KubernetesContext(Context):
         self._delete_rcs()
         self._delete_pods()
         self._delete_services()
+        self._delete_networks()
         self._delete_crd()
 
         super(KubernetesContext, self).undeploy()
@@ -117,6 +119,16 @@ class KubernetesContext(Context):
         LOG.info('Delete Custom Resource Definition elements')
         for crd in self.template.crd:
             crd.delete()
+
+    def _create_networks(self):  # pragma: no cover
+        LOG.info('Create Network elements')
+        for net in self.template.network_objs:
+            net.create()
+
+    def _delete_networks(self):  # pragma: no cover
+        LOG.info('Create Network elements')
+        for net in self.template.network_objs:
+            net.delete()
 
     def _get_key_path(self):
         task_id = self.name.split('-')[-1]
