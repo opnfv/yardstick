@@ -14,6 +14,8 @@
 
 from oslo_utils import excutils
 
+from yardstick.common import constants
+
 
 class ProcessExecutionError(RuntimeError):
     def __init__(self, message, returncode):
@@ -199,8 +201,22 @@ class WaitTimeout(YardstickException):
     message = 'Wait timeout while waiting for condition'
 
 
+class KubernetesApiException(YardstickException):
+    message = ('Kubernetes API errors. Action: %(action)s, '
+               'resource: %(resource)s')
+
+
+class KubernetesConfigFileNotFound(YardstickException):
+    message = 'Config file (%s) not found' % constants.K8S_CONF_FILE
+
+
 class KubernetesTemplateInvalidVolumeType(YardstickException):
     message = 'No valid "volume" types present in %(volume)s'
+
+
+class KubernetesCRDObjectDefinitionError(YardstickException):
+    message = ('Kubernetes Custom Resource Definition Object error, missing '
+               'parameters: %(missing_parameters)s')
 
 
 class ScenarioCreateNetworkError(YardstickException):

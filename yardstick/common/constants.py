@@ -171,3 +171,7 @@ TESTSUITE_PRE = 'opnfv_'
 
 # OpenStack cloud default config parameters
 OS_CLOUD_DEFAULT_CONFIG = {'verify': False}
+
+# Kubernetes
+SCOPE_NAMESPACED = 'Namespaced'
+SCOPE_CLUSTER = 'Cluster'

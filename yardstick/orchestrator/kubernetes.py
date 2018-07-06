@@ -9,6 +9,7 @@
 
 import copy
 
+from yardstick.common import constants
 from yardstick.common import exceptions
 from yardstick.common import utils
 from yardstick.common import kubernetes_utils as k8s_utils
@@ -195,6 +196,47 @@ class ServiceObject(object):
         k8s_utils.delete_service(self.name)
 
 
+class CustomResourceDefinitionObject(object):
+
+    MANDATORY_PARAMETERS = {'name'}
+
+    def __init__(self, ctx_name, **kwargs):
+        if not self.MANDATORY_PARAMETERS.issubset(kwargs):
+            missing_parameters = ', '.join(
+                str(param) for param in
+                (self.MANDATORY_PARAMETERS - set(kwargs)))
+            raise exceptions.KubernetesCRDObjectDefinitionError(
+                missing_parameters=missing_parameters)
+
+        singular = kwargs['name']
+        plural = singular + 's'
+        kind = singular.title()
+        version = kwargs.get('version', 'v1')
+        scope = kwargs.get('scope', constants.SCOPE_NAMESPACED)
+        group = ctx_name + '.com'
+        self._name = metadata_name = plural + '.' + group
+
+        self._template = {
+            'metadata': {
+                'name': metadata_name
+            },
+            'spec': {
+                'group': group,
+                'version': version,
+                'scope': scope,
+                'names': {'plural': plural,
+                          'singular': singular,
+                          'kind': kind}
+            }
+        }
+
+    def create(self):
+        k8s_utils.create_custom_resource_definition(self._template)
+
+    def delete(self):
+        k8s_utils.delete_custom_resource_definition(self._name)
+
+
 class KubernetesTemplate(object):
 
     def __init__(self, name, context_cfg):
@@ -205,6 +247,7 @@ class KubernetesTemplate(object):
         """
         context_cfg = copy.deepcopy(context_cfg)
         servers_cfg = context_cfg.pop('servers', {})
+        crd_cfg = context_cfg.pop('custom_resources', [])
         self.name = name
         self.ssh_key = '{}-key'.format(name)
 
@@ -214,6 +257,8 @@ class KubernetesTemplate(object):
                                           **cfg)
                          for rc, cfg in servers_cfg.items()]
         self.service_objs = [ServiceObject(s) for s in self.rcs]
+        self.crd = [CustomResourceDefinitionObject(self.name, **crd)
+                    for crd in crd_cfg]
 
         self.pods = []
 

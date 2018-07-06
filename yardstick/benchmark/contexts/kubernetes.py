@@ -47,6 +47,7 @@ class KubernetesContext(Context):
         LOG.info('Creating ssh key')
         self._set_ssh_key()
 
+        self._create_crd()
         LOG.info('Launch containers')
         self._create_rcs()
         self._create_services()
@@ -60,6 +61,7 @@ class KubernetesContext(Context):
         self._delete_rcs()
         self._delete_pods()
         self._delete_services()
+        self._delete_crd()
 
         super(KubernetesContext, self).undeploy()
 
@@ -105,6 +107,16 @@ class KubernetesContext(Context):
 
     def _delete_pod(self, pod):
         k8s_utils.delete_pod(pod)
+
+    def _create_crd(self):
+        LOG.info('Create Custom Resource Definition elements')
+        for crd in self.template.crd:
+            crd.create()
+
+    def _delete_crd(self):
+        LOG.info('Delete Custom Resource Definition elements')
+        for crd in self.template.crd:
+            crd.delete()
 
     def _get_key_path(self):
         task_id = self.name.split('-')[-1]

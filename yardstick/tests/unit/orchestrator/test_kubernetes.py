@@ -270,3 +270,30 @@ class ContainerObjectTestCase(base.BaseUnitTestCase):
                     'volumeMounts': container_obj._create_volume_mounts(),
                     'securityContext': {'key': 'value'}}
         self.assertEqual(expected, container_obj.get_container_item())
+
+
+class CustomResourceDefinitionObjectTestCase(base.BaseUnitTestCase):
+
+    def test__init(self):
+        template = {
+            'metadata': {
+                'name': 'newcrds.ctx_name.com'
+            },
+            'spec': {
+                'group': 'ctx_name.com',
+                'version': 'v2',
+                'scope': 'scope',
+                'names': {'plural': 'newcrds',
+                          'singular': 'newcrd',
+                          'kind': 'Newcrd'}
+            }
+        }
+        crd_obj = kubernetes.CustomResourceDefinitionObject(
+            'ctx_name', name='newcrd', version='v2', scope='scope')
+        self.assertEqual('newcrds.ctx_name.com', crd_obj._name)
+        self.assertEqual(template, crd_obj._template)
+
+    def test__init_missing_parameter(self):
+        with self.assertRaises(exceptions.KubernetesCRDObjectDefinitionError):
+            kubernetes.CustomResourceDefinitionObject('ctx_name',
+                                                      noname='name')
