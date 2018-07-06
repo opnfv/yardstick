@@ -27,6 +27,7 @@ class ContainerObject(object):
         self._command = [kwargs.get('command', self.COMMAND_DEFAULT)]
         self._args = kwargs.get('args', [])
         self._volume_mounts = kwargs.get('volumeMounts', [])
+        self._security_context = kwargs.get('securityContext')
 
     def _create_volume_mounts(self):
         """Return all "volumeMounts" items per container"""
@@ -47,11 +48,14 @@ class ContainerObject(object):
     def get_container_item(self):
         """Create a "container" item"""
         container_name = '{}-container'.format(self._name)
-        return {'args': self._args,
-                'command': self._command,
-                'image': self._image,
-                'name': container_name,
-                'volumeMounts': self._create_volume_mounts()}
+        container = {'args': self._args,
+                     'command': self._command,
+                     'image': self._image,
+                     'name': container_name,
+                     'volumeMounts': self._create_volume_mounts()}
+        if self._security_context:
+            container['securityContext'] = self._security_context
+        return container
 
 
 class KubernetesObject(object):
@@ -65,6 +69,7 @@ class KubernetesObject(object):
         self.node_selector = parameters.pop('nodeSelector', {})
         self.ssh_key = parameters.pop('ssh_key', self.SSHKEY_DEFAULT)
         self._volumes = parameters.pop('volumes', [])
+        self._security_context = parameters.pop('securityContext', None)
 
         containers = parameters.pop('containers', None)
         if containers:
@@ -102,6 +107,7 @@ class KubernetesObject(object):
         self._add_containers()
         self._add_node_selector()
         self._add_volumes()
+        self._add_security_context()
 
     def get_template(self):
         return self.template
@@ -152,6 +158,12 @@ class KubernetesObject(object):
 
         return {'name': name,
                 type_name: type_data}
+
+    def _add_security_context(self):
+        if self._security_context:
+            utils.set_dict_value(self.template,
+                                 'spec.template.spec.securityContext',
+                                 self._security_context)
 
 
 class ServiceObject(object):
