@@ -18,6 +18,9 @@ import abc
 import logging
 import six
 
+from yardstick.common import messaging
+from yardstick.common.messaging import payloads
+from yardstick.common.messaging import producer
 from yardstick.network_services.helpers.samplevnf_helper import PortPairs
 
 
@@ -138,6 +141,39 @@ class VnfdHelper(dict):
             yield port_name, port_num
 
 
+class TrafficGeneratorProducer(producer.MessagingProducer):
+    """Class implementing the message producer for traffic generators
+
+    This message producer must be instantiated in the process created
+    "run_traffic" process.
+    """
+    def __init__(self, _id):
+        super(TrafficGeneratorProducer, self).__init__(messaging.TOPIC_TG,
+                                                       _id=_id)
+
+    def tg_method_started(self, version=1):
+        """Send a message to inform the traffic generation has started"""
+        self.send_message(
+            messaging.TG_METHOD_STARTED,
+            payloads.TrafficGeneratorPayload(version=version, iteration=0,
+                                             kpi={}))
+
+    def tg_method_finished(self, version=1):
+        """Send a message to inform the traffic generation has finished"""
+        self.send_message(
+            messaging.TG_METHOD_FINISHED,
+            payloads.TrafficGeneratorPayload(version=version, iteration=0,
+                                             kpi={}))
+
+    def tg_method_iteration(self, iteration, version=1, kpi=None):
+        """Send a message, with KPI, once an iteration has finished"""
+        kpi = {} if kpi is None else kpi
+        self.send_message(
+            messaging.TG_METHOD_ITERATION,
+            payloads.TrafficGeneratorPayload(version=version,
+                                             iteration=iteration, kpi=kpi))
+
+
 @six.add_metaclass(abc.ABCMeta)
 class GenericVNF(object):
     """Class providing file-like API for generic VNF implementation
@@ -216,6 +252,7 @@ class GenericTrafficGen(GenericVNF):
         super(GenericTrafficGen, self).__init__(name, vnfd)
         self.runs_traffic = True
         self.traffic_finished = False
+        self._mq_producer = None
 
     @abc.abstractmethod
     def run_traffic(self, traffic_profile):
@@ -286,3 +323,16 @@ class GenericTrafficGen(GenericVNF):
         :return: True/False
         """
         pass
+
+    @staticmethod
+    def _setup_mq_producer(id):
+        """Setup the TG MQ producer to send messages between processes
+
+        :return: (derived class from ``MessagingProducer``) MQ producer object
+        """
+        return TrafficGeneratorProducer(id)
+
+    def get_mq_producer_id(self):
+        """Return the MQ producer ID if initialized"""
+        if self._mq_producer:
+            return self._mq_producer.get_id()
