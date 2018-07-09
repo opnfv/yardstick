@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_acb0498c",
+        "filename": "yardstick/common/httpClient.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-09T14:43:35Z",
+      "side": 1,
+      "message": "Example of invalid response received and how the error exception looks like right now.\n\n\"HTTPError: 502 Server Error: Bad Gateway for url: http://localhost:5000/yardstick/env/action\"\n\n\nroot@9b5e552a0241:/home/opnfv/repos/yardstick# supervisorctl stop yardstick_uwsgi\nyardstick_uwsgi: stopped\nroot@9b5e552a0241:/home/opnfv/repos/yardstick#\nroot@9b5e552a0241:/home/opnfv/repos/yardstick# supervisorctl status\nnginx                            RUNNING   pid 9, uptime 0:05:32\nrabbitmq                         EXITED    Jul 09 02:17 PM\nyardstick_uwsgi                  STOPPED   Jul 09 02:22 PM\nroot@9b5e552a0241:/home/opnfv/repos/yardstick#\nroot@9b5e552a0241:/home/opnfv/repos/yardstick# yardstick env influxdb\nNo handlers could be found for logger \"yardstick.common.utils\"\n/usr/local/lib/python2.7/dist-packages/flask/exthook.py:71: ExtDeprecationWarning: Importing flask.ext.restful is deprecated, use flask_restful instead.\n  .format(x\u003dmodname), ExtDeprecationWarning\n2018-07-09 14:23:18,171 [ERROR] yardstick.common.httpClient httpClient.py:35\nTraceback (most recent call last):\n  File \"/home/opnfv/repos/yardstick/yardstick/common/httpClient.py\", line 29, in post\n    response.raise_for_status()\n  File \"/usr/local/lib/python2.7/dist-packages/requests/models.py\", line 928, in raise_for_status\n    raise HTTPError(http_error_msg, response\u003dself)\nHTTPError: 502 Server Error: Bad Gateway for url: http://localhost:5000/yardstick/env/action\nTraceback (most recent call last):\n  File \"/usr/local/bin/yardstick\", line 11, in \u003cmodule\u003e\n    load_entry_point(\u0027yardstick\u0027, \u0027console_scripts\u0027, \u0027yardstick\u0027)()\n  File \"/home/opnfv/repos/yardstick/yardstick/main.py\", line 49, in main\n    YardstickCLI().main(sys.argv[1:])\n  File \"/home/opnfv/repos/yardstick/yardstick/cmd/cli.py\", line 165, in main\n    self._dispatch_func_notask()\n  File \"/home/opnfv/repos/yardstick/yardstick/cmd/cli.py\", line 143, in _dispatch_func_notask\n    func(CONF.category)\n  File \"/home/opnfv/repos/yardstick/yardstick/cmd/commands/env.py\", line 30, in do_influxdb\n    task_id \u003d self._start_async_task(data)\n  File \"/home/opnfv/repos/yardstick/yardstick/cmd/commands/env.py\", line 51, in _start_async_task\n    return HttpClient().post(url, data)[\u0027result\u0027][\u0027task_id\u0027]\n  File \"/home/opnfv/repos/yardstick/yardstick/common/httpClient.py\", line 29, in post\n    response.raise_for_status()\n  File \"/usr/local/lib/python2.7/dist-packages/requests/models.py\", line 928, in raise_for_status\n    raise HTTPError(http_error_msg, response\u003dself)\nHTTPError: 502 Server Error: Bad Gateway for url: http://localhost:5000/yardstick/env/action",
+      "revId": "89b9dfb749cbcfbce33ebb5002542f4454020cbd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
