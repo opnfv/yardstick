@@ -22,6 +22,30 @@
       "revId": "4a6e37d53f631acaf03b50c791740627e3ca80cc",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_033ca9e1",
+        "filename": "yardstick/network_services/vnf_generic/vnf/base.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-09T07:07:42Z",
+      "side": 1,
+      "message": "I\u0027ll do, but the methods are self explanatory",
+      "parentUuid": "da5c1566_08a68610",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 171,
+        "endChar": 75
+      },
+      "revId": "4a6e37d53f631acaf03b50c791740627e3ca80cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
