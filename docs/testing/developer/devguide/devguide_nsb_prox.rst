@@ -8,6 +8,8 @@ for Telco customers, investigate the impact of new Intel compute,
 network and storage technologies, characterize performance, and develop
 optimal system architectures and configurations.
 
+NSB PROX Supports Baremetal, Openstack and standalone configuration.
+
 .. contents::
 
 Prerequisites
@@ -162,11 +164,11 @@ A NSB Prox test is composed of the following components :-
   server descriptions, in the case of baremetal the hardware
   description location. It also contains the name of the Traffic Generator,
   the SUT config file and the traffic profile description, all described below.
-  See nsb-test-description-label_
+  See `Test Description File`_
 
 * Traffic Profile file. Example ``prox_binsearch.yaml``. This describes the
   packet size, tolerated loss, initial line rate to start traffic at, test
-  interval etc See nsb-traffic-profile-label_
+  interval etc See `Traffic Profile File`_
 
 * Traffic Generator Config file. Usually called ``gen_<test>-<ports>.cfg``.
 
@@ -179,7 +181,7 @@ A NSB Prox test is composed of the following components :-
     under test.
 
   Example traffic generator config file  ``gen_l2fwd-4.cfg``
-  See nsb-traffic-generator-label_
+  See `Traffic Generator Config file`_
 
 * SUT Config file. Usually called ``handle_<test>-<ports>.cfg``.
 
@@ -193,7 +195,7 @@ A NSB Prox test is composed of the following components :-
     the ports to the Traffic Verifier tasks of the Traffic Generator.
 
   Example traffic generator config file  ``handle_l2fwd-4.cfg``
-  See nsb-sut-generator-label_
+  See `SUT Config File`_
 
 * NSB PROX Baremetal Configuration file. Usually called
   ``prox-baremetal-<ports>.yaml``
@@ -202,12 +204,12 @@ A NSB Prox test is composed of the following components :-
 
   This is required for baremetal only.  This describes hardware, NICs,
   IP addresses, Network drivers, usernames and passwords.
-  See baremetal-config-label_
+  See `Baremetal Configuration File`_
 
 * Grafana Dashboard. Usually called
   ``Prox_<context>_<test>-<port>-<DateAndTime>.json`` where
 
-  * <context> Is either ``BM`` or ``heat``
+  * <context> Is ``BM``,``heat``,``ovs_dpdk`` or ``sriov``
   * <test> Is the a one or 2 word description of the test.
   * <port> is the number of ports used express as ``2Port`` or ``4Port``
   * <DateAndTime> is the Date and Time expressed as a string.
@@ -217,15 +219,15 @@ A NSB Prox test is composed of the following components :-
 Other files may be required. These are test specific files and will be
 covered later.
 
-.. _nsb-test-description-label:
 
-**Test Description File**
+Test Description File
+---------------------
 
-Here we will discuss the test description for both
-baremetal and openstack.
+Here we will discuss the test description for
+baremetal, openstack and standalone.
 
-*Test Description File for Baremetal*
--------------------------------------
+Test Description File for Baremetal
+-----------------------------------
 
 This section will introduce the meaning of the Test case description
 file. We will use ``tc_prox_baremetal_l2fwd-2.yaml`` as an example to
@@ -239,7 +241,7 @@ Now let's examine the components of the file in detail
 
 1. ``traffic_profile`` - This specifies the traffic profile for the
    test. In this case ``prox_binsearch.yaml`` is used. See
-   nsb-traffic-profile-label_
+   `Traffic Profile File`_
 
 2. ``topology`` - This is either ``prox-tg-topology-1.yaml`` or
     ``prox-tg-topology-2.yaml`` or ``prox-tg-topology-4.yaml``
@@ -251,10 +253,13 @@ Now let's examine the components of the file in detail
 4. ``interface_speed_gbps`` - This is an optional parameter. If not present
    the system defaults to 10Gbps. This defines the speed of the interfaces.
 
-5. ``prox_path`` - Location of the Prox executable on the traffic
+5. ``collectd`` - (Optional) This specifies we want to collect NFVI statistics
+   like CPU Utilization,
+
+6. ``prox_path`` - Location of the Prox executable on the traffic
    generator (Either baremetal or Openstack Virtual Machine)
 
-6. ``prox_config`` - This is the ``SUT Config File``.
+7. ``prox_config`` - This is the ``SUT Config File``.
    In this case it is ``handle_l2fwd-2.cfg``
 
    A number of additional parameters can be added. This example
@@ -262,6 +267,14 @@ Now let's examine the components of the file in detail
 
     options:
       interface_speed_gbps: 10
+
+      traffic_config:
+        tolerated_loss: 0.01
+        test_precision: 0.01
+        packet_sizes: [64]
+        duration: 30
+        lower_bound: 0.0
+        upper_bound: 100.0
 
       vnf__0:
         prox_path: /opt/nsb_bin/prox
@@ -282,6 +295,14 @@ Now let's examine the components of the file in detail
    of the slowest interface. This parameter is optional. If omitted the
    interface speed defaults to 10Gbps.
 
+   ``traffic_config`` - This allows the values here to override the values in
+   in the traffic_profile file. e.g. "prox_binsearch.yaml". Values provided
+   here override values provided in the "traffic_profile" section of the
+   traffic_profile file. Some, all or none of the values can be provided here.
+
+  The values describes the packet size, tolerated loss, initial line rate
+  to start traffic at, test interval etc See `Traffic Profile File`_
+
    ``prox_files`` - this specified that a number of addition files
    need to be provided for the test to run correctly. This files
    could provide routing information,hashing information or a
@@ -292,16 +313,16 @@ Now let's examine the components of the file in detail
    of a file called ``parameters.lua``, which contains information
    retrieved from either the hardware or the openstack configuration.
 
-7. ``prox_args`` - this specifies the command line arguments to start
+8. ``prox_args`` - this specifies the command line arguments to start
    prox. See `prox command line`_.
 
-8. ``prox_config`` - This specifies the Traffic Generator config file.
+9. ``prox_config`` - This specifies the Traffic Generator config file.
 
-9. ``runner`` - This is set to ``ProxDuration`` - This specifies that the
+10. ``runner`` - This is set to ``ProxDuration`` - This specifies that the
    test runs for a set duration. Other runner types are available
    but it is recommend to use ``ProxDuration``
 
-   The following parrameters are supported
+   The following parameters are supported
 
    ``interval`` - (optional) - This specifies the sampling interval.
    Default is 1 sec
@@ -321,10 +342,8 @@ Now let's examine the components of the file in detail
    ``prox-baremetal-4.yaml`` would be used. This is the NSB Prox
    baremetal configuration file.
 
-.. _nsb-traffic-profile-label:
-
-*Traffic Profile file*
-----------------------
+Traffic Profile File
+--------------------
 
 This describes the details of the traffic flow. In this case
 ``prox_binsearch.yaml`` is used.
@@ -334,8 +353,9 @@ This describes the details of the traffic flow. In this case
    :alt: NSB PROX Traffic Profile
 
 
-1. ``name`` - The name of the traffic profile. This name should match the name
-   specified in the ``traffic_profile`` field in the Test Description File.
+1. ``name`` - The name of the traffic profile. This name should match the
+   name specified in the ``traffic_profile`` field in the Test
+   Description File.
 
 2. ``traffic_type`` - This specifies the type of traffic pattern generated,
    This name matches class name of the traffic generator. See::
@@ -396,19 +416,20 @@ See this prox_vpe.yaml as example::
        lower_bound: 0.0
        upper_bound: 100.0
 
-*Test Description File for Openstack*
--------------------------------------
+Test Description File for Openstack
+-----------------------------------
 
 We will use ``tc_prox_heat_context_l2fwd-2.yaml`` as a example to show
 you how to understand the test description file.
 
-.. image:: images/PROX_Test_HEAT_Script1.png
-   :width: 800px
-   :alt: NSB PROX Test Description File - Part 1
+         .. image:: images/PROX_Test_HEAT_Script1.png
+            :width: 800px
+            :alt: NSB PROX Test Description File - Part 1
 
-.. image:: images/PROX_Test_HEAT_Script2.png
-   :width: 800px
-   :alt: NSB PROX Test Description File - Part 2
+
+         .. image:: images/PROX_Test_HEAT_Script2.png
+            :width: 800px
+            :alt: NSB PROX Test Description File - Part 2
 
 Now lets examine the components of the file in detail
 
@@ -464,10 +485,64 @@ F. ``networks`` - is composed of a management network labeled ``mgmt``
         port_security_enabled: False
         enable_dhcp: 'false'
 
-.. _nsb-traffic-generator-label:
+Test Description File for Standalone
+------------------------------------
 
-*Traffic Generator Config file*
--------------------------------
+We will use ``tc_prox_ovs-dpdk_l2fwd-2.yaml`` as a example to show
+you how to understand the test description file.
+
+         .. image:: images/PROX_Test_ovs_dpdk_Script_1.png
+            :width: 800px
+            :alt: NSB PROX Test Standalone Description File - Part 1
+
+         .. image:: images/PROX_Test_ovs_dpdk_Script_2.png
+            :width: 800px
+            :alt: NSB PROX Test Standalone Description File - Part 2
+
+Now lets examine the components of the file in detail
+
+Sections 1 to 9 are exactly the same in Baremetal and in Heat. Section
+``10`` is replaced with sections A to F. Section 10 was for a baremetal
+configuration file. This has no place in a heat configuration.
+
+A. ``file`` - Pod file for Baremetal Traffic Generator configuration:
+   IP Address, User/Password & Interfaces
+
+B. ``type`` - This defines the type of standalone configuration.
+   Possible values are ``StandaloneOvsDpdk`` or ``StandaloneSriov``
+
+C. ``file`` - Pod file for Standalone host configuration:
+   IP Address, User/Password & Interfaces
+
+D. ``vm_deploy`` - Deploy a new VM or use an existing VM
+
+E. ``ovs_properties`` - OVS Version, DPDK Version and configuration
+   to use.
+
+F. ``flavor``- NSB image generated when installing NSB using ansible-playbook::
+
+    ram- Configurable RAM for SUT VM
+    extra_specs
+      hw:cpu_sockets - Configurable number of Sockets for SUT VM
+      hw:cpu_cores - Configurable number of Cores for SUT VM
+      hw:cpu_threads- Configurable number of Threads for SUT VM
+
+G. ``mgmt`` - Management port of the SUT VM. Preconfig  needed on TG & SUT host machines.
+   is the system under test.
+
+
+H. ``xe0`` - Upline Network port
+
+I. ``xe1`` - Downline Network port
+
+J. ``uplink_0`` - Uplink Phy port of the NIC on the host. This will be used to create
+   the Virtual Functions.
+
+K. ``downlink_0`` - Downlink Phy port of the NIC on the host. This will be used to
+   create the Virtual Functions.
+
+Traffic Generator Config file
+-----------------------------
 
 This section will describe the traffic generator config file.
 This is the same for both baremetal and heat. See this example
@@ -725,10 +800,8 @@ Now let's examine the components of the file in detail
       to be read from. Note that the SUT workload might cause the position of
       the timestamp to change (i.e. due to encapsulation).
 
-.. _nsb-sut-generator-label:
-
-*SUT Config file*
--------------------------------
+SUT Config File
+---------------
 
 This section will describes the SUT(VNF) config file. This is the same for both
 baremetal and heat. See this example of ``handle_l2fwd_multiflow-2.cfg`` to
@@ -892,10 +965,8 @@ Now let's examine the components of the file in detail
       :width: 1000px
       :alt: NSB PROX Config File for BNG_QOS
 
-*Baremetal Configuration file*
-------------------------------
-
-.. _baremetal-config-label:
+Baremetal Configuration File
+----------------------------
 
 This is required for baremetal testing. It describes the IP address of the
 various ports, the Network devices drivers and MAC addresses and the network
@@ -933,8 +1004,8 @@ Now let's describe the sections of the file.
   9. ``routing_table`` - All parameters should remain unchanged.
   10. ``nd_route_tbl`` - All parameters should remain unchanged.
 
-*Grafana Dashboard*
--------------------
+Grafana Dashboard
+-----------------
 
 The grafana dashboard visually displays the results of the tests. The steps
 required to produce a grafana dashboard are described here.
@@ -987,7 +1058,7 @@ In order to run the NSB PROX test.
           cd /home/opnfv/repos/yardstick/samples/vnf_samples/nsut/prox
 
      b. Install prox-baremetal-2.yam and prox-baremetal-4.yaml for that
-        topology into this directory as per baremetal-config-label_
+        topology into this directory as per `Baremetal Configuration File`_
 
      c. Install and configure ``yardstick.conf`` ::
 
@@ -1032,13 +1103,11 @@ Frequently Asked Questions
 
 Here is a list of frequently asked questions.
 
-*NSB Prox does not work on Baremetal, How do I resolve this?*
--------------------------------------------------------------
+NSB Prox does not work on Baremetal, How do I resolve this?
+-----------------------------------------------------------
 
 If PROX NSB does not work on baremetal, problem is either in network
 configuration or test file.
-
-*Solution*
 
 1. Verify network configuration. Execute existing baremetal test.::
 
@@ -1079,10 +1148,8 @@ configuration or test file.
 2. If existing baremetal works then issue is with your test. Check the traffic
    generator gen_<test>-<ports>.cfg to ensure it is producing a valid packet.
 
-*How do I debug NSB Prox on Baremetal?*
----------------------------------------
-
-*Solution*
+How do I debug NSB Prox on Baremetal?
+-------------------------------------
 
 1. Execute the test as follows::
 
@@ -1148,8 +1215,8 @@ configuration or test file.
 
        dump_tx 1 0 1
 
-*NSB Prox works on Baremetal but not in Openstack. How do I resolve this?*
---------------------------------------------------------------------------
+NSB Prox works on Baremetal but not in Openstack. How do I resolve this?
+------------------------------------------------------------------------
 
 NSB Prox on Baremetal is a lot more forgiving than NSB Prox on Openstack. A
 badly formed packed may still work with PROX on Baremetal. However on
@@ -1157,7 +1224,6 @@ Openstack the packet must be correct and all fields of the header correct.
 E.g. A packet with an invalid Protocol ID would still work in Baremetal but
 this packet would be rejected by openstack.
 
-*Solution*
 
  1. Check the validity of the packet.
  2. Use a known good packet in your test
@@ -1165,10 +1231,8 @@ this packet would be rejected by openstack.
     retry.
 
 
-*How do I debug NSB Prox on Openstack?*
----------------------------------------
-
-*Solution*
+How do I debug NSB Prox on Openstack?
+-------------------------------------
 
 1. Execute the test as follows::
 
@@ -1239,10 +1303,8 @@ this packet would be rejected by openstack.
 
     Now continue as baremetal.
 
-*How do I resolve "Quota exceeded for resources"*
--------------------------------------------------
-
-*Solution*
+How do I resolve "Quota exceeded for resources"
+-----------------------------------------------
 
 This usually occurs due to 2 reasons when executing an openstack test.
 
@@ -1276,10 +1338,8 @@ This usually occurs due to 2 reasons when executing an openstack test.
 
      openstack quota set <resource>
 
-*Openstack Cli fails or hangs. How do I resolve this?*
-------------------------------------------------------
-
-*Solution*
+Openstack CLI fails or hangs. How do I resolve this?
+----------------------------------------------------
 
 If it fails due to ::
 
@@ -1310,7 +1370,7 @@ Result ::
 
 and visible.
 
-If the Openstack ClI appears to hang, then verify the proxys and ``no_proxy``
+If the Openstack CLI appears to hang, then verify the proxys and ``no_proxy``
 are set correctly. They should be similar to ::
 
    FTP_PROXY="http://<your_proxy>:<port>/"
@@ -1328,8 +1388,8 @@ Where
     2) 10.237.223.80 = IP Address of Controller node
     3) 10.237.222.134 = IP Address of Compute Node
 
-*How to Understand the Grafana output?*
----------------------------------------
+How to Understand the Grafana output?
+-------------------------------------
 
          .. image:: images/PROX_Grafana_1.png
             :width: 1000px
@@ -1347,50 +1407,75 @@ Where
             :width: 1000px
             :alt: NSB PROX Grafana_4
 
-A. Test Parameters - Test interval, Duartion, Tolerated Loss and Test Precision
+         .. image:: images/PROX_Grafana_5.png
+            :width: 1000px
+            :alt: NSB PROX Grafana_5
+
+         .. image:: images/PROX_Grafana_6.png
+            :width: 1000px
+            :alt: NSB PROX Grafana_6
+
+A. Test Parameters - Test interval, Duration, Tolerated Loss and Test Precision
 
 B. No. of packets send and received during test
 
-C. Generator Stats - packets sent, received and attempted by Generator
+C. Generator Stats - Average Throughput per step (Step Duration is specified by
+   "Duration" field in A above)
 
 D. Packet size
 
-E. No. of packets received by SUT
+E. No. of packets sent by the generator per second per interface in millions
+   of packets per second.
 
-F. No. of packets forwarded by SUT
+F. No. of packets recieved by the generator per second per interface in millions
+   of packets per second.
 
-G. No. of packets sent by the generator per port, for each interval.
+G. No. of packets received by the SUT from the generator in millions of packets
+   per second.
 
-H. No. of packets received by the generator per port, for each interval.
+H. No. of packets sent by the the SUT to the generator in millions of packets
+   per second.
 
-I. No. of packets sent and received by the generator and lost by the SUT that
+I. No. of packets sent by the Generator to the SUT per step per interface
+   in millions of packets per second.
+
+J. No. of packets received by the Generator from the SUT per step per interface
+   in millions of packets per second.
+
+K. No. of packets sent and received by the generator and lost by the SUT that
    meet the success criteria
 
-J. The change in the Percentage of Line Rate used over a test, The MAX and the
+L. The change in the Percentage of Line Rate used over a test, The MAX and the
    MIN should converge to within the interval specified as the
    ``test-precision``.
 
-K. Packet size supported during test. If *N/A* appears in any field the
+M. Packet size supported during test. If *N/A* appears in any field the
    result has not been decided.
 
-L. Calculated throughput in MPPS (Million Packets Per second) for this line
-   rate.
+N. The Theretical Maximum no. of packets per second that can be sent for this
+   packet size.
 
-M. No. of packets sent by the generator in MPPS
+O. No. of packets sent by the generator in MPPS
 
-N. No. of packets received by the generator in MPPS
+P. No. of packets received by the generator in MPPS
 
-O. No. of packets sent by SUT.
+Q. No. of packets sent by SUT.
 
-P. No. of packets received by the SUT
+R. No. of packets received by the SUT
 
-Q. Total no. of dropped packets -- Packets sent but not received back by the
+S. Total no. of dropped packets -- Packets sent but not received back by the
    generator, these may be dropped by the SUT or the generator.
 
-R. The tolerated no. of dropped packets.
+T. The tolerated no. of dropped packets.
 
-S. Test throughput in Gbps
+U. Test throughput in Gbps
 
-T. Latencey per Port
+V. Latencey per Port
+    * Va - Port XE0
+    * Vb - Port XE1
+    * Vc - Port XE0
+    * Vd - Port XE0
 
-U. CPU Utilization
+W. CPU Utilization
+    * Wa - CPU Utilization of the Generator
+    * Wb - CPU Utilization of the SUT
