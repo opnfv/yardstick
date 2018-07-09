@@ -297,7 +297,7 @@ Now let's examine the components of the file in detail
    test runs for a set duration. Other runner types are available
    but it is recommend to use ``ProxDuration``
 
-   The following parrameters are supported
+   The following parameters are supported
 
    ``interval`` - (optional) - This specifies the sampling interval.
    Default is 1 sec
@@ -1278,7 +1278,7 @@ Where
             :width: 1000px
             :alt: NSB PROX Grafana_4
 
-A. Test Parameters - Test interval, Duartion, Tolerated Loss and Test Precision
+A. Test Parameters - Test interval, Durtion, Tolerated Loss and Test Precision
 
 B. Overall No of packets send and received during test
 
@@ -1319,7 +1319,7 @@ R. This is the tolerated no of packets that can be dropped.
 
 S. This is the test Throughput in Gbps
 
-T. This is the Latencey per Port
+T. This is the Latency per Port
 
 U. This is the CPU Utilization
 
