@@ -203,13 +203,9 @@ class TestIxNextgen(unittest.TestCase):
         ixnet_gen._ixnet = self.ixnet
         framesize = {'64B': '75', '512b': '25'}
         output = ixnet_gen._parse_framesize(framesize)
-        for idx in range(len(framesize)):
-            if output[idx * 2] == 64:
-                self.assertEqual(75, output[idx * 2 + 1])
-            elif output[idx * 2] == 512:
-                self.assertEqual(25, output[idx * 2 + 1])
-            else:
-                raise self.failureException('Framesize (64, 512) not present')
+        self.assertEqual(2, len(output))
+        self.assertIn([64, 64, 75], output)
+        self.assertIn([512, 512, 25], output)
 
     @mock.patch.object(IxNetwork, 'IxNet')
     def test_connect(self, mock_ixnet):

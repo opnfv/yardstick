@@ -166,9 +166,10 @@ class IxNextgen(object):  # pragma: no cover
         :return: list of paired frame sizes and weights
         """
         weighted_range_pairs = []
-        for size, weight in framesize.items():
-            weighted_range_pairs.append(int(size.upper().replace('B', '')))
-            weighted_range_pairs.append(int(weight))
+        for size, weight in ((s, w) for (s, w) in framesize.items()
+                             if int(w) != 0):
+            size = int(size.upper().replace('B', ''))
+            weighted_range_pairs.append([size, size, int(weight)])
         return weighted_range_pairs
 
     def iter_over_get_lists(self, x1, x2, y2, offset=0):
@@ -339,7 +340,7 @@ class IxNextgen(object):  # pragma: no cover
                         "percentLineRate" no used)
         - Frame size: custom IMIX [1] definition; a list of packet size in
                       bytes and the weight. E.g.:
-                      [64, 10, 128, 15, 512, 5]
+                      [[64, 64, 10], [128, 128, 15], [512, 512, 5]]
 
         [1] https://en.wikipedia.org/wiki/Internet_Mix
 
