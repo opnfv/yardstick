@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_570ada21",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-07-09T15:39:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_b4189d85",
+      "range": {
+        "startLine": 300,
+        "startChar": 17,
+        "endLine": 300,
+        "endChar": 28
+      },
+      "revId": "fc4cbadb0a76dbe22d768b84ce053264e1d4067a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_5403010f",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2018-06-29T16:28:39Z",
       "side": 1,
       "message": "Duration\nPlease check Emma\u0027s PS3. You reverted her spell-checking with your PS4.",
+      "range": {
+        "startLine": 1281,
+        "startChar": 36,
+        "endLine": 1281,
+        "endChar": 44
+      },
+      "revId": "fc4cbadb0a76dbe22d768b84ce053264e1d4067a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_f704ce16",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-07-09T15:39:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_5403010f",
       "range": {
         "startLine": 1281,
         "startChar": 36,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_17006200",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-07-09T15:39:45Z",
+      "side": 1,
+      "message": "96,297c296,297\n\u003c 9. ``runner`` - This is set to ``ProxDuration`` - This specified that the\n\u003c    test run for a set duration. Other runner types are available\n---\n\u003e 9. ``runner`` - This is set to ``ProxDuration`` - This specifies that the\n\u003e    test runs for a set duration. Other runner types are available\n300c300\n\u003c    The following Parameters are supported\n---\n\u003e    The following parrameters are supported\n303c303\n\u003c    Default is 60secs\n---\n\u003e    Default is 1 sec\n306c306\n\u003c    required - Default ``no``\n---\n\u003e    required. Default ``no``\n308c308,309\n\u003c    ``duration`` - This is the length of the test.\n---\n\u003e    ``duration`` - This is the length of the test in seconds. Default\n\u003e    is 60 seconds.\n310,311c311,312\n\u003c    ``confirmation`` - This specifies the number of confirmation retests to be\n\u003c    made before a decision to increase or decrease line speed.\n---\n\u003e    ``confirmation`` - This specifies the number of confirmation retests to\n\u003e    be made before deciding to increase or decrease line speed. Default 0.\n324c325,326\n\u003c This describes the details of the traffic flow. In this case ``prox_binsearch.yaml`` is used.\n---\n\u003e This describes the details of the traffic flow. In this case\n\u003e ``prox_binsearch.yaml`` is used.\n346,347c348,351\n\u003c 3. ``tolerated_loss`` - This specifies the percentage of packets that can be lost/dropped before\n\u003c    we declare success or failure. Success is Transmitted-Packets from Traffic Generator is greater than or equal to\n---\n\u003e 3. ``tolerated_loss`` - This specifies the percentage of packets that\n\u003e    can be lost/dropped before\n\u003e    we declare success or failure. Success is Transmitted-Packets from\n\u003e    Traffic Generator is greater than or equal to\n350,352c354,361\n\u003c 4. ``test_precision`` - This specifies the precision of the test results. For some tests the success criteria\n\u003c    may never be achieved because the test precision may be greater than the successful throughput. For finer\n\u003c    results increase the precision by making this value smaller.\n---\n\u003e 4. ``test_precision`` - This specifies the precision of the test\n\u003e    results. For some tests the success criteria may never be\n\u003e    achieved because the test precision may be greater than the\n\u003e    successful throughput. For finer results increase the precision\n\u003e    by making this value smaller.\n\u003e \n\u003e 5. ``packet_sizes`` - This specifies the range of packets size this\n\u003e    test is run for.\n354c363,364\n\u003c 5. ``packet_sizes`` - This specifies the range of packets size this test is run for.\n---\n\u003e 6. ``duration`` - This specifies the sample duration that the test\n\u003e    uses to check for success or failure.\n356c366,367\n\u003c 6. ``duration`` - This specifies the sample duration that the test uses to check for success or failure.\n---\n\u003e 7. ``lower_bound`` - This specifies the test initial lower bound sample rate.\n\u003e    On success this value is increased.\n358,360c369,370\n\u003c 7. ``lower_bound`` - This specifies the test initial lower bound sample rate. On success this value is increased.\n\u003c \n\u003c 8. ``upper_bound`` - This specifies the test initial upper bound sample rate. On success this value is decreased.\n---\n\u003e 8. ``upper_bound`` - This specifies the test initial upper bound sample rate.\n\u003e    On success this value is decreased.\n402c412\n\u003c ``10`` is replaced with sections A to F. Section 9 was for a baremetal\n---\n\u003e ``10`` is replaced with sections A to F. Section 10 was for a baremetal\n1057c1067\n\u003c      3. No Packets are discarded.\n---\n\u003e      3. No packets are discarded.\n1267d1276\n\u003c \n1271a1281\n\u003e A. Test Parameters - Test interval, Duartion, Tolerated Loss and Test Precision\n1273,1275c1283\n\u003c A. Test Parameters - Test interval, Duration, Tolerated Loss and Test Precision\n\u003c \n\u003c B. Overall no. of Packets sent and received during test\n---\n\u003e B. Overall No of packets send and received during test\n1277c1285\n\u003c C. Generator Stats - Packets sent, received and attempted by Generator\n---\n\u003e C. Generator Stats - packets sent, received and attempted by Generator\n1279c1287\n\u003c D. Packet Size\n---\n\u003e D. Packets Size\n1281c1289\n\u003c E. No. of packets received by SUT\n---\n\u003e E. No of packets received by SUT\n1283c1291\n\u003c F. No. of packets forwarded by SUT\n---\n\u003e F. No of packets forwarded by SUT\n1285c1293\n\u003c G. No. of packets sent by the generator per port, for each interval\n---\n\u003e G. This is the number of packets sent by the generator per port, for each interval.\n1287,1288c1295\n\u003c H. No. of packets received by the generator per port, for each\n\u003c    interval\n---\n\u003e H. This is the number of packets received by the generator per port, for each interval.\n1290,1291c1297,1298\n\u003c I. No. of packets sent, received and lost by the generator that meet the\n\u003c    success criteria\n---\n\u003e I. This is the number of packets send and received by the generator and lost by the SUT\n\u003e    that meet the success criteria\n1293,1294c1300,1301\n\u003c J. The change in line rate over the course of a test, The MAX and the MIN\n\u003c    should converge to within the interval specified as the ``test-precision``\n---\n\u003e J. This is the changes the Percentage of Line Rate used over a test, The MAX and the\n\u003e    MIN should converge to within the interval specified as the ``test-precision``.\n1296,1297c1303\n\u003c K. The packet size suppported during test. If \"N/A\" appears in any field the\n\u003c    result has not been decided\n---\n\u003e K. This is the packets Size supported during test. If \"N/A\" appears in any field the result has not been decided.\n1299c1305\n\u003c L. The calculated throughput in MPPS for this line rate\n---\n\u003e L. This is the calculated throughput in MPPS(Million Packets Per second) for this line rate.\n1301c1307\n\u003c M. The actual no. of packets sent by generator\n---\n\u003e M. This is the actual No, of packets sent by the generator in MPPS\n1303c1309\n\u003c N. Thhe actual no. of pacakets received by the generator\n---\n\u003e N. This is the actual No. of packets received by the generator in MPPS\n1305c1311\n\u003c O. The total no. of packets sent\n---\n\u003e O. This is the total No. of packets sent by SUT.\n1307c1313\n\u003c P. The total no. of packets dropped\n---\n\u003e P. This is the total No. of packets received by the SUT\n1309c1315,1316\n\u003c Q. The actual no. of packets dropped\n---\n\u003e Q. This is the total No. of packets dropped. (These packets were sent by the generator but not\n\u003e    received back by the generator, these may be dropped by the SUT or the Generator)\n1311c1318\n\u003c R. The acceptable no. of packets that can be dropped\n---\n\u003e R. This is the tolerated no of packets that can be dropped.\n1313c1320\n\u003c S. The test throughput in Gbps\n---\n\u003e S. This is the test Throughput in Gbps\n1315c1322\n\u003c T. The Latency per Port\n---\n\u003e T. This is the Latencey per Port\n1317c1324\n\u003c U. The CPU Utilization\n---\n\u003e U. This is the CPU Utilization",
+      "parentUuid": "da5c1566_f76e97c8",
+      "range": {
+        "startLine": 1283,
+        "startChar": 25,
+        "endLine": 1283,
+        "endChar": 29
+      },
+      "revId": "fc4cbadb0a76dbe22d768b84ce053264e1d4067a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_774ba759",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 8
@@ -82,6 +154,30 @@
       "writtenOn": "2018-06-29T16:28:39Z",
       "side": 1,
       "message": "Latency",
+      "range": {
+        "startLine": 1322,
+        "startChar": 15,
+        "endLine": 1322,
+        "endChar": 23
+      },
+      "revId": "fc4cbadb0a76dbe22d768b84ce053264e1d4067a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_370f6632",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-07-09T15:39:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_774ba759",
       "range": {
         "startLine": 1322,
         "startChar": 15,
