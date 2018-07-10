@@ -16,6 +16,7 @@ import mock
 import os
 import six
 from six.moves import configparser
+import socket
 import time
 import unittest
 
@@ -1282,3 +1283,29 @@ class WaitUntilTrueTestCase(ut_base.BaseUnitTestCase):
             self.assertIsNone(
                 utils.wait_until_true(lambda: False, timeout=1, sleep=1,
                                       exception=MyTimeoutException))
+
+
+class SendSocketCommandTestCase(unittest.TestCase):
+
+    @mock.patch.object(socket, 'socket')
+    def test_execute_correct(self, mock_socket):
+        mock_socket_obj = mock.Mock()
+        mock_socket_obj.connect_ex.return_value = 0
+        mock_socket.return_value = mock_socket_obj
+        self.assertEqual(0, utils.send_socket_command('host', 22, 'command'))
+        mock_socket.assert_called_once_with(socket.AF_INET, socket.SOCK_STREAM)
+        mock_socket_obj.connect_ex.assert_called_once_with(('host', 22))
+        mock_socket_obj.sendall.assert_called_once_with(six.b('command'))
+        mock_socket_obj.close.assert_called_once()
+
+    @mock.patch.object(socket, 'socket')
+    def test_execute_exception(self, mock_socket):
+        mock_socket_obj = mock.Mock()
+        mock_socket_obj.connect_ex.return_value = 0
+        mock_socket.return_value = mock_socket_obj
+        mock_socket_obj.sendall.side_effect = socket.error
+        self.assertEqual(1, utils.send_socket_command('host', 22, 'command'))
+        mock_socket.assert_called_once_with(socket.AF_INET, socket.SOCK_STREAM)
+        mock_socket_obj.connect_ex.assert_called_once_with(('host', 22))
+        mock_socket_obj.sendall.assert_called_once_with(six.b('command'))
+        mock_socket_obj.close.assert_called_once()

@@ -527,3 +527,25 @@ def wait_until_true(predicate, timeout=60, sleep=1, exception=None):
         if exception and issubclass(exception, Exception):
             raise exception  # pylint: disable=raising-bad-type
         raise exceptions.WaitTimeout
+
+
+def send_socket_command(host, port, command):
+    """Send a string command to a specific port in a host
+
+    :param host: (str) ip or hostname of the host
+    :param port: (int) port number
+    :param command: (str) command to send
+    :return: 0 if success, error number if error
+    """
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    ret = 0
+    try:
+        err_number = sock.connect_ex((host, int(port)))
+        if err_number != 0:
+            return err_number
+        sock.sendall(six.b(command))
+    except Exception:  # pylint: disable=broad-except
+        ret = 1
+    finally:
+        sock.close()
+    return ret
