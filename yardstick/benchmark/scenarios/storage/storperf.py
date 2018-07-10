@@ -87,7 +87,9 @@ class StorPerf(base.Scenario):
         env_args = {}
         env_args_payload_list = ["agent_count", "agent_flavor",
                                  "public_network", "agent_image",
-                                 "volume_size"]
+                                 "volume_size", "volume_type",
+                                 "volume_count", "availability_zone",
+                                 "stack_name", "subnet_CIDR"]
 
         for env_argument in env_args_payload_list:
             try:

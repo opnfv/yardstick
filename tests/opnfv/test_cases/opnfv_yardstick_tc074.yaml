@@ -22,6 +22,11 @@ description: >
 {% set queue_depths = queue_depths or "4" %}
 {% set steady_state_samples = steady_state_samples or 10 %}
 {% set volume_size = volume_size or 4 %}
+{% set volume_count = volume_count or 1 %}
+{% set volume_type = volume_type or "tripleo-ceph" %}
+{% set availability_zone = availability_zone or "nova %}
+{% set subnet_CIDR = subnet_CIDR or "172.16.0.0/16" %}
+{% set stack_name = stack_name or "StorperfAgentGroup %}
 scenarios:
 -
   type: StorPerf
@@ -39,6 +44,11 @@ scenarios:
     workload: {{workload}}
     workloads: {{workloads}}
     steady_state_samples: {{steady_state_samples}}
+    volume_count: {{volume_count}}
+    volume_type: {{volume_type}}
+    availability_zone: {{availability_zone}}
+    subnet_CIDR: {{subnet_CIDR}}
+    stack_name: {{stack_name}}
 
   runner:
     type: Iteration
