@@ -29,6 +29,8 @@ scenarios:
     StorPerf_ip: {{StorPerf_ip}}
     query_interval: 10
     timeout: 300
+    volume_type: "tripleo-ceph"
+    availability_zone: "nova"
 
   runner:
     type: Iteration
