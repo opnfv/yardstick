@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_b21a646c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-10T12:15:51Z",
+      "side": 1,
+      "message": "Ahh, you are right. Will fix it.",
+      "parentUuid": "da5c1566_57e93a7f",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 51
+      },
+      "revId": "f0d460c46c817c7330e2607ab8f01e5eef5795a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_f7f32e71",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -36,6 +60,24 @@
       "writtenOn": "2018-07-10T09:53:34Z",
       "side": 1,
       "message": "JIRA ticket missing",
+      "revId": "f0d460c46c817c7330e2607ab8f01e5eef5795a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_1227d0b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-10T12:15:51Z",
+      "side": 1,
+      "message": "The PS5 has overwritten the JIRA id, thanks.",
+      "parentUuid": "da5c1566_f7f32e71",
       "revId": "f0d460c46c817c7330e2607ab8f01e5eef5795a5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_5221489e",
+        "filename": "ansible/roles/configure_uwsgi/templates/yardstick.ini.j2",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-10T12:15:51Z",
+      "side": 1,
+      "message": "only just in case ;)",
+      "parentUuid": "da5c1566_7786feba",
+      "revId": "f0d460c46c817c7330e2607ab8f01e5eef5795a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_17efc288",
         "filename": "docker/Dockerfile",
         "patchSetId": 5
@@ -70,6 +130,24 @@
       "writtenOn": "2018-07-10T09:53:34Z",
       "side": 1,
       "message": "Nice comment, but be careful: Dockerfile.aarch64.patch must be changed too.",
+      "revId": "f0d460c46c817c7330e2607ab8f01e5eef5795a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_322654b8",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-10T12:15:51Z",
+      "side": 1,
+      "message": "Good catch. Thx. I will check it.",
+      "parentUuid": "da5c1566_17efc288",
       "revId": "f0d460c46c817c7330e2607ab8f01e5eef5795a5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
