@@ -24,11 +24,16 @@ scenarios:
     agent_flavor: "storperf"
     public_network: {{public_network}}
     volume_size: 4
+    volume_count: 1
+    volume_type: "tripleo-ceph"
     block_sizes: "4096"
     queue_depths: "4"
     StorPerf_ip: {{StorPerf_ip}}
     query_interval: 10
     timeout: 300
+    availability_zone: "nova"
+    subnet_CIDR: "172.16.0.0/16"
+    stack_name: "StorperfAgentGroup"
 
   runner:
     type: Iteration
