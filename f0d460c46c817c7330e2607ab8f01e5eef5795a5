@@ -151,6 +151,24 @@
       "revId": "f0d460c46c817c7330e2607ab8f01e5eef5795a5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_72372ce4",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-10T12:28:13Z",
+      "side": 1,
+      "message": "It can be applied by patch tool but fails using git apply. So, will fix it.",
+      "parentUuid": "da5c1566_322654b8",
+      "revId": "f0d460c46c817c7330e2607ab8f01e5eef5795a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
