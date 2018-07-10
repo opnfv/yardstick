@@ -210,15 +210,22 @@ name (i.e. %s).
             'value': {'get_resource': name}
         }
 
-    def add_volume(self, name, size=10):
+    def add_volume(self, name, volume_type=None, size=10):
         """add to the template a volume description"""
-        log.debug("adding Cinder::Volume '%s' size '%d' ", name, size)
+        if volume_type != None:
+            log.debug("adding Cinder::Volume '%s' size '%d' volume_type '%s' ",
+                      name, size, volume_type)
+        else:
+            log.debug("adding Cinder::Volume '%s' size '%d' ", name, size)
+
 
         self.resources[name] = {
             'type': 'OS::Cinder::Volume',
             'properties': {'name': name,
                            'size': size}
         }
+        if volume_type is not None:
+            self.resources[name]['properties']['volume_type'] = volume_type
 
         self._template['outputs'][name] = {
             'description': 'Volume %s ID' % name,
