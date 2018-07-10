@@ -87,6 +87,13 @@ Yardstick Test Case Description TC074
 |              |   Query the status of the supplied job_id and report on      |
 |              |   metrics. If a workload is supplied, will report on only    |
 |              |   that subset.                                               |
+|              | * availability_zone                                          |
+|              | * volume_type                                                |
+|              |   Cinder volumes can have different types, for example       |
+|              |   encrypted vs. not encrypted.                               |
+|              |   To be able to profile the difference between the two.      |
+|              | * subnet_CIDR specify subnet CIDR of private network         |
+|              | * stack_name: specify the created stack name                 |
 |              |                                                              |
 |              |   There are default values for each above-mentioned option.  |
 |              |                                                              |
