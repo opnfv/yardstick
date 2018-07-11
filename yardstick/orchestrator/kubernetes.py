@@ -146,6 +146,10 @@ class ReplicationControllerObject(object):
         self._add_networks()
         self._add_tolerations()
 
+    @property
+    def networks(self):
+        return self._networks
+
     def get_template(self):
         return self.template
 
@@ -423,7 +427,7 @@ class KubernetesTemplate(object):
 
         self.rcs = {self._get_rc_name(rc): cfg
                     for rc, cfg in servers_cfg.items()}
-        self.k8s_objs = [ReplicationControllerObject(
+        self.rc_objs = [ReplicationControllerObject(
             rc, ssh_key=self.ssh_key, **cfg) for rc, cfg in self.rcs.items()]
         self.service_objs = [ServiceNodePortObject(rc, **cfg)
                              for rc, cfg in self.rcs.items()]
@@ -442,3 +446,8 @@ class KubernetesTemplate(object):
                      if p.metadata.name.startswith(s)]
 
         return self.pods
+
+    def get_rc_by_name(self, rc_name):
+        """Returns a ``ReplicationControllerObject``, searching by name"""
+        for rc in (rc for rc in self.rc_objs if rc.name == rc_name):
+            return rc
