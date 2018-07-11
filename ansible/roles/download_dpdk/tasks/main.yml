@@ -37,8 +37,20 @@
       path: "{{ dpdk_dest }}/{{ dpdk_file }}"
       state: absent
 
+- name: find unzipped DPDK folder
+  find:
+    paths: "{{ dpdk_dest }}"
+    patterns: "^dpdk-.*{{ dpdk_version }}$"
+    file_type: directory
+    use_regex: yes
+  register: dpdk_folder_match
+
+- fail:
+    msg: "Connot find unzipped DPDK folder or more than one found"
+  when: dpdk_folder_match.matched != 1
+
 - set_fact:
-    dpdk_path: "{{ dpdk_dest }}/{{ dpdk_unarchive }}"
+    dpdk_path: "{{ dpdk_folder_match.files[0].path }}"
 
 - set_fact:
     RTE_SDK: "{{ dpdk_path }}"

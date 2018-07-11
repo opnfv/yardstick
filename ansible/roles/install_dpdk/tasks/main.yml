@@ -114,9 +114,21 @@
     path: "{{ INSTALL_BIN_PATH }}"
     state:  directory
 
+- name: find dpdk-devbind.py tool
+  find:
+    paths: "{{ dpdk_path }}"
+    patterns: "dpdk-devbind.py"
+    file_type: file
+    recurse: yes
+  register: dpdk_devbind_path_match
+
+- fail:
+    msg: "Connot find dpdk-devbind.py"
+  when: dpdk_devbind_path_match.matched != 1
+
 - name: copy dpdk-devbind.py to correct location
   copy:
-    src: "{{ dpdk_devbind_usertools if dpdk_version|float >= 17.02 else dpdk_devbind_tools }}"
+    src: "{{ dpdk_devbind_path_match.files[0].path }}"
     dest: "{{ INSTALL_BIN_PATH }}/dpdk-devbind.py"
     remote_src: yes
     force: yes
