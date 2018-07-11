@@ -14,7 +14,12 @@
 ---
 access-list-entries:
   -
-    actions: [drop,count]
+    actions:
+      - count
+      - nat:
+          port: 1
+      - fwd:
+          port: 0
     matches:
       destination-ipv4-network: 152.16.40.20/24
       destination-port-range:
@@ -24,6 +29,9 @@ access-list-entries:
       source-port-range:
         lower-port: 0
         upper-port: 65535
+      protocol-mask: 255
+      protocol: 127
+      priority: 1
     rule-name: rule1588
   -
     actions: [drop,count]
