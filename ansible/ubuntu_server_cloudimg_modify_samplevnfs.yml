@@ -55,8 +55,6 @@
       vnf_name: FW
     - role: install_samplevnf
       vnf_name: CGNAPT
-    - role: install_samplevnf
-      vnf_name: PE
     # build shared DPDK for collectd only, required DPDK downloaded already
     - install_dpdk_shared
     - install_rabbitmq
