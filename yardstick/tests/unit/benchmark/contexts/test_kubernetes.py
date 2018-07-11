@@ -7,6 +7,9 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+import collections
+import time
+
 import mock
 import unittest
 
@@ -33,6 +36,16 @@ CONTEXT_CFG = {
             'args': ['-c', 'chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; '
                      'service ssh restart;while true ; do sleep 10000; done']
         }
+    },
+    'networks': {
+        'flannel': {
+            'args': 'flannel_args',
+            'plugin': 'flannel'
+        },
+        'sriov01': {
+            'args': 'sriov_args',
+            'plugin': 'sriov'
+        },
     }
 }
 
@@ -56,17 +69,19 @@ class KubernetesTestCase(unittest.TestCase):
     @mock.patch.object(kubernetes.KubernetesContext, '_delete_ssh_key')
     @mock.patch.object(kubernetes.KubernetesContext, '_delete_rcs')
     @mock.patch.object(kubernetes.KubernetesContext, '_delete_pods')
-    def test_undeploy(self,
-                      mock_delete_pods,
-                      mock_delete_rcs,
-                      mock_delete_ssh,
-                      mock_delete_services):
+    @mock.patch.object(kubernetes.KubernetesContext, '_delete_networks')
+    @mock.patch.object(kubernetes.KubernetesContext, '_delete_crd')
+    def test_undeploy(self, mock_delete_pods, mock_delete_rcs,
+                      mock_delete_ssh, mock_delete_services,
+                      mock_delete_networks, mock_delete_crd):
 
         self.k8s_context.undeploy()
         mock_delete_ssh.assert_called_once()
         mock_delete_rcs.assert_called_once()
         mock_delete_pods.assert_called_once()
         mock_delete_services.assert_called_once()
+        mock_delete_networks.assert_called_once()
+        mock_delete_crd.assert_called_once()
 
     @mock.patch.object(kubernetes.KubernetesContext, '_create_services')
     @mock.patch.object(kubernetes.KubernetesContext, '_wait_until_running')
@@ -74,20 +89,21 @@ class KubernetesTestCase(unittest.TestCase):
                        'get_rc_pods')
     @mock.patch.object(kubernetes.KubernetesContext, '_create_rcs')
     @mock.patch.object(kubernetes.KubernetesContext, '_set_ssh_key')
-    def test_deploy(self,
-                    mock_set_ssh_key,
-                    mock_create_rcs,
-                    mock_get_rc_pods,
-                    mock_wait_until_running,
-                    mock_create_services):
+    @mock.patch.object(kubernetes.KubernetesContext, '_create_networks')
+    @mock.patch.object(kubernetes.KubernetesContext, '_create_crd')
+    def test_deploy(self, mock_set_ssh_key, mock_create_rcs, mock_get_rc_pods,
+                    mock_wait_until_running, mock_create_services,
+                    mock_create_networks, mock_create_crd):
 
-        with mock.patch("yardstick.benchmark.contexts.kubernetes.time"):
+        with mock.patch.object(time, 'sleep'):
             self.k8s_context.deploy()
         mock_set_ssh_key.assert_called_once()
         mock_create_rcs.assert_called_once()
         mock_create_services.assert_called_once()
         mock_get_rc_pods.assert_called_once()
         mock_wait_until_running.assert_called_once()
+        mock_create_networks.assert_called_once()
+        mock_create_crd.assert_called_once()
 
     @mock.patch.object(kubernetes, 'paramiko', **{"resource_filename.return_value": ""})
     @mock.patch.object(kubernetes, 'pkg_resources', **{"resource_filename.return_value": ""})
@@ -183,6 +199,9 @@ class KubernetesTestCase(unittest.TestCase):
         mock_k8stemplate.assert_called_once_with(self.k8s_context.name,
                                                  CONTEXT_CFG)
         self.assertEqual('fake_template', self.k8s_context.template)
+        self.assertEqual(2, len(self.k8s_context._networks))
+        self.assertIn('flannel', self.k8s_context._networks.keys())
+        self.assertIn('sriov01', self.k8s_context._networks.keys())
 
     def test__get_physical_nodes(self):
         result = self.k8s_context._get_physical_nodes()
@@ -191,3 +210,36 @@ class KubernetesTestCase(unittest.TestCase):
     def test__get_physical_node_for_server(self):
         result = self.k8s_context._get_physical_node_for_server("fake")
         self.assertIsNone(result)
+
+    def test__get_network(self):
+        networks = collections.OrderedDict([('n1', 'data1'), ('n2', 'data2')])
+        self.k8s_context._networks = networks
+        self.assertEqual({'name': 'n1'}, self.k8s_context._get_network('n1'))
+        self.assertEqual({'name': 'n2'}, self.k8s_context._get_network('n2'))
+        self.assertIsNone(self.k8s_context._get_network('n3'))
+
+    @mock.patch.object(orchestrator_kubernetes.KubernetesTemplate,
+                       'get_rc_by_name')
+    def test__get_interfaces(self, mock_get_rc):
+        rc = orchestrator_kubernetes.ReplicationControllerObject('rc_name')
+        rc._networks = ['net1', 'net2']
+        mock_get_rc.return_value = rc
+        expected = {'net1': {'network_name': 'net1',
+                             'local_mac': None,
+                             'local_ip': None},
+                    'net2': {'network_name': 'net2',
+                             'local_mac': None,
+                             'local_ip': None}}
+        self.assertEqual(expected, self.k8s_context._get_interfaces('rc_name'))
+
+    @mock.patch.object(orchestrator_kubernetes.KubernetesTemplate,
+                       'get_rc_by_name')
+    def test__get_interfaces_no_networks(self, mock_get_rc):
+        rc = orchestrator_kubernetes.ReplicationControllerObject('rc_name')
+        mock_get_rc.return_value = rc
+        self.assertEqual({}, self.k8s_context._get_interfaces('rc_name'))
+
+    @mock.patch.object(orchestrator_kubernetes.KubernetesTemplate,
+                       'get_rc_by_name', return_value=None)
+    def test__get_interfaces_no_rc(self, *args):
+        self.assertEqual({}, self.k8s_context._get_interfaces('rc_name'))
