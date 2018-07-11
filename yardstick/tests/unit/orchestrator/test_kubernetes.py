@@ -546,3 +546,30 @@ class ServiceNodePortObjectTestCase(base.BaseUnitTestCase):
         nodeport_object = kubernetes.ServiceNodePortObject('fake_name')
         nodeport_object.delete()
         mock_delete_service.assert_called_once_with('fake_name-service')
+
+
+class KubernetesTemplate(base.BaseUnitTestCase):
+
+    def test_get_rc_by_name(self):
+        ctx_cfg = {
+            'servers': {
+                'host1': {'args': 'some data'}
+            }
+        }
+        k_template = kubernetes.KubernetesTemplate('k8s_name', ctx_cfg)
+        rc = k_template.get_rc_by_name('host1-k8s_name')
+        self.assertTrue(isinstance(rc, kubernetes.ReplicationControllerObject))
+
+    def test_get_rc_by_name_wrong_name(self):
+        ctx_cfg = {
+            'servers': {
+                'host1': {'args': 'some data'}
+            }
+        }
+        k_template = kubernetes.KubernetesTemplate('k8s_name', ctx_cfg)
+        self.assertIsNone(k_template.get_rc_by_name('wrong_host_name'))
+
+    def test_get_rc_by_name_no_rcs(self):
+        ctx_cfg = {'servers': {}}
+        k_template = kubernetes.KubernetesTemplate('k8s_name', ctx_cfg)
+        self.assertIsNone(k_template.get_rc_by_name('any_host_name'))
