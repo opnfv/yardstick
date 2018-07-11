@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""This module implements stub for publishing results in yardstick format."""
+
 import logging
 
 from yardstick.network_services.nfvi.resource import ResourceProfile
@@ -31,12 +31,13 @@ class Collector(object):
         self.bin_path = get_nsb_option('bin_path', '')
         self.resource_profiles = {}
 
-        for ctx_name, nodes in contexts_nodes.items():
-            for node in (node for node in nodes if node.get('collectd')):
+        for ctx_name, nodes in ((ctx_name, nodes) for (ctx_name, nodes)
+                                in contexts_nodes.items() if nodes):
+            for node in (node for node in nodes
+                         if node and node.get('collectd')):
                 name = ".".join([node['name'], ctx_name])
                 self.resource_profiles.update(
-                    {name: ResourceProfile.make_from_node(node, timeout)}
-                    )
+                    {name: ResourceProfile.make_from_node(node, timeout)})
 
     def start(self):
         for resource in self.resource_profiles.values():

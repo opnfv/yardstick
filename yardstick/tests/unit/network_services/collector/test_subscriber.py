@@ -11,10 +11,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-import unittest
+import copy
 import mock
+import unittest
 
 from yardstick.network_services.collector import subscriber
 from yardstick import ssh
@@ -38,14 +38,15 @@ class MockVnfAprrox(object):
 
 class CollectorTestCase(unittest.TestCase):
 
-    NODES = {'context1': [{'name': 'node1',
-                           'ip': '1.2.3.4',
-                           'collectd': {
-                               'plugins': {'abc': 12, 'def': 34},
-                               'interval': 987
-                           },
-                           }]
-             }
+    NODES = {
+        'context1': [{'name': 'node1',
+                      'ip': '1.2.3.4',
+                      'collectd': {
+                          'plugins': {'abc': 12, 'def': 34},
+                          'interval': 987}
+                      }
+        ]
+    }
 
     def setUp(self):
         vnf = MockVnfAprrox()
@@ -61,13 +62,29 @@ class CollectorTestCase(unittest.TestCase):
     def tearDown(self):
         self.ssh_patch.stop()
 
-    def test___init__(self, *_):
+    def test___init__(self, *args):
         vnf = MockVnfAprrox()
         collector = subscriber.Collector([vnf], self.NODES)
         self.assertEqual(len(collector.vnfs), 1)
         self.assertEqual(len(collector.nodes), 1)
 
-    def test_start(self, *_):
+    def test___init__no_node_information(self, *args):
+        vnf = MockVnfAprrox()
+        nodes = copy.deepcopy(self.NODES)
+        nodes['context1'].append(None)
+        collector = subscriber.Collector([vnf], nodes)
+        self.assertEqual(len(collector.vnfs), 1)
+        self.assertEqual(len(collector.nodes), 1)
+
+    def test___init__no_node_information_in_context(self, *args):
+        vnf = MockVnfAprrox()
+        nodes = copy.deepcopy(self.NODES)
+        nodes['context1'] = None
+        collector = subscriber.Collector([vnf], nodes)
+        self.assertEqual(len(collector.vnfs), 1)
+        self.assertEqual(len(collector.nodes), 1)
+
+    def test_start(self, *args):
         resource_profile = mock.MagicMock()
         self.collector.resource_profiles = {'key': resource_profile}
         self.collector.bin_path = 'path'
@@ -92,7 +109,7 @@ class CollectorTestCase(unittest.TestCase):
         for resource in self.collector.resource_profiles.values():
             resource.stop.assert_called_once()
 
-    def test_get_kpi(self, *_):
+    def test_get_kpi(self, *args):
         result = self.collector.get_kpi()
 
         self.assertEqual(2, len(result))
