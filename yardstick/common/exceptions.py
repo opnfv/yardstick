@@ -223,6 +223,10 @@ class KubernetesTemplateInvalidVolumeType(YardstickException):
     message = 'No valid "volume" types present in %(volume)s'
 
 
+class KubernetesPort22NotDefined(YardstickException):
+    message = 'Port 22 needs to be defined'
+
+
 class KubernetesCRDObjectDefinitionError(YardstickException):
     message = ('Kubernetes Custom Resource Definition Object error, missing '
                'parameters: %(missing_parameters)s')

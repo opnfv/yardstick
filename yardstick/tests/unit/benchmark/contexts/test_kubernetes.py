@@ -119,6 +119,7 @@ class KubernetesTestCase(unittest.TestCase):
             def __init__(self):
                 self.name = 'yardstick'
                 self.node_port = 30000
+                self.port = 22
 
         class Services(object):
             def __init__(self):

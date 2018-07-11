@@ -16,6 +16,7 @@ import paramiko
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.orchestrator import kubernetes
+from yardstick.common import exceptions
 from yardstick.common import kubernetes_utils as k8s_utils
 from yardstick.common import utils
 
@@ -156,15 +157,25 @@ class KubernetesContext(Context):
 
     def _get_server(self, name):
         service_name = '{}-service'.format(name)
-        service = k8s_utils.get_service_by_name(service_name).ports[0]
+        service = k8s_utils.get_service_by_name(service_name)
+        if not service:
+            raise Exception
+
+        for sn_port in (sn_port for sn_port in service.ports
+                        if sn_port.port == 22):
+            sn_name = sn_port.name
+            node_port = sn_port.node_port
+            break
+        else:
+            raise exceptions.KubernetesWrongRestartPolicy()
 
         host = {
-            'name': service.name,
+            'name': sn_name,
             'ip': self._get_node_ip(),
             'private_ip': k8s_utils.get_pod_by_name(name).status.pod_ip,
-            'ssh_port': service.node_port,
+            'ssh_port': node_port,
             'user': 'root',
-            'key_filename': self.key_path,
+            'key_filename': self.key_path
         }
 
         return host
