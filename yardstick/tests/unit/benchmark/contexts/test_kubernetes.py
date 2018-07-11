@@ -117,8 +117,8 @@ class KubernetesTestCase(unittest.TestCase):
                         mock_get_pod_by_name):
         class Service(object):
             def __init__(self):
-                self.name = 'yardstick'
                 self.node_port = 30000
+                self.port = 22
 
         class Services(object):
             def __init__(self):
