@@ -239,7 +239,7 @@ class ConfigCreate(object):
 
 class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
 
-    APP_NAME = 'vPE'
+    APP_NAME = 'vPE_vnf'
     CFG_CONFIG = "/tmp/vpe_config"
     CFG_SCRIPT = "/tmp/vpe_script"
     TM_CONFIG = "/tmp/full_tm_profile_10G.cfg"
@@ -286,7 +286,7 @@ class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
 class VpeApproxVnf(SampleVNF):
     """ This class handles vPE VNF model-driver definitions """
 
-    APP_NAME = 'vPE'
+    APP_NAME = 'vPE_vnf'
     APP_WORD = 'vpe'
     COLLECT_KPI = VPE_COLLECT_KPI
     WAIT_TIME = 20
