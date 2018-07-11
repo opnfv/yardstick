@@ -16,6 +16,8 @@ import paramiko
 
 from yardstick.benchmark.contexts.base import Context
 from yardstick.orchestrator import kubernetes
+from yardstick.common import constants
+from yardstick.common import exceptions
 from yardstick.common import kubernetes_utils as k8s_utils
 from yardstick.common import utils
 
@@ -156,18 +158,25 @@ class KubernetesContext(Context):
 
     def _get_server(self, name):
         service_name = '{}-service'.format(name)
-        service = k8s_utils.get_service_by_name(service_name).ports[0]
+        service = k8s_utils.get_service_by_name(service_name)
+        if not service:
+            raise exceptions.KubernetesServiceObjectNotDefined()
 
-        host = {
-            'name': service.name,
+        for sn_port in (sn_port for sn_port in service.ports
+                        if sn_port.port == constants.SSH_PORT):
+            node_port = sn_port.node_port
+            break
+        else:
+            raise exceptions.KubernetesSSHPortNotDefined()
+
+        return {
+            'name': name,
             'ip': self._get_node_ip(),
             'private_ip': k8s_utils.get_pod_by_name(name).status.pod_ip,
-            'ssh_port': service.node_port,
+            'ssh_port': node_port,
             'user': 'root',
-            'key_filename': self.key_path,
+            'key_filename': self.key_path
         }
-
-        return host
 
     def _get_node_ip(self):
         return k8s_utils.get_node_list().items[0].status.addresses[0].address
