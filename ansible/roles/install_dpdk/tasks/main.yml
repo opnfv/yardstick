@@ -114,9 +114,16 @@
     path: "{{ INSTALL_BIN_PATH }}"
     state:  directory
 
+- set_fact:
+    major: "{{ dpdk_version.split('.')[0] }}"
+    minor: "{{ dpdk_version.split('.')[1] }}"
+
+- set_fact:
+    major_minor_version: "{{ major }}.{{ minor }}"
+
 - name: copy dpdk-devbind.py to correct location
   copy:
-    src: "{{ dpdk_devbind_usertools if dpdk_version|float >= 17.02 else dpdk_devbind_tools }}"
+    src: "{{ dpdk_devbind_usertools if major_minor_version|float >= 17.02 else dpdk_devbind_tools }}"
     dest: "{{ INSTALL_BIN_PATH }}/dpdk-devbind.py"
     remote_src: yes
     force: yes
