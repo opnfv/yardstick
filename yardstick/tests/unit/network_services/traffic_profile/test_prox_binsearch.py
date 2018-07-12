@@ -38,6 +38,12 @@ class TestProxBinSearchProfile(unittest.TestCase):
                 return fail_tuple, {}
             return success_tuple, {}
 
+        def side_effect_func(arg1, arg2):
+            if arg1 == "confirmation":
+                return arg2
+            else:
+                return {}
+
         tp_config = {
             'traffic_profile': {
                 'packet_sizes': [200],
@@ -51,11 +57,13 @@ class TestProxBinSearchProfile(unittest.TestCase):
         fail_tuple = ProxTestDataTuple(10.0, 1, 2, 3, 4, [5.6, 5.7, 5.8], 850, 1000, 123.4)
 
         traffic_generator = mock.MagicMock()
-        attrs1 = {'get.return_value' : 10}
+        attrs1 = {'get.return_value': 10}
         traffic_generator.scenario_helper.all_options.configure_mock(**attrs1)
 
-        attrs2 = {'__getitem__.return_value' : 10, 'get.return_value': 10}
+        attrs2 = {'__getitem__.return_value': 10, 'get.return_value': 10}
+        attrs3 = {'get.side_effect': side_effect_func}
         traffic_generator.scenario_helper.scenario_cfg["runner"].configure_mock(**attrs2)
+        traffic_generator.scenario_helper.scenario_cfg["options"].configure_mock(**attrs3)
 
         profile_helper = mock.MagicMock()
         profile_helper.run_test = target
@@ -68,7 +76,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
         self.assertEqual(round(profile.current_lower, 2), 74.69)
         self.assertEqual(round(profile.current_upper, 2), 76.09)
-        self.assertEqual(len(runs), 77)
+        self.assertEqual(len(runs), 7)
 
         # Result Samples inc theor_max
         result_tuple = {'Actual_throughput': 5e-07,
@@ -121,6 +129,12 @@ class TestProxBinSearchProfile(unittest.TestCase):
                 return fail_tuple, {}
             return success_tuple, {}
 
+        def side_effect_func(arg1, _):
+            if arg1 == "confirmation":
+                return 2
+            else:
+                return {}
+
         tp_config = {
             'traffic_profile': {
                 'packet_sizes': [200],
@@ -138,7 +152,10 @@ class TestProxBinSearchProfile(unittest.TestCase):
         traffic_generator.scenario_helper.all_options.configure_mock(**attrs1)
 
         attrs2 = {'__getitem__.return_value': 0, 'get.return_value': 0}
+        attrs3 = {'get.side_effect': side_effect_func}
+
         traffic_generator.scenario_helper.scenario_cfg["runner"].configure_mock(**attrs2)
+        traffic_generator.scenario_helper.scenario_cfg["options"].configure_mock(**attrs3)
 
         profile_helper = mock.MagicMock()
         profile_helper.run_test = target
@@ -150,7 +167,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
         profile.execute_traffic(traffic_generator)
         self.assertEqual(round(profile.current_lower, 2), 24.06)
         self.assertEqual(round(profile.current_upper, 2), 25.47)
-        self.assertEqual(len(runs), 7)
+        self.assertEqual(len(runs), 21)
 
     def test_execute_3(self):
         def target(*args, **_):
@@ -186,8 +203,6 @@ class TestProxBinSearchProfile(unittest.TestCase):
         profile.lower_bound = 99.0
         profile.execute_traffic(traffic_generator)
 
-
-        # Result Samples
         result_tuple = {'Actual_throughput': 0, 'theor_max_throughput': 0,
                         "Status": 'Result', "Next_Step": ''}
         profile.queue.put.assert_called_with(result_tuple)
@@ -226,6 +241,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
         traffic_generator.scenario_helper.all_options.configure_mock(**attrs1)
 
         attrs2 = {'__getitem__.return_value': 0, 'get.return_value': 0}
+
         traffic_generator.scenario_helper.scenario_cfg["runner"].configure_mock(**attrs2)
 
         profile_helper = mock.MagicMock()
