@@ -158,9 +158,16 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             tprofile_base.TrafficProfile.DOWNLINK: {},
             'extra_args': extra_args,
             'duration': self._get_duration()}
-        traffic_vnfd = vnfdgen.generate_vnfd(tprofile, tprofile_data)
-        self.traffic_profile = tprofile_base.TrafficProfile.get(traffic_vnfd)
 
+        traffic_vnfd = vnfdgen.generate_vnfd(tprofile, tprofile_data)
+
+        traffic_config = \
+            self.scenario_cfg.get("options", {}).get("traffic_config", {})
+
+        traffic_vnfd["traffic_profile"].update(traffic_config)
+
+        self.traffic_profile = tprofile_base.TrafficProfile.get(traffic_vnfd)
+ 
     def _get_topology(self):
         topology = self.scenario_cfg["topology"]
         path = self.scenario_cfg["task_path"]
