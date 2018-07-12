@@ -1,0 +1,46 @@
+##############################################################################
+# Copyright (c) 2018 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+
+schema: "yardstick:task:0.1"
+description: >
+    lmbench base on k8s config file;
+    Measure memory read and write bandwidth using lmbench.
+
+scenarios:
+-
+  type: Lmbench
+  options:
+    test_type: "bandwidth"
+    size: 10240
+    benchmark: "rdwr"
+    warmup: 0
+
+  host: demeter-k8s
+
+  runner:
+    type: Iteration
+    iterations: 10
+    interval: 1
+
+  sla:
+    min_bandwidth: 15000
+    action: monitor
+
+context:
+  type: Kubernetes
+  name: k8s
+
+  servers:
+    demeter:
+      image: rexlee8776/yardstick-image
+      command: /bin/bash
+      args: ['-c', 'mkdir /root/.ssh; cp /tmp/.ssh/authorized_keys ~/.ssh/.;
+                    chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; service ssh restart;
+                    while true ; do sleep 10000; done']
