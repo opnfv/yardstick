@@ -10,13 +10,14 @@
 import mock
 import unittest
 
+from yardstick.benchmark import contexts
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import kubernetes
 from yardstick.orchestrator import kubernetes as orchestrator_kubernetes
 
 
 CONTEXT_CFG = {
-    'type': 'Kubernetes',
+    'type': contexts.CONTEXT_KUBERNETES,
     'name': 'k8s',
     'task_id': '1234567890',
     'servers': {

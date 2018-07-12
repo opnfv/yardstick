@@ -7,7 +7,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import absolute_import
 import subprocess
 import os
 import collections
@@ -18,6 +17,7 @@ import six
 import pkg_resources
 
 from yardstick import ssh
+from yardstick.benchmark import contexts
 from yardstick.benchmark.contexts.base import Context
 from yardstick.common.constants import ANSIBLE_DIR, YARDSTICK_ROOT_PATH
 from yardstick.common.ansible_common import AnsibleCommon
@@ -31,7 +31,7 @@ DEFAULT_DISPATCH = 'script'
 class NodeContext(Context):
     """Class that handle nodes info"""
 
-    __context_type__ = "Node"
+    __context_type__ = contexts.CONTEXT_NODE
 
     def __init__(self):
         self.file_path = None

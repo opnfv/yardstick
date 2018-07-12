@@ -7,13 +7,13 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-from __future__ import absolute_import
 import logging
 import time
 import pkg_resources
 
 import paramiko
 
+from yardstick.benchmark import contexts
 from yardstick.benchmark.contexts.base import Context
 from yardstick.orchestrator import kubernetes
 from yardstick.common import kubernetes_utils as k8s_utils
@@ -26,7 +26,7 @@ BITS_LENGTH = 2048
 class KubernetesContext(Context):
     """Class that handle nodes info"""
 
-    __context_type__ = "Kubernetes"
+    __context_type__ = contexts.CONTEXT_KUBERNETES
 
     def __init__(self):
         self.ssh_key = ''

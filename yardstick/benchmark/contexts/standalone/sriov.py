@@ -18,20 +18,21 @@ import logging
 import collections
 
 from yardstick import ssh
-from yardstick.network_services.utils import get_nsb_option
-from yardstick.benchmark.contexts.base import Context
+from yardstick.benchmark import contexts
+from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts.standalone import model
+from yardstick.network_services.utils import get_nsb_option
 from yardstick.network_services.utils import PciAddress
 
 LOG = logging.getLogger(__name__)
 
 
-class SriovContext(Context):
+class SriovContext(base.Context):
     """ This class handles SRIOV standalone nodes - VM running on Non-Managed NFVi
     Configuration: sr-iov
     """
 
-    __context_type__ = "StandaloneSriov"
+    __context_type__ = contexts.CONTEXT_STANDALONESRIOV
 
     def __init__(self):
         self.file_path = None

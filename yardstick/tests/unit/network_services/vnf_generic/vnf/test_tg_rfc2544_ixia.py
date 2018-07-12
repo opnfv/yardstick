@@ -18,10 +18,11 @@ import mock
 import six
 import unittest
 
+from yardstick.benchmark import contexts
+from yardstick.benchmark.contexts import base as ctx_base
 from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
 from yardstick.network_services.traffic_profile import base as tp_base
 from yardstick.network_services.vnf_generic.vnf import tg_rfc2544_ixia
-from yardstick.benchmark.contexts import base as ctx_base
 
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
@@ -162,7 +163,8 @@ class TestIXIATrafficGen(unittest.TestCase):
                               'nodes': {'tg__1': 'trafficgen_1.yardstick',
                                         'vnf__1': 'vnf.yardstick'},
                               'topology': 'vpe_vnf_topology.yaml'}],
-               'context': {'nfvi_type': 'baremetal', 'type': 'Node',
+               'context': {'nfvi_type': 'baremetal',
+                           'type': contexts.CONTEXT_NODE,
                            'name': 'yardstick',
                            'file': '/etc/yardstick/nodes/pod.yaml'},
                'schema': 'yardstick:task:0.1'}

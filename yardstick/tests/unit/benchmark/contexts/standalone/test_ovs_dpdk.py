@@ -19,6 +19,7 @@ import mock
 import six
 import unittest
 
+from yardstick.benchmark import contexts
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.benchmark.contexts.standalone import ovs_dpdk
@@ -82,7 +83,7 @@ class OvsDpdkContextTestCase(unittest.TestCase):
 
     def test_init(self):
         ATTRS = {
-            'name': 'StandaloneOvsDpdk',
+            'name': contexts.CONTEXT_STANDALONEOVSDPDK,
             'task_id': '1234567890',
             'file': 'pod',
             'flavor': {},

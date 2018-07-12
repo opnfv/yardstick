@@ -18,6 +18,7 @@ import mock
 import unittest
 
 from yardstick import ssh
+from yardstick.benchmark import contexts
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.benchmark.contexts.standalone import sriov
@@ -30,7 +31,7 @@ class SriovContextTestCase(unittest.TestCase):
     NODES_DUPLICATE_SAMPLE = "nodes_duplicate_sample.yaml"
 
     ATTRS = {
-        'name': 'StandaloneSriov',
+        'name': contexts.CONTEXT_STANDALONESRIOV,
         'task_id': '1234567890',
         'file': 'pod',
         'flavor': {},

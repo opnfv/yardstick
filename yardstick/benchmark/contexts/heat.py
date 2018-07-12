@@ -16,6 +16,7 @@ from collections import OrderedDict
 import ipaddress
 import pkg_resources
 
+from yardstick.benchmark import contexts
 from yardstick.benchmark.contexts.base import Context
 from yardstick.benchmark.contexts.model import Network
 from yardstick.benchmark.contexts.model import PlacementGroup, ServerGroup
@@ -47,7 +48,7 @@ def h_join(*args):
 class HeatContext(Context):
     """Class that represents a context in the logical model"""
 
-    __context_type__ = "Heat"
+    __context_type__ = contexts.CONTEXT_HEAT
 
     def __init__(self):
         self.stack = None
