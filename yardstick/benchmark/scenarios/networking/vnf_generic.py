@@ -49,6 +49,12 @@ class NetworkServiceTestCase(scenario_base.Scenario):
        Network service testing  """
 
     __scenario_type__ = "NSPerf"
+    DEFAULT_DURATION = tprofile_base.TrafficProfileConfig.DEFAULT_DURATION
+    DEFAULT_TOLERATED_LOSS = 0.001
+    DEFAULT_LOWER_BOUND = 0.0
+    DEFAULT_UPPER_BOUND = 100.0
+    DEFAULT_PACKET_SIZES = [64, 128, 256, 512, 1024, 1280, 1518]
+    DEFAULT_TEST_PRECISION = 0.1
 
     def __init__(self, scenario_cfg, context_cfg):  # pragma: no cover
         super(NetworkServiceTestCase, self).__init__()
@@ -159,6 +165,22 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             'extra_args': extra_args,
             'duration': self._get_duration()}
         traffic_vnfd = vnfdgen.generate_vnfd(tprofile, tprofile_data)
+
+        t_vnfd = traffic_vnfd.setdefault("traffic_profile", {})
+        traffic_config = \
+            self.scenario_cfg.get("options", {}).get("traffic_config", {})
+
+        for (item, val, cast) in [
+            ["duration", self.DEFAULT_DURATION, int],
+            ["tolerated_loss", self.DEFAULT_TOLERATED_LOSS, float],
+            ["lower_bound", self.DEFAULT_LOWER_BOUND, float],
+            ["upper_bound", self.DEFAULT_UPPER_BOUND, float],
+            ["packet_sizes", self.DEFAULT_PACKET_SIZES, list],
+            ["test_precision", self.DEFAULT_TEST_PRECISION, float],
+        ]:
+            traffic_vnfd["traffic_profile"][item] = \
+                cast(traffic_config.get(item, t_vnfd.get(item, val)))
+
         self.traffic_profile = tprofile_base.TrafficProfile.get(traffic_vnfd)
 
     def _get_topology(self):
