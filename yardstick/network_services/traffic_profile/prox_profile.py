@@ -74,6 +74,18 @@ class ProxProfile(TrafficProfile):
         self._profile_helper = None
 
     def make_profile_helper(self, traffic_gen):
+        self.traffic_config = \
+            traffic_gen.scenario_helper.scenario_cfg["options"].get("traffic_config", {})
+        self.tolerated_loss = self.traffic_config.get("tolerated_loss", self.tolerated_loss)
+        self.precision = self.traffic_config.get("test_precision", self.precision)
+        self.pkt_sizes = [int(x) for x in self.traffic_config.get("packet_sizes", self.pkt_sizes)]
+        self.duration = self.traffic_config.get("duration", self.duration)
+        self.current_lower = \
+            self.lower_bound = float(self.traffic_config.get('lower_bound', self.lower_bound))
+        self.current_upper = \
+            self.upper_bound = float(self.traffic_config.get('upper_bound', self.upper_bound))
+        self.step_value = float(self.traffic_config.get('step_value', self.step_value))
+
         if self._profile_helper is None:
             self._profile_helper = ProxProfileHelper.make_profile_helper(traffic_gen)
         return self._profile_helper
