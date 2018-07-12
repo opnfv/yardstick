@@ -6,7 +6,6 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-from __future__ import absolute_import
 
 import errno
 import os
@@ -14,10 +13,8 @@ from functools import reduce
 
 import pkg_resources
 
-# this module must only import other modules that do
-# not require loggers to be created, so this cannot
-# include yardstick.common.utils
 from yardstick.common.yaml_loader import yaml_load
+
 
 dirname = os.path.dirname
 abspath = os.path.abspath
@@ -175,3 +172,6 @@ OS_CLOUD_DEFAULT_CONFIG = {'verify': False}
 # Kubernetes
 SCOPE_NAMESPACED = 'Namespaced'
 SCOPE_CLUSTER = 'Cluster'
+
+# VNF definition
+SSH_PORT = 22

@@ -13,6 +13,7 @@ import unittest
 from yardstick.benchmark import contexts
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import kubernetes
+from yardstick.common import constants
 from yardstick.orchestrator import kubernetes as orchestrator_kubernetes
 
 
@@ -118,8 +119,8 @@ class KubernetesTestCase(unittest.TestCase):
                         mock_get_pod_by_name):
         class Service(object):
             def __init__(self):
-                self.name = 'yardstick'
                 self.node_port = 30000
+                self.port = constants.SSH_PORT
 
         class Services(object):
             def __init__(self):
@@ -136,8 +137,9 @@ class KubernetesTestCase(unittest.TestCase):
         mock_get_service_by_name.return_value = Services()
         mock_get_pod_by_name.return_value = Pod()
         mock_get_node_ip.return_value = '172.16.10.131'
-
-        self.assertIsNotNone(self.k8s_context._get_server('server'))
+        server = self.k8s_context._get_server('server_name')
+        self.assertEqual('server_name', server['name'])
+        self.assertEqual(30000, server['ssh_port'])
 
     @mock.patch.object(kubernetes.KubernetesContext, '_create_rc')
     def test_create_rcs(self, mock_create_rc):
