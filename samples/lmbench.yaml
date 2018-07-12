@@ -9,6 +9,13 @@
 ---
 # Sample benchmark task config file
 # measure memory read latency and memory bandwidth using lmbench
+# can be used both on Openstack and Kubernetes with "context_type"
+
+{% set context_type = context_type or "Heat" %}
+{% set separator = separator or "." %}
+{% if context_type == "Kubernetes" %}
+{% set separator = "-" %}
+{% endif %}
 
 schema: "yardstick:task:0.1"
 
@@ -19,7 +26,7 @@ scenarios:
     test_type: "latency"
     stop_size: 32.0
 
-  host: demeter.demo
+  host: demeter{{ separator }}demo
 
   runner:
     type: Arithmetic
@@ -39,7 +46,7 @@ scenarios:
     test_type: "bandwidth"
     benchmark: "wr"
 
-  host: demeter.demo
+  host: demeter{{ separator }}demo
 
   runner:
     type: Arithmetic
@@ -55,7 +62,24 @@ scenarios:
     action: monitor
 
 context:
+  type: {{ context_type }}
   name: demo
+  {% if context_type == "Kubernetes" %}
+  servers:
+    demeter:
+      image: opnfv/yardstick-image-k8s
+      resources:
+        limits:
+          cpu: 1
+          memory: 1Gi
+        requests:
+          cpu: 1
+          memory: 1Gi
+      command: /bin/bash
+      args: ['-c', 'mkdir /root/.ssh; cp /tmp/.ssh/authorized_keys ~/.ssh/.;
+                    chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; service ssh restart;
+                    while true ; do sleep 10000; done']
+  {% else %}
   image: yardstick-image
   flavor: yardstick-flavor
   user: ubuntu
@@ -71,6 +95,5 @@ context:
 
   networks:
     test:
-      cidr: '10.0.1.0/24'
-
-
+      cidr: "10.0.1.0/24"
+  {% endif %}
