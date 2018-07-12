@@ -337,6 +337,14 @@ class ScenarioDetachVolumeError(YardstickException):
     message = 'Cinder Detach Volume Scenario failed'
 
 
+class PktgenActionError(YardstickException):
+    message = 'Error in "%(action)s" action'
+
+
+class PktgenTrafficGenTrafficProfile(YardstickException):
+    message = 'Pktgen traffic profile not defined'
+
+
 class ApiServerError(YardstickException):
     message = 'An unkown exception happened to Api Server!'
 

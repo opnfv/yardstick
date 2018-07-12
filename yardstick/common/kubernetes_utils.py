@@ -110,7 +110,7 @@ def create_replication_controller(template,
         core_v1_api.create_namespaced_replication_controller(namespace,
                                                              template,
                                                              **kwargs)
-    except ApiException:
+    except ApiException as e:
         LOG.exception('Create replication controller failed')
         raise
 

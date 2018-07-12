@@ -12,6 +12,7 @@ import logging
 import os
 import errno
 from collections import OrderedDict
+from requests.status_codes import codes as http_status_codes
 
 import ipaddress
 import pkg_resources

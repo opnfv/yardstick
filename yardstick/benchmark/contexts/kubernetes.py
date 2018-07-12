@@ -166,8 +166,8 @@ class KubernetesContext(ctx_base.Context):
     def _get_server(self, name):
         node_ports = self._get_service_ports(name)
         for sn_port in (sn_port for sn_port in node_ports
-                        if sn_port.port == constants.SSH_PORT):
-            node_port = sn_port.node_port
+                        if sn_port['port'] == constants.SSH_PORT):
+            node_port = sn_port['node_port']
             break
         else:
             raise exceptions.KubernetesSSHPortNotDefined()
@@ -224,4 +224,11 @@ class KubernetesContext(ctx_base.Context):
         service = k8s_utils.get_service_by_name(service_name)
         if not service:
             raise exceptions.KubernetesServiceObjectNotDefined()
-        return service.ports
+        ports = []
+        for port in service.ports:
+            ports.append({'name': port.name,
+                          'node_port': port.node_port,
+                          'port': port.port,
+                          'protocol': port.protocol,
+                          'target_port': port.target_port})
+        return ports

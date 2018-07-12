@@ -21,7 +21,7 @@ class ContainerObject(object):
 
     SSH_MOUNT_PATH = '/tmp/.ssh/'
     IMAGE_DEFAULT = 'openretriever/yardstick'
-    COMMAND_DEFAULT = '/bin/bash'
+    COMMAND_DEFAULT = ['/bin/bash', '-c']
     RESOURCES = ('requests', 'limits')
     PORT_OPTIONS = ('containerPort', 'hostIP', 'hostPort', 'name', 'protocol')
 
@@ -29,7 +29,7 @@ class ContainerObject(object):
         self._name = name
         self._ssh_key = ssh_key
         self._image = kwargs.get('image', self.IMAGE_DEFAULT)
-        self._command = [kwargs.get('command', self.COMMAND_DEFAULT)]
+        self._command = kwargs.get('command', self.COMMAND_DEFAULT)
         self._args = kwargs.get('args', [])
         self._volume_mounts = kwargs.get('volumeMounts', [])
         self._security_context = kwargs.get('securityContext')
@@ -60,6 +60,11 @@ class ContainerObject(object):
                      'command': self._command,
                      'image': self._image,
                      'name': container_name,
+                     'imagePullPolicy': 'IfNotPresent',
+                     'securityContext': {'allowPrivilegeEscalation': True,
+                                         'privileged': True},
+                     'stdin': True,
+                     'tty': True,
                      'volumeMounts': self._create_volume_mounts()}
         if self._security_context:
             container['securityContext'] = self._security_context
@@ -251,7 +256,7 @@ class ServiceNodePortObject(object):
             }
         }
 
-        self._add_port(22, protocol='TCP')
+        self._add_port(22, protocol='TCP', name='ssh')
         node_ports = copy.deepcopy(kwargs.get('node_ports', []))
         for port in node_ports:
             port_number = port.pop('port')
