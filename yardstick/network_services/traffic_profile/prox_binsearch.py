@@ -41,8 +41,10 @@ class ProxBinSearchProfile(ProxProfile):
 
     def __init__(self, tp_config):
         super(ProxBinSearchProfile, self).__init__(tp_config)
+
         self.current_lower = self.lower_bound
         self.current_upper = self.upper_bound
+        return
 
     @property
     def delta(self):
