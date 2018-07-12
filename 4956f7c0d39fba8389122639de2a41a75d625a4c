@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_f8ee7b21",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-12T07:48:13Z",
+      "side": 1,
+      "message": "Add \"volume_type\" support in Heat template",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "4956f7c0d39fba8389122639de2a41a75d625a4c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_18ea4f0f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-12T07:48:13Z",
+      "side": 1,
+      "message": "Please, format this correctly:\n\n  JIRA:YARDSTICK-1300\n\n  Change-Id: Ia35db15179b7588681608d720be87acf1df8aab0\n  Signed-off-by: Ameed Ashour \u003cAmeed.Ashour.Ext@nokia.com\u003e",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 56
+      },
+      "revId": "4956f7c0d39fba8389122639de2a41a75d625a4c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_78938ba3",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-12T07:48:13Z",
+      "side": 1,
+      "message": "if volume_type:",
+      "range": {
+        "startLine": 215,
+        "startChar": 8,
+        "endLine": 215,
+        "endChar": 31
+      },
+      "revId": "4956f7c0d39fba8389122639de2a41a75d625a4c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d890d797",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-12T07:48:13Z",
+      "side": 1,
+      "message": "remove space",
+      "range": {
+        "startLine": 216,
+        "startChar": 76,
+        "endLine": 216,
+        "endChar": 77
+      },
+      "revId": "4956f7c0d39fba8389122639de2a41a75d625a4c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_b88d237e",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-12T07:48:13Z",
+      "side": 1,
+      "message": "remove space",
+      "range": {
+        "startLine": 219,
+        "startChar": 59,
+        "endLine": 219,
+        "endChar": 60
+      },
+      "revId": "4956f7c0d39fba8389122639de2a41a75d625a4c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_98965f93",
+        "filename": "yardstick/orchestrator/heat.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-12T07:48:13Z",
+      "side": 1,
+      "message": "if volume_type:",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 227,
+        "endChar": 34
+      },
+      "revId": "4956f7c0d39fba8389122639de2a41a75d625a4c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
