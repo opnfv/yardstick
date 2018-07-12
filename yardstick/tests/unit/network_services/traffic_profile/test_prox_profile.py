@@ -79,6 +79,13 @@ class TestProxProfile(unittest.TestCase):
         self.assertIs(profile.queue, queue)
 
     def test_execute_traffic(self):
+
+        def side_effect_func(arg1, _):
+            if arg1 == "confirmation":
+                return 2
+            else:
+                return {}
+            
         packet_sizes = [
             10,
             100,
@@ -99,6 +106,9 @@ class TestProxProfile(unittest.TestCase):
         traffic_generator.resource_helper = prox_resource_helper
 
         profile = ProxProfile(tp_config)
+
+        attrs3 = {'get.side_effect': side_effect_func}
+        traffic_generator.scenario_helper.scenario_cfg["options"].configure_mock(**attrs3)
 
         self.assertFalse(profile.done)
         for _ in packet_sizes:
