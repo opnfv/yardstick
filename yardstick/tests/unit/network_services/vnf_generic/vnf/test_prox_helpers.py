@@ -1638,7 +1638,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut.multi_port_stats.return_value = (True,
                                              [[3, 1, 2, 3, 4, 5], [4, 1, 2, 3, 4, 5]])
 
-        data_helper = ProxDataHelper(
+        data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
             constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
 
@@ -1653,7 +1653,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut.multi_port_stats.return_value = (True,
                                              [[8, 1, 2, 3, 4, 5], [9, 1, 2, 3, 4, 5]])
 
-        data_helper = ProxDataHelper(
+        data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
             constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
 
@@ -1668,7 +1668,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut.multi_port_stats.return_value = (True,
                                              [[8, 1, 2, 3, 4, 5], [9, 1, 2, 3, 4, 5]])
 
-        data_helper = ProxDataHelper(
+        data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
             constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
 
