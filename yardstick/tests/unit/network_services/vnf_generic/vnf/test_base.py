@@ -264,7 +264,7 @@ class GenericTrafficGenTestCase(unittest.TestCase):
                 }
         tg = _DummyGenericTrafficGen('name', vnfd)
         tg._mq_producer = mock.Mock()
-        tg._mq_producer.get_id.return_value = 'fake_id'
+        tg._mq_producer.id = 'fake_id'
         self.assertEqual('fake_id', tg.get_mq_producer_id())
 
 

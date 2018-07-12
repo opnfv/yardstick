@@ -335,4 +335,4 @@ class GenericTrafficGen(GenericVNF):
     def get_mq_producer_id(self):
         """Return the MQ producer ID if initialized"""
         if self._mq_producer:
-            return self._mq_producer.get_id()
+            return self._mq_producer.id
