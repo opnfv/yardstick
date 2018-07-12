@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_381593f1",
+        "filename": "ansible/roles/download_dpdk/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-12T08:22:42Z",
+      "side": 1,
+      "message": "what do you mean?! The `fail` task will print en error message and script will exist in case the match is not found. The dpdk_folder_match.matched variable indicate this.",
+      "parentUuid": "da5c1566_d8b9f72f",
+      "range": {
+        "startLine": 50,
+        "startChar": 2,
+        "endLine": 50,
+        "endChar": 38
+      },
+      "revId": "0215a89b62a043d369c062ba380beb8027ca49f7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_b8b6c33b",
         "filename": "ansible/roles/install_dpdk/tasks/main.yml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-12T07:36:41Z",
       "side": 1,
       "message": "What happens if you don\u0027t have this file?\n\nThere is an alternative patch for this problem https://gerrit.opnfv.org/gerrit/#/c/59695/.",
+      "range": {
+        "startLine": 127,
+        "startChar": 7,
+        "endLine": 127,
+        "endChar": 44
+      },
+      "revId": "0215a89b62a043d369c062ba380beb8027ca49f7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_98f93fcb",
+        "filename": "ansible/roles/install_dpdk/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-12T08:22:42Z",
+      "side": 1,
+      "message": "what do you mean?! The `fail` task will print en error message and script will exist in case the match is not found. The dpdk_devbind_path_match.matched variable indicate this.",
+      "parentUuid": "da5c1566_b8b6c33b",
       "range": {
         "startLine": 127,
         "startChar": 7,
