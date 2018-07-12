@@ -63,6 +63,21 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         self.bin_path = get_nsb_option('bin_path', '')
         self._mq_ids = []
 
+    def update_traffic_profile(self):
+        tprofile = self._get_traffic_profile()
+        extra_args = self.scenario_cfg.get('extra_args', {})
+        tprofile_data = {
+            'flow': self._get_traffic_flow(),
+            'imix': self._get_traffic_imix(),
+            tprofile_base.TrafficProfile.UPLINK: {},
+            tprofile_base.TrafficProfile.DOWNLINK: {},
+            'extra_args': extra_args,
+            'duration': self._get_duration()}
+        traffic_vnfd = vnfdgen.generate_vnfd(tprofile, tprofile_data)
+        self.traffic_profile = tprofile_base.TrafficProfile.get(traffic_vnfd)
+        return
+
+
     def _get_ip_flow_range(self, ip_start_range):
         """Retrieve a CIDR first and last viable IPs
 
@@ -160,6 +175,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             'duration': self._get_duration()}
         traffic_vnfd = vnfdgen.generate_vnfd(tprofile, tprofile_data)
         self.traffic_profile = tprofile_base.TrafficProfile.get(traffic_vnfd)
+        return
 
     def _get_topology(self):
         topology = self.scenario_cfg["topology"]

@@ -17,8 +17,10 @@ from __future__ import absolute_import
 
 import logging
 
+from yardstick.network_services.traffic_profile import base as tprofile_base
 from yardstick.network_services.traffic_profile.base import TrafficProfile
 from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxProfileHelper
+# from yardstick.benchmark.scenarios.networking.vnf_generic import NetworkServiceTestCase as NetworkServiceTestCase_base
 
 LOG = logging.getLogger(__name__)
 
@@ -62,7 +64,7 @@ class ProxProfile(TrafficProfile):
         # TODO: get init values from tp_config
         self.prox_config = tp_config["traffic_profile"]
         self.pkt_sizes = [int(x) for x in self.prox_config.get("packet_sizes", [])]
-        self.pkt_size_iterator = iter(self.pkt_sizes)
+
         self.duration = int(self.prox_config.get("duration", 5))
         self.precision = float(self.prox_config.get('test_precision', 1.0))
         self.tolerated_loss = float(self.prox_config.get('tolerated_loss', 0.0))
@@ -74,8 +76,32 @@ class ProxProfile(TrafficProfile):
         self._profile_helper = None
 
     def make_profile_helper(self, traffic_gen):
-        if self._profile_helper is None:
-            self._profile_helper = ProxProfileHelper.make_profile_helper(traffic_gen)
+        self.traffic_config = \
+            traffic_gen.scenario_helper.scenario_cfg["options"].get("traffic_config", {})
+        self._profile_helper = ProxProfileHelper.make_profile_helper(traffic_gen)
+
+        self.tolerated_loss = float(self.traffic_config.get("tolerated_loss", self.tolerated_loss))
+        self.precision = float(self.traffic_config.get("test_precision", self.precision))
+        self.pkt_sizes = [int(x) for x in self.traffic_config.get("packet_sizes", self.pkt_sizes)]
+        self.duration = int(self.traffic_config.get("duration", self.duration))
+        self.lower_bound = float(self.traffic_config.get('lower_bound', self.lower_bound))
+        self.upper_bound = float(self.traffic_config.get('upper_bound', self.upper_bound))
+        traffic_vnfd = {
+         #   'description' : self.params["description"],
+         #   'name' : self.params["name"],
+         #   'schema' : self.params["schema"],
+            'traffic_profile': {
+                'duration': self.duration,
+                'lower_bound': self.lower_bound,
+                'packet_sizes': self.pkt_sizes,
+                'test_precision': self.precision,
+                'tolerated_loss': self.tolerated_loss,
+                'traffic_type':self.config.traffic_type,
+                'upper_bound': self.upper_bound,
+            }
+        }
+        self.traffic_profile = TrafficProfile.get(traffic_vnfd)
+
         return self._profile_helper
 
     def init(self, queue):

@@ -41,8 +41,10 @@ class ProxBinSearchProfile(ProxProfile):
 
     def __init__(self, tp_config):
         super(ProxBinSearchProfile, self).__init__(tp_config)
+
         self.current_lower = self.lower_bound
         self.current_upper = self.upper_bound
+        return
 
     @property
     def delta(self):
@@ -99,8 +101,8 @@ class ProxBinSearchProfile(ProxProfile):
 
         test_data = {
             "test_duration": traffic_gen.scenario_helper.scenario_cfg["runner"]["duration"],
-            "test_precision": self.params["traffic_profile"]["test_precision"],
-            "tolerated_loss": self.params["traffic_profile"]["tolerated_loss"],
+            "test_precision": self.precision,
+            "tolerated_loss": self.tolerated_loss,
             "duration": duration
         }
         self.prev_time = time.time()
