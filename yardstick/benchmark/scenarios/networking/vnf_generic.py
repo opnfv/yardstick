@@ -148,6 +148,9 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         return options.get('duration',
                            tprofile_base.TrafficProfileConfig.DEFAULT_DURATION)
 
+    def _get_custom_config(self, traffic_config, vnfd, item, def_value):
+        return traffic_config.get(item, vnfd.get(item, def_value))
+
     def _fill_traffic_profile(self):
         tprofile = self._get_traffic_profile()
         extra_args = self.scenario_cfg.get('extra_args', {})
@@ -159,6 +162,25 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             'extra_args': extra_args,
             'duration': self._get_duration()}
         traffic_vnfd = vnfdgen.generate_vnfd(tprofile, tprofile_data)
+
+        t_vnfd = traffic_vnfd.get("traffic_profile",{})
+        traffic_config = \
+            self.scenario_cfg.get("options",{}).get("traffic_config", None)
+
+        if traffic_config is not None:
+            traffic_vnfd.setdefault("traffic_profile", {})["duration"] = \
+                int(self._get_custom_config(traffic_config, t_vnfd, "duration", 3600))
+            traffic_vnfd.setdefault("traffic_profile", {})["tolerated_loss"] = \
+                float(self._get_custom_config(traffic_config, t_vnfd, "tolerated_loss", 0.001))
+            traffic_vnfd.setdefault("traffic_profile", {})["lower_bound"] = \
+                float(self._get_custom_config(traffic_config, t_vnfd, "lower_bound", 0.0))
+            traffic_vnfd.setdefault("traffic_profile", {})["upper_bound"] = \
+                float(self._get_custom_config(traffic_config, t_vnfd, "upper_bound",100.0))
+            traffic_vnfd.setdefault("traffic_profile", {})["packet_sizes"] = \
+                self._get_custom_config(traffic_config, t_vnfd, "packet_sizes",[64])
+            traffic_vnfd.setdefault("traffic_profile", {})["test_precision"] = \
+                float(self._get_custom_config(traffic_config, t_vnfd, "test_precision",0.001))
+
         self.traffic_profile = tprofile_base.TrafficProfile.get(traffic_vnfd)
 
     def _get_topology(self):

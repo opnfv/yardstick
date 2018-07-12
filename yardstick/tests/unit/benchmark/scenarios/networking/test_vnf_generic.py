@@ -629,7 +629,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
     @mock.patch.object(vnfdgen, 'generate_vnfd')
     def test__fill_traffic_profile(self, mock_generate, mock_tprofile_get):
         fake_tprofile = mock.Mock()
-        fake_vnfd = mock.Mock()
+        fake_vnfd = mock.MagicMock()
         with mock.patch.object(self.s, '_get_traffic_profile',
                                return_value=fake_tprofile) as mock_get_tp:
             mock_generate.return_value = fake_vnfd
@@ -645,6 +645,29 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                  'duration': 30}
             )
             mock_tprofile_get.assert_called_once_with(fake_vnfd)
+
+    @mock.patch.object(base.TrafficProfile, 'get')
+    @mock.patch.object(vnfdgen, 'generate_vnfd')
+    def test__fill_traffic_profile2(self, mock_generate, mock_tprofile_get):
+        fake_tprofile = mock.Mock()
+        fake_vnfd = mock.MagicMock()
+        with mock.patch.object(self.s, '_get_traffic_profile',
+                               return_value=fake_tprofile) as mock_get_tp:
+            mock_generate.return_value = fake_vnfd
+
+            self.s.scenario_cfg["options"] = {"traffic_config": {"duration": 99899}}
+            self.s._fill_traffic_profile()
+            mock_get_tp.assert_called_once()
+            fake_vnfd.setdefault.assert_called_with("traffic_profile", {})
+
+            mock_call_item = ["setdefault().__setitem__", ('duration', 99899), {}]
+
+            called_set_duration = False
+            for call_item in fake_vnfd.mock_calls:
+                if mock_call_item == list(call_item):
+                    called_set_duration = True
+
+            assert (called_set_duration)
 
     @mock.patch.object(utils, 'open_relative_file')
     def test__get_topology(self, mock_open_path):
