@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_7810ab4e",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-07-12T03:36:48Z",
+      "side": 1,
+      "message": "I think this would work for the code. I suggest to update tc074.yaml to have these new parameters and set default value. Also docs\\testing\\user\\userguide\\opnfv_yardstick_tc074.rst need to sync with these parameters included.",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 53
+      },
+      "revId": "a3bbc17a3d10714fcd5d269fe1219a2023aa650f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
