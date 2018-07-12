@@ -97,8 +97,8 @@ class ProxBinSearchProfile(ProxProfile):
         # Store one time only value in influxdb
         single_samples = {
             "test_duration": traffic_gen.scenario_helper.scenario_cfg["runner"]["duration"],
-            "test_precision": self.params["traffic_profile"]["test_precision"],
-            "tolerated_loss": self.params["traffic_profile"]["tolerated_loss"],
+            "test_precision": self.precision,
+            "tolerated_loss": self.tolerated_loss,
             "duration": duration
         }
         self.queue.put(single_samples)
