@@ -22,6 +22,30 @@
       "revId": "d516f40f879a2c366fb2e8f0833a3df5a16ce6ee",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_acc5e45c",
+        "filename": "ansible/roles/install_dpdk/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-12T15:33:51Z",
+      "side": 1,
+      "message": "Correct",
+      "parentUuid": "da5c1566_8cce2082",
+      "range": {
+        "startLine": 122,
+        "startChar": 29,
+        "endLine": 122,
+        "endChar": 34
+      },
+      "revId": "d516f40f879a2c366fb2e8f0833a3df5a16ce6ee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
