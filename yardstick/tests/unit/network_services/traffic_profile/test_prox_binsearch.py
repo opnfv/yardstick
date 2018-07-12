@@ -38,6 +38,12 @@ class TestProxBinSearchProfile(unittest.TestCase):
                 return fail_tuple, {}
             return success_tuple, {}
 
+        def side_effect_func(arg1, arg2):
+            if arg1 == "confirmation":
+                return arg2
+            else:
+                return {}
+
         tp_config = {
             'traffic_profile': {
                 'packet_sizes': [200],
@@ -55,7 +61,9 @@ class TestProxBinSearchProfile(unittest.TestCase):
         traffic_generator.scenario_helper.all_options.configure_mock(**attrs1)
 
         attrs2 = {'__getitem__.return_value' : 10, 'get.return_value': 10}
+        attrs3 = {'get.side_effect': side_effect_func}
         traffic_generator.scenario_helper.scenario_cfg["runner"].configure_mock(**attrs2)
+        traffic_generator.scenario_helper.scenario_cfg["options"].configure_mock(**attrs3)
 
         profile_helper = mock.MagicMock()
         profile_helper.run_test = target
@@ -116,6 +124,12 @@ class TestProxBinSearchProfile(unittest.TestCase):
                 return fail_tuple, {}
             return success_tuple, {}
 
+        def side_effect_func(arg1, _):
+            if arg1 == "confirmation":
+                return 2
+            else:
+                return {}
+
         tp_config = {
             'traffic_profile': {
                 'packet_sizes': [200],
@@ -133,7 +147,10 @@ class TestProxBinSearchProfile(unittest.TestCase):
         traffic_generator.scenario_helper.all_options.configure_mock(**attrs1)
 
         attrs2 = {'__getitem__.return_value': 0, 'get.return_value': 0}
+        attrs3 = {'get.side_effect': side_effect_func}
+
         traffic_generator.scenario_helper.scenario_cfg["runner"].configure_mock(**attrs2)
+        traffic_generator.scenario_helper.scenario_cfg["options"].configure_mock(**attrs3)
 
         profile_helper = mock.MagicMock()
         profile_helper.run_test = target
@@ -205,6 +222,12 @@ class TestProxBinSearchProfile(unittest.TestCase):
                 return fail_tuple, {}
             return success_tuple, {}
 
+        def side_effect_func(arg1, _):
+            if arg1 == "confirmation":
+                return 2
+            else:
+                return {"duration": 11}
+
         tp_config = {
             'traffic_profile': {
                 'packet_sizes': [200],
@@ -222,7 +245,10 @@ class TestProxBinSearchProfile(unittest.TestCase):
         traffic_generator.scenario_helper.all_options.configure_mock(**attrs1)
 
         attrs2 = {'__getitem__.return_value': 0, 'get.return_value': 0}
+        attrs3 = {'get.side_effect': side_effect_func}
+
         traffic_generator.scenario_helper.scenario_cfg["runner"].configure_mock(**attrs2)
+        traffic_generator.scenario_helper.scenario_cfg["options"].configure_mock(**attrs3)
 
         profile_helper = mock.MagicMock()
         profile_helper.run_test = target
