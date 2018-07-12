@@ -137,12 +137,20 @@ class ProxTestDataTuple(namedtuple('ProxTestDataTuple', 'tolerated,tsc_hz,delta_
     @property
     def tx_mpps(self):
         # calculate the effective throughput in Mpps
-        return float(self.delta_tx) * self.tsc_hz / self.delta_tsc / 1e6
+        try:
+            ret = float(self.delta_tx) * self.tsc_hz / self.delta_tsc / 1e6
+        except:
+            ret = 0
+        return ret
 
     @property
     def rx_mpps(self):
         # calculate the effective throughput in Mpps
-        return float(self.delta_rx) * self.tsc_hz / self.delta_tsc / 1e6
+        try:
+            ret =  float(self.delta_rx) * self.tsc_hz / self.delta_tsc / 1e6
+        except:
+            ret = 0
+        return ret
 
     @property
     def can_be_lost(self):
