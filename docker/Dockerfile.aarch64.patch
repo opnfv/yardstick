@@ -8,7 +8,7 @@ Signed-off-by: ting wu <ting.wu@enea.com>
  1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/docker/Dockerfile b/docker/Dockerfile
-index 62ea0d0..f2f41771 100644
+index 71ce6b58..952d0f78 100644
 --- a/docker/Dockerfile
 +++ b/docker/Dockerfile
 @@ -7,9 +7,9 @@
@@ -42,6 +42,5 @@ index 62ea0d0..f2f41771 100644
 +ADD http://download.cirros-cloud.net/daily/20161201/cirros-d161201-aarch64-disk.img ${IMAGE_DIR}
 +ADD http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-arm64-disk1.img ${IMAGE_DIR}
 
- COPY ./exec_tests.sh /usr/local/bin/
-
-
+ # For developers: when `docker build ...` is running from YARDSTICK_REPO_DIR, please change
+ #                 path `./exec_tests.sh` -> `./docker/exec_tests.sh``.
