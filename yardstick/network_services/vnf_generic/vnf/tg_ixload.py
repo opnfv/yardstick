@@ -12,14 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
+import collections
 import csv
 import glob
 import logging
 import os
 import shutil
-
-from collections import OrderedDict
 import subprocess
 
 from yardstick.common import utils
@@ -65,7 +63,7 @@ class IxLoadResourceHelper(ClientResourceHelper):
 
     RESULTS_MOUNT = "/mnt/Results"
 
-    KPI_LIST = OrderedDict((
+    KPI_LIST = collections.OrderedDict((
         ('http_throughput', 'HTTP Total Throughput (Kbps)'),
         ('simulated_users', 'HTTP Simulated Users'),
         ('concurrent_connections', 'HTTP Concurrent Connections'),
@@ -75,7 +73,8 @@ class IxLoadResourceHelper(ClientResourceHelper):
 
     def __init__(self, setup_helper):
         super(IxLoadResourceHelper, self).__init__(setup_helper)
-        self.result = OrderedDict((key, ResourceDataHelper()) for key in self.KPI_LIST)
+        self.result = collections.OrderedDict((key, ResourceDataHelper())
+                                              for key in self.KPI_LIST)
         self.resource_file_name = ''
         self.data = None
 
