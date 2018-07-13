@@ -80,8 +80,6 @@ Yardstick Test Case Description TC074
 |              |      - rr: 100% Read, random access                          |
 |              |      - wr: 100% Write, random access                         |
 |              |      - rw: 70% Read / 30% write, random access               |
-|              | * nossd: Do not perform SSD style preconditioning.           |
-|              | * nowarm:  Do not perform a warmup prior to                  |
 |              |   measurements.                                              |
 |              | * report= [job_id]                                           |
 |              |   Query the status of the supplied job_id and report on      |
