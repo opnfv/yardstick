@@ -157,12 +157,8 @@ class KubernetesContext(Context):
         utils.remove_file(self.public_key_path)
 
     def _get_server(self, name):
-        service_name = '{}-service'.format(name)
-        service = k8s_utils.get_service_by_name(service_name)
-        if not service:
-            raise exceptions.KubernetesServiceObjectNotDefined()
-
-        for sn_port in (sn_port for sn_port in service.ports
+        node_ports = self._get_service_ports(name)
+        for sn_port in (sn_port for sn_port in node_ports
                         if sn_port.port == constants.SSH_PORT):
             node_port = sn_port.node_port
             break
@@ -175,7 +171,8 @@ class KubernetesContext(Context):
             'private_ip': k8s_utils.get_pod_by_name(name).status.pod_ip,
             'ssh_port': node_port,
             'user': 'root',
-            'key_filename': self.key_path
+            'key_filename': self.key_path,
+            'service_ports': node_ports
         }
 
     def _get_node_ip(self):
@@ -189,3 +186,10 @@ class KubernetesContext(Context):
 
     def _get_physical_node_for_server(self, server_name):
         return None
+
+    def _get_service_ports(self, name):
+        service_name = '{}-service'.format(name)
+        service = k8s_utils.get_service_by_name(service_name)
+        if not service:
+            raise exceptions.KubernetesServiceObjectNotDefined()
+        return service.ports
