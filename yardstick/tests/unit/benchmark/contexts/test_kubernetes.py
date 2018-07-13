@@ -14,6 +14,8 @@ from yardstick.benchmark import contexts
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import kubernetes
 from yardstick.common import constants
+from yardstick.common import exceptions
+from yardstick.common import kubernetes_utils as k8s_utils
 from yardstick.orchestrator import kubernetes as orchestrator_kubernetes
 
 
@@ -37,7 +39,26 @@ CONTEXT_CFG = {
     }
 }
 
-prefix = 'yardstick.benchmark.contexts.kubernetes'
+
+class NodePort(object):
+    def __init__(self):
+        self.node_port = 30000
+        self.port = constants.SSH_PORT
+
+
+class Service(object):
+    def __init__(self):
+        self.ports = [NodePort()]
+
+
+class Status(object):
+    def __init__(self):
+        self.pod_ip = '172.16.10.131'
+
+
+class Pod(object):
+    def __init__(self):
+        self.status = Status()
 
 
 class KubernetesTestCase(unittest.TestCase):
@@ -94,8 +115,8 @@ class KubernetesTestCase(unittest.TestCase):
     @mock.patch.object(kubernetes, 'pkg_resources', **{"resource_filename.return_value": ""})
     @mock.patch.object(kubernetes, 'utils')
     @mock.patch.object(kubernetes, 'open', create=True)
-    @mock.patch.object(kubernetes.k8s_utils, 'delete_config_map')
-    @mock.patch.object(kubernetes.k8s_utils, 'create_config_map')
+    @mock.patch.object(k8s_utils, 'delete_config_map')
+    @mock.patch.object(k8s_utils, 'create_config_map')
     def test_ssh_key(self, mock_create, mock_delete, *args):
         self.k8s_context._set_ssh_key()
         self.k8s_context._delete_ssh_key()
@@ -103,41 +124,21 @@ class KubernetesTestCase(unittest.TestCase):
         mock_create.assert_called_once()
         mock_delete.assert_called_once()
 
-    @mock.patch.object(kubernetes.k8s_utils, 'read_pod_status')
+    @mock.patch.object(k8s_utils, 'read_pod_status')
     def test_wait_until_running(self, mock_read_pod_status):
 
         self.k8s_context.template.pods = ['server']
         mock_read_pod_status.return_value = 'Running'
         self.k8s_context._wait_until_running()
 
-    @mock.patch.object(kubernetes.k8s_utils, 'get_pod_by_name')
+    @mock.patch.object(k8s_utils, 'get_pod_by_name')
     @mock.patch.object(kubernetes.KubernetesContext, '_get_node_ip')
-    @mock.patch.object(kubernetes.k8s_utils, 'get_service_by_name')
-    def test_get_server(self,
-                        mock_get_service_by_name,
-                        mock_get_node_ip,
-                        mock_get_pod_by_name):
-        class Service(object):
-            def __init__(self):
-                self.node_port = 30000
-                self.port = constants.SSH_PORT
-
-        class Services(object):
-            def __init__(self):
-                self.ports = [Service()]
-
-        class Status(object):
-            def __init__(self):
-                self.pod_ip = '172.16.10.131'
-
-        class Pod(object):
-            def __init__(self):
-                self.status = Status()
-
-        mock_get_service_by_name.return_value = Services()
+    def test_get_server(self, mock_get_node_ip, mock_get_pod_by_name):
         mock_get_pod_by_name.return_value = Pod()
         mock_get_node_ip.return_value = '172.16.10.131'
-        server = self.k8s_context._get_server('server_name')
+        with mock.patch.object(self.k8s_context, '_get_service_ports',
+                               return_value=[NodePort()]):
+            server = self.k8s_context._get_server('server_name')
         self.assertEqual('server_name', server['name'])
         self.assertEqual(30000, server['ssh_port'])
 
@@ -146,7 +147,7 @@ class KubernetesTestCase(unittest.TestCase):
         self.k8s_context._create_rcs()
         mock_create_rc.assert_called()
 
-    @mock.patch.object(kubernetes.k8s_utils, 'create_replication_controller')
+    @mock.patch.object(k8s_utils, 'create_replication_controller')
     def test_create_rc(self, mock_create_replication_controller):
         self.k8s_context._create_rc({})
         mock_create_replication_controller.assert_called_once()
@@ -156,12 +157,12 @@ class KubernetesTestCase(unittest.TestCase):
         self.k8s_context._delete_rcs()
         mock_delete_rc.assert_called()
 
-    @mock.patch.object(kubernetes.k8s_utils, 'delete_replication_controller')
+    @mock.patch.object(k8s_utils, 'delete_replication_controller')
     def test_delete_rc(self, mock_delete_replication_controller):
         self.k8s_context._delete_rc({})
         mock_delete_replication_controller.assert_called_once()
 
-    @mock.patch.object(kubernetes.k8s_utils, 'get_node_list')
+    @mock.patch.object(k8s_utils, 'get_node_list')
     def test_get_node_ip(self, mock_get_node_list):
         self.k8s_context._get_node_ip()
         mock_get_node_list.assert_called_once()
@@ -193,3 +194,18 @@ class KubernetesTestCase(unittest.TestCase):
     def test__get_physical_node_for_server(self):
         result = self.k8s_context._get_physical_node_for_server("fake")
         self.assertIsNone(result)
+
+    @mock.patch.object(k8s_utils, 'get_service_by_name',
+                       return_value=Service())
+    def test__get_service_ports(self, mock_get_service_by_name):
+        name = 'rc_name'
+        service_ports = self.k8s_context._get_service_ports(name)
+        mock_get_service_by_name.assert_called_once_with(name + '-service')
+        self.assertEqual(30000, service_ports[0].node_port)
+
+    @mock.patch.object(k8s_utils, 'get_service_by_name',
+                       return_value=None)
+    def test__get_service_ports_exception(self, *args):
+        name = 'rc_name'
+        with self.assertRaises(exceptions.KubernetesServiceObjectNotDefined):
+            self.k8s_context._get_service_ports(name)
