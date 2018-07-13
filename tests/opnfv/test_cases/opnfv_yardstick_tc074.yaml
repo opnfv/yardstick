@@ -15,6 +15,8 @@ description: >
 
 {% set public_network = public_network or "ext-net" %}
 {% set StorPerf_ip = StorPerf_ip or "192.168.200.1" %}
+{% set workload = workload or "" %}
+{% set workloads = workloads or "" %}
 scenarios:
 -
   type: StorPerf
@@ -29,6 +31,8 @@ scenarios:
     StorPerf_ip: {{StorPerf_ip}}
     query_interval: 10
     timeout: 300
+    workload: {{workload}}
+    workloads: {{workloads}}
 
   runner:
     type: Iteration
