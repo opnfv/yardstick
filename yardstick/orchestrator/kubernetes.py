@@ -399,7 +399,7 @@ class NetworkObject(object):
 
     def create(self):
         k8s_utils.create_network(self.scope, self.group, self.version,
-                                 self.plural, self.template)
+                                 self.plural, self.template, self._name)
 
     def delete(self):
         k8s_utils.delete_network(self.scope, self.group, self.version,

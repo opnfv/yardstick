@@ -241,8 +241,26 @@ def get_custom_resource_definition(kind):
             action='delete', resource='CustomResourceDefinition')
 
 
-def create_network(scope, group, version, plural, body, namespace='default'):
+def get_network(scope, group, version, plural, name, namespace='default'):
     api = get_custom_objects_api()
+    try:
+        if scope == consts.SCOPE_CLUSTER:
+            #def get_cluster_custom_object(self, group, version, plural, name, **kwargs):
+            network = api.get_cluster_custom_object(group, version, plural, name)
+        else:
+            #get_namespaced_custom_object(self, group, version, namespace, plural, name, **kwargs)
+            network = api.get_namespaced_custom_object(
+                group, version, namespace, plural, name)
+    except ApiException:
+        return
+    return network
+
+
+def create_network(scope, group, version, plural, body, name, namespace='default'):
+    api = get_custom_objects_api()
+    if get_network(scope, group, version, plural, name, namespace):
+        logging.info('Network %s already exists' % name)
+        return
     try:
         if scope == consts.SCOPE_CLUSTER:
             api.create_cluster_custom_object(group, version, plural, body)
