@@ -491,9 +491,10 @@ class NetworkObjectTestCase(base.BaseUnitTestCase):
         net_obj._version = 'version'
         net_obj._plural = 'plural'
         net_obj._template = 'template'
+        net_obj._name = 'fake_name'
         net_obj.create()
         mock_create_network.assert_called_once_with(
-            'scope', 'group', 'version', 'plural', 'template')
+            'scope', 'group', 'version', 'plural', 'template', 'fake_name')
 
     @mock.patch.object(kubernetes_utils, 'delete_network')
     def test_delete(self, mock_delete_network):
