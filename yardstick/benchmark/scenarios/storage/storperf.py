@@ -43,12 +43,6 @@ class StorPerf(base.Scenario):
         wr: 100% Write, random access
         rw: 70% Read / 30% write, random access
 
-    nossd (Optional):
-    Do not perform SSD style preconditioning.
-
-    nowarm (Optional):
-    Do not perform a warmup prior to measurements.
-
     report = [job_id] (Optional):
     Query the status of the supplied job_id and report on metrics.
     If a workload is supplied, will report on only that subset.
@@ -80,9 +74,11 @@ class StorPerf(base.Scenario):
         setup_query_content = jsonutils.loads(
             setup_query.content)
         if setup_query_content["stack_created"]:
-            self.setup_done = True
             LOG.debug("stack_created: %s",
                       setup_query_content["stack_created"])
+            return True
+
+        return False
 
     def setup(self):
         """Set the configuration."""
@@ -111,9 +107,13 @@ class StorPerf(base.Scenario):
         elif setup_res.status_code == 200:
             LOG.info("stack_id: %s", setup_res_content["stack_id"])
 
-            while not self.setup_done:
-                self._query_setup_state()
-                time.sleep(self.query_interval)
+        while not self._query_setup_state():
+            time.sleep(self.query_interval)
+
+        # We do not want to load the results of the disk initialization,
+        # so it is not added to the results here.
+        self.initialize_disks()
+        self.setup_done = True
 
     def _query_job_state(self, job_id):
         """Query the status of the supplied job_id and report on metrics"""
@@ -149,7 +149,8 @@ class StorPerf(base.Scenario):
         if not self.setup_done:
             self.setup()
 
-        metadata = {"build_tag": "latest", "test_case": "opnfv_yardstick_tc074"}
+        metadata = {"build_tag": "latest",
+                    "test_case": "opnfv_yardstick_tc074"}
         metadata_payload_dict = {"pod_name": "NODE_NAME",
                                  "scenario_name": "DEPLOY_SCENARIO",
                                  "version": "YARDSTICK_BRANCH"}
@@ -162,7 +163,9 @@ class StorPerf(base.Scenario):
 
         job_args = {"metadata": metadata}
         job_args_payload_list = ["block_sizes", "queue_depths", "deadline",
-                                 "target", "nossd", "nowarm", "workload"]
+                                 "target", "workload", "workloads",
+                                 "agent_count", "steady_state_samples"]
+        job_args["deadline"] = self.options["timeout"]
 
         for job_argument in job_args_payload_list:
             try:
@@ -170,8 +173,16 @@ class StorPerf(base.Scenario):
             except KeyError:
                 pass
 
+        api_version = "v1.0"
+
+        if ("workloads" in job_args and
+                job_args["workloads"] is not None and
+                len(job_args["workloads"])) > 0:
+            api_version = "v2.0"
+
         LOG.info("Starting a job with parameters %s", job_args)
-        job_res = requests.post('http://%s:5000/api/v1.0/jobs' % self.target,
+        job_res = requests.post('http://%s:5000/api/%s/jobs' % (self.target,
+                                                                api_version),
                                 json=job_args)
 
         job_res_content = jsonutils.loads(job_res.content)
@@ -186,15 +197,6 @@ class StorPerf(base.Scenario):
             while not self.job_completed:
                 self._query_job_state(job_id)
                 time.sleep(self.query_interval)
-
-            terminate_res = requests.delete('http://%s:5000/api/v1.0/jobs' %
-                                            self.target)
-
-            if terminate_res.status_code != 200:
-                terminate_res_content = jsonutils.loads(
-                    terminate_res.content)
-                raise RuntimeError("Failed to start a job, error message:",
-                                   terminate_res_content["message"])
 
         # TODO: Support using ETA to polls for completion.
         #       Read ETA, next poll in 1/2 ETA time slot.
@@ -216,10 +218,42 @@ class StorPerf(base.Scenario):
 
             result.update(result_res_content)
 
+    def initialize_disks(self):
+        """Fills the target with random data prior to executing workloads"""
+
+        job_args = {}
+        job_args_payload_list = ["target"]
+
+        for job_argument in job_args_payload_list:
+            try:
+                job_args[job_argument] = self.options[job_argument]
+            except KeyError:
+                pass
+
+        LOG.info("Starting initialization with parameters %s", job_args)
+        job_res = requests.post('http://%s:5000/api/v1.0/initializations' %
+                                self.target, json=job_args)
+
+        job_res_content = jsonutils.loads(job_res.content)
+
+        if job_res.status_code != 200:
+            raise RuntimeError(
+                "Failed to start initialization job, error message:",
+                job_res_content["message"])
+        elif job_res.status_code == 200:
+            job_id = job_res_content["job_id"]
+            LOG.info("Started initialization as job id: %s...", job_id)
+
+        while not self.job_completed:
+            self._query_job_state(job_id)
+            time.sleep(self.query_interval)
+
+        self.job_completed = False
+
     def teardown(self):
         """Deletes the agent configuration and the stack"""
-        teardown_res = requests.delete('http://%s:5000/api/v1.0/\
-                                       configurations' % self.target)
+        teardown_res = requests.delete(
+            'http://%s:5000/api/v1.0/configurations' % self.target)
 
         if teardown_res.status_code == 400:
             teardown_res_content = jsonutils.loads(

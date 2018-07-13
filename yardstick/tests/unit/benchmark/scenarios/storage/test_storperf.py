@@ -119,11 +119,14 @@ class StorPerfTestCase(unittest.TestCase):
 
         self.result = {}
 
-    @mock.patch('yardstick.benchmark.scenarios.storage.storperf.requests.post',
-                side_effect=mocked_requests_config_post)
-    @mock.patch('yardstick.benchmark.scenarios.storage.storperf.requests.get',
-                side_effect=mocked_requests_config_get)
-    def test_successful_setup(self, mock_post, mock_get):
+    @mock.patch('yardstick.benchmark.scenarios.storage.storperf.requests.post')
+    @mock.patch('yardstick.benchmark.scenarios.storage.storperf.requests.get')
+    def test_successful_setup(self, mock_get, mock_post):
+        mock_post.side_effect = [mocked_requests_config_post(),
+                                 mocked_requests_job_post()]
+        mock_get.side_effect = [mocked_requests_config_get(),
+                                mocked_requests_job_get()]
+
         options = {
             "agent_count": 8,
             "public_network": 'ext-net',
