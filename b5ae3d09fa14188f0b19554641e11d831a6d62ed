@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_7d1d3d0f",
+        "filename": "ansible/deploy_kube.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-13T08:38:52Z",
+      "side": 1,
+      "message": "Testing the changes on Ubuntu 16.04 and DPDK 18.20.2 fails to compile there. Using default version for now. Later we can change the version and migrate to new one.",
+      "parentUuid": "da5c1566_1764e220",
+      "range": {
+        "startLine": 26,
+        "startChar": 5,
+        "endLine": 26,
+        "endChar": 45
+      },
+      "revId": "b5ae3d09fa14188f0b19554641e11d831a6d62ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_576e5a02",
         "filename": "ansible/group_vars/master.yml",
         "patchSetId": 11
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_1819af88",
+        "filename": "ansible/group_vars/master.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-13T08:38:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_576e5a02",
+      "revId": "b5ae3d09fa14188f0b19554641e11d831a6d62ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_977752d4",
         "filename": "ansible/group_vars/master.yml",
         "patchSetId": 11
@@ -53,6 +95,30 @@
       "writtenOn": "2018-07-10T11:25:04Z",
       "side": 1,
       "message": "Add a comment: \"# Default CIDR defined in kube-flannel.yml\"",
+      "range": {
+        "startLine": 34,
+        "startChar": 26,
+        "endLine": 34,
+        "endChar": 39
+      },
+      "revId": "b5ae3d09fa14188f0b19554641e11d831a6d62ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_f81ddb74",
+        "filename": "ansible/group_vars/master.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-13T08:38:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_977752d4",
       "range": {
         "startLine": 34,
         "startChar": 26,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_4c588832",
+        "filename": "ansible/group_vars/master.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-13T08:38:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_77743ecf",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 22
+      },
+      "revId": "b5ae3d09fa14188f0b19554641e11d831a6d62ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_374ac680",
         "filename": "ansible/roles/docker/tasks/main.yml",
         "patchSetId": 11
@@ -99,6 +189,30 @@
       "writtenOn": "2018-07-10T11:25:04Z",
       "side": 1,
       "message": "This is going to be always true, because this parameters is in group_vars/master.yml",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "b5ae3d09fa14188f0b19554641e11d831a6d62ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d8061720",
+        "filename": "ansible/roles/docker/tasks/main.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-13T08:38:52Z",
+      "side": 1,
+      "message": "right, because it is needed for kubernetes install. This var is not defined in other group_vars/*, so it will not be always true. this is why we need this condition.",
+      "parentUuid": "da5c1566_374ac680",
       "range": {
         "startLine": 23,
         "startChar": 11,
@@ -128,6 +242,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_0f4e826f",
+        "filename": "ansible/roles/init_kubeadm/tasks/kubeadm.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-13T08:38:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_573c9ae2",
+      "revId": "b5ae3d09fa14188f0b19554641e11d831a6d62ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_972592c4",
         "filename": "ansible/roles/init_kubeadm/tasks/kubectl.yml",
         "patchSetId": 11
@@ -139,6 +271,30 @@
       "writtenOn": "2018-07-10T11:25:04Z",
       "side": 1,
       "message": "Are those files deleted once the script finish? I don\u0027t see this inf the documentation. If not, you need to delete them manually.\n\nhttps://docs.ansible.com/ansible/2.5/modules/tempfile_module.html",
+      "range": {
+        "startLine": 16,
+        "startChar": 3,
+        "endLine": 16,
+        "endChar": 49
+      },
+      "revId": "b5ae3d09fa14188f0b19554641e11d831a6d62ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_6c3e2cba",
+        "filename": "ansible/roles/init_kubeadm/tasks/kubectl.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-13T08:38:52Z",
+      "side": 1,
+      "message": "no, this is not deleted. I left it to be able to check them after the run (for debug purposes). And, since this is tmp file, it will be removed automatically after system restart. Will remove it manually.",
+      "parentUuid": "da5c1566_972592c4",
       "range": {
         "startLine": 16,
         "startChar": 3,
@@ -168,6 +324,24 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_cc4bf857",
+        "filename": "ansible/roles/init_kubeadm/tasks/main.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-13T08:38:52Z",
+      "side": 1,
+      "message": "Not needed. It is removed by `kubeadm reset`\n\n# kubeadm reset\n...\n[reset] Deleting contents of stateful directories: [/var/lib/kubelet /etc/cni/net.d /var/lib/dockershim /var/run/kubernetes /var/lib/etcd]",
+      "parentUuid": "da5c1566_775b9e54",
+      "revId": "b5ae3d09fa14188f0b19554641e11d831a6d62ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_3741265b",
         "filename": "ansible/roles/init_kubeadm/tasks/main.yml",
         "patchSetId": 11
@@ -179,6 +353,30 @@
       "writtenOn": "2018-07-10T11:25:04Z",
       "side": 1,
       "message": "not needed. This will be created in the test case",
+      "range": {
+        "startLine": 64,
+        "startChar": 6,
+        "endLine": 64,
+        "endChar": 20
+      },
+      "revId": "b5ae3d09fa14188f0b19554641e11d831a6d62ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ac3164ee",
+        "filename": "ansible/roles/init_kubeadm/tasks/main.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-13T08:38:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_3741265b",
       "range": {
         "startLine": 64,
         "startChar": 6,
@@ -214,6 +412,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_4c6fe8c5",
+        "filename": "ansible/roles/init_kubeadm/templates/10-multus-cni.conf.j2",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-13T08:38:52Z",
+      "side": 1,
+      "message": "ansible/roles/init_kubeadm/defaults/main.yml L18",
+      "parentUuid": "da5c1566_d758aa58",
+      "range": {
+        "startLine": 1,
+        "startChar": 3,
+        "endLine": 1,
+        "endChar": 16
+      },
+      "revId": "b5ae3d09fa14188f0b19554641e11d831a6d62ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_975e3244",
         "filename": "ansible/roles/install_kube/tasks/main.yml",
         "patchSetId": 11
@@ -225,6 +447,30 @@
       "writtenOn": "2018-07-10T11:25:04Z",
       "side": 1,
       "message": "Why this one? We are going to download and compile it in build_cni role",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 20
+      },
+      "revId": "b5ae3d09fa14188f0b19554641e11d831a6d62ed",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_6c658ce0",
+        "filename": "ansible/roles/install_kube/tasks/main.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-13T08:38:52Z",
+      "side": 1,
+      "message": "It was needed at the time of creating the scripts. Will removed if not needed.",
+      "parentUuid": "da5c1566_975e3244",
       "range": {
         "startLine": 30,
         "startChar": 6,
