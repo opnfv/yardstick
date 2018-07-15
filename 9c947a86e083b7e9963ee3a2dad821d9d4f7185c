@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_97e30405",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 7335
+      },
+      "writtenOn": "2018-07-15T13:33:57Z",
+      "side": 1,
+      "message": "after run test74 with workload rs, it seems there is a race condition here, when Storperf __init__ fired up, it will wait until disk initialize finished, meanwhile another call via REST API to run workload, it will fire method run \"line 145\" it will POST another REST POST to execute job API. \n\nso it\u0027s better to move those lines to line 149, also reset custom_workload to None in https://gerrit.opnfv.org/gerrit/#/c/59803/1/docker/storperf-master/rest_server.py",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 31
+      },
+      "revId": "9c947a86e083b7e9963ee3a2dad821d9d4f7185c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
