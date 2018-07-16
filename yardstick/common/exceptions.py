@@ -231,6 +231,16 @@ class KubernetesServiceObjectNotDefined(YardstickException):
     message = 'ServiceObject is not defined'
 
 
+class KubernetesServiceObjectDefinitionError(YardstickException):
+    message = ('Kubernetes Service object definition error, missing '
+               'parameters: %(missing_parameters)s')
+
+
+class KubernetesServiceObjectNameError(YardstickException):
+    message = ('Kubernetes Service object name "%(name)s" does not comply'
+               'naming convention')
+
+
 class KubernetesCRDObjectDefinitionError(YardstickException):
     message = ('Kubernetes Custom Resource Definition Object error, missing '
                'parameters: %(missing_parameters)s')
