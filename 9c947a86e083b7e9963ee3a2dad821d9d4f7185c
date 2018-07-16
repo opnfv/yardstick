@@ -22,6 +22,30 @@
       "revId": "9c947a86e083b7e9963ee3a2dad821d9d4f7185c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_1ad8b952",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-07-16T14:20:31Z",
+      "side": 1,
+      "message": "Not sure about moving it there.  If we want to run two tests without doing the setup, the second test will have to initialize the disks again.  But maybe that is just the way it has to work due to Yardstick\u0027s architecture.",
+      "parentUuid": "9a561d44_97e30405",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 114,
+        "endChar": 31
+      },
+      "revId": "9c947a86e083b7e9963ee3a2dad821d9d4f7185c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
