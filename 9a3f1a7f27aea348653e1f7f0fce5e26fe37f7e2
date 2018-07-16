@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_7783d0cc",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-07-16T07:46:01Z",
+      "side": 1,
+      "message": "tab -\u003e space",
+      "range": {
+        "startLine": 92,
+        "startChar": 71,
+        "endLine": 92,
+        "endChar": 75
+      },
+      "revId": "9a3f1a7f27aea348653e1f7f0fce5e26fe37f7e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_57884ce7",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-07-16T07:46:01Z",
+      "side": 1,
+      "message": "extra space to be removed",
+      "range": {
+        "startLine": 95,
+        "startChar": 79,
+        "endLine": 95,
+        "endChar": 80
+      },
+      "revId": "9a3f1a7f27aea348653e1f7f0fce5e26fe37f7e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
