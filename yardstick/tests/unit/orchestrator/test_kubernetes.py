@@ -513,24 +513,52 @@ class ServiceNodePortObjectTestCase(base.BaseUnitTestCase):
     def test__init(self):
         with mock.patch.object(kubernetes.ServiceNodePortObject, '_add_port') \
                 as mock_add_port:
-            kubernetes.ServiceNodePortObject('fake_name',
-                                             node_ports=[{'port': 80}])
+            kubernetes.ServiceNodePortObject(
+                'fake_name', node_ports=[{'port': 80, 'name': 'web'}])
 
-        mock_add_port.assert_has_calls([mock.call(22, protocol='TCP'),
-                                        mock.call(80)])
+        mock_add_port.assert_has_calls([mock.call(22, 'ssh', protocol='TCP'),
+                                        mock.call(80, 'web')])
+
+    @mock.patch.object(kubernetes.ServiceNodePortObject, '_add_port')
+    def test__init_missing_mandatory_parameters(self, *args):
+        with self.assertRaises(
+                exceptions.KubernetesServiceObjectDefinitionError):
+            kubernetes.ServiceNodePortObject(
+                'fake_name', node_ports=[{'port': 80}])
+        with self.assertRaises(
+                exceptions.KubernetesServiceObjectDefinitionError):
+            kubernetes.ServiceNodePortObject(
+                'fake_name', node_ports=[{'name': 'web'}])
+
+    @mock.patch.object(kubernetes.ServiceNodePortObject, '_add_port')
+    def test__init_missing_bad_name(self, *args):
+        with self.assertRaises(
+                exceptions.KubernetesServiceObjectNameError):
+            kubernetes.ServiceNodePortObject(
+                'fake_name', node_ports=[{'port': 80, 'name': '-web'}])
+        with self.assertRaises(
+                exceptions.KubernetesServiceObjectNameError):
+            kubernetes.ServiceNodePortObject(
+                'fake_name', node_ports=[{'port': 80, 'name': 'Web'}])
+        with self.assertRaises(
+                exceptions.KubernetesServiceObjectNameError):
+            kubernetes.ServiceNodePortObject(
+                'fake_name', node_ports=[{'port': 80, 'name': 'web-'}])
 
     def test__add_port(self):
         nodeport_object = kubernetes.ServiceNodePortObject('fake_name')
-        port_ssh = {'port': 22,
-                    'protocol': 'TCP',}
+        port_ssh = {'name': 'ssh',
+                    'port': 22,
+                    'protocol': 'TCP'}
         port_definition = {'port': 80,
                            'protocol': 'TCP',
                            'name': 'web',
                            'targetPort': 10080,
                            'nodePort': 30080}
         port = copy.deepcopy(port_definition)
-        port.pop('port')
-        nodeport_object._add_port(80, **port)
+        _port = port.pop('port')
+        name = port.pop('name')
+        nodeport_object._add_port(_port, name, **port)
         self.assertEqual([port_ssh, port_definition],
                          nodeport_object.template['spec']['ports'])
 
