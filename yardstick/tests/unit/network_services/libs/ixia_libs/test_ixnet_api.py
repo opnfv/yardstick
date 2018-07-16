@@ -110,6 +110,12 @@ class TestIxNextgen(unittest.TestCase):
         self.ixnet.getRoot.return_value = 'my_root'
         self.ixnet_gen = ixnet_api.IxNextgen()
         self.ixnet_gen._ixnet = self.ixnet
+        self._mock_log = mock.patch.object(ixnet_api.log, 'info')
+        self.mock_log = self._mock_log.start()
+        self.addCleanup(self._stop_mocks)
+
+    def _stop_mocks(self):
+        self.mock_log.stop()
 
     def test_get_config(self):
         tg_cfg = {
