@@ -57,6 +57,9 @@ class NodePort(object):
     def __init__(self):
         self.node_port = 30000
         self.port = constants.SSH_PORT
+        self.name = 'port_name'
+        self.protocol = 'TCP'
+        self.target_port = constants.SSH_PORT
 
 
 class Service(object):
@@ -152,8 +155,10 @@ class KubernetesTestCase(unittest.TestCase):
     def test_get_server(self, mock_get_node_ip, mock_get_pod_by_name):
         mock_get_pod_by_name.return_value = Pod()
         mock_get_node_ip.return_value = '172.16.10.131'
-        with mock.patch.object(self.k8s_context, '_get_service_ports',
-                               return_value=[NodePort()]):
+        with mock.patch.object(self.k8s_context, '_get_service_ports') as \
+                mock_get_sports:
+            mock_get_sports.return_value = [
+                {'port': constants.SSH_PORT, 'node_port': 30000}]
             server = self.k8s_context._get_server('server_name')
         self.assertEqual('server_name', server['name'])
         self.assertEqual(30000, server['ssh_port'])
@@ -253,7 +258,12 @@ class KubernetesTestCase(unittest.TestCase):
         name = 'rc_name'
         service_ports = self.k8s_context._get_service_ports(name)
         mock_get_service_by_name.assert_called_once_with(name + '-service')
-        self.assertEqual(30000, service_ports[0].node_port)
+        expected = {'node_port': 30000,
+                    'port': constants.SSH_PORT,
+                    'name': 'port_name',
+                    'protocol': 'TCP',
+                    'target_port': constants.SSH_PORT}
+        self.assertEqual(expected, service_ports[0])
 
     @mock.patch.object(k8s_utils, 'get_service_by_name',
                        return_value=None)
