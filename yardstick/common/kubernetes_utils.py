@@ -136,6 +136,7 @@ def delete_replication_controller(name,
 def delete_pod(name,
                namespace='default',
                wait=False,
+               skip_codes=[],
                **kwargs):    # pragma: no cover
     # pylint: disable=unused-argument
     core_v1_api = get_core_api()
@@ -146,9 +147,12 @@ def delete_pod(name,
                                           namespace,
                                           body,
                                           **kwargs)
-    except ApiException:
-        LOG.exception('Delete pod failed')
-        raise
+    except ApiException as e:
+        if e.status in skip_codes:
+            LOG.info(e)
+        else:
+            LOG.exception('Delete pod failed')
+            raise
 
 
 def read_pod(name,
