@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_3d8f7725",
+        "filename": "yardstick/benchmark/contexts/kubernetes.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-17T12:54:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_9df5e3cd",
+      "range": {
+        "startLine": 14,
+        "startChar": 7,
+        "endLine": 14,
+        "endChar": 14
+      },
+      "revId": "625125f54e35fe230fc7614f1d5f3e007f620125",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_bde6e714",
         "filename": "yardstick/common/kubernetes_utils.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-17T10:24:50Z",
       "side": 1,
       "message": "A default argument shouldn\u0027t be mutable.\n\ndef delete_pod(name, namespace\u003d\u0027default\u0027, wait\u003dFalse,\n               skip_codes\u003dNone, **kwargs):\n  skip_codes \u003d [] if not skip_codes or skip_codes",
+      "range": {
+        "startLine": 139,
+        "startChar": 26,
+        "endLine": 139,
+        "endChar": 28
+      },
+      "revId": "625125f54e35fe230fc7614f1d5f3e007f620125",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_1d943336",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-17T12:54:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_bde6e714",
       "range": {
         "startLine": 139,
         "startChar": 26,
@@ -118,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_7d99ef6d",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-17T12:54:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_fdf05fcb",
+      "range": {
+        "startLine": 152,
+        "startChar": 21,
+        "endLine": 152,
+        "endChar": 22
+      },
+      "revId": "625125f54e35fe230fc7614f1d5f3e007f620125",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_dded9bf1",
         "filename": "yardstick/common/kubernetes_utils.py",
         "patchSetId": 1
@@ -141,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_5d9eab57",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-17T12:54:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_dded9bf1",
+      "range": {
+        "startLine": 154,
+        "startChar": 12,
+        "endLine": 155,
+        "endChar": 17
+      },
+      "revId": "625125f54e35fe230fc7614f1d5f3e007f620125",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_3dbad7e1",
         "filename": "yardstick/tests/unit/common/test_kubernetes_utils.py",
         "patchSetId": 1
@@ -152,6 +248,30 @@
       "writtenOn": "2018-07-17T10:24:50Z",
       "side": 1,
       "message": "Take a look at \"delete_network\" testing. You should do something similar.",
+      "range": {
+        "startLine": 229,
+        "startChar": 6,
+        "endLine": 229,
+        "endChar": 23
+      },
+      "revId": "625125f54e35fe230fc7614f1d5f3e007f620125",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_bda26798",
+        "filename": "yardstick/tests/unit/common/test_kubernetes_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-17T12:54:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_3dbad7e1",
       "range": {
         "startLine": 229,
         "startChar": 6,
