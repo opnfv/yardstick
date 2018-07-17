@@ -117,7 +117,7 @@ class KubernetesContext(ctx_base.Context):
             self._delete_pod(pod)
 
     def _delete_pod(self, pod):
-        k8s_utils.delete_pod(pod)
+        k8s_utils.delete_pod(pod, skip_codes=[404])
 
     def _create_crd(self):
         LOG.info('Create Custom Resource Definition elements')
