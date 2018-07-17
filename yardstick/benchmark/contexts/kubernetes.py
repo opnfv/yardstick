@@ -11,6 +11,7 @@ import collections
 import logging
 import pkg_resources
 import time
+from requests.status_codes import codes as http_status_codes
 
 import paramiko
 
@@ -117,7 +118,7 @@ class KubernetesContext(ctx_base.Context):
             self._delete_pod(pod)
 
     def _delete_pod(self, pod):
-        k8s_utils.delete_pod(pod)
+        k8s_utils.delete_pod(pod, skip_codes=[http_status_codes["NOT_FOUND"]])
 
     def _create_crd(self):
         LOG.info('Create Custom Resource Definition elements')
