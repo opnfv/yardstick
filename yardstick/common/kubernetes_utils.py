@@ -136,8 +136,10 @@ def delete_replication_controller(name,
 def delete_pod(name,
                namespace='default',
                wait=False,
+               skip_codes=None,
                **kwargs):    # pragma: no cover
     # pylint: disable=unused-argument
+    skip_codes = [] if not skip_codes else skip_codes
     core_v1_api = get_core_api()
     body = kwargs.get('body', client.V1DeleteOptions())
     kwargs.pop('body', None)
@@ -146,9 +148,12 @@ def delete_pod(name,
                                           namespace,
                                           body,
                                           **kwargs)
-    except ApiException:
-        LOG.exception('Delete pod failed')
-        raise
+    except ApiException as e:
+        if e.status in skip_codes:
+            LOG.info(e.reason)
+        else:
+            raise exceptions.KubernetesApiException(
+                action='delete', resource='Pod')
 
 
 def read_pod(name,
