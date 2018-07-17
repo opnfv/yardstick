@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_9df5e3cd",
+        "filename": "yardstick/benchmark/contexts/kubernetes.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-17T10:24:50Z",
+      "side": 1,
+      "message": "nit: declare the libs in alphabetical order\n\nimport collections\nimport httplib\nimport logging\nimport pkg_resources\nimport time",
+      "range": {
+        "startLine": 14,
+        "startChar": 7,
+        "endLine": 14,
+        "endChar": 14
+      },
+      "revId": "625125f54e35fe230fc7614f1d5f3e007f620125",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_bde6e714",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-17T10:24:50Z",
+      "side": 1,
+      "message": "A default argument shouldn\u0027t be mutable.\n\ndef delete_pod(name, namespace\u003d\u0027default\u0027, wait\u003dFalse,\n               skip_codes\u003dNone, **kwargs):\n  skip_codes \u003d [] if not skip_codes or skip_codes",
+      "range": {
+        "startLine": 139,
+        "startChar": 26,
+        "endLine": 139,
+        "endChar": 28
+      },
+      "revId": "625125f54e35fe230fc7614f1d5f3e007f620125",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_9de32305",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-17T10:24:50Z",
+      "side": 1,
+      "message": "Now you are modifying this function, you should do proper UTs",
+      "range": {
+        "startLine": 140,
+        "startChar": 29,
+        "endLine": 140,
+        "endChar": 46
+      },
+      "revId": "625125f54e35fe230fc7614f1d5f3e007f620125",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_fdf05fcb",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-17T10:24:50Z",
+      "side": 1,
+      "message": "just print the exception string: self.reason",
+      "range": {
+        "startLine": 152,
+        "startChar": 21,
+        "endLine": 152,
+        "endChar": 22
+      },
+      "revId": "625125f54e35fe230fc7614f1d5f3e007f620125",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_dded9bf1",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-17T10:24:50Z",
+      "side": 1,
+      "message": "Read \"delete_network\". Raise KubernetesApiException",
+      "range": {
+        "startLine": 154,
+        "startChar": 12,
+        "endLine": 155,
+        "endChar": 17
+      },
+      "revId": "625125f54e35fe230fc7614f1d5f3e007f620125",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3dbad7e1",
+        "filename": "yardstick/tests/unit/common/test_kubernetes_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-17T10:24:50Z",
+      "side": 1,
+      "message": "Take a look at \"delete_network\" testing. You should do something similar.",
+      "range": {
+        "startLine": 229,
+        "startChar": 6,
+        "endLine": 229,
+        "endChar": 23
+      },
+      "revId": "625125f54e35fe230fc7614f1d5f3e007f620125",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
