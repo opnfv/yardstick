@@ -545,7 +545,8 @@ class ServiceNodePortObjectTestCase(base.BaseUnitTestCase):
     def test_delete(self, mock_delete_service):
         nodeport_object = kubernetes.ServiceNodePortObject('fake_name')
         nodeport_object.delete()
-        mock_delete_service.assert_called_once_with('fake_name-service')
+        mock_delete_service.assert_called_once_with('fake_name-service',
+                                                    skip_codes=[404])
 
 
 class KubernetesTemplate(base.BaseUnitTestCase):

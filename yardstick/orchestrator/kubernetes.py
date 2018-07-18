@@ -274,7 +274,7 @@ class ServiceNodePortObject(object):
         k8s_utils.create_service(self.template)
 
     def delete(self):
-        k8s_utils.delete_service(self._name)
+        k8s_utils.delete_service(self._name, skip_codes=[404])
 
 
 class CustomResourceDefinitionObject(object):
