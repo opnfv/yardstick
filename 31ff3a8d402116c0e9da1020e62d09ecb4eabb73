@@ -16,6 +16,24 @@
       "revId": "31ff3a8d402116c0e9da1020e62d09ecb4eabb73",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6ba48957",
+        "filename": "yardstick/tests/unit/common/test_kubernetes_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-18T14:49:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_ab918154",
+      "revId": "31ff3a8d402116c0e9da1020e62d09ecb4eabb73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
