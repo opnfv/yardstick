@@ -253,6 +253,10 @@ class KubernetesContainerPortNotDefined(YardstickException):
     message = 'Container port not defined in "%(port)s"'
 
 
+class KubernetesContainerCommandType(YardstickException):
+    message = '"args" and "command" must be string or list of strings'
+
+
 class ScenarioCreateNetworkError(YardstickException):
     message = 'Create Neutron Network Scenario failed'
 
