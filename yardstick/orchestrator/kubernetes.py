@@ -10,6 +10,7 @@
 import copy
 
 from oslo_serialization import jsonutils
+import six
 
 from yardstick.common import constants
 from yardstick.common import exceptions
@@ -21,7 +22,7 @@ class ContainerObject(object):
 
     SSH_MOUNT_PATH = '/tmp/.ssh/'
     IMAGE_DEFAULT = 'openretriever/yardstick'
-    COMMAND_DEFAULT = '/bin/bash'
+    COMMAND_DEFAULT = ['/bin/bash', '-c']
     RESOURCES = ('requests', 'limits')
     PORT_OPTIONS = ('containerPort', 'hostIP', 'hostPort', 'name', 'protocol')
 
@@ -29,13 +30,22 @@ class ContainerObject(object):
         self._name = name
         self._ssh_key = ssh_key
         self._image = kwargs.get('image', self.IMAGE_DEFAULT)
-        self._command = [kwargs.get('command', self.COMMAND_DEFAULT)]
-        self._args = kwargs.get('args', [])
+        self._command = self._parse_commands(
+            kwargs.get('command', self.COMMAND_DEFAULT))
+        self._args = self._parse_commands(kwargs.get('args', []))
         self._volume_mounts = kwargs.get('volumeMounts', [])
         self._security_context = kwargs.get('securityContext')
         self._env = kwargs.get('env', [])
         self._resources = kwargs.get('resources', {})
         self._ports = kwargs.get('ports', [])
+
+    @staticmethod
+    def _parse_commands(command):
+        if isinstance(command, six.string_types):
+            return [command]
+        elif isinstance(command, list):
+            return command
+        raise exceptions.KubernetesContainerCommandType()
 
     def _create_volume_mounts(self):
         """Return all "volumeMounts" items per container"""
