@@ -407,7 +407,7 @@ class NetworkObject(object):
 
     def delete(self):
         k8s_utils.delete_network(self.scope, self.group, self.version,
-                                 self.plural, self._name)
+                                 self.plural, self._name, skip_codes=[404])
 
 
 class KubernetesTemplate(object):
