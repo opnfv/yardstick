@@ -267,6 +267,10 @@ class KubernetesContainerWrongImagePullPolicy(YardstickException):
     message = 'Image pull policy must be "Always", "IfNotPresent" or "Never"'
 
 
+class KubernetesContainerCommandType(YardstickException):
+    message = '"args" and "command" must be string or list of strings'
+
+
 class ScenarioCreateNetworkError(YardstickException):
     message = 'Create Neutron Network Scenario failed'
 

@@ -300,7 +300,7 @@ class ContainerObjectTestCase(base.BaseUnitTestCase):
             'cname', ssh_key='fake_sshkey', volumeMount=[volume_mount],
             args=args)
         expected = {'args': args,
-                    'command': [kubernetes.ContainerObject.COMMAND_DEFAULT],
+                    'command': kubernetes.ContainerObject.COMMAND_DEFAULT,
                     'image': kubernetes.ContainerObject.IMAGE_DEFAULT,
                     'name': 'cname-container',
                     'volumeMounts': container_obj._create_volume_mounts()}
@@ -314,7 +314,7 @@ class ContainerObjectTestCase(base.BaseUnitTestCase):
             'cname', ssh_key='fake_sshkey', volumeMount=[volume_mount],
             args=args, securityContext={'key': 'value'})
         expected = {'args': args,
-                    'command': [kubernetes.ContainerObject.COMMAND_DEFAULT],
+                    'command': kubernetes.ContainerObject.COMMAND_DEFAULT,
                     'image': kubernetes.ContainerObject.IMAGE_DEFAULT,
                     'name': 'cname-container',
                     'volumeMounts': container_obj._create_volume_mounts(),
@@ -330,7 +330,7 @@ class ContainerObjectTestCase(base.BaseUnitTestCase):
             args=args, env=[{'name': 'fake_var_name',
                              'value': 'fake_var_value'}])
         expected = {'args': args,
-                    'command': [kubernetes.ContainerObject.COMMAND_DEFAULT],
+                    'command': kubernetes.ContainerObject.COMMAND_DEFAULT,
                     'image': kubernetes.ContainerObject.IMAGE_DEFAULT,
                     'name': 'cname-container',
                     'volumeMounts': container_obj._create_volume_mounts(),
@@ -351,8 +351,7 @@ class ContainerObjectTestCase(base.BaseUnitTestCase):
                                'invalid_varible': 'fakeinvalid_varible',
                                'hostIP': 'fake_port_number'}])
         expected = {'args': args,
-                    'command': [
-                        kubernetes.ContainerObject.COMMAND_DEFAULT],
+                    'command': kubernetes.ContainerObject.COMMAND_DEFAULT,
                     'image': kubernetes.ContainerObject.IMAGE_DEFAULT,
                     'name': 'cname-container',
                     'volumeMounts': container_obj._create_volume_mounts(),
@@ -387,7 +386,7 @@ class ContainerObjectTestCase(base.BaseUnitTestCase):
             'cname', ssh_key='fake_sshkey', volumeMount=[volume_mount],
             args=args, resources=resources)
         expected = {'args': args,
-                    'command': [kubernetes.ContainerObject.COMMAND_DEFAULT],
+                    'command': kubernetes.ContainerObject.COMMAND_DEFAULT,
                     'image': kubernetes.ContainerObject.IMAGE_DEFAULT,
                     'name': 'cname-container',
                     'volumeMounts': container_obj._create_volume_mounts(),
@@ -405,6 +404,21 @@ class ContainerObjectTestCase(base.BaseUnitTestCase):
                     'volumeMounts': container_obj._create_volume_mounts(),
                     'imagePullPolicy':'Always'}
         self.assertEqual(expected, container_obj.get_container_item())
+
+    def test__parse_commands_string(self):
+        container_obj = kubernetes.ContainerObject('cname', 'fake_sshkey')
+        self.assertEqual(['fake command'],
+                         container_obj._parse_commands('fake command'))
+
+    def test__parse_commands_list(self):
+        container_obj = kubernetes.ContainerObject('cname', 'fake_sshkey')
+        self.assertEqual(['cmd1', 'cmd2'],
+                         container_obj._parse_commands(['cmd1', 'cmd2']))
+
+    def test__parse_commands_exception(self):
+        container_obj = kubernetes.ContainerObject('cname', 'fake_sshkey')
+        with self.assertRaises(exceptions.KubernetesContainerCommandType):
+            container_obj._parse_commands({})
 
 
 class CustomResourceDefinitionObjectTestCase(base.BaseUnitTestCase):
