@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_ab918154",
+        "filename": "yardstick/tests/unit/common/test_kubernetes_utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-18T13:05:32Z",
+      "side": 1,
+      "message": "Remove the extra line\n\nyardstick/tests/unit/common/test_kubernetes_utils.py:253: [C0305(trailing-newlines), ] Trailing newlines",
+      "revId": "31ff3a8d402116c0e9da1020e62d09ecb4eabb73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
