@@ -41,6 +41,8 @@ class ContainerObject(object):
         self._resources = kwargs.get('resources', {})
         self._ports = kwargs.get('ports', [])
         self._image_pull_policy = kwargs.get('imagePullPolicy')
+        self._tty = kwargs.get('tty')
+        self._stdin = kwargs.get('stdin')
 
     @staticmethod
     def _parse_commands(command):
@@ -99,6 +101,10 @@ class ContainerObject(object):
             if self._image_pull_policy not in self.IMAGE_PULL_POLICY:
                 raise exceptions.KubernetesContainerWrongImagePullPolicy()
             container['imagePullPolicy'] = self._image_pull_policy
+        if self._stdin is not None:
+            container['stdin'] = self._stdin
+        if self._tty is not None:
+            container['tty'] = self._tty
         return container
 
 

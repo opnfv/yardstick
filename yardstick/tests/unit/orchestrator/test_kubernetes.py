@@ -405,6 +405,19 @@ class ContainerObjectTestCase(base.BaseUnitTestCase):
                     'imagePullPolicy':'Always'}
         self.assertEqual(expected, container_obj.get_container_item())
 
+    def test_get_container_item_with_tty_stdin(self):
+        args = ['arg1', 'arg2']
+        container_obj = kubernetes.ContainerObject(
+            'cname', 'fake_sshkey', args=args, tty=False, stdin=True)
+        expected = {'args': args,
+                    'command': kubernetes.ContainerObject.COMMAND_DEFAULT,
+                    'image': kubernetes.ContainerObject.IMAGE_DEFAULT,
+                    'name': 'cname-container',
+                    'volumeMounts': container_obj._create_volume_mounts(),
+                    'tty': False,
+                    'stdin': True}
+        self.assertEqual(expected, container_obj.get_container_item())
+
     def test__parse_commands_string(self):
         container_obj = kubernetes.ContainerObject('cname', 'fake_sshkey')
         self.assertEqual(['fake command'],
