@@ -223,6 +223,19 @@ class DeleteNetworkTestCase(base.BaseUnitTestCase):
                 constants.SCOPE_CLUSTER, mock.ANY, mock.ANY, mock.ANY,
                 mock.ANY)
 
+    @mock.patch.object(kubernetes_utils, 'get_custom_objects_api')
+    @mock.patch.object(kubernetes_utils, 'LOG')
+    def test_execute_skip_exception(self, mock_log, mock_get_api):
+        mock_api = mock.Mock()
+        mock_api.delete_cluster_custom_object.side_effect = rest.ApiException(status=404)
+
+        mock_get_api.return_value = mock_api
+        kubernetes_utils.delete_network(
+            constants.SCOPE_CLUSTER, mock.ANY, mock.ANY, mock.ANY,
+            mock.ANY, skip_codes=[404])
+
+        mock_log.info.assert_called_once()
+
 
 class DeletePodTestCase(base.BaseUnitTestCase):
     @mock.patch.object(kubernetes_utils, 'get_core_api')
@@ -244,9 +257,11 @@ class DeletePodTestCase(base.BaseUnitTestCase):
             kubernetes_utils.delete_pod(mock.ANY, skip_codes=[404])
 
     @mock.patch.object(kubernetes_utils, 'get_core_api')
-    def test_execute_skip_exception(self, mock_get_api):
+    @mock.patch.object(kubernetes_utils, 'LOG')
+    def test_execute_skip_exception(self, mock_log, mock_get_api):
         mock_api = mock.Mock()
         mock_api.delete_namespaced_pod.side_effect = rest.ApiException(status=404)
 
         mock_get_api.return_value = mock_api
         kubernetes_utils.delete_pod(mock.ANY, skip_codes=[404])
+        mock_log.info.assert_called_once()
