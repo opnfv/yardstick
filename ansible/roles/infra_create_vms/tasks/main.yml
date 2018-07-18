@@ -32,3 +32,14 @@
   loop_control:
     loop_var: node_item
   with_items: "{{ infra_deploy_vars.nodes }}"
+
+- name: Create list of dictionaries with vm name, ip address
+  set_fact:
+    vm_name_ip: "{{ vm_name_ip|default([]) + [{item.hostname: item.interfaces[1].ip}] }}"
+  with_items: "{{ infra_deploy_vars.nodes }}"
+
+- name: Make sure VM is reachable
+  include_tasks: validate_vms.yml
+  loop_control:
+    loop_var: name_ip
+  with_items: "{{ vm_name_ip }}"
