@@ -77,13 +77,18 @@ def create_service(template,
 
 def delete_service(name,
                    namespace='default',
+                   skip_codes=None,
                    **kwargs):       # pragma: no cover
+    skip_codes = [] if not skip_codes else skip_codes
     core_v1_api = get_core_api()
     try:
         body = client.V1DeleteOptions()
         core_v1_api.delete_namespaced_service(name, namespace, body, **kwargs)
-    except ApiException:
-        LOG.exception('Delete Service failed')
+    except ApiException as e:
+        if e.status in skip_codes:
+            LOG.info(e.reason)
+        else:
+            LOG.exception('Delete Service failed')
 
 
 def get_service_list(namespace='default', **kwargs):
