@@ -24,6 +24,7 @@ class ContainerObject(object):
     COMMAND_DEFAULT = '/bin/bash'
     RESOURCES = ('requests', 'limits')
     PORT_OPTIONS = ('containerPort', 'hostIP', 'hostPort', 'name', 'protocol')
+    IMAGE_PULL_POLICY = ('Always', 'IfNotPresent', 'Never')
 
     def __init__(self, name, ssh_key, **kwargs):
         self._name = name
@@ -36,6 +37,7 @@ class ContainerObject(object):
         self._env = kwargs.get('env', [])
         self._resources = kwargs.get('resources', {})
         self._ports = kwargs.get('ports', [])
+        self._image_pull_policy = kwargs.get('imagePullPolicy')
 
     def _create_volume_mounts(self):
         """Return all "volumeMounts" items per container"""
@@ -82,6 +84,10 @@ class ContainerObject(object):
             for res in (res for res in self._resources if
                         res in self.RESOURCES):
                 container['resources'][res] = self._resources[res]
+        if self._image_pull_policy:
+            if self._image_pull_policy not in self.IMAGE_PULL_POLICY:
+                raise exceptions.KubernetesContainerWrongImagePullPolicy()
+            container['imagePullPolicy'] = self._image_pull_policy
         return container
 
 
