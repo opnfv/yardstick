@@ -266,7 +266,8 @@ def create_network(scope, group, version, plural, body, namespace='default'):
             action='create', resource='Custom Object: Network')
 
 
-def delete_network(scope, group, version, plural, name, namespace='default'):
+def delete_network(scope, group, version, plural, name, namespace='default', skip_codes=None):
+    skip_codes = [] if not skip_codes else skip_codes
     api = get_custom_objects_api()
     try:
         if scope == consts.SCOPE_CLUSTER:
@@ -274,9 +275,12 @@ def delete_network(scope, group, version, plural, name, namespace='default'):
         else:
             api.delete_namespaced_custom_object(
                 group, version, namespace, plural, name, {})
-    except ApiException:
-        raise exceptions.KubernetesApiException(
-            action='delete', resource='Custom Object: Network')
+    except ApiException as e:
+        if e.status in skip_codes:
+            LOG.info(e.reason)
+        else:
+            raise exceptions.KubernetesApiException(
+                action='delete', resource='Custom Object: Network')
 
 
 def get_pod_list(namespace='default'):      # pragma: no cover

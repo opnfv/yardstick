@@ -543,7 +543,7 @@ class NetworkObjectTestCase(base.BaseUnitTestCase):
         net_obj._name = 'name'
         net_obj.delete()
         mock_delete_network.assert_called_once_with(
-            'scope', 'group', 'version', 'plural', 'name')
+            'scope', 'group', 'version', 'plural', 'name', skip_codes=[404])
 
 
 class ServiceNodePortObjectTestCase(base.BaseUnitTestCase):
