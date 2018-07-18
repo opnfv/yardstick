@@ -19,6 +19,7 @@ run_in_parallel: true
 {% set cpu_num = cpu_num or 1 %}
 {% set ram_num = ram_num or 512 %}
 {% set disk_num = disk_num or 7 %}
+{% set dpdk_enabled = dpdk_enabled or False %}
 
 scenarios:
 {% for num in range(stack_num) %}
@@ -43,6 +44,10 @@ contexts:
     vcpus: {{cpu_num}}
     ram: {{ram_num}}
     disk: {{disk_num}}
+    {% if dpdk_enabled %}
+    extra_specs:
+      hw:mem_page_size: "large"
+    {% endif %}
   user: ubuntu
 
   placement_groups:
