@@ -38,6 +38,8 @@ class ContainerObject(object):
         self._env = kwargs.get('env', [])
         self._resources = kwargs.get('resources', {})
         self._ports = kwargs.get('ports', [])
+        self._tty = kwargs.get('tty')
+        self._stdin = kwargs.get('stdin')
 
     @staticmethod
     def _parse_commands(command):
@@ -92,6 +94,10 @@ class ContainerObject(object):
             for res in (res for res in self._resources if
                         res in self.RESOURCES):
                 container['resources'][res] = self._resources[res]
+        if self._stdin is not None:
+            container['stdin'] = bool(self._stdin)
+        if self._tty is not None:
+            container['tty'] = bool(self._tty)
         return container
 
 
