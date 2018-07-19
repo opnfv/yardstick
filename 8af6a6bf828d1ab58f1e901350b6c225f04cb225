@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_1149bcd0",
+        "filename": "yardstick/tests/unit/orchestrator/test_kubernetes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-07-19T16:10:35Z",
+      "side": 1,
+      "message": "Not sure about this here.\nShould we not assume network created and delete works correctly?",
+      "range": {
+        "startLine": 508,
+        "startChar": 57,
+        "endLine": 508,
+        "endChar": 76
+      },
+      "revId": "8af6a6bf828d1ab58f1e901350b6c225f04cb225",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
