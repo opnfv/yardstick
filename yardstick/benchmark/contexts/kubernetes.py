@@ -110,7 +110,7 @@ class KubernetesContext(ctx_base.Context):
             self._delete_rc(rc)
 
     def _delete_rc(self, rc):
-        k8s_utils.delete_replication_controller(rc)
+        k8s_utils.delete_replication_controller(rc, skip_codes=[404])
 
     def _delete_pods(self):
         for pod in self.template.pods:

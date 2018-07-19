@@ -250,3 +250,39 @@ class DeletePodTestCase(base.BaseUnitTestCase):
 
         mock_get_api.return_value = mock_api
         kubernetes_utils.delete_pod(mock.ANY, skip_codes=[404])
+
+
+class DeleteReplicationControllerTestCase(base.BaseUnitTestCase):
+    @mock.patch.object(kubernetes_utils, 'get_core_api')
+    def test_execute_correct(self, mock_get_api):
+        mock_api = mock.Mock()
+        mock_get_api.return_value = mock_api
+        kubernetes_utils.delete_replication_controller(
+            "name", "default", body=None)
+
+        mock_api.delete_namespaced_replication_controller.assert_called_once_with(
+            "name", "default", None)
+
+    @mock.patch.object(kubernetes_utils, 'get_core_api')
+    def test_execute_exception(self, mock_get_api):
+        mock_api = mock.Mock()
+        mock_api.delete_namespaced_replication_controller.side_effect = (
+            rest.ApiException(status=200)
+        )
+
+        mock_get_api.return_value = mock_api
+        with self.assertRaises(exceptions.KubernetesApiException):
+            kubernetes_utils.delete_replication_controller(mock.ANY, skip_codes=[404])
+
+    @mock.patch.object(kubernetes_utils, 'get_core_api')
+    @mock.patch.object(kubernetes_utils, 'LOG')
+    def test_execute_skip_exception(self, mock_log, mock_get_api):
+        mock_api = mock.Mock()
+        mock_api.delete_namespaced_replication_controller.side_effect = (
+            rest.ApiException(status=404)
+        )
+
+        mock_get_api.return_value = mock_api
+        kubernetes_utils.delete_replication_controller(mock.ANY, skip_codes=[404])
+
+        mock_log.info.assert_called_once()
