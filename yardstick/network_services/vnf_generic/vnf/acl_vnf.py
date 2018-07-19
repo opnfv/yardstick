@@ -197,7 +197,7 @@ class AclApproxSetupEnvSetupEnvHelper(DpdkVnfSetupEnvHelper):
                         # e.g.: {"fwd": {"port": 0}}
                         # format action CLI command and add it to the list
                         if action_name not in _action_template_map.keys():
-                            raise exceptions.AclUknownActionTemplate(
+                            raise exceptions.AclUnknownActionTemplate(
                                 action_name=action_name)
                         template = _action_template_map[action_name]
                         try:

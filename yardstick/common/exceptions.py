@@ -378,5 +378,5 @@ class AclMissingActionArguments(YardstickException):
                '[action=%(action_name)s parameter=%(action_param)s]')
 
 
-class AclUknownActionTemplate(YardstickException):
+class AclUnknownActionTemplate(YardstickException):
     message = 'No ACL CLI template found for "%(action_name)s" action'
