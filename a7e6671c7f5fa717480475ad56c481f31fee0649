@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_66404057",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-19T09:57:17Z",
+      "side": 1,
+      "message": "An API exception should be handled appropriately.\n\nOtherwise, we assume that the network does not exist, which is not what this exception implies.\n\nVolodymyr\u0027s change might be relevant:\nhttps://gerrit.opnfv.org/gerrit/#/c/59949",
+      "range": {
+        "startLine": 253,
+        "startChar": 8,
+        "endLine": 253,
+        "endChar": 14
+      },
+      "revId": "a7e6671c7f5fa717480475ad56c481f31fee0649",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
