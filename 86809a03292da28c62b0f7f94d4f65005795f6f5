@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_91b4acf3",
+        "filename": "yardstick/orchestrator/kubernetes.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-07-19T13:44:55Z",
+      "side": 1,
+      "message": "container[\u0027stdin\u0027] \u003d self._stdin\nas bool(anything except False will return True)\neg:\n\u003e\u003e\u003e bool(\"test\")\nTrue\n\u003e\u003e\u003e bool(\"False\")\nTrue\n\u003e\u003e\u003e bool(False)\nFalse\n\u003e\u003e\u003e bool(\"False\")\nTrue",
+      "range": {
+        "startLine": 105,
+        "startChar": 12,
+        "endLine": 105,
+        "endChar": 50
+      },
+      "revId": "86809a03292da28c62b0f7f94d4f65005795f6f5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
