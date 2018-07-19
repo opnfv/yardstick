@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_665fa073",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-19T08:13:34Z",
+      "side": 1,
+      "message": "The original LOG.exception has been left, that\u0027s why I haven\u0027t changed that. Will fix it.",
+      "parentUuid": "9a561d44_86fe346a",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 50
+      },
+      "revId": "f299b2c1ac5a944a9eb11510817475bf2eb6dc84",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_c6f78c8b",
         "filename": "yardstick/tests/unit/common/test_kubernetes_utils.py",
         "patchSetId": 1
