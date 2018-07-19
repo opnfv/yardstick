@@ -159,7 +159,7 @@ class KubernetesContext(ctx_base.Context):
         k8s_utils.create_config_map(self.ssh_key, {'authorized_keys': key})
 
     def _delete_ssh_key(self):
-        k8s_utils.delete_config_map(self.ssh_key)
+        k8s_utils.delete_config_map(self.ssh_key, skip_codes=[404])
         utils.remove_file(self.key_path)
         utils.remove_file(self.public_key_path)
 
