@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_c63e6c29",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-19T08:05:57Z",
+      "side": 1,
+      "message": "Delete this",
+      "range": {
+        "startLine": 197,
+        "startChar": 37,
+        "endLine": 197,
+        "endChar": 55
+      },
+      "revId": "4af7b4372cc9f69ceaa34f3de6a65e79023364cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a63b7837",
+        "filename": "yardstick/tests/unit/common/test_kubernetes_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-19T08:05:57Z",
+      "side": 1,
+      "message": "mock log.info",
+      "range": {
+        "startLine": 275,
+        "startChar": 3,
+        "endLine": 275,
+        "endChar": 56
+      },
+      "revId": "4af7b4372cc9f69ceaa34f3de6a65e79023364cf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
