@@ -315,7 +315,7 @@ class CustomResourceDefinitionObject(object):
         k8s_utils.create_custom_resource_definition(self._template)
 
     def delete(self):
-        k8s_utils.delete_custom_resource_definition(self._name)
+        k8s_utils.delete_custom_resource_definition(self._name, skip_codes=[404])
 
 
 class NetworkObject(object):
