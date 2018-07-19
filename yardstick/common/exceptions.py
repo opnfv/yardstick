@@ -85,7 +85,6 @@ class InfluxDBConfigurationMissing(YardstickException):
 
 
 class YardstickBannedModuleImported(YardstickException):
-    # pragma: no cover
     message = 'Module "%(module)s" cannnot be imported. Reason: "%(reason)s"'
 
 
@@ -95,7 +94,6 @@ class PayloadMissingAttributes(YardstickException):
 
 
 class HeatTemplateError(YardstickException):
-    """Error in Heat during the stack deployment"""
     message = ('Error in Heat during the creation of the OpenStack stack '
                '"%(stack_name)s"')
 
@@ -106,6 +104,10 @@ class IPv6RangeError(YardstickException):
 
 class TrafficProfileNotImplemented(YardstickException):
     message = 'No implementation for traffic profile %(profile_class)s.'
+
+
+class TrafficProfileRate(YardstickException):
+    message = 'Traffic profile rate must be "<number>[fps|%]"'
 
 
 class DPDKSetupDriverError(YardstickException):

@@ -18,6 +18,7 @@ import IxNetwork
 
 from yardstick.common import exceptions
 from yardstick.common import utils
+from yardstick.network_services.traffic_profile import base as tp_base
 
 
 log = logging.getLogger(__name__)
@@ -336,8 +337,8 @@ class IxNextgen(object):  # pragma: no cover
         - Duration: in case of traffic_type="fixedDuration", amount of seconds
                     to inject traffic.
         - Rate: in frames per seconds or percentage.
-        - Type of rate: "framesPerSecond" ("bitsPerSecond" and
-                        "percentLineRate" no used)
+        - Type of rate: "framesPerSecond" or "percentLineRate" ("bitsPerSecond"
+                         no used)
         - Frame size: custom IMIX [1] definition; a list of packet size in
                       bytes and the weight. E.g.:
                       [[64, 64, 10], [128, 128, 15], [512, 512, 5]]
@@ -355,7 +356,10 @@ class IxNextgen(object):  # pragma: no cover
 
             type = traffic_param.get('traffic_type', 'fixedDuration')
             duration = traffic_param.get('duration', 30)
-            rate = traffic_param['iload']
+            rate = traffic_param['rate']
+            rate_unit = (
+                'framesPerSecond' if traffic_param['rate_unit'] ==
+                tp_base.TrafficProfileConfig.RATE_FPS else 'percentLineRate')
             weighted_range_pairs = self._parse_framesize(
                 traffic_param['outer_l2']['framesize'])
             srcmac = str(traffic_param.get('srcmac', '00:00:00:00:00:01'))
@@ -370,7 +374,7 @@ class IxNextgen(object):  # pragma: no cover
                 '-type', type, '-duration', duration)
             self.ixnet.setMultiAttribute(
                 config_element + '/frameRate',
-                '-rate', rate, '-type', 'framesPerSecond')
+                '-rate', rate, '-type', rate_unit)
             self.ixnet.setMultiAttribute(
                 config_element + '/frameSize',
                 '-type', 'weightedPairs',

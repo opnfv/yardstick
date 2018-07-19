@@ -28,7 +28,8 @@ TRAFFIC_PARAMETERS = {
         'id': 1,
         'bidir': 'False',
         'duration': 60,
-        'iload': '100',
+        'rate': 10000.5,
+        'rate_unit': 'fps',
         'outer_l2': {
             'framesize': {'64B': '25', '256B': '75'}
         },
@@ -65,7 +66,8 @@ TRAFFIC_PARAMETERS = {
         'id': 2,
         'bidir': 'False',
         'duration': 60,
-        'iload': '100',
+        'rate': 75.2,
+        'rate_unit': '%',
         'outer_l2': {
             'framesize': {'128B': '35', '1024B': '65'}
         },
@@ -396,6 +398,12 @@ class TestIxNextgen(unittest.TestCase):
 
         self.assertEqual(6, len(ixnet_gen.ixnet.setMultiAttribute.mock_calls))
         self.assertEqual(4, len(mock_update_frame.mock_calls))
+        ixnet_gen.ixnet.setMultiAttribute.assert_has_calls(
+            [mock.call('cfg_element/frameRate', '-rate', 10000.5,
+                       '-type', 'framesPerSecond'),
+             mock.call('cfg_element/frameRate', '-rate', 75.2, '-type',
+                       'percentLineRate')],
+            any_order=True)
 
     def test_update_frame_flow_not_present(self):
         ixnet_gen = ixnet_api.IxNextgen()
