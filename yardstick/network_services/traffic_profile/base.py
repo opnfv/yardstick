@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
+
 from yardstick.common import exceptions
 from yardstick.common import utils
 
@@ -21,10 +23,12 @@ class TrafficProfileConfig(object):
 
     This object will parse and validate the traffic profile information.
     """
-
     DEFAULT_SCHEMA = 'nsb:traffic_profile:0.1'
-    DEFAULT_FRAME_RATE = 100
+    DEFAULT_FRAME_RATE = '100'
     DEFAULT_DURATION = 30
+    RATE_FPS = 'fps'
+    RATE_PERCENTAGE = '%'
+    RATE_REGEX = re.compile(r'([0-9]*\.[0-9]+|[0-9]+)\s*(fps|%)*(.*)')
 
     def __init__(self, tp_config):
         self.schema = tp_config.get('schema', self.DEFAULT_SCHEMA)
@@ -32,13 +36,35 @@ class TrafficProfileConfig(object):
         self.description = tp_config.get('description')
         tprofile = tp_config['traffic_profile']
         self.traffic_type = tprofile.get('traffic_type')
-        self.frame_rate = tprofile.get('frame_rate', self.DEFAULT_FRAME_RATE)
+        self.frame_rate, self.rate_unit = self._parse_rate(
+            tprofile.get('frame_rate', self.DEFAULT_FRAME_RATE))
         self.test_precision = tprofile.get('test_precision')
         self.packet_sizes = tprofile.get('packet_sizes')
         self.duration = tprofile.get('duration', self.DEFAULT_DURATION)
         self.lower_bound = tprofile.get('lower_bound')
         self.upper_bound = tprofile.get('upper_bound')
         self.step_interval = tprofile.get('step_interval')
+
+    def _parse_rate(self, rate):
+        """Parse traffic profile rate
+
+        The line rate can be defined in fps or percentage over the maximum line
+        rate:
+          - frame_rate = 5000 (by default, unit is 'fps')
+          - frame_rate = 5000fps
+          - frame_rate = 25%
+
+        :param rate: (string, int) line rate in fps or %
+        :return: (tuple: int, string) line rate number and unit
+        """
+        match = self.RATE_REGEX.match(str(rate))
+        if not match:
+            exceptions.TrafficProfileRate()
+        rate = float(match.group(1))
+        unit = match.group(2) if match.group(2) else self.RATE_FPS
+        if match.group(3):
+            raise exceptions.TrafficProfileRate()
+        return rate, unit
 
 
 class TrafficProfile(object):

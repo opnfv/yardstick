@@ -14,13 +14,14 @@
 
 import logging
 
-from yardstick.network_services.traffic_profile.trex_traffic_profile import \
-    TrexProfile
+from yardstick.network_services.traffic_profile import base as tp_base
+from yardstick.network_services.traffic_profile import trex_traffic_profile
+
 
 LOG = logging.getLogger(__name__)
 
 
-class IXIARFC2544Profile(TrexProfile):
+class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
 
     UPLINK = 'uplink'
     DOWNLINK = 'downlink'
@@ -28,11 +29,10 @@ class IXIARFC2544Profile(TrexProfile):
     def __init__(self, yaml_data):
         super(IXIARFC2544Profile, self).__init__(yaml_data)
         self.rate = self.config.frame_rate
+        self.rate_unit = self.config.rate_unit
 
     def _get_ixia_traffic_profile(self, profile_data, mac=None):
-        if mac is None:
-            mac = {}
-
+        mac = {} if mac is None else mac
         result = {}
         for traffickey, values in profile_data.items():
             if not traffickey.startswith((self.UPLINK, self.DOWNLINK)):
@@ -58,8 +58,9 @@ class IXIARFC2544Profile(TrexProfile):
 
                 result[traffickey] = {
                     'bidir': False,
-                    'iload': '100',
                     'id': port_id,
+                    'rate': self.rate,
+                    'rate_unit': self.rate_unit,
                     'outer_l2': {
                         'framesize': value['outer_l2']['framesize'],
                         'framesPerSecond': True,
@@ -83,9 +84,6 @@ class IXIARFC2544Profile(TrexProfile):
         return result
 
     def _ixia_traffic_generate(self, traffic, ixia_obj):
-        for key, value in traffic.items():
-            if key.startswith((self.UPLINK, self.DOWNLINK)):
-                value['iload'] = str(self.rate)
         ixia_obj.update_frame(traffic)
         ixia_obj.update_ip_packet(traffic)
         ixia_obj.start_traffic()
@@ -114,7 +112,7 @@ class IXIARFC2544Profile(TrexProfile):
             self.pg_id = 0
             self.update_traffic_profile(traffic_generator)
             self.max_rate = self.rate
-            self.min_rate = 0
+            self.min_rate = 0.0
         else:
             self.rate = round(float(self.max_rate + self.min_rate) / 2.0, 2)
 
@@ -150,8 +148,10 @@ class IXIARFC2544Profile(TrexProfile):
         samples['DropPercentage'] = drop_percent
 
         if first_run:
-            self.rate = out_packets_sum / duration / num_ifaces
             completed = True if drop_percent <= tolerance else False
+        if (first_run and
+                self.rate_unit == tp_base.TrafficProfileConfig.RATE_FPS):
+            self.rate = out_packets_sum / duration / num_ifaces
 
         if drop_percent > tolerance:
             self.max_rate = self.rate
