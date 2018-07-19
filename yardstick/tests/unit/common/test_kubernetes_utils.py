@@ -121,6 +121,22 @@ class DeleteCustomResourceDefinitionTestCase(base.BaseUnitTestCase):
         mock_delete_crd.delete_custom_resource_definition.\
             assert_called_once_with('name', 'del_obj')
 
+    @mock.patch.object(client, 'V1DeleteOptions', return_value='del_obj')
+    @mock.patch.object(kubernetes_utils, 'get_extensions_v1beta_api')
+    def test_execute_skip_exception(self, mock_get_api, mock_delobj):
+        mock_delete_crd = mock.Mock()
+        mock_delete_crd.delete_custom_resource_definition.side_effect = rest.ApiException(
+            status=404)
+
+        mock_get_api.return_value = mock_delete_crd
+        kubernetes_utils.delete_custom_resource_definition('name', skip_codes=[404])
+
+        mock_delobj.assert_called_once()
+        mock_delete_crd.delete_custom_resource_definition.assert_called_once_with(
+            'name',
+            'del_obj'
+        )
+
 
 class GetCustomResourceDefinitionTestCase(base.BaseUnitTestCase):
 
