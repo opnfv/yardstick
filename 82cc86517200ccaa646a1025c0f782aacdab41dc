@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_e68f30cb",
+        "filename": "docker/k8s/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-07-19T09:38:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_e6a9f07c",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 0
+      },
+      "revId": "82cc86517200ccaa646a1025c0f782aacdab41dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_06ad0489",
         "filename": "docker/k8s/Dockerfile",
         "patchSetId": 4
@@ -36,6 +60,24 @@
       "writtenOn": "2018-07-19T07:53:58Z",
       "side": 1,
       "message": "Is useful to clean and remove unneeded packages:\n\n  \u0026\u0026 apt-get -y autoremove \u0026\u0026 apt-get clean",
+      "revId": "82cc86517200ccaa646a1025c0f782aacdab41dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_46bc1c6d",
+        "filename": "docker/k8s/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-07-19T09:38:49Z",
+      "side": 1,
+      "message": "thanks, will add it.",
+      "parentUuid": "9a561d44_06ad0489",
       "revId": "82cc86517200ccaa646a1025c0f782aacdab41dc",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_464a5c84",
+        "filename": "docker/k8s/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-07-19T09:38:49Z",
+      "side": 1,
+      "message": "it\u0027s not necessary, ARCH\u003d`uname -p` for build.sh\n[1] https://github.com/beefyamoeba5/ramspeed/blob/master/ramspeed-2.6.0/build.sh#L7",
+      "parentUuid": "9a561d44_26e2c8d5",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "82cc86517200ccaa646a1025c0f782aacdab41dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_46dd3c14",
         "filename": "docker/k8s/Dockerfile",
         "patchSetId": 4
@@ -76,6 +142,30 @@
       "writtenOn": "2018-07-19T07:53:58Z",
       "side": 1,
       "message": "Unneeded",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 57
+      },
+      "revId": "82cc86517200ccaa646a1025c0f782aacdab41dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_66bb2073",
+        "filename": "docker/k8s/Dockerfile",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-07-19T09:38:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_46dd3c14",
       "range": {
         "startLine": 41,
         "startChar": 0,
