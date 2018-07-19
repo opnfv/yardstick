@@ -263,6 +263,10 @@ class KubernetesContainerPortNotDefined(YardstickException):
     message = 'Container port not defined in "%(port)s"'
 
 
+class KubernetesContainerWrongImagePullPolicy(YardstickException):
+    message = 'Image pull policy must be "Always", "IfNotPresent" or "Never"'
+
+
 class ScenarioCreateNetworkError(YardstickException):
     message = 'Create Neutron Network Scenario failed'
 

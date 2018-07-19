@@ -395,6 +395,17 @@ class ContainerObjectTestCase(base.BaseUnitTestCase):
                                   'limits': {'key2': 'val2'}}}
         self.assertEqual(expected, container_obj.get_container_item())
 
+    def test_get_container_item_image_pull_policy(self):
+        container_obj = kubernetes.ContainerObject(
+            'cname', ssh_key='fake_sshkey', imagePullPolicy='Always')
+        expected = {'args': [],
+                    'command': [kubernetes.ContainerObject.COMMAND_DEFAULT],
+                    'image': kubernetes.ContainerObject.IMAGE_DEFAULT,
+                    'name': 'cname-container',
+                    'volumeMounts': container_obj._create_volume_mounts(),
+                    'imagePullPolicy':'Always'}
+        self.assertEqual(expected, container_obj.get_container_item())
+
 
 class CustomResourceDefinitionObjectTestCase(base.BaseUnitTestCase):
 
