@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_51e97419",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-19T12:24:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_46041c7e",
+      "range": {
+        "startLine": 81,
+        "startChar": 35,
+        "endLine": 81,
+        "endChar": 54
+      },
+      "revId": "f299b2c1ac5a944a9eb11510817475bf2eb6dc84",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f18c0882",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-19T12:24:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_26092896",
+      "range": {
+        "startLine": 78,
+        "startChar": 19,
+        "endLine": 81,
+        "endChar": 27
+      },
+      "revId": "f299b2c1ac5a944a9eb11510817475bf2eb6dc84",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_86fe346a",
         "filename": "yardstick/common/kubernetes_utils.py",
         "patchSetId": 1
@@ -118,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_31ee8023",
+        "filename": "yardstick/tests/unit/common/test_kubernetes_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-19T12:24:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_c6f78c8b",
+      "range": {
+        "startLine": 267,
+        "startChar": 4,
+        "endLine": 267,
+        "endChar": 51
+      },
+      "revId": "f299b2c1ac5a944a9eb11510817475bf2eb6dc84",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a6f41888",
         "filename": "yardstick/tests/unit/common/test_kubernetes_utils.py",
         "patchSetId": 1
@@ -141,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_b1d9f085",
+        "filename": "yardstick/tests/unit/common/test_kubernetes_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-19T12:24:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_a6f41888",
+      "range": {
+        "startLine": 275,
+        "startChar": 4,
+        "endLine": 275,
+        "endChar": 56
+      },
+      "revId": "f299b2c1ac5a944a9eb11510817475bf2eb6dc84",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_462b7ceb",
         "filename": "yardstick/tests/unit/orchestrator/test_kubernetes.py",
         "patchSetId": 1
@@ -152,6 +248,24 @@
       "writtenOn": "2018-07-19T08:04:21Z",
       "side": 1,
       "message": "Please, don\u0027t exceed the 80 chars limit.",
+      "revId": "f299b2c1ac5a944a9eb11510817475bf2eb6dc84",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_11e7fc41",
+        "filename": "yardstick/tests/unit/orchestrator/test_kubernetes.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-19T12:24:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_462b7ceb",
       "revId": "f299b2c1ac5a944a9eb11510817475bf2eb6dc84",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
