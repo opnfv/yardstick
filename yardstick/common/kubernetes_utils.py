@@ -196,8 +196,10 @@ def create_config_map(name,
 def delete_config_map(name,
                       namespace='default',
                       wait=False,
-                      **kwargs):     # pragma: no cover
+                      skip_codes=None,
+                      **kwargs):
     # pylint: disable=unused-argument
+    skip_codes = [] if not skip_codes else skip_codes
     core_v1_api = get_core_api()
     body = kwargs.get('body', client.V1DeleteOptions())
     kwargs.pop('body', None)
@@ -206,9 +208,12 @@ def delete_config_map(name,
                                                  namespace,
                                                  body,
                                                  **kwargs)
-    except ApiException:
-        LOG.exception('Delete config map failed')
-        raise
+    except ApiException as e:
+        if e.status in skip_codes:
+            LOG.info(e.reason)
+        else:
+            raise exceptions.KubernetesApiException(
+                action='delete', resource='ConfigMap')
 
 
 def create_custom_resource_definition(body):
