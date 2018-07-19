@@ -118,8 +118,10 @@ def create_replication_controller(template,
 def delete_replication_controller(name,
                                   namespace='default',
                                   wait=False,
-                                  **kwargs):    # pragma: no cover
+                                  skip_codes=None,
+                                  **kwargs):
     # pylint: disable=unused-argument
+    skip_codes = [] if not skip_codes else skip_codes
     core_v1_api = get_core_api()
     body = kwargs.get('body', client.V1DeleteOptions())
     kwargs.pop('body', None)
@@ -128,9 +130,12 @@ def delete_replication_controller(name,
                                                              namespace,
                                                              body,
                                                              **kwargs)
-    except ApiException:
-        LOG.exception('Delete replication controller failed')
-        raise
+    except ApiException as e:
+        if e.status in skip_codes:
+            LOG.info(e.reason)
+        else:
+            raise exceptions.KubernetesApiException(
+                action='delete', resource='ReplicationController')
 
 
 def delete_pod(name,
