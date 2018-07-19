@@ -8,6 +8,7 @@
 ##############################################################################
 
 import copy
+import re
 
 from oslo_serialization import jsonutils
 
@@ -234,6 +235,9 @@ class ReplicationControllerObject(object):
 
 class ServiceNodePortObject(object):
 
+    MANDATORY_PARAMETERS = {'port', 'name'}
+    NAME_REGEX = re.compile(r'^[a-z0-9]([-a-z0-9]*[a-z0-9])?$')
+
     def __init__(self, name, **kwargs):
         """Service kind "NodePort" object
 
@@ -251,19 +255,27 @@ class ServiceNodePortObject(object):
             }
         }
 
-        self._add_port(22, protocol='TCP')
+        self._add_port(22, 'ssh', protocol='TCP')
         node_ports = copy.deepcopy(kwargs.get('node_ports', []))
         for port in node_ports:
+            if not self.MANDATORY_PARAMETERS.issubset(port.keys()):
+                missing_parameters = ', '.join(
+                    str(param) for param in
+                    (self.MANDATORY_PARAMETERS - set(port.keys())))
+                raise exceptions.KubernetesServiceObjectDefinitionError(
+                    missing_parameters=missing_parameters)
             port_number = port.pop('port')
-            self._add_port(port_number, **port)
+            name = port.pop('name')
+            if not self.NAME_REGEX.match(name):
+                raise exceptions.KubernetesServiceObjectNameError(name=name)
+            self._add_port(port_number, name, **port)
 
-    def _add_port(self, port, protocol=None, name=None, targetPort=None,
+    def _add_port(self, port, name, protocol=None, targetPort=None,
                   nodePort=None):
-        _port = {'port': port}
+        _port = {'port': port,
+                 'name': name}
         if protocol:
             _port['protocol'] = protocol
-        if name:
-            _port['name'] = name
         if targetPort:
             _port['targetPort'] = targetPort
         if nodePort:
