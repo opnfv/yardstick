@@ -66,8 +66,6 @@ This document consists of the following chapters:
   yardstick report CLI to view the test result in table format and also values
   pinned on to a graph
 
-* Chapter :doc:`11-vtc-overview` provides information on the :term:`VTC`.
-
 * Chapter :doc:`12-nsb-overview` describes the methodology implemented by the
   Yardstick - Network service benchmarking to test real world usecase for a
   given VNF.

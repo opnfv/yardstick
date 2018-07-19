@@ -17,8 +17,7 @@ Yardstick test cases are divided in two main categories:
   described in :doc:`02-methodology`
 
 * *OPNFV Feature Test Cases* - Test Cases developed to verify one or more
-  aspect of a feature delivered by an OPNFV Project, including the test cases
-  developed for the :term:`VTC`.
+  aspect of a feature delivered by an OPNFV Project.
 
 Generic NFVI Test Case Descriptions
 ===================================
