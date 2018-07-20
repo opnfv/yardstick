@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_009cc768",
+        "filename": "yardstick/tests/unit/common/test_kubernetes_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-20T14:45:02Z",
+      "side": 1,
+      "message": "If we need to avoid log message, I think the right approach is to mock them somewhere globally and not implement mock of the log.info in each test case. For now, I will mock this in the TC, but for the future, we have to do it globally.",
+      "parentUuid": "9a561d44_4cb6fbdd",
+      "revId": "8af6a6bf828d1ab58f1e901350b6c225f04cb225",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_1149bcd0",
         "filename": "yardstick/tests/unit/orchestrator/test_kubernetes.py",
         "patchSetId": 2
