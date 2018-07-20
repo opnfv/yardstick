@@ -64,37 +64,36 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         self._mq_ids = []
 
     def _get_ip_flow_range(self, ip_start_range):
+        """Retrieve a CIDR first and last viable IPs
 
-        # IP range is specified as 'x.x.x.x-y.y.y.y'
+        :param ip_start_range: could be the IP range itself or a dictionary
+               with the host name and the port.
+        :return: (str) IP range (min, max) with this format "x.x.x.x-y.y.y.y"
+        """
         if isinstance(ip_start_range, six.string_types):
             return ip_start_range
 
-        node_name, range_or_interface = next(iter(ip_start_range.items()), (None, '0.0.0.0'))
+        node_name, range_or_interface = next(iter(ip_start_range.items()),
+                                             (None, '0.0.0.0'))
         if node_name is None:
-            # we are manually specifying the range
-            ip_addr_range = range_or_interface
-        else:
-            node = self.context_cfg["nodes"].get(node_name, {})
-            try:
-                # the ip_range is the interface name
-                interface = node.get("interfaces", {})[range_or_interface]
-            except KeyError:
-                ip = "0.0.0.0"
-                mask = "255.255.255.0"
-            else:
-                ip = interface["local_ip"]
-                # we can't default these values, they must both exist to be valid
-                mask = interface["netmask"]
+            return range_or_interface
 
-            ipaddr = ipaddress.ip_network(six.text_type('{}/{}'.format(ip, mask)), strict=False)
-            hosts = list(ipaddr.hosts())
-            if len(hosts) > 2:
-                # skip the first host in case of gateway
-                ip_addr_range = "{}-{}".format(hosts[1], hosts[-1])
-            else:
-                LOG.warning("Only single IP in range %s", ipaddr)
-                # fall back to single IP range
-                ip_addr_range = ip
+        node = self.context_cfg['nodes'].get(node_name, {})
+        interface = node.get('interfaces', {}).get(range_or_interface)
+        if interface:
+            ip = interface['local_ip']
+            mask = interface['netmask']
+        else:
+            ip = '0.0.0.0'
+            mask = '255.255.255.0'
+
+        ipaddr = ipaddress.ip_network(
+            six.text_type('{}/{}'.format(ip, mask)), strict=False)
+        if ipaddr.prefixlen + 2 < ipaddr.max_prefixlen:
+            ip_addr_range = '{}-{}'.format(ipaddr[2], ipaddr[-2])
+        else:
+            LOG.warning('Only single IP in range %s', ipaddr)
+            ip_addr_range = ip
         return ip_addr_range
 
     def _get_traffic_flow(self):
