@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a561d44_4cb6fbdd",
+        "filename": "yardstick/tests/unit/common/test_kubernetes_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-20T08:10:21Z",
+      "side": 1,
+      "message": "Again, please, mock LOG.info.\n\nWe must avoid unnecessary messages during the test execution.",
+      "revId": "8af6a6bf828d1ab58f1e901350b6c225f04cb225",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_1149bcd0",
         "filename": "yardstick/tests/unit/orchestrator/test_kubernetes.py",
         "patchSetId": 2
@@ -13,6 +30,30 @@
       "writtenOn": "2018-07-19T16:10:35Z",
       "side": 1,
       "message": "Not sure about this here.\nShould we not assume network created and delete works correctly?",
+      "range": {
+        "startLine": 508,
+        "startChar": 57,
+        "endLine": 508,
+        "endChar": 76
+      },
+      "revId": "8af6a6bf828d1ab58f1e901350b6c225f04cb225",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2cbbc7c5",
+        "filename": "yardstick/tests/unit/orchestrator/test_kubernetes.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-20T08:10:21Z",
+      "side": 1,
+      "message": "What we are doing here is to verify how the function was called. If you have concerns about the code, you should make this comment in yardstick/orchestrator/kubernetes.py\n\nAnyway, this is the feature we are implementing. Delete network is called only during the teardown. We don\u0027t want to raise any exception in case the object (network in this case) doesn\u0027t exist.",
+      "parentUuid": "9a561d44_1149bcd0",
       "range": {
         "startLine": 508,
         "startChar": 57,
