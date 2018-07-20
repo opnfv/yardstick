@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_802bb72f",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc074.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T14:03:52Z",
+      "side": 1,
+      "message": "Eventually, this can be moved to the context. While you\u0027re still doing set-up with an external volume, you might consider using the Node context, as a bridge between this and support for the heat context.\n\nThe Node context allows you to specify a pre-provisioned baremetal, virtual or containerised host to connect to.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "9359e1f3463934fede44fb58a6d62cb344197b50",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
