@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_acc6b747",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-20T08:15:11Z",
+      "side": 1,
+      "message": "return\n\nNone is redundant",
+      "range": {
+        "startLine": 254,
+        "startChar": 12,
+        "endLine": 254,
+        "endChar": 23
+      },
+      "revId": "aee0f4bbed397ec53541f0d3419c67e7fc746254",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
