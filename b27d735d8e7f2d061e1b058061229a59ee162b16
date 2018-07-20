@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_6005c3c1",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-20T13:46:03Z",
+      "side": 1,
+      "message": "Yes but those are two different things (complete flag and rate) that why I prefer to have them separated.",
+      "parentUuid": "9a561d44_20558bc6",
+      "range": {
+        "startLine": 152,
+        "startChar": 7,
+        "endLine": 153,
+        "endChar": 73
+      },
+      "revId": "b27d735d8e7f2d061e1b058061229a59ee162b16",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a0587bfb",
         "filename": "yardstick/tests/unit/network_services/traffic_profile/test_base.py",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-20T13:30:31Z",
       "side": 1,
       "message": "These two lines could be evaluated at the same time.\n\n    self.assertEqual((100.0, \u0027fps\u0027), tp_config_obj._parse_rate(\u0027100  \u0027))\n\nSame for all the other checks below, which would make this test faster to execute.",
+      "range": {
+        "startLine": 93,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 70
+      },
+      "revId": "b27d735d8e7f2d061e1b058061229a59ee162b16",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_400a3fd3",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_base.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-20T13:46:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_a0587bfb",
       "range": {
         "startLine": 93,
         "startChar": 8,
