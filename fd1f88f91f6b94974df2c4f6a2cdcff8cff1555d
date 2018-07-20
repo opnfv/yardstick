@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_6cec9fc8",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-20T08:24:34Z",
+      "side": 1,
+      "message": "please, remove this",
+      "range": {
+        "startLine": 122,
+        "startChar": 47,
+        "endLine": 122,
+        "endChar": 66
+      },
+      "revId": "fd1f88f91f6b94974df2c4f6a2cdcff8cff1555d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ccd04bfa",
+        "filename": "yardstick/common/kubernetes_utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-20T08:24:34Z",
+      "side": 1,
+      "message": "not needed, we are raising an exception with the needed message",
+      "range": {
+        "startLine": 137,
+        "startChar": 12,
+        "endLine": 137,
+        "endChar": 65
+      },
+      "revId": "fd1f88f91f6b94974df2c4f6a2cdcff8cff1555d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
