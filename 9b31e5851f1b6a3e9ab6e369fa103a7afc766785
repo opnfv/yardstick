@@ -1,0 +1,469 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_0c06c320",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "It looks like this is fixing typos, not updating any information.\n\nThe commit message should be updated to reflect this.\n\nThe scope of the commit can include formatting and spelling updates. I\u0027ve added a few more comments for some other items that can be updated.",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_800e1733",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "This should be formatted as a list.\n\nIt\u0027ll help break up the doc visually for readers.",
+      "range": {
+        "startLine": 300,
+        "startChar": 3,
+        "endLine": 312,
+        "endChar": 73
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6074a39c",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "Why is this label here? IS it to reference from an external doc?\nIf it\u0027s for reference within this document only, you can use the headings. The section titles are targets [1].\n\n[1] http://docutils.sourceforge.net/docs/user/rst/quickref.html#title",
+      "range": {
+        "startLine": 320,
+        "startChar": 0,
+        "endLine": 320,
+        "endChar": 30
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e0127357",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "The *xx* is unnecessary as this will be formatted as a heading anyway.",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 22
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c00f6f2d",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "Wrap line lengths at 79 please",
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e039d3d9",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "You can use a literal include [1] for this, so that any updates to the prox_vpe.yaml file are picked up in the docs.\n\n.. literalinclude::\n   ../../../../\u003crelative_path_to\u003e/prox_vpe.yaml\n   :lines: 15-\n\n[1] http://www.sphinx-doc.org/en/stable/markup/code.html#directive-literalinclude",
+      "range": {
+        "startLine": 378,
+        "startChar": 0,
+        "endLine": 393,
+        "endChar": 25
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0048475a",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "\"composed of a management network (labelled ``mgmt``), one uplink network (``uplink_0``) and one downlink network (``downlink_0``) for a two port config\"",
+      "range": {
+        "startLine": 433,
+        "startChar": 17,
+        "endLine": 435,
+        "endChar": 47
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_20346bdd",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "Could use literalinclude here too",
+      "range": {
+        "startLine": 436,
+        "startChar": 56,
+        "endLine": 461,
+        "endChar": 28
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e06713e9",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "Titles are targets",
+      "range": {
+        "startLine": 717,
+        "startChar": 0,
+        "endLine": 717,
+        "endChar": 28
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_609b03ca",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "Wrap lines at 79 characters",
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_40a07ff4",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "ditto: titles are targets",
+      "range": {
+        "startLine": 848,
+        "startChar": 0,
+        "endLine": 849,
+        "endChar": 27
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a0a51b06",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "Nit: redundant",
+      "range": {
+        "startLine": 1020,
+        "startChar": 0,
+        "endLine": 1020,
+        "endChar": 10
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_80aa97d2",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "You don\u0027t need to use an image here.\n\nYou can add the command and the console output in a code block\n\nAs a plus, you don\u0027t have to worry about the width of the image.",
+      "range": {
+        "startLine": 1124,
+        "startChar": 2,
+        "endLine": 1126,
+        "endChar": 47
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e0aef3e6",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "note",
+      "range": {
+        "startLine": 1130,
+        "startChar": 50,
+        "endLine": 1130,
+        "endChar": 53
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c0abefd4",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "nit: CLI",
+      "range": {
+        "startLine": 1242,
+        "startChar": 17,
+        "endLine": 1242,
+        "endChar": 20
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_20b90b2f",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "These really should not be here.\n\nuse \u003cproxy_host\u003e:\u003cproxy_port\u003e instead",
+      "range": {
+        "startLine": 1245,
+        "startChar": 3,
+        "endLine": 1252,
+        "endChar": 90
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4004ff14",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "Are all the fields showing the overall numbers? Or are some of them showing deltas/rates?\n\nThey\u0027re all showing totals, then this \"overall\" is redundant",
+      "range": {
+        "startLine": 1283,
+        "startChar": 3,
+        "endLine": 1283,
+        "endChar": 10
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ec026f0a",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "no. of",
+      "range": {
+        "startLine": 1283,
+        "startChar": 11,
+        "endLine": 1283,
+        "endChar": 13
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_60ff8302",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1289,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "No. if",
+      "range": {
+        "startLine": 1289,
+        "startChar": 3,
+        "endLine": 1289,
+        "endChar": 5
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a0099b2e",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "Add a space here",
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ac08772e",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T11:48:08Z",
+      "side": 1,
+      "message": "The phrase \"This is the\" is redundant, and can be removed.\n\n(applies to all this list)",
+      "range": {
+        "startLine": 1313,
+        "startChar": 3,
+        "endLine": 1313,
+        "endChar": 15
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
