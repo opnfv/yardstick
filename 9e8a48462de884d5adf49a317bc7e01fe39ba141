@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_e04a7326",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_arithmetic.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T13:19:57Z",
+      "side": 1,
+      "message": "For additional tests, this would also be used, correct?\n\nThis could be part of the setUp().",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 48
+      },
+      "revId": "9e8a48462de884d5adf49a317bc7e01fe39ba141",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
