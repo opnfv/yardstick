@@ -41,7 +41,7 @@
   pip:
     requirements: "{{ yardstick_dir }}/requirements.txt"
     virtualenv: "{{ yardstick_dir }}/virtualenv"
-  async: 300
+  async: 600
   poll: 0
   register: pip_installer
   when: virtual_environment == True
@@ -49,7 +49,7 @@
 - name: Install Yardstick requirements
   pip:
     requirements: "{{ yardstick_dir }}/requirements.txt"
-  async: 300
+  async: 600
   poll: 0
   register: pip_installer
   when: virtual_environment == False
@@ -59,7 +59,7 @@
     jid: "{{ pip_installer.ansible_job_id }}"
   register: job_result
   until: job_result.finished
-  retries: 100
+  retries: 150
 
 - name: Install Yardstick code (venv)
   pip:
