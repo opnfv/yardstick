@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_a0dd1b45",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T14:11:14Z",
+      "side": 1,
+      "message": "Why not use self.client.execute(cmd, raise_on_error\u003dTrue) here, like you did before?",
+      "range": {
+        "startLine": 196,
+        "startChar": 8,
+        "endLine": 196,
+        "endChar": 28
+      },
+      "revId": "65ee3d85333b02cdbdf7323d2103cbb778005f53",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
