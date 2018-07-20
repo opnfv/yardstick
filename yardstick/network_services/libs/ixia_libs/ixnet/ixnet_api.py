@@ -34,7 +34,7 @@ PROTO_TCP = 'tcp'
 PROTO_VLAN = 'vlan'
 
 IP_VERSION_4_MASK = '0.0.0.255'
-IP_VERSION_6_MASK = '0:0:0:0:0:0:0:ff'
+# IP_VERSION_6_MASK = '120'
 
 TRAFFIC_STATUS_STARTED = 'started'
 TRAFFIC_STATUS_STOPPED = 'stopped'
@@ -413,10 +413,10 @@ class IxNextgen(object):  # pragma: no cover
     def update_ip_packet(self, traffic):
         """Update the IP packet
 
-        NOTE: Only IPv4 is currently supported.
         :param traffic: list of traffic elements; each traffic element contains
                         the injection parameter for each flow group.
         """
+        # NOTE(ralonsoh): Only IPv4 is currently supported.
         # NOTE(ralonsoh): L4 configuration is not set.
         for traffic_param in traffic.values():
             fg_id = str(traffic_param['id'])

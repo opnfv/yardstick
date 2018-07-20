@@ -358,35 +358,49 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         self.assertIsNotNone(self.topology)
 
     def test__get_ip_flow_range_string(self):
-        self.scenario_cfg["traffic_options"]["flow"] = \
-            self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
         result = '152.16.100.2-152.16.100.254'
         self.assertEqual(result, self.s._get_ip_flow_range(
             '152.16.100.2-152.16.100.254'))
 
-    def test__get_ip_flow_range(self):
-        self.scenario_cfg["traffic_options"]["flow"] = \
-            self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
-        result = '152.16.100.2-152.16.100.254'
-        self.assertEqual(result, self.s._get_ip_flow_range({"tg__1": 'xe0'}))
-
-    @mock.patch('yardstick.benchmark.scenarios.networking.vnf_generic.ipaddress')
-    def test__get_ip_flow_range_no_node_data(self, mock_ipaddress):
-        scenario_cfg = deepcopy(self.scenario_cfg)
-        scenario_cfg["traffic_options"]["flow"] = \
-            self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
-
-        mock_ipaddress.ip_network.return_value = ipaddr = mock.Mock()
-        ipaddr.hosts.return_value = []
-
-        expected = '0.0.0.0'
-        result = self.s._get_ip_flow_range({"tg__2": 'xe0'})
-        self.assertEqual(result, expected)
-
     def test__get_ip_flow_range_no_nodes(self):
-        expected = '0.0.0.0'
-        result = self.s._get_ip_flow_range({})
-        self.assertEqual(result, expected)
+        self.assertEqual('0.0.0.0', self.s._get_ip_flow_range({}))
+
+    def test__get_ip_flow_range_no_node_data(self):
+        node_data = {'tg__0': 'xe0'}
+        self.s.context_cfg['nodes']['tg__0'] = {}
+        result = self.s._get_ip_flow_range(node_data)
+        self.assertEqual('0.0.0.2-0.0.0.254', result)
+
+    def test__et_ip_flow_range_ipv4(self):
+        node_data = {'tg__0': 'xe0'}
+        self.s.context_cfg['nodes']['tg__0'] = {
+            'interfaces': {
+                'xe0': {'local_ip': '192.168.1.15',
+                        'netmask': '255.255.255.128'}
+            }
+        }
+        result = self.s._get_ip_flow_range(node_data)
+        self.assertEqual('192.168.1.2-192.168.1.126', result)
+
+    def test__get_ip_flow_range_ipv4_mask_30(self):
+        node_data = {'tg__0': 'xe0'}
+        self.s.context_cfg['nodes']['tg__0'] = {
+            'interfaces': {
+                'xe0': {'local_ip': '192.168.1.15', 'netmask': 30}
+            }
+        }
+        result = self.s._get_ip_flow_range(node_data)
+        self.assertEqual('192.168.1.15', result)
+
+    def test__get_ip_flow_range_ipv6(self):
+        node_data = {'tg__0': 'xe0'}
+        self.s.context_cfg['nodes']['tg__0'] = {
+            'interfaces': {
+                'xe0': {'local_ip': '2001::11', 'netmask': 64}
+            }
+        }
+        result = self.s._get_ip_flow_range(node_data)
+        self.assertEqual('2001::2-2001::ffff:ffff:ffff:fffe', result)
 
     def test___get_traffic_flow(self):
         self.scenario_cfg["traffic_options"]["flow"] = \

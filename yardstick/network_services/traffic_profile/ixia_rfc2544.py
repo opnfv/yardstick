@@ -34,6 +34,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         self.rate_unit = self.config.rate_unit
 
     def _get_ixia_traffic_profile(self, profile_data, mac=None):
+        # NOTE(ralonsoh): Only IPv4 is currently supported.
         mac = {} if mac is None else mac
         result = {}
         for traffickey, values in profile_data.items():
@@ -50,13 +51,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
 
                 port_id = value.get('id', 1)
                 port_index = port_id - 1
-                try:
-                    ip = value['outer_l3v6']
-                except KeyError:
-                    ip = value['outer_l3v4']
-                    src_key, dst_key = 'srcip4', 'dstip4'
-                else:
-                    src_key, dst_key = 'srcip6', 'dstip6'
+                ip = value['outer_l3v4']
 
                 result[traffickey] = {
                     'bidir': False,
@@ -73,8 +68,8 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
                         'count': ip['count'],
                         'dscp': ip['dscp'],
                         'ttl': ip['ttl'],
-                        src_key: ip[src_key].split("-")[0],
-                        dst_key: ip[dst_key].split("-")[0],
+                        'srcip4': ip['srcip4'].split("-")[0],
+                        'dstip4': ip['dstip4'].split("-")[0],
                         'type': key,
                         'proto': ip['proto'],
                     },
