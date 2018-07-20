@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_60d02354",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-20T12:50:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_6c493f8b",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 1
+      },
+      "revId": "971ee7a884537ae400c2c68ae4d5a6ad70427fbb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ac2197b6",
         "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-20T11:11:53Z",
       "side": 1,
       "message": "Is there a particular reason that these are different numbers?",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 18
+      },
+      "revId": "971ee7a884537ae400c2c68ae4d5a6ad70427fbb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_40d51f42",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-20T12:50:44Z",
+      "side": 1,
+      "message": "No, this is an agreement between precision and accuracy.\n\nFor rate: in case the rate is measured in %, 5 decimal digits (2 initially) is more than enough for further processing.\nFor drop percentage: we have increase 10000 times the precision for the drop percentage and the user can be more accurate on this. But 6 decimal positions is enough (and probably too much).",
+      "parentUuid": "9a561d44_ac2197b6",
       "range": {
         "startLine": 28,
         "startChar": 4,
