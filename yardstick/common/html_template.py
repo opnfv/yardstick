@@ -21,6 +21,7 @@ template = """
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7\
 /js/bootstrap.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <script src="jquery.min.js"></script>
 <script src="highcharts.js"></script>
 </head>
@@ -55,6 +56,8 @@ table{
    </div>
   </div>
 </div>
+<div id="report_data2"></div>
+
 <script>
   var arr, tab, th, tr, td, tn, row, col, thead, tbody;
   arr={{table|safe}}
@@ -85,6 +88,13 @@ table{
         }
 tab.appendChild(tbody);
 
+</script>
+
+<script type="text/javascript">
+ $('#report_data2').jstree({
+    'core' : {
+        'data' : [{{jstree_nodes|safe}}]
+})
 </script>
 
 <script language="JavaScript">
