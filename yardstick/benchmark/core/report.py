@@ -75,6 +75,32 @@ class Report(object):
         else:
             raise KeyError("Task ID or Test case not found..")
 
+    def _create_node(self, id):
+        components = id.split(".")
+
+        if len(components) == 1:
+            text = components[0]
+            parent_id = "#"
+        else:
+            text = components[-1]
+            parent_id = ".".join(components[:-1])
+            # make sure the parent has been created;
+        if not parent_id in self.created_nodes and parent_id != "#":
+            self._create_node(parent_id)
+
+        self.jstree_data.append({"id": id, "text": text, "parent": parent_id})
+        self.created_nodes.append(id)
+
+    def format_for_jstree(self, data):
+        self.jstree_data = []
+        self.created_nodes = []
+
+        for item in data:
+            id = item["name"]
+            self._create_node(id)
+
+        return self.jstree_data
+
     @cliargs("task_id", type=str, help=" task id", nargs=1)
     @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
     def generate(self, args):
@@ -117,11 +143,14 @@ class Report(object):
             series['data'] = values
             temp_series.append(series)
 
+        jstree_data = self.format_for_jstree(temp_series)
+
         Template_html = Template(template)
         Context_html = Context({"series": temp_series,
                                 "Timestamp": self.Timestamp,
                                 "task_id": self.task_id,
-                                "table": table_vals})
+                                "table": table_vals,
+                                "jstree_nodes": jstree_data })
         with open(consts.DEFAULT_HTML_FILE, "w") as file_open:
             file_open.write(Template_html.render(Context_html))
 
