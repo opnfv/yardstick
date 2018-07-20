@@ -413,7 +413,7 @@ class IxNextgen(object):  # pragma: no cover
     def update_ip_packet(self, traffic):
         """Update the IP packet
 
-        NOTE: Only IPv4 is currently supported.
+        NOTE(ralonsoh): Only IPv4 is currently supported.
         :param traffic: list of traffic elements; each traffic element contains
                         the injection parameter for each flow group.
         """
