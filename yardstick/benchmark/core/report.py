@@ -20,6 +20,66 @@ from yardstick.common import constants as consts
 from yardstick.common.utils import cliargs
 
 
+class JSTree(object):
+    """Data structure to parse data for use with the JS library JSTree"""
+    def __init__(self):
+        self.created_nodes = []
+        self.jstree_data = []
+
+    def _create_node(self, _id):
+        """Helper method for format_for_jstree to create each node.
+
+        Creates the node (and any required parents) and keeps track
+        of the created nodes.
+
+        :param _id: (string) id of the node to be created
+        :return: None
+        """
+        components = _id.split(".")
+
+        if len(components) == 1:
+            text = components[0]
+            parent_id = "#"
+        else:
+            text = components[-1]
+            parent_id = ".".join(components[:-1])
+            # make sure the parent has been created;
+        if not parent_id in self.created_nodes and parent_id != "#":
+            self._create_node(parent_id)
+
+        self.jstree_data.append({"id": _id, "text": text, "parent": parent_id})
+        self.created_nodes.append(_id)
+
+    def format_for_jstree(self, data):
+        """Format the data into the required format for jstree.
+
+        The data format expected is a list of key-value pairs which represent
+        the data and name for each metric e.g.:
+
+            [{'data': [0, ], 'name': 'tg__0.DropPackets'},
+             {'data': [548, ], 'name': 'tg__0.LatencyAvg.5'},]
+
+        This data is converted into the format required for jstree to group and
+        display the metrics in a hierarchial fashion, including creating a
+        number of parent nodes e.g.::
+
+            [{"id": "tg__0", "text": "tg__0", "parent": "#"},
+             {"id": "tg__0.DropPackets", "text": "DropPackets", "parent": "tg__0"},
+             {"id": "tg__0.LatencyAvg", "text": "LatencyAvg", "parent": "tg__0"},
+             {"id": "tg__0.LatencyAvg.5", "text": "5", "parent": "tg__0.LatencyAvg"},]
+
+        :param data: (list) data to be converted
+        :return: list
+        """
+        self.jstree_data = []
+        self.created_nodes = []
+
+        for item in data:
+            self._create_node(item["name"])
+
+        return self.jstree_data
+
+
 class Report(object):
     """Report commands.
 
@@ -104,7 +164,7 @@ class Report(object):
             series['data'] = values
             temp_series.append(series)
 
-        template_dir = consts.YARDSTICK_ROOT_PATH + "/yardstick/common"
+        template_dir = consts.YARDSTICK_ROOT_PATH + "yardstick/common"
         template_environment = jinja2.Environment(
             autoescape=False,
             loader=jinja2.FileSystemLoader(template_dir),
