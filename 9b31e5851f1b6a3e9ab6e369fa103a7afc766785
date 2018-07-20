@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_000047a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T13:51:28Z",
+      "side": 1,
+      "message": "What information is it updating? I saw two changes to the doc, both of which were correcting typos.",
+      "parentUuid": "9a561d44_a07cfb73",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_800e1733",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
