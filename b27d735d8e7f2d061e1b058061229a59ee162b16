@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_40319fa1",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-20T13:56:12Z",
+      "side": 1,
+      "message": "If you really want to do that, you\u0027ll need to add a comment so that the separate check isn\u0027t removed later.\n\n\nYou could also add in a note to say that L151 is updating the complete_flag and L154 is updating the rate (when applicable).\n\nIMHO, it\u0027s already obvious that they\u0027re separate since there is an additional check needed to update the rate.",
+      "parentUuid": "9a561d44_6005c3c1",
+      "range": {
+        "startLine": 152,
+        "startChar": 7,
+        "endLine": 153,
+        "endChar": 73
+      },
+      "revId": "b27d735d8e7f2d061e1b058061229a59ee162b16",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a0587bfb",
         "filename": "yardstick/tests/unit/network_services/traffic_profile/test_base.py",
         "patchSetId": 3
