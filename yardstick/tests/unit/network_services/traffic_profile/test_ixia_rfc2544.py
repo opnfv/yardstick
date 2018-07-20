@@ -554,7 +554,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         self.assertTrue(completed)
         self.assertEqual(23.0, samples['TxThroughput'])
         self.assertEqual(21.0, samples['RxThroughput'])
-        self.assertEqual(0.1, samples['DropPercentage'])
+        self.assertEqual(0.099651, samples['DropPercentage'])
 
     def test_get_drop_percentage_over_drop_percentage(self):
         samples = {'iface_name_1':
@@ -571,7 +571,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         self.assertFalse(completed)
         self.assertEqual(23.0, samples['TxThroughput'])
         self.assertEqual(21.0, samples['RxThroughput'])
-        self.assertEqual(0.1, samples['DropPercentage'])
+        self.assertEqual(0.099651, samples['DropPercentage'])
         self.assertEqual(rfc2544_profile.rate, rfc2544_profile.max_rate)
 
     def test_get_drop_percentage_under_drop_percentage(self):
@@ -589,7 +589,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         self.assertFalse(completed)
         self.assertEqual(23.0, samples['TxThroughput'])
         self.assertEqual(21.0, samples['RxThroughput'])
-        self.assertEqual(0.1, samples['DropPercentage'])
+        self.assertEqual(0.099651, samples['DropPercentage'])
         self.assertEqual(rfc2544_profile.rate, rfc2544_profile.min_rate)
 
     @mock.patch.object(ixia_rfc2544.LOG, 'info')
@@ -625,5 +625,5 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         self.assertTrue(completed)
         self.assertEqual(23.0, samples['TxThroughput'])
         self.assertEqual(21.0, samples['RxThroughput'])
-        self.assertEqual(0.1, samples['DropPercentage'])
+        self.assertEqual(0.099651, samples['DropPercentage'])
         self.assertEqual(33.45, rfc2544_profile.rate)
