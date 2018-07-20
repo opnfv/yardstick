@@ -23,7 +23,7 @@ def _execute_shell_command(command, stdin=None):
     output = []
     try:
         output = subprocess.check_output(command, stdin=stdin, shell=True)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         exitcode = -1
         LOG.error("exec command '%s' error:\n ", command, exc_info=True)
 
@@ -49,8 +49,7 @@ class BaremetalAttacker(BaseAttacker):
             LOG.debug("jump_host ip:%s user:%s", jump_host['ip'], jump_host['user'])
             self.jump_connection = ssh.SSH.from_node(
                 jump_host,
-                # why do we allow pwd for password?
-                defaults={"user": "root", "password": jump_host.get("pwd")}
+                defaults={"user": "root", "password": jump_host.get("password")}
             )
             self.jump_connection.wait(timeout=600)
             LOG.debug("ssh jump host success!")
@@ -59,7 +58,7 @@ class BaremetalAttacker(BaseAttacker):
 
         self.ipmi_ip = host.get("ipmi_ip", None)
         self.ipmi_user = host.get("ipmi_user", "root")
-        self.ipmi_pwd = host.get("ipmi_pwd", None)
+        self.ipmi_pwd = host.get("ipmi_password", None)
 
         self.fault_cfg = BaseAttacker.attacker_cfgs.get('bare-metal-down')
         self.check_script = self.get_script_fullpath(
@@ -107,26 +106,3 @@ class BaremetalAttacker(BaseAttacker):
             else:
                 _execute_shell_command(cmd, stdin=stdin_file)
         LOG.info("Recover fault END")
-
-
-def _test():  # pragma: no cover
-    host = {
-        "ipmi_ip": "10.20.0.5",
-        "ipmi_user": "root",
-        "ipmi_pwd": "123456",
-        "ip": "10.20.0.5",
-        "user": "root",
-        "key_filename": "/root/.ssh/id_rsa"
-    }
-    context = {"node1": host}
-    attacker_cfg = {
-        'fault_type': 'bear-metal-down',
-        'host': 'node1',
-    }
-    ins = BaremetalAttacker(attacker_cfg, context)
-    ins.setup()
-    ins.inject_fault()
-
-
-if __name__ == '__main__':  # pragma: no cover
-    _test()
