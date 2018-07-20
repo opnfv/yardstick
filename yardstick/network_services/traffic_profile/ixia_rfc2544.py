@@ -25,6 +25,8 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
 
     UPLINK = 'uplink'
     DOWNLINK = 'downlink'
+    DROP_PERCENT_ROUND = 6
+    RATE_ROUND = 5
 
     def __init__(self, yaml_data):
         super(IXIARFC2544Profile, self).__init__(yaml_data)
@@ -114,7 +116,8 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
             self.max_rate = self.rate
             self.min_rate = 0.0
         else:
-            self.rate = round(float(self.max_rate + self.min_rate) / 2.0, 2)
+            self.rate = round(float(self.max_rate + self.min_rate) / 2.0,
+                              self.RATE_ROUND)
 
         traffic = self._get_ixia_traffic_profile(self.full_profile, mac)
         self._ixia_traffic_generate(traffic, ixia_obj)
@@ -139,7 +142,8 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
 
         try:
             drop_percent = round(
-                (packet_drop / float(out_packets_sum)) * 100, 2)
+                (packet_drop / float(out_packets_sum)) * 100,
+                self.DROP_PERCENT_ROUND)
         except ZeroDivisionError:
             LOG.info('No traffic is flowing')
 
