@@ -46,7 +46,7 @@ class PktgenTrafficGenTestCase(ut_base.BaseUnitTestCase):
     def test__init(self):
         tg = tg_pktgen.PktgenTrafficGen('name1', self.VNFD, self._id)
         self.assertTrue(isinstance(tg, (vnf_base.GenericTrafficGen,
-                                        vnf_base.GenericVNFEndpoint)))
+                                      vnf_base.GenericVNFEndpoint)))
 
     def test_run_traffic(self):
         tg = tg_pktgen.PktgenTrafficGen('name1', self.VNFD, self._id)
