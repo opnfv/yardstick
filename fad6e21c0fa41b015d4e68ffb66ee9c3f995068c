@@ -22,6 +22,30 @@
       "revId": "fad6e21c0fa41b015d4e68ffb66ee9c3f995068c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e36c3d39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-23T10:23:37Z",
+      "side": 1,
+      "message": "No, but the contribution guidelines [1] recommend:\n\n  Title of the message in present tense\n  \n  Body of the message, describing the patch. Remember: less is not\n  more; more is more.\n  \n  JIRA: YARDSTICK-000\n  \n  Change-Id: Iccd000000000000000000000000000000000001\n  Signed-off-by: Name Surname \u003cname.surname@company.com\u003e\n\n\n[1] https://wiki.opnfv.org/display/DEV/Contribution+Guidelines#ContributionGuidelines-Inanutshell",
+      "parentUuid": "9a561d44_511214b5",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "fad6e21c0fa41b015d4e68ffb66ee9c3f995068c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
