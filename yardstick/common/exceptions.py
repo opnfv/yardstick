@@ -212,6 +212,10 @@ class WaitTimeout(YardstickException):
     message = 'Wait timeout while waiting for condition'
 
 
+class PktgenActionError(YardstickException):
+    message = 'Error in "%(action)s" action'
+
+
 class KubernetesApiException(YardstickException):
     message = ('Kubernetes API errors. Action: %(action)s, '
                'resource: %(resource)s')

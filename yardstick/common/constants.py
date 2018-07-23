@@ -175,3 +175,4 @@ SCOPE_CLUSTER = 'Cluster'
 
 # VNF definition
 SSH_PORT = 22
+LUA_PORT = 22022
