@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
-
 import cgitb
 import collections
 import contextlib as cl
@@ -23,11 +21,11 @@ import os
 from collections import Mapping, MutableMapping, Iterable, Callable, deque
 from functools import partial
 from itertools import chain
-from subprocess import CalledProcessError, Popen, PIPE
-from tempfile import NamedTemporaryFile
+import subprocess
+import tempfile
 
 import six
-import six.moves.configparser as ConfigParser
+from six.moves import configparser
 import yaml
 from six import StringIO
 from chainmap import ChainMap
@@ -134,10 +132,9 @@ class CustomTemporaryFile(object):
         else:
             self.data_types = self.DEFAULT_DATA_TYPES
         # must open "w+" so unicode is encoded correctly
-        self.creator = partial(NamedTemporaryFile, mode="w+", delete=False,
-                               dir=directory,
-                               prefix=prefix,
-                               suffix=self.suffix)
+        self.creator = partial(
+            tempfile.NamedTemporaryFile, mode="w+", delete=False,
+            dir=directory, prefix=prefix, suffix=self.suffix)
 
     def make_context(self, data, write_func, descriptor='data'):
         return TempfileContext(data, write_func, descriptor, self.data_types,
@@ -191,8 +188,8 @@ class FileNameGenerator(object):
         if not prefix.endswith('_'):
             prefix += '_'
 
-        temp_file = NamedTemporaryFile(delete=False, dir=directory,
-                                       prefix=prefix, suffix=suffix)
+        temp_file = tempfile.NamedTemporaryFile(delete=False, dir=directory,
+                                                prefix=prefix, suffix=suffix)
         with cl.closing(temp_file):
             return temp_file.name
 
@@ -474,7 +471,7 @@ class AnsibleCommon(object):
 
         prefix = '_'.join([self.prefix, prefix, 'inventory'])
         ini_temp_file = IniMapTemporaryFile(directory=directory, prefix=prefix)
-        inventory_config = ConfigParser.ConfigParser(allow_no_value=True)
+        inventory_config = configparser.ConfigParser(allow_no_value=True)
         # disable default lowercasing
         inventory_config.optionxform = str
         return ini_temp_file.make_context(self.inventory_dict, write_func,
@@ -510,7 +507,7 @@ class AnsibleCommon(object):
         return timeout
 
     def _generate_ansible_cfg(self, directory):
-        parser = ConfigParser.ConfigParser()
+        parser = configparser.ConfigParser()
         parser.add_section('defaults')
         parser.set('defaults', 'host_key_checking', 'False')
 
@@ -541,12 +538,12 @@ class AnsibleCommon(object):
         cmd = ['ansible', 'all', '-m', 'setup', '-i',
                inventory_path, '--tree', sut_dir]
 
-        proc = Popen(cmd, stdout=PIPE, cwd=directory)
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, cwd=directory)
         output, _ = proc.communicate()
         retcode = proc.wait()
         LOG.debug("exit status = %s", retcode)
         if retcode != 0:
-            raise CalledProcessError(retcode, cmd, output)
+            raise subprocess.CalledProcessError(retcode, cmd, output)
 
     def _gen_sut_info_dict(self, sut_dir):
         sut_info = {}
@@ -617,12 +614,13 @@ class AnsibleCommon(object):
                     # 'timeout': timeout / 2,
                 })
                 with Timer() as timer:
-                    proc = Popen(cmd, stdout=PIPE, **exec_args)
+                    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                                            **exec_args)
                     output, _ = proc.communicate()
                     retcode = proc.wait()
                 LOG.debug("exit status = %s", retcode)
                 if retcode != 0:
-                    raise CalledProcessError(retcode, cmd, output)
+                    raise subprocess.CalledProcessError(retcode, cmd, output)
                 timeout -= timer.total_seconds()
 
             cmd.remove("--syntax-check")
@@ -632,10 +630,10 @@ class AnsibleCommon(object):
                 # TODO: add timeout support of use subprocess32 backport
                 # 'timeout': timeout,
             })
-            proc = Popen(cmd, stdout=PIPE, **exec_args)
+            proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, **exec_args)
             output, _ = proc.communicate()
             retcode = proc.wait()
             LOG.debug("exit status = %s", retcode)
             if retcode != 0:
-                raise CalledProcessError(retcode, cmd, output)
+                raise subprocess.CalledProcessError(retcode, cmd, output)
             return output
