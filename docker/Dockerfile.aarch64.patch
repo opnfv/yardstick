@@ -1,14 +1,14 @@
-From: ting wu <ting.wu@enea.com>
-Date: Tue, 8 May 2018 14:02:52 +0200
-Subject: [PATCH][PATCH] Patch for Yardstick AARCH64 Docker file
+From: Cristina Pauna <cristina.pauna@enea.com>
+Date: Mon, 23 Jul 2018 15:16:59 +0300
+Subject: [PATCH] Patch for Yardstick AARCH64 Docker file
 
-Signed-off-by: ting wu <ting.wu@enea.com>
+Signed-off-by: Cristina Pauna <cristina.pauna@enea.com>
 ---
- docker/Dockerfile | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ docker/Dockerfile | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
 diff --git a/docker/Dockerfile b/docker/Dockerfile
-index 71ce6b58..952d0f78 100644
+index 71ce6b58..fce7c116 100644
 --- a/docker/Dockerfile
 +++ b/docker/Dockerfile
 @@ -7,9 +7,9 @@
@@ -33,7 +33,17 @@ index 71ce6b58..952d0f78 100644
  RUN easy_install -U setuptools==30.0.0
  RUN pip install appdirs==1.4.0 pyopenssl==17.5.0 python-openstackclient==3.12.0 python-heatclient==1.11.0 ansible==2.5.5
 
-@@ -48,8 +49,8 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+@@ -40,7 +41,8 @@ RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/yardstick ${Y
+ RUN git clone --depth 1 https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR}
+ RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/storperf ${STORPERF_REPO_DIR}
+
+-RUN ansible-playbook -i ${YARDSTICK_REPO_DIR}/ansible/install-inventory.ini -c local -vvv -e INSTALLATION_MODE="container" ${YARDSTICK_REPO_DIR}/ansible/install.yaml
++RUN sed -i -e '/- configure_gui/d' ${YARDSTICK_REPO_DIR}/ansible/install.yaml && \
++    ansible-playbook -i ${YARDSTICK_REPO_DIR}/ansible/install-inventory.ini -c local -vvv -e INSTALLATION_MODE="container" ${YARDSTICK_REPO_DIR}/ansible/install.yaml
+
+ RUN ${YARDSTICK_REPO_DIR}/docker/supervisor.sh
+
+@@ -48,8 +50,8 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
  # nginx=5000, rabbitmq=5672
  EXPOSE 5000 5672
 
