@@ -15,6 +15,10 @@
 - set_fact:
     num_vnfs: "{{ item }}"
 
+- file:
+    path: /etc/yardstick/nodes
+    state: directory
+
 - debug:
     var: num_vnfs
     verbosity: 2
@@ -40,8 +44,8 @@
      dest: ../samples/vnf_samples/nsut/vfw/vfw-tg-topology-multi-port-{{ num_vnfs }}.yaml
 
 - template:
-    src: ../samples/vnf_samples/nsut/acl/tc_baremetal_vfw_rfc2544_template.yaml
-    dest: ../samples/vnf_samples/nsut/acl/tc_baremetal_vfw_rfc2544_{{ num_vnfs }}.yaml
+    src: ../samples/vnf_samples/nsut/acl/tc_baremetal_acl_rfc2544_template.yaml
+    dest: ../samples/vnf_samples/nsut/acl/tc_baremetal_acl_rfc2544_{{ num_vnfs }}.yaml
 
 - template:
      src: ../samples/vnf_samples/nsut/acl/acl-tg-topology-multi-port.yaml
@@ -52,8 +56,8 @@
     dest: ../samples/vnf_samples/traffic_profiles/ipv4_throughput-cgnapt-{{ num_vnfs }}.yaml
 
 - template:
-    src: ../samples/vnf_samples/nsut/cgnapt/tc_baremetal_vfw_rfc2544_template.yaml
-    dest: ../samples/vnf_samples/nsut/cgnapt/tc_baremetal_vfw_rfc2544_{{ num_vnfs }}.yaml
+    src: ../samples/vnf_samples/nsut/cgnapt/tc_baremetal_cgnapt_rfc2544_template.yaml
+    dest: ../samples/vnf_samples/nsut/cgnapt/tc_baremetal_cgnapt_rfc2544_{{ num_vnfs }}.yaml
 
 - template:
      src: ../samples/vnf_samples/nsut/cgnapt/cgnapt-tg-topology-multi-port.yaml

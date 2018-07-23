@@ -39,7 +39,6 @@ scenarios:
       rfc2544:
         allowed_drop_rate: {{ flow.rfc2544.allowed_drop_rate }}
       vnf__0:
-        rules: acl_1rule.yaml
         vnf_config: {lb_config: '{{flow.vnf_config.lb_config}}', lb_count: {{flow.vnf_config.lb_count}} , worker_config: '{{flow.vnf_config.worker_config}}', worker_threads: {{flow.vnf_config.worker_threads}}}
     runner:
       type: Iteration

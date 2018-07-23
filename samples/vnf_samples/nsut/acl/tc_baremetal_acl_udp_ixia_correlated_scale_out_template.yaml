@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2018 Intel Corporation
+# Copyright (c) 2018 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,15 +17,17 @@ schema: yardstick:task:0.1
 scenarios:
   - type: NSPerf
     traffic_profile: ../../traffic_profiles/ipv4_throughput-ixia-{{ num_vnfs }}.yaml
-    topology: cgnapt-tg-topology-ixia-correlated-multi-port-{{ num_vnfs }}.yaml
+    topology: acl-tg-topology-ixia-correlated-scale-out-{{ num_vnfs }}.yaml
     nodes:
       tg__0: tg__0.yardstick
       tg__1: tg__1.yardstick
-      vnf__0: vnf__0.yardstick
+{% for vnf_num in range(num_vnfs|int) %}
+      vnf__{{ vnf_num }}: vnf_{{ vnf_num }}.yardstick
+{% endfor %}
     options:
       framesize:
-        uplink: {{ flow.pkt_size.uplink }}
-        downlink: {{ flow.pkt_size.downlink }}
+        uplink: {{ flow.pkt_size.uplink | to_yaml }}
+        downlink: {{ flow.pkt_size.downlink | to_yaml }}
       flow:
         src_ip:
 {% for vnf_num in range(num_vnfs|int) %}
@@ -39,8 +41,12 @@ scenarios:
       traffic_type: {{ flow.traffic_type }}
       rfc2544:
         allowed_drop_rate: {{ flow.rfc2544.allowed_drop_rate }}
+        correlated_traffic: true
       vnf__0:
+        rules: acl_1rule.yaml
         vnf_config: {lb_config: '{{flow.vnf_config.lb_config}}', lb_count: {{flow.vnf_config.lb_count}} , worker_config: '{{flow.vnf_config.worker_config}}', worker_threads: {{flow.vnf_config.worker_threads}}}
+    ixia_profile: ../../traffic_profiles/ixia/ixia_ipv4_profile_{{ num_vnfs * 2 }}_port.ixncfg
+
     runner:
       type: Iteration
       iterations: 10

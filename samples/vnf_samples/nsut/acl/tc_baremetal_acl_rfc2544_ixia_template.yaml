@@ -48,7 +48,7 @@ scenarios:
 contexts:
    - name: yardstick
      type: Node
-     file: /etc/yardstick/nodes/baremetal_trex_{{num_vnfs}}.yaml
+     file: /etc/yardstick/nodes/baremetal_ixia_{{num_vnfs}}.yaml
    - name: yardstick
      type: Node
      file: /etc/yardstick/nodes/pod_bm_vnf_{{num_vnfs}}.yaml

@@ -17,7 +17,7 @@ schema: yardstick:task:0.1
 scenarios:
   - type: NSPerf
     traffic_profile: ../../traffic_profiles/ipv4_throughput-{{ num_vnfs }}.yaml
-    topology: cgnapt-tg-topology-ixia-multi-port-{{ num_vnfs }}.yaml
+    topology: cgnapt-tg-topology-multi-port-ixia-{{ num_vnfs }}.yaml
     nodes:
       tg__0: tg__0.yardstick
       vnf__0: vnf__0.yardstick
@@ -39,7 +39,6 @@ scenarios:
       rfc2544:
         allowed_drop_rate: {{ flow.rfc2544.allowed_drop_rate }}
       vnf__0:
-        rules: acl_1rule.yaml
         vnf_config: {lb_config: '{{flow.vnf_config.lb_config}}', lb_count: {{flow.vnf_config.lb_count}} , worker_config: '{{flow.vnf_config.worker_config}}', worker_threads: {{flow.vnf_config.worker_threads}}}
     runner:
       type: Iteration
@@ -48,7 +47,7 @@ scenarios:
 contexts:
    - name: yardstick
      type: Node
-     file: /etc/yardstick/nodes/baremetal_trex_{{num_vnfs}}.yaml
+     file: /etc/yardstick/nodes/baremetal_ixia_{{num_vnfs}}.yaml
    - name: yardstick
      type: Node
      file: /etc/yardstick/nodes/pod_bm_vnf_{{num_vnfs}}.yaml

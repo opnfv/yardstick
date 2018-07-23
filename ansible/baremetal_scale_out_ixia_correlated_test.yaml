@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation. #
+# Copyright (c) 2018 Intel Corporation. #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -112,6 +112,7 @@
       ip:
         mgmt:
           - '1.2.1.6/24'
+          - '1.2.1.7/24'
         uplink:
           - '152.16.100.10/24'
           - '172.16.100.10/24'
@@ -127,6 +128,6 @@
           - '00:00:00:9e:00:fb'
 
   tasks:
-    - include: multi_port_baremetal_ixia_correlated_test_templates.yml
+    - include: baremetal_scale_out_ixia_correlated_test_templates.yml
       with_items: "{{ scale_out }}"
 
