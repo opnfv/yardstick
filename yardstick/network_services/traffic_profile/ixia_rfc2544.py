@@ -14,6 +14,7 @@
 
 import logging
 
+from yardstick.common import utils
 from yardstick.network_services.traffic_profile import base as tp_base
 from yardstick.network_services.traffic_profile import trex_traffic_profile
 
@@ -33,6 +34,14 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         self.rate = self.config.frame_rate
         self.rate_unit = self.config.rate_unit
 
+    def _get_ip_and_mask(self, ip_range):
+        _ip_range = ip_range.split('-')
+        if len(_ip_range) == 1:
+            return _ip_range[0], None
+
+        mask = utils.get_mask_from_ip_range(_ip_range[0], _ip_range[1])
+        return _ip_range[0], mask
+
     def _get_ixia_traffic_profile(self, profile_data, mac=None):
         mac = {} if mac is None else mac
         result = {}
@@ -50,13 +59,16 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
 
                 port_id = value.get('id', 1)
                 port_index = port_id - 1
-                try:
-                    ip = value['outer_l3v6']
-                except KeyError:
+
+                if value.get('outer_l3v4'):
                     ip = value['outer_l3v4']
                     src_key, dst_key = 'srcip4', 'dstip4'
                 else:
+                    ip = value['outer_l3v6']
                     src_key, dst_key = 'srcip6', 'dstip6'
+
+                srcip, srcmask = self._get_ip_and_mask(ip[src_key])
+                dstip, dstmask = self._get_ip_and_mask(ip[dst_key])
 
                 result[traffickey] = {
                     'bidir': False,
@@ -73,8 +85,10 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
                         'count': ip['count'],
                         'dscp': ip['dscp'],
                         'ttl': ip['ttl'],
-                        src_key: ip[src_key].split("-")[0],
-                        dst_key: ip[dst_key].split("-")[0],
+                        'srcip': srcip,
+                        'dstip': dstip,
+                        'srcmask': srcmask,
+                        'dstmask': dstmask,
                         'type': key,
                         'proto': ip['proto'],
                     },

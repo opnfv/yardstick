@@ -36,25 +36,12 @@ TRAFFIC_PARAMETERS = {
         'outer_l3': {
             'count': 512,
             'dscp': 0,
-            'dstip4': '152.16.40.20',
             'proto': 'udp',
-            'srcip4': '152.16.100.20',
-            'ttl': 32
-        },
-        'outer_l3v4': {
-            'dscp': 0,
-            'dstip4': '152.16.40.20',
-            'proto': 'udp',
-            'srcip4': '152.16.100.20',
-            'ttl': 32
-        },
-        'outer_l3v6': {
-            'count': 1024,
-            'dscp': 0,
-            'dstip4': '152.16.100.20',
-            'proto': 'udp',
-            'srcip4': '152.16.40.20',
-            'ttl': 32
+            'ttl': 32,
+            'dstip': '152.16.40.20',
+            'srcip': '152.16.100.20',
+            'dstmask': 24,
+            'srcmask': 24
         },
         'outer_l4': {
             'dstport': '2001',
@@ -74,26 +61,12 @@ TRAFFIC_PARAMETERS = {
         'outer_l3': {
             'count': 1024,
             'dscp': 0,
-            'dstip4': '152.16.100.20',
             'proto': 'udp',
-            'srcip4': '152.16.40.20',
-            'ttl': 32
-        },
-        'outer_l3v4': {
-            'count': 1024,
-            'dscp': 0,
-            'dstip4': '152.16.100.20',
-            'proto': 'udp',
-            'srcip4': '152.16.40.20',
-            'ttl': 32
-        },
-        'outer_l3v6': {
-            'count': 1024,
-            'dscp': 0,
-            'dstip4': '152.16.100.20',
-            'proto': 'udp',
-            'srcip4': '152.16.40.20',
-            'ttl': 32
+            'ttl': 32,
+            'dstip': '2001::10',
+            'srcip': '2021::10',
+            'dstmask': 64,
+            'srcmask': 64
         },
         'outer_l4': {
             'dstport': '1234',

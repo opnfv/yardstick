@@ -335,6 +335,14 @@ def ip_to_hex(ip_addr, separator=''):
     return separator.join('{:02x}'.format(octet) for octet in address.packed)
 
 
+def get_mask_from_ip_range(ip_low, ip_high):
+    _ip_low = ipaddress.ip_address(ip_low)
+    _ip_high = ipaddress.ip_address(ip_high)
+    _ip_low_int = int(_ip_low)
+    _ip_high_int = int(_ip_high)
+    return _ip_high.max_prefixlen - (_ip_high_int ^ _ip_low_int).bit_length()
+
+
 def try_int(s, *args):
     """Convert to integer if possible."""
     try:
