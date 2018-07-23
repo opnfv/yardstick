@@ -9,9 +9,8 @@
 
 import mock
 
-from yardstick.common.exceptions import UnsupportedPodFormatError
-from yardstick.service.environment import Environment
-from yardstick.service.environment import AnsibleCommon
+from yardstick.common import exceptions
+from yardstick.service import environment
 from yardstick.tests.unit import base as ut_base
 
 
@@ -31,15 +30,17 @@ class EnvironmentTestCase(ut_base.BaseUnitTestCase):
             ]
         }
 
-        with mock.patch.object(AnsibleCommon, 'gen_inventory_ini_dict'), \
-                mock.patch.object(AnsibleCommon, 'get_sut_info',
-                                  return_value={'node1': {}}):
-            env = Environment(pod=pod_info)
+        with mock.patch.object(environment.AnsibleCommon,
+                               'gen_inventory_ini_dict'), \
+                mock.patch.object(environment.AnsibleCommon, 'get_sut_info',
+                                  return_value={'node1': {}}), \
+                mock.patch.object(environment.Environment, '_format_sut_info'):
+            env = environment.Environment(pod=pod_info)
             env.get_sut_info()
 
     def test_get_sut_info_pod_str(self):
         pod_info = 'nodes'
 
-        env = Environment(pod=pod_info)
-        with self.assertRaises(UnsupportedPodFormatError):
+        env = environment.Environment(pod=pod_info)
+        with self.assertRaises(exceptions.UnsupportedPodFormatError):
             env.get_sut_info()
