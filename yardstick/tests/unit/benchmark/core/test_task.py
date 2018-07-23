@@ -9,11 +9,13 @@
 
 import copy
 import io
+import logging
 import os
 import sys
 
 import mock
 import six
+from six.moves import builtins
 import unittest
 import uuid
 
@@ -322,9 +324,9 @@ class TaskTestCase(unittest.TestCase):
         actual_result = t._parse_options(options)
         self.assertEqual(expected_result, actual_result)
 
-    @mock.patch('six.moves.builtins.open', side_effect=mock.mock_open())
+    @mock.patch.object(builtins, 'open', side_effect=mock.mock_open())
     @mock.patch.object(task, 'utils')
-    @mock.patch('logging.root')
+    @mock.patch.object(logging, 'root')
     def test_set_log(self, mock_logging_root, *args):
         task_obj = task.Task()
         task_obj.task_id = 'task_id'
@@ -561,7 +563,8 @@ key2:
         mock_open.assert_has_calls([mock.call('args_file'),
                                     mock.call('task_file')])
 
-    def test__render_task_error_arguments(self):
+    @mock.patch.object(builtins, 'print')
+    def test__render_task_error_arguments(self, *args):
         with self.assertRaises(exceptions.TaskRenderArgumentError):
             task.TaskParser('task_file')._render_task('value1="var3"', None)
 
