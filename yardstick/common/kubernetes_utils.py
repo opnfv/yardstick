@@ -226,14 +226,18 @@ def create_custom_resource_definition(body):
             action='create', resource='CustomResourceDefinition')
 
 
-def delete_custom_resource_definition(name):
+def delete_custom_resource_definition(name, skip_codes=None):
+    skip_codes = [] if not skip_codes else skip_codes
     api = get_extensions_v1beta_api()
     body_obj = client.V1DeleteOptions()
     try:
         api.delete_custom_resource_definition(name, body_obj)
-    except ApiException:
-        raise exceptions.KubernetesApiException(
-            action='delete', resource='CustomResourceDefinition')
+    except ApiException as e:
+        if e.status in skip_codes:
+            LOG.info(e.reason)
+        else:
+            raise exceptions.KubernetesApiException(
+                action='delete', resource='CustomResourceDefinition')
 
 
 def get_custom_resource_definition(kind):
