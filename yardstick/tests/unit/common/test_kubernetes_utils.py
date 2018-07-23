@@ -250,3 +250,34 @@ class DeletePodTestCase(base.BaseUnitTestCase):
 
         mock_get_api.return_value = mock_api
         kubernetes_utils.delete_pod(mock.ANY, skip_codes=[404])
+
+
+class DeleteServiceTestCase(base.BaseUnitTestCase):
+    @mock.patch.object(client, "V1DeleteOptions")
+    @mock.patch.object(kubernetes_utils, 'get_core_api')
+    def test_execute_correct(self, mock_get_api, mock_options):
+        mock_api = mock.Mock()
+        mock_get_api.return_value = mock_api
+        mock_options.return_value = None
+        kubernetes_utils.delete_service("name", "default", None)
+        mock_api.delete_namespaced_service.assert_called_once_with(
+            "name", 'default', None)
+
+    @mock.patch.object(kubernetes_utils, 'get_core_api')
+    def test_execute_exception(self, mock_get_api):
+        mock_api = mock.Mock()
+        mock_api.delete_namespaced_service.side_effect = rest.ApiException(status=200)
+
+        mock_get_api.return_value = mock_api
+        with self.assertRaises(exceptions.KubernetesApiException):
+            kubernetes_utils.delete_service(mock.ANY, skip_codes=[404])
+
+    @mock.patch.object(kubernetes_utils, 'get_core_api')
+    @mock.patch.object(kubernetes_utils, 'LOG')
+    def test_execute_skip_exception(self, mock_log, mock_get_api):
+        mock_api = mock.Mock()
+        mock_api.delete_namespaced_service.side_effect = rest.ApiException(status=404)
+
+        mock_get_api.return_value = mock_api
+        kubernetes_utils.delete_service(mock.ANY, skip_codes=[404])
+        mock_log.info.assert_called_once()

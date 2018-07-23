@@ -75,15 +75,18 @@ def create_service(template,
         raise
 
 
-def delete_service(name,
-                   namespace='default',
-                   **kwargs):       # pragma: no cover
+def delete_service(name, namespace='default', skip_codes=None, **kwargs):
+    skip_codes = [] if not skip_codes else skip_codes
     core_v1_api = get_core_api()
     try:
         body = client.V1DeleteOptions()
         core_v1_api.delete_namespaced_service(name, namespace, body, **kwargs)
-    except ApiException:
-        LOG.exception('Delete Service failed')
+    except ApiException as e:
+        if e.status in skip_codes:
+            LOG.info(e.reason)
+        else:
+            raise exceptions.KubernetesApiException(
+                action='delete', resource='Service')
 
 
 def get_service_list(namespace='default', **kwargs):
