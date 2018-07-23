@@ -15,6 +15,10 @@
 - set_fact:
     num_vnfs: "{{ item }}"
 
+- file:
+    path: /etc/yardstick/nodes
+    state: directory
+
 - debug:
     var: num_vnfs
     verbosity: 2
@@ -25,7 +29,7 @@
 
 - template:
     src: ../etc/yardstick/nodes/standalone/ixia_template.yaml
-    dest: /etc/yardstick/nodes/ixia_{{ num_vnfs }}.yaml
+    dest: /etc/yardstick/nodes/ixia_correlated_{{ num_vnfs }}.yaml
 
 - template:
     src: ../etc/yardstick/nodes/standalone/pod_bm_vnf.yaml
