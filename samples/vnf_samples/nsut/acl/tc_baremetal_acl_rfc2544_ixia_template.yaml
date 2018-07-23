@@ -41,7 +41,7 @@ scenarios:
       vnf__0:
         rules: acl_1rule.yaml
         vnf_config: {lb_config: '{{flow.vnf_config.lb_config}}', lb_count: {{flow.vnf_config.lb_count}} , worker_config: '{{flow.vnf_config.worker_config}}', worker_threads: {{flow.vnf_config.worker_threads}}}
-    ixia_profile: ../../traffic_profiles/ixia_ipv4_profile_{{num_vnfs * 2}}_port.ixncfg
+    ixia_profile: ../../traffic_profiles/ixia/ixia_ipv4_profile_{{num_vnfs * 2}}_port.ixncfg
     runner:
       type: Iteration
       iterations: 10
@@ -49,7 +49,7 @@ scenarios:
 contexts:
    - name: yardstick
      type: Node
-     file: /etc/yardstick/nodes/baremetal_trex_{{num_vnfs}}.yaml
+     file: /etc/yardstick/nodes/baremetal_ixia_{{num_vnfs}}.yaml
    - name: yardstick
      type: Node
      file: /etc/yardstick/nodes/pod_bm_vnf_{{num_vnfs}}.yaml
