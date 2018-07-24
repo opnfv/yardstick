@@ -22,6 +22,30 @@
       "revId": "0092d948a5a30959e1d1fcce2bfa9bc418d82e26",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d9dc8677",
+        "filename": "yardstick/tests/unit/common/test_kubernetes_utils.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-07-24T08:17:06Z",
+      "side": 1,
+      "message": "right! thx.",
+      "parentUuid": "9a561d44_997cce74",
+      "range": {
+        "startLine": 278,
+        "startChar": 67,
+        "endLine": 278,
+        "endChar": 100
+      },
+      "revId": "0092d948a5a30959e1d1fcce2bfa9bc418d82e26",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
