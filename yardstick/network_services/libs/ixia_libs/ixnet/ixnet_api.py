@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import ipaddress
 import logging
 
 import IxNetwork
@@ -397,15 +398,16 @@ class IxNextgen(object):  # pragma: no cover
         :param field: (str) field name, e.g.: scrIp, dstIp
         :param ip_address: (str) IP address
         :param seed: (int) seed length
-        :param mask: (str) IP address mask
+        :param mask: (int) IP address mask length
         :param count: (int) number of random IPs to generate
         """
         field_descriptor = self._get_field_in_stack_item(ip_descriptor,
                                                          field)
+        mask_string = ipaddress.IPv4Address(2**mask - 1)
         self.ixnet.setMultiAttribute(field_descriptor,
                                      '-seed', seed,
                                      '-fixedBits', ip_address,
-                                     '-randomMask', mask,
+                                     '-randomMask', mask_string,
                                      '-valueType', 'random',
                                      '-countValue', count)
         self.ixnet.commit()
