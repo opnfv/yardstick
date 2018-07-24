@@ -7,28 +7,28 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for yardstick.cmd.commands.testcase
-
-from __future__ import absolute_import
-import unittest
+import mock
+from six.moves import builtins
 
 from yardstick.benchmark.core import testcase
+from yardstick.tests.unit import base as ut_base
 
 
 class Arg(object):
 
     def __init__(self):
-        self.casename = ('opnfv_yardstick_tc001',)
+        self.casename = ('opnfv_yardstick_tc001', )
 
 
-class TestcaseUT(unittest.TestCase):
+class TestcaseTestCase(ut_base.BaseUnitTestCase):
 
     def test_list_all(self):
         t = testcase.Testcase()
         result = t.list_all("")
         self.assertIsInstance(result, list)
 
-    def test_show(self):
+    @mock.patch.object(builtins, 'print')
+    def test_show(self, *args):
         t = testcase.Testcase()
         casename = Arg()
         result = t.show(casename)

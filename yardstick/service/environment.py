@@ -36,7 +36,7 @@ class Environment(Service):
 
         return self._format_sut_info(sut_info)
 
-    def _load_pod_info(self):
+    def _load_pod_info(self):  # pragma: no cover
         if self.pod is None:
             raise MissingPodInfoError
 
@@ -51,10 +51,10 @@ class Environment(Service):
         except (ValueError, KeyError):
             raise UnsupportedPodFormatError
 
-    def _format_sut_info(self, sut_info):
+    def _format_sut_info(self, sut_info):  # pragma: no cover
         return {k: self._format_node_info(v) for k, v in sut_info.items()}
 
-    def _format_node_info(self, node_info):
+    def _format_node_info(self, node_info):  # pragma: no cover
         info = []
         facts = node_info.get('ansible_facts', {})
 
@@ -93,9 +93,9 @@ class Environment(Service):
 
         return info
 
-    def _get_interface_info(self, facts, name):
+    def _get_interface_info(self, facts, name):  # pragma: no cover
         mac = facts.get('ansible_{}'.format(name), {}).get('macaddress')
         return [name, mac] if mac else []
 
-    def _get_device_info(self, name, info):
+    def _get_device_info(self, name, info):  # pragma: no cover
         return ['disk_{}'.format(name), info.get('size')]
