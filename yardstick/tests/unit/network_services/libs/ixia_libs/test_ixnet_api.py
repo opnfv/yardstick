@@ -405,10 +405,10 @@ class TestIxNextgen(unittest.TestCase):
         with mock.patch.object(ixnet_gen, '_get_field_in_stack_item',
                                return_value='field_desc'):
             ixnet_gen._update_ipv4_address(mock.ANY, mock.ANY, '192.168.1.1',
-                                           100, '255.255.255.0', 25)
+                                           100, 26, 25)
         ixnet_gen.ixnet.setMultiAttribute.assert_called_once_with(
             'field_desc', '-seed', 100, '-fixedBits', '192.168.1.1',
-            '-randomMask', '255.255.255.0', '-valueType', 'random',
+            '-randomMask', '0.0.0.63', '-valueType', 'random',
             '-countValue', 25)
 
     def test_update_ip_packet(self):
