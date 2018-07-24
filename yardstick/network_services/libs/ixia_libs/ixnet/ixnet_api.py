@@ -478,4 +478,5 @@ class IxNextgen(object):  # pragma: no cover
         self.ixnet.execute('apply', '/traffic')
         self.ixnet.execute('start', '/traffic')
         # pylint: disable=unnecessary-lambda
-        utils.wait_until_true(lambda: self.is_traffic_running())
+        # RAH
+        ####utils.wait_until_true(lambda: self.is_traffic_running())
