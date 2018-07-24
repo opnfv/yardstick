@@ -446,6 +446,22 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         r_f_c2544_profile = ixia_rfc2544.IXIARFC2544Profile(t_profile_data)
         self.assertEqual(12345678, r_f_c2544_profile.rate)
 
+    def test__get_ip_and_mask_range(self):
+        ip_range = '1.2.0.2-1.2.255.254'
+        r_f_c2544_profile = ixia_rfc2544.IXIARFC2544Profile(
+            self.TRAFFIC_PROFILE)
+        ip, mask = r_f_c2544_profile._get_ip_and_mask(ip_range)
+        self.assertEqual('1.2.0.2', ip)
+        self.assertEqual(16, mask)
+
+    def test__get_ip_and_mask_single(self):
+        ip_range = '192.168.1.10'
+        r_f_c2544_profile = ixia_rfc2544.IXIARFC2544Profile(
+            self.TRAFFIC_PROFILE)
+        ip, mask = r_f_c2544_profile._get_ip_and_mask(ip_range)
+        self.assertEqual('192.168.1.10', ip)
+        self.assertIsNone(mask)
+
     def test__get_ixia_traffic_profile_default_args(self):
         r_f_c2544_profile = ixia_rfc2544.IXIARFC2544Profile(
             self.TRAFFIC_PROFILE)

@@ -1196,6 +1196,20 @@ class TestUtilsIpAddrMethods(ut_base.BaseUnitTestCase):
         for value in chain(value_iter, self.INVALID_IP_ADDRESS_STR_LIST):
             self.assertEqual(utils.ip_to_hex(value), value)
 
+    def test_get_mask_from_ip_range_ipv4(self):
+        ip_str = '1.1.1.1'
+        for mask in range(8, 30):
+            ip = ipaddress.ip_network(ip_str + '/' + str(mask), strict=False)
+            result = utils.get_mask_from_ip_range(ip[2], ip[-2])
+            self.assertEqual(mask, result)
+
+    def test_get_mask_from_ip_range_ipv6(self):
+        ip_str = '2001::1'
+        for mask in range(8, 120):
+            ip = ipaddress.ip_network(ip_str + '/' + str(mask), strict=False)
+            result = utils.get_mask_from_ip_range(ip[2], ip[-2])
+            self.assertEqual(mask, result)
+
 
 class SafeDecodeUtf8TestCase(ut_base.BaseUnitTestCase):
 

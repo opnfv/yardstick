@@ -33,8 +33,8 @@ PROTO_UDP = 'udp'
 PROTO_TCP = 'tcp'
 PROTO_VLAN = 'vlan'
 
-IP_VERSION_4_MASK = '0.0.0.255'
-IP_VERSION_6_MASK = '0:0:0:0:0:0:0:ff'
+IP_VERSION_4_MASK = 24
+IP_VERSION_6_MASK = 64
 
 TRAFFIC_STATUS_STARTED = 'started'
 TRAFFIC_STATUS_STOPPED = 'stopped'
@@ -424,15 +424,17 @@ class IxNextgen(object):  # pragma: no cover
                 raise exceptions.IxNetworkFlowNotPresent(flow_group=fg_id)
 
             count = traffic_param['outer_l3']['count']
-            srcip4 = str(traffic_param['outer_l3']['srcip4'])
-            dstip4 = str(traffic_param['outer_l3']['dstip4'])
+            srcip = str(traffic_param['outer_l3']['srcip'])
+            dstip = str(traffic_param['outer_l3']['dstip'])
+            srcmask = traffic_param['outer_l3']['srcmask'] or IP_VERSION_4_MASK
+            dstmask = traffic_param['outer_l3']['dstmask'] or IP_VERSION_4_MASK
 
             self._update_ipv4_address(
                 self._get_stack_item(fg_id, PROTO_IPV4)[0],
-                'srcIp', srcip4, 1, IP_VERSION_4_MASK, count)
+                'srcIp', srcip, 1, srcmask, count)
             self._update_ipv4_address(
                 self._get_stack_item(fg_id, PROTO_IPV4)[0],
-                'dstIp', dstip4, 1, IP_VERSION_4_MASK, count)
+                'dstIp', dstip, 1, dstmask, count)
 
     def _build_stats_map(self, view_obj, name_map):
         return {data_yardstick: self.ixnet.execute(
