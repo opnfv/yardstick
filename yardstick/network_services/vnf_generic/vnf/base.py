@@ -285,6 +285,7 @@ class GenericTrafficGen(GenericVNF):
         self.runs_traffic = True
         self.traffic_finished = False
         self._mq_producer = None
+        self._mq_consumer = None
 
     @abc.abstractmethod
     def run_traffic(self, traffic_profile):

@@ -886,6 +886,7 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         self.traffic_finished = False
         self._tg_process = None
         self._traffic_process = None
+        self._mq_id = uuid.uuid1().int
 
     def _start_server(self):
         # we can't share ssh paramiko objects to force new connection
@@ -937,14 +938,19 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         :param traffic_profile:
         :return: True/False
         """
+        self._traffic_profile = traffic_profile
         name = '{}-{}-{}-{}'.format(self.name, self.APP_NAME,
                                     traffic_profile.__class__.__name__,
                                     os.getpid())
         self._traffic_process = Process(
             name=name, target=self._traffic_runner,
-            args=(traffic_profile, uuid.uuid1().int))
+            args=(traffic_profile, self._mq_id))
         self._traffic_process.start()
-        # Wait for traffic process to start
+
+        self._mq_producer = self._setup_mq_producer(self._mq_id)
+        if self._mq_consumer:
+            self._mq_consumer.start_rpc_server()
+
         while self.resource_helper.client_started.value == 0:
             time.sleep(self.RUN_WAIT)
             # what if traffic process takes a few seconds to start?

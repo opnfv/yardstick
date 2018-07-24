@@ -42,8 +42,8 @@ class PktgenTrafficGen(vnf_base.GenericTrafficGen,
         self._mq_producer = self._setup_mq_producer(self._id)
         vnf_base.GenericVNFEndpoint.__init__(self, self._id, [task_id],
                                              self.queue)
-        self._consumer = vnf_base.GenericVNFConsumer([task_id], self)
-        self._consumer.start_rpc_server()
+        self._mq_consumer = vnf_base.GenericVNFConsumer([task_id], self)
+        self._mq_consumer.start_rpc_server()
         self._traffic_profile = None
         self._node_ip = vnfd['mgmt-interface'].get('ip')
         self._lua_node_port = self._get_lua_node_port(

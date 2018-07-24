@@ -13,12 +13,13 @@
 # limitations under the License.
 
 import logging
+import multiprocessing
+import uuid
 
 from yardstick.common import utils
 from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import Rfc2544ResourceHelper
+from yardstick.network_services.vnf_generic.vnf import base as vnf_base
+from yardstick.network_services.vnf_generic.vnf import sample_vnf
 
 
 LOG = logging.getLogger(__name__)
@@ -27,15 +28,16 @@ WAIT_AFTER_CFG_LOAD = 10
 WAIT_FOR_TRAFFIC = 30
 
 
-class IxiaRfc2544Helper(Rfc2544ResourceHelper):
+class IxiaRfc2544Helper(sample_vnf.Rfc2544ResourceHelper):
 
     def is_done(self):
         return self.latency and self.iteration.value > 10
 
 
-class IxiaResourceHelper(ClientResourceHelper):
+class IxiaResourceHelper(sample_vnf.ClientResourceHelper):
 
     LATENCY_TIME_SLEEP = 120
+    DEFAULT_MAC = '00:00:00:00:00:00'
 
     def __init__(self, setup_helper, rfc_helper_type=None):
         super(IxiaResourceHelper, self).__init__(setup_helper)
@@ -49,7 +51,24 @@ class IxiaResourceHelper(ClientResourceHelper):
         self.rfc_helper = rfc_helper_type(self.scenario_helper)
         self.uplink_ports = None
         self.downlink_ports = None
+        self._port_macs = None
+        self._iteration_index = 0
         self._connect()
+
+    @property
+    def port_macs(self):
+        if self._port_macs:
+            return self._port_macs
+        self._port_macs = {}
+        for port_name in self.vnfd_helper.port_pairs.all_ports:
+            intf = self.vnfd_helper.find_interface(name=port_name)
+            virt_intf = intf['virtual-interface']
+            port_num = self.vnfd_helper.port_num(intf)
+            self._port_macs['src_mac_{}'.format(port_num)] = virt_intf.get(
+                'local_mac', self.DEFAULT_MAC)
+            self._port_macs['dst_mac_{}'.format(port_num)] = virt_intf.get(
+                'dst_mac', self.DEFAULT_MAC)
+        return self._port_macs
 
     def _connect(self, client=None):
         self.client.connect(self.vnfd_helper)
@@ -102,70 +121,64 @@ class IxiaResourceHelper(ClientResourceHelper):
         self.client.assign_ports()
         self.client.create_traffic_model()
 
-    def run_traffic(self, traffic_profile, *args):
-        if self._terminated.value:
-            return
-
-        min_tol = self.rfc_helper.tolerance_low
-        max_tol = self.rfc_helper.tolerance_high
-        default = "00:00:00:00:00:00"
-
+    def run_one_injection(self, traffic_profile, mq_producer):
         self._build_ports()
         self._initialize_client()
-
-        mac = {}
-        for port_name in self.vnfd_helper.port_pairs.all_ports:
-            intf = self.vnfd_helper.find_interface(name=port_name)
-            virt_intf = intf["virtual-interface"]
-            # we only know static traffic id by reading the json
-            # this is used by _get_ixia_trafficrofile
-            port_num = self.vnfd_helper.port_num(intf)
-            mac["src_mac_{}".format(port_num)] = virt_intf.get("local_mac", default)
-            mac["dst_mac_{}".format(port_num)] = virt_intf.get("dst_mac", default)
-
+        min_tol = self.rfc_helper.tolerance_low
+        max_tol = self.rfc_helper.tolerance_high
         try:
-            while not self._terminated.value:
-                first_run = traffic_profile.execute_traffic(
-                    self, self.client, mac)
-                self.client_started.value = 1
-                # pylint: disable=unnecessary-lambda
-                utils.wait_until_true(lambda: self.client.is_traffic_stopped())
-                samples = self.generate_samples(traffic_profile.ports)
-
-                # NOTE(ralonsoh): the traffic injection duration is fixed to 30
-                # seconds. This parameter is configurable and must be retrieved
-                # from the traffic_profile.full_profile information.
-                # Every flow must have the same duration.
-                completed, samples = traffic_profile.get_drop_percentage(
-                    samples, min_tol, max_tol, first_run=first_run)
-                self._queue.put(samples)
-
-                if completed:
-                    self._terminated.value = 1
-
+            first_run = traffic_profile.execute_traffic(
+                self, self.client, self.port_macs)
+            self.client_started.value = 1
+            # pylint: disable=unnecessary-lambda
+            utils.wait_until_true(lambda: self.client.is_traffic_stopped())
+            mq_producer.tg_method_iteration(self._iteration_index)
+            samples = self.generate_samples(traffic_profile.ports)
+            completed, samples = traffic_profile.get_drop_percentage(
+                samples, min_tol, max_tol, first_run=first_run)
+            self._queue.put(samples)
+            return completed
         except Exception:  # pylint: disable=broad-except
             LOG.exception('Run Traffic terminated')
+            return True
 
-        self._terminated.value = 1
+    def run_traffic(self, traffic_profile, mq_producer):
+        mq_producer.tg_method_started()
+        if traffic_profile.mq_enabled:
+            return
+        while self._terminated.value == 0:
+            if self.run_one_injection(traffic_profile, mq_producer):
+                self._terminated.value = 1
+        mq_producer.tg_method_finished()
 
     def collect_kpi(self):
         self.rfc_helper.iteration.value += 1
         return super(IxiaResourceHelper, self).collect_kpi()
 
 
-class IxiaTrafficGen(SampleVNFTrafficGen):
+class IxiaTrafficGen(sample_vnf.SampleVNFTrafficGen,
+                     vnf_base.GenericVNFEndpoint):
 
     APP_NAME = 'Ixia'
 
     def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
                  resource_helper_type=None):
-        if resource_helper_type is None:
-            resource_helper_type = IxiaResourceHelper
-        super(IxiaTrafficGen, self).__init__(
-            name, vnfd, task_id, setup_env_helper_type, resource_helper_type)
+        resource_helper_type = (IxiaResourceHelper if resource_helper_type
+                                is None else resource_helper_type)
+        sample_vnf.SampleVNFTrafficGen.__init__(
+            self, name, vnfd, task_id, setup_env_helper_type,
+            resource_helper_type)
         self._ixia_traffic_gen = None
         self.ixia_file_name = ''
         self.vnf_port_pairs = []
+        self._traffic_profile = None
+
+        self.queue = multiprocessing.Queue()
+        self._id = uuid.uuid1().int
+        vnf_base.GenericVNFEndpoint.__init__(self, self._id, [task_id],
+                                             self.queue)
+        self._mq_consumer = vnf_base.GenericVNFConsumer([task_id], self)
+        ###self._mq_consumer.start_rpc_server()
 
     def _check_status(self):
         pass
@@ -173,3 +186,11 @@ class IxiaTrafficGen(SampleVNFTrafficGen):
     def terminate(self):
         self.resource_helper.stop_collect()
         super(IxiaTrafficGen, self).terminate()
+
+    def runner_method_start_iteration(self, ctxt, **kwargs):
+        if ctxt['id'] in self._ctx_ids:
+            self.resource_helper.run_one_injection(self._traffic_profile,
+                                                   self._mq_producer)
+
+    def runner_method_stop_iteration(self, ctxt, **kwargs):
+        pass

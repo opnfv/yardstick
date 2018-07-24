@@ -33,6 +33,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         super(IXIARFC2544Profile, self).__init__(yaml_data)
         self.rate = self.config.frame_rate
         self.rate_unit = self.config.rate_unit
+        self.mq_enabled = self.config.mq_enabled
 
     def _get_ip_and_mask(self, ip_range):
         _ip_range = ip_range.split('-')
