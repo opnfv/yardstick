@@ -886,6 +886,7 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         self.traffic_finished = False
         self._tg_process = None
         self._traffic_process = None
+        self._mq_id = uuid.uuid1().int
 
     def _start_server(self):
         # we can't share ssh paramiko objects to force new connection
@@ -942,8 +943,9 @@ class SampleVNFTrafficGen(GenericTrafficGen):
                                     os.getpid())
         self._traffic_process = Process(
             name=name, target=self._traffic_runner,
-            args=(traffic_profile, uuid.uuid1().int))
+            args=(traffic_profile, self._mq_id))
         self._traffic_process.start()
+        self._mq_producer = self._setup_mq_producer(self._mq_id)
         # Wait for traffic process to start
         while self.resource_helper.client_started.value == 0:
             time.sleep(self.RUN_WAIT)
