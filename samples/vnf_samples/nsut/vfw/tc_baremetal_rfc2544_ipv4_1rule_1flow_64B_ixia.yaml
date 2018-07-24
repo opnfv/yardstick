@@ -37,10 +37,11 @@ scenarios:
       vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
       nfvi_enable: True
   runner:
-    type: Iteration
+    type: IterationIPC
     iterations: 10
-    interval: 35
-  ixia_profile: ../../traffic_profiles/vfw/vfw_ipv4_profile_1flows.ixncfg
+    interval: 30
+    timeout: 120
+
 context:
   type: Node
   name: yardstick
