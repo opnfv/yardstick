@@ -23,7 +23,7 @@ def _execute_shell_command(command, stdin=None):
     output = []
     try:
         output = subprocess.check_output(command, stdin=stdin, shell=True)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         exitcode = -1
         LOG.error("exec command '%s' error:\n ", command, exc_info=True)
 
@@ -34,6 +34,8 @@ class BaremetalAttacker(BaseAttacker):
     __attacker_type__ = 'bare-metal-down'
 
     def setup(self):
+        # baremetal down need to recover even sla pass
+        self.mandatory = True
         LOG.debug("config:%s context:%s", self._config, self._context)
         host = self._context.get(self._config['host'], None)
 
