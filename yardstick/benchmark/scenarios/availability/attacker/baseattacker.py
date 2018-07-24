@@ -63,6 +63,7 @@ class BaseAttacker(object):
         self.data = {}
         self.setup_done = False
         self.intermediate_variables = {}
+        self.mandatory = False
 
     @staticmethod
     def get_attacker_cls(attacker_cfg):
