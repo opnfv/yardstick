@@ -7,30 +7,20 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
 """ Handler for yardstick command 'report' """
 
-from __future__ import print_function
-
-from __future__ import absolute_import
-
 import ast
+import os
 import re
 import uuid
 
+import jinja2
+
 from api.utils import influx
-
-from django.conf import settings
-from django.template import Context
-from django.template import Template
-
 from oslo_utils import encodeutils
 from oslo_utils import uuidutils
 from yardstick.common import constants as consts
-from yardstick.common.html_template import template
 from yardstick.common.utils import cliargs
-
-settings.configure()
 
 
 class Report(object):
@@ -117,12 +107,22 @@ class Report(object):
             series['data'] = values
             temp_series.append(series)
 
-        Template_html = Template(template)
-        Context_html = Context({"series": temp_series,
-                                "Timestamp": self.Timestamp,
-                                "task_id": self.task_id,
-                                "table": table_vals})
+        dirpath = os.path.dirname(os.path.realpath(__file__))
+        template_dir = dirpath + "/../../common"
+        TEMPLATE_ENVIRONMENT = jinja2.Environment(
+            autoescape=False,
+            loader=jinja2.FileSystemLoader(template_dir),
+            trim_blocks=False)
+
+        context = {"series": temp_series,
+                   "Timestamps": self.Timestamp,
+                   "task_id": self.task_id,
+                   "table": table_vals,
+                   "template_dir": template_dir}
+
+        template_html = TEMPLATE_ENVIRONMENT.get_template("template.html")
+
         with open(consts.DEFAULT_HTML_FILE, "w") as file_open:
-            file_open.write(Template_html.render(Context_html))
+            file_open.write(template_html.render(context))
 
         print("Report generated. View /tmp/yardstick.htm")
