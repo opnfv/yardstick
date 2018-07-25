@@ -450,8 +450,8 @@ class TestAclApproxSetupEnvSetupEnvHelper(unittest.TestCase):
         # duplicate config and add invald action
         acl_config = copy.deepcopy(self.ACL_CONFIG)
         acl_config['access-list-entries'][0]["actions"].append({"xnat": {}})
-        self.assertRaises(exceptions.AclUknownActionTemplate,
-            setup_helper.get_flows_config, acl_config)
+        self.assertRaises(exceptions.AclUnknownActionTemplate,
+                          setup_helper.get_flows_config, acl_config)
 
     @mock.patch.object(AclApproxSetupEnvSetupEnvHelper, 'get_default_flows')
     def test_get_flows_config_invalid_action_param(self, get_default_flows):
