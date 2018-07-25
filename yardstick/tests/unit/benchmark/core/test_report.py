@@ -90,7 +90,7 @@ class ReportTestCase(unittest.TestCase):
     @mock.patch.object(report.Report, '_get_tasks')
     @mock.patch.object(report.Report, '_get_fieldkeys')
     @mock.patch.object(report.Report, '_validate')
-    def test_generate_success(self, mock_valid, mock_keys, mock_tasks):
+    def test_generate(self, mock_valid, mock_keys, mock_tasks, mock_open):
         mock_tasks.return_value = GOOD_DB_TASK
         mock_keys.return_value = GOOD_DB_FIELDKEYS
         self.rep.generate(self.param)
