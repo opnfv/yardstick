@@ -22,6 +22,30 @@
       "revId": "9e8a48462de884d5adf49a317bc7e01fe39ba141",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_14e4053a",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_arithmetic.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-07-25T07:42:15Z",
+      "side": 1,
+      "message": "There is only one test case that tests the _run_benchmark method. It would be overhead for the follow-up test cases that only test the _worker_process function.",
+      "parentUuid": "9a561d44_e04a7326",
+      "range": {
+        "startLine": 30,
+        "startChar": 7,
+        "endLine": 30,
+        "endChar": 48
+      },
+      "revId": "9e8a48462de884d5adf49a317bc7e01fe39ba141",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
