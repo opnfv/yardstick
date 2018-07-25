@@ -1,0 +1,19 @@
+body{
+    font-size: 16pt;
+}
+
+table{
+  overflow-y: scroll;
+  height: 360px;
+  display: block;
+}
+
+header,h3{
+    font-family: Frutiger;
+    clear: left;
+    text-align: center;
+}
+
+.control-pane{
+    font-size: 10pt;
+}
