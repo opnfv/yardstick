@@ -22,6 +22,30 @@
       "revId": "65ee3d85333b02cdbdf7323d2103cbb778005f53",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_54d5dd41",
+        "filename": "yardstick/benchmark/scenarios/networking/vsperf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-07-25T07:49:04Z",
+      "side": 1,
+      "message": "SSH.execute calls SSH.run. Is it not just unnecessary overhead to use the first?",
+      "parentUuid": "9a561d44_a0dd1b45",
+      "range": {
+        "startLine": 196,
+        "startChar": 8,
+        "endLine": 196,
+        "endChar": 28
+      },
+      "revId": "65ee3d85333b02cdbdf7323d2103cbb778005f53",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
