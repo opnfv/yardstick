@@ -12,12 +12,14 @@ import errno
 import importlib
 import ipaddress
 from itertools import product, chain
-import mock
 import os
-import six
-from six.moves import configparser
 import socket
 import time
+import threading
+
+import mock
+import six
+from six.moves import configparser
 import unittest
 
 import yardstick
@@ -1297,6 +1299,15 @@ class WaitUntilTrueTestCase(ut_base.BaseUnitTestCase):
             self.assertIsNone(
                 utils.wait_until_true(lambda: False, timeout=1, sleep=1,
                                       exception=MyTimeoutException))
+
+    def _run_thread(self):
+        with self.assertRaises(exceptions.WaitTimeout):
+            utils.wait_until_true(lambda: False, timeout=1, sleep=1)
+
+    def test_timeout_no_main_thread(self):
+        new_thread = threading.Thread(target=self._run_thread)
+        new_thread.start()
+        new_thread.join(timeout=3)
 
 
 class SendSocketCommandTestCase(unittest.TestCase):
