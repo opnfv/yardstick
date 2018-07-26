@@ -269,6 +269,7 @@ class PortPgIDMapTestCase(base.BaseUnitTestCase):
 
     def test_increase_pg_id_no_port(self):
         port_pg_id_map = rfc2544.PortPgIDMap()
+        self.assertEqual([], port_pg_id_map.get_pg_ids(30))
         self.assertIsNone(port_pg_id_map.increase_pg_id())
 
     def test_increase_pg_id_last_port(self):
