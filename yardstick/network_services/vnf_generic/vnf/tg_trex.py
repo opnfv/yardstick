@@ -181,6 +181,8 @@ class TrexResourceHelper(ClientResourceHelper):
             }
 
             pg_id_list = port_pg_id.get_pg_ids(port_num)
+            if pg_id_list is None:
+                pg_id_list = []
             samples[pname]['latency'] = {}
             for pg_id in pg_id_list:
                 latency_global = stats.get('latency', {})
