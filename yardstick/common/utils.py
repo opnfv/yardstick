@@ -28,6 +28,7 @@ import socket
 import subprocess
 import sys
 import time
+import threading
 
 import six
 from flask import jsonify
@@ -475,6 +476,9 @@ class Timer(object):
     def __del__(self):  # pragma: no cover
         signal.alarm(0)
 
+    def delta_time_sec(self):
+        return (datetime.datetime.now() - self.start).total_seconds()
+
 
 def read_meminfo(ssh_client):
     """Read "/proc/meminfo" file and parse all keys and values"""
@@ -521,17 +525,30 @@ def open_relative_file(path, task_path):
 def wait_until_true(predicate, timeout=60, sleep=1, exception=None):
     """Wait until callable predicate is evaluated as True
 
+    When in a thread different from the main one, Timer(timeout) will fail
+    because signal is not handled. In this case
+
     :param predicate: (func) callable deciding whether waiting should continue
     :param timeout: (int) timeout in seconds how long should function wait
     :param sleep: (int) polling interval for results in seconds
     :param exception: exception instance to raise on timeout. If None is passed
                       (default) then WaitTimeout exception is raised.
     """
-    try:
-        with Timer(timeout=timeout):
-            while not predicate():
+    if isinstance(threading.current_thread(), threading._MainThread):
+        try:
+            with Timer(timeout=timeout):
+                while not predicate():
+                    time.sleep(sleep)
+        except exceptions.TimerTimeout:
+            if exception and issubclass(exception, Exception):
+                raise exception  # pylint: disable=raising-bad-type
+            raise exceptions.WaitTimeout
+    else:
+        with Timer() as timer:
+            while timer.delta_time_sec() < timeout:
+                if predicate():
+                    return
                 time.sleep(sleep)
-    except exceptions.TimerTimeout:
         if exception and issubclass(exception, Exception):
             raise exception  # pylint: disable=raising-bad-type
         raise exceptions.WaitTimeout
