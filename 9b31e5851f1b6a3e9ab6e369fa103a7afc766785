@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_0f48705a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-07-26T09:37:42Z",
+      "side": 1,
+      "message": "I tend to agree that the 3 changes in this very commit only (attempted to) fix typos.",
+      "parentUuid": "9a561d44_000047a9",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_800e1733",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
