@@ -52,7 +52,7 @@ class PortPgIDMap(object):
         self._port_pg_id_map[port] = []
 
     def get_pg_ids(self, port):
-        return self._port_pg_id_map.get(port)
+        return self._port_pg_id_map.get(port, [])
 
     def increase_pg_id(self, port=None):
         port = self._last_port if not port else port
