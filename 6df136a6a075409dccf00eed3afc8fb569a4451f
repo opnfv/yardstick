@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_059cd168",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-27T18:10:40Z",
+      "side": 1,
+      "message": "You can add some additional information:\n\n    This ensures that each side effect is tested, even if one fails.",
+      "revId": "6df136a6a075409dccf00eed3afc8fb569a4451f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e5943d46",
+        "filename": "yardstick/tests/unit/common/test_template_format.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-27T18:10:40Z",
+      "side": 1,
+      "message": "You can remove the comment",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 31
+      },
+      "revId": "6df136a6a075409dccf00eed3afc8fb569a4451f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c5913954",
+        "filename": "yardstick/tests/unit/common/test_template_format.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-27T18:10:40Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 35,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 31
+      },
+      "revId": "6df136a6a075409dccf00eed3afc8fb569a4451f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_259f5561",
+        "filename": "yardstick/tests/unit/common/test_template_format.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-27T18:10:40Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 43,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 31
+      },
+      "revId": "6df136a6a075409dccf00eed3afc8fb569a4451f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
