@@ -408,3 +408,7 @@ class AclUnknownActionTemplate(YardstickException):
 
 class InvalidMacAddress(YardstickException):
     message = 'Mac address "%(mac_address)s" is invalid'
+
+
+class ValueCheckError(YardstickException):
+    message = 'Constraint "%(value1)s %(operator)s %(value2)s" does not hold'

@@ -13,6 +13,7 @@ from __future__ import absolute_import
 import logging
 
 from yardstick.benchmark.scenarios import base
+from yardstick.common import exceptions as y_exc
 
 LOG = logging.getLogger(__name__)
 
@@ -34,24 +35,18 @@ class CheckValue(base.Scenario):
         self.context_cfg = context_cfg
         self.options = self.scenario_cfg['options']
 
-    def run(self, result):
+    def run(self, _):
         """execute the test"""
 
         op = self.options.get("operator")
         LOG.debug("options=%s", self.options)
         value1 = str(self.options.get("value1"))
         value2 = str(self.options.get("value2"))
+        if (op == "eq" and value1 != value2) or (op == "ne" and
+                                                 value1 == value2):
+            raise y_exc.ValueCheckError(
+                value1=value1, operator=op, value2=value2)
         check_result = "PASS"
-        if op == "eq" and value1 != value2:
-            LOG.info("value1=%s, value2=%s, error: should equal!!!", value1,
-                     value2)
-            check_result = "FAIL"
-            assert value1 == value2, "Error %s!=%s" % (value1, value2)
-        elif op == "ne" and value1 == value2:
-            LOG.info("value1=%s, value2=%s, error: should not equal!!!",
-                     value1, value2)
-            check_result = "FAIL"
-            assert value1 != value2, "Error %s==%s" % (value1, value2)
         LOG.info("Check result is %s", check_result)
         keys = self.scenario_cfg.get('output', '').split()
         values = [check_result]
