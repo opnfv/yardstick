@@ -404,3 +404,7 @@ class AclMissingActionArguments(YardstickException):
 
 class AclUnknownActionTemplate(YardstickException):
     message = 'No ACL CLI template found for "%(action_name)s" action'
+
+
+class ValueCheckError(YardstickException):
+    message = 'Constraint "%(value1)s %(operator)s %(value2)s" does not hold'
