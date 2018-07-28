@@ -1,0 +1,130 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+nodes:
+-
+    name: "tg__0"
+    role: tg__0
+    tas_manager:
+        ip: 192.168.122.100
+        super_user: SUPER_USER
+        super_user_password: SUPER_USER_PASSWORD
+        cfguser_password: CFGUSER_PASSWORD
+        test_user: TEST_USER
+        test_user_password: TEST_USER_PASSWORD
+        proto: http
+        license: LICENSE_NUMBER
+    interfaces:  # dummy values
+        xe0:
+            vpci: "0000:05:00.0"
+            local_mac: "68:05:ca:30:3d:50"
+            driver: "i40e"
+            local_ip: "152.16.100.19"
+            netmask: "255.255.255.0"
+        xe1:
+            vpci: "0000:05:00.1"
+            local_mac: "68:05:ca:30:3d:51"
+            driver: "i40e"
+            local_ip: "152.16.40.19"
+            netmask: "255.255.255.0"
+    config:
+    - test_server:
+        name: TestServer_1
+        role: SGW_Node
+        ip: 192.168.122.101
+        thread_model: Fireball
+        # override port-subnet and static route reservation information for this
+        # test server within the test session.
+        phySubnets:
+        - base: 10.42.32.100
+          mask: "/24"
+          name: &ts1_port1 eth5
+          numIps: 20
+        - base: 10.42.33.100
+          mask: "/24"
+          name: &ts1_port2 eth6
+          numIps: 20
+        preResolvedArpAddress:  # required for testcases with enabled Fireball mode
+        - StartingAddress: 10.42.33.10
+          NumNodes: 1
+      suts:
+      - name: SGW-C TestNode
+        role: SgwControlAddr
+        managementIp: 12.0.1.1
+        phy: *ts1_port1
+        ip: 10.42.32.100
+        # nextHop: ''
+      - name: SGW-U TestNode
+        role: SgwUserAddr
+        managementIp: 12.0.1.2
+        phy: *ts1_port1
+        ip: 10.42.32.101
+        # nextHop: ''
+
+    - test_server:
+        name: TestServer_2
+        role: SGW_Nodal
+        ip: 192.168.122.102
+        thread_model: Fireball
+        # override port-subnet and static route reservation information for this
+        # test server within the test session.
+        phySubnets:
+        - base: 10.42.32.1
+          mask: "/24"
+          name: &ts2_port1 eth5
+          numIps: 100
+        - base: 10.42.33.1
+          mask: "/24"
+          name: &ts2_port2 eth6
+          numIps: 100
+      suts:
+      - name: eNodeB TestNode
+        role: EnbUserAddr
+        managementIp: 12.0.2.1
+        phy: *ts2_port1
+        ip: 10.42.32.2
+        # nextHop: ''
+      - name: Target eNodeB
+        role: MobEnbUserAddr
+        managementIp: 12.0.2.2
+        phy: *ts2_port1
+        ip: 10.42.32.3
+        # nextHop: ''
+      - name: MME TestNode
+        role: MmeControlAddr
+        managementIp: 12.0.3.1
+        phy: *ts2_port1
+        ip: 10.42.32.1
+        # nextHop: ''
+      - name: NetHost TestNode
+        role: NetworkHostAddrLocal
+        managementIp: 12.0.4.1
+        phy: *ts2_port2
+        ip: 10.42.33.10
+        # nextHop: ''
+      - name: PGW SUT
+        role: PgwV4Sut
+        managementIp: 12.0.5.1
+        phy: *ts1_port1
+        ip: 10.42.32.105
+        # nextHop: ''
+      - name: SGW-C SUT
+        role: SgwSut
+        managementIp: 12.0.6.1
+        ip: 10.42.32.100
+      - name: SGW-U SUT
+        role: SgwUserSut
+        managementIp: 12.0.6.2
+        ip: 10.42.32.101

@@ -1,0 +1,150 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+description: 'UE default bearer creation test case'
+name: default_bearer_capacity
+keywords: ''
+duration: 60
+tsGroups:
+- tsId: SGW_NODE_TS_NAME  # SGW-Node test server name placeholder
+  testCases:
+  - name: ''
+    type: SGW_Node
+    parameters:
+      BearerAddrPool: 2001::1
+      BearerV4AddrPool: 1.0.0.1
+      DedicatedsPerDefaultBearer: '0'
+      DefaultBearers: '1'
+      Gtp2Imei: '50502410121507'
+      Gtp2Imsi: '505024101215074'
+      Gtp2Version: 13.6.0
+      PgwNodeEn: 'true'
+      S5Protocol: GTPv2
+      Sessions: '100000'
+      SgiPtpTunnelEn: 'false'
+      SgwControlAddr:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        ip: SGW_CONTROL_IP  # SGW-C TestNode IP address placeholder
+        mtu: 1500
+        numLinksOrNodes: 1
+        phy: SGW_CONTROL_PHY
+      SgwUserAddr:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        ip: SGW_USER_IP  # SGW-U TestNode IP address placeholder
+        mtu: 1500
+        numLinksOrNodes: 1
+        phy: SGW_USER_PHY
+      TestType: SGW-NODE
+      TrafficMtu: '1500'
+- tsId: SGW_NODAL_TS_NAME  # SGW-Nodal test server name placeholder
+  testCases:
+  - name: ''
+    type: SGW_Nodal
+    parameters:
+      DataTraffic: Continuous
+      DataUserCfgFileEn: 'false'
+      DedicatedsPerDefaultBearer: '0'
+      DefaultBearers: '1'
+      DisconnectRate: '1000.0'
+      Dmf:
+        class: Dmf
+        mainflows:
+        - library: test
+          name: Basic UDP
+        - library: test
+          name: Basic TCP
+        instanceGroups:
+        - mainflowIdx: 0
+          mixType: ''
+          rate: 0
+          startPaused: 'false'
+        - mainflowIdx: 1
+          mixType: ''
+          rate: 0
+          startPaused: 'false'
+      EnbUserAddr:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        ip: ENB_USER_IP  # eNodeB TestNode IP address placeholder
+        mac: ''
+        mtu: 1500
+        nextHop: ''
+        numLinksOrNodes: 1
+        numVlan: 1
+        phy: ENB_USER_PHY
+        uniqueVlanAddr: 'false'
+        vlanDynamic: 0
+        vlanId: 0
+        vlanUserPriority: 0
+        vlanTagType: 0
+      Gtp2Imei: '50502410121507'
+      Gtp2Imsi: '505024101215074'
+      Gtp2Version: 13.6.0
+      MmeControlAddr:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        ip: MME_CONTROL_IP  # MME TestNode IP address placeholder
+        mac: ''
+        mtu: 1500
+        nextHop: ''
+        numLinksOrNodes: 1
+        numVlan: 1
+        phy: MME_CONTROL_PHY
+        uniqueVlanAddr: 'false'
+        vlanDynamic: 0
+        vlanId: 0
+        vlanUserPriority: 0
+        vlanTagType: 0
+      NetworkHost: Local
+      NetworkHostAddrLocal:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        ip: NET_HOST_IP  # NetHost TestNode IP address placeholder
+        mac: ''
+        mtu: 1500
+        nextHop: ''
+        numLinksOrNodes: 1
+        numVlan: 1
+        phy: NET_HOST_PHY
+        uniqueVlanAddr: 'false'
+        vlanDynamic: 0
+        vlanId: 0
+        vlanUserPriority: 0
+        vlanTagType: 0
+      PgwNodeEn: 'false'
+      PgwUserSutEn: 'false'
+      PgwV4Sut:
+        class: Sut
+        name: PGW_SUT_NAME  # PGW TestNode name placeholder
+      S5Protocol: GTPv2
+      Sessions: '100000'
+      SgwSut:
+        class: Sut
+        name: SGW_CONTROL_NAME  # SGW-C SUT name placeholder
+      SgwUserSut:
+        class: Sut
+        name: SGW_USER_NAME  # SGW-U SUT name placeholder
+      StartRate: '1000.0'
+      TestActivity: Capacity Test
+      TestType: SGW-NODAL
+      TrafficMtu: '1500'
+      TrafficStartType: When All Sessions Established
