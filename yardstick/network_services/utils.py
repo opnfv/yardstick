@@ -36,6 +36,9 @@ OPTS = [
     cfg.StrOpt('trex_client_lib',
                default=os.path.join(NSB_ROOT, 'trex_client/stl'),
                help='trex python library path.'),
+    cfg.StrOpt('jre_path_i386',
+               default='',
+               help='path to installation of 32-bit Java 1.7+.'),
 ]
 CONF.register_opts(OPTS, group="nsb")
 
