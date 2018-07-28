@@ -420,3 +420,9 @@ class InvalidMacAddress(YardstickException):
 
 class ValueCheckError(YardstickException):
     message = 'Constraint "%(value1)s %(operator)s %(value2)s" does not hold'
+
+
+class LandslideTclException(RuntimeError):
+    def __init__(self, message):
+        self._message = message
+        super(LandslideTclException, self).__init__(message)
