@@ -1,0 +1,136 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+schema: "nsb:traffic_profile:0.1"
+
+name:            LandslideProfile
+description:     Spirent Landslide traffic profile (Data Message Flow)
+
+traffic_profile:
+  traffic_type: LandslideProfile
+
+dmf_config:
+  -
+    dmf:
+      library: Basic
+      name: Fireball UDP
+    description: "Basic data flow using UDP/IP"
+    keywords: 'UDP '
+    dataProtocol: fb_udp
+    burstCount: 1  # Applies only to Basic UDP DMF, DataProtocol==(udp or fb_udp)
+    clientPort:
+      clientPort: 2012
+      isClientPortRange: 'false'
+    serverPort: 2013
+    connection:
+      initiatingSide: Client
+      disconnectSide: Client
+      underlyingProtocol: none
+      persistentConnection: 'false'
+    protocolId: 0
+    persistentConnection: 'false'
+    transactionRate: 8.0
+    transactions:
+      totalTransactions: 0
+      retries: 0
+      dataResponseTime: 60000
+    packetSize: 64
+    segment:
+      segmentSize: 64000
+      maxSegmentSize: 0
+    size:
+      sizeDistribution: Fixed
+      sizeDeviation: 10
+    interval:
+      intervalDistribution: Fixed
+      intervalDeviation: 10
+    ipHeader:
+      typeOfService: 0
+      timeToLive: 64
+    tcpConnection:
+      force3Way: 'false'
+      fixedRetryTime: 0
+      maxPacketsToForceAck: 0
+    tcp:
+      windowSize: 32768
+      windowScaling: -1
+      disableFinAckWait: 'false'
+    disconnectType: FIN
+    slowStart: 'false'
+    connectOnly: 'false'
+    vtag:
+      VTagMask: '0x0'
+      VTagValue: '0x0'
+    sctpPayloadProtocolId: 0
+    billingIncludeSyn: true
+    billingIncludeSubflow: true
+    billingRecordPerTransaction: 'false'
+    tcpPush: 'false'
+    hostDataExpansionRatio: 1
+  -
+    dmf:
+      library: Basic
+      name: Fireball TCP
+    description: "Basic data flow using TCP/IP"
+    keywords: 'TCP '
+    dataProtocol: fb_tcp
+    clientPort:
+      clientPort: 2002
+      isClientPortRange: 'false'
+    serverPort: 2003
+    connection:
+      initiatingSide: Client
+      disconnectSide: Client
+      underlyingProtocol: none
+      persistentConnection: 'false'
+    protocolId: 0
+    persistentConnection: 'false'
+    transactionRate: 8.0
+    transactions:
+      totalTransactions: 0
+      retries: 0
+      dataResponseTime: 60000
+    packetSize: 64
+    segment:
+      segmentSize: 64000
+      maxSegmentSize: 0
+    size:
+      sizeDistribution: Fixed
+      sizeDeviation: 10
+    interval:
+      intervalDistribution: Fixed
+      intervalDeviation: 10
+    ipHeader:
+      typeOfService: 0
+      timeToLive: 64
+    tcpConnection:
+      force3Way: 'false'
+      fixedRetryTime: 0
+      maxPacketsToForceAck: 0
+    tcp:
+      windowSize: 32768
+      windowScaling: -1
+      disableFinAckWait: 'false'
+    disconnectType: FIN
+    slowStart: 'false'
+    connectOnly: 'false'
+    vtag:
+      VTagMask: '0x0'
+      VTagValue: '0x0'
+    sctpPayloadProtocolId: 0
+    billingIncludeSyn: true
+    billingIncludeSubflow: true
+    billingRecordPerTransaction: 'false'
+    tcpPush: 'false'
+    hostDataExpansionRatio: 1
