@@ -1,0 +1,177 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+description: SAEGW throughput with relocation test case
+keywords: ''
+duration: 60
+library: test
+name: saegw_relocation
+tsGroups:
+- testCases:
+  - name: ''
+    type: SGW_Node
+    AssociatedPhys: ''
+    parameters:
+      BearerAddrPool: 2001::1
+      BearerV4AddrPool: 1.0.0.1
+      BillingEn: 'false'
+      DedicatedsPerDefaultBearer: '0'
+      DefaultBearers: '1'
+      FireballEn: 'false'
+      Gtp2Imei: '50502410121507'
+      Gtp2Imsi: '505024101215074'
+      Gtp2Version: 15.2.0
+      PgwNodeEn: 'true'
+      QciToDscpMarkingsEn: 'false'
+      S5Protocol: GTPv2
+      Sessions: '20000'
+      SgiPtpTunnelEn: 'false'
+      SgwControlAddr:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        innerVlanId: 0
+        ip: SGW_CONTROL_IP
+        mtu: 1500
+        nextHop: ''
+        numLinksOrNodes: 1
+        phy: SGW_CONTROL_PHY
+      SgwControlAddrErrInj: '0'
+      SgwUserAddr:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        ip: SGW_USER_IP
+        mtu: 1500
+        nextHop: ''
+        numLinksOrNodes: 1
+        phy: SGW_USER_PHY
+      SgwUserAddrErrInj: '0'
+      SgwUserDualStackEn: 'false'
+      TestType: SGW-NODE
+      TrafficMtu: '1400'
+      UeDhcpV4En: 'false'
+  tsId: SGW_NODE_TS_NAME
+- testCases:
+  - name: ''
+    type: SGW_Nodal
+    parameters:
+      ApnDnsEn: 'false'
+      ApnToPgwMappingEn: 'false'
+      AutoStopControlLayer: 'false'
+      ContinuousWithVerification: 'false'
+      CtlBearerToDscpEn: 'false'
+      DataHostCfgFileEn: 'false'
+      DataResumeRate: '3000'
+      DataTraffic: Continuous
+      DataUserCfgFileEn: 'false'
+      DedicatedsPerDefaultBearer: '0'
+      DefaultBearers: '1'
+      DisconnectRate: '1000.0'
+      Dmf:
+        class: Dmf
+        instanceGroups:
+        - mainflowIdx: 0
+          mixType: ''
+          rate: 0.0
+        mainflows:
+        - library: test
+          name: Basic UDP
+      DualStackEn: 'false'
+      EnbUserAddr:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        innerVlanId: 0
+        ip: ENB_USER_IP
+        mtu: 1500
+        nextHop: ''
+        numLinksOrNodes: 1
+        phy: ENB_USER_PHY
+      FireballEn: 'false'
+      Gtp2Imei: '50502410121507'
+      Gtp2Imsi: '505024101215074'
+      Gtp2Version: 15.2.0
+      HandoffType: '0'
+      HomeAddrType: '1'
+      HomeAddrTypePerBearerEn: 'false'
+      HssIfEn: 'false'
+      MmeControlAddr:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        innerVlanId: 0
+        ip: MME_CONTROL_IP
+        mtu: 1500
+        nextHop: ''
+        numLinksOrNodes: 1
+        phy: MME_CONTROL_PHY
+      MmeControlAddrErrInj: '0'
+      MobEnbUserAddr:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        innerVlanId: 0
+        ip: TARGET_ENB_USER_IP
+        mtu: 1500
+        nextHop: ''
+        numLinksOrNodes: 1
+        phy: TARGET_ENB_USER_PHY
+      MobEnbUserAddrErrInj: '0'
+      MobilityIntervalShape: Fixed
+      MobilityMode: Single Handoff
+      MobilityRate: '1.0'
+      MobilityTimeMs: '10000'
+      MultipathTcpEn: 'false'
+      NetworkHost: Local
+      NetworkHostAddrLocal:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        innerVlanId: 0
+        ip: NET_HOST_IP
+        mtu: 1500
+        nextHop: ''
+        numLinksOrNodes: 1
+        phy: NET_HOST_PHY
+      NetworkHostAddrLocalErrInj: '0'
+      NetworkHostNatedTrafficEn: 'false'
+      PgwNodeEn: 'false'
+      PgwUserSutEn: 'false'
+      PgwV4Sut:
+        class: Sut
+        name: PGW_SUT_NAME
+      QciToDscpMarkingsEn: 'false'
+      S5Protocol: GTPv2
+      SecPgwV4SutEn: 'false'
+      SessionIntervalShape: Fixed
+      SessionRetries: 'true'
+      Sessions: '20000'
+      SgwNumSutsEn: 'false'
+      SgwRelocationEn: 'false'
+      SgwSut:
+        class: Sut
+        name: SGW_CONTROL_NAME
+      SgwUserSut:
+        class: Sut
+        name: SGW_USER_NAME
+      StartRate: '1000.0'
+      StartType: When All Sessions Started
+      TestActivity: Intra-MME Mobility
+      TestType: SGW-NODAL
+      TrafficMtu: '1400'
+      TrafficStartDelay: '1000'
+      TrafficStartType: When Session Established
+  tsId: SGW_NODAL_TS_NAME
