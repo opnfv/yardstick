@@ -196,6 +196,14 @@ class TestMacAddressToHex(ut_base.BaseUnitTestCase):
         self.assertEqual(utils.mac_address_to_hex_list("ea:3e:e1:9a:99:e8"),
                          ['0xea', '0x3e', '0xe1', '0x9a', '0x99', '0xe8'])
 
+    def test_mac_address_to_hex_list_too_short_mac(self):
+        with self.assertRaises(exceptions.InvalidMacAddress):
+            utils.mac_address_to_hex_list("ea:3e:e1:9a")
+
+    def test_mac_address_to_hex_list_no_int_mac(self):
+        with self.assertRaises(exceptions.InvalidMacAddress):
+            utils.mac_address_to_hex_list("invalid_mac")
+
 
 class TranslateToStrTestCase(ut_base.BaseUnitTestCase):
 
