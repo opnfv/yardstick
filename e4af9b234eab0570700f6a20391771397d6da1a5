@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_2990cfeb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-30T11:22:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_cc3e8b29",
+      "range": {
+        "startLine": 9,
+        "startChar": 34,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_6c3adf37",
         "filename": "etc/yardstick/nodes/standalone/pod_trex.yaml",
         "patchSetId": 9
@@ -36,6 +60,24 @@
       "writtenOn": "2018-07-20T09:55:11Z",
       "side": 1,
       "message": "We already have two very similar files:\n\nhttps://github.com/opnfv/yardstick/blob/master/etc/yardstick/nodes/standalone/pod_bm_trex_template.yaml\nhttps://github.com/opnfv/yardstick/blob/master/etc/yardstick/nodes/standalone/trex_bm.yaml.sample\n\nIf you want to provide a static trex configuration, rename trex_bm.yaml.sample to pod_trex.yaml.sample and remove this file.",
+      "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_499383fa",
+        "filename": "etc/yardstick/nodes/standalone/pod_trex.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-30T11:22:37Z",
+      "side": 1,
+      "message": "Used for testing. Removed.",
+      "parentUuid": "9a561d44_6c3adf37",
       "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_e98537ae",
+        "filename": "samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_64B_trex.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-30T11:22:37Z",
+      "side": 1,
+      "message": "Used for testing. Removed.",
+      "parentUuid": "9a561d44_cc532b6b",
+      "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ac50775f",
         "filename": "samples/vnf_samples/nsut/acl/tc_sriov_rfc2544_64B_trex.yaml",
         "patchSetId": 9
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_09898bca",
+        "filename": "samples/vnf_samples/nsut/acl/tc_sriov_rfc2544_64B_trex.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-30T11:22:37Z",
+      "side": 1,
+      "message": "Used for testing. Removed.",
+      "parentUuid": "9a561d44_ac50775f",
+      "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_cc884bc9",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 9
@@ -87,6 +165,30 @@
       "writtenOn": "2018-07-20T09:55:11Z",
       "side": 1,
       "message": "Why two different users?\nWhy for {user_name} we use a ssh key and for ubuntu the password?\nWhy should we use ubuntu by default? This is not compatible with other distros but with Ubuntu.",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 22
+      },
+      "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_83bbc171",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-30T11:22:37Z",
+      "side": 1,
+      "message": "A user is read from test case if \"root\" add ssh_key, otherwise add a new user and add ssh_key.",
+      "parentUuid": "9a561d44_cc884bc9",
       "range": {
         "startLine": 107,
         "startChar": 0,
@@ -122,6 +224,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_e3af1d2a",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-30T11:22:37Z",
+      "side": 1,
+      "message": "Yes, it fails as folder \u0027/var/lib/libvirt/images\u0027 doesn\u0027t exist on first-run host. To remove it.",
+      "parentUuid": "9a561d44_2cc107e5",
+      "range": {
+        "startLine": 286,
+        "startChar": 12,
+        "endLine": 286,
+        "endChar": 58
+      },
+      "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_6cd65fc7",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 9
@@ -133,6 +259,30 @@
       "writtenOn": "2018-07-20T09:55:11Z",
       "side": 1,
       "message": "Is that correct?",
+      "range": {
+        "startLine": 357,
+        "startChar": 11,
+        "endLine": 357,
+        "endChar": 64
+      },
+      "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_03a7b150",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-30T11:22:37Z",
+      "side": 1,
+      "message": "Corrected.",
+      "parentUuid": "9a561d44_6cd65fc7",
       "range": {
         "startLine": 357,
         "startChar": 11,
@@ -168,6 +318,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_63630d1b",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-30T11:22:37Z",
+      "side": 1,
+      "message": "It is a path for metadata. Metadata file must be present for geniso command. Try empty file.",
+      "parentUuid": "9a561d44_0caa4319",
+      "range": {
+        "startLine": 398,
+        "startChar": 8,
+        "endLine": 398,
+        "endChar": 56
+      },
+      "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_eca6ef52",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 9
@@ -179,6 +353,30 @@
       "writtenOn": "2018-07-20T09:55:11Z",
       "side": 1,
       "message": "This parameter is not in USER_DATA_TEMPLATE",
+      "range": {
+        "startLine": 406,
+        "startChar": 54,
+        "endLine": 406,
+        "endChar": 68
+      },
+      "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_436889f5",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-30T11:22:37Z",
+      "side": 1,
+      "message": "Corrected.",
+      "parentUuid": "9a561d44_eca6ef52",
       "range": {
         "startLine": 406,
         "startChar": 54,
@@ -214,6 +412,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_a36d2507",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-30T11:22:37Z",
+      "side": 1,
+      "message": "Corrected.",
+      "parentUuid": "9a561d44_ec4a6fab",
+      "range": {
+        "startLine": 416,
+        "startChar": 12,
+        "endLine": 416,
+        "endChar": 26
+      },
+      "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_acacf736",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 9
@@ -225,6 +447,24 @@
       "writtenOn": "2018-07-20T09:55:11Z",
       "side": 1,
       "message": "This function should:\n- Check the user. If not, \"root\" should be used.\n   - non root user: add sudoers\n- Check if password is provided. If not, create ssh keys\n- Libvirt.gen_cdrom_image should accept: user, password\u003dNone, ssh_key\u003dNone",
+      "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a9033f72",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-30T11:22:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_acacf736",
       "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -254,6 +494,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_e376fdd7",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-30T11:22:37Z",
+      "side": 1,
+      "message": "1) This folder is located on remote. AFAIK, libvirt uses this image folder.\n2) This is out of scope of this change.",
+      "parentUuid": "9a561d44_2c9aa714",
+      "range": {
+        "startLine": 394,
+        "startChar": 25,
+        "endLine": 394,
+        "endChar": 62
+      },
+      "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_2ccc6735",
         "filename": "yardstick/tests/unit/benchmark/contexts/standalone/test_model.py",
         "patchSetId": 9
@@ -265,6 +529,30 @@
       "writtenOn": "2018-07-20T09:55:11Z",
       "side": 1,
       "message": "assertIsNotNone\n\nhttps://docs.python.org/3/library/unittest.html#unittest.TestCase.assertIsNotNone",
+      "range": {
+        "startLine": 200,
+        "startChar": 13,
+        "endLine": 200,
+        "endChar": 27
+      },
+      "revId": "e4af9b234eab0570700f6a20391771397d6da1a5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a9d69fc3",
+        "filename": "yardstick/tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-07-30T11:22:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_2ccc6735",
       "range": {
         "startLine": 200,
         "startChar": 13,
