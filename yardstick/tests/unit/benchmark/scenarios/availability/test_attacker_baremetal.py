@@ -7,10 +7,6 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-# Unittest for
-# yardstick.benchmark.scenarios.availability.attacker.attacker_baremetal
-
-from __future__ import absolute_import
 import mock
 import unittest
 
@@ -18,33 +14,44 @@ from yardstick.benchmark.scenarios.availability.attacker import \
     attacker_baremetal
 
 
-# pylint: disable=unused-argument
-# disable this for now because I keep forgetting mock patch arg ordering
-
-
-@mock.patch('yardstick.benchmark.scenarios.availability.attacker.attacker_baremetal.subprocess')
 class ExecuteShellTestCase(unittest.TestCase):
 
-    def test__fun_execute_shell_command_successful(self, mock_subprocess):
-        cmd = "env"
-        mock_subprocess.check_output.return_value = (0, 'unittest')
-        exitcode, _ = attacker_baremetal._execute_shell_command(cmd)
+    def setUp(self):
+        self._mock_subprocess = mock.patch.object(attacker_baremetal,
+                                                  'subprocess')
+        self.mock_subprocess = self._mock_subprocess.start()
+
+        self.addCleanup(self._stop_mocks)
+
+    def _stop_mocks(self):
+        self._mock_subprocess.stop()
+
+    def test__execute_shell_command_successful(self):
+        self.mock_subprocess.check_output.return_value = (0, 'unittest')
+        exitcode, _ = attacker_baremetal._execute_shell_command("env")
         self.assertEqual(exitcode, 0)
 
-    @mock.patch('yardstick.benchmark.scenarios.availability.attacker.attacker_baremetal.LOG')
-    def test__fun_execute_shell_command_fail_cmd_exception(self, mock_log, mock_subprocess):
-        cmd = "env"
-        mock_subprocess.check_output.side_effect = RuntimeError
-        exitcode, _ = attacker_baremetal._execute_shell_command(cmd)
+    @mock.patch.object(attacker_baremetal, 'LOG')
+    def test__execute_shell_command_fail_cmd_exception(self, mock_log):
+        self.mock_subprocess.check_output.side_effect = RuntimeError
+        exitcode, _ = attacker_baremetal._execute_shell_command("env")
         self.assertEqual(exitcode, -1)
         mock_log.error.assert_called_once()
 
 
-@mock.patch('yardstick.benchmark.scenarios.availability.attacker.attacker_baremetal.subprocess')
-@mock.patch('yardstick.benchmark.scenarios.availability.attacker.attacker_baremetal.ssh')
 class AttackerBaremetalTestCase(unittest.TestCase):
 
     def setUp(self):
+        self._mock_ssh = mock.patch.object(attacker_baremetal, 'ssh')
+        self.mock_ssh = self._mock_ssh.start()
+        self._mock_subprocess = mock.patch.object(attacker_baremetal,
+                                                  'subprocess')
+        self.mock_subprocess = self._mock_subprocess.start()
+        self.addCleanup(self._stop_mocks)
+
+        self.mock_ssh.SSH.from_node().execute.return_value = (
+            0, "running", '')
+
         host = {
             "ipmi_ip": "10.20.0.5",
             "ipmi_user": "root",
@@ -59,26 +66,26 @@ class AttackerBaremetalTestCase(unittest.TestCase):
             'host': 'node1',
         }
 
-    def test__attacker_baremetal_all_successful(self, mock_ssh, mock_subprocess):
-        mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
-        ins = attacker_baremetal.BaremetalAttacker(self.attacker_cfg,
-                                                   self.context)
+        self.ins = attacker_baremetal.BaremetalAttacker(self.attacker_cfg,
+                                                        self.context)
 
-        ins.setup()
-        ins.inject_fault()
-        ins.recover()
+    def _stop_mocks(self):
+        self._mock_ssh.stop()
+        self._mock_subprocess.stop()
 
-    def test__attacker_baremetal_check_failuer(self, mock_ssh, mock_subprocess):
-        mock_ssh.SSH.from_node().execute.return_value = (0, "error check", '')
-        ins = attacker_baremetal.BaremetalAttacker(self.attacker_cfg,
-                                                   self.context)
-        ins.setup()
+    def test__attacker_baremetal_all_successful(self):
+        self.ins.setup()
+        self.ins.inject_fault()
+        self.ins.recover()
 
-    def test__attacker_baremetal_recover_successful(self, mock_ssh, mock_subprocess):
+    def test__attacker_baremetal_check_failure(self):
+        self.mock_ssh.SSH.from_node().execute.return_value = (
+            0, "error check", '')
+        self.ins.setup()
 
+    def test__attacker_baremetal_recover_successful(self):
         self.attacker_cfg["jump_host"] = 'node1'
         self.context["node1"]["password"] = "123456"
-        mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
         ins = attacker_baremetal.BaremetalAttacker(self.attacker_cfg,
                                                    self.context)
 
