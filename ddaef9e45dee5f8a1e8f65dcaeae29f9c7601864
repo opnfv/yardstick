@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a561d44_af5cdf26",
+        "filename": "yardstick/network_services/traffic_profile/landslide_profile.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "These are not needed",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0f418b39",
+        "filename": "yardstick/network_services/traffic_profile/landslide_profile.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "import the module, not the class.",
+      "range": {
+        "startLine": 18,
+        "startChar": 48,
+        "endLine": 18,
+        "endChar": 52
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ef3d37bd",
+        "filename": "yardstick/network_services/traffic_profile/landslide_profile.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "You will need to add unit tests for this.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 24
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_cff31309",
         "filename": "yardstick/network_services/vnf_generic/vnf/epc_vnf.py",
         "patchSetId": 1
@@ -13,6 +82,29 @@
       "writtenOn": "2018-07-30T15:53:58Z",
       "side": 1,
       "message": "This file can be added as a separate commit mentioning the intention of why we have empty classes. This file provides the API\u0027s for vnf metric retrieval and needed.",
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4f4b8359",
+        "filename": "yardstick/network_services/vnf_generic/vnf/epc_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "import the module, not the class",
+      "range": {
+        "startLine": 18,
+        "startChar": 48,
+        "endLine": 18,
+        "endChar": 52
+      },
       "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -150,6 +242,293 @@
         "startChar": 23,
         "endLine": 15,
         "endChar": 37
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2f48cf5a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "import the module, not the class\n\ni.e.:\n   import multiprocessing",
+      "range": {
+        "startLine": 22,
+        "startChar": 5,
+        "endLine": 22,
+        "endChar": 20
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8f747b9d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "It looks like this is unused in this class.\nRemove it for now.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 12
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_afaa1fd2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "this should be in a separate change",
+      "range": {
+        "startLine": 204,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 52
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6f792793",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "This should be in a separate patch.",
+      "range": {
+        "startLine": 668,
+        "startChar": 0,
+        "endLine": 668,
+        "endChar": 33
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6fa007f5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "There\u0027s no need for these to be named with a leading underscore",
+      "range": {
+        "startLine": 740,
+        "startChar": 8,
+        "endLine": 740,
+        "endChar": 9
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_af733fb0",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1030,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "This should be a separate change",
+      "range": {
+        "startLine": 1030,
+        "startChar": 25,
+        "endLine": 1030,
+        "endChar": 27
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_cf7cb375",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "Please don\u0027t add the class-level mocking like this.\nWe\u0027ve been trying to move away from this in yardstick.\nPlease see the example below[1] of how to add the mocking in setUp() and use addCleanup() to stop mocking. \n[1] https://github.com/opnfv/yardstick/blob/74db27b3fc0447cceda2f60e3bf05420d5bad8b9/yardstick/tests/unit/network_services/helpers/test_cpu.py#L27-L34",
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_efd9b784",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "Please keep the line lengths to 79 characters where possible (instead of the nominal 99 for the repo, which is in place for legacy code).",
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_cfcaf3a0",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "Please add this as an instance variable, using the same pattern for mocking as I have specified in L162.",
+      "range": {
+        "startLine": 456,
+        "startChar": 0,
+        "endLine": 456,
+        "endChar": 27
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_efc0977e",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "Use mock.patch.object() for these decorators.\n\nIt means you have to import the classes first, but it means that we can detect import errors as well as issues in the tests.\n\nSame applies for other tests/classes",
+      "range": {
+        "startLine": 560,
+        "startChar": 2,
+        "endLine": 561,
+        "endChar": 84
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2fbbaf0f",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "Use the same pattern as specified in L162",
+      "range": {
+        "startLine": 632,
+        "startChar": 0,
+        "endLine": 633,
+        "endChar": 83
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_af469f21",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "At the top: import time\n\nhere: @mock.patch.object(time, \u0027sleep\u0027)",
+      "range": {
+        "startLine": 751,
+        "startChar": 0,
+        "endLine": 751,
+        "endChar": 85
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0f4b4b2c",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T16:07:47Z",
+      "side": 1,
+      "message": "mock the method\n\nimport time\n\n@mock.patch.object(time, \u0027strftime\u0027)\n\nSame for other usages of time.strftime",
+      "range": {
+        "startLine": 841,
+        "startChar": 0,
+        "endLine": 841,
+        "endChar": 79
       },
       "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
