@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_af25ffac",
+        "filename": "yardstick/network_services/vnf_generic/vnf/epc_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T15:31:25Z",
+      "side": 1,
+      "message": "There\u0027s nothing being returned",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 27
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0f3a2bcd",
+        "filename": "yardstick/network_services/vnf_generic/vnf/epc_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T15:31:25Z",
+      "side": 1,
+      "message": "There\u0027s nothing being returned",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 27
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ef36d7e6",
+        "filename": "yardstick/network_services/vnf_generic/vnf/epc_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T15:31:25Z",
+      "side": 1,
+      "message": "There\u0027s nothing actually being done here yet",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 36
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4f3423de",
+        "filename": "yardstick/network_services/vnf_generic/vnf/epc_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T15:31:25Z",
+      "side": 1,
+      "message": "Should the rest of the methods raise this error too?",
+      "range": {
+        "startLine": 52,
+        "startChar": 8,
+        "endLine": 52,
+        "endChar": 50
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2f31efec",
+        "filename": "yardstick/network_services/vnf_generic/vnf/epc_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T15:31:25Z",
+      "side": 1,
+      "message": "Nothing is implemented here yet...",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 59,
+        "endChar": 11
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8f4d9b75",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T15:31:25Z",
+      "side": 1,
+      "message": "This is not needed.",
+      "range": {
+        "startLine": 15,
+        "startChar": 23,
+        "endLine": 15,
+        "endChar": 37
+      },
+      "revId": "ddaef9e45dee5f8a1e8f65dcaeae29f9c7601864",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
