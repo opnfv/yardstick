@@ -232,6 +232,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_8ca129ac",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-07-30T13:39:13Z",
+      "side": 1,
+      "message": "There is only v1.0 for the initializations API.",
+      "parentUuid": "9a561d44_e5cd5d88",
+      "range": {
+        "startLine": 234,
+        "startChar": 52,
+        "endLine": 234,
+        "endChar": 56
+      },
+      "revId": "ac35b58bdb4a537d20dde876d9d89fb66d1925a0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a5ab6588",
         "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
         "patchSetId": 8
@@ -278,6 +302,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_6ca655c3",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-07-30T13:39:13Z",
+      "side": 1,
+      "message": "Same here - there is only v1.0",
+      "parentUuid": "9a561d44_85b901ec",
+      "range": {
+        "startLine": 256,
+        "startChar": 32,
+        "endLine": 256,
+        "endChar": 36
+      },
+      "revId": "ac35b58bdb4a537d20dde876d9d89fb66d1925a0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_c5cad96d",
         "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
         "patchSetId": 8
@@ -289,6 +337,30 @@
       "writtenOn": "2018-07-27T18:05:55Z",
       "side": 1,
       "message": "Please use mock.patch.object()\n\nThis separates importing from mocking. Using mock.patch() can hide import errors.",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 78
+      },
+      "revId": "ac35b58bdb4a537d20dde876d9d89fb66d1925a0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_acb06df5",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-07-30T13:39:13Z",
+      "side": 1,
+      "message": "This code was written by someone else in Yardstick, so I didn\u0027t want to change what I saw as existing code.",
+      "parentUuid": "9a561d44_c5cad96d",
       "range": {
         "startLine": 122,
         "startChar": 0,
