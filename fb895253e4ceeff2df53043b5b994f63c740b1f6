@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_0f722b7c",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/availability/test_attacker_baremetal.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-30T17:11:28Z",
+      "side": 1,
+      "message": "This really needs to be fixed...\nI\u0027ll add a follow-up patch to get rid of it.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 72
+      },
+      "revId": "fb895253e4ceeff2df53043b5b994f63c740b1f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
