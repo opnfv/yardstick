@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_dd92a99e",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-31T16:50:59Z",
+      "side": 1,
+      "message": "This is not related, this is another bug",
+      "range": {
+        "startLine": 433,
+        "startChar": 11,
+        "endLine": 433,
+        "endChar": 52
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3d900595",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-31T16:50:59Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 439,
+        "startChar": 32,
+        "endLine": 439,
+        "endChar": 36
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ddd90985",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-31T16:50:59Z",
+      "side": 1,
+      "message": "We don\u0027t have UTs for this!",
+      "range": {
+        "startLine": 444,
+        "startChar": 8,
+        "endLine": 444,
+        "endChar": 17
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7de9dd19",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-31T16:50:59Z",
+      "side": 1,
+      "message": "Why do you need parenthesis?",
+      "range": {
+        "startLine": 459,
+        "startChar": 22,
+        "endLine": 459,
+        "endChar": 23
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_5dee9923",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-31T16:50:59Z",
+      "side": 1,
+      "message": "This should be at the beginning, L456:\n\n  proto \u003d traffic_param[\u0027outer_l3\u0027][\u0027proto\u0027]\n  if proto !\u003d constants.PROTO_UDP # You need to add this constant\n    raise NewYardstickExceptionSaying(\"Protocols supported in IXIA: UDP\")",
+      "range": {
+        "startLine": 465,
+        "startChar": 12,
+        "endLine": 465,
+        "endChar": 54
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3de76542",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-31T16:50:59Z",
+      "side": 1,
+      "message": "We don\u0027t have UTs for this!",
+      "range": {
+        "startLine": 477,
+        "startChar": 8,
+        "endLine": 477,
+        "endChar": 24
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_bdf37509",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-31T16:50:59Z",
+      "side": 1,
+      "message": "You don\u0027t need to make this branch. \"ramdom\" with seed 1, mask 0 and count 1, will set the same port defined in \"value\".",
+      "range": {
+        "startLine": 500,
+        "startChar": 8,
+        "endLine": 504,
+        "endChar": 63
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_fddccd76",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-31T16:50:59Z",
+      "side": 1,
+      "message": "We need testing!",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 27
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_9df831e7",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-31T16:50:59Z",
+      "side": 1,
+      "message": "Force the conversion of this parameter to string. If user introduces a number, without quotes, yaml parser can return an integer (for example, if user only wants one single port, not a range).\n\n  _port_range \u003d str(port_range).split(\u0027-\u0027)",
+      "range": {
+        "startLine": 46,
+        "startChar": 22,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_1d8d417c",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-07-31T16:50:59Z",
+      "side": 1,
+      "message": "This is not related to https://jira.opnfv.org/browse/YARDSTICK-1363.\n\nThis should be another bug",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 43
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
