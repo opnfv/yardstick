@@ -17,11 +17,11 @@ Description
 ===========
 
 1. When the command is triggered using the task-id and the testcase
-name provided the respective values are retrieved from the
-database (influxdb in this particular case).
+   name provided the respective values are retrieved from the
+   database (InfluxDB in this particular case).
 
-2. The values are then formatted and then provided to the html
-template framed with complete html body using Django Framework.
+2. The values are then formatted and provided to the html
+   template to be rendered using jinja2.
 
 3. Then the whole template is written into a html file.
 
