@@ -18,6 +18,8 @@ import itertools
 
 from six.moves import zip
 
+from yardstick.common import utils
+
 FIREWALL_ADD_DEFAULT = "p {0} firewall add default 1"
 FIREWALL_ADD_PRIO = """\
 p {0} firewall add priority 1 ipv4  {1} 24 0.0.0.0 0 0 65535 0 65535 6 0xFF port 0"""
@@ -59,8 +61,7 @@ class PipelineRules(object):
         self.add_rule(FIREWALL_ADD_PRIO, ip)
 
     def add_firewall_script(self, ip):
-        ip_addr = ip.split('.')
-        assert len(ip_addr) == 4
+        ip_addr = str(utils.make_ipv4_address(ip)).split('.')
         ip_addr[-1] = '0'
         for i in range(256):
             ip_addr[-2] = str(i)
@@ -87,8 +88,7 @@ class PipelineRules(object):
         self.add_rule(ROUTE_ADD_ETHER_MPLS, ip, mac_addr, index)
 
     def add_route_script(self, ip, mac_addr):
-        ip_addr = ip.split('.')
-        assert len(ip_addr) == 4
+        ip_addr = str(utils.make_ipv4_address(ip)).split('.')
         ip_addr[-1] = '0'
         for index in range(0, 256, 8):
             ip_addr[-2] = str(index)
@@ -101,8 +101,7 @@ class PipelineRules(object):
         self.add_rule(ROUTE_ADD_ETHER_QINQ, ip, mask, mac_addr, index)
 
     def add_route_script2(self, ip, mac_addr):
-        ip_addr = ip.split('.')
-        assert len(ip_addr) == 4
+        ip_addr = str(utils.make_ipv4_address(ip)).split('.')
         ip_addr[-1] = '0'
         mask = 24
         for i in range(0, 256):
