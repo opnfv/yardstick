@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_f2919c53",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-07-31T10:11:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_4c5551c5",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 35
+      },
+      "revId": "f0e06ba33344b56121deb9961b3c952969de5bd9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_2c529ddd",
         "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-30T13:19:36Z",
       "side": 1,
       "message": "ditto on test rename",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 37
+      },
+      "revId": "f0e06ba33344b56121deb9961b3c952969de5bd9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_529fa85f",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-07-31T10:11:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_2c529ddd",
       "range": {
         "startLine": 78,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_329cb469",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-07-31T10:11:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_ec6ee595",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 96,
+        "endChar": 30
+      },
+      "revId": "f0e06ba33344b56121deb9961b3c952969de5bd9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_0c72397c",
         "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2018-07-30T13:19:36Z",
       "side": 1,
       "message": "test_run_with_sla_validation",
+      "range": {
+        "startLine": 108,
+        "startChar": 8,
+        "endLine": 108,
+        "endChar": 27
+      },
+      "revId": "f0e06ba33344b56121deb9961b3c952969de5bd9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_728d8c31",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-07-31T10:11:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_0c72397c",
       "range": {
         "startLine": 108,
         "startChar": 8,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_d28298ff",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-07-31T10:11:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_8c5e49e8",
+      "range": {
+        "startLine": 120,
+        "startChar": 8,
+        "endLine": 120,
+        "endChar": 29
+      },
+      "revId": "f0e06ba33344b56121deb9961b3c952969de5bd9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ac5d0dec",
         "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
         "patchSetId": 7
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_b287240f",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-07-31T10:11:22Z",
+      "side": 1,
+      "message": "Yes, thanks for correcting :) Actually, now I decided to remove the tests that test error handling from utils.py, since those tests should reside in test_utils.py",
+      "parentUuid": "9a561d44_ac5d0dec",
+      "range": {
+        "startLine": 130,
+        "startChar": 8,
+        "endLine": 130,
+        "endChar": 42
+      },
+      "revId": "f0e06ba33344b56121deb9961b3c952969de5bd9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_6c63f5b1",
         "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
         "patchSetId": 7
@@ -151,6 +295,30 @@
       "writtenOn": "2018-07-30T13:19:36Z",
       "side": 1,
       "message": "rename please\n\nYou don\u0027t need to use \"unsuccessful\" in the name, as error makes it clear that it was unsuccessful.\n\ni.e. test_run_script_error",
+      "range": {
+        "startLine": 136,
+        "startChar": 8,
+        "endLine": 136,
+        "endChar": 42
+      },
+      "revId": "f0e06ba33344b56121deb9961b3c952969de5bd9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_127c1020",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7221
+      },
+      "writtenOn": "2018-07-31T10:11:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_6c63f5b1",
       "range": {
         "startLine": 136,
         "startChar": 8,
