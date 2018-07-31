@@ -40,6 +40,8 @@ IP_VERSION_6_MASK = 64
 TRAFFIC_STATUS_STARTED = 'started'
 TRAFFIC_STATUS_STOPPED = 'stopped'
 
+SUPPORTED_PROTO = [PROTO_UDP]
+
 
 # NOTE(ralonsoh): this pragma will be removed in the last patch of this series
 class IxNextgen(object):  # pragma: no cover
@@ -439,6 +441,65 @@ class IxNextgen(object):  # pragma: no cover
             self._update_ipv4_address(
                 self._get_stack_item(fg_id, PROTO_IPV4)[0],
                 'dstIp', dstip, 1, dstmask, count)
+
+    def update_l4(self, traffic):
+        """Update the L4 headers
+
+        NOTE: Only UDP is currently supported
+        :param traffic: list of traffic elements; each traffic element contains
+                        the injection parameter for each flow group
+        """
+        for traffic_param in traffic.values():
+            fg_id = str(traffic_param['id'])
+            if not self._get_config_element_by_flow_group_name(fg_id):
+                raise exceptions.IxNetworkFlowNotPresent(flow_group=fg_id)
+
+            proto = traffic_param['outer_l3']['proto']
+            if proto not in SUPPORTED_PROTO:
+                raise exceptions.IXIAUnsupportedProtocol(protocol=proto)
+
+            count = traffic_param['outer_l4']['count']
+            seed = traffic_param['outer_l4']['seed']
+
+            srcport = traffic_param['outer_l4']['srcport']
+            srcmask = traffic_param['outer_l4']['srcportmask']
+
+            dstport = traffic_param['outer_l4']['dstport']
+            dstmask = traffic_param['outer_l4']['dstportmask']
+
+            if proto == PROTO_UDP:
+                self._update_udp_port(self._get_stack_item(fg_id, PROTO_UDP)[0],
+                                      'srcPort', srcport, seed, srcmask, count)
+
+                self._update_udp_port(self._get_stack_item(fg_id, PROTO_UDP)[0],
+                                      'dstPort', dstport, seed, dstmask, count)
+
+    def _update_udp_port(self, descriptor, field, value,
+                         seed=1, mask=0, count=1):
+        """Set the UDP port in a config element stack UDP field
+
+        :param udp_descriptor: (str) UDP descriptor, e.g.:
+            /traffic/trafficItem:1/configElement:1/stack:"udp-3"
+        :param field: (str) field name, e.g.: scrPort, dstPort
+        :param value: (int) UDP port fixed bits
+        :param seed: (int) seed length
+        :param mask: (int) UDP port mask
+        :param count: (int) number of random ports to generate
+        """
+        field_descriptor = self._get_field_in_stack_item(descriptor, field)
+
+        if mask == 0:
+            seed = count = 1
+
+        self.ixnet.setMultiAttribute(field_descriptor,
+                                     '-auto', 'false',
+                                     '-seed', seed,
+                                     '-fixedBits', value,
+                                     '-randomMask', mask,
+                                     '-valueType', 'random',
+                                     '-countValue', count)
+
+        self.ixnet.commit()
 
     def _build_stats_map(self, view_obj, name_map):
         return {data_yardstick: self.ixnet.execute(

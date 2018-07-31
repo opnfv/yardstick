@@ -35,6 +35,7 @@ TRAFFIC_PARAMETERS = {
         },
         'outer_l3': {
             'count': 512,
+            'seed': 1,
             'dscp': 0,
             'proto': 'udp',
             'ttl': 32,
@@ -44,8 +45,12 @@ TRAFFIC_PARAMETERS = {
             'srcmask': 24
         },
         'outer_l4': {
-            'dstport': '2001',
-            'srcport': '1234'
+            'seed': 1,
+            'count': 1,
+            'dstport': 2001,
+            'srcport': 1234,
+            'srcportmask': 0,
+            'dstportmask': 0
         },
         'traffic_type': 'continuous'
     },
@@ -60,6 +65,7 @@ TRAFFIC_PARAMETERS = {
         },
         'outer_l3': {
             'count': 1024,
+            'seed': 1,
             'dscp': 0,
             'proto': 'udp',
             'ttl': 32,
@@ -69,8 +75,12 @@ TRAFFIC_PARAMETERS = {
             'srcmask': 64
         },
         'outer_l4': {
-            'dstport': '1234',
-            'srcport': '2001'
+            'seed': 1,
+            'count': 1,
+            'dstport': 1234,
+            'srcport': 2001,
+            'srcportmask': 0,
+            'dstportmask': 0
         },
         'traffic_type': 'continuous'
     }
@@ -357,6 +367,21 @@ class TestIxNextgen(unittest.TestCase):
             '-randomMask', '0.0.0.63', '-valueType', 'random',
             '-countValue', 25)
 
+    def test__update_udp_port(self):
+        with mock.patch.object(self.ixnet_gen, '_get_field_in_stack_item',
+                               return_value='field_desc'):
+            self.ixnet_gen._update_udp_port(mock.ANY, mock.ANY, 1234,
+                                            2, 0, 2)
+
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_called_once_with(
+            'field_desc',
+            '-auto', 'false',
+            '-seed', 1,
+            '-fixedBits', 1234,
+            '-randomMask', 0,
+            '-valueType', 'random',
+            '-countValue', 1)
+
     def test_update_ip_packet(self):
         with mock.patch.object(self.ixnet_gen, '_update_ipv4_address') as \
                 mock_update_add, \
@@ -373,6 +398,38 @@ class TestIxNextgen(unittest.TestCase):
                                return_value=None):
             with self.assertRaises(exceptions.IxNetworkFlowNotPresent):
                 self.ixnet_gen.update_ip_packet(TRAFFIC_PARAMETERS)
+
+    def test_update_l4(self):
+        with mock.patch.object(self.ixnet_gen, '_update_udp_port') as \
+                mock_update_udp, \
+                mock.patch.object(self.ixnet_gen, '_get_stack_item'), \
+                mock.patch.object(self.ixnet_gen,
+                '_get_config_element_by_flow_group_name', return_value='celm'):
+            self.ixnet_gen.update_l4(TRAFFIC_PARAMETERS)
+
+        self.assertEqual(4, len(mock_update_udp.mock_calls))
+
+    def test_update_l4_exception_no_config_element(self):
+        with mock.patch.object(self.ixnet_gen,
+                               '_get_config_element_by_flow_group_name',
+                               return_value=None):
+            with self.assertRaises(exceptions.IxNetworkFlowNotPresent):
+                self.ixnet_gen.update_l4(TRAFFIC_PARAMETERS)
+
+    def test_update_l4_exception_no_supported_proto(self):
+        traffic_parameters = {
+            UPLINK: {
+                'id': 1,
+                'outer_l3': {
+                    'proto': 'unsupported',
+                },
+            },
+        }
+        with mock.patch.object(self.ixnet_gen,
+                               '_get_config_element_by_flow_group_name',
+                               return_value='celm'):
+            with self.assertRaises(exceptions.IXIAUnsupportedProtocol):
+                self.ixnet_gen.update_l4(traffic_parameters)
 
     @mock.patch.object(ixnet_api.IxNextgen, '_get_traffic_state')
     def test_start_traffic(self, mock_ixnextgen_get_traffic_state):

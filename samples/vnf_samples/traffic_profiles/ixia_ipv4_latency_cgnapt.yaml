@@ -56,6 +56,7 @@ uplink_0:
             srcport: "{{get(flow, 'flow.src_port_0', '1234') }}"
             dstport: "{{get(flow, 'flow.dst_port_0', '2001') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
+            seed: 1
 downlink_0:
       ipv4:
         id: 2
@@ -82,6 +83,7 @@ downlink_0:
             srcport: "{{get(flow, 'flow.src_port_0', '1234') }}"
             dstport: "{{get(flow, 'flow.dst_port_0', '2001') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
+            seed: 1
 uplink_1:
       ipv4:
         id: 3
@@ -108,6 +110,7 @@ uplink_1:
             srcport: "{{get(flow, 'flow.src_port_1', '1234') }}"
             dstport: "{{get(flow, 'flow.dst_port_1', '2001') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
+            seed: 1
 downlink_1:
       ipv4:
         id: 4
@@ -134,3 +137,4 @@ downlink_1:
             srcport: "{{get(flow, 'flow.dst_port_1', '1234') }}"
             dstport: "{{get(flow, 'flow.src_port_1', '2001') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
+            seed: 1

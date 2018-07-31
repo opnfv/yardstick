@@ -42,6 +42,13 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         mask = utils.get_mask_from_ip_range(_ip_range[0], _ip_range[1])
         return _ip_range[0], mask
 
+    def _get_fixed_and_mask(self, port_range):
+        _port_range = str(port_range).split('-')
+        if len(_port_range) == 1:
+            return int(_port_range[0]), 0
+
+        return int(_port_range[0]), int(_port_range[1])
+
     def _get_ixia_traffic_profile(self, profile_data, mac=None):
         mac = {} if mac is None else mac
         result = {}
@@ -70,6 +77,9 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
                 srcip, srcmask = self._get_ip_and_mask(ip[src_key])
                 dstip, dstmask = self._get_ip_and_mask(ip[dst_key])
 
+                outer_l4 = value.get('outer_l4')
+                src_port, src_port_mask = self._get_fixed_and_mask(outer_l4['srcport'])
+                dst_port, dst_port_mask = self._get_fixed_and_mask(outer_l4['dstport'])
                 result[traffickey] = {
                     'bidir': False,
                     'id': port_id,
@@ -92,7 +102,15 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
                         'type': key,
                         'proto': ip['proto'],
                     },
-                    'outer_l4': value['outer_l4'],
+                    'outer_l4': {
+                        'srcport': src_port,
+                        'dstport': dst_port,
+                        'srcportmask': src_port_mask,
+                        'dstportmask': dst_port_mask,
+                        'count': outer_l4['count'],
+                        'seed': outer_l4['seed'],
+                    }
+
                 }
             except KeyError:
                 continue
@@ -102,6 +120,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
     def _ixia_traffic_generate(self, traffic, ixia_obj):
         ixia_obj.update_frame(traffic, self.config.duration)
         ixia_obj.update_ip_packet(traffic)
+        ixia_obj.update_l4(traffic)
         ixia_obj.start_traffic()
 
     def update_traffic_profile(self, traffic_generator):
