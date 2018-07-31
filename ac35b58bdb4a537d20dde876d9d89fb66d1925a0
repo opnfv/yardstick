@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_dd6e2996",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-07-31T19:06:02Z",
+      "side": 1,
+      "message": "TBH, I have no idea why the original author included this reference.  I will remove it.",
+      "parentUuid": "9a561d44_65baede2",
+      "range": {
+        "startLine": 86,
+        "startChar": 16,
+        "endLine": 86,
+        "endChar": 34
+      },
+      "revId": "ac35b58bdb4a537d20dde876d9d89fb66d1925a0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a5b405f3",
         "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
         "patchSetId": 8
@@ -105,6 +129,30 @@
       "writtenOn": "2018-07-27T18:05:55Z",
       "side": 1,
       "message": "For future reference, if you integrate with Yardstick contexts, step 1 and step 4 will note be what the context will take care of. :)",
+      "range": {
+        "startLine": 178,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 73
+      },
+      "revId": "ac35b58bdb4a537d20dde876d9d89fb66d1925a0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3d6c859c",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-07-31T19:06:02Z",
+      "side": 1,
+      "message": "Sure, but that would be for another patch, another day.",
+      "parentUuid": "9a561d44_a5b405f3",
       "range": {
         "startLine": 178,
         "startChar": 0,
@@ -367,6 +415,23 @@
         "endLine": 123,
         "endChar": 78
       },
+      "revId": "ac35b58bdb4a537d20dde876d9d89fb66d1925a0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_5d0a19d3",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-07-31T19:06:02Z",
+      "side": 1,
+      "message": "I honestly don\u0027t know how this would ever have worked.  It is not even the correct method signature.  Fixing it.",
       "revId": "ac35b58bdb4a537d20dde876d9d89fb66d1925a0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
