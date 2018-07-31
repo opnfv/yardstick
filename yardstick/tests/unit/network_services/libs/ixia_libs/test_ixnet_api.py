@@ -35,6 +35,7 @@ TRAFFIC_PARAMETERS = {
         },
         'outer_l3': {
             'count': 512,
+            'seed': 1,
             'dscp': 0,
             'proto': 'udp',
             'ttl': 32,
@@ -44,6 +45,8 @@ TRAFFIC_PARAMETERS = {
             'srcmask': 24
         },
         'outer_l4': {
+            'seed': 1,
+            'count': 1,
             'dstport': '2001',
             'srcport': '1234'
         },
@@ -60,6 +63,7 @@ TRAFFIC_PARAMETERS = {
         },
         'outer_l3': {
             'count': 1024,
+            'seed': 1,
             'dscp': 0,
             'proto': 'udp',
             'ttl': 32,
@@ -69,6 +73,8 @@ TRAFFIC_PARAMETERS = {
             'srcmask': 64
         },
         'outer_l4': {
+            'seed': 1,
+            'count': 1,
             'dstport': '1234',
             'srcport': '2001'
         },

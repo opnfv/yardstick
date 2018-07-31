@@ -72,6 +72,7 @@ uplink_0:
             srcip4: "{{get(flow, 'flow.src_ip_0', '192.168.0.0-192.168.255.255') }}"
             dstip4: "{{get(flow, 'flow.dst_ip_0', '192.16.0.0-192.16.0.31') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
+            seed: 1
             ttl: 32
             dscp: 32
 
@@ -79,6 +80,7 @@ uplink_0:
             srcport: "{{get(flow, 'flow.src_port_0', '0') }}"
             dstport: "{{get(flow, 'flow.dst_port_0', '0') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
+            seed: 1
 downlink_0:
       id: 2
       ipv4:
@@ -97,6 +99,7 @@ downlink_0:
             srcip4: "{{get(flow, 'flow.dst_ip_0', '192.16.0.0-192.16.0.31') }}"
             dstip4: "{{get(flow, 'flow.src_ip_0', '192.168.0.0-192.168.255.255') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
+            seed: 1
             ttl: 32
             dscp: 32
 
@@ -104,6 +107,7 @@ downlink_0:
             srcport: "{{get(flow, 'flow.dst_port_0', '0') }}"
             dstport: "{{get(flow, 'flow.src_port_0', '0') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
+            seed: 1
 uplink_1:
       id: 3
       ipv4:
@@ -131,6 +135,8 @@ uplink_1:
             proto: "tcp"
             srcip4: "{{get(flow, 'flow.srcip_1', '192.168.0.0-192.168.255.255') }}"
             dstip4: "{{get(flow, 'flow.dstip_1', '192.16.0.0-192.16.0.31') }}"
+            count: "{{get(flow, 'flow.count', '1') }}"
+            seed: 1
             ttl: 32
             dscp: 32
 
@@ -138,6 +144,7 @@ uplink_1:
             srcport: "{{get(flow, 'flow.src_port_1', '0') }}"
             dstport: "{{get(flow, 'flow.dst_port_1', '0') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
+            seed: 1
 downlink_1:
       id: 4
       ipv4:
@@ -156,6 +163,7 @@ downlink_1:
             srcip4: "{{get(flow, 'flow.dst_ip_1', '192.16.0.0-192.16.0.31') }}"
             dstip4: "{{get(flow, 'flow.src_ip_1', '192.168.0.0-192.168.255.255') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
+            seed: 1
             ttl: 32
             dscp: 32
 
@@ -163,3 +171,4 @@ downlink_1:
             srcport: "{{get(flow, 'flow.dst_port_1', '0') }}"
             dstport: "{{get(flow, 'flow.src_port_1', '0') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
+            seed: 1
