@@ -282,8 +282,12 @@ def get_free_port(ip):
 
 
 def mac_address_to_hex_list(mac):
-    octets = ["0x{:02x}".format(int(elem, 16)) for elem in mac.split(':')]
-    assert len(octets) == 6 and all(len(octet) == 4 for octet in octets)
+    try:
+        octets = ["0x{:02x}".format(int(elem, 16)) for elem in mac.split(':')]
+    except ValueError:
+        raise exceptions.InvalidMacAddress(mac_address=mac)
+    if len(octets) != 6 or all(len(octet) != 4 for octet in octets):
+        raise exceptions.InvalidMacAddress(mac_address=mac)
     return octets
 
 
