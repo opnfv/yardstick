@@ -19,6 +19,70 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_bdca559f",
+        "filename": "etc/yardstick/nodes/standalone/pod_landslide.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-31T18:01:52Z",
+      "side": 1,
+      "message": "There should be a comment here reminding the user to fill something in and/or making it obvious that this is not a variable name.\n\nUsually, when a placeholder is supplied for a user-required change, angular brackets are used to make it obvious not only that user config is required, but what kind of value you\u0027re looking at, and also where is is used to help them find the right value e.g.::\n\n    super_user: \u003cYOUR_SUPER_USER_NAME\u003e\n    super_user_password: \u003cYOUR_SUPERUSER_PASSWORD\u003e\n    cfguser_password: \u003cWHERE_IS_THIS_USED??\u003e\n    test_user: \u003cYOUR_SPIRENT_USER??\u003e\n    etc",
+      "parentUuid": "9a561d44_4fbee300",
+      "revId": "be662bf7ca1fc1b32b23a4be2446d813abbf637c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_9dcf91b0",
+        "filename": "etc/yardstick/nodes/standalone/pod_landslide.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-31T18:01:52Z",
+      "side": 1,
+      "message": "Is the cfguser name hardcoded? Or is there an assumption that it is the same username as one of the other users?",
+      "range": {
+        "startLine": 24,
+        "startChar": 8,
+        "endLine": 24,
+        "endChar": 42
+      },
+      "revId": "be662bf7ca1fc1b32b23a4be2446d813abbf637c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_fdc32d88",
+        "filename": "etc/yardstick/nodes/standalone/pod_landslide.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-31T18:01:52Z",
+      "side": 1,
+      "message": "I\u0027d put this on L22, and move the rest down, as this is in the middle of the section that the user will be updating their config.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "be662bf7ca1fc1b32b23a4be2446d813abbf637c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_0fc4eb90",
         "filename": "samples/vnf_samples/nsut/vepc/tc_epc_default_bearer_create_landslide.yaml",
         "patchSetId": 1
@@ -35,6 +99,93 @@
         "startChar": 10,
         "endLine": 47,
         "endChar": 16
+      },
+      "revId": "be662bf7ca1fc1b32b23a4be2446d813abbf637c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ddc0e97e",
+        "filename": "samples/vnf_samples/nsut/vepc/tc_epc_default_bearer_create_landslide.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-31T18:01:52Z",
+      "side": 1,
+      "message": "So, has this been tested?\nShouldn\u0027t the broken runner have been noticed?",
+      "parentUuid": "9a561d44_0fc4eb90",
+      "range": {
+        "startLine": 47,
+        "startChar": 10,
+        "endLine": 47,
+        "endChar": 16
+      },
+      "revId": "be662bf7ca1fc1b32b23a4be2446d813abbf637c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3dbe4500",
+        "filename": "samples/vnf_samples/traffic_profiles/landslide/landslide_session_default_bearer.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-31T18:01:52Z",
+      "side": 1,
+      "message": "Same as in the other file, placeholders need to be obvious, and difficult to mistake for a variable or string value when giving the file a quick glance",
+      "range": {
+        "startLine": 43,
+        "startChar": 12,
+        "endLine": 43,
+        "endChar": 26
+      },
+      "revId": "be662bf7ca1fc1b32b23a4be2446d813abbf637c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7d371db1",
+        "filename": "samples/vnf_samples/traffic_profiles/landslide/landslide_session_default_bearer_multi_dmf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-31T18:01:52Z",
+      "side": 1,
+      "message": "IS this a traffic profile, or a configuration file that gets passed to landslide?\n\nIf it\u0027s a traffic profile, doesn\u0027t it need a schema declaration?\n\nPlease add a short comment describing what is in this file and where/when it should be used.",
+      "revId": "be662bf7ca1fc1b32b23a4be2446d813abbf637c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_1dbb810f",
+        "filename": "samples/vnf_samples/traffic_profiles/landslide/landslide_session_default_bearer_multi_dmf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-07-31T18:01:52Z",
+      "side": 1,
+      "message": "This is not a testcase",
+      "range": {
+        "startLine": 16,
+        "startChar": 13,
+        "endLine": 16,
+        "endChar": 51
       },
       "revId": "be662bf7ca1fc1b32b23a4be2446d813abbf637c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
