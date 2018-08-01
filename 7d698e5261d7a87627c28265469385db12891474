@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_f8c97b5b",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 7369
+      },
+      "writtenOn": "2018-08-01T14:22:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_dd92a99e",
+      "range": {
+        "startLine": 433,
+        "startChar": 11,
+        "endLine": 433,
+        "endChar": 52
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_3d900595",
         "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-07-31T16:50:59Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 439,
+        "startChar": 32,
+        "endLine": 439,
+        "endChar": 36
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d8c63749",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 7369
+      },
+      "writtenOn": "2018-08-01T14:22:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_3d900595",
       "range": {
         "startLine": 439,
         "startChar": 32,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_38c4933f",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 7369
+      },
+      "writtenOn": "2018-08-01T14:22:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_ddd90985",
+      "range": {
+        "startLine": 444,
+        "startChar": 8,
+        "endLine": 444,
+        "endChar": 17
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_7de9dd19",
         "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2018-07-31T16:50:59Z",
       "side": 1,
       "message": "Why do you need parenthesis?",
+      "range": {
+        "startLine": 459,
+        "startChar": 22,
+        "endLine": 459,
+        "endChar": 23
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_18c1cf2e",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 7369
+      },
+      "writtenOn": "2018-08-01T14:22:06Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "9a561d44_7de9dd19",
       "range": {
         "startLine": 459,
         "startChar": 22,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_78dd6b14",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 7369
+      },
+      "writtenOn": "2018-08-01T14:22:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_5dee9923",
+      "range": {
+        "startLine": 465,
+        "startChar": 12,
+        "endLine": 465,
+        "endChar": 54
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_3de76542",
         "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2018-07-31T16:50:59Z",
       "side": 1,
       "message": "We don\u0027t have UTs for this!",
+      "range": {
+        "startLine": 477,
+        "startChar": 8,
+        "endLine": 477,
+        "endChar": 24
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_58e227d6",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 7369
+      },
+      "writtenOn": "2018-08-01T14:22:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_3de76542",
       "range": {
         "startLine": 477,
         "startChar": 8,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_b8e703e4",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 7369
+      },
+      "writtenOn": "2018-08-01T14:22:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_bdf37509",
+      "range": {
+        "startLine": 500,
+        "startChar": 8,
+        "endLine": 504,
+        "endChar": 63
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_fddccd76",
         "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
         "patchSetId": 1
@@ -174,6 +342,30 @@
       "writtenOn": "2018-07-31T16:50:59Z",
       "side": 1,
       "message": "We need testing!",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 27
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_98ecbfc9",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7369
+      },
+      "writtenOn": "2018-08-01T14:22:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_fddccd76",
       "range": {
         "startLine": 45,
         "startChar": 8,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_f8d05bf9",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7369
+      },
+      "writtenOn": "2018-08-01T14:22:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_9df831e7",
+      "range": {
+        "startLine": 46,
+        "startChar": 22,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_1d8d417c",
         "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
         "patchSetId": 1
@@ -220,6 +436,30 @@
       "writtenOn": "2018-07-31T16:50:59Z",
       "side": 1,
       "message": "This is not related to https://jira.opnfv.org/browse/YARDSTICK-1363.\n\nThis should be another bug",
+      "range": {
+        "startLine": 98,
+        "startChar": 24,
+        "endLine": 98,
+        "endChar": 43
+      },
+      "revId": "7d698e5261d7a87627c28265469385db12891474",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d8cd975f",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7369
+      },
+      "writtenOn": "2018-08-01T14:22:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_1d8d417c",
       "range": {
         "startLine": 98,
         "startChar": 24,
