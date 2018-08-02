@@ -287,6 +287,10 @@ def mac_address_to_hex_list(mac):
     return octets
 
 
+def make_ipv4_address(ip_addr):
+    return ipaddress.IPv4Address(six.text_type(ip_addr))
+
+
 def safe_ip_address(ip_addr):
     """ get ip address version v6 or v4 """
     try:

@@ -1123,6 +1123,19 @@ class TestUtilsIpAddrMethods(ut_base.BaseUnitTestCase):
         u'123:4567:89ab:cdef:123:4567:89ab:cdef/129',
     ]
 
+    def test_make_ipv4_address(self):
+        for addr in self.GOOD_IP_V4_ADDRESS_STR_LIST:
+            # test with no mask
+            expected = ipaddress.IPv4Address(addr)
+            self.assertEqual(utils.make_ipv4_address(addr), expected, addr)
+
+    def test_make_ipv4_address_error(self):
+        addr_list = self.INVALID_IP_ADDRESS_STR_LIST +\
+                    self.GOOD_IP_V6_ADDRESS_STR_LIST
+        for addr in addr_list:
+            self.assertRaises(Exception, utils.make_ipv4_address, addr)
+
+
     def test_safe_ip_address(self):
         addr_list = self.GOOD_IP_V4_ADDRESS_STR_LIST
         for addr in addr_list:
