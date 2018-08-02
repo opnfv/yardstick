@@ -617,3 +617,26 @@ class TestAutoConnectSSH(unittest.TestCase):
 
         auto_connect_ssh.put_file('a', 'b')
         mock_put_sftp.assert_called_once()
+
+    def test_execute(self):
+        auto_connect_ssh = AutoConnectSSH('user1', 'host1')
+        auto_connect_ssh._client = mock.Mock()
+        auto_connect_ssh.run = mock.Mock(return_value=0)
+        exit_code, _, _ = auto_connect_ssh.execute('')
+        self.assertEqual(exit_code, 0)
+
+    def _mock_run(self, *args, **kwargs):
+        if args[0] == 'ls':
+            if 'raise_on_error' in kwargs and kwargs['raise_on_error']:
+                raise exceptions.SSHError(error_msg='Command error')
+            return 1
+        return 0
+
+    def test_execute_command_error(self):
+        auto_connect_ssh = AutoConnectSSH('user1', 'host1')
+        auto_connect_ssh._client = mock.Mock()
+        auto_connect_ssh.run = mock.Mock(side_effect=self._mock_run)
+        self.assertRaises(exceptions.SSHError, auto_connect_ssh.execute, 'ls',
+                          raise_on_error=True)
+        exit_code, _, _ = auto_connect_ssh.execute('ls')
+        self.assertNotEqual(exit_code, 0)
