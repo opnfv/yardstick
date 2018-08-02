@@ -1,0 +1,11 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: valentin boucher <valentin.boucher@kontron.com>
+Code-Review+1: Cristina Pauna <cristina.pauna@enea.com>
+Code-Review+1: Alexandru Avadanii <Alexandru.Avadanii@enea.com>
+Code-Review+2: Emma Foley <emma.l.foley@intel.com>
+Code-Review+1: Guillermo Herrero <guillermo.herrero@enea.com>
+Submitted-by: Abhijit Sinha <abhijit.sinha@intel.com>
+Submitted-at: Thu, 02 Aug 2018 12:39:25 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/60483
+Project: yardstick
+Branch: refs/heads/master
