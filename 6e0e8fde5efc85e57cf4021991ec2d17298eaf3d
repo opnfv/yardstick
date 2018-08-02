@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_2390e8eb",
+        "filename": "yardstick/common/utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-08-02T12:40:05Z",
+      "side": 1,
+      "message": "This function does the same things as `safe_ip_address(ip_addr)` does or similar to `make_ip_addr(ip, mask)` function in common/utils.py. Why do we need third such function here?",
+      "revId": "6e0e8fde5efc85e57cf4021991ec2d17298eaf3d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
