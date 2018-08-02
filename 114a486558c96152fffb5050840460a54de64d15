@@ -22,6 +22,30 @@
       "revId": "114a486558c96152fffb5050840460a54de64d15",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_39e2e2d5",
+        "filename": "docs/testing/user/userguide/index.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-02T12:14:16Z",
+      "side": 1,
+      "message": "For now, I think we can leave it like this. There might be some more chapters added or removed later, and we\u0027d have to rename all these files again.",
+      "parentUuid": "9a561d44_39d5c243",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "114a486558c96152fffb5050840460a54de64d15",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
