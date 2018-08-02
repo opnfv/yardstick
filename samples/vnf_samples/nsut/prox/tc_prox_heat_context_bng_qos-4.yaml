@@ -36,7 +36,7 @@ scenarios:
         "-t": ""
       prox_files:
         "configs/gre_table.lua" : ""
-        "configs/ipv4.lua" : ""
+        "configs/ipv4_bng.lua" : ""
         "configs/dscp.lua" : ""
       prox_generate_parameter: True
 
