@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_03ce8483",
+        "filename": "yardstick/tests/unit/test_ssh.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-02T09:44:12Z",
+      "side": 1,
+      "message": "kwargs.get(\u0027raise_on_error\u0027) should give you same behaviour, right?\n\nIf it\u0027s unset, kwargs.get returns None, which is okay, since we only care if it\u0027s set AND true.",
+      "range": {
+        "startLine": 630,
+        "startChar": 15,
+        "endLine": 630,
+        "endChar": 70
+      },
+      "revId": "d0ba991ccd7f2d772e15cd9de6bd417e91e5858e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
