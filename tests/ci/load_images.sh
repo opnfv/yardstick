@@ -29,11 +29,6 @@ if [ "${INSTALLER_TYPE}" == 'fuel' ]; then
 fi
 export YARD_IMG_ARCH
 
-HW_FW_TYPE=""
-if [ "${YARD_IMG_ARCH}" == "arm64" ]; then
-    HW_FW_TYPE=uefi
-fi
-export HW_FW_TYPE
 
 UCA_HOST="cloud-images.ubuntu.com"
 if [ "${YARD_IMG_ARCH}" == "arm64" ]; then
@@ -104,18 +99,12 @@ load_yardstick_image()
     echo
     echo "========== Loading yardstick cloud image =========="
     EXTRA_PARAMS=""
-    if [[ "${YARD_IMG_ARCH}" == "arm64" ]]; then
-        EXTRA_PARAMS="--property hw_video_model=vga"
-    fi
 
     # VPP requires guest memory to be backed by large pages
     if [[ "$DEPLOY_SCENARIO" == *"-fdio-"* ]]; then
         EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
     fi
 
-    if [[ -n "${HW_FW_TYPE}" ]]; then
-        EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_firmware_type=${HW_FW_TYPE}"
-    fi
 
     if [[ "$DEPLOY_SCENARIO" == *"-lxd-"* ]]; then
         output=$(eval openstack ${SECURE} image create \
@@ -165,7 +154,7 @@ load_cirros_image()
     if [[ "${YARD_IMG_ARCH}" == "arm64" ]]; then
         CIRROS_IMAGE_VERSION="cirros-d161201"
         CIRROS_IMAGE_PATH="/home/opnfv/images/cirros-d161201-aarch64-disk.img"
-        EXTRA_PARAMS="--property hw_video_model=vga --property short_id=ubuntu16.04"
+        EXTRA_PARAMS="--property short_id=ubuntu16.04"
     else
         CIRROS_IMAGE_VERSION="cirros-0.3.5"
         CIRROS_IMAGE_PATH="/home/opnfv/images/cirros-0.3.5-x86_64-disk.img"
@@ -184,9 +173,6 @@ load_cirros_image()
             EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_mem_page_size=large"
         fi
 
-        if [[ -n "${HW_FW_TYPE}" ]]; then
-            EXTRA_PARAMS=$EXTRA_PARAMS" --property hw_firmware_type=${HW_FW_TYPE}"
-        fi
 
         output=$(openstack ${SECURE} image create \
             --disk-format qcow2 \
