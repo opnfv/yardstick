@@ -449,6 +449,10 @@ Verify your patch::
 
 It is used in CI but also by the CLI.
 
+For more details on ``tox`` and tests, please refer to the `Running tests`_
+and `working with tox`_ sections below, which describe the different available
+environments.
+
 Submit the code with Git
 ++++++++++++++++++++++++
 
@@ -566,6 +570,91 @@ The process for backporting is as follows:
 A backported change needs a ``+1`` and a ``+2`` from a committer who didn’t
 propose the change (i.e. minimum 3 people involved).
 
+Development guidelines
+----------------------
+This section provides guidelines and best practices for feature development
+and bug fixing in Yardstick.
+
+In general, bug fixes should be submitted as a single patch.
+
+When developing larger features, all commits on the local topic branch can be
+submitted together, by running ``git review`` on the tip of the branch. This
+creates a chain of related patches in gerrit.
+
+Each commit should contain one logical change and the author should aim for no
+more than 300 lines of code per commit. This helps to make the changes easier
+to review.
+
+Each feature should have the following:
+
+* Feature/bug fix code
+* Unit tests (both positive and negative)
+* Functional tests (optional)
+* Sample testcases (if applicable)
+* Documentation
+* Update to release notes
+
+Coding style
+~~~~~~~~~~~~
+.. _`OpenStack Style Guidelines`: https://docs.openstack.org/hacking/latest/user/hacking.html
+.. _`OPNFV coding guidelines`: https://wiki.opnfv.org/display/DEV/Contribution+Guidelines
+
+Please follow the `OpenStack Style Guidelines`_ for code contributions (the
+section on Internationalization (i18n) Strings is not applicable).
+
+When writing commit message, the `OPNFV coding guidelines`_ on git commit
+message style should also be used.
+
+Running tests
+~~~~~~~~~~~~~
+Once your patch has been submitted, a number of tests will be run by Jenkins
+CI to verify the patch. Before submitting your patch, you should run these
+tests locally. You can do this using ``tox``, which has a number of different
+test environments defined in ``tox.ini``.
+Calling ``tox`` without any additional arguments runs the default set of
+tests (unit tests, functional tests, coverage and pylint).
+
+If some tests are failing, you can save time and select test environments
+individually, by passing one or more of the following command-line options to
+``tox``:
+
+* ``-e py27``: Unit tests using Python 2.7
+* ``-e py3``: Unit tests using Python 3
+* ``-e pep8``: Linter and style checks on updated files
+* ``-e functional``: Functional tests using Python 2.7
+* ``-e functional-py3``: Functional tests using Python 3
+* ``-e coverage``: Code coverage checks
+
+.. note:: You need to stage your changes prior to running coverage for those
+   changes to be checked.
+
+In addition to the tests run by Jenkins (listed above), there are a number of
+other test environments defined.
+
+* ``-e pep8-full``: Linter and style checks are run on the whole repo (not
+  just on updated files)
+* ``-e os-requirements``: Check that the requirements are compatible with
+  OpenStack requirements.
+
+Working with tox
+++++++++++++++++
+.. _virtualenv: https://virtualenv.pypa.io/en/stable/
+
+``tox`` uses `virtualenv`_ to create isolated Python environments to run the
+tests in. The test environments are located at
+``.tox/<environment_name>`` e.g. ``.tox/py27``.
+
+If requirements are changed, you will need to recreate the tox test
+environment to make sure the new requirements are installed. This is done by
+passing the additional ``-r`` command-line option to ``tox``::
+
+    tox -r -e ...
+
+This can also be achieved by deleting the test environments manually before
+running ``tox``::
+
+   rm -rf .tox/<environment_name>
+   rm -rf .tox/py27
 
 Plugins
 -------
