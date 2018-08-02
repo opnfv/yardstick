@@ -567,6 +567,62 @@ A backported change needs a ``+1`` and a ``+2`` from a committer who didn’t
 propose the change (i.e. minimum 3 people involved).
 
 
+Development guidelines
+----------------------
+This section provides guidelines and best practices for feature development
+and bug fixing in Yardstick.
+
+In general, bug fixes will be submitted as a single patch, however larger bug
+fixes and features should be split into different commits, with a single
+logical change per commit. These changes should be submited together, as a
+chain of patches, so that a reviewer can check out a single branch to check
+the functionality of your code.
+
+Each feature should have the following:
+
+* Feature/bug fix code
+* Unit tests (both positive and negative)
+* Functional tests (optional)
+* Sample testcases (if applicable)
+* Documentation
+
+Coding style
+~~~~~~~~~~~~
+.. _`OpenStack Style Guidelines`: https://docs.openstack.org/hacking/latest/user/hacking.html
+.. _`commit guidelines`: https://wiki.openstack.org/wiki/GitCommitMessages
+
+Please follow the `OpenStack Style Guidelines`_ for code contributions.
+
+There is also a handy set of `commit guidelines`_ which provides a good
+reference of how to structure your changes.
+
+Running tests
+~~~~~~~~~~~~~
+Once your patch has been submitted, a number of tests will be run to verify
+the patch. Before submitting your patch, you should run these tests locally.
+You can do this using ``tox``, which has a number of different
+targets defined for testing.
+Calling ``tox`` without any additional arguments run the default set of tests
+(unit tests, functional tests, coverage and pylint).
+
+You can choose to run these sets of tests individually by specifying which
+environment to use using the following arguments to ``tox``:
+
+* ``-epy27``: Unittests using Python 2.7
+* ``-epy3``: Unittests using Python3
+* ``-epep8``: Linter and style checks on changed files
+* ``-efunctional``: Functional tests using Python 2.7
+* ``-efunctional-py3``: Functional tests using Python3
+* ``-ecoverage``: Code coverage checks
+
+In addition to the tests run by the gate, there are a number of other
+environments defined.
+
+* ``pep8-full``: Linter and code checks for ALL files
+* ``os-requirements``: Check that the requirements are compatible with
+  OpenStack requirements.
+
+
 Plugins
 -------
 
