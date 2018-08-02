@@ -566,6 +566,85 @@ The process for backporting is as follows:
 A backported change needs a ``+1`` and a ``+2`` from a committer who didn’t
 propose the change (i.e. minimum 3 people involved).
 
+Development guidelines
+----------------------
+This section provides guidelines and best practices for feature development
+and bug fixing in Yardstick.
+
+In general, bug fixes should be submitted as a single patch, however larger bug
+fixes and features should be split into different commits, with a single
+logical change per commit. All of these changes should be submitted together,
+as a chain of patches, so that a reviewer can check out a single branch to
+check the functionality of your code.
+
+Each feature should have the following:
+
+* Feature/bug fix code
+* Unit tests (both positive and negative)
+* Functional tests (optional)
+* Sample testcases (if applicable)
+* Documentation
+
+Coding style
+~~~~~~~~~~~~
+.. _`OpenStack Style Guidelines`: https://docs.openstack.org/hacking/latest/user/hacking.html
+.. _`OPNFV guidelines`: https://wiki.opnfv.org/display/DEV/Contribution+Guidelines
+
+Please follow the `OpenStack Style Guidelines`_ for code contributions (the
+section on Internationalisation (i18n) Strings is not applicable).
+
+When writing commit message, the `OPNFV guidelines`_ on git commit message
+style should also be used.
+
+Running tests
+~~~~~~~~~~~~~
+Once your patch has been submitted, a number of tests will be run to verify
+the patch. Before submitting your patch, you should run these tests locally.
+You can do this using ``tox``, which has a number of different
+targets defined for testing.
+Calling ``tox`` without any additional arguments runs the default set of
+tests (unit tests, functional tests, coverage and pylint).
+
+If one set of tests is failing, you can save time and run any set of tests
+individually. You can do this by passing the following commands to ``tox``:
+
+* ``-e py27``: Unittests using Python 2.7
+* ``-e py3``: Unittests using Python3
+* ``-e pep8``: Linter and style checks on changed files
+* ``-e functional``: Functional tests using Python 2.7
+* ``-e functional-py3``: Functional tests using Python3
+* ``-e coverage``: Code coverage checks
+
+.. note:: You need to stage your changes prior to running coverage for the
+   updates to be included.
+
+In addition to the tests run by the gate (listed above), there are a number of
+other environments defined.
+
+* ``-e pep8-full``: Linter and style checks are run on the whole repo (not just
+   on updated files)
+* ``-e os-requirements``: Check that the requirements are compatible with
+  OpenStack requirements.
+
+Working with tox
+++++++++++++++++
+.. _virtualenv: https://virtualenv.pypa.io/en/stable/
+
+Tox uses `virtualenv`_ to create isolated Python environments to run the tests
+in. The virtual environments are located at
+``<yardstick_dir>/.tox/<environment_name>`` e.g. ``yardstick/.tox/py27``.
+
+If requirements are changed, you will need to recreate the tox environment
+to make sure the new requirements are installed. This is done by adding
+the ``-r`` flag to ``tox``::
+
+    tox -r -e ...
+
+This can also be achieved by deleting the virtual environments manually before
+running ``tox``::
+
+   rm -rf .tox/<environment_name>
+   rm -rf .tox/py27
 
 Plugins
 -------
