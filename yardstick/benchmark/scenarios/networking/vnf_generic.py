@@ -118,6 +118,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
                 flow["dst_port_{}".format(index)] = dst_port
 
             flow["count"] = fflow["count"]
+            flow["seed"] = fflow["seed"]
         except KeyError:
             flow = {}
         return {"flow": flow}

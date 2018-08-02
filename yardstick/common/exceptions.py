@@ -88,6 +88,10 @@ class YardstickBannedModuleImported(YardstickException):
     message = 'Module "%(module)s" cannnot be imported. Reason: "%(reason)s"'
 
 
+class IXIAUnsupportedProtocol(YardstickException):
+    message = 'Protocol "%(protocol)" is not supported in IXIA'
+
+
 class PayloadMissingAttributes(YardstickException):
     message = ('Error instantiating a Payload class, missing attributes: '
                '%(missing_attributes)s')
