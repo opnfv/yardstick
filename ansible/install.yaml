@@ -47,7 +47,7 @@
         state: restarted
       when: installation_mode != inst_mode_container
 
-    - shell: uwsgi -i /etc/yardstick/yardstick.ini
+    - shell: uwsgi -d -i /etc/yardstick/yardstick.ini
       when: installation_mode != inst_mode_container
 
 - name: Prepare baremetal and standalone server(s)
