@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_a3f878e6",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-02T07:16:19Z",
+      "side": 1,
+      "message": "if proto in SUPPORTED_PROTO",
+      "range": {
+        "startLine": 470,
+        "startChar": 21,
+        "endLine": 470,
+        "endChar": 33
+      },
+      "revId": "08a1f61967e42b5bb732f2476f266a918c51f982",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
