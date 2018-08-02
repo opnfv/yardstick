@@ -25,6 +25,8 @@ class _TestScenario(base.Scenario):
     __scenario_type__ = 'Test Scenario'
 
     def run(self):
+
+        Test test
         pass
 
 
