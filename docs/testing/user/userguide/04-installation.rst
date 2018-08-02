@@ -320,7 +320,7 @@ Download the source code and install Yardstick from it::
 If the host is ever restarted, nginx and uwsgi need to be restarted::
 
    service nginx restart
-   uwsgi -i /etc/yardstick/yardstick.ini
+   uwsgi -d -i /etc/yardstick/yardstick.ini
 
 Configure the Yardstick environment (**Todo**)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
