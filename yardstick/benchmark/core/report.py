@@ -122,10 +122,12 @@ class Report(object):
         else:
             raise KeyError("Task ID or Test case not found..")
 
-    @cliargs("task_id", type=str, help=" task id", nargs=1)
-    @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
-    def generate(self, args):
-        """Start report generation."""
+    def _generate_common(self, args):
+        """Actions that are common to both report formats.
+
+        Create the necessary data structure for rendering
+        the report templates.
+        """
         self._validate(args.yaml_name[0], args.task_id[0])
 
         self.db_fieldkeys = self._get_fieldkeys()
@@ -147,6 +149,7 @@ class Report(object):
                 task_time = encodeutils.to_utf8(task['time'])
                 if not isinstance(task_time, str):
                     task_time = str(task_time, 'utf8')
+                if not isinstance(key, str):
                     key = str(key, 'utf8')
                 task_time = task_time[11:]
                 head, _, tail = task_time.partition('.')
@@ -154,7 +157,7 @@ class Report(object):
                 self.Timestamp.append(task_time)
                 if task[key] is None:
                     values.append('')
-                elif isinstance(task[key], (int, float)) is True:
+                elif isinstance(task[key], (int, float)):
                     values.append(task[key])
                 else:
                     values.append(ast.literal_eval(task[key]))
@@ -164,19 +167,56 @@ class Report(object):
             series['data'] = values
             temp_series.append(series)
 
+        return temp_series, table_vals
+
+    @cliargs("task_id", type=str, help=" task id", nargs=1)
+    @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
+    def generate(self, args):
+        """Start report generation."""
+        series, table_vals = self._generate_common(args)
+
         template_dir = consts.YARDSTICK_ROOT_PATH + "yardstick/common"
         template_environment = jinja2.Environment(
             autoescape=False,
             loader=jinja2.FileSystemLoader(template_dir),
             trim_blocks=False)
 
-        context = {"series": temp_series,
+        context = {"series": series,
                    "Timestamps": self.Timestamp,
                    "task_id": self.task_id,
                    "table": table_vals,
                    "template_dir": template_dir}
 
         template_html = template_environment.get_template("template.html")
+
+        with open(consts.DEFAULT_HTML_FILE, "w") as file_open:
+            file_open.write(template_html.render(context))
+
+        print("Report generated. View /tmp/yardstick.htm")
+
+    @cliargs("task_id", type=str, help=" task id", nargs=1)
+    @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
+    def generate_nsb(self, args):
+        """Start NSB report generation."""
+        series, table_vals = self._generate_common(args)
+        self.jstree = JSTree()
+        jstree_data = self.jstree.format_for_jstree(series)
+
+        template_dir = consts.YARDSTICK_ROOT_PATH + "yardstick/common"
+        template_environment = jinja2.Environment(
+            autoescape=False,
+            loader=jinja2.FileSystemLoader(template_dir),
+            trim_blocks=False)
+
+        context = {"series": series,
+                   "Timestamps": self.Timestamp,
+                   "task_id": self.task_id,
+                   "table": table_vals,
+                   "template_dir": template_dir,
+                   "jstree_nodes": jstree_data
+                  }
+
+        template_html = template_environment.get_template("nsb_template.html")
 
         with open(consts.DEFAULT_HTML_FILE, "w") as file_open:
             file_open.write(template_html.render(context))
