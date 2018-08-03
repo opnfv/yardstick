@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_72e587a7",
+        "filename": "samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T15:38:58Z",
+      "side": 1,
+      "message": "this rename is unrelated",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "d308b2ab382e6625d409bd3c923c1ae604e15f3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_12d88bee",
+        "filename": "samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T15:38:58Z",
+      "side": 1,
+      "message": "Renaming this server is not related to the rest of the change.",
+      "range": {
+        "startLine": 23,
+        "startChar": 12,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "d308b2ab382e6625d409bd3c923c1ae604e15f3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_52e203a0",
+        "filename": "samples/vnf_samples/nsut/acl/tc_sriov_rfc2544_ipv4_1rule_1flow_64B_trex.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T15:38:58Z",
+      "side": 1,
+      "message": "renaming is unrelated.\n\nThe only change that should be made to the test cases is the password field",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "d308b2ab382e6625d409bd3c923c1ae604e15f3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b2eeff89",
+        "filename": "samples/vnf_samples/nsut/cgnapt/tc_ovs_rfc2544_ipv4_1rule_64B_trex.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T15:38:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "d308b2ab382e6625d409bd3c923c1ae604e15f3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_92f3fb72",
+        "filename": "samples/vnf_samples/nsut/cgnapt/tc_sriov_rfc2544_ipv4_1rule_64B_trex.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T15:38:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "d308b2ab382e6625d409bd3c923c1ae604e15f3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f2e8777e",
+        "filename": "samples/vnf_samples/nsut/udp_replay/tc_ovs_rfc2544_ipv4_1rule_64B_trex.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T15:38:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "d308b2ab382e6625d409bd3c923c1ae604e15f3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d2ed738d",
+        "filename": "samples/vnf_samples/nsut/udp_replay/tc_sriov_rfc2544_ipv4_1rule_64B_trex.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T15:38:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "d308b2ab382e6625d409bd3c923c1ae604e15f3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3202ef3e",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T15:38:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "d308b2ab382e6625d409bd3c923c1ae604e15f3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_12ffeb35",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_sriov_rfc2544_ipv4_1rule_1flow_64B_trex.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T15:38:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "d308b2ab382e6625d409bd3c923c1ae604e15f3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_72fc673f",
+        "filename": "samples/vnf_samples/nsut/vpe/tc_ovs_rfc2544_ipv4_1rule_64B_trex.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T15:38:58Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "d308b2ab382e6625d409bd3c923c1ae604e15f3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_52f9634c",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T15:38:58Z",
+      "side": 1,
+      "message": "Ignore the portion in my previous review where I said the relationship was no obvious between adding the CD ROM device and configuring user access",
+      "range": {
+        "startLine": 561,
+        "startChar": 8,
+        "endLine": 561,
+        "endChar": 88
+      },
+      "revId": "d308b2ab382e6625d409bd3c923c1ae604e15f3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d2a45359",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T15:38:58Z",
+      "side": 1,
+      "message": "Why does this need to be changed?\n\nIt seems like the prefix for the VM name has been changed in Libvirt... If this is the case, that is a separate bug in the functionality (i.e. we were using the wrong VM name, which means that the context was non-functional)",
+      "range": {
+        "startLine": 211,
+        "startChar": 25,
+        "endLine": 211,
+        "endChar": 27
+      },
+      "revId": "d308b2ab382e6625d409bd3c923c1ae604e15f3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
