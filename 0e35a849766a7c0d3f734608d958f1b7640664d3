@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_f26d1706",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T16:01:00Z",
+      "side": 1,
+      "message": "test_query_setup_state_unsuccessful",
+      "range": {
+        "startLine": 201,
+        "startChar": 8,
+        "endLine": 201,
+        "endChar": 37
+      },
+      "revId": "0e35a849766a7c0d3f734608d958f1b7640664d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d27293e4",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T16:01:00Z",
+      "side": 1,
+      "message": "test_setup_config_post_failed",
+      "range": {
+        "startLine": 212,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 25
+      },
+      "revId": "0e35a849766a7c0d3f734608d958f1b7640664d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_32778fd6",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T16:01:00Z",
+      "side": 1,
+      "message": "test_run_v1_successful",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 227,
+        "endChar": 30
+      },
+      "revId": "0e35a849766a7c0d3f734608d958f1b7640664d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d2bbb370",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T16:01:00Z",
+      "side": 1,
+      "message": "The test names have the following convention::\n    test_\u003cmethod_name\u003e_\u003csome comment\u003e\n\nThe comment is optional, but usually could give some indication about the side effects, of parameters being checked\n\nIn this case, the method should be test_run_v2_successful()\n\nsuccessful is optional, as it\u0027s implied when there\u0027s no exception given",
+      "range": {
+        "startLine": 276,
+        "startChar": 8,
+        "endLine": 276,
+        "endChar": 31
+      },
+      "revId": "0e35a849766a7c0d3f734608d958f1b7640664d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_32b02f8b",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T16:01:00Z",
+      "side": 1,
+      "message": "test_run_failed or test_run_failed_runtime_error",
+      "range": {
+        "startLine": 333,
+        "startChar": 8,
+        "endLine": 333,
+        "endChar": 23
+      },
+      "revId": "0e35a849766a7c0d3f734608d958f1b7640664d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_12740bce",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T16:01:00Z",
+      "side": 1,
+      "message": "Same as below for the mock_sleep param\n\n    @mock.patch(\u0027time.sleep\u0027)\n    @mock.patch.object(requests, \u0027get\u0027)\n    @mock.patch.object(requests, \u0027post\u0027)\n    def test_failed_run(self, mock_post, mock_get, *args):",
+      "range": {
+        "startLine": 334,
+        "startChar": 8,
+        "endLine": 334,
+        "endChar": 38
+      },
+      "revId": "0e35a849766a7c0d3f734608d958f1b7640664d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7281078f",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T16:01:00Z",
+      "side": 1,
+      "message": "ditto on mock_sleep param",
+      "range": {
+        "startLine": 384,
+        "startChar": 3,
+        "endLine": 384,
+        "endChar": 29
+      },
+      "revId": "0e35a849766a7c0d3f734608d958f1b7640664d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_527e83af",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T16:01:00Z",
+      "side": 1,
+      "message": "ditto use *args",
+      "range": {
+        "startLine": 406,
+        "startChar": 0,
+        "endLine": 406,
+        "endChar": 29
+      },
+      "revId": "0e35a849766a7c0d3f734608d958f1b7640664d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_12ad2b32",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T16:01:00Z",
+      "side": 1,
+      "message": "test_initialize_disks",
+      "range": {
+        "startLine": 407,
+        "startChar": 8,
+        "endLine": 407,
+        "endChar": 34
+      },
+      "revId": "0e35a849766a7c0d3f734608d958f1b7640664d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b24a7f81",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T16:01:00Z",
+      "side": 1,
+      "message": "ditto, use *args",
+      "range": {
+        "startLine": 428,
+        "startChar": 0,
+        "endLine": 428,
+        "endChar": 29
+      },
+      "revId": "0e35a849766a7c0d3f734608d958f1b7640664d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_72aaa71a",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T16:01:00Z",
+      "side": 1,
+      "message": "test_initialise_disks_post_failed",
+      "range": {
+        "startLine": 429,
+        "startChar": 8,
+        "endLine": 429,
+        "endChar": 30
+      },
+      "revId": "0e35a849766a7c0d3f734608d958f1b7640664d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_92681bf7",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T16:01:00Z",
+      "side": 1,
+      "message": "This is not necessary. \nI\u0027m assuming this is done to avoid the pylint error for unused argument.\n\nYou *args and _ are ignored by this check.\nYou can move mock_sleep to the top line, and use the following method signature:\n    test_...(self, mock_post, mock_get, *args)",
+      "range": {
+        "startLine": 430,
+        "startChar": 0,
+        "endLine": 430,
+        "endChar": 38
+      },
+      "revId": "0e35a849766a7c0d3f734608d958f1b7640664d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_52a7a34f",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T16:01:00Z",
+      "side": 1,
+      "message": "test_teardown",
+      "range": {
+        "startLine": 448,
+        "startChar": 8,
+        "endLine": 448,
+        "endChar": 32
+      },
+      "revId": "0e35a849766a7c0d3f734608d958f1b7640664d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b2639f19",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/storage/test_storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T16:01:00Z",
+      "side": 1,
+      "message": "test_teardown_request_delete_failed",
+      "range": {
+        "startLine": 475,
+        "startChar": 8,
+        "endLine": 475,
+        "endChar": 28
+      },
+      "revId": "0e35a849766a7c0d3f734608d958f1b7640664d3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
