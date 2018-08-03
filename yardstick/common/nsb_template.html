@@ -1,0 +1,166 @@
+<html>
+   <head>
+       <meta charset="utf-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.5/themes/default/style.min.css" />
+       <link href="{{template_dir}}/report.css" rel="stylesheet">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+       <script src="https://code.highcharts.com/highcharts.js"></script>
+   </head>
+   <body>
+       <div class="container" style="width:80%">
+           <div class="row"><!-- header can be id here-->
+               <header class="jumbotron text-center">
+                   <h1>Yardstick User Interface</h1>
+                   <h4>Report of {{task_id}} Generated</h4>
+               </header>
+            </div> <!-- end row -->
+            <div class="row" style="height:500px">
+                <div class="col-md-2 control-pane">
+                    <div id="data_selector">
+                    </div> <!-- end data-selector -->
+                </div> <!-- end control-pane -->
+                <div class="col-md-10 data-pane" >
+                    <div id="graph"></div>
+                </div> <!-- end data-pane-->
+            </div><!-- end row -->
+            <div class="row" id="table-pane">
+                <div class="table-responsive col-md-12" >
+                    <table class="table table-hover"></table>
+                </div>
+            </div> <!-- end row, table-pane -->
+       </div> <!-- end container -->
+
+       <script type="text/javascript">
+            var arr, tab, th, tr, td, tn, row, col, thead, tbody;
+            arr={{table|safe}}
+
+            tab = document.getElementsByTagName('table')[0];
+            thead=document.createElement('thead');
+            tr = document.createElement('tr');
+            tbody=document.createElement('tbody');
+
+            console.log("arr keys: " + Object.keys(arr))
+            keys = Object.keys(arr)
+            // for each metric
+            for (i=0; i< keys.length; i++){
+                tr = document.createElement('tr');
+                key = keys[i]
+                console.log("curr_key: " + key)
+                td = document.createElement('td');
+                td.append(key)
+                tr.append(td)
+                curr_data = arr[key]
+                // add each piece of data as its own column
+                for (j=0; j<curr_data.length; j++){
+                    td = document.createElement('td');
+                    td.append(curr_data[j])
+                    tr.append(td)
+                }
+
+                tbody.append(tr)
+
+            }
+            tab.appendChild(tbody);
+
+            $(function() {
+             $('#data_selector').jstree({
+                plugins: ['checkbox'],
+                checkbox: {
+                    three_state: false,
+                    whole_node: true,
+                    tie_selection: false,
+                },
+                'core' : {
+                    'themes' :{
+                        'icons': false,
+                        'stripes': true,
+                    },
+                    'data' : {{ jstree_data }}
+                },
+            });
+
+            var selected_leaves;
+
+            $('#data_selector').on('check_node.jstree uncheck_node.jstree', function (e, data){
+
+                selected_leaves = []
+                console.log("len(data.selected): " + data.selected.length)
+
+                var i;
+                for (i=0; i < data.selected.length; i++){
+                    node = data.instance.get_node(data.selected[i])
+                    if (node.children.length == 0){
+                        point = {"name": node.id, "data": arr[node.id]}
+                        selected_leaves.push(point)
+                        console.log("current_data: " + point.name + " data: [" + point.data + "]")
+                    }
+                }
+
+                for (i=0; i<arr.length; i++){
+                    console.log("arr" + i + ": " + arr[i])
+                }
+                   $('#graph').highcharts({
+                       title: {
+                         text: 'Yardstick Graphs',
+                         x: -20 //center
+                       },
+                       chart: {
+                              marginLeft: 400,
+                              zoomType: 'x',
+                              type: 'spline'
+                       },
+                       xAxis: {
+                           crosshair: {
+                                 width: 1,
+                                 color: 'black'
+                           },
+                           title: {
+                               text: 'Timestamp'
+                           },
+                           categories: {{ Timestamps }}
+                       },
+                       yAxis: {
+                           crosshair: {
+                               width: 1,
+                               color: 'black'
+                           },
+                           plotLines: [{
+                               value: 0,
+                               width: 1,
+                               color: '#808080'
+                           }]
+                       },
+                       plotOptions: {
+                           series: {
+                               showCheckbox: false,
+                               visible: false
+                           }
+                       },
+                       tooltip: {
+                           valueSuffix: ''
+                       },
+                       legend: {
+                           enabled: true,
+                       },
+                       series: selected_leaves
+        });
+        var chart = $('#graph').highcharts();
+        for (var i = 0; i < chart.series.length; i++)
+        {
+             var series = chart.series[i];
+             if (series.visible) {
+                 series.hide();
+             } else {
+                 series.show();
+            }
+        }
+
+            });
+});
+        </script>
+    </body>
+</html>
