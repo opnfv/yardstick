@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_3e063b21",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T09:46:20Z",
+      "side": 1,
+      "message": "typo: runs",
+      "range": {
+        "startLine": 605,
+        "startChar": 49,
+        "endLine": 605,
+        "endChar": 52
+      },
+      "revId": "b40b73d29c6a7397c45a8c71337a6a8bc13dc9f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_1e037710",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-03T09:46:20Z",
+      "side": 1,
+      "message": "..by choosing an environment with the following arguments to tox..",
+      "range": {
+        "startLine": 608,
+        "startChar": 58,
+        "endLine": 609,
+        "endChar": 29
+      },
+      "revId": "b40b73d29c6a7397c45a8c71337a6a8bc13dc9f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
