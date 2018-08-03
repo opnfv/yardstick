@@ -499,7 +499,7 @@ class AutoConnectSSH(SSH):
         """ Don't close anything, just force creation of a new client """
         self._client = False
 
-    def execute(self, cmd, stdin=None, timeout=3600, raise_on_error=True):
+    def execute(self, cmd, stdin=None, timeout=3600, raise_on_error=False):
         self._connect()
         return super(AutoConnectSSH, self).execute(cmd, stdin, timeout,
                                                    raise_on_error)
