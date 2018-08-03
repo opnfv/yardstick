@@ -95,6 +95,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
                         'count': ip['count'],
                         'dscp': ip['dscp'],
                         'ttl': ip['ttl'],
+                        'seed': ip['seed'],
                         'srcip': srcip,
                         'dstip': dstip,
                         'srcmask': srcmask,

@@ -35,6 +35,7 @@ TRAFFIC_PARAMETERS = {
         },
         'outer_l3': {
             'count': 512,
+            'seed': 1,
             'dscp': 0,
             'proto': 'udp',
             'ttl': 32,
@@ -64,6 +65,7 @@ TRAFFIC_PARAMETERS = {
         },
         'outer_l3': {
             'count': 1024,
+            'seed': 1,
             'dscp': 0,
             'proto': 'udp',
             'ttl': 32,
