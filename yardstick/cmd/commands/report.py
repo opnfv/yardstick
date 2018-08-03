@@ -31,3 +31,11 @@ class ReportCommands(object):   # pragma: no cover
         """Start a benchmark scenario."""
         param = change_osloobj_to_paras(args)
         Report().generate(param)
+
+    @cliargs("task_id", type=str, help=" task id", nargs=1)
+    @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
+    def do_generate_nsb(self, args):
+        """Generate a report using hte NSB template."""
+        param = change_osloobj_to_paras(args)
+        Report().generate_nsb(param)
+
