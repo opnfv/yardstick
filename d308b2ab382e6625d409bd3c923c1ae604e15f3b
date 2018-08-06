@@ -275,6 +275,30 @@
       "revId": "d308b2ab382e6625d409bd3c923c1ae604e15f3b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f5e8617e",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-08-06T17:02:20Z",
+      "side": 1,
+      "message": "Because, hostname labels can only be made up of the ASCII \nletters \u0027a\u0027 through \u0027z\u0027 (case-insensitive), the digits \u00270\u0027 through \u00279\u0027, and the hyphen (not first or last letter).\nRefer rfc952, rfc1123.",
+      "parentUuid": "9a561d44_d2a45359",
+      "range": {
+        "startLine": 211,
+        "startChar": 25,
+        "endLine": 211,
+        "endChar": 27
+      },
+      "revId": "d308b2ab382e6625d409bd3c923c1ae604e15f3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
