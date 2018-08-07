@@ -339,6 +339,11 @@ class TestIxNextgen(unittest.TestCase):
         self.assertEqual(6, len(self.ixnet_gen.ixnet.setMultiAttribute.mock_calls))
         self.assertEqual(4, len(mock_update_frame.mock_calls))
 
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_has_calls([
+            mock.call('cfg_element/transmissionControl',
+                      '-type', 'continuous', '-duration', 50)
+        ])
+
     def test_update_frame_flow_not_present(self):
         with mock.patch.object(
                 self.ixnet_gen, '_get_config_element_by_flow_group_name',
