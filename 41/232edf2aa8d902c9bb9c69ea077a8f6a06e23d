@@ -1,0 +1,10 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Alexandru Avadanii <Alexandru.Avadanii@enea.com>
+Code-Review+2: Emma Foley <emma.l.foley@intel.com>
+Code-Review+1: Delia Popescu <delia.popescu@enea.com>
+Code-Review+1: Guillermo Herrero <guillermo.herrero@enea.com>
+Submitted-by: Rex Lee <limingjiang@huawei.com>
+Submitted-at: Tue, 07 Aug 2018 07:54:17 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/60437
+Project: yardstick
+Branch: refs/heads/master
