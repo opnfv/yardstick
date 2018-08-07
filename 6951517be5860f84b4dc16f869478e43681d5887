@@ -16,6 +16,24 @@
       "revId": "6951517be5860f84b4dc16f869478e43681d5887",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_664949d0",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-07T15:04:11Z",
+      "side": 1,
+      "message": "It\u0027s not strictly necessary to cast this to a bool, however, it might flag issues later on if the API changes and strings start getting returned again.",
+      "parentUuid": "9a561d44_06c16d80",
+      "revId": "6951517be5860f84b4dc16f869478e43681d5887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
