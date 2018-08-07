@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_e60c3997",
+        "filename": "samples/vnf_samples/nsut/cgnapt/tc_sriov_rfc2544_ipv4_1rule_64B_trex.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-07T15:16:25Z",
+      "side": 1,
+      "message": "This is a relative file path, and it looks like you\u0027re assuming that the yardstick command it running from the root folder of the repo.\n\nThe pod file doesn\u0027t appear to be in the yardstick repo. Is this the correct name?\nIf it\u0027s not expected to be in the repo, or needs to be copied/renames, then the file should be outside the repo. (/etc...).",
+      "range": {
+        "startLine": 45,
+        "startChar": 11,
+        "endLine": 45,
+        "endChar": 55
+      },
+      "revId": "17a5049cbbf37da456e532a24e45c2c3a60a6127",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
