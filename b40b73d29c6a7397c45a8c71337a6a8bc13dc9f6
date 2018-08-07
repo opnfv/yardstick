@@ -45,6 +45,29 @@
       "revId": "b40b73d29c6a7397c45a8c71337a6a8bc13dc9f6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_cb03fe71",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-08-07T08:11:24Z",
+      "side": 1,
+      "message": "may use the space e.g. \"-e py27\" be more clear",
+      "range": {
+        "startLine": 611,
+        "startChar": 0,
+        "endLine": 616,
+        "endChar": 24
+      },
+      "revId": "b40b73d29c6a7397c45a8c71337a6a8bc13dc9f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
