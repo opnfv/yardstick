@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_06c16d80",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7335
+      },
+      "writtenOn": "2018-08-07T11:19:40Z",
+      "side": 1,
+      "message": "Traceback (most recent call last):\n  File \"/usr/lib/python2.7/multiprocessing/process.py\", line 258, in _bootstrap\n    self.run()\n  File \"/usr/lib/python2.7/multiprocessing/process.py\", line 114, in run\n    self._target(*self._args, **self._kwargs)\n  File \"/home/ubuntu/yardstick/yardstick/benchmark/runners/iteration.py\", line 57, in _worker_process\n    benchmark.setup()\n  File \"/home/ubuntu/yardstick/yardstick/benchmark/scenarios/storage/storperf.py\", line 111, in setup\n\n  File \"/home/ubuntu/yardstick/yardstick/benchmark/scenarios/storage/storperf.py\", line 77, in _query_setup_state\n    LOG.debug(\"stack_created: %s\",\nAttributeError: \u0027bool\u0027 object has no attribute \u0027lower\n\nyou can check do this \nif bool(setup_query_content[\"stack_created\"]):\n...",
+      "revId": "6951517be5860f84b4dc16f869478e43681d5887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
