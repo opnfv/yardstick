@@ -359,7 +359,6 @@ class IxNextgen(object):  # pragma: no cover
                 raise exceptions.IxNetworkFlowNotPresent(flow_group=fg_id)
 
             type = traffic_param.get('traffic_type', 'fixedDuration')
-            duration = traffic_param.get('duration', 30)
             rate = traffic_param['rate']
             rate_unit = (
                 'framesPerSecond' if traffic_param['rate_unit'] ==
