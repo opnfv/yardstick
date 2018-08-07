@@ -8,28 +8,56 @@
 ##############################################################################
 import unittest
 
-from yardstick.benchmark.scenarios.lib.check_value import CheckValue
+from yardstick.benchmark.scenarios.lib import check_value
+from yardstick.common import exceptions as y_exc
+
 
 class CheckValueTestCase(unittest.TestCase):
 
-    def setUp(self):
-        self.result = {}
+    def test_eq_pass(self):
+        scenario_cfg = {'options': {'operator': 'eq',
+                                    'value1': 1,
+                                    'value2': 1}}
+        obj = check_value.CheckValue(scenario_cfg, {})
+        result = obj.run({})
 
-    def test_check_value_eq(self):
-        scenario_cfg = {'options': {'operator': 'eq', 'value1': 1, 'value2': 2}}
-        obj = CheckValue(scenario_cfg, {})
-        self.assertRaises(AssertionError, obj.run, self.result)
-        self.assertEqual({}, self.result)
+        self.assertEqual({}, result)
 
-    def test_check_value_eq_pass(self):
-        scenario_cfg = {'options': {'operator': 'eq', 'value1': 1, 'value2': 1}}
-        obj = CheckValue(scenario_cfg, {})
+    def test_ne_pass(self):
+        scenario_cfg = {'options': {'operator': 'ne',
+                                    'value1': 1,
+                                    'value2': 2}}
+        obj = check_value.CheckValue(scenario_cfg, {})
+        result = obj.run({})
 
-        obj.run(self.result)
-        self.assertEqual({}, self.result)
+        self.assertEqual({}, result)
 
-    def test_check_value_ne(self):
-        scenario_cfg = {'options': {'operator': 'ne', 'value1': 1, 'value2': 1}}
-        obj = CheckValue(scenario_cfg, {})
-        self.assertRaises(AssertionError, obj.run, self.result)
-        self.assertEqual({}, self.result)
+    def test_result(self):
+        scenario_cfg = {'options': {'operator': 'eq',
+                                    'value1': 1,
+                                    'value2': 1},
+                        'output': 'foo'}
+        obj = check_value.CheckValue(scenario_cfg, {})
+        result = obj.run({})
+
+        self.assertDictEqual(result, {'foo': 'PASS'})
+
+    def test_eq(self):
+        scenario_cfg = {'options': {'operator': 'eq',
+                                    'value1': 1,
+                                    'value2': 2}}
+        obj = check_value.CheckValue(scenario_cfg, {})
+
+        with self.assertRaises(y_exc.ValueCheckError):
+            result = obj.run({})
+            self.assertEqual({}, result)
+
+    def test_ne(self):
+        scenario_cfg = {'options': {'operator': 'ne',
+                                    'value1': 1,
+                                    'value2': 1}}
+        obj = check_value.CheckValue(scenario_cfg, {})
+
+        with self.assertRaises(y_exc.ValueCheckError):
+            result = obj.run({})
+            self.assertEqual({}, result)
