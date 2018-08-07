@@ -22,6 +22,30 @@
       "revId": "17a5049cbbf37da456e532a24e45c2c3a60a6127",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a6608136",
+        "filename": "samples/vnf_samples/nsut/cgnapt/tc_sriov_rfc2544_ipv4_1rule_64B_trex.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-08-07T15:56:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_e60c3997",
+      "range": {
+        "startLine": 45,
+        "startChar": 11,
+        "endLine": 45,
+        "endChar": 55
+      },
+      "revId": "17a5049cbbf37da456e532a24e45c2c3a60a6127",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
