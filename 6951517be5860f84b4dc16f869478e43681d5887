@@ -34,6 +34,24 @@
       "revId": "6951517be5860f84b4dc16f869478e43681d5887",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_616c939d",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7335
+      },
+      "writtenOn": "2018-08-08T08:06:54Z",
+      "side": 1,
+      "message": "anyway, it will be returned \"true/false\". so its safe to cast it to bool",
+      "parentUuid": "9a561d44_664949d0",
+      "revId": "6951517be5860f84b4dc16f869478e43681d5887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
