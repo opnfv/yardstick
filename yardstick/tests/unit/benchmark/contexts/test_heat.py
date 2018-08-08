@@ -73,6 +73,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertEqual(self.test_context.server_groups, [])
         self.assertIsNone(self.test_context.keypair_name)
         self.assertIsNone(self.test_context.secgroup_name)
+        self.assertIsNone(self.test_context.existing_security_group)
         self.assertEqual(self.test_context._server_map, {})
         self.assertIsNone(self.test_context._image)
         self.assertIsNone(self.test_context._flavor)
@@ -100,7 +101,8 @@ class HeatContextTestCase(unittest.TestCase):
                  'placement_groups': pgs,
                  'server_groups': sgs,
                  'networks': networks,
-                 'servers': servers}
+                 'servers': servers,
+                 'existing_security_group': 'existing_secgroup'}
 
         with mock.patch.object(openstack_utils, 'get_shade_client'), \
              mock.patch.object(openstack_utils, 'get_shade_operator_client'):
@@ -113,6 +115,8 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertEqual(self.test_context.name, "foo-12345678")
         self.assertEqual(self.test_context.keypair_name, "foo-12345678-key")
         self.assertEqual(self.test_context.secgroup_name, "foo-12345678-secgroup")
+        self.assertEqual(self.test_context.existing_security_group,
+                         "existing_secgroup")
 
         mock_pg.assert_called_with('pgrp1', self.test_context,
                                    pgs['pgrp1']['policy'])
@@ -162,7 +166,7 @@ class HeatContextTestCase(unittest.TestCase):
                  'flags': {
                      'no_setup': True,
                      'no_teardown': True,
-                     },
+                     }
                 }
 
         with mock.patch.object(openstack_utils, 'get_shade_client'), \
@@ -203,6 +207,26 @@ class HeatContextTestCase(unittest.TestCase):
             "ctx-12345678-mynet-router-if0",
             "ctx-12345678-mynet-router",
             "ctx-12345678-mynet-subnet")
+
+    @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
+    def test__add_resources_to_template_existing_secgroup(self, mock_template):
+        self.test_context._name = 'ctx'
+        self.test_context._task_id = '1234567890'
+        self.test_context._name_task_id = '{}-{}'.format(
+            self.test_context._name, self.test_context._task_id[:8])
+        self.test_context.keypair_name = "ctx-key"
+        self.test_context.secgroup_name = "ctx-secgroup"
+        self.test_context.existing_security_group = "existing_secgroup"
+        self.test_context.key_uuid = "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b"
+        netattrs = {'cidr': '10.0.0.0/24', 'provider': None,
+                    'external_network': 'ext_net'}
+
+        self.test_context.networks = OrderedDict(
+            {"mynet": model.Network("mynet", self.test_context,
+                                           netattrs)})
+
+        self.test_context._add_resources_to_template(mock_template)
+        mock_template.add_security_group.assert_not_called()
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test_attrs_get(self, *args):
