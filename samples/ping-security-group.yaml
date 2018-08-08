@@ -1,0 +1,74 @@
+##############################################################################
+# Copyright (c) 2018 Huawei Technologies Co.,Ltd and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# Sample ping test case using custom security group
+# measure network latency using ping
+
+schema: "yardstick:task:0.1"
+
+{% set provider = provider or none %}
+{% set physical_network = physical_network or 'physnet1' %}
+{% set segmentation_id = segmentation_id or none %}
+scenarios:
+-
+  type: Ping
+  options:
+    packetsize: 200
+  host: athena.demo
+  target: ares.demo
+
+  runner:
+    type: Duration
+    duration: 60
+    interval: 1
+
+  sla:
+    max_rtt: 10
+    action: monitor
+
+context:
+  name: demo
+  image: yardstick-image
+  flavor: yardstick-flavor
+  user: ubuntu
+  security_group:
+    rules:
+      - remote_ip_prefix: "0.0.0.0/0"
+        protocol: "tcp"
+        port_range_min: 1
+        port_range_max: 65535
+      - remote_ip_prefix: "0.0.0.0/0"
+        protocol: "udp"
+        port_range_min: 1
+        port_range_max: 65535
+      - remote_ip_prefix: "0.0.0.0/0"
+        protocol: "icmp"
+
+  placement_groups:
+    pgrp1:
+      policy: "availability"
+
+  servers:
+    athena:
+      floating_ip: true
+      placement: "pgrp1"
+    ares:
+      placement: "pgrp1"
+
+
+  networks:
+    test:
+      cidr: '10.0.1.0/24'
+      {% if provider == "vlan" %}
+      provider: {{provider}}
+      physical_network: {{physical_network}}
+        {% if segmentation_id %}
+      segmentation_id: {{segmentation_id}}
+        {% endif %}
+      {% endif %}
