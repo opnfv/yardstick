@@ -367,7 +367,6 @@ name (i.e. %s).
         if provider == PROVIDER_SRIOV:
             self.resources[name]['properties']['binding:vnic_type'] = \
                 'direct'
-
         if sec_group_id:
             self.resources[name]['depends_on'].append(sec_group_id)
             self.resources[name]['properties']['security_groups'] = \
@@ -400,6 +399,16 @@ name (i.e. %s).
             'value': {'get_attr': [name, 'network_id']}
         }
 
+    def update_port_existing_secgroup(self, port_name,
+                                      sec_group_id, existing_secgroup):
+        if sec_group_id and existing_secgroup:
+            del self.resources[port_name]['depends_on']
+            try:
+                self.resources[port_name]['properties']['security_groups'] = \
+                    [existing_secgroup]
+            except KeyError:
+                pass
+
     def add_floating_ip(self, name, network_name, port_name, router_if_name,
                         secgroup_name=None):
         """add to the template a Nova FloatingIP resource
@@ -423,6 +432,12 @@ name (i.e. %s).
             'description': 'floating ip %s' % name,
             'value': {'get_attr': [name, 'ip']}
         }
+
+    def update_floating_ip_existing_secgroup(self, floating_ip_name,
+                                             sec_group_id,
+                                             existing_secgroup):
+        if sec_group_id and existing_secgroup:
+            del self.resources[floating_ip_name]["depends_on"][-1]
 
     def add_floating_ip_association(self, name, floating_ip_name, port_name):
         """add to the template a Nova FloatingIP Association resource

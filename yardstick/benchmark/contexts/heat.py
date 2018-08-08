@@ -59,6 +59,7 @@ class HeatContext(Context):
         self.server_groups = []
         self.keypair_name = None
         self.secgroup_name = None
+        self.existing_security_group = None
         self._server_map = {}
         self.attrs = {}
         self._image = None
@@ -118,7 +119,10 @@ class HeatContext(Context):
             return
 
         self.keypair_name = h_join(self.name, "key")
+
         self.secgroup_name = h_join(self.name, "secgroup")
+
+        self.existing_security_group = attrs.get("existing_security_group")
 
         self._image = attrs.get("image")
 
@@ -185,7 +189,8 @@ class HeatContext(Context):
                 self.flavors.add(flavor)
 
         template.add_keypair(self.keypair_name, self.name)
-        template.add_security_group(self.secgroup_name)
+        if not self.existing_security_group:
+            template.add_security_group(self.secgroup_name)
 
         for network in self.networks.values():
             # Using existing network

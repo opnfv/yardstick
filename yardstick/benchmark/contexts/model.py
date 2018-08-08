@@ -190,6 +190,7 @@ class Server(Object):     # pragma: no cover
         self.stack_name = self.name + "." + context.name
         self.keypair_name = context.keypair_name
         self.secgroup_name = context.secgroup_name
+        self.existing_secgroup = context.existing_security_group
         self.user = context.user
         self.context = context
         self.public_ip = None
@@ -344,6 +345,9 @@ class Server(Object):     # pragma: no cover
                     port_name_list.insert(0, port_name)
                 else:
                     port_name_list.append(port_name)
+                template.update_port_existing_secgroup(port_name,
+                                                       sec_group_id,
+                                                       self.existing_secgroup)
 
                 if self.floating_ip:
                     external_network = self.floating_ip["external_network"]
@@ -360,6 +364,10 @@ class Server(Object):     # pragma: no cover
                             self.floating_ip_assoc["stack_name"],
                             self.floating_ip["stack_name"],
                             port_name)
+                    template.update_floating_ip_existing_secgroup(
+                        self.floating_ip["stack_name"],
+                        sec_group_id,
+                        self.existing_secgroup)
         if self.flavor:
             if isinstance(self.flavor, dict):
                 self.flavor["name"] = \

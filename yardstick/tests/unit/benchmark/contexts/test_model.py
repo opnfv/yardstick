@@ -185,6 +185,7 @@ class ServerTestCase(unittest.TestCase):
         self.mock_context.name = 'bar'
         self.mock_context.keypair_name = 'some-keys'
         self.mock_context.secgroup_name = 'some-secgroup'
+        self.mock_context.existing_security_group = None
         self.mock_context.user = "some-user"
         netattrs = {'cidr': '10.0.0.0/24', 'provider': None, 'external_network': 'ext_net'}
         self.mock_context.networks = [model.Network("some-network", self.mock_context, netattrs)]
@@ -197,6 +198,7 @@ class ServerTestCase(unittest.TestCase):
         self.assertEqual(test_server.stack_name, 'foo.bar')
         self.assertEqual(test_server.keypair_name, 'some-keys')
         self.assertEqual(test_server.secgroup_name, 'some-secgroup')
+        self.assertIsNone(test_server.existing_secgroup)
         self.assertEqual(test_server.placement_groups, [])
         self.assertIsNone(test_server.server_group)
         self.assertEqual(test_server.instances, 1)
@@ -254,6 +256,11 @@ class ServerTestCase(unittest.TestCase):
             provider=mock_network.provider,
             allowed_address_pairs=mock_network.allowed_address_pairs)
 
+        mock_template.update_port_existing_secgroup.assert_called_with(
+            'some-server-some-network-port',
+            'some-secgroup',
+            None)
+
         mock_template.add_floating_ip.assert_called_with(
             'some-server-fip',
             mock_network.external_network,
@@ -267,6 +274,13 @@ class ServerTestCase(unittest.TestCase):
             'some-server-fip',
             'some-server-some-network-port'
         )
+
+        mock_template.update_floating_ip_existing_secgroup.assert_called_with(
+            'some-server-fip',
+            'some-secgroup',
+            None
+        )
+
 
         mock_template.add_server.assert_called_with(
             'some-server', 'some-image',
