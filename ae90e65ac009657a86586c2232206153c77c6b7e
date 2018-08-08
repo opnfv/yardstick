@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_a1e98b1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-08-08T07:01:02Z",
+      "side": 1,
+      "message": "adhere to the format below.\nJIRA: YARDSTICK-1369\n\nAlso, add some description of the problem solved with the patch.",
+      "revId": "ae90e65ac009657a86586c2232206153c77c6b7e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
