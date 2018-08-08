@@ -256,6 +256,25 @@ class HeatTemplateTestCase(unittest.TestCase):
         self.assertEqual(self.template.resources['some-server-group'][
                              'properties']['policies'], ['anti-affinity'])
 
+    def test_add_security_group(self):
+        security_group = {
+            'rules': [
+                {'remote_ip_prefix': '0.0.0.0/0',
+                 'port_range_max': 65535,
+                 'port_range_min': 1,
+                 'protocol': 'custom'},
+            ]
+        }
+        self.template.add_security_group('some-security-group', security_group)
+
+        secgroup_rsc = self.template.resources['some-security-group']
+
+        self.assertEqual(secgroup_rsc['type'], "OS::Neutron::SecurityGroup")
+        self.assertEqual(secgroup_rsc['properties']['description'],
+                         "Custom security group rules defined by the user")
+        self.assertEqual(secgroup_rsc['properties']['rules'][0]['protocol'],
+                         'custom')
+
     def test__add_resources_to_template_raw(self):
         test_context = node.NodeContext()
         self.addCleanup(test_context._delete_context)
