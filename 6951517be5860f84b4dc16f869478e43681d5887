@@ -52,6 +52,24 @@
       "revId": "6951517be5860f84b4dc16f869478e43681d5887",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_fcc0467e",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-08-08T16:56:10Z",
+      "side": 1,
+      "message": "bool(\"False\") returns True:\n\u003e\u003e\u003e print bool(\"False\")\nTrue\n\nMore info:\nhttps://stackoverflow.com/questions/715417/converting-from-a-string-to-boolean-in-python",
+      "parentUuid": "9a561d44_616c939d",
+      "revId": "6951517be5860f84b4dc16f869478e43681d5887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
