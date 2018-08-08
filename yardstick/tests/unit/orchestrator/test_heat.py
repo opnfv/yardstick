@@ -396,3 +396,35 @@ class HeatTemplateTestCase(unittest.TestCase):
         heat_stack.create.assert_called_once_with(
             self.template._template, self.template.heat_parameters, True,
             3600)
+
+    def test_update_with_existing_security_group(self):
+        heat_template = heat.HeatTemplate('template name')
+        heat_template.resources = {}
+        heat_template.add_network('network1')
+        heat_template.add_security_group('sec_group1')
+        network1 = mock.MagicMock()
+        network1.stack_name = 'network1'
+        network1.subnet_stack_name = 'subnet1'
+        network1.vnic_type = 'normal'
+        heat_template.add_port('port1', network1, 'sec_group1')
+
+        _port1 = heat_template.resources['port1']
+        self.assertIsNotNone(_port1.get('depends_on'))
+        self.assertEqual('sec_group1',
+                         _port1['properties']['security_groups'][0])
+        heat_template.update_port_existing_secgroup(
+            'port1', 'sec_group1', 'existing_secgroup1')
+        self.assertIsNone(_port1.get('depends_on'))
+        self.assertEqual('existing_secgroup1',
+                         _port1['properties']['security_groups'][0])
+
+        heat_template.add_floating_ip('floating_ip1', 'network1', 'port1',
+                                      'router_if1', 'sec_group1')
+        heat_template.add_floating_ip_association('floating_ip1_association',
+                                                  'floating_ip1', 'port1')
+        _floating_ip1 = heat_template.resources['floating_ip1']
+
+        self.assertIn('sec_group1', _floating_ip1.get('depends_on'))
+        heat_template.update_floating_ip_existing_secgroup(
+            'floating_ip1', 'sec_group1', 'existing_secgroup1')
+        self.assertNotIn('sec_group1', _floating_ip1.get('depends_on'))
