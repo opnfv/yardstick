@@ -16,6 +16,8 @@ import mock
 import IxNetwork
 import unittest
 
+from copy import deepcopy
+
 from yardstick.common import exceptions
 from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
 
@@ -31,7 +33,8 @@ TRAFFIC_PARAMETERS = {
         'rate': 10000.5,
         'rate_unit': 'fps',
         'outer_l2': {
-            'framesize': {'64B': '25', '256B': '75'}
+            'framesize': {'64B': '25', '256B': '75'},
+            'QinQ': None
         },
         'outer_l3': {
             'count': 512,
@@ -61,7 +64,8 @@ TRAFFIC_PARAMETERS = {
         'rate': 75.2,
         'rate_unit': '%',
         'outer_l2': {
-            'framesize': {'128B': '35', '1024B': '65'}
+            'framesize': {'128B': '35', '1024B': '65'},
+            'QinQ': None
         },
         'outer_l3': {
             'count': 1024,
@@ -338,6 +342,41 @@ class TestIxNextgen(unittest.TestCase):
 
         self.assertEqual(6, len(self.ixnet_gen.ixnet.setMultiAttribute.mock_calls))
         self.assertEqual(4, len(mock_update_frame.mock_calls))
+
+    def test_update_frame_qinq(self):
+        with mock.patch.object(self.ixnet_gen,
+                               '_get_config_element_by_flow_group_name',
+                               return_value='cfg_element'), \
+             mock.patch.object(self.ixnet_gen, '_update_frame_mac'),\
+             mock.patch.object(self.ixnet_gen, '_get_stack_item',
+                               return_value='item'), \
+             mock.patch.object(self.ixnet_gen, '_get_field_in_stack_item',
+                               return_value='field'):
+
+            traffic_parameters = deepcopy(TRAFFIC_PARAMETERS)
+            traffic_parameters[UPLINK]['outer_l2']['QinQ'] = {
+                'S-VLAN': {'id': 128,
+                           'priority': 1,
+                           'cfi': 0},
+                'C-VLAN': {'id': 512,
+                           'priority': 0,
+                           'cfi': 2}
+            }
+
+            self.ixnet_gen.update_frame(traffic_parameters, 50)
+
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_has_calls([
+            mock.call('field', '-auto', 'false', '-singleValue', '0x88a8',
+                      '-fieldValue', '0x88a8', '-valueType', 'singleValue'),
+            mock.call('field', '-auto', 'false', '-singleValue', 1,
+                      '-fieldValue', 1, '-valueType', 'singleValue'),
+            mock.call('field', '-auto', 'false', '-singleValue', 128,
+                      '-fieldValue', 128, '-valueType', 'singleValue'),
+            mock.call('field', '-auto', 'false', '-singleValue', 512,
+                      '-fieldValue', 512, '-valueType', 'singleValue'),
+            mock.call('field', '-auto', 'false', '-singleValue', 2,
+                      '-fieldValue', 2, '-valueType', 'singleValue')
+        ], any_order=True)
 
     def test_update_frame_flow_not_present(self):
         with mock.patch.object(
