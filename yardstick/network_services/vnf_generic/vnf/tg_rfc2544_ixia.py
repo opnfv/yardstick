@@ -60,7 +60,7 @@ class IxiaResourceHelper(ClientResourceHelper):
     def stop_collect(self):
         self._terminated.value = 1
 
-    def generate_samples(self, ports, key=None):
+    def generate_samples(self, ports, duration, key=None):
         stats = self.get_stats()
 
         samples = {}
@@ -78,10 +78,8 @@ class IxiaResourceHelper(ClientResourceHelper):
                     "tx_throughput_mbps": float(stats["Tx_Rate_Mbps"][port_num]),
                     "in_packets": int(stats["Valid_Frames_Rx"][port_num]),
                     "out_packets": int(stats["Frames_Tx"][port_num]),
-                    # NOTE(ralonsoh): we need to make the traffic injection
-                    # time variable.
-                    "RxThroughput": int(stats["Valid_Frames_Rx"][port_num]) / 30,
-                    "TxThroughput": int(stats["Frames_Tx"][port_num]) / 30,
+                    "RxThroughput": int(stats["Valid_Frames_Rx"][port_num]) / duration,
+                    "TxThroughput": int(stats["Frames_Tx"][port_num]) / duration,
                 }
                 if key:
                     avg_latency = stats["Store-Forward_Avg_latency_ns"][port_num]
@@ -129,13 +127,11 @@ class IxiaResourceHelper(ClientResourceHelper):
                     self, self.client, mac)
                 self.client_started.value = 1
                 # pylint: disable=unnecessary-lambda
-                utils.wait_until_true(lambda: self.client.is_traffic_stopped())
-                samples = self.generate_samples(traffic_profile.ports)
+                utils.wait_until_true(lambda: self.client.is_traffic_stopped(),
+                                      timeout=traffic_profile.config.duration * 2)
+                samples = self.generate_samples(traffic_profile.ports,
+                                                traffic_profile.config.duration)
 
-                # NOTE(ralonsoh): the traffic injection duration is fixed to 30
-                # seconds. This parameter is configurable and must be retrieved
-                # from the traffic_profile.full_profile information.
-                # Every flow must have the same duration.
                 completed, samples = traffic_profile.get_drop_percentage(
                     samples, min_tol, max_tol, first_run=first_run)
                 self._queue.put(samples)

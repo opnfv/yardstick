@@ -18,6 +18,7 @@ import mock
 import six
 import unittest
 
+from yardstick.common import utils
 from yardstick.benchmark import contexts
 from yardstick.benchmark.contexts import base as ctx_base
 from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
@@ -57,6 +58,7 @@ class TestIxiaResourceHelper(unittest.TestCase):
 
     def test_run_traffic(self):
         mock_tprofile = mock.Mock()
+        mock_tprofile.config.duration = 10
         mock_tprofile.get_drop_percentage.return_value = True, 'fake_samples'
         ixia_rhelper = tg_rfc2544_ixia.IxiaResourceHelper(mock.Mock())
         ixia_rhelper.rfc_helper = mock.Mock()
@@ -64,7 +66,8 @@ class TestIxiaResourceHelper(unittest.TestCase):
         ixia_rhelper.vnfd_helper.port_pairs.all_ports = []
         with mock.patch.object(ixia_rhelper, 'generate_samples'), \
                 mock.patch.object(ixia_rhelper, '_build_ports'), \
-                mock.patch.object(ixia_rhelper, '_initialize_client'):
+                mock.patch.object(ixia_rhelper, '_initialize_client'), \
+                mock.patch.object(utils, 'wait_until_true'):
             ixia_rhelper.run_traffic(mock_tprofile)
 
         self.assertEqual('fake_samples', ixia_rhelper._queue.get())
