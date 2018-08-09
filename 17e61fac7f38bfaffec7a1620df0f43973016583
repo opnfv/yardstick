@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_371779ef",
+        "filename": "yardstick/common/nsb_template.html",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-08-09T12:24:27Z",
+      "side": 1,
+      "message": "Although this patch is just a placeholder for report template but before merging this patch i think we should at least fix all the white spaces and get rid of commented line.",
+      "range": {
+        "startLine": 44,
+        "startChar": 9,
+        "endLine": 52,
+        "endChar": 37
+      },
+      "revId": "17e61fac7f38bfaffec7a1620df0f43973016583",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
