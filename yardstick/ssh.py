@@ -81,6 +81,9 @@ from yardstick.common.utils import try_int, NON_NONE_DEFAULT, make_dict_from_map
 from yardstick.network_services.utils import provision_tool
 
 
+DEFAULT_PORT = 22
+
+
 def convert_key_to_str(key):
     if not isinstance(key, (paramiko.RSAKey, paramiko.DSSKey)):
         return key
