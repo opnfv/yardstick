@@ -70,6 +70,24 @@
       "revId": "6951517be5860f84b4dc16f869478e43681d5887",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b7cf09b0",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7335
+      },
+      "writtenOn": "2018-08-09T11:47:00Z",
+      "side": 1,
+      "message": "so to resolve the issue we have to check if \"setup_query_content[\"stack_created\"]\" is boolean or not, since the current issue in this line:\n\nsolution: \nresult \u003d setup_query_content[\"stack_created\"]\nif not isinstance(result,bool):\n    result \u003d result.lower() \u003d\u003d \u0027true\u0027\nif result:\n      LOG....\n      return True\nreturn False",
+      "parentUuid": "9a561d44_fcc0467e",
+      "revId": "6951517be5860f84b4dc16f869478e43681d5887",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
