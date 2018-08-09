@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_17f995c8",
+        "filename": "yardstick/common/nsb_template.html",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-08-09T12:19:18Z",
+      "side": 1,
+      "message": "Do we actually need this and all other console log. No doubt they help in debugging but I think 4 logs statements are too much, we can get rid from some of them.",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 68,
+        "endChar": 58
+      },
+      "revId": "212f86ec486b75bfa7f3a89b9a2246b329bf5357",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_370019aa",
+        "filename": "yardstick/common/report.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-08-09T12:19:18Z",
+      "side": 1,
+      "message": "Seems redundant.",
+      "range": {
+        "startLine": 2,
+        "startChar": 4,
+        "endLine": 2,
+        "endChar": 42
+      },
+      "revId": "212f86ec486b75bfa7f3a89b9a2246b329bf5357",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7731f1a1",
+        "filename": "yardstick/common/report.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-08-09T12:19:18Z",
+      "side": 1,
+      "message": "Seems redundant.",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 48
+      },
+      "revId": "212f86ec486b75bfa7f3a89b9a2246b329bf5357",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
