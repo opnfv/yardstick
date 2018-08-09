@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import ipaddress
 import logging
+import six
 
 from yardstick.common import utils
 from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
@@ -39,6 +41,11 @@ class IxiaResourceHelper(ClientResourceHelper):
 
     def __init__(self, setup_helper, rfc_helper_type=None):
         super(IxiaResourceHelper, self).__init__(setup_helper)
+
+        self.ixia_config_handler = {
+            'IxiaPppoeClient': self._ixia_pppox_client_config,
+        }
+
         self.scenario_helper = setup_helper.scenario_helper
 
         self.client = ixnet_api.IxNextgen()
@@ -49,6 +56,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         self.rfc_helper = rfc_helper_type(self.scenario_helper)
         self.uplink_ports = None
         self.downlink_ports = None
+        self.context_cfg = None
         self._connect()
 
     def _connect(self, client=None):
@@ -96,10 +104,88 @@ class IxiaResourceHelper(ClientResourceHelper):
 
         return samples
 
+    def _get_intf_addr(self, intf):
+        node_name, intf_name = next(iter(intf.items()))
+        node = self.context_cfg["nodes"].get(node_name, {})
+        interface = node.get("interfaces", {})[intf_name]
+        ip = interface["local_ip"]
+        mask = interface["netmask"]
+        ipaddr = ipaddress.ip_network(six.text_type('{}/{}'.format(ip, mask)),
+                                      strict=False)
+        return ip, ipaddr.prefixlen
+
+    def _fill_ixia_pppox_config(self):
+        pppoe = self.scenario_helper.scenario_cfg["options"]["pppoe_client"]
+        ipv4 = self.scenario_helper.scenario_cfg["options"]["ipv4_client"]
+
+        _ip = [self._get_intf_addr(intf)[0] for intf in pppoe["ip"]]
+        self.scenario_helper.scenario_cfg["options"]["pppoe_client"]["ip"] = _ip
+
+        _ip = [self._get_intf_addr(intf)[0] for intf in ipv4["gateway_ip"]]
+        self.scenario_helper.scenario_cfg["options"]["ipv4_client"]["gateway_ip"] = _ip
+
+        addrs = [self._get_intf_addr(intf) for intf in ipv4["ip"]]
+        _ip = [addr[0] for addr in addrs]
+        _prefix = [addr[1] for addr in addrs]
+
+        self.scenario_helper.scenario_cfg["options"]["ipv4_client"]["ip"] = _ip
+        self.scenario_helper.scenario_cfg["options"]["ipv4_client"]["prefix"] = _prefix
+
+    def _ixia_pppox_client_config(self):
+        LOG.info("Create PPPoE client scenario on IxNetwork ...")
+
+        self._fill_ixia_pppox_config()
+
+        pppoe = self.scenario_helper.scenario_cfg["options"]["pppoe_client"]
+        ipv4 = self.scenario_helper.scenario_cfg["options"]["ipv4_client"]
+
+        vports = self.client.get_vports()
+        uplink_ports = vports[::2]
+        downlink_ports = vports[1::2]
+
+        # add topology 1
+        topology1 = self.client.add_topology('Topology 1', uplink_ports)
+        # add device group to topology 1
+        device1 = self.client.add_device_group(topology1, 'Device Group 1',
+                                               pppoe['sessions'])
+        # add ethernet layer to device group
+        ethernet1 = self.client.add_ethernet(device1, 'Ethernet 1')
+        # add pppox to ethernet 1
+        if 'pap_user' in pppoe:
+            pppox1 = self.client.add_pppox(ethernet1, 'pap', pppoe['pap_user'],
+                                           pppoe['pap_password'])
+        else:
+            pppox1 = self.client.add_pppox(ethernet1, 'chap',
+                                           pppoe['chap_user'],
+                                           pppoe['chap_password'])
+
+        # add topology 2
+        topology2 = self.client.add_topology('Topology 2', downlink_ports)
+        # add device group to topology 2
+        device2 = self.client.add_device_group(topology2, 'Device Group 2',
+                                               ipv4['sessions'])
+        # add ethernet layer to device group
+        ethernet2 = self.client.add_ethernet(device2, 'Ethernet 2')
+        # add ipv4 to ethernet 2
+        ipv4 = self.client.add_ipv4(ethernet2, name='ipv4 1',
+                                    addr=ipv4['ip'][0], addr_step='0.0.0.1',
+                                    prefix=ipv4['prefix'][0],
+                                    gateway=ipv4['gateway_ip'][0])
+
+    def _apply_ixia_config(self):
+        if 'ixia_config' in self.scenario_helper.scenario_cfg:
+            config = self.scenario_helper.scenario_cfg["ixia_config"]
+            try:
+                self.ixia_config_handler[config]()
+            except KeyError:
+                LOG.exception(
+                    "'{}' IXIA config type not supported".format(config))
+
     def _initialize_client(self):
         """Initialize the IXIA IxNetwork client and configure the server"""
         self.client.clear_config()
         self.client.assign_ports()
+        self._apply_ixia_config()
         self.client.create_traffic_model()
 
     def run_traffic(self, traffic_profile, *args):
