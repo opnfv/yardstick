@@ -34,6 +34,13 @@ PROTO_UDP = 'udp'
 PROTO_TCP = 'tcp'
 PROTO_VLAN = 'vlan'
 
+SINGLE_VALUE = "singleValue"
+
+S_VLAN = 0
+C_VLAN = 1
+
+ETHER_TYPE_802_1ad = '0x88a8'
+
 IP_VERSION_4_MASK = 24
 IP_VERSION_6_MASK = 64
 
@@ -367,10 +374,28 @@ class IxNextgen(object):  # pragma: no cover
                 traffic_param['outer_l2']['framesize'])
             srcmac = str(traffic_param.get('srcmac', '00:00:00:00:00:01'))
             dstmac = str(traffic_param.get('dstmac', '00:00:00:00:00:02'))
-            # NOTE(ralonsoh): add QinQ tagging when
-            # traffic_param['outer_l2']['QinQ'] exists.
-            # s_vlan = traffic_param['outer_l2']['QinQ']['S-VLAN']
-            # c_vlan = traffic_param['outer_l2']['QinQ']['C-VLAN']
+
+            if traffic_param['outer_l2']['QinQ']:
+                s_vlan = traffic_param['outer_l2']['QinQ']['S-VLAN']
+                c_vlan = traffic_param['outer_l2']['QinQ']['C-VLAN']
+
+                field_descriptor = self._get_field_in_stack_item(
+                    self._get_stack_item(fg_id, PROTO_ETHERNET)[0],
+                    'etherType')
+
+                self.ixnet.setMultiAttribute(field_descriptor,
+                                             '-auto', 'false',
+                                             '-singleValue', ETHER_TYPE_802_1ad,
+                                             '-fieldValue', ETHER_TYPE_802_1ad,
+                                             '-valueType', SINGLE_VALUE)
+
+                self._append_procotol_to_stack(
+                    PROTO_VLAN, config_element + '/stack:"ethernet-1"')
+                self._append_procotol_to_stack(
+                    PROTO_VLAN, config_element + '/stack:"ethernet-1"')
+
+                self._update_vlan_tag(fg_id, s_vlan, S_VLAN)
+                self._update_vlan_tag(fg_id, c_vlan, C_VLAN)
 
             self.ixnet.setMultiAttribute(
                 config_element + '/transmissionControl',
@@ -390,6 +415,27 @@ class IxNextgen(object):  # pragma: no cover
             self._update_frame_mac(
                 self._get_stack_item(fg_id, PROTO_ETHERNET)[0],
                 'sourceAddress', srcmac)
+
+    def _update_vlan_tag(self, fg_id, params, vlan=0):
+        field_to_param_map = {
+            'vlanUserPriority': 'priority',
+            'cfi': 'cfi',
+            'vlanID': 'id'
+        }
+        for field, param in field_to_param_map.items():
+            value = params.get(param)
+            if value:
+                field_descriptor = self._get_field_in_stack_item(
+                    self._get_stack_item(fg_id, PROTO_VLAN)[vlan],
+                    field)
+
+                self.ixnet.setMultiAttribute(field_descriptor,
+                                             '-auto', 'false',
+                                             '-singleValue', value,
+                                             '-fieldValue', value,
+                                             '-valueType', SINGLE_VALUE)
+
+        self.ixnet.commit()
 
     def _update_ipv4_address(self, ip_descriptor, field, ip_address, seed,
                              mask, count):

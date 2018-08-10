@@ -88,6 +88,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
                     'outer_l2': {
                         'framesize': value['outer_l2']['framesize'],
                         'framesPerSecond': True,
+                        'QinQ': value['outer_l2'].get('QinQ'),
                         'srcmac': mac['src_mac_{}'.format(port_index)],
                         'dstmac': mac['dst_mac_{}'.format(port_index)],
                     },
