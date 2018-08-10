@@ -1,0 +1,211 @@
+# namespace of yardstick
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: yardstick
+
+# deployment of yardstick server
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yardstick-server
+  namespace: yardstick
+  labels:
+    app: yardstick
+    cluster: yardstick-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yardstick
+      cluster: yardstick-server
+  template:
+    metadata:
+      labels:
+        app: yardstick
+        cluster: yardstick-server
+    spec:
+      containers:
+      - name: server
+        image: opnfv/yardstick:stable
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - name: docker-sock
+          mountPath: /var/run/docker.sock
+        - name: yardstick-configmap-volume
+          mountPath: /etc/yardstick/yardstick.conf
+          subPath: yardstick.conf
+      volumes:
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock
+        - name: yardstick-configmap-volume
+          configMap:
+            name: yardstick-configmap
+
+# deployment of grafana
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yardstick-grafana
+  namespace: yardstick
+  labels:
+    app: yardstick
+    cluster: yardstick-grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yardstick
+      cluster: yardstick-grafana
+  template:
+    metadata:
+      labels:
+        app: yardstick
+        cluster: yardstick-grafana
+    spec:
+      containers:
+      - name: grafana
+        image: opnfv/yardstick-grafana
+        ports:
+        - containerPort: 3000
+
+# deployment of influxdb
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yardstick-influxdb
+  namespace: yardstick
+  labels:
+    app: yardstick
+    cluster: yardstick-influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yardstick
+      cluster: yardstick-influxdb
+  template:
+    metadata:
+      labels:
+        app: yardstick
+        cluster: yardstick-influxdb
+    spec:
+      containers:
+      - name: influxdb
+        image: influxdb:1.6.0-alpine
+        ports:
+        - containerPort: 8086
+        command:
+        - /bin/entrypoint.sh
+        volumeMounts:
+        - name: influxdb-configmap-volume
+          mountPath: /bin/entrypoint.sh
+          readOnly: true
+          subPath: entrypoint.sh
+      volumes:
+        - name: influxdb-configmap-volume
+          configMap:
+            defaultMode: 0700
+            name: influxdb-configmap
+
+# configmap of yardstick
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: yardstick-configmap
+  namespace: yardstick
+data:
+  yardstick.conf: |-
+    [DEFAULT]
+    debug = False
+    dispatcher = influxdb
+
+    [dispatcher_http]
+    timeout = 5
+    target = http://127.0.0.1:8000/results
+
+    [dispatcher_file]
+    file_path = /tmp/yardstick.out
+    max_bytes = 0
+    backup_count = 0
+
+    [dispatcher_influxdb]
+    timeout = 5
+    target = http://influxdb-service.yardstick:8086
+    db_name = yardstick
+    username = root
+    password = root
+
+    [nsb]
+    trex_path = /opt/nsb_bin/trex/scripts
+    bin_path = /opt/nsb_bin
+    trex_client_lib = /opt/nsb_bin/trex_client/stl
+
+# configmap of influxdb
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: influxdb-configmap
+  namespace: yardstick
+data:
+  entrypoint.sh: |-
+    #!/bin/bash
+    /entrypoint.sh influxd
+    influx -host localhost -port 8086 -execute \
+    "CREATE USER \"root\" WITH PASSWORD 'root' WITH ALL PRIVILEGES"
+    influx -host localhost -port 8086 -execute \
+    "CREATE DATABASE \"yardstick\""
+
+# service of yardstick gui
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yardstick-gui
+  namespace: yardstick
+spec:
+    ports:
+    - port: 5000
+      targetPort: 5000
+      name: yardstick-gui-port
+    selector:
+      cluster: yardstick-server
+    type: NodePort
+
+# service of yardstick grafana
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-gui
+  namespace: yardstick
+spec:
+    ports:
+    - port: 3000
+      targetPort: 3000
+      name: grafana-gui-port
+    selector:
+      cluster: yardstick-grafana
+    type: NodePort
+# service of yardstick influxdb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: influxdb-service
+  namespace: yardstick
+spec:
+    ports:
+    - port: 8086
+      targetPort: 8086
+      name: influxdb-port
+    selector:
+      cluster: yardstick-influxdb
+    type: ClusterIP
