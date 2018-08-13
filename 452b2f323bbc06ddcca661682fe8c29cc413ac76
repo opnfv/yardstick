@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_9c55c5c8",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T15:48:03Z",
+      "side": 1,
+      "message": "id is a reserved word. Please, use _id instead",
+      "range": {
+        "startLine": 68,
+        "startChar": 27,
+        "endLine": 68,
+        "endChar": 29
+      },
+      "revId": "452b2f323bbc06ddcca661682fe8c29cc413ac76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_5cf96dc7",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T15:48:03Z",
+      "side": 1,
+      "message": "You can move this to line 77",
+      "range": {
+        "startLine": 79,
+        "startChar": 12,
+        "endLine": 79,
+        "endChar": 40
+      },
+      "revId": "452b2f323bbc06ddcca661682fe8c29cc413ac76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7c5271de",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T15:48:03Z",
+      "side": 1,
+      "message": "Can you document this function (and the previous one)? What do you need here?",
+      "revId": "452b2f323bbc06ddcca661682fe8c29cc413ac76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_5c4b2d2b",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T15:48:03Z",
+      "side": 1,
+      "message": "Unneeded. This could be:\n  self._create_node(item[\u0027name\u0027])",
+      "range": {
+        "startLine": 89,
+        "startChar": 12,
+        "endLine": 89,
+        "endChar": 29
+      },
+      "revId": "452b2f323bbc06ddcca661682fe8c29cc413ac76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_1ccb75a6",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T15:48:03Z",
+      "side": 1,
+      "message": "This should be in a separate class. This is not \"Report\" related, these functions are for a specific JS module, JSTree.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 31
+      },
+      "revId": "452b2f323bbc06ddcca661682fe8c29cc413ac76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_9c0305b8",
+        "filename": "yardstick/tests/unit/benchmark/core/test_report.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T15:48:03Z",
+      "side": 1,
+      "message": "reserved word",
+      "range": {
+        "startLine": 54,
+        "startChar": 30,
+        "endLine": 54,
+        "endChar": 32
+      },
+      "revId": "452b2f323bbc06ddcca661682fe8c29cc413ac76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_3c93d9a4",
+        "filename": "yardstick/common/html_template.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T15:48:03Z",
+      "side": 0,
+      "message": "Is this change needed?",
+      "revId": "23e8e6b6a3bc3cfe954d35a888ae4b7bfc95e2e6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
