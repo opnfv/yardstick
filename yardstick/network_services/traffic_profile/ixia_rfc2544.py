@@ -169,10 +169,10 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
             [samples[iface]['out_packets'] for iface in samples])
         rx_throughput = sum(
             [samples[iface]['RxThroughput'] for iface in samples])
-        rx_throughput = round(float(rx_throughput), 2)
+        rx_throughput = round(float(rx_throughput), 3)
         tx_throughput = sum(
             [samples[iface]['TxThroughput'] for iface in samples])
-        tx_throughput = round(float(tx_throughput), 2)
+        tx_throughput = round(float(tx_throughput), 3)
         packet_drop = abs(out_packets_sum - in_packets_sum)
 
         try:
