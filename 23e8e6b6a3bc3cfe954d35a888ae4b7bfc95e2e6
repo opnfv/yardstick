@@ -22,6 +22,29 @@
       "revId": "23e8e6b6a3bc3cfe954d35a888ae4b7bfc95e2e6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_dc829d51",
+        "filename": "docs/testing/user/userguide/10-yardstick-user-interface.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T14:54:15Z",
+      "side": 1,
+      "message": "s/jinja2/Jinja2\n\nhttp://jinja.pocoo.org/docs/2.10/",
+      "range": {
+        "startLine": 24,
+        "startChar": 33,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "23e8e6b6a3bc3cfe954d35a888ae4b7bfc95e2e6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
