@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_dc2c5d4d",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T15:59:53Z",
+      "side": 1,
+      "message": "Same as in previous patch [1]\n\n[1] https://gerrit.opnfv.org/gerrit/#/c/60699/2/yardstick/benchmark/core/report.py",
+      "range": {
+        "startLine": 173,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 30
+      },
+      "revId": "8f0d6abb111d3104d6e582f2e6fb8715bf5d2dbe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
