@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_dcba9de0",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T16:36:13Z",
+      "side": 1,
+      "message": "1) Can you comment how to reinstall (if needed) the requirements?\n tox -r requirements.txt -e .....\n\n2) Can you comment how to delete the tox virtual env? I mean, the .tox folder can be deleted if needed.",
+      "revId": "73a7c2838a693764265614adbda1ffae7627a853",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
