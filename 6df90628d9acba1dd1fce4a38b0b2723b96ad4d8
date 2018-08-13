@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_5c684dba",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T14:52:32Z",
+      "side": 1,
+      "message": "This should be in the same block",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 32
+      },
+      "revId": "6df90628d9acba1dd1fce4a38b0b2723b96ad4d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3cac79ed",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T14:52:32Z",
+      "side": 1,
+      "message": "1) This should be in constants.\n2) The html template should be in YARDSTICK_ROOT_PATH/dispatcher/html/",
+      "range": {
+        "startLine": 111,
+        "startChar": 7,
+        "endLine": 111,
+        "endChar": 48
+      },
+      "revId": "6df90628d9acba1dd1fce4a38b0b2723b96ad4d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_9c62e5d6",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T14:52:32Z",
+      "side": 1,
+      "message": "This is not a constant, don\u0027t use uppercases",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 112,
+        "endChar": 28
+      },
+      "revId": "6df90628d9acba1dd1fce4a38b0b2723b96ad4d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
