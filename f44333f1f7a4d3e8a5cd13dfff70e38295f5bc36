@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_19454770",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T13:01:32Z",
+      "side": 1,
+      "message": "You are using this variable only in L552. Remove it\nand in L552:\n  if not node.get(\u0027key_filename\u0027):",
+      "range": {
+        "startLine": 547,
+        "startChar": 8,
+        "endLine": 547,
+        "endChar": 43
+      },
+      "revId": "f44333f1f7a4d3e8a5cd13dfff70e38295f5bc36",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b94ffb91",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T13:01:32Z",
+      "side": 1,
+      "message": "user_name \u003d node.get(\u0027user\u0027)  # None is redundant\nif not user_name:             # This will check if None and \"\"\n  node[\u0027user\u0027] \u003d user_name \u003d \u0027root\u0027",
+      "range": {
+        "startLine": 548,
+        "startChar": 8,
+        "endLine": 551,
+        "endChar": 40
+      },
+      "revId": "f44333f1f7a4d3e8a5cd13dfff70e38295f5bc36",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_395beb55",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T13:01:32Z",
+      "side": 1,
+      "message": "Why this?",
+      "range": {
+        "startLine": 381,
+        "startChar": 25,
+        "endLine": 381,
+        "endChar": 26
+      },
+      "revId": "f44333f1f7a4d3e8a5cd13dfff70e38295f5bc36",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f949738c",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-13T13:01:32Z",
+      "side": 1,
+      "message": "Move this inside \"model.Libvirt.build_vm_xml\"",
+      "range": {
+        "startLine": 394,
+        "startChar": 0,
+        "endLine": 396,
+        "endChar": 65
+      },
+      "revId": "f44333f1f7a4d3e8a5cd13dfff70e38295f5bc36",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
