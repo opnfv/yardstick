@@ -87,13 +87,6 @@ class ProxBinSearchProfile(ProxProfile):
 
         theor_max_thruput = actual_max_thruput = 0
 
-        result_samples = {}
-        rate_samples = {}
-        pos_retry = 0
-        neg_retry = 0
-        total_retry = 0
-        ok_retry = 0
-
         # Store one time only value in influxdb
         single_samples = {
             "test_duration": traffic_gen.scenario_helper.scenario_cfg["runner"]["duration"],
@@ -110,15 +103,11 @@ class ProxBinSearchProfile(ProxProfile):
             "interface_speed_gbps", constants.NIC_GBPS_DEFAULT) * constants.ONE_GIGABIT_IN_BITS
 
         ok_retry = traffic_gen.scenario_helper.scenario_cfg["runner"].get("confirmation", 0)
-        for test_value in self.bounds_iterator(LOG):
+        for step_id, test_value in enumerate(self.bounds_iterator(LOG)):
             pos_retry = 0
             neg_retry = 0
             total_retry = 0
 
-            rate_samples["MAX_Rate"] = self.current_upper
-            rate_samples["MIN_Rate"] = self.current_lower
-            rate_samples["Test_Rate"] = test_value
-            self.queue.put(rate_samples, True, overall_constants.QUEUE_PUT_TIMEOUT)
             LOG.info("Checking MAX %s MIN %s TEST %s",
                 self.current_upper, self.lower_bound, test_value)
             while (pos_retry <= ok_retry) and (neg_retry <= ok_retry):
@@ -188,6 +177,11 @@ class ProxBinSearchProfile(ProxProfile):
                     self.queue.put({'theor_max_throughput': theor_max_thruput})
 
                 LOG.info(">>>##>>Collect TG KPIs %s %s", datetime.datetime.now(), samples)
+                samples["MAX_Rate"] = self.current_upper
+                samples["MIN_Rate"] = self.current_lower
+                samples["Test_Rate"] = test_value
+                samples["Step_Id"] = step_id
+                samples["Confirmation_Retry"] = total_retry
                 self.queue.put(samples, True, overall_constants.QUEUE_PUT_TIMEOUT)
 
         LOG.info(">>>##>> Result Reached PktSize %s Theor_Max_Thruput %s Actual_throughput %s",
