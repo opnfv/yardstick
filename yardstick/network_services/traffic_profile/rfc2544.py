@@ -70,7 +70,7 @@ class PortPgIDMap(object):
 class RFC2544Profile(trex_traffic_profile.TrexProfile):
     """TRex RFC2544 traffic profile"""
 
-    TOLERANCE_LIMIT = 0.05
+    TOLERANCE_LIMIT = 0.01
 
     def __init__(self, traffic_generator):
         super(RFC2544Profile, self).__init__(traffic_generator)
@@ -246,6 +246,7 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
     def get_drop_percentage(self, samples, tol_low, tol_high,
                             correlated_traffic):
         """Calculate the drop percentage and run the traffic"""
+        completed = False
         tx_rate_fps = 0
         rx_rate_fps = 0
         for sample in samples:
@@ -266,15 +267,15 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
             drop_percent = round(
                 (float(abs(out_packets - in_packets)) / out_packets) * 100, 5)
 
-        tol_high = tol_high if tol_high > self.TOLERANCE_LIMIT else tol_high
-        tol_low = tol_low if tol_low > self.TOLERANCE_LIMIT else tol_low
+        tol_high = max(tol_high, self.TOLERANCE_LIMIT)
+        tol_low = min(tol_low, self.TOLERANCE_LIMIT)
         if drop_percent > tol_high:
             self.max_rate = self.rate
         elif drop_percent < tol_low:
             self.min_rate = self.rate
-        # else:
-            # NOTE(ralonsoh): the test should finish here
-            # pass
+        else:
+            completed = True
+
         last_rate = self.rate
         self.rate = round(float(self.max_rate + self.min_rate) / 2.0, 5)
 
@@ -295,4 +296,4 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
             'Rate': last_rate,
             'Latency': latency
         }
-        return output
+        return completed, output

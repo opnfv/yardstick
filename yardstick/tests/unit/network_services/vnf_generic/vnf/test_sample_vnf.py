@@ -1091,7 +1091,8 @@ class TestClientResourceHelper(unittest.TestCase):
         self.assertIs(client_resource_helper._connect(client), client)
 
     @mock.patch.object(ClientResourceHelper, '_build_ports')
-    @mock.patch.object(ClientResourceHelper, '_run_traffic_once')
+    @mock.patch.object(ClientResourceHelper, '_run_traffic_once',
+                       return_value=(True, mock.ANY))
     def test_run_traffic(self, mock_run_traffic_once, mock_build_ports):
         client_resource_helper = ClientResourceHelper(mock.Mock())
         client = mock.Mock()
@@ -1103,7 +1104,7 @@ class TestClientResourceHelper(unittest.TestCase):
                 as mock_terminated:
             mock_connect.return_value = client
             type(mock_terminated).value = mock.PropertyMock(
-                side_effect=[0, 1, lambda x: x])
+                side_effect=[0, 1, 1, lambda x: x])
             client_resource_helper.run_traffic(traffic_profile, mq_producer)
 
         mock_build_ports.assert_called_once()

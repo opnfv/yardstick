@@ -238,15 +238,17 @@ class TestRFC2544Profile(base.BaseUnitTestCase):
                      'in_packets': 4040,
                      'latency': 'Latency2'}}
         ]
-        output = rfc2544_profile.get_drop_percentage(samples, 0, 0, False)
+        completed, output = rfc2544_profile.get_drop_percentage(
+            samples, 0, 0, False)
         expected = {'DropPercentage': 0.3963,
                     'Latency': {'xe1': 'Latency1', 'xe2': 'Latency2'},
                     'RxThroughput': 312.5,
                     'TxThroughput': 304.5,
                     'CurrentDropPercentage': 0.3963,
-                    'Rate': 100,
+                    'Rate': 100.0,
                     'Throughput': 312.5}
         self.assertEqual(expected, output)
+        self.assertFalse(completed)
 
 
 class PortPgIDMapTestCase(base.BaseUnitTestCase):

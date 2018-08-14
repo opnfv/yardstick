@@ -426,7 +426,8 @@ class ClientResourceHelper(ResourceHelper):
             iteration_index = 0
             while self._terminated.value == 0:
                 iteration_index += 1
-                self._run_traffic_once(traffic_profile)
+                if self._run_traffic_once(traffic_profile):
+                    self._terminated.value = 1
                 mq_producer.tg_method_iteration(iteration_index)
 
             self.client.stop(self.all_ports)
