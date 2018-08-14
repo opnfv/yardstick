@@ -18,12 +18,14 @@ import unittest
 import mock
 import six
 
+import paramiko
+
 from yardstick.common import exceptions as y_exceptions
 from yardstick.common import utils
 from yardstick.network_services.nfvi.resource import ResourceProfile
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 from yardstick.network_services.vnf_generic.vnf import sample_vnf
-from yardstick.network_services.vnf_generic.vnf.vnf_ssh_helper import VnfSshHelper
+from yardstick.network_services.vnf_generic.vnf import vnf_ssh_helper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFDeployHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ScenarioHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ResourceHelper
@@ -35,6 +37,7 @@ from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTraff
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
 from yardstick.tests.unit.network_services.vnf_generic.vnf import test_base
 from yardstick.benchmark.contexts import base as ctx_base
+from yardstick import ssh
 
 
 class MockError(Exception):
@@ -83,10 +86,11 @@ class TestVnfSshHelper(unittest.TestCase):
                         'virtual-interface': {
                             'dst_mac': '00:00:00:00:00:03',
                             'vpci': '0000:05:00.0',
+                            'dpdk_port_num': 0,
+                            'driver': 'i40e',
                             'local_ip': '152.16.100.19',
                             'type': 'PCI-PASSTHROUGH',
                             'netmask': '255.255.255.0',
-                            'dpdk_port_num': 0,
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.100.20',
                             'local_mac': '00:00:00:00:00:01',
@@ -100,10 +104,11 @@ class TestVnfSshHelper(unittest.TestCase):
                         'virtual-interface': {
                             'dst_mac': '00:00:00:00:00:04',
                             'vpci': '0000:05:00.1',
+                            'dpdk_port_num': 1,
+                            'driver': 'ixgbe',
                             'local_ip': '152.16.40.19',
                             'type': 'PCI-PASSTHROUGH',
                             'netmask': '255.255.255.0',
-                            'dpdk_port_num': 1,
                             'bandwidth': '10 Gbps',
                             'dst_ip': '152.16.40.20',
                             'local_mac': '00:00:00:00:00:02',
@@ -152,90 +157,88 @@ class TestVnfSshHelper(unittest.TestCase):
         }
     }
 
+    def setUp(self):
+        self.ssh_helper = vnf_ssh_helper.VnfSshHelper(
+            self.VNFD_0['mgmt-interface'], 'my/bin/path')
+        self.ssh_helper._run = mock.Mock()
+
     def assertAll(self, iterable, message=None):
         self.assertTrue(all(iterable), message)
 
     def test_get_class(self):
-        self.assertIs(VnfSshHelper.get_class(), VnfSshHelper)
+        self.assertIs(vnf_ssh_helper.VnfSshHelper.get_class(),
+                      vnf_ssh_helper.VnfSshHelper)
 
-    @mock.patch('yardstick.ssh.paramiko')
+    @mock.patch.object(ssh, 'paramiko')
     def test_copy(self, _):
-        ssh_helper = VnfSshHelper(self.VNFD_0['mgmt-interface'], 'my/bin/path')
-        ssh_helper._run = mock.Mock()
-
-        ssh_helper.execute('ls')
-        self.assertTrue(ssh_helper.is_connected)
-        result = ssh_helper.copy()
-        self.assertIsInstance(result, VnfSshHelper)
+        self.ssh_helper.execute('ls')
+        self.assertTrue(self.ssh_helper.is_connected)
+        result = self.ssh_helper.copy()
+        self.assertIsInstance(result, vnf_ssh_helper.VnfSshHelper)
         self.assertFalse(result.is_connected)
-        self.assertEqual(result.bin_path, ssh_helper.bin_path)
-        self.assertEqual(result.host, ssh_helper.host)
-        self.assertEqual(result.port, ssh_helper.port)
-        self.assertEqual(result.user, ssh_helper.user)
-        self.assertEqual(result.password, ssh_helper.password)
-        self.assertEqual(result.key_filename, ssh_helper.key_filename)
+        self.assertEqual(result.bin_path, self.ssh_helper.bin_path)
+        self.assertEqual(result.host, self.ssh_helper.host)
+        self.assertEqual(result.port, self.ssh_helper.port)
+        self.assertEqual(result.user, self.ssh_helper.user)
+        self.assertEqual(result.password, self.ssh_helper.password)
+        self.assertEqual(result.key_filename, self.ssh_helper.key_filename)
 
-    @mock.patch('yardstick.ssh.paramiko')
+    @mock.patch.object(paramiko, 'SSHClient')
     def test_upload_config_file(self, mock_paramiko):
-        ssh_helper = VnfSshHelper(self.VNFD_0['mgmt-interface'], 'my/bin/path')
-        ssh_helper._run = mock.MagicMock()
-
-        self.assertFalse(ssh_helper.is_connected)
-        cfg_file = ssh_helper.upload_config_file('my/prefix', 'my content')
-        self.assertTrue(ssh_helper.is_connected)
-        mock_paramiko.SSHClient.assert_called_once()
-        self.assertTrue(cfg_file.startswith('/tmp'))
-
-        cfg_file = ssh_helper.upload_config_file('/my/prefix', 'my content')
-        self.assertTrue(ssh_helper.is_connected)
-        mock_paramiko.SSHClient.assert_called_once()
+        self.assertFalse(self.ssh_helper.is_connected)
+        cfg_file = self.ssh_helper.upload_config_file('/my/prefix', 'my content')
+        self.assertTrue(self.ssh_helper.is_connected)
+        mock_paramiko.assert_called_once()
         self.assertEqual(cfg_file, '/my/prefix')
 
-    def test_join_bin_path(self):
-        ssh_helper = VnfSshHelper(self.VNFD_0['mgmt-interface'], 'my/bin/path')
+    @mock.patch.object(paramiko, 'SSHClient')
+    def test_upload_config_file_path_does_not_exist(self, mock_paramiko):
+        self.assertFalse(self.ssh_helper.is_connected)
+        cfg_file = self.ssh_helper.upload_config_file('my/prefix', 'my content')
+        self.assertTrue(self.ssh_helper.is_connected)
+        mock_paramiko.assert_called_once()
+        self.assertTrue(cfg_file.startswith('/tmp'))
 
+    def test_join_bin_path(self):
         expected_start = 'my'
         expected_middle_list = ['bin']
         expected_end = 'path'
-        result = ssh_helper.join_bin_path()
+        result = self.ssh_helper.join_bin_path()
         self.assertTrue(result.startswith(expected_start))
         self.assertAll(middle in result for middle in expected_middle_list)
         self.assertTrue(result.endswith(expected_end))
 
         expected_middle_list.append(expected_end)
         expected_end = 'some_file.sh'
-        result = ssh_helper.join_bin_path('some_file.sh')
+        result = self.ssh_helper.join_bin_path('some_file.sh')
         self.assertTrue(result.startswith(expected_start))
         self.assertAll(middle in result for middle in expected_middle_list)
         self.assertTrue(result.endswith(expected_end))
 
         expected_middle_list.append('some_dir')
         expected_end = 'some_file.sh'
-        result = ssh_helper.join_bin_path('some_dir', 'some_file.sh')
+        result = self.ssh_helper.join_bin_path('some_dir', 'some_file.sh')
         self.assertTrue(result.startswith(expected_start))
         self.assertAll(middle in result for middle in expected_middle_list)
         self.assertTrue(result.endswith(expected_end))
 
-    @mock.patch('yardstick.ssh.paramiko')
-    @mock.patch('yardstick.ssh.provision_tool')
+    @mock.patch.object(paramiko, 'SSHClient')
+    @mock.patch.object(ssh, 'provision_tool')
     def test_provision_tool(self, mock_provision_tool, mock_paramiko):
-        ssh_helper = VnfSshHelper(self.VNFD_0['mgmt-interface'], 'my/bin/path')
-        ssh_helper._run = mock.MagicMock()
-
-        self.assertFalse(ssh_helper.is_connected)
-        ssh_helper.provision_tool()
-        self.assertTrue(ssh_helper.is_connected)
-        mock_paramiko.SSHClient.assert_called_once()
+        self.assertFalse(self.ssh_helper.is_connected)
+        self.ssh_helper.provision_tool()
+        self.assertTrue(self.ssh_helper.is_connected)
+        mock_paramiko.assert_called_once()
         mock_provision_tool.assert_called_once()
 
-        ssh_helper.provision_tool(tool_file='my_tool.sh')
-        self.assertTrue(ssh_helper.is_connected)
-        mock_paramiko.SSHClient.assert_called_once()
+        self.ssh_helper.provision_tool(tool_file='my_tool.sh')
+        self.assertTrue(self.ssh_helper.is_connected)
+        mock_paramiko.assert_called_once()
         self.assertEqual(mock_provision_tool.call_count, 2)
 
-        ssh_helper.provision_tool('tool_path', 'my_tool.sh')
-        self.assertTrue(ssh_helper.is_connected)
-        mock_paramiko.SSHClient.assert_called_once()
+        self.ssh_helper.provision_tool('tool_path', 'my_tool.sh')
+        self.assertTrue(self.ssh_helper.is_connected)
+        mock_paramiko.assert_called_once()
         self.assertEqual(mock_provision_tool.call_count, 3)
 
 
