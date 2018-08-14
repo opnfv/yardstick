@@ -17,12 +17,14 @@ from copy import deepcopy
 import unittest
 import mock
 import six
+import time
 
 import paramiko
 
 from yardstick.common import exceptions as y_exceptions
 from yardstick.common import utils
-from yardstick.network_services.nfvi.resource import ResourceProfile
+from yardstick.network_services.nfvi import resource
+from yardstick.network_services.vnf_generic.vnf import base
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 from yardstick.network_services.vnf_generic.vnf import sample_vnf
 from yardstick.network_services.vnf_generic.vnf import vnf_ssh_helper
@@ -364,123 +366,24 @@ class TestSetupEnvHelper(unittest.TestCase):
 
 class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
 
-    VNFD_0 = {
-        'short-name': 'VpeVnf',
-        'vdu': [
-            {
-                'routing_table': [
-                    {
-                        'network': '152.16.100.20',
-                        'netmask': '255.255.255.0',
-                        'gateway': '152.16.100.20',
-                        'if': 'xe0'
-                    },
-                    {
-                        'network': '152.16.40.20',
-                        'netmask': '255.255.255.0',
-                        'gateway': '152.16.40.20',
-                        'if': 'xe1'
-                    },
-                ],
-                'description': 'VPE approximation using DPDK',
-                'name': 'vpevnf-baremetal',
-                'nd_route_tbl': [
-                    {
-                        'network': '0064:ff9b:0:0:0:0:9810:6414',
-                        'netmask': '112',
-                        'gateway': '0064:ff9b:0:0:0:0:9810:6414',
-                        'if': 'xe0'
-                    },
-                    {
-                        'network': '0064:ff9b:0:0:0:0:9810:2814',
-                        'netmask': '112',
-                        'gateway': '0064:ff9b:0:0:0:0:9810:2814',
-                        'if': 'xe1'
-                    },
-                ],
-                'id': 'vpevnf-baremetal',
-                'external-interface': [
-                    {
-                        'virtual-interface': {
-                            'dst_mac': '00:00:00:00:00:03',
-                            'vpci': '0000:05:00.0',
-                            'dpdk_port_num': 0,
-                            'driver': 'i40e',
-                            'local_ip': '152.16.100.19',
-                            'type': 'PCI-PASSTHROUGH',
-                            'netmask': '255.255.255.0',
-                            'bandwidth': '10 Gbps',
-                            'dst_ip': '152.16.100.20',
-                            'local_mac': '00:00:00:00:00:01',
-                            'vld_id': 'uplink_0',
-                            'ifname': 'xe0',
-                        },
-                        'vnfd-connection-point-ref': 'xe0',
-                        'name': 'xe0'
-                    },
-                    {
-                        'virtual-interface': {
-                            'dst_mac': '00:00:00:00:00:04',
-                            'vpci': '0000:05:00.1',
-                            'dpdk_port_num': 1,
-                            'driver': 'ixgbe',
-                            'local_ip': '152.16.40.19',
-                            'type': 'PCI-PASSTHROUGH',
-                            'netmask': '255.255.255.0',
-                            'bandwidth': '10 Gbps',
-                            'dst_ip': '152.16.40.20',
-                            'local_mac': '00:00:00:00:00:02',
-                            'vld_id': 'downlink_0',
-                            'ifname': 'xe1',
-                        },
-                        'vnfd-connection-point-ref': 'xe1',
-                        'name': 'xe1'
-                    },
-                ],
-            },
-        ],
-        'description': 'Vpe approximation using DPDK',
-        'mgmt-interface': {
-            'vdu-id': 'vpevnf-baremetal',
-            'host': '1.1.1.1',
-            'password': 'r00t',
-            'user': 'root',
-            'ip': '1.1.1.1'
-        },
-        'benchmark': {
-            'kpi': [
-                'packets_in',
-                'packets_fwd',
-                'packets_dropped',
-            ],
-        },
-        'connection-point': [
-            {
-                'type': 'VPORT',
-                'name': 'xe0',
-            },
-            {
-                'type': 'VPORT',
-                'name': 'xe1',
-            },
-        ],
-        'id': 'VpeApproxVnf', 'name': 'VPEVnfSsh'
-    }
+    VNFD_0 = TestVnfSshHelper.VNFD_0
 
-    VNFD = {
-        'vnfd:vnfd-catalog': {
-            'vnfd': [
-                VNFD_0,
-            ]
-        }
-    }
+    VNFD = TestVnfSshHelper.VNFD
+
+    def setUp(self):
+        self.vnfd_helper = base.VnfdHelper(deepcopy(self.VNFD_0))
+        self.scenario_helper = mock.Mock()
+        self.ssh_helper = mock.Mock()
+        self.dpdk_setup_helper = sample_vnf.DpdkVnfSetupEnvHelper(
+            self.vnfd_helper, self.ssh_helper, self.scenario_helper)
 
     def test__update_packet_type(self):
         ip_pipeline_cfg = 'pkt_type = ipv4'
         pkt_type = {'pkt_type': '1'}
 
         expected = "pkt_type = 1"
-        result = DpdkVnfSetupEnvHelper._update_packet_type(ip_pipeline_cfg, pkt_type)
+        result = self.dpdk_setup_helper._update_packet_type(
+            ip_pipeline_cfg, pkt_type)
         self.assertEqual(result, expected)
 
     def test__update_packet_type_no_op(self):
@@ -488,123 +391,123 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         pkt_type = {'pkt_type': '1'}
 
         expected = "pkt_type = ipv6"
-        result = DpdkVnfSetupEnvHelper._update_packet_type(ip_pipeline_cfg, pkt_type)
+        result = self.dpdk_setup_helper._update_packet_type(
+            ip_pipeline_cfg, pkt_type)
         self.assertEqual(result, expected)
 
     def test__update_packet_type_multi_op(self):
         ip_pipeline_cfg = 'pkt_type = ipv4\npkt_type = 1\npkt_type = ipv4'
         pkt_type = {'pkt_type': '1'}
-
         expected = 'pkt_type = 1\npkt_type = 1\npkt_type = 1'
-        result = DpdkVnfSetupEnvHelper._update_packet_type(ip_pipeline_cfg, pkt_type)
+
+        result = self.dpdk_setup_helper._update_packet_type(
+            ip_pipeline_cfg, pkt_type)
         self.assertEqual(result, expected)
 
     def test__update_traffic_type(self):
         ip_pipeline_cfg = 'pkt_type = ipv4'
-
-        traffic_options = {"vnf_type": DpdkVnfSetupEnvHelper.APP_NAME, 'traffic_type': 4}
+        traffic_options = {
+            "vnf_type": sample_vnf.DpdkVnfSetupEnvHelper.APP_NAME,
+            "traffic_type": 4}
         expected = "pkt_type = ipv4"
-        result = DpdkVnfSetupEnvHelper._update_traffic_type(ip_pipeline_cfg, traffic_options)
+
+        result = self.dpdk_setup_helper._update_traffic_type(
+            ip_pipeline_cfg, traffic_options)
         self.assertEqual(result, expected)
 
     def test__update_traffic_type_ipv6(self):
         ip_pipeline_cfg = 'pkt_type = ipv4'
-
-        traffic_options = {"vnf_type": DpdkVnfSetupEnvHelper.APP_NAME, 'traffic_type': 6}
+        traffic_options = {
+            "vnf_type": sample_vnf.DpdkVnfSetupEnvHelper.APP_NAME,
+            "traffic_type": 6}
         expected = "pkt_type = ipv6"
-        result = DpdkVnfSetupEnvHelper._update_traffic_type(ip_pipeline_cfg, traffic_options)
+
+        result = self.dpdk_setup_helper._update_traffic_type(
+            ip_pipeline_cfg, traffic_options)
         self.assertEqual(result, expected)
 
     def test__update_traffic_type_not_app_name(self):
         ip_pipeline_cfg = 'traffic_type = 4'
-
-        vnf_type = ''.join(["Not", DpdkVnfSetupEnvHelper.APP_NAME])
+        vnf_type = ''.join(["Not", sample_vnf.DpdkVnfSetupEnvHelper.APP_NAME])
         traffic_options = {"vnf_type": vnf_type, 'traffic_type': 8}
         expected = "traffic_type = 8"
-        result = DpdkVnfSetupEnvHelper._update_traffic_type(ip_pipeline_cfg, traffic_options)
+
+        result = self.dpdk_setup_helper._update_traffic_type(
+            ip_pipeline_cfg, traffic_options)
         self.assertEqual(result, expected)
 
     @mock.patch.object(six, 'BytesIO', return_value=six.BytesIO(b'100\n'))
     @mock.patch.object(utils, 'read_meminfo',
                        return_value={'Hugepagesize': '2048'})
     def test__setup_hugepages_no_hugepages_defined(self, mock_meminfo, *args):
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        scenario_helper.all_options = {}
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
-            mock.ANY, ssh_helper, scenario_helper)
+        self.scenario_helper.all_options = {}
         with mock.patch.object(sample_vnf.LOG, 'info') as mock_info:
-            dpdk_setup_helper._setup_hugepages()
+            self.dpdk_setup_helper._setup_hugepages()
             mock_info.assert_called_once_with(
                 'Hugepages size (kB): %s, number claimed: %s, number set: '
                 '%s', 2048, 8192, 100)
-        mock_meminfo.assert_called_once_with(ssh_helper)
+        mock_meminfo.assert_called_once_with(self.ssh_helper)
 
     @mock.patch.object(six, 'BytesIO', return_value=six.BytesIO(b'100\n'))
     @mock.patch.object(utils, 'read_meminfo',
                        return_value={'Hugepagesize': '1048576'})
     def test__setup_hugepages_8gb_hugepages_defined(self, mock_meminfo, *args):
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        scenario_helper.all_options = {'hugepages_gb': 8}
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
-            mock.ANY, ssh_helper, scenario_helper)
+        self.scenario_helper.all_options = {'hugepages_gb': 8}
         with mock.patch.object(sample_vnf.LOG, 'info') as mock_info:
-            dpdk_setup_helper._setup_hugepages()
+            self.dpdk_setup_helper._setup_hugepages()
             mock_info.assert_called_once_with(
                 'Hugepages size (kB): %s, number claimed: %s, number set: '
                 '%s', 1048576, 8, 100)
-        mock_meminfo.assert_called_once_with(ssh_helper)
+        mock_meminfo.assert_called_once_with(self.ssh_helper)
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
+    @mock.patch.object(six.moves.builtins, 'open')
     @mock.patch.object(utils, 'find_relative_file')
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig')
-    @mock.patch.object(utils, 'open_relative_file')
-    def test_build_config(self, mock_open_rf, mock_multi_port_config_class, mock_find, *args):
+    @mock.patch.object(sample_vnf, 'MultiPortConfig')
+    def test_build_config(self, mock_multi_port_config_class,
+                          mock_find, *args):
         mock_multi_port_config = mock_multi_port_config_class()
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        scenario_helper.vnf_cfg = {}
-        scenario_helper.options = {}
-        scenario_helper.all_options = {}
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+        self.scenario_helper.vnf_cfg = {}
+        self.scenario_helper.options = {}
+        self.scenario_helper.all_options = {}
 
-        dpdk_setup_helper.PIPELINE_COMMAND = expected = 'pipeline command'
-        result = dpdk_setup_helper.build_config()
+        self.dpdk_setup_helper.PIPELINE_COMMAND = expected = 'pipeline command'
+        result = self.dpdk_setup_helper.build_config()
         self.assertEqual(result, expected)
-        self.assertGreaterEqual(ssh_helper.upload_config_file.call_count, 2)
+        self.assertGreaterEqual(self.ssh_helper.upload_config_file.call_count, 2)
         mock_find.assert_called()
         mock_multi_port_config.generate_config.assert_called()
         mock_multi_port_config.generate_script.assert_called()
 
-        scenario_helper.options = {'rules': 'fake_file'}
-        scenario_helper.vnf_cfg = {'file': 'fake_file'}
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
+    @mock.patch.object(six.moves.builtins, 'open')
+    @mock.patch.object(utils, 'find_relative_file')
+    @mock.patch.object(sample_vnf, 'MultiPortConfig')
+    @mock.patch.object(utils, 'open_relative_file')
+    def test_build_config2(self, mock_open_rf, mock_multi_port_config_class,
+                          mock_find, *args):
+        mock_multi_port_config = mock_multi_port_config_class()
+        self.scenario_helper.options = {'rules': 'fake_file'}
+        self.scenario_helper.vnf_cfg = {'file': 'fake_file'}
+        self.scenario_helper.all_options = {}
         mock_open_rf.side_effect = mock.mock_open(read_data='fake_data')
-        dpdk_setup_helper.PIPELINE_COMMAND = expected = 'pipeline command'
+        self.dpdk_setup_helper.PIPELINE_COMMAND = expected = 'pipeline command'
 
-        result = dpdk_setup_helper.build_config()
+        result = self.dpdk_setup_helper.build_config()
 
         mock_open_rf.assert_called()
         self.assertEqual(result, expected)
-        self.assertGreaterEqual(ssh_helper.upload_config_file.call_count, 2)
+        self.assertGreaterEqual(self.ssh_helper.upload_config_file.call_count, 2)
         mock_find.assert_called()
         mock_multi_port_config.generate_config.assert_called()
         mock_multi_port_config.generate_script.assert_called()
 
     def test__build_pipeline_kwargs(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        ssh_helper.provision_tool.return_value = 'tool_path'
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper.CFG_CONFIG = 'config'
-        dpdk_setup_helper.CFG_SCRIPT = 'script'
-        dpdk_setup_helper.pipeline_kwargs = {}
-        dpdk_setup_helper.all_ports = [0, 1, 2]
-        dpdk_setup_helper.scenario_helper.vnf_cfg = {'lb_config': 'HW',
-                                                     'worker_threads': 1}
+        self.ssh_helper.provision_tool.return_value = 'tool_path'
+        self.dpdk_setup_helper.CFG_CONFIG = 'config'
+        self.dpdk_setup_helper.CFG_SCRIPT = 'script'
+        self.dpdk_setup_helper.pipeline_kwargs = {}
+        self.dpdk_setup_helper.all_ports = [0, 1, 2]
+        self.dpdk_setup_helper.scenario_helper.vnf_cfg = {'lb_config': 'HW',
+                                                          'worker_threads': 1}
 
         expected = {
             'cfg_file': 'config',
@@ -613,12 +516,13 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
             'tool_path': 'tool_path',
             'hwlb': ' --hwlb 1',
         }
-        dpdk_setup_helper._build_pipeline_kwargs()
-        self.assertDictEqual(dpdk_setup_helper.pipeline_kwargs, expected)
+        self.dpdk_setup_helper._build_pipeline_kwargs()
+        self.assertDictEqual(self.dpdk_setup_helper.pipeline_kwargs, expected)
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
-    @mock.patch('yardstick.ssh.SSH')
+    @mock.patch.object(ssh, 'SSH')
     def test_setup_vnf_environment(self, *args):
+        self.scenario_helper.nodes = [None, None]
+
         def execute(cmd):
             if cmd.startswith('which '):
                 return exec_failure
@@ -626,102 +530,82 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
 
         exec_success = (0, 'good output', '')
         exec_failure = (1, 'bad output', 'error output')
+        self.ssh_helper.execute = execute
 
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        ssh_helper.execute = execute
+        self.dpdk_setup_helper._validate_cpu_cfg = mock.Mock(return_value=[])
 
-        scenario_helper = mock.Mock()
-        scenario_helper.nodes = [None, None]
-        dpdk_vnf_setup_env_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_vnf_setup_env_helper._validate_cpu_cfg = mock.Mock(return_value=[])
-
-        with mock.patch.object(dpdk_vnf_setup_env_helper, '_setup_dpdk'):
+        with mock.patch.object(self.dpdk_setup_helper, '_setup_dpdk'):
             self.assertIsInstance(
-                dpdk_vnf_setup_env_helper.setup_vnf_environment(),
-                ResourceProfile)
+                self.dpdk_setup_helper.setup_vnf_environment(),
+                resource.ResourceProfile)
 
     def test__setup_dpdk(self):
-        ssh_helper = mock.Mock()
-        ssh_helper.execute = mock.Mock()
-        ssh_helper.execute.return_value = (0, 0, 0)
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(mock.ANY, ssh_helper, mock.ANY)
-        with mock.patch.object(dpdk_setup_helper, '_setup_hugepages') as \
+        self.ssh_helper.execute = mock.Mock()
+        self.ssh_helper.execute.return_value = (0, 0, 0)
+
+        with mock.patch.object(self.dpdk_setup_helper, '_setup_hugepages') as \
                 mock_setup_hp:
-            dpdk_setup_helper._setup_dpdk()
+            self.dpdk_setup_helper._setup_dpdk()
         mock_setup_hp.assert_called_once()
-        ssh_helper.execute.assert_has_calls([
+        self.ssh_helper.execute.assert_has_calls([
             mock.call('sudo modprobe uio && sudo modprobe igb_uio'),
             mock.call('lsmod | grep -i igb_uio')
         ])
 
-    @mock.patch('yardstick.ssh.SSH')
+    @mock.patch.object(ssh, 'SSH')
     def test__setup_resources(self, _):
-        vnfd_helper = VnfdHelper(deepcopy(self.VNFD_0))
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper._validate_cpu_cfg = mock.Mock()
+        self.dpdk_setup_helper._validate_cpu_cfg = mock.Mock()
+        self.dpdk_setup_helper.bound_pci = [v['virtual-interface']["vpci"] for v in
+                                            self.vnfd_helper.interfaces]
+        result = self.dpdk_setup_helper._setup_resources()
+        self.assertIsInstance(result, resource.ResourceProfile)
+        self.assertEqual(self.dpdk_setup_helper.socket, 0)
 
-        dpdk_setup_helper.bound_pci = [v['virtual-interface']["vpci"] for v in
-                                       vnfd_helper.interfaces]
-        result = dpdk_setup_helper._setup_resources()
-        self.assertIsInstance(result, ResourceProfile)
-        self.assertEqual(dpdk_setup_helper.socket, 0)
-
-    @mock.patch('yardstick.ssh.SSH')
+    @mock.patch.object(ssh, 'SSH')
     def test__setup_resources_socket_1(self, _):
-        vnfd_helper = VnfdHelper(deepcopy(self.VNFD_0))
-        vnfd_helper.interfaces[0]['virtual-interface']['vpci'] = '0000:55:00.0'
-        vnfd_helper.interfaces[1]['virtual-interface']['vpci'] = '0000:35:00.0'
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper._validate_cpu_cfg = mock.Mock()
+        self.vnfd_helper.interfaces[0]['virtual-interface']['vpci'] = \
+            '0000:55:00.0'
+        self.vnfd_helper.interfaces[1]['virtual-interface']['vpci'] = \
+            '0000:35:00.0'
 
-        dpdk_setup_helper.bound_pci = [v['virtual-interface']["vpci"] for v in
-                                       vnfd_helper.interfaces]
-        result = dpdk_setup_helper._setup_resources()
-        self.assertIsInstance(result, ResourceProfile)
-        self.assertEqual(dpdk_setup_helper.socket, 1)
+        self.dpdk_setup_helper._validate_cpu_cfg = mock.Mock()
+        self.dpdk_setup_helper.bound_pci = [v['virtual-interface']["vpci"] for v in
+                                            self.vnfd_helper.interfaces]
+        result = self.dpdk_setup_helper._setup_resources()
+        self.assertIsInstance(result, resource.ResourceProfile)
+        self.assertEqual(self.dpdk_setup_helper.socket, 1)
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
+    @mock.patch.object(time, 'sleep')
     def test__detect_and_bind_drivers(self, *args):
-        vnfd_helper = VnfdHelper(deepcopy(self.VNFD_0))
-        ssh_helper = mock.Mock()
-        # ssh_helper.execute = mock.Mock(return_value = (0, 'text', ''))
-        # ssh_helper.execute.return_value = 0, 'output', ''
-        scenario_helper = mock.Mock()
-        scenario_helper.nodes = [None, None]
+        self.scenario_helper.nodes = [None, None]
         rv = ['0000:05:00.1', '0000:05:00.0']
 
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper.dpdk_bind_helper._get_bound_pci_addresses = mock.Mock(return_value=rv)
-        dpdk_setup_helper.dpdk_bind_helper.bind = mock.Mock()
-        dpdk_setup_helper.dpdk_bind_helper.read_status = mock.Mock()
+        self.dpdk_setup_helper.dpdk_bind_helper._get_bound_pci_addresses = \
+            mock.Mock(return_value=rv)
+        self.dpdk_setup_helper.dpdk_bind_helper.bind = mock.Mock()
+        self.dpdk_setup_helper.dpdk_bind_helper.read_status = mock.Mock()
 
-        self.assertIsNone(dpdk_setup_helper._detect_and_bind_drivers())
+        self.assertIsNone(self.dpdk_setup_helper._detect_and_bind_drivers())
 
-        intf_0 = vnfd_helper.vdu[0]['external-interface'][0]['virtual-interface']
-        intf_1 = vnfd_helper.vdu[0]['external-interface'][1]['virtual-interface']
+        intf_0 = self.vnfd_helper.vdu[0]['external-interface'][0]['virtual-interface']
+        intf_1 = self.vnfd_helper.vdu[0]['external-interface'][1]['virtual-interface']
         self.assertEqual(0, intf_0['dpdk_port_num'])
         self.assertEqual(1, intf_1['dpdk_port_num'])
 
     def test_tear_down(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        scenario_helper.nodes = [None, None]
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper.dpdk_bind_helper.bind = mock.Mock()
-        dpdk_setup_helper.dpdk_bind_helper.used_drivers = {
+        self.scenario_helper.nodes = [None, None]
+
+        self.dpdk_setup_helper.dpdk_bind_helper.bind = mock.Mock()
+        self.dpdk_setup_helper.dpdk_bind_helper.used_drivers = {
             'd1': ['0000:05:00.0'],
             'd3': ['0000:05:01.0'],
         }
 
-        self.assertIsNone(dpdk_setup_helper.tear_down())
-        dpdk_setup_helper.dpdk_bind_helper.bind.assert_any_call(['0000:05:00.0'], 'd1', True)
-        dpdk_setup_helper.dpdk_bind_helper.bind.assert_any_call(['0000:05:01.0'], 'd3', True)
+        self.assertIsNone(self.dpdk_setup_helper.tear_down())
+        self.dpdk_setup_helper.dpdk_bind_helper.bind.assert_any_call(
+            ['0000:05:00.0'], 'd1', True)
+        self.dpdk_setup_helper.dpdk_bind_helper.bind.assert_any_call(
+            ['0000:05:01.0'], 'd3', True)
 
 
 class TestResourceHelper(unittest.TestCase):
