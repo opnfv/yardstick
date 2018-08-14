@@ -28,7 +28,6 @@ from yardstick.network_services.nfvi import resource
 from yardstick.network_services.vnf_generic.vnf import base
 from yardstick.network_services.vnf_generic.vnf import sample_vnf
 from yardstick.network_services.vnf_generic.vnf import vnf_ssh_helper
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import ScenarioHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SetupEnvHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF
@@ -1175,22 +1174,23 @@ class TestSampleVNFDeployHelper(unittest.TestCase):
 
 class TestScenarioHelper(unittest.TestCase):
 
+    def setUp(self):
+        self.scenario_helper = sample_vnf.ScenarioHelper('name1')
+
     def test_property_task_path(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = {
+        self.scenario_helper.scenario_cfg = {
             'task_path': 'my_path',
         }
 
-        self.assertEqual(scenario_helper.task_path, 'my_path')
+        self.assertEqual(self.scenario_helper.task_path, 'my_path')
 
     def test_property_nodes(self):
         nodes = ['node1', 'node2']
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = {
+        self.scenario_helper.scenario_cfg = {
             'nodes': nodes,
         }
 
-        self.assertEqual(scenario_helper.nodes, nodes)
+        self.assertEqual(self.scenario_helper.nodes, nodes)
 
     def test_property_all_options(self):
         data = {
@@ -1199,30 +1199,27 @@ class TestScenarioHelper(unittest.TestCase):
             },
             'name2': {}
         }
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = {
+        self.scenario_helper.scenario_cfg = {
             'options': data,
         }
 
-        self.assertDictEqual(scenario_helper.all_options, data)
+        self.assertDictEqual(self.scenario_helper.all_options, data)
 
     def test_property_options(self):
         data = {
             'key1': 'value1',
             'key2': 'value2',
         }
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = {
+        self.scenario_helper.scenario_cfg = {
             'options': {
                 'name1': data,
             },
         }
 
-        self.assertDictEqual(scenario_helper.options, data)
+        self.assertDictEqual(self.scenario_helper.options, data)
 
     def test_property_vnf_cfg(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = {
+        self.scenario_helper.scenario_cfg = {
             'options': {
                 'name1': {
                     'vnf_config': 'my_config',
@@ -1230,25 +1227,24 @@ class TestScenarioHelper(unittest.TestCase):
             },
         }
 
-        self.assertEqual(scenario_helper.vnf_cfg, 'my_config')
+        self.assertEqual(self.scenario_helper.vnf_cfg, 'my_config')
 
     def test_property_vnf_cfg_default(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = {
+        self.scenario_helper.scenario_cfg = {
             'options': {
                 'name1': {},
             },
         }
 
-        self.assertDictEqual(scenario_helper.vnf_cfg, ScenarioHelper.DEFAULT_VNF_CFG)
+        self.assertEqual(self.scenario_helper.vnf_cfg,
+                         sample_vnf.ScenarioHelper.DEFAULT_VNF_CFG)
 
     def test_property_topology(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = {
+        self.scenario_helper.scenario_cfg = {
             'topology': 'my_topology',
         }
 
-        self.assertEqual(scenario_helper.topology, 'my_topology')
+        self.assertEqual(self.scenario_helper.topology, 'my_topology')
 
 
 class TestSampleVnf(unittest.TestCase):
