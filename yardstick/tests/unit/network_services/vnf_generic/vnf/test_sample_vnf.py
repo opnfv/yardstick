@@ -25,18 +25,14 @@ from yardstick.common import exceptions as y_exceptions
 from yardstick.common import utils
 from yardstick.network_services.nfvi import resource
 from yardstick.network_services.vnf_generic.vnf import base
-from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 from yardstick.network_services.vnf_generic.vnf import sample_vnf
 from yardstick.network_services.vnf_generic.vnf import vnf_ssh_helper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFDeployHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ScenarioHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ResourceHelper
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import Rfc2544ResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SetupEnvHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import DpdkVnfSetupEnvHelper
 from yardstick.tests.unit.network_services.vnf_generic.vnf import test_base
 from yardstick.benchmark.contexts import base as ctx_base
 from yardstick import ssh
@@ -709,46 +705,33 @@ class TestResourceHelper(unittest.TestCase):
         'id': 'VpeApproxVnf', 'name': 'VPEVnfSsh'
     }
 
+    def setUp(self):
+        self.vnfd_helper = base.VnfdHelper(self.VNFD_0)
+        self.dpdk_setup_helper = sample_vnf.DpdkVnfSetupEnvHelper(
+            self.vnfd_helper, mock.Mock(), mock.Mock())
+        self.resource_helper = sample_vnf.ResourceHelper(self.dpdk_setup_helper)
+
     def test_setup(self):
         resource = object()
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        dpdk_setup_helper.setup_vnf_environment = mock.Mock(return_value=resource)
-        resource_helper = ResourceHelper(dpdk_setup_helper)
+        self.dpdk_setup_helper.setup_vnf_environment = (
+            mock.Mock(return_value=resource))
+        resource_helper = sample_vnf.ResourceHelper(self.dpdk_setup_helper)
 
         self.assertIsNone(resource_helper.setup())
         self.assertIs(resource_helper.resource, resource)
 
     def test_generate_cfg(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        resource_helper = ResourceHelper(dpdk_setup_helper)
-
-        self.assertIsNone(resource_helper.generate_cfg())
+        self.assertIsNone(self.resource_helper.generate_cfg())
 
     def test_stop_collect(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        resource_helper = ResourceHelper(dpdk_setup_helper)
-        resource_helper.resource = mock.Mock()
+        self.resource_helper.resource = mock.Mock()
 
-        self.assertIsNone(resource_helper.stop_collect())
+        self.assertIsNone(self.resource_helper.stop_collect())
 
     def test_stop_collect_none(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        resource_helper = ResourceHelper(dpdk_setup_helper)
-        resource_helper.resource = None
+        self.resource_helper.resource = None
 
-        self.assertIsNone(resource_helper.stop_collect())
+        self.assertIsNone(self.resource_helper.stop_collect())
 
 
 class TestClientResourceHelper(unittest.TestCase):
@@ -880,108 +863,81 @@ class TestClientResourceHelper(unittest.TestCase):
         },
     }
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.LOG')
+    def setUp(self):
+        vnfd_helper = base.VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        scenario_helper = mock.Mock()
+        dpdk_setup_helper = sample_vnf.DpdkVnfSetupEnvHelper(
+            vnfd_helper, ssh_helper, scenario_helper)
+        self.client_resource_helper = (
+            sample_vnf.ClientResourceHelper(dpdk_setup_helper))
+
+    @mock.patch.object(sample_vnf, 'LOG')
     @mock.patch.object(sample_vnf, 'STLError', new_callable=lambda: MockError)
     def test_get_stats_not_connected(self, mock_stl_error, *args):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
-            vnfd_helper, ssh_helper, scenario_helper)
-        client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
-        client_resource_helper.client = mock.Mock()
-        client_resource_helper.client.get_stats.side_effect = mock_stl_error
+        self.client_resource_helper.client = mock.Mock()
+        self.client_resource_helper.client.get_stats.side_effect = \
+            mock_stl_error
 
-        self.assertEqual(client_resource_helper.get_stats(), {})
-        client_resource_helper.client.get_stats.assert_called_once()
+        self.assertEqual(self.client_resource_helper.get_stats(), {})
+        self.client_resource_helper.client.get_stats.assert_called_once()
 
     def test_clear_stats(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
-            vnfd_helper, ssh_helper, scenario_helper)
-        client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
-        client_resource_helper.client = mock.Mock()
+        self.client_resource_helper.client = mock.Mock()
 
-        self.assertIsNone(client_resource_helper.clear_stats())
+        self.assertIsNone(self.client_resource_helper.clear_stats())
         self.assertEqual(
-            client_resource_helper.client.clear_stats.call_count, 1)
+            self.client_resource_helper.client.clear_stats.call_count, 1)
 
     def test_clear_stats_of_ports(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
-            vnfd_helper, ssh_helper, scenario_helper)
-        client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
-        client_resource_helper.client = mock.Mock()
+        self.client_resource_helper.client = mock.Mock()
 
-        self.assertIsNone(client_resource_helper.clear_stats([3, 4]))
-        self.assertEqual(
-            client_resource_helper.client.clear_stats.call_count, 1)
+        self.assertIsNone(self.client_resource_helper.clear_stats([3, 4]))
+        self.client_resource_helper.client.clear_stats.assert_called_once()
 
     def test_start(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
-            vnfd_helper, ssh_helper, scenario_helper)
-        client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
-        client_resource_helper.client = mock.Mock()
+        self.client_resource_helper.client = mock.Mock()
 
-        self.assertIsNone(client_resource_helper.start())
-        client_resource_helper.client.start.assert_called_once()
+        self.assertIsNone(self.client_resource_helper.start())
+        self.client_resource_helper.client.start.assert_called_once()
 
     def test_start_ports(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
-            vnfd_helper, ssh_helper, scenario_helper)
-        client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
-        client_resource_helper.client = mock.Mock()
+        self.client_resource_helper.client = mock.Mock()
 
-        self.assertIsNone(client_resource_helper.start([3, 4]))
-        client_resource_helper.client.start.assert_called_once()
+        self.assertIsNone(self.client_resource_helper.start([3, 4]))
+        self.client_resource_helper.client.start.assert_called_once()
 
     def test_collect_kpi_with_queue(self):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
-        client_resource_helper._result = {'existing': 43, 'replaceable': 12}
-        client_resource_helper._queue = mock.Mock()
-        client_resource_helper._queue.empty.return_value = False
-        client_resource_helper._queue.get.return_value = {'incoming': 34, 'replaceable': 99}
+        self.client_resource_helper._result = {
+            'existing': 43,
+            'replaceable': 12}
+        self.client_resource_helper._queue = mock.Mock()
+        self.client_resource_helper._queue.empty.return_value = False
+        self.client_resource_helper._queue.get.return_value = {
+            'incoming': 34,
+            'replaceable': 99}
 
         expected = {
             'existing': 43,
             'incoming': 34,
             'replaceable': 99,
         }
-        result = client_resource_helper.collect_kpi()
-        self.assertDictEqual(result, expected)
+        result = self.client_resource_helper.collect_kpi()
+        self.assertEqual(result, expected)
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
+    @mock.patch.object(time, 'sleep')
     @mock.patch.object(sample_vnf, 'STLError')
     def test__connect_with_failures(self, mock_stl_error, *args):
-        vnfd_helper = VnfdHelper(self.VNFD_0)
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(vnfd_helper, ssh_helper, scenario_helper)
-        client_resource_helper = ClientResourceHelper(dpdk_setup_helper)
         client = mock.MagicMock()
         client.connect.side_effect = mock_stl_error(msg='msg')
 
-        self.assertIs(client_resource_helper._connect(client), client)
+        self.assertIs(self.client_resource_helper._connect(client), client)
 
-    @mock.patch.object(ClientResourceHelper, '_build_ports')
-    @mock.patch.object(ClientResourceHelper, '_run_traffic_once',
+    @mock.patch.object(sample_vnf.ClientResourceHelper, '_build_ports')
+    @mock.patch.object(sample_vnf.ClientResourceHelper, '_run_traffic_once',
                        return_value=(True, mock.ANY))
     def test_run_traffic(self, mock_run_traffic_once, mock_build_ports):
-        client_resource_helper = ClientResourceHelper(mock.Mock())
+        client_resource_helper = sample_vnf.ClientResourceHelper(mock.Mock())
         client = mock.Mock()
         traffic_profile = mock.Mock()
         mq_producer = mock.Mock()
@@ -1001,12 +957,12 @@ class TestClientResourceHelper(unittest.TestCase):
         mq_producer.tg_method_iteration.assert_called_once_with(1)
         mock_run_traffic_once.assert_called_once_with(traffic_profile)
 
-    @mock.patch.object(ClientResourceHelper, '_build_ports')
-    @mock.patch.object(ClientResourceHelper, '_run_traffic_once',
+    @mock.patch.object(sample_vnf.ClientResourceHelper, '_build_ports')
+    @mock.patch.object(sample_vnf.ClientResourceHelper, '_run_traffic_once',
                        side_effect=Exception)
     def test_run_traffic_exception(self, mock_run_traffic_once,
                                    mock_build_ports):
-        client_resource_helper = ClientResourceHelper(mock.Mock())
+        client_resource_helper = sample_vnf.ClientResourceHelper(mock.Mock())
         client = mock.Mock()
         traffic_profile = mock.Mock()
         mq_producer = mock.Mock()
@@ -1074,116 +1030,103 @@ class TestRfc2544ResourceHelper(unittest.TestCase):
         }
     }
 
-    def test_property_rfc2544(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = self.SCENARIO_CFG_1
-        rfc2544_resource_helper = Rfc2544ResourceHelper(scenario_helper)
+    def setUp(self):
+        self.scenario_helper = sample_vnf.ScenarioHelper('name1')
+        self.rfc2544_resource_helper = \
+            sample_vnf.Rfc2544ResourceHelper(self.scenario_helper)
 
-        self.assertIsNone(rfc2544_resource_helper._rfc2544)
-        self.assertDictEqual(rfc2544_resource_helper.rfc2544, self.RFC2544_CFG_1)
-        self.assertDictEqual(rfc2544_resource_helper._rfc2544, self.RFC2544_CFG_1)
-        scenario_helper.scenario_cfg = {}  # ensure that resource_helper caches
-        self.assertDictEqual(rfc2544_resource_helper.rfc2544, self.RFC2544_CFG_1)
+    def test_property_rfc2544(self):
+        self.scenario_helper.scenario_cfg = self.SCENARIO_CFG_1
+
+        self.assertIsNone(self.rfc2544_resource_helper._rfc2544)
+        self.assertEqual(self.rfc2544_resource_helper.rfc2544,
+                         self.RFC2544_CFG_1)
+        self.assertEqual(self.rfc2544_resource_helper._rfc2544,
+                         self.RFC2544_CFG_1)
+        # ensure that resource_helper caches
+        self.scenario_helper.scenario_cfg = {}
+        self.assertEqual(self.rfc2544_resource_helper.rfc2544,
+                         self.RFC2544_CFG_1)
 
     def test_property_tolerance_high(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = self.SCENARIO_CFG_1
-        rfc2544_resource_helper = Rfc2544ResourceHelper(scenario_helper)
+        self.scenario_helper.scenario_cfg = self.SCENARIO_CFG_1
 
-        self.assertIsNone(rfc2544_resource_helper._tolerance_high)
-        self.assertEqual(rfc2544_resource_helper.tolerance_high, 0.15)
-        self.assertEqual(rfc2544_resource_helper._tolerance_high, 0.15)
-        scenario_helper.scenario_cfg = {}  # ensure that resource_helper caches
-        self.assertEqual(rfc2544_resource_helper.tolerance_high, 0.15)
+        self.assertIsNone(self.rfc2544_resource_helper._tolerance_high)
+        self.assertEqual(self.rfc2544_resource_helper.tolerance_high, 0.15)
+        self.assertEqual(self.rfc2544_resource_helper._tolerance_high, 0.15)
+        # ensure that resource_helper caches
+        self.scenario_helper.scenario_cfg = {}
+        self.assertEqual(self.rfc2544_resource_helper.tolerance_high, 0.15)
 
     def test_property_tolerance_low(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = self.SCENARIO_CFG_1
-        rfc2544_resource_helper = Rfc2544ResourceHelper(scenario_helper)
+        self.scenario_helper.scenario_cfg = self.SCENARIO_CFG_1
 
-        self.assertIsNone(rfc2544_resource_helper._tolerance_low)
-        self.assertEqual(rfc2544_resource_helper.tolerance_low, 0.1)
-        self.assertEqual(rfc2544_resource_helper._tolerance_low, 0.1)
-        scenario_helper.scenario_cfg = {}  # ensure that resource_helper caches
-        self.assertEqual(rfc2544_resource_helper.tolerance_low, 0.1)
+        self.assertIsNone(self.rfc2544_resource_helper._tolerance_low)
+        self.assertEqual(self.rfc2544_resource_helper.tolerance_low, 0.1)
+        self.assertEqual(self.rfc2544_resource_helper._tolerance_low, 0.1)
+        # ensure that resource_helper caches
+        self.scenario_helper.scenario_cfg = {}
+        self.assertEqual(self.rfc2544_resource_helper.tolerance_low, 0.1)
 
     def test_property_tolerance_high_range_swap(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = self.SCENARIO_CFG_2
-        rfc2544_resource_helper = Rfc2544ResourceHelper(scenario_helper)
+        self.scenario_helper.scenario_cfg = self.SCENARIO_CFG_2
 
-        self.assertEqual(rfc2544_resource_helper.tolerance_high, 0.25)
+        self.assertEqual(self.rfc2544_resource_helper.tolerance_high, 0.25)
 
     def test_property_tolerance_low_range_swap(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = self.SCENARIO_CFG_2
-        rfc2544_resource_helper = Rfc2544ResourceHelper(scenario_helper)
+        self.scenario_helper.scenario_cfg = self.SCENARIO_CFG_2
 
-        self.assertEqual(rfc2544_resource_helper.tolerance_low, 0.05)
+        self.assertEqual(self.rfc2544_resource_helper.tolerance_low, 0.05)
 
     def test_property_tolerance_high_not_range(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = self.SCENARIO_CFG_3
-        rfc2544_resource_helper = Rfc2544ResourceHelper(scenario_helper)
+        self.scenario_helper.scenario_cfg = self.SCENARIO_CFG_3
 
-        self.assertEqual(rfc2544_resource_helper.tolerance_high, 0.2)
+        self.assertEqual(self.rfc2544_resource_helper.tolerance_high, 0.2)
 
     def test_property_tolerance_low_not_range(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = self.SCENARIO_CFG_3
-        rfc2544_resource_helper = Rfc2544ResourceHelper(scenario_helper)
+        self.scenario_helper.scenario_cfg = self.SCENARIO_CFG_3
 
-        self.assertEqual(rfc2544_resource_helper.tolerance_low, 0.2)
+        self.assertEqual(self.rfc2544_resource_helper.tolerance_low, 0.2)
 
     def test_property_tolerance_high_default(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = self.SCENARIO_CFG_4
-        rfc2544_resource_helper = Rfc2544ResourceHelper(scenario_helper)
+        self.scenario_helper.scenario_cfg = self.SCENARIO_CFG_4
 
-        self.assertEqual(rfc2544_resource_helper.tolerance_high, 0.0001)
+        self.assertEqual(self.rfc2544_resource_helper.tolerance_high, 0.0001)
 
     def test_property_tolerance_low_default(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = self.SCENARIO_CFG_4
-        rfc2544_resource_helper = Rfc2544ResourceHelper(scenario_helper)
+        self.scenario_helper.scenario_cfg = self.SCENARIO_CFG_4
 
-        self.assertEqual(rfc2544_resource_helper.tolerance_low, 0.0001)
+        self.assertEqual(self.rfc2544_resource_helper.tolerance_low, 0.0001)
 
     def test_property_latency(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = self.SCENARIO_CFG_1
-        rfc2544_resource_helper = Rfc2544ResourceHelper(scenario_helper)
+        self.scenario_helper.scenario_cfg = self.SCENARIO_CFG_1
 
-        self.assertIsNone(rfc2544_resource_helper._latency)
-        self.assertTrue(rfc2544_resource_helper.latency)
-        self.assertTrue(rfc2544_resource_helper._latency)
-        scenario_helper.scenario_cfg = {}  # ensure that resource_helper caches
-        self.assertTrue(rfc2544_resource_helper.latency)
+        self.assertIsNone(self.rfc2544_resource_helper._latency)
+        self.assertTrue(self.rfc2544_resource_helper.latency)
+        self.assertTrue(self.rfc2544_resource_helper._latency)
+        # ensure that resource_helper caches
+        self.scenario_helper.scenario_cfg = {}
+        self.assertTrue(self.rfc2544_resource_helper.latency)
 
     def test_property_latency_default(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = self.SCENARIO_CFG_2
-        rfc2544_resource_helper = Rfc2544ResourceHelper(scenario_helper)
+        self.scenario_helper.scenario_cfg = self.SCENARIO_CFG_2
 
-        self.assertFalse(rfc2544_resource_helper.latency)
+        self.assertFalse(self.rfc2544_resource_helper.latency)
 
     def test_property_correlated_traffic(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = self.SCENARIO_CFG_1
-        rfc2544_resource_helper = Rfc2544ResourceHelper(scenario_helper)
+        self.scenario_helper.scenario_cfg = self.SCENARIO_CFG_1
 
-        self.assertIsNone(rfc2544_resource_helper._correlated_traffic)
-        self.assertTrue(rfc2544_resource_helper.correlated_traffic)
-        self.assertTrue(rfc2544_resource_helper._correlated_traffic)
-        scenario_helper.scenario_cfg = {}  # ensure that resource_helper caches
-        self.assertTrue(rfc2544_resource_helper.correlated_traffic)
+        self.assertIsNone(self.rfc2544_resource_helper._correlated_traffic)
+        self.assertTrue(self.rfc2544_resource_helper.correlated_traffic)
+        self.assertTrue(self.rfc2544_resource_helper._correlated_traffic)
+        # ensure that resource_helper caches
+        self.scenario_helper.scenario_cfg = {}
+        self.assertTrue(self.rfc2544_resource_helper.correlated_traffic)
 
     def test_property_correlated_traffic_default(self):
-        scenario_helper = ScenarioHelper('name1')
-        scenario_helper.scenario_cfg = self.SCENARIO_CFG_2
-        rfc2544_resource_helper = Rfc2544ResourceHelper(scenario_helper)
+        self.scenario_helper.scenario_cfg = self.SCENARIO_CFG_2
 
-        self.assertFalse(rfc2544_resource_helper.correlated_traffic)
+        self.assertFalse(self.rfc2544_resource_helper.correlated_traffic)
 
 
 class TestSampleVNFDeployHelper(unittest.TestCase):
