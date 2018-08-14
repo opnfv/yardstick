@@ -28,9 +28,7 @@ from yardstick.network_services.nfvi import resource
 from yardstick.network_services.vnf_generic.vnf import base
 from yardstick.network_services.vnf_generic.vnf import sample_vnf
 from yardstick.network_services.vnf_generic.vnf import vnf_ssh_helper
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import ResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SetupEnvHelper
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNF
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.tests.unit.network_services.vnf_generic.vnf import test_base
 from yardstick.benchmark.contexts import base as ctx_base
@@ -1365,76 +1363,73 @@ class TestSampleVnf(unittest.TestCase):
             "frame_size": 64,
         },
     }
+    def setUp(self):
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        self.vnf = sample_vnf.SampleVNF('vnf1', vnfd, 'task_id')
+        self.vnf.APP_NAME = 'sample1'
 
     def test___init__(self):
-        sample_vnf = SampleVNF('vnf1', self.VNFD_0, 'task_id')
+        vnf = sample_vnf.SampleVNF('vnf1', self.VNFD_0, 'task_id')
 
-        self.assertEqual(sample_vnf.name, 'vnf1')
-        self.assertDictEqual(sample_vnf.vnfd_helper, self.VNFD_0)
+        self.assertEqual(vnf.name, 'vnf1')
+        self.assertDictEqual(vnf.vnfd_helper, self.VNFD_0)
 
         # test the default setup helper is SetupEnvHelper, not subclass
-        self.assertEqual(type(sample_vnf.setup_helper), SetupEnvHelper)
+        self.assertEqual(type(vnf.setup_helper),
+                         sample_vnf.SetupEnvHelper)
 
         # test the default resource helper is ResourceHelper, not subclass
-        self.assertEqual(type(sample_vnf.resource_helper), ResourceHelper)
+        self.assertEqual(type(vnf.resource_helper), sample_vnf.ResourceHelper)
 
     def test___init___alt_types(self):
-        class MySetupEnvHelper(SetupEnvHelper):
+        class MySetupEnvHelper(sample_vnf.SetupEnvHelper):
             pass
 
-        class MyResourceHelper(ResourceHelper):
+        class MyResourceHelper(sample_vnf.ResourceHelper):
             pass
 
-        sample_vnf = SampleVNF('vnf1', self.VNFD_0, 'task_id',
-                               MySetupEnvHelper, MyResourceHelper)
+        vnf = sample_vnf.SampleVNF('vnf1', self.VNFD_0, 'task_id',
+                                   MySetupEnvHelper, MyResourceHelper)
 
-        self.assertEqual(sample_vnf.name, 'vnf1')
-        self.assertDictEqual(sample_vnf.vnfd_helper, self.VNFD_0)
+        self.assertEqual(vnf.name, 'vnf1')
+        self.assertDictEqual(vnf.vnfd_helper, self.VNFD_0)
 
         # test the default setup helper is MySetupEnvHelper, not subclass
-        self.assertEqual(type(sample_vnf.setup_helper), MySetupEnvHelper)
+        self.assertEqual(type(vnf.setup_helper), MySetupEnvHelper)
 
         # test the default resource helper is MyResourceHelper, not subclass
-        self.assertEqual(type(sample_vnf.resource_helper), MyResourceHelper)
+        self.assertEqual(type(vnf.resource_helper), MyResourceHelper)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.Process')
     def test__start_vnf(self, *args):
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
-        sample_vnf._run = mock.Mock()
+        self.vnf._run = mock.Mock()
 
-        self.assertIsNone(sample_vnf.queue_wrapper)
-        self.assertIsNone(sample_vnf._vnf_process)
-        self.assertIsNone(sample_vnf._start_vnf())
-        self.assertIsNotNone(sample_vnf.queue_wrapper)
-        self.assertIsNotNone(sample_vnf._vnf_process)
+        self.assertIsNone(self.vnf.queue_wrapper)
+        self.assertIsNone(self.vnf._vnf_process)
+        self.vnf._start_vnf()
+        self.assertIsNotNone(self.vnf.queue_wrapper)
+        self.assertIsNotNone(self.vnf._vnf_process)
 
-    @mock.patch.object(ctx_base.Context, 'get_context_from_server', return_value='fake_context')
-    @mock.patch("yardstick.ssh.SSH")
+    @mock.patch.object(ctx_base.Context, 'get_context_from_server',
+                       return_value='fake_context')
+    @mock.patch.object(ssh, "SSH")
     def test_instantiate(self, ssh, *args):
         test_base.mock_ssh(ssh)
         nodes = {
             'vnf1': 'name1',
             'vnf2': 'name2',
         }
-
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
-        sample_vnf.scenario_helper.scenario_cfg = {
-            'nodes': {sample_vnf.name: 'mock'}
-        }
-        sample_vnf.APP_NAME = 'sample1'
-        sample_vnf._start_server = mock.Mock(return_value=0)
-        sample_vnf._vnf_process = mock.MagicMock()
-        sample_vnf._vnf_process._is_alive.return_value = 1
-        sample_vnf.ssh_helper = mock.MagicMock()
-        sample_vnf.deploy_helper = mock.MagicMock()
-        sample_vnf.resource_helper.ssh_helper = mock.MagicMock()
+        self.vnf._start_server = mock.Mock(return_value=0)
+        self.vnf._vnf_process = mock.MagicMock()
+        self.vnf._vnf_process._is_alive.return_value = 1
+        self.vnf.ssh_helper = mock.MagicMock()
+        self.vnf.deploy_helper = mock.MagicMock()
+        self.vnf.resource_helper.ssh_helper = mock.MagicMock()
         scenario_cfg = {
             'nodes': nodes,
         }
 
-        self.assertIsNone(sample_vnf.instantiate(scenario_cfg, {}))
+        self.assertIsNone(self.vnf.instantiate(scenario_cfg, {}))
 
     def test__update_collectd_options(self):
         scenario_cfg = {'options':
@@ -1442,14 +1437,14 @@ class TestSampleVnf(unittest.TestCase):
                                  {'interval': 3,
                                   'plugins':
                                       {'plugin3': {'param': 3}}},
-                             'vnf__0':
+                             'vnf1':
                                  {'collectd':
                                       {'interval': 2,
                                        'plugins':
                                            {'plugin3': {'param': 2},
                                             'plugin2': {'param': 2}}}}}}
         context_cfg = {'nodes':
-                           {'vnf__0':
+                           {'vnf1':
                                 {'collectd':
                                      {'interval': 1,
                                       'plugins':
@@ -1462,10 +1457,8 @@ class TestSampleVnf(unittest.TestCase):
                          'plugin2': {'param': 1},
                          'plugin1': {'param': 1}}}
 
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf__0', vnfd, 'task_id')
-        sample_vnf._update_collectd_options(scenario_cfg, context_cfg)
-        self.assertEqual(sample_vnf.setup_helper.collectd_options, expected)
+        self.vnf._update_collectd_options(scenario_cfg, context_cfg)
+        self.assertEqual(self.vnf.setup_helper.collectd_options, expected)
 
     def test__update_options(self):
         options1 = {'interval': 1,
@@ -1489,13 +1482,11 @@ class TestSampleVnf(unittest.TestCase):
                          'plugin2': {'param': 1},
                          'plugin1': {'param': 1}}}
 
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
-        sample_vnf._update_options(options2, options1)
+        self.vnf._update_options(options2, options1)
         self.assertEqual(options2, expected)
 
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
-    @mock.patch("yardstick.ssh.SSH")
+    @mock.patch.object(time, 'sleep')
+    @mock.patch.object(ssh, 'SSH')
     def test_wait_for_instantiate_empty_queue(self, ssh, *args):
         test_base.mock_ssh(ssh, exec_result=(1, "", ""))
 
@@ -1510,26 +1501,22 @@ class TestSampleVnf(unittest.TestCase):
             'some output',
             'pipeline> ',
         ]
+        self.vnf.WAIT_TIME_FOR_SCRIPT = 0
+        self.vnf._start_server = mock.Mock(return_value=0)
+        self.vnf._vnf_process = mock.MagicMock()
+        self.vnf._vnf_process.exitcode = 0
+        self.vnf._vnf_process._is_alive.return_value = 1
+        self.vnf.queue_wrapper = mock.Mock()
+        self.vnf.q_out = mock.Mock()
+        self.vnf.q_out.qsize.side_effect = iter(queue_size_list)
+        self.vnf.q_out.get.side_effect = iter(queue_get_list)
+        self.vnf.ssh_helper = mock.MagicMock()
+        self.vnf.resource_helper.ssh_helper = mock.MagicMock()
+        self.vnf.resource_helper.start_collect = mock.MagicMock()
 
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
-        sample_vnf.APP_NAME = 'sample1'
-        sample_vnf.WAIT_TIME_FOR_SCRIPT = 0
-        sample_vnf._start_server = mock.Mock(return_value=0)
-        sample_vnf._vnf_process = mock.MagicMock()
-        sample_vnf._vnf_process.exitcode = 0
-        sample_vnf._vnf_process._is_alive.return_value = 1
-        sample_vnf.queue_wrapper = mock.Mock()
-        sample_vnf.q_out = mock.Mock()
-        sample_vnf.q_out.qsize.side_effect = iter(queue_size_list)
-        sample_vnf.q_out.get.side_effect = iter(queue_get_list)
-        sample_vnf.ssh_helper = mock.MagicMock()
-        sample_vnf.resource_helper.ssh_helper = mock.MagicMock()
-        sample_vnf.resource_helper.start_collect = mock.MagicMock()
+        self.assertEqual(self.vnf.wait_for_instantiate(), 0)
 
-        self.assertEqual(sample_vnf.wait_for_instantiate(), 0)
-
-    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
+    @mock.patch.object(time, "sleep")
     def test_vnf_execute_with_queue_data(self, *args):
         queue_size_list = [
             1,
@@ -1541,53 +1528,41 @@ class TestSampleVnf(unittest.TestCase):
             'hello ',
             'world'
         ]
+        self.vnf.q_out = mock.Mock()
+        self.vnf.q_out.qsize.side_effect = iter(queue_size_list)
+        self.vnf.q_out.get.side_effect = iter(queue_get_list)
 
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
-        sample_vnf.APP_NAME = 'sample1'
-        sample_vnf.q_out = mock.Mock()
-        sample_vnf.q_out.qsize.side_effect = iter(queue_size_list)
-        sample_vnf.q_out.get.side_effect = iter(queue_get_list)
-
-        self.assertEqual(sample_vnf.vnf_execute('my command'), 'hello world')
+        self.assertEqual(self.vnf.vnf_execute('my command'), 'hello world')
 
     def test_terminate_without_vnf_process(self):
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
-        sample_vnf.APP_NAME = 'sample1'
-        sample_vnf.vnf_execute = mock.Mock()
-        sample_vnf.ssh_helper = mock.Mock()
-        sample_vnf._tear_down = mock.Mock()
-        sample_vnf.resource_helper = mock.Mock()
+        self.vnf.vnf_execute = mock.Mock()
+        self.vnf.ssh_helper = mock.Mock()
+        self.vnf._tear_down = mock.Mock()
+        self.vnf.resource_helper = mock.Mock()
 
-        self.assertIsNone(sample_vnf.terminate())
+        self.assertIsNone(self.vnf.terminate())
 
     def test_get_stats(self):
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
-        sample_vnf.APP_NAME = 'sample1'
-        sample_vnf.APP_WORD = 'sample1'
-        sample_vnf.vnf_execute = mock.Mock(return_value='the stats')
+        self.vnf.APP_WORD = 'sample1'
+        self.vnf.vnf_execute = mock.Mock(return_value='the stats')
 
-        self.assertEqual(sample_vnf.get_stats(), 'the stats')
+        self.assertEqual(self.vnf.get_stats(), 'the stats')
 
-    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server',
+                       return_value='mock_node')
     def test_collect_kpi(self, *args):
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
-        sample_vnf.scenario_helper.scenario_cfg = {
-            'nodes': {sample_vnf.name: "mock"}
+        self.vnf.scenario_helper.scenario_cfg = {
+            'nodes': {self.vnf.name: "mock"}
         }
-        sample_vnf.APP_NAME = 'sample1'
-        sample_vnf.COLLECT_KPI = r'\s(\d+)\D*(\d+)\D*(\d+)'
-        sample_vnf.COLLECT_MAP = {
+        self.vnf.COLLECT_KPI = r'\s(\d+)\D*(\d+)\D*(\d+)'
+        self.vnf.COLLECT_MAP = {
             'k1': 3,
             'k2': 1,
             'k3': 2,
         }
-        sample_vnf.get_stats = mock.Mock(return_value='index0: 34 -- 91, 27')
-        sample_vnf.resource_helper = mock.Mock()
-        sample_vnf.resource_helper.collect_kpi.return_value = {}
+        self.vnf.get_stats = mock.Mock(return_value='index0: 34 -- 91, 27')
+        self.vnf.resource_helper = mock.Mock()
+        self.vnf.resource_helper.collect_kpi.return_value = {}
 
         expected = {
             'k1': 27,
@@ -1596,19 +1571,17 @@ class TestSampleVnf(unittest.TestCase):
             'collect_stats': {},
             'physical_node': 'mock_node'
         }
-        result = sample_vnf.collect_kpi()
-        self.assertDictEqual(result, expected)
+        result = self.vnf.collect_kpi()
+        self.assertEqual(result, expected)
 
-    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
+    @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server',
+                       return_value='mock_node')
     def test_collect_kpi_default(self, *args):
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
-        sample_vnf.scenario_helper.scenario_cfg = {
-            'nodes': {sample_vnf.name: "mock"}
+        self.vnf.scenario_helper.scenario_cfg = {
+            'nodes': {self.vnf.name: "mock"}
         }
-        sample_vnf.APP_NAME = 'sample1'
-        sample_vnf.COLLECT_KPI = r'\s(\d+)\D*(\d+)\D*(\d+)'
-        sample_vnf.get_stats = mock.Mock(return_value='')
+        self.vnf.COLLECT_KPI = r'\s(\d+)\D*(\d+)\D*(\d+)'
+        self.vnf.get_stats = mock.Mock(return_value='')
 
         expected = {
             'physical_node': 'mock_node',
@@ -1616,31 +1589,25 @@ class TestSampleVnf(unittest.TestCase):
             'packets_fwd': 0,
             'packets_dropped': 0,
         }
-        result = sample_vnf.collect_kpi()
-        self.assertDictEqual(result, expected)
+        result = self.vnf.collect_kpi()
+        self.assertEqual(result, expected)
 
     def test_scale(self):
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
-        self.assertRaises(y_exceptions.FunctionNotImplemented,
-                          sample_vnf.scale)
+        self.assertRaises(y_exceptions.FunctionNotImplemented, self.vnf.scale)
 
     def test__run(self):
         test_cmd = 'test cmd'
         run_kwargs = {'arg1': 'val1', 'arg2': 'val2'}
-        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
-        sample_vnf.ssh_helper = mock.Mock()
-        sample_vnf.setup_helper = mock.Mock()
-        with mock.patch.object(sample_vnf, '_build_config',
+        self.vnf.ssh_helper = mock.Mock()
+        self.vnf.setup_helper = mock.Mock()
+        with mock.patch.object(self.vnf, '_build_config',
                                return_value=test_cmd), \
-                mock.patch.object(sample_vnf, '_build_run_kwargs'):
-            sample_vnf.run_kwargs = run_kwargs
-            sample_vnf._run()
-        sample_vnf.ssh_helper.drop_connection.assert_called_once()
-        sample_vnf.ssh_helper.run.assert_called_once_with(test_cmd,
-                                                          **run_kwargs)
-        sample_vnf.setup_helper.kill_vnf.assert_called_once()
+                mock.patch.object(self.vnf, '_build_run_kwargs'):
+            self.vnf.run_kwargs = run_kwargs
+            self.vnf._run()
+            self.vnf.ssh_helper.drop_connection.assert_called_once()
+        self.vnf.ssh_helper.run.assert_called_once_with(test_cmd, **run_kwargs)
+        self.vnf.setup_helper.kill_vnf.assert_called_once()
 
 
 class TestSampleVNFTrafficGen(unittest.TestCase):
