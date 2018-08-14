@@ -17,8 +17,8 @@ from copy import deepcopy
 import unittest
 import mock
 import six
-import time
 import subprocess
+import time
 
 import paramiko
 
@@ -28,11 +28,9 @@ from yardstick.network_services.nfvi import resource
 from yardstick.network_services.vnf_generic.vnf import base
 from yardstick.network_services.vnf_generic.vnf import sample_vnf
 from yardstick.network_services.vnf_generic.vnf import vnf_ssh_helper
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import SetupEnvHelper
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
+from yardstick import ssh
 from yardstick.tests.unit.network_services.vnf_generic.vnf import test_base
 from yardstick.benchmark.contexts import base as ctx_base
-from yardstick import ssh
 
 
 class MockError(Exception):
@@ -239,122 +237,22 @@ class TestVnfSshHelper(unittest.TestCase):
 
 class TestSetupEnvHelper(unittest.TestCase):
 
-    VNFD_0 = {
-        'short-name': 'VpeVnf',
-        'vdu': [
-            {
-                'routing_table': [
-                    {
-                        'network': '152.16.100.20',
-                        'netmask': '255.255.255.0',
-                        'gateway': '152.16.100.20',
-                        'if': 'xe0'
-                    },
-                    {
-                        'network': '152.16.40.20',
-                        'netmask': '255.255.255.0',
-                        'gateway': '152.16.40.20',
-                        'if': 'xe1'
-                    },
-                ],
-                'description': 'VPE approximation using DPDK',
-                'name': 'vpevnf-baremetal',
-                'nd_route_tbl': [
-                    {
-                        'network': '0064:ff9b:0:0:0:0:9810:6414',
-                        'netmask': '112',
-                        'gateway': '0064:ff9b:0:0:0:0:9810:6414',
-                        'if': 'xe0'
-                    },
-                    {
-                        'network': '0064:ff9b:0:0:0:0:9810:2814',
-                        'netmask': '112',
-                        'gateway': '0064:ff9b:0:0:0:0:9810:2814',
-                        'if': 'xe1'
-                    },
-                ],
-                'id': 'vpevnf-baremetal',
-                'external-interface': [
-                    {
-                        'virtual-interface': {
-                            'dst_mac': '00:00:00:00:00:03',
-                            'vpci': '0000:05:00.0',
-                            'local_ip': '152.16.100.19',
-                            'type': 'PCI-PASSTHROUGH',
-                            'netmask': '255.255.255.0',
-                            'dpdk_port_num': 0,
-                            'bandwidth': '10 Gbps',
-                            'dst_ip': '152.16.100.20',
-                            'local_mac': '00:00:00:00:00:01',
-                            'vld_id': 'uplink_0',
-                            'ifname': 'xe0',
-                        },
-                        'vnfd-connection-point-ref': 'xe0',
-                        'name': 'xe0'
-                    },
-                    {
-                        'virtual-interface': {
-                            'dst_mac': '00:00:00:00:00:04',
-                            'vpci': '0000:05:00.1',
-                            'local_ip': '152.16.40.19',
-                            'type': 'PCI-PASSTHROUGH',
-                            'netmask': '255.255.255.0',
-                            'dpdk_port_num': 1,
-                            'bandwidth': '10 Gbps',
-                            'dst_ip': '152.16.40.20',
-                            'local_mac': '00:00:00:00:00:02',
-                            'vld_id': 'downlink_0',
-                            'ifname': 'xe1',
-                        },
-                        'vnfd-connection-point-ref': 'xe1',
-                        'name': 'xe1'
-                    },
-                ],
-            },
-        ],
-        'description': 'Vpe approximation using DPDK',
-        'mgmt-interface': {
-            'vdu-id': 'vpevnf-baremetal',
-            'host': '1.1.1.1',
-            'password': 'r00t',
-            'user': 'root',
-            'ip': '1.1.1.1'
-        },
-        'benchmark': {
-            'kpi': [
-                'packets_in',
-                'packets_fwd',
-                'packets_dropped',
-            ],
-        },
-        'connection-point': [
-            {
-                'type': 'VPORT',
-                'name': 'xe0',
-            },
-            {
-                'type': 'VPORT',
-                'name': 'xe1',
-            },
-        ],
-        'id': 'VpeApproxVnf', 'name': 'VPEVnfSsh'
-    }
+    VNFD_0 = TestVnfSshHelper.VNFD_0
+
+    def setUp(self):
+        self.setup_env_helper = sample_vnf.SetupEnvHelper(
+            mock.Mock(), mock.Mock(), mock.Mock())
 
     def test_build_config(self):
-        setup_env_helper = SetupEnvHelper(mock.Mock(), mock.Mock(), mock.Mock())
-
         with self.assertRaises(NotImplementedError):
-            setup_env_helper.build_config()
+            self.setup_env_helper.build_config()
 
     def test_setup_vnf_environment(self):
-        setup_env_helper = SetupEnvHelper(mock.Mock(), mock.Mock(), mock.Mock())
-        self.assertIsNone(setup_env_helper.setup_vnf_environment())
+        self.assertIsNone(self.setup_env_helper.setup_vnf_environment())
 
     def test_tear_down(self):
-        setup_env_helper = SetupEnvHelper(mock.Mock(), mock.Mock(), mock.Mock())
-
         with self.assertRaises(NotImplementedError):
-            setup_env_helper.tear_down()
+            self.setup_env_helper.tear_down()
 
 
 class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
@@ -1612,179 +1510,59 @@ class TestSampleVnf(unittest.TestCase):
 
 class TestSampleVNFTrafficGen(unittest.TestCase):
 
-    VNFD_0 = {
-        'short-name': 'VpeVnf',
-        'vdu': [
-            {
-                'routing_table': [
-                    {
-                        'network': '152.16.100.20',
-                        'netmask': '255.255.255.0',
-                        'gateway': '152.16.100.20',
-                        'if': 'xe0'
-                    },
-                    {
-                        'network': '152.16.40.20',
-                        'netmask': '255.255.255.0',
-                        'gateway': '152.16.40.20',
-                        'if': 'xe1'
-                    },
-                ],
-                'description': 'VPE approximation using DPDK',
-                'name': 'vpevnf-baremetal',
-                'nd_route_tbl': [
-                    {
-                        'network': '0064:ff9b:0:0:0:0:9810:6414',
-                        'netmask': '112',
-                        'gateway': '0064:ff9b:0:0:0:0:9810:6414',
-                        'if': 'xe0'
-                    },
-                    {
-                        'network': '0064:ff9b:0:0:0:0:9810:2814',
-                        'netmask': '112',
-                        'gateway': '0064:ff9b:0:0:0:0:9810:2814',
-                        'if': 'xe1'
-                    },
-                ],
-                'id': 'vpevnf-baremetal',
-                'external-interface': [
-                    {
-                        'virtual-interface': {
-                            'dst_mac': '00:00:00:00:00:03',
-                            'vpci': '0000:05:00.0',
-                            'driver': 'i40e',
-                            'local_ip': '152.16.100.19',
-                            'type': 'PCI-PASSTHROUGH',
-                            'netmask': '255.255.255.0',
-                            'dpdk_port_num': 0,
-                            'bandwidth': '10 Gbps',
-                            'dst_ip': '152.16.100.20',
-                            'local_mac': '00:00:00:00:00:01'
-                        },
-                        'vnfd-connection-point-ref': 'xe0',
-                        'name': 'xe0'
-                    },
-                    {
-                        'virtual-interface': {
-                            'dst_mac': '00:00:00:00:00:04',
-                            'vpci': '0000:05:00.1',
-                            'driver': 'ixgbe',
-                            'local_ip': '152.16.40.19',
-                            'type': 'PCI-PASSTHROUGH',
-                            'netmask': '255.255.255.0',
-                            'dpdk_port_num': 1,
-                            'bandwidth': '10 Gbps',
-                            'dst_ip': '152.16.40.20',
-                            'local_mac': '00:00:00:00:00:02'
-                        },
-                        'vnfd-connection-point-ref': 'xe1',
-                        'name': 'xe1'
-                    },
-                ],
-            },
-        ],
-        'description': 'Vpe approximation using DPDK',
-        'mgmt-interface': {
-            'vdu-id': 'vpevnf-baremetal',
-            'host': '1.1.1.1',
-            'password': 'r00t',
-            'user': 'root',
-            'ip': '1.1.1.1'
-        },
-        'benchmark': {
-            'kpi': [
-                'packets_in',
-                'packets_fwd',
-                'packets_dropped',
-            ],
-        },
-        'connection-point': [
-            {
-                'type': 'VPORT',
-                'name': 'xe0',
-            },
-            {
-                'type': 'VPORT',
-                'name': 'xe1',
-            },
-        ],
-        'id': 'VpeApproxVnf', 'name': 'VPEVnfSsh'
-    }
+    VNFD_0 = TestSampleVnf.VNFD_0
+    VNFD = TestSampleVnf.VNFD
 
-    VNFD = {
-        'vnfd:vnfd-catalog': {
-            'vnfd': [
-                VNFD_0,
-            ],
-        },
-    }
+    TRAFFIC_PROFILE = TestSampleVnf.TRAFFIC_PROFILE
 
-    TRAFFIC_PROFILE = {
-        "schema": "isb:traffic_profile:0.1",
-        "name": "fixed",
-        "description": "Fixed traffic profile to run UDP traffic",
-        "traffic_profile": {
-            "traffic_type": "FixedTraffic",
-            "frame_rate": 100,  # pps
-            "flow_number": 10,
-            "frame_size": 64,
-        },
-    }
+    def setUp(self):
+        self.sample_vnf_tg = sample_vnf.SampleVNFTrafficGen(
+            'tg1', self.VNFD_0, 'task_id')
 
     def test__check_status(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
 
         with self.assertRaises(NotImplementedError):
-            sample_vnf_tg._check_status()
+            self.sample_vnf_tg._check_status()
 
     def test_listen_traffic(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
-
-        sample_vnf_tg.listen_traffic(mock.Mock())
+        self.sample_vnf_tg.listen_traffic(mock.Mock())
 
     def test_verify_traffic(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
-
-        sample_vnf_tg.verify_traffic(mock.Mock())
+        self.sample_vnf_tg.verify_traffic(mock.Mock())
 
     def test_terminate(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
-        sample_vnf_tg._traffic_process = mock.Mock()
-        sample_vnf_tg._tg_process = mock.Mock()
+        self.sample_vnf_tg._traffic_process = mock.Mock()
+        self.sample_vnf_tg._tg_process = mock.Mock()
 
-        sample_vnf_tg.terminate()
+        self.sample_vnf_tg.terminate()
 
     def test__wait_for_process(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
-        with mock.patch.object(sample_vnf_tg, '_check_status',
+        with mock.patch.object(self.sample_vnf_tg, '_check_status',
                                return_value=0) as mock_status, \
-                mock.patch.object(sample_vnf_tg, '_tg_process') as mock_proc:
+                mock.patch.object(self.sample_vnf_tg, '_tg_process') as mock_proc:
             mock_proc.is_alive.return_value = True
             mock_proc.exitcode = 234
-            self.assertEqual(sample_vnf_tg._wait_for_process(), 234)
+            self.assertEqual(self.sample_vnf_tg._wait_for_process(), 234)
             mock_proc.is_alive.assert_called_once()
             mock_status.assert_called_once()
 
     def test__wait_for_process_not_alive(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
-        with mock.patch.object(sample_vnf_tg, '_tg_process') as mock_proc:
+        with mock.patch.object(self.sample_vnf_tg, '_tg_process') as mock_proc:
             mock_proc.is_alive.return_value = False
-            self.assertRaises(RuntimeError, sample_vnf_tg._wait_for_process)
+            self.assertRaises(RuntimeError, self.sample_vnf_tg._wait_for_process)
             mock_proc.is_alive.assert_called_once()
 
     def test__wait_for_process_delayed(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
-        with mock.patch.object(sample_vnf_tg, '_check_status',
+        with mock.patch.object(self.sample_vnf_tg, '_check_status',
                                side_effect=[1, 0]) as mock_status, \
-                mock.patch.object(sample_vnf_tg,
+                mock.patch.object(self.sample_vnf_tg,
                                   '_tg_process') as mock_proc:
             mock_proc.is_alive.return_value = True
             mock_proc.exitcode = 234
-            self.assertEqual(sample_vnf_tg._wait_for_process(), 234)
+            self.assertEqual(self.sample_vnf_tg._wait_for_process(), 234)
             mock_proc.is_alive.assert_has_calls([mock.call(), mock.call()])
             mock_status.assert_has_calls([mock.call(), mock.call()])
 
     def test_scale(self):
-        sample_vnf_tg = SampleVNFTrafficGen('tg1', self.VNFD_0, 'task_id')
         self.assertRaises(y_exceptions.FunctionNotImplemented,
-                          sample_vnf_tg.scale)
+                          self.sample_vnf_tg.scale)
