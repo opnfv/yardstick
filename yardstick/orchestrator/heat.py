@@ -227,14 +227,10 @@ name (i.e. %s).
 
     def add_volume_attachment(self, server_name, volume_name, mountpoint=None):
         """add to the template an association of volume to instance"""
-        log.debug("adding Cinder::VolumeAttachment server '%s' volume '%s' ", server_name,
-                  volume_name)
-
+        log.debug("adding Cinder::VolumeAttachment server '%s' volume '%s' ",
+                  server_name, volume_name)
         name = "%s-%s" % (server_name, volume_name)
-
-        volume_id = op_utils.get_volume_id(volume_name)
-        if not volume_id:
-            volume_id = {'get_resource': volume_name}
+        volume_id = {'get_resource': volume_name}
         self.resources[name] = {
             'type': 'OS::Cinder::VolumeAttachment',
             'properties': {'instance_uuid': {'get_resource': server_name},
