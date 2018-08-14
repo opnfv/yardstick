@@ -49,6 +49,18 @@ contexts:
       hw:mem_page_size: "large"
     {% endif %}
   user: ubuntu
+  security_group:
+    rules:
+      - remote_ip_prefix: "0.0.0.0/0"
+        protocol: "tcp"
+        port_range_min: 1
+        port_range_max: 65535
+      - remote_ip_prefix: "0.0.0.0/0"
+        protocol: "udp"
+        port_range_min: 1
+        port_range_max: 65535
+      - remote_ip_prefix: "0.0.0.0/0"
+        protocol: "icmp"
 
   placement_groups:
     pgrp1:
