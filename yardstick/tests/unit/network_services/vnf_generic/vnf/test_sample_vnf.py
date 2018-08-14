@@ -18,6 +18,7 @@ import unittest
 import mock
 import six
 import time
+import subprocess
 
 import paramiko
 
@@ -27,7 +28,6 @@ from yardstick.network_services.nfvi import resource
 from yardstick.network_services.vnf_generic.vnf import base
 from yardstick.network_services.vnf_generic.vnf import sample_vnf
 from yardstick.network_services.vnf_generic.vnf import vnf_ssh_helper
-from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFDeployHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ScenarioHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ResourceHelper
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SetupEnvHelper
@@ -1131,49 +1131,46 @@ class TestRfc2544ResourceHelper(unittest.TestCase):
 
 class TestSampleVNFDeployHelper(unittest.TestCase):
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
-    @mock.patch('subprocess.check_output')
-    def test_deploy_vnfs_disabled(self, *_):
-        vnfd_helper = mock.Mock()
-        ssh_helper = mock.Mock()
-        ssh_helper.join_bin_path.return_value = 'joined_path'
-        ssh_helper.execute.return_value = 1, 'bad output', 'error output'
-        ssh_helper.put.return_value = None
-        sample_vnf_deploy_helper = SampleVNFDeployHelper(vnfd_helper, ssh_helper)
+    def setUp(self):
+        self._mock_time_sleep = mock.patch.object(time, 'sleep')
+        self.mock_time_sleep = self._mock_time_sleep.start()
+        self._mock_check_output = mock.patch.object(subprocess, 'check_output')
+        self.mock_check_output = self._mock_check_output.start()
+        self.addCleanup(self._stop_mocks)
 
-        self.assertIsNone(sample_vnf_deploy_helper.deploy_vnfs('name1'))
-        sample_vnf_deploy_helper.DISABLE_DEPLOY = True
-        self.assertEqual(ssh_helper.execute.call_count, 5)
-        ssh_helper.put.assert_called_once()
+        self.ssh_helper = mock.Mock()
+        self.sample_vnf_deploy_helper = sample_vnf.SampleVNFDeployHelper(
+            mock.Mock(), self.ssh_helper)
+        self.ssh_helper.join_bin_path.return_value = 'joined_path'
+        self.ssh_helper.put.return_value = None
 
-    @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.time')
-    @mock.patch('subprocess.check_output')
-    def test_deploy_vnfs(self, *args):
-        vnfd_helper = mock.Mock()
-        ssh_helper = mock.Mock()
-        ssh_helper.join_bin_path.return_value = 'joined_path'
-        ssh_helper.execute.return_value = 1, 'bad output', 'error output'
-        ssh_helper.put.return_value = None
-        sample_vnf_deploy_helper = SampleVNFDeployHelper(vnfd_helper, ssh_helper)
-        sample_vnf_deploy_helper.DISABLE_DEPLOY = False
+    def _stop_mocks(self):
+        self._mock_time_sleep.stop()
+        self._mock_check_output.stop()
 
-        self.assertIsNone(sample_vnf_deploy_helper.deploy_vnfs('name1'))
-        self.assertEqual(ssh_helper.execute.call_count, 5)
-        ssh_helper.put.assert_called_once()
+    def test_deploy_vnfs_disabled(self):
+        self.ssh_helper.execute.return_value = 1, 'bad output', 'error output'
 
-    @mock.patch('subprocess.check_output')
-    def test_deploy_vnfs_early_success(self, *args):
-        vnfd_helper = mock.Mock()
-        ssh_helper = mock.Mock()
-        ssh_helper.join_bin_path.return_value = 'joined_path'
-        ssh_helper.execute.return_value = 0, 'output', ''
-        ssh_helper.put.return_value = None
-        sample_vnf_deploy_helper = SampleVNFDeployHelper(vnfd_helper, ssh_helper)
-        sample_vnf_deploy_helper.DISABLE_DEPLOY = False
+        self.sample_vnf_deploy_helper.deploy_vnfs('name1')
+        self.sample_vnf_deploy_helper.DISABLE_DEPLOY = True
+        self.assertEqual(self.ssh_helper.execute.call_count, 5)
+        self.ssh_helper.put.assert_called_once()
 
-        self.assertIsNone(sample_vnf_deploy_helper.deploy_vnfs('name1'))
-        ssh_helper.execute.assert_called_once()
-        ssh_helper.put.assert_not_called()
+    def test_deploy_vnfs(self):
+        self.ssh_helper.execute.return_value = 1, 'bad output', 'error output'
+        self.sample_vnf_deploy_helper.DISABLE_DEPLOY = False
+
+        self.sample_vnf_deploy_helper.deploy_vnfs('name1')
+        self.assertEqual(self.ssh_helper.execute.call_count, 5)
+        self.ssh_helper.put.assert_called_once()
+
+    def test_deploy_vnfs_early_success(self):
+        self.ssh_helper.execute.return_value = 0, 'output', ''
+        self.sample_vnf_deploy_helper.DISABLE_DEPLOY = False
+
+        self.sample_vnf_deploy_helper.deploy_vnfs('name1')
+        self.ssh_helper.execute.assert_called_once()
+        self.ssh_helper.put.assert_not_called()
 
 
 class TestScenarioHelper(unittest.TestCase):
