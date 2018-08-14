@@ -1091,7 +1091,8 @@ class TestClientResourceHelper(unittest.TestCase):
         self.assertIs(client_resource_helper._connect(client), client)
 
     @mock.patch.object(ClientResourceHelper, '_build_ports')
-    @mock.patch.object(ClientResourceHelper, '_run_traffic_once')
+    @mock.patch.object(ClientResourceHelper, '_run_traffic_once',
+                       return_value=(True, mock.ANY))
     def test_run_traffic(self, mock_run_traffic_once, mock_build_ports):
         client_resource_helper = ClientResourceHelper(mock.Mock())
         client = mock.Mock()

@@ -244,7 +244,7 @@ class TestRFC2544Profile(base.BaseUnitTestCase):
                     'RxThroughput': 312.5,
                     'TxThroughput': 304.5,
                     'CurrentDropPercentage': 0.3963,
-                    'Rate': 100,
+                    'Rate': 100.0,
                     'Throughput': 312.5}
         self.assertEqual(expected, output)
 

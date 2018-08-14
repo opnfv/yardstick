@@ -30,13 +30,14 @@ class TestTrexRfcResouceHelper(unittest.TestCase):
         mock_traffic_profile.config.duration = 3
         mock_traffic_profile.execute_traffic.return_value = ('fake_ports',
                                                              'port_pg_id_map')
-        mock_traffic_profile.get_drop_percentage.return_value = 'percentage'
+        mock_traffic_profile.get_drop_percentage.return_value = (True,
+                                                                 'percentage')
         rfc_rh = tg_rfc2544_trex.TrexRfcResourceHelper(mock_setup_helper)
         rfc_rh.TRANSIENT_PERIOD = 0
         rfc_rh.rfc2544_helper = mock.Mock()
 
         with mock.patch.object(rfc_rh, '_get_samples') as mock_get_samples:
-            rfc_rh._run_traffic_once(mock_traffic_profile)
+            self.assertTrue(rfc_rh._run_traffic_once(mock_traffic_profile))
 
         mock_traffic_profile.execute_traffic.assert_called_once_with(rfc_rh)
         mock_traffic_profile.stop_traffic.assert_called_once_with(rfc_rh)

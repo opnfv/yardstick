@@ -45,11 +45,12 @@ class TrexRfcResourceHelper(tg_trex.TrexResourceHelper):
             time.sleep(self.SAMPLING_PERIOD)
 
         traffic_profile.stop_traffic(self)
-        output = traffic_profile.get_drop_percentage(
+        completed, output = traffic_profile.get_drop_percentage(
             samples, self.rfc2544_helper.tolerance_low,
             self.rfc2544_helper.tolerance_high,
             self.rfc2544_helper.correlated_traffic)
         self._queue.put(output)
+        return completed
 
     def start_client(self, ports, mult=None, duration=None, force=True):
         self.client.start(ports=ports, mult=mult, duration=duration, force=force)
