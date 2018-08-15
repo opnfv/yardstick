@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_c24f5891",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-15T08:42:33Z",
+      "side": 1,
+      "message": "This value shouldn\u0027t be overwritten. The default value is in https://gerrit.opnfv.org/gerrit/#/c/57809/7/ansible/group_vars/all.yml@3",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 37
+      },
+      "revId": "44aae45b04c72934648cbf635020f4f109a92f98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_22457470",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-15T08:42:33Z",
+      "side": 1,
+      "message": "The default value should be \u0027normal\u0027",
+      "range": {
+        "startLine": 103,
+        "startChar": 37,
+        "endLine": 103,
+        "endChar": 51
+      },
+      "revId": "44aae45b04c72934648cbf635020f4f109a92f98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e24a5c82",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-15T08:42:33Z",
+      "side": 1,
+      "message": "The default value is defined in https://gerrit.opnfv.org/gerrit/#/c/57809/7/ansible/group_vars/all.yml@3",
+      "range": {
+        "startLine": 104,
+        "startChar": 33,
+        "endLine": 104,
+        "endChar": 53
+      },
+      "revId": "44aae45b04c72934648cbf635020f4f109a92f98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_024af07f",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-15T08:42:33Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 119,
+        "startChar": 36,
+        "endLine": 119,
+        "endChar": 51
+      },
+      "revId": "44aae45b04c72934648cbf635020f4f109a92f98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_625e4c47",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-15T08:42:33Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 120,
+        "startChar": 34,
+        "endLine": 120,
+        "endChar": 53
+      },
+      "revId": "44aae45b04c72934648cbf635020f4f109a92f98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_425b4854",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-15T08:42:33Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 135,
+        "startChar": 36,
+        "endLine": 135,
+        "endChar": 51
+      },
+      "revId": "44aae45b04c72934648cbf635020f4f109a92f98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a2586457",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-15T08:42:33Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 136,
+        "startChar": 33,
+        "endLine": 136,
+        "endChar": 53
+      },
+      "revId": "44aae45b04c72934648cbf635020f4f109a92f98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c2363803",
+        "filename": "ansible/roles/build_yardstick_image/tasks/pre_build.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-15T08:42:33Z",
+      "side": 1,
+      "message": "\"nameservers\" could be not defined.\n\nYou should check if this variable exists. If not, define a default \"nameserver\" variable in group_vars/all.yaml to be used here (for example, 8.8.8.8)",
+      "range": {
+        "startLine": 201,
+        "startChar": 23,
+        "endLine": 201,
+        "endChar": 49
+      },
+      "revId": "44aae45b04c72934648cbf635020f4f109a92f98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
