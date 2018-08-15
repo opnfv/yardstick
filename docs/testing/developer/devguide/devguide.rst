@@ -647,6 +647,57 @@ running ``tox``::
    rm -rf .tox/<environment_name>
    rm -rf .tox/py27
 
+Writing unit tests
+~~~~~~~~~~~~~~~~~~
+For each change submitted, a set of unit tests should be submitted, which
+should include both positive and negative testing.
+
+In order to help identify which tests are needed, follow the guidelines below.
+
+* In general, there should be a separate test for each branching point, return
+  value and input set.
+* Negative tests should be written to make sure exceptions are raised and/or
+  handled appropriately.
+
+The following convention should be used for naming tests::
+
+    test_<method_name>_<some_comment>
+
+The comment gives more information on the nature of the test, the side effect
+being checked, or the parameter being modified::
+
+    test_my_method_runtime_error
+    test_my_method_invalid_credentials
+    test_my_method_param1_none
+
+Mocking
++++++++
+The ``mock`` library is used for unit testing to stub out external libraries.
+
+The following conventions are used in Yardstick:
+
+* Use ``mock.patch.object`` instead of ``mock.patch``.
+
+* When naming mocked classes/functions, use ``mock_<class_and_function_name>``
+  e.g. ``mock_subprocess_call``
+
+* Avoid decorating classes with mocks. Apply the mocking in ``setUp()``::
+
+    @mock.patch.object(ssh, 'SSH')
+    class MyClassTestCase(unittest.TestCase):
+
+  should be::
+
+    class MyClassTestCase(unittest.TestCase):
+        def setUp(self):
+            self._mock_ssh = mock.patch.object(ssh, 'SSH')
+            self.mock_ssh = self._mock_ssh.start()
+
+            self.addCleanup(self._stop_mocks)
+
+        def _stop_mocks(self):
+            self._mock_ssh.stop()
+
 Plugins
 -------
 
