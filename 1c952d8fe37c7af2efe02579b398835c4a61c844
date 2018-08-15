@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_6d13dd5c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-15T11:01:42Z",
+      "side": 1,
+      "message": "To me, it would be more intuitive to have \"security_group\" rather than \"existing_security_group\".\n\nWe don\u0027t use \"existing_network\" or \"existing_flavor\" when the network or flavor already exist.\n\nYou could make use of the existing option for defining a security group and try to retrieve the SG if the SG isn\u0027t defined by context (same as with flavor, IINM)",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 25
+      },
+      "revId": "1c952d8fe37c7af2efe02579b398835c4a61c844",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
