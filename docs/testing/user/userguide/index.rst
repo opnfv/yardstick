@@ -23,7 +23,6 @@ Yardstick User Guide
    08-grafana
    09-api
    10-yardstick-user-interface
-   11-vtc-overview
    12-nsb-overview
    13-nsb-installation
    14-nsb-operation

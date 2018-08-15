@@ -13,7 +13,6 @@ OPNFV
 
 * Parser wiki: https://wiki.opnfv.org/parser
 * Pharos wiki: https://wiki.opnfv.org/pharos
-* VTC: https://wiki.opnfv.org/vtc
 * Yardstick CI: https://build.opnfv.org/ci/view/yardstick/
 * Yardstick and ETSI TST001 presentation: https://wiki.opnfv.org/display/yardstick/Yardstick?preview=%2F2925202%2F2925205%2Fopnfv_summit_-_bridging_opnfv_and_etsi.pdf
 * Yardstick Project presentation: https://wiki.opnfv.org/display/yardstick/Yardstick?preview=%2F2925202%2F2925208%2Fopnfv_summit_-_yardstick_project.pdf

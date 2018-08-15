@@ -60,6 +60,3 @@ Glossary
 
    ToS
      Type of Service
-
-   VTC
-     Virtual Traffic Classifier

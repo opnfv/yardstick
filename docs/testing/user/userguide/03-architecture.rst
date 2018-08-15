@@ -262,8 +262,6 @@ Yardstick Directory structure
 
 *plugin/* - Plug-in configuration files are stored here.
 
-*vTC/* - Contains the files for running the virtual Traffic Classifier tests.
-
 *yardstick/* - Contains the internals of Yardstick: Runners, Scenario, Contexts,
                CLI parsing, keys, plotting tools, dispatcher, plugin
                install/remove scripts and so on.
