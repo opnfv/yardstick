@@ -11,8 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-""" Trex acts as traffic generation and vnf definitions based on IETS Spec """
 
+import datetime
 import logging
 import os
 
@@ -167,6 +167,7 @@ class TrexResourceHelper(ClientResourceHelper):
 
     def _get_samples(self, ports, port_pg_id=None):
         stats = self.get_stats(ports)
+        timestamp = datetime.datetime.now()
         samples = {}
         for pname in (intf['name'] for intf in self.vnfd_helper.interfaces):
             port_num = self.vnfd_helper.port_num(pname)
@@ -178,6 +179,7 @@ class TrexResourceHelper(ClientResourceHelper):
                 'tx_throughput_bps': float(port_stats.get('tx_bps', 0.0)),
                 'in_packets': int(port_stats.get('ipackets', 0)),
                 'out_packets': int(port_stats.get('opackets', 0)),
+                'timestamp': timestamp
             }
 
             pg_id_list = port_pg_id.get_pg_ids(port_num)
