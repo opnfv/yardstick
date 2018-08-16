@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_4d5b7954",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-08-16T08:14:02Z",
+      "side": 1,
+      "message": "No, the default parameter is set in traffic profile config file. If to set default value in here, the traffic profile default value will not be applied at all.\n\n--------------------------\ntarffic profile: \n        outer_l3v4:\n            proto: \"udp\"\n            srcip4: \"{{get(flow, \u0027flow.src_ip_0\u0027, \u00271.1.1.1-1.15.255.255\u0027) }}\"\n            dstip4: \"{{get(flow, \u0027flow.dst_ip_0\u0027, \u002790.90.1.1-90.105.255.255\u0027) }}\"\n            count: \"{{get(flow, \u0027flow.count\u0027, \u00271\u0027) }}\"\n            seed: \"{{get(flow, \u0027flow.seed\u0027, \u00271\u0027) }}\"",
+      "parentUuid": "9a561d44_cd6829f8",
+      "range": {
+        "startLine": 121,
+        "startChar": 32,
+        "endLine": 121,
+        "endChar": 46
+      },
+      "revId": "159aae80ae08f8b5d055025afb3cec1d28943e61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ed636d18",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-16T07:59:06Z",
       "side": 1,
       "message": "ditto, you need to add a default value",
+      "range": {
+        "startLine": 124,
+        "startChar": 16,
+        "endLine": 124,
+        "endChar": 44
+      },
+      "revId": "159aae80ae08f8b5d055025afb3cec1d28943e61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ad585557",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-08-16T08:14:02Z",
+      "side": 1,
+      "message": "see my comment above",
+      "parentUuid": "9a561d44_ed636d18",
       "range": {
         "startLine": 124,
         "startChar": 16,
