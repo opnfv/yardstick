@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_a80323b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-16T13:18:28Z",
+      "side": 1,
+      "message": "Wrap the lines at ~60 characters.\n\nWhen merged, the commit message is indented.",
+      "range": {
+        "startLine": 9,
+        "startChar": 69,
+        "endLine": 9,
+        "endChar": 81
+      },
+      "revId": "f181ec377652474697d169b3a3cfc70e8b5fc0e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_28271366",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-16T13:18:28Z",
+      "side": 1,
+      "message": "nit: add a brief description.\n\ne.g. the availability zone that the stack will use/is using",
+      "range": {
+        "startLine": 90,
+        "startChar": 19,
+        "endLine": 90,
+        "endChar": 36
+      },
+      "revId": "f181ec377652474697d169b3a3cfc70e8b5fc0e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c83137a4",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-16T13:18:28Z",
+      "side": 1,
+      "message": "name of the existing stack to use? Or the name of the stack that will be created?",
+      "range": {
+        "startLine": 96,
+        "startChar": 32,
+        "endLine": 96,
+        "endChar": 61
+      },
+      "revId": "f181ec377652474697d169b3a3cfc70e8b5fc0e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_082ccf46",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-16T13:18:28Z",
+      "side": 1,
+      "message": "Is this the number of volumes to be created?",
+      "range": {
+        "startLine": 97,
+        "startChar": 54,
+        "endLine": 97,
+        "endChar": 68
+      },
+      "revId": "f181ec377652474697d169b3a3cfc70e8b5fc0e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6820eb49",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc074.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-16T13:18:28Z",
+      "side": 1,
+      "message": "possible typo?\n\ns/storperf_agent_keypair/storperf_agent/",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 39
+      },
+      "revId": "f181ec377652474697d169b3a3cfc70e8b5fc0e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
