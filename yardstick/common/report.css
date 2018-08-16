@@ -6,14 +6,29 @@ table{
   overflow-y: scroll;
   height: 360px;
   display: block;
+  width:100%;
 }
 
-header,h3{
+h4{
     font-family: Frutiger;
     clear: left;
     text-align: center;
+    height: 1px;
+    font-size: 13pt;
+    margin-bottom: 0px;
+}
+
+.jumbotron h1 {
+    font-family: Frutiger;
+    font-size: 20pt;
+    height: 20px;
+    clear: left;
+    margin: 0px 0px;
+    font-weight: bold;
 }
 
 .control-pane{
     font-size: 10pt;
 }
+
+.data-pane{ width:100%;}
