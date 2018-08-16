@@ -15,20 +15,30 @@ description: >
 
 {% set public_network = public_network or "ext-net" %}
 {% set StorPerf_ip = StorPerf_ip or "192.168.200.1" %}
+{% set workload = workload or "" %}
+{% set workloads = workloads or "" %}
+{% set agent_count = agent_count or 1 %}
+{% set block_sizes = block_sizes or "4096" %}
+{% set queue_depths = queue_depths or "4" %}
+{% set steady_state_samples = steady_state_samples or 10 %}
+{% set volume_size = volume_size or 4 %}
 scenarios:
 -
   type: StorPerf
   options:
-    agent_count: 1
+    agent_count: {{agent_count}}
     agent_image: "Ubuntu-16.04"
     agent_flavor: "storperf"
     public_network: {{public_network}}
-    volume_size: 4
-    block_sizes: "4096"
-    queue_depths: "4"
+    volume_size: {{volume_size}}
+    block_sizes: {{block_sizes}}
+    queue_depths: {{queue_depths}}
     StorPerf_ip: {{StorPerf_ip}}
     query_interval: 10
     timeout: 300
+    workload: {{workload}}
+    workloads: {{workloads}}
+    steady_state_samples: {{steady_state_samples}}
 
   runner:
     type: Iteration

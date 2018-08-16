@@ -19,16 +19,27 @@ Yardstick Test Case Description TC074
 |metric        | Storage performance                                          |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|test purpose  | Storperf integration with yardstick. The purpose of StorPerf |
-|              | is to provide a tool to measure block and object storage     |
-|              | performance in an NFVI. When complemented with a             |
-|              | characterization of typical VF storage performance           |
-|              | requirements, it can provide pass/fail thresholds for test,  |
-|              | staging, and production NFVI environments.                   |
+|test purpose  | To evaluate and report on the Cinder volume performance.     |
 |              |                                                              |
-|              | The benchmarks developed for block and object storage will   |
-|              | be sufficiently varied to provide a good preview of expected |
-|              | storage performance behavior for any type of VNF workload.   |
+|              | This testcase integrates with OPNFV StorPerf to measure      |
+|              | block performance of the underlying Cinder drivers.  Many    |
+|              | options are supported, and even the root disk (Glance        |
+|              | ephemeral storage can be profiled.                           |
+|              |                                                              |
+|              | The fundamental concept of the test case is to first fill    |
+|              | the volumes with random data to ensure reported metrics      |
+|              | are indicative of continued usage and not skewed by          |
+|              | transitional performance while the underlying storage        |
+|              | driver allocates blocks.                                     |
+|              | The metrics for filling the volumes with random data         |
+|              | are not reported in the final results.  The test also        |
+|              | ensures the volumes are performing at a consistent level     |
+|              | of performance by measuring metrics every minute, and        |
+|              | comparing the trend of the metrics over the run.  By         |
+|              | evaluating the min and max values, as well as the slope of   |
+|              | the trend, it can make the determination that the metrics    |
+|              | are stable, and not fluctuating beyond industry standard     |
+|              | norms.                                                       |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |configuration | file: opnfv_yardstick_tc074.yaml                             |
@@ -38,7 +49,8 @@ Yardstick Test Case Description TC074
 |              | * public_network: "ext-net" - name of public network         |
 |              | * volume_size: 2 - cinder volume size                        |
 |              | * block_sizes: "4096" - data block size                      |
-|              | * queue_depths: "4"                                          |
+|              | * queue_depths: "4" - the number of simultaneous I/Os        |
+|              |   to perform at all times                                    |
 |              | * StorPerf_ip: "192.168.200.2"                               |
 |              | * query_interval: 10 - state query interval                  |
 |              | * timeout: 600 - maximum allowed job time                    |
@@ -50,7 +62,11 @@ Yardstick Test Case Description TC074
 |              | performance in an NFVI.                                      |
 |              |                                                              |
 |              | StorPerf is delivered as a Docker container from             |
-|              | https://hub.docker.com/r/opnfv/storperf/tags/.               |
+|              | https://hub.docker.com/r/opnfv/storperf-master/tags/.        |
+|              |                                                              |
+|              | The underlying tool used is FIO, and StorPerf supports       |
+|              | any FIO option in order to tailor the test to the exact      |
+|              | workload needed.                                             |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |references    | Storperf_                                                    |
@@ -80,9 +96,17 @@ Yardstick Test Case Description TC074
 |              |      - rr: 100% Read, random access                          |
 |              |      - wr: 100% Write, random access                         |
 |              |      - rw: 70% Read / 30% write, random access               |
-|              | * nossd: Do not perform SSD style preconditioning.           |
-|              | * nowarm:  Do not perform a warmup prior to                  |
 |              |   measurements.                                              |
+|              | * workloads={json maps}                                      |
+|              |   This parameter supercedes the workload and calls the V2.0  |
+|              |   API in StorPerf. It allows for greater control of the      |
+|              |   parameters to be passed to FIO.  For example, running a    |
+|              |   random read/write with a mix of 90% read and 10% write     |
+|              |   would be expressed as follows:                             |
+|              |   {"9010randrw": {"rw":"randrw","rwmixread": "90"}}          |
+|              |   Note: This must be passed in as a string, so don't forget  |
+|              |   to escape or otherwise properly deal with the quotes.      |
+|              |                                                              |
 |              | * report= [job_id]                                           |
 |              |   Query the status of the supplied job_id and report on      |
 |              |   metrics. If a workload is supplied, will report on only    |
@@ -92,8 +116,7 @@ Yardstick Test Case Description TC074
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |pre-test      | If you do not have an Ubuntu 14.04 image in Glance, you will |
-|conditions    | need to add one. A key pair for launching agents is also     |
-|              | required.                                                    |
+|conditions    | need to add one.                                             |
 |              |                                                              |
 |              | Storperf is required to be installed in the environment.     |
 |              | There are two possible methods for Storperf installation:    |
@@ -126,10 +149,21 @@ Yardstick Test Case Description TC074
 |test sequence | description and expected result                              |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|step 1        | The Storperf is installed and Ubuntu 14.04 image is stored   |
-|              | in glance. TC is invoked and logs are produced and stored.   |
+|step 1        | Yardstick calls StorPerf to create the heat stack with the   |
+|              | number of VMs and size of Cinder volumes specified.  The     |
+|              | VMs will be on their own private subnet, and take floating   |
+|              | IP addresses from the specified public network.              |
 |              |                                                              |
-|              | Result: Logs are stored.                                     |
++--------------+--------------------------------------------------------------+
+|step 2        | Yardstick calls StorPerf to fill all the volumes with        |
+|              | random data.                                                 |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|step 3        | Yardstick calls StorPerf to perform the series of tests      |
+|              | specified by the workload, queue depths and block sizes.     |
+|              |                                                              |
++--------------+--------------------------------------------------------------+
+|step 4        | Yardstick calls StorPerf to delete the stack it created.     |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test verdict  | None. Storage performance results are fetched and stored.    |
