@@ -12,7 +12,7 @@
        <script src="{{template_dir}}/report.js"></script>
    </head>
    <body>
-       <div class="container" style="width:80%">
+       <div class="container" style="width:100%">
            <div class="row"><!-- header can be id here-->
                <header class="jumbotron text-center">
                    <h1>Yardstick User Interface</h1>
@@ -29,7 +29,8 @@
                 </div> <!-- end data-pane-->
             </div><!-- end row -->
             <div class="row" id="table-pane">
-                <div class="table-responsive col-md-12" >
+                <div class="col-md-2"></div>
+                <div class="table-responsive col-md-10" >
                     <table class="table table-hover"></table>
                 </div>
             </div> <!-- end row, table-pane -->
@@ -41,7 +42,7 @@
             timestamps = {{Timestamps|safe}}
             jstree_data = {{jstree_nodes|safe}}
 
-            create_table(arr);
+            create_table(arr, timestamps);
             create_jstree(jstree_data);
             var dummy_data = [{ 'key': new Array(timestamps.length).fill('')}];
             render_highcharts([''], timestamps)
@@ -49,19 +50,24 @@
             $('#data_selector').on('check_node.jstree uncheck_node.jstree', function (e, data){
 
                 selected_leaves = []
+                new_arr = {}
+                var i;
+                deleteRows(arr, timestamps);
                 console.log("len(data.selected): " + data.selected.length)
 
-                var i;
 
                 for (i=0; i < data.selected.length; i++){
                     node = data.instance.get_node(data.selected[i])
                     if (node.children.length == 0){
                         point = { "name": node.id, "data": arr[node.id], "visible": true }
+                        <!-- Create new array for table to show only subset of metrics -->
+                        new_arr[node.id] = arr[node.id]
                         selected_leaves.push(point)
                         console.log("current_data: " + point.name + " data: [" + point.data + "]")
                     }
                 }
 
+                create_table(new_arr, timestamps);
                 console.log("current graph data: " + selected_leaves.length )
 
                 render_highcharts(selected_leaves, timestamps)
@@ -71,7 +77,6 @@
                     series: selected_leaves,
                 });
             });
-
         </script>
     </body>
 </html>

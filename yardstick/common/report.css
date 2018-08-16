@@ -6,6 +6,7 @@ table{
   overflow-y: scroll;
   height: 360px;
   display: block;
+  width:100%;
 }
 
 header,h3{
