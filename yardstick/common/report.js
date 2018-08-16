@@ -16,20 +16,31 @@ function create_jstree(jstree_data){
    });
 }  // end create_jstree
 
-// may need to pass timestamps too...
-function create_table(table_data){
+function create_table(table_data, timestamps){
     var tab, th, tr, td, tn, row, col, thead, tbody;
     // create table
     tab = document.getElementsByTagName('table')[0];
     thead=document.createElement('thead');
     tr = document.createElement('tr');
     tbody=document.createElement('tbody');
-
+    th = document.createElement('th');
     //create table headings using timestamps
+    td = document.createElement('td');
+    tn = document.createTextNode('Timestamps');
+    td.appendChild(tn);
+    tr.appendChild(td);
+    for(row=0; row<timestamps.length; row++)
+    {
+        td = document.createElement('td');
+        tn = document.createTextNode(timestamps[row]);
+        td.appendChild(tn);
+        tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
     console.log("arr keys: " + Object.keys(table_data))
     keys = Object.keys(table_data)
     // for each metric
-    for (i=0; i< keys.length; i++){
+    for (var i=0; i< keys.length; i++){
         tr = document.createElement('tr');
         key = keys[i]
         console.log("curr_key: " + key)
@@ -38,7 +49,7 @@ function create_table(table_data){
         tr.append(td)
         curr_data = table_data[key]
         // add each piece of data as its own column
-        for (j=0; j<curr_data.length; j++){
+        for (var j=0; j<curr_data.length; j++){
             td = document.createElement('td');
             td.append(curr_data[j])
             tr.append(td)
@@ -48,6 +59,13 @@ function create_table(table_data){
     tab.appendChild(tbody);
 } // end create_table
 
+//delete rows of the table
+function deleteRows(){
+    var table = document.getElementsByTagName('table')[0];
+    for (var i=((table.rows.length)-1); i>=0; i--){
+        table.deleteRow(i);
+    }
+}
 //TODO: Define create_table_old(table_data, timestamps)
 
 function render_highcharts(plot_data, timestamps){
@@ -97,3 +115,5 @@ function render_highcharts(plot_data, timestamps){
        series: plot_data,
     });
 }  // end render_highcharts
+
+
