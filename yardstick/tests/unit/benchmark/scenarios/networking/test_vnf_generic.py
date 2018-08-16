@@ -405,7 +405,6 @@ class TestNetworkServiceTestCase(unittest.TestCase):
     def test___get_traffic_flow(self):
         self.scenario_cfg["traffic_options"]["flow"] = \
             self._get_file_abspath("ipv4_1flow_Packets_vpe.yaml")
-        self.scenario_cfg["options"] = {}
         self.scenario_cfg['options'] = {
             'flow': {
                 'src_ip': [
@@ -421,11 +420,10 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 'public_ip': ['1.1.1.1'],
             },
         }
-        # NOTE(ralonsoh): check the expected output. This test could be
-        # incorrect
-        # result = {'flow': {'dst_ip0': '152.16.40.2-152.16.40.254',
-        #                    'src_ip0': '152.16.100.2-152.16.100.254'}}
-        self.assertEqual({'flow': {}}, self.s._get_traffic_flow())
+        expected_flow = {'flow': {'dst_ip_0': '152.16.40.2-152.16.40.254',
+                                  'public_ip_0': '1.1.1.1',
+                                  'src_ip_0': '152.16.100.2-152.16.100.254'}}
+        self.assertEqual(expected_flow, self.s._get_traffic_flow())
 
     def test___get_traffic_flow_error(self):
         self.scenario_cfg["traffic_options"]["flow"] = \
