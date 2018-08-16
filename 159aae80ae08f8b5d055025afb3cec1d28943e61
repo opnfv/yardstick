@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_cd6829f8",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-16T07:59:06Z",
+      "side": 1,
+      "message": "This parameter is always needed in [1]. You need to add a default vale.\n\n[1] https://github.com/opnfv/yardstick/blob/master/yardstick/network_services/traffic_profile/ixia_rfc2544.py#L96",
+      "range": {
+        "startLine": 121,
+        "startChar": 32,
+        "endLine": 121,
+        "endChar": 46
+      },
+      "revId": "159aae80ae08f8b5d055025afb3cec1d28943e61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ed636d18",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-16T07:59:06Z",
+      "side": 1,
+      "message": "ditto, you need to add a default value",
+      "range": {
+        "startLine": 124,
+        "startChar": 16,
+        "endLine": 124,
+        "endChar": 44
+      },
+      "revId": "159aae80ae08f8b5d055025afb3cec1d28943e61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
