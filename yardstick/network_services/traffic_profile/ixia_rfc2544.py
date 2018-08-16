@@ -96,7 +96,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
                         'count': ip['count'],
                         'dscp': ip['dscp'],
                         'ttl': ip['ttl'],
-                        'seed': ip['seed'],
+                        'seed': ip.get('seed', 1),
                         'srcip': srcip,
                         'dstip': dstip,
                         'srcmask': srcmask,
@@ -110,7 +110,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
                         'srcportmask': src_port_mask,
                         'dstportmask': dst_port_mask,
                         'count': outer_l4['count'],
-                        'seed': outer_l4['seed'],
+                        'seed': outer_l4.get('seed', 1)
                     }
 
                 }
