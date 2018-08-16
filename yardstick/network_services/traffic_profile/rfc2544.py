@@ -247,19 +247,16 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
                             correlated_traffic):
         """Calculate the drop percentage and run the traffic"""
         completed = False
-        tx_rate_fps = 0
-        rx_rate_fps = 0
-        for sample in samples:
-            tx_rate_fps += sum(
-                port['tx_throughput_fps'] for port in sample.values())
-            rx_rate_fps += sum(
-                port['rx_throughput_fps'] for port in sample.values())
-        tx_rate_fps = round(float(tx_rate_fps) / len(samples), 2)
-        rx_rate_fps = round(float(rx_rate_fps) / len(samples), 2)
-
-        # TODO(esm): RFC2544 doesn't tolerate packet loss, why do we?
-        out_packets = sum(port['out_packets'] for port in samples[-1].values())
-        in_packets = sum(port['in_packets'] for port in samples[-1].values())
+        out_pkt_end = sum(port['out_packets'] for port in samples[-1].values())
+        in_pkt_end = sum(port['in_packets'] for port in samples[-1].values())
+        out_pkt_ini = sum(port['out_packets'] for port in samples[0].values())
+        in_pkt_ini = sum(port['in_packets'] for port in samples[0].values())
+        time_diff = (list(samples[-1].values())[0]['timestamp'] -
+                     list(samples[0].values())[0]['timestamp']).total_seconds()
+        out_packets = out_pkt_end - out_pkt_ini
+        in_packets = in_pkt_end - in_pkt_ini
+        tx_rate_fps = float(out_packets) / time_diff
+        rx_rate_fps = float(in_packets) / time_diff
         drop_percent = 100.0
 
         # https://tools.ietf.org/html/rfc2544#section-26.3
