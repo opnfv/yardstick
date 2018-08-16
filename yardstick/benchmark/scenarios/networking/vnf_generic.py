@@ -117,8 +117,12 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             for index, dst_port in enumerate(fflow.get("dst_port", [])):
                 flow["dst_port_{}".format(index)] = dst_port
 
-            flow["count"] = fflow["count"]
-            flow["seed"] = fflow["seed"]
+            if "count" in fflow:
+                flow["count"] = fflow["count"]
+
+            if "seed" in fflow:
+                flow["seed"] = fflow["seed"]
+
         except KeyError:
             flow = {}
         return {"flow": flow}
