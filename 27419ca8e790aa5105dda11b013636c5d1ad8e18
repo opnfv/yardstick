@@ -46,6 +46,30 @@
       "revId": "27419ca8e790aa5105dda11b013636c5d1ad8e18",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a81a0315",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-16T13:21:42Z",
+      "side": 1,
+      "message": "Is this change already done? If it is, there\u0027s an issue right now.\n\nIf the upper layers aren\u0027t already passing the duration parameter, then this will break.\n\nA default value will ensure that this continues to work even if it\u0027s not explicitly passed by the upper layers",
+      "parentUuid": "9a561d44_8800dfab",
+      "range": {
+        "startLine": 63,
+        "startChar": 38,
+        "endLine": 63,
+        "endChar": 46
+      },
+      "revId": "27419ca8e790aa5105dda11b013636c5d1ad8e18",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
