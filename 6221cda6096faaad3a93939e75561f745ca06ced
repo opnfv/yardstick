@@ -16,6 +16,47 @@
       "revId": "6221cda6096faaad3a93939e75561f745ca06ced",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_1fc1a280",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-17T15:50:26Z",
+      "side": 1,
+      "message": "It\u0027s a matter of preference, and we were seeing people getting the ordering of args mixed up when applying the mocks to classes and methods. Sometimes the arguments also weren\u0027t used, so there would be a need to ignore the arguments.\n\ne.g. \n\n@mock.patch(subprocess, \u0027call\u0027)\nclass myTC():\n  @mock.patch(time, \u0027sleep\u0027)\n  def test_bleh(self, _, mock_call)\n      mock_call.return_value \u003d \u0027foo\u0027\n      out \u003d bleh()\n      assertEqual(expected, out)\n\npylint will give an unused argument error here.\nIt\u0027s also possible that someone will put the args in the wrong order[1], and sometimes this isn\u0027t noticed.\n\n[1] https://jira.opnfv.org/browse/YARDSTICK-1384",
+      "parentUuid": "9a561d44_df256aac",
+      "revId": "6221cda6096faaad3a93939e75561f745ca06ced",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7fbede00",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-17T15:50:26Z",
+      "side": 1,
+      "message": "I\u0027ll remove this part though",
+      "range": {
+        "startLine": 679,
+        "startChar": 71,
+        "endLine": 680,
+        "endChar": 19
+      },
+      "revId": "6221cda6096faaad3a93939e75561f745ca06ced",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
