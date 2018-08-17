@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_df256aac",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-08-17T15:05:47Z",
+      "side": 1,
+      "message": "I noticed that in Ironic at least, test class decorators are used when all methods in the test use the same mock.  Different test classes are created in the same module when there are different categories of testing.  Just food for thought.",
+      "revId": "6221cda6096faaad3a93939e75561f745ca06ced",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
