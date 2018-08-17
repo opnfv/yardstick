@@ -149,7 +149,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.xe0.out_packets\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe0.out_packets\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -283,7 +283,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.xe0.in_packets"
+                      "tg__0.collect_stats.xe0.in_packets"
                     ],
                     "type": "field"
                   },
@@ -321,7 +321,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.xe1.in_packets"
+                      "tg__0.collect_stats.xe1.in_packets"
                     ],
                     "type": "field"
                   },
@@ -359,7 +359,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.xe2.in_packets"
+                      "tg__0.collect_stats.xe2.in_packets"
                     ],
                     "type": "field"
                   },
@@ -397,7 +397,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.xe3.in_packets"
+                      "tg__0.collect_stats.xe3.in_packets"
                     ],
                     "type": "field"
                   },
@@ -525,7 +525,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.xe0.out_packets"
+                      "tg__0.collect_stats.xe0.out_packets"
                     ],
                     "type": "field"
                   },
@@ -563,7 +563,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.xe1.out_packets"
+                      "tg__0.collect_stats.xe1.out_packets"
                     ],
                     "type": "field"
                   },
@@ -601,7 +601,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.xe2.out_packets"
+                      "tg__0.collect_stats.xe2.out_packets"
                     ],
                     "type": "field"
                   },
@@ -639,7 +639,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.xe3.out_packets"
+                      "tg__0.collect_stats.xe3.out_packets"
                     ],
                     "type": "field"
                   },
@@ -1060,7 +1060,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.TxThroughput"
+                      "tg__0.collect_stats.TxThroughput"
                     ],
                     "type": "field"
                   },
@@ -1099,7 +1099,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.RxThroughput"
+                      "tg__0.collect_stats.RxThroughput"
                     ],
                     "type": "field"
                   },
@@ -1225,7 +1225,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.PktSize"
+                      "tg__0.collect_stats.PktSize"
                     ],
                     "type": "field"
                   },
@@ -1361,7 +1361,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Success_tx_total"
+                      "tg__0.collect_stats.tx_total"
                     ],
                     "type": "field"
                   },
@@ -1371,7 +1371,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "tg__0.collect_stats.Status",
+                  "operator": "=",
+                  "value": "\"Success\""
+                }
+              ]
             },
             {
               "alias": "SUCCESS Rx Total",
@@ -1399,7 +1405,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Success_rx_total"
+                      "tg__0.collect_stats.rx_total"
                     ],
                     "type": "field"
                   },
@@ -1409,7 +1415,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "tg__0.collect_stats.Status",
+                  "operator": "=",
+                  "value": "\"Success\""
+                }
+              ]
             },
             {
               "alias": "SUCCESS ALLOWABLE LOST PACKETS",
@@ -1437,7 +1449,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Success_can_be_lost"
+                      "tg__0.collect_stats.can_be_lost"
                     ],
                     "type": "field"
                   },
@@ -1447,7 +1459,13 @@
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "tg__0.collect_stats.Status",
+                  "operator": "=",
+                  "value": "\"Success\""
+                }
+              ]
             }
           ],
           "thresholds": [],
@@ -1567,7 +1585,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.duration"
+                      "tg__0.collect_stats.duration"
                     ],
                     "type": "field"
                   },
@@ -1675,7 +1693,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.test_duration"
+                      "tg__0.collect_stats.test_duration"
                     ],
                     "type": "field"
                   },
@@ -1783,7 +1801,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.test_precision"
+                      "tg__0.collect_stats.test_precision"
                     ],
                     "type": "field"
                   },
@@ -1891,7 +1909,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.tolerated_loss"
+                      "tg__0.collect_stats.tolerated_loss"
                     ],
                     "type": "field"
                   },
@@ -2048,7 +2066,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_pktSize\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 64 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2056,7 +2074,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_pktSize"
+                      "tg__0.collect_stats.PktSize"
                     ],
                     "type": "field"
                   },
@@ -2068,7 +2086,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "64"
                 }
@@ -2165,7 +2183,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 64 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2173,7 +2191,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_theor_max_throughput"
+                      "tg__0.collect_stats.theor_max_throughput"
                     ],
                     "type": "field"
                   },
@@ -2185,7 +2203,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "64"
                 }
@@ -2281,7 +2299,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_Actual_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 64 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.Actual_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2289,7 +2307,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_Actual_throughput"
+                      "tg__0.collect_stats.Actual_throughput"
                     ],
                     "type": "field"
                   },
@@ -2301,7 +2319,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "64"
                 }
@@ -2409,7 +2427,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_pktSize\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 128 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2417,7 +2435,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_pktSize"
+                      "tg__0.collect_stats.PktSize"
                     ],
                     "type": "field"
                   },
@@ -2429,7 +2447,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "128"
                 }
@@ -2525,7 +2543,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 128 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2533,7 +2551,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_theor_max_throughput"
+                      "tg__0.collect_stats.theor_max_throughput"
                     ],
                     "type": "field"
                   },
@@ -2545,7 +2563,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "128"
                 }
@@ -2641,7 +2659,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_Actual_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 128 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.Actual_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2649,7 +2667,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_Actual_throughput"
+                      "tg__0.collect_stats.Actual_throughput"
                     ],
                     "type": "field"
                   },
@@ -2661,7 +2679,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "128"
                 }
@@ -2768,7 +2786,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_pktSize\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 256 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2776,7 +2794,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_pktSize"
+                      "tg__0.collect_stats.PktSize"
                     ],
                     "type": "field"
                   },
@@ -2788,7 +2806,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSiuze",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "256"
                 }
@@ -2883,7 +2901,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 256 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2891,7 +2909,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_theor_max_throughput"
+                      "tg__0.collect_stats.theor_max_throughput"
                     ],
                     "type": "field"
                   },
@@ -2903,7 +2921,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "256"
                 }
@@ -2998,7 +3016,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_Actual_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 256 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.Actual_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3006,7 +3024,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_Actual_throughput"
+                      "tg__0.collect_stats.Actual_throughput"
                     ],
                     "type": "field"
                   },
@@ -3018,7 +3036,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "256"
                 }
@@ -3125,7 +3143,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_pktSize\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 512 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3133,7 +3151,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_pktSize"
+                      "tg__0.collect_stats.PktSize"
                     ],
                     "type": "field"
                   },
@@ -3145,7 +3163,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "512"
                 }
@@ -3241,7 +3259,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 512 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 \nAND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3249,7 +3267,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_theor_max_throughput"
+                      "tg__0.collect_stats.theor_max_throughput"
                     ],
                     "type": "field"
                   },
@@ -3261,7 +3279,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "512"
                 }
@@ -3357,7 +3375,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_Actual_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 512 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.Actual_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3365,7 +3383,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_Actual_throughput"
+                      "tg__0.collect_stats.Actual_throughput"
                     ],
                     "type": "field"
                   },
@@ -3377,7 +3395,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "512"
                 }
@@ -3483,7 +3501,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_pktSize\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 1024 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3491,7 +3509,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_pktSize"
+                      "tg__0.collect_stats.PktSize"
                     ],
                     "type": "field"
                   },
@@ -3503,7 +3521,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "1024"
                 }
@@ -3598,7 +3616,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 1024 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3606,7 +3624,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_theor_max_throughput"
+                      "tg__0.collect_stats.theor_max_throughput"
                     ],
                     "type": "field"
                   },
@@ -3618,7 +3636,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "1024"
                 }
@@ -3713,7 +3731,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_Actual_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 1024 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.Actual_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3721,7 +3739,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_Actual_throughput"
+                      "tg__0.collect_stats.Actual_throughput"
                     ],
                     "type": "field"
                   },
@@ -3733,7 +3751,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "1024"
                 }
@@ -3840,7 +3858,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_pktSize\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 1280 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3848,7 +3866,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_pktSize"
+                      "tg__0.collect_stats.PktSize"
                     ],
                     "type": "field"
                   },
@@ -3860,7 +3878,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "1280"
                 }
@@ -3956,7 +3974,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 1280 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3964,7 +3982,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_theor_max_throughput"
+                      "tg__0.collect_stats.theor_max_throughput"
                     ],
                     "type": "field"
                   },
@@ -3976,7 +3994,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "1280"
                 }
@@ -4072,7 +4090,7 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_Actual_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 1280 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.Actual_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4080,7 +4098,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.Result_Actual_throughput"
+                      "tg__0.collect_stats.Actual_throughput"
                     ],
                     "type": "field"
                   },
@@ -4092,7 +4110,7 @@
               ],
               "tags": [
                 {
-                  "key": "tg__0.Result_pktSize",
+                  "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
                   "value": "1280"
                 }
@@ -4197,7 +4215,7 @@
               ],
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_pktSize\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 1518 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4305,7 +4323,7 @@
               ],
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 1518 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4413,7 +4431,7 @@
               ],
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.Result_Actual_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.Result_pktSize\" = 1518 AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.Actual_throughput\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND  \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4541,7 +4559,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.LatencyAvg.5"
+                      "tg__0.collect_stats.LatencyAvg.5"
                     ],
                     "type": "field"
                   },
@@ -4579,7 +4597,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.LatencyMax.5"
+                      "tg__0.collect_stats.LatencyMax.5"
                     ],
                     "type": "field"
                   },
@@ -4687,7 +4705,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.LatencyAvg.6"
+                      "tg__0.collect_stats.LatencyAvg.6"
                     ],
                     "type": "field"
                   },
@@ -4725,7 +4743,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.LatencyMax.6"
+                      "tg__0.collect_stats.LatencyMax.6"
                     ],
                     "type": "field"
                   },
@@ -4833,7 +4851,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.LatencyAvg.7"
+                      "tg__0.collect_stats.LatencyAvg.7"
                     ],
                     "type": "field"
                   },
@@ -4871,7 +4889,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.LatencyMax.7"
+                      "tg__0.collect_stats.LatencyMax.7"
                     ],
                     "type": "field"
                   },
@@ -4979,7 +4997,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.LatencyAvg.8"
+                      "tg__0.collect_stats.LatencyAvg.8"
                     ],
                     "type": "field"
                   },
@@ -5017,7 +5035,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.LatencyMax.8"
+                      "tg__0.collect_stats.LatencyMax.8"
                     ],
                     "type": "field"
                   },
@@ -5783,8 +5801,8 @@
     "list": []
   },
   "time": {
-    "from": "2018-02-12T15:17:27.733Z",
-    "to": "2018-02-12T16:44:28.270Z"
+    "from": "now-2d",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -5813,5 +5831,5 @@
   },
   "timezone": "browser",
   "title": "Prox_BM_L2FWD-4Port_MultiSize",
-  "version": 29
+  "version": 12
 }
