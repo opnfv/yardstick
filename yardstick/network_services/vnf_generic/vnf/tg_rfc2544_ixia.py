@@ -78,8 +78,8 @@ class IxiaResourceHelper(ClientResourceHelper):
                     "tx_throughput_mbps": float(stats["Tx_Rate_Mbps"][port_num]),
                     "in_packets": int(stats["Valid_Frames_Rx"][port_num]),
                     "out_packets": int(stats["Frames_Tx"][port_num]),
-                    "RxThroughput": int(stats["Valid_Frames_Rx"][port_num]) / duration,
-                    "TxThroughput": int(stats["Frames_Tx"][port_num]) / duration,
+                    "RxThroughput": float(stats["Valid_Frames_Rx"][port_num]) / duration,
+                    "TxThroughput": float(stats["Frames_Tx"][port_num]) / duration,
                 }
                 avg_latency = stats["Store-Forward_Avg_latency_ns"][port_num]
                 min_latency = stats["Store-Forward_Min_latency_ns"][port_num]

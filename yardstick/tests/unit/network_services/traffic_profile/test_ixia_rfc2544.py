@@ -575,87 +575,77 @@ class TestIXIARFC2544Profile(unittest.TestCase):
 
     def test_get_drop_percentage_completed(self):
         samples = {'iface_name_1':
-                       {'RxThroughput': 10, 'TxThroughput': 10,
-                        'in_packets': 1000, 'out_packets': 1000},
+                       {'in_packets': 1000, 'out_packets': 1000},
                    'iface_name_2':
-                       {'RxThroughput': 11, 'TxThroughput': 13,
-                        'in_packets': 1005, 'out_packets': 1007}
+                       {'in_packets': 1005, 'out_packets': 1007}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         completed, samples = rfc2544_profile.get_drop_percentage(samples, 0, 1)
         self.assertTrue(completed)
-        self.assertEqual(23.0, samples['TxThroughput'])
-        self.assertEqual(21.0, samples['RxThroughput'])
+        self.assertEqual(66.9, samples['TxThroughput'])
+        self.assertEqual(66.833, samples['RxThroughput'])
         self.assertEqual(0.099651, samples['DropPercentage'])
 
     def test_get_drop_percentage_over_drop_percentage(self):
         samples = {'iface_name_1':
-                       {'RxThroughput': 10, 'TxThroughput': 10,
-                        'in_packets': 1000, 'out_packets': 1000},
+                       {'in_packets': 1000, 'out_packets': 1000},
                    'iface_name_2':
-                       {'RxThroughput': 11, 'TxThroughput': 13,
-                        'in_packets': 1005, 'out_packets': 1007}
+                       {'in_packets': 1005, 'out_packets': 1007}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.rate = 1000
         completed, samples = rfc2544_profile.get_drop_percentage(
             samples, 0, 0.05)
         self.assertFalse(completed)
-        self.assertEqual(23.0, samples['TxThroughput'])
-        self.assertEqual(21.0, samples['RxThroughput'])
+        self.assertEqual(66.9, samples['TxThroughput'])
+        self.assertEqual(66.833, samples['RxThroughput'])
         self.assertEqual(0.099651, samples['DropPercentage'])
         self.assertEqual(rfc2544_profile.rate, rfc2544_profile.max_rate)
 
     def test_get_drop_percentage_under_drop_percentage(self):
         samples = {'iface_name_1':
-                       {'RxThroughput': 10, 'TxThroughput': 10,
-                        'in_packets': 1000, 'out_packets': 1000},
+                       {'in_packets': 1000, 'out_packets': 1000},
                    'iface_name_2':
-                       {'RxThroughput': 11, 'TxThroughput': 13,
-                        'in_packets': 1005, 'out_packets': 1007}
+                       {'in_packets': 1005, 'out_packets': 1007}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.rate = 1000
         completed, samples = rfc2544_profile.get_drop_percentage(
             samples, 0.2, 1)
         self.assertFalse(completed)
-        self.assertEqual(23.0, samples['TxThroughput'])
-        self.assertEqual(21.0, samples['RxThroughput'])
+        self.assertEqual(66.9, samples['TxThroughput'])
+        self.assertEqual(66.833, samples['RxThroughput'])
         self.assertEqual(0.099651, samples['DropPercentage'])
         self.assertEqual(rfc2544_profile.rate, rfc2544_profile.min_rate)
 
     @mock.patch.object(ixia_rfc2544.LOG, 'info')
     def test_get_drop_percentage_not_flow(self, *args):
         samples = {'iface_name_1':
-                       {'RxThroughput': 0, 'TxThroughput': 10,
-                        'in_packets': 1000, 'out_packets': 0},
+                       {'in_packets': 1000, 'out_packets': 0},
                    'iface_name_2':
-                       {'RxThroughput': 0, 'TxThroughput': 13,
-                        'in_packets': 1005, 'out_packets': 0}
+                       {'in_packets': 1005, 'out_packets': 0}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.rate = 1000
         completed, samples = rfc2544_profile.get_drop_percentage(
             samples, 0.2, 1)
         self.assertFalse(completed)
-        self.assertEqual(23.0, samples['TxThroughput'])
-        self.assertEqual(0, samples['RxThroughput'])
+        self.assertEqual(0.0, samples['TxThroughput'])
+        self.assertEqual(66.833, samples['RxThroughput'])
         self.assertEqual(100, samples['DropPercentage'])
         self.assertEqual(rfc2544_profile.rate, rfc2544_profile.max_rate)
 
     def test_get_drop_percentage_first_run(self):
         samples = {'iface_name_1':
-                       {'RxThroughput': 10, 'TxThroughput': 10,
-                        'in_packets': 1000, 'out_packets': 1000},
+                       {'in_packets': 1000, 'out_packets': 1000},
                    'iface_name_2':
-                       {'RxThroughput': 11, 'TxThroughput': 13,
-                        'in_packets': 1005, 'out_packets': 1007}
+                       {'in_packets': 1005, 'out_packets': 1007}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         completed, samples = rfc2544_profile.get_drop_percentage(
             samples, 0, 1, first_run=True)
         self.assertTrue(completed)
-        self.assertEqual(23.0, samples['TxThroughput'])
-        self.assertEqual(21.0, samples['RxThroughput'])
+        self.assertEqual(66.9, samples['TxThroughput'])
+        self.assertEqual(66.833, samples['RxThroughput'])
         self.assertEqual(0.099651, samples['DropPercentage'])
         self.assertEqual(33.45, rfc2544_profile.rate)
