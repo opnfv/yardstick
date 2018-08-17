@@ -71,38 +71,43 @@ class TestProxBinSearchProfile(unittest.TestCase):
         self.assertEqual(len(runs), 77)
 
         # Result Samples inc theor_max
-        result_tuple = {'Result_Actual_throughput': 5e-07,
-                        'Result_theor_max_throughput': 7.5e-07,
-                        'Result_pktSize': 200}
+        result_tuple = {'Actual_throughput': 5e-07,
+                        'theor_max_throughput': 7.5e-07,
+                        'PktSize': 200,
+                        'Status': 'Result'}
 
-        profile.queue.put.assert_called_with(result_tuple)
+        test_results = profile.queue.put.call_args[0]
+        for k in result_tuple:
+            self.assertEqual(result_tuple[k], test_results[0][k])
 
-        success_result_tuple = {"Success_CurrentDropPackets": 0.5,
-                                "Success_DropPackets": 0.5,
-                                "Success_LatencyAvg": 5.3,
-                                "Success_LatencyMax": 5.2,
-                                "Success_LatencyMin": 5.1,
-                                "Success_PktSize": 200,
-                                "Success_RxThroughput": 7.5e-07,
-                                "Success_Throughput": 7.5e-07,
-                                "Success_TxThroughput": 0.00012340000000000002}
+        success_result_tuple = {"CurrentDropPackets": 0.5,
+                                "DropPackets": 0.5,
+                                "LatencyAvg": 5.3,
+                                "LatencyMax": 5.2,
+                                "LatencyMin": 5.1,
+                                "PktSize": 200,
+                                "RxThroughput": 7.5e-07,
+                                "Throughput": 7.5e-07,
+                                "TxThroughput": 0.00012340000000000002,
+                                "Status": 'Success'}
 
         calls = profile.queue.put(success_result_tuple)
         profile.queue.put.assert_has_calls(calls)
 
-        success_result_tuple2 = {"Success_CurrentDropPackets": 0.5,
-                                "Success_DropPackets": 0.5,
-                                "Success_LatencyAvg": 5.3,
-                                "Success_LatencyMax": 5.2,
-                                "Success_LatencyMin": 5.1,
-                                "Success_PktSize": 200,
-                                "Success_RxThroughput": 7.5e-07,
-                                "Success_Throughput": 7.5e-07,
-                                "Success_TxThroughput": 123.4,
-                                "Success_can_be_lost": 409600,
-                                "Success_drop_total": 20480,
-                                "Success_rx_total": 4075520,
-                                "Success_tx_total": 4096000}
+        success_result_tuple2 = {"CurrentDropPackets": 0.5,
+                                "DropPackets": 0.5,
+                                "LatencyAvg": 5.3,
+                                "LatencyMax": 5.2,
+                                "LatencyMin": 5.1,
+                                "PktSize": 200,
+                                "RxThroughput": 7.5e-07,
+                                "Throughput": 7.5e-07,
+                                "TxThroughput": 123.4,
+                                "can_be_lost": 409600,
+                                "drop_total": 20480,
+                                "rx_total": 4075520,
+                                "tx_total": 4096000,
+                                "Status": 'Success'}
 
         calls = profile.queue.put(success_result_tuple2)
         profile.queue.put.assert_has_calls(calls)
@@ -183,17 +188,16 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
 
         # Result Samples
-        result_tuple = {'Result_Actual_throughput': 0, "Result_theor_max_throughput": 0,
-                        "Result_pktSize": 200}
+        result_tuple = {'Actual_throughput': 0, 'theor_max_throughput': 0,
+                        "Status": 'Result', "Next_Step": ''}
         profile.queue.put.assert_called_with(result_tuple)
 
         # Check for success_ tuple (None expected)
         calls = profile.queue.put.mock_calls
         for call in calls:
             for call_detail in call[1]:
-                for k in call_detail:
-                    if "Success_" in k:
-                        self.assertRaises(AttributeError)
+                if call_detail["Status"] == 'Success':
+                    self.assertRaises(AttributeError)
 
     def test_execute_4(self):
 
@@ -237,38 +241,43 @@ class TestProxBinSearchProfile(unittest.TestCase):
         self.assertEqual(len(runs), 7)
 
         # Result Samples inc theor_max
-        result_tuple = {'Result_Actual_throughput': 5e-07,
-                        'Result_theor_max_throughput': 7.5e-07,
-                        'Result_pktSize': 200}
+        result_tuple = {'Actual_throughput': 5e-07,
+                        'theor_max_throughput': 7.5e-07,
+                        'PktSize': 200,
+                        "Status": 'Result'}
 
-        profile.queue.put.assert_called_with(result_tuple)
+        test_results = profile.queue.put.call_args[0]
+        for k in result_tuple:
+            self.assertEqual(result_tuple[k], test_results[0][k])
 
-        success_result_tuple = {"Success_CurrentDropPackets": 0.5,
-                                "Success_DropPackets": 0.5,
-                                "Success_LatencyAvg": 5.3,
-                                "Success_LatencyMax": 5.2,
-                                "Success_LatencyMin": 5.1,
-                                "Success_PktSize": 200,
-                                "Success_RxThroughput": 7.5e-07,
-                                "Success_Throughput": 7.5e-07,
-                                "Success_TxThroughput": 0.00012340000000000002}
+        success_result_tuple = {"CurrentDropPackets": 0.5,
+                                "DropPackets": 0.5,
+                                "LatencyAvg": 5.3,
+                                "LatencyMax": 5.2,
+                                "LatencyMin": 5.1,
+                                "PktSize": 200,
+                                "RxThroughput": 7.5e-07,
+                                "Throughput": 7.5e-07,
+                                "TxThroughput": 0.00012340000000000002,
+                                "Status": 'Success'}
 
         calls = profile.queue.put(success_result_tuple)
         profile.queue.put.assert_has_calls(calls)
 
-        success_result_tuple2 = {"Success_CurrentDropPackets": 0.5,
-                                 "Success_DropPackets": 0.5,
-                                 "Success_LatencyAvg": 5.3,
-                                 "Success_LatencyMax": 5.2,
-                                 "Success_LatencyMin": 5.1,
-                                 "Success_PktSize": 200,
-                                 "Success_RxThroughput": 7.5e-07,
-                                 "Success_Throughput": 7.5e-07,
-                                 "Success_TxThroughput": 123.4,
-                                 "Success_can_be_lost": 409600,
-                                 "Success_drop_total": 20480,
-                                 "Success_rx_total": 4075520,
-                                 "Success_tx_total": 4096000}
+        success_result_tuple2 = {"CurrentDropPackets": 0.5,
+                                 "DropPackets": 0.5,
+                                 "LatencyAvg": 5.3,
+                                 "LatencyMax": 5.2,
+                                 "LatencyMin": 5.1,
+                                 "PktSize": 200,
+                                 "RxThroughput": 7.5e-07,
+                                 "Throughput": 7.5e-07,
+                                 "TxThroughput": 123.4,
+                                 "can_be_lost": 409600,
+                                 "drop_total": 20480,
+                                 "rx_total": 4075520,
+                                 "tx_total": 4096000,
+                                 "Status": 'Success'}
 
         calls = profile.queue.put(success_result_tuple2)
         profile.queue.put.assert_has_calls(calls)
