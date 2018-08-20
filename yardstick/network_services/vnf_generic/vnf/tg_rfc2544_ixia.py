@@ -83,9 +83,9 @@ class IxiaResourceHelper(ClientResourceHelper):
                     'out_packets': int(stats['Frames_Tx'][port_num]),
                     'RxThroughput': float(stats['Valid_Frames_Rx'][port_num]) / duration,
                     'TxThroughput': float(stats['Frames_Tx'][port_num]) / duration,
-                    'Store-Forward_Avg_latency_ns': avg_latency,
-                    'Store-Forward_Min_latency_ns': min_latency,
-                    'Store-Forward_Max_latency_ns': max_latency
+                    'Store-Forward_Avg_latency_ns': utils.safe_cast(avg_latency, int, 0),
+                    'Store-Forward_Min_latency_ns': utils.safe_cast(min_latency, int, 0),
+                    'Store-Forward_Max_latency_ns': utils.safe_cast(max_latency, int, 0)
                 }
             except IndexError:
                 pass
