@@ -1206,6 +1206,7 @@ class TestRfc2544ResourceHelper(unittest.TestCase):
         self.assertIsNone(rfc2544_resource_helper._tolerance_high)
         self.assertEqual(rfc2544_resource_helper.tolerance_high, 0.15)
         self.assertEqual(rfc2544_resource_helper._tolerance_high, 0.15)
+        self.assertEqual(rfc2544_resource_helper._tolerance_precision, 2)
         scenario_helper.scenario_cfg = {}  # ensure that resource_helper caches
         self.assertEqual(rfc2544_resource_helper.tolerance_high, 0.15)
 
@@ -1240,6 +1241,7 @@ class TestRfc2544ResourceHelper(unittest.TestCase):
         rfc2544_resource_helper = Rfc2544ResourceHelper(scenario_helper)
 
         self.assertEqual(rfc2544_resource_helper.tolerance_high, 0.2)
+        self.assertEqual(rfc2544_resource_helper._tolerance_precision, 1)
 
     def test_property_tolerance_low_not_range(self):
         scenario_helper = ScenarioHelper('name1')
