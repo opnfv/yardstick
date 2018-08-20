@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+from decimal import Decimal
 from multiprocessing import Queue, Value, Process
 import os
 import posixpath
@@ -499,6 +500,7 @@ class Rfc2544ResourceHelper(object):
         self._rfc2544 = None
         self._tolerance_low = None
         self._tolerance_high = None
+        self._tolerance_precision = None
 
     @property
     def rfc2544(self):
@@ -519,6 +521,12 @@ class Rfc2544ResourceHelper(object):
         return self._tolerance_high
 
     @property
+    def tolerance_precision(self):
+        if self._tolerance_precision is None:
+            self.get_rfc_tolerance()
+        return self._tolerance_precision
+
+    @property
     def correlated_traffic(self):
         if self._correlated_traffic is None:
             self._correlated_traffic = \
@@ -537,9 +545,11 @@ class Rfc2544ResourceHelper(object):
 
     def get_rfc_tolerance(self):
         tolerance_str = self.get_rfc2544('allowed_drop_rate', self.DEFAULT_TOLERANCE)
-        tolerance_iter = iter(sorted(float(t.strip()) for t in tolerance_str.split('-')))
-        self._tolerance_low = next(tolerance_iter)
-        self._tolerance_high = next(tolerance_iter, self.tolerance_low)
+        tolerance_iter = iter(sorted(Decimal(t.strip()) for t in tolerance_str.split('-')))
+        self._tolerance_low = float(next(tolerance_iter))
+        tolerance_high = next(tolerance_iter, self.tolerance_low)
+        self._tolerance_precision = abs(tolerance_high.as_tuple().exponent)
+        self._tolerance_high = float(tolerance_high)
 
 
 class SampleVNFDeployHelper(object):
