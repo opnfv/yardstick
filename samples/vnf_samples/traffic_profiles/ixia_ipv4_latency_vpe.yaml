@@ -43,6 +43,7 @@ traffic_profile:
   traffic_type : IXIARFC2544Profile # defines traffic behavior - constant or look for highest possible throughput
   frame_rate : 100  # pc of linerate
   injection_time: {{ injection_time }}
+  enable_latency: True
 
 uplink_0:
       ipv4:

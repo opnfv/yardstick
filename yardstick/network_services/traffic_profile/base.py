@@ -44,6 +44,7 @@ class TrafficProfileConfig(object):
         self.lower_bound = tprofile.get('lower_bound')
         self.upper_bound = tprofile.get('upper_bound')
         self.step_interval = tprofile.get('step_interval')
+        self.enable_latency = tprofile.get('enable_latency', False)
 
     def _parse_rate(self, rate):
         """Parse traffic profile rate

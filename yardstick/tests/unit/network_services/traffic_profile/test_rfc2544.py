@@ -102,10 +102,10 @@ class TestRFC2544Profile(base.BaseUnitTestCase):
                 mock_create_profile:
             rfc2544_profile.execute_traffic(traffic_generator=mock_generator)
         mock_create_profile.assert_has_calls([
-            mock.call('profile1', rfc2544_profile.rate, mock.ANY),
-            mock.call('profile1', rfc2544_profile.rate, mock.ANY),
-            mock.call('profile2', rfc2544_profile.rate, mock.ANY),
-            mock.call('profile2', rfc2544_profile.rate, mock.ANY)])
+            mock.call('profile1', rfc2544_profile.rate, mock.ANY, False),
+            mock.call('profile1', rfc2544_profile.rate, mock.ANY, False),
+            mock.call('profile2', rfc2544_profile.rate, mock.ANY, False),
+            mock.call('profile2', rfc2544_profile.rate, mock.ANY, False)])
         mock_generator.client.add_streams.assert_has_calls([
             mock.call(mock.ANY, ports=[10]),
             mock.call(mock.ANY, ports=[20]),
@@ -129,13 +129,14 @@ class TestRFC2544Profile(base.BaseUnitTestCase):
                 mock_create_streams:
             mock_create_imix.return_value = 'imix_data'
             mock_create_streams.return_value = ['stream1']
-            rfc2544_profile._create_profile(profile_data, rate, port_pg_id)
+            rfc2544_profile._create_profile(profile_data, rate, port_pg_id,
+                                            True)
 
         mock_create_imix.assert_called_once_with('imix_info')
         mock_create_vm.assert_called_once_with(
             {'outer_l2': {'framesize': 'imix_info'}})
         mock_create_streams.assert_called_once_with('imix_data', 100,
-                                                    port_pg_id)
+                                                    port_pg_id, True)
         mock_stl_profile.assert_called_once_with(['stream1'])
 
     def test__create_imix_data(self):
@@ -208,7 +209,7 @@ class TestRFC2544Profile(base.BaseUnitTestCase):
         rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
         with mock.patch.object(rfc2544_profile, '_create_single_packet'):
             output = rfc2544_profile._create_streams(imix_data, rate,
-                                                     port_pg_id)
+                                                     port_pg_id, True)
         self.assertEqual(['stream1', 'stream2'], output)
         mock_latency.assert_has_calls([
             mock.call(pg_id=1), mock.call(pg_id=2)])
