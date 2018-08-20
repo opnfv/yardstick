@@ -60,7 +60,7 @@ class IxiaResourceHelper(ClientResourceHelper):
     def stop_collect(self):
         self._terminated.value = 1
 
-    def generate_samples(self, ports, duration):
+    def generate_samples(self, ports, duration, key=None):
         stats = self.get_stats()
 
         samples = {}
@@ -81,13 +81,14 @@ class IxiaResourceHelper(ClientResourceHelper):
                     "RxThroughput": float(stats["Valid_Frames_Rx"][port_num]) / duration,
                     "TxThroughput": float(stats["Frames_Tx"][port_num]) / duration,
                 }
-                avg_latency = stats["Store-Forward_Avg_latency_ns"][port_num]
-                min_latency = stats["Store-Forward_Min_latency_ns"][port_num]
-                max_latency = stats["Store-Forward_Max_latency_ns"][port_num]
-                samples[port_name] = {
-                    "Store-Forward_Avg_latency_ns": avg_latency,
-                    "Store-Forward_Min_latency_ns": min_latency,
-                    "Store-Forward_Max_latency_ns": max_latency}
+                if key:
+                    avg_latency = stats["Store-Forward_Avg_latency_ns"][port_num]
+                    min_latency = stats["Store-Forward_Min_latency_ns"][port_num]
+                    max_latency = stats["Store-Forward_Max_latency_ns"][port_num]
+                    samples[port_name][key] = \
+                        {"Store-Forward_Avg_latency_ns": avg_latency,
+                         "Store-Forward_Min_latency_ns": min_latency,
+                         "Store-Forward_Max_latency_ns": max_latency}
             except IndexError:
                 pass
 
