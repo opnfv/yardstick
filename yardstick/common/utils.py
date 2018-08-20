@@ -21,6 +21,7 @@ import importlib
 import ipaddress
 import logging
 import os
+import pydoc
 import random
 import re
 import signal
@@ -578,3 +579,24 @@ def send_socket_command(host, port, command):
     finally:
         sock.close()
     return ret
+
+
+def safe_cast(value, type_to_convert, default_value):
+    """Convert value to type, in case of error return default_value
+
+    :param value: value to convert
+    :param type_to_convert: type to convert, could be "type" or "string"
+    :param default_value: default value to return
+    :return: converted value or default_value
+    """
+    if isinstance(type_to_convert, type):
+        _type = type_to_convert
+    else:
+        _type = pydoc.locate(type_to_convert)
+        if not _type:
+            raise exceptions.InvalidType(type_to_convert=type_to_convert)
+
+    try:
+        return _type(value)
+    except ValueError:
+        return default_value

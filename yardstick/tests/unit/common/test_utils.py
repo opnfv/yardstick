@@ -1391,3 +1391,19 @@ class GetPortIPTestCase(unittest.TestCase):
 
     def test_return_value(self):
         self.assertEqual('foo', utils.get_port_ip(self.ssh_client, 99))
+
+
+class SafeCaseTestCase(unittest.TestCase):
+
+    def test_correct_type_int(self):
+        self.assertEqual(35, utils.safe_cast('35', int, 0))
+
+    def test_correct_int_as_string(self):
+        self.assertEqual(25, utils.safe_cast('25', 'int', 0))
+
+    def test_incorrect_type_as_string(self):
+        with self.assertRaises(exceptions.InvalidType):
+            utils.safe_cast('100', 'intt', 0)
+
+    def test_default_value(self):
+        self.assertEqual(0, utils.safe_cast('', 'int', 0))
