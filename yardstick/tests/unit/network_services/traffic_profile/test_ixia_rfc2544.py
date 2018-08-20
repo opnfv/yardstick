@@ -586,7 +586,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                         'Store-Forward_Max_latency_ns': 28}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
-        completed, samples = rfc2544_profile.get_drop_percentage(samples, 0, 1)
+        completed, samples = rfc2544_profile.get_drop_percentage(samples, 0, 1, 4)
         self.assertTrue(completed)
         self.assertEqual(66.9, samples['TxThroughput'])
         self.assertEqual(66.833, samples['RxThroughput'])
@@ -610,7 +610,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.rate = 1000
         completed, samples = rfc2544_profile.get_drop_percentage(
-            samples, 0, 0.05)
+            samples, 0, 0.05, 4)
         self.assertFalse(completed)
         self.assertEqual(66.9, samples['TxThroughput'])
         self.assertEqual(66.833, samples['RxThroughput'])
@@ -632,7 +632,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.rate = 1000
         completed, samples = rfc2544_profile.get_drop_percentage(
-            samples, 0.2, 1)
+            samples, 0.2, 1, 4)
         self.assertFalse(completed)
         self.assertEqual(66.9, samples['TxThroughput'])
         self.assertEqual(66.833, samples['RxThroughput'])
@@ -655,7 +655,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.rate = 1000
         completed, samples = rfc2544_profile.get_drop_percentage(
-            samples, 0.2, 1)
+            samples, 0.2, 1, 4)
         self.assertFalse(completed)
         self.assertEqual(0.0, samples['TxThroughput'])
         self.assertEqual(66.833, samples['RxThroughput'])
@@ -676,7 +676,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         completed, samples = rfc2544_profile.get_drop_percentage(
-            samples, 0, 1, first_run=True)
+            samples, 0, 1, 4, first_run=True)
         self.assertTrue(completed)
         self.assertEqual(66.9, samples['TxThroughput'])
         self.assertEqual(66.833, samples['RxThroughput'])
