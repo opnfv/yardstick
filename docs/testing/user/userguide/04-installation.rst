@@ -493,15 +493,15 @@ Run influxDB::
    sudo -EH docker run -d --name influxdb \
       -p 8083:8083 -p 8086:8086 --expose 8090 --expose 8099 \
       tutum/influxdb
-   docker exec -it influxdb bash
 
 Configure influxDB::
 
-   influx
-      >CREATE USER root WITH PASSWORD 'root' WITH ALL PRIVILEGES
-      >CREATE DATABASE yardstick;
-      >use yardstick;
-      >show MEASUREMENTS;
+   docker exec -it influxdb influx
+      > CREATE USER root WITH PASSWORD 'root' WITH ALL PRIVILEGES
+      > CREATE DATABASE yardstick;
+      > use yardstick;
+      > show MEASUREMENTS;
+      > exit
 
 Run Grafana::
 
