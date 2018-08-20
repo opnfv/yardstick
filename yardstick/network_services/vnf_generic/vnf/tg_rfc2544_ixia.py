@@ -104,6 +104,7 @@ class IxiaResourceHelper(ClientResourceHelper):
 
         min_tol = self.rfc_helper.tolerance_low
         max_tol = self.rfc_helper.tolerance_high
+        precision = self.rfc_helper.tolerance_precision
         default = "00:00:00:00:00:00"
 
         self._build_ports()
@@ -131,7 +132,7 @@ class IxiaResourceHelper(ClientResourceHelper):
                                                 traffic_profile.config.duration)
 
                 completed, samples = traffic_profile.get_drop_percentage(
-                    samples, min_tol, max_tol, first_run=first_run)
+                    samples, min_tol, max_tol, precision, first_run=first_run)
                 self._queue.put(samples)
 
                 if completed:
