@@ -28,6 +28,8 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
     DOWNLINK = 'downlink'
     DROP_PERCENT_ROUND = 6
     RATE_ROUND = 5
+    STATUS_SUCCESS = "Success"
+    STATUS_FAIL = "Failure"
 
     def __init__(self, yaml_data):
         super(IXIARFC2544Profile, self).__init__(yaml_data)
@@ -158,7 +160,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         self._ixia_traffic_generate(traffic, ixia_obj)
         return first_run
 
-    def get_drop_percentage(self, samples, tol_min, tolerance,
+    def get_drop_percentage(self, samples, tol_min, tolerance, precision,
                             first_run=False):
         completed = False
         drop_percent = 100
@@ -191,6 +193,14 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
             self.min_rate = self.rate
         else:
             completed = True
+
+        LOG.debug("tolerance=%s, tolerance_precision=%s drop_percent=%s "
+                  "completed=%s", tolerance, precision, drop_percent,
+                  completed)
+
+        samples['Status'] = self.STATUS_FAIL
+        if round(drop_percent, precision) <= tolerance:
+            samples['Status'] = self.STATUS_SUCCESS
 
         latency_ns_avg = float(
             sum([samples[iface]['Store-Forward_Avg_latency_ns']
