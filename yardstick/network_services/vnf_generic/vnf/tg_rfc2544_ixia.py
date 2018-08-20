@@ -70,24 +70,23 @@ class IxiaResourceHelper(ClientResourceHelper):
             try:
                 # reverse lookup port name from port_num so the stats dict is descriptive
                 intf = self.vnfd_helper.find_interface_by_port(port_num)
-                port_name = intf["name"]
+                port_name = intf['name']
+                avg_latency = stats['Store-Forward_Avg_latency_ns'][port_num]
+                min_latency = stats['Store-Forward_Min_latency_ns'][port_num]
+                max_latency = stats['Store-Forward_Max_latency_ns'][port_num]
                 samples[port_name] = {
-                    "rx_throughput_kps": float(stats["Rx_Rate_Kbps"][port_num]),
-                    "tx_throughput_kps": float(stats["Tx_Rate_Kbps"][port_num]),
-                    "rx_throughput_mbps": float(stats["Rx_Rate_Mbps"][port_num]),
-                    "tx_throughput_mbps": float(stats["Tx_Rate_Mbps"][port_num]),
-                    "in_packets": int(stats["Valid_Frames_Rx"][port_num]),
-                    "out_packets": int(stats["Frames_Tx"][port_num]),
-                    "RxThroughput": float(stats["Valid_Frames_Rx"][port_num]) / duration,
-                    "TxThroughput": float(stats["Frames_Tx"][port_num]) / duration,
+                    'rx_throughput_kps': float(stats['Rx_Rate_Kbps'][port_num]),
+                    'tx_throughput_kps': float(stats['Tx_Rate_Kbps'][port_num]),
+                    'rx_throughput_mbps': float(stats['Rx_Rate_Mbps'][port_num]),
+                    'tx_throughput_mbps': float(stats['Tx_Rate_Mbps'][port_num]),
+                    'in_packets': int(stats['Valid_Frames_Rx'][port_num]),
+                    'out_packets': int(stats['Frames_Tx'][port_num]),
+                    'RxThroughput': float(stats['Valid_Frames_Rx'][port_num]) / duration,
+                    'TxThroughput': float(stats['Frames_Tx'][port_num]) / duration,
+                    'Store-Forward_Avg_latency_ns': avg_latency,
+                    'Store-Forward_Min_latency_ns': min_latency,
+                    'Store-Forward_Max_latency_ns': max_latency
                 }
-                avg_latency = stats["Store-Forward_Avg_latency_ns"][port_num]
-                min_latency = stats["Store-Forward_Min_latency_ns"][port_num]
-                max_latency = stats["Store-Forward_Max_latency_ns"][port_num]
-                samples[port_name] = {
-                    "Store-Forward_Avg_latency_ns": avg_latency,
-                    "Store-Forward_Min_latency_ns": min_latency,
-                    "Store-Forward_Max_latency_ns": max_latency}
             except IndexError:
                 pass
 
