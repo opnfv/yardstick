@@ -19,6 +19,7 @@ import logging
 from yardstick.network_services.utils import get_nsb_option
 from yardstick.network_services.vnf_generic.vnf.prox_vnf import ProxApproxVnf
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
+from yardstick.network_services.vnf_generic.vnf import base as vnf_base
 
 LOG = logging.getLogger(__name__)
 
@@ -32,6 +33,7 @@ class ProxTrafficGen(SampleVNFTrafficGen):
 
     def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
                  resource_helper_type=None):
+        vnf_base.GenericTrafficGen.__init__(self, name, vnfd, task_id)
         # don't call superclass, use custom wrapper of ProxApproxVnf
         self._vnf_wrapper = ProxApproxVnf(
             name, vnfd, task_id, setup_env_helper_type, resource_helper_type)
