@@ -1,0 +1,56 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- debug:
+    msg: "chrooted in {{ inventory_hostname }}"
+
+- debug:
+    var: proxy_env
+    verbosity: 2
+
+- include_role:
+    name: "{{ role_item }}"
+  with_items:
+    - reset_resolv_conf
+    - add_custom_repos
+    - modify_cloud_config
+  loop_control:
+    loop_var: role_item
+
+- include_role:
+    name: set_package_installer_proxy
+  when: proxy_env is defined and proxy_env
+
+- include_role:
+    name: install_image_dependencies
+
+- include_vars: roles/download_unixbench/defaults/main.yml
+  when: unixbench_dest is undefined
+
+- include_vars: roles/download_ramspeed/defaults/main.yml
+  when: ramspeed_dest is undefined
+
+- include_role:
+    name: "{{ role_item }}"
+  with_items:
+    - download_l2fwd
+    - download_unixbench
+    - install_unixbench
+    - download_ramspeed
+    - install_ramspeed
+    - download_cachestat
+  loop_control:
+    loop_var: role_item
+
+  environment: "{{ proxy_env }}"

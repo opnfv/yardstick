@@ -1,0 +1,202 @@
+# Copyright (c) 2018 Intel Corporation.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: Group
+  group_by:
+    key: image_builder
+
+- package: name=parted state=present
+  environment: "{{ proxy_env }}"
+
+- package: name=kpartx state=present
+  environment: "{{ proxy_env }}"
+
+- package: name="{{ growpart_package[ansible_os_family] }}" state=present
+  environment: "{{ proxy_env }}"
+
+- set_fact:
+    imgfile: "{{ normal_image_file }}"
+  when: img_prop_item == "normal"
+
+- set_fact:
+    imgfile: "{{ nsb_image_file }}"
+  when: img_prop_item == "nsb"
+
+- set_fact:
+    mountdir: "{{ lookup('env', 'mountdir')|default('/mnt/yardstick', true) }}"
+    raw_imgfile: "{{ workspace }}/{{ raw_imgfile_basename }}"
+
+# cleanup non-lxd
+- name: unmount all old mount points
+  mount:
+    name: "{{ item }}"
+    state: unmounted
+  with_items:
+    # order matters
+    - "{{ mountdir }}/proc"
+    - "{{ mountdir }}"
+    - "/mnt/{{ release }}"
+
+- name: kpartx -dv to delete all image partition device nodes
+  command: kpartx -dv "{{ raw_imgfile }}"
+  ignore_errors: true
+
+- name: Debug dump loop devices
+  command: losetup -a
+  ignore_errors: true
+
+- name: delete loop devices for image file
+  # use this because kpartx -dv will fail if raw_imgfile was delete
+  # but in theory we could have deleted file still attached to loopback device?
+  # use grep because of // and awk
+  shell: losetup -O NAME,BACK-FILE | grep "{{ raw_imgfile_basename }}" | awk '{ print $1 }' | xargs -l1 losetup -v -d
+  ignore_errors: true
+
+- name: Debug dump loop devices again
+  command: losetup -a
+  ignore_errors: true
+
+- name: delete {{ raw_imgfile }}
+  file:
+    path: "{{ raw_imgfile }}"
+    state: absent
+
+# common
+- name: remove {{ mountdir }}
+  file:
+    path: "{{ mountdir }}"
+    state: absent
+
+# download-common
+- name: remove {{ workspace }}
+  file:
+    path: "{{ workspace }}"
+    state: directory
+
+- name: "fetch {{ image_url }} and verify "
+  fetch_url_and_verify:
+    url: "{{ image_url }}"
+    sha256url: "{{ sha256sums_url }}"
+    dest: "{{ image_dest }}"
+
+- name: convert image to raw
+  command: "qemu-img convert {{ image_dest }} {{ raw_imgfile }}"
+
+- name: resize image to allow for more VNFs
+  command: "qemu-img resize -f raw {{ raw_imgfile }} +2G"
+
+- name: resize parition to allow for more VNFs
+  # use growpart because maybe it handles GPT better than parted
+  command: growpart {{ raw_imgfile }}  1
+
+- name: create mknod devices in chroot
+  command: "mknod -m 0660 /dev/loop{{ item }} b 7 {{ item }}"
+  args:
+    creates: "/dev/loop{{ item }}"
+  with_sequence: start=0 end=9
+  tags: mknod_devices
+
+- name: find first partition device
+  command: kpartx -l "{{ raw_imgfile }}"
+  register: kpartx_res
+
+- set_fact:
+    image_first_partition: "{{ kpartx_res.stdout_lines[0].split()[0] }}"
+
+- set_fact:
+    # assume / is the first partition
+    image_first_partition_device: "/dev/mapper/{{ image_first_partition }}"
+
+- name: use kpartx to create device nodes for the raw image loop device
+  # operate on the loop device to avoid /dev namespace missing devices
+  command: kpartx -avs "{{ raw_imgfile }}"
+
+- name: parted dump raw image
+  command: parted "{{ raw_imgfile }}" print
+  register: parted_res
+
+- debug:
+    var: parted_res
+    verbosity: 2
+
+- name: use blkid to find filesystem type of first partition device
+  command: blkid -o value -s TYPE {{ image_first_partition_device }}
+  register: blkid_res
+
+- set_fact:
+    image_fs_type: "{{ blkid_res.stdout.strip() }}"
+
+- fail:
+    msg: "We only support ext4 image filesystems because we have to resize"
+  when: image_fs_type != "ext4"
+
+- name: fsck the image filesystem
+  command: "e2fsck -y -f {{ image_first_partition_device  }}"
+
+- name: resize filesystem to full partition size
+  command: resize2fs {{ image_first_partition_device }}
+
+- name: fsck the image filesystem
+  command: "e2fsck -y -f {{ image_first_partition_device  }}"
+
+- name: make tmp disposable fstab
+  command: mktemp --tmpdir fake_fstab.XXXXXXXXXX
+  register: mktemp_res
+
+- set_fact:
+    fake_fstab: "{{ mktemp_res.stdout.strip() }}"
+
+- name: mount first parition on image device
+  mount:
+    src: "{{ image_first_partition_device }}"
+    name: "{{ mountdir }}"
+    # fstype is required
+    fstype: "{{ image_fs_type }}"
+    # !!!!!!! this is required otherwise we add entries to /etc/fstab
+    # and prevent the system from booting
+    fstab: "{{ fake_fstab }}"
+    state: mounted
+
+- name: mount chroot /proc
+  mount:
+    src: none
+    name: "{{ mountdir }}/proc"
+    fstype: proc
+    # !!!!!!! this is required otherwise we add entries to /etc/fstab
+    # and prevent the system from booting
+    fstab: "{{ fake_fstab }}"
+    state: mounted
+
+- name: if arm copy qemu-aarch64-static into chroot
+  copy:
+    src: /usr/bin/qemu-aarch64-static
+    dest: "{{ mountdir }}/usr/bin"
+  when: img_arch == arch_arm64
+
+- name: create ubuntu policy-rc.d workaround
+  copy:
+    content: "{{ '#!/bin/sh\nexit 101\n' }}"
+    dest: "{{ mountdir }}/usr/sbin/policy-rc.d"
+    mode: 0755
+  when: "target_os == 'Ubuntu'"
+
+- name: add chroot as host
+  add_host:
+    name: "{{ mountdir }}"
+    groups: chroot_image,image_builder
+    connection: chroot
+    ansible_python_interpreter: /usr/bin/python3
+    # set this host variable here
+    nameserver_ip: "{{ ansible_dns.nameservers[0] }}"
+    image_type: vm

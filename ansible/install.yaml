@@ -50,23 +50,18 @@
     - shell: uwsgi -i /etc/yardstick/yardstick.ini
       when: installation_mode != inst_mode_container
 
-- name: Prepare baremetal and standalone server(s)
+
+- name: Prepare baremetal and standalone servers
   hosts: yardstick-baremetal,yardstick-standalone
   become: yes
-  vars:
-    YARD_IMG_ARCH: "{{ arch_amd64 }}"
-  environment:
-    proxy_env:
-      http_proxy: "{{ lookup('env', 'http_proxy') }}"
-      https_proxy: "{{ lookup('env', 'https_proxy') }}"
-      ftp_proxy: "{{ lookup('env', 'ftp_proxy') }}"
-      no_proxy: "{{ lookup('env', 'no_proxy') }}"
+  environment: "{{ proxy_env }}"
 
   roles:
     - add_custom_repos
     - role: set_package_installer_proxy
       when: proxy_env is defined and proxy_env
     # can't update grub in chroot/docker
+    # ?? - enable_iommu_on_boot
     - enable_hugepages_on_boot
     # needed for collectd plugins
     - increase_open_file_limits
@@ -98,3 +93,40 @@
     - install_pmu_tools
     - download_collectd
     - install_collectd
+
+
+- hosts: jumphost
+  become: yes
+  vars:
+    img_prop_item: "{{ IMG_PROPERTY }}"
+    img_arch: "{{ YARD_IMG_ARCH }}"
+
+  tasks:
+    - name: Include pre-build
+      include_role:
+        name: build_yardstick_image
+        tasks_from: pre_build.yml
+
+
+- hosts: chroot_image
+  connection: chroot
+  become: yes
+  vars:
+    img_property: "{{ IMG_PROPERTY }}"
+  environment: "{{ proxy_env }}"
+
+  tasks:
+    - name: Include image build
+      include_role:
+        name: build_yardstick_image
+        tasks_from: "cloudimg_modify_{{ img_property }}.yml"
+
+
+- hosts: jumphost
+  become: yes
+
+  tasks:
+    - name: Include post-build
+      include_role:
+        name: build_yardstick_image
+        tasks_from: post_build.yml

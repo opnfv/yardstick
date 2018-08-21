@@ -1,9 +1,15 @@
 ---
 target_os: "Ubuntu"
 YARD_IMG_ARCH: "amd64"
+IMG_PROPERTY: "normal"
 clone_dest: /opt/tempT
 release: xenial
 normal_image_file: "{{ workspace }}/yardstick-image.img"
 nsb_image_file: "{{ workspace }}/yardstick-nsb-image.img"
 ubuntu_image_file: /tmp/workspace/yardstick/yardstick-trusty-server.raw
-proxy_env: {}
+proxy_env:
+  PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin
+  http_proxy: "{{ lookup('env', 'http_proxy') }}"
+  https_proxy: "{{ lookup('env', 'https_proxy') }}"
+  ftp_proxy: "{{ lookup('env', 'ftp_proxy') }}"
+  no_proxy: "{{ lookup('env', 'no_proxy') }}"

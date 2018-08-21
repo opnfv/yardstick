@@ -19,5 +19,5 @@
     action: "{{ ansible_pkg_mgr }} name={{ item }} state=latest update_cache=yes"
     register: pkg_mgr_results
     retries: "{{ pkg_mgr_retries }}"
-    until: pkg_mgr_results|success
+    until: pkg_mgr_results is success
     with_items: "{{ install_dependencies[ansible_os_family] }}"
