@@ -79,6 +79,10 @@ class FunctionNotImplemented(YardstickException):
                '"%(class_name)" class.')
 
 
+class InvalidType(YardstickException):
+    message = 'Type "%(type_to_convert)s" is not valid'
+
+
 class InfluxDBConfigurationMissing(YardstickException):
     message = ('InfluxDB configuration is not available. Add "influxdb" as '
                'a dispatcher and the configuration section')
