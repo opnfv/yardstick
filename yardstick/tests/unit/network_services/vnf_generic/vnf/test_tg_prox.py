@@ -317,6 +317,7 @@ class TestProxTrafficGen(unittest.TestCase):
         prox_traffic_gen = ProxTrafficGen(NAME, self.VNFD0, 'task_id')
         self.assertIsNone(prox_traffic_gen._tg_process)
         self.assertIsNone(prox_traffic_gen._traffic_process)
+        self.assertIsNone(prox_traffic_gen._mq_producer)
 
     @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     @mock.patch(SSH_HELPER)
