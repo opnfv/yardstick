@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_9076413d",
+        "filename": "yardstick/network_services/traffic_profile/rfc2544.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-08-21T10:02:32Z",
+      "side": 1,
+      "message": "what does *_ini mean? For *_end it\u0027s clear, but for *_ini variable it is not.",
+      "range": {
+        "startLine": 252,
+        "startChar": 16,
+        "endLine": 252,
+        "endChar": 19
+      },
+      "revId": "b103e6a8544d727ea155ec2c2bc71dbf91a36219",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7073ad4d",
+        "filename": "yardstick/network_services/traffic_profile/rfc2544.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-08-21T10:02:32Z",
+      "side": 1,
+      "message": "old logic:\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nout_packets \u003d sum(port[\u0027out_packets\u0027] for port in samples[-1].values())\nin_packets \u003d sum(port[\u0027in_packets\u0027] for port in samples[-1].values())\n\nnew logic:\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nout_packets \u003d out_pkt_end - out_pkt_ini\nin_packets \u003d in_pkt_end - in_pkt_ini\n\nThe result of new and old logic will now be the same, it means it may impact farther logic which uses in_packets/out_packets packets. Is it an issue in the calculation right now?",
+      "range": {
+        "startLine": 256,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 44
+      },
+      "revId": "b103e6a8544d727ea155ec2c2bc71dbf91a36219",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
