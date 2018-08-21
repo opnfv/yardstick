@@ -7,6 +7,7 @@ release: xenial
 normal_image_file: "{{ workspace }}/yardstick-image.img"
 nsb_image_file: "{{ workspace }}/yardstick-nsb-image.img"
 ubuntu_image_file: /tmp/workspace/yardstick/yardstick-trusty-server.raw
+installation_mode: "{{ INSTALLATION_MODE | default('baremetal') }}"
 proxy_env:
   PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin
   http_proxy: "{{ lookup('env', 'http_proxy') }}"
