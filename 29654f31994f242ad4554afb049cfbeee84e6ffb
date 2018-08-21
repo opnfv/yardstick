@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_f0117dad",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-08-21T11:15:03Z",
+      "side": 1,
+      "message": "Should I add proxy settings for container:\n        interactive: yes\n        env:\n          \"{{ proxy_env }}\"\n        volumes:\nWill it affect influxdb/grafana or something else then?",
+      "revId": "29654f31994f242ad4554afb049cfbeee84e6ffb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
