@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_8b03b4b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-08-21T16:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_eb2510ac",
+      "revId": "ec69836a78b9b9d4ba904d24c3ac65ad8d6535e4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_d04a7982",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_prox.py",
         "patchSetId": 1
