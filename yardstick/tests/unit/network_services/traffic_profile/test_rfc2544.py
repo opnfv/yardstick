@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import mock
+import datetime
 
+import mock
 from trex_stl_lib import api as Pkt
 from trex_stl_lib import trex_stl_client
 from trex_stl_lib import trex_stl_packet_builder_scapy
@@ -220,34 +221,38 @@ class TestRFC2544Profile(base.BaseUnitTestCase):
     def test_get_drop_percentage(self):
         rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
         samples = [
-            {'xe1': {'tx_throughput_fps': 100,
+            {'xe1': {'tx_throughput_fps': 110,
                      'rx_throughput_fps': 101,
-                     'out_packets': 2000,
-                     'in_packets': 2010},
-             'xe2': {'tx_throughput_fps': 200,
+                     'out_packets': 2100,
+                     'in_packets': 2010,
+                     'timestamp': datetime.datetime(2000, 1, 1, 1, 1, 1, 1)},
+             'xe2': {'tx_throughput_fps': 210,
                      'rx_throughput_fps': 201,
-                     'out_packets': 4000,
-                     'in_packets': 4010}},
-            {'xe1': {'tx_throughput_fps': 106,
+                     'out_packets': 4100,
+                     'in_packets': 4010,
+                     'timestamp': datetime.datetime(2000, 1, 1, 1, 1, 1, 1)}},
+            {'xe1': {'tx_throughput_fps': 156,
                      'rx_throughput_fps': 108,
-                     'out_packets': 2031,
+                     'out_packets': 2110,
                      'in_packets': 2040,
-                     'latency': 'Latency1'},
-             'xe2': {'tx_throughput_fps': 203,
+                     'latency': 'Latency1',
+                     'timestamp': datetime.datetime(2000, 1, 1, 1, 1, 1, 31)},
+             'xe2': {'tx_throughput_fps': 253,
                      'rx_throughput_fps': 215,
-                     'out_packets': 4025,
-                     'in_packets': 4040,
-                     'latency': 'Latency2'}}
+                     'out_packets': 4150,
+                     'in_packets': 4010,
+                     'latency': 'Latency2',
+                     'timestamp': datetime.datetime(2000, 1, 1, 1, 1, 1, 31)}}
         ]
         completed, output = rfc2544_profile.get_drop_percentage(
             samples, 0, 0, False)
-        expected = {'DropPercentage': 0.3963,
+        expected = {'DropPercentage': 50.0,
                     'Latency': {'xe1': 'Latency1', 'xe2': 'Latency2'},
-                    'RxThroughput': 312.5,
-                    'TxThroughput': 304.5,
-                    'CurrentDropPercentage': 0.3963,
+                    'RxThroughput': 1000000.0,
+                    'TxThroughput': 2000000.0,
+                    'CurrentDropPercentage': 50.0,
                     'Rate': 100.0,
-                    'Throughput': 312.5}
+                    'Throughput': 1000000.0}
         self.assertEqual(expected, output)
         self.assertFalse(completed)
 
