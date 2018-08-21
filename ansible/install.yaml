@@ -28,27 +28,30 @@
         state: directory
         owner: root
         mode: 0777
+      when:
+        - installation_mode != inst_mode_container_pull
 
   roles:
-    - add_repos_jumphost
-    - install_dependencies_jumphost
-    - install_yardstick
-    - configure_uwsgi
-    - configure_nginx
-    - configure_gui
-    - download_trex
-    - install_trex
-    - configure_rabbitmq
+    - { role: add_repos_jumphost, when: installation_mode != inst_mode_container_pull }
+    - { role: install_dependencies_jumphost, when: installation_mode != inst_mode_container_pull }
+    - { role: install_yardstick, when: installation_mode != inst_mode_container_pull }
+    - { role: configure_uwsgi, when: installation_mode != inst_mode_container_pull }
+    - { role: configure_nginx, when: installation_mode != inst_mode_container_pull }
+    - { role: configure_gui, when: installation_mode != inst_mode_container_pull }
+    - { role: download_trex, when: installation_mode != inst_mode_container_pull }
+    - { role: install_trex, when: installation_mode != inst_mode_container_pull }
+    - { role: configure_rabbitmq, when: installation_mode != inst_mode_container_pull }
+
 
   post_tasks:
 
     - service:
         name: nginx
         state: restarted
-      when: installation_mode != inst_mode_container
+      when: installation_mode == inst_mode_baremetal
 
     - shell: uwsgi -i /etc/yardstick/yardstick.ini
-      when: installation_mode != inst_mode_container
+      when: installation_mode == inst_mode_baremetal
 
 
 - name: Prepare baremetal and standalone servers
@@ -130,3 +133,33 @@
       include_role:
         name: build_yardstick_image
         tasks_from: post_build.yml
+
+
+- name: start yardstick container on jumphost
+  hosts: jumphost
+
+  tasks:
+    - include_role:
+        name: install_dependencies_jumphost
+      when: INSTALLATION_MODE == inst_mode_container_pull
+
+    - include_role:
+        name: docker
+      when: INSTALLATION_MODE == inst_mode_container_pull
+
+    - name: Start yardstick container
+      docker_container:
+        name: yardstick
+        pull: yes
+        recreate: yes
+        image: "{{ yardstick_docker_image|default('opnfv/yardstick:latest') }}"
+        state: started
+        restart_policy: always
+        privileged: yes
+        interactive: yes
+        volumes:
+          - "{{ openrc_file|default('/dev/null') }}:/etc/yardstick/openstack.creds:ro"
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /opt:/opt
+          - /etc/localtime:/etc/localtime:ro
+      when: INSTALLATION_MODE == inst_mode_container_pull
