@@ -118,7 +118,8 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
                 ports.append(port_num)
                 port_pg_id.add_port(port_num)
                 profile = self._create_profile(profile_data,
-                                               self.rate, port_pg_id)
+                                               self.rate, port_pg_id,
+                                               self.config.enable_latency)
                 self.generator.client.add_streams(profile, ports=[port_num])
 
         self.generator.client.start(ports=ports,
@@ -126,7 +127,7 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
                                     force=True)
         return ports, port_pg_id
 
-    def _create_profile(self, profile_data, rate, port_pg_id):
+    def _create_profile(self, profile_data, rate, port_pg_id, enable_latency):
         """Create a STL profile (list of streams) for a port"""
         streams = []
         for packet_name in profile_data:
@@ -134,7 +135,8 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
                     get('outer_l2', {}).get('framesize'))
             imix_data = self._create_imix_data(imix)
             self._create_vm(profile_data[packet_name])
-            _streams = self._create_streams(imix_data, rate, port_pg_id)
+            _streams = self._create_streams(imix_data, rate, port_pg_id,
+                                            enable_latency)
             streams.extend(_streams)
         return trex_stl_streams.STLProfile(streams)
 
@@ -213,7 +215,7 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
         return trex_stl_packet_builder_scapy.STLPktBuilder(
             pkt=base_pkt / pad, vm=self.trex_vm)
 
-    def _create_streams(self, imix_data, rate, port_pg_id):
+    def _create_streams(self, imix_data, rate, port_pg_id, enable_latency):
         """Create a list of streams per packet size
 
         The STL TX mode speed of the generated streams will depend on the frame
@@ -237,7 +239,8 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
                              in imix_data.items() if float(weight) > 0):
             packet = self._create_single_packet(size)
             pg_id = port_pg_id.increase_pg_id()
-            stl_flow = trex_stl_streams.STLFlowLatencyStats(pg_id=pg_id)
+            stl_flow = (trex_stl_streams.STLFlowLatencyStats(pg_id=pg_id) if
+                        enable_latency else None)
             mode = trex_stl_streams.STLTXCont(percentage=weight * rate / 100)
             streams.append(trex_stl_client.STLStream(
                 packet=packet, flow_stats=stl_flow, mode=mode))
