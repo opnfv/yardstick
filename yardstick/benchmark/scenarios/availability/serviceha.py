@@ -88,9 +88,9 @@ class ServiceHA(base.Scenario):
 
     def teardown(self):
         """scenario teardown"""
-        # only recover when sla not pass
-        if not self.sla_pass:
-            for attacker in self.attackers:
+        # recover when mandatory or sla not pass
+        for attacker in self.attackers:
+            if attacker.mandatory or not self.sla_pass:
                 attacker.recover()
 
 
