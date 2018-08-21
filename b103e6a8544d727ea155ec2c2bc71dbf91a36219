@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_30d815ef",
+        "filename": "yardstick/network_services/traffic_profile/rfc2544.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-21T12:54:28Z",
+      "side": 1,
+      "message": "This is the first sample.",
+      "parentUuid": "9a561d44_9076413d",
+      "range": {
+        "startLine": 252,
+        "startChar": 16,
+        "endLine": 252,
+        "endChar": 19
+      },
+      "revId": "b103e6a8544d727ea155ec2c2bc71dbf91a36219",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_7073ad4d",
         "filename": "yardstick/network_services/traffic_profile/rfc2544.py",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-21T10:02:32Z",
       "side": 1,
       "message": "old logic:\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nout_packets \u003d sum(port[\u0027out_packets\u0027] for port in samples[-1].values())\nin_packets \u003d sum(port[\u0027in_packets\u0027] for port in samples[-1].values())\n\nnew logic:\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nout_packets \u003d out_pkt_end - out_pkt_ini\nin_packets \u003d in_pkt_end - in_pkt_ini\n\nThe result of new and old logic will now be the same, it means it may impact farther logic which uses in_packets/out_packets packets. Is it an issue in the calculation right now?",
+      "range": {
+        "startLine": 256,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 44
+      },
+      "revId": "b103e6a8544d727ea155ec2c2bc71dbf91a36219",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d0eef98a",
+        "filename": "yardstick/network_services/traffic_profile/rfc2544.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-21T12:54:28Z",
+      "side": 1,
+      "message": "We are deleting the packets counted during the transient period (10 secs, the time needs TRex to stabilizes the measurements).\n\nThen we make all the calculations only using the valid samples and use the timestamps of these samples. Notice now we don\u0027t use the throughputs measured but the in/out packets.",
+      "parentUuid": "9a561d44_7073ad4d",
       "range": {
         "startLine": 256,
         "startChar": 0,
