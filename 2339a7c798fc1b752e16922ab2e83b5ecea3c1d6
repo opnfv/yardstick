@@ -46,6 +46,53 @@
       "revId": "2339a7c798fc1b752e16922ab2e83b5ecea3c1d6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f0f85de7",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-08-21T08:25:34Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "9a561d44_50414938",
+      "range": {
+        "startLine": 86,
+        "startChar": 52,
+        "endLine": 88,
+        "endChar": 88
+      },
+      "revId": "2339a7c798fc1b752e16922ab2e83b5ecea3c1d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3093f5a4",
+        "filename": "yardstick/tests/unit/common/test_utils.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1413,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-08-21T08:25:34Z",
+      "side": 1,
+      "message": "Please remove this. We don\u0027t need the implementation details here.",
+      "range": {
+        "startLine": 1394,
+        "startChar": 0,
+        "endLine": 1413,
+        "endChar": 1
+      },
+      "revId": "2339a7c798fc1b752e16922ab2e83b5ecea3c1d6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
