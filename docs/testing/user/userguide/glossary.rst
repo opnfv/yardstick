@@ -13,6 +13,15 @@ Glossary
    API
      Application Programming Interface
 
+   Barometer
+     TODO
+
+   collectd
+      TODO
+
+   context
+      TODO
+
    Docker
      Docker provisions and manages containers. Yardstick and many other OPNFV
      projects are deployed in containers. Docker is required to launch the
@@ -27,8 +36,23 @@ Glossary
    DSCP
      Differentiated Services Code Point
 
+   flavor
+      A specification of virtual resources used by OpenStack in the creation
+      of a VM instance.
+
+   Grafana
+      A visualization tool, used in Yardstick to retrieve test data from
+      InfluxDB and display it. Grafana works by defining dashboards, which are
+      combinations of visualization panes (e.g. line charts and gauges) and
+      forms that assist the user in formulating SQL-like queries for InfluxDB.
+      .. TODO: link to grafana homepage
+
    IGMP
      Internet Group Management Protocol
+
+   InfluxDB
+      TODO
+      TODO: link to influxDB homepage
 
    IOPS
      Input/Output Operations Per Second
@@ -43,6 +67,10 @@ Glossary
      deployment, scaling and management of containerized applications.
      It is one of the contexts supported in Yardstick.
 
+   MPLS
+      Multiprotocol Label Switching
+      TODO
+
    NFV
      Network Function Virtualization
      NFV is an initiative to take network services which were traditionally run
@@ -55,6 +83,11 @@ Glossary
 
    NIC
      Network Interface Controller
+
+   NSB
+      Network Services Benchmarking. A subset of Yardstick features concerned
+      with NFVI and VNF characterisation.
+      TODO: cp from QSG
 
    OpenStack
       OpenStack is a cloud operating system that controls pools of compute,
@@ -77,6 +110,15 @@ Glossary
      performance in Input/Output Operations Per Second (IOPS), throttling
      agreements, and performance expectations at peak load
 
+   runner
+     TODO
+
+   SampleVNF
+     TODO
+
+   scenario
+     TODO
+
    SLA
      Service Level Agreement
      An SLA is an agreement between a service provider and a customer to
@@ -92,6 +134,9 @@ Glossary
    SUT
      System Under Test
 
+   test case
+      TODO
+
    ToS
      Type of Service
 
@@ -103,6 +148,9 @@ Glossary
      An operating system instance that runs on top of a hypervisor.
      Multiple VMs can run at the same time on the same physical
      host.
+
+   VLAN
+     Virtual LAN
 
    VNF
      Virtual Network Function
