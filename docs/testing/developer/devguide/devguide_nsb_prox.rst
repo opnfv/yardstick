@@ -13,7 +13,8 @@ optimal system architectures and configurations.
 Prerequisites
 =============
 
-In order to integrate PROX tests into NSB, the following prerequisites are required.
+In order to integrate PROX tests into NSB, the following prerequisites are
+required.
 
 .. _`dpdk wiki page`: http://dpdk.org/
 .. _`yardstick wiki page`: https://wiki.opnfv.org/display/yardstick/
@@ -159,11 +160,13 @@ A NSB Prox test is composed of the following components :-
   ``tc_prox_heat_context_vpe-4.yaml``. This file describes the components
   of the test, in the case of openstack the network description and
   server descriptions, in the case of baremetal the hardware
-  description location. It also contains the name of the Traffic Generator, the SUT config file
-  and the traffic profile description, all described below. See nsb-test-description-label_
+  description location. It also contains the name of the Traffic Generator,
+  the SUT config file and the traffic profile description, all described below.
+  See nsb-test-description-label_
 
-* Traffic Profile file. Example ``prox_binsearch.yaml``. This describes the packet size, tolerated
-  loss, initial line rate to start traffic at, test interval etc See nsb-traffic-profile-label_
+* Traffic Profile file. Example ``prox_binsearch.yaml``. This describes the
+  packet size, tolerated loss, initial line rate to start traffic at, test
+  interval etc See nsb-traffic-profile-label_
 
 * Traffic Generator Config file. Usually called ``gen_<test>-<ports>.cfg``.
 
@@ -235,7 +238,8 @@ show you how to understand the test description file.
 Now let's examine the components of the file in detail
 
 1. ``traffic_profile`` - This specifies the traffic profile for the
-   test. In this case ``prox_binsearch.yaml`` is used. See nsb-traffic-profile-label_
+   test. In this case ``prox_binsearch.yaml`` is used. See
+   nsb-traffic-profile-label_
 
 2. ``topology`` - This is either ``prox-tg-topology-1.yaml`` or
     ``prox-tg-topology-2.yaml`` or ``prox-tg-topology-4.yaml``
@@ -330,11 +334,11 @@ This describes the details of the traffic flow. In this case
    :alt: NSB PROX Traffic Profile
 
 
-1. ``name`` - The name of the traffic profile. This name should match the name specified in the
-   ``traffic_profile`` field in the Test Description File.
+1. ``name`` - The name of the traffic profile. This name should match the name
+   specified in the ``traffic_profile`` field in the Test Description File.
 
-2. ``traffic_type`` - This specifies the type of traffic pattern generated, This name matches
-   class name of the traffic generator See::
+2. ``traffic_type`` - This specifies the type of traffic pattern generated,
+   This name matches class name of the traffic generator. See::
 
       network_services/traffic_profile/prox_binsearch.py class ProxBinSearchProfile(ProxProfile)
 
@@ -704,15 +708,22 @@ Now let's examine the components of the file in detail
       physical core improves performance, however sometimes it
       is optimal to move task to a separate core. This is
       best decided by checking performance.
-   c. ``mode=lat`` - Specifies the action carried out by this task on this core. Supported modes are: acl,
-      classify, drop, gredecap, greencap, ipv6_decap, ipv6_encap, l2fwd, lbnetwork, lbpos, lbqinq, nop,
-      police, qinqdecapv4, qinqencapv4, qos, routing, impair, lb5tuple, mirror, unmpls, tagmpls,
-      nat, decapnsh, encapnsh, gen, genl4 and lat. This task(0) per core(3) receives packets on port.
-   d. ``rx port=p0`` - The port to receive packets on ``Port 0``. Core 4 will receive packets on ``Port 1``.
-   e. ``lat pos=42`` - Describes where to put a 4-byte timestamp in the packet. Note that the packet length should
-      be longer than ``lat pos`` + 4 bytes to avoid truncation of the timestamp. It defines where the timestamp is
-      to be read from. Note that the SUT workload might cause the position of the timestamp to change
-      (i.e. due to encapsulation).
+   c. ``mode=lat`` - Specifies the action carried out by this task on this
+      core.
+      Supported modes are: ``acl``, ``classify``, ``drop``, ``gredecap``,
+      ``greencap``, ``ipv6_decap``, ``ipv6_encap``, ``l2fwd``, ``lbnetwork``,
+      ``lbpos``, ``lbqinq``, ``nop``, ``police``, ``qinqdecapv4``,
+      ``qinqencapv4``, ``qos``, ``routing``, ``impair``, ``lb5tuple``,
+      ``mirror``, ``unmpls``, ``tagmpls``, ``nat``, ``decapnsh``, ``encapnsh``,
+      ``gen``, ``genl4`` and ``lat``. This task(0) per core(3) receives packets
+      on port.
+   d. ``rx port=p0`` - The port to receive packets on ``Port 0``. Core 4 will
+      receive packets on ``Port 1``.
+   e. ``lat pos=42`` - Describes where to put a 4-byte timestamp in the packet.
+      Note that the packet length should be longer than ``lat pos`` + 4 bytes
+      to avoid truncation of the timestamp. It defines where the timestamp is
+      to be read from. Note that the SUT workload might cause the position of
+      the timestamp to change (i.e. due to encapsulation).
 
 .. _nsb-sut-generator-label:
 
@@ -720,7 +731,8 @@ Now let's examine the components of the file in detail
 -------------------------------
 
 This section will describes the SUT(VNF) config file. This is the same for both
-baremetal and heat. See this example of ``handle_l2fwd_multiflow-2.cfg`` to explain the options.
+baremetal and heat. See this example of ``handle_l2fwd_multiflow-2.cfg`` to
+explain the options.
 
 .. image:: images/PROX_Handle_2port_cfg.png
    :width: 1400px
@@ -730,13 +742,15 @@ See `prox options`_ for details
 
 Now let's examine the components of the file in detail
 
-1. ``[eal options]`` - same as the Generator config file. This specified the EAL (Environmental Abstraction Layer)
-   options. These are default values and are not changed.
-   See `dpdk wiki page`_.
+1. ``[eal options]`` - same as the Generator config file. This specified the
+   EAL (Environmental Abstraction Layer) options. These are default values and
+   are not changed. See `dpdk wiki page`_.
 
-2. ``[port 0]`` - This section describes the DPDK Port. The number following the keyword ``port`` usually refers to the DPDK Port Id. usually starting from ``0``.
-   Because you can have multiple ports this entry usually repeated. Eg. For a 2 port setup ``[port0]`` and ``[port 1]`` and for a 4 port setup ``[port 0]``, ``[port 1]``,
-   ``[port 2]`` and ``[port 3]``::
+2. ``[port 0]`` - This section describes the DPDK Port. The number following
+   the keyword ``port`` usually refers to the DPDK Port Id. usually starting
+   from ``0``. Because you can have multiple ports this entry usually
+   repeated. E.g. For a 2 port setup ``[port0]`` and ``[port 1]`` and for a 4
+   port setup ``[port 0]``, ``[port 1]``, ``[port 2]`` and ``[port 3]``::
 
       [port 0]
       name=if0
@@ -745,10 +759,14 @@ Now let's examine the components of the file in detail
       tx desc=2048
       promiscuous=yes
 
-   a. In this example ``name =if0`` assigned the name ``if0`` to the port. Any name can be assigned to a port.
-   b. ``mac=hardware`` sets the MAC address assigned by the hardware to data from this port.
-   c. ``rx desc=2048`` sets the number of available descriptors to allocate for receive packets. This can be changed and can effect performance.
-   d. ``tx desc=2048`` sets the number of available descriptors to allocate for transmit packets. This can be changed and can effect performance.
+   a. In this example ``name =if0`` assigned the name ``if0`` to the port. Any
+      name can be assigned to a port.
+   b. ``mac=hardware`` sets the MAC address assigned by the hardware to data
+      from this port.
+   c. ``rx desc=2048`` sets the number of available descriptors to allocate
+      for receive packets. This can be changed and can effect performance.
+   d. ``tx desc=2048`` sets the number of available descriptors to allocate
+      for transmit packets. This can be changed and can effect performance.
    e. ``promiscuous=yes`` this enables promiscuous mode for this port.
 
 3. ``[defaults]`` - Here default operations and settings can be over written.::
@@ -757,35 +775,46 @@ Now let's examine the components of the file in detail
      mempool size=8K
      memcache size=512
 
-   a. In this example ``mempool size=8K`` the number of mbufs per task is altered. Altering this value could effect performance. See `prox options`_ for details.
-   b. ``memcache size=512`` - number of mbufs cached per core, default is 256 this is the cache_size. Altering this value could effect performance.
+   a. In this example ``mempool size=8K`` the number of mbufs per task is
+      altered. Altering this value could effect performance. See
+      `prox options`_ for details.
+   b. ``memcache size=512`` - number of mbufs cached per core, default is 256
+      this is the cache_size. Altering this value could affect performance.
 
-4. ``[global]`` - Here application wide setting are supported. Things like application name, start time, duration and memory configurations can be set here.
+4. ``[global]`` - Here application wide setting are supported. Things like
+   application name, start time, duration and memory configurations can be set
+   here.
    In this example.::
 
       [global]
       start time=5
       name=Basic Gen
 
-    a. ``start time=5`` Time is seconds after which average stats will be started.
+    a. ``start time=5`` Time is seconds after which average stats will be
+       started.
     b. ``name=Handle L2FWD Multiflow (2x)`` Name of the configuration.
 
-5. ``[core 0]`` - This core is designated the master core. Every Prox application must have a master core. The master mode must be assigned to
+5. ``[core 0]`` - This core is designated the master core. Every Prox
+   application must have a master core. The master mode must be assigned to
    exactly one task, running alone on one core.::
 
     [core 0]
     mode=master
 
-6. ``[core 1]`` - This describes the activity on core 1. Cores can be configured by means of a set of [core #] sections,   where # represents either:
+6. ``[core 1]`` - This describes the activity on core 1. Cores can be
+   configured by means of a set of [core #] sections, where # represents
+   either:
 
-   a. an absolute core number: e.g. on a 10-core, dual socket system with hyper-threading,
-      cores are numbered from 0 to 39.
+   a. an absolute core number: e.g. on a 10-core, dual socket system with
+      hyper-threading, cores are numbered from 0 to 39.
 
-   b. PROX allows a core to be identified by a core number, the letter 's', and a socket number.
-      However NSB PROX is hardware agnostic (physical and virtual configurations are the same) it
-      is advisable no to use physical core numbering.
+   b. PROX allows a core to be identified by a core number, the letter 's',
+      and a socket number. However NSB PROX is hardware agnostic (physical and
+      virtual configurations are the same) it is advisable no to use physical
+      core numbering.
 
-   Each core can be assigned with a set of tasks, each running one of the implemented packet processing modes.::
+   Each core can be assigned with a set of tasks, each running one of the
+   implemented packet processing modes.::
 
      [core 1]
      name=none
@@ -796,20 +825,33 @@ Now let's examine the components of the file in detail
      tx port=if1
 
    a. ``name=none`` - No name assigned to the core.
-   b. ``task=0`` - Each core can run a set of tasks. Starting with ``0``. Task 1 can be defined later in this core or
-      can be defined in another ``[core 1]`` section with ``task=1`` later in configuration file. Sometimes running
-      multiple task related to the same packet on the same physical core improves performance, however sometimes it
-      is optimal to move task to a separate core. This is best decided by checking performance.
-   c. ``mode=l2fwd`` - Specifies the action carried out by this task on this core. Supported modes are: acl,
-      classify, drop, gredecap, greencap, ipv6_decap, ipv6_encap, l2fwd, lbnetwork, lbpos, lbqinq, nop,
-      police, qinqdecapv4, qinqencapv4, qos, routing, impair, lb5tuple, mirror, unmpls, tagmpls,
-      nat, decapnsh, encapnsh, gen, genl4 and lat. This code does ``l2fwd`` .. ie it does the L2FWD.
+   b. ``task=0`` - Each core can run a set of tasks. Starting with ``0``.
+      Task 1 can be defined later in this core or can be defined in another
+      ``[core 1]`` section with ``task=1`` later in configuration file.
+      Sometimes running multiple task related to the same packet on the same
+      physical core improves performance, however sometimes it is optimal to
+      move task to a separate core. This is best decided by checking
+      performance.
+   c. ``mode=l2fwd`` - Specifies the action carried out by this task on this
+      core. Supported modes are: ``acl``, ``classify``, ``drop``,
+      ``gredecap``, ``greencap``, ``ipv6_decap``, ``ipv6_encap``, ``l2fwd``,
+      ``lbnetwork``, ``lbpos``, ``lbqinq``, ``nop``, ``police``,
+      ``qinqdecapv4``, ``qinqencapv4``, ``qos``, ``routing``, ``impair``,
+      ``lb5tuple``, ``mirror``, ``unmpls``, ``tagmpls``, ``nat``,
+      ``decapnsh``, ``encapnsh``, ``gen``, ``genl4`` and ``lat``. This code
+      does ``l2fwd``. i.e. it does the L2FWD.
 
-   d. ``dst mac=@@tester_mac1`` - The destination mac address of the packet will be set to the MAC address of ``Port 1`` of destination device. (The Traffic Generator/Verifier)
-   e. ``rx port=if0`` - This specifies that the packets are received from ``Port 0`` called if0
-   f. ``tx port=if1`` - This specifies that the packets are transmitted to ``Port 1``  called if1
+   d. ``dst mac=@@tester_mac1`` - The destination mac address of the packet
+      will be set to the MAC address of ``Port 1`` of destination device.
+      (The Traffic Generator/Verifier)
+   e. ``rx port=if0`` - This specifies that the packets are received from
+      ``Port 0`` called if0
+   f. ``tx port=if1`` - This specifies that the packets are transmitted to
+      ``Port 1``  called if1
 
-   If this example we receive a packet on core on a port, carry out operation on the packet on the core and transmit it on on another port still using the same task on the same core.
+   In this example we receive a packet on core on a port, carry out operation
+   on the packet on the core and transmit it on on another port still using
+   the same task on the same core.
 
    On some implementation you may wish to use multiple tasks, like this.::
 
@@ -829,15 +871,22 @@ Now let's examine the components of the file in detail
      tx port=if0
      drop=no
 
-   In this example you can see Core 1/Task 0 called ``rx_task`` receives the packet from if0 and perform the l2fwd. However instead of sending the packet to a
-   port it sends it to a core see ``tx cores=1t1``. In this case it sends it to Core 1/Task 1.
+   In this example you can see Core 1/Task 0 called ``rx_task`` receives the
+   packet from if0 and perform the l2fwd. However instead of sending the
+   packet to a port it sends it to a core see ``tx cores=1t1``. In this case it
+   sends it to Core 1/Task 1.
 
-   Core 1/Task 1 called ``l2fwd_if0``, receives the packet, not from a port but from the ring. See ``rx ring=yes``. It does not perform any operation on the packet See ``mode=none``
-   and sends the packets to ``if0`` see ``tx port=if0``.
+   Core 1/Task 1 called ``l2fwd_if0``, receives the packet, not from a port but
+   from the ring. See ``rx ring=yes``. It does not perform any operation on the
+   packet See ``mode=none`` and sends the packets to ``if0`` see
+   ``tx port=if0``.
 
-   It is also possible to implement more complex operations be chaining multiple operations in sequence and using rings to pass packets from one core to another.
+   It is also possible to implement more complex operations by chaining
+   multiple operations in sequence and using rings to pass packets from one
+   core to another.
 
-   In thus example we show a Broadband Network Gateway (BNG) with Quality of Service (QoS).  Communication from task to task is via rings.
+   In this example, we show a Broadband Network Gateway (BNG) with Quality of
+   Service (QoS).  Communication from task to task is via rings.
 
    .. image:: images/PROX_BNG_QOS.png
       :width: 1000px
@@ -848,26 +897,36 @@ Now let's examine the components of the file in detail
 
 .. _baremetal-config-label:
 
-This is required for baremetal testing. It describes the IP address of the various ports, the Network devices drivers and MAC addresses and the network
+This is required for baremetal testing. It describes the IP address of the
+various ports, the Network devices drivers and MAC addresses and the network
 configuration.
 
-In this example we will describe a 2 port configuration. This file is the same for all 2 port NSB Prox tests on the same platforms/configuration.
+In this example we will describe a 2 port configuration. This file is the same
+for all 2 port NSB Prox tests on the same platforms/configuration.
 
   .. image:: images/PROX_Baremetal_config.png
      :width: 1000px
      :alt: NSB PROX Yardstick Config
 
-Now lets describe the sections of the file.
+Now let's describe the sections of the file.
 
-  1. ``TrafficGen`` - This section describes the Traffic Generator node of the test configuration. The name of the node ``trafficgen_1`` must match the node name
-     in the ``Test Description File for Baremetal`` mentioned earlier. The password attribute of the test needs to be configured. All other parameters
-     can remain as default settings.
-  2. ``interfaces`` - This defines the DPDK interfaces on the Traffic Generator.
-  3. ``xe0`` is DPDK Port 0. ``lspci`` and `` ./dpdk-devbind.py -s`` can be used to provide the interface information. ``netmask`` and ``local_ip`` should not be changed
-  4. ``xe1`` is DPDK Port 1. If more than 2 ports are required then ``xe1`` section needs to be repeated and modified accordingly.
-  5. ``vnf`` - This section describes the SUT of the test configuration. The name of the node ``vnf`` must match the node name in the
-     ``Test Description File for Baremetal`` mentioned earlier. The password attribute of the test needs to be configured. All other parameters
-     can remain as default settings
+  1. ``TrafficGen`` - This section describes the Traffic Generator node of the
+     test configuration. The name of the node ``trafficgen_1`` must match the
+     node name in the ``Test Description File for Baremetal`` mentioned
+     earlier. The password attribute of the test needs to be configured. All
+     other parameters can remain as default settings.
+  2. ``interfaces`` - This defines the DPDK interfaces on the Traffic
+     Generator.
+  3. ``xe0`` is DPDK Port 0. ``lspci`` and ``./dpdk-devbind.py -s`` can be used
+     to provide the interface information. ``netmask`` and ``local_ip`` should
+     not be changed
+  4. ``xe1`` is DPDK Port 1. If more than 2 ports are required then ``xe1``
+     section needs to be repeated and modified accordingly.
+  5. ``vnf`` - This section describes the SUT of the test configuration. The
+     name of the node ``vnf`` must match the node name in the
+     ``Test Description File for Baremetal`` mentioned earlier. The password
+     attribute of the test needs to be configured. All other parameters can
+     remain as default settings
   6. ``interfaces`` - This defines the DPDK interfaces on the SUT
   7. ``xe0`` - Same as 3 but for the ``SUT``.
   8. ``xe1`` - Same as 4 but for the ``SUT`` also.
@@ -877,11 +936,13 @@ Now lets describe the sections of the file.
 *Grafana Dashboard*
 -------------------
 
-The grafana dashboard visually displays the results of the tests. The steps required to produce a grafana dashboard are described here.
+The grafana dashboard visually displays the results of the tests. The steps
+required to produce a grafana dashboard are described here.
 
 .. _yardstick-config-label:
 
-  a. Configure ``yardstick`` to use influxDB to store test results. See file ``/etc/yardstick/yardstick.conf``.
+  a. Configure ``yardstick`` to use influxDB to store test results. See file
+     ``/etc/yardstick/yardstick.conf``.
 
      .. image:: images/PROX_Yardstick_config.png
         :width: 1000px
@@ -890,10 +951,12 @@ The grafana dashboard visually displays the results of the tests. The steps requ
      1. Specify the dispatcher to use influxDB to store results.
      2. "target = .. " - Specify location of influxDB to store results.
         "db_name = yardstick" - name of database. Do not change
-        "username = root" - username to use to store result. (Many tests are run as root)
+        "username = root" - username to use to store result. (Many tests are
+        run as root)
         "password = ... " - Please set to root user password
 
-  b. Deploy InfludDB & Grafana. See how to Deploy InfluxDB & Grafana. See `grafana deployment`_.
+  b. Deploy InfludDB & Grafana. See how to Deploy InfluxDB & Grafana. See
+     `grafana deployment`_.
   c. Generate the test data. Run the tests as follows .::
 
        yardstick --debug task start tc_prox_<context>_<test>-ports.yaml
@@ -910,7 +973,8 @@ How to run NSB Prox Test on an baremetal environment
 
 In order to run the NSB PROX test.
 
-  1. Install NSB on Traffic Generator node and Prox in SUT. See `NSB Installation`_
+  1. Install NSB on Traffic Generator node and Prox in SUT. See
+     `NSB Installation`_
 
   2. To enter container::
 
@@ -922,8 +986,8 @@ In order to run the NSB PROX test.
 
           cd /home/opnfv/repos/yardstick/samples/vnf_samples/nsut/prox
 
-     b. Install prox-baremetal-2.yam and prox-baremetal-4.yaml for that topology
-        into this directory as per baremetal-config-label_
+     b. Install prox-baremetal-2.yam and prox-baremetal-4.yaml for that
+        topology into this directory as per baremetal-config-label_
 
      c. Install and configure ``yardstick.conf`` ::
 
@@ -971,7 +1035,8 @@ Here is a list of frequently asked questions.
 *NSB Prox does not work on Baremetal, How do I resolve this?*
 -------------------------------------------------------------
 
-If PROX NSB does not work on baremetal, problem is either in network configuration or test file.
+If PROX NSB does not work on baremetal, problem is either in network
+configuration or test file.
 
 *Solution*
 
@@ -1011,8 +1076,8 @@ If PROX NSB does not work on baremetal, problem is either in network configurati
 
              See ``Link detected`` if ``yes`` .... Cable is good. If ``no`` you have an issue with your cable/port.
 
-2. If existing baremetal works then issue is with your test. Check the traffic generator gen_<test>-<ports>.cfg to ensure
-   it is producing a valid packet.
+2. If existing baremetal works then issue is with your test. Check the traffic
+   generator gen_<test>-<ports>.cfg to ensure it is producing a valid packet.
 
 *How do I debug NSB Prox on Baremetal?*
 ---------------------------------------
@@ -1033,7 +1098,8 @@ If PROX NSB does not work on baremetal, problem is either in network configurati
      cd
      /opt/nsb_bin/prox -f /tmp/handle_<test>-<ports>.cfg
 
-4. Now let's examine the Generator Output. In this case the output of gen_l2fwd-4.cfg.
+4. Now let's examine the Generator Output. In this case the output of
+   ``gen_l2fwd-4.cfg``.
 
      .. image:: images/PROX_Gen_GUI.png
         :width: 1000px
@@ -1048,10 +1114,12 @@ If PROX NSB does not work on baremetal, problem is either in network configurati
    It appears what is transmitted is received.
 
    .. Caution::
-      The number of packets MAY not exactly match because the ports are read in sequence.
+      The number of packets MAY not exactly match because the ports are read in
+      sequence.
 
    .. Caution::
-      What is transmitted on PORT X may not always be received on same port. Please check the Test scenario.
+      What is transmitted on PORT X may not always be received on same port.
+      Please check the Test scenario.
 
 5. Now lets examine the SUT Output
 
@@ -1083,17 +1151,18 @@ If PROX NSB does not work on baremetal, problem is either in network configurati
 *NSB Prox works on Baremetal but not in Openstack. How do I resolve this?*
 --------------------------------------------------------------------------
 
-NSB Prox on Baremetal is a lot more forgiving than NSB Prox on Openstack. A badly
-formed packed may still work with PROX on Baremetal. However on
+NSB Prox on Baremetal is a lot more forgiving than NSB Prox on Openstack. A
+badly formed packed may still work with PROX on Baremetal. However on
 Openstack the packet must be correct and all fields of the header correct.
-Eg A packet with an invalid Protocol ID would still work in Baremetal
-but this packet would be rejected by openstack.
+E.g. A packet with an invalid Protocol ID would still work in Baremetal but
+this packet would be rejected by openstack.
 
 *Solution*
 
  1. Check the validity of the packet.
  2. Use a known good packet in your test
- 3. If using ``Random`` fields in the traffic generator, disable them and retry.
+ 3. If using ``Random`` fields in the traffic generator, disable them and
+    retry.
 
 
 *How do I debug NSB Prox on Openstack?*
@@ -1111,7 +1180,8 @@ but this packet would be rejected by openstack.
 
 3. Install openstack credentials.
 
-   Depending on your openstack deployment, the location of these credentials may vary.
+   Depending on your openstack deployment, the location of these credentials
+   may vary.
    On this platform I do this via::
 
      scp root@10.237.222.55:/etc/kolla/admin-openrc.sh .
@@ -1127,8 +1197,8 @@ but this packet would be rejected by openstack.
 
    b. Get the Floating IP of the Traffic Generator & SUT
 
-      This generates a lot of information. Please not the floating IP of the VNF and
-      the Traffic Generator.
+      This generates a lot of information. Please note the floating IP of the
+      VNF and the Traffic Generator.
 
          .. image:: images/PROX_Openstack_stack_show_a.png
             :width: 1000px
@@ -1215,7 +1285,8 @@ If it fails due to ::
 
    Missing value auth-url required for auth plugin password
 
-Check your shell environment for Openstack variables. One of them should contain the authentication URL ::
+Check your shell environment for Openstack variables. One of them should
+contain the authentication URL ::
 
 
    OS_AUTH_URL=``https://192.168.72.41:5000/v3``
@@ -1239,16 +1310,16 @@ Result ::
 
 and visible.
 
-If the Openstack Cli appears to hang, then verify the proxys and no_proxy are set correctly.
-They should be similar to ::
+If the Openstack ClI appears to hang, then verify the proxys and ``no_proxy``
+are set correctly. They should be similar to ::
 
-   FTP_PROXY="http://proxy.ir.intel.com:911/"
-   HTTPS_PROXY="http://proxy.ir.intel.com:911/"
-   HTTP_PROXY="http://proxy.ir.intel.com:911/"
+   FTP_PROXY="http://<your_proxy>:<port>/"
+   HTTPS_PROXY="http://<your_proxy>:<port>/"
+   HTTP_PROXY="http://<your_proxy>:<port>/"
    NO_PROXY="localhost,127.0.0.1,10.237.222.55,10.237.223.80,10.237.222.134,.ir.intel.com"
-   ftp_proxy="http://proxy.ir.intel.com:911/"
-   http_proxy="http://proxy.ir.intel.com:911/"
-   https_proxy="http://proxy.ir.intel.com:911/"
+   ftp_proxy="http://<your_proxy>:<port>/"
+   http_proxy="http://<your_proxy>:<port>/"
+   https_proxy="http://<your_proxy>:<port>/"
    no_proxy="localhost,127.0.0.1,10.237.222.55,10.237.223.80,10.237.222.134,.ir.intel.com"
 
 Where
@@ -1256,8 +1327,6 @@ Where
     1) 10.237.222.55 = IP Address of deployment node
     2) 10.237.223.80 = IP Address of Controller node
     3) 10.237.222.134 = IP Address of Compute Node
-    4) ir.intel.com = local no proxy
-
 
 *How to Understand the Grafana output?*
 ---------------------------------------
@@ -1280,48 +1349,48 @@ Where
 
 A. Test Parameters - Test interval, Duartion, Tolerated Loss and Test Precision
 
-B. Overall No of packets send and received during test
+B. No. of packets send and received during test
 
 C. Generator Stats - packets sent, received and attempted by Generator
 
-D. Packets Size
+D. Packet size
 
-E. No of packets received by SUT
+E. No. of packets received by SUT
 
-F. No of packets forwarded by SUT
+F. No. of packets forwarded by SUT
 
-G. This is the number of packets sent by the generator per port, for each interval.
+G. No. of packets sent by the generator per port, for each interval.
 
-H. This is the number of packets received by the generator per port, for each interval.
+H. No. of packets received by the generator per port, for each interval.
 
-I. This is the number of packets send and received by the generator and lost by the SUT
-   that meet the success criteria
+I. No. of packets sent and received by the generator and lost by the SUT that
+   meet the success criteria
 
-J. This is the changes the Percentage of Line Rate used over a test, The MAX and the
-   MIN should converge to within the interval specified as the ``test-precision``.
+J. The change in the Percentage of Line Rate used over a test, The MAX and the
+   MIN should converge to within the interval specified as the
+   ``test-precision``.
 
-K. This is the packets Size supported during test. If "N/A" appears in any field the result has not been decided.
+K. Packet size supported during test. If *N/A* appears in any field the
+   result has not been decided.
 
-L. This is the calculated throughput in MPPS(Million Packets Per second) for this line rate.
+L. Calculated throughput in MPPS (Million Packets Per second) for this line
+   rate.
 
-M. This is the actual No, of packets sent by the generator in MPPS
+M. No. of packets sent by the generator in MPPS
 
-N. This is the actual No. of packets received by the generator in MPPS
+N. No. of packets received by the generator in MPPS
 
-O. This is the total No. of packets sent by SUT.
+O. No. of packets sent by SUT.
 
-P. This is the total No. of packets received by the SUT
+P. No. of packets received by the SUT
 
-Q. This is the total No. of packets dropped. (These packets were sent by the generator but not
-   received back by the generator, these may be dropped by the SUT or the Generator)
+Q. Total no. of dropped packets -- Packets sent but not received back by the
+   generator, these may be dropped by the SUT or the generator.
 
-R. This is the tolerated no of packets that can be dropped.
+R. The tolerated no. of dropped packets.
 
-S. This is the test Throughput in Gbps
+S. Test throughput in Gbps
 
-T. This is the Latencey per Port
+T. Latencey per Port
 
-U. This is the CPU Utilization
-
-
-
+U. CPU Utilization
