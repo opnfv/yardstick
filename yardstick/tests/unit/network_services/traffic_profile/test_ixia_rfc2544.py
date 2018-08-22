@@ -575,9 +575,15 @@ class TestIXIARFC2544Profile(unittest.TestCase):
 
     def test_get_drop_percentage_completed(self):
         samples = {'iface_name_1':
-                       {'in_packets': 1000, 'out_packets': 1000},
+                       {'in_packets': 1000, 'out_packets': 1000,
+                        'Store-Forward_Avg_latency_ns': 20,
+                        'Store-Forward_Min_latency_ns': 15,
+                        'Store-Forward_Max_latency_ns': 25},
                    'iface_name_2':
-                       {'in_packets': 1005, 'out_packets': 1007}
+                       {'in_packets': 1005, 'out_packets': 1007,
+                        'Store-Forward_Avg_latency_ns': 23,
+                        'Store-Forward_Min_latency_ns': 13,
+                        'Store-Forward_Max_latency_ns': 28}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         completed, samples = rfc2544_profile.get_drop_percentage(samples, 0, 1)
@@ -585,12 +591,21 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         self.assertEqual(66.9, samples['TxThroughput'])
         self.assertEqual(66.833, samples['RxThroughput'])
         self.assertEqual(0.099651, samples['DropPercentage'])
+        self.assertEqual(21.5, samples['latency_ns_avg'])
+        self.assertEqual(14.0, samples['latency_ns_min'])
+        self.assertEqual(26.5, samples['latency_ns_max'])
 
     def test_get_drop_percentage_over_drop_percentage(self):
         samples = {'iface_name_1':
-                       {'in_packets': 1000, 'out_packets': 1000},
+                       {'in_packets': 1000, 'out_packets': 1000,
+                        'Store-Forward_Avg_latency_ns': 20,
+                        'Store-Forward_Min_latency_ns': 15,
+                        'Store-Forward_Max_latency_ns': 25},
                    'iface_name_2':
-                       {'in_packets': 1005, 'out_packets': 1007}
+                       {'in_packets': 1005, 'out_packets': 1007,
+                        'Store-Forward_Avg_latency_ns': 20,
+                        'Store-Forward_Min_latency_ns': 15,
+                        'Store-Forward_Max_latency_ns': 25}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.rate = 1000
@@ -604,9 +619,15 @@ class TestIXIARFC2544Profile(unittest.TestCase):
 
     def test_get_drop_percentage_under_drop_percentage(self):
         samples = {'iface_name_1':
-                       {'in_packets': 1000, 'out_packets': 1000},
+                       {'in_packets': 1000, 'out_packets': 1000,
+                        'Store-Forward_Avg_latency_ns': 20,
+                        'Store-Forward_Min_latency_ns': 15,
+                        'Store-Forward_Max_latency_ns': 25},
                    'iface_name_2':
-                       {'in_packets': 1005, 'out_packets': 1007}
+                       {'in_packets': 1005, 'out_packets': 1007,
+                        'Store-Forward_Avg_latency_ns': 20,
+                        'Store-Forward_Min_latency_ns': 15,
+                        'Store-Forward_Max_latency_ns': 25}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.rate = 1000
@@ -621,9 +642,15 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     @mock.patch.object(ixia_rfc2544.LOG, 'info')
     def test_get_drop_percentage_not_flow(self, *args):
         samples = {'iface_name_1':
-                       {'in_packets': 1000, 'out_packets': 0},
+                       {'in_packets': 1000, 'out_packets': 0,
+                        'Store-Forward_Avg_latency_ns': 20,
+                        'Store-Forward_Min_latency_ns': 15,
+                        'Store-Forward_Max_latency_ns': 25},
                    'iface_name_2':
-                       {'in_packets': 1005, 'out_packets': 0}
+                       {'in_packets': 1005, 'out_packets': 0,
+                        'Store-Forward_Avg_latency_ns': 20,
+                        'Store-Forward_Min_latency_ns': 15,
+                        'Store-Forward_Max_latency_ns': 25}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.rate = 1000
@@ -637,9 +664,15 @@ class TestIXIARFC2544Profile(unittest.TestCase):
 
     def test_get_drop_percentage_first_run(self):
         samples = {'iface_name_1':
-                       {'in_packets': 1000, 'out_packets': 1000},
+                       {'in_packets': 1000, 'out_packets': 1000,
+                        'Store-Forward_Avg_latency_ns': 20,
+                        'Store-Forward_Min_latency_ns': 15,
+                        'Store-Forward_Max_latency_ns': 25},
                    'iface_name_2':
-                       {'in_packets': 1005, 'out_packets': 1007}
+                       {'in_packets': 1005, 'out_packets': 1007,
+                        'Store-Forward_Avg_latency_ns': 20,
+                        'Store-Forward_Min_latency_ns': 15,
+                        'Store-Forward_Max_latency_ns': 25}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         completed, samples = rfc2544_profile.get_drop_percentage(
