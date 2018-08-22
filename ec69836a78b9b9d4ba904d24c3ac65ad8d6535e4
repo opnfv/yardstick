@@ -149,6 +149,30 @@
       "revId": "ec69836a78b9b9d4ba904d24c3ac65ad8d6535e4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c663e318",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_prox.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-08-22T13:17:57Z",
+      "side": 1,
+      "message": "As an alternative to a deep copy, couldn\u0027t self.vnfd_helper be used here, as a replacement for vnfd, once super init has been called?\nUltimately, on both super init and ProxApproxVnf call paths, vnfd will end up being fed into a VnfdHelper object by GenericVNF.__init__()\nSo do we want the same dict/VnfdHelper object, or a distinct one?",
+      "parentUuid": "9a561d44_cb264cba",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 22
+      },
+      "revId": "ec69836a78b9b9d4ba904d24c3ac65ad8d6535e4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
