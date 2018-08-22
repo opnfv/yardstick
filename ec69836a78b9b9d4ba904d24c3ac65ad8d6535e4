@@ -60,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_26f57f83",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_prox.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-08-22T18:24:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_d04a7982",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "ec69836a78b9b9d4ba904d24c3ac65ad8d6535e4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_0b21649f",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_prox.py",
         "patchSetId": 1
@@ -71,6 +95,30 @@
       "writtenOn": "2018-08-21T14:54:44Z",
       "side": 1,
       "message": "Because of comment in L36, this is not needed",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 71
+      },
+      "revId": "ec69836a78b9b9d4ba904d24c3ac65ad8d6535e4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_86f28b98",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_prox.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-08-22T18:24:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_0b21649f",
       "range": {
         "startLine": 22,
         "startChar": 0,
@@ -106,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_66ef77b1",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_prox.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-08-22T18:24:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_6b1aa06f",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 70
+      },
+      "revId": "ec69836a78b9b9d4ba904d24c3ac65ad8d6535e4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ab2b1881",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_prox.py",
         "patchSetId": 1
@@ -117,6 +189,30 @@
       "writtenOn": "2018-08-21T14:54:44Z",
       "side": 1,
       "message": "Now this comment is irrelevant",
+      "range": {
+        "startLine": 37,
+        "startChar": 7,
+        "endLine": 37,
+        "endChar": 68
+      },
+      "revId": "ec69836a78b9b9d4ba904d24c3ac65ad8d6535e4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c62be3e9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_prox.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-08-22T18:24:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_ab2b1881",
       "range": {
         "startLine": 37,
         "startChar": 7,
@@ -163,6 +259,30 @@
       "writtenOn": "2018-08-22T13:17:57Z",
       "side": 1,
       "message": "As an alternative to a deep copy, couldn\u0027t self.vnfd_helper be used here, as a replacement for vnfd, once super init has been called?\nUltimately, on both super init and ProxApproxVnf call paths, vnfd will end up being fed into a VnfdHelper object by GenericVNF.__init__()\nSo do we want the same dict/VnfdHelper object, or a distinct one?",
+      "parentUuid": "9a561d44_cb264cba",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 22
+      },
+      "revId": "ec69836a78b9b9d4ba904d24c3ac65ad8d6535e4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a6306f57",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_prox.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-08-22T18:24:58Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "9a561d44_cb264cba",
       "range": {
         "startLine": 39,
