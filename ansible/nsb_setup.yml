@@ -37,7 +37,7 @@
         name: yardstick
         pull: yes
         recreate: yes
-        image: opnfv/yardstick:opnfv-6.2.0
+        image: opnfv/yardstick:opnfv-6.2.1
         state: started
         restart_policy: always
         privileged: yes
