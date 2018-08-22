@@ -13,6 +13,21 @@ Glossary
    API
      Application Programming Interface
 
+   Barometer
+     OPNFV NFVi Service Assurance project. Barometer upstreams changes to
+     collectd, OpenStack, etc to improve features related to NFVi monitoring
+     and service assurance.
+     More info on: https://opnfv-barometer.readthedocs.io/en/latest/
+
+   collectd
+      collectd is a system statistics collection daemon.
+      More info on: https://collectd.org/
+
+   context
+      A context describes the environment in which a yardstick testcase will
+      be run. It can refer to a pre-provisioned environment, or an environment
+      that will be set up using OpenStack or Kubernetes.
+
    Docker
      Docker provisions and manages containers. Yardstick and many other OPNFV
      projects are deployed in containers. Docker is required to launch the
@@ -27,8 +42,24 @@ Glossary
    DSCP
      Differentiated Services Code Point
 
+   flavor
+      A specification of virtual resources used by OpenStack in the creation
+      of a VM instance.
+
+   Grafana
+      A visualization tool, used in Yardstick to retrieve test data from
+      InfluxDB and display it. Grafana works by defining dashboards, which are
+      combinations of visualization panes (e.g. line charts and gauges) and
+      forms that assist the user in formulating SQL-like queries for InfluxDB.
+      .. TODO: link to grafana homepage
+
    IGMP
      Internet Group Management Protocol
+
+   InfluxDB
+      One of the Dispatchers supported by Yardstick, it allows test results to
+      be reported to a time-series database.
+      More info on: https://www.influxdata.com/
 
    IOPS
      Input/Output Operations Per Second
@@ -43,6 +74,9 @@ Glossary
      deployment, scaling and management of containerized applications.
      It is one of the contexts supported in Yardstick.
 
+   MPLS
+      Multiprotocol Label Switching
+
    NFV
      Network Function Virtualization
      NFV is an initiative to take network services which were traditionally run
@@ -55,6 +89,10 @@ Glossary
 
    NIC
      Network Interface Controller
+
+   NSB
+      Network Services Benchmarking. A subset of Yardstick features concerned
+      with NFVI and VNF characterisation.
 
    OpenStack
       OpenStack is a cloud operating system that controls pools of compute,
@@ -77,6 +115,18 @@ Glossary
      performance in Input/Output Operations Per Second (IOPS), throttling
      agreements, and performance expectations at peak load
 
+   runner
+     The part of a Yardstick testcase that determine how the test will be run
+     (e.g. for x iterations, y seconds or until state z is reached). The runner
+     also determines when the metrics are collected/reported.
+
+   SampleVNF
+     OPNFV project providing a repository of reference VNFs.
+     More info on: https://opnfv-samplevnf.readthedocs.io/en/latest/
+
+   scenario
+     The part of a Yardstick testcase that describes each test step.
+
    SLA
      Service Level Agreement
      An SLA is an agreement between a service provider and a customer to
@@ -92,6 +142,10 @@ Glossary
    SUT
      System Under Test
 
+   test case
+      A task in Yardstick; the yaml file that is read by Yardstick to
+      determine how to run a test.
+
    ToS
      Type of Service
 
@@ -103,6 +157,9 @@ Glossary
      An operating system instance that runs on top of a hypervisor.
      Multiple VMs can run at the same time on the same physical
      host.
+
+   VLAN
+     Virtual LAN
 
    VNF
      Virtual Network Function
