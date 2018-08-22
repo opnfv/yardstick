@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_c6bc836f",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-08-22T12:40:34Z",
+      "side": 1,
+      "message": "cdrom_img \u003d \"/var/lib/libvirt/images/cdrom-%d.img\" % index",
+      "revId": "31b1bb1d7f3267031169fb3630f70c82e9b68461",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
