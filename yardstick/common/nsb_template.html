@@ -12,26 +12,27 @@
        <script src="{{template_dir}}/report.js"></script>
    </head>
    <body>
-       <div class="container" style="width:100%">
-           <div class="row"><!-- header can be id here-->
+       <div id="divRow" div class="row">
                <header class="jumbotron text-center">
                    <h1>Yardstick User Interface</h1>
                    <h4>Report of {{task_id}} Generated</h4>
                </header>
-            </div> <!-- end row -->
-            <div class="row" style="height:500px">
+        </div> <!-- end row -->
+        <div id="reportcontainer0" class="container" style="width:100%">
+           <h3 id="header0">Report Set: 1</h3>
+           <div id = "gdselect0" class="row" style="height:500px"><!--graph and data selector div-->
                 <div class="col-md-2 control-pane">
-                    <div id="data_selector">
+                    <div id="data_selector0">
                     </div> <!-- end data-selector -->
                 </div> <!-- end control-pane -->
                 <div class="col-md-10 data-pane" >
-                    <div id="graph"></div>
+                    <div id="graph0"></div>
                 </div> <!-- end data-pane-->
             </div><!-- end row -->
-            <div class="row" id="table-pane">
+            <div class="row">
                 <div class="col-md-2"></div>
-                <div class="table-responsive col-md-10" >
-                    <table class="table table-hover"></table>
+                <div id="table-pane0" class="table-responsive col-md-10" >
+                    <table class="table-pane0 table-hover"></table>
                 </div>
             </div> <!-- end row, table-pane -->
        </div> <!-- end container -->
@@ -42,41 +43,58 @@
             timestamps = {{Timestamps|safe}}
             jstree_data = {{jstree_nodes|safe}}
 
-            create_table(arr, timestamps);
-            create_jstree(jstree_data);
-            var dummy_data = [{ 'key': new Array(timestamps.length).fill('')}];
-            render_highcharts([''], timestamps)
+            divIndex = 0;
+            create_table(arr, timestamps, divIndex);
+            function combine(arr, timestamps, jstree_data, divIndex){
+                create_jstree(jstree_data, divIndex);
+                var dummy_data = [{ 'key': new Array(timestamps.length).fill('')}];
+                render_highcharts([''], timestamps, divIndex)
 
-            $('#data_selector').on('check_node.jstree uncheck_node.jstree', function (e, data){
+                $('#data_selector'+divIndex).on('check_node.jstree uncheck_node.jstree', function (e, data){
 
-                selected_leaves = []
-                new_arr = {}
-                var i;
-                deleteRows(arr, timestamps);
-                console.log("len(data.selected): " + data.selected.length)
+                    selected_leaves = []
+                    new_arr = {}
+                    var i;
+                    deleteRows(arr, timestamps, divIndex);
+                    console.log("len(data.selected): " + data.selected.length)
 
-
-                for (i=0; i < data.selected.length; i++){
-                    node = data.instance.get_node(data.selected[i])
-                    if (node.children.length == 0){
-                        point = { "name": node.id, "data": arr[node.id], "visible": true }
-                        <!-- Create new array for table to show only subset of metrics -->
-                        new_arr[node.id] = arr[node.id]
-                        selected_leaves.push(point)
-                        console.log("current_data: " + point.name + " data: [" + point.data + "]")
+                    for (i=0; i < data.selected.length; i++){
+                        node = data.instance.get_node(data.selected[i])
+                        if (node.children.length == 0){
+                            point = { "name": node.id, "data": arr[node.id], "visible": true }
+                            <!-- Create new array for table to show only subset of metrics -->
+                            new_arr[node.id] = arr[node.id]
+                            selected_leaves.push(point)
+                            console.log("current_data: " + point.name + " data: [" + point.data + "]")
+                        }
                     }
-                }
 
-                create_table(new_arr, timestamps);
-                console.log("current graph data: " + selected_leaves.length )
+                    create_table(new_arr, timestamps, divIndex);
+                    console.log("current graph data: " + selected_leaves.length )
 
-                render_highcharts(selected_leaves, timestamps)
-                // refresh highchart
-                var chart = $('#graph').highcharts();
-                chart.update({
-                    series: selected_leaves,
+                    render_highcharts(selected_leaves, timestamps, divIndex)
+                    // refresh highchart
+                    var chart = $('#graph'+divIndex).highcharts();
+                    chart.update({
+                        series: selected_leaves,
+                    });
                 });
-            });
+            }
+            combine(arr, timestamps, jstree_data, divIndex)
+            var count = 1, startingIndex = 0;
+            function clone(){
+                var clone = $("div.container:last").clone().attr('id', 'reportcontainer'+ count).insertAfter("div.container:last");
+                clone.find("#gdselect"+startingIndex).attr("id", "gdselect"+ count);
+                clone.find("#data_selector"+startingIndex).attr("id", "data_selector"+ count);
+                clone.find("#graph"+startingIndex).attr("id", "graph"+ count);
+                clone.find("#table-pane"+startingIndex).attr("id", "table-pane"+ count);
+                clone.find("#header"+startingIndex).attr("id", "header"+ count);
+                <!-- for heading -->
+                document.getElementById("header"+count).innerHTML = "Report Set: "+(count+1);
+                combine(arr, timestamps, jstree_data, count);
+                startingIndex = count;
+                count++;
+            }
         </script>
     </body>
 </html>

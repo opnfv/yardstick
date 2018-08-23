@@ -1,5 +1,5 @@
-function create_jstree(jstree_data){
-    $('#data_selector').jstree({
+function create_jstree(jstree_data, divIndex){
+    $('#data_selector'+divIndex).jstree({
        plugins: ['checkbox'],
        checkbox: {
            three_state: false,
@@ -16,10 +16,10 @@ function create_jstree(jstree_data){
    });
 }  // end create_jstree
 
-function create_table(table_data, timestamps){
+function create_table(table_data, timestamps, divIndex){
     var tab, th, tr, td, tn, row, col, thead, tbody;
     // create table
-    tab = document.getElementsByTagName('table')[0];
+    tab = document.getElementById('table-pane'+ divIndex);
     thead=document.createElement('thead');
     tr = document.createElement('tr');
     tbody=document.createElement('tbody');
@@ -63,18 +63,17 @@ function create_table(table_data, timestamps){
 } // end create_table
 
 //delete rows of the table
-function deleteRows(table_data, timestamps){
-    var table = document.getElementsByTagName('table')[0];
-    var rowCount = table.rows.length;
+function deleteRows(table_data, timestamps, divIndex){
+    var tab = document.getElementById('table-pane'+ divIndex);
+    var rowCount = $('#table-pane'+ divIndex).find('tr').length;
     console.log("row" + rowCount);
-    for (var i=(rowCount-1); i>=0; i--){
-        var row = table.deleteRow(i);
-    }
+    $('#table-pane'+ divIndex).empty();
 }
+
 //TODO: Define create_table_old(table_data, timestamps)
 
-function render_highcharts(plot_data, timestamps){
-    $('#graph').highcharts({
+function render_highcharts(plot_data, timestamps, divIndex){
+    $('#graph'+divIndex).highcharts({
        title: {
          text: 'Yardstick Graphs',
          x: -20 //center
