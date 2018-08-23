@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_4526a8b8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_prox.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-08-23T10:37:58Z",
+      "side": 1,
+      "message": "This will call the parent class __init__() method, i.e. SampleVNFTrafficGen.__init__(), which also takes the setup_env_helper_type and resource_helper_type optional arguments. See https://gerrit.opnfv.org/gerrit/gitweb?p\u003dyardstick.git;a\u003dblob;f\u003dyardstick/network_services/vnf_generic/vnf/sample_vnf.py;h\u003da09f2a7a9005a79d6c53376fdf94d78102e770f1;hb\u003dHEAD#l866\nShouldn\u0027t these arguments be transmitted there too?",
+      "revId": "61881a0b18dfe041db724eb666b6fd6f674758f8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
