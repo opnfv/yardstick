@@ -394,13 +394,14 @@ class OvsDpdkContext(base.Context):
         for index, (key, vnf) in enumerate(collections.OrderedDict(
                 self.servers).items()):
             cfg = '/tmp/vm_ovs_%d.xml' % index
-            vm_name = "vm_%d" % index
+            vm_name = "vm-%d" % index
+            cdrom_img = "/var/lib/libvirt/images/cdrom-%d.img" % index
 
             # 1. Check and delete VM if already exists
             model.Libvirt.check_if_vm_exists_and_delete(vm_name,
                                                         self.connection)
             xml_str, mac = model.Libvirt.build_vm_xml(
-                self.connection, self.vm_flavor, vm_name, index)
+                self.connection, self.vm_flavor, vm_name, index, cdrom_img)
 
             # 2: Cleanup already available VMs
             for vfs in [vfs for vfs_name, vfs in vnf["network_ports"].items()
@@ -411,16 +412,24 @@ class OvsDpdkContext(base.Context):
             model.Libvirt.write_file(cfg, xml_str)
             self.connection.put(cfg, cfg)
 
+            node = self.vnf_node.generate_vnf_instance(self.vm_flavor,
+                                                       self.networks,
+                                                       self.host_mgmt.get('ip'),
+                                                       key, vnf, mac)
+            # Generate public/private keys if password or private key file is not provided
+            node = model.StandaloneContextHelper.check_update_key(self.connection,
+                                                                  node,
+                                                                  vm_name,
+                                                                  self.name,
+                                                                  cdrom_img)
+
+            # store vnf node details
+            nodes.append(node)
+
             # NOTE: launch through libvirt
             LOG.info("virsh create ...")
             model.Libvirt.virsh_create_vm(self.connection, cfg)
 
             self.vm_names.append(vm_name)
-
-            # build vnf node details
-            nodes.append(self.vnf_node.generate_vnf_instance(self.vm_flavor,
-                                                             self.networks,
-                                                             self.host_mgmt.get('ip'),
-                                                             key, vnf, mac))
 
         return nodes

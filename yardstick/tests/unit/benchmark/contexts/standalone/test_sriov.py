@@ -113,8 +113,8 @@ class SriovContextTestCase(unittest.TestCase):
 
         self.sriov.vm_deploy = True
         self.sriov.connection = mock_ssh
-        self.sriov.vm_names = ['vm_0', 'vm_1']
-        self.sriov.drivers = ['vm_0', 'vm_1']
+        self.sriov.vm_names = ['vm-0', 'vm-1']
+        self.sriov.drivers = ['vm-0', 'vm-1']
         self.assertIsNone(self.sriov.undeploy())
 
     def _get_file_abspath(self, filename):
@@ -254,7 +254,7 @@ class SriovContextTestCase(unittest.TestCase):
             ssh.return_value = ssh_mock
         self.sriov.vm_deploy = True
         self.sriov.connection = ssh_mock
-        self.sriov.vm_names = ['vm_0', 'vm_1']
+        self.sriov.vm_names = ['vm-0', 'vm-1']
         self.sriov.drivers = []
         self.sriov.networks = self.NETWORKS
         self.sriov.helper.get_mac_address = mock.Mock(return_value="")
@@ -267,7 +267,7 @@ class SriovContextTestCase(unittest.TestCase):
     def test__enable_interfaces(self, mock_add_sriov, mock_ssh):
         self.sriov.vm_deploy = True
         self.sriov.connection = mock_ssh
-        self.sriov.vm_names = ['vm_0', 'vm_1']
+        self.sriov.vm_names = ['vm-0', 'vm-1']
         self.sriov.drivers = []
         self.sriov.networks = self.NETWORKS
         self.assertEqual(
@@ -276,12 +276,13 @@ class SriovContextTestCase(unittest.TestCase):
         mock_add_sriov.assert_called_once_with(
             '0000:00:0a.0', 0, self.NETWORKS['private_0']['mac'], 'test')
 
+    @mock.patch.object(model.StandaloneContextHelper, 'check_update_key')
     @mock.patch.object(model.Libvirt, 'build_vm_xml')
     @mock.patch.object(model.Libvirt, 'check_if_vm_exists_and_delete')
     @mock.patch.object(model.Libvirt, 'write_file')
     @mock.patch.object(model.Libvirt, 'virsh_create_vm')
-    def test_setup_sriov_context(self, mock_create_vm, mock_write_file,
-                                 mock_check, mock_build_vm_xml):
+    def test_setup_sriov_context(self, mock_create_vm, mock_write_file, mock_check,
+                                 mock_build_vm_xml, mock_check_update_key):
         self.sriov.servers = {
             'vnf_0': {
                 'network_ports': {
@@ -297,24 +298,29 @@ class SriovContextTestCase(unittest.TestCase):
         self.sriov.vm_flavor = 'flavor'
         self.sriov.networks = 'networks'
         self.sriov.configure_nics_for_sriov = mock.Mock()
+        self.sriov._name_task_id = 'fake_name'
         cfg = '/tmp/vm_sriov_0.xml'
-        vm_name = 'vm_0'
+        vm_name = 'vm-0'
         xml_out = mock.Mock()
         mock_build_vm_xml.return_value = (xml_out, '00:00:00:00:00:01')
+        mock_check_update_key.return_value = 'node_2'
+        cdrom_img = '/var/lib/libvirt/images/cdrom-0.img'
 
         with mock.patch.object(self.sriov, 'vnf_node') as mock_vnf_node, \
                 mock.patch.object(self.sriov, '_enable_interfaces') as \
                 mock_enable_interfaces:
             mock_enable_interfaces.return_value = 'out_xml'
             mock_vnf_node.generate_vnf_instance = mock.Mock(
-                return_value='node')
+                return_value='node_1')
             nodes_out = self.sriov.setup_sriov_context()
-        self.assertEqual(['node'], nodes_out)
+        mock_check_update_key.assert_called_once_with(connection, 'node_1', vm_name,
+                                                      self.sriov._name_task_id, cdrom_img)
+        self.assertEqual(['node_2'], nodes_out)
         mock_vnf_node.generate_vnf_instance.assert_called_once_with(
             'flavor', 'networks', '1.2.3.4', 'vnf_0',
             self.sriov.servers['vnf_0'], '00:00:00:00:00:01')
         mock_build_vm_xml.assert_called_once_with(
-            connection, 'flavor', vm_name, 0)
+            connection, 'flavor', vm_name, 0, cdrom_img)
         mock_create_vm.assert_called_once_with(connection, cfg)
         mock_check.assert_called_once_with(vm_name, connection)
         mock_write_file.assert_called_once_with(cfg, 'out_xml')
@@ -332,7 +338,7 @@ class SriovContextTestCase(unittest.TestCase):
             ssh.return_value = ssh_mock
         self.sriov.vm_deploy = True
         self.sriov.connection = ssh_mock
-        self.sriov.vm_names = ['vm_0', 'vm_1']
+        self.sriov.vm_names = ['vm-0', 'vm-1']
         self.sriov.drivers = []
         self.sriov.servers = {
             'vnf_0': {
