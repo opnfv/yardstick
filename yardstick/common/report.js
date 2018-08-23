@@ -1,5 +1,5 @@
-function create_jstree(jstree_data){
-    $('#data_selector').jstree({
+function create_jstree(jstree_data, divIndex){
+    $('#data_selector'+divIndex).jstree({
        plugins: ['checkbox'],
        checkbox: {
            three_state: false,
@@ -73,8 +73,8 @@ function deleteRows(table_data, timestamps){
 }
 //TODO: Define create_table_old(table_data, timestamps)
 
-function render_highcharts(plot_data, timestamps){
-    $('#graph').highcharts({
+function render_highcharts(plot_data, timestamps, divIndex){
+    $('#graph'+divIndex).highcharts({
        title: {
          text: 'Yardstick Graphs',
          x: -20 //center
