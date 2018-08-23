@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_414b3d2b",
+        "filename": "dashboard/Prox_BM_L2FWD-4Port_MultiSize-1518452496550.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-08-23T09:27:35Z",
+      "side": 1,
+      "message": "Note for myself: Dashboards possibly broken since https://gerrit.opnfv.org/gerrit/#/c/58035/18/yardstick/network_services/vnf_generic/vnf/sample_vnf.py@952",
+      "parentUuid": "9a561d44_e181b14b",
+      "range": {
+        "startLine": 153,
+        "startChar": 44,
+        "endLine": 153,
+        "endChar": 58
+      },
+      "revId": "0c9639533d24fb805b9e7e0137ea7a23a4ad6428",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_41969d95",
         "filename": "dashboard/Prox_BM_L2FWD-4Port_MultiSize-1518452496550.json",
         "patchSetId": 6
