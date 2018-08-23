@@ -19,6 +19,7 @@ from trex_stl_lib import trex_stl_client
 from trex_stl_lib import trex_stl_packet_builder_scapy
 from trex_stl_lib import trex_stl_streams
 
+from yardstick.common import constants
 from yardstick.network_services.traffic_profile import trex_traffic_profile
 
 
@@ -140,7 +141,8 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
             streams.extend(_streams)
         return trex_stl_streams.STLProfile(streams)
 
-    def _create_imix_data(self, imix):
+    def _create_imix_data(self, imix,
+                          weight_mode=constants.DISTRIBUTION_IN_PACKETS):
         """Generate the IMIX distribution for a STL profile
 
         The input information is the framesize dictionary in a test case
@@ -159,6 +161,20 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
         E.g.:
           imix_count = {64: 25, 128: 75}
 
+        The weight mode is described in [1]. There are two ways to describe the
+        weight of the packets:
+          - Distribution in packets: the weight defines the percentage of
+            packets sent per packet size. IXIA uses this definition.
+          - Distribution in bytes: the weight defines the percentage of bytes
+            sent per packet size.
+
+        Packet size  # packets  D. in packets  Bytes  D. in bytes
+        40           7          58.33%         280    7%
+        576          4          33.33%         2304   56%
+        1500         1          8.33%          1500   37%
+
+        [1] https://en.wikipedia.org/wiki/Internet_Mix
+
         :param imix: (dict) IMIX size and weight
         """
         imix_count = {}
@@ -173,8 +189,16 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
             imix_sum = 100
 
         weight_normalize = float(imix_sum) / 100
-        return {size: float(weight) / weight_normalize
-                for size, weight in imix_count.items()}
+        imix_dip = {size: float(weight) / weight_normalize
+                    for size, weight in imix_count.items()}
+
+        if weight_mode == constants.DISTRIBUTION_IN_BYTES:
+            return imix_dip
+
+        byte_total = sum([int(size) * weight
+                          for size, weight in imix_dip.items()])
+        return {size: (int(size) * weight) / byte_total
+                for size, weight in imix_dip.items()}
 
     def _create_vm(self, packet_definition):
         """Create the STL Raw instructions"""

@@ -20,6 +20,7 @@ from trex_stl_lib import trex_stl_client
 from trex_stl_lib import trex_stl_packet_builder_scapy
 from trex_stl_lib import trex_stl_streams
 
+from yardstick.common import constants
 from yardstick.network_services.traffic_profile import rfc2544
 from yardstick.tests.unit import base
 
@@ -140,16 +141,38 @@ class TestRFC2544Profile(base.BaseUnitTestCase):
                                                     port_pg_id, True)
         mock_stl_profile.assert_called_once_with(['stream1'])
 
-    def test__create_imix_data(self):
+    def test__create_imix_data_mode_DIB(self):
         rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
         data = {'64B': 50, '128B': 50}
-        self.assertEqual({'64': 50.0, '128': 50.0},
-                         rfc2544_profile._create_imix_data(data))
+        self.assertEqual(
+            {'64': 50.0, '128': 50.0},
+            rfc2544_profile._create_imix_data(
+                data, weight_mode=constants.DISTRIBUTION_IN_BYTES))
         data = {'64B': 1, '128b': 3}
-        self.assertEqual({'64': 25.0, '128': 75.0},
-                         rfc2544_profile._create_imix_data(data))
+        self.assertEqual(
+            {'64': 25.0, '128': 75.0},
+            rfc2544_profile._create_imix_data(
+                data, weight_mode=constants.DISTRIBUTION_IN_BYTES))
         data = {}
-        self.assertEqual({}, rfc2544_profile._create_imix_data(data))
+        self.assertEqual(
+            {},
+            rfc2544_profile._create_imix_data(
+                data, weight_mode=constants.DISTRIBUTION_IN_BYTES))
+
+    def test__create_imix_data_mode_DIP(self):
+        rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
+        data = {'64B': 25, '128B': 25, '512B': 25, '1518B': 25}
+        byte_total = 64 * 25 + 128 * 25 + 512 * 25 + 1518 * 25
+        self.assertEqual(
+            {'64': 64 * 25.0 / byte_total, '128': 128 * 25.0 / byte_total,
+             '512': 512 * 25.0 / byte_total, '1518': 1518 * 25.0 / byte_total},
+            rfc2544_profile._create_imix_data(
+                data, weight_mode=constants.DISTRIBUTION_IN_PACKETS))
+        data = {}
+        self.assertEqual(
+            {},
+            rfc2544_profile._create_imix_data(
+                data, weight_mode=constants.DISTRIBUTION_IN_PACKETS))
 
     def test__create_vm(self):
         packet = {'outer_l2': 'l2_definition'}
