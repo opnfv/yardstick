@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import
-
 import logging
+import copy
 
 from yardstick.network_services.utils import get_nsb_option
 from yardstick.network_services.vnf_generic.vnf.prox_vnf import ProxApproxVnf
@@ -32,7 +31,9 @@ class ProxTrafficGen(SampleVNFTrafficGen):
 
     def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
                  resource_helper_type=None):
-        # don't call superclass, use custom wrapper of ProxApproxVnf
+        vnfd_cpy = copy.deepcopy(vnfd)
+        super(ProxTrafficGen, self).__init__(name, vnfd_cpy, task_id)
+
         self._vnf_wrapper = ProxApproxVnf(
             name, vnfd, task_id, setup_env_helper_type, resource_helper_type)
         self.bin_path = get_nsb_option('bin_path', '')
