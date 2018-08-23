@@ -179,10 +179,6 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         except ZeroDivisionError:
             LOG.info('No traffic is flowing')
 
-        samples['TxThroughput'] = tx_throughput
-        samples['RxThroughput'] = rx_throughput
-        samples['DropPercentage'] = drop_percent
-
         if first_run:
             completed = True if drop_percent <= tolerance else False
         if (first_run and
@@ -195,5 +191,22 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
             self.min_rate = self.rate
         else:
             completed = True
+
+        latency_ns_avg = float(
+            sum([samples[iface]['Store-Forward_Avg_latency_ns']
+            for iface in samples])) / num_ifaces
+        latency_ns_min = float(
+            sum([samples[iface]['Store-Forward_Min_latency_ns']
+            for iface in samples])) / num_ifaces
+        latency_ns_max = float(
+            sum([samples[iface]['Store-Forward_Max_latency_ns']
+            for iface in samples])) / num_ifaces
+
+        samples['TxThroughput'] = tx_throughput
+        samples['RxThroughput'] = rx_throughput
+        samples['DropPercentage'] = drop_percent
+        samples['latency_ns_avg'] = latency_ns_avg
+        samples['latency_ns_min'] = latency_ns_min
+        samples['latency_ns_max'] = latency_ns_max
 
         return completed, samples
