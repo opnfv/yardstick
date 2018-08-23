@@ -34,6 +34,24 @@
       "revId": "61881a0b18dfe041db724eb666b6fd6f674758f8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_255f34e7",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_prox.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-08-23T12:54:12Z",
+      "side": 1,
+      "message": "\u003e This change is to create the _mq_producer.\n\nI surely understood that. ;-)\n\n \u003e The setup_env_helper_type and resource_helper_type are managed\n \u003e elsewhere in L37 and L43\n\nBut I indeed missed that lines 42-43 would (now) overwrite whatever self.setup_helper and self.resource_helper assigned by SampleVNFTrafficGen.__init__()",
+      "parentUuid": "9a561d44_85c1e082",
+      "revId": "61881a0b18dfe041db724eb666b6fd6f674758f8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
