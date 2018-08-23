@@ -418,6 +418,12 @@ class ValueCheckError(YardstickException):
     message = 'Constraint "%(value1)s %(operator)s %(value2)s" does not hold'
 
 
+class RestApiError(RuntimeError):
+    def __init__(self, message):
+        self._message = message
+        super(RestApiError, self).__init__(message)
+
+
 class LandslideTclException(RuntimeError):
     def __init__(self, message):
         self._message = message
