@@ -16,6 +16,47 @@
       "revId": "31b1bb1d7f3267031169fb3630f70c82e9b68461",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_21ad6932",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-08-23T09:26:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_c6bc836f",
+      "revId": "31b1bb1d7f3267031169fb3630f70c82e9b68461",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_81aa7517",
+        "filename": "yardstick/benchmark/contexts/standalone/sriov.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-08-23T09:26:37Z",
+      "side": 1,
+      "message": "Changed to:\ncdrom_img \u003d \"/var/lib/libvirt/images/cdrom-%d.img\" % index",
+      "range": {
+        "startLine": 212,
+        "startChar": 30,
+        "endLine": 212,
+        "endChar": 35
+      },
+      "revId": "31b1bb1d7f3267031169fb3630f70c82e9b68461",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
