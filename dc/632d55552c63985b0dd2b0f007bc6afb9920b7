@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Patrice Buriez <patrice.buriez@intel.com>
+Code-Review+1: Xavier Simonart <xavier.simonart@intel.com>
+Code-Review+2: Emma Foley <emma.l.foley@intel.com>
+Submitted-by: Abhijit Sinha <abhijit.sinha@intel.com>
+Submitted-at: Thu, 23 Aug 2018 14:42:06 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/61241
+Project: yardstick
+Branch: refs/heads/stable/fraser
