@@ -16,6 +16,24 @@
       "revId": "61881a0b18dfe041db724eb666b6fd6f674758f8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_85c1e082",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_prox.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-08-23T12:21:14Z",
+      "side": 1,
+      "message": "This change is to create the _mq_producer. \n\nThe setup_env_helper_type and resource_helper_type are managed elsewhere in L37 and L43",
+      "parentUuid": "9a561d44_4526a8b8",
+      "revId": "61881a0b18dfe041db724eb666b6fd6f674758f8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
