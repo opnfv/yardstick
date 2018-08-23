@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_e149b18c",
+        "filename": "dashboard/Prox_BM_L2FWD-4Port_MultiSize-1518452496550.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-08-23T09:28:55Z",
+      "side": 1,
+      "message": "this should be \"null\" or else results will be dragged even after the test is finished.",
+      "range": {
+        "startLine": 783,
+        "startChar": 21,
+        "endLine": 783,
+        "endChar": 29
+      },
+      "revId": "06f80e44e3dd48164bee99296d5b2888378a317b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8158b557",
+        "filename": "dashboard/Prox_BM_L2FWD-4Port_MultiSize-1518452496550.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-08-23T09:28:55Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 911,
+        "startChar": 21,
+        "endLine": 911,
+        "endChar": 29
+      },
+      "revId": "06f80e44e3dd48164bee99296d5b2888378a317b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
