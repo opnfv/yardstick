@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Rodolfo Alonso Hernandez <rodolfo.alonso.hernandez@intel.com>
+Submitted-by: Rodolfo Alonso Hernandez <rodolfo.alonso.hernandez@intel.com>
+Submitted-at: Mon, 27 Aug 2018 08:01:32 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/61297
+Project: yardstick
+Branch: refs/heads/master
