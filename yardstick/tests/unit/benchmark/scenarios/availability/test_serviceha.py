@@ -109,6 +109,23 @@ class ServicehaTestCase(unittest.TestCase):
         ret = {}
         p.run(ret)
         attacker = mock.Mock()
+        attacker.mandatory = False
         p.attackers = [attacker]
         p.teardown()
         attacker.recover.assert_not_called()
+
+    @mock.patch.object(serviceha, 'baseattacker')
+    @mock.patch.object(serviceha, 'basemonitor')
+    def test__serviceha_teardown_when_mandatory(self, mock_monitor,
+                                                *args):
+        p = serviceha.ServiceHA(self.args, self.ctx)
+        p.setup()
+        self.assertTrue(p.setup_done)
+        mock_monitor.MonitorMgr().verify_SLA.return_value = True
+        ret = {}
+        p.run(ret)
+        attacker = mock.Mock()
+        attacker.mandatory = True
+        p.attackers = [attacker]
+        p.teardown()
+        attacker.recover.assert_called_once()
