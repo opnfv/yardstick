@@ -1,0 +1,11 @@
+Code-Review+1: Dan Xu <xudan16@huawei.com>
+Code-Review+1: Georg Kunz <georg.kunz@ericsson.com>
+Code-Review+1: Yang (Gabriel) Yu <Gabriel.yuyang@huawei.com>
+Code-Review+1: Abhijit Sinha <abhijit.sinha@intel.com>
+Code-Review+2: Kubi <jean.gaoliang@huawei.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Submitted-by: Jing Lu <lvjing5@huawei.com>
+Submitted-at: Mon, 27 Aug 2018 02:46:40 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/60919
+Project: yardstick
+Branch: refs/heads/master
