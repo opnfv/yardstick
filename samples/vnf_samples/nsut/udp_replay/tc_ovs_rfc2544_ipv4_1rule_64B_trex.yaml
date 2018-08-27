@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2017 Intel Corporation
+# Copyright (c) 2016-2018 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ scenarios:
   traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
   topology: udp_replay-vnf-topology.yaml
   nodes:
-    tg__0: tg__0.yardstick
+    tg__0: trafficgen_1.yardstick
     vnf__0: vnf__0.yardstick
   options:
     framesize:
@@ -41,7 +41,7 @@ scenarios:
 contexts:
    - name: yardstick
      type: Node
-     file: /etc/yardstick/nodes/standalone/pod_trex.yaml
+     file: /etc/yardstick/nodes/standalone/trex_bm.yaml
    - type: StandaloneOvsDpdk
      name: yardstick
      file: /etc/yardstick/nodes/standalone/pod_ovs.yaml
@@ -58,8 +58,8 @@ contexts:
        vpath: "/usr/local"
 
      flavor:
-       images: "/var/lib/libvirt/images/ubuntu.qcow2"
-       ram: 4096
+       images: "/var/lib/libvirt/images/yardstick-nsb-image.img"
+       ram: 16384
        extra_specs:
          hw:cpu_sockets: 1
          hw:cpu_cores: 7
