@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_741d580f",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-08-27T16:06:42Z",
+      "side": 1,
+      "message": "Why, it may refer to host \u0027dependency\u0027 or \u0027dependency\u0027 packages.",
+      "parentUuid": "9a561d44_f40a08d1",
+      "range": {
+        "startLine": 30,
+        "startChar": 20,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "d1ed420059f11c10680d2369a9ec44d026a9926e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_d46c249f",
         "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-27T15:59:14Z",
       "side": 1,
       "message": "\u003e\u003d 18",
+      "range": {
+        "startLine": 22,
+        "startChar": 45,
+        "endLine": 22,
+        "endChar": 46
+      },
+      "revId": "d1ed420059f11c10680d2369a9ec44d026a9926e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_74f6f8d8",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-08-27T16:06:42Z",
+      "side": 1,
+      "message": "This is supposed to be done for Ubuntu 17 and 18 where netplan network configuration was introduced.",
+      "parentUuid": "9a561d44_d46c249f",
       "range": {
         "startLine": 22,
         "startChar": 45,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_b40090ab",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-08-27T16:06:42Z",
+      "side": 1,
+      "message": "Due to changes in Ubuntu 17/18.\nhttps://help.ubuntu.com/lts/serverguide/network-configuration.html.en",
+      "parentUuid": "9a561d44_b469b08d",
+      "range": {
+        "startLine": 34,
+        "startChar": 42,
+        "endLine": 34,
+        "endChar": 111
+      },
+      "revId": "d1ed420059f11c10680d2369a9ec44d026a9926e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_14069cce",
         "filename": "ansible/roles/infra_install_dependency/tasks/Debian.yml",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2018-08-27T15:59:14Z",
       "side": 1,
       "message": "\u003e\u003d",
+      "range": {
+        "startLine": 34,
+        "startChar": 47,
+        "endLine": 34,
+        "endChar": 49
+      },
+      "revId": "d1ed420059f11c10680d2369a9ec44d026a9926e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_342c8047",
+        "filename": "ansible/roles/infra_install_dependency/tasks/Debian.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-08-27T16:06:42Z",
+      "side": 1,
+      "message": "Seems reasonable.",
+      "parentUuid": "9a561d44_14069cce",
       "range": {
         "startLine": 34,
         "startChar": 47,
