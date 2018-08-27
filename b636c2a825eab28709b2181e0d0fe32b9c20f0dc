@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_b45250db",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-27T15:49:35Z",
+      "side": 1,
+      "message": "You are using this variable in all sections. You should move this to ansible/group_vars/all.yaml",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 71
+      },
+      "revId": "b636c2a825eab28709b2181e0d0fe32b9c20f0dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_145fbce6",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-27T15:49:35Z",
+      "side": 1,
+      "message": "Why this? \"baremetal\" should be the default one.",
+      "range": {
+        "startLine": 148,
+        "startChar": 56,
+        "endLine": 148,
+        "endChar": 70
+      },
+      "revId": "b636c2a825eab28709b2181e0d0fe32b9c20f0dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
