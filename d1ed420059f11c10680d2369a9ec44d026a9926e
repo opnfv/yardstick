@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_f40a08d1",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-27T15:59:14Z",
+      "side": 1,
+      "message": "small nit: dependencies",
+      "range": {
+        "startLine": 30,
+        "startChar": 20,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "d1ed420059f11c10680d2369a9ec44d026a9926e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d46c249f",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-27T15:59:14Z",
+      "side": 1,
+      "message": "\u003e\u003d 18",
+      "range": {
+        "startLine": 22,
+        "startChar": 45,
+        "endLine": 22,
+        "endChar": 46
+      },
+      "revId": "d1ed420059f11c10680d2369a9ec44d026a9926e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b469b08d",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-27T15:59:14Z",
+      "side": 1,
+      "message": "Why this change?",
+      "range": {
+        "startLine": 34,
+        "startChar": 42,
+        "endLine": 34,
+        "endChar": 111
+      },
+      "revId": "d1ed420059f11c10680d2369a9ec44d026a9926e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_14069cce",
+        "filename": "ansible/roles/infra_install_dependency/tasks/Debian.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-27T15:59:14Z",
+      "side": 1,
+      "message": "\u003e\u003d",
+      "range": {
+        "startLine": 34,
+        "startChar": 47,
+        "endLine": 34,
+        "endChar": 49
+      },
+      "revId": "d1ed420059f11c10680d2369a9ec44d026a9926e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
