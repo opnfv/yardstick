@@ -15,8 +15,6 @@
 import errno
 import logging
 import datetime
-import time
-
 
 from yardstick.common.process import check_if_process_failed
 from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxDpdkVnfSetupEnvHelper
@@ -45,7 +43,8 @@ class ProxApproxVnf(SampleVNF):
 
         self.prev_packets_in = 0
         self.prev_packets_sent = 0
-        self.prev_time = time.time()
+        self.prev_tsc = 0
+        self.tsc_hz = 0
         super(ProxApproxVnf, self).__init__(name, vnfd, setup_env_helper_type,
                                             resource_helper_type)
 
@@ -85,6 +84,12 @@ class ProxApproxVnf(SampleVNF):
             })
             return result
 
+        if (self.tsc_hz == 0):
+            self.tsc_hz = float(self.resource_helper.sut.hz())
+            LOG.debug("TSC = %f", self.tsc_hz)
+            if (self.tsc_hz == 0):
+                raise RuntimeError("Unable to retrieve TSC")
+
         # use all_ports so we only use ports matched in topology
         port_count = len(self.vnfd_helper.port_pairs.all_ports)
         if port_count not in {1, 2, 4}:
@@ -92,15 +97,17 @@ class ProxApproxVnf(SampleVNF):
                                "1, 2 or 4 ports only supported at this time")
 
         all_port_stats = self.vnf_execute('multi_port_stats', range(port_count))
-        curr_time = time.time()
-        rx_total = tx_total = 0
+        rx_total = tx_total = tsc = 0
         try:
             for single_port_stats in all_port_stats:
                 rx_total = rx_total + single_port_stats[1]
                 tx_total = tx_total + single_port_stats[2]
+                tsc = tsc + single_port_stats[5]
         except (TypeError, IndexError):
             LOG.error("Invalid data ...")
             return {}
+
+        tsc = tsc / port_count
 
         result.update({
             "packets_in": rx_total,
@@ -111,15 +118,15 @@ class ProxApproxVnf(SampleVNF):
             "collect_stats": self.resource_helper.collect_collectd_kpi(),
         })
         try:
-            curr_packets_in = int((rx_total - self.prev_packets_in)
-                                / (curr_time - self.prev_time))
+            curr_packets_in = int(((rx_total - self.prev_packets_in) * self.tsc_hz)
+                                / (tsc - self.prev_tsc))
         except ZeroDivisionError:
             LOG.error("Error.... Divide by Zero")
             curr_packets_in = 0
 
         try:
-            curr_packets_fwd = int((tx_total - self.prev_packets_sent)
-                                / (curr_time - self.prev_time))
+            curr_packets_fwd = int(((tx_total - self.prev_packets_sent) * self.tsc_hz)
+                                / (tsc - self.prev_tsc))
         except ZeroDivisionError:
             LOG.error("Error.... Divide by Zero")
             curr_packets_fwd = 0
@@ -129,7 +136,7 @@ class ProxApproxVnf(SampleVNF):
 
         self.prev_packets_in = rx_total
         self.prev_packets_sent = tx_total
-        self.prev_time = curr_time
+        self.prev_tsc = tsc
 
         LOG.debug("%s collect KPIs %s %s", self.APP_NAME, datetime.datetime.now(), result)
         return result
