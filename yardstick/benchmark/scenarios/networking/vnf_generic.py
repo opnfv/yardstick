@@ -120,8 +120,11 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             if "count" in fflow:
                 flow["count"] = fflow["count"]
 
-            if "seed" in fflow:
-                flow["seed"] = fflow["seed"]
+            if "srcseed" in fflow:
+                flow["srcseed"] = fflow["srcseed"]
+
+            if "dstseed" in fflow:
+                flow["dstseed"] = fflow["dstseed"]
 
         except KeyError:
             flow = {}
