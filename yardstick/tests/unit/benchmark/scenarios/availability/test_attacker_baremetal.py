@@ -48,7 +48,7 @@ class AttackerBaremetalTestCase(unittest.TestCase):
         host = {
             "ipmi_ip": "10.20.0.5",
             "ipmi_user": "root",
-            "ipmi_pwd": "123456",
+            "ipmi_password": "123456",
             "ip": "10.20.0.5",
             "user": "root",
             "key_filename": "/root/.ssh/id_rsa"
@@ -77,7 +77,7 @@ class AttackerBaremetalTestCase(unittest.TestCase):
     def test__attacker_baremetal_recover_successful(self, mock_ssh, mock_subprocess):
 
         self.attacker_cfg["jump_host"] = 'node1'
-        self.context["node1"]["pwd"] = "123456"
+        self.context["node1"]["password"] = "123456"
         mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
         ins = attacker_baremetal.BaremetalAttacker(self.attacker_cfg,
                                                    self.context)
