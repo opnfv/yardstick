@@ -418,7 +418,8 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk.configure_nics_for_ovs_dpdk = mock.Mock(return_value="")
         self.ovs_dpdk._name_task_id = 'fake_name'
         xml_str = 'vm-0'
-        mock_build_xml.return_value = (xml_str, '00:00:00:00:00:01')
+        self.ovs_dpdk.mac = '00:00:00:00:00:01'
+        mock_build_xml.return_value = (xml_str, self.ovs_dpdk.mac)
         self.ovs_dpdk._enable_interfaces = mock.Mock(return_value=xml_str)
         vnf_instance = mock.Mock()
         vnf_instance_2 = mock.Mock()
@@ -439,7 +440,8 @@ class OvsDpdkContextTestCase(unittest.TestCase):
                                                       vnf_instance,
                                                       xml_str,
                                                       self.ovs_dpdk._name_task_id,
-                                                      self.ovs_dpdk.file_path)
+                                                      self.ovs_dpdk.file_path,
+                                                      self.ovs_dpdk.mac)
 
     @mock.patch.object(io, 'BytesIO')
     def test__check_hugepages(self, mock_bytesio):
