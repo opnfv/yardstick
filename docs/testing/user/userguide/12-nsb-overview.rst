@@ -29,22 +29,34 @@ Yardstick_ from Intel.
 Overview
 --------
 
-The goal of NSB is to Extend Yardstick to perform real world VNFs and NFVi
-Characterization and benchmarking with repeatable and deterministic methods.
+Network Services Benchmarking (:term:`NSB`) uses the :term:`Yardstick`
+framework for performing :term:`VNF` and :term:`NFVI` characterisation in an
+:term:`NFV` environment.
 
-The Network Service Benchmarking (NSB) extends the yardstick framework to do
-VNF characterization and benchmarking in three different execution
-environments - bare metal i.e. native Linux environment, standalone virtual
-environment and managed virtualized environment (e.g. Open stack etc.).
-It also brings in the capability to interact with external traffic generators
-both hardware & software based for triggering and validating the traffic
-according to user defined profiles.
+For VNF characterisation, NSB will onboard a VNF, source and sink traffic to it
+via traffic generators, and collect a variety of key performance indicators
+(:term:`KPI`) during VNF execution. The stream of KPI data is stored in a
+database, and it is visualized in a performance-visualization dashboard.
+
+For NFVI characterisation, a fixed test VNF, called :term:`PROX` is used.
+PROX implements a suite of test cases and visualizes the output data of the
+test suite. The PROX test cases implement various execution kernels found in
+real-world VNFs, and the output of the test cases provides an indication of
+the fitness of the infrastructure for running NFV services, in addition to
+indicating potential performance optimizations for the NFVI.
+
+NSB extends the Yardstick framework to do VNF characterization in three
+different execution environments - bare metal i.e. native Linux environment,
+standalone virtual environment and managed virtualized environment (e.g.
+OpenStack). It also brings in the capability to interact with external traffic
+generators, both hardware and software based, for triggering and validating the
+traffic according to user defined profiles.
 
 NSB extension includes:
 
 * Generic data models of Network Services, based on ETSI spec
   `ETSI GS NFV-TST 001`_
-* Standalone :term:`context` for VNF testing like SRIOV, OVS, OVS-DPDK, etc
+* Standalone :term:`context` for VNF testing with SRIOV, OVS, OVS-DPDK, etc
 * Generic VNF configuration models and metrics implemented with Python
   classes
 * Traffic generator features and traffic profiles
@@ -113,8 +125,8 @@ Components of Network Service
   requires the proper modelling approach. The NSB provides models using Python
   files and defining of NSDs and VNFDs.
 
-The benchmark control application being a part of OPNFV yardstick can call
-that python models to instantiate and configure the VNFs. Depending on
+The benchmark control application being a part of OPNFV Yardstick can call
+that Python models to instantiate and configure the VNFs. Depending on
 infrastructure type (bare-metal or fully virtualized) that calls could be
 made directly or using MANO system.
 
@@ -190,7 +202,7 @@ VNFs supported for chracterization
 1. CGNAPT - Carrier Grade Network Address and port Translation
 2. vFW - Virtual Firewall
 3. vACL - Access Control List
-4. Prox - Packet pROcessing eXecution engine:
+4. PROX - Packet pROcessing eXecution engine:
      * VNF can act as Drop, Basic Forwarding (no touch),
        L2 Forwarding (change MAC), GRE encap/decap, Load balance based on
        packet fields, Symmetric load balancing
