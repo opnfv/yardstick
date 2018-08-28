@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_b65a7881",
+        "filename": "yardstick/tests/unit/benchmark/runner/test_arithmetic.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-28T16:37:14Z",
+      "side": 1,
+      "message": "Imports should be in alphabetical order. This should be on line 19",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 48
+      },
+      "revId": "850a04672eacc25b11a1ed6b32eb63f4f6dc74aa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
