@@ -301,8 +301,9 @@ class SriovContextTestCase(unittest.TestCase):
         self.sriov._name_task_id = 'fake_name'
         cfg = '/tmp/vm_sriov_0.xml'
         vm_name = 'vm-0'
+        mac = '00:00:00:00:00:01'
         xml_out = mock.Mock()
-        mock_build_vm_xml.return_value = (xml_out, '00:00:00:00:00:01')
+        mock_build_vm_xml.return_value = (xml_out, mac)
         mock_check_update_key.return_value = 'node_2'
         cdrom_img = '/var/lib/libvirt/images/cdrom-0.img'
 
@@ -314,7 +315,8 @@ class SriovContextTestCase(unittest.TestCase):
                 return_value='node_1')
             nodes_out = self.sriov.setup_sriov_context()
         mock_check_update_key.assert_called_once_with(connection, 'node_1', vm_name,
-                                                      self.sriov._name_task_id, cdrom_img)
+                                                      self.sriov._name_task_id, cdrom_img,
+                                                      mac)
         self.assertEqual(['node_2'], nodes_out)
         mock_vnf_node.generate_vnf_instance.assert_called_once_with(
             'flavor', 'networks', '1.2.3.4', 'vnf_0',
