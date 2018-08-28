@@ -1,14 +1,23 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International
-.. License.
-.. http://creativecommons.org/licenses/by/4.0
-.. (c) OPNFV, 2016 Huawei Technologies Co.,Ltd and others.
+   License.
+   http://creativecommons.org/licenses/by/4.0
+   (c) OPNFV, 2016 Huawei Technologies Co.,Ltd and others.
+   Convention for heading levels in Yardstick documentation:
+
+   =======  Heading 0 (reserved for the title in a document)
+   -------  Heading 1
+   ^^^^^^^  Heading 2
+   +++++++  Heading 3
+   '''''''  Heading 4
+
+   Avoid deeper levels because they do not render well.
 
 ==============================================
 Store Other Project's Test Results in InfluxDB
 ==============================================
 
 Abstract
-========
+--------
 
 .. _Framework: https://wiki.opnfv.org/download/attachments/6827660/wiki.png?version=1&modificationDate=1470298075000&api=v2
 
@@ -21,7 +30,7 @@ into community's InfluxDB. The framework is shown in Framework_.
    :alt: Store Other Project's Test Results in InfluxDB
 
 Store Storperf Test Results into Community's InfluxDB
-=====================================================
+-----------------------------------------------------
 
 .. _Influxdb: https://git.opnfv.org/cgit/yardstick/tree/yardstick/dispatcher/influxdb.py
 .. _Mingjiang: mailto:limingjiang@huawei.com

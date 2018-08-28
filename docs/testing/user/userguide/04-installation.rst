@@ -1,12 +1,21 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International
-.. License.
-.. http://creativecommons.org/licenses/by/4.0
-.. (c) OPNFV, Ericsson AB, Huawei Technologies Co.,Ltd and others.
+   License.
+   http://creativecommons.org/licenses/by/4.0
+   (c) OPNFV, Ericsson AB, Huawei Technologies Co.,Ltd and others.
+
+
+   Convention for heading levels in Yardstick documentation:
+   =======  Heading 0 (reserved for the title in a document)
+   -------  Heading 1
+   ^^^^^^^  Heading 2
+   +++++++  Heading 3
+   '''''''  Heading 4
+
+   Avoid deeper levels because they do not render well.
 
 ======================
 Yardstick Installation
 ======================
-
 
 Yardstick supports installation by Docker or directly in Ubuntu. The
 installation procedure for Docker and direct installation are detailed in
@@ -128,7 +137,7 @@ in the following sections. Before that, access the Yardstick container::
 and then configure Yardstick environments in the Yardstick container.
 
 Using the CLI command ``env prepare`` (first way) (**recommended**)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 In the Yardstick container, the Yardstick repository is located in the
 ``/home/opnfv/repos`` directory. Yardstick provides a CLI to prepare OpenStack
@@ -160,10 +169,10 @@ terminal window and execute the following command::
 
 
 Manually exporting the env variables and initializing OpenStack (second way)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Export OpenStack environment variables
-######################################
+''''''''''''''''''''''''''''''''''''''
 
 Before running Yardstick it is necessary to export OpenStack environment
 variables::
@@ -189,7 +198,7 @@ A sample ``openrc`` file may look like this::
 
 
 Manual creation of Yardstick flavor and guest images
-####################################################
+''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 Before executing Yardstick test cases, make sure that Yardstick flavor and
 guest image are available in OpenStack. Detailed steps about creating the
@@ -246,14 +255,14 @@ image. Add Cirros and Ubuntu images to OpenStack::
 
 
 Automatic initialization of OpenStack (third way)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Similar to the second way, the first step is also to
 `Export OpenStack environment variables`_. Then the following steps should be
 done.
 
 Automatic creation of Yardstick flavor and guest images
-#######################################################
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 Yardstick has a script for automatically creating Yardstick flavor and building
 Yardstick guest images. This script is mainly used for CI and can be also used
@@ -328,7 +337,6 @@ Configure the Yardstick environment (**Todo**)
 For installing Yardstick directly in Ubuntu, the ``yardstick env`` command is
 not available. You need to prepare OpenStack environment variables and create
 Yardstick flavor and guest images manually.
-
 
 Uninstall Yardstick
 ^^^^^^^^^^^^^^^^^^^
@@ -535,10 +543,8 @@ Modify ``yardstick.conf`` to add the ``influxdb`` dispatcher::
 
 Now Yardstick will store results in InfluxDB when you run a testcase.
 
-
 Deploy InfluxDB and Grafana directly in Ubuntu (**Todo**)
 ---------------------------------------------------------
-
 
 Proxy Support
 -------------

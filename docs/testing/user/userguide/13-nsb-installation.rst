@@ -1,7 +1,17 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International
-.. License.
-.. http://creativecommons.org/licenses/by/4.0
-.. (c) OPNFV, 2016-2017 Intel Corporation.
+   License.
+   http://creativecommons.org/licenses/by/4.0
+   (c) OPNFV, 2016-2017 Intel Corporation.
+
+        Convention for heading levels in Yardstick documentation:
+
+        =======  Heading 0 (reserved for the title in a document)
+        -------  Heading 1
+        ^^^^^^^  Heading 2
+        +++++++  Heading 3
+        '''''''  Heading 4
+
+        Avoid deeper levels because they do not render well.
 
 ================
 NSB Installation
@@ -25,9 +35,8 @@ The steps needed to run Yardstick with NSB testing are:
 * Create/reference the test configuration yaml file.
 * Run the test case.
 
-
 Prerequisites
-=============
+-------------
 
 Refer to :doc:`04-installation` for more information on Yardstick
 prerequisites.
@@ -46,7 +55,7 @@ Several prerequisites are needed for Yardstick (VNF testing):
   * intel-cmt-cat
 
 Hardware & Software Ingredients
--------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 SUT requirements:
 
@@ -61,7 +70,6 @@ SUT requirements:
    ======= ===================
 
 Boot and BIOS settings:
-
 
    ============= =================================================
    Boot settings default_hugepagesz=1G hugepagesz=1G hugepages=16
@@ -82,7 +90,7 @@ Boot and BIOS settings:
    ============= =================================================
 
 Install Yardstick (NSB Testing)
-===============================
+-------------------------------
 
 Download the source code and check out the latest stable branch::
 
@@ -155,7 +163,7 @@ setup. Refer chapter :doc:`04-installation` for more on Docker
 **Install Yardstick using Docker (recommended)**
 
 System Topology:
-================
+----------------
 
 .. code-block:: console
 
@@ -202,15 +210,14 @@ section::
   trex_client_lib=/opt/nsb_bin/trex_client/stl
 
 Run Yardstick - Network Service Testcases
-=========================================
+-----------------------------------------
 
 NS testing - using yardstick CLI
---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   See :doc:`04-installation`
 
 Connect to the Yardstick container::
-
 
   docker exec -it yardstick /bin/bash
 
@@ -227,13 +234,13 @@ Finally, you should be able to run the testcase::
   yardstick --debug task start yardstick/samples/vnf_samples/nsut/<vnf>/<test case>
 
 Network Service Benchmarking - Bare-Metal
-=========================================
+-----------------------------------------
 
 Bare-Metal Config pod.yaml describing Topology
-----------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Bare-Metal 2-Node setup
-^^^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++++
 .. code-block:: console
 
   +----------+              +----------+
@@ -246,7 +253,7 @@ Bare-Metal 2-Node setup
   trafficgen_1                   vnf
 
 Bare-Metal 3-Node setup - Correlated Traffic
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++++++++++++++++++++
 .. code-block:: console
 
   +----------+              +----------+            +------------+
@@ -335,14 +342,14 @@ topology and update all the required fields.::
           if: "xe1"
 
 
-Network Service Benchmarking - Standalone Virtualization
-========================================================
+Standalone Virtualization
+-------------------------
 
 SR-IOV
-------
+^^^^^^
 
 SR-IOV Pre-requisites
-^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++
 
 On Host, where VM is created:
  a) Create and configure a bridge named ``br-int`` for VM to connect to
@@ -412,10 +419,10 @@ On Host, where VM is created:
 
 
 SR-IOV Config pod.yaml describing Topology
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++++++++++++++++++
 
-SR-IOV 2-Node setup:
-^^^^^^^^^^^^^^^^^^^^
+SR-IOV 2-Node setup
++++++++++++++++++++
 .. code-block:: console
 
                                +--------------------+
@@ -443,7 +450,7 @@ SR-IOV 2-Node setup:
 
 
 SR-IOV 3-Node setup - Correlated Traffic
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++++++++++++++++
 .. code-block:: console
 
                              +--------------------+
@@ -479,7 +486,7 @@ topology and update all the required fields.
 .. note:: Update all the required fields like ip, user, password, pcis, etc...
 
 SR-IOV Config pod_trex.yaml
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++++++++
 
 .. code-block:: YAML
 
@@ -508,7 +515,7 @@ SR-IOV Config pod_trex.yaml
                 local_mac: "00:00.00:00:00:02"
 
 SR-IOV Config host_sriov.yaml
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++++++++++
 
 .. code-block:: YAML
 
@@ -523,9 +530,8 @@ SR-IOV Config host_sriov.yaml
 SR-IOV testcase update:
 ``<yardstick>/samples/vnf_samples/nsut/vfw/tc_sriov_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
 
-Update "contexts" section
-"""""""""""""""""""""""""
-
+Update contexts section
+'''''''''''''''''''''''
 .. code-block:: YAML
 
   contexts:
@@ -569,10 +575,10 @@ Update "contexts" section
 
 
 OVS-DPDK
---------
+^^^^^^^^
 
 OVS-DPDK Pre-requisites
-^^^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++++
 
 On Host, where VM is created:
  a) Create and configure a bridge named ``br-int`` for VM to connect to
@@ -647,11 +653,10 @@ On Host, where VM is created:
 
 
 OVS-DPDK Config pod.yaml describing Topology
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++++++++++++++++++++
 
 OVS-DPDK 2-Node setup
-^^^^^^^^^^^^^^^^^^^^^
-
++++++++++++++++++++++
 
 .. code-block:: console
 
@@ -681,8 +686,7 @@ OVS-DPDK 2-Node setup
 
 
 OVS-DPDK 3-Node setup - Correlated Traffic
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+++++++++++++++++++++++++++++++++++++++++++
 .. code-block:: console
 
                                +--------------------+
@@ -719,7 +723,7 @@ the topology and update all the required fields::
 .. note:: Update all the required fields like ip, user, password, pcis, etc...
 
 OVS-DPDK Config pod_trex.yaml
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++++++++++
 
 .. code-block:: YAML
 
@@ -747,7 +751,7 @@ OVS-DPDK Config pod_trex.yaml
               local_mac: "00:00.00:00:00:02"
 
 OVS-DPDK Config host_ovs.yaml
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++++++++++
 
 .. code-block:: YAML
 
@@ -762,8 +766,8 @@ OVS-DPDK Config host_ovs.yaml
 ovs_dpdk testcase update:
 ``<yardstick>/samples/vnf_samples/nsut/vfw/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
 
-Update "contexts" section
-"""""""""""""""""""""""""
+Update contexts section
+'''''''''''''''''''''''
 
 .. code-block:: YAML
 
@@ -817,16 +821,16 @@ Update "contexts" section
          gateway_ip: '152.16.100.20'
 
 
-Network Service Benchmarking - OpenStack with SR-IOV support
-============================================================
+OpenStack with SR-IOV support
+-----------------------------
 
 This section describes how to run a Sample VNF test case, using Heat context,
 with SR-IOV. It also covers how to install OpenStack in Ubuntu 16.04, using
 DevStack, with SR-IOV support.
 
 
-Single node OpenStack setup with external TG
---------------------------------------------
+Single node OpenStack with external TG
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: console
 
@@ -857,7 +861,7 @@ Single node OpenStack setup with external TG
 
 
 Host pre-configuration
-^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++
 
 .. warning:: The following configuration requires sudo access to the system.
    Make sure that your user have the access.
@@ -951,7 +955,7 @@ Setup SR-IOV ports on the host:
 
 
 DevStack installation
-^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++
 
 If you want to try out NSB, but don't have OpenStack set-up, you can use
 `Devstack`_ to install OpenStack on a host. Please note, that the
@@ -971,9 +975,8 @@ DevStack configuration file:
 
 Start the devstack installation on a host.
 
-
 TG host configuration
-^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++
 
 Yardstick automatically installs and configures Trex traffic generator on TG
 host based on provided POD file (see below). Anyway, it's recommended to check
@@ -981,7 +984,7 @@ the compatibility of the installed NIC on the TG server with software Trex
 using the `manual <https://trex-tgn.cisco.com/trex/doc/trex_manual.html>`_.
 
 Run the Sample VNF test case
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++++
 
 There is an example of Sample VNF test case ready to be executed in an
 OpenStack environment with SR-IOV support: ``samples/vnf_samples/nsut/vfw/
@@ -1006,7 +1009,7 @@ context using steps described in `NS testing - using yardstick CLI`_ section.
 
 
 Multi node OpenStack TG and VNF setup (two nodes)
--------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: console
 
@@ -1037,14 +1040,13 @@ Multi node OpenStack TG and VNF setup (two nodes)
 
 
 Controller/Compute pre-configuration
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++++++++++++
 
 Pre-configuration of the controller and compute hosts are the same as
 described in `Host pre-configuration`_ section.
 
-
 DevStack configuration
-^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++
 
 A reference ``local.conf`` for deploying OpenStack in a multi-host environment
 using `Devstack`_ is shown in this section. The ``stable/pike`` branch of
@@ -1068,9 +1070,8 @@ DevStack configuration file for compute host:
 
 Start the devstack installation on the controller and compute hosts.
 
-
 Run the sample vFW TC
-^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++
 
 Install Yardstick using `Install Yardstick (NSB Testing)`_ steps for OpenStack
 context.
@@ -1085,6 +1086,7 @@ line arguments:
 
   yardstick -d task start --task-args='{"provider": "sriov"}' \
   samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex.yaml
+
 
 Enabling other Traffic generators
 ---------------------------------
@@ -1133,7 +1135,7 @@ IxLoad
    ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_1b_Requests-65000_Concurrency.yaml``
 
 IxNetwork
----------
+^^^^^^^^^
 
 IxNetwork testcases use IxNetwork API Python Bindings module, which is
 installed as part of the requirements of the project.
