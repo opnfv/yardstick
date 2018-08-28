@@ -31,7 +31,7 @@ index 71ce6b58..fce7c116 100644
 +RUN apt-get update && apt-get install -y git python python-setuptools python-pip iputils-ping && apt-get -y autoremove && \
 +    apt-get install -y libssl-dev && apt-get -y install libffi-dev && apt-get clean
  RUN easy_install -U setuptools==30.0.0
- RUN pip install appdirs==1.4.0 pyopenssl==17.5.0 python-openstackclient==3.12.0 python-heatclient==1.11.0 ansible==2.5.5
+ RUN pip install appdirs==1.4.0 pyopenssl==17.5.0 openstacksdk==0.9.17 python-openstackclient==3.12.1 python-heatclient==1.11.1 ansible==2.5.5
 
 @@ -40,7 +41,8 @@ RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/yardstick ${Y
  RUN git clone --depth 1 https://gerrit.opnfv.org/gerrit/releng ${RELENG_REPO_DIR}
