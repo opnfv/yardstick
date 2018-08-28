@@ -89,9 +89,9 @@ Availability zone
 ^^^^^^^^^^^^^^^^^
 
 The configuration of the availability zone is requred in cases where location
-of exact compute host/group of compute hosts needs to be specified for SampleVNF
-or traffic generator in the heat test case. If this is the case, please follow
-the instructions below.
+of exact compute host/group of compute hosts needs to be specified for
+:term:`SampleVNF` or traffic generator in the heat test case. If this is the
+case, please follow the instructions below.
 
 .. _`Create a host aggregate`:
 
@@ -105,7 +105,8 @@ the instructions below.
    .. code-block:: bash
 
      # create host aggregate
-     openstack aggregate create --zone <AZ_NAME> --property availability_zone=<AZ_NAME> <AGG_NAME>
+     openstack aggregate create --zone <AZ_NAME> \
+       --property availability_zone=<AZ_NAME> <AGG_NAME>
      # show available hosts
      openstack compute service list --service nova-compute
      # add selected host into the host aggregate
@@ -136,8 +137,9 @@ the instructions below.
        networks:
          ...
 
-There are two example of SampleVNF scale out test case which use the availability zone
-feature to specify the exact location of scaled VNFs and traffic generators.
+There are two example of SampleVNF scale out test case which use the
+``availability zone`` feature to specify the exact location of scaled VNFs and
+traffic generators.
 
 Those are:
 
@@ -164,21 +166,19 @@ Those are:
      |  5 | agg1 | AZ_NAME_1         |
      +----+------+-------------------+
 
-2. If no host aggregates are configured, please use `steps above`__ to
-   configure them.
-
-__ `Create a host aggregate`_
+2. If no host aggregates are configured, please follow the instructions to
+   `Create a host aggregate`_
 
 
-3. Run the SampleVNF PROX scale-out test case, specifying the availability
-   zone of each VNF and traffic generator as a task arguments.
+3. Run the SampleVNF PROX scale-out test case, specifying the
+   ``availability zone`` of each VNF and traffic generator as task arguments.
 
    .. note:: The ``az_0`` and ``az_1`` should be changed according to the host
-     aggregates created in the OpenStack.
+      aggregates created in the OpenStack.
 
    .. code-block:: console
 
-     yardstick -d task start\
+     yardstick -d task start \
      <repo>/samples/vnf_samples/nsut/prox/tc_prox_heat_context_l2fwd_multiflow-2-scale-out.yaml\
        --task-args='{
          "num_vnfs": 4, "availability_zone": {
@@ -198,7 +198,7 @@ Collectd KPIs
 -------------
 
 NSB can collect KPIs from collected.  We have support for various plugins
-enabled by the Barometer project.
+enabled by the :term:`Barometer` project.
 
 The default yardstick-samplevnf has collectd installed. This allows for
 collecting KPIs from the VNF.
@@ -208,12 +208,11 @@ We assume that collectd is not installed on the compute nodes.
 
 To collectd KPIs from the NFVi compute nodes:
 
-
     * install_collectd on the compute nodes
     * create pod.yaml for the compute nodes
     * enable specific plugins depending on the vswitch and DPDK
 
-    example pod.yaml section for Compute node running collectd.
+    example ``pod.yaml`` section for Compute node running collectd.
 
 .. code-block:: yaml
 
@@ -356,8 +355,8 @@ Scale-Out
 
 VNFs performance data with scale-out helps
 
-  * in capacity planning to meet the given network node requirements
-  * in comparison between different VNF vendor offerings
+  * capacity planning to meet the given network node requirements
+  * comparison between different VNF vendor offerings
   * better the scale-out index, provides the flexibility in meeting future
     capacity requirements
 
@@ -451,11 +450,11 @@ Default values for OVS-DPDK:
 Sample test case file
 ^^^^^^^^^^^^^^^^^^^^^
 
-  1. Prepare SampleVNF image and copy it to ``flavor/images``.
-  2. Prepare context files for TREX and SampleVNF under ``contexts/file``.
-  3. Add bridge named ``br-int`` to the baremetal where SampleVNF image is deployed.
-  4. Modify ``networks/phy_port`` accordingly to the baremetal setup.
-  5. Run test from:
+1. Prepare SampleVNF image and copy it to ``flavor/images``.
+2. Prepare context files for TREX and SampleVNF under ``contexts/file``.
+3. Add bridge named ``br-int`` to the baremetal where SampleVNF image is deployed.
+4. Modify ``networks/phy_port`` accordingly to the baremetal setup.
+5. Run test from:
 
-.. literalinclude:: /submodules/yardstick/samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml
-   :language: yaml
+   .. literalinclude:: /submodules/yardstick/samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml
+      :language: yaml

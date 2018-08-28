@@ -3,12 +3,12 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, 2016-2017 Intel Corporation.
 
-=====================================
-Yardstick - NSB Testing -Installation
-=====================================
+================
+NSB Installation
+================
 
-Abstract
-========
+.. _OVS-DPDK: http://docs.openvswitch.org/en/latest/intro/install/dpdk/
+.. _devstack: https://docs.openstack.org/devstack/pike/>
 
 The Network Service Benchmarking (NSB) extends the yardstick framework to do
 VNF characterization and benchmarking in three different execution
@@ -21,16 +21,16 @@ according to user defined profiles.
 The steps needed to run Yardstick with NSB testing are:
 
 * Install Yardstick (NSB Testing).
-* Setup/Reference pod.yaml describing Test topology
-* Create/Reference the test configuration yaml file.
+* Setup/reference ``pod.yaml`` describing Test topology
+* Create/reference the test configuration yaml file.
 * Run the test case.
 
 
 Prerequisites
 =============
 
-Refer chapter Yardstick Installation for more information on yardstick
-prerequisites
+Refer to :doc:`04-installation` for more information on Yardstick
+prerequisites.
 
 Several prerequisites are needed for Yardstick (VNF testing):
 
@@ -49,7 +49,6 @@ Hardware & Software Ingredients
 -------------------------------
 
 SUT requirements:
-
 
    ======= ===================
    Item    Description
@@ -82,29 +81,25 @@ Boot and BIOS settings:
                  Turbo Boost Disabled
    ============= =================================================
 
-
-
 Install Yardstick (NSB Testing)
 ===============================
 
-Download the source code and install Yardstick from it
+Download the source code and check out the latest stable branch::
 
 .. code-block:: console
 
   git clone https://gerrit.opnfv.org/gerrit/yardstick
-
   cd yardstick
-
   # Switch to latest stable branch
-  # git checkout <tag or stable branch>
-  git checkout stable/euphrates
+  git checkout stable/gambia
 
 Configure the network proxy, either using the environment variables or setting
-the global environment file:
+the global environment file.
 
-.. code-block:: ini
+* Set environment
 
-    cat /etc/environment
+.. code-block::
+
     http_proxy='http://proxy.company.com:port'
     https_proxy='http://proxy.company.com:port'
 
@@ -113,14 +108,11 @@ the global environment file:
     export http_proxy='http://proxy.company.com:port'
     export https_proxy='http://proxy.company.com:port'
 
-The last step is to modify the Yardstick installation inventory, used by
-Ansible:
-
-.. code-block:: ini
+Modify the Yardstick installation inventory, used by Ansible::
 
   cat ./ansible/install-inventory.ini
   [jumphost]
-  localhost  ansible_connection=local
+  localhost ansible_connection=local
 
   [yardstick-standalone]
   yardstick-standalone-node ansible_host=192.168.1.2
@@ -137,35 +129,29 @@ Ansible:
 
 .. note::
 
-   SSH access without password needs to be configured for all your nodes defined in
-   ``install-inventory.ini`` file.
-   If you want to use password authentication you need to install sshpass
-
-   .. code-block:: console
+   SSH access without password needs to be configured for all your nodes
+   defined in ``yardstick-install-inventory.ini`` file.
+   If you want to use password authentication you need to install ``sshpass``::
 
      sudo -EH apt-get install sshpass
 
-To execute an installation for a Bare-Metal or a Standalone context:
-
-.. code-block:: console
+To execute an installation for a BareMetal or a Standalone context::
 
     ./nsb_setup.sh
 
 
-To execute an installation for an OpenStack context:
-
-.. code-block:: console
+To execute an installation for an OpenStack context::
 
     ./nsb_setup.sh <path to admin-openrc.sh>
 
-Above command setup docker with latest yardstick code. To execute
-
-.. code-block:: console
+The above commands will set up Docker with the latest Yardstick code. To
+execute::
 
   docker exec -it yardstick bash
 
 It will also automatically download all the packages needed for NSB Testing
-setup. Refer chapter :doc:`04-installation` for more on docker
+setup. Refer chapter :doc:`04-installation` for more on Docker
+
 **Install Yardstick using Docker (recommended)**
 
 System Topology:
@@ -184,26 +170,24 @@ System Topology:
 
 
 Environment parameters and credentials
-======================================
+--------------------------------------
 
-Config yardstick conf
----------------------
+Configure yardstick.conf
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-If user did not run 'yardstick env influxdb' inside the container, which will
-generate correct ``yardstick.conf``, then create the config file manually (run
-inside the container):
-::
+If you did not run ``yardstick env influxdb`` inside the container to generate
+ ``yardstick.conf``, then create the config file manually (run inside the
+container)::
 
     cp ./etc/yardstick/yardstick.conf.sample /etc/yardstick/yardstick.conf
     vi /etc/yardstick/yardstick.conf
 
-Add trex_path, trex_client_lib and bin_path in 'nsb' section.
-
-::
+Add ``trex_path``, ``trex_client_lib`` and ``bin_path`` to the ``nsb``
+section::
 
   [DEFAULT]
   debug = True
-  dispatcher = file, influxdb
+  dispatcher = influxdb
 
   [dispatcher_influxdb]
   timeout = 5
@@ -220,18 +204,26 @@ Add trex_path, trex_client_lib and bin_path in 'nsb' section.
 Run Yardstick - Network Service Testcases
 =========================================
 
-
 NS testing - using yardstick CLI
 --------------------------------
 
   See :doc:`04-installation`
 
-.. code-block:: console
+Connect to the Yardstick container::
 
 
   docker exec -it yardstick /bin/bash
-  source /etc/yardstick/openstack.creds (only for heat TC if nsb_setup.sh was NOT used)
-  export EXTERNAL_NETWORK="<openstack public network>" (only for heat TC)
+
+If you're running ``heat`` testcases and ``nsb_setup.sh`` was not used::
+  source /etc/yardstick/openstack.creds
+
+In addition to the above, you need to se the ``EXTERNAL_NETWORK`` for
+OpenStack::
+
+  export EXTERNAL_NETWORK="<openstack public network>"
+
+Finally, you should be able to run the testcase::
+
   yardstick --debug task start yardstick/samples/vnf_samples/nsut/<vnf>/<test case>
 
 Network Service Benchmarking - Bare-Metal
@@ -269,8 +261,8 @@ Bare-Metal 3-Node setup - Correlated Traffic
 
 
 Bare-Metal Config pod.yaml
---------------------------
-Before executing Yardstick test cases, make sure that pod.yaml reflects the
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+Before executing Yardstick test cases, make sure that ``pod.yaml`` reflects the
 topology and update all the required fields.::
 
     cp /etc/yardstick/nodes/pod.yaml.nsb.sample /etc/yardstick/nodes/pod.yaml
@@ -353,12 +345,10 @@ SR-IOV Pre-requisites
 ^^^^^^^^^^^^^^^^^^^^^
 
 On Host, where VM is created:
- a) Create and configure a bridge named ``br-int`` for VM to connect to external network.
-    Currently this can be done using VXLAN tunnel.
+ a) Create and configure a bridge named ``br-int`` for VM to connect to
+    external network. Currently this can be done using VXLAN tunnel.
 
-    Execute the following on host, where VM is created:
-
-  .. code-block:: console
+    Execute the following on host, where VM is created::
 
       ip link add type vxlan remote <Jumphost IP> local <DUT IP> id <ID: 10> dstport 4789
       brctl addbr br-int
@@ -367,7 +357,7 @@ On Host, where VM is created:
       ip addr add <IP#1, like: 172.20.2.1/24> dev br-int
       ip link set dev br-int up
 
-  .. note:: May be needed to add extra rules to iptable to forward traffic.
+  .. note:: You may need to add extra rules to iptable to forward traffic.
 
   .. code-block:: console
 
@@ -401,23 +391,24 @@ On Host, where VM is created:
     Yardstick has a tool for building this custom image with SampleVNF.
     It is necessary to have ``sudo`` rights to use this tool.
 
-    Also you may need to install several additional packages to use this tool, by
-    following the commands below::
+   Also you may need to install several additional packages to use this tool, by
+   following the commands below::
 
-       sudo apt-get update && sudo apt-get install -y qemu-utils kpartx
+      sudo apt-get update && sudo apt-get install -y qemu-utils kpartx
 
-    This image can be built using the following command in the directory where Yardstick is installed
+   This image can be built using the following command in the directory where
+   Yardstick is installed::
 
-    .. code-block:: console
+      export YARD_IMG_ARCH='amd64'
+      sudo echo "Defaults env_keep += \'YARD_IMG_ARCH\'" >> /etc/sudoers
 
-       export YARD_IMG_ARCH='amd64'
-       sudo echo "Defaults env_keep += \'YARD_IMG_ARCH\'" >> /etc/sudoers
+   For instructions on generating a cloud image using Ansible, refer to
+   :doc:`04-installation`.
 
-    Please use ansible script to generate a cloud image refer to :doc:`04-installation`
+   for more details refer to chapter :doc:`04-installation`
 
-    for more details refer to chapter :doc:`04-installation`
-
-    .. note:: VM should be build with static IP and should be accessible from yardstick host.
+   .. note:: VM should be build with static IP and be accessible from the
+      Yardstick host.
 
 
 SR-IOV Config pod.yaml describing Topology
@@ -442,10 +433,10 @@ SR-IOV 2-Node setup:
   +----------+               +-------------------------+
   |          |               |       ^          ^      |
   |          |               |       |          |      |
-  |          | (0)<----->(0) | ------           |      |
-  |    TG1   |               |           SUT    |      |
-  |          |               |                  |      |
-  |          | (n)<----->(n) |------------------       |
+  |          | (0)<----->(0) | ------    SUT    |      |
+  |    TG1   |               |                  |      |
+  |          | (n)<----->(n) | -----------------       |
+  |          |               |                         |
   +----------+               +-------------------------+
   trafficgen_1                          host
 
@@ -455,29 +446,29 @@ SR-IOV 3-Node setup - Correlated Traffic
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. code-block:: console
 
-                               +--------------------+
-                               |                    |
-                               |                    |
-                               |        DUT         |
-                               |       (VNF)        |
-                               |                    |
-                               +--------------------+
-                               | VF NIC |  | VF NIC |
-                               +--------+  +--------+
-                                     ^          ^
-                                     |          |
-                                     |          |
-  +----------+               +-------------------------+            +--------------+
-  |          |               |       ^          ^      |            |              |
-  |          |               |       |          |      |            |              |
-  |          | (0)<----->(0) | ------           |      |            |     TG2      |
-  |    TG1   |               |           SUT    |      |            | (UDP Replay) |
-  |          |               |                  |      |            |              |
-  |          | (n)<----->(n) |                  ------ | (n)<-->(n) |              |
-  +----------+               +-------------------------+            +--------------+
-  trafficgen_1                          host                       trafficgen_2
+                             +--------------------+
+                             |                    |
+                             |                    |
+                             |        DUT         |
+                             |       (VNF)        |
+                             |                    |
+                             +--------------------+
+                             | VF NIC |  | VF NIC |
+                             +--------+  +--------+
+                                   ^          ^
+                                   |          |
+                                   |          |
+  +----------+               +---------------------+            +--------------+
+  |          |               |     ^          ^    |            |              |
+  |          |               |     |          |    |            |              |
+  |          | (0)<----->(0) |-----           |    |            |     TG2      |
+  |    TG1   |               |         SUT    |    |            | (UDP Replay) |
+  |          |               |                |    |            |              |
+  |          | (n)<----->(n) |                -----| (n)<-->(n) |              |
+  +----------+               +---------------------+            +--------------+
+  trafficgen_1                          host                      trafficgen_2
 
-Before executing Yardstick test cases, make sure that pod.yaml reflects the
+Before executing Yardstick test cases, make sure that ``pod.yaml`` reflects the
 topology and update all the required fields.
 
 .. code-block:: console
@@ -584,8 +575,8 @@ OVS-DPDK Pre-requisites
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 On Host, where VM is created:
- a) Create and configure a bridge named ``br-int`` for VM to connect to external network.
-    Currently this can be done using VXLAN tunnel.
+ a) Create and configure a bridge named ``br-int`` for VM to connect to
+    external network. Currently this can be done using VXLAN tunnel.
 
     Execute the following on host, where VM is created:
 
@@ -632,26 +623,27 @@ On Host, where VM is created:
     Yardstick has a tool for building this custom image with SampleVNF.
     It is necessary to have ``sudo`` rights to use this tool.
 
-    Also you may need to install several additional packages to use this tool, by
-    following the commands below::
+   You may need to install several additional packages to use this tool, by
+   following the commands below::
 
-       sudo apt-get update && sudo apt-get install -y qemu-utils kpartx
+      sudo apt-get update && sudo apt-get install -y qemu-utils kpartx
 
-    This image can be built using the following command in the directory where Yardstick is installed::
+   This image can be built using the following command in the directory where
+   Yardstick is installed::
 
-       export YARD_IMG_ARCH='amd64'
-       sudo echo "Defaults env_keep += \'YARD_IMG_ARCH\'" >> /etc/sudoers
-       sudo tools/yardstick-img-dpdk-modify tools/ubuntu-server-cloudimg-samplevnf-modify.sh
+      export YARD_IMG_ARCH='amd64'
+      sudo echo "Defaults env_keep += \'YARD_IMG_ARCH\'" >> /etc/sudoers
+      sudo tools/yardstick-img-dpdk-modify tools/ubuntu-server-cloudimg-samplevnf-modify.sh
 
-    for more details refer to chapter :doc:`04-installation`
+   for more details refer to chapter :doc:`04-installation`
 
-    .. note::  VM should be build with static IP and should be accessible from yardstick host.
+   .. note::  VM should be build with static IP and should be accessible from
+      yardstick host.
 
- c) OVS & DPDK version.
-     - OVS 2.7 and DPDK 16.11.1 above version is supported
+3. OVS & DPDK version.
+   * OVS 2.7 and DPDK 16.11.1 above version is supported
 
- d) Setup OVS/DPDK on host.
-     Please refer to below link on how to setup `OVS-DPDK <http://docs.openvswitch.org/en/latest/intro/install/dpdk/>`_
+4. Setup `OVS-DPDK`_ on host.
 
 
 OVS-DPDK Config pod.yaml describing Topology
@@ -718,10 +710,8 @@ OVS-DPDK 3-Node setup - Correlated Traffic
   trafficgen_1                          host                       trafficgen_2
 
 
-Before executing Yardstick test cases, make sure that pod.yaml reflects the
-topology and update all the required fields.
-
-.. code-block:: console
+Before executing Yardstick test cases, make sure that the ``pod.yaml`` reflects
+the topology and update all the required fields::
 
   cp <yardstick>/etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
   cp <yardstick>/etc/yardstick/nodes/standalone/host_ovs.yaml /etc/yardstick/nodes/standalone/host_ovs.yaml
@@ -869,26 +859,22 @@ Single node OpenStack setup with external TG
 Host pre-configuration
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. warning:: The following configuration requires sudo access to the system. Make
-  sure that your user have the access.
+.. warning:: The following configuration requires sudo access to the system.
+   Make sure that your user have the access.
 
-Enable the Intel VT-d or AMD-Vi extension in the BIOS. Some system manufacturers
-disable this extension by default.
+Enable the Intel VT-d or AMD-Vi extension in the BIOS. Some system
+manufacturers disable this extension by default.
 
 Activate the Intel VT-d or AMD-Vi extension in the kernel by modifying the GRUB
 config file ``/etc/default/grub``.
 
-For the Intel platform:
-
-.. code:: bash
+For the Intel platform::
 
   ...
   GRUB_CMDLINE_LINUX_DEFAULT="intel_iommu=on"
   ...
 
-For the AMD platform:
-
-.. code:: bash
+For the AMD platform::
 
   ...
   GRUB_CMDLINE_LINUX_DEFAULT="amd_iommu=on"
@@ -903,9 +889,7 @@ Update the grub configuration file and restart the system:
   sudo update-grub
   sudo reboot
 
-Make sure the extension has been enabled:
-
-.. code:: bash
+Make sure the extension has been enabled::
 
   sudo journalctl -b 0 | grep -e IOMMU -e DMAR
 
@@ -918,11 +902,13 @@ Make sure the extension has been enabled:
   Feb 06 14:50:14 hostname kernel: DMAR: dmar1: reg_base_addr e0ffc000 ver 1:0 cap 8d2078c106f0466 ecap f020de
   Feb 06 14:50:14 hostname kernel: DMAR: DRHD base: 0x000000ee7fc000 flags: 0x0
 
+.. TODO: Refer to the yardstick installation guide for proxy set up
+
 Setup system proxy (if needed). Add the following configuration into the
 ``/etc/environment`` file:
 
 .. note:: The proxy server name/port and IPs should be changed according to
-  actuall/current proxy configuration in the lab.
+  actual/current proxy configuration in the lab.
 
 .. code:: bash
 
@@ -940,13 +926,11 @@ Upgrade the system:
   sudo -EH apt-get upgrade
   sudo -EH apt-get dist-upgrade
 
-Install dependencies needed for the DevStack
+Install dependencies needed for DevStack
 
 .. code:: bash
 
-  sudo -EH apt-get install python
-  sudo -EH apt-get install python-dev
-  sudo -EH apt-get install python-pip
+  sudo -EH apt-get install python python-dev python-pip
 
 Setup SR-IOV ports on the host:
 
@@ -969,10 +953,10 @@ Setup SR-IOV ports on the host:
 DevStack installation
 ^^^^^^^^^^^^^^^^^^^^^
 
-Use official `Devstack <https://docs.openstack.org/devstack/pike/>`_
-documentation to install OpenStack on a host. Please note, that stable
-``pike`` branch of devstack repo should be used during the installation.
-The required `local.conf`` configuration file are described below.
+If you want to try out NSB, but don't have OpenStack set-up, you can use
+`Devstack`_ to install OpenStack on a host. Please note, that the
+``stable/pike`` branch of devstack repo should be used during the installation.
+The required ``local.conf`` configuration file are described below.
 
 DevStack configuration file:
 
@@ -991,11 +975,10 @@ Start the devstack installation on a host.
 TG host configuration
 ^^^^^^^^^^^^^^^^^^^^^
 
-Yardstick automatically install and configure Trex traffic generator on TG
+Yardstick automatically installs and configures Trex traffic generator on TG
 host based on provided POD file (see below). Anyway, it's recommended to check
-the compatibility of the installed NIC on the TG server with software Trex using
-the manual at https://trex-tgn.cisco.com/trex/doc/trex_manual.html.
-
+the compatibility of the installed NIC on the TG server with software Trex
+using the `manual <https://trex-tgn.cisco.com/trex/doc/trex_manual.html>`_.
 
 Run the Sample VNF test case
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1004,7 +987,7 @@ There is an example of Sample VNF test case ready to be executed in an
 OpenStack environment with SR-IOV support: ``samples/vnf_samples/nsut/vfw/
 tc_heat_sriov_external_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``.
 
-Install yardstick using `Install Yardstick (NSB Testing)`_ steps for OpenStack
+Install Yardstick using `Install Yardstick (NSB Testing)`_ steps for OpenStack
 context.
 
 Create pod file for TG in the yardstick repo folder located in the yardstick
@@ -1057,16 +1040,15 @@ Controller/Compute pre-configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Pre-configuration of the controller and compute hosts are the same as
-described in `Host pre-configuration`_ section. Follow the steps in the section.
+described in `Host pre-configuration`_ section.
 
 
 DevStack configuration
 ^^^^^^^^^^^^^^^^^^^^^^
 
-Use official `Devstack <https://docs.openstack.org/devstack/pike/>`_
-documentation to install OpenStack on a host. Please note, that stable
-``pike`` branch of devstack repo should be used during the installation.
-The required `local.conf`` configuration file are described below.
+A reference ``local.conf`` for deploying OpenStack in a multi-host environment
+using `Devstack`_ is shown in this section. The ``stable/pike`` branch of
+devstack repo should be used during the installation.
 
 .. note:: Update the devstack configuration files by replacing angluar brackets
   with a short description inside.
@@ -1090,22 +1072,22 @@ Start the devstack installation on the controller and compute hosts.
 Run the sample vFW TC
 ^^^^^^^^^^^^^^^^^^^^^
 
-Install yardstick using `Install Yardstick (NSB Testing)`_ steps for OpenStack
+Install Yardstick using `Install Yardstick (NSB Testing)`_ steps for OpenStack
 context.
 
-Run sample vFW RFC2544 SR-IOV TC (``samples/vnf_samples/nsut/vfw/
-tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``) in the heat
-context using steps described in `NS testing - using yardstick CLI`_ section
-and the following yardtick command line arguments:
+Run the sample vFW RFC2544 SR-IOV test case
+(``samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``)
+in the heat context using steps described in
+`NS testing - using yardstick CLI`_ section and the following Yardstick command
+line arguments:
 
 .. code:: bash
 
   yardstick -d task start --task-args='{"provider": "sriov"}' \
   samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex.yaml
 
-
-Enabling other Traffic generator
-================================
+Enabling other Traffic generators
+---------------------------------
 
 IxLoad
 ^^^^^^
@@ -1124,14 +1106,16 @@ IxLoad
 
   .. code-block:: console
 
-    cp <repo>/etc/yardstick/nodes/pod.yaml.nsb.sample.ixia etc/yardstick/nodes/pod_ixia.yaml
+    cp <repo>/etc/yardstick/nodes/pod.yaml.nsb.sample.ixia \
+      etc/yardstick/nodes/pod_ixia.yaml
 
   Config ``pod_ixia.yaml``
 
   .. literalinclude:: code/pod_ixia.yaml
      :language: console
 
-  for sriov/ovs_dpdk pod files, please refer to above Standalone Virtualization for ovs-dpdk/sriov configuration
+  for sriov/ovs_dpdk pod files, please refer to `Standalone Virtualization`_
+  for ovs-dpdk/sriov configuration
 
 3. Start IxOS TCL Server (Install 'Ixia IxExplorer IxOS <version>')
    You will also need to configure the IxLoad machine to start the IXIA
@@ -1141,7 +1125,7 @@ IxLoad
    * Go to:
      ``Start->Programs->Ixia->IxOS->IxOS 8.01-GA-Patch1->Ixia Tcl Server IxOS 8.01-GA-Patch1``
      or
-     ``"C:\Program Files (x86)\Ixia\IxOS\8.01-GA-Patch1\ixTclServer.exe"``
+     ``C:\Program Files (x86)\Ixia\IxOS\8.01-GA-Patch1\ixTclServer.exe``
 
 4. Create a folder ``Results`` in c:\ and share the folder on the network.
 
@@ -1158,14 +1142,16 @@ installed as part of the requirements of the project.
 
   .. code-block:: console
 
-    cp <repo>/etc/yardstick/nodes/pod.yaml.nsb.sample.ixia etc/yardstick/nodes/pod_ixia.yaml
+    cp <repo>/etc/yardstick/nodes/pod.yaml.nsb.sample.ixia \
+    etc/yardstick/nodes/pod_ixia.yaml
 
-  Config pod_ixia.yaml
+  Configure ``pod_ixia.yaml``
 
   .. literalinclude:: code/pod_ixia.yaml
      :language: console
 
-  for sriov/ovs_dpdk pod files, please refer to above Standalone Virtualization for ovs-dpdk/sriov configuration
+  for sriov/ovs_dpdk pod files, please refer to above
+  `Standalone Virtualization`_ for ovs-dpdk/sriov configuration
 
 2. Start IxNetwork TCL Server
    You will also need to configure the IxNetwork machine to start the IXIA
