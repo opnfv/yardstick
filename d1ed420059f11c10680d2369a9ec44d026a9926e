@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_df627dd7",
+        "filename": "ansible/infra_deploy.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-28T08:02:01Z",
+      "side": 1,
+      "message": "For consistency: infra_check_requirements, install_dependencies_jumphost, install_image_dependencies, etc",
+      "parentUuid": "9a561d44_741d580f",
+      "range": {
+        "startLine": 30,
+        "startChar": 20,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "d1ed420059f11c10680d2369a9ec44d026a9926e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_d46c249f",
         "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
         "patchSetId": 1
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_ff794194",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-28T08:02:01Z",
+      "side": 1,
+      "message": "We don\u0027t support Ubuntu 17",
+      "parentUuid": "9a561d44_74f6f8d8",
+      "range": {
+        "startLine": 22,
+        "startChar": 45,
+        "endLine": 22,
+        "endChar": 46
+      },
+      "revId": "d1ed420059f11c10680d2369a9ec44d026a9926e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_b469b08d",
         "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
         "patchSetId": 1
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "Due to changes in Ubuntu 17/18.\nhttps://help.ubuntu.com/lts/serverguide/network-configuration.html.en",
       "parentUuid": "9a561d44_b469b08d",
+      "range": {
+        "startLine": 34,
+        "startChar": 42,
+        "endLine": 34,
+        "endChar": 111
+      },
+      "revId": "d1ed420059f11c10680d2369a9ec44d026a9926e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_9f6805bc",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-28T08:02:01Z",
+      "side": 1,
+      "message": "I don\u0027t see this change in the manual.",
+      "parentUuid": "9a561d44_b40090ab",
       "range": {
         "startLine": 34,
         "startChar": 42,
