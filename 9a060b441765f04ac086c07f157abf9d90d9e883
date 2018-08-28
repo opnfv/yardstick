@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_c5e2b89e",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-08-28T16:24:58Z",
+      "side": 1,
+      "message": "This conflicts with line 18 above.\nWhen a CLI argument is supplied, it will be used for both openrc_file and yardstick_docker_image, so obviously one of them will be wrong, and NSB setup will fail at some point.\nA fix for that is provided by https://gerrit.opnfv.org/gerrit/61477",
+      "range": {
+        "startLine": 71,
+        "startChar": 54,
+        "endLine": 71,
+        "endChar": 58
+      },
+      "revId": "9a060b441765f04ac086c07f157abf9d90d9e883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
