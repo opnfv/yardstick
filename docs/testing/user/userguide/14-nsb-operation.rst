@@ -2,6 +2,16 @@
 .. License.
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, 2016-2018 Intel Corporation.
+..
+    Convention for heading levels in Yardstick documentation:
+
+    =======  Heading 0 (reserved for the title in a document)
+    -------  Heading 1
+    ^^^^^^^  Heading 2
+    +++++++  Heading 3
+    '''''''  Heading 4
+
+    Avoid deeper levels because they do not render well.
 
 Yardstick - NSB Testing - Operation
 ===================================
