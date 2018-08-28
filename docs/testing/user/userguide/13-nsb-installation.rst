@@ -20,13 +20,8 @@ NSB Installation
 .. _OVS-DPDK: http://docs.openvswitch.org/en/latest/intro/install/dpdk/
 .. _devstack: https://docs.openstack.org/devstack/pike/>
 
-The Network Service Benchmarking (NSB) extends the yardstick framework to do
-VNF characterization and benchmarking in three different execution
-environments viz., bare metal i.e. native Linux environment, standalone virtual
-environment and managed virtualized environment (e.g. Open stack etc.).
-It also brings in the capability to interact with external traffic generators
-both hardware & software based for triggering and validating the traffic
-according to user defined profiles.
+Abstract
+--------
 
 The steps needed to run Yardstick with NSB testing are:
 
