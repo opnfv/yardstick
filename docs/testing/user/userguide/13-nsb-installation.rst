@@ -8,11 +8,12 @@
 
    =======  Heading 0 (reserved for the title in a document)
    -------  Heading 1
-   ~~~~~~~  Heading 2
+   ^^^^^^^  Heading 2
    +++++++  Heading 3
    '''''''  Heading 4
 
    Avoid deeper levels because they do not render well.
+
 
 ================
 NSB Installation
@@ -36,7 +37,6 @@ The steps needed to run Yardstick with NSB testing are:
 * Create/reference the test configuration yaml file.
 * Run the test case.
 
-
 Prerequisites
 -------------
 
@@ -57,7 +57,7 @@ Several prerequisites are needed for Yardstick (VNF testing):
   * intel-cmt-cat
 
 Hardware & Software Ingredients
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 SUT requirements:
 
@@ -72,7 +72,6 @@ SUT requirements:
    ======= ===================
 
 Boot and BIOS settings:
-
 
    ============= =================================================
    Boot settings default_hugepagesz=1G hugepagesz=1G hugepages=16
@@ -220,12 +219,11 @@ Run Yardstick - Network Service Testcases
 -----------------------------------------
 
 NS testing - using yardstick CLI
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   See :doc:`04-installation`
 
 Connect to the Yardstick container::
-
 
   docker exec -it yardstick /bin/bash
 
@@ -245,7 +243,7 @@ Network Service Benchmarking - Bare-Metal
 -----------------------------------------
 
 Bare-Metal Config pod.yaml describing Topology
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Bare-Metal 2-Node setup
 +++++++++++++++++++++++
@@ -350,11 +348,11 @@ topology and update all the required fields.::
           if: "xe1"
 
 
-Network Service Benchmarking - Standalone Virtualization
---------------------------------------------------------
+Standalone Virtualization
+-------------------------
 
 SR-IOV
-~~~~~~
+^^^^^^
 
 SR-IOV Pre-requisites
 +++++++++++++++++++++
@@ -538,8 +536,8 @@ SR-IOV Config host_sriov.yaml
 SR-IOV testcase update:
 ``<yardstick>/samples/vnf_samples/nsut/vfw/tc_sriov_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
 
-Update "contexts" section
-'''''''''''''''''''''''''
+Update contexts section
+'''''''''''''''''''''''
 
 .. code-block:: YAML
 
@@ -582,12 +580,11 @@ Update "contexts" section
          gateway_ip: '152.16.100.20'
 
 
-
 OVS-DPDK
-~~~~~~~~
+^^^^^^^^
 
 OVS-DPDK Pre-requisites
-~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++
 
 On Host, where VM is created:
  a) Create and configure a bridge named ``br-int`` for VM to connect to
@@ -776,8 +773,8 @@ OVS-DPDK Config host_ovs.yaml
 ovs_dpdk testcase update:
 ``<yardstick>/samples/vnf_samples/nsut/vfw/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
 
-Update "contexts" section
-'''''''''''''''''''''''''
+Update contexts section
+'''''''''''''''''''''''
 
 .. code-block:: YAML
 
@@ -831,16 +828,16 @@ Update "contexts" section
          gateway_ip: '152.16.100.20'
 
 
-Network Service Benchmarking - OpenStack with SR-IOV support
-------------------------------------------------------------
+OpenStack with SR-IOV support
+-----------------------------
 
 This section describes how to run a Sample VNF test case, using Heat context,
 with SR-IOV. It also covers how to install OpenStack in Ubuntu 16.04, using
 DevStack, with SR-IOV support.
 
 
-Single node OpenStack setup with external TG
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Single node OpenStack with external TG
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: console
 
@@ -985,7 +982,6 @@ DevStack configuration file:
 
 Start the devstack installation on a host.
 
-
 TG host configuration
 +++++++++++++++++++++
 
@@ -1056,7 +1052,6 @@ Controller/Compute pre-configuration
 Pre-configuration of the controller and compute hosts are the same as
 described in `Host pre-configuration`_ section.
 
-
 DevStack configuration
 ++++++++++++++++++++++
 
@@ -1081,7 +1076,6 @@ DevStack configuration file for compute host:
    :language: console
 
 Start the devstack installation on the controller and compute hosts.
-
 
 Run the sample vFW TC
 +++++++++++++++++++++
@@ -1148,7 +1142,7 @@ IxLoad
    ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_1b_Requests-65000_Concurrency.yaml``
 
 IxNetwork
-~~~~~~~~~
+^^^^^^^^^
 
 IxNetwork testcases use IxNetwork API Python Bindings module, which is
 installed as part of the requirements of the project.
