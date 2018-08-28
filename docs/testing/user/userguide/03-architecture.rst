@@ -1,23 +1,33 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International
-.. License.
-.. http://creativecommons.org/licenses/by/4.0
-.. (c) 2016 Huawei Technologies Co.,Ltd and others
+   License.
+   http://creativecommons.org/licenses/by/4.0
+   (c) 2016 Huawei Technologies Co.,Ltd and others
+
+    Convention for heading levels in Yardstick documentation:
+
+    =======  Heading 0 (reserved for the title in a document)
+    -------  Heading 1
+    ^^^^^^^  Heading 2
+    +++++++  Heading 3
+    '''''''  Heading 4
+
+    Avoid deeper levels because they do not render well.
 
 ============
 Architecture
 ============
 
 Abstract
-========
-This chapter describes the yardstick framework software architecture. We will
-introduce it from Use-Case View, Logical View, Process View and Deployment
+--------
+This chapter describes the Yardstick framework software architecture. We will
+introduce it from Use Case View, Logical View, Process View and Deployment
 View. More technical details will be introduced in this chapter.
 
 Overview
-========
+--------
 
 Architecture overview
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 Yardstick is mainly written in Python, and test configurations are made
 in YAML. Documentation is written in reStructuredText format, i.e. .rst
 files. Yardstick is inspired by Rally. Yardstick is intended to run on a
@@ -34,7 +44,7 @@ the test result will be shown with grafana.
 
 
 Concept
--------
+^^^^^^^
 **Benchmark** - assess the relative performance of something
 
 **Benchmark** configuration file - describes a single test case in yaml format
@@ -62,7 +72,7 @@ configuration file and evaluated by the runner.
 
 
 Runner types
-------------
+^^^^^^^^^^^^
 
 There exists several predefined runner types to choose between when designing
 a test scenario:
@@ -129,7 +139,7 @@ Snippet of an Iteration runner configuration:
 
 
 Use-Case View
-=============
+-------------
 Yardstick Use-Case View shows two kinds of users. One is the Tester who will
 do testing in cloud, the other is the User who is more concerned with test
 result and result analyses.
@@ -158,7 +168,7 @@ on OPNFV testing dashboard which use MongoDB as backend.
    :alt: Yardstick Use-Case View
 
 Logical View
-============
+------------
 Yardstick Logical View describes the most important classes, their
 organization, and the most important use-case realizations.
 
@@ -195,7 +205,7 @@ finished.
    :alt: Yardstick framework architecture in Danube
 
 Process View (Test execution flow)
-==================================
+----------------------------------
 Yardstick process view shows how yardstick runs a test case. Below is the
 sequence graph about the test execution flow using heat context, and each
 object represents one module in yardstick:
@@ -222,7 +232,7 @@ will call "Openstack" to undeploy the heat stack. Once the stack is
 undepoyed, the whole test ends.
 
 Deployment View
-===============
+---------------
 Yardstick deployment view shows how the yardstick tool can be deployed into the
 underlying platform. Generally, yardstick tool is installed on JumpServer(see
 `07-installation` for detail installation steps), and JumpServer is
@@ -235,7 +245,7 @@ result for better showing.
    :alt: Yardstick Deployment View
 
 Yardstick Directory structure
-=============================
+-----------------------------
 
 **yardstick/** - Yardstick main directory.
 

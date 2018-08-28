@@ -3,12 +3,19 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, 2016-2017 Intel Corporation.
 
+.. Convention for heading levels in Yardstick documentation:
+
+   =======  Heading 0 (reserved for the title in a document)
+   -------  Heading 1
+   ^^^^^^^  Heading 2
+   +++++++  Heading 3
+   '''''''  Heading 4
+
+   Avoid deeper levels because they do not render well.
+
 ===================================
 Network Services Benchmarking (NSB)
 ===================================
-
-Abstract
-========
 
 .. _Yardstick: https://wiki.opnfv.org/yardstick
 .. _`ETSI GS NFV-TST001`: http://www.etsi.org/deliver/etsi_gs/NFV-TST/001_099/001/01.01.01_60/gs_nfv-tst001v010101p.pdf
@@ -65,7 +72,7 @@ NSB extension includes:
     * VNF KPIs e.g. packet_in, packet_drop, packet_fwd
 
 Architecture
-============
+------------
 
 The Network Service (NS) defines a set of Virtual Network Functions (VNF)
 connected together using NFV infrastructure.
@@ -100,7 +107,7 @@ Network Service framework performs the necessary test steps. It may involve:
 * Retrieve the KPI's provided by particular VNF
 
 Components of Network Service
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * *Models for Network Service benchmarking*: The Network Service benchmarking
   requires the proper modelling approach. The NSB provides models using Python
@@ -151,7 +158,7 @@ for every combination of test case parameters:
 * RFC2544 throughput for various loss rate defined (1% is a default)
 
 Graphical Overview
-==================
+------------------
 
 NSB Testing with Yardstick framework facilitate performance testing of various
 VNFs provided.
@@ -177,8 +184,8 @@ VNFs provided.
 
               Figure 1: Network Service - 2 server configuration
 
-VNFs supported for chracterization:
------------------------------------
+VNFs supported for chracterization
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. CGNAPT - Carrier Grade Network Address and port Translation
 2. vFW - Virtual Firewall
