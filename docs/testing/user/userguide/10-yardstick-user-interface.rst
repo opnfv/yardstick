@@ -1,3 +1,17 @@
+.. This work is licensed under a Creative Commons Attribution 4.0 International
+.. License.
+.. http://creativecommons.org/licenses/by/4.0
+
+.. Convention for heading levels in Yardstick documentation:
+
+   =======  Heading 0 (reserved for the title in a document)
+   -------  Heading 1
+   ^^^^^^^  Heading 2
+   +++++++  Heading 3
+   '''''''  Heading 4
+
+   Avoid deeper levels because they do not render well.
+
 ========================
 Yardstick User Interface
 ========================
@@ -7,14 +21,14 @@ in table format and also values pinned on to a graph.
 
 
 Command
-=======
+-------
 ::
 
     yardstick report generate <task-ID> <testcase-filename>
 
 
 Description
-===========
+-----------
 
 1. When the command is triggered using the task-id and the testcase
 name provided the respective values are retrieved from the

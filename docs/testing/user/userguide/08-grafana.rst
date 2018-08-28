@@ -3,13 +3,23 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) 2016 Huawei Technologies Co.,Ltd and others
 
+.. Convention for heading levels in Yardstick documentation:
+
+   =======  Heading 0 (reserved for the title in a document)
+   -------  Heading 1
+   ^^^^^^^  Heading 2
+   +++++++  Heading 3
+   '''''''  Heading 4
+
+   Avoid deeper levels because they do not render well.
+
 =================
 Grafana dashboard
 =================
 
 
 Abstract
-========
+--------
 
 This chapter describes the Yardstick grafana dashboard. The Yardstick grafana
 dashboard can be found here: http://testresults.opnfv.org/grafana/
@@ -21,14 +31,14 @@ dashboard can be found here: http://testresults.opnfv.org/grafana/
 
 
 Public access
-=============
+-------------
 
 Yardstick provids a public account for accessing to the dashboard. The username
 and password are both set to ‘opnfv’.
 
 
 Testcase dashboard
-==================
+------------------
 
 For each test case, there is a dedicated dashboard. Shown here is the dashboard
 of TC002.
@@ -56,7 +66,7 @@ zoom out the chart.
 
 
 Administration access
-=====================
+---------------------
 
 For a user with administration rights it is easy to update and save any
 dashboard configuration. Saved updates immediately take effect and become live.
@@ -72,11 +82,11 @@ This may cause issues like:
 Any change made by administrator should be careful.
 
 
-Add a dashboard into yardstick grafana
-======================================
+Add a dashboard into Yardstick Grafana
+--------------------------------------
 
 Due to security concern, users that using the public opnfv account are not able
-to edit the yardstick grafana directly.It takes a few more steps for a
+to edit the yardstick grafana directly. It takes a few more steps for a
 non-yardstick user to add a custom dashboard into yardstick grafana.
 
 There are 6 steps to go.

@@ -2,6 +2,15 @@
 .. License.
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Huawei Technologies Co.,Ltd and others.
+.. Convention for heading levels in Yardstick documentation:
+
+   =======  Heading 0 (reserved for the title in a document)
+   -------  Heading 1
+   ^^^^^^^  Heading 2
+   +++++++  Heading 3
+   '''''''  Heading 4
+
+   Avoid deeper levels because they do not render well.
 
 =====================
 Yardstick Restful API
@@ -9,16 +18,16 @@ Yardstick Restful API
 
 
 Abstract
-========
+--------
 
 Yardstick support restful API since Danube.
 
 
 Available API
-=============
+-------------
 
 /yardstick/env/action
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to prepare Yardstick test environment.
 For Euphrates, it supports:
@@ -69,7 +78,7 @@ get the task result.
 
 
 /yardstick/asynctask
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to get the status of asynchronous tasks
 
@@ -91,7 +100,7 @@ NOTE::
 
 
 /yardstick/testcases
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to list all released Yardstick test cases.
 
@@ -106,7 +115,7 @@ Example::
 
 
 /yardstick/testcases/release/action
------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to run a Yardstick released test case.
 
@@ -130,7 +139,7 @@ result.
 
 
 /yardstick/testcases/samples/action
------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to run a Yardstick sample test case.
 
@@ -154,7 +163,7 @@ the result.
 
 
 /yardstick/testcases/<testcase_name>/docs
------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to the documentation of a certain released test
 case.
@@ -170,7 +179,7 @@ Example::
 
 
 /yardstick/testsuites/action
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to run a Yardstick test suite.
 
@@ -194,7 +203,7 @@ result.
 
 
 /yardstick/tasks/<task_id>/log
-------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to get the real time log of test case execution.
 
@@ -209,7 +218,7 @@ Example::
 
 
 /yardstick/results
-------------------
+^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to get the test results of tasks. If you call
 /yardstick/testcases/samples/action API, it will return a task id. You can use
@@ -228,7 +237,7 @@ This API will return a list of test case result
 
 
 /api/v2/yardstick/openrcs
--------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API provides functionality of handling OpenStack credential
 file (openrc). For Euphrates, it supports:
@@ -282,7 +291,7 @@ Example::
 
 
 /api/v2/yardstick/openrcs/<openrc_id>
--------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API provides functionality of handling OpenStack credential file (openrc). For Euphrates, it supports:
 
@@ -308,7 +317,7 @@ Example::
 
 
 /api/v2/yardstick/pods
-----------------------
+^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API provides functionality of handling Yardstick pod file
 (pod.yaml). For Euphrates, it supports:
@@ -334,7 +343,7 @@ Example::
 
 
 /api/v2/yardstick/pods/<pod_id>
--------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API provides functionality of handling Yardstick pod file (pod.yaml). For Euphrates, it supports:
 
@@ -358,7 +367,7 @@ Example::
 
 
 /api/v2/yardstick/images
-------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to Yardstick VM images.
 For Euphrates, it supports:
@@ -383,7 +392,7 @@ Example::
 
 
 /api/v2/yardstick/images/<image_id>
------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to Yardstick VM images. For Euphrates, it supports:
 
@@ -407,7 +416,7 @@ Example::
 
 
 /api/v2/yardstick/tasks
------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to yardstick tasks. For
 Euphrates, it supports:
@@ -433,7 +442,7 @@ Example::
 
 
 /api/v2/yardstick/tasks/<task_id>
---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to yardstick tasks. For Euphrates, it supports:
 
@@ -518,7 +527,7 @@ Example::
 
 
 /api/v2/yardstick/testcases
----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to Yardstick testcases.
 For Euphrates, it supports:
@@ -553,7 +562,7 @@ Example::
 
 
 /api/v2/yardstick/testcases/<case_name>
----------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to yardstick testcases. For Euphrates, it supports:
 
@@ -579,7 +588,7 @@ Example::
 
 
 /api/v2/yardstick/testsuites
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to yardstick test suites.
 For Euphrates, it supports:
@@ -617,7 +626,7 @@ Example::
 
 
 /api/v2/yardstick/testsuites
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to yardstick test suites. For Euphrates, it supports:
 
@@ -643,7 +652,7 @@ Example::
 
 
 /api/v2/yardstick/projects
---------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to Yardstick test
 projects. For Euphrates, it supports:
@@ -678,7 +687,7 @@ Example::
 
 
 /api/v2/yardstick/projects
---------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to yardstick test projects. For Euphrates, it supports:
 
@@ -704,7 +713,7 @@ Example::
 
 
 /api/v2/yardstick/containers
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to Docker containers.
 For Euphrates, it supports:
@@ -744,7 +753,7 @@ Example::
 
 
 /api/v2/yardstick/containers/<container_id>
--------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description: This API is used to do some work related to Docker containers. For Euphrates, it supports:
 
