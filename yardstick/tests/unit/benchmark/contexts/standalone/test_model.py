@@ -205,10 +205,13 @@ class ModelLibvirtTestCase(unittest.TestCase):
         hostname = root.find('name').text
         meta_data = "/tmp/meta-data"
         user_data = "/tmp/user-data"
+        network_data = "/tmp/network-config"
         file_path = "/tmp/cdrom-0.img"
         key_filename = "id_rsa"
         pub_key_str = "KEY"
         user = 'root'
+        mac = "00:11:22:33:44:55"
+        ip = "1.1.1.7/24"
         user_config = ["    - name: {user_name}",
                        "      ssh_authorized_keys:",
                        "        - {pub_key_str}"]
@@ -218,7 +221,8 @@ class ModelLibvirtTestCase(unittest.TestCase):
                         create=True) as mock_file:
             with open(key_filename, "r") as h:
                 result = h.read()
-            model.Libvirt.gen_cdrom_image(self.mock_ssh, file_path, hostname, user, key_filename)
+            model.Libvirt.gen_cdrom_image(self.mock_ssh, file_path, hostname, user, key_filename,
+                                          mac, ip)
             mock_file.assert_called_with(".".join([key_filename, "pub"]), "r")
         self.assertEqual(result, pub_key_str)
 
@@ -226,9 +230,12 @@ class ModelLibvirtTestCase(unittest.TestCase):
             mock.call("touch %s" % meta_data),
             mock.call(model.USER_DATA_TEMPLATE.format(user_file=user_data, host=hostname,
                                                       user_config=user_conf)),
+            mock.call(model.NETWORK_DATA_TEMPLATE.format(network_file=network_data,
+                                                         mac_address=mac, ip_address=ip)),
             mock.call("genisoimage -output {0} -volid cidata"
-                      " -joliet -r {1} {2}".format(file_path, meta_data, user_data)),
-            mock.call("rm {0} {1}".format(meta_data, user_data))
+                      " -joliet -r {1} {2} {3}".format(file_path, meta_data, user_data,
+                                                       network_data)),
+            mock.call("rm {0} {1} {2}".format(meta_data, user_data, network_data))
         ])
 
     def test_create_snapshot_qemu(self):
@@ -273,16 +280,22 @@ class ModelLibvirtTestCase(unittest.TestCase):
 
     @mock.patch.object(model.Libvirt, 'gen_cdrom_image')
     def test_check_update_key(self, mock_gen_cdrom_image):
-        node = {'user': 'defuser', 'key_filename': '/home/ubuntu/id_rsa'}
+        node = {
+            'user': 'defuser',
+            'key_filename': '/home/ubuntu/id_rsa',
+            'ip': '1.1.1.7',
+            'netmask': '255.255.255.0'}
         cdrom_img = "/var/lib/libvirt/images/data.img"
         id_name = 'fake_name'
         key_filename = node.get('key_filename')
         root = ElementTree.fromstring(self.XML_STR)
         hostname = root.find('name').text
+        mac = "00:11:22:33:44:55"
+        ip = "{0}/{1}".format(node.get('ip'), node.get('netmask'))
         model.StandaloneContextHelper.check_update_key(self.mock_ssh, node, hostname, id_name,
-                                                       cdrom_img)
+                                                       cdrom_img, mac)
         mock_gen_cdrom_image.assert_called_once_with(self.mock_ssh, cdrom_img, hostname,
-                                                     node.get('user'), key_filename)
+                                                     node.get('user'), key_filename, mac, ip)
 
     @mock.patch.object(os, 'access', return_value=False)
     def test_create_snapshot_qemu_no_image_local(self, mock_os_access):
