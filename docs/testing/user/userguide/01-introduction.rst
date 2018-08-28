@@ -1,7 +1,17 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International
-.. License.
-.. http://creativecommons.org/licenses/by/4.0
-.. (c) OPNFV, Ericsson AB and others.
+   License.
+   http://creativecommons.org/licenses/by/4.0
+   (c) OPNFV, Ericsson AB and others.
+
+   Convention for heading levels in Yardstick documentation:
+
+      =======  Heading 0 (reserved for the title in a document)
+      -------  Heading 1
+      ^^^^^^^  Heading 2
+      +++++++  Heading 3
+      '''''''  Heading 4
+
+      Avoid deeper levels because they do not render well.
 
 ============
 Introduction
@@ -32,7 +42,7 @@ independent.
 
 
 About This Document
-===================
+-------------------
 
 This document consists of the following chapters:
 
@@ -79,7 +89,7 @@ This document consists of the following chapters:
   cases.
 
 Contact Yardstick
-=================
+-----------------
 
 Feedback? `Contact us`_
 
