@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_b41a506c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_48735de9",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_683c61e3",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "import utils and use utils.get_nsb_option",
+      "range": {
+        "startLine": 20,
+        "startChar": 32,
+        "endLine": 20,
+        "endChar": 37
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_1427bcb7",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_683c61e3",
       "range": {
         "startLine": 20,
         "startChar": 32,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_f42b2880",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_48419d59",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 67
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a825d9c3",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "from yardstick.common import exceptions",
+      "range": {
+        "startLine": 24,
+        "startChar": 22,
+        "endLine": 24,
+        "endChar": 32
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d41d4468",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_a825d9c3",
       "range": {
         "startLine": 24,
         "startChar": 22,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_5421349e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Using existing solution from IxLoad (updated in June).",
+      "parentUuid": "9a561d44_081e8570",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 27
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ab3f9324",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -128,6 +248,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "You need to add a TestLandslideResourceHelper",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 52
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_342640b8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "9a561d44_ab3f9324",
       "range": {
         "startLine": 34,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_943aaccb",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_6b361b54",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 34
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_4b3b573a",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -174,6 +342,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "You will need to add test_collect_kpi(self) and assertRaises(NotImplementedError)",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 26
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_743718e4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_4b3b573a",
       "range": {
         "startLine": 54,
         "startChar": 4,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_d43424e0",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Please note that at line #49 there\u0027s created an instance of this class, to ease understanding of how ResourceHelper class works.\nSeparating TclClient class might cause that rest of this patch would lose its meaning.",
+      "parentUuid": "9a561d44_0b0aff89",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 35
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_6bb1fbe0",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -220,6 +436,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "Please add a docstring to say what this does, where it is called and what the params are\n\nIt should be clear what auth[0] and auth[1] are.",
+      "range": {
+        "startLine": 109,
+        "startChar": 4,
+        "endLine": 109,
+        "endChar": 33
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b431b0ee",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_6bb1fbe0",
       "range": {
         "startLine": 109,
         "startChar": 4,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_144e9c6f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_0bbcbfba",
+      "range": {
+        "startLine": 120,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 28
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_2bdee311",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -266,6 +530,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "This is a very long method.\nThere are a number of different functions done here (see below for suggested break-outs).\n\nGrouping functionality and putting it into different methods with meaningful names makes it easier to understand what\u0027s going on.",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 134,
+        "endChar": 46
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d4bee4fe",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_2bdee311",
       "range": {
         "startLine": 134,
         "startChar": 4,
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_345e40e7",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_8b3c4f31",
+      "range": {
+        "startLine": 141,
+        "startChar": 7,
+        "endLine": 144,
+        "endChar": 26
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_0be31fda",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -312,6 +624,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "This block of functionality can be separated into its own function _add_test_server(name, id)\n\nYou will need to add tests:\n- test__add_test_server\n- test__add_test_server_failed",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 75
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_14d4dc1e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_0be31fda",
       "range": {
         "startLine": 145,
         "startChar": 0,
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_d49f045e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_abd153fd",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 57
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_eb498bd1",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -370,6 +730,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_ffbb01c2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done, but invalid_user scenario seems to be off topic, skipped it.\nSimilar idea is tested in test_connect_login_failed() of test_tg_landslide.py .",
+      "parentUuid": "9a561d44_eb498bd1",
+      "range": {
+        "startLine": 169,
+        "startChar": 12,
+        "endLine": 183,
+        "endChar": 43
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_cb4647bf",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -381,6 +765,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "You need to add some tests for this.",
+      "range": {
+        "startLine": 186,
+        "startChar": 8,
+        "endLine": 186,
+        "endChar": 27
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7a937fa3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_cb4647bf",
       "range": {
         "startLine": 186,
         "startChar": 8,
@@ -485,6 +893,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_bfa7c94e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Each param there in that \"case\" statement is covered by default value on TCL server side. Thus we allow user to skip it. Though, those default values (e.g. duration\u003d0) do not fit to user preferences.",
+      "parentUuid": "9a561d44_abddd372",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 42
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_6bf45bf2",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -508,6 +940,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_9fcac54d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Neat. But such code would interfere in debugging, as it misleads a user, as if it had that key in a dictionary.\n\nBasically that test_session is a pre-defined YAML file. User uses it as a reference. It is a template-like file. We discourage user to modify it (as well as DMF template in traffic_profile object).\n\nBut if you feel handling is needed, I might \n\n1. Modify KeyError message in a wrapper:\n\n\u003e\u003e\u003e try:\n...   {}[1]\n... except KeyError as exc:\n...   exc.args \u003d (\u0027Key {} not found in {}\u0027.format(1, {}),) + exc.args[1:]\n...   raise\n...\nTraceback (most recent call last):\n  File \"\u003cstdin\u003e\", line 2, in \u003cmodule\u003e\nKeyError: \u0027Key 1 not found in {}\u0027\n\n\n2. Use a wrapper with custom error:\n\n    @staticmethod\n    def _get_from_dict(d, key):\n        try:\n            return d[key]\n        except KeyError:\n            raise exceptions.IncorrectConfig(\n                error_msg\u003d\u0027Key \"{}\" not found in {}\u0027.format(key, d))\n\n\n3. Or build up a custom dict class with modified behavior of method get():\n\n\u003e\u003e\u003e class d(dict):\n...   def __init__(self):\n...     super(dict, self).__init__()\n...   def get(self, key):\n...     try:\n...       return self[key]\n...     except KeyError:\n...       raise KeyError(\u0027Key \"{}\" missing in {}\u0027.format(key, self)\n...\n\u003e\u003e\u003e _d \u003d d()\n\u003e\u003e\u003e _d\n{}\n\u003e\u003e\u003e _d[\u0027b\u0027]\u003d2\n\u003e\u003e\u003e _d\n{\u0027b\u0027: 2}\n\u003e\u003e\u003e _d.get(1)\nTraceback (most recent call last):\n  File \"\u003cstdin\u003e\", line 6, in get\nKeyError: 1\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"\u003cstdin\u003e\", line 1, in \u003cmodule\u003e\n  File \"\u003cstdin\u003e\", line 8, in get\nKeyError: \u0027Key \"1\" missing in {\\\u0027b\\\u0027: 2}\u0027",
+      "parentUuid": "9a561d44_6bf45bf2",
+      "range": {
+        "startLine": 204,
+        "startChar": 7,
+        "endLine": 205,
+        "endChar": 44
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_0b05df10",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -519,6 +975,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "Don\u0027t concat to the value here, just set it outright.\n\n    _tcl_cmd \u003d \u0027ls::config $dmf_-{} \"{}\"\u0027.format(_sub_param_key, _sub_param_value)",
+      "range": {
+        "startLine": 237,
+        "startChar": 24,
+        "endLine": 238,
+        "endChar": 72
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7fd891ef",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Please note that resulting string mostly would look like this:\n\n\u0027ls::config $dmf_-Param1 \"Str_Value_1\" -Param2 Int_Value_2 -ParamN ValueN\u0027\n\nSo it should concat strings to achieve that.",
+      "parentUuid": "9a561d44_0b05df10",
       "range": {
         "startLine": 237,
         "startChar": 24,
@@ -577,6 +1057,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_fff30171",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "There really might be a way to refactor it. But I suggest to keep this as a working solution, and return to it later.",
+      "parentUuid": "9a561d44_2b00a300",
+      "range": {
+        "startLine": 231,
+        "startChar": 12,
+        "endLine": 253,
+        "endChar": 71
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_2b1383b9",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -600,6 +1104,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_3fee1989",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_2b1383b9",
+      "range": {
+        "startLine": 260,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 48
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_0b183fd2",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -611,6 +1139,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "tests:\n- test__save_dmf_valid_res\n- test__save_dmf_invalid_res",
+      "range": {
+        "startLine": 264,
+        "startChar": 0,
+        "endLine": 273,
+        "endChar": 52
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_5f6e6d02",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_0b183fd2",
       "range": {
         "startLine": 264,
         "startChar": 0,
@@ -669,6 +1221,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_ff4f8190",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Existing code seems to be doing more complex things.\nReportOptions object contains 16 params to tailor a test run report. One of them is \"Format\".\n\nRefactoring is likely possible, but I would prefer to do it later.",
+      "parentUuid": "9a561d44_ebbeabfe",
+      "range": {
+        "startLine": 276,
+        "startChar": 1,
+        "endLine": 289,
+        "endChar": 39
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ab267314",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -703,6 +1279,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "This logic for error handling should go into resolve_test_server_name() instead, as it is dealing with\nthe response particular to that action.",
+      "range": {
+        "startLine": 292,
+        "startChar": 7,
+        "endLine": 296,
+        "endChar": 34
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3f4a9980",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Here we do int() for quite specific reason, to identify if the TCL response was a test server ID, or an error string.\nThus we need it here, and not inside method resolve_test_server_name().",
+      "parentUuid": "9a561d44_4b1237b2",
       "range": {
         "startLine": 292,
         "startChar": 7,
@@ -761,6 +1361,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_9f5e4544",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Following that logic, it would take to keep splitting these calls all the way down.\nCurrent implementation is a sequence of steps of a single algorithm.\nIn sense of TCL, they all relate to updating handle \"tc_\".",
+      "parentUuid": "9a561d44_4b8997ea",
+      "range": {
+        "startLine": 312,
+        "startChar": 8,
+        "endLine": 317,
+        "endChar": 61
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_4b607732",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -795,6 +1419,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "Does order matter here? Is there a need to sort the dict?",
+      "range": {
+        "startLine": 338,
+        "startChar": 26,
+        "endLine": 338,
+        "endChar": 40
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7f5b7154",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Probably it does matter. But can\u0027t see why at the moment (I am not the author of TclClient class).",
+      "parentUuid": "9a561d44_6b5bbb87",
       "range": {
         "startLine": 338,
         "startChar": 26,
@@ -922,6 +1570,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_5f3cade2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Command parsing happens on TCL server side. On error, some error message is returned. But no harm to existing SUT.",
+      "parentUuid": "9a561d44_ab54b354",
+      "range": {
+        "startLine": 373,
+        "startChar": 24,
+        "endLine": 373,
+        "endChar": 53
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ebfceb40",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -1031,6 +1703,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_3f41f95a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Will raise exception. Feature need is unclear.",
+      "parentUuid": "9a561d44_0b9b1f19",
+      "range": {
+        "startLine": 437,
+        "startChar": 0,
+        "endLine": 439,
+        "endChar": 57
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_6ba0db43",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -1077,6 +1773,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_da90cb97",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Same as above. Casting is used to test the value. If casting fails, it is not a valid int number in that string (returned by TCL).",
+      "parentUuid": "9a561d44_8b93afa2",
+      "range": {
+        "startLine": 456,
+        "startChar": 0,
+        "endLine": 457,
+        "endChar": 30
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_2bea630f",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -1088,6 +1808,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "This shouldn\u0027t be a pass, it should try to set a different value of _library_id\n\nMove L461-3 into the scope of this except stmt",
+      "range": {
+        "startLine": 459,
+        "startChar": 12,
+        "endLine": 459,
+        "endChar": 16
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3af907ea",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "With logics explained at previous comment, this \"pass\" allows to suppress the exception and get the library ID the other way around (search as a different library type).",
+      "parentUuid": "9a561d44_2bea630f",
       "range": {
         "startLine": 459,
         "startChar": 12,
@@ -1123,6 +1867,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_9addb373",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "See previous 2 comments.",
+      "parentUuid": "9a561d44_0bef9f1f",
+      "range": {
+        "startLine": 465,
+        "startChar": 10,
+        "endLine": 467,
+        "endChar": 74
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_2b38a39f",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -1134,6 +1902,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "Most usages of this try to cast this to an int.\n\nYou should do that casting/checking here instead of inline for usages.",
+      "range": {
+        "startLine": 474,
+        "startChar": 0,
+        "endLine": 475,
+        "endChar": 69
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_1ad1a357",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Design intent already explained in other comments. Casting to int is used for content testing purpose.\nWill add a description to avoid misunderstanding.",
+      "parentUuid": "9a561d44_2b38a39f",
       "range": {
         "startLine": 474,
         "startChar": 0,
@@ -1169,6 +1961,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_fad5cf43",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Following your suggestion we would save tcl command response to dict and then do unnecessary dict key read.",
+      "parentUuid": "9a561d44_eb550bc7",
+      "range": {
+        "startLine": 492,
+        "startChar": 8,
+        "endLine": 493,
+        "endChar": 36
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ab72f379",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 4
@@ -1180,6 +1996,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "from yardstick.network_services.vnf_generic.vnf import tg_landslide\nfrom yardstick.common import exceptions\n\nImport the module, not the class",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 65
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d4c8a476",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_ab72f379",
       "range": {
         "startLine": 27,
         "startChar": 0,
@@ -1215,6 +2055,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_b4c5305d",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Fair comment. Replaced all MagicMock\u0027s with Mock\u0027s.",
+      "parentUuid": "9a561d44_8b6f2f92",
+      "range": {
+        "startLine": 38,
+        "startChar": 37,
+        "endLine": 38,
+        "endChar": 46
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_8bc72f45",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 4
@@ -1226,6 +2090,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "Not: this comment is unnnecssary",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 72
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_14a21cae",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_8bc72f45",
       "range": {
         "startLine": 58,
         "startChar": 0,
@@ -1261,6 +2149,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_f4a688c0",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "I use side_effect in these tests as an iterable providing return values to specific calls. Thus it seems to belong to test body, as each test has different return values set.",
+      "parentUuid": "9a561d44_abcaf34c",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 66
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_4bb6b7da",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 4
@@ -1272,6 +2184,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "The convention is assert(expected, actual)",
+      "range": {
+        "startLine": 62,
+        "startChar": 25,
+        "endLine": 62,
+        "endChar": 59
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_54ac94a0",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_4bb6b7da",
       "range": {
         "startLine": 62,
         "startChar": 25,
@@ -1307,6 +2243,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_34b120f9",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Ok, but this won\u0027t work for __init__ test.\nThus duplicate it there.",
+      "parentUuid": "9a561d44_eb6ceb9e",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 62
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_0b0b1fd7",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 4
@@ -1318,6 +2278,30 @@
       "writtenOn": "2018-08-24T16:14:42Z",
       "side": 1,
       "message": "This is deprecated, you should use assertEqual instead",
+      "range": {
+        "startLine": 110,
+        "startChar": 13,
+        "endLine": 110,
+        "endChar": 25
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_94958c42",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-08-28T17:36:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_0b0b1fd7",
       "range": {
         "startLine": 110,
         "startChar": 13,
