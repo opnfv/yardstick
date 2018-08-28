@@ -13,12 +13,76 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+usage()
+{
+    cat <<EOF
+
+Yardstick NSB setup script.
+
+Usage: $0 [-h] [[-o] admin-openrc-for-openstack] [-i yardstick-docker-image]
+
+Options:
+ -h         Show this message and exit
+ -o openrc  Specify admin-openrc file with OpenStack credentials
+            Defaults to none
+ -i image   Specify Yardstick Docker image, e.g. opnfv/yardstick:stable
+            Default value provided by ansible/nsb_setup.yml
+            See https://hub.docker.com/r/opnfv/yardstick/tags/
+
+EOF
+}
+
+OPTSTR=':ho:i:'
+openrc=
+image=
+
+# For backward compatibility reasons, accept openrc both as an argument
+# and as the -o option. Hence these two loops.
+while [ $# -ge 1 ]; do
+    OPTIND=1
+    while getopts ${OPTSTR} OPT; do
+        case $OPT in
+            h)
+                usage
+                exit 0
+                ;;
+            o)
+                openrc=${OPTARG}
+                ;;
+            i)
+                image=${OPTARG}
+                ;;
+            :)
+                usage
+                echo "ERROR: Missing value for -${OPTARG} option"
+                exit 1
+                ;;
+            *)
+                usage
+                echo "ERROR: Invalid -${OPTARG} option"
+                exit 1
+                ;;
+        esac
+    done
+
+    if [ ${OPTIND} -eq 1 ]; then
+        openrc=$1
+        shift
+    else
+        shift $((OPTIND - 1))
+    fi
+done
+
 # OPENRC handling has to be first due no_proxy
-if [ $# -eq 1 ]; then
-    OPENRC=$(readlink -f -- "$1")
+if [ -n "${openrc}" ]; then
+    OPENRC=$(readlink -f -- "${openrc}")
     extra_args="${extra_args} -e openrc_file=${OPENRC}"
     source "${OPENRC}"
     CONTROLLER_IP=$(echo ${OS_AUTH_URL} | sed -ne "s#http://\([0-9a-zA-Z.\-]*\):*[0-9]*/.*#\1#p")
+fi
+
+if [ -n "${image}" ]; then
+    extra_args="${extra_args} -e yardstick_docker_image=${image}"
 fi
 
 env_http_proxy=$(sed -ne "s/^http_proxy=[\"\']\(.*\)[\"\']/\1/p" /etc/environment)
@@ -67,16 +131,9 @@ pip install ansible==2.5.5 shade==1.22.2 docker-py==1.10.6
 
 ANSIBLE_SCRIPTS="ansible"
 
-if [[ -n ${1} ]]; then
-    yardstick_docker_image="-e yardstick_docker_image=${1}"
-else
-    yardstick_docker_image=""
-fi
-
-# no quotes for yardstick_docker_image so when empty it is removed as whitespace
 cd ${ANSIBLE_SCRIPTS} &&\
 ansible-playbook \
          -e img_property="nsb" \
-         ${yardstick_docker_image} \
          -e YARD_IMG_ARCH='amd64' ${extra_args}\
          -i install-inventory.ini nsb_setup.yml
+
