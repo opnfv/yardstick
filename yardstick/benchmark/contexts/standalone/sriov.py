@@ -253,7 +253,8 @@ class SriovContext(base.Context):
                                                                   node,
                                                                   vm_name,
                                                                   self.name,
-                                                                  cdrom_img)
+                                                                  cdrom_img,
+                                                                  mac)
 
             # store vnf node details
             nodes.append(node)
