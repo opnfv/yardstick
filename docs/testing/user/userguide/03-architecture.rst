@@ -243,26 +243,27 @@ Yardstick Directory structure
         with support for different installers.
 
 *docs/* - All documentation is stored here, such as configuration guides,
-          user guides and Yardstick descriptions.
+          user guides and Yardstick test case descriptions.
 
 *etc/* - Used for test cases requiring specific POD configurations.
 
 *samples/* - test case samples are stored here, most of all scenario and
-             feature's samples are shown in this directory.
+             feature samples are shown in this directory.
 
-*tests/* - Here both Yardstick internal tests (*functional/* and *unit/*) as
-           well as the test cases run to verify the NFVI (*opnfv/*) are stored.
-           Also configurations of what to run daily and weekly at the different
-           PODs is located here.
+*tests/* - The test cases run to verify the NFVI (*opnfv/*) are stored here.
+           The configurations of what to run daily and weekly at the different
+           PODs are also located here.
 
-*tools/* - Currently contains tools to build image for VMs which are deployed
-           by Heat. Currently contains how to build the yardstick-trusty-server
-           image with the different tools that are needed from within the
-           image.
+*tools/* - Contains tools to build image for VMs which are deployed by Heat.
+           Currently contains how to build the yardstick-image with the
+           different tools that are needed from within the image.
 
 *plugin/* - Plug-in configuration files are stored here.
 
-*yardstick/* - Contains the internals of Yardstick: Runners, Scenario, Contexts,
-               CLI parsing, keys, plotting tools, dispatcher, plugin
+*yardstick/* - Contains the internals of Yardstick: :term:`Runners <runner>`,
+               :term:`Scenarios <scenario>`, :term:`Contexts <context>`, CLI
+               parsing, keys, plotting tools, dispatcher, plugin
                install/remove scripts and so on.
 
+*yardstick/tests* - The Yardstick internal tests (*functional/* and *unit/*)
+                    are stored here.
