@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_51a66111",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-29T13:12:02Z",
+      "side": 1,
+      "message": "Okay, that\u0027s fair enough, the comment was more \"import the module, not the class\", but this is an exceptional case, because of the try-except",
+      "parentUuid": "9a561d44_5421349e",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 27
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ab3f9324",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -413,6 +437,30 @@
       "side": 1,
       "message": "Please note that at line #49 there\u0027s created an instance of this class, to ease understanding of how ResourceHelper class works.\nSeparating TclClient class might cause that rest of this patch would lose its meaning.",
       "parentUuid": "9a561d44_0b0aff89",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 35
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ae55dc1e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-29T13:12:02Z",
+      "side": 1,
+      "message": "A separate TclClient patch (which would come before this one) wouldn\u0027t cause this one to lose meaning IMHO.",
+      "parentUuid": "9a561d44_d43424e0",
       "range": {
         "startLine": 34,
         "startChar": 0,
@@ -754,6 +802,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_31abedd9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-29T13:12:02Z",
+      "side": 1,
+      "message": "That\u0027s fair enough.",
+      "parentUuid": "9a561d44_ffbb01c2",
+      "range": {
+        "startLine": 169,
+        "startChar": 12,
+        "endLine": 183,
+        "endChar": 43
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_cb4647bf",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -917,6 +989,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_ce581059",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-29T13:12:02Z",
+      "side": 1,
+      "message": "Grand, since the default values are set server-side, we can get over this. However, if the defaults are generally unsuitable, perhaps it would be a good idea to log a message to aid debugging. i.e. add an else stmt to each of these that does LOG.info(\"No value set in test case for xxx, the traffic generator will use it\u0027s default settings.\")\n\n(The log message may need updating)",
+      "parentUuid": "9a561d44_bfa7c94e",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 42
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_6bf45bf2",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
@@ -999,6 +1095,30 @@
       "side": 1,
       "message": "Please note that resulting string mostly would look like this:\n\n\u0027ls::config $dmf_-Param1 \"Str_Value_1\" -Param2 Int_Value_2 -ParamN ValueN\u0027\n\nSo it should concat strings to achieve that.",
       "parentUuid": "9a561d44_0b05df10",
+      "range": {
+        "startLine": 237,
+        "startChar": 24,
+        "endLine": 238,
+        "endChar": 72
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2ebc2c69",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-29T13:12:02Z",
+      "side": 1,
+      "message": "My apologies, I missed that for loop.",
+      "parentUuid": "9a561d44_7fd891ef",
       "range": {
         "startLine": 237,
         "startChar": 24,
@@ -2173,6 +2293,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_d14b9157",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-29T13:12:02Z",
+      "side": 1,
+      "message": "I meant move it within this test (to L56), so that that structure of the test is:\n\n   def test_blah(self, *args):\n       # set-up the test (mocks, return value, etc)\n\n       # Run the test (i.e. call the method under test)\n\n       # Check the results (side effects, returned values, etc -- assert stmts)",
+      "parentUuid": "9a561d44_f4a688c0",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 66
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_4bb6b7da",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 4
@@ -2255,6 +2399,30 @@
       "side": 1,
       "message": "Ok, but this won\u0027t work for __init__ test.\nThus duplicate it there.",
       "parentUuid": "9a561d44_eb6ceb9e",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 62
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f1a055f6",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-29T13:12:02Z",
+      "side": 1,
+      "message": "The __init__ test is fine, if it needs to test the constructor with generic args. You can either just do the assert stmts in the __init__ test, or use a local variable for that particular test",
+      "parentUuid": "9a561d44_34b120f9",
       "range": {
         "startLine": 87,
         "startChar": 8,
