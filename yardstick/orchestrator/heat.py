@@ -479,68 +479,77 @@ name (i.e. %s).
             'value': {'get_resource': name}
         }
 
-    def add_security_group(self, name):
+    def add_security_group(self, name, security_group=None):
         """add to the template a Neutron SecurityGroup"""
         log.debug("adding Neutron::SecurityGroup '%s'", name)
+        description = ("Group allowing IPv4 and IPv6 for icmp and upd/tcp on"
+                       "all ports")
+        rules = [
+            {'remote_ip_prefix': '0.0.0.0/0',
+             'protocol': 'tcp',
+             'port_range_min': '1',
+             'port_range_max': '65535'},
+            {'remote_ip_prefix': '0.0.0.0/0',
+             'protocol': 'udp',
+             'port_range_min': '1',
+             'port_range_max': '65535'},
+            {'remote_ip_prefix': '0.0.0.0/0',
+             'protocol': 'icmp'},
+            {'remote_ip_prefix': '::/0',
+             'ethertype': 'IPv6',
+             'protocol': 'tcp',
+             'port_range_min': '1',
+             'port_range_max': '65535'},
+            {'remote_ip_prefix': '::/0',
+             'ethertype': 'IPv6',
+             'protocol': 'udp',
+             'port_range_min': '1',
+             'port_range_max': '65535'},
+            {'remote_ip_prefix': '::/0',
+             'ethertype': 'IPv6',
+             'protocol': 'ipv6-icmp'},
+            {'remote_ip_prefix': '0.0.0.0/0',
+             'direction': 'egress',
+             'protocol': 'tcp',
+             'port_range_min': '1',
+             'port_range_max': '65535'},
+            {'remote_ip_prefix': '0.0.0.0/0',
+             'direction': 'egress',
+             'protocol': 'udp',
+             'port_range_min': '1',
+             'port_range_max': '65535'},
+            {'remote_ip_prefix': '0.0.0.0/0',
+             'direction': 'egress',
+             'protocol': 'icmp'},
+            {'remote_ip_prefix': '::/0',
+             'direction': 'egress',
+             'ethertype': 'IPv6',
+             'protocol': 'tcp',
+             'port_range_min': '1',
+             'port_range_max': '65535'},
+            {'remote_ip_prefix': '::/0',
+             'direction': 'egress',
+             'ethertype': 'IPv6',
+             'protocol': 'udp',
+             'port_range_min': '1',
+             'port_range_max': '65535'},
+            {'remote_ip_prefix': '::/0',
+             'direction': 'egress',
+             'ethertype': 'IPv6',
+             'protocol': 'ipv6-icmp'},
+        ]
+        if security_group:
+            description = "Custom security group rules defined by the user"
+            rules = security_group.get('rules')
+
+        log.debug("The security group rules is %s", rules)
+
         self.resources[name] = {
             'type': 'OS::Neutron::SecurityGroup',
             'properties': {
                 'name': name,
-                'description': "Group allowing IPv4 and IPv6 for icmp and upd/tcp on all ports",
-                'rules': [
-                    {'remote_ip_prefix': '0.0.0.0/0',
-                     'protocol': 'tcp',
-                     'port_range_min': '1',
-                     'port_range_max': '65535'},
-                    {'remote_ip_prefix': '0.0.0.0/0',
-                     'protocol': 'udp',
-                     'port_range_min': '1',
-                     'port_range_max': '65535'},
-                    {'remote_ip_prefix': '0.0.0.0/0',
-                     'protocol': 'icmp'},
-                    {'remote_ip_prefix': '::/0',
-                     'ethertype': 'IPv6',
-                     'protocol': 'tcp',
-                     'port_range_min': '1',
-                     'port_range_max': '65535'},
-                    {'remote_ip_prefix': '::/0',
-                     'ethertype': 'IPv6',
-                     'protocol': 'udp',
-                     'port_range_min': '1',
-                     'port_range_max': '65535'},
-                    {'remote_ip_prefix': '::/0',
-                     'ethertype': 'IPv6',
-                     'protocol': 'ipv6-icmp'},
-                    {'remote_ip_prefix': '0.0.0.0/0',
-                     'direction': 'egress',
-                     'protocol': 'tcp',
-                     'port_range_min': '1',
-                     'port_range_max': '65535'},
-                    {'remote_ip_prefix': '0.0.0.0/0',
-                     'direction': 'egress',
-                     'protocol': 'udp',
-                     'port_range_min': '1',
-                     'port_range_max': '65535'},
-                    {'remote_ip_prefix': '0.0.0.0/0',
-                     'direction': 'egress',
-                     'protocol': 'icmp'},
-                    {'remote_ip_prefix': '::/0',
-                     'direction': 'egress',
-                     'ethertype': 'IPv6',
-                     'protocol': 'tcp',
-                     'port_range_min': '1',
-                     'port_range_max': '65535'},
-                    {'remote_ip_prefix': '::/0',
-                     'direction': 'egress',
-                     'ethertype': 'IPv6',
-                     'protocol': 'udp',
-                     'port_range_min': '1',
-                     'port_range_max': '65535'},
-                    {'remote_ip_prefix': '::/0',
-                     'direction': 'egress',
-                     'ethertype': 'IPv6',
-                     'protocol': 'ipv6-icmp'},
-                ]
+                'description': description,
+                'rules': rules
             }
         }
 

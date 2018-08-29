@@ -72,6 +72,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertEqual(self.test_context.server_groups, [])
         self.assertIsNone(self.test_context.keypair_name)
         self.assertIsNone(self.test_context.secgroup_name)
+        self.assertIsNone(self.test_context.security_group)
         self.assertEqual(self.test_context._server_map, {})
         self.assertIsNone(self.test_context._image)
         self.assertIsNone(self.test_context._flavor)
@@ -190,7 +191,7 @@ class HeatContextTestCase(unittest.TestCase):
         mock_template.add_keypair.assert_called_with(
             "ctx-key",
             "ctx-12345678")
-        mock_template.add_security_group.assert_called_with("ctx-secgroup")
+        mock_template.add_security_group.assert_called_with("ctx-secgroup", None)
         mock_template.add_network.assert_called_with(
             "ctx-12345678-mynet", 'physnet1', None, None, None, None)
         mock_template.add_router.assert_called_with(
