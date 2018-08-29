@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_31264db8",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
+        "patchSetId": 11
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-29T12:44:41Z",
+      "side": 1,
+      "message": "trailing whitespace",
+      "range": {
+        "startLine": 120,
+        "startChar": 79,
+        "endLine": 120,
+        "endChar": 80
+      },
+      "revId": "990dd3c9eda1d06e6d44a7bec221b4b1d0c70663",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7110c54e",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc074.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-29T12:44:41Z",
+      "side": 1,
+      "message": "This should be enclosed in quotes, so that it is treated like a string. Right not, this is treated as a variable name.\nThe same goes for the values in L27-9",
+      "range": {
+        "startLine": 26,
+        "startChar": 36,
+        "endLine": 26,
+        "endChar": 48
+      },
+      "revId": "990dd3c9eda1d06e6d44a7bec221b4b1d0c70663",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
