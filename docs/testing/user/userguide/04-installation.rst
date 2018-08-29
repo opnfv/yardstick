@@ -455,17 +455,17 @@ Grafana to display data in the following sections.
 Automatic deployment of InfluxDB and Grafana containers (**recommended**)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Firstly, enter the Yardstick container::
+1. Enter the Yardstick container::
 
-   sudo -EH docker exec -it yardstick /bin/bash
+     sudo -EH docker exec -it yardstick /bin/bash
 
-Secondly, create InfluxDB container and configure with the following command::
+2. Create InfluxDB container and configure with the following command::
 
-   yardstick env influxdb
+     yardstick env influxdb
 
-Thirdly, create and configure Grafana container::
+3. Create and configure Grafana container::
 
-   yardstick env grafana
+     yardstick env grafana
 
 Then you can run a test case and visit http://host_ip:1948
 (``admin``/``admin``) to see the results.
@@ -493,21 +493,21 @@ Run influxDB::
    sudo -EH docker run -d --name influxdb \
       -p 8083:8083 -p 8086:8086 --expose 8090 --expose 8099 \
       tutum/influxdb
-   docker exec -it influxdb bash
+   docker exec -it influxdb influx
 
 Configure influxDB::
 
-   influx
-      >CREATE USER root WITH PASSWORD 'root' WITH ALL PRIVILEGES
-      >CREATE DATABASE yardstick;
-      >use yardstick;
-      >show MEASUREMENTS;
+      > CREATE USER root WITH PASSWORD 'root' WITH ALL PRIVILEGES
+      > CREATE DATABASE yardstick;
+      > use yardstick;
+      > show MEASUREMENTS;
+      > quit
 
 Run Grafana::
 
    sudo -EH docker run -d --name grafana -p 1948:3000 grafana/grafana
 
-Log on http://{YOUR_IP_HERE}:1948 using ``admin``/``admin`` and configure
+Log on to ``http://{YOUR_IP_HERE}:1948`` using ``admin``/``admin`` and configure
 database resource to be ``{YOUR_IP_HERE}:8086``.
 
 .. image:: images/Grafana_config.png
@@ -520,7 +520,7 @@ Configure ``yardstick.conf``::
    sudo cp etc/yardstick/yardstick.conf.sample /etc/yardstick/yardstick.conf
    sudo vi /etc/yardstick/yardstick.conf
 
-Modify ``yardstick.conf``::
+Modify ``yardstick.conf`` to add the ``influxdb`` dispatcher::
 
    [DEFAULT]
    debug = True
@@ -533,7 +533,7 @@ Modify ``yardstick.conf``::
    username = root
    password = root
 
-Now you can run Yardstick test cases and store the results in influxDB.
+Now Yardstick will store results in InfluxDB when you run a testcase.
 
 
 Deploy InfluxDB and Grafana directly in Ubuntu (**Todo**)
