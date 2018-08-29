@@ -22,6 +22,30 @@
       "revId": "cc693a87c15dc60d2744ed5d85fc09ecf0453b71",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_aeef9caf",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-08-29T10:42:07Z",
+      "side": 1,
+      "message": "I\u0027ll add changes to standalone test cases in this patch.",
+      "parentUuid": "9a561d44_8ef8d87d",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 112,
+        "endChar": 19
+      },
+      "revId": "cc693a87c15dc60d2744ed5d85fc09ecf0453b71",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
