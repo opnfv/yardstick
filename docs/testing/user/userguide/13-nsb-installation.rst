@@ -118,7 +118,7 @@ Ansible:
 
 .. code-block:: ini
 
-  cat ./ansible/yardstick-install-inventory.ini
+  cat ./ansible/install-inventory.ini
   [jumphost]
   localhost  ansible_connection=local
 
@@ -138,7 +138,7 @@ Ansible:
 .. note::
 
    SSH access without password needs to be configured for all your nodes defined in
-   ``yardstick-install-inventory.ini`` file.
+   ``install-inventory.ini`` file.
    If you want to use password authentication you need to install sshpass
 
    .. code-block:: console
@@ -352,18 +352,53 @@ SR-IOV
 SR-IOV Pre-requisites
 ^^^^^^^^^^^^^^^^^^^^^
 
-On Host:
- a) Create a bridge for VM to connect to external network
+On Host, where VM is created:
+ a) Create and configure a bridge named ``br-int`` for VM to connect to external network.
+    Currently this can be done using VXLAN tunnel.
+
+    Execute the following on host, where VM is created:
 
   .. code-block:: console
 
+      ip link add type vxlan remote <Jumphost IP> local <DUT IP> id <ID: 10> dstport 4789
       brctl addbr br-int
-      brctl addif br-int <interface_name>    #This interface is connected to internet
+      brctl addif br-int vxlan0
+      ip link set dev vxlan0 up
+      ip addr add <IP#1, like: 172.20.2.1/24> dev br-int
+      ip link set dev br-int up
 
- b) Build guest image for VNF to run.
+  .. note:: May be needed to add extra rules to iptable to forward traffic.
+
+  .. code-block:: console
+
+    iptables -A FORWARD -i br-int -s <network ip address>/<netmask> -j ACCEPT
+    iptables -A FORWARD -o br-int -d <network ip address>/<netmask> -j ACCEPT
+
+  Execute the following on a jump host:
+
+  .. code-block:: console
+
+      ip link add type vxlan remote <DUT IP> local <Jumphost IP> id <ID: 10> dstport 4789
+      ip addr add <IP#2, like: 172.20.2.2/24> dev vxlan0
+      ip link set dev vxlan0 up
+
+  .. note:: Host and jump host are different baremetal servers.
+
+ b) Modify test case management CIDR.
+    IP addresses IP#1, IP#2 and CIDR must be in the same network.
+
+  .. code-block:: YAML
+
+    servers:
+      vnf:
+        network_ports:
+          mgmt:
+            cidr: '1.1.1.7/24'
+
+ c) Build guest image for VNF to run.
     Most of the sample test cases in Yardstick are using a guest image called
-    ``yardstick-image`` which deviates from an Ubuntu Cloud Server image
-    Yardstick has a tool for building this custom image with samplevnf.
+    ``yardstick-nsb-image`` which deviates from an Ubuntu Cloud Server image
+    Yardstick has a tool for building this custom image with SampleVNF.
     It is necessary to have ``sudo`` rights to use this tool.
 
     Also you may need to install several additional packages to use this tool, by
@@ -548,18 +583,53 @@ OVS-DPDK
 OVS-DPDK Pre-requisites
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-On Host:
- a) Create a bridge for VM to connect to external network
+On Host, where VM is created:
+ a) Create and configure a bridge named ``br-int`` for VM to connect to external network.
+    Currently this can be done using VXLAN tunnel.
+
+    Execute the following on host, where VM is created:
 
   .. code-block:: console
 
+      ip link add type vxlan remote <Jumphost IP> local <DUT IP> id <ID: 10> dstport 4789
       brctl addbr br-int
-      brctl addif br-int <interface_name>    #This interface is connected to internet
+      brctl addif br-int vxlan0
+      ip link set dev vxlan0 up
+      ip addr add <IP#1, like: 172.20.2.1/24> dev br-int
+      ip link set dev br-int up
 
- b) Build guest image for VNF to run.
+  .. note:: May be needed to add extra rules to iptable to forward traffic.
+
+  .. code-block:: console
+
+    iptables -A FORWARD -i br-int -s <network ip address>/<netmask> -j ACCEPT
+    iptables -A FORWARD -o br-int -d <network ip address>/<netmask> -j ACCEPT
+
+  Execute the following on a jump host:
+
+  .. code-block:: console
+
+      ip link add type vxlan remote <DUT IP> local <Jumphost IP> id <ID: 10> dstport 4789
+      ip addr add <IP#2, like: 172.20.2.2/24> dev vxlan0
+      ip link set dev vxlan0 up
+
+  .. note:: Host and jump host are different baremetal servers.
+
+ b) Modify test case management CIDR.
+    IP addresses IP#1, IP#2 and CIDR must be in the same network.
+
+  .. code-block:: YAML
+
+    servers:
+      vnf:
+        network_ports:
+          mgmt:
+            cidr: '1.1.1.7/24'
+
+ c) Build guest image for VNF to run.
     Most of the sample test cases in Yardstick are using a guest image called
-    ``yardstick-image`` which deviates from an Ubuntu Cloud Server image
-    Yardstick has a tool for building this custom image with samplevnf.
+    ``yardstick-nsb-image`` which deviates from an Ubuntu Cloud Server image
+    Yardstick has a tool for building this custom image with SampleVNF.
     It is necessary to have ``sudo`` rights to use this tool.
 
     Also you may need to install several additional packages to use this tool, by
@@ -880,7 +950,7 @@ Install dependencies needed for the DevStack
 
 Setup SR-IOV ports on the host:
 
-.. note:: The ``enp24s0f0``, ``enp24s0f0`` are physical function (PF) interfaces
+.. note:: The ``enp24s0f0``, ``enp24s0f1`` are physical function (PF) interfaces
   on a host and ``enp24s0f3`` is a public interface used in OpenStack, so the
   interface names should be changed according to the HW environment used for
   testing.
