@@ -287,6 +287,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_8789dbcc",
+        "filename": "ansible/roles/infra_create_vms/tasks/create_interfaces.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-08-30T16:19:21Z",
+      "side": 1,
+      "message": "understood thanks!",
+      "parentUuid": "9a561d44_a7efbfaf",
+      "range": {
+        "startLine": 34,
+        "startChar": 42,
+        "endLine": 34,
+        "endChar": 111
+      },
+      "revId": "d1ed420059f11c10680d2369a9ec44d026a9926e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_14069cce",
         "filename": "ansible/roles/infra_install_dependency/tasks/Debian.yml",
         "patchSetId": 1
