@@ -100,6 +100,19 @@ users:
 EOF
 """
 
+NETWORK_DATA_TEMPLATE = """
+cat > {network_file} <<EOF
+#cloud-config
+version: 2
+ethernets:
+  ens3:
+    match:
+      mac_address: {mac_address}
+    addresses:
+      - {ip_address}
+EOF
+"""
+
 WAIT_FOR_BOOT = 30
 
 
@@ -370,7 +383,7 @@ class Libvirt(object):
         return ET.tostring(root)
 
     @staticmethod
-    def gen_cdrom_image(connection, file_path, vm_name, vm_user, key_filename):
+    def gen_cdrom_image(connection, file_path, vm_name, vm_user, key_filename, mac, ip):
         """Generate ISO image for CD-ROM """
 
         user_config = ["    - name: {user_name}",
@@ -381,6 +394,7 @@ class Libvirt(object):
 
         meta_data = "/tmp/meta-data"
         user_data = "/tmp/user-data"
+        network_data = "/tmp/network-config"
         with open(".".join([key_filename, "pub"]), "r") as pub_key_file:
             pub_key_str = pub_key_file.read().rstrip()
         user_conf = os.linesep.join(user_config).format(pub_key_str=pub_key_str, user_name=vm_user)
@@ -388,10 +402,13 @@ class Libvirt(object):
         cmd_lst = [
             "touch %s" % meta_data,
             USER_DATA_TEMPLATE.format(user_file=user_data, host=vm_name, user_config=user_conf),
-            "genisoimage -output {0} -volid cidata -joliet -r {1} {2}".format(file_path,
-                                                                              meta_data,
-                                                                              user_data),
-            "rm {0} {1}".format(meta_data, user_data),
+            NETWORK_DATA_TEMPLATE.format(network_file=network_data, mac_address=mac,
+                                         ip_address=ip),
+            "genisoimage -output {0} -volid cidata -joliet -r {1} {2} {3}".format(file_path,
+                                                                                  meta_data,
+                                                                                  user_data,
+                                                                                  network_data),
+            "rm {0} {1} {2}".format(meta_data, user_data, network_data),
         ]
         for cmd in cmd_lst:
             LOG.info(cmd)
@@ -537,7 +554,7 @@ class StandaloneContextHelper(object):
         return nodes
 
     @classmethod
-    def check_update_key(cls, connection, node, vm_name, id_name, cdrom_img):
+    def check_update_key(cls, connection, node, vm_name, id_name, cdrom_img, mac):
         # Generate public/private keys if private key file is not provided
         user_name = node.get('user')
         if not user_name:
@@ -552,7 +569,9 @@ class StandaloneContextHelper(object):
             node['key_filename'] = key_filename
         # Update image with public key
         key_filename = node.get('key_filename')
-        Libvirt.gen_cdrom_image(connection, cdrom_img, vm_name, user_name, key_filename)
+        ip_netmask = "{0}/{1}".format(node.get('ip'), node.get('netmask'))
+        Libvirt.gen_cdrom_image(connection, cdrom_img, vm_name, user_name, key_filename, mac,
+                                ip_netmask)
         return node
 
 
@@ -567,7 +586,7 @@ class Server(object):
 
         for key, vfs in vnf["network_ports"].items():
             if key == "mgmt":
-                mgmtip = str(IPNetwork(vfs['cidr']).ip)
+                mgmt_cidr = IPNetwork(vfs['cidr'])
                 continue
 
             vf = ports[vfs[0]]
@@ -584,14 +603,15 @@ class Server(object):
             })
             index = index + 1
 
-        return mgmtip, interfaces
+        return mgmt_cidr, interfaces
 
     @classmethod
     def generate_vnf_instance(cls, flavor, ports, ip, key, vnf, mac):
-        mgmtip, interfaces = cls.build_vnf_interfaces(vnf, ports)
+        mgmt_cidr, interfaces = cls.build_vnf_interfaces(vnf, ports)
 
         result = {
-            "ip": mgmtip,
+            "ip": str(mgmt_cidr.ip),
+            "netmask": str(mgmt_cidr.netmask),
             "mac": mac,
             "host": ip,
             "user": flavor.get('user', 'root'),
