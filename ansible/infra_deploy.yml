@@ -27,6 +27,7 @@
       proxy_host_ip: "{{ lookup('dig', proxy_host) }}"
 
   roles:
+    - infra_install_dependencies
     - infra_destroy_previous_configuration
     - infra_check_requirements
     - infra_create_network

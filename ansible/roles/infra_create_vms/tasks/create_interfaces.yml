@@ -12,6 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+- set_fact:
+    mac_address_arg: "mac_address"
+
+- set_fact:
+    mac_address_arg: "macaddress"
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_major_version|int >= 18
+
 - name: Add network-data
   blockinfile:
     path: "{{ network_config }}"
@@ -20,9 +29,9 @@
     block: |2
         {{ 'enp0s%d:'| format( slot_address | int) }}
           match:
-            mac_address: {{ '52:54:00:5d:7d:%02x'| format( mac_address_counter | int) }}
+            {{ mac_address_arg }}: {{ '52:54:00:5d:7d:%02x'| format( mac_address_counter | int) }}
           addresses:
-            - {{ interface_item.ip }}/{{ interface_item.netmask }}
+            - {{ interface_item.ip }}/{{ (interface_item.ip + '/' + interface_item.netmask) | ipaddr('prefix') }}
 
 - name: Add default gateway
   blockinfile:
