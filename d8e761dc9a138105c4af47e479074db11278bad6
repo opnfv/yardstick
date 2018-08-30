@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_4745036f",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T17:08:07Z",
+      "side": 1,
+      "message": "This reformat is unrelated, it should be in the previous change, where TEST_SERVERS was added.\n\nThis is my fault again, sorry",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 1
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_274a8f80",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T17:08:07Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 1
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_675be754",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T17:08:07Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be here, the scope of this mock is for setUp() only.\n\nYou should do this mocking in setUp()\nCreate a mock with this class\u0027s spec on line 262",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 52
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c758f358",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T17:08:07Z",
+      "side": 1,
+      "message": ".. from L258\nmock_env_helper \u003d mock.Mock(spec\u003dsample_vnf.SetupEnvHelper)\nself.res_helper \u003d tg_landslide.LandslideResourceHelper(mock_env_helper)",
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a755ff1e",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T17:08:07Z",
+      "side": 1,
+      "message": "nit: it would be better if  this is explicitly set, as opposed to composed dynamically here. It enhances readability",
+      "range": {
+        "startLine": 542,
+        "startChar": 12,
+        "endLine": 543,
+        "endChar": 70
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0732eb0f",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T17:08:07Z",
+      "side": 1,
+      "message": "this method doesn\u0027t have a return value, so you shouldn\u0027t be checking for one.\n\nThis happens a few times, please recheck each assertInNone to make sure it\u0027s necessary",
+      "range": {
+        "startLine": 598,
+        "startChar": 8,
+        "endLine": 598,
+        "endChar": 25
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e736d702",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T17:08:07Z",
+      "side": 1,
+      "message": "keep this order of these consistent.\n(This one is correct, but others aren\u0027t)\n\nThe conventional order is: assertEqual(expected, actual)\nThe ordering means that the error messages make more sense if this assertion fails, which helps debugging.",
+      "range": {
+        "startLine": 708,
+        "startChar": 25,
+        "endLine": 708,
+        "endChar": 42
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
