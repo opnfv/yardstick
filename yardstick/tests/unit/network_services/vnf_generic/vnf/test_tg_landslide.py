@@ -321,9 +321,360 @@ SESSION_PROFILE = {
     ]
 }
 
-    PROTO_PORT = 8080
+
+class TestLandslideTrafficGen(unittest.TestCase):
+    SCENARIO_CFG = {
+        'session_profile': '/traffic_profiles/landslide/'
+                           'landslide_session_default_bearer.yaml',
+        'task_path': '',
+        'runner': {
+            'type': 'Iteration',
+            'iterations': 1
+        },
+        'nodes': {
+            'tg__0': 'tg__0.traffic_gen',
+            'vnf__0': 'vnf__0.vnf_epc'
+        },
+        'topology': 'landslide_tg_topology.yaml',
+        'type': 'NSPerf',
+        'traffic_profile': '../../traffic_profiles/landslide/'
+                           'landslide_dmf_udp.yaml',
+        'options': {
+            'test_cases': [
+                {
+                    'BearerAddrPool': '2002::2',
+                    'type': 'SGW_Node',
+                    'BearerV4AddrPool': '2.0.0.2',
+                    'Sessions': '90000'
+                },
+                {
+                    'StartRate': '900.0',
+                    'type': 'SGW_Nodal',
+                    'DisconnectRate': '900.0',
+                    'Sessions': '90000'
+                }
+            ],
+            'dmf':
+                {
+                    'transactionRate': 1000,
+                    'packetSize': 512
+                }
+        }
+    }
+
+    CONTEXT_CFG = {
+        'contexts': [
+            {
+                'type': 'Node',
+                'name': 'traffic_gen',
+                'file': '/etc/yardstick/nodes/pod_landslide.yaml'
+            },
+            {
+                'type': 'Node',
+                'name': 'vnf_epc',
+                'file': '/etc/yardstick/nodes/pod_vepc_sut.yaml'
+            }
+        ]
+    }
+
+
+    TRAFFIC_PROFILE = {
+        "schema": "nsb:traffic_profile:0.1",
+        "name": "LandslideProfile",
+        "description": "Spirent Landslide traffic profile",
+        "traffic_profile": {
+            "traffic_type": "LandslideProfile"
+        },
+        "dmf_config": {
+            "dmf": {
+                "library": "test",
+                "name": "Basic UDP"
+            },
+            "description": "Basic data flow using UDP/IP",
+            "keywords": "UDP",
+            "dataProtocol": "udp"
+        }
+    }
+
+    RESERVATIONS = [
+        {'tsName': 'TestServer_1',
+         'phySubnets': [
+             {'numIps': 20,
+              'base': '10.42.32.100',
+              'mask': '/24',
+              'name': 'eth1'}],
+         'tsId': 'TestServer_1',
+         'tsIndex': 0},
+        {'tsName': 'TestServer_2',
+         'phySubnets': [
+             {'numIps': 100,
+              'base': '10.42.32.1',
+              'mask': '/24',
+              'name': 'eth1'},
+             {'numIps': 100,
+              'base': '10.42.33.1',
+              'mask': '/24',
+              'name': 'eth2'}],
+         'tsId': 'TestServer_2',
+         'tsIndex': 1}]
+
+    SUCCESS_CREATED_CODE = 201
+    SUCCESS_OK_CODE = 200
+    SUCCESS_RECORD_ID = 5
+    TEST_USER_ID = 11
+
+    def setUp(self):
+        self._id = uuid.uuid1().int
+
+        self.mock_lsapi = mock.patch.object(tg_landslide, 'LsApi')
+        self.mock_lsapi.start()
+
+        self.mock_ssh_helper = mock.patch.object(sample_vnf, 'VnfSshHelper')
+        self.mock_ssh_helper.start()
+        self.vnfd = VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        self.ls_tg = tg_landslide.LandslideTrafficGen(
+            NAME, self.vnfd, self._id)
+        self.session_profile = copy.deepcopy(SESSION_PROFILE)
+        self.ls_tg.session_profile = self.session_profile
+        self.tsGroups = self.ls_tg.session_profile['tsGroups']
+
+        self.addCleanup(self._cleanup)
+
+    def _cleanup(self):
+        self.mock_lsapi.stop()
+        self.mock_ssh_helper.stop()
+
+    def test___init__(self, *args):
+        self.assertIsInstance(self.ls_tg.resource_helper,
+                              tg_landslide.LandslideResourceHelper)
+
+    def test_listen_traffic(self):
+        _traffic_profile = {}
+        self.assertIsNone(self.ls_tg.listen_traffic(_traffic_profile))
+
+    def test_wait_for_instantiate(self):
+        self.assertIsNone(self.ls_tg.wait_for_instantiate())
+        self.ls_tg.wait_for_instantiate()
+
+    @mock.patch.object(tg_landslide.LandslideResourceHelper,
+                       'get_running_tests')
+    def test_run_traffic(self, mock_get_tests, *args):
+        self.ls_tg.resource_helper._url = EXAMPLE_URL
+        self.ls_tg.scenario_helper.scenario_cfg = self.SCENARIO_CFG
+        mock_traffic_profile = mock.Mock(
+            spec=landslide_profile.LandslideProfile)
+        mock_traffic_profile.dmf_config = {'keywords': 'UDP',
+                                           'dataProtocol': 'udp'}
+        mock_traffic_profile.params = self.TRAFFIC_PROFILE
+        self.ls_tg.resource_helper._user_id = self.TEST_USER_ID
+        mock_get_tests.return_value = [{'id': self.SUCCESS_RECORD_ID,
+                                        'testStateOrStep': 'COMPLETE'}]
+        mock_post = mock.Mock()
+        mock_post.status_code = self.SUCCESS_CREATED_CODE
+        mock_post.json.return_value = {'id': self.SUCCESS_RECORD_ID}
+        mock_session = mock.Mock(spec=requests.Session)
+        mock_session.post.return_value = mock_post
+        self.ls_tg.resource_helper.session = mock_session
+        self.ls_tg.resource_helper._tcl = mock.Mock()
+        _tcl = self.ls_tg.resource_helper._tcl
+        self.assertIsNone(self.ls_tg.run_traffic(mock_traffic_profile))
+        self.assertEqual(self.ls_tg.resource_helper.run_id,
+                         self.SUCCESS_RECORD_ID)
+        mock_traffic_profile.update_dmf.assert_called_with(
+            self.ls_tg.scenario_helper.all_options)
+        _tcl.create_dmf.assert_called_with(mock_traffic_profile.dmf_config)
+        _tcl.create_test_session.assert_called_with(self.session_profile)
+
+    @mock.patch.object(tg_landslide.LandslideResourceHelper,
+                       'check_running_test_state')
+    def test_collect_kpi(self, mock_check_running_test_state, *args):
+        self.ls_tg.resource_helper.run_id = self.SUCCESS_RECORD_ID
+        mock_check_running_test_state.return_value = 'COMPLETE'
+        self.assertEqual(self.ls_tg.collect_kpi(), {'done': True})
+        mock_check_running_test_state.assert_called_once()
+
+    def test_terminate(self, *args):
+        self.ls_tg.resource_helper._tcl = mock.Mock()
+        self.assertIsNone(self.ls_tg.terminate())
+        self.ls_tg.resource_helper._tcl.disconnect.assert_called_once()
+
+    def test__update_session_suts_no_tc_role(self, *args):
+        _suts = [{'role': 'epc_role'}]
+        _testcase = {'parameters': {'diff_epc_role': {'class': 'Sut'}}}
+        res = self.ls_tg._update_session_suts(_suts, _testcase)
+        self.assertEqual(_testcase, res)
+
+    def test__update_session_suts(self, *args):
+
+        def get_testnode_param(role, key, session_prof):
+            for group in session_prof['tsGroups']:
+                for tc in group['testCases']:
+                    tc_params = tc['parameters']
+                    if tc_params.get(role):
+                        return tc_params[role][key]
+
+        def get_sut_param(role, key, suts):
+            for sut in suts:
+                if sut.get('role') == role:
+                    return sut[key]
+
+        # TestNode to verify
+        testnode_role = 'SgwControlAddr'
+        # SUT to verify
+        sut_role = 'SgwUserSut'
+
+        config_suts = [config['suts'] for config in self.vnfd['config']]
+        session_tcs = [_tc for _ts_group in self.tsGroups
+                       for _tc in _ts_group['testCases']]
+        for suts, tc in zip(config_suts, session_tcs):
+            self.assertEqual(tc, self.ls_tg._update_session_suts(suts, tc))
+
+        # Verify TestNode class objects keys were updated
+        for _key in {'ip', 'phy', 'nextHop'}:
+            self.assertEqual(
+                get_testnode_param(testnode_role,
+                                   _key,
+                                   self.ls_tg.session_profile),
+                get_sut_param(testnode_role,
+                              _key,
+                              TS1_SUTS))
+        # Verify Sut class objects name was updated
+        self.assertEqual(
+            get_testnode_param(sut_role,
+                               'name',
+                               self.ls_tg.session_profile),
+            get_sut_param(sut_role,
+                          'name',
+                          TS2_SUTS))
+
+    def test__update_session_test_servers(self, *args):
+        for ts_index, ts in enumerate(TEST_SERVERS):
+            self.assertIsNone(
+                self.ls_tg._update_session_test_servers(ts, ts_index))
+        # Verify preResolvedArpAddress key was added
+        self.assertTrue(any(
+            _item.get('preResolvedArpAddress')
+            for _item in self.tsGroups))
+        # Verify reservations key was added to session profile
+        self.assertIsNotNone(self.ls_tg.session_profile.get('reservations'))
+        self.assertEqual(self.RESERVATIONS,
+                         self.ls_tg.session_profile.get('reservations'))
+        self.assertEqual('true',
+                         self.ls_tg.session_profile.get('reservePorts'))
+
+    def test__update_session_tc_params_assoc_phys(self):
+        _tc_options = {'AssociatedPhys': 'eth1'}
+        _testcase = {}
+        _testcase_orig = copy.deepcopy(_testcase)
+        res = self.ls_tg._update_session_tc_params(_tc_options, _testcase)
+        self.assertNotEqual(_testcase_orig, res)
+
+    def test__update_session_tc_params(self, *args):
+
+        def get_session_tc_param_value(param, tc_type, session_prof):
+            for test_group in session_prof['tsGroups']:
+                session_tc = test_group['testCases'][0]
+                if session_tc['type'] == tc_type:
+                    return session_tc['parameters'].get(param)
+
+        session_tcs = [_tc for _ts_group in self.tsGroups
+                       for _tc in _ts_group['testCases']]
+        scenario_tcs = [_tc for _tc in
+                        self.SCENARIO_CFG['options']['test_cases']]
+        for tc_options, tc in zip(scenario_tcs, session_tcs):
+            self.assertEqual(
+                tc, self.ls_tg._update_session_tc_params(tc_options, tc))
+
+        # Verify that each test case parameter was updated
+        for _tc in self.SCENARIO_CFG['options']['test_cases']:
+            for _key, _val in _tc.items():
+                if _key != 'type':
+                    self.assertEqual(get_session_tc_param_value(
+                        _key,
+                        _tc.get('type'),
+                        self.ls_tg.session_profile),
+                        _val)
+
+    @mock.patch.object(utils, 'open_relative_file')
+    @mock.patch.object(yaml_loader, 'yaml_load')
+    @mock.patch.object(tg_landslide.LandslideTrafficGen,
+                       '_update_session_test_servers')
+    @mock.patch.object(tg_landslide.LandslideTrafficGen,
+                       '_update_session_suts')
+    @mock.patch.object(tg_landslide.LandslideTrafficGen,
+                       '_update_session_tc_params')
+    def test__load_session_profile(self, mock_upd_ses_tc_params,
+                                   mock_upd_ses_suts, mock_upd_ses_ts,
+                                   mock_yaml_load, *args):
+        self.ls_tg.scenario_helper.scenario_cfg = self.SCENARIO_CFG
+        mock_yaml_load.return_value = SESSION_PROFILE
+        self.assertIsNone(self.ls_tg._load_session_profile())
+        self.assertIsNotNone(self.ls_tg.session_profile)
+        # Number of blocks in configuration files
+        # Number of test servers, suts and tc params blocks should be equal
+        _config_files_blocks_num = len([item['test_server']
+                                        for item in self.vnfd['config']])
+        self.assertEqual(_config_files_blocks_num,
+                         mock_upd_ses_ts.call_count)
+        self.assertEqual(_config_files_blocks_num,
+                         mock_upd_ses_suts.call_count)
+        self.assertEqual(_config_files_blocks_num,
+                         mock_upd_ses_tc_params.call_count)
+
+    @mock.patch.object(utils, 'open_relative_file')
+    @mock.patch.object(yaml_loader, 'yaml_load')
+    def test__load_session_profile_unequal_num_of_cfg_blocks(
+            self, mock_yaml_load, *args):
+        vnfd = copy.deepcopy(VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        ls_traffic_gen = tg_landslide.LandslideTrafficGen(NAME, vnfd, self._id)
+        ls_traffic_gen.scenario_helper.scenario_cfg = self.SCENARIO_CFG
+        mock_yaml_load.return_value = SESSION_PROFILE
+        # Delete test_servers item from pod file to make it not valid
+        ls_traffic_gen.vnfd_helper['config'].pop()
+        with self.assertRaises(RuntimeError):
+            ls_traffic_gen._load_session_profile()
+
+    @mock.patch.object(utils, 'open_relative_file')
+    @mock.patch.object(yaml_loader, 'yaml_load')
+    def test__load_session_profile_test_type_mismatch(self, mock_yaml_load,
+                                                      *args):
+
+        def _swap_test_servers(vnfd):
+            """ Swap test servers data in pod file """
+            vnfd['config'][0], vnfd['config'][1] = \
+                vnfd['config'][1], vnfd['config'][0]
+            return vnfd
+
+        vnfd = _swap_test_servers(VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        self.ls_tg.scenario_helper.scenario_cfg = self.SCENARIO_CFG
+        mock_yaml_load.return_value = SESSION_PROFILE
+        with self.assertRaises(RuntimeError):
+            self.ls_tg._load_session_profile()
+        self.addCleanup(_swap_test_servers, vnfd)
+
+    @mock.patch.object(ctx_base.Context, 'get_context_from_server',
+                       return_value='fake_context')
+    def test_instantiate(self, *args):
+        self.ls_tg._tg_process = mock.Mock()
+        self.ls_tg._tg_process.start = mock.Mock()
+        self.ls_tg.resource_helper.connect = mock.Mock()
+        self.ls_tg.resource_helper.create_test_servers = mock.Mock()
+        self.ls_tg.resource_helper.create_suts = mock.Mock()
+        self.ls_tg._load_session_profile = mock.Mock()
+        self.assertIsNone(self.ls_tg.instantiate(self.SCENARIO_CFG,
+                                                 self.CONTEXT_CFG))
+        self.ls_tg.resource_helper.connect.assert_called_once()
+        self.ls_tg.resource_helper.create_test_servers.assert_called_once()
+        _suts_blocks_num = len([item['suts'] for item in self.vnfd['config']])
+        self.assertEqual(_suts_blocks_num,
+                         self.ls_tg.resource_helper.create_suts.call_count)
+        self.ls_tg._load_session_profile.assert_called_once()
+
 
 class TestLandslideResourceHelper(unittest.TestCase):
+
+    PROTO_PORT = 8080
+
     EXAMPLE_URL = ''.join([TAS_INFO['proto'], '://', TAS_INFO['ip'], ':',
                            str(PROTO_PORT), '/api/'])
     SUCCESS_CREATED_CODE = 201

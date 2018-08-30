@@ -30,6 +30,180 @@ except ImportError:
 LOG = logging.getLogger(__name__)
 
 
+class LandslideTrafficGen(sample_vnf.SampleVNFTrafficGen):
+    APP_NAME = 'LandslideTG'
+
+    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+                 resource_helper_type=None):
+        if resource_helper_type is None:
+            resource_helper_type = LandslideResourceHelper
+        super(LandslideTrafficGen, self).__init__(name, vnfd, task_id,
+                                                  setup_env_helper_type,
+                                                  resource_helper_type)
+
+        self.bin_path = net_serv_utils.get_nsb_option('bin_path')
+        self.name = name
+        self.runs_traffic = True
+        self.traffic_finished = False
+        self.session_profile = None
+
+    def listen_traffic(self, traffic_profile):
+        pass
+
+    def terminate(self):
+        self.resource_helper.disconnect()
+
+    def instantiate(self, scenario_cfg, context_cfg):
+        super(LandslideTrafficGen, self).instantiate(scenario_cfg, context_cfg)
+        self.resource_helper.connect()
+
+        # Create test servers
+        test_servers = [x['test_server'] for x in self.vnfd_helper['config']]
+        self.resource_helper.create_test_servers(test_servers)
+
+        # Create SUTs
+        [self.resource_helper.create_suts(x['suts']) for x in
+         self.vnfd_helper['config']]
+
+        # Fill in test session based on session profile and test case options
+        self._load_session_profile()
+
+    def run_traffic(self, traffic_profile):
+        self.resource_helper.abort_running_tests()
+        # Update DMF profile with related test case options
+        traffic_profile.update_dmf(self.scenario_helper.all_options)
+        # Create DMF in test user library
+        self.resource_helper.create_dmf(traffic_profile.dmf_config)
+        # Create/update test session in test user library
+        self.resource_helper.create_test_session(self.session_profile)
+        # Start test session
+        self.resource_helper.create_running_tests(self.session_profile['name'])
+
+    def collect_kpi(self):
+        return self.resource_helper.collect_kpi()
+
+    def wait_for_instantiate(self):
+        pass
+
+    @staticmethod
+    def _update_session_suts(suts, testcase):
+        """ Create SUT entry. Update related EPC block in session profile. """
+        for sut in suts:
+            # Update session profile EPC element with SUT info from pod file
+            tc_role = testcase['parameters'].get(sut['role'])
+            if tc_role:
+                _param = {}
+                if tc_role['class'] == 'Sut':
+                    _param['name'] = sut['name']
+                elif tc_role['class'] == 'TestNode':
+                    _param.update({x: sut[x] for x in {'ip', 'phy', 'nextHop'}
+                                   if x in sut and sut[x]})
+                testcase['parameters'][sut['role']].update(_param)
+            else:
+                LOG.info('Unexpected SUT role in pod file: "%s".', sut['role'])
+        return testcase
+
+    def _update_session_test_servers(self, test_server, _tsgroup_index):
+        """ Update tsId, reservations, pre-resolved ARP in session profile """
+        # Update test server name
+        test_groups = self.session_profile['tsGroups']
+        test_groups[_tsgroup_index]['tsId'] = test_server['name']
+
+        # Update preResolvedArpAddress
+        arp_key = 'preResolvedArpAddress'
+        _preresolved_arp = test_server.get(arp_key)  # list of dicts
+        if _preresolved_arp:
+            test_groups[_tsgroup_index][arp_key] = _preresolved_arp
+
+        # Update reservations
+        if 'phySubnets' in test_server:
+            reservation = {'tsId': test_server['name'],
+                           'tsIndex': _tsgroup_index,
+                           'tsName': test_server['name'],
+                           'phySubnets': test_server['phySubnets']}
+            if 'reservations' in self.session_profile:
+                self.session_profile['reservations'].append(reservation)
+            else:
+                self.session_profile['reservePorts'] = 'true'
+                self.session_profile['reservations'] = [reservation]
+
+    @staticmethod
+    def _update_session_tc_params(tc_options, testcase):
+        for _param_key in tc_options:
+            if _param_key == 'AssociatedPhys':
+                testcase[_param_key] = tc_options[_param_key]
+                continue
+            testcase['parameters'][_param_key] = tc_options[_param_key]
+        return testcase
+
+    def _load_session_profile(self):
+
+        with common_utils.open_relative_file(
+                self.scenario_helper.scenario_cfg['session_profile'],
+                self.scenario_helper.task_path) as stream:
+            self.session_profile = yaml_loader.yaml_load(stream)
+
+        # Raise exception if number of entries differs in following files,
+        _config_files = ['pod file', 'session_profile file', 'test_case file']
+        # Count testcases number in all tsGroups of session profile
+        session_tests_num = [xx for x in self.session_profile['tsGroups']
+                             for xx in x['testCases']]
+        # Create a set containing number of list elements in each structure
+        _config_files_blocks_num = [
+            len(x) for x in
+            (self.vnfd_helper['config'],  # test_servers and suts info
+             session_tests_num,
+             self.scenario_helper.all_options['test_cases'])]  # test case file
+
+        if len(set(_config_files_blocks_num)) != 1:
+            raise RuntimeError('Unequal number of elements. {}'.format(
+                dict(zip_longest(_config_files, _config_files_blocks_num))))
+
+        ts_names = set()
+        _tsgroup_idx = -1
+        _testcase_idx = 0
+
+        # Iterate over data structures to overwrite session profile defaults
+        # _config: single list element holding test servers and SUTs info
+        # _tc_options: single test case parameters
+        for _config, tc_options in zip(
+                self.vnfd_helper['config'],  # test servers and SUTS
+                self.scenario_helper.all_options['test_cases']):  # testcase
+
+            _ts_config = _config['test_server']
+
+            # Calculate test group/test case indexes based on test server name
+            if _ts_config['name'] in ts_names:
+                _testcase_idx += 1
+            else:
+                _tsgroup_idx += 1
+                _testcase_idx = 0
+
+            _testcase = \
+                self.session_profile['tsGroups'][_tsgroup_idx]['testCases'][
+                    _testcase_idx]
+
+            if _testcase['type'] != _ts_config['role']:
+                raise RuntimeError(
+                    'Test type mismatch in TC#{} of test server {}'.format(
+                        _testcase_idx, _ts_config['name']))
+
+            # Fill session profile with test servers parameters
+            if _ts_config['name'] not in ts_names:
+                self._update_session_test_servers(_ts_config, _tsgroup_idx)
+                ts_names.add(_ts_config['name'])
+
+            # Fill session profile with suts parameters
+            self.session_profile['tsGroups'][_tsgroup_idx]['testCases'][
+                _testcase_idx].update(
+                self._update_session_suts(_config['suts'], _testcase))
+
+            # Update test case parameters
+            self.session_profile['tsGroups'][_tsgroup_idx]['testCases'][
+                _testcase_idx].update(
+                self._update_session_tc_params(tc_options, _testcase))
+
+
 class LandslideResourceHelper(sample_vnf.ClientResourceHelper):
     """Landslide TG helper class"""
 
