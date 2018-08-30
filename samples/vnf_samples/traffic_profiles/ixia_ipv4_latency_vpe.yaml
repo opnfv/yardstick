@@ -73,7 +73,8 @@ uplink_0:
             srcip4: "{{get(flow, 'flow.src_ip_0', '192.168.0.0-192.168.255.255') }}"
             dstip4: "{{get(flow, 'flow.dst_ip_0', '192.16.0.0-192.16.0.31') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
-            seed: "{{get(flow, 'flow.seed', '1') }}"
+            srcseed: "{{get(flow, 'flow.srcseed', '1') }}"
+            dstseed: "{{get(flow, 'flow.dstseed', '1') }}"
             ttl: 32
             dscp: 32
 
@@ -100,7 +101,8 @@ downlink_0:
             srcip4: "{{get(flow, 'flow.dst_ip_0', '192.16.0.0-192.16.0.31') }}"
             dstip4: "{{get(flow, 'flow.src_ip_0', '192.168.0.0-192.168.255.255') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
-            seed: "{{get(flow, 'flow.seed', '1') }}"
+            srcseed: "{{get(flow, 'flow.srcseed', '1') }}"
+            dstseed: "{{get(flow, 'flow.dstseed', '1') }}"
             ttl: 32
             dscp: 32
 
@@ -137,7 +139,8 @@ uplink_1:
             srcip4: "{{get(flow, 'flow.srcip_1', '192.168.0.0-192.168.255.255') }}"
             dstip4: "{{get(flow, 'flow.dstip_1', '192.16.0.0-192.16.0.31') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
-            seed: "{{get(flow, 'flow.seed', '1') }}"
+            srcseed: "{{get(flow, 'flow.srcseed', '1') }}"
+            dstseed: "{{get(flow, 'flow.dstseed', '1') }}"
             ttl: 32
             dscp: 32
 
@@ -164,7 +167,8 @@ downlink_1:
             srcip4: "{{get(flow, 'flow.dst_ip_1', '192.16.0.0-192.16.0.31') }}"
             dstip4: "{{get(flow, 'flow.src_ip_1', '192.168.0.0-192.168.255.255') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
-            seed: "{{get(flow, 'flow.seed', '1') }}"
+            srcseed: "{{get(flow, 'flow.srcseed', '1') }}"
+            dstseed: "{{get(flow, 'flow.dstseed', '1') }}"
             ttl: 32
             dscp: 32
 

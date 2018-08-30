@@ -477,16 +477,17 @@ class IxNextgen(object):  # pragma: no cover
             count = traffic_param['outer_l3']['count']
             srcip = str(traffic_param['outer_l3']['srcip'])
             dstip = str(traffic_param['outer_l3']['dstip'])
-            seed = traffic_param['outer_l3']['seed']
+            srcseed = traffic_param['outer_l3']['srcseed']
+            dstseed = traffic_param['outer_l3']['dstseed']
             srcmask = traffic_param['outer_l3']['srcmask'] or IP_VERSION_4_MASK
             dstmask = traffic_param['outer_l3']['dstmask'] or IP_VERSION_4_MASK
 
             self._update_ipv4_address(
                 self._get_stack_item(fg_id, PROTO_IPV4)[0],
-                'srcIp', srcip, seed, srcmask, count)
+                'srcIp', srcip, srcseed, srcmask, count)
             self._update_ipv4_address(
                 self._get_stack_item(fg_id, PROTO_IPV4)[0],
-                'dstIp', dstip, seed, dstmask, count)
+                'dstIp', dstip, dstseed, dstmask, count)
 
     def update_l4(self, traffic):
         """Update the L4 headers
