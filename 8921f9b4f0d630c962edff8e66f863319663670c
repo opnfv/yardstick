@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_ebaa2b18",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T15:03:28Z",
+      "side": 1,
+      "message": "This can definitely be split into it\u0027s own commit.\n\nYou should have a commit that adds collect_kpi and its helper methods",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 25
+      },
+      "revId": "8921f9b4f0d630c962edff8e66f863319663670c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_abb0338c",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T15:03:28Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to be a sub-class of RuntimeError\n\nInherit from YardstickException and set the message appropriately",
+      "range": {
+        "startLine": 421,
+        "startChar": 19,
+        "endLine": 421,
+        "endChar": 31
+      },
+      "revId": "8921f9b4f0d630c962edff8e66f863319663670c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8bad6f34",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T15:03:28Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 427,
+        "startChar": 28,
+        "endLine": 427,
+        "endChar": 40
+      },
+      "revId": "8921f9b4f0d630c962edff8e66f863319663670c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2bbd4369",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T15:03:28Z",
+      "side": 1,
+      "message": "Remove this",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "8921f9b4f0d630c962edff8e66f863319663670c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6bb73b87",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T15:03:28Z",
+      "side": 1,
+      "message": "import collections \n\nimport module, not class",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 31
+      },
+      "revId": "8921f9b4f0d630c962edff8e66f863319663670c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4bbcf769",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T15:03:28Z",
+      "side": 1,
+      "message": "from yardstick.common import exceptions\n\nimport module, not class",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 75
+      },
+      "revId": "8921f9b4f0d630c962edff8e66f863319663670c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
