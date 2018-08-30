@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a561d44_c7811391",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T16:31:28Z",
+      "side": 1,
+      "message": "I forgot to add the JIRA link, sorry",
+      "revId": "fb20c5df07031247dabbb31fc78ac5d8fefc2943",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_c7aab318",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 1
