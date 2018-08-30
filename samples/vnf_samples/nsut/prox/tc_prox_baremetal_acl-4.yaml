@@ -35,6 +35,8 @@ scenarios:
 
   options:
     vnf__0:
+      collectd:
+        interval: 1
       prox_path: /opt/nsb_bin/prox
       prox_config: "configs/handle_acl-4.cfg"
       prox_args:
@@ -43,6 +45,8 @@ scenarios:
         "configs/acl_rules-2.lua": ""
 
     tg__0:
+      collectd:
+        interval: 1
       prox_path: /opt/nsb_bin/prox
       prox_config: "configs/gen_acl-4.cfg"
       prox_args:

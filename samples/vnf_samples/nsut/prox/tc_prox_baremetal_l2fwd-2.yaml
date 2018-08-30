@@ -29,12 +29,16 @@ scenarios:
     interface_speed_gbps: 10
 
     vnf__0:
+      collectd:
+        interval: 1
       prox_path: /opt/nsb_bin/prox
       prox_config: "configs/handle_l2fwd-2.cfg"
       prox_args:
         "-t": ""
 
     tg__0:
+      collectd:
+        interval: 1
       prox_path: /opt/nsb_bin/prox
       prox_config: "configs/gen_l2fwd-2.cfg"
       prox_args:

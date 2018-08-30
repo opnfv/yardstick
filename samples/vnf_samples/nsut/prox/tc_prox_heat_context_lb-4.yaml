@@ -27,6 +27,8 @@ scenarios:
 
   options:
     vnf__0:
+      collectd:
+        interval: 1
       prox_path: /opt/nsb_bin/prox
       prox_config: "configs/handle_lb-4.cfg"
       prox_args:
@@ -35,6 +37,8 @@ scenarios:
         "configs/tuples.lua": ""
 
     tg__0:
+      collectd:
+        interval: 1
       prox_path: /opt/nsb_bin/prox
       prox_config: "configs/gen_lb-4.cfg"
       prox_args:

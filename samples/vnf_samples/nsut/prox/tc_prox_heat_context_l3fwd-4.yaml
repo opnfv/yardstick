@@ -27,6 +27,8 @@ scenarios:
 
   options:
     vnf__0:
+      collectd:
+        interval: 1
       prox_path: /opt/nsb_bin/prox
       prox_config: "configs/handle_l3fwd-4.cfg"
       prox_args:
@@ -36,6 +38,8 @@ scenarios:
       prox_generate_parameter: True
 
     tg__0:
+      collectd:
+        interval: 1
       prox_path: /opt/nsb_bin/prox
       prox_config: "configs/gen_l3fwd-4.cfg"
       prox_args:
