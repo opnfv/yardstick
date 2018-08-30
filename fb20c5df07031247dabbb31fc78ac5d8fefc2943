@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_c7aab318",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T16:27:25Z",
+      "side": 1,
+      "message": "I forgot to add:\nfrom six.moves import zip_longest",
+      "revId": "fb20c5df07031247dabbb31fc78ac5d8fefc2943",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a7a7bf4e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T16:27:25Z",
+      "side": 1,
+      "message": "Also:\nfrom yardstick.common import yaml_loader",
+      "revId": "fb20c5df07031247dabbb31fc78ac5d8fefc2943",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0764ab20",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T16:27:25Z",
+      "side": 1,
+      "message": "import copy",
+      "revId": "fb20c5df07031247dabbb31fc78ac5d8fefc2943",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e76897f7",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T16:27:25Z",
+      "side": 1,
+      "message": "import uuid",
+      "revId": "fb20c5df07031247dabbb31fc78ac5d8fefc2943",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2773afea",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T16:27:25Z",
+      "side": 1,
+      "message": "import multiprocessing\n\nfrom yardstick import ssh\nfrom yardstick.benchmark.contexts import base as ctx_base",
+      "revId": "fb20c5df07031247dabbb31fc78ac5d8fefc2943",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_87771bd4",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-30T16:27:25Z",
+      "side": 1,
+      "message": "from yardstick.common import utils\nfrom yardstick.common import yaml_loader\nfrom yardstick.network_services.traffic_profile import landslide_profile",
+      "revId": "fb20c5df07031247dabbb31fc78ac5d8fefc2943",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
