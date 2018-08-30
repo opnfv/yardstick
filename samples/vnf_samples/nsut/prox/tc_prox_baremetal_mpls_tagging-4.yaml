@@ -27,12 +27,16 @@ scenarios:
 
   options:
     vnf__0:
+      collectd:
+        interval: 1
       prox_path: /opt/nsb_bin/prox
       prox_config: "configs/handle_mpls_tag_untag-4.cfg"
       prox_args:
         "-t": ""
 
     tg__0:
+      collectd:
+        interval: 1
       prox_path: /opt/nsb_bin/prox
       prox_config: "configs/gen_mpls_tag_untag-4.cfg"
       prox_args:
