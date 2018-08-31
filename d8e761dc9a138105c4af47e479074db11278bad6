@@ -2,6 +2,345 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a561d44_bde50caa",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "One of these blank lines needs to be removed.",
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b8b99a30",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "For the docstrings, have a look at the example[1] for the format. The param and its type can be concisely represented in the same line.\n\n[1] https://github.com/opnfv/yardstick/blob/ef78f436ce067ee2ffbf5a0fcc00e082edf61d6b/yardstick/common/messaging/producer.py#L38-L45",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 11
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f882f250",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "The check for resource can take place separately.\n\nIt\u0027s a required arg, which means it needs to be passed, but empty values can also be passed.\n\nYou can start the method with:\n    if not resource:\n        raise ValueError(\"...\")\nThe you can continue with the _action\u003d...\n\nMy assumption here is that resource should have a value and that an empty string is not acceptable.\nWithout checking resource, an empty string could be passed on through the application and cause issues later, which could get quite difficult to debug (such as when it\u0027s called to create a request url in exec_rest_request.",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 58
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d8872e60",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "See earlier comment on docstrings",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 30
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_1847e620",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "There\u0027s no returned by this method",
+      "range": {
+        "startLine": 188,
+        "startChar": 9,
+        "endLine": 188,
+        "endChar": 40
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f82cb24c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "Logically, it looks like you\u0027re checking for an error here i.e. a 4xx or 5xx response code.\nIs this the case?\n\nIf so, you should use raise_for_status:\n\nif raise_exc:\n    try:\n        r.raise_for_status()\n    except requests.exceptions.HTTPError as err:\n        raise exceptions.RestApiError(msg)",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 46
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_182c0647",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "I recommend removing logs as a parameter and leave these debug messages here.\n\nThe user will decide whether they want to see debug messages anyway with the --debug flag",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 241,
+        "endChar": 16
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f8d31236",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "Recommend consolodating these into a single log entry.\n\nRC -\u003e response code.\n\nMight be better formatted like so:\n\nRequest: %s | URL: %s | Status code: %s |Response: %s\n\nthis shows a chronological ordering of the data.",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 47
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7d02543f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "It would be more intuitive to have this return a boolean here, considering how it\u0027s used in collect_kpis\n\nIf this does return a boolean, the name of the methods would be more appropriate to rename as is_test_running(run_id) or test_is_running(run_id)\n\nYou can return the following instead:\n    return (\"COMPLETE\" in r.json().get(\"testStateOrStep\"))\n\nTo me, this would represent a more useful method.\n\nBTW, what is returned by r.json().get(\"testStateOrStep\")? Is it a string, and what does the string look like? I\u0027m assuming it\u0027s more than \"COMPLETED\".",
+      "range": {
+        "startLine": 507,
+        "startChar": 8,
+        "endLine": 507,
+        "endChar": 46
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_dd9a8013",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "nit: you can return this without assigning it to a temporary variable, since there\u0027s no checking or processing",
+      "range": {
+        "startLine": 510,
+        "startChar": 8,
+        "endLine": 510,
+        "endChar": 12
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_fd95c4e4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "nit: \n\n    {}/{}/measurements.format(self.running_test_uri,\n                              run_id)",
+      "range": {
+        "startLine": 514,
+        "startChar": 31,
+        "endLine": 514,
+        "endChar": 43
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3da0dc42",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "nit: could do:\n    _elapsed_time \u003d results.get(\u0027elapsedTime\u0027, 0)\n\nsince you\u0027re checking for the truthiness of results[\u0027elapsedTime\u0027].\n\nIf a value of zero would be okay here, then you may needs to explicitly check ``if results[\u0027elapsedTime\u0027] is None`` instead of ``if results[\u0027elapsedTime\u0027]``, which will evaluate to False if the value is zero.",
+      "range": {
+        "startLine": 519,
+        "startChar": 24,
+        "endLine": 519,
+        "endChar": 79
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7d89b4c9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "Remove?\n\nAlso, bad for data integrity to do this",
+      "range": {
+        "startLine": 539,
+        "startChar": 12,
+        "endLine": 539,
+        "endChar": 45
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_9df92850",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "This needs to be updated if you return a bool from check_running_test_state.",
+      "range": {
+        "startLine": 545,
+        "startChar": 8,
+        "endLine": 547,
+        "endChar": 31
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_bdfcec3f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T15:31:36Z",
+      "side": 1,
+      "message": "This looks like we\u0027re assuming that this is being run with an Iteration runner.\n\nWhat happens when duration runner is used in a TC with the landslide?",
+      "range": {
+        "startLine": 552,
+        "startChar": 13,
+        "endLine": 552,
+        "endChar": 58
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_4745036f",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
