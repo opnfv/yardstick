@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_7d41b438",
+        "filename": "etc/yardstick/yardstick.conf.sample",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T09:53:07Z",
+      "side": 1,
+      "message": "Is it fair to say this isn\u0027t needed until the LandSlide TG class is introduced?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 50
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7d3a54ce",
+        "filename": "yardstick/network_services/traffic_profile/landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T09:53:07Z",
+      "side": 1,
+      "message": "Unneeded",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_5d3790e3",
+        "filename": "yardstick/network_services/traffic_profile/landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T09:53:07Z",
+      "side": 1,
+      "message": "import module, not class",
+      "range": {
+        "startLine": 18,
+        "startChar": 48,
+        "endLine": 18,
+        "endChar": 73
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_5d3e70b9",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T09:53:07Z",
+      "side": 1,
+      "message": "Is it fair to say this isn\u0027t needed until the LandSlide TG class is introduced?\n\nThis should be included with the updates to the sample yardstick.conf",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 65
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a255ed1e",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T09:53:07Z",
+      "side": 1,
+      "message": "Not necessary",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0232d90f",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T09:53:07Z",
+      "side": 1,
+      "message": "Import the module, not the class",
+      "range": {
+        "startLine": 19,
+        "startChar": 8,
+        "endLine": 19,
+        "endChar": 24
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e236c502",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T09:53:07Z",
+      "side": 1,
+      "message": "nit: blank line here",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 11
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4245f16e",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T09:53:07Z",
+      "side": 1,
+      "message": "Typo: TestLandslideProfile",
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c258e158",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T09:53:07Z",
+      "side": 1,
+      "message": "nit: it\u0027s not usually necessary to use the specific types for assertEqual[1], you can generally just use self.assertEqual(expectedList, actualList)\n\n[1] https://docs.python.org/2/library/unittest.html#unittest.TestCase.addTypeEqualityFunc",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 28
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_42133166",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T09:53:07Z",
+      "side": 1,
+      "message": "You should add a second test for init, since there is a branch.\n\n- test___init__config_not_a_dict",
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
