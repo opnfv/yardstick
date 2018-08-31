@@ -2105,6 +2105,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_7d7c1421",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T11:26:46Z",
+      "side": 1,
+      "message": "I\u0027ll take it or leave it, we can disregard this comment",
+      "parentUuid": "9a561d44_fad5cf43",
+      "range": {
+        "startLine": 492,
+        "startChar": 8,
+        "endLine": 493,
+        "endChar": 36
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ab72f379",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 4
