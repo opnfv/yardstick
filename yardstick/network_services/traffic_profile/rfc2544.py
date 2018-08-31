@@ -197,7 +197,7 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
 
         byte_total = sum([int(size) * weight
                           for size, weight in imix_dip.items()])
-        return {size: (int(size) * weight) / byte_total
+        return {size: (int(size) * weight * 100) / byte_total
                 for size, weight in imix_dip.items()}
 
     def _create_vm(self, packet_definition):
