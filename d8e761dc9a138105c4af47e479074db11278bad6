@@ -88,6 +88,75 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_f804b27f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T17:04:46Z",
+      "side": 1,
+      "message": "You don\u0027t need this, since you don\u0027t call _create_user with this parameter.\nYou can hard code it on L140 instead",
+      "range": {
+        "startLine": 125,
+        "startChar": 33,
+        "endLine": 125,
+        "endChar": 41
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_58ce7e5b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T17:04:46Z",
+      "side": 1,
+      "message": "Should you check whether the user exists first? And if the user exists, then modify the user to have the right permissions (although, technically, running a test shouldn\u0027t modify the traffic generator users).",
+      "range": {
+        "startLine": 151,
+        "startChar": 8,
+        "endLine": 155,
+        "endChar": 74
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b8c4fa40",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T17:04:46Z",
+      "side": 1,
+      "message": "_delete_user is not called in this class.\n\nSince it\u0027s designated as a \"private\" method, it shouldn\u0027t be used outside this class.\n\nLooking at connect(), where a new user is created, I\u0027d expect to see disconnect() calling _delete_user()\n\nIf this \"private\" method is not used by LandslideResourceHelper, then it should be either made public (if called somewhere outside the class), or deleted because it is not used.",
+      "range": {
+        "startLine": 183,
+        "startChar": 2,
+        "endLine": 183,
+        "endChar": 37
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_1847e620",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -104,6 +173,52 @@
         "startChar": 9,
         "endLine": 188,
         "endChar": 40
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_78d1c2fa",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T17:04:46Z",
+      "side": 1,
+      "message": "It looks like this isn\u0027t used.\n\nIf so, it should be deleted",
+      "range": {
+        "startLine": 193,
+        "startChar": 1,
+        "endLine": 193,
+        "endChar": 40
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_18ed26c4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T17:04:46Z",
+      "side": 1,
+      "message": "This can potentially return multiple users, if there are many with the same name.\ni.e. if the same LS is used for multiple tests, since we create a user when connecting, and don\u0027t delete it after.",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 69
       },
       "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -173,6 +288,29 @@
         "startChar": 0,
         "endLine": 244,
         "endChar": 47
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_98d8161f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T17:04:46Z",
+      "side": 1,
+      "message": "This is assuming that the person running the test has root access to the TG. This might be the case with a SW generator, but HW generators are more likely to be owned by a larger organisation, with people sharing access. In this case, we shouldn\u0027t assume that the user has root access.\n\nI suggest passing an existing user and password to the TC, which should be used to run traffic.\nAvoiding creating and deleting users would simplify this code.\nSince we are not orchestrating the TG, and assuming that it is a pre-existing entity (HW/SW), it is reasonable to assume that a user has access to configure it correctly before running the tests. This also follows with what Yardstick does for OpenStack users, we don\u0027t create/delete users in the Heat context.\n\nTL;DR: Pass a set of user credentials for an existing user.\nThe docs for setting up the TG would be updated to add a pre-requisite that the user should be created (and active) already.\n\nThis would mean you can get rid of _create_user(), _delete_user(), _update_user()",
+      "range": {
+        "startLine": 257,
+        "startChar": 3,
+        "endLine": 258,
+        "endChar": 68
       },
       "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
