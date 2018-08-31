@@ -16,7 +16,7 @@ set -e
 process_name=$1
 
 if [ "$process_name" = "keystone" ]; then
-    for pid in $(ps aux | grep "keystone" | grep -iv heartbeat | grep -iv monitor | grep -v grep | grep -v /bin/sh | awk '{print $2}'); \
+    for pid in $(ps aux | grep "keystone" | grep -iv monitor | grep -v grep | grep -v /bin/sh | awk '{print $2}'); \
         do
             kill -9 "${pid}"
         done
@@ -26,7 +26,7 @@ elif [ "$process_name" = "haproxy" ]; then
             kill -9 "${pid}"
         done
 else
-    for pid in $(pgrep -fa [^-_a-zA-Z0-9]${process_name} | grep -iv heartbeat | awk '{print $1}');
+    for pid in $(pgrep -fa [^-_a-zA-Z0-9]${process_name} | awk '{print $1}');
         do
             kill -9 "${pid}"
         done
