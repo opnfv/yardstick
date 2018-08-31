@@ -164,13 +164,20 @@ class TestRFC2544Profile(base.BaseUnitTestCase):
         data = {'64B': 25, '128B': 25, '512B': 25, '1518B': 25}
         byte_total = 64 * 25 + 128 * 25 + 512 * 25 + 1518 * 25
         self.assertEqual(
-            {'64': 64 * 25.0 / byte_total, '128': 128 * 25.0 / byte_total,
-             '512': 512 * 25.0 / byte_total, '1518': 1518 * 25.0 / byte_total},
+            {'64': 64 * 25.0 * 100 / byte_total,
+             '128': 128 * 25.0 * 100 / byte_total,
+             '512': 512 * 25.0 * 100 / byte_total,
+             '1518': 1518 * 25.0 * 100/ byte_total},
             rfc2544_profile._create_imix_data(
                 data, weight_mode=constants.DISTRIBUTION_IN_PACKETS))
         data = {}
         self.assertEqual(
             {},
+            rfc2544_profile._create_imix_data(
+                data, weight_mode=constants.DISTRIBUTION_IN_PACKETS))
+        data = {'64B': 100}
+        self.assertEqual(
+            {'64': 100},
             rfc2544_profile._create_imix_data(
                 data, weight_mode=constants.DISTRIBUTION_IN_PACKETS))
 
