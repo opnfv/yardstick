@@ -94,6 +94,92 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_3d6f3cc7",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T11:26:46Z",
+      "side": 1,
+      "message": "Please add a docstring",
+      "range": {
+        "startLine": 129,
+        "startChar": 3,
+        "endLine": 129,
+        "endChar": 25
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_9d9c886b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T11:26:46Z",
+      "side": 1,
+      "message": "Nit: can you group these functions? So that similar functionality is together, _add_test_server(), _update_license() and __set_thread_model() are related to the create_test_server() functionality.",
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3d83bc05",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T11:26:46Z",
+      "side": 1,
+      "message": "doc string please",
+      "range": {
+        "startLine": 206,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 27
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_dd79e094",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-08-31T11:26:46Z",
+      "side": 1,
+      "message": "What is a DMF?",
+      "range": {
+        "startLine": 238,
+        "startChar": 8,
+        "endLine": 238,
+        "endChar": 18
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a255ed1e",
         "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
         "patchSetId": 6
