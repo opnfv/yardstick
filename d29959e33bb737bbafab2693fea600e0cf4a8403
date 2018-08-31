@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_1df998e9",
+        "filename": "dashboard/Prox_BM_L2FWD-4Port_MultiSize-1518452496550.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 5188,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-08-31T10:18:19Z",
+      "side": 1,
+      "message": "I understand that you had to align this with the collectd side that writes into the database.\nNext step would be to adjust the collectd side to make sure it uses names as defined in yaml, i.e. vnf__0, not vnf_0.",
+      "range": {
+        "startLine": 5188,
+        "startChar": 23,
+        "endLine": 5188,
+        "endChar": 28
+      },
+      "revId": "d29959e33bb737bbafab2693fea600e0cf4a8403",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
