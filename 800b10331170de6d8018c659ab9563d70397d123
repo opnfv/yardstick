@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_02cf7480",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T14:30:12Z",
+      "side": 1,
+      "message": "In the next patch, I can include a link to the OPNFV contributions guidelines [1] here. They provide some OPNFV specific guidelines, including the requirements for the commit message (which needs a JIRA reference and a Signed-off-by line).\n\n[1] https://wiki.opnfv.org/display/DEV/Contribution+Guidelines",
+      "parentUuid": "9a561d44_7f4b6787",
+      "range": {
+        "startLine": 592,
+        "startChar": 0,
+        "endLine": 592,
+        "endChar": 74
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_bfe97f82",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 4
@@ -59,6 +83,30 @@
       "writtenOn": "2018-09-03T11:50:36Z",
       "side": 1,
       "message": "Maybe it makes sense to specify more strict directions instead of options.\nI think we need to repeat whatever tests are done by Jenkins, to ensure Jenkins job would pass.\nCould we specify those specific steps to be taken?\nOther options is rather \"good to know\" thing.",
+      "range": {
+        "startLine": 601,
+        "startChar": 0,
+        "endLine": 606,
+        "endChar": 58
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_82bb84e4",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T14:30:12Z",
+      "side": 1,
+      "message": "tox, called without any arguments, will run the default set of tests specified here (L605/6 specifies this).\n\nL608-616 is more information on the default set of tests, as well as how to run one set at a time.",
+      "parentUuid": "9a561d44_bfe97f82",
       "range": {
         "startLine": 601,
         "startChar": 0,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_c2273c63",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T14:30:12Z",
+      "side": 1,
+      "message": "I\u0027ll add a note in the next patchset stating that changes need to be staged to be included in the change. I think changes need to be committed to be included.\n\nIMHO, there\u0027s no need to say that this runs python3 unittests under the hood.\nIt checks out the previous commit, runs tests, gets coverage stats, then checks back out your change and runs the unit tests again and commits them. All someone needs to know is that it gets a metric for code coverage, and there\u0027s a caveat to using it (i.e. need to commit/stage the code first)",
+      "parentUuid": "9a561d44_bfa05f44",
+      "range": {
+        "startLine": 616,
+        "startChar": 0,
+        "endLine": 616,
+        "endChar": 39
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ffb0178d",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 4
@@ -105,6 +177,30 @@
       "writtenOn": "2018-09-03T11:50:36Z",
       "side": 1,
       "message": "This one will probably return pep8 check results for whole repo, which is out of scope of specific commit effort.",
+      "range": {
+        "startLine": 621,
+        "startChar": 0,
+        "endLine": 621,
+        "endChar": 56
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4204ccbf",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T14:30:12Z",
+      "side": 1,
+      "message": "This one is intended to run the style checks on the whole repo. It is not run be default.\n\nThis section defines the other available environments.",
+      "parentUuid": "9a561d44_ffb0178d",
       "range": {
         "startLine": 621,
         "startChar": 0,
