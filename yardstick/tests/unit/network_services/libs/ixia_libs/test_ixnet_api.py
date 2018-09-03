@@ -186,6 +186,113 @@ class TestIxNextgen(unittest.TestCase):
         self.assertIn([64, 64, 75], output)
         self.assertIn([512, 512, 25], output)
 
+    def test_add_topology(self):
+        self.ixnet_gen.ixnet.add.return_value = 'obj'
+        self.ixnet_gen.add_topology('topology 1', 'vports')
+        self.ixnet_gen.ixnet.add.assert_called_once_with('my_root', 'topology')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_called_once_with(
+            'obj', '-name', 'topology 1', '-vports', 'vports')
+        self.ixnet_gen.ixnet.commit.assert_called_once()
+
+    def test_add_device_group(self):
+        self.ixnet_gen.ixnet.add.return_value = 'obj'
+        self.ixnet_gen.add_device_group('topology', 'device group 1', '1')
+        self.ixnet_gen.ixnet.add.assert_called_once_with('topology',
+                                                         'deviceGroup')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_called_once_with(
+            'obj', '-name', 'device group 1', '-multiplier', '1')
+        self.ixnet_gen.ixnet.commit.assert_called_once()
+
+    def test_add_ethernet(self):
+        self.ixnet_gen.ixnet.add.return_value = 'obj'
+        self.ixnet_gen.add_ethernet('device_group', 'ethernet 1')
+        self.ixnet_gen.ixnet.add.assert_called_once_with('device_group',
+                                                         'ethernet')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_called_once_with(
+            'obj', '-name', 'ethernet 1')
+        self.ixnet_gen.ixnet.commit.assert_called_once()
+
+    def test_add_ipv4(self):
+        self.ixnet_gen.ixnet.add.return_value = 'obj'
+        self.ixnet_gen.add_ipv4('ethernet 1', name='ipv4 1')
+        self.ixnet_gen.ixnet.add.assert_called_once_with('ethernet 1', 'ipv4')
+        self.ixnet_gen.ixnet.setAttribute.assert_called_once_with('obj',
+                                                                  '-name',
+                                                                  'ipv4 1')
+        self.assertEqual(self.ixnet.commit.call_count, 2)
+
+    def test_add_ipv4_single(self):
+        self.ixnet_gen.ixnet.add.return_value = 'obj'
+        self.ixnet_gen.ixnet.getAttribute.return_value = 'attr'
+        self.ixnet_gen.add_ipv4('ethernet 1', name='ipv4 1', addr='100.1.1.100',
+                                prefix='24', gateway='100.1.1.200')
+        self.ixnet_gen.ixnet.add.assert_called_once_with('ethernet 1', 'ipv4')
+        self.ixnet_gen.ixnet.setAttribute.assert_called_once_with('obj',
+                                                                  '-name',
+                                                                  'ipv4 1')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call(
+            'attr/singleValue', '-value', '100.1.1.100')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call(
+            'attr/singleValue', '-value', '24')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call(
+            'attr/singleValue', '-value', '100.1.1.200')
+
+        self.assertEqual(self.ixnet.commit.call_count, 2)
+
+    def test_add_ipv4_counter(self):
+        self.ixnet_gen.ixnet.add.return_value = 'obj'
+        self.ixnet_gen.ixnet.getAttribute.return_value = 'attr'
+        self.ixnet_gen.add_ipv4('ethernet 1', name='ipv4 1',
+                                addr='100.1.1.100',
+                                addr_step='1',
+                                addr_direction='increment',
+                                prefix='24',
+                                gateway='100.1.1.200',
+                                gw_step='1',
+                                gw_direction='increment')
+        self.ixnet_gen.ixnet.add.assert_any_call('ethernet 1', 'ipv4')
+        self.ixnet_gen.ixnet.setAttribute.assert_called_once_with('obj',
+                                                                  '-name',
+                                                                  'ipv4 1')
+        self.ixnet_gen.ixnet.add.assert_any_call('attr', 'counter')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call('obj', '-start',
+                                                               '100.1.1.100',
+                                                               '-step', '1',
+                                                               '-direction',
+                                                               'increment')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call(
+            'attr/singleValue', '-value', '24')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call('obj', '-start',
+                                                               '100.1.1.200',
+                                                               '-step', '1',
+                                                               '-direction',
+                                                               'increment')
+        self.assertEqual(self.ixnet.commit.call_count, 2)
+
+    def test_add_pppox(self):
+        self.ixnet_gen.ixnet.add.return_value = 'obj'
+        self.ixnet_gen.ixnet.getAttribute.return_value = 'attr'
+        self.ixnet_gen.add_pppox('ethernet 1', 'pap', 'user', 'pwd')
+        self.ixnet_gen.ixnet.add.assert_called_once_with('ethernet 1',
+                                                         'pppoxclient')
+
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call(
+            'attr/singleValue', '-value', 'pap')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call(
+            'attr/singleValue', '-value', 'user')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call(
+            'attr/singleValue', '-value', 'pwd')
+
+        self.assertEqual(self.ixnet.commit.call_count, 2)
+
+    def test_add_pppox_invalid_auth(self):
+        self.ixnet_gen.ixnet.add.return_value = 'obj'
+        self.ixnet_gen.ixnet.getAttribute.return_value = 'attr'
+        self.assertRaises(NotImplementedError, self.ixnet_gen.add_pppox,
+                          'ethernet 1', 'invalid_auth', 'user', 'pwd')
+
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_not_called()
+
     @mock.patch.object(IxNetwork, 'IxNet')
     def test_connect(self, mock_ixnet):
         mock_ixnet.return_value = self.ixnet
