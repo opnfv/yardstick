@@ -1,0 +1,326 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_8205447c",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "This patch is failing jenkins because there are two trailing blank lines instead of 1.\n\nRemove L429 and it should pass",
+      "range": {
+        "startLine": 429,
+        "startChar": 0,
+        "endLine": 429,
+        "endChar": 0
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2202780b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "Again (same as below), I suggest using six.iteritems instead of for key in dict",
+      "range": {
+        "startLine": 255,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 42
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4207ac1c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "Same as below, I suggest using:\n    for _sub_key, _sub_value in _param_six.iteritems(_param_value):\n        if isinstance ....",
+      "range": {
+        "startLine": 262,
+        "startChar": 16,
+        "endLine": 263,
+        "endChar": 67
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2530c2e7",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "From the looks of it, create-dmf will always create a new dmf, and then modify that (L250).\n\nHow does LSAPI handle \"recreating\" a DMF? Does it overwrite it? Or does it create another one with the same name?\nIf it creates another one with the same name, then configure_dmf doesn\u0027t work as you\u0027d expect.\n\nAnd we\u0027re potentially creating a LOT of orphan DMFs, what effect does that have on the LS? Is this \"resource leak\" something that we should be worrying about, or are there mechanisms to clean up these orphan resources? \ni.e. are DMFs treated as transient or persistent?",
+      "range": {
+        "startLine": 285,
+        "startChar": 8,
+        "endLine": 285,
+        "endChar": 62
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_053bfed1",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "If delete_dmf is not implemented, why is it here?\nThere should at least be a comment for when it is expected to be implemented or why it wasn\u0027t implemented.",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 33
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a524d2af",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "Because this is not deleted after use, it is possible that many many dmfs are created.\n\nIs this kind of \"resource leaking\" acceptable?\nAs a general rule of thumb, the system should be in the same state before and after a test, otherwise, repeat-ability may be affected.",
+      "range": {
+        "startLine": 284,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 33
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_621c7078",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "Pythonic way to do this (and do assignment of keys and values on  one line):\n    for _option_key, _option_value in options.items()\n\nfor py2,3 compatibilitym use six.iteritems:\n\n    for _option_key, _option_value in six.iteritems(options):\n        ....\n\n[1] https://docs.quantifiedcode.com/python-anti-patterns/readability/not_using_items_to_iterate_over_a_dictionary.html\n[2]https://pythonhosted.org/six/#six.iteritems",
+      "range": {
+        "startLine": 303,
+        "startChar": 0,
+        "endLine": 304,
+        "endChar": 48
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_020db43e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "1. options will always be a dictionary, so you can use options[\"format\"] to access this value.\n\n2. You can do this at the start, before iterating through the options, then skip options[\"format\"]\n    if _option_value \u003d\u003d \"format\":\n        continue\n  Similar to what is done in create_dmf\nOR\n2a. make a copy of the options dict, process format and remove it, leaving a simple iteration here which reads:\n    for _option_key, _option_value in six.iteritems(options):\n        self._tcl_client.execute(\u0027ls::config $test_.ReportOptions -{key} {value}\u0027)",
+      "range": {
+        "startLine": 305,
+        "startChar": 0,
+        "endLine": 311,
+        "endChar": 52
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_652aba7f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "Suggest using six.iteritems(params)\n\nWhy is params sorted?\nDoes it matter what order the params are sorted in?\nIf so, how do you know that this arbitrary sorting is sufficient?",
+      "range": {
+        "startLine": 365,
+        "startChar": 1,
+        "endLine": 366,
+        "endChar": 45
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_85270eb6",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "nit: consistency: why not try to retunr here, as you have done in L483?",
+      "range": {
+        "startLine": 492,
+        "startChar": 0,
+        "endLine": 492,
+        "endChar": 28
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_42c5ec3a",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "Same comment as https://gerrit.opnfv.org/gerrit/#/c/61287/2/yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py@258\n\nThere\u0027s no need to patch, as you can create an object on L348 and pass through to the constructor\n\ni.e.:\n\nmock_env_helper \u003d mock.Mock(spec\u003dsample_vnf.SetupEnvHelper)\nself.res_helper \u003d tg_landslide.LandslideResourceHelper(mock_env_helper)",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 52
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e23a4033",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "nit: you don\u0027t need to define return_value in L427, you can use \u00272\u0027 here directly.",
+      "range": {
+        "startLine": 430,
+        "startChar": 8,
+        "endLine": 430,
+        "endChar": 78
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a21048a9",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "This should check that the correct value is returned, instead of checking that a value is returned.\n\nIINM, in this case, the value should be 2 as this is what is returned from the tcl_handler.execute().",
+      "range": {
+        "startLine": 438,
+        "startChar": 8,
+        "endLine": 438,
+        "endChar": 33
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e27240e2",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "Usually, for a method that is ~30 lines long, with multiple branching points, additional tests would be needed. \n\nIn this case, you could just be more thorough in checking the post-conditions.\n\nThe sample config you pass covers all the major branch points in the method:\n- param is a dict\n  - string + non string contents covered \n- param is a string\n- param is not a string\n\n\nCan you make sure that the correct tcl commands are executed. i.e. this test should verify that the right commands are \"built\".\n\n\nIINM, you should have the following commands:\n\n* set dmf_ [ls::create Dmf]\n* ls::config $dmf_ -Library test -Name \"Basic UDP\"\n* ls::config $dmf_ -clientPort 2002 -isClientPortRange \"false\"\n* ls::config $dmf_ -dataProtocol \"udp\"\n* ls::config $dmf_ -serverPort 2003\n* _save_dmf:\n    * ls::perform Validate -Dmf $dmf_\n    * ls::save $dmf_ -overwrite\n\nThese would be checked with::\n    self.mock_tcl_handler.execute.assert_has_calls([\"set ...\", \"ls::config...\", etc])",
+      "range": {
+        "startLine": 517,
+        "startChar": 0,
+        "endLine": 521,
+        "endChar": 69
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
