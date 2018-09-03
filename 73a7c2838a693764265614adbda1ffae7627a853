@@ -16,6 +16,24 @@
       "revId": "73a7c2838a693764265614adbda1ffae7627a853",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_82b6003c",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T14:30:12Z",
+      "side": 1,
+      "message": "1- tox -r -e... Can be used.\n\n2- rm -rf .tox",
+      "parentUuid": "9a561d44_dcba9de0",
+      "revId": "73a7c2838a693764265614adbda1ffae7627a853",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
