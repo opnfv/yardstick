@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_8289c428",
+        "filename": "etc/yardstick/yardstick.conf.sample",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "In this patch, there\u0027s no Landslide TG, so it doesn\u0027t make sense to have this introduced here.,\nIMHO, this is something that should be added when the LS API is added.",
+      "parentUuid": "9a561d44_1fffcbab",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 50
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_7d3a54ce",
         "filename": "yardstick/network_services/traffic_profile/landslide_profile.py",
         "patchSetId": 6
@@ -319,6 +343,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_e277e039",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_58095e30",
+      "range": {
+        "startLine": 206,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 27
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_dd79e094",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 6
@@ -366,6 +414,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_027db41c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_18188680",
+      "range": {
+        "startLine": 238,
+        "startChar": 8,
+        "endLine": 238,
+        "endChar": 18
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a255ed1e",
         "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
         "patchSetId": 6
@@ -389,6 +461,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_22727849",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_a255ed1e",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_0232d90f",
         "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
         "patchSetId": 6
@@ -400,6 +496,30 @@
       "writtenOn": "2018-08-31T09:53:07Z",
       "side": 1,
       "message": "Import the module, not the class",
+      "range": {
+        "startLine": 19,
+        "startChar": 8,
+        "endLine": 19,
+        "endChar": 24
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8290a444",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_0232d90f",
       "range": {
         "startLine": 19,
         "startChar": 8,
@@ -447,6 +567,30 @@
       "side": 1,
       "message": "Not sure what is meant here.",
       "parentUuid": "9a561d44_e236c502",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 11
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6293d04f",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-03T17:53:40Z",
+      "side": 1,
+      "message": "Add a blank line between L97 and L98.\n\nIt was a minor optional cosmetic update.",
+      "parentUuid": "9a561d44_bf27bf63",
       "range": {
         "startLine": 98,
         "startChar": 0,
