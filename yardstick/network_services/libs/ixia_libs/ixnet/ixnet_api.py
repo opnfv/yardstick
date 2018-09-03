@@ -587,3 +587,114 @@ class IxNextgen(object):  # pragma: no cover
         self.ixnet.execute('start', '/traffic')
         # pylint: disable=unnecessary-lambda
         utils.wait_until_true(lambda: self.is_traffic_running())
+
+    def add_topology(self, name, vports):
+        log.debug("add_topology: name='%s' ports='%s'", name, vports)
+        obj = self.ixnet.add(self.ixnet.getRoot(), 'topology')
+        self.ixnet.setMultiAttribute(obj, '-name', name, '-vports', vports)
+        self.ixnet.commit()
+        return obj
+
+    def add_device_group(self, topology, name, multiplier):
+        log.debug("add_device_group: tpl='%s', name='%s', multiplier='%s'",
+                  topology, name, multiplier)
+
+        obj = self.ixnet.add(topology, 'deviceGroup')
+        self.ixnet.setMultiAttribute(obj, '-name', name, '-multiplier',
+                                     multiplier)
+        self.ixnet.commit()
+        return obj
+
+    def add_ethernet(self, dev_group, name):
+        log.debug(
+            "add_ethernet: device_group='%s' name='%s'", dev_group, name)
+        obj = self.ixnet.add(dev_group, 'ethernet')
+        self.ixnet.setMultiAttribute(obj, '-name', name)
+        self.ixnet.commit()
+        return obj
+
+    def add_ipv4(self, ethernet, name='',
+                 addr=None, addr_step=None, addr_direction='increment',
+                 prefix=None, prefix_step=None, prefix_direction='increment',
+                 gateway=None, gw_step=None, gw_direction='increment'):
+        log.debug("add_ipv4: ethernet='%s' name='%s'", ethernet, name)
+        obj = self.ixnet.add(ethernet, 'ipv4')
+        if name != '':
+            self.ixnet.setAttribute(obj, '-name', name)
+            self.ixnet.commit()
+
+        if addr_step is not None:
+            # handle counter pattern
+            _address = self.ixnet.getAttribute(obj, '-address')
+            self.ixnet.setMultiAttribute(_address, '-clearOverlays', 'true',
+                                         '-pattern', 'counter')
+
+            address_counter = self.ixnet.add(_address, 'counter')
+            self.ixnet.setMultiAttribute(address_counter,
+                                         '-start', addr,
+                                         '-step', addr_step,
+                                         '-direction', addr_direction)
+        elif addr is not None:
+            # handle single value
+            _address = self.ixnet.getAttribute(obj, '-address')
+            self.ixnet.setMultiAttribute(_address + '/singleValue', '-value',
+                                         addr)
+
+        if prefix_step is not None:
+            # handle counter pattern
+            _prefix = self.ixnet.getAttribute(obj, '-prefix')
+            self.ixnet.setMultiAttribute(_prefix, '-clearOverlays', 'true',
+                                         '-pattern', 'counter')
+            prefix_counter = self.ixnet.add(_prefix, 'counter')
+            self.ixnet.setMultiAttribute(prefix_counter,
+                                         '-start', prefix,
+                                         '-step', prefix_step,
+                                         '-direction', prefix_direction)
+        elif prefix is not None:
+            # handle single value
+            _prefix = self.ixnet.getAttribute(obj, '-prefix')
+            self.ixnet.setMultiAttribute(_prefix + '/singleValue', '-value',
+                                         prefix)
+
+        if gw_step is not None:
+            # handle counter pattern
+            _gateway = self.ixnet.getAttribute(obj, '-gatewayIp')
+            self.ixnet.setMultiAttribute(_gateway, '-clearOverlays', 'true',
+                                         '-pattern', 'counter')
+
+            gateway_counter = self.ixnet.add(_gateway, 'counter')
+            self.ixnet.setMultiAttribute(gateway_counter,
+                                         '-start', gateway,
+                                         '-step', gw_step,
+                                         '-direction', gw_direction)
+        elif gateway is not None:
+            # handle single value
+            _gateway = self.ixnet.getAttribute(obj, '-gatewayIp')
+            self.ixnet.setMultiAttribute(_gateway + '/singleValue', '-value',
+                                         gateway)
+
+        self.ixnet.commit()
+        return obj
+
+    def add_pppox_client(self, xproto, auth, user, pwd):
+        log.debug(
+            "add_pppox_client: xproto='%s', auth='%s', user='%s', pwd='%s'",
+            xproto, auth, user, pwd)
+        obj = self.ixnet.add(xproto, 'pppoxclient')
+        self.ixnet.commit()
+
+        if auth == 'pap':
+            auth_type = self.ixnet.getAttribute(obj, '-authType')
+            self.ixnet.setMultiAttribute(auth_type + '/singleValue', '-value',
+                                         auth)
+            pap_user = self.ixnet.getAttribute(obj, '-papUser')
+            self.ixnet.setMultiAttribute(pap_user + '/singleValue', '-value',
+                                         user)
+            pap_pwd = self.ixnet.getAttribute(obj, '-papPassword')
+            self.ixnet.setMultiAttribute(pap_pwd + '/singleValue', '-value',
+                                         pwd)
+        else:
+            raise NotImplementedError()
+
+        self.ixnet.commit()
+        return obj
