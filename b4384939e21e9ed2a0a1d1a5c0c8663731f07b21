@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_1fffcbab",
+        "filename": "etc/yardstick/yardstick.conf.sample",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T08:58:07Z",
+      "side": 1,
+      "message": "It might be moved away, though since it is related to low level implementation dependencies, to me it seems more logical here.",
+      "parentUuid": "9a561d44_7d41b438",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 50
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_7d3a54ce",
         "filename": "yardstick/network_services/traffic_profile/landslide_profile.py",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-31T09:53:07Z",
       "side": 1,
       "message": "Unneeded",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7f2d2746",
+        "filename": "yardstick/network_services/traffic_profile/landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T08:58:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_7d3a54ce",
       "range": {
         "startLine": 16,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_5f30239e",
+        "filename": "yardstick/network_services/traffic_profile/landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T08:58:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_5d3790e3",
+      "range": {
+        "startLine": 18,
+        "startChar": 48,
+        "endLine": 18,
+        "endChar": 73
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_5d3e70b9",
         "filename": "yardstick/network_services/utils.py",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2018-08-31T09:53:07Z",
       "side": 1,
       "message": "Is it fair to say this isn\u0027t needed until the LandSlide TG class is introduced?\n\nThis should be included with the updates to the sample yardstick.conf",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 65
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ffe77710",
+        "filename": "yardstick/network_services/utils.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T08:58:07Z",
+      "side": 1,
+      "message": "It might be moved away, though since it is related to low level implementation dependencies, to me it seems more logical here.",
+      "parentUuid": "9a561d44_5d3e70b9",
       "range": {
         "startLine": 39,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_b806ba1e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T08:58:07Z",
+      "side": 1,
+      "message": "OK.",
+      "parentUuid": "9a561d44_3d6f3cc7",
+      "range": {
+        "startLine": 129,
+        "startChar": 3,
+        "endLine": 129,
+        "endChar": 25
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_9d9c886b",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 6
@@ -128,6 +248,24 @@
       "writtenOn": "2018-08-31T11:26:46Z",
       "side": 1,
       "message": "Nit: can you group these functions? So that similar functionality is together, _add_test_server(), _update_license() and __set_thread_model() are related to the create_test_server() functionality.",
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_780c2243",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T08:58:07Z",
+      "side": 1,
+      "message": "From what I can see here, they are grouped and follow in that order.",
+      "parentUuid": "9a561d44_9d9c886b",
       "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_58095e30",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T08:58:07Z",
+      "side": 1,
+      "message": "OK.",
+      "parentUuid": "9a561d44_3d83bc05",
+      "range": {
+        "startLine": 206,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 27
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_dd79e094",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 6
@@ -168,6 +330,30 @@
       "writtenOn": "2018-08-31T11:26:46Z",
       "side": 1,
       "message": "What is a DMF?",
+      "range": {
+        "startLine": 238,
+        "startChar": 8,
+        "endLine": 238,
+        "endChar": 18
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_18188680",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T08:58:07Z",
+      "side": 1,
+      "message": "Spirent term: Data Message Flow. Basically it is a structure containing parameters of traffic profile.",
+      "parentUuid": "9a561d44_dd79e094",
       "range": {
         "startLine": 238,
         "startChar": 8,
@@ -249,6 +435,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_bf27bf63",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T08:58:07Z",
+      "side": 1,
+      "message": "Not sure what is meant here.",
+      "parentUuid": "9a561d44_e236c502",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 11
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_4245f16e",
         "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
         "patchSetId": 6
@@ -260,6 +470,24 @@
       "writtenOn": "2018-08-31T09:53:07Z",
       "side": 1,
       "message": "Typo: TestLandslideProfile",
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ff20174b",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T08:58:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_4245f16e",
       "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -289,6 +517,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_9f2abb2a",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T08:58:07Z",
+      "side": 1,
+      "message": "I\u0027d prefer to keep it as is, since current way is proper too, and more clear.",
+      "parentUuid": "9a561d44_c258e158",
+      "range": {
+        "startLine": 111,
+        "startChar": 8,
+        "endLine": 111,
+        "endChar": 28
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_42133166",
         "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
         "patchSetId": 6
@@ -300,6 +552,24 @@
       "writtenOn": "2018-08-31T09:53:07Z",
       "side": 1,
       "message": "You should add a second test for init, since there is a branch.\n\n- test___init__config_not_a_dict",
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_df1b931a",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_landslide_profile.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T08:58:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_42133166",
       "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
