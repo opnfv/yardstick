@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_1fe18b9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T11:50:36Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 10,
+        "startChar": 22,
+        "endLine": 10,
+        "endChar": 34
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_bfe97f82",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T11:50:36Z",
+      "side": 1,
+      "message": "Maybe it makes sense to specify more strict directions instead of options.\nI think we need to repeat whatever tests are done by Jenkins, to ensure Jenkins job would pass.\nCould we specify those specific steps to be taken?\nOther options is rather \"good to know\" thing.",
+      "range": {
+        "startLine": 601,
+        "startChar": 0,
+        "endLine": 606,
+        "endChar": 58
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_bfa05f44",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T11:50:36Z",
+      "side": 1,
+      "message": "Just to mention that coverage checks probably also runs unit tests too (maybe only py3 ones though).\n\nAnd maybe it makes sense to mention that if testing pre-commit changes, they need to be staged.",
+      "range": {
+        "startLine": 616,
+        "startChar": 0,
+        "endLine": 616,
+        "endChar": 39
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ffb0178d",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-03T11:50:36Z",
+      "side": 1,
+      "message": "This one will probably return pep8 check results for whole repo, which is out of scope of specific commit effort.",
+      "range": {
+        "startLine": 621,
+        "startChar": 0,
+        "endLine": 621,
+        "endChar": 56
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
