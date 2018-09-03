@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_7f4b6787",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-09-03T12:03:15Z",
+      "side": 1,
+      "message": "not sure that these commit guidelines are full. I did not find any mentioning about having yardstick Jira ID in commit message",
+      "range": {
+        "startLine": 592,
+        "startChar": 0,
+        "endLine": 592,
+        "endChar": 74
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_bfe97f82",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 4
