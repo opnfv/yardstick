@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_055f7e42",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-04T13:02:17Z",
+      "side": 1,
+      "message": "I\u0027m not sure how I missed this. \n\nThe SampleVNF classes are for the SampleVNF project applications only.\n\nThis SHOULD have been based on GenericVNF/GenericVNFTrafficGen.",
+      "range": {
+        "startLine": 33,
+        "startChar": 26,
+        "endLine": 33,
+        "endChar": 56
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_28ba570a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-04T13:02:17Z",
+      "side": 1,
+      "message": "If this is a static method, it shouldn\u0027t be \"private\" as well.\nstatic methods are used without instantiating the class (so, external to the class definition)\nprivate methods are used only within a class itself, so a static private class doesn\u0027t make a lot of sense",
+      "range": {
+        "startLine": 88,
+        "startChar": 3,
+        "endLine": 89,
+        "endChar": 45
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_084cb341",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-04T13:02:17Z",
+      "side": 1,
+      "message": "This is assuming that sut[\u0027ip\u0027], sut[\u0027phy\u0027] and sut[\u0027nextHop\u0027] are all set. Is there an earlier check to make sure these elements exist (maybe when parsing the TC/pod.yaml)?\nOtherwise, this will throw a KeyError.",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 100,
+        "endChar": 59
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
