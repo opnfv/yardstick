@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a561d44_4804ebbf",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-04T17:26:18Z",
+      "side": 1,
+      "message": "nit: import module, not class.\n\nShould be changed in an earlier commit",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 31
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_055f7e42",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -18,6 +41,29 @@
         "startChar": 26,
         "endLine": 33,
         "endChar": 56
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0821534d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-04T17:26:18Z",
+      "side": 1,
+      "message": "Why isn\u0027t this doing anything?\n\nShould it be removed?",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 12
       },
       "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -65,6 +111,202 @@
         "endLine": 100,
         "endChar": 59
       },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_481b4b1b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-04T17:26:18Z",
+      "side": 1,
+      "message": "Actually, \"if x in sut\" will avoid this",
+      "parentUuid": "9a561d44_084cb341",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 100,
+        "endChar": 59
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4877cb3a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-04T17:26:18Z",
+      "side": 1,
+      "message": "Same question as above regarding static private methods.",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 32
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_48aeab86",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-04T17:26:18Z",
+      "side": 1,
+      "message": "Use six.iteritems here:\n\n    for _param_key, _param_value in six.iteritems(params):\n        if _param_key...:",
+      "range": {
+        "startLine": 132,
+        "startChar": 7,
+        "endLine": 132,
+        "endChar": 37
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_28a9b77b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-04T17:26:18Z",
+      "side": 1,
+      "message": "tc_options[_param_key] can be replaced with _param_value",
+      "range": {
+        "startLine": 134,
+        "startChar": 39,
+        "endLine": 134,
+        "endChar": 61
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e8c5ff3d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-04T17:26:18Z",
+      "side": 1,
+      "message": "Please factor this into smaller methods.\nVery long methods are harder to test and read.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 36
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_28c09729",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-04T17:26:18Z",
+      "side": 1,
+      "message": "It is not immediately clear that these lines are trying to check that len(self.vnfd_helper[\u0027config\u0027]) \u003d\u003d len(session_tests_num) \u003d\u003d len(             self.scenario_helper.all_options[\u0027test_cases\u0027])\n\nInstead of doing something clever, it is often better to do something explicit. \n\nI suggest that this is replaced with the following:\n\n   if ( (len(self.vnfd_helper[\u0027config\u0027]) \u003d\u003d len(session_tests_num)) and (len(session_tests_num) \u003d\u003d len(self.scenario_helper.all_options[\u0027test_cases\u0027])):\n        raise RuntimError.....\n\n\nYou might also be able to compare them all in the same statement too: i.e. len(x) \u003d\u003d len(y) \u003d\u003d len(z)",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 76
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a8eb07af",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-04T17:26:18Z",
+      "side": 1,
+      "message": "This probably should be separated into a separate method, as L162-L164 look like something new is starting.\nThis would help shorten the overall method, and make the code more readable and maintainable (and testable)",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 70
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a85e6774",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-04T17:26:18Z",
+      "side": 1,
+      "message": "from yardstick.common import utils\nthere\u0027s a bunch of comments on PS1 that should have the right imports.",
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_284a57ac",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-04T17:26:18Z",
+      "side": 1,
+      "message": "You also need\n\nfrom yardstick.benchmark.contexts import base as ctx_base",
       "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
