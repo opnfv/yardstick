@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Daniel Martin Buckley <daniel.m.buckley@intel.com>
+Code-Review+2: Abhijit Sinha <abhijit.sinha@intel.com>
+Verified+1: Abhijit Sinha <abhijit.sinha@intel.com>
+Submitted-by: Abhijit Sinha <abhijit.sinha@intel.com>
+Submitted-at: Tue, 04 Sep 2018 16:57:39 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/61753
+Project: yardstick
+Branch: refs/heads/master
