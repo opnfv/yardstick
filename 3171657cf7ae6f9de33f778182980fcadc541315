@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_c8847bd6",
+        "filename": "dashboard/Prox_BM_L3FWD-4Port-1536065939744.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 11618,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-04T17:24:40Z",
+      "side": 1,
+      "message": "Why fill:none here?",
+      "revId": "3171657cf7ae6f9de33f778182980fcadc541315",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8861e33b",
+        "filename": "dashboard/Prox_BM_L3FWD-4Port-1536065939744.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 11656,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-04T17:24:40Z",
+      "side": 1,
+      "message": "while fill:null for other TG CPUs?",
+      "revId": "3171657cf7ae6f9de33f778182980fcadc541315",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_484fcbbd",
+        "filename": "dashboard/Prox_BM_L3FWD-4Port-1536065939744.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 12070,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-04T17:24:40Z",
+      "side": 1,
+      "message": "and fill:none for VNF CPUs?",
+      "revId": "3171657cf7ae6f9de33f778182980fcadc541315",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
