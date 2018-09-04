@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_45ab361d",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-04T11:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_8205447c",
+      "range": {
+        "startLine": 429,
+        "startChar": 0,
+        "endLine": 429,
+        "endChar": 0
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_05b13e8f",
         "filename": "yardstick/network_services/traffic_profile/landslide_profile.py",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-04T09:13:47Z",
       "side": 1,
       "message": "The superclass (base.TrafficProfile) defines an execute_traffic method, which is called in a loop until the traffic generator exits. in the base class, it raises a NotImplementedError.\nIt should be redefined here, right?\n\nUsually, execute_traffic is called by the TGHelper to run the traffic, IINM. There\u0027s no implementation here, so what happens?\nThis should be execute_traffic so that the inheritence isn\u0027t broken (for want of a better phrase)",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 15
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e5208ab2",
+        "filename": "yardstick/network_services/traffic_profile/landslide_profile.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-04T11:53:34Z",
+      "side": 1,
+      "message": "As you mention, execute_traffic method is not implemented in this and in parent class. And we do not intend to use it.\nThis existing stub method execute() seems to be unused currently, but initially it could have some purpose, e.g. to parse some custom fields (e.g. IMIX config parsing, not implemented yet).",
+      "parentUuid": "9a561d44_05b13e8f",
       "range": {
         "startLine": 33,
         "startChar": 8,
@@ -117,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_8519ce8a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-04T11:53:34Z",
+      "side": 1,
+      "message": "DMF name is unique. In both cases there\u0027s no orphans, no dups or whatever else.",
+      "parentUuid": "9a561d44_2530c2e7",
+      "range": {
+        "startLine": 285,
+        "startChar": 8,
+        "endLine": 285,
+        "endChar": 62
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_053bfed1",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 7
@@ -151,6 +223,30 @@
       "writtenOn": "2018-09-03T17:53:40Z",
       "side": 1,
       "message": "Because this is not deleted after use, it is possible that many many dmfs are created.\n\nIs this kind of \"resource leaking\" acceptable?\nAs a general rule of thumb, the system should be in the same state before and after a test, otherwise, repeat-ability may be affected.",
+      "range": {
+        "startLine": 284,
+        "startChar": 0,
+        "endLine": 289,
+        "endChar": 33
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_651c7a78",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-04T11:53:34Z",
+      "side": 1,
+      "message": "No, it is wrong assumption.",
+      "parentUuid": "9a561d44_a524d2af",
       "range": {
         "startLine": 284,
         "startChar": 0,
@@ -278,6 +374,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_45305601",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-04T11:53:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_42c5ec3a",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 52
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_e23a4033",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 7
@@ -289,6 +409,30 @@
       "writtenOn": "2018-09-03T17:53:40Z",
       "side": 1,
       "message": "nit: you don\u0027t need to define return_value in L427, you can use \u00272\u0027 here directly.",
+      "range": {
+        "startLine": 430,
+        "startChar": 8,
+        "endLine": 430,
+        "endChar": 78
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_654e3a98",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-04T11:53:34Z",
+      "side": 1,
+      "message": "Since we use that \"2\" twice (L430, L431), I\u0027d keep a variable.",
+      "parentUuid": "9a561d44_e23a4033",
       "range": {
         "startLine": 430,
         "startChar": 8,
@@ -324,6 +468,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_05265ece",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-04T11:53:34Z",
+      "side": 1,
+      "message": "This UT is related to create_test_server() method. That method returns test server id (str).\nThis check is legitimate, but I might change it to something like\n\n    self.assertEqual(return_value, res)",
+      "parentUuid": "9a561d44_a21048a9",
+      "range": {
+        "startLine": 438,
+        "startChar": 8,
+        "endLine": 438,
+        "endChar": 33
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_e27240e2",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 7
@@ -335,6 +503,30 @@
       "writtenOn": "2018-09-03T17:53:40Z",
       "side": 1,
       "message": "Usually, for a method that is ~30 lines long, with multiple branching points, additional tests would be needed. \n\nIn this case, you could just be more thorough in checking the post-conditions.\n\nThe sample config you pass covers all the major branch points in the method:\n- param is a dict\n  - string + non string contents covered \n- param is a string\n- param is not a string\n\n\nCan you make sure that the correct tcl commands are executed. i.e. this test should verify that the right commands are \"built\".\n\n\nIINM, you should have the following commands:\n\n* set dmf_ [ls::create Dmf]\n* ls::config $dmf_ -Library test -Name \"Basic UDP\"\n* ls::config $dmf_ -clientPort 2002 -isClientPortRange \"false\"\n* ls::config $dmf_ -dataProtocol \"udp\"\n* ls::config $dmf_ -serverPort 2003\n* _save_dmf:\n    * ls::perform Validate -Dmf $dmf_\n    * ls::save $dmf_ -overwrite\n\nThese would be checked with::\n    self.mock_tcl_handler.execute.assert_has_calls([\"set ...\", \"ls::config...\", etc])",
+      "range": {
+        "startLine": 517,
+        "startChar": 0,
+        "endLine": 521,
+        "endChar": 69
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_252ba295",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-04T11:53:34Z",
+      "side": 1,
+      "message": "Yes, config options help to cover the code branches.\nI do not see a point in checking command string match. TCL server checks it out for us. And in case of failure, our code identifies the failure during _save_dmf() call.",
+      "parentUuid": "9a561d44_e27240e2",
       "range": {
         "startLine": 517,
         "startChar": 0,
