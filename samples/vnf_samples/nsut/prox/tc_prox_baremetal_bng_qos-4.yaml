@@ -30,6 +30,8 @@ scenarios:
     interface_speed_gbps: 10
 
     vnf__0:
+      collectd:
+        interval: 1
       prox_path: /opt/nsb_bin/prox
       prox_config: "configs/handle_bng_qos-4.cfg"
       prox_args:
@@ -41,6 +43,8 @@ scenarios:
       prox_generate_parameter: True
 
     tg__0:
+      collectd:
+        interval: 1
       prox_path: /opt/nsb_bin/prox
       prox_config: "configs/gen_bng_qos-4.cfg"
       prox_args:

@@ -150,7 +150,6 @@
               "measurement": "tc_prox_baremetal_l2fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe0.out_packets\") FROM \"tc_prox_baremetal_l2fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5186,7 +5185,7 @@
                 [
                   {
                     "params": [
-                      "vnf__0.collect_stats.core.cpu.0.percent-user"
+                      "vnf_0.yardstick.core.cpu.0.percent-user"
                     ],
                     "type": "field"
                   },
@@ -5296,7 +5295,7 @@
                 [
                   {
                     "params": [
-                      "vnf__0.collect_stats.core.cpu.1.percent-user"
+                      "vnf_0.yardstick.core.cpu.1.percent-user"
                     ],
                     "type": "field"
                   },
@@ -5406,7 +5405,7 @@
                 [
                   {
                     "params": [
-                      "vnf__0.collect_stats.core.cpu.2.percent-user"
+                      "vnf_0.yardstick.core.cpu.2.percent-user"
                     ],
                     "type": "field"
                   },
@@ -5516,7 +5515,7 @@
                 [
                   {
                     "params": [
-                      "vnf__0.collect_stats.core.cpu.3.percent-user"
+                      "vnf_0.yardstick.core.cpu.3.percent-user"
                     ],
                     "type": "field"
                   },
@@ -5626,7 +5625,7 @@
                 [
                   {
                     "params": [
-                      "vnf__0.collect_stats.core.cpu.4.percent-user"
+                      "vnf_0.yardstick.core.cpu.4.percent-user"
                     ],
                     "type": "field"
                   },
@@ -5736,7 +5735,7 @@
                 [
                   {
                     "params": [
-                      "vnf__0.collect_stats.core.cpu.5.percent-user"
+                      "vnf_0.yardstick.core.cpu.5.percent-user"
                     ],
                     "type": "field"
                   },
