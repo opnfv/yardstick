@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_48f34b9e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-09-04T16:53:38Z",
+      "side": 1,
+      "message": "\"PPPoX\" makes it more visible. \nBTW, are the changes PPPoX or specific to PPPoE? PPPoX includes PPPoE/A/ etc",
+      "range": {
+        "startLine": 7,
+        "startChar": 31,
+        "endLine": 7,
+        "endChar": 36
+      },
+      "revId": "b93280258abf282aad2596791209dc1c73da60d1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_08f95380",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-09-04T16:53:38Z",
+      "side": 1,
+      "message": "can you create an OPNFV yardstick JIRA ticket and add here.",
+      "revId": "b93280258abf282aad2596791209dc1c73da60d1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
