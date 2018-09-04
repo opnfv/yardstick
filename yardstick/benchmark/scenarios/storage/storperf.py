@@ -100,10 +100,16 @@ class StorPerf(base.Scenario):
         setup_res = requests.post('http://%s:5000/api/v1.0/configurations'
                                   % self.target, json=env_args)
 
-        setup_res_content = jsonutils.loads(
-            setup_res.content)
+        try:
+            setup_res_content = jsonutils.loads(
+                setup_res.content)
+        except Exception as e:
+            LOG.error("Decode JSON %s", e)
+            raise RuntimeError("Decode JSON ", e)
 
         if setup_res.status_code != 200:
+            LOG.error("Failed to create a stack, error message: %s",
+                      setup_res_content["message"])
             raise RuntimeError("Failed to create a stack, error message:",
                                setup_res_content["message"])
         elif setup_res.status_code == 200:
@@ -128,6 +134,8 @@ class StorPerf(base.Scenario):
             report_res.content)
 
         if report_res.status_code != 200:
+            LOG.error("Failed to fetch report, error message: %s",
+                      report_res_content["message"])
             raise RuntimeError("Failed to fetch report, error message:",
                                report_res_content["message"])
         else:
@@ -190,6 +198,8 @@ class StorPerf(base.Scenario):
         job_res_content = jsonutils.loads(job_res.content)
 
         if job_res.status_code != 200:
+            LOG.error("Failed to start a job, error message: %s",
+                      job_res_content["message"])
             raise RuntimeError("Failed to start a job, error message:",
                                job_res_content["message"])
         elif job_res.status_code == 200:
@@ -239,9 +249,11 @@ class StorPerf(base.Scenario):
         job_res_content = jsonutils.loads(job_res.content)
 
         if job_res.status_code != 200:
-            raise RuntimeError(
-                "Failed to start initialization job, error message:",
-                job_res_content["message"])
+            LOG.error("Failed to start initialization job, error message: %s",
+                      job_res_content["message"])
+            raise RuntimeError("Failed to start initialization job, error message:",
+                               job_res_content["message"])
+
         elif job_res.status_code == 200:
             job_id = job_res_content["job_id"]
             LOG.info("Started initialization as job id: %s...", job_id)
@@ -260,6 +272,8 @@ class StorPerf(base.Scenario):
         if teardown_res.status_code == 400:
             teardown_res_content = jsonutils.loads(
                 teardown_res.json_data)
+            LOG.error("Failed to reset environment, error message: %s",
+                      teardown_res_content['message'])
             raise RuntimeError("Failed to reset environment, error message:",
                                teardown_res_content['message'])
 
