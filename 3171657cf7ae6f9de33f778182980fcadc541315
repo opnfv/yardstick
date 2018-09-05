@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_339be873",
+        "filename": "dashboard/Prox_BM_L3FWD-4Port-1536065939744.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 11656,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-09-05T09:15:16Z",
+      "side": 1,
+      "message": "It\u0027s the groupBy section and \"null\" is OK to avoid trailing old values",
+      "parentUuid": "9a561d44_8861e33b",
+      "revId": "3171657cf7ae6f9de33f778182980fcadc541315",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_484fcbbd",
         "filename": "dashboard/Prox_BM_L3FWD-4Port-1536065939744.json",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2018-09-04T17:24:40Z",
       "side": 1,
       "message": "and fill:none for VNF CPUs?",
+      "revId": "3171657cf7ae6f9de33f778182980fcadc541315",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f3905050",
+        "filename": "dashboard/Prox_BM_L3FWD-4Port-1536065939744.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 12070,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-09-05T09:15:16Z",
+      "side": 1,
+      "message": "fill none/null is needed so that the old values are not trailing",
+      "parentUuid": "9a561d44_484fcbbd",
       "revId": "3171657cf7ae6f9de33f778182980fcadc541315",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
