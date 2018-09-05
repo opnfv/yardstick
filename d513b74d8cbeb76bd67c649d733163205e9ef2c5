@@ -584,6 +584,30 @@
       "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8e272bb6",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T17:25:48Z",
+      "side": 1,
+      "message": "What I suggested is that this test checks that the right sequence of commands are called. The TCL server isn\u0027t here in this case, since it\u0027s a unit test.\n\nYou should add: \n    mock_tcl_handler.assert_has_calls([cmd1, cmd2, cmd3, etc])\n\nThis is how you check that the configs are parsed correctly and sends the correct commands to the tcl server.",
+      "parentUuid": "9a561d44_252ba295",
+      "range": {
+        "startLine": 517,
+        "startChar": 0,
+        "endLine": 521,
+        "endChar": 69
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
