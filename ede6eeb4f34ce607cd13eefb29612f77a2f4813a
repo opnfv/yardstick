@@ -50,6 +50,368 @@
       "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_cea64310",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "same as for the other tests, exact calls are better as they verify that the right calls are being made to the external system. Useful when later changes modify this method.",
+      "range": {
+        "startLine": 1153,
+        "startChar": 8,
+        "endLine": 1153,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4e3513d9",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1184,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "IMHO, this should also be checking that the config is parsed correctly i.e. that the expected calls to the TCL client are made.\n\n   self.mock_tcl_handler.assert_has_calls([\n       call(\u0027cmd1\u0027),\n       call(\u0027cmd2\u0027),\n   ])\n\nExplicitly checking that the right calls are made means that refactor will be easier, as you can check that the same behaviours are preserved pre- and post-refactor",
+      "range": {
+        "startLine": 1184,
+        "startChar": 1,
+        "endLine": 1184,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6e51f70d",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "ditto for checking that the right calls are made to the external system.\n\nRefactor is safer.",
+      "range": {
+        "startLine": 1193,
+        "startChar": 0,
+        "endLine": 1193,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0e42fb3d",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1202,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "Use the assert_not_called\n\n    self.mock_tcl_handler.execute.assert_not_called()",
+      "range": {
+        "startLine": 1202,
+        "startChar": 0,
+        "endLine": 1202,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4e4cf370",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "I would add in another test to verify that the correct behaviours are made when the optional parameters are omitted from the tc.\n\ni.e. \u0027linked\u0027 not in _tc, \u0027AssociatedPhys\u0027 not in tc, etc",
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ee3ce7c1",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1209,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "ditto for all assertEqual(n, self.mock_tcl_handler.execute.call_count)\n\nRefactoring is safer if we know that the correct actions are still taken",
+      "range": {
+        "startLine": 1209,
+        "startChar": 0,
+        "endLine": 1209,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8e756b9a",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "use self.mock_tcl_handler.execute.assert_not_called()",
+      "range": {
+        "startLine": 1226,
+        "startChar": 0,
+        "endLine": 1226,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6e78d78f",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1243,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "use self.mock_tcl_handler.execute.assert_called_once()",
+      "range": {
+        "startLine": 1243,
+        "startChar": 7,
+        "endLine": 1243,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ce6f63c4",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1248,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "use self.mock_tcl_handler.execute.assert_called_once()",
+      "range": {
+        "startLine": 1248,
+        "startChar": 0,
+        "endLine": 1248,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ae72efaa",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "Same comment as above, assert_called_with.\n\nThis reduces the chance of refactoring introducing a bug because this test would flag if the behaviour/interaction with the external system changes.",
+      "range": {
+        "startLine": 1269,
+        "startChar": 0,
+        "endLine": 1269,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0e695bbe",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1285,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "To me, this has limited usefulness as a test, unless other behaviours are also checked.\n\nIt can ensure that nothing is returned from this method, but, again, that has limited usefulness on it\u0027s own.",
+      "range": {
+        "startLine": 1285,
+        "startChar": 0,
+        "endLine": 1285,
+        "endChar": 30
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ee6347db",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "assert_has_calls\n\nThis test is then a more useful \"defensive\" test so things can be safely refactored. \n\nI can see someone coming along and making the same observations as me and trying to change this, potentially breaking some functionality without realising it. The assert_has_calls check makes sure this method always interacts with the external system in the right way",
+      "range": {
+        "startLine": 1286,
+        "startChar": 1,
+        "endLine": 1286,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4e6353dc",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "use self.mock_tcl_handler.execute.assert_called_once()",
+      "range": {
+        "startLine": 1292,
+        "startChar": 0,
+        "endLine": 1292,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2e5edf12",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1297,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "This method doesn\u0027t return anything anyway, so this check doesn\u0027t determine whether the behaviour is different from the previous test\n\nPlease add self.mock_tcl_handler.assert_not_called()",
+      "range": {
+        "startLine": 1297,
+        "startChar": 8,
+        "endLine": 1297,
+        "endChar": 30
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8e9c4bc2",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "mock_tcl_handler will be called twice regardless if it\u0027s a success or failure.\n\nUse assert_called_with",
+      "range": {
+        "startLine": 1307,
+        "startChar": 7,
+        "endLine": 1307,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6e9f37b5",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1317,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:16:57Z",
+      "side": 1,
+      "message": "This should be return_value, not side_effect\n\n    self.mock_tcl_handler.execute.return_value \u003d \u0027111\u0027\n\nside_effect is generally reserved for dynamic return values or raising exceptions\n\nhttps://docs.python.org/3/library/unittest.mock.html#the-mock-class",
+      "range": {
+        "startLine": 1317,
+        "startChar": 8,
+        "endLine": 1317,
+        "endChar": 59
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
