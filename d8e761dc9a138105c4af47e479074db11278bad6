@@ -974,6 +974,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_e2c5203e",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T11:24:12Z",
+      "side": 1,
+      "message": "IMHO, there\u0027s not need to patch this at all, since we can create an object to pass through in place of SetupEnvHelper.",
+      "parentUuid": "9a561d44_7fc88722",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 52
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_c758f358",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
@@ -985,6 +1009,29 @@
       "writtenOn": "2018-08-30T17:08:07Z",
       "side": 1,
       "message": ".. from L258\nmock_env_helper \u003d mock.Mock(spec\u003dsample_vnf.SetupEnvHelper)\nself.res_helper \u003d tg_landslide.LandslideResourceHelper(mock_env_helper)",
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_bfacdfa1",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T11:24:12Z",
+      "side": 1,
+      "message": "_create_user() and _modify_user() both return something, delete user should return a value indicating that the operation was successful.\n\n\nChecking that _delete_user() is None in unnecessary.",
+      "range": {
+        "startLine": 414,
+        "startChar": 0,
+        "endLine": 415,
+        "endChar": 37
+      },
       "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -1125,6 +1172,29 @@
         "startChar": 25,
         "endLine": 708,
         "endChar": 42
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_dfe27300",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T11:24:12Z",
+      "side": 1,
+      "message": "It is not sufficient to check that this returns something.\n\nYou should be checking for the right format",
+      "range": {
+        "startLine": 808,
+        "startChar": 7,
+        "endLine": 808,
+        "endChar": 31
       },
       "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
