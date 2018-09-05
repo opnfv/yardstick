@@ -106,6 +106,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_b371b8e2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T17:17:53Z",
+      "side": 1,
+      "message": "That might be out of date, or SampleVNFTrafficGen is misnamed.\n\nIt also looks like SampleVNF inherits from both SampleVNFTrafficGen and GenericTrafficGen.\n\nI know there have been some updates to the base classes and the architecture which looks like it\u0027s not reflected here.\n\nIf it\u0027s a case that the docs were out of date, we can add a ticket to resolve this once the architecture docs are refreshed",
+      "parentUuid": "9a561d44_53f2dcd2",
+      "range": {
+        "startLine": 33,
+        "startChar": 26,
+        "endLine": 33,
+        "endChar": 56
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_0821534d",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -153,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_93647423",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T17:17:53Z",
+      "side": 1,
+      "message": "Can you add a note here for that?\n\nThe text from the comment is perfect here.",
+      "parentUuid": "9a561d44_33eda8f0",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 12
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_28ba570a",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -188,6 +236,30 @@
       "side": 1,
       "message": "Long story short: will remove staticmethod mention, if you insist.\n\nLong story: there\u0027s no problem having both the staticmethod decorator and \"weak internal use indicator\" in the method name.\nPython intentionally does not have mechanisms of protected (single underscore) and private(double underscore) methods.\n\nStatic method is kind of a mention of this code been separated from class logics, but allowing to call it using class instance.\n\nThus, this function name does not really conflict with static method decorator.",
       "parentUuid": "9a561d44_28ba570a",
+      "range": {
+        "startLine": 88,
+        "startChar": 3,
+        "endLine": 89,
+        "endChar": 45
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d36eec00",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T17:17:53Z",
+      "side": 1,
+      "message": "Python doesn\u0027t have private and protected access, but the convention is to use a leading underscore to indicate private use. Most linters flag it as well if you use a \"private\" method",
+      "parentUuid": "9a561d44_93bbd4e4",
       "range": {
         "startLine": 88,
         "startChar": 3,
@@ -363,6 +435,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_73672026",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T17:17:53Z",
+      "side": 1,
+      "message": "Done - Jira logged: https://jira.opnfv.org/browse/YARDSTICK-1409",
+      "parentUuid": "9a561d44_e8c5ff3d",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 36
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_28c09729",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -433,6 +529,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_d3b70c85",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T17:17:53Z",
+      "side": 1,
+      "message": "Fair point, but there\u0027s a compromise here.\n\nYou can include the additional information directly, as you are doing now, or you can add message tell the user where the issue is and how to solve it.\n\ne.g. make sure the entries in file XX match the entries in file YY.",
+      "parentUuid": "9a561d44_f3c9707a",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 76
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a8eb07af",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -468,6 +588,30 @@
       "side": 1,
       "message": "Suggest to do it separately, as part of other refactoring efforts, if there\u0027s real need of it.",
       "parentUuid": "9a561d44_a8eb07af",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 70
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b3ba586c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T17:17:53Z",
+      "side": 1,
+      "message": "Let\u0027s add a Jira ticket to fix this, so we don\u0027t lose track of the work that needs to be done.\n\nI\u0027ve added a Jira for follow-up:\nhttps://jira.opnfv.org/browse/YARDSTICK-1409 (refactor long methods in vEPC feature)",
+      "parentUuid": "9a561d44_53c93c77",
       "range": {
         "startLine": 162,
         "startChar": 0,
@@ -584,6 +728,30 @@
       "writtenOn": "2018-09-05T14:01:21Z",
       "side": 1,
       "message": "This should also check that bin_path, name, runs_traffic, traffic_finished, session_profile are set to the expected values.",
+      "range": {
+        "startLine": 447,
+        "startChar": 1,
+        "endLine": 449,
+        "endChar": 67
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_53301c01",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T17:17:53Z",
+      "side": 1,
+      "message": "You should create a separate instance of the tg_landslide here, as setUp() modifies the instance created there.",
+      "parentUuid": "9a561d44_e8fdff3c",
       "range": {
         "startLine": 447,
         "startChar": 1,
@@ -859,6 +1027,29 @@
         "startChar": 0,
         "endLine": 653,
         "endChar": 49
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_332be895",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T17:17:53Z",
+      "side": 1,
+      "message": "Ideally, the test file should follow the same order as the code file.\n\nThis should be further up, between test_terminate and test_run_traffic.",
+      "range": {
+        "startLine": 657,
+        "startChar": 1,
+        "endLine": 657,
+        "endChar": 38
       },
       "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
