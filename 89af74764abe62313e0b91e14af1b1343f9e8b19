@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a561d44_08031343",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "import itertools",
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_4804ebbf",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -19,6 +36,23 @@
         "endLine": 18,
         "endChar": 31
       },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_28e1b79a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "from yardstick.common import yaml_loader",
       "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -376,6 +410,29 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_68f28f70",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "it looks like _config_files and _config_files_blocks_num are always going to be the same length.\n\nIs zip_longest necessary here?",
+      "range": {
+        "startLine": 160,
+        "startChar": 21,
+        "endLine": 160,
+        "endChar": 72
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a8eb07af",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -487,6 +544,322 @@
       "side": 1,
       "message": "OK.",
       "parentUuid": "9a561d44_284a57ac",
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f3f3309d",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "This is unnecessary, when checking this value check it directly.",
+      "range": {
+        "startLine": 439,
+        "startChar": 8,
+        "endLine": 439,
+        "endChar": 62
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e8fdff3c",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "This should also check that bin_path, name, runs_traffic, traffic_finished, session_profile are set to the expected values.",
+      "range": {
+        "startLine": 447,
+        "startChar": 1,
+        "endLine": 449,
+        "endChar": 67
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_13d22400",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "suts should be updated here, not _testcase, so they should be checked.",
+      "range": {
+        "startLine": 505,
+        "startChar": 0,
+        "endLine": 505,
+        "endChar": 40
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b3eb78af",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "See below, \n\nit\u0027s better to explicitly construct or set the return values here/\n\nTechnically, helper methods also need to be tested",
+      "range": {
+        "startLine": 509,
+        "startChar": 0,
+        "endLine": 519,
+        "endChar": 35
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_33ee48b5",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "assertIsNone for a method that doesn\u0027t return anything doesn\u0027t give any useful information",
+      "range": {
+        "startLine": 552,
+        "startChar": 12,
+        "endLine": 552,
+        "endChar": 30
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_53f3fc9d",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "Don\u0027t set a class variable for this. check self.tg_ls.xxx[\u0027tsGroups\u0027]",
+      "range": {
+        "startLine": 555,
+        "startChar": 9,
+        "endLine": 557,
+        "endChar": 40
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d336ec51",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "Check that the right value was set instead of checking that it has some value",
+      "range": {
+        "startLine": 559,
+        "startChar": 0,
+        "endLine": 559,
+        "endChar": 76
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_134064a4",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "before calling the method under test, I would also check the pre-conditions to make sure that the values have been changed",
+      "range": {
+        "startLine": 560,
+        "startChar": 0,
+        "endLine": 563,
+        "endChar": 72
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b339b843",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "This is checking that the value has been changed.\n\nIt would be more useful to check that the right value has been set.",
+      "range": {
+        "startLine": 570,
+        "startChar": 2,
+        "endLine": 570,
+        "endChar": 48
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_73e1e0cf",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "Overall, this is a very complicated test.\n\nIt\u0027s hard to tell what good inputs and bad inputs are.",
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_93de3410",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "It\u0027s better to explicitly construct the expected return value, besides introducing a new method here that should be tested as well.",
+      "range": {
+        "startLine": 574,
+        "startChar": 0,
+        "endLine": 578,
+        "endChar": 62
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f33a1033",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "as above, explicit checks are better. It\u0027s okay to construct a dict of expected values, and use them instead of doing a loop like this to check them.\n\nI\u0027m not sure what\u0027s being compared here.",
+      "range": {
+        "startLine": 588,
+        "startChar": 0,
+        "endLine": 596,
+        "endChar": 29
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_53fdbc39",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "This is modifying VNFD, which is accessed by other tests in the class.\nYou need copy the value of VNFD before swapping the values.\nThere\u0027s no need for the _swap_test_servers method.\n\nYou can make a copy of the VNFD and do an in place swap:\n    vnfd \u003d copy.deepcopy(VNFD)\n    vnfd[\u0027config\u0027][0], vnfd[\u0027config\u0027][1] \u003d \\\n                vnfd[\u0027config\u0027][1], vnfd[\u0027config\u0027][0]\n\nThis would also remove the need to do a cleanup on line 653.\nIf you need to add cleanUp, it should be done towards the start of the test. addCleanup doesn\u0027t actually perform the cleanup, it adds a particular method to the \"cleanup queue\" to be called when the method is exited, before tearDown takes place (cleanUp is always called, even if there\u0027s a failure and tearDown is skipped.)",
+      "range": {
+        "startLine": 642,
+        "startChar": 0,
+        "endLine": 648,
+        "endChar": 71
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_33f80849",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T14:01:21Z",
+      "side": 1,
+      "message": "This should e done earlier, if you\u0027re keeping, but, IMHO, it\u0027s not needed if you follow the suggestion on L642-648",
+      "range": {
+        "startLine": 653,
+        "startChar": 0,
+        "endLine": 653,
+        "endChar": 49
+      },
       "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
