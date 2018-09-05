@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_13f98480",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6903
+      },
+      "writtenOn": "2018-09-05T12:45:39Z",
+      "side": 1,
+      "message": "IxNetgen is thin wrapper on IxNetwork API. I do not want to add any additional intermediate logic. \nIxNetwork API creates PPPoX client and underlaying protocol is an argument to add_pppox function.\nI\u0027ve only renamed protocol argument to that function to reflect that it can be not only ethernet..",
+      "parentUuid": "9a561d44_48f34b9e",
+      "range": {
+        "startLine": 7,
+        "startChar": 31,
+        "endLine": 7,
+        "endChar": 36
+      },
+      "revId": "b93280258abf282aad2596791209dc1c73da60d1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_08f95380",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2018-09-04T16:53:38Z",
       "side": 1,
       "message": "can you create an OPNFV yardstick JIRA ticket and add here.",
+      "revId": "b93280258abf282aad2596791209dc1c73da60d1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b302586d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6903
+      },
+      "writtenOn": "2018-09-05T12:45:39Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "9a561d44_08f95380",
       "revId": "b93280258abf282aad2596791209dc1c73da60d1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
