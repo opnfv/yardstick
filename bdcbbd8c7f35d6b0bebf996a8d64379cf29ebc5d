@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_eeaa27d1",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:24:23Z",
+      "side": 1,
+      "message": "A short, plain English message would be more useful here.\nIt would make this error easier to debug.\nThis response is well understood, so it can only enhance the user experience to pass this knowledge on.\n\n    raise exceptions.LandslideTclException(\"Error trying ot save the test session. Landslide sent back the following response: {}\".format(res))\n\nIn this example, and in the one below, it is much clearer what is going on.",
+      "range": {
+        "startLine": 472,
+        "startChar": 12,
+        "endLine": 473,
+        "endChar": 53
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0eb03b42",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-05T18:24:23Z",
+      "side": 1,
+      "message": "IMHO, a better log message would be:\n\n    LOG.debug(\"Test session successfully saved! LS returned the following message: {}\".format(res))\n\nYou may have to check that res is good, but it would be more useful to the user who may not want to go through the code to find out that the TG gave back a good response",
+      "range": {
+        "startLine": 476,
+        "startChar": 12,
+        "endLine": 476,
+        "endChar": 61
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
