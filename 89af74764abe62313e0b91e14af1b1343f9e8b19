@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_53f2dcd2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-05T09:48:50Z",
+      "side": 1,
+      "message": "Please note that Trex, Prox, Ixia, IxLoad TGs all have same parent class: SampleVNFTrafficGen.\nDuring design phase this was emphasized, and there was a decision to follow this way.\nBesides, same approach was found in OPNFV TG classes inheritance diagram [1].\n\n[1] https://wiki.opnfv.org/display/yardstick/NSB+class+diagram",
+      "parentUuid": "9a561d44_055f7e42",
+      "range": {
+        "startLine": 33,
+        "startChar": 26,
+        "endLine": 33,
+        "endChar": 56
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_0821534d",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_33eda8f0",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-05T09:48:50Z",
+      "side": 1,
+      "message": "We do not need this method, so we need to stub its implementation in parent class.\nIf removed, this call would execute some code that we may need to avoid.",
+      "parentUuid": "9a561d44_0821534d",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 12
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_28ba570a",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -82,6 +130,30 @@
       "writtenOn": "2018-09-04T13:02:17Z",
       "side": 1,
       "message": "If this is a static method, it shouldn\u0027t be \"private\" as well.\nstatic methods are used without instantiating the class (so, external to the class definition)\nprivate methods are used only within a class itself, so a static private class doesn\u0027t make a lot of sense",
+      "range": {
+        "startLine": 88,
+        "startChar": 3,
+        "endLine": 89,
+        "endChar": 45
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_93bbd4e4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-05T09:48:50Z",
+      "side": 1,
+      "message": "Long story short: will remove staticmethod mention, if you insist.\n\nLong story: there\u0027s no problem having both the staticmethod decorator and \"weak internal use indicator\" in the method name.\nPython intentionally does not have mechanisms of protected (single underscore) and private(double underscore) methods.\n\nStatic method is kind of a mention of this code been separated from class logics, but allowing to call it using class instance.\n\nThus, this function name does not really conflict with static method decorator.",
+      "parentUuid": "9a561d44_28ba570a",
       "range": {
         "startLine": 88,
         "startChar": 3,
@@ -187,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_13cfc480",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-05T09:48:50Z",
+      "side": 1,
+      "message": "This is just another way to code it.\nI do not recall that it would be more robust or \"more version agnostic\" way.\nCurrent code is version independent as well.\nPlease let me know if I miss something.",
+      "parentUuid": "9a561d44_48aeab86",
+      "range": {
+        "startLine": 132,
+        "startChar": 7,
+        "endLine": 132,
+        "endChar": 37
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_28a9b77b",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -256,6 +352,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_f3c9707a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-05T09:48:50Z",
+      "side": 1,
+      "message": "Yes, it would be good approach too.\nBut the benefit of current way is the ability to specify the root cause in exception message. Which won\u0027t be there without counting items and saving the result into variable.",
+      "parentUuid": "9a561d44_28c09729",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 76
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a8eb07af",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -267,6 +387,30 @@
       "writtenOn": "2018-09-04T17:26:18Z",
       "side": 1,
       "message": "This probably should be separated into a separate method, as L162-L164 look like something new is starting.\nThis would help shorten the overall method, and make the code more readable and maintainable (and testable)",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 70
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_53c93c77",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-05T09:48:50Z",
+      "side": 1,
+      "message": "Suggest to do it separately, as part of other refactoring efforts, if there\u0027s real need of it.",
+      "parentUuid": "9a561d44_a8eb07af",
       "range": {
         "startLine": 162,
         "startChar": 0,
@@ -296,6 +440,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_d3838c02",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-05T09:48:50Z",
+      "side": 1,
+      "message": "OK.",
+      "parentUuid": "9a561d44_a85e6774",
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_284a57ac",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
@@ -307,6 +469,24 @@
       "writtenOn": "2018-09-04T17:26:18Z",
       "side": 1,
       "message": "You also need\n\nfrom yardstick.benchmark.contexts import base as ctx_base",
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_738c4036",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-05T09:48:50Z",
+      "side": 1,
+      "message": "OK.",
+      "parentUuid": "9a561d44_284a57ac",
       "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
