@@ -896,6 +896,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_a89dc75b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-05T16:07:44Z",
+      "side": 1,
+      "message": "This and other similar checks expect that user will not edit the template file containing session profile, provided as part of this feature.\nDocs seem to contain this note to discourage user from such actions.",
+      "parentUuid": "9a561d44_ebe7cb3e",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 192,
+        "endChar": 38
+      },
+      "revId": "4d77bead627fc7fe32e71cd39704d14548878092",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_cbe4873d",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 4
