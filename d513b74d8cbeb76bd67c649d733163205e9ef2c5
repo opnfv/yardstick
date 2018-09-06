@@ -608,6 +608,30 @@
       "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_95fe6437",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-06T09:40:58Z",
+      "side": 1,
+      "message": "I do not see any benefit in suggested assertion.\nFor the DMF it does not matter in what order you set it up.\nOn object creation, it is already a predefined structure with default values for all keys. Following commands just update specific parameters of it.\n\nAlso please note that if DMF_CFG dict definition would change the order of dict elements, the messages sequence will change too. So then this calls needs an argument\n\n  any_order\u003dTrue",
+      "parentUuid": "9a561d44_8e272bb6",
+      "range": {
+        "startLine": 517,
+        "startChar": 0,
+        "endLine": 521,
+        "endChar": 69
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
