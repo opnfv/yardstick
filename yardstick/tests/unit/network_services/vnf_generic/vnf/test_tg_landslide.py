@@ -609,8 +609,9 @@ class TestLandslideTrafficGen(unittest.TestCase):
     def test__load_session_profile(self, mock_upd_ses_tc_params,
                                    mock_upd_ses_suts, mock_upd_ses_ts,
                                    mock_yaml_load, *args):
-        self.ls_tg.scenario_helper.scenario_cfg = self.SCENARIO_CFG
-        mock_yaml_load.return_value = SESSION_PROFILE
+        self.ls_tg.scenario_helper.scenario_cfg = \
+            copy.deepcopy(self.SCENARIO_CFG)
+        mock_yaml_load.return_value = copy.deepcopy(SESSION_PROFILE)
         self.assertIsNone(self.ls_tg._load_session_profile())
         self.assertIsNotNone(self.ls_tg.session_profile)
         # Number of blocks in configuration files
@@ -631,7 +632,7 @@ class TestLandslideTrafficGen(unittest.TestCase):
         vnfd = copy.deepcopy(VNFD['vnfd:vnfd-catalog']['vnfd'][0])
         ls_traffic_gen = tg_landslide.LandslideTrafficGen(NAME, vnfd, self._id)
         ls_traffic_gen.scenario_helper.scenario_cfg = self.SCENARIO_CFG
-        mock_yaml_load.return_value = SESSION_PROFILE
+        mock_yaml_load.return_value = copy.deepcopy(SESSION_PROFILE)
         # Delete test_servers item from pod file to make it not valid
         ls_traffic_gen.vnfd_helper['config'].pop()
         with self.assertRaises(RuntimeError):
@@ -1384,6 +1385,10 @@ class TestLandslideTclClient(unittest.TestCase):
         self.assertEqual(auth[0], self.ls_tcl_client._user)
         self.assertEqual(len(exec_responses),
                          self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call("ls::login 1.1.1.1 user password"),
+            mock.call("ls::get [ls::query LibraryInfo -userLibraryName user] -Id"),
+        ])
 
     def test_connect_login_failed(self, *args):
         exec_responses = ['Login failed']
@@ -1399,10 +1404,12 @@ class TestLandslideTclClient(unittest.TestCase):
         self.assertIsNone(self.ls_tcl_client._user)
         self.assertEqual(len(exec_responses),
                          self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_called_with(
+            "ls::login 1.1.1.1 user password")
 
     def test_disconnect(self, *args):
         self.ls_tcl_client.disconnect()
-        self.mock_tcl_handler.execute.assert_called_once()
+        self.mock_tcl_handler.execute.assert_called_once_with("ls::logout")
         self.assertIsNone(self.ls_tcl_client.tcl_server_ip)
         self.assertIsNone(self.ls_tcl_client._user)
         self.assertIsNone(self.ls_tcl_client._library_id)
@@ -1417,6 +1424,11 @@ class TestLandslideTclClient(unittest.TestCase):
         self.ls_tcl_client._set_thread_model = mock.Mock()
         res = self.ls_tcl_client.create_test_server(TEST_SERVERS[1])
         self.assertEqual(3, self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('ls::query TsId TestServer_2'),
+            mock.call('set ts [ls::retrieve TsInfo -Name "TestServer_2"]'),
+            mock.call('ls::get $ts -RequestedLicense'),
+        ])
         self.ls_tcl_client._set_thread_model.assert_called_once_with(
             TEST_SERVERS[1]['name'],
             TEST_SERVERS[1]['thread_model'])
@@ -1429,6 +1441,11 @@ class TestLandslideTclClient(unittest.TestCase):
                           self.ls_tcl_client.create_test_server,
                           TEST_SERVERS[0])
         self.assertEqual(2, self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('ls::query TsId TestServer_1'),
+            mock.call('ls::perform AddTs -Name "TestServer_1" '
+                      '-Ip "192.168.122.101"'),
+        ])
 
     def test__add_test_server(self):
         ts_id = '2'
@@ -1436,6 +1453,10 @@ class TestLandslideTclClient(unittest.TestCase):
         self.assertEqual(ts_id,
                          self.ls_tcl_client._add_test_server('name', 'ip'))
         self.assertEqual(2, self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('ls::query TsId name'),
+            mock.call('ls::perform AddTs -Name "name" -Ip "ip"'),
+        ])
 
     def test__add_test_server_failed(self):
         self.mock_tcl_handler.execute.side_effect = ['TS not found',
@@ -1443,6 +1464,10 @@ class TestLandslideTclClient(unittest.TestCase):
         self.assertRaises(RuntimeError, self.ls_tcl_client._add_test_server,
                           'name', 'ip')
         self.assertEqual(2, self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('ls::query TsId name'),
+            mock.call('ls::perform AddTs -Name "name" -Ip "ip"'),
+        ])
 
     def test__update_license(self):
         curr_lic_id = '111'
@@ -1457,6 +1482,13 @@ class TestLandslideTclClient(unittest.TestCase):
         self.assertEqual(len(exec_resp),
                          self.mock_tcl_handler.execute.call_count)
 
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('set ts [ls::retrieve TsInfo -Name "name"]'),
+            mock.call('ls::get $ts -RequestedLicense'),
+            mock.call('ls::config $ts -RequestedLicense 222'),
+            mock.call('ls::perform ModifyTs $ts'),
+        ])
+
     def test__update_license_same_as_current(self):
         curr_lic_id = '111'
         new_lic_id = '111'
@@ -1466,6 +1498,10 @@ class TestLandslideTclClient(unittest.TestCase):
         self.ls_tcl_client._update_license('name')
         self.assertEqual(len(exec_resp),
                          self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('set ts [ls::retrieve TsInfo -Name "name"]'),
+            mock.call('ls::get $ts -RequestedLicense'),
+        ])
 
     def test__set_thread_model_update_needed(self):
         self.ls_tcl_client._ts_context.vnfd_helper = {
@@ -1478,6 +1514,13 @@ class TestLandslideTclClient(unittest.TestCase):
         self.ls_tcl_client._set_thread_model('name', 'Fireball')
         self.assertEqual(len(exec_resp),
                          self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('set tsc [ls::perform RetrieveTsConfiguration '
+                      '-name "name" cfguser_password]'),
+            mock.call('ls::get $tsc -ThreadModel'),
+            mock.call('ls::config $tsc -ThreadModel "V1_FB3"'),
+            mock.call('ls::perform ApplyTsConfiguration $tsc cfguser_password'),
+        ])
 
     def test__set_thread_model_no_update_needed(self):
         self.ls_tcl_client._ts_context.vnfd_helper = {
@@ -1490,28 +1533,103 @@ class TestLandslideTclClient(unittest.TestCase):
         self.ls_tcl_client._set_thread_model('name', 'Legacy')
         self.assertEqual(len(exec_resp),
                          self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('set tsc [ls::perform RetrieveTsConfiguration '
+                      '-name "name" cfguser_password]'),
+            mock.call('ls::get $tsc -ThreadModel'),
+        ])
 
     @mock.patch.object(tg_landslide.LandslideTclClient,
-                       'resolve_test_server_name', return_value='2')
+                       'resolve_test_server_name', side_effect=['4', '2'])
     def test_create_test_session(self, *args):
         _session_profile = copy.deepcopy(SESSION_PROFILE)
         _session_profile['reservations'] = RESERVATIONS
         self.ls_tcl_client._save_test_session = mock.Mock()
         self.ls_tcl_client._configure_ts_group = mock.Mock()
+        self.ls_tcl_client._library_id = 42
         self.ls_tcl_client.create_test_session(_session_profile)
         self.assertEqual(17, self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('set test_ [ls::create TestSession]'),
+            mock.call('ls::config $test_ -Library 42 '
+                      '-Name "default_bearer_capacity"'),
+            mock.call('ls::config $test_ -Description ' \
+                      '"UE default bearer creation test case"'),
+            mock.call('ls::config $test_ -Keywords ""'),
+            mock.call('ls::config $test_ -Duration "60"'),
+            mock.call('ls::config $test_ -Iterations "1"'),
+            # _configure_reservation
+            mock.call('set reservation_ [ls::create Reservation -under $test_]'),
+            mock.call('ls::config $reservation_ -TsIndex 0 '
+                      '-TsId 4 -TsName "TestServer_1"'),
+            mock.call('set physubnet_ [ls::create PhySubnet -under $reservation_]'),
+            mock.call('ls::config $physubnet_ -Name "eth1" -Base "10.42.32.100" '
+                      '-Mask "/24" -NumIps 20'),
+            # _configure_reservation
+            mock.call('set reservation_ [ls::create Reservation -under $test_]'),
+            mock.call('ls::config $reservation_ -TsIndex 1 '
+                      '-TsId 2 -TsName "TestServer_2"'),
+            mock.call('set physubnet_ [ls::create PhySubnet -under $reservation_]'),
+            mock.call('ls::config $physubnet_ -Name "eth1" -Base "10.42.32.1" '
+                      '-Mask "/24" -NumIps 100'),
+            mock.call('set physubnet_ [ls::create PhySubnet -under $reservation_]'),
+            mock.call('ls::config $physubnet_ -Name "eth2" -Base "10.42.33.1" '
+                      '-Mask "/24" -NumIps 100'),
+            # _configure_report_options
+            mock.call('ls::config $test_.ReportOptions -Format 1 -Ts -3 -Tc -3'),
+        ])
 
     def test_create_dmf(self):
         self.mock_tcl_handler.execute.return_value = '2'
         self.ls_tcl_client._save_dmf = mock.Mock()
-        self.ls_tcl_client.create_dmf(DMF_CFG)
+        self.ls_tcl_client.create_dmf(copy.deepcopy(DMF_CFG))
         self.assertEqual(6, self.mock_tcl_handler.execute.call_count)
+        # This is needed because the dictionary is unordered and the arguments
+        # can come in either order
+        call1 = mock.call(
+            'ls::config $dmf_ -clientPort 2002 -isClientPortRange "false"')
+        call2 = mock.call(
+            'ls::config $dmf_ -isClientPortRange "false" -clientPort 2002')
+        self.assertTrue(
+            call1 in self.mock_tcl_handler.execute.mock_calls or
+            call2 in self.mock_tcl_handler.execute.mock_calls)
+
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('set dmf_ [ls::create Dmf]'),
+            mock.call(
+                'ls::get [ls::query LibraryInfo -systemLibraryName test] -Id'),
+            mock.call('ls::config $dmf_ -Library 2 -Name "Basic UDP"'),
+            mock.call('ls::config $dmf_ -dataProtocol "udp"'),
+            # mock.call(
+            #    'ls::config $dmf_ -clientPort 2002 -isClientPortRange "false"'),
+            mock.call('ls::config $dmf_ -serverPort 2003'),
+        ], any_order=True)
 
     def test_configure_dmf(self):
         self.mock_tcl_handler.execute.return_value = '2'
         self.ls_tcl_client._save_dmf = mock.Mock()
         self.ls_tcl_client.configure_dmf(DMF_CFG)
         self.assertEqual(6, self.mock_tcl_handler.execute.call_count)
+        # This is need because the dictionary is unordered and the arguments
+        # can come in either order
+        call1 = mock.call(
+            'ls::config $dmf_ -clientPort 2002 -isClientPortRange "false"')
+        call2 = mock.call(
+            'ls::config $dmf_ -isClientPortRange "false" -clientPort 2002')
+        self.assertTrue(
+            call1 in self.mock_tcl_handler.execute.mock_calls or
+            call2 in self.mock_tcl_handler.execute.mock_calls)
+
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('set dmf_ [ls::create Dmf]'),
+            mock.call(
+                'ls::get [ls::query LibraryInfo -systemLibraryName test] -Id'),
+            mock.call('ls::config $dmf_ -Library 2 -Name "Basic UDP"'),
+            mock.call('ls::config $dmf_ -dataProtocol "udp"'),
+            # mock.call(
+            #    'ls::config $dmf_ -clientPort 2002 -isClientPortRange "false"'),
+            mock.call('ls::config $dmf_ -serverPort 2003'),
+        ], any_order=True)
 
     def test_delete_dmf(self):
         self.assertRaises(NotImplementedError,
@@ -1524,6 +1642,10 @@ class TestLandslideTclClient(unittest.TestCase):
         self.ls_tcl_client._save_dmf()
         self.assertEqual(len(exec_resp),
                          self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+           mock.call('ls::perform Validate -Dmf $dmf_'),
+           mock.call('ls::save $dmf_ -overwrite'),
+        ])
 
     def test__save_dmf_invalid(self):
         exec_resp = ['Invalid', 'List of errors and warnings']
@@ -1532,11 +1654,20 @@ class TestLandslideTclClient(unittest.TestCase):
                           self.ls_tcl_client._save_dmf)
         self.assertEqual(len(exec_resp),
                          self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+           mock.call('ls::perform Validate -Dmf $dmf_'),
+           mock.call('ls::get $dmf_ -ErrorsAndWarnings'),
+        ])
 
     def test__configure_report_options(self):
         _options = {'format': 'CSV', 'PerInterval': 'false'}
         self.ls_tcl_client._configure_report_options(_options)
         self.assertEqual(2, self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+           mock.call('ls::config $test_.ReportOptions -Format 1 -Ts -3 -Tc -3'),
+           mock.call('ls::config $test_.ReportOptions -PerInterval false'),
+           ],
+           any_order=True)
 
     def test___configure_ts_group(self, *args):
         _ts_group = copy.deepcopy(SESSION_PROFILE['tsGroups'][0])
@@ -1545,7 +1676,8 @@ class TestLandslideTclClient(unittest.TestCase):
         self.ls_tcl_client.resolve_test_server_name = mock.Mock(
             return_value='2')
         self.ls_tcl_client._configure_ts_group(_ts_group, 0)
-        self.mock_tcl_handler.execute.assert_called_once()
+        self.mock_tcl_handler.execute.assert_called_once_with(
+            'set tss_ [ls::create TsGroup -under $test_ -tsId 2 ]')
 
     def test___configure_ts_group_resolve_ts_fail(self, *args):
         _ts_group = copy.deepcopy(SESSION_PROFILE['tsGroups'][0])
@@ -1579,6 +1711,7 @@ class TestLandslideTclClient(unittest.TestCase):
         self.assertRaises(RuntimeError,
                           self.ls_tcl_client._configure_tc_type,
                           _tc, 0)
+        self.mock_tcl_handler.assert_not_called()
 
     def test__configure_tc_type_not_found_basic_lib(self):
         _tc = copy.deepcopy(SESSION_PROFILE['tsGroups'][0]['testCases'][0])
@@ -1599,18 +1732,28 @@ class TestLandslideTclClient(unittest.TestCase):
                   "array": ["0"]}
         self.ls_tcl_client._configure_array_param('name', _array)
         self.assertEqual(2, self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('ls::create -Array-name -under $p_ ;'),
+            mock.call('ls::create ArrayItem -under $p_.name -Value "0"'),
+        ])
 
     def test__configure_test_node_param(self):
         _params = copy.deepcopy(
             SESSION_PROFILE['tsGroups'][0]['testCases'][0]['parameters'])
         self.ls_tcl_client._configure_test_node_param('SgwUserAddr',
                                                       _params['SgwUserAddr'])
-        self.mock_tcl_handler.execute.assert_called_once()
+        cmd = ('ls::create -TestNode-SgwUserAddr -under $p_ -Type "eth" '
+        '-Phy "eth1" -Ip "SGW_USER_IP" -NumLinksOrNodes 1 '
+        '-NextHop "SGW_CONTROL_NEXT_HOP" -Mac "" -MTU 1500 '
+        '-ForcedEthInterface "" -EthStatsEnabled false -VlanId 0 '
+        '-VlanUserPriority 0 -NumVlan 1 -UniqueVlanAddr false;')
+        self.mock_tcl_handler.execute.assert_called_once_with(cmd)
 
     def test__configure_sut_param(self):
         _params = {'name': 'name'}
         self.ls_tcl_client._configure_sut_param('name', _params)
-        self.mock_tcl_handler.execute.assert_called_once()
+        self.mock_tcl_handler.execute.assert_called_once_with(
+            'ls::create -Sut-name -under $p_ -Name "name";')
 
     def test__configure_dmf_param(self):
         _params = {"mainflows": [{"library": '111',
@@ -1633,6 +1776,16 @@ class TestLandslideTclClient(unittest.TestCase):
         res = self.ls_tcl_client._configure_dmf_param('name', _params)
         self.assertEqual(5, self.mock_tcl_handler.execute.call_count)
         self.assertIsNone(res)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('ls::create -Dmf-name -under $p_ ;'),
+            mock.call('ls::perform AddDmfMainflow $p_.Dmf 111 "Basic UDP"'),
+            mock.call('ls::config $p_.Dmf.InstanceGroup(0) -mixType '),
+            mock.call('ls::config $p_.Dmf.InstanceGroup(0) -rate 0.0'),
+            mock.call('ls::config $p_.Dmf.InstanceGroup(0).Row(0) -Node 0 '
+                      '-OverridePort false -ClientPort 0 -Context 0 -Role 0 '
+                      '-PreferredTransport Any -RatingGroup 0 '
+                      '-ServiceID 0'),
+        ])
 
     def test__configure_dmf_param_no_instance_groups(self):
         _params = {"mainflows": [{"library": '111',
@@ -1641,14 +1794,26 @@ class TestLandslideTclClient(unittest.TestCase):
         res = self.ls_tcl_client._configure_dmf_param('name', _params)
         self.assertEqual(2, self.mock_tcl_handler.execute.call_count)
         self.assertIsNone(res)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('ls::create -Dmf-name -under $p_ ;'),
+            mock.call('ls::perform AddDmfMainflow $p_.Dmf 111 "Basic UDP"'),
+        ])
 
     def test__configure_reservation(self):
         _reservation = copy.deepcopy(RESERVATIONS[0])
         self.ls_tcl_client.resolve_test_server_name = mock.Mock(
-            return_value='2')
+            return_value='4')
         res = self.ls_tcl_client._configure_reservation(_reservation)
         self.assertIsNone(res)
         self.assertEqual(4, self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('set reservation_ [ls::create Reservation -under $test_]'),
+            mock.call('ls::config $reservation_ -TsIndex 0 -TsId 4 ' + \
+                      '-TsName "TestServer_1"'),
+            mock.call('set physubnet_ [ls::create PhySubnet -under $reservation_]'),
+            mock.call('ls::config $physubnet_ -Name "eth1" ' + \
+                      '-Base "10.42.32.100" -Mask "/24" -NumIps 20'),
+        ])
 
     def test__configure_preresolved_arp(self):
         _arp = [{'StartingAddress': '10.81.1.10',
@@ -1656,6 +1821,9 @@ class TestLandslideTclClient(unittest.TestCase):
         res = self.ls_tcl_client._configure_preresolved_arp(_arp)
         self.mock_tcl_handler.execute.assert_called_once()
         self.assertIsNone(res)
+        self.mock_tcl_handler.execute.assert_called_once_with(
+            'ls::create PreResolvedArpAddress -under $tss_ ' + \
+            '-StartingAddress "10.81.1.10" -NumNodes 1')
 
     def test__configure_preresolved_arp_none(self):
         res = self.ls_tcl_client._configure_preresolved_arp(None)
@@ -1672,24 +1840,40 @@ class TestLandslideTclClient(unittest.TestCase):
         res = self.ls_tcl_client._save_test_session()
         self.assertEqual(2, self.mock_tcl_handler.execute.call_count)
         self.assertIsNone(res)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('ls::perform Validate -TestSession $test_'),
+            mock.call('ls::save $test_ -overwrite'),
+        ])
 
     def test__save_test_session_invalid(self):
         self.mock_tcl_handler.execute.side_effect = ['Invalid', 'Errors']
         self.assertRaises(exceptions.LandslideTclException,
                           self.ls_tcl_client._save_test_session)
         self.assertEqual(2, self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call('ls::perform Validate -TestSession $test_'),
+            mock.call('ls::get $test_ -ErrorsAndWarnings'),
+        ])
 
     def test__get_library_id_system_lib(self):
         self.mock_tcl_handler.execute.return_value = '111'
         res = self.ls_tcl_client._get_library_id('name')
         self.mock_tcl_handler.execute.assert_called_once()
         self.assertEqual('111', res)
+        self.mock_tcl_handler.execute.assert_called_with(
+            'ls::get [ls::query LibraryInfo -systemLibraryName name] -Id')
 
     def test__get_library_id_user_lib(self):
         self.mock_tcl_handler.execute.side_effect = ['Not found', '222']
         res = self.ls_tcl_client._get_library_id('name')
         self.assertEqual(2, self.mock_tcl_handler.execute.call_count)
         self.assertEqual('222', res)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call(
+                'ls::get [ls::query LibraryInfo -systemLibraryName name] -Id'),
+            mock.call(
+                'ls::get [ls::query LibraryInfo -userLibraryName name] -Id'),
+        ])
 
     def test__get_library_id_exception(self):
         self.mock_tcl_handler.execute.side_effect = ['Not found', 'Not found']
@@ -1697,6 +1881,12 @@ class TestLandslideTclClient(unittest.TestCase):
                           self.ls_tcl_client._get_library_id,
                           'name')
         self.assertEqual(2, self.mock_tcl_handler.execute.call_count)
+        self.mock_tcl_handler.execute.assert_has_calls([
+            mock.call(
+                'ls::get [ls::query LibraryInfo -systemLibraryName name] -Id'),
+            mock.call(
+                'ls::get [ls::query LibraryInfo -userLibraryName name] -Id'),
+        ])
 
 
 class TestLsTclHandler(unittest.TestCase):

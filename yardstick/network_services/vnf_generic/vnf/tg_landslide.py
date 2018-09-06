@@ -754,7 +754,7 @@ class LandslideTclClient(object):
     TEST_NODE_CMD = \
         'ls::create -TestNode-{} -under $p_ -Type "eth"' \
         ' -Phy "{phy}" -Ip "{ip}" -NumLinksOrNodes {numLinksOrNodes}' \
-        ' -NextHop "{nextHop}" -Mac "{mac}" -MTU {mtu} ' \
+        ' -NextHop "{nextHop}" -Mac "{mac}" -MTU {mtu}' \
         ' -ForcedEthInterface "{forcedEthInterface}"' \
         ' -EthStatsEnabled {ethStatsEnabled}' \
         ' -VlanId {vlanId} -VlanUserPriority {vlanUserPriority}' \
