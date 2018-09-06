@@ -16,6 +16,7 @@ import unittest
 import mock
 
 from oslo_serialization import jsonutils
+from yardstick.common.exceptions import InvalidRxfFile
 
 from yardstick.network_services.traffic_profile import http_ixload
 from yardstick.network_services.traffic_profile.http_ixload import \
@@ -45,6 +46,26 @@ class TestJoinNonStrings(unittest.TestCase):
 
 class TestIxLoadTrafficGen(unittest.TestCase):
 
+    def setUp(self):
+        ports = [1, 2, 3]
+        self.test_input = {
+            "remote_server": "REMOTE_SERVER",
+            "ixload_cfg": "IXLOAD_CFG",
+            "result_dir": "RESULT_DIR",
+            "ixia_chassis": "IXIA_CHASSIS",
+            "IXIA": {
+                "card": "CARD",
+                "ports": ports,
+            },
+            'links_param': {
+                "uplink_0": {
+                    "ip": {"address": "address",
+                           "gateway": "gateway",
+                           "subnet_prefix": "subnet_prefix",
+                           "mac": "mac"
+                           }}}
+        }
+
     def test_parse_run_test(self):
         ports = [1, 2, 3]
         test_input = {
@@ -56,6 +77,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                 "card": "CARD",
                 "ports": ports,
             },
+            'links_param': {}
         }
         j = jsonutils.dump_as_bytes(test_input)
         ixload = http_ixload.IXLOADHttpTest(j)
@@ -66,6 +88,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
             ["IXIA_CHASSIS", "CARD", 2],
             ["IXIA_CHASSIS", "CARD", 3],
         ])
+        self.assertEqual({}, ixload.links_param)
 
     def test_format_ports_for_reassignment(self):
         ports = [
@@ -91,6 +114,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                 "card": "CARD",
                 "ports": ports,
             },
+            'links_param': {}
         }
         j = jsonutils.dump_as_bytes(test_input)
         ixload = http_ixload.IXLOADHttpTest(j)
@@ -112,6 +136,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                 "card": "CARD",
                 "ports": ports,
             },
+            'links_param': {}
         }
         j = jsonutils.dump_as_bytes(test_input)
         ixload = http_ixload.IXLOADHttpTest(j)
@@ -160,6 +185,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                 "card": "CARD",
                 "ports": ports,
             },
+            'links_param': {}
         }
         j = jsonutils.dump_as_bytes(test_input)
         ixload = http_ixload.IXLOADHttpTest(j)
@@ -178,6 +204,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                 "card": "CARD",
                 "ports": ports,
             },
+            'links_param': {}
         }
         j = jsonutils.dump_as_bytes(test_input)
         ixload = http_ixload.IXLOADHttpTest(j)
@@ -198,6 +225,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                 "card": "CARD",
                 "ports": ports,
             },
+            'links_param': {}
         }
 
         j = jsonutils.dump_as_bytes(test_input)
@@ -210,6 +238,105 @@ class TestIxLoadTrafficGen(unittest.TestCase):
 
         with self.assertRaises(RuntimeError):
             ixload.start_http_test()
+
+    def test_update_config(self):
+        net_taraffic_0 = mock.Mock()
+        net_taraffic_0.name = "HTTP client@uplink_0"
+        net_taraffic_1 = mock.Mock()
+        net_taraffic_1.name = "HTTP client@uplink_1"
+
+        community_list = [net_taraffic_0, net_taraffic_1, Exception]
+        ixload = http_ixload.IXLOADHttpTest(
+            jsonutils.dump_as_bytes(self.test_input))
+
+        ixload.links_param = {"uplink_0": {"ip": {}}}
+
+        ixload.test = mock.Mock()
+        ixload.test.communityList = community_list
+
+        ixload.update_network_param = mock.Mock()
+
+        ixload.update_config()
+
+        ixload.update_network_param.assert_called_once_with(net_taraffic_0, {})
+
+    def test_update_network_mac_address(self):
+        ethernet = mock.MagicMock()
+        net_traffic = mock.Mock()
+        net_traffic.network.getL1Plugin.return_value = ethernet
+
+        ixload = http_ixload.IXLOADHttpTest(
+            jsonutils.dump_as_bytes(self.test_input))
+
+        ix_net_l2_ethernet_plugin = ethernet.childrenList[0]
+        ix_net_ip_v4_v6_plugin = ix_net_l2_ethernet_plugin.childrenList[0]
+        ix_net_ip_v4_v6_range = ix_net_ip_v4_v6_plugin.rangeList[0]
+
+        ixload.update_network_mac_address(net_traffic, "auto")
+        ix_net_ip_v4_v6_range.config.assert_called_once_with(
+            autoMacGeneration=True)
+
+        ixload.update_network_mac_address(net_traffic, "00:00:00:00:00:01")
+        ix_net_ip_v4_v6_range.config.assert_called_with(
+            autoMacGeneration=False)
+        mac_range = ix_net_ip_v4_v6_range.getLowerRelatedRange("MacRange")
+        mac_range.config.assert_called_once_with(mac="00:00:00:00:00:01")
+
+        net_traffic.network.getL1Plugin.return_value = Exception
+
+        with self.assertRaises(InvalidRxfFile):
+            ixload.update_network_mac_address(net_traffic, "auto")
+
+    def test_update_network_address(self):
+        ethernet = mock.MagicMock()
+        net_traffic = mock.Mock()
+        net_traffic.network.getL1Plugin.return_value = ethernet
+
+        ixload = http_ixload.IXLOADHttpTest(
+            jsonutils.dump_as_bytes(self.test_input))
+
+        ix_net_l2_ethernet_plugin = ethernet.childrenList[0]
+        ix_net_ip_v4_v6_plugin = ix_net_l2_ethernet_plugin.childrenList[0]
+        ix_net_ip_v4_v6_range = ix_net_ip_v4_v6_plugin.rangeList[0]
+
+        ixload.update_network_address(net_traffic, "address", "gateway",
+                                      "prefix")
+        ix_net_ip_v4_v6_range.config.assert_called_once_with(
+            prefix="prefix",
+            ipAddress="address",
+            gatewayAddress="gateway")
+
+        net_traffic.network.getL1Plugin.return_value = Exception
+
+        with self.assertRaises(InvalidRxfFile):
+            ixload.update_network_address(net_traffic, "address", "gateway",
+                                          "prefix")
+
+    def test_update_network_param(self):
+        net_traffic = mock.Mock()
+
+        ixload = http_ixload.IXLOADHttpTest(
+            jsonutils.dump_as_bytes(self.test_input))
+
+        ixload.update_network_address = mock.Mock()
+        ixload.update_network_mac_address = mock.Mock()
+
+        param = {"address": "address",
+                 "gateway": "gateway",
+                 "subnet_prefix": "subnet_prefix",
+                 "mac": "mac"
+                 }
+
+        ixload.update_network_param(net_traffic, param)
+
+        ixload.update_network_address.assert_called_once_with(net_traffic,
+                                                              "address",
+                                                              "gateway",
+                                                              "subnet_prefix")
+
+        ixload.update_network_mac_address.assert_called_once_with(
+            net_traffic,
+            "mac")
 
     @mock.patch('yardstick.network_services.traffic_profile.http_ixload.IxLoad')
     @mock.patch('yardstick.network_services.traffic_profile.http_ixload.StatCollectorUtils')
@@ -224,6 +351,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                 "card": "CARD",
                 "ports": ports,
             },
+            'links_param': {}
         }
 
         j = jsonutils.dump_as_bytes(test_input)
@@ -248,6 +376,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
                 "card": "CARD",
                 "ports": ports,
             },
+            'links_param': {}
         }
 
         j = jsonutils.dump_as_bytes(test_input)
