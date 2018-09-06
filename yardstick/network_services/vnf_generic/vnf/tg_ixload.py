@@ -20,6 +20,8 @@ import os
 import shutil
 import subprocess
 
+from oslo_serialization import jsonutils
+
 from yardstick.common import utils
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
@@ -43,7 +45,8 @@ IXLOAD_CONFIG_TEMPLATE = '''\
     },
     "remote_server": "%s",
     "result_dir": "%s",
-    "ixload_cfg": "C:/Results/%s"
+    "ixload_cfg": "C:/Results/%s",
+    "links_param": %s
 }'''
 
 IXLOAD_CMD = "{ixloadpy} {http_ixload} {args}"
@@ -132,6 +135,21 @@ class IxLoadTrafficGen(SampleVNFTrafficGen):
             name, vnfd, task_id, setup_env_helper_type, resource_helper_type)
         self._result = {}
 
+    def update_gateways(self, links):
+        for name, param in links.items():
+            try:
+                gateway = next(intf["virtual-interface"]["dst_ip"] for intf in
+                               self.setup_helper.vnfd_helper["vdu"][0][
+                                   "external-interface"] if
+                               intf["virtual-interface"]["vld_id"] == name)
+
+                links[name]["ip"]["gateway"] = gateway
+            except StopIteration:
+                LOG.debug("Cant find gateway for link {}".format(name))
+                links[name]["ip"]["gateway"] = "0.0.0.0"
+
+        return links
+
     def run_traffic(self, traffic_profile):
         ports = []
         card = None
@@ -143,11 +161,16 @@ class IxLoadTrafficGen(SampleVNFTrafficGen):
         for csv_file in glob.iglob(self.ssh_helper.join_bin_path('*.csv')):
             os.unlink(csv_file)
 
+        traffic_profile = self.update_gateways(
+            traffic_profile.get_links_param())
+
         ixia_config = self.vnfd_helper.mgmt_interface["tg-config"]
         ixload_config = IXLOAD_CONFIG_TEMPLATE % (
             ixia_config["ixchassis"], ports, card,
             self.vnfd_helper.mgmt_interface["ip"], self.ssh_helper.bin_path,
-            os.path.basename(self.resource_helper.resource_file_name))
+            os.path.basename(self.resource_helper.resource_file_name),
+            jsonutils.dumps(traffic_profile)
+        )
 
         http_ixload_path = os.path.join(VNF_PATH, "../../traffic_profile")
 

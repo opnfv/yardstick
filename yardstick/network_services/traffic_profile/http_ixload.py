@@ -106,8 +106,10 @@ class IXLOADHttpTest(object):
         self.chassis = None
         self.card = None
         self.ports_to_reassign = None
+        self.links_param = None
         self.test_input = jsonutils.loads(test_input)
         self.parse_run_test()
+        self.test = None
 
     @staticmethod
     def format_ports_for_reassignment(ports):
@@ -171,6 +173,79 @@ class IXLOADHttpTest(object):
             LOG.error('Error: IxLoad config file not found: %s', config_file)
             raise
 
+    def update_network_address(self, netTraffic, address, gateway, prefix):
+        """Update ip address and gateway for netTraffic object
+
+        This function update field which configure source addresses for
+        traffic which is described by netTraffic object.
+        Do not return anything
+
+        :param netTraffic: (IxLoadObjectProxy) proxy obj to tcl netTraffic object
+        :param address: (str) Ipv4 range start address
+        :param gateway: (str) Ipv4 address of gateway
+        :param prefix: (int) subnet prefix
+        :return:
+        """
+        Ethernet_1 = netTraffic.network.getL1Plugin()
+        ixNetL2EthernetPlugin = Ethernet_1.childrenList[0]
+        ixNetIpV4V6Plugin = ixNetL2EthernetPlugin.childrenList[0]
+        ixNetIpV4V6Range = ixNetIpV4V6Plugin.rangeList[0]
+
+        ixNetIpV4V6Range.config(
+            prefix=prefix,
+            ipAddress=address,
+            gatewayAddress=gateway
+        )
+
+    def update_network_mac_address(self, netTraffic, mac):
+        """Update MACaddress for netTraffic object
+
+        This function update field which configure MACaddresses for
+        traffic which is described by netTraffic object.
+        If mac == "auto" then will be configured auto generated mac
+        Do not return anything.
+
+        :param netTraffic: (IxLoadObjectProxy) proxy obj to tcl netTraffic object
+        :param mac: (str) MAC
+        :return:
+        """
+        Ethernet_1 = netTraffic.network.getL1Plugin()
+        ixNetL2EthernetPlugin = Ethernet_1.childrenList[0]
+        ixNetIpV4V6Plugin = ixNetL2EthernetPlugin.childrenList[0]
+        ixNetIpV4V6Range = ixNetIpV4V6Plugin.rangeList[0]
+
+        if str(mac).lower() == "auto":
+            ixNetIpV4V6Range.config(autoMacGeneration=True)
+        else:
+            ixNetIpV4V6Range.config(autoMacGeneration=False)
+            MacRange = ixNetIpV4V6Range.getLowerRelatedRange("MacRange")
+            MacRange.config(mac=mac)
+
+    def update_network_param(self, netTraffic, param):
+        self.update_network_address(netTraffic, param["address"],
+                                    param["gateway"], param["subnet_prefix"])
+
+        self.update_network_mac_address(netTraffic, param["mac"])
+
+    def update_config(self):
+        """Update some fields by parameters from traffic profile"""
+
+        netTraffics = {}
+        try:
+            for item in self.test.communityList:
+                netTraffics[item.name.split('@')[1]] = item
+        except Exception:
+            pass
+
+        for name, netTraffic in netTraffics.items():
+            try:
+                param = self.links_param[name]
+            except KeyError:
+                print('There is no param for netTraffic {}'.format(name))
+                continue
+
+            self.update_network_param(netTraffic, param["ip"])
+
     def start_http_test(self):
         self.ix_load = IxLoad()
 
@@ -197,16 +272,18 @@ class IXLOADHttpTest(object):
 
         # Get the first test on the testList
         test_name = repository.testList[0].cget("name")
-        test = repository.testList.getItem(test_name)
+        self.test = repository.testList.getItem(test_name)
 
         self.set_results_dir(test_controller, self.results_on_windows)
 
-        test.config(statsRequired=1, enableResetPorts=1, csvInterval=2,
-                    enableForceOwnership=True)
+        self.test.config(statsRequired=1, enableResetPorts=1, csvInterval=2,
+                         enableForceOwnership=True)
+
+        self.update_config()
 
         #  ---- Remap ports ----
         try:
-            self.reassign_ports(test, repository, self.ports_to_reassign)
+            self.reassign_ports(self.test, repository, self.ports_to_reassign)
         except Exception:  # pylint: disable=broad-except
             LOG.exception("Exception occurred during reassign_ports")
 
@@ -246,7 +323,7 @@ class IXLOADHttpTest(object):
 
         self.stat_utils.StartCollector(self.IxL_StatCollectorCommand)
 
-        test_controller.run(test)
+        test_controller.run(self.test)
         self.ix_load.waitForTestFinish()
 
         test_controller.releaseConfigWaitFinish()
@@ -258,7 +335,7 @@ class IXLOADHttpTest(object):
         test_controller.generateReport(detailedReport=1, format="PDF;HTML")
         test_controller.releaseConfigWaitFinish()
 
-        self.ix_load.delete(test)
+        self.ix_load.delete(self.test)
         self.ix_load.delete(test_controller)
         self.ix_load.delete(logger)
         self.ix_load.delete(log_engine)
@@ -295,6 +372,9 @@ class IXLOADHttpTest(object):
         ]
 
         LOG.debug("Ports to be reassigned: %s", self.ports_to_reassign)
+
+        self.links_param = self.test_input["links_param"]
+        LOG.debug("Links param to be applied: %s", self.links_param)
 
 
 def main(args):

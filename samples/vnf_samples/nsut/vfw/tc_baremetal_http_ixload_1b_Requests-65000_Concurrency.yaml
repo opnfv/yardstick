@@ -35,7 +35,7 @@ scenarios:
   runner:
     type: Duration
     duration: 2
-  ixia_profile: ../../traffic_profiles/vfw/HTTP-vFW_IPv4_2Ports_Concurrency.rxf # Need vlan update
+  ixia_profile: ../../traffic_profiles/vfw/HTTP-vFW_IPv4_4Ports.rxf # Need vlan update
 context:
   type: Node
   name: yardstick
