@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_382665bb",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-06T09:40:58Z",
+      "side": 1,
+      "message": "Please note that \"saving the test session\" (or a DMF, or other object) is multi-stage process on Landslide server.\nFirst there happens data validation (by param names, their types, boundary checks, dependencies etc).\nIf that succeeds, the object is saved. The failure to save could happen only if out of disk space.\nThus basically this message reflects problem with parsing/validating the content of this object params.",
+      "parentUuid": "9a561d44_eeaa27d1",
+      "range": {
+        "startLine": 472,
+        "startChar": 12,
+        "endLine": 473,
+        "endChar": 53
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_0eb03b42",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-05T18:24:23Z",
       "side": 1,
       "message": "IMHO, a better log message would be:\n\n    LOG.debug(\"Test session successfully saved! LS returned the following message: {}\".format(res))\n\nYou may have to check that res is good, but it would be more useful to the user who may not want to go through the code to find out that the TG gave back a good response",
+      "range": {
+        "startLine": 476,
+        "startChar": 12,
+        "endLine": 476,
+        "endChar": 61
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_580ec135",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-06T09:40:58Z",
+      "side": 1,
+      "message": "I\u0027d agree with message update in following form (shorter):\n\n  Test session successfully saved.\n\nIf it is success, user does not care what was the response message.\nPreferred syntax of formatting for logging is thru \"%s\" and comma separated args.",
+      "parentUuid": "9a561d44_0eb03b42",
       "range": {
         "startLine": 476,
         "startChar": 12,
