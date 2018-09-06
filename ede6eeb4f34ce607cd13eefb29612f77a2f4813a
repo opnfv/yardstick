@@ -122,6 +122,29 @@
     },
     {
       "key": {
+        "uuid": "5a682502_d8e3f131",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T13:01:32Z",
+      "side": 1,
+      "message": "Suggest updating to:\nself.mock_tcl_handler.assert_called_once()",
+      "range": {
+        "startLine": 1193,
+        "startChar": 0,
+        "endLine": 1193,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_0e42fb3d",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -208,6 +231,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_b8c39589",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T13:01:32Z",
+      "side": 1,
+      "message": "There\u0027s some misleading behaviour/test here.\n\nThis should be removed.",
+      "parentUuid": "9a561d44_8e756b9a",
+      "range": {
+        "startLine": 1226,
+        "startChar": 0,
+        "endLine": 1226,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_6e78d78f",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -277,6 +324,53 @@
     },
     {
       "key": {
+        "uuid": "5a682502_f854edcb",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T13:01:32Z",
+      "side": 1,
+      "message": "That should be:\n\nReplace this with \n    self.mock_tcl_handler.excute.assert_has_calls([\n        call(\"cmd1\"), call(...), ...,\n    ])",
+      "parentUuid": "9a561d44_ae72efaa",
+      "range": {
+        "startLine": 1269,
+        "startChar": 0,
+        "endLine": 1269,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_385e65ea",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T13:01:32Z",
+      "side": 1,
+      "message": "suggest using assert_has_calls",
+      "range": {
+        "startLine": 1277,
+        "startChar": 7,
+        "endLine": 1277,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_0e695bbe",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -288,6 +382,30 @@
       "writtenOn": "2018-09-05T18:16:57Z",
       "side": 1,
       "message": "To me, this has limited usefulness as a test, unless other behaviours are also checked.\n\nIt can ensure that nothing is returned from this method, but, again, that has limited usefulness on it\u0027s own.",
+      "range": {
+        "startLine": 1285,
+        "startChar": 0,
+        "endLine": 1285,
+        "endChar": 30
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b871d579",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1285,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T13:01:32Z",
+      "side": 1,
+      "message": "Really, you can leave this in if you want.\n\nIdeally, a test with this check would also check some side-effects of a method too. i.e. this test is fine as long as it\u0027s not the only one.",
+      "parentUuid": "9a561d44_0e695bbe",
       "range": {
         "startLine": 1285,
         "startChar": 0,
@@ -369,6 +487,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_f86b4d83",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1297,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T13:01:32Z",
+      "side": 1,
+      "message": "That should be:\n\n    self.mock_tcl_handler.execute.assert_not_called()",
+      "parentUuid": "9a561d44_2e5edf12",
+      "range": {
+        "startLine": 1297,
+        "startChar": 8,
+        "endLine": 1297,
+        "endChar": 30
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_8e9c4bc2",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -380,6 +522,30 @@
       "writtenOn": "2018-09-05T18:16:57Z",
       "side": 1,
       "message": "mock_tcl_handler will be called twice regardless if it\u0027s a success or failure.\n\nUse assert_called_with",
+      "range": {
+        "startLine": 1307,
+        "startChar": 7,
+        "endLine": 1307,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d868118a",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T13:01:32Z",
+      "side": 1,
+      "message": "That should be:\n   assert_has_calls",
+      "parentUuid": "9a561d44_8e9c4bc2",
       "range": {
         "startLine": 1307,
         "startChar": 7,
