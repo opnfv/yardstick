@@ -1092,6 +1092,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_9892199e",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T12:23:09Z",
+      "side": 1,
+      "message": "OV to update",
+      "parentUuid": "9a561d44_b339b843",
+      "range": {
+        "startLine": 570,
+        "startChar": 2,
+        "endLine": 570,
+        "endChar": 48
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_73e1e0cf",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
@@ -1109,6 +1133,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_d88c9182",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T12:23:09Z",
+      "side": 1,
+      "message": "This is resolved with some comments saying why it was done this way",
+      "parentUuid": "9a561d44_73e1e0cf",
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_93de3410",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
@@ -1120,6 +1162,30 @@
       "writtenOn": "2018-09-05T14:01:21Z",
       "side": 1,
       "message": "It\u0027s better to explicitly construct the expected return value, besides introducing a new method here that should be tested as well.",
+      "range": {
+        "startLine": 574,
+        "startChar": 0,
+        "endLine": 578,
+        "endChar": 62
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_f88fcd73",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T12:23:09Z",
+      "side": 1,
+      "message": "Same as above, a short comment saying why this was done",
+      "parentUuid": "9a561d44_93de3410",
       "range": {
         "startLine": 574,
         "startChar": 0,
@@ -1155,6 +1221,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_78f3bd0a",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T12:23:09Z",
+      "side": 1,
+      "message": "Complexity here is justified, comment on helper method will explain this.\n\nYou could also add a short note here, but that would be repeating the same as above.\n\nuse assertEqual(expected_val, actual_val); assertEqual(_val, get_session_tc_param_value(...))",
+      "parentUuid": "9a561d44_f33a1033",
+      "range": {
+        "startLine": 588,
+        "startChar": 0,
+        "endLine": 596,
+        "endChar": 29
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_53fdbc39",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
@@ -1166,6 +1256,30 @@
       "writtenOn": "2018-09-05T14:01:21Z",
       "side": 1,
       "message": "This is modifying VNFD, which is accessed by other tests in the class.\nYou need copy the value of VNFD before swapping the values.\nThere\u0027s no need for the _swap_test_servers method.\n\nYou can make a copy of the VNFD and do an in place swap:\n    vnfd \u003d copy.deepcopy(VNFD)\n    vnfd[\u0027config\u0027][0], vnfd[\u0027config\u0027][1] \u003d \\\n                vnfd[\u0027config\u0027][1], vnfd[\u0027config\u0027][0]\n\nThis would also remove the need to do a cleanup on line 653.\nIf you need to add cleanUp, it should be done towards the start of the test. addCleanup doesn\u0027t actually perform the cleanup, it adds a particular method to the \"cleanup queue\" to be called when the method is exited, before tearDown takes place (cleanUp is always called, even if there\u0027s a failure and tearDown is skipped.)",
+      "range": {
+        "startLine": 642,
+        "startChar": 0,
+        "endLine": 648,
+        "endChar": 71
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_58f881e5",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T12:23:09Z",
+      "side": 1,
+      "message": "OV to fix",
+      "parentUuid": "9a561d44_53fdbc39",
       "range": {
         "startLine": 642,
         "startChar": 0,
@@ -1212,6 +1326,30 @@
       "writtenOn": "2018-09-05T17:17:53Z",
       "side": 1,
       "message": "Ideally, the test file should follow the same order as the code file.\n\nThis should be further up, between test_terminate and test_run_traffic.",
+      "range": {
+        "startLine": 657,
+        "startChar": 1,
+        "endLine": 657,
+        "endChar": 38
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b8dc3576",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T12:23:09Z",
+      "side": 1,
+      "message": "If you want to re-order these, you can. But it\u0027s not a major thing.",
+      "parentUuid": "9a561d44_332be895",
       "range": {
         "startLine": 657,
         "startChar": 1,
