@@ -319,6 +319,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_585c0126",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T11:05:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_481b4b1b",
+      "range": {
+        "startLine": 99,
+        "startChar": 33,
+        "endLine": 100,
+        "endChar": 59
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_4877cb3a",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -787,6 +811,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_983df9be",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T11:05:52Z",
+      "side": 1,
+      "message": "In this case, we expect that the TC is not updated; so this test is correct.\n\nThis comment can be considered closed/done.",
+      "parentUuid": "9a561d44_13d22400",
+      "range": {
+        "startLine": 505,
+        "startChar": 0,
+        "endLine": 505,
+        "endChar": 40
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_b3eb78af",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
@@ -803,6 +851,53 @@
         "startChar": 0,
         "endLine": 519,
         "endChar": 35
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_786e1dcb",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T11:05:52Z",
+      "side": 1,
+      "message": "I see these return quite large, complex pieces of data.\n\nCan you add a comment with a note saying why these are used?",
+      "parentUuid": "9a561d44_b3eb78af",
+      "range": {
+        "startLine": 509,
+        "startChar": 0,
+        "endLine": 519,
+        "endChar": 35
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b86715ea",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 540,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T11:05:52Z",
+      "side": 1,
+      "message": "Would this look better without the loop?",
+      "range": {
+        "startLine": 532,
+        "startChar": 0,
+        "endLine": 540,
+        "endChar": 40
       },
       "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -856,6 +951,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_9864d9e6",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T11:05:52Z",
+      "side": 1,
+      "message": "OV agreed to update.",
+      "parentUuid": "9a561d44_53f3fc9d",
+      "range": {
+        "startLine": 555,
+        "startChar": 9,
+        "endLine": 557,
+        "endChar": 40
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_d336ec51",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
@@ -879,6 +998,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_f8618dd4",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T11:05:52Z",
+      "side": 1,
+      "message": "This is checked later.\n\nTechnically, both are not needed, but that\u0027s a minor thing.",
+      "parentUuid": "9a561d44_d336ec51",
+      "range": {
+        "startLine": 559,
+        "startChar": 0,
+        "endLine": 559,
+        "endChar": 76
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_134064a4",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
@@ -890,6 +1033,30 @@
       "writtenOn": "2018-09-05T14:01:21Z",
       "side": 1,
       "message": "before calling the method under test, I would also check the pre-conditions to make sure that the values have been changed",
+      "range": {
+        "startLine": 560,
+        "startChar": 0,
+        "endLine": 563,
+        "endChar": 72
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d85e5112",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-06T11:05:52Z",
+      "side": 1,
+      "message": "There\u0027s no need for the pre-checks; in this case the method doesn\u0027t expect particular values to be present before hand. We just care that the right values are set after.\n\nThis comment can be considered resolved.",
+      "parentUuid": "9a561d44_134064a4",
       "range": {
         "startLine": 560,
         "startChar": 0,
