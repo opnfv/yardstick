@@ -57,6 +57,7 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
                  'external-interface':
                  [{'virtual-interface':
                    {'dst_mac': '00:00:00:00:00:04',
+                    'vld_id': 'uplink_0',
                     'vpci': '0000:05:00.0',
                     'local_ip': '152.16.100.19',
                     'type': 'PCI-PASSTHROUGH',
@@ -71,6 +72,7 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
                    'name': 'xe0'},
                   {'virtual-interface':
                    {'dst_mac': '00:00:00:00:00:03',
+                    'vld_id': 'downlink_0',
                     'vpci': '0000:05:00.1',
                     'local_ip': '152.16.40.19',
                     'type': 'PCI-PASSTHROUGH',
@@ -128,6 +130,17 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
         self.assertIsNone(ixload_traffic_gen.resource_helper.data)
+
+    def test_update_gateways(self):
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
+        links = {'uplink_0': {'ip': {}},
+                 'downlink_1': {'ip': {}}}
+
+        ixload_traffic_gen.update_gateways(links)
+
+        self.assertEqual("152.16.100.20", links["uplink_0"]["ip"]["gateway"])
+        self.assertEqual("0.0.0.0", links["downlink_1"]["ip"]["gateway"])
 
     @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server',
                        return_value='mock_node')
@@ -189,6 +202,8 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
     def test_run_traffic(self, *args):
         mock_traffic_profile = mock.Mock(autospec=tp_base.TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = '64'
+        mock_traffic_profile.get_links_param.return_value = {
+            'uplink_0': {'ip': {}}}
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         vnfd['mgmt-interface'].update({'tg-config': {}})
@@ -208,6 +223,8 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
     def test_run_traffic_csv(self, *args):
         mock_traffic_profile = mock.Mock(autospec=tp_base.TrafficProfile)
         mock_traffic_profile.get_traffic_definition.return_value = '64'
+        mock_traffic_profile.get_links_param.return_value = {
+            'uplink_0': {'ip': {}}}
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         vnfd['mgmt-interface'].update({'tg-config': {}})
