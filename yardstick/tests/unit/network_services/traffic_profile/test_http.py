@@ -19,12 +19,20 @@ from yardstick.network_services.traffic_profile import http
 
 class TestTrafficProfileGenericHTTP(unittest.TestCase):
 
-    TP_CONFIG = {'traffic_profile': {'duration': 10}}
+    TP_CONFIG = {'traffic_profile': {'duration': 10},
+                 "uplink_0": {}, "downlink_0": {}}
 
     def test___init__(self):
         tp_generic_http = http.TrafficProfileGenericHTTP(
             self.TP_CONFIG)
         self.assertIsNotNone(tp_generic_http)
+
+    def test_get_links_param(self):
+        tp_generic_http = http.TrafficProfileGenericHTTP(
+            self.TP_CONFIG)
+
+        links = tp_generic_http.get_links_param()
+        self.assertEqual({"uplink_0": {}, "downlink_0": {}}, links)
 
     def test_execute(self):
         tp_generic_http = http.TrafficProfileGenericHTTP(
