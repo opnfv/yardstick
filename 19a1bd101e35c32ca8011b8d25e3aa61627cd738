@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_de19197b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-09-07T14:52:31Z",
+      "side": 1,
+      "message": "this might cause an issue when no rules are applied for samplevnf.",
+      "range": {
+        "startLine": 746,
+        "startChar": 15,
+        "endLine": 746,
+        "endChar": 28
+      },
+      "revId": "19a1bd101e35c32ca8011b8d25e3aa61627cd738",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
