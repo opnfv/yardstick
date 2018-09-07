@@ -739,31 +739,28 @@ class SampleVNF(GenericVNF):
                 options[k] = v
 
     def wait_for_instantiate(self):
+        """Wait until SampleVNF application has started"""
+        LOG.info('Waiting for %s VNF to start...', self.APP_NAME)
         buf = []
-        time.sleep(self.WAIT_TIME)  # Give some time for config to load
-        while True:
+        message = ''
+        while 'Apply Ruleset' not in message:
             if not self._vnf_process.is_alive():
-                raise RuntimeError("%s VNF process died." % self.APP_NAME)
+                # NOTE(ralonsoh): create a specific exception.
+                raise RuntimeError('%s VNF process died' % self.APP_NAME)
 
-            # NOTE(esm): move to QueueFileWrapper
-            while self.q_out.qsize() > 0:
+            if not self.q_out.empty():
                 buf.append(self.q_out.get())
                 message = ''.join(buf)
-                if self.VNF_PROMPT in message:
-                    LOG.info("%s VNF is up and running.", self.APP_NAME)
-                    self._vnf_up_post()
-                    self.queue_wrapper.clear()
-                    return self._vnf_process.exitcode
 
-                if "PANIC" in message:
-                    raise RuntimeError("Error starting %s VNF." %
-                                       self.APP_NAME)
+        while True:
+            try:
+                utils.wait_until_true(lambda: not self.q_out.empty(),
+                                      timeout=2)
+                self.q_out.get()
+            except y_exceptions.WaitTimeout:
+                break
 
-            LOG.info("Waiting for %s VNF to start.. ", self.APP_NAME)
-            time.sleep(self.WAIT_TIME_FOR_SCRIPT)
-            # Send ENTER to display a new prompt in case the prompt text was corrupted
-            # by other VNF output
-            self.q_in.put('\r\n')
+        self.q_in.put('\r\n')
 
     def start_collect(self):
         self.resource_helper.start_collect()
