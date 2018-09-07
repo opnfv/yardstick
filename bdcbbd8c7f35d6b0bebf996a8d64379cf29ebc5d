@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a682502_9e6e8195",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-07T16:23:01Z",
+      "side": 1,
+      "message": "Is it acceptable for either of these to an empty string?\n\nSome of the test data in the unit tests passes an empty string.\nIf this is not an acceptable value, then there should be a check in the method for if _instance_group[\u0027mixType\u0027]\n\nAt the moment, the check is assuming that if the key is in the dict, it is set to something \"truthy\"",
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_eeaa27d1",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 8
@@ -137,6 +154,52 @@
         "startChar": 12,
         "endLine": 476,
         "endChar": 61
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_bee6dd14",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-07T16:23:01Z",
+      "side": 1,
+      "message": "Is this valid?\n\nWhen parsing the report options, we check for options[\u0027Format\u0027] \u003d\u003d CSV and then set _format to 1\n\nIINM, this value should be \"CSV\" or some other string.\n\nSince I volunteered to write some more tests, I can update this, but I need a response to this comment to proceed.",
+      "range": {
+        "startLine": 170,
+        "startChar": 32,
+        "endLine": 170,
+        "endChar": 35
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_fe6b3583",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-07T16:23:01Z",
+      "side": 1,
+      "message": "Is this a reasonable value to expect here?\n\nIf this is the value passed, then the following command will be sent to LS:\n    \"ls::config $p_.Dmf.InstanceGroup(0) -mixType\"\n (with no param for mixType)\n\nIf this is not an acceptable value, then there should be a check in the method for if _instance_group[\u0027mixType\u0027]",
+      "range": {
+        "startLine": 622,
+        "startChar": 23,
+        "endLine": 622,
+        "endChar": 37
       },
       "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
