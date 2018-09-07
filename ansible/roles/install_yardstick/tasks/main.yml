@@ -29,14 +29,6 @@
     scope: global
     value: False
 
-# There is a bug with the easy install ansible module in suse linux.
-# Until this is fixed the shell command must be used
-- name: Install pip
-  shell: easy_install -U pip
-#    easy_install:
-#    name: pip
-#    state: latest
-
 - name: Install Yardstick requirements (venv)
   pip:
     requirements: "{{ yardstick_dir }}/requirements.txt"
