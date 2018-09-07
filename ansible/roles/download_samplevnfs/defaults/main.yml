@@ -1,4 +1,5 @@
 ---
 samplevnf_url: "https://git.opnfv.org/samplevnf"
 samplevnf_dest: "{{ clone_dest }}/samplevnf"
-samplevnf_version: "stable/fraser"
+# TODO:to be updated to stable/gambia
+samplevnf_version: "master"
