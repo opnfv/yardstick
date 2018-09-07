@@ -1,9 +1,9 @@
 ---
 target_os: "Ubuntu"
 YARD_IMG_ARCH: "amd64"
-IMG_PROPERTY: "normal"
+IMG_PROPERTY: "{{ IMAGE_PROPERTY | default('normal') }}"
 clone_dest: /opt/tempT
-release: xenial
+release: "{{ OS_RELEASE  | default('bionic') }}"
 normal_image_file: "{{ workspace }}/yardstick-image.img"
 nsb_image_file: "{{ workspace }}/yardstick-nsb-image.img"
 ubuntu_image_file: /tmp/workspace/yardstick/yardstick-trusty-server.raw

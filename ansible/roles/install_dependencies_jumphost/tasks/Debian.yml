@@ -33,16 +33,14 @@
     - libxft-dev
     - libxml2-dev
     - libxss-dev
-    - libxslt-dev
     - libxslt1-dev
-    - libzmq-dev
+    - libzmq3-dev
     - qemu-user-static
     - qemu-utils
     - kpartx
     - python
     - python-setuptools
     - python-dev
-    - python-pip
     - python-libvirt
     - python-virtualenv
     - bridge-utils
@@ -74,3 +72,22 @@
 - name: Remove useless packages from the cache
   apt:
     autoclean: yes
+
+# There is a bug with the easy install ansible module in Ubuntu 16.04 linux.
+- name: Install pip
+  shell: easy_install -U pip
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_major_version|int <= 16
+
+- name: Install python-pip
+  action: "{{ ansible_pkg_mgr }} name=python-pip state=present"
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_major_version|int >= 17
+
+- name: Install required docker-py module
+  pip:
+    name: docker-py
+    state: latest
+  environment: "{{ proxy_env }}"
