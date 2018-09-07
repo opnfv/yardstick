@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_fb750733",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T15:47:46Z",
+      "side": 1,
+      "message": "The meaning of L554 inside the if clause is to avoid reporting data if there\u0027s none of it. Anything returned from collect_kpi() goes to dispatcher. I think we do not want multiple null values in the database.\nPlease note that still this function returns None, which, if I remember correctly, is filtered out by dispatcher.",
+      "parentUuid": "9a561d44_f3c5f03d",
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_42820c95",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -145,6 +163,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_5e2b4930",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T15:47:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_d8e3f131",
+      "range": {
+        "startLine": 1193,
+        "startChar": 0,
+        "endLine": 1193,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_0e42fb3d",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -168,6 +210,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_be1ffd08",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1202,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T15:47:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_0e42fb3d",
+      "range": {
+        "startLine": 1202,
+        "startChar": 0,
+        "endLine": 1202,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_4e4cf370",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -179,6 +245,24 @@
       "writtenOn": "2018-09-05T18:16:57Z",
       "side": 1,
       "message": "I would add in another test to verify that the correct behaviours are made when the optional parameters are omitted from the tc.\n\ni.e. \u0027linked\u0027 not in _tc, \u0027AssociatedPhys\u0027 not in tc, etc",
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7e26056a",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1203,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T15:47:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_4e4cf370",
       "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -255,6 +339,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_1ed55143",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T15:47:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_b8c39589",
+      "range": {
+        "startLine": 1226,
+        "startChar": 0,
+        "endLine": 1226,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_6e78d78f",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -278,6 +386,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_9e1cc115",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1243,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T15:47:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_6e78d78f",
+      "range": {
+        "startLine": 1243,
+        "startChar": 7,
+        "endLine": 1243,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ce6f63c4",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -289,6 +421,30 @@
       "writtenOn": "2018-09-05T18:16:57Z",
       "side": 1,
       "message": "use self.mock_tcl_handler.execute.assert_called_once()",
+      "range": {
+        "startLine": 1248,
+        "startChar": 0,
+        "endLine": 1248,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_fe197523",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1248,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T15:47:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_ce6f63c4",
       "range": {
         "startLine": 1248,
         "startChar": 0,
@@ -569,6 +725,30 @@
       "writtenOn": "2018-09-05T18:16:57Z",
       "side": 1,
       "message": "This should be return_value, not side_effect\n\n    self.mock_tcl_handler.execute.return_value \u003d \u0027111\u0027\n\nside_effect is generally reserved for dynamic return values or raising exceptions\n\nhttps://docs.python.org/3/library/unittest.mock.html#the-mock-class",
+      "range": {
+        "startLine": 1317,
+        "startChar": 8,
+        "endLine": 1317,
+        "endChar": 59
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_de1639f1",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1317,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T15:47:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_6e9f37b5",
       "range": {
         "startLine": 1317,
         "startChar": 8,
