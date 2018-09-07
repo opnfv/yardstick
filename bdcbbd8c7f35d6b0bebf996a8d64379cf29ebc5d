@@ -184,6 +184,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_deed99f1",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T16:50:41Z",
+      "side": 1,
+      "message": "The session profile consumed by TCL server should have this value: \u00271\u0027. It refers to XLS results data format. CSV format refers as value \u00270\u0027.\nIn the code and in yardstick YAML files we use string values for clarity. Then, in the code, we transform string value to what TCL server expects.",
+      "parentUuid": "5a682502_bee6dd14",
+      "range": {
+        "startLine": 170,
+        "startChar": 32,
+        "endLine": 170,
+        "endChar": 35
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_fe6b3583",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 8
@@ -195,6 +219,30 @@
       "writtenOn": "2018-09-07T16:23:01Z",
       "side": 1,
       "message": "Is this a reasonable value to expect here?\n\nIf this is the value passed, then the following command will be sent to LS:\n    \"ls::config $p_.Dmf.InstanceGroup(0) -mixType\"\n (with no param for mixType)\n\nIf this is not an acceptable value, then there should be a check in the method for if _instance_group[\u0027mixType\u0027]",
+      "range": {
+        "startLine": 622,
+        "startChar": 23,
+        "endLine": 622,
+        "endChar": 37
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_3ebacde1",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T16:50:41Z",
+      "side": 1,
+      "message": "Yes, it is valid. This is a default value of this TCL object param.\nUsing current code there will be no failure, I\u0027ve just now checked it.",
+      "parentUuid": "5a682502_fe6b3583",
       "range": {
         "startLine": 622,
         "startChar": 23,
