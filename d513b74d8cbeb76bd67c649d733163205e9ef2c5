@@ -328,6 +328,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_5b87db0f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T16:50:41Z",
+      "side": 1,
+      "message": "If sorted() is used, there might have been a reason for it. I\u0027ll investigate this later, and take action, if needeed.",
+      "parentUuid": "9a561d44_652aba7f",
+      "range": {
+        "startLine": 365,
+        "startChar": 1,
+        "endLine": 366,
+        "endChar": 45
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_85270eb6",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 7
