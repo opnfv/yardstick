@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_bb5d4f4b",
+        "filename": "yardstick/network_services/traffic_profile/http_ixload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-09-07T09:40:16Z",
+      "side": 1,
+      "message": "should we add some checks here?",
+      "range": {
+        "startLine": 190,
+        "startChar": 32,
+        "endLine": 192,
+        "endChar": 57
+      },
+      "revId": "b729f543443443fecffeeeda579aeedf91148a21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_9b5a134f",
+        "filename": "yardstick/network_services/traffic_profile/http_ixload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-09-07T09:40:16Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 213,
+        "startChar": 8,
+        "endLine": 215,
+        "endChar": 57
+      },
+      "revId": "b729f543443443fecffeeeda579aeedf91148a21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7b3bb7eb",
+        "filename": "yardstick/network_services/traffic_profile/http_ixload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-09-07T09:40:16Z",
+      "side": 1,
+      "message": "Pls add doc string",
+      "range": {
+        "startLine": 224,
+        "startChar": 4,
+        "endLine": 224,
+        "endChar": 54
+      },
+      "revId": "b729f543443443fecffeeeda579aeedf91148a21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_9b2173b7",
+        "filename": "yardstick/network_services/traffic_profile/http_ixload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-09-07T09:40:16Z",
+      "side": 1,
+      "message": "Please add example what is in test.communityList.",
+      "range": {
+        "startLine": 236,
+        "startChar": 33,
+        "endLine": 236,
+        "endChar": 46
+      },
+      "revId": "b729f543443443fecffeeeda579aeedf91148a21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_fb2ea7a4",
+        "filename": "yardstick/network_services/traffic_profile/http_ixload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-09-07T09:40:16Z",
+      "side": 1,
+      "message": "use LOG here",
+      "range": {
+        "startLine": 244,
+        "startChar": 15,
+        "endLine": 244,
+        "endChar": 73
+      },
+      "revId": "b729f543443443fecffeeeda579aeedf91148a21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_db2beb92",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ixload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-09-07T09:40:16Z",
+      "side": 1,
+      "message": "pls use temp variable",
+      "range": {
+        "startLine": 164,
+        "startChar": 7,
+        "endLine": 165,
+        "endChar": 46
+      },
+      "revId": "b729f543443443fecffeeeda579aeedf91148a21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
