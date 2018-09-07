@@ -35,7 +35,7 @@
     - libxss-dev
     - libxslt-dev
     - libxslt1-dev
-    - libzmq-dev
+    - libzmq3-dev
     - qemu-user-static
     - qemu-utils
     - kpartx
@@ -74,3 +74,9 @@
 - name: Remove useless packages from the cache
   apt:
     autoclean: yes
+
+- name: Install required docker-py module
+  pip:
+    name: docker-py
+    state: latest
+  environment: "{{ proxy_env }}"
