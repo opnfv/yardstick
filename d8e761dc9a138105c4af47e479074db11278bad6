@@ -998,6 +998,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_febdf503",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T15:47:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_e2c5203e",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 258,
+        "endChar": 52
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_c758f358",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
@@ -1015,6 +1039,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_debab909",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T15:47:46Z",
+      "side": 1,
+      "message": "Done, but without \"spec\", as explained in other review:\nmock_env_helper \u003d mock.Mock()",
+      "parentUuid": "9a561d44_c758f358",
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_bfacdfa1",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
@@ -1026,6 +1068,30 @@
       "writtenOn": "2018-09-05T11:24:12Z",
       "side": 1,
       "message": "_create_user() and _modify_user() both return something, delete user should return a value indicating that the operation was successful.\n\n\nChecking that _delete_user() is None in unnecessary.",
+      "range": {
+        "startLine": 414,
+        "startChar": 0,
+        "endLine": 415,
+        "endChar": 37
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_1e3c3193",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T15:47:46Z",
+      "side": 1,
+      "message": "Having this None check may be justified as it checks that implementation was not changed in that aspect.\n\nRegarding return value, _delete_user() method runs exec_rest_request() which has raise_exc\u003dTrue by default.\nThus, in case of error, it will not be silent.\n\nReturning anything from function needs a justification/benefit. Here I do not see any for _delete_user() call (if/when it will be used).\n\nPlease advise if you have any insight on this.",
+      "parentUuid": "9a561d44_bfacdfa1",
       "range": {
         "startLine": 414,
         "startChar": 0,
@@ -1132,6 +1198,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_3e05adc2",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T15:47:46Z",
+      "side": 1,
+      "message": "Probably initially I thought of some other function.\nAll I can make for this one is to delete assertIsNone check.\nOr keep it as is, since if implementation changes, that call would signal that.\nPlease advise.",
+      "parentUuid": "9a561d44_9fd59bbb",
+      "range": {
+        "startLine": 598,
+        "startChar": 8,
+        "endLine": 598,
+        "endChar": 25
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_e736d702",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
@@ -1190,6 +1280,30 @@
       "writtenOn": "2018-09-05T11:24:12Z",
       "side": 1,
       "message": "It is not sufficient to check that this returns something.\n\nYou should be checking for the right format",
+      "range": {
+        "startLine": 808,
+        "startChar": 7,
+        "endLine": 808,
+        "endChar": 31
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_1e31d1a2",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-07T15:47:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_dfe27300",
       "range": {
         "startLine": 808,
         "startChar": 7,
