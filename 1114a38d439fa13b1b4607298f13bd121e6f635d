@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_3e376db2",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-07T13:47:04Z",
+      "side": 1,
+      "message": "Is there a more specific exception that you can catch here?",
+      "range": {
+        "startLine": 106,
+        "startChar": 15,
+        "endLine": 106,
+        "endChar": 24
+      },
+      "revId": "1114a38d439fa13b1b4607298f13bd121e6f635d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5e46a924",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-07T13:47:04Z",
+      "side": 1,
+      "message": "If there\u0027s a more specific error above, can you re-raise it here instead of throwing a RuntimeError?\n\nAlternatively, create a specific JsonDecodeError, and add some more useful information to the error message.\n\nIdeally, the error message lets you know the potential cause of the error, so that the user knows whether it\u0027s something they can change or not",
+      "range": {
+        "startLine": 108,
+        "startChar": 11,
+        "endLine": 108,
+        "endChar": 49
+      },
+      "revId": "1114a38d439fa13b1b4607298f13bd121e6f635d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_be4a5d25",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-07T13:47:04Z",
+      "side": 1,
+      "message": "Is it possible to pass some more specific job information here?\n\nIt would make it easier to diagnose the problem.",
+      "range": {
+        "startLine": 201,
+        "startChar": 24,
+        "endLine": 201,
+        "endChar": 44
+      },
+      "revId": "1114a38d439fa13b1b4607298f13bd121e6f635d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
