@@ -29,5 +29,5 @@
 
 - name: Move dist to /etc/nginx/yardstick/gui
   shell:
-    cmd: mv dist /etc/nginx/yardstick/gui
+    cmd: mv -u dist /etc/nginx/yardstick/gui
     chdir: "{{ gui_dir }}"

@@ -21,7 +21,7 @@
 
   pre_tasks:
 
-    - name: Create NSB binaries directory, accesible to any user
+    - name: Create NSB binaries directory, accessible to any user
       file:
         path: "{{ nsb_dir }}"
         state: directory
@@ -148,6 +148,12 @@
     - include_role:
         name: docker
       when: installation_mode == inst_mode_container_pull
+
+    - name: Install required doker-py module
+      pip:
+        name: docker-py
+        state: latest
+      environment: "{{ proxy_env }}"
 
     - name: Start yardstick container
       docker_container:
