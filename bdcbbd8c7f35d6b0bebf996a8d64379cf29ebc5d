@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a682502_be941d45",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-07T17:57:31Z",
+      "side": 1,
+      "message": "Is it acceptable ot execute this command even if test_session[\u0027keywords\u0027] \u003d\u003d \u0027\u0027\n\ni.e. ls::config $test_ -Keywords \"\"",
+      "range": {
+        "startLine": 219,
+        "startChar": 4,
+        "endLine": 221,
+        "endChar": 42
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5eb069f4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-07T17:57:31Z",
+      "side": 1,
+      "message": "test_session[\u0027reservePorts\u0027] is passed a a string in UTs\n\nThis means that reservePorts: \"false\" is a possible input.\n\n\"reservePorts\": \"false\" will pass here and cause \u0027ls::config $test_ -Reserve Ports\u0027 to be executed.\n\nThis should not happen; this option, when set using a string, has the wrong effect.",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 69
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7eb445f2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-07T17:57:31Z",
+      "side": 1,
+      "message": "The test data that you\u0027ve included for the UT uses \"Format\".\n\nAre both to be expected?\nIf both are acceptable, then this should be:\n    if _option_key.lower() \u003d\u003d \"format\"\n\nif it should be \"Format\", then this needs to be updated.\n\nIf it should indeed be \"format\", the test data should be updated in test_tg_landslide.SESSION_PROFILE\n\n\nThe choice here is probably: do we want this to be case sensitive or not?\nMy vote would be case sensitive, and follow the convention of using camelCase for multi work options, as seems to be the case for SESSION_PROFILE in UTs/sample session profiles in later commits",
+      "range": {
+        "startLine": 305,
+        "startChar": 12,
+        "endLine": 305,
+        "endChar": 38
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_9e6e8195",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 8
@@ -208,6 +277,29 @@
     },
     {
       "key": {
+        "uuid": "5a682502_1ebf11d2",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-07T17:57:31Z",
+      "side": 1,
+      "message": "Can this be \"Format\" or \"format\"?\n\nCurrently, _configure_report_options() expects lowercase (\"format\")..",
+      "range": {
+        "startLine": 170,
+        "startChar": 23,
+        "endLine": 170,
+        "endChar": 29
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_fe6b3583",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 8
@@ -243,6 +335,30 @@
       "side": 1,
       "message": "Yes, it is valid. This is a default value of this TCL object param.\nUsing current code there will be no failure, I\u0027ve just now checked it.",
       "parentUuid": "5a682502_fe6b3583",
+      "range": {
+        "startLine": 622,
+        "startChar": 23,
+        "endLine": 622,
+        "endChar": 37
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_9e916155",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-07T17:57:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_3ebacde1",
       "range": {
         "startLine": 622,
         "startChar": 23,
