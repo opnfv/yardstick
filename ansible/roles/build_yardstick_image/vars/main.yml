@@ -16,11 +16,13 @@ boot_modes:
   'amd64': disk1
   'arm64': uefi1
 boot_mode: "{{ boot_modes[YARD_IMG_ARCH] }}"
-image_filename: "{{ release }}-server-cloudimg-{{ YARD_IMG_ARCH }}-{{ boot_mode }}.img"
-image_path: "{{ release }}/current/{{ image_filename }}"
+image_filename:
+  'xenial': "{{ release }}-server-cloudimg-{{ YARD_IMG_ARCH }}-{{ boot_mode }}.img"
+  'bionic': "{{ release }}-server-cloudimg-{{ YARD_IMG_ARCH }}.img"
+image_path: "{{ release }}/current/{{ image_filename[release] }}"
 host: "{{ lookup('env', 'HOST')|default('cloud-images.ubuntu.com', true)}}"
 image_url: "{{ lookup('env', 'IMAGE_URL')|default('https://' ~ host ~ '/' ~ image_path, true) }}"
-image_dest: "{{ workspace }}/{{ image_filename }}"
+image_dest: "{{ workspace }}/{{ image_filename[release] }}"
 sha256sums_path: "{{ release }}/current/SHA256SUMS"
 sha256sums_filename: "{{ sha256sums_path|basename }}"
 sha256sums_url: "{{ lookup('env', 'SHA256SUMS_URL')|default('https://' ~ host ~ '/' ~ sha256sums_path, true) }}"

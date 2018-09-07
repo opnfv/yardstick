@@ -21,7 +21,7 @@
 
   pre_tasks:
 
-    - name: Create NSB binaries directory, accesible to any user
+    - name: Create NSB binaries directory, accessible to any user
       file:
         path: "{{ nsb_dir }}"
         state: directory
@@ -31,8 +31,8 @@
         - installation_mode != inst_mode_container_pull
 
   roles:
-    - { role: add_repos_jumphost, when: installation_mode != inst_mode_container_pull }
-    - { role: install_dependencies_jumphost, when: installation_mode != inst_mode_container_pull }
+    - add_repos_jumphost
+    - install_dependencies_jumphost
     - { role: install_yardstick, when: installation_mode != inst_mode_container_pull }
     - { role: configure_uwsgi, when: installation_mode != inst_mode_container_pull }
     - { role: configure_nginx, when: installation_mode != inst_mode_container_pull }
@@ -141,10 +141,6 @@
   hosts: jumphost
 
   tasks:
-    - include_role:
-        name: install_dependencies_jumphost
-      when: installation_mode == inst_mode_container_pull
-
     - include_role:
         name: docker
       when: installation_mode == inst_mode_container_pull

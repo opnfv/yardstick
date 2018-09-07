@@ -12,10 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-i40evf_version: "3.4.2"
+i40evf_version: "3.5.13"
 i40evf_gzfile: "i40evf-{{ i40evf_version }}.tar.gz"
 i40evf_url: "https://netix.dl.sourceforge.net/project/e1000/i40evf%20stable/{{ i40evf_version }}/{{ i40evf_gzfile }}"
 i40evf_dest: "{{ clone_dest }}/"
 i40evf_path: "{{ i40evf_dest }}/{{ i40evf_gzfile|regex_replace('[.]tar[.]gz$', '') }}"
 i40evf_checksum:
   "3.4.2": "sha256:a8e2a722fb2f8ac874cb39545a331761841f1724830ff1581d2012dd37314645"
+  "3.5.13": "sha256:e57b95b694c8480b905e72ea13caac8714d6bb0c9eabe37cca655505b808f033"
