@@ -35,7 +35,6 @@
     - libxss-dev
     - libxslt-dev
     - libxslt1-dev
-    - libzmq-dev
     - qemu-user-static
     - qemu-utils
     - kpartx
@@ -57,6 +56,22 @@
     - nodejs
     - npm
     - rabbitmq-server
+
+- name: Install Ubuntu 16 (xenial) dependencies
+  action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
+  with_items:
+    - libzmq-dev
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_major_version|int <= 16
+
+- name: Install Ubuntu 18 (bionic) dependencies
+  action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
+  with_items:
+    - libzmq3-dev
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - ansible_distribution_major_version|int >= 18
 
 - name: Install libc6:arm64 package
   action: "{{ ansible_pkg_mgr }} name={{ item }} state=present"
