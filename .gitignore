@@ -33,3 +33,5 @@ cover/
 .idea/
 # tox virtualenvs
 .tox/
+# docs build artifacts
+docs/_build/*
