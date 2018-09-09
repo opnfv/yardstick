@@ -1,0 +1,5 @@
+lfdocs-conf
+sphinx_opnfv_theme
+# Uncomment the following line if your project uses Sphinx to document
+# HTTP APIs
+# sphinxcontrib-httpdomain
