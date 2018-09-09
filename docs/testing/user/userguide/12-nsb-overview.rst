@@ -56,7 +56,7 @@ NSB extension includes:
 
 * Generic data models of Network Services, based on ETSI spec
   `ETSI GS NFV-TST 001`_
-* Standalone :term:`context` for VNF testing with SRIOV, OVS, OVS-DPDK, etc
+* Standalone :term:`context` for VNF testing SRIOV, OVS, OVS-DPDK, etc
 * Generic VNF configuration models and metrics implemented with Python
   classes
 * Traffic generator features and traffic profiles
@@ -121,6 +121,13 @@ Network Service framework performs the necessary test steps. It may involve:
 Components of Network Service
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. TODO: provide a list of components in this section and describe them in
+   later sub-sections
+
+.. Components are the methodology, TGs, framework extensions, KPI collection,
+   Testcases, SampleVNFs
+.. Framework extentions include: VNF models, NSPerf Scenario, contexts
+
 * *Models for Network Service benchmarking*: The Network Service benchmarking
   requires the proper modelling approach. The NSB provides models using Python
   files and defining of NSDs and VNFDs.
@@ -168,6 +175,40 @@ For UDP correlated traffic following Key Performance Indicators are collected
 for every combination of test case parameters:
 
 * RFC2544 throughput for various loss rate defined (1% is a default)
+
+KPI Collection
+^^^^^^^^^^^^^^
+.. TODO: NSB collects three sets of metrics: Network, NFVI and VNF meterics.
+
+KPI collection is the process of sampling KPIs at multiple intervals to allow
+for investigation into anomalies during runtime. Some KPI intervals are
+adjustable. KPIs are collected from traffic generators and NFVI for the SUT.
+There is already some reporting in NSB available, but NSB collects all KPIs for
+analytics to process.
+
+Below is an example list of basic KPIs:
+* Throughput
+* Latency
+* Packet delay variation
+* Maximum establishment rate
+* Maximum tear-down rate
+* Maximum simultaneous number of sessions
+
+Of course, there can be many other KPIs that will be relevant for a specific
+NFVI, but in most cases these KPIs are enough to give you a basic picture of
+the SUT. NSB also uses :term:`collectd` in order to collect the KPIs. Currently
+the following collectd plug-ins are enabled for NSB testcases:
+
+* Libvirt
+* DPDK stats
+* DPDK events
+* OvS events
+* vSwitch stats
+* Huge Pages
+* RAM
+* Intel® PMU
+
+.. TODO: define collect in the glossary
 
 Graphical Overview
 ------------------
