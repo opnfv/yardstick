@@ -517,6 +517,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_a45a4c4e",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T21:12:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_654e3a98",
+      "range": {
+        "startLine": 430,
+        "startChar": 8,
+        "endLine": 430,
+        "endChar": 78
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a21048a9",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 7
@@ -552,6 +576,30 @@
       "side": 1,
       "message": "This UT is related to create_test_server() method. That method returns test server id (str).\nThis check is legitimate, but I might change it to something like\n\n    self.assertEqual(return_value, res)",
       "parentUuid": "9a561d44_a21048a9",
+      "range": {
+        "startLine": 438,
+        "startChar": 8,
+        "endLine": 438,
+        "endChar": 33
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_04586055",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T21:12:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_05265ece",
       "range": {
         "startLine": 438,
         "startChar": 8,
@@ -647,6 +695,30 @@
       "side": 1,
       "message": "I do not see any benefit in suggested assertion.\nFor the DMF it does not matter in what order you set it up.\nOn object creation, it is already a predefined structure with default values for all keys. Following commands just update specific parameters of it.\n\nAlso please note that if DMF_CFG dict definition would change the order of dict elements, the messages sequence will change too. So then this calls needs an argument\n\n  any_order\u003dTrue",
       "parentUuid": "9a561d44_8e272bb6",
+      "range": {
+        "startLine": 517,
+        "startChar": 0,
+        "endLine": 521,
+        "endChar": 69
+      },
+      "revId": "d513b74d8cbeb76bd67c649d733163205e9ef2c5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e4544423",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T21:12:41Z",
+      "side": 1,
+      "message": "DONE\n\nAgreed to update this in a follow-on change",
+      "parentUuid": "5a682502_95fe6437",
       "range": {
         "startLine": 517,
         "startChar": 0,
