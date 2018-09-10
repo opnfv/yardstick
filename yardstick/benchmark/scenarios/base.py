@@ -50,6 +50,9 @@ class Scenario(object):
     def run(self, *args):
         """Entry point for scenario classes, called from runner worker"""
 
+    def is_ended(self):
+        return False
+
     def teardown(self):
         """Default teardown implementation for Scenario classes"""
         pass

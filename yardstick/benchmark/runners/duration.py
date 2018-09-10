@@ -106,7 +106,8 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
         sequence += 1
 
-        if (errors and sla_action is None) or time.time() > timeout or aborted.is_set():
+        if (errors and sla_action is None) or time.time() > timeout \
+                or aborted.is_set() or benchmark.is_ended():
             LOG.info("Worker END")
             break
 
