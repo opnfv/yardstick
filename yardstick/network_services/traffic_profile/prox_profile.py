@@ -117,6 +117,7 @@ class ProxProfile(TrafficProfile):
             pkt_size = next(self.pkt_size_iterator)
         except StopIteration:
             self.done = True
+            self.run_test_with_pkt_size(traffic_generator, 0, 0, terminate_test= True)
             return
 
         # Adjust packet size upwards if it's less than the minimum

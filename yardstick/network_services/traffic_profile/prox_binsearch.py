@@ -28,6 +28,7 @@ LOG = logging.getLogger(__name__)
 STATUS_SUCCESS = "Success"
 STATUS_FAIL = "Failure"
 STATUS_RESULT = "Result"
+STATUS_END_TEST = "END_OF_TEST"
 STEP_CONFIRM = "Confirm retry"
 STEP_INCREASE_LOWER = "Increase lower"
 STEP_DECREASE_LOWER = "Decrease lower"
@@ -66,7 +67,7 @@ class ProxBinSearchProfile(ProxProfile):
             yield test_value
             test_value = self.mid_point
 
-    def run_test_with_pkt_size(self, traffic_gen, pkt_size, duration):
+    def run_test_with_pkt_size(self, traffic_gen, pkt_size, duration, terminate_test = False):
         """Run the test for a single packet size.
 
         :param traffic_gen: traffic generator instance
@@ -78,126 +79,134 @@ class ProxBinSearchProfile(ProxProfile):
 
         """
 
-        LOG.info("Testing with packet size %d", pkt_size)
+        if pkt_size is not 0 and duration is not 0:
 
-        # Binary search assumes the lower value of the interval is
-        # successful and the upper value is a failure.
-        # The first value that is tested, is the maximum value. If that
-        # succeeds, no more searching is needed. If it fails, a regular
-        # binary search is performed.
-        #
-        # The test_value used for the first iteration of binary search
-        # is adjusted so that the delta between this test_value and the
-        # upper bound is a power-of-2 multiple of precision. In the
-        # optimistic situation where this first test_value results in a
-        # success, the binary search will complete on an integer multiple
-        # of the precision, rather than on a fraction of it.
+            LOG.info("Testing with packet size %d", pkt_size)
 
-        theor_max_thruput = 0
+            # Binary search assumes the lower value of the interval is
+            # successful and the upper value is a failure.
+            # The first value that is tested, is the maximum value. If that
+            # succeeds, no more searching is needed. If it fails, a regular
+            # binary search is performed.
+            #
+            # The test_value used for the first iteration of binary search
+            # is adjusted so that the delta between this test_value and the
+            # upper bound is a power-of-2 multiple of precision. In the
+            # optimistic situation where this first test_value results in a
+            # success, the binary search will complete on an integer multiple
+            # of the precision, rather than on a fraction of it.
 
-        result_samples = {}
+            theor_max_thruput = 0
 
-        test_data = {
-            "test_duration": traffic_gen.scenario_helper.scenario_cfg["runner"]["duration"],
-            "test_precision": self.params["traffic_profile"]["test_precision"],
-            "tolerated_loss": self.params["traffic_profile"]["tolerated_loss"],
-            "duration": duration
-        }
-        self.prev_time = time.time()
+            result_samples = {}
 
-        # throughput and packet loss from the most recent successful test
-        successful_pkt_loss = 0.0
-        line_speed = traffic_gen.scenario_helper.all_options.get(
-            "interface_speed_gbps", constants.NIC_GBPS_DEFAULT) * constants.ONE_GIGABIT_IN_BITS
+            test_data = {
+                "test_duration": traffic_gen.scenario_helper.scenario_cfg["runner"]["duration"],
+                "test_precision": self.params["traffic_profile"]["test_precision"],
+                "tolerated_loss": self.params["traffic_profile"]["tolerated_loss"],
+                "duration": duration
+            }
+            self.prev_time = time.time()
 
-        ok_retry = traffic_gen.scenario_helper.scenario_cfg["runner"].get("confirmation", 0)
-        for step_id, test_value in enumerate(self.bounds_iterator(LOG)):
-            pos_retry = 0
-            neg_retry = 0
-            total_retry = 0
+            # throughput and packet loss from the most recent successful test
+            successful_pkt_loss = 0.0
+            line_speed = traffic_gen.scenario_helper.all_options.get(
+                "interface_speed_gbps", constants.NIC_GBPS_DEFAULT) * constants.ONE_GIGABIT_IN_BITS
 
-            LOG.info("Checking MAX %s MIN %s TEST %s", self.current_upper,
-                     self.lower_bound, test_value)
+            ok_retry = traffic_gen.scenario_helper.scenario_cfg["runner"].get("confirmation", 0)
+            for step_id, test_value in enumerate(self.bounds_iterator(LOG)):
+                pos_retry = 0
+                neg_retry = 0
+                total_retry = 0
 
-            while (pos_retry <= ok_retry) and (neg_retry <= ok_retry):
+                LOG.info("Checking MAX %s MIN %s TEST %s", self.current_upper,
+                         self.lower_bound, test_value)
 
-                total_retry = total_retry + 1
+                while (pos_retry <= ok_retry) and (neg_retry <= ok_retry):
 
-                result, port_samples = self._profile_helper.run_test(pkt_size, duration,
-                                                                     test_value,
-                                                                     self.tolerated_loss,
-                                                                     line_speed)
+                    total_retry = total_retry + 1
 
-                if (total_retry > (ok_retry * 3)) and (ok_retry is not 0):
-                    status = STATUS_FAIL
-                    next_step = STEP_DECREASE_LOWER
-                    successful_pkt_loss = result.pkt_loss
-                    self.current_upper = test_value
-                    neg_retry = total_retry
-                elif result.success:
-                    if (pos_retry < ok_retry) and (ok_retry is not 0):
-                        status = STATUS_SUCCESS
-                        next_step = STEP_CONFIRM
-                        successful_pkt_loss = result.pkt_loss
-                        neg_retry = 0
-                    else:
-                        status = STATUS_SUCCESS
-                        next_step = STEP_INCREASE_LOWER
-                        self.current_lower = test_value
-                        successful_pkt_loss = result.pkt_loss
+                    result, port_samples = self._profile_helper.run_test(pkt_size, duration,
+                                                                         test_value,
+                                                                         self.tolerated_loss,
+                                                                         line_speed)
 
-                    pos_retry = pos_retry + 1
-
-                else:
-                    if (neg_retry < ok_retry) and (ok_retry is not 0):
+                    if (total_retry > (ok_retry * 3)) and (ok_retry is not 0):
                         status = STATUS_FAIL
-                        next_step = STEP_CONFIRM
-                        pos_retry = 0
-                    else:
-                        status = STATUS_FAIL
-                        next_step = STEP_DECREASE_UPPER
+                        next_step = STEP_DECREASE_LOWER
+                        successful_pkt_loss = result.pkt_loss
                         self.current_upper = test_value
+                        neg_retry = total_retry
+                    elif result.success:
+                        if (pos_retry < ok_retry) and (ok_retry is not 0):
+                            status = STATUS_SUCCESS
+                            next_step = STEP_CONFIRM
+                            successful_pkt_loss = result.pkt_loss
+                            neg_retry = 0
+                        else:
+                            status = STATUS_SUCCESS
+                            next_step = STEP_INCREASE_LOWER
+                            self.current_lower = test_value
+                            successful_pkt_loss = result.pkt_loss
 
-                    neg_retry = neg_retry + 1
+                        pos_retry = pos_retry + 1
 
-                LOG.info(
-                    "Status = '%s' Next_Step = '%s'", status, next_step)
+                    else:
+                        if (neg_retry < ok_retry) and (ok_retry is not 0):
+                            status = STATUS_FAIL
+                            next_step = STEP_CONFIRM
+                            pos_retry = 0
+                        else:
+                            status = STATUS_FAIL
+                            next_step = STEP_DECREASE_UPPER
+                            self.current_upper = test_value
 
-                samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
+                        neg_retry = neg_retry + 1
 
-                if theor_max_thruput < samples["TxThroughput"]:
-                    theor_max_thruput = samples['TxThroughput']
-                samples['theor_max_throughput'] = theor_max_thruput
+                    LOG.info(
+                        "Status = '%s' Next_Step = '%s'", status, next_step)
 
-                samples["rx_total"] = int(result.rx_total)
-                samples["tx_total"] = int(result.tx_total)
-                samples["can_be_lost"] = int(result.can_be_lost)
-                samples["drop_total"] = int(result.drop_total)
-                samples["RxThroughput_gbps"] = \
-                    (samples["RxThroughput"] / 1000) * ((pkt_size + 20) * 8)
-                samples['Status'] = status
-                samples['Next_Step'] = next_step
-                samples["MAX_Rate"] = self.current_upper
-                samples["MIN_Rate"] = self.current_lower
-                samples["Test_Rate"] = test_value
-                samples["Step_Id"] = step_id
-                samples["Confirmation_Retry"] = total_retry
+                    samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
 
-                samples.update(test_data)
+                    if theor_max_thruput < samples["TxThroughput"]:
+                        theor_max_thruput = samples['TxThroughput']
+                    samples['theor_max_throughput'] = theor_max_thruput
 
-                if status == STATUS_SUCCESS and next_step == STEP_INCREASE_LOWER:
-                    # Store success samples for result samples
-                    result_samples = samples
+                    samples["rx_total"] = int(result.rx_total)
+                    samples["tx_total"] = int(result.tx_total)
+                    samples["can_be_lost"] = int(result.can_be_lost)
+                    samples["drop_total"] = int(result.drop_total)
+                    samples["RxThroughput_gbps"] = \
+                        (samples["RxThroughput"] / 1000) * ((pkt_size + 20) * 8)
+                    samples['Status'] = status
+                    samples['Next_Step'] = next_step
+                    samples["MAX_Rate"] = self.current_upper
+                    samples["MIN_Rate"] = self.current_lower
+                    samples["Test_Rate"] = test_value
+                    samples["Step_Id"] = step_id
+                    samples["Confirmation_Retry"] = total_retry
 
-                LOG.info(">>>##>>Collect TG KPIs %s %s", datetime.datetime.now(), samples)
+                    samples.update(test_data)
 
-                self.queue.put(samples, True, overall_constants.QUEUE_PUT_TIMEOUT)
+                    if status == STATUS_SUCCESS and next_step == STEP_INCREASE_LOWER:
+                        # Store success samples for result samples
+                        result_samples = samples
 
-        LOG.info(
-            ">>>##>> Result Reached PktSize %s Theor_Max_Thruput %s Actual_throughput %s",
-            pkt_size, theor_max_thruput, result_samples.get("RxThroughput", 0))
-        result_samples["Status"] = STATUS_RESULT
-        result_samples["Next_Step"] = ""
-        result_samples["Actual_throughput"] = result_samples.get("RxThroughput", 0)
-        result_samples["theor_max_throughput"] = theor_max_thruput
-        self.queue.put(result_samples)
+                    LOG.info(">>>##>>Collect TG KPIs %s %s", datetime.datetime.now(), samples)
+
+                    self.queue.put(samples, True, overall_constants.QUEUE_PUT_TIMEOUT)
+
+            LOG.info(
+                ">>>##>> Result Reached PktSize %s Theor_Max_Thruput %s Actual_throughput %s",
+                pkt_size, theor_max_thruput, result_samples.get("RxThroughput", 0))
+            result_samples["Status"] = STATUS_RESULT
+            result_samples["Next_Step"] = ""
+            result_samples["Actual_throughput"] = result_samples.get("RxThroughput", 0)
+            result_samples["theor_max_throughput"] = theor_max_thruput
+            self.queue.put(result_samples)
+
+        if terminate_test:
+            end_test = {}
+            end_test["Status"] = STATUS_END_TEST
+            end_test["Next_Step"] = ""
+            self.queue.put(end_test, True, overall_constants.QUEUE_PUT_TIMEOUT)

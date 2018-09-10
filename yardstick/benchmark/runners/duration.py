@@ -106,7 +106,14 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
         sequence += 1
 
-        if (errors and sla_action is None) or time.time() > timeout or aborted.is_set():
+        isfinished = False
+        try:
+             if data['tg__0']['collect_stats']['Status'] == "END_OF_TEST":
+                isfinished = True
+        except:
+            pass
+
+        if (errors and sla_action is None) or time.time() > timeout or aborted.is_set() or isfinished:
             LOG.info("Worker END")
             break
 
