@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_843bd0ea",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T21:12:41Z",
+      "side": 1,
+      "message": "It checks for truthiness.\n\nAny non-empty string evaluates to True.\n\n\u003e\u003e\u003e if \"False\":\n...     print \"False is True\"\n... else:\n...     print \"False is False\"\n...\nFalse is True\n\n[1] https://anh.cs.luc.edu/python/hands-on/3.1/handsonHtml/boolean.html",
+      "parentUuid": "5a682502_feda1516",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 69
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_7eb445f2",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 8
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_64403457",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T21:12:41Z",
+      "side": 1,
+      "message": "It\u0027s an implementation choice, are the config options case-sensitive or not?\nHere, we are treating them as case-sensitive.\nIt\u0027s consistent with the rest of yardstick, so let\u0027s keep it as case sensitive.",
+      "parentUuid": "5a682502_ded759ec",
+      "range": {
+        "startLine": 305,
+        "startChar": 12,
+        "endLine": 305,
+        "endChar": 38
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_9e6e8195",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 8
@@ -172,6 +220,24 @@
       "side": 1,
       "message": "This code may need a closer look in future, especially in scope of IMIX design.\nGenerally speaking from current perspective, those values are located in the session profile template file, which user should not edit.\nIn these conditions it is safe as is.",
       "parentUuid": "5a682502_9e6e8195",
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c424a8c8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T21:12:41Z",
+      "side": 1,
+      "message": "The user will always try to do something they are not supposed to. We can\u0027t rely on the user to not edit it.\n\nIt might be as simple as:\n\nfor _key in [\u0027mixType\u0027, \u0027rate\u0027]:\n    if _instance_type.get(_key):\n        self._tcl_execute\n\nIn this case, an empty string or non-existant are treated the same way -- both evaluate to False/None and we skip the command.\n\nIt would be a good idea to add a new UT to make sure this doesn\u0027t happen.\n\n\nIf this change is minor, I suggest changing it in the appropriate (existing) commit.\n\nIMHO it is small enough to change now, what are your thoughts on that?",
+      "parentUuid": "5a682502_deee39b4",
       "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -568,6 +634,30 @@
       "side": 1,
       "message": "Here same as already explained in other place, method execute is indeed called once, but due to exception raised the context access is interrupted sooner than that call is counted. Thus I\u0027ll remove this assertion as misleading.\nMight need to check other places with assert_not_called().",
       "parentUuid": "5a682502_1e8d5132",
+      "range": {
+        "startLine": 593,
+        "startChar": 8,
+        "endLine": 593,
+        "endChar": 69
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c40b082a",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T21:12:41Z",
+      "side": 1,
+      "message": "DONE\nCan consider this comment closed\n\nassertRaises does imply that this is already called.\n\nAgreed to remove it; it is misleading.\nWill need to pay attention to other misleading assertions like this.",
+      "parentUuid": "5a682502_be3edd27",
       "range": {
         "startLine": 593,
         "startChar": 8,
