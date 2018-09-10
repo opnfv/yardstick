@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_a4640ce6",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-10T12:28:14Z",
+      "side": 1,
+      "message": "Either end sentence with dot, and capitalize \"unit\",\nor replace \"unit tests\" with \"and they\" (or similar wording).",
+      "range": {
+        "startLine": 647,
+        "startChar": 66,
+        "endLine": 647,
+        "endChar": 78
+      },
+      "revId": "af01b52b9f8aff32223280a47a05a6b5848e3a2b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_444d3872",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-10T12:28:14Z",
+      "side": 1,
+      "message": "_mock_ssh",
+      "range": {
+        "startLine": 689,
+        "startChar": 33,
+        "endLine": 689,
+        "endChar": 41
+      },
+      "revId": "af01b52b9f8aff32223280a47a05a6b5848e3a2b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
