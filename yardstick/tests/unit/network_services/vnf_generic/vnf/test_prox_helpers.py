@@ -1527,14 +1527,16 @@ class TestProxResourceHelper(unittest.TestCase):
     def test_run_traffic(self):
         setup_helper = mock.MagicMock()
         helper = prox_helpers.ProxResourceHelper(setup_helper)
-        traffic_profile = mock.MagicMock(**{"done": True})
+        traffic_profile = mock.MagicMock()
+        traffic_profile.done.is_set.return_value = True
         helper.run_traffic(traffic_profile)
         self.assertEqual(helper._terminated.value, 1)
 
     def test__run_traffic_once(self):
         setup_helper = mock.MagicMock()
         helper = prox_helpers.ProxResourceHelper(setup_helper)
-        traffic_profile = mock.MagicMock(**{"done": True})
+        traffic_profile = mock.MagicMock()
+        traffic_profile.done.is_set.return_value = True
         helper._run_traffic_once(traffic_profile)
         self.assertEqual(helper._terminated.value, 1)
 

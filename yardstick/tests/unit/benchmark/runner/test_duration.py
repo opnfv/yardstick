@@ -36,6 +36,26 @@ class DurationRunnerTest(unittest.TestCase):
                 raise y_exc.YardstickException
             return self.count
 
+    class MyMethod2(object):
+        SLA_VALIDATION_ERROR_SIDE_EFFECT = 1
+        BROAD_EXCEPTION_SIDE_EFFECT = 2
+
+        def __init__(self, side_effect=0):
+            self.data = {'tg__0': {'collect_stats': {'Status': "END_OF_TEST"}}}
+            self.side_effect = side_effect
+
+        def __call__(self, data):
+            data['tg__0'] = {'collect_stats': {'Status': "END_OF_TEST"}}
+            self.data['tg__0'] = {'collect_stats': {'Status': "END_OF_TEST"}}
+
+            if self.side_effect == self.SLA_VALIDATION_ERROR_SIDE_EFFECT:
+                raise y_exc.SLAValidationError(case_name='My Case',
+                                               error_msg='my error message')
+            elif self.side_effect == self.BROAD_EXCEPTION_SIDE_EFFECT:
+                raise y_exc.YardstickException
+
+            return self.data
+
     def setUp(self):
         self.scenario_cfg = {
             'runner': {'interval': 0, "duration": 0},
@@ -97,9 +117,9 @@ class DurationRunnerTest(unittest.TestCase):
                                  multiprocessing.Event(), mock.Mock())
 
         self._assert_defaults__worker_run_setup_and_teardown()
-        self.assertGreater(self.benchmark.pre_run_wait_time.call_count, 2)
-        self.assertGreater(self.benchmark.my_method.call_count, 2)
-        self.assertGreater(self.benchmark.post_run_wait_time.call_count, 2)
+        self.assertGreater(self.benchmark.pre_run_wait_time.call_count, 0)
+        self.assertGreater(self.benchmark.my_method.call_count, 0)
+        self.assertGreater(self.benchmark.post_run_wait_time.call_count, 0)
 
     def test__worker_process_called_without_cfg(self):
         scenario_cfg = {'runner': {}}
@@ -140,14 +160,32 @@ class DurationRunnerTest(unittest.TestCase):
         time.sleep(0.1)
 
         self._assert_defaults__worker_run_setup_and_teardown()
-        self.assertGreater(self.benchmark.pre_run_wait_time.call_count, 2)
-        self.assertGreater(self.benchmark.my_method.count, 103)
-        self.assertGreater(self.benchmark.post_run_wait_time.call_count, 2)
+        self.assertGreater(self.benchmark.pre_run_wait_time.call_count, 0)
+        self.assertGreater(self.benchmark.my_method.count, 1)
+        self.assertGreater(self.benchmark.post_run_wait_time.call_count, 0)
 
         count = 101
         while not output_queue.empty():
             count += 1
             self.assertEquals(output_queue.get(), count)
+
+    def test__worker_process_output_queue_multiple_iterations2(self):
+        self.scenario_cfg['runner']['duration'] = 2
+        self.benchmark.my_method = self.MyMethod2()
+
+        output_queue = multiprocessing.Queue()
+        duration._worker_process(mock.Mock(), self.benchmark_cls, 'my_method',
+                                 self.scenario_cfg, {},
+                                 multiprocessing.Event(), output_queue)
+        time.sleep(3)
+
+        self._assert_defaults__worker_run_setup_and_teardown()
+        self.assertGreater(self.benchmark.pre_run_wait_time.call_count, 0)
+        self.assertGreater(self.benchmark.post_run_wait_time.call_count, 0)
+
+        while not output_queue.empty():
+            queueItem = output_queue.get()
+            self.assertEquals(queueItem['tg__0']['collect_stats']['Status'], "END_OF_TEST")
 
     def test__worker_process_queue(self):
         self.benchmark.my_method = self.MyMethod()
@@ -181,9 +219,9 @@ class DurationRunnerTest(unittest.TestCase):
         time.sleep(0.1)
 
         self._assert_defaults__worker_run_setup_and_teardown()
-        self.assertGreater(self.benchmark.pre_run_wait_time.call_count, 2)
-        self.assertGreater(self.benchmark.my_method.count, 103)
-        self.assertGreater(self.benchmark.post_run_wait_time.call_count, 2)
+        self.assertGreater(self.benchmark.pre_run_wait_time.call_count, 0)
+        self.assertGreater(self.benchmark.my_method.count, 1)
+        self.assertGreater(self.benchmark.post_run_wait_time.call_count, 0)
 
         count = 0
         while not queue.empty():
