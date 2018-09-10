@@ -100,13 +100,13 @@ class TestProxProfile(unittest.TestCase):
 
         profile = ProxProfile(tp_config)
 
-        self.assertFalse(profile.done)
+        self.assertFalse(profile.done.is_set())
         for _ in packet_sizes:
             with self.assertRaises(NotImplementedError):
                 profile.execute_traffic(traffic_generator)
 
         self.assertIsNone(profile.execute_traffic(traffic_generator))
-        self.assertTrue(profile.done)
+        self.assertTrue(profile.done.is_set())
 
     def test_bounds_iterator(self):
         tp_config = {
