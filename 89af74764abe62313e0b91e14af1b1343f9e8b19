@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_84cab09f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T13:15:59Z",
+      "side": 1,
+      "message": "should be:\n\nfrom six.moves.zip_longest",
+      "parentUuid": "9a561d44_08031343",
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_4804ebbf",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -118,6 +136,30 @@
       "side": 1,
       "message": "That might be out of date, or SampleVNFTrafficGen is misnamed.\n\nIt also looks like SampleVNF inherits from both SampleVNFTrafficGen and GenericTrafficGen.\n\nI know there have been some updates to the base classes and the architecture which looks like it\u0027s not reflected here.\n\nIf it\u0027s a case that the docs were out of date, we can add a ticket to resolve this once the architecture docs are refreshed",
       "parentUuid": "9a561d44_53f2dcd2",
+      "range": {
+        "startLine": 33,
+        "startChar": 26,
+        "endLine": 33,
+        "endChar": 56
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a4c08c7d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T13:15:59Z",
+      "side": 1,
+      "message": "DONE\nThis can be considered resolved. \n\nI\u0027ve added a ticket [1] to update the architecture/class diagram for NSB.\nThere\u0027s a note about updating this class too.\n\n[1] https://jira.opnfv.org/browse/YARDSTICK-1417",
+      "parentUuid": "9a561d44_b371b8e2",
       "range": {
         "startLine": 33,
         "startChar": 26,
@@ -413,6 +455,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_8441100e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T13:15:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_13cfc480",
+      "range": {
+        "startLine": 132,
+        "startChar": 7,
+        "endLine": 132,
+        "endChar": 37
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_28a9b77b",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -424,6 +490,30 @@
       "writtenOn": "2018-09-04T17:26:18Z",
       "side": 1,
       "message": "tc_options[_param_key] can be replaced with _param_value",
+      "range": {
+        "startLine": 134,
+        "startChar": 39,
+        "endLine": 134,
+        "endChar": 61
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_64467425",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T13:15:59Z",
+      "side": 1,
+      "message": "DONE\n\nThis is redundant if the above comment is closed",
+      "parentUuid": "9a561d44_28a9b77b",
       "range": {
         "startLine": 134,
         "startChar": 39,
@@ -648,6 +738,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_c44ae826",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T13:15:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_b3ba586c",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 70
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a85e6774",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
@@ -823,6 +937,30 @@
       "side": 1,
       "message": "In this case, we expect that the TC is not updated; so this test is correct.\n\nThis comment can be considered closed/done.",
       "parentUuid": "9a561d44_13d22400",
+      "range": {
+        "startLine": 505,
+        "startChar": 0,
+        "endLine": 505,
+        "endChar": 40
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a447ec1c",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T13:15:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_983df9be",
       "range": {
         "startLine": 505,
         "startChar": 0,
