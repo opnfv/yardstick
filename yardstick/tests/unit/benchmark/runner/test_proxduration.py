@@ -16,6 +16,7 @@ import mock
 import unittest
 import multiprocessing
 import os
+import time
 
 from yardstick.benchmark.runners import proxduration
 from yardstick.common import constants
@@ -97,7 +98,7 @@ class ProxDurationRunnerTest(unittest.TestCase):
             {}, multiprocessing.Event(), mock.Mock())
 
         self._assert_defaults__worker_run_setup_and_teardown()
-        self.assertGreater(self.benchmark.my_method.call_count, 2)
+        self.assertGreater(self.benchmark.my_method.call_count, 0)
 
     def test__worker_process_called_without_cfg(self):
         scenario_cfg = {'runner': {}}
