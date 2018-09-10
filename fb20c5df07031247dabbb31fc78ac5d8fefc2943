@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_64cf94b1",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T13:15:59Z",
+      "side": 1,
+      "message": "Consider this closed, the comment is duplicated in PS2",
+      "parentUuid": "9a561d44_c7aab318",
+      "revId": "fb20c5df07031247dabbb31fc78ac5d8fefc2943",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a7a7bf4e",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2018-08-30T16:27:25Z",
       "side": 1,
       "message": "Also:\nfrom yardstick.common import yaml_loader",
+      "revId": "fb20c5df07031247dabbb31fc78ac5d8fefc2943",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_04e7c041",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T13:15:59Z",
+      "side": 1,
+      "message": "Consider this one closed, it it duplicated in PS2",
+      "parentUuid": "9a561d44_a7a7bf4e",
       "revId": "fb20c5df07031247dabbb31fc78ac5d8fefc2943",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
