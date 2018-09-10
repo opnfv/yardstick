@@ -22,6 +22,30 @@
       "revId": "e6763408d612fbaec3d59a001a4920b9d63b8d6e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c994c146",
+        "filename": "yardstick/benchmark/scenarios/availability/ha_tools/fault_process_kill.bash",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-10T01:40:10Z",
+      "side": 1,
+      "message": "Thank you, I\u0027ll fix it soon.",
+      "parentUuid": "5a682502_29bf35d2",
+      "range": {
+        "startLine": 29,
+        "startChar": 59,
+        "endLine": 29,
+        "endChar": 77
+      },
+      "revId": "e6763408d612fbaec3d59a001a4920b9d63b8d6e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
