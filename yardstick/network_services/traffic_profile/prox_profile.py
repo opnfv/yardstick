@@ -16,6 +16,7 @@
 from __future__ import absolute_import
 
 import logging
+import multiprocessing
 
 from yardstick.network_services.traffic_profile.base import TrafficProfile
 from yardstick.network_services.vnf_generic.vnf.prox_helpers import ProxProfileHelper
@@ -56,7 +57,7 @@ class ProxProfile(TrafficProfile):
     def __init__(self, tp_config):
         super(ProxProfile, self).__init__(tp_config)
         self.queue = None
-        self.done = False
+        self.done = multiprocessing.Event()
         self.results = []
 
         # TODO: get init values from tp_config
@@ -116,7 +117,7 @@ class ProxProfile(TrafficProfile):
         try:
             pkt_size = next(self.pkt_size_iterator)
         except StopIteration:
-            self.done = True
+            self.done.set()
             return
 
         # Adjust packet size upwards if it's less than the minimum
