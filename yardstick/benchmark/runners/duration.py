@@ -28,6 +28,7 @@ import time
 
 from yardstick.benchmark.runners import base
 from yardstick.common import exceptions as y_exc
+from yardstick.common import utils
 
 LOG = logging.getLogger(__name__)
 
@@ -64,7 +65,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         LOG.debug("runner=%(runner)s seq=%(sequence)s START",
                   {"runner": runner_cfg["runner_id"], "sequence": sequence})
 
-        data = {}
+        data = result = {}
         errors = ""
 
         benchmark.pre_run_wait_time(interval)
@@ -106,7 +107,18 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
         sequence += 1
 
-        if (errors and sla_action is None) or time.time() > timeout or aborted.is_set():
+        isfinished = False
+        try:
+            data_list_dict = utils.flatten_dict_key(data)
+            for k, v in data_list_dict.items():
+                if "Status" in k and "END_OF_TEST" in v:
+                    isfinished = True
+                    break
+        except (TypeError, ValueError, AttributeError):
+            pass
+
+        if ((errors and sla_action is None) or time.time() > timeout or
+                aborted.is_set() or isfinished):
             LOG.info("Worker END")
             break
 

@@ -28,6 +28,7 @@ LOG = logging.getLogger(__name__)
 STATUS_SUCCESS = "Success"
 STATUS_FAIL = "Failure"
 STATUS_RESULT = "Result"
+STATUS_END_TEST = "END_OF_TEST"
 STEP_CONFIRM = "Confirm retry"
 STEP_INCREASE_LOWER = "Increase lower"
 STEP_DECREASE_LOWER = "Decrease lower"
@@ -65,6 +66,11 @@ class ProxBinSearchProfile(ProxProfile):
 
             yield test_value
             test_value = self.mid_point
+
+    def end_run_test(self):
+
+        end_test = {"Status": STATUS_END_TEST, "Next_Step": ""}
+        self.queue.put(end_test, True, overall_constants.QUEUE_PUT_TIMEOUT)
 
     def run_test_with_pkt_size(self, traffic_gen, pkt_size, duration):
         """Run the test for a single packet size.

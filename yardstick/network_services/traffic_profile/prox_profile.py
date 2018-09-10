@@ -110,6 +110,9 @@ class ProxProfile(TrafficProfile):
     def run_test_with_pkt_size(self, traffic_generator, pkt_size, duration):
         raise NotImplementedError
 
+    def end_run_test(self):
+        pass
+
     def execute_traffic(self, traffic_generator):
         self.make_profile_helper(traffic_generator)
 
@@ -117,6 +120,7 @@ class ProxProfile(TrafficProfile):
             pkt_size = next(self.pkt_size_iterator)
         except StopIteration:
             self.done = True
+            self.end_run_test()
             return
 
         # Adjust packet size upwards if it's less than the minimum
