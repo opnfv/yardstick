@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_4431b80a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T21:12:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_b806ba1e",
+      "range": {
+        "startLine": 129,
+        "startChar": 3,
+        "endLine": 129,
+        "endChar": 25
+      },
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_9d9c886b",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 6
@@ -290,6 +314,24 @@
       "side": 1,
       "message": "From what I can see here, they are grouped and follow in that order.",
       "parentUuid": "9a561d44_9d9c886b",
+      "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_24363c04",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T21:12:41Z",
+      "side": 1,
+      "message": "DONE\n\nThis is not strictly necessary",
+      "parentUuid": "9a561d44_780c2243",
       "revId": "b4384939e21e9ed2a0a1d1a5c0c8663731f07b21",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
