@@ -16,6 +16,7 @@ import mock
 import unittest
 import multiprocessing
 import os
+import time
 
 from yardstick.benchmark.runners import proxduration
 from yardstick.common import constants
@@ -41,6 +42,25 @@ class ProxDurationRunnerTest(unittest.TestCase):
             elif self.side_effect == self.BROAD_EXCEPTION_SIDE_EFFECT:
                 raise y_exc.YardstickException
             return self.count
+
+    class MyMethod2(object):
+        SLA_VALIDATION_ERROR_SIDE_EFFECT = 1
+        BROAD_EXCEPTION_SIDE_EFFECT = 2
+
+        def __init__(self, side_effect=0):
+            self.data = {'tg__0': {'collect_stats': {'Status': "END_OF_TEST"}}}
+            self.side_effect = side_effect
+
+        def __call__(self, data):
+
+            self.data =  {'tg__0': {'collect_stats' : {'Status': "END_OF_TEST"} }}
+
+            if self.side_effect == self.SLA_VALIDATION_ERROR_SIDE_EFFECT:
+                raise y_exc.SLAValidationError(case_name='My Case',
+                                               error_msg='my error message')
+            elif self.side_effect == self.BROAD_EXCEPTION_SIDE_EFFECT:
+                raise y_exc.YardstickException
+            return self.data
 
     def setUp(self):
         self.scenario_cfg = {
@@ -135,6 +155,24 @@ class ProxDurationRunnerTest(unittest.TestCase):
         for idx in range(102, 101 + len(output_queue.method_calls)):
             output_queue.put.assert_has_calls(
                 [mock.call(idx, True, constants.QUEUE_PUT_TIMEOUT)])
+
+    def test__worker_process_output_queue_multiple_iterations2(self):
+        self.scenario_cfg["runner"] = {"sampled": True, "duration": 2}
+        self.benchmark.my_method = self.MyMethod2()
+
+        output_queue = multiprocessing.Queue()
+        proxduration._worker_process(mock.Mock(), self.benchmark_cls, 'my_method',
+                                 self.scenario_cfg, {},
+                                 multiprocessing.Event(), output_queue)
+        time.sleep(3)
+
+        self._assert_defaults__worker_run_setup_and_teardown()
+        self.assertGreater(self.benchmark.pre_run_wait_time.call_count, 0)
+        self.assertEqual(self.benchmark.post_run_wait_time.call_count, 0)
+
+        while not output_queue.empty():
+            queueItem = output_queue.get()
+            self.assertEquals(queueItem['tg__0']['collect_stats']['Status'], "END_OF_TEST")
 
     def test__worker_process_queue(self):
         self.benchmark.my_method = self.MyMethod()
