@@ -28,6 +28,7 @@ LOG = logging.getLogger(__name__)
 STATUS_SUCCESS = "Success"
 STATUS_FAIL = "Failure"
 STATUS_RESULT = "Result"
+STATUS_END_TEST = "END_OF_TEST"
 STEP_CONFIRM = "Confirm retry"
 STEP_INCREASE_LOWER = "Increase lower"
 STEP_DECREASE_LOWER = "Decrease lower"
@@ -201,3 +202,8 @@ class ProxBinSearchProfile(ProxProfile):
         result_samples["Actual_throughput"] = result_samples.get("RxThroughput", 0)
         result_samples["theor_max_throughput"] = theor_max_thruput
         self.queue.put(result_samples)
+
+    def end_run_test(self):
+
+        end_test = {"Status": STATUS_END_TEST, "Next_Step": ""}
+        self.queue.put(end_test, True, overall_constants.QUEUE_PUT_TIMEOUT)
