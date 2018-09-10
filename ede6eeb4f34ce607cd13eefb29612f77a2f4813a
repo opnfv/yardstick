@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_04906094",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T17:28:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_42820c95",
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_cea64310",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -82,6 +100,30 @@
       "writtenOn": "2018-09-05T18:16:57Z",
       "side": 1,
       "message": "same as for the other tests, exact calls are better as they verify that the right calls are being made to the external system. Useful when later changes modify this method.",
+      "range": {
+        "startLine": 1153,
+        "startChar": 8,
+        "endLine": 1153,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e451e4d9",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T17:28:41Z",
+      "side": 1,
+      "message": "I agreed to add a follow-on patch adding these assert_has_calls checks",
+      "parentUuid": "9a561d44_cea64310",
       "range": {
         "startLine": 1153,
         "startChar": 8,
@@ -504,6 +546,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_8458f0fb",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T17:28:41Z",
+      "side": 1,
+      "message": "DONE\n\nI agreed to address this in a follow up patch",
+      "parentUuid": "5a682502_f854edcb",
+      "range": {
+        "startLine": 1269,
+        "startChar": 0,
+        "endLine": 1269,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_385e65ea",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -515,6 +581,30 @@
       "writtenOn": "2018-09-06T13:01:32Z",
       "side": 1,
       "message": "suggest using assert_has_calls",
+      "range": {
+        "startLine": 1277,
+        "startChar": 7,
+        "endLine": 1277,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_645dd4e9",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1277,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T17:28:41Z",
+      "side": 1,
+      "message": "DONE\n\nI agreed to address this in a follow-up patch",
+      "parentUuid": "5a682502_385e65ea",
       "range": {
         "startLine": 1277,
         "startChar": 7,
@@ -574,6 +664,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_e473a413",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1285,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T17:28:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_b871d579",
+      "range": {
+        "startLine": 1285,
+        "startChar": 0,
+        "endLine": 1285,
+        "endChar": 30
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ee6347db",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -597,6 +711,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_c4714879",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T17:28:41Z",
+      "side": 1,
+      "message": "DONE\n\nI agreed to fix this in a follow-up patch",
+      "parentUuid": "9a561d44_ee6347db",
+      "range": {
+        "startLine": 1286,
+        "startChar": 1,
+        "endLine": 1286,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_4e6353dc",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -608,6 +746,30 @@
       "writtenOn": "2018-09-05T18:16:57Z",
       "side": 1,
       "message": "use self.mock_tcl_handler.execute.assert_called_once()",
+      "range": {
+        "startLine": 1292,
+        "startChar": 0,
+        "endLine": 1292,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a46ecc94",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1292,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T17:28:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_4e6353dc",
       "range": {
         "startLine": 1292,
         "startChar": 0,
@@ -667,6 +829,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_0477c003",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1297,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T17:28:41Z",
+      "side": 1,
+      "message": "This can be considered closed; it has been copied to PS4",
+      "parentUuid": "5a682502_f86b4d83",
+      "range": {
+        "startLine": 1297,
+        "startChar": 8,
+        "endLine": 1297,
+        "endChar": 30
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_8e9c4bc2",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -702,6 +888,30 @@
       "side": 1,
       "message": "That should be:\n   assert_has_calls",
       "parentUuid": "9a561d44_8e9c4bc2",
+      "range": {
+        "startLine": 1307,
+        "startChar": 7,
+        "endLine": 1307,
+        "endChar": 69
+      },
+      "revId": "ede6eeb4f34ce607cd13eefb29612f77a2f4813a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_046ce09b",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1307,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-10T17:28:41Z",
+      "side": 1,
+      "message": "DONE\n\nI agreed to fix this in a follow-up patch",
+      "parentUuid": "5a682502_d868118a",
       "range": {
         "startLine": 1307,
         "startChar": 7,
