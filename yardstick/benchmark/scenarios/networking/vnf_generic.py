@@ -63,6 +63,9 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         self.bin_path = get_nsb_option('bin_path', '')
         self._mq_ids = []
 
+    def is_ended(self):
+        return self.traffic_profile is not None and self.traffic_profile.is_ended()
+
     def _get_ip_flow_range(self, ip_start_range):
         """Retrieve a CIDR first and last viable IPs
 

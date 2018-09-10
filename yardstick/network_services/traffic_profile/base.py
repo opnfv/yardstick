@@ -97,6 +97,9 @@ class TrafficProfile(object):
         self.params = tp_config
         self.config = TrafficProfileConfig(tp_config)
 
+    def is_ended(self):
+        return False
+
     def execute_traffic(self, traffic_generator, **kawrgs):
         """ This methods defines the behavior of the traffic generator.
         It will be called in a loop until the traffic generator exits.
