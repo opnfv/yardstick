@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_64bb1473",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-10T19:12:25Z",
+      "side": 1,
+      "message": "Will fix in another review (LS TG class).",
+      "parentUuid": "5a682502_69bbed72",
+      "revId": "dea3a485f5f196d7ee18ccc0c64a35ab5560385f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_a469ac27",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2018-09-10T17:28:41Z",
       "side": 1,
       "message": "Suggested adding:\n    self.mock_tcl_handler.execute.assert_not_called()",
+      "range": {
+        "startLine": 1332,
+        "startChar": 7,
+        "endLine": 1332,
+        "endChar": 30
+      },
+      "revId": "dea3a485f5f196d7ee18ccc0c64a35ab5560385f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_84b63089",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 1332,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-10T19:12:25Z",
+      "side": 1,
+      "message": "Will add in another review (LS TG class).",
+      "parentUuid": "5a682502_a469ac27",
       "range": {
         "startLine": 1332,
         "startChar": 7,
