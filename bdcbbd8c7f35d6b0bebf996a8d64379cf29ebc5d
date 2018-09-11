@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_4f18b184",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-11T14:22:52Z",
+      "side": 1,
+      "message": "Will fix.",
+      "parentUuid": "5a682502_843bd0ea",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 69
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_7eb445f2",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 8
@@ -238,6 +262,24 @@
       "side": 1,
       "message": "The user will always try to do something they are not supposed to. We can\u0027t rely on the user to not edit it.\n\nIt might be as simple as:\n\nfor _key in [\u0027mixType\u0027, \u0027rate\u0027]:\n    if _instance_type.get(_key):\n        self._tcl_execute\n\nIn this case, an empty string or non-existant are treated the same way -- both evaluate to False/None and we skip the command.\n\nIt would be a good idea to add a new UT to make sure this doesn\u0027t happen.\n\n\nIf this change is minor, I suggest changing it in the appropriate (existing) commit.\n\nIMHO it is small enough to change now, what are your thoughts on that?",
       "parentUuid": "5a682502_deee39b4",
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ef2b7d92",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-11T14:22:52Z",
+      "side": 1,
+      "message": "Please note that \u0027mixType\u0027 param most times has a value of empty string. And that has specific defined meaning to Landslide.\nThus can\u0027t evaluate it this way.\n\nIf user won\u0027t follow the docs, we\u0027re not responsible for their actions.",
+      "parentUuid": "5a682502_c424a8c8",
       "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -781,6 +823,29 @@
         "startChar": 23,
         "endLine": 622,
         "endChar": 37
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ef025d0a",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-11T14:22:52Z",
+      "side": 1,
+      "message": "should be \"false\" (and several places in configs on top of file, too). will fix in TG API review.",
+      "range": {
+        "startLine": 628,
+        "startChar": 43,
+        "endLine": 628,
+        "endChar": 48
       },
       "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
