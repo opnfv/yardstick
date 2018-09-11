@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_ef8ffdca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-09-11T13:13:05Z",
+      "side": 1,
+      "message": "pls add Yardstick Jira ID",
+      "revId": "288c30a70efa301ab3443659585a850572e45c98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
