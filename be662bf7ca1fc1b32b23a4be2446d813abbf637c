@@ -130,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_6a491b8b",
+        "filename": "samples/vnf_samples/nsut/vepc/tc_epc_default_bearer_create_landslide.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T18:09:15Z",
+      "side": 1,
+      "message": "I know SearchRunner doesn\u0027t currently run with PROX, but if it works here, and is the most suitable for the job, shouldn\u0027t we keep it?\n\nIMHO, SearchRunner needs to be investigated separately to determine what exactly is broken/working. IF it\u0027s working here, that\u0027s a good start to figuring out what\u0027s going on!",
+      "parentUuid": "9a561d44_ddc0e97e",
+      "range": {
+        "startLine": 47,
+        "startChar": 10,
+        "endLine": 47,
+        "endChar": 16
+      },
+      "revId": "be662bf7ca1fc1b32b23a4be2446d813abbf637c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_3dbe4500",
         "filename": "samples/vnf_samples/traffic_profiles/landslide/landslide_session_default_bearer.yaml",
         "patchSetId": 1
