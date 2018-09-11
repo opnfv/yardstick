@@ -22,6 +22,29 @@
       "revId": "d814280747bffc37d4cffd1c44778c21ee202611",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_0abea7ff",
+        "filename": "yardstick/common/report.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-09-11T15:01:03Z",
+      "side": 1,
+      "message": "Why we need this create_old_table?",
+      "range": {
+        "startLine": 51,
+        "startChar": 1,
+        "endLine": 51,
+        "endChar": 55
+      },
+      "revId": "d814280747bffc37d4cffd1c44778c21ee202611",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
