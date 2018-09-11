@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_ea024b0a",
+        "filename": "yardstick/benchmark/runners/duration.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T18:42:46Z",
+      "side": 1,
+      "message": "This is modifying the behaviour of duration runner to tie specific scenario behaviours to this.\n\nThis would mean that PROX can only run with DurationRunner, and not with other runners in the way that is expected. It is breaking the abstraction and creating a tight coupling between these two components.",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 16
+      },
+      "revId": "e4951d611504670bfcd8bf3bb2f15d10993614ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8a12b760",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T18:42:46Z",
+      "side": 1,
+      "message": "The traffic gen name is passed in from the TC, it will not always be \u0027tg__0\u0027. \n\nYou should be able to get the tg name from the context.",
+      "range": {
+        "startLine": 117,
+        "startChar": 19,
+        "endLine": 117,
+        "endChar": 28
+      },
+      "revId": "e4951d611504670bfcd8bf3bb2f15d10993614ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_2a1d6374",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T18:42:46Z",
+      "side": 1,
+      "message": "You should check for a KeyError here instead of a general error, as anything other than a KeyError would mean that something else went wrong that was unrelated to accessing the dict.\n\nIMHO, since it looks like it\u0027s okay for this key not to exist, this should be something like the following instead:\n    if data.get(\u0027tg_0\u0027, []).get(\u0027collectd_stats\u0027, []).get(\u0027Status\u0027, None) \u003d\u003d \"Result\":\n        isfinished \u003d\u003d True",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 16
+      },
+      "revId": "e4951d611504670bfcd8bf3bb2f15d10993614ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ca24afc8",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T18:42:46Z",
+      "side": 1,
+      "message": "Should this be checking for a positive number?\n\nAs it stands, you can pass negative values to these  and it will continue to run until it hits some other unrelated error.\n\n\nWhat should happen if the pkt_size or duration is 0?\nIMHO, you should check for these conditions and raise an exception, so that a user knows what is going when there\u0027s a failure.\n\nThis would avoid nesting everything in an if stmt plus. it would give the user more information on why a test fails (as well as failing immediately on detecting an error.\n\n    if pkt_size \u003c\u003d 0:\n        raise InvalidPacketSizeError\n\n    if duration \u003c\u003d 0:\n        raise InvalidDurationError\n\n    # everything is okay, carry on\n\n\nActually, is it possible to get this far with invalid pkt_size and duration? Is there a check when parsing the traffic profile?",
+      "range": {
+        "startLine": 82,
+        "startChar": 11,
+        "endLine": 82,
+        "endChar": 28
+      },
+      "revId": "e4951d611504670bfcd8bf3bb2f15d10993614ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_6a40fb56",
+        "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T18:42:46Z",
+      "side": 1,
+      "message": "This will raise a NotImplementedError (as defined on L111).\n\nThis error is currently hidden, because you are also using the wrong method signature, this method doesn\u0027t take a test_terminate arg.\n\nThere is not space around the kwargs passed to a method.\n    \"terminate_test\u003d True\" is invalid.",
+      "range": {
+        "startLine": 120,
+        "startChar": 12,
+        "endLine": 120,
+        "endChar": 86
+      },
+      "revId": "e4951d611504670bfcd8bf3bb2f15d10993614ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
