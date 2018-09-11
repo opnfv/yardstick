@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_6a72bbe6",
+        "filename": "samples/vnf_samples/traffic_profiles/landslide/landslide_dmf_fb_udp.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T17:59:52Z",
+      "side": 1,
+      "message": "This description is the same as the other traffic profile.\n\nCan you update the description to highlight the difference between them?",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 70
+      },
+      "revId": "aba63f937d718576031843855ba155de1b8b0391",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ca766fd8",
+        "filename": "samples/vnf_samples/traffic_profiles/landslide/landslide_dmf_fb_udp_tcp.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T17:59:52Z",
+      "side": 1,
+      "message": "Please update this also, to highlight the difference between the profiles",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 70
+      },
+      "revId": "aba63f937d718576031843855ba155de1b8b0391",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_aa7333e6",
+        "filename": "samples/vnf_samples/traffic_profiles/landslide/landslide_dmf_udp.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T17:59:52Z",
+      "side": 1,
+      "message": "Please update this to highlight the difference between this one and the others.",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 70
+      },
+      "revId": "aba63f937d718576031843855ba155de1b8b0391",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
