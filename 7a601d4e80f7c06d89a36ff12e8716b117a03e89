@@ -2,6 +2,161 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a682502_ef1c1dc4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T12:15:35Z",
+      "side": 1,
+      "message": "DummyVNF",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 15
+      },
+      "revId": "7a601d4e80f7c06d89a36ff12e8716b117a03e89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_0f2079f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T12:15:35Z",
+      "side": 1,
+      "message": "create",
+      "range": {
+        "startLine": 9,
+        "startChar": 38,
+        "endLine": 9,
+        "endChar": 44
+      },
+      "revId": "7a601d4e80f7c06d89a36ff12e8716b117a03e89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8f83e9cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T12:15:35Z",
+      "side": 1,
+      "message": "interact",
+      "range": {
+        "startLine": 15,
+        "startChar": 25,
+        "endLine": 15,
+        "endChar": 33
+      },
+      "revId": "7a601d4e80f7c06d89a36ff12e8716b117a03e89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_6f880de8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T12:15:35Z",
+      "side": 1,
+      "message": "nit: Yardstick",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 15
+      },
+      "revId": "7a601d4e80f7c06d89a36ff12e8716b117a03e89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_2f7e15e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T12:15:35Z",
+      "side": 1,
+      "message": "nit:VNF",
+      "range": {
+        "startLine": 16,
+        "startChar": 13,
+        "endLine": 16,
+        "endChar": 16
+      },
+      "revId": "7a601d4e80f7c06d89a36ff12e8716b117a03e89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_af698527",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T12:15:35Z",
+      "side": 1,
+      "message": "Unit tests for this would be very light.\n\nAll we need to know is that none of the methods will raise an error, and that they don\u0027t return anything.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 6
+      },
+      "revId": "7a601d4e80f7c06d89a36ff12e8716b117a03e89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_4f79d1fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T12:15:35Z",
+      "side": 1,
+      "message": "need a Jira",
+      "revId": "7a601d4e80f7c06d89a36ff12e8716b117a03e89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_be67fde9",
         "filename": "samples/vnf_samples/nsut/dummy/dummy_vnf_topology.yaml",
         "patchSetId": 1
@@ -19,6 +174,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_cf6cc139",
+        "filename": "samples/vnf_samples/nsut/dummy/dummy_vnf_topology.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T12:15:35Z",
+      "side": 1,
+      "message": "Topology files tend to have \u0027-\u0027 as a separator, instead of \u0027_\u0027 [1]\n\n[1] https://github.com/opnfv/yardstick/tree/master/samples/vnf_samples/nsut",
+      "parentUuid": "5a682502_be67fde9",
+      "revId": "7a601d4e80f7c06d89a36ff12e8716b117a03e89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_0f4eb9c1",
         "filename": "samples/vnf_samples/nsut/dummy/dummy_vnf_topology.yaml",
         "patchSetId": 1
@@ -30,6 +203,30 @@
       "writtenOn": "2018-09-11T11:54:09Z",
       "side": 1,
       "message": "I know its a WIP patch, but we need to have a better name than \"dummy\"\n\nOptions: \n- agnostic_vnf\n- bbox_vnf\n- test_vnf\n\nUnfortunately, we can\u0027t use the name generic VNF!!",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "7a601d4e80f7c06d89a36ff12e8716b117a03e89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_4feef18c",
+        "filename": "samples/vnf_samples/nsut/dummy/dummy_vnf_topology.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T12:15:35Z",
+      "side": 1,
+      "message": "We use dummy for a stand-in context.\n\nIt does nothing, but it allows TCs to be run without a context, hooking into all the places that a context is expected.\n\nIMHO, DummyVNF is fine.",
+      "parentUuid": "5a682502_0f4eb9c1",
       "range": {
         "startLine": 16,
         "startChar": 12,
