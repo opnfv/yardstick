@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_cfda01e9",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T12:02:58Z",
+      "side": 1,
+      "message": "We don\u0027t use hacking/pep8. We use pylint as it also does static analysis.\n\nI will update L594 to say \"excluding the i18n strings\"",
+      "parentUuid": "9a561d44_22c0b829",
+      "range": {
+        "startLine": 590,
+        "startChar": 3,
+        "endLine": 591,
+        "endChar": 93
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_7f4b6787",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 4
@@ -130,6 +154,30 @@
       "side": 1,
       "message": "tox, called without any arguments, will run the default set of tests specified here (L605/6 specifies this).\n\nL608-616 is more information on the default set of tests, as well as how to run one set at a time.",
       "parentUuid": "9a561d44_bfe97f82",
+      "range": {
+        "startLine": 601,
+        "startChar": 0,
+        "endLine": 606,
+        "endChar": 58
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_afd7c5be",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T12:02:58Z",
+      "side": 1,
+      "message": "Additional detail: you can save time by running these individually if one set of test is failing.",
+      "parentUuid": "9a561d44_82bb84e4",
       "range": {
         "startLine": 601,
         "startChar": 0,
