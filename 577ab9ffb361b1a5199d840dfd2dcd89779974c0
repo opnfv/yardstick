@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_8aa59706",
+        "filename": "yardstick/common/report.js",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-09-11T14:38:22Z",
+      "side": 1,
+      "message": "remove any unused vars",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 52
+      },
+      "revId": "577ab9ffb361b1a5199d840dfd2dcd89779974c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_2aa0c3f3",
+        "filename": "yardstick/common/report.js",
+        "patchSetId": 8
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-09-11T14:38:22Z",
+      "side": 1,
+      "message": "i dont think this is used",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 42
+      },
+      "revId": "577ab9ffb361b1a5199d840dfd2dcd89779974c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_aa64d3e5",
+        "filename": "yardstick/common/report.js",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-09-11T14:38:22Z",
+      "side": 1,
+      "message": "not used",
+      "range": {
+        "startLine": 26,
+        "startChar": 3,
+        "endLine": 26,
+        "endChar": 38
+      },
+      "revId": "577ab9ffb361b1a5199d840dfd2dcd89779974c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
