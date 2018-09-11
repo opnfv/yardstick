@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_4add3f14",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T17:56:15Z",
+      "side": 1,
+      "message": "Isn\u0027t RESERVATIONS usually part of SESSION_PROFILE configs?\n\nIs it moved out for easier access in tests?",
+      "revId": "9bcd3c6e29f12dc6a67c5340f5a196d31e54aecd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8ab63789",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T17:56:15Z",
+      "side": 1,
+      "message": "configure_test_servers() returns a list.\n\nYou should use a list comprehension on L1162 instead of creating a set and casting res to a set.\n\n    self.assertEqual(\n    [x[\u0027id\u0027] for x in self.TEST_SERVERS_DATA[\u0027testServers\u0027]],\n    res)\n\nThere\u0027s no need to cast either to a set, because the data returned will be a list of length 2: [\u00271\u0027, \u00272\u0027, ]\n\nTEST_SERVERS_DATA is a list so the ordering is preserved as well.",
+      "range": {
+        "startLine": 1162,
+        "startChar": 11,
+        "endLine": 1163,
+        "endChar": 21
+      },
+      "revId": "9bcd3c6e29f12dc6a67c5340f5a196d31e54aecd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
