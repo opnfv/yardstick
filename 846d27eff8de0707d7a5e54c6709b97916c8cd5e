@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_6f112dac",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-11T10:50:19Z",
+      "side": 1,
+      "message": "This is not an appropriate use of the NotImplementedError [1]\n\nIf \"pap\" is the only auth type, then there shouldn\u0027t be an option to add others.\n\nAt the very least, this should not be a NotImplementedError, it should be some other kind of error, which gives additional details on why there\u0027s a failure.\n\n    raise UnsupportedAuthMethod(auth_type\u003dauth, tg\u003d\"ixnet\")\n\nin exceptions.py:\n\n    class UnsupportedAuthMethod(YardstickException):\n        msg \u003d \u0027Authentication using %(auth_type)s is not supported by %(tg)s in Yardstick.\u0027\n\nIt could also be called UnsupportedPppoxAuthMethod\n\n[1] https://docs.python.org/2/library/exceptions.html#exceptions.NotImplementedError",
+      "range": {
+        "startLine": 697,
+        "startChar": 12,
+        "endLine": 697,
+        "endChar": 39
+      },
+      "revId": "846d27eff8de0707d7a5e54c6709b97916c8cd5e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
