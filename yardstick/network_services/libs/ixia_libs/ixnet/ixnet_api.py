@@ -50,6 +50,20 @@ TRAFFIC_STATUS_STOPPED = 'stopped'
 SUPPORTED_PROTO = [PROTO_UDP]
 
 
+class Vlan(object):
+    def __init__(self,
+                 vlan_id, vlan_id_step=None, vlan_id_direction='increment',
+                 prio=None, prio_step=None, prio_direction='increment',
+                 tp_id=None):
+        self.vlan_id = vlan_id
+        self.vlan_id_step = vlan_id_step
+        self.vlan_id_direction = vlan_id_direction
+        self.prio = prio
+        self.prio_step = prio_step
+        self.prio_direction = prio_direction
+        self.tp_id = tp_id
+
+
 # NOTE(ralonsoh): this pragma will be removed in the last patch of this series
 class IxNextgen(object):  # pragma: no cover
 
@@ -617,6 +631,60 @@ class IxNextgen(object):  # pragma: no cover
         self.ixnet.setMultiAttribute(obj, '-name', name)
         self.ixnet.commit()
         return obj
+
+    def _create_vlans(self, ethernet, count):
+        self.ixnet.setMultiAttribute(ethernet, '-useVlans', 'true')
+        self.ixnet.setMultiAttribute(ethernet, '-vlanCount', count)
+        self.ixnet.commit()
+
+    def _configure_vlans(self, ethernet, vlans):
+        vlans_obj = self.ixnet.getList(ethernet, 'vlan')
+        for i, vlan_obj in enumerate(vlans_obj):
+            if vlans[i].vlan_id_step is not None:
+                vlan_id_obj = self.ixnet.getAttribute(vlan_obj, '-vlanId')
+                self.ixnet.setMultiAttribute(vlan_id_obj, '-clearOverlays',
+                                             'true', '-pattern', 'counter')
+                vlan_id_counter = self.ixnet.add(vlan_id_obj, 'counter')
+                self.ixnet.setMultiAttribute(vlan_id_counter, '-start',
+                                             vlans[i].vlan_id, '-step',
+                                             vlans[i].vlan_id_step,
+                                             '-direction',
+                                             vlans[i].vlan_id_direction)
+            else:
+                vlan_id_obj = self.ixnet.getAttribute(vlan_obj, '-vlanId')
+                self.ixnet.setMultiAttribute(vlan_id_obj + '/singleValue',
+                                             '-value', vlans[i].vlan_id)
+
+            if vlans[i].prio_step is not None:
+                prio_obj = self.ixnet.getAttribute(vlan_obj, '-priority')
+                self.ixnet.setMultiAttribute(prio_obj, '-clearOverlays', 'true',
+                                             '-pattern', 'counter')
+                prio_counter = self.ixnet.add(prio_obj, 'counter')
+                self.ixnet.setMultiAttribute(prio_counter,
+                                        '-start', vlans[i].prio,
+                                        '-step', vlans[i].prio_step,
+                                        '-direction', vlans[i].prio_direction)
+            elif vlans[i].prio is not None:
+                prio_obj = self.ixnet.getAttribute(vlan_obj, '-priority')
+                self.ixnet.setMultiAttribute(prio_obj + '/singleValue',
+                                             '-value', vlans[i].prio)
+
+            if vlans[i].tp_id is not None:
+                tp_id_obj = self.ixnet.getAttribute(vlan_obj, '-tpid')
+                self.ixnet.setMultiAttribute(tp_id_obj + '/singleValue',
+                                             '-value', vlans[i].tp_id)
+
+        self.ixnet.commit()
+
+    def add_vlans(self, ethernet, vlans):
+        log.debug("add_vlans: ethernet='%s'", ethernet)
+
+        if vlans is None or len(vlans) == 0:
+            raise RuntimeError(
+                "Invalid 'vlans' argument. Expected list of Vlan instances.")
+
+        self._create_vlans(ethernet, len(vlans))
+        self._configure_vlans(ethernet, vlans)
 
     def add_ipv4(self, ethernet, name='',
                  addr=None, addr_step=None, addr_direction='increment',

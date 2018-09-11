@@ -212,6 +212,47 @@ class TestIxNextgen(unittest.TestCase):
             'obj', '-name', 'ethernet 1')
         self.ixnet_gen.ixnet.commit.assert_called_once()
 
+    def test_add_vlans_single(self):
+        obj = 'ethernet'
+        self.ixnet_gen.ixnet.getAttribute.return_value = 'attr'
+        self.ixnet_gen.ixnet.getList.return_value = ['vlan1', 'vlan2']
+        vlan1 = ixnet_api.Vlan(vlan_id=100, tp_id='ethertype88a8', prio=2)
+        vlan2 = ixnet_api.Vlan(vlan_id=101, tp_id='ethertype88a8', prio=3)
+        self.ixnet_gen.add_vlans(obj, [vlan1, vlan2])
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call('ethernet',
+                                                               '-vlanCount', 2)
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call('attr/singleValue',
+                                                               '-value', 100)
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call('attr/singleValue',
+                                                               '-value', 101)
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call('attr/singleValue',
+                                                               '-value', 2)
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call('attr/singleValue',
+                                                               '-value', 3)
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call(
+            'attr/singleValue', '-value', 'ethertype88a8')
+        self.assertEqual(self.ixnet.commit.call_count, 2)
+
+    def test_add_vlans_increment(self):
+        obj = 'ethernet'
+        self.ixnet_gen.ixnet.add.return_value = 'obj'
+        self.ixnet_gen.ixnet.getAttribute.return_value = 'attr'
+        self.ixnet_gen.ixnet.getList.return_value = ['vlan1']
+        vlan = ixnet_api.Vlan(vlan_id=100, vlan_id_step=1, prio=3, prio_step=2)
+        self.ixnet_gen.add_vlans(obj, [vlan])
+        self.ixnet.setMultiAttribute.assert_any_call('obj', '-start', 100,
+                                                     '-step', 1,
+                                                     '-direction', 'increment')
+        self.ixnet.setMultiAttribute.assert_any_call('obj', '-start', 3,
+                                                     '-step', 2,
+                                                     '-direction', 'increment')
+
+        self.assertEqual(self.ixnet.commit.call_count, 2)
+
+    def test_add_vlans_invalid(self):
+        vlans = []
+        self.assertRaises(RuntimeError, self.ixnet_gen.add_vlans, 'obj', vlans)
+
     def test_add_ipv4(self):
         self.ixnet_gen.ixnet.add.return_value = 'obj'
         self.ixnet_gen.add_ipv4('ethernet 1', name='ipv4 1')
