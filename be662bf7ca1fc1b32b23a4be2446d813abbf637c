@@ -194,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_4187e561",
+        "filename": "samples/vnf_samples/traffic_profiles/landslide/landslide_session_default_bearer_multi_dmf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-12T14:36:29Z",
+      "side": 1,
+      "message": "This file is sourced as session_profile during yardstick testcase parsing. But it is intended only for Landslide to build up a test session. All these fields relate to LS only.",
+      "parentUuid": "9a561d44_7d371db1",
+      "revId": "be662bf7ca1fc1b32b23a4be2446d813abbf637c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_1dbb810f",
         "filename": "samples/vnf_samples/traffic_profiles/landslide/landslide_session_default_bearer_multi_dmf.yaml",
         "patchSetId": 1
@@ -205,6 +223,30 @@
       "writtenOn": "2018-07-31T18:01:52Z",
       "side": 1,
       "message": "This is not a testcase",
+      "range": {
+        "startLine": 16,
+        "startChar": 13,
+        "endLine": 16,
+        "endChar": 51
+      },
+      "revId": "be662bf7ca1fc1b32b23a4be2446d813abbf637c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_2190e994",
+        "filename": "samples/vnf_samples/traffic_profiles/landslide/landslide_session_default_bearer_multi_dmf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-12T14:36:29Z",
+      "side": 1,
+      "message": "This file does contain testcases, which are elements of Landslide test session. But its not describing yardstick test case file.\nSuggest to skip, or max replace \"test case\" -\u003e \"test scenario\".",
+      "parentUuid": "9a561d44_1dbb810f",
       "range": {
         "startLine": 16,
         "startChar": 13,
