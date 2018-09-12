@@ -985,6 +985,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_3e6808f5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-12T11:01:08Z",
+      "side": 1,
+      "message": "Here\u0027s an example of current error message:\n\n  RuntimeError: Unequal number of elements. {\u0027session_profile file\u0027: 2, \u0027pod file\u0027: 2, \u0027test_case file\u0027: 3}\n\nIt provides an info on structure differences, but we cannot make guess which file structure is mismatched.\nMight make sense to add a reference to docs troubleshooting section, for more details (TBD separately)",
+      "parentUuid": "5a682502_aac69347",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 76
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a8eb07af",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
