@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_a120799c",
+        "filename": "samples/vnf_samples/traffic_profiles/landslide/landslide_dmf_fb_udp.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-12T13:50:47Z",
+      "side": 1,
+      "message": "Please check L27. It contains details description of this traffic profile. Does it make sense to put it here too?\nSame approach for other files.",
+      "parentUuid": "5a682502_6a72bbe6",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 18,
+        "endChar": 70
+      },
+      "revId": "aba63f937d718576031843855ba155de1b8b0391",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ca766fd8",
         "filename": "samples/vnf_samples/traffic_profiles/landslide/landslide_dmf_fb_udp_tcp.yaml",
         "patchSetId": 3
