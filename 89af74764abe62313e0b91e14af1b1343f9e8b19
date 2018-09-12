@@ -1009,6 +1009,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_5e186484",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-12T16:18:10Z",
+      "side": 1,
+      "message": "If this error is raised, explaining what needs to be done would be too verbose for an error message.\n\nI agree that the docs should include a troubleshooting section, and that the error message should refer to this.\n\nHowever, until the doc change is made, we can\u0027t add a specific reference to the error message.\n\nI\u0027ve added a Jira ticket [1] to keep track of the required documentation update, with a note that this error message should be updated to refer to the section that will be added.\n\n[1] https://jira.opnfv.org/browse/YARDSTICK-1422 \n\nThis can be considered closed.",
+      "parentUuid": "5a682502_3e6808f5",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 76
+      },
+      "revId": "89af74764abe62313e0b91e14af1b1343f9e8b19",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a8eb07af",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
