@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_1e770c04",
+        "filename": "yardstick/common/nsb_template.html",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-09-12T09:24:42Z",
+      "side": 1,
+      "message": "pls remove",
+      "range": {
+        "startLine": 97,
+        "startChar": 24,
+        "endLine": 97,
+        "endChar": 73
+      },
+      "revId": "bcbcb6757ef7a1f38bcea0bb3b1fa7b10a92998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_fe733013",
+        "filename": "yardstick/common/nsb_template.html",
+        "patchSetId": 6
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-09-12T09:24:42Z",
+      "side": 1,
+      "message": "do you really need this in browser console?",
+      "range": {
+        "startLine": 104,
+        "startChar": 15,
+        "endLine": 104,
+        "endChar": 77
+      },
+      "revId": "bcbcb6757ef7a1f38bcea0bb3b1fa7b10a92998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
