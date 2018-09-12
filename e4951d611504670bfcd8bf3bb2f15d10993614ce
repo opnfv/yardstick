@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_fe8fb0ca",
+        "filename": "yardstick/benchmark/runners/duration.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-09-12T10:23:30Z",
+      "side": 1,
+      "message": "PROX runs with Duration or ProxDuration runner.\n\nIf another runner is used then this \"END_OF_TEST\" would not be triggered. So it would execute as normal.",
+      "parentUuid": "5a682502_ea024b0a",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 16
+      },
+      "revId": "e4951d611504670bfcd8bf3bb2f15d10993614ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_8a12b760",
         "filename": "yardstick/benchmark/runners/proxduration.py",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-11T18:42:46Z",
       "side": 1,
       "message": "The traffic gen name is passed in from the TC, it will not always be \u0027tg__0\u0027. \n\nYou should be able to get the tg name from the context.",
+      "range": {
+        "startLine": 117,
+        "startChar": 19,
+        "endLine": 117,
+        "endChar": 28
+      },
+      "revId": "e4951d611504670bfcd8bf3bb2f15d10993614ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5ebce46c",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-09-12T10:23:30Z",
+      "side": 1,
+      "message": "I know. This was not finished.",
+      "parentUuid": "5a682502_8a12b760",
       "range": {
         "startLine": 117,
         "startChar": 19,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_7ebba072",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-09-12T10:23:30Z",
+      "side": 1,
+      "message": "It will not be implemented in this way. This was a Work in progress.\nHowever I do not agree that your method is better,\nMy method would have been clearer to read.",
+      "parentUuid": "5a682502_2a1d6374",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 16
+      },
+      "revId": "e4951d611504670bfcd8bf3bb2f15d10993614ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ca24afc8",
         "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_beac1837",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-09-12T10:23:30Z",
+      "side": 1,
+      "message": "No .. check for negative numbers is done elsewhere",
+      "parentUuid": "5a682502_ca24afc8",
+      "range": {
+        "startLine": 82,
+        "startChar": 11,
+        "endLine": 82,
+        "endChar": 28
+      },
+      "revId": "e4951d611504670bfcd8bf3bb2f15d10993614ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_6a40fb56",
         "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
         "patchSetId": 5
@@ -105,6 +201,30 @@
       "writtenOn": "2018-09-11T18:42:46Z",
       "side": 1,
       "message": "This will raise a NotImplementedError (as defined on L111).\n\nThis error is currently hidden, because you are also using the wrong method signature, this method doesn\u0027t take a test_terminate arg.\n\nThere is not space around the kwargs passed to a method.\n    \"terminate_test\u003d True\" is invalid.",
+      "range": {
+        "startLine": 120,
+        "startChar": 12,
+        "endLine": 120,
+        "endChar": 86
+      },
+      "revId": "e4951d611504670bfcd8bf3bb2f15d10993614ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_deaf542a",
+        "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-09-12T10:23:30Z",
+      "side": 1,
+      "message": "This was not finished!",
+      "parentUuid": "5a682502_6a40fb56",
       "range": {
         "startLine": 120,
         "startChar": 12,
