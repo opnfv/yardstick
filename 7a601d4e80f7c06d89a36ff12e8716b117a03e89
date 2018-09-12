@@ -239,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_810e1d33",
+        "filename": "samples/vnf_samples/nsut/dummy/dummy_vnf_topology.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-09-12T13:08:07Z",
+      "side": 1,
+      "message": "As discussed yesterday, we are going with the name \"AgnosticVNF\"",
+      "parentUuid": "5a682502_4feef18c",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "7a601d4e80f7c06d89a36ff12e8716b117a03e89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ef4a5dab",
         "filename": "samples/vnf_samples/nsut/dummy/tc_baremetal_rfc2544_ipv4_64B_trex.yaml",
         "patchSetId": 1
