@@ -125,6 +125,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_7260f135",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1163,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T16:55:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_3e65a845",
+      "range": {
+        "startLine": 1162,
+        "startChar": 11,
+        "endLine": 1163,
+        "endChar": 21
+      },
+      "revId": "9bcd3c6e29f12dc6a67c5340f5a196d31e54aecd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_9e5afc81",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 3
@@ -136,6 +160,30 @@
       "writtenOn": "2018-09-12T09:32:39Z",
       "side": 1,
       "message": "just to clarify why the number here has changed: in previous patch set, the SESSION_PROFILE contained \"reservations\" with 2 more elements, so there were 2 more calls of execute() TCL method.",
+      "range": {
+        "startLine": 1502,
+        "startChar": 25,
+        "endLine": 1502,
+        "endChar": 27
+      },
+      "revId": "9bcd3c6e29f12dc6a67c5340f5a196d31e54aecd",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5265f543",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1502,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T16:55:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_9e5afc81",
       "range": {
         "startLine": 1502,
         "startChar": 25,
