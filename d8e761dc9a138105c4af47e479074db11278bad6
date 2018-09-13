@@ -107,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_72c75113",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_1fa98b7b",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 58
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_d8872e60",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -224,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_52ccd535",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_1feeabb4",
+      "range": {
+        "startLine": 151,
+        "startChar": 8,
+        "endLine": 155,
+        "endChar": 74
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_b8c4fa40",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -259,6 +307,30 @@
       "side": 1,
       "message": "During the design of this ResourceHelper interface, these methods were defined.\nBut, as you mention, this method is not used, as the user does not need this functionality at this time.\nFuture users may include mentioned step, if they prefer so.\n\nAnyway, the security risk would be in knowing the username and password, and not in calling or skipping this call.\n\nYes, this method is meant to be private.",
       "parentUuid": "9a561d44_b8c4fa40",
+      "range": {
+        "startLine": 183,
+        "startChar": 2,
+        "endLine": 183,
+        "endChar": 37
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_92d66dc4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "Please remove this unused method.\n\nI have added a ticket to follow up with whether this needs to be removed.\nhttps://jira.opnfv.org/browse/YARDSTICK-1428",
+      "parentUuid": "9a561d44_5f2f83f6",
       "range": {
         "startLine": 183,
         "startChar": 2,
@@ -318,6 +390,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_f2da41e8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "This still needs to be removed",
+      "parentUuid": "9a561d44_bf369f50",
+      "range": {
+        "startLine": 188,
+        "startChar": 9,
+        "endLine": 188,
+        "endChar": 40
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_78d1c2fa",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -329,6 +425,30 @@
       "writtenOn": "2018-08-31T17:04:46Z",
       "side": 1,
       "message": "It looks like this isn\u0027t used.\n\nIf so, it should be deleted",
+      "range": {
+        "startLine": 193,
+        "startChar": 1,
+        "endLine": 193,
+        "endChar": 40
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_52f33573",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "Please remove this unused method.\n\nI have added a ticket to follow up with whether this needs to be removed.\nhttps://jira.opnfv.org/browse/YARDSTICK-1428",
+      "parentUuid": "9a561d44_78d1c2fa",
       "range": {
         "startLine": 193,
         "startChar": 1,
@@ -376,6 +496,30 @@
       "side": 1,
       "message": "This function does return a list of users. If no specific ones were requested, it returns full list of existing users.\n\nThere cannot be multiple user accounts with same name, by Landslide software design.",
       "parentUuid": "9a561d44_18ed26c4",
+      "range": {
+        "startLine": 201,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 69
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b2e8c97d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_9f391b44",
       "range": {
         "startLine": 201,
         "startChar": 0,
@@ -482,6 +626,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_f201a13a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "That\u0027s why the --debug option is available in Yardstick.\n\nIf you want to see everything, use --debug, otherwise, you\u0027ll see info, warning, errors and exceptions.",
+      "parentUuid": "9a561d44_3fc56f3c",
+      "range": {
+        "startLine": 241,
+        "startChar": 0,
+        "endLine": 241,
+        "endChar": 16
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_f8d31236",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -493,6 +661,30 @@
       "writtenOn": "2018-08-31T15:31:36Z",
       "side": 1,
       "message": "Recommend consolodating these into a single log entry.\n\nRC -\u003e response code.\n\nMight be better formatted like so:\n\nRequest: %s | URL: %s | Status code: %s |Response: %s\n\nthis shows a chronological ordering of the data.",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 47
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d2fe2538",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "This still needs to be updated. \n\nFor someone browsing the logs, or watching the TC execution, it may not be obvious that RC means Response Code",
+      "parentUuid": "9a561d44_f8d31236",
       "range": {
         "startLine": 242,
         "startChar": 0,
@@ -552,6 +744,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_32fcb93e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "Besides using the super-user to create other users, what user account manipulation is being done?\n\nWhy is super-user access required?\nIf there\u0027s some kind of request/requirement for this, maybe we can discuss changing this later, but this would need to be tracked in Jira",
+      "parentUuid": "9a561d44_df21d3fd",
+      "range": {
+        "startLine": 257,
+        "startChar": 3,
+        "endLine": 258,
+        "endChar": 68
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_7d02543f",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -587,6 +803,30 @@
       "side": 1,
       "message": "Attribute \"testStateOrStep\" holds a string value of test run status.\nFor fully emulated environments it makes more sense to use a Search runner, than a Duration runner. Then, when test run status changes to \"COMPLETE\" or \"COMPLETE_ERROR\", test run could terminate not waiting for full time duration to pass.\nYes, the value is only that. Here\u0027s an excerpt from live setup:\n\n testStateOrStep\t\"COMPLETE\"",
       "parentUuid": "9a561d44_7d02543f",
+      "range": {
+        "startLine": 507,
+        "startChar": 8,
+        "endLine": 507,
+        "endChar": 46
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_12f9bd4d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "Unfortunately, the SearchRunner is not currently working. \n\nIs there a risk that this will not work with DurationRunner?",
+      "parentUuid": "9a561d44_1f734b16",
       "range": {
         "startLine": 507,
         "startChar": 8,
@@ -646,6 +886,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_529a1515",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "DONE\n\nFair enough",
+      "parentUuid": "9a561d44_bf5b3f86",
+      "range": {
+        "startLine": 510,
+        "startChar": 8,
+        "endLine": 510,
+        "endChar": 12
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_fd95c4e4",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -681,6 +945,30 @@
       "side": 1,
       "message": "Might change, it that really matters.",
       "parentUuid": "9a561d44_fd95c4e4",
+      "range": {
+        "startLine": 514,
+        "startChar": 31,
+        "endLine": 514,
+        "endChar": 43
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_f28881c8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "It\u0027s a small update, and if you\u0027re updating the patch anyway, you might as well.",
+      "parentUuid": "9a561d44_9f5e3b75",
       "range": {
         "startLine": 514,
         "startChar": 31,
@@ -787,6 +1075,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_b29f2903",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_df4f13bd",
+      "range": {
+        "startLine": 539,
+        "startChar": 12,
+        "endLine": 539,
+        "endChar": 45
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_9df92850",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -869,6 +1181,30 @@
       "side": 1,
       "message": "This works just fine with Duration and Search runners.\nWhat we do here is we add a custom param and send it to dispatcher. There it (same as \"duration\") would be used to visualize test results.\nAnd this \"iterations\" param is Landslide internal one, not one from Iteration runner.",
       "parentUuid": "9a561d44_bdfcec3f",
+      "range": {
+        "startLine": 552,
+        "startChar": 13,
+        "endLine": 552,
+        "endChar": 58
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_92a4ad58",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "Would it be more explicit to call this ls_iteration so?\n\nMinor thing, I can live with it staying as-is",
+      "parentUuid": "9a561d44_1f4a2bac",
       "range": {
         "startLine": 552,
         "startChar": 13,
@@ -1104,6 +1440,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_d28585ae",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "DONE\n\nI came around to that opinion myself during other reviews :)\nThis check helps to flag changes to the return value",
+      "parentUuid": "5a682502_1e3c3193",
+      "range": {
+        "startLine": 414,
+        "startChar": 0,
+        "endLine": 415,
+        "endChar": 37
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_a755ff1e",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
@@ -1210,6 +1570,30 @@
       "side": 1,
       "message": "Probably initially I thought of some other function.\nAll I can make for this one is to delete assertIsNone check.\nOr keep it as is, since if implementation changes, that call would signal that.\nPlease advise.",
       "parentUuid": "9a561d44_9fd59bbb",
+      "range": {
+        "startLine": 598,
+        "startChar": 8,
+        "endLine": 598,
+        "endChar": 25
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_329319fc",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T17:27:48Z",
+      "side": 1,
+      "message": "See above, flagging changes in the implementation is probably good thing.\n\nYou\u0027ve changed my mind about this.",
+      "parentUuid": "5a682502_3e05adc2",
       "range": {
         "startLine": 598,
         "startChar": 8,
