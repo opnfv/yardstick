@@ -46,6 +46,30 @@
       "revId": "545854151a31f8c66cd957de2749ff42076eb829",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_12effdb1",
+        "filename": "tox.ini",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T16:12:24Z",
+      "side": 1,
+      "message": "Tox doesn\u0027t explicitly require these here though. The environments included in envlist are the ones that are run by default when tox is called without any arguments.\n\nI am assuming that the rtd-build jobs are explicitly calling tox -e docs,docs-linkcheck, but I don\u0027t have evidence of this. So this might not be necessary.",
+      "parentUuid": "5a682502_b2fe096a",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 50
+      },
+      "revId": "545854151a31f8c66cd957de2749ff42076eb829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
