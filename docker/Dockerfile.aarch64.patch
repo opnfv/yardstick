@@ -38,7 +38,7 @@ index 71ce6b58..fce7c116 100644
  RUN git clone --depth 1 -b $BRANCH https://gerrit.opnfv.org/gerrit/storperf ${STORPERF_REPO_DIR}
 
 -RUN ansible-playbook -i ${YARDSTICK_REPO_DIR}/ansible/install-inventory.ini -c local -vvv -e INSTALLATION_MODE="container" ${YARDSTICK_REPO_DIR}/ansible/install.yaml
-+RUN sed -i -e '/- configure_gui/d' ${YARDSTICK_REPO_DIR}/ansible/install.yaml && \
++RUN sed -i -e '/configure_gui/d' ${YARDSTICK_REPO_DIR}/ansible/install.yaml && \
 +    ansible-playbook -i ${YARDSTICK_REPO_DIR}/ansible/install-inventory.ini -c local -vvv -e INSTALLATION_MODE="container" ${YARDSTICK_REPO_DIR}/ansible/install.yaml
 
  RUN ${YARDSTICK_REPO_DIR}/docker/supervisor.sh
