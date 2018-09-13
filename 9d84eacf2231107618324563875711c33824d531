@@ -22,6 +22,30 @@
       "revId": "9d84eacf2231107618324563875711c33824d531",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b241e90d",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/compute/test_lmbench.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T14:00:27Z",
+      "side": 1,
+      "message": "Technically, mock is a third party library.\n\nThe order for libraries is:\n    # standard library imports\n    \u003cblank line\u003e\n    # third party imports\u003e\n    \u003cblank line\u003e\n    # project imports\n\nAs pylint doesn\u0027t currently enforce this in the pep8 checks, and mock is included in the first stanza and second stanza in different files, I\u0027d prefer to leave this unchanged here.",
+      "parentUuid": "5a682502_92f82de7",
+      "range": {
+        "startLine": 9,
+        "startChar": 7,
+        "endLine": 9,
+        "endChar": 15
+      },
+      "revId": "9d84eacf2231107618324563875711c33824d531",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
