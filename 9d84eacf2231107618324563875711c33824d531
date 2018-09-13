@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_92f82de7",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/compute/test_lmbench.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-09-13T13:48:54Z",
+      "side": 1,
+      "message": "you can make the library imports in ascending order",
+      "range": {
+        "startLine": 9,
+        "startChar": 7,
+        "endLine": 9,
+        "endChar": 15
+      },
+      "revId": "9d84eacf2231107618324563875711c33824d531",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
