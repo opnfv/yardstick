@@ -263,6 +263,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_b28289fe",
+        "filename": "samples/vnf_samples/nsut/dummy/dummy_vnf_topology.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-09-13T14:58:13Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5a682502_810e1d33",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 16,
+        "endChar": 17
+      },
+      "revId": "7a601d4e80f7c06d89a36ff12e8716b117a03e89",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ef4a5dab",
         "filename": "samples/vnf_samples/nsut/dummy/tc_baremetal_rfc2544_ipv4_64B_trex.yaml",
         "patchSetId": 1
