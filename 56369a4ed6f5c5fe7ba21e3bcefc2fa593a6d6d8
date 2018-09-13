@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_d2690527",
+        "filename": "samples/vnf_samples/nsut/vepc/landslide_tg_topology.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T16:49:54Z",
+      "side": 1,
+      "message": "The python convention for dealing with inline comments is:\n    Inline comments should be separated by at least two spaces from the statement. They should start with a # and a single space.\n\nYou\u0027re using this in the other yaml files, please keep update these for consistency :)\n\n[1] https://legacy.python.org/dev/peps/pep-0008/#inline-comments",
+      "range": {
+        "startLine": 24,
+        "startChar": 66,
+        "endLine": 24,
+        "endChar": 79
+      },
+      "revId": "56369a4ed6f5c5fe7ba21e3bcefc2fa593a6d6d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_32779904",
+        "filename": "samples/vnf_samples/vnf_descriptors/tg_landslide_tpl.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T16:49:54Z",
+      "side": 1,
+      "message": "Are these the Spirent EPC KPIs, or is this TODO still outstanding?",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 73
+      },
+      "revId": "56369a4ed6f5c5fe7ba21e3bcefc2fa593a6d6d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
