@@ -46,6 +46,30 @@
       "revId": "19a1bd101e35c32ca8011b8d25e3aa61627cd738",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_1e0a71d2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 746,
+      "author": {
+        "id": 7075
+      },
+      "writtenOn": "2018-09-13T09:29:50Z",
+      "side": 1,
+      "message": "yes, I know. This is a temporary patch to test this implementation.\n\nFirst I was trying to check all interfaces were up and running, but at this point I don\u0027t have this information.\n\nI need to find a way to know when the links are up. Example of sampleVNF output: http://paste.openstack.org/show/729688/",
+      "parentUuid": "5a682502_de19197b",
+      "range": {
+        "startLine": 746,
+        "startChar": 15,
+        "endLine": 746,
+        "endChar": 28
+      },
+      "revId": "19a1bd101e35c32ca8011b8d25e3aa61627cd738",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
