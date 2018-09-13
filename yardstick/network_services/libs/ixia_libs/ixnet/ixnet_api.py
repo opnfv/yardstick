@@ -225,11 +225,16 @@ class IxNextgen(object):  # pragma: no cover
                  zip(self._cfg['cards'], self._cfg['ports'])]
 
         log.info('Create and assign vports: %s', ports)
-        for port in ports:
-            vport = self.ixnet.add(self.ixnet.getRoot(), 'vport')
+
+        vports = []
+        for _ in range(len(ports)):
+            vports.append(self.ixnet.add(self.ixnet.getRoot(), 'vport'))
             self.ixnet.commit()
-            self.ixnet.execute('assignPorts', [port], [], [vport], True)
-            self.ixnet.commit()
+
+        self.ixnet.execute('assignPorts', ports, [], vports, True)
+        self.ixnet.commit()
+
+        for vport in vports:
             if self.ixnet.getAttribute(vport, '-state') != 'up':
                 log.warning('Port %s is down', vport)
 
