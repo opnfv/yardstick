@@ -9,6 +9,7 @@
 ---
 # Sample benchmark task config file
 # measure storage performance using fio
+# can be used both on Openstack and Kubernetes with "context_type"
 #
 # For this sample just like running the command below on the test vm and
 # getting benchmark info back to the yardstick.
@@ -18,18 +19,24 @@
 #          -direct=1 -group_reporting -numjobs=1 -time_based \
 #          --output-format=json
 
+{% set context_type = context_type or "Heat" %}
+{% set separator = separator or "." %}
+{% if context_type == "Kubernetes" %}
+{% set separator = "-" %}
+{% endif %}
+
 schema: "yardstick:task:0.1"
 
 scenarios:
 -
   type: Fio
   options:
-    filename: /home/ubuntu/data.raw
+    filename: /tmp/data.raw
     bs: 4k
     iodepth: 1
     rw: rw
     ramp_time: 10
-  host: fio.demo
+  host: fio{{ separator }}demo
   runner:
     type: Duration
     duration: 60
@@ -44,7 +51,25 @@ scenarios:
     action: monitor
 
 context:
+  type: {{ context_type }}
   name: demo
+  {% if context_type == "Kubernetes" %}
+
+  servers:
+    fio:
+      image: opnfv/yardstick-image-k8s
+      resources:
+        limits:
+          cpu: 1
+          memory: 1Gi
+        requests:
+          cpu: 1
+          memory: 1Gi
+      command: /bin/bash
+      args: ['-c', 'mkdir /root/.ssh; cp /tmp/.ssh/authorized_keys ~/.ssh/.;
+                    chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; service ssh restart;
+                    while true ; do sleep 10000; done']
+  {% else %}
   image: yardstick-image
   flavor: yardstick-flavor
   user: ubuntu
@@ -54,3 +79,4 @@ context:
   networks:
     test:
       cidr: "10.0.1.0/24"
+  {% endif %}
