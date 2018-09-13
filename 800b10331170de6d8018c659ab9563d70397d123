@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_5204d514",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T13:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_aaca136c",
+      "range": {
+        "startLine": 575,
+        "startChar": 22,
+        "endLine": 575,
+        "endChar": 26
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_8a82b7fe",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 4
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_72ff5102",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T13:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_8a82b7fe",
+      "range": {
+        "startLine": 577,
+        "startChar": 27,
+        "endLine": 577,
+        "endChar": 33
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_2aa603c2",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 4
@@ -82,6 +130,30 @@
       "writtenOn": "2018-09-11T15:40:47Z",
       "side": 1,
       "message": "nit: followings",
+      "range": {
+        "startLine": 581,
+        "startChar": 29,
+        "endLine": 581,
+        "endChar": 38
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_4a041f7e",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T13:36:32Z",
+      "side": 1,
+      "message": "\"following\" is correct",
+      "parentUuid": "5a682502_2aa603c2",
       "range": {
         "startLine": 581,
         "startChar": 29,
@@ -141,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_92730db1",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T13:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_cfda01e9",
+      "range": {
+        "startLine": 590,
+        "startChar": 3,
+        "endLine": 591,
+        "endChar": 93
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_7f4b6787",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 4
@@ -176,6 +272,30 @@
       "side": 1,
       "message": "In the next patch, I can include a link to the OPNFV contributions guidelines [1] here. They provide some OPNFV specific guidelines, including the requirements for the commit message (which needs a JIRA reference and a Signed-off-by line).\n\n[1] https://wiki.opnfv.org/display/DEV/Contribution+Guidelines",
       "parentUuid": "9a561d44_7f4b6787",
+      "range": {
+        "startLine": 592,
+        "startChar": 0,
+        "endLine": 592,
+        "endChar": 74
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_321dd967",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T13:36:32Z",
+      "side": 1,
+      "message": "The OPNFV guidelines include reference to the OpenStack guidelines, so I will remove that from here, and just reference the OPNFV ones",
+      "parentUuid": "9a561d44_02cf7480",
       "range": {
         "startLine": 592,
         "startChar": 0,
@@ -259,6 +379,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_f267e1e8",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T13:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_afd7c5be",
+      "range": {
+        "startLine": 601,
+        "startChar": 0,
+        "endLine": 606,
+        "endChar": 58
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_8aabd788",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 4
@@ -329,6 +473,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_3262f9d8",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T13:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_c2273c63",
+      "range": {
+        "startLine": 616,
+        "startChar": 0,
+        "endLine": 616,
+        "endChar": 39
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ffb0178d",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 4
@@ -376,6 +544,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_729bd1c9",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T13:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_4204ccbf",
+      "range": {
+        "startLine": 621,
+        "startChar": 0,
+        "endLine": 621,
+        "endChar": 56
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ea9b6b70",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 4
@@ -387,6 +579,30 @@
       "writtenOn": "2018-09-11T15:40:47Z",
       "side": 1,
       "message": "it doesn\u0027t look right.Instead \u0027This can also be achieved by by deleting the virtually environments manually  before running ``tox``\u0027",
+      "range": {
+        "startLine": 639,
+        "startChar": 26,
+        "endLine": 639,
+        "endChar": 75
+      },
+      "revId": "800b10331170de6d8018c659ab9563d70397d123",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_52a055f4",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-13T13:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_ea9b6b70",
       "range": {
         "startLine": 639,
         "startChar": 26,
