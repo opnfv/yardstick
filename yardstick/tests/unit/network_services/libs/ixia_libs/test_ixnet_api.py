@@ -346,8 +346,8 @@ class TestIxNextgen(unittest.TestCase):
         self.ixnet_gen._cfg = config
 
         self.assertIsNone(self.ixnet_gen.assign_ports())
-        self.assertEqual(self.ixnet.execute.call_count, 2)
-        self.assertEqual(self.ixnet.commit.call_count, 4)
+        self.assertEqual(self.ixnet.execute.call_count, 1)
+        self.assertEqual(self.ixnet.commit.call_count, 3)
         self.assertEqual(self.ixnet.getAttribute.call_count, 2)
 
     @mock.patch.object(ixnet_api, 'log')
