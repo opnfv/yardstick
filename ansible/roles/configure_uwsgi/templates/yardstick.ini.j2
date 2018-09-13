@@ -12,7 +12,7 @@ chmod-socket = 666
 callable = app_wrapper
 enable-threads = true
 close-on-exec = 1
-logto = {{ log_dir }}/uwsgi.log
+{{ uwsgi_log }} = {{ log_dir }}/uwsgi.log
 socket = {{ socket_file }}
 {# If virtual environment, we need to add:
    virtualenv = <virtual_env> #}

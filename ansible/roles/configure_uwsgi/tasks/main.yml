@@ -39,6 +39,14 @@
     owner: root
     mode: 0644
 
+- set_fact:
+    uwsgi_log: "logto"
+  when: installation_mode == inst_mode_container
+
+- set_fact:
+    uwsgi_log: "daemonize"
+  when: installation_mode != inst_mode_container
+
 - name: Create the UWSGI config file
   template:
     src: yardstick.ini.j2
