@@ -45,7 +45,7 @@ VM_TEMPLATE = """
   <vcpu cpuset='{cpuset}'>{vcpu}</vcpu>
  {cputune}
   <os>
-    <type arch="x86_64" machine="pc-i440fx-xenial">hvm</type>
+    <type arch="x86_64" machine="pc">hvm</type>
     <boot dev="hd" />
   </os>
   <features>
