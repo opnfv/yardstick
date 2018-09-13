@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_17e52fa8",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-09-13T11:59:48Z",
+      "side": 1,
+      "message": "any specific reason why we are doing \"commit\" twice in this function?",
+      "range": {
+        "startLine": 639,
+        "startChar": 7,
+        "endLine": 639,
+        "endChar": 27
+      },
+      "revId": "dcc0b3ba3769579b4aba853f43fc91877a6f3827",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
