@@ -22,6 +22,30 @@
       "revId": "dcc0b3ba3769579b4aba853f43fc91877a6f3827",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_f754f322",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 6903
+      },
+      "writtenOn": "2018-09-13T13:05:24Z",
+      "side": 1,
+      "message": "Need to configure vlan count first (which will actually create these vlans) to be able to configure these vlans.",
+      "parentUuid": "5a682502_17e52fa8",
+      "range": {
+        "startLine": 639,
+        "startChar": 7,
+        "endLine": 639,
+        "endChar": 27
+      },
+      "revId": "dcc0b3ba3769579b4aba853f43fc91877a6f3827",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
