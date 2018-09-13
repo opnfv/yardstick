@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_b2260967",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_pktgen_dpdk_throughput.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-09-13T14:24:01Z",
+      "side": 1,
+      "message": "The description of the commit is saying the missing constant has been added and UT fixed. Why new TCs have been implemented in scope of this commit ? Please split it.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 45
+      },
+      "revId": "9b1b4b104a56e2286c506238f1347d6a6f0daaa4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
