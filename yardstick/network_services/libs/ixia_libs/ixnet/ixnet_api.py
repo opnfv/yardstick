@@ -372,8 +372,8 @@ class IxNextgen(object):  # pragma: no cover
                 tp_base.TrafficProfileConfig.RATE_FPS else 'percentLineRate')
             weighted_range_pairs = self._parse_framesize(
                 traffic_param['outer_l2']['framesize'])
-            srcmac = str(traffic_param.get('srcmac', '00:00:00:00:00:01'))
-            dstmac = str(traffic_param.get('dstmac', '00:00:00:00:00:02'))
+            srcmac = str(traffic_param['outer_l2'].get('srcmac', '00:00:00:00:00:01'))
+            dstmac = str(traffic_param['outer_l2'].get('dstmac', '00:00:00:00:00:02'))
 
             if traffic_param['outer_l2']['QinQ']:
                 s_vlan = traffic_param['outer_l2']['QinQ']['S-VLAN']
