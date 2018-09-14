@@ -1,0 +1,164 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+nodes:
+-
+    name: "tg__0"
+    role: tg__0
+    tas_manager:
+        ip: 192.168.122.100
+        super_user: sms
+        super_user_password: a1b2c3d4
+        cfguser_password: cfguser
+        test_user: demoaff
+        test_user_password: demo123
+        proto: http
+        license: 49
+    interfaces:  # dummy config
+        xe0:
+            vpci: "0000:05:00.0"
+            local_mac: "68:05:ca:30:3d:50"
+            driver: "i40e"
+            local_ip: "152.16.100.19"
+            netmask: "255.255.255.0"
+        xe1:
+            vpci: "0000:05:00.1"
+            local_mac: "68:05:ca:30:3d:51"
+            driver: "i40e"
+            local_ip: "152.16.40.19"
+            netmask: "255.255.255.0"
+    config:
+    - test_server:
+        name: TestServer_1
+        role: SGW_Node
+        ip: 192.168.122.101
+        # override port-subnet and static route reservation information for this
+        # test server within the test session.
+        thread_model: Fireball
+        phySubnets:
+        - base: 10.42.32.100
+          mask: "/24"
+          name: &ts1_port1 eth5
+          numIps: 20
+        - base: 10.42.33.100
+          mask: "/24"
+          name: &ts1_port2 eth6
+          numIps: 20
+      suts:
+      - name: SGW-C TestNode
+        role: SgwControlAddr
+        managementIp: 12.0.1.1
+        phy: *ts1_port1
+        ip: 10.42.32.100
+        # nextHop: ''
+      - name: SGW-U TestNode
+        role: SgwUserAddr
+        managementIp: 12.0.1.2
+        phy: *ts1_port1
+        ip: 10.42.32.101
+        # nextHop: ''
+      - name: PGW-C SUT
+        role: PgwSut
+        managementIp: 12.0.5.2
+        phy: *ts1_port1
+        ip: 10.42.32.108
+        # nextHop: ''
+
+    - test_server:
+        name: TestServer_1
+        role: PGW_Node
+        ip: 192.168.122.101
+        # override port-subnet and static route reservation information for this
+        # test server within the test session.
+      suts:
+      - name: PDN GW TestNode
+        role: PdnGwAddr
+        managementIp: 12.0.5.1
+        phy: *ts1_port1
+        ip: 10.42.32.103
+        nextHop: ''
+      - name: AGW TestNode
+        role: AgwNodeAddr
+        managementIp: 12.0.7.2
+        phy: *ts1_port1
+        ip: 10.42.32.107
+        nextHop: ''
+      - name: PCRF SUT
+        role: TyCcClnSutPrimarySrv
+        managementIp: 12.0.7.1
+        ip: 10.42.32.95
+
+    - test_server:
+        name: TestServer_2
+        role: SGW_Nodal
+        ip: 192.168.122.102
+        # override port-subnet and static route reservation information for this
+        # test server within the test session.
+        thread_model: Fireball
+        phySubnets:
+        - base: 10.42.32.1
+          mask: "/24"
+          name: &ts2_port1 eth5
+          numIps: 100
+        - base: 10.42.33.1
+          mask: "/24"
+          name: &ts2_port2 eth6
+          numIps: 50
+      suts:
+      - name: eNodeB TestNode
+        role: EnbUserAddr
+        managementIp: 12.0.2.1
+        phy: *ts2_port1
+        ip: 10.42.32.2
+        nextHop: ''
+      - name: MME TestNode
+        role: MmeControlAddr
+        managementIp: 12.0.3.1
+        phy: *ts2_port1
+        ip: 10.42.32.1
+        nextHop: ''
+      - name: NetHost TestNode
+        role: NetworkHostAddrLocal
+        managementIp: 12.0.4.1
+        phy: *ts2_port2
+        ip: 10.42.33.1
+        nextHop: ''
+      - name: PGW-C SUT
+        role: PgwV4Sut
+        managementIp: 12.0.5.1
+        ip: 10.42.32.103
+      - name: SGW-C SUT
+        role: SgwSut
+        managementIp: 12.0.1.1
+        ip: 10.42.32.100
+      - name: SGW-U SUT
+        role: SgwUserSut
+        managementIp: 12.0.1.2
+        ip: 10.42.32.101
+
+    - test_server:
+        name: TestServer_2
+        role: PCRF_Node
+        ip: 192.168.122.102
+        # override port-subnet and static route reservation information for this
+        # test server within the test session.
+      suts:
+      - name: AgwSrvNode TestNode
+        role: AgwSrvNode
+        managementIp: 12.0.7.1
+        phy: *ts2_port1
+        ip: 10.42.32.95
+        nextHop: ''
+
