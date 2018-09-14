@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_8d400c58",
+        "filename": "samples/vnf_samples/nsut/vepc/tc_epc_saegw_tput_relocation_landslide.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-14T12:11:45Z",
+      "side": 1,
+      "message": "It should be done here, or else we have the Runner being stealthily changed.\n\nIf Duration is the way to go, I don\u0027t mind, but it should be fixed here, so it\u0027s correct in the first instance.",
+      "parentUuid": "5a682502_adb6a888",
+      "range": {
+        "startLine": 52,
+        "startChar": 10,
+        "endLine": 52,
+        "endChar": 16
+      },
+      "revId": "b8068804600a271335850bf154349a938a0ac260",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_d222a500",
         "filename": "samples/vnf_samples/traffic_profiles/landslide/landslide_session_saegw_relocation.yaml",
         "patchSetId": 5
@@ -60,6 +84,30 @@
       "writtenOn": "2018-09-13T16:36:09Z",
       "side": 1,
       "message": "we should make it a test parameter in the future. I will create a ticket for that.",
+      "range": {
+        "startLine": 18,
+        "startChar": 10,
+        "endLine": 18,
+        "endChar": 12
+      },
+      "revId": "b8068804600a271335850bf154349a938a0ac260",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ad3b48ea",
+        "filename": "samples/vnf_samples/traffic_profiles/landslide/landslide_session_saegw_relocation.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-14T12:11:45Z",
+      "side": 1,
+      "message": "I was wondering where that ticket came from. :P\n\nhttps://jira.opnfv.org/browse/YARDSTICK-1427",
+      "parentUuid": "5a682502_d222a500",
       "range": {
         "startLine": 18,
         "startChar": 10,
