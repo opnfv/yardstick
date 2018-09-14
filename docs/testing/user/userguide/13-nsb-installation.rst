@@ -168,6 +168,10 @@ It will also automatically download all the packages needed for NSB Testing
 setup. Refer chapter :doc:`04-installation` for more on docker
 **Install Yardstick using Docker (recommended)**
 
+Another way to execute an installation for a Bare-Metal or a Standalone context
+is to use ansible script ``install.yaml``. Refer chapter :doc:`04-installation`
+for more details.
+
 System Topology:
 ================
 
