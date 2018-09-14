@@ -444,6 +444,115 @@ These configuration files can be found in the ``samples`` directory.
 Default location for the output is ``/tmp/yardstick.out``.
 
 
+Automatic installation of Yardstick using ansible
+-------------------------------------------------
+
+Automatic installation can be used as an alternative to the manual.
+Yardstick can be installed on the bare metal and to the container. Yardstick
+container can be either pulled or built.
+
+Bare metal installation
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Use ansible script ``install.yaml`` to install Yardstick on Ubuntu server:
+
+.. code-block:: console
+
+    ansible-playbook -i install-inventory.ini install.yaml \
+    -e YARDSTICK_DIR=<path to Yardstick folder>
+
+.. note:: By default ``INSTALLATION_MODE`` is ``baremetal``.
+
+.. note:: By default Ubuntu 16.04 is chosen (xenial). It can be changed to
+   Ubuntu 18.04 (bionic) by passing ``-e OS_RELEASE=bionic`` parameter.
+
+.. note:: To install Yardstick in virtual environment pass parameter
+   ``-e VIRTUAL_ENVIRONMENT=True``.
+
+To build Yardstick NSB image pass ``IMG_PROPERTY=nsb`` as input parameter:
+
+.. code-block:: console
+
+    ansible-playbook -i install-inventory.ini install.yaml \
+    -e IMAGE_PROPERTY=nsb \
+    -e YARDSTICK_DIR=<path to Yardstick folder>
+
+.. note:: In this ``INSTALLATION_MODE`` mode either Yardstick image or SampleVNF
+   images will be built. Image type is defined by parameter ``IMAGE_PROPERTY``.
+   By default Yardstick image will be built.
+
+Container installation
+^^^^^^^^^^^^^^^^^^^^^^
+
+Use ansible script ``install.yaml`` to pull or build Yardstick
+container. To pull Yardstick image and start container run:
+
+.. code-block:: console
+
+    ansible-playbook -i install-inventory.ini install.yaml \
+    -e YARDSTICK_DIR=<path to Yardstick folder> \
+    -e INSTALLATION_MODE=container_pull
+
+.. note:: In this ``INSTALLATION_MODE`` mode either Yardstick image or SampleVNF
+   images will be built. Image type is defined by variable ``IMG_PROPERTY`` in
+   file ``ansible/group_vars/all.yml``. By default Yardstick image will be
+   built.
+
+.. note:: Open question: How to know if Docker image is built on Ubuntu 16.04 and 18.04?
+   Do we need separate tag to be used?
+
+To build Yardstick image run:
+
+.. code-block:: console
+
+    ansible-playbook -i install-inventory.ini install.yaml \
+    -e YARDSTICK_DIR=<path to Yardstick folder> \
+    -e INSTALLATION_MODE=container
+
+.. note:: In this ``INSTALLATION_MODE`` mode neither Yardstick image nor SampleVNF
+   image will be built.
+
+.. note:: By default Ubuntu 16.04 is chosen (xenial). It can be changed to
+   Ubuntu 18.04 (bionic) by passing ``-e OS_RELEASE=bionic`` parameter.
+
+Parameters for ``install.yaml``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Description of the parameters used with ``install.yaml`` script
+
+  +-------------------------+-------------------------------------------------+
+  | Parameters              | Detail                                          |
+  +=========================+=================================================+
+  | -i install-inventory.ini| Installs package dependency to remote servers   |
+  |                         | Mandatory parameter                             |
+  |                         | By default no remote servers are provided       |
+  |                         | Needed packages will be installed on localhost  |
+  +-------------------------+-------------------------------------------------+
+  | -e YARDSTICK_DIR        | Path to Yardstick folder                        |
+  |                         | Mandatory parameter                             |
+  +-------------------------+-------------------------------------------------+
+  | -e INSTALLATION_MODE    | baremetal: Yardstick is installed to the bare   |
+  |                         | metal                                           |
+  |                         | Default parameter                               |
+  |                         +-------------------------------------------------+
+  |                         | container: Yardstick is installed in container  |
+  |                         | Container is built from Dockerfile              |
+  |                         +-------------------------------------------------+
+  |                         | container_pull: Yardstick is installed in       |
+  |                         | container                                       |
+  |                         | Container is pulled from docker hub             |
+  +-------------------------+-------------------------------------------------+
+  | -e OS_RELEASE           | xenial or bionic: Ubuntu version to be used     |
+  |                         | Default is Ubuntu 16.04 (xenial)                |
+  +-------------------------+-------------------------------------------------+
+  | -e IMAGE_PROPERTY       | normal or nsb: Type of the VM image to be built |
+  |                         | Default image is Yardstick                      |
+  +-------------------------+-------------------------------------------------+
+  | -e VIRTUAL_ENVIRONMENT  | False or True: Whether install in virtualenv    |
+  |                         | Default is False                                |
+  +-------------------------+-------------------------------------------------+
+
+
 Deploy InfluxDB and Grafana using Docker
 ----------------------------------------
 
