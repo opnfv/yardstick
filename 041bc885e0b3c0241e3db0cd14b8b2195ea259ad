@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_6dbc906d",
+        "filename": "ansible/group_vars/all.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-09-14T11:04:58Z",
+      "side": 1,
+      "message": "I\u0027ll update to bionic.",
+      "parentUuid": "5a682502_ad5a2881",
+      "range": {
+        "startLine": 6,
+        "startChar": 36,
+        "endLine": 6,
+        "endChar": 42
+      },
+      "revId": "041bc885e0b3c0241e3db0cd14b8b2195ea259ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_6dc77013",
         "filename": "ansible/roles/download_drivers/defaults/main.yml",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_ade8687d",
+        "filename": "ansible/roles/download_drivers/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-09-14T11:04:58Z",
+      "side": 1,
+      "message": "Isn\u0027t it better to use latest supported version of the driver?",
+      "parentUuid": "5a682502_6dc77013",
+      "range": {
+        "startLine": 15,
+        "startChar": 16,
+        "endLine": 15,
+        "endChar": 24
+      },
+      "revId": "041bc885e0b3c0241e3db0cd14b8b2195ea259ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_add188cf",
         "filename": "ansible/roles/install_yardstick/tasks/main.yml",
         "patchSetId": 2
@@ -59,6 +107,24 @@
       "writtenOn": "2018-09-14T09:42:00Z",
       "side": 1,
       "message": "nit: unrelated",
+      "revId": "041bc885e0b3c0241e3db0cd14b8b2195ea259ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_6dee508d",
+        "filename": "ansible/roles/install_yardstick/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-09-14T11:04:58Z",
+      "side": 1,
+      "message": "This is out of scope of this change.",
+      "parentUuid": "5a682502_add188cf",
       "revId": "041bc885e0b3c0241e3db0cd14b8b2195ea259ad",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
