@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_ed7b8027",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-09-14T07:54:32Z",
+      "side": 1,
+      "message": "As a suggestion, can we rename this chapter to UT(unit tests) just to not confuse the user with tests case definitions?",
+      "range": {
+        "startLine": 650,
+        "startChar": 8,
+        "endLine": 650,
+        "endChar": 13
+      },
+      "revId": "f7df2c05053281c8dbb56ffe60e3548896f5da4c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
