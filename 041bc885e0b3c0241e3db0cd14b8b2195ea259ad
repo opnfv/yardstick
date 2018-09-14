@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_ad5a2881",
+        "filename": "ansible/group_vars/all.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-14T09:42:00Z",
+      "side": 1,
+      "message": "This keeps the same behaviour by default, and usually that\u0027s the way we go for major upgrades.\n\nIMHO, it would make more sense in this case to make the default action be to install the current supported version.\n\nThen users have to make a deliberate decision to use the older (less supported) version.",
+      "range": {
+        "startLine": 6,
+        "startChar": 36,
+        "endLine": 6,
+        "endChar": 42
+      },
+      "revId": "041bc885e0b3c0241e3db0cd14b8b2195ea259ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_6dc77013",
+        "filename": "ansible/roles/download_drivers/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-14T09:42:00Z",
+      "side": 1,
+      "message": "Is this change related to supporting Ubuntu 18.04?\n\nIf it is, you\u0027re changing this default version of the i40e driver, and not changing the default version for ubuntu.\nThis means that even if the user keeps ubuntu 16.04, the resulting installation is not consistent with previous installations.",
+      "range": {
+        "startLine": 15,
+        "startChar": 16,
+        "endLine": 15,
+        "endChar": 24
+      },
+      "revId": "041bc885e0b3c0241e3db0cd14b8b2195ea259ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_add188cf",
+        "filename": "ansible/roles/install_yardstick/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-14T09:42:00Z",
+      "side": 1,
+      "message": "nit: unrelated",
+      "revId": "041bc885e0b3c0241e3db0cd14b8b2195ea259ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
