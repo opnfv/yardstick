@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_ad9fc802",
+        "filename": "samples/vnf_samples/nsut/vepc/landslide_tg_topology.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-14T10:18:15Z",
+      "side": 1,
+      "message": "In YAML lang the comments style is not so strict.\nSometimes it is useful to put more spaces to make it more visible.\nI mean, here the layout and visibility matters more than strict following some rule.",
+      "parentUuid": "5a682502_d2690527",
+      "range": {
+        "startLine": 24,
+        "startChar": 66,
+        "endLine": 24,
+        "endChar": 79
+      },
+      "revId": "56369a4ed6f5c5fe7ba21e3bcefc2fa593a6d6d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_32779904",
         "filename": "samples/vnf_samples/vnf_descriptors/tg_landslide_tpl.yaml",
         "patchSetId": 1
@@ -41,6 +65,53 @@
         "startChar": 18,
         "endLine": 37,
         "endChar": 73
+      },
+      "revId": "56369a4ed6f5c5fe7ba21e3bcefc2fa593a6d6d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_2dfc583e",
+        "filename": "samples/vnf_samples/vnf_descriptors/tg_landslide_tpl.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-14T10:18:15Z",
+      "side": 1,
+      "message": "Below KPIs do not look like Landslide ones. Suggest to replace them with empty list and remove comment.\nAnyway, support for this is not implemented, initially the goal was to dispatch all LS KPIs.",
+      "parentUuid": "5a682502_32779904",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 73
+      },
+      "revId": "56369a4ed6f5c5fe7ba21e3bcefc2fa593a6d6d8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_0df99c4d",
+        "filename": "samples/vnf_samples/vnf_descriptors/vepc_vnf.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-14T10:18:15Z",
+      "side": 1,
+      "message": "please note here I already removed the KPIs list.",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 19
       },
       "revId": "56369a4ed6f5c5fe7ba21e3bcefc2fa593a6d6d8",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
