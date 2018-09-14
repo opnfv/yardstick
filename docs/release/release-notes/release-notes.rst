@@ -149,9 +149,9 @@ Deliverables
 Documents
 ---------
 
- - User Guide: http://docs.opnfv.org/en/stable-fraser/submodules/yardstick/docs/testing/user/userguide/index.html
+ - User Guide: :ref:`<yardstick-userguide>`
 
- - Developer Guide: http://docs.opnfv.org/en/stable-fraser/submodules/yardstick/docs/testing/developer/devguide/index.html
+ - Developer Guide: :ref:`<yardstick-devguide>`
 
 
 Software Deliverables

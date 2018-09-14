@@ -256,7 +256,7 @@ to the VNF.
 
 An example scale-up Heat testcase is:
 
-.. literalinclude:: /submodules/yardstick/samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_scale-up.yaml
+.. literalinclude:: /samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_scale-up.yaml
    :language: yaml
 
 This testcase template requires specifying the number of VCPUs, Memory and Ports.
@@ -271,7 +271,7 @@ In order to support ports scale-up, traffic and topology templates need to be us
 
 A example topology template is:
 
-.. literalinclude:: /submodules/yardstick/samples/vnf_samples/nsut/vfw/vfw-tg-topology-scale-up.yaml
+.. literalinclude:: /samples/vnf_samples/nsut/vfw/vfw-tg-topology-scale-up.yaml
    :language: yaml
 
 This template has ``vports`` as an argument. To pass this argument it needs to
@@ -293,7 +293,7 @@ For example:
 
 A example traffic profile template is:
 
-.. literalinclude:: /submodules/yardstick/samples/vnf_samples/traffic_profiles/ipv4_throughput-scale-up.yaml
+.. literalinclude:: /samples/vnf_samples/traffic_profiles/ipv4_throughput-scale-up.yaml
    :language: yaml
 
 There is an option to provide predefined config for SampleVNFs. Path to config
@@ -457,5 +457,5 @@ Sample test case file
   4. Modify ``networks/phy_port`` accordingly to the baremetal setup.
   5. Run test from:
 
-.. literalinclude:: /submodules/yardstick/samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml
+.. literalinclude:: /samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml
    :language: yaml
