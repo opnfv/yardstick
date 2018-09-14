@@ -1,0 +1,67 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: yardstick:task:0.1
+description: >
+    Downlink Data Notification from Network to UE that are in Idle state.
+
+scenarios:
+- type: NSPerf
+  traffic_profile: "../../traffic_profiles/landslide/landslide_dmf_udp.yaml"
+  session_profile: "../../traffic_profiles/landslide/landslide_session_network_service_request.yaml"
+  topology: "vepc_vnf_topology_landslide.yaml"
+  nodes:
+    tg__0: tg__0.traffic_gen
+    vnf__0: vnf__0.vnf_epc
+  options:
+    dmf:
+      transactionRate: 0.1
+      packetSize: 512
+      burstCount: 1 # Applies only to Basic UDP DMF, DataProtocol==udp
+    test_cases:  # test case parameters to apply on session profile
+    - type: SGW_Node  # test type from test session profile
+      AssociatedPhys: 'eth6'
+      BearerAddrPool: 2001::1
+      BearerV4AddrPool: 1.0.0.1
+      Sessions: '20000'
+    - type: SGW_Nodal  # test type from test session profile
+      StartRate: '1000.0'
+      DisconnectRate: '1000.0'
+      Sessions: '20000'
+
+      # Configurations:
+      # 1. Specify continuous periodical events: UE goes to Idle state -> DL Data Notification
+      # E.g. Set Gtp2IdleEntryTime = 5 - UE goes to idle state after 5 seconds
+      #      Set transactionRate = 0.1 - Send traffic periodically every 10 seconds
+      # 2. Set traffic run start delay
+      # E.g. Set Gtp2IdleEntryTime = 5 - UE goes to idle state after 5 seconds
+      #      Set TrafficStartDelay with value greater that Gtp2IdleEntryTime
+      Gtp2IdleEntryTime: '5' # Idle Entry Time (s)
+
+      # Downlink Data Notification settings
+      TrafficStartDelay: 1000 # Data Start Delay (ms)
+
+  runner:
+    type: Duration
+    duration: 300
+    interval: 5
+
+contexts:
+- name: traffic_gen
+  type: Node
+  file: /etc/yardstick/nodes/pod_landslide.yaml
+- name: vnf_epc
+  type: Node
+  file: /etc/yardstick/nodes/pod_vepc_sut.yaml
