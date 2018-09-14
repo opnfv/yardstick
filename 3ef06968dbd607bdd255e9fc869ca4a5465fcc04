@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a682502_6d8f7024",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-09-14T08:00:16Z",
+      "side": 1,
+      "message": "Please one line between sections same as in all places.",
+      "revId": "3ef06968dbd607bdd255e9fc869ca4a5465fcc04",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_12525ddd",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 5
