@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "5a682502_6d31300b",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-14T11:48:51Z",
+      "side": 1,
+      "message": "typo: docker",
+      "range": {
+        "startLine": 152,
+        "startChar": 29,
+        "endLine": 152,
+        "endChar": 34
+      },
+      "revId": "041bc885e0b3c0241e3db0cd14b8b2195ea259ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_6dc77013",
         "filename": "ansible/roles/download_drivers/defaults/main.yml",
         "patchSetId": 2
@@ -96,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_2d58d855",
+        "filename": "ansible/roles/download_drivers/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-14T11:48:51Z",
+      "side": 1,
+      "message": "IMHO, this is not strictly related to the Ubuntu version update, and should be done separately, as it would break the \"one logical change per commit\".\nIf the driver version is going to be updated for both supported OS versions, then it looks to me like it\u0027s something that can be done separately.\n\nIf it was required for bionic, then it could be included here, but this affects both versions of ubuntu and changes the xenial installation. \n\nIf the reason for this is solely to update to the latest version of the driver, and it\u0027s independent of the ubuntu version change, then it should go in a different change, which explicitly updates the driver for both versions.",
+      "parentUuid": "5a682502_ade8687d",
+      "range": {
+        "startLine": 15,
+        "startChar": 16,
+        "endLine": 15,
+        "endChar": 24
+      },
+      "revId": "041bc885e0b3c0241e3db0cd14b8b2195ea259ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_add188cf",
         "filename": "ansible/roles/install_yardstick/tasks/main.yml",
         "patchSetId": 2
@@ -125,6 +172,24 @@
       "side": 1,
       "message": "This is out of scope of this change.",
       "parentUuid": "5a682502_add188cf",
+      "revId": "041bc885e0b3c0241e3db0cd14b8b2195ea259ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_0d551c1d",
+        "filename": "ansible/roles/install_yardstick/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-14T11:48:51Z",
+      "side": 1,
+      "message": "Aplogies, the comment is unclear.\nAre you saying that this comment is out of scope? Or agreeing that the line shouldn\u0027t have been added?\n\nTo be clear, I am asking you to remove this blank line with was added unnecessarily (and probably unintentionally) by this change.",
+      "parentUuid": "5a682502_6dee508d",
       "revId": "041bc885e0b3c0241e3db0cd14b8b2195ea259ad",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
