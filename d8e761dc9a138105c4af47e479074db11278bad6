@@ -414,6 +414,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_ed88a0c8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-14T10:38:19Z",
+      "side": 1,
+      "message": "If we decide to remove the whole function, possible there\u0027s no value to remove the piece of docstring now.\nBTW, not to forget to remove related UTs.",
+      "parentUuid": "5a682502_f2da41e8",
+      "range": {
+        "startLine": 188,
+        "startChar": 9,
+        "endLine": 188,
+        "endChar": 40
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_78d1c2fa",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -697,6 +721,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_cd85e4ae",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-14T10:38:19Z",
+      "side": 1,
+      "message": "RC is widely used as a \"return code\" abbreviation. Here it covers HTTP status code (as per RFC2616), widely called a \"response code\" or \"return code\".",
+      "parentUuid": "5a682502_d2fe2538",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 47
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_98d8161f",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -768,6 +816,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_2d93b8fb",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-14T10:38:19Z",
+      "side": 1,
+      "message": "Super-user is the only one with privilege to create/modify other user accounts.\nThus we use it to create user-defined test-user account.\nThen we switch to test-user and do the stuff using it only.\n\nBesides these two, in some cases we need \"cfguser\" access, which is a separate kind of predefined Landslide account, responsible for test servers related operations (create/modify/delete etc).",
+      "parentUuid": "5a682502_32fcb93e",
+      "range": {
+        "startLine": 257,
+        "startChar": 3,
+        "endLine": 258,
+        "endChar": 68
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_7d02543f",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -827,6 +899,30 @@
       "side": 1,
       "message": "Unfortunately, the SearchRunner is not currently working. \n\nIs there a risk that this will not work with DurationRunner?",
       "parentUuid": "9a561d44_1f734b16",
+      "range": {
+        "startLine": 507,
+        "startChar": 8,
+        "endLine": 507,
+        "endChar": 46
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_0d907ceb",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-14T10:38:19Z",
+      "side": 1,
+      "message": "No risk. It is compatible with Duration runner. Actually flagging to runner happens in difference piece of code, this just does poll reads of current status of running test session.",
+      "parentUuid": "5a682502_12f9bd4d",
       "range": {
         "startLine": 507,
         "startChar": 8,
