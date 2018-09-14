@@ -168,6 +168,22 @@ It will also automatically download all the packages needed for NSB Testing
 setup. Refer chapter :doc:`04-installation` for more on docker
 **Install Yardstick using Docker (recommended)**
 
+Another way to execute an installation for a Bare-Metal or a Standalone context
+is to use ansible script install.yaml:
+
+.. code-block:: console
+
+  ansible-playbook -i install-inventory.ini install.yaml
+
+.. note:: By default Ubuntu 18.04 version is chosen (bionic). It can be changed
+  to Ubuntu 16.04 by passing ``-e OS_RELEASE=xenial`` as an argument. There is a
+  difference in package installation between bionic and xenial.
+
+.. note:: In this INSTALLATION_MODE mode either Yardstick image or SampleVNF images
+  will be built. Image type is defined by variable ``IMG_PROPERTY`` in  file
+  ``ansible/group_vars/all.yml``. By default Yardstick image will be built.
+
+
 System Topology:
 ================
 
