@@ -1,0 +1,544 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_c3d93585",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "contributions",
+      "range": {
+        "startLine": 10,
+        "startChar": 22,
+        "endLine": 10,
+        "endChar": 34
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_43a6c5c2",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "L431-L450 rehashed, though with more details, by new L599-L647\nShould we keep both? Point to each other? Merge?",
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_433c0594",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "Do you mean using a single \"git review --yes\" after a set of sequential \"git commit\"?\nI am asking because it\u0027s seldom explained how to submit such a chain of patches...",
+      "range": {
+        "startLine": 576,
+        "startChar": 68,
+        "endLine": 576,
+        "endChar": 76
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_03e4cd39",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "OPNFV Coding Guidelines\nis actual section name",
+      "range": {
+        "startLine": 591,
+        "startChar": 5,
+        "endLine": 591,
+        "endChar": 21
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_23e74942",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "Internationalization\nis actual US spelling used ;-)\nsee: https://docs.openstack.org/hacking/latest/user/hacking.html#internationalization-i18n-strings",
+      "range": {
+        "startLine": 594,
+        "startChar": 11,
+        "endLine": 594,
+        "endChar": 31
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_63d02154",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "OPNFV Coding Guidelines",
+      "range": {
+        "startLine": 596,
+        "startChar": 34,
+        "endLine": 596,
+        "endChar": 50
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a3ab5988",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "L599-L647 look like a rehash with more details of L431-L450\nShould we keep both? Point to each other? Merge?",
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e3943146",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "Since the doc at https://tox.readthedocs.org/ is rather hard to browse, especially when looking for available command-line options, you might want to provide URL to online Ubuntu man page at http://manpages.ubuntu.com/manpages/xenial/man1/tox.1.html",
+      "range": {
+        "startLine": 603,
+        "startChar": 24,
+        "endLine": 603,
+        "endChar": 27
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_633781b1",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "Lack of consistency: see L609, L622, vs. L633-L647 which are a bit better.\nIn tox terminology, these are (virtual) environments. You refer to them as either targets, commands, environments, or set of tests, which might confuse readers.\nI suggest to consistently use \"test environments\". With that, L603-L604 could be reworked as:\nYou can do this using ``tox``, for which a number of test environments have been configured in ``tox.ini``.",
+      "range": {
+        "startLine": 604,
+        "startChar": 0,
+        "endLine": 604,
+        "endChar": 7
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_43d52542",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "command-line options\nAs per L604 comment, L608-L609 could be reworked as:\nIf some tests are failing, you can save time and select test environments individually, by passing one or more of the following command-line options to ``tox``:",
+      "range": {
+        "startLine": 609,
+        "startChar": 55,
+        "endLine": 609,
+        "endChar": 63
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a3ca399f",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "Unit tests",
+      "range": {
+        "startLine": 611,
+        "startChar": 15,
+        "endLine": 611,
+        "endChar": 24
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e3c39188",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "Python 3\nor consistently adjust L611",
+      "range": {
+        "startLine": 612,
+        "startChar": 30,
+        "endLine": 612,
+        "endChar": 37
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_83cf3db0",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "Unit tests",
+      "range": {
+        "startLine": 612,
+        "startChar": 14,
+        "endLine": 612,
+        "endChar": 23
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_03bb2d0f",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "updated\nfor consistency with L625",
+      "range": {
+        "startLine": 613,
+        "startChar": 42,
+        "endLine": 613,
+        "endChar": 49
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c3c0157f",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "Python 3\nor consistently adjust L614",
+      "range": {
+        "startLine": 615,
+        "startChar": 48,
+        "endLine": 615,
+        "endChar": 55
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_03ee8dec",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "those changes to be checked.",
+      "range": {
+        "startLine": 618,
+        "startChar": 71,
+        "endLine": 619,
+        "endChar": 26
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_23c8e973",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "First occurrence of this term in the whole docs/ directory.\nAlthough obvious for seasoned developers, you might want to rewrite this as \"Jenkins CI\", \"Continuous Integration server\" or similar wording (and rework L601 accordingly) to make it clear it is the same \"gate\" which \"runs a number of tests to verify the patch\".",
+      "range": {
+        "startLine": 621,
+        "startChar": 36,
+        "endLine": 621,
+        "endChar": 40
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_23be2900",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "test environments\nAs per L604 comment, L621-L622 could be reworked as:\nIn addition to the default set of tests (listed above), run by Jenkins CI when you submit a patch, a few more test environments can be selected with the following command-line options:",
+      "range": {
+        "startLine": 622,
+        "startChar": 6,
+        "endLine": 622,
+        "endChar": 18
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_239f4961",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "``tox``\nnowhere capitalized on its doc and project pages",
+      "range": {
+        "startLine": 633,
+        "startChar": 0,
+        "endLine": 633,
+        "endChar": 3
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_438d2531",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "As per L604 comment, L633-L634 could be reworked as:\n``tox`` uses `virtualenv`_ to create isolated Python test environments, located at",
+      "range": {
+        "startLine": 634,
+        "startChar": 8,
+        "endLine": 634,
+        "endChar": 15
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_83b0ddf5",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "Possibly confusing, since yardstick repository also contains a yardstick/ directory. This relative path assumes CWD is parent directory (where \"git clone\" was run) of yardstick-clone-repo-dir, while L646-L647 assume CWD is yardstick-clone-repo-dir itself...",
+      "range": {
+        "startLine": 635,
+        "startChar": 51,
+        "endLine": 635,
+        "endChar": 60
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_83873d0f",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "these test environments",
+      "range": {
+        "startLine": 637,
+        "startChar": 55,
+        "endLine": 637,
+        "endChar": 74
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a38239fe",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "by passing the additional ``-r`` command-line option",
+      "range": {
+        "startLine": 638,
+        "startChar": 62,
+        "endLine": 639,
+        "endChar": 15
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_63882123",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-15T18:32:39Z",
+      "side": 1,
+      "message": "test",
+      "range": {
+        "startLine": 643,
+        "startChar": 42,
+        "endLine": 643,
+        "endChar": 49
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
