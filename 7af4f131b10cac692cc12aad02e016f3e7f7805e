@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_08034a10",
+        "filename": "docs/testing/user/userguide/glossary.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-15T07:19:34Z",
+      "side": 1,
+      "message": "required",
+      "range": {
+        "startLine": 18,
+        "startChar": 52,
+        "endLine": 18,
+        "endChar": 59
+      },
+      "revId": "7af4f131b10cac692cc12aad02e016f3e7f7805e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_63ff8102",
+        "filename": "docs/testing/user/userguide/glossary.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-15T07:19:34Z",
+      "side": 1,
+      "message": "Function",
+      "range": {
+        "startLine": 41,
+        "startChar": 13,
+        "endLine": 41,
+        "endChar": 22
+      },
+      "revId": "7af4f131b10cac692cc12aad02e016f3e7f7805e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_43040515",
+        "filename": "docs/testing/user/userguide/glossary.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-15T07:19:34Z",
+      "side": 1,
+      "message": "need to add K8S/Kubernetes",
+      "range": {
+        "startLine": 50,
+        "startChar": 3,
+        "endLine": 50,
+        "endChar": 12
+      },
+      "revId": "7af4f131b10cac692cc12aad02e016f3e7f7805e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
