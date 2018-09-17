@@ -60,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_e6ab9ed4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:48:22Z",
+      "side": 1,
+      "message": "DONE\n\nAdded tocket to follow up in:\nhttps://jira.opnfv.org/browse/YARDSTICK-1431",
+      "parentUuid": "9a561d44_b8b99a30",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 11
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_f882f250",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -154,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_46b9b22d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:48:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_d8872e60",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 30
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_f804b27f",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -189,6 +237,30 @@
       "side": 1,
       "message": "This argument \"level\" could be used in the future, if end-user would decide they don\u0027t need privileged user access.\nThen the new field would need to be introduced into pod file; but the implementation is ready.",
       "parentUuid": "9a561d44_f804b27f",
+      "range": {
+        "startLine": 125,
+        "startChar": 33,
+        "endLine": 125,
+        "endChar": 41
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_26b6363e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:48:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_fff8177e",
       "range": {
         "startLine": 125,
         "startChar": 33,
@@ -343,6 +415,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_8682aa50",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:48:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_92d66dc4",
+      "range": {
+        "startLine": 183,
+        "startChar": 2,
+        "endLine": 183,
+        "endChar": 37
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_1847e620",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -438,6 +534,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_66878e62",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:48:22Z",
+      "side": 1,
+      "message": "DONE\n\nRelated UTs should start to fail when the code is removed, so there\u0027s little risk of forgetting them :)",
+      "parentUuid": "5a682502_ed88a0c8",
+      "range": {
+        "startLine": 188,
+        "startChar": 9,
+        "endLine": 188,
+        "endChar": 40
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_78d1c2fa",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -473,6 +593,30 @@
       "side": 1,
       "message": "Please remove this unused method.\n\nI have added a ticket to follow up with whether this needs to be removed.\nhttps://jira.opnfv.org/browse/YARDSTICK-1428",
       "parentUuid": "9a561d44_78d1c2fa",
+      "range": {
+        "startLine": 193,
+        "startChar": 1,
+        "endLine": 193,
+        "endChar": 40
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c67ca275",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:48:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_52f33573",
       "range": {
         "startLine": 193,
         "startChar": 1,
@@ -591,6 +735,30 @@
       "side": 1,
       "message": "Please note that these calls are sent to a \"wrapper\" - lsapi.py. This provides an interface returning only string buffer, and a Response object attributes.\n\"ok\" attribute (bool) indicates whether a REST call succeeded or failed.\nThe argument \"raise_exc\" is used to dump exception (i.e. call failure) in some cases (e.g. user already exists, DMF already exists).",
       "parentUuid": "9a561d44_f82cb24c",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 46
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a681a64c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:48:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_9f10fba9",
       "range": {
         "startLine": 236,
         "startChar": 0,
@@ -745,6 +913,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_06969a94",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:48:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_cd85e4ae",
+      "range": {
+        "startLine": 242,
+        "startChar": 0,
+        "endLine": 244,
+        "endChar": 47
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_98d8161f",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -840,6 +1032,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_e6927e9e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:48:22Z",
+      "side": 1,
+      "message": "Would we need to modify the cfg_user? Or would it be enough to provide a password where appropriate. It seems like a bad idea to modify any pre-defined users.\n\nI\u0027ve added a follow-up. It is probably more flexible to use a pre-created user account on the LS, as you cannot assume root access to the traffic gen.\nIt would also remove some of these methods.\n\nThese can be discussed in the following ticket:\n\nhttps://jira.opnfv.org/browse/YARDSTICK-1432",
+      "parentUuid": "5a682502_2d93b8fb",
+      "range": {
+        "startLine": 257,
+        "startChar": 3,
+        "endLine": 258,
+        "endChar": 68
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_7d02543f",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
@@ -923,6 +1139,30 @@
       "side": 1,
       "message": "No risk. It is compatible with Duration runner. Actually flagging to runner happens in difference piece of code, this just does poll reads of current status of running test session.",
       "parentUuid": "5a682502_12f9bd4d",
+      "range": {
+        "startLine": 507,
+        "startChar": 8,
+        "endLine": 507,
+        "endChar": 46
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c6a5c205",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:48:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_0d907ceb",
       "range": {
         "startLine": 507,
         "startChar": 8,
@@ -1112,6 +1352,30 @@
       "side": 1,
       "message": "It is bit more complicated case here.\nDuring first N seconds of test run, the structure of the response dict would be empty or missing some keys.\nSo it would be incorrect to return anything when it is fake.",
       "parentUuid": "9a561d44_3da0dc42",
+      "range": {
+        "startLine": 519,
+        "startChar": 24,
+        "endLine": 519,
+        "endChar": 79
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a6aa46d2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:48:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_ff549755",
       "range": {
         "startLine": 519,
         "startChar": 24,
@@ -1702,6 +1966,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_46909295",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:48:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_329319fc",
+      "range": {
+        "startLine": 598,
+        "startChar": 8,
+        "endLine": 598,
+        "endChar": 25
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_e736d702",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 2
@@ -1737,6 +2025,30 @@
       "side": 1,
       "message": "Will check it.",
       "parentUuid": "9a561d44_e736d702",
+      "range": {
+        "startLine": 708,
+        "startChar": 25,
+        "endLine": 708,
+        "endChar": 42
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_268d967c",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:48:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_bfd21fd0",
       "range": {
         "startLine": 708,
         "startChar": 25,
