@@ -1056,6 +1056,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_c6f30209",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-17T16:54:53Z",
+      "side": 1,
+      "message": "Password of \"cfguser\" user could be changed. So we can\u0027t expect any specific/default one.",
+      "parentUuid": "5a682502_e6927e9e",
+      "range": {
+        "startLine": 257,
+        "startChar": 3,
+        "endLine": 258,
+        "endChar": 68
+      },
+      "revId": "d8e761dc9a138105c4af47e479074db11278bad6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_7d02543f",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 2
