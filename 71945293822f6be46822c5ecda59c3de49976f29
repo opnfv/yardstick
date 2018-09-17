@@ -42,6 +42,23 @@
     },
     {
       "key": {
+        "uuid": "5a682502_633140a2",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T13:28:43Z",
+      "side": 1,
+      "message": "How about:\n\nFor more details on tox and tests, please refer to the `Running tests`_ and `working with tox`_ section below, which describes the different available environments.",
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_433c0594",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -53,6 +70,30 @@
       "writtenOn": "2018-09-15T18:32:39Z",
       "side": 1,
       "message": "Do you mean using a single \"git review --yes\" after a set of sequential \"git commit\"?\nI am asking because it\u0027s seldom explained how to submit such a chain of patches...",
+      "range": {
+        "startLine": 576,
+        "startChar": 68,
+        "endLine": 576,
+        "endChar": 76
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_03f96cc8",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T13:28:43Z",
+      "side": 1,
+      "message": "Yes. A chain of patches is a development branch, and running git review on the tip of the branch creates a series of reviews in gerrit.\nThis can probably be phrased a bit better to make this clearer in a concise manner.\n\nHow about:\n\n   When developing larger features, the entire development branch can be submitted together, by running ``git review`` on the tip of the branch. This creates a chain of related patches in gerrit. Each commit should contain one logical and should be kept to a maximum of ~300 lines of code per patch (including unit tests).",
+      "parentUuid": "5a682502_433c0594",
       "range": {
         "startLine": 576,
         "startChar": 68,
@@ -99,6 +140,30 @@
       "writtenOn": "2018-09-15T18:32:39Z",
       "side": 1,
       "message": "Internationalization\nis actual US spelling used ;-)\nsee: https://docs.openstack.org/hacking/latest/user/hacking.html#internationalization-i18n-strings",
+      "range": {
+        "startLine": 594,
+        "startChar": 11,
+        "endLine": 594,
+        "endChar": 31
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e3f550cc",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T13:28:43Z",
+      "side": 1,
+      "message": "I deliberately spelled it in the UK spelling, but I also forgot that US is generally used.",
+      "parentUuid": "5a682502_23e74942",
       "range": {
         "startLine": 594,
         "startChar": 11,
@@ -208,6 +273,30 @@
       "writtenOn": "2018-09-15T18:32:39Z",
       "side": 1,
       "message": "command-line options\nAs per L604 comment, L608-L609 could be reworked as:\nIf some tests are failing, you can save time and select test environments individually, by passing one or more of the following command-line options to ``tox``:",
+      "range": {
+        "startLine": 609,
+        "startChar": 55,
+        "endLine": 609,
+        "endChar": 63
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_83ee1c8a",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T13:28:43Z",
+      "side": 1,
+      "message": "That reads better than what I have, thanks. I will update this in the next patch",
+      "parentUuid": "5a682502_43d52542",
       "range": {
         "startLine": 609,
         "startChar": 55,
@@ -427,6 +516,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_43e524a7",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T13:28:43Z",
+      "side": 1,
+      "message": "That\u0027s one way to get around the \"it\u0027s not capitalised, but it is the start of a sentence\" formatting dilemma.\n\nAND it should have been like this for consistency anyway, since other usages of tox were monospaced.\nThanks for catching this",
+      "parentUuid": "5a682502_239f4961",
+      "range": {
+        "startLine": 633,
+        "startChar": 0,
+        "endLine": 633,
+        "endChar": 3
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_438d2531",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -461,6 +574,30 @@
       "writtenOn": "2018-09-15T18:32:39Z",
       "side": 1,
       "message": "Possibly confusing, since yardstick repository also contains a yardstick/ directory. This relative path assumes CWD is parent directory (where \"git clone\" was run) of yardstick-clone-repo-dir, while L646-L647 assume CWD is yardstick-clone-repo-dir itself...",
+      "range": {
+        "startLine": 635,
+        "startChar": 51,
+        "endLine": 635,
+        "endChar": 60
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_23e2a89f",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T13:28:43Z",
+      "side": 1,
+      "message": "I\u0027ll remove yardstick from the path, and keep it consistent with L646-L647",
+      "parentUuid": "5a682502_83b0ddf5",
       "range": {
         "startLine": 635,
         "startChar": 51,
