@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_43fc043f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-09-17T13:37:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_839e1d55",
+      "range": {
+        "startLine": 11,
+        "startChar": 20,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "d5aba759ca08fa04e88ec7095a48b914698b9d8a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_a3999970",
         "filename": "/COMMIT_MSG",
         "patchSetId": 13
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-15T21:38:50Z",
       "side": 1,
       "message": "duplicate",
+      "range": {
+        "startLine": 17,
+        "startChar": 44,
+        "endLine": 17,
+        "endChar": 51
+      },
+      "revId": "d5aba759ca08fa04e88ec7095a48b914698b9d8a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_23f9084e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-09-17T13:37:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_a3999970",
       "range": {
         "startLine": 17,
         "startChar": 44,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_83957ce6",
+        "filename": "yardstick/benchmark/runners/duration.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-09-17T13:37:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_2376293f",
+      "range": {
+        "startLine": 120,
+        "startChar": 71,
+        "endLine": 120,
+        "endChar": 72
+      },
+      "revId": "d5aba759ca08fa04e88ec7095a48b914698b9d8a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_43940537",
         "filename": "yardstick/benchmark/runners/proxduration.py",
         "patchSetId": 13
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_639ae015",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-09-17T13:37:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_43940537",
+      "range": {
+        "startLine": 126,
+        "startChar": 71,
+        "endLine": 126,
+        "endChar": 72
+      },
+      "revId": "d5aba759ca08fa04e88ec7095a48b914698b9d8a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_03732d4e",
         "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
         "patchSetId": 13
@@ -105,6 +201,24 @@
       "writtenOn": "2018-09-15T21:38:50Z",
       "side": 1,
       "message": "The loop searching for the finished condition seems expensive, and this new status will be logged to influxdb?\n\nCan\u0027t we instead call a new method in {Prox}DurationRunner or base.Runner, which would set a (passed by reference) flag in the args to _worker_process(), which then would simply have to test this flag?\nSee how base.Runner.abort() is implemented: https://gerrit.opnfv.org/gerrit/gitweb?p\u003dyardstick.git;a\u003dblob;f\u003dyardstick/benchmark/runners/base.py;hb\u003dHEAD#l212\nIt is used to break out of the \"while True\" loop in _worker_process(), which simply test whether aborted.is_set().\nWe could add a similar base.Runner.end_run(), but not sure how to reach Runner from TrafficProfile... so wrong idea.\n\nAlternatively, _worker_process() could break out of its \"while True\" loop when benchmark.is_ended(), which would be new \"return False\" stub in base.Scenario, while NetworkServiceTestCase.is_ended() would return self.traffic_profile.is_ended(), which in turn would be new \"return False\" stub in base.TrafficProfile, while finally ProxBinSearchProfile.is_ended() would return self.is_ended, set to False in __init__() and set to True here by end_run_test()\nThis would be so much nicer ;-)\n\nPossibly, we don\u0027t even need these new end_run_test() methods, and ProxBinSearchProfile.is_ended() can just return self.done",
+      "revId": "d5aba759ca08fa04e88ec7095a48b914698b9d8a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e3fef037",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-09-17T13:37:28Z",
+      "side": 1,
+      "message": "The method of checking the TG queue for a specific message\nis the method used elsewhere. The Search runner checks for \"done\". I would prefer not to implement another method of inter thread communication. \n\nAs for the status being logged in influxDB. Surely that is a good thing. If anything I think we should add a \"START_OF_TEST\" to influxDB as well.",
+      "parentUuid": "5a682502_03732d4e",
       "revId": "d5aba759ca08fa04e88ec7095a48b914698b9d8a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
