@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_03d16cfb",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-09-17T11:04:48Z",
+      "side": 1,
+      "message": "Can you mention how to build the NSB image and what the image property needs to be set? SOme example here will be very useful.\neg: IMG_PROPERTY \u003d \"nsb\"",
+      "revId": "6ff84b4e67fe7887698693e20876ad5ad7517205",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
