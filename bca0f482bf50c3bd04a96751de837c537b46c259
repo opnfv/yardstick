@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_03204c48",
+        "filename": "samples/vnf_samples/nsut/vepc/tc_epc_network_dedicated_bearer_create_landslide.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T10:02:42Z",
+      "side": 1,
+      "message": "These explanations are helpful :)",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 102,
+        "endChar": 91
+      },
+      "revId": "bca0f482bf50c3bd04a96751de837c537b46c259",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
