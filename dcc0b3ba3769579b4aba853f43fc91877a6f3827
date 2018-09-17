@@ -70,6 +70,30 @@
       "revId": "dcc0b3ba3769579b4aba853f43fc91877a6f3827",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a3a4f857",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T13:38:05Z",
+      "side": 1,
+      "message": "This method is quite long.\n\nI suggest keeping add_vlans(), but refactor it to call two new methods for _create_vlans() and _configure_vlans() to address this.",
+      "parentUuid": "5a682502_e8952e89",
+      "range": {
+        "startLine": 639,
+        "startChar": 7,
+        "endLine": 639,
+        "endChar": 27
+      },
+      "revId": "dcc0b3ba3769579b4aba853f43fc91877a6f3827",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
