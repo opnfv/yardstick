@@ -9,8 +9,8 @@ Introduction
 
 **Welcome to Yardstick's documentation !**
 
-.. _Pharos: https://wiki.opnfv.org/pharos
-.. _Yardstick: https://wiki.opnfv.org/yardstick
+.. _Pharos: https://wiki.opnfv.org/display/pharos
+.. _Yardstick: https://wiki.opnfv.org/display/yardstick
 .. _Presentation: https://wiki.opnfv.org/download/attachments/2925202/opnfv_summit_-_yardstick_project.pdf?version=1&modificationDate=1458848320000&api=v2
 
 Yardstick_ is an OPNFV Project.
@@ -70,7 +70,7 @@ This document consists of the following chapters:
   Yardstick - Network service benchmarking to test real world usecase for a
   given VNF.
 
-* Chapter :doc:`13-nsb_installation` provides instructions to install
+* Chapter :doc:`13-nsb-installation` provides instructions to install
   *Yardstick - Network Service Benchmarking (NSB) testing*.
 
 * Chapter :doc:`14-nsb-operation` provides information on running *NSB*
