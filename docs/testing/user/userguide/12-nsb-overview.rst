@@ -10,7 +10,7 @@ Network Services Benchmarking (NSB)
 Abstract
 ========
 
-.. _Yardstick: https://wiki.opnfv.org/yardstick
+.. _Yardstick: https://wiki.opnfv.org/display/yardstick
 
 This chapter provides an overview of the NSB, a contribution to OPNFV
 Yardstick_ from Intel.

@@ -47,7 +47,7 @@ your field of interest is.
 Where can I find some help to start?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. _`user guide`: http://artifacts.opnfv.org/yardstick/danube/1.0/docs/stesting_user_userguide/index.html
+.. _`user guide`: https://artifacts.opnfv.org/yardstick/docs/testing_user_userguide/index.html
 .. _`wiki page`: https://wiki.opnfv.org/display/yardstick/
 
 This guide is made for you. You can have a look at the `user guide`_.
@@ -401,7 +401,7 @@ Gerrit & JIRA introduction
 ++++++++++++++++++++++++++
 
 .. _Gerrit: https://www.gerritcodereview.com/
-.. _`OPNFV Gerrit`: http://gerrit.opnfv.org/
+.. _`OPNFV Gerrit`: http://gerrit.opnfv.org/gerrit
 .. _link: https://identity.linuxfoundation.org/
 .. _JIRA: https://jira.opnfv.org/secure/Dashboard.jspa
 
@@ -481,7 +481,7 @@ Git repository::
 
   JIRA: YARDSTICK-XXX
 
-.. _`this document`: http://chris.beams.io/posts/git-commit/
+.. _`this document`: https://chris.beams.io/posts/git-commit/
 
 The message that is required for the commit should follow a specific set of
 rules. This practice allows to standardize the description messages attached
@@ -506,8 +506,8 @@ Yardstick committers and contributors to review your codes.
    :alt: Gerrit for code review
 
 You can find a list Yardstick people
-`here <https://wiki.opnfv.org/display/yardstick/People>`_, or use the
-``yardstick-reviewers`` and ``yardstick-committers`` groups in gerrit.
+`here <https://wiki.opnfv.org/display/yardstick/Yardstick+People>`_, or use
+the ``yardstick-reviewers`` and ``yardstick-committers`` groups in gerrit.
 
 Modify the code under review in Gerrit
 ++++++++++++++++++++++++++++++++++++++

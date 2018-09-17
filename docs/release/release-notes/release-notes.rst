@@ -5,7 +5,7 @@ License
 OPNFV Fraser release note for Yardstick Docs
 are licensed under a Creative Commons Attribution 4.0 International License.
 You should have received a copy of the license along with this.
-If not, see <http://creativecommons.org/licenses/by/4.0/>.
+If not, see <https://creativecommons.org/licenses/by/4.0/>.
 
 The *Yardstick framework*, the *Yardstick test cases* are open-source software,
  licensed under the terms of the Apache License, Version 2.0.
@@ -17,11 +17,11 @@ OPNFV Fraser Release Note for Yardstick
 .. toctree::
    :maxdepth: 2
 
-.. _Yardstick: https://wiki.opnfv.org/yardstick
+.. _Yardstick: https://wiki.opnfv.org/display/yardstick
 
-.. _Dashboard: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-main
+.. _Dashboard: http://testresults.opnfv.org/grafana/login
 
-.. _NFV-TST001: http://www.etsi.org/deliver/etsi_gs/NFV-TST/001_099/001/01.01.01_60/gs_NFV-TST001v010101p.pdf
+.. _NFV-TST001: https://www.etsi.org/deliver/etsi_gs/NFV-TST/001_099/001/01.01.01_60/gs_NFV-TST001v010101p.pdf
 
 
 Abstract
@@ -149,9 +149,9 @@ Deliverables
 Documents
 ---------
 
- - User Guide: :ref:`<yardstick-userguide>`
+ - User Guide: :ref:`<yardstick:userguide>`
 
- - Developer Guide: :ref:`<yardstick-devguide>`
+ - Developer Guide: :ref:`<yardstick:devguide>`
 
 
 Software Deliverables
@@ -606,7 +606,7 @@ Useful links
 
  - wiki Yardstick Fraser release planing page: https://wiki.opnfv.org/display/yardstick/Release+Fraser
 
- - Yardstick repo: https://git.opnfv.org/cgit/yardstick
+ - Yardstick repo: https://git.opnfv.org/yardstick
 
  - Yardstick CI dashboard: https://build.opnfv.org/ci/view/yardstick
 

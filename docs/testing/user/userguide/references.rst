@@ -11,12 +11,12 @@ References
 OPNFV
 =====
 
-* Parser wiki: https://wiki.opnfv.org/parser
-* Pharos wiki: https://wiki.opnfv.org/pharos
+* Parser wiki: https://wiki.opnfv.org/display/parser
+* Pharos wiki: https://wiki.opnfv.org/display/pharos
 * Yardstick CI: https://build.opnfv.org/ci/view/yardstick/
 * Yardstick and ETSI TST001 presentation: https://wiki.opnfv.org/display/yardstick/Yardstick?preview=%2F2925202%2F2925205%2Fopnfv_summit_-_bridging_opnfv_and_etsi.pdf
 * Yardstick Project presentation: https://wiki.opnfv.org/display/yardstick/Yardstick?preview=%2F2925202%2F2925208%2Fopnfv_summit_-_yardstick_project.pdf
-* Yardstick wiki: https://wiki.opnfv.org/yardstick
+* Yardstick wiki: https://wiki.opnfv.org/display/yardstick
 
 References used in Test Cases
 =============================
@@ -25,22 +25,22 @@ References used in Test Cases
 * cirros-image: https://download.cirros-cloud.net
 * cyclictest: https://rt.wiki.kernel.org/index.php/Cyclictest
 * DPDKpktgen: https://github.com/Pktgen/Pktgen-DPDK/
-* DPDK supported NICs: http://dpdk.org/doc/nics
+* DPDK supported NICs: http://core.dpdk.org/supported/
 * fdisk: http://www.tldp.org/HOWTO/Partition/fdisk_partitioning.html
-* fio: http://www.bluestop.org/fio/HOWTO.txt
+* fio: https://bluestop.org/files/fio/HOWTO.txt
 * free: http://manpages.ubuntu.com/manpages/trusty/en/man1/free.1.html
 * iperf3: https://iperf.fr/
-* iostat: http://linux.die.net/man/1/iostat
+* iostat: https://linux.die.net/man/1/iostat
 * Lmbench man-pages: http://manpages.ubuntu.com/manpages/trusty/lat_mem_rd.8.html
 * Memory bandwidth man-pages: http://manpages.ubuntu.com/manpages/trusty/bw_mem.8.html
 * mpstat man-pages: http://manpages.ubuntu.com/manpages/trusty/man1/mpstat.1.html
-* netperf: http://www.netperf.org/netperf/training/Netperf.html
+* netperf: https://hewlettpackard.github.io/netperf/
 * pktgen: https://www.kernel.org/doc/Documentation/networking/pktgen.txt
 * RAMspeed: http://alasir.com/software/ramspeed/
-* sar: http://linux.die.net/man/1/sar
+* sar: https://linux.die.net/man/1/sar
 * SR-IOV: https://wiki.openstack.org/wiki/SR-IOV-Passthrough-For-Networking
 * Storperf: https://wiki.opnfv.org/display/storperf/Storperf
-* unixbench: https://github.com/kdlucas/byte-unixbench/blob/master/UnixBench
+* unixbench: https://github.com/kdlucas/byte-unixbench/tree/master/UnixBench
 
 
 Research
@@ -53,7 +53,7 @@ Research
 Standards
 =========
 
-* ETSI NFV: http://www.etsi.org/technologies-clusters/technologies/nfv
-* ETSI GS-NFV TST 001: http://www.etsi.org/deliver/etsi_gs/NFV-TST/001_099/001/01.01.01_60/gs_NFV-TST001v010101p.pdf
+* ETSI NFV: https://www.etsi.org/technologies-clusters/technologies/nfv
+* ETSI GS-NFV TST 001: https://www.etsi.org/deliver/etsi_gs/NFV-TST/001_099/001/01.01.01_60/gs_NFV-TST001v010101p.pdf
 * RFC2544: https://www.ietf.org/rfc/rfc2544.txt
 

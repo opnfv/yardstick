@@ -9,7 +9,7 @@ Yardstick Test Case Description TC042
 
 .. _DPDK: http://dpdk.org/doc/guides/index.html
 .. _Testpmd: http://dpdk.org/doc/guides/testpmd_app_ug/index.html
-.. _Pktgen-dpdk: http://pktgen.readthedocs.io/en/latest/index.html
+.. _Pktgen-dpdk: https://pktgen-dpdk.readthedocs.io/en/latest/index.html
 
 +-----------------------------------------------------------------------------+
 |Network Performance                                                          |
