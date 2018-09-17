@@ -732,6 +732,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_466252d9",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:14:21Z",
+      "side": 1,
+      "message": "Okay, this is done in the next patch.\nNot ideal, but I\u0027ll take it",
+      "parentUuid": "5a682502_2648f65a",
+      "range": {
+        "startLine": 170,
+        "startChar": 32,
+        "endLine": 170,
+        "endChar": 35
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_3e880d22",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
         "patchSetId": 8
