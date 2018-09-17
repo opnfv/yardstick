@@ -192,6 +192,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_a62526ad",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:11:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_2303c810",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 69
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_7eb445f2",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
         "patchSetId": 8
@@ -352,6 +376,24 @@
       "side": 1,
       "message": "Please note that \u0027mixType\u0027 param most times has a value of empty string. And that has specific defined meaning to Landslide.\nThus can\u0027t evaluate it this way.\n\nIf user won\u0027t follow the docs, we\u0027re not responsible for their actions.",
       "parentUuid": "5a682502_c424a8c8",
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_063a1acd",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:11:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_ef2b7d92",
       "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -654,6 +696,30 @@
       "side": 1,
       "message": "Yes, will fix.",
       "parentUuid": "5a682502_5e87c90f",
+      "range": {
+        "startLine": 170,
+        "startChar": 32,
+        "endLine": 170,
+        "endChar": 35
+      },
+      "revId": "bdcbbd8c7f35d6b0bebf996a8d64379cf29ebc5d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_2648f65a",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_landslide.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-17T16:11:29Z",
+      "side": 1,
+      "message": "This still needs to be fixed.\n\nShould be:\n    {\"format\": \"CSV\"}",
+      "parentUuid": "5a682502_7e356545",
       "range": {
         "startLine": 170,
         "startChar": 32,
