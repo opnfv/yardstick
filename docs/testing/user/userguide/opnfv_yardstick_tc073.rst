@@ -7,7 +7,7 @@
 Yardstick Test Case Description TC073
 *************************************
 
-.. _netperf: http://www.netperf.org/netperf/training/Netperf.html
+.. _netperf: https://hewlettpackard.github.io/netperf/
 
 +-----------------------------------------------------------------------------+
 |Throughput per NFVI node test                                                |

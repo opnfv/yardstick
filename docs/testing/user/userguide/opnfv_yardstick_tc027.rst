@@ -7,7 +7,7 @@
 Yardstick Test Case Description TC027
 *************************************
 
-.. _ipv6: https://wiki.opnfv.org/ipv6_opnfv_project
+.. _ipv6: https://wiki.opnfv.org/display/ipv6
 
 +-----------------------------------------------------------------------------+
 |IPv6 connectivity between nodes on the tenant network                        |

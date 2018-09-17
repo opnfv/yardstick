@@ -7,7 +7,7 @@
 Yardstick Test Case Description TC040
 *************************************
 
-.. _Parser: https://wiki.opnfv.org/parser
+.. _Parser: https://wiki.opnfv.org/display/parser
 
 +-----------------------------------------------------------------------------+
 |Verify Parser Yang-to-Tosca                                                  |

@@ -15,7 +15,7 @@ Prerequisites
 
 In order to integrate PROX tests into NSB, the following prerequisites are required.
 
-.. _`dpdk wiki page`: http://dpdk.org/
+.. _`dpdk wiki page`: https://www.dpdk.org/
 .. _`yardstick wiki page`: https://wiki.opnfv.org/display/yardstick/
 .. _`Prox documentation`: https://01.org/intel-data-plane-performance-demonstrators/documentation/prox-documentation
 .. _`openstack wiki page`: https://wiki.openstack.org/wiki/Main_Page
