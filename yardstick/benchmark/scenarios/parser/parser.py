@@ -20,7 +20,7 @@ class Parser(base.Scenario):
     """running Parser Yang-to-Tosca module as a tool
     validating output against expected outcome
 
-    more info https://wiki.opnfv.org/parser
+    more info https://wiki.opnfv.org/display/parser
     """
     __scenario_type__ = "Parser"
 
