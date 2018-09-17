@@ -70,6 +70,30 @@
       "revId": "545854151a31f8c66cd957de2749ff42076eb829",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e6471e1c",
+        "filename": "tox.ini",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1451
+      },
+      "writtenOn": "2018-09-17T17:24:12Z",
+      "side": 1,
+      "message": "Yeah, I think you\u0027re right. It\u0027s up to you (and other projects) if they wan\u0027t docs to be part of their full tox run.\n\nAs long as \u0027tox -e docs\u0027 can run I believe this is fine.\n\n(I\u0027m remembering that previously forgot to prepend \u0027docs\u0027 with \u0027testenv\u0027, which caused it to now show up, but that\u0027s not the case here.)",
+      "parentUuid": "5a682502_12effdb1",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 50
+      },
+      "revId": "545854151a31f8c66cd957de2749ff42076eb829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
