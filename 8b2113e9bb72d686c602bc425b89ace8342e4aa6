@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_83a1fcab",
+        "filename": "ansible/roles/install_dependencies_jumphost/tasks/Debian.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-17T11:26:36Z",
+      "side": 1,
+      "message": "I understand this line is not related to the change under code review, but I\u0027ll take the opportunity to ask the question:\nWhat is the rationale for installing ARM64 flavor of libc6 package into the x86_64 container?\nIs there a !\u003d vs. \u003d\u003d typo on L82?\nIf we really intend to cross build anything inside the container, I would expect libc6-dev-arm64-cross package here, so I\u0027m puzzled...\nThis was added by https://gerrit.opnfv.org/gerrit/#/c/52935/17/ansible/roles/install_dependencies_jumphost/tasks/Debian.yml@61, together with https://gerrit.opnfv.org/gerrit/#/c/52935/17/ansible/roles/add_repos_jumphost/tasks/Debian.yml@67, but I just don\u0027t get it!",
+      "revId": "8b2113e9bb72d686c602bc425b89ace8342e4aa6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
