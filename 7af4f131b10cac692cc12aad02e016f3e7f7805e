@@ -68,6 +68,29 @@
       "revId": "7af4f131b10cac692cc12aad02e016f3e7f7805e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_83b61cdb",
+        "filename": "docs/testing/user/userguide/glossary.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-09-17T10:54:22Z",
+      "side": 1,
+      "message": "Suggestion: Can mention full form for LAN too.",
+      "range": {
+        "startLine": 85,
+        "startChar": 13,
+        "endLine": 85,
+        "endChar": 16
+      },
+      "revId": "7af4f131b10cac692cc12aad02e016f3e7f7805e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
