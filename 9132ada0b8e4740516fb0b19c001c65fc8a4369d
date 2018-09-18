@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a682502_49db831b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-18T12:45:04Z",
+      "side": 1,
+      "message": "Please use imperative in commit title: \"Add AgnostivVNF support\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 6,
+        "endLine": 7,
+        "endChar": 11
+      },
+      "revId": "9132ada0b8e4740516fb0b19c001c65fc8a4369d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_c644a276",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -30,6 +53,46 @@
       "writtenOn": "2018-09-18T07:11:34Z",
       "side": 1,
       "message": "JIRA: ?",
+      "revId": "9132ada0b8e4740516fb0b19c001c65fc8a4369d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c9fe736b",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_64B_trex.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-18T12:45:04Z",
+      "side": 1,
+      "message": "Nit:\n\nThis notation does not have a match in this commit. Thus it may be unclear why it is called so (with index).\nIn comparison to L23 (\"vnf.yardstick\") it looks off style.\n\nAlso, with provided set of files, can\u0027t check if this solution is functional.",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "9132ada0b8e4740516fb0b19c001c65fc8a4369d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_892bdbea",
+        "filename": "yardstick/network_services/vnf_generic/vnf/agnostic.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-18T12:45:04Z",
+      "side": 1,
+      "message": "Nit:\n\n  from yardstick.network_services.vnf_generic.vnf import base\n\nIf several different \"base\" modules happen, then it really makes sense to use renaming.\nAnd without renaming this import won\u0027t work, even.",
       "revId": "9132ada0b8e4740516fb0b19c001c65fc8a4369d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
