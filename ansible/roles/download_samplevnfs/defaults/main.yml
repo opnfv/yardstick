@@ -1,4 +1,32 @@
 ---
+# Among the sampleVNF revisions listed below, select the one to be used
+samplevnf_select: commit
+samplevnf_revisions:
+  # commit-based: frozen and reproducible
+  ## from master branch: most recent features and bug fixes
+  ### most recent validated commit
+  commit:  "3afd384b7e68a3cd29f4d2cdf39785f8441d0b6f"
+  ### 2018-09-15 https://gerrit.opnfv.org/gerrit/61819
+  _180915: "3afd384b7e68a3cd29f4d2cdf39785f8441d0b6f"
+  ### 2018-09-06 https://gerrit.opnfv.org/gerrit/61773
+  _180906: "a3a7fbb44e261987e2cd800fb049c20b16381e4d"
+
+  ## from stable branches: most recent bug fixes
+  ### 2018-08-14 https://gerrit.opnfv.org/gerrit/60943
+  F180814: "fc6a8370e48cdf5fc9a77ab8e428c00c7b3e4093"
+
+  # tag-based: frozen and reproducible, from stable branches
+  tag620: "opnfv-6.2.0"
+  tag610: "opnfv-6.1.0"
+  tag600: "opnfv-6.0.0"
+
+  # branch-based: fetch branch latest commits, as of installation time
+  latest: "master"
+  master: "master"
+  stable: "stable/fraser"
+  gambia: "stable/gambia"
+  fraser: "stable/fraser"
+
 samplevnf_url: "https://git.opnfv.org/samplevnf"
 samplevnf_dest: "{{ clone_dest }}/samplevnf"
-samplevnf_version: "stable/fraser"
+samplevnf_version: "{{ samplevnf_revisions[samplevnf_select] }}"
