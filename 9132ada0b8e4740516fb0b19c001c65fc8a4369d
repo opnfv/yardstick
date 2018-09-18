@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_c644a276",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-09-18T07:11:34Z",
+      "side": 1,
+      "message": "be",
+      "revId": "9132ada0b8e4740516fb0b19c001c65fc8a4369d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_86310a0e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-09-18T07:11:34Z",
+      "side": 1,
+      "message": "JIRA: ?",
+      "revId": "9132ada0b8e4740516fb0b19c001c65fc8a4369d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
