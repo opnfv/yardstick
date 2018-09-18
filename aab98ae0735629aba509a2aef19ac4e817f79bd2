@@ -1,0 +1,175 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_2c9c5569",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-18T16:07:10Z",
+      "side": 1,
+      "message": "For future reference, I would add this as a comment below L23 in build-grafana-image.sh\nEasier to find in the source code than in commit messages ;-)",
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e9ac0f38",
+        "filename": "docker/grafana/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-18T16:07:10Z",
+      "side": 1,
+      "message": "Why 5.2.2, why not 5.2.4 as listed on https://hub.docker.com/r/grafana/grafana/tags/ ?\n\nBTW, some cleanup/update seems needed at other places:\n- etc/yardstick/yardstick.yaml refers to 3.1.1\n- yardstick/common/constants.py (used by \"yardstick env grafana\" command) defaults to 4.4.3",
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8cd3e937",
+        "filename": "docker/grafana/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-18T16:07:10Z",
+      "side": 1,
+      "message": "[1] https://docs.docker.com/engine/reference/builder/#copy\n\nFor L14, L16 and L19, there is no need for the ./ prefix, because [1] states:\nthe paths of files and directories will be interpreted as relative to the source of the context of the build.\n\nFor L16 and L19, I would add the / suffix to both \u003csrc\u003e and \u003cdest\u003e, but that\u0027s a matter of taste ;-)",
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_6c3c8d94",
+        "filename": "docker/grafana/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-18T16:07:10Z",
+      "side": 1,
+      "message": "Useless, because [1] states:\nIf \u003cdest\u003e doesn",
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c98313cb",
+        "filename": "docker/grafana/build-grafana-image.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-18T16:07:10Z",
+      "side": 1,
+      "message": "Shouldn\u0027t that be on the very first line, before copyright header?",
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ec9ffd4e",
+        "filename": "docker/grafana/build-grafana-image.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-18T16:07:10Z",
+      "side": 1,
+      "message": "All paths in this script are relative to CWD.\nWon\u0027t fail for creating and cleaning up grafana.ini, dashboards/ and provisioning/ in most CWD.\nBut L75-L76 assume that CWD is docker/grafana/ and won\u0027t work if this script is ran from somewhere else, e.g. from yardstick-repo-dir as: ./docker/grafana/build-grafana-image.sh\nFine if we are sure this will never happen. Otherwise, we should explicitly change CWD, at the top of this script, using:\ncd $(dirname $0)",
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8c880924",
+        "filename": "docker/grafana/build-grafana-image.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-18T16:07:10Z",
+      "side": 1,
+      "message": "datasource\ndirname is plural, filename is singular",
+      "range": {
+        "startLine": 23,
+        "startChar": 28,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_69cc7f36",
+        "filename": "docker/grafana/build-grafana-image.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-18T16:07:10Z",
+      "side": 1,
+      "message": "dashboards/\n(matter of taste)",
+      "range": {
+        "startLine": 75,
+        "startChar": 42,
+        "endLine": 75,
+        "endChar": 52
+      },
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c9d153cf",
+        "filename": "docker/grafana/build-grafana-image.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-18T16:07:10Z",
+      "side": 1,
+      "message": "dashboards/\n(matter of taste)",
+      "range": {
+        "startLine": 76,
+        "startChar": 31,
+        "endLine": 76,
+        "endChar": 41
+      },
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
