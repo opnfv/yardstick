@@ -1,4 +1,16 @@
 ---
+# samplevnf_version must be a valid version accepted by "git checkout"
+# It can be either:
+# - a branch name: fetch branch latest commits, as of installation time
+# - a tag name: frozen and reproducible, from stable branches, or
+# - a commit id: frozen and reproducible, from any branch
+# Some examples:
+# - branch name: "master", "stable/gambia", "stable/fraser"
+# - tag name: "opnfv-6.2.0"
+# - commit id: "3afd384b7e68a3cd29f4d2cdf39785f8441d0b6f"
+# Please refer to https://git.opnfv.org/samplevnf for possible values
+# beyond the one specified below
+
 samplevnf_url: "https://git.opnfv.org/samplevnf"
 samplevnf_dest: "{{ clone_dest }}/samplevnf"
-samplevnf_version: "stable/fraser"
+samplevnf_version: "3afd384b7e68a3cd29f4d2cdf39785f8441d0b6f"
