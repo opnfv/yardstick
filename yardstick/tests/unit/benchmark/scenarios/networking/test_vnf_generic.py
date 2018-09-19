@@ -325,6 +325,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 },
             },
             'options': {
+                'simulated_users': {'uplink': [1, 2]},
+                'page_object': {'uplink': [1, 2]},
                 'framesize': {'64B': 100}
             },
             'runner': {
@@ -620,6 +622,20 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             with self.assertRaises(IOError):
                 self.s._get_traffic_profile()
 
+    def test__key_list_to_dict(self):
+        result = self.s._key_list_to_dict("uplink", {"uplink": [1, 2]})
+        self.assertEqual({"uplink_0": 1, "uplink_1": 2}, result)
+
+    def test__get_simulated_users(self):
+        result = self.s._get_simulated_users()
+        self.assertEqual({'simulated_users': {'uplink_0': 1, 'uplink_1': 2}},
+                         result)
+
+    def test__get_page_object(self):
+        result = self.s._get_page_object()
+        self.assertEqual({'page_object': {'uplink_0': 1, 'uplink_1': 2}},
+                         result)
+
     def test___get_traffic_imix_exception(self):
         with mock.patch.dict(self.scenario_cfg["traffic_options"], {'imix': ''}):
             self.assertEqual({'imix': {'64B': 100}},
@@ -642,7 +658,11 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                  'flow': {'flow': {}},
                  'imix': {'imix': {'64B': 100}},
                  'uplink': {},
-                 'duration': 30}
+                 'duration': 30,
+                 'simulated_users': {
+                     'simulated_users': {'uplink_0': 1, 'uplink_1': 2}},
+                 'page_object': {
+                     'page_object': {'uplink_0': 1, 'uplink_1': 2}},}
             )
             mock_tprofile_get.assert_called_once_with(fake_vnfd)
 

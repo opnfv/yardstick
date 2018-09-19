@@ -13,10 +13,8 @@ uplink_0:
         gateway: <GATEWAY_ADDR>           # will be taken from pod file
 
     http_client:
-        http_no_requests: "1000"          # number of http iterations
-        http_concurency: "65000"          # number of threads to be run
-        http_locator:  "/1B.bin"          # http locator to be read
-        attacker_tests: "False"           # True : If attacker Test, False : Otherwise
+        simulated_users: {{ get(simulated_users, 'simulated_users.uplink_0', '65000') }} # number of threads to be run
+        page_object:  {{ get(page_object, 'page_object.uplink_0', '/1b.html') }} # http locator to be read
 
 downlink_0:
     ip:
@@ -33,10 +31,8 @@ uplink_1:
         gateway: <GATEWAY_ADDR>
 
     http_client:
-        http_no_requests: "1000"
-        http_concurency: "65000"
-        http_locator:  "/1B.bin"
-        attacker_tests: "False"
+        simulated_users: {{ get(simulated_users, 'simulated_users.uplink_1', '65000') }} # number of threads to be run
+        page_object:  {{ get(page_object, 'page_object.uplink_1', '/1b.html') }} # http locator to be read
 
 downlink_1:
     ip:
