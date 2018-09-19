@@ -22,6 +22,10 @@ scenarios:
     tg__0: trafficgen_1.yardstick
     vnf__0: vnf.yardstick
   options:
+    simulated_users:
+      uplink: [65000]
+    page_object:
+      uplink: ["/1b.html"]
     framesize:
       uplink: {64B: 100}
       downlink: {64B: 100}
