@@ -148,6 +148,26 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         return options.get('duration',
                            tprofile_base.TrafficProfileConfig.DEFAULT_DURATION)
 
+    def _key_list_to_dict(self, key, value_list):
+        value_dict = {}
+        try:
+            for index, count in enumerate(value_list[key]):
+                value_dict["{}_{}".format(key, index)] = count
+        except KeyError:
+            value_dict = {}
+
+        return value_dict
+
+    def _get_simulated_users(self):
+        users = self.scenario_cfg.get("options", {}).get("simulated_users", {})
+        simulated_users = self._key_list_to_dict("uplink", users)
+        return {"simulated_users": simulated_users}
+
+    def _get_page_object(self):
+        objects = self.scenario_cfg.get("options", {}).get("page_object", {})
+        page_object = self._key_list_to_dict("uplink", objects)
+        return {"page_object": page_object}
+
     def _fill_traffic_profile(self):
         tprofile = self._get_traffic_profile()
         extra_args = self.scenario_cfg.get('extra_args', {})
@@ -157,7 +177,9 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             tprofile_base.TrafficProfile.UPLINK: {},
             tprofile_base.TrafficProfile.DOWNLINK: {},
             'extra_args': extra_args,
-            'duration': self._get_duration()}
+             'duration': self._get_duration(),
+            'page_object': self._get_page_object(),
+            'simulated_users': self._get_simulated_users()}
         traffic_vnfd = vnfdgen.generate_vnfd(tprofile, tprofile_data)
         self.traffic_profile = tprofile_base.TrafficProfile.get(traffic_vnfd)
 
