@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_f2cd1888",
+        "filename": "yardstick/common/nsb_template.html",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-19T13:21:58Z",
+      "side": 1,
+      "message": "There are a new non-printing characters here at the end of every line. \n\nI\u0027ll remove them when I rebase this series",
+      "revId": "1c9e083ae50d3a9bfb595c2596d0bc8181c85733",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
