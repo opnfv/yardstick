@@ -249,16 +249,20 @@ class TestIxLoadTrafficGen(unittest.TestCase):
         ixload = http_ixload.IXLOADHttpTest(
             jsonutils.dump_as_bytes(self.test_input))
 
-        ixload.links_param = {"uplink_0": {"ip": {}}}
+        ixload.links_param = {"uplink_0": {"ip": {},
+                                           "http_client": {}}}
 
         ixload.test = mock.Mock()
         ixload.test.communityList = community_list
 
         ixload.update_network_param = mock.Mock()
+        ixload.update_http_client_param = mock.Mock()
 
         ixload.update_config()
 
         ixload.update_network_param.assert_called_once_with(net_taraffic_0, {})
+        ixload.update_http_client_param.assert_called_once_with(net_taraffic_0,
+                                                                {})
 
     def test_update_network_mac_address(self):
         ethernet = mock.MagicMock()
@@ -337,6 +341,57 @@ class TestIxLoadTrafficGen(unittest.TestCase):
         ixload.update_network_mac_address.assert_called_once_with(
             net_traffic,
             "mac")
+
+    def test_update_http_client_param(self):
+        net_traffic = mock.Mock()
+
+        ixload = http_ixload.IXLOADHttpTest(
+            jsonutils.dump_as_bytes(self.test_input))
+
+        ixload.update_page_size = mock.Mock()
+        ixload.update_user_count = mock.Mock()
+
+        param = {"page_object": "page_object",
+                 "simulated_users": "simulated_users"}
+
+        ixload.update_http_client_param(net_traffic, param)
+
+        ixload.update_page_size.assert_called_once_with(net_traffic,
+                                                        "page_object")
+        ixload.update_user_count.assert_called_once_with(net_traffic,
+                                                         "simulated_users")
+
+    def test_update_page_size(self):
+        activity = mock.MagicMock()
+        net_traffic = mock.Mock()
+
+        ixload = http_ixload.IXLOADHttpTest(
+            jsonutils.dump_as_bytes(self.test_input))
+
+        net_traffic.activityList = [activity]
+        ix_http_command = activity.agent.actionList[0]
+        ixload.update_page_size(net_traffic, "page_object")
+        ix_http_command.config.assert_called_once_with(
+            pageObject="page_object")
+
+        net_traffic.activityList = []
+        with self.assertRaises(InvalidRxfFile):
+            ixload.update_page_size(net_traffic, "page_object")
+
+    def test_update_user_count(self):
+        activity = mock.MagicMock()
+        net_traffic = mock.Mock()
+
+        ixload = http_ixload.IXLOADHttpTest(
+            jsonutils.dump_as_bytes(self.test_input))
+
+        net_traffic.activityList = [activity]
+        ixload.update_user_count(net_traffic, 123)
+        activity.config.assert_called_once_with(userObjectiveValue=123)
+
+        net_traffic.activityList = []
+        with self.assertRaises(InvalidRxfFile):
+            ixload.update_user_count(net_traffic, 123)
 
     @mock.patch('yardstick.network_services.traffic_profile.http_ixload.IxLoad')
     @mock.patch('yardstick.network_services.traffic_profile.http_ixload.StatCollectorUtils')
