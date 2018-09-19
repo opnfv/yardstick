@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_d76e0e96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-19T01:21:56Z",
+      "side": 1,
+      "message": "good advice, thanks",
+      "parentUuid": "5a682502_2c9c5569",
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_e9ac0f38",
         "filename": "docker/grafana/Dockerfile",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2018-09-18T16:07:10Z",
       "side": 1,
       "message": "Why 5.2.2, why not 5.2.4 as listed on https://hub.docker.com/r/grafana/grafana/tags/ ?\n\nBTW, some cleanup/update seems needed at other places:\n- etc/yardstick/yardstick.yaml refers to 3.1.1\n- yardstick/common/constants.py (used by \"yardstick env grafana\" command) defaults to 4.4.3",
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_376ca29c",
+        "filename": "docker/grafana/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-19T01:21:56Z",
+      "side": 1,
+      "message": "no specific reason for 5.2.2. I\u0027ll update it.\nAnd I\u0027ll get another patch to align the version of grafana in Yardstick.",
+      "parentUuid": "5a682502_e9ac0f38",
       "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_1769a68b",
+        "filename": "docker/grafana/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-19T01:21:56Z",
+      "side": 1,
+      "message": "nice taste : )",
+      "parentUuid": "5a682502_8cd3e937",
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_6c3c8d94",
         "filename": "docker/grafana/Dockerfile",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2018-09-18T16:07:10Z",
       "side": 1,
       "message": "Useless, because [1] states:\nIf \u003cdest\u003e doesn",
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_77057ac1",
+        "filename": "docker/grafana/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-19T01:21:56Z",
+      "side": 1,
+      "message": "will fix",
+      "parentUuid": "5a682502_6c3c8d94",
       "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_570afed2",
+        "filename": "docker/grafana/build-grafana-image.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-19T01:21:56Z",
+      "side": 1,
+      "message": "it should be.",
+      "parentUuid": "5a682502_c98313cb",
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ec9ffd4e",
         "filename": "docker/grafana/build-grafana-image.sh",
         "patchSetId": 2
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_971496f6",
+        "filename": "docker/grafana/build-grafana-image.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-19T01:21:56Z",
+      "side": 1,
+      "message": "Good idea! I\u0027ll try it. Thanks.",
+      "parentUuid": "5a682502_ec9ffd4e",
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_8c880924",
         "filename": "docker/grafana/build-grafana-image.sh",
         "patchSetId": 2
@@ -115,6 +223,30 @@
       "writtenOn": "2018-09-18T16:07:10Z",
       "side": 1,
       "message": "datasource\ndirname is plural, filename is singular",
+      "range": {
+        "startLine": 23,
+        "startChar": 28,
+        "endLine": 23,
+        "endChar": 39
+      },
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b70f12e1",
+        "filename": "docker/grafana/build-grafana-image.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-19T01:21:56Z",
+      "side": 1,
+      "message": "will fix",
+      "parentUuid": "5a682502_8c880924",
       "range": {
         "startLine": 23,
         "startChar": 28,
