@@ -17,6 +17,10 @@ import os
 import logging
 import collections
 
+sys.path.extend(['/usr/local/lib/python2.7/dist-packages',
+                 '/usr/lib/python2.7/dist-packages'])
+from yardstick.common import exceptions
+
 # ixload uses its own py2. So importing jsonutils fails. So adding below
 # workaround to support call from yardstick
 try:
@@ -24,7 +28,6 @@ try:
 except ImportError:
     import json as jsonutils
 
-from yardstick.common import exceptions
 
 try:
     from IxLoad import IxLoad, StatCollectorUtils
@@ -256,6 +259,57 @@ class IXLOADHttpTest(object):
                 continue
 
             self.update_network_param(net_traffic, param["ip"])
+            if "uplink" in name:
+                self.update_http_client_param(net_traffic, param["http_client"])
+
+    def update_http_client_param(self, net_traffic, param):
+        """Update http client object in net_traffic
+
+        Update http client object in net_traffic by parameters
+        specified in param.
+        Do not return anything.
+
+        :param net_traffic: (IxLoadObjectProxy) proxy obj to tcl net_traffic object
+        :param param: (dict) http_client section from traffic profile
+        :return:
+        """
+        self.update_page_size(net_traffic, param["page_object"])
+        self.update_user_count(net_traffic, param["simulated_users"])
+
+    def update_page_size(self, net_traffic, page_object):
+        """Update page_object field in http client object in net_traffic
+
+        This function update field which configure page_object
+        which will be loaded from server
+        Do not return anything.
+
+        :param net_traffic: (IxLoadObjectProxy) proxy obj to tcl net_traffic object
+        :param page_object: (str) path to object on server e.g. "/4k.html"
+        :return:
+        """
+        try:
+            activity = net_traffic.activityList[0]
+            ix_http_command = activity.agent.actionList[0]
+            ix_http_command.config(pageObject=page_object)
+        except Exception:
+            raise exceptions.InvalidRxfFile
+
+    def update_user_count(self, net_traffic, user_count):
+        """Update userObjectiveValue field in activity object in net_traffic
+
+        This function update field which configure users count
+        which will be simulated by client.
+        Do not return anything.
+
+        :param net_traffic: (IxLoadObjectProxy) proxy obj to tcl net_traffic object
+        :param user_count: (int) number of simulated users
+        :return:
+        """
+        try:
+            activity = net_traffic.activityList[0]
+            activity.config(userObjectiveValue=user_count)
+        except Exception:
+            raise exceptions.InvalidRxfFile
 
     def start_http_test(self):
         self.ix_load = IxLoad()
