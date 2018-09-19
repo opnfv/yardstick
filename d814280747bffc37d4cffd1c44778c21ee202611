@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_92e2e401",
+        "filename": "yardstick/common/nsb_template.html",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-19T13:00:43Z",
+      "side": 1,
+      "message": "That must be leftover, I was using it to pre-populate the graphs with an empty dataset, so that it was rendered initially.\n\nThis is no longer needed, thanks for catching it",
+      "parentUuid": "5a682502_2aee0323",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 29
+      },
+      "revId": "d814280747bffc37d4cffd1c44778c21ee202611",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ca4aef26",
         "filename": "yardstick/common/nsb_template.html",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-11T15:06:45Z",
       "side": 1,
       "message": "My suggestion would be to get rid of these logs.",
+      "range": {
+        "startLine": 52,
+        "startChar": 16,
+        "endLine": 52,
+        "endChar": 74
+      },
+      "revId": "d814280747bffc37d4cffd1c44778c21ee202611",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_f2e6b815",
+        "filename": "yardstick/common/nsb_template.html",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-19T13:00:43Z",
+      "side": 1,
+      "message": "I\u0027ll take them out, it was 50/50 as to whether they would be useful left in.",
+      "parentUuid": "5a682502_ca4aef26",
       "range": {
         "startLine": 52,
         "startChar": 16,
@@ -105,6 +153,30 @@
       "writtenOn": "2018-09-11T15:01:03Z",
       "side": 1,
       "message": "Why we need this create_old_table?",
+      "range": {
+        "startLine": 51,
+        "startChar": 1,
+        "endLine": 51,
+        "endChar": 55
+      },
+      "revId": "d814280747bffc37d4cffd1c44778c21ee202611",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d2e3bc03",
+        "filename": "yardstick/common/report.js",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-19T13:00:43Z",
+      "side": 1,
+      "message": "We do not need that. Will remove",
+      "parentUuid": "5a682502_0abea7ff",
       "range": {
         "startLine": 51,
         "startChar": 1,
