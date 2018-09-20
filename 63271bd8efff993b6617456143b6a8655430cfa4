@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_98a4c358",
+        "filename": "ansible/roles/download_samplevnfs/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-20T12:45:51Z",
+      "side": 1,
+      "message": "At the moment, they can\u0027t.\n\n\nThe commit message flags this as a follow-up.",
+      "parentUuid": "5a682502_78dd6714",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 24
+      },
+      "revId": "63271bd8efff993b6617456143b6a8655430cfa4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_d8911b54",
         "filename": "ansible/roles/download_samplevnfs/defaults/main.yml",
         "patchSetId": 1
