@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_389f6f61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-20T10:25:38Z",
+      "side": 1,
+      "message": "It was always selectable by the user.\n\nThis change should be \"Updates the pinned version of SampleVNF\"\n\n\nAny follow-up actions should be noted in the Jira ticket, as opposed to in here.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "63271bd8efff993b6617456143b6a8655430cfa4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_189c3369",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-20T10:25:38Z",
+      "side": 1,
+      "message": "This doesn\u0027t need to be highlighted here.\n\nWhen you do that, it would be easier to specify a commit/tag/branch, instead of looking up the mappings.\n\nKeep it simple :)",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 57
+      },
+      "revId": "63271bd8efff993b6617456143b6a8655430cfa4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d8911b54",
+        "filename": "ansible/roles/download_samplevnfs/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-20T10:25:38Z",
+      "side": 1,
+      "message": "IMHO, it\u0027s sufficient to use this. \n\nThere\u0027s no need to define a set of mappings, as it may mislead the user into think into thinking that these are the only versions that can be used. \nAdding a version/commit here would also mean that we need to cross-validate against these versions.\nThese mapping would also have to be updated once in-review changes merged.\n\nIn order to instruct the user how to choose a version of SampleVNF, you could add a note to the deployment guide on how to (a) use an in-review version and (b) use an tag/branch/commit.\n\nTL;DR: this can be a one-line change, pointing to the latest validated version of SampleVNF.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 17
+      },
+      "revId": "63271bd8efff993b6617456143b6a8655430cfa4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
