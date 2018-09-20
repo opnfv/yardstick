@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_782607bc",
+        "filename": "docker/k8s/yardstick-manifest.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-20T08:44:38Z",
+      "side": 1,
+      "message": "I like the idea of having only one config file. But there may be some problems.\nFirst is about where we put the config file:\nIf we have the \"yardstick.conf\" map to an external file, it may requires that the file needs to be on the k8s node. When a user use this k8s manifest yaml to create Yardstick, he would like to use kubectl CLI to create it on a Jump host.\nSecond is the target url of influxdb.\nNow it\u0027s using \"http://influxdb-service.yardstick:8086\", which is base on k8s dns domain name. So it may need to create NodePort for Influxdb service.",
+      "parentUuid": "5a682502_975f7672",
+      "range": {
+        "startLine": 129,
+        "startChar": 2,
+        "endLine": 129,
+        "endChar": 20
+      },
+      "revId": "a7ad3522693f528f90bc3ceb646decfcbc698f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_5765de43",
         "filename": "docker/k8s/yardstick-manifest.yaml",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-19T09:54:07Z",
       "side": 1,
       "message": "Since only one dispatcher is enabled, should the dispatcher_http and dispatcher_file configs be removed here?",
+      "range": {
+        "startLine": 132,
+        "startChar": 17,
+        "endLine": 132,
+        "endChar": 25
+      },
+      "revId": "a7ad3522693f528f90bc3ceb646decfcbc698f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_582b4b82",
+        "filename": "docker/k8s/yardstick-manifest.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-20T08:44:38Z",
+      "side": 1,
+      "message": "agree, since Yardstick support multi dispatcher. so I\u0027ll keep both influxdb and file. dispatcher \u003d file, influxdb",
+      "parentUuid": "5a682502_5765de43",
       "range": {
         "startLine": 132,
         "startChar": 17,
