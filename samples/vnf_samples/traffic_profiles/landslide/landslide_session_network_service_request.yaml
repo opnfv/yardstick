@@ -1,0 +1,341 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+description: Network triggered service request
+keywords: ''
+duration: 60
+library: test
+name: network_initiated_service_request
+tsGroups:
+- testCases:
+  - name: ''
+    AssociatedPhys: ''
+    parameters:
+      BearerAddrPool: 2001::1
+      BearerV4AddrPool: 1.0.0.1
+      BillingEn: 'false'
+      DedicatedsPerDefaultBearer: '0'
+      DefaultBearers: '1'
+      FireballEn: 'false'
+      Gtp2AmbrDownlink: '1'
+      Gtp2AmbrUplink: '1'
+      Gtp2ApnNumSpecifiedApns_0: '0'
+      Gtp2ApnRestriction: '0'
+      Gtp2ApnRetries_0: '0'
+      Gtp2ApnSelectMode: '0'
+      Gtp2ApnSpecified_0:
+        array: []
+        class: Array
+      Gtp2ApnTotalApns_0: '1'
+      Gtp2Apn_0: ssenoauth146
+      Gtp2CfgFileEn: 'false'
+      Gtp2Ecgi: '0'
+      Gtp2EcgiSize: '28'
+      Gtp2EchoTimeSec: '0'
+      Gtp2ExtEn: 'false'
+      Gtp2GtpcTunnelEndptId: '1000000'
+      Gtp2GtpuIncludeSeqEn: 'true'
+      Gtp2GtpuTunnelEndptId: '2000000'
+      Gtp2IgnoreRestartCtrEn: 'false'
+      Gtp2Imei: '50502410121507'
+      Gtp2Imsi: '505024101215074'
+      Gtp2IncCgiEn: 'false'
+      Gtp2IncEcgiEn: 'true'
+      Gtp2IncRaiEn: 'false'
+      Gtp2IncSaiEn: 'false'
+      Gtp2IncTaiEn: 'true'
+      Gtp2MacroEnbEn: 'false'
+      Gtp2Mcc: '000'
+      Gtp2Mnc: '000'
+      Gtp2MobGtpuForwardingEndptId: '5000000'
+      Gtp2MsIsdnEn: 'false'
+      Gtp2N3Attempts: '5'
+      Gtp2PagingTimeMs: '0'
+      Gtp2PersistentImsiEn: 'false'
+      Gtp2QosArpPreemptCapEn_1: 'false'
+      Gtp2QosArpPreemptVulnEn_1: 'false'
+      Gtp2QosArpValue_1: '1'
+      Gtp2QosClassId_1: '1'
+      Gtp2QosDetail: Summary
+      Gtp2QosGuarDownlink_1: '1'
+      Gtp2QosGuarUplink_1: '1'
+      Gtp2QosMaxDownlink_1: '1'
+      Gtp2QosMaxUplink_1: '1'
+      Gtp2RadioAccessType: '6'
+      Gtp2ResponseDelayEn: 'false'
+      Gtp2RestartCnt: '1'
+      Gtp2RouterAdDelay: '1'
+      Gtp2S5GtpcTunnelEndptId: '3000000'
+      Gtp2S5GtpuTunnelEndptId: '4000000'
+      Gtp2SupportMabrEn: 'false'
+      Gtp2T3Time: '20'
+      Gtp2Tac: '0'
+      Gtp2Version: 15.2.0
+      PgwNodeEn: 'true'
+      QciToDscpMarkingsEn: 'false'
+      S5Protocol: GTPv2
+      Sessions: '1000'
+      SgiPtpTunnelEn: 'false'
+      SgwControlAddr:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        innerVlanId: 0
+        ip: SGW_CONTROL_IP
+        mac: ''
+        mtu: 1500
+        nextHop: ''
+        numLinksOrNodes: 1
+        numVlan: 1
+        phy: SGW_CONTROL_PHY
+        uniqueVlanAddr: 'false'
+        vlanDynamic: 0
+        vlanId: 0
+        vlanTagType: 0
+        vlanUserPriority: 0
+      SgwControlAddrErrInj: '0'
+      SgwUserAddr:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        innerVlanId: 0
+        ip: SGW_USER_IP
+        mac: ''
+        mtu: 1500
+        nextHop: ''
+        numLinksOrNodes: 1
+        numVlan: 1
+        phy: SGW_USER_PHY
+        uniqueVlanAddr: 'false'
+        vlanDynamic: 0
+        vlanId: 0
+        vlanTagType: 0
+        vlanUserPriority: 0
+      SgwUserAddrErrInj: '0'
+      SgwUserDualStackEn: 'false'
+      TestType: SGW-NODE
+      TrafficMtu: '1400'
+      UeDhcpV4En: 'false'
+    type: SGW_Node
+  tsId: SGW_NODE_TS_NAME
+- testCases:
+  - name: ''
+    parameters:
+      ApnDnsEn: 'false'
+      ApnToPgwMappingEn: 'false'
+      AutoStopControlLayer: 'false'
+      ContinuousWithVerification: 'false'
+      CpCiotEpsOptimizationEn: 'false'
+      CtlBearerToDscpEn: 'false'
+      DataHostCfgFileEn: 'false'
+      DataResumeRate: '3000'
+      DataTraffic: Continuous
+      DataUserCfgFileEn: 'false'
+      DedicatedsPerDefaultBearer: '0'
+      DefaultBearers: '1'
+      DisconnectRate: '1000.0'
+      Dmf:
+        class: Dmf
+        instanceGroups:
+        - mainflowIdx: 0
+          mixType: ''
+          rate: 0.0
+          rows:
+          - clientPort: 0
+            context: 0
+            node: 0
+            overridePort: 'false'
+            ratingGroup: 0
+            role: Server
+            serviceId: 0
+            transport: Any
+        mainflows:
+        - library: test
+          name: Basic UDP
+      DualStackEn: 'false'
+      EDrxValueEn: 'false'
+      EirIfEn: 'false'
+      EmergencyAttachWithImeiEn: 'false'
+      EmergencyAttachWoAuthEn: 'false'
+      EmergencyPdnIndexEn: 'false'
+      EnableExternalData: '0'
+      EnbUserAddr:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        innerVlanId: 0
+        ip: ENB_USER_IP
+        mac: ''
+        mtu: 1500
+        nextHop: ''
+        numLinksOrNodes: 1
+        numVlan: 1
+        phy: ENB_USER_PHY
+        uniqueVlanAddr: 'false'
+        vlanDynamic: 0
+        vlanId: 0
+        vlanTagType: 0
+        vlanUserPriority: 0
+      EnbUserAddrErrInj: '0'
+      FireballEn: 'false'
+      Gtp2ActivationDelay: '0'
+      Gtp2AmbrDownlink: '1'
+      Gtp2AmbrUplink: '1'
+      Gtp2ApnNumSpecifiedApns_0: '0'
+      Gtp2ApnNumSpecifiedApns_1: '0'
+      Gtp2ApnRestriction: '0'
+      Gtp2ApnRetries_0: '0'
+      Gtp2ApnRetries_1: '0'
+      Gtp2ApnSelectMode: '0'
+      Gtp2ApnSpecified_0:
+        array: []
+        class: Array
+      Gtp2ApnSpecified_1:
+        array: []
+        class: Array
+      Gtp2ApnTotalApns_0: '1'
+      Gtp2ApnTotalApns_1: '1'
+      Gtp2Apn_0: ssenoauth146
+      Gtp2Apn_1: ssenoauth146
+      Gtp2BearerModEn: 'false'
+      Gtp2CfgFileEn: 'false'
+      Gtp2ChargingChars: '0x0'
+      Gtp2DelayDlPacketNotifReq: '1'
+      Gtp2Ecgi: '0'
+      Gtp2EcgiSize: '28'
+      Gtp2EchoTimeSec: '0'
+      Gtp2EnbUliEn: 'false'
+      Gtp2ExtEn: 'false'
+      Gtp2FwdUplinkDataEcmIdle: 'false'
+      Gtp2GtpcTunnelEndptId: '1000000'
+      Gtp2GtpuIncludeSeqEn: 'true'
+      Gtp2GtpuTunnelEndptId: '2000000'
+      Gtp2IdleEntryTime: '0'
+      Gtp2IgnoreRestartCtrEn: 'false'
+      Gtp2Imei: '50502410121507'
+      Gtp2Imsi: '505024101215074'
+      Gtp2IncCgiEn: 'false'
+      Gtp2IncEcgiEn: 'true'
+      Gtp2IncPcoOpt: none
+      Gtp2IncRaiEn: 'false'
+      Gtp2IncSaiEn: 'false'
+      Gtp2IncTaiEn: 'true'
+      Gtp2MacroEnbEn: 'false'
+      Gtp2MaxWaitTimeEn: 'false'
+      Gtp2Mcc: '000'
+      Gtp2Mnc: '000'
+      Gtp2ModBearerDlDataDelay: '0'
+      Gtp2MsIsdnEn: 'false'
+      Gtp2N3Attempts: '5'
+      Gtp2PagingTimeMs: '0'
+      Gtp2PcoAddEn: 'false'
+      Gtp2PcoIpcpEn: 'false'
+      Gtp2QosArpPreemptCapEn_1: 'false'
+      Gtp2QosArpPreemptVulnEn_1: 'false'
+      Gtp2QosArpValue_1: '1'
+      Gtp2QosClassId_1: '1'
+      Gtp2QosDetail: Summary
+      Gtp2QosGuarDownlink_1: '1'
+      Gtp2QosGuarUplink_1: '1'
+      Gtp2QosMaxDownlink_1: '1'
+      Gtp2QosMaxUplink_1: '1'
+      Gtp2RadioAccessType: '6'
+      Gtp2RejectDedEn: 'false'
+      Gtp2RemoteUeReportTime: '0'
+      Gtp2RestartCnt: '1'
+      Gtp2SupportMabrEn: 'false'
+      Gtp2SwVersionEn: 'false'
+      Gtp2T3Time: '20'
+      Gtp2Tac: '0'
+      Gtp2UeDaySaveTime: '0'
+      Gtp2UeMultPdnConnReqSameApnEn_0: 'false'
+      Gtp2UeTimeZone: '0'
+      Gtp2UliDbCmdCbRspEn: 'true'
+      Gtp2Version: 15.2.0
+      HomeAddrType: '1'
+      HomeAddrTypePerBearerEn: 'false'
+      HssIfEn: 'false'
+      MmeControlAddr:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        innerVlanId: 0
+        ip: MME_CONTROL_IP
+        mac: ''
+        mtu: 1500
+        nextHop: ''
+        numLinksOrNodes: 1
+        numVlan: 1
+        phy: MME_CONTROL_PHY
+        uniqueVlanAddr: 'false'
+        vlanDynamic: 0
+        vlanId: 0
+        vlanTagType: 0
+        vlanUserPriority: 0
+      MmeControlAddrErrInj: '0'
+      MultipathTcpEn: 'false'
+      NetworkHost: Local
+      NetworkHostAddrLocal:
+        class: TestNode
+        ethStatsEnabled: 'false'
+        forcedEthInterface: ''
+        innerVlanId: 0
+        ip: NET_HOST_IP
+        mac: ''
+        mtu: 1500
+        nextHop: ''
+        numLinksOrNodes: 1
+        numVlan: 1
+        phy: NET_HOST_PHY
+        uniqueVlanAddr: 'false'
+        vlanDynamic: 0
+        vlanId: 0
+        vlanTagType: 0
+        vlanUserPriority: 0
+      NetworkHostAddrLocalErrInj: '0'
+      NetworkHostNatedTrafficEn: 'false'
+      PgwNodeEn: 'false'
+      PgwUserSutEn: 'false'
+      PgwV4Sut:
+        class: Sut
+        name: PGW_SUT_NAME
+      QciToDscpMarkingsEn: 'false'
+      S5Protocol: GTPv2
+      SecPgwV4SutEn: 'false'
+      SessionIntervalShape: Fixed
+      SessionRetries: 'true'
+      Sessions: '1000'
+      SgwNumSutsEn: 'false'
+      SgwSut:
+        class: Sut
+        name: PGW_SUT_NAME
+      SgwUserSut:
+        class: Sut
+        name: SGW_USER_NAME
+      StartRate: '1000.0'
+      T3324PwrSavingValueEn: 'false'
+      T3412ExValueEn: 'false'
+      TestActivity: Capacity Test
+      TestType: SGW-NODAL
+      TrafficDontFragIp: '0'
+      TrafficErrorInject: '0'
+      TrafficHostIdleTimeEnabler: 'false'
+      TrafficMtu: '1400'
+      TrafficStartDelay: '10000'
+      TrafficStartType: When All Sessions Established
+      UeDhcpV4En: 'false'
+      UseStaticBearerIp: 'false'
+    type: SGW_Nodal
+  tsId: SGW_NODAL_TS_NAME

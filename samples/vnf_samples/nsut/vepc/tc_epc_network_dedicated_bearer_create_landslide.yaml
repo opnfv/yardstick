@@ -1,0 +1,164 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: yardstick:task:0.1
+description: >
+    NW triggered dedicated bearer creation test case. Measure successful dedicated bearers
+    creation rate, total number of active bearer per server.
+
+scenarios:
+- type: NSPerf
+  traffic_profile: "../../traffic_profiles/landslide/landslide_dmf_udp.yaml"
+  session_profile: "../../traffic_profiles/landslide/landslide_session_network_dedicated_bearer.yaml"
+  topology: "vepc_vnf_topology_landslide.yaml"
+  nodes:
+    tg__0: tg__0.traffic_gen
+    vnf__0: vnf__0.vnf_epc
+  options:
+    dmf:
+      transactionRate: 5
+      packetSize: 512
+      burstCount: 1 # Applies only to Basic UDP DMF, DataProtocol==udp
+    test_cases:  # test case parameters to apply on session profile
+    - type: SGW_Node  # test type from test session profile
+      AssociatedPhys: 'eth6'  # interface(s) in Node test type to loop traffic back from NetHost
+      BearerAddrPool: 2001::1
+      BearerV4AddrPool: 1.0.0.1
+      Sessions: 50000
+      UeInitBearerEn: 'false'
+      DedicatedsPerDefaultBearer: 1 # number of dedicated bearers per default
+      DefaultBearers: 1 # number of default bearers
+      FireballEn: 'false' # Fireball settings
+
+      # APN settings (number of APNs and APN's names)
+      Gtp2ApnNumSpecifiedApns_0: '1'
+      Gtp2ApnSpecified_0:
+        array: [dummy.an]
+        class: Array
+
+    - type: PGW_Node # test type from test session profile
+      BearerAddrPool: 2001::1
+      BearerV4AddrPool: 1.0.0.1
+      Sessions: 50000
+      DedicatedsPerDefaultBearer: 1 # number of dedicated bearers per default
+      DefaultBearers: 1 # number of default bearers
+      FireballEn: 'false' # Fireball settings
+
+      # APN settings (number of APNs and APN's names)
+      Gtp2ApnNumSpecifiedApns_0: '1'
+      Gtp2ApnSpecified_0:
+        class: Array
+        array: [dummy.an]
+
+    - type: SGW_Nodal  # test type from test session profile
+      StartRate: '1000.0'
+      DisconnectRate: '1000.0'
+      Sessions: 50000
+      UeInitBearerEn: 'false'
+      DedicatedsPerDefaultBearer: 1 # number of dedicated bearers per default
+      DefaultBearers: 1 # number of default bearers
+      PgwNodeEn: 'false' # Emulate PGW Node
+      FireballEn: 'false' # Fireball settings
+
+      # APN settings (number of APNs and APN's names)
+      Gtp2ApnNumSpecifiedApns_0: '1'
+      Gtp2ApnSpecified_0:
+        class: Array
+        array: [dummy.an]
+
+      # Creation delay individually for each dedicated bearer
+      # Array items specifies timeout between default and dedicated bearers creation
+      # Array items corresponds to specific dedicated bearer
+      ConnectBearerDelay:
+        class: Array
+        array: ['1']
+
+    - type: PCRF_Node # test type from test session profile
+      Sessions: 50000
+      DisconnectRate: '1000'
+
+      # Starting IP address
+      StartingMsIpAddr: 1.0.0.1
+
+      # APN settings (APN's Names)
+      TyCcSrvApns:
+        class: Array
+        array: [dummy.an]
+
+      # Timer column (in seconds)
+      # Value specifies timeout after which dedicated bearer will be created
+      # None-zero timeout corresponds to dedicated bearer, zero timeout - to default bearer
+      TyCcV4SrvRuleInterval_1: '10' # APN1 dedicated bearer
+      TyCcV4SrvRuleInterval_2: '0' # APN1 default bearer
+
+      # QoS Class ID
+      # Name Pattern: TyCcV4SrvCrQci_<RULE_SET_NUM>_<CHAR_RULE_NUM>_<RULE_DEF_NUM>
+      TyCcV4SrvCrQci_1_1_1: '1' # QCI of dedicated bearer
+
+      # Dedicated bearer Uplink/Downlink Bandwidth settings
+      # Name Pattern: TyCcV4SrvPrMaxUL_<RULE_SET_NUM>_<CHAR_RULE_NUM>_<RULE_DEF_NUM>
+      # Name Pattern: TyCcV4SrvPrGuaranteedUplink_<RULE_SET_NUM>_<CHAR_RULE_NUM>_<RULE_DEF_NUM>
+      TyCcV4SrvPrMaxUL_1_1_1: '300' # Uplink Max Bandwidth
+      TyCcV4SrvPrMaxDL_1_1_1: '300' # Downlink Max Bandwidth
+      TyCcV4SrvPrGuaranteedUplink_1_1_1: '300' # Uplink Guaranteed Bandwidth
+      TyCcV4SrvPrGuaranteedDownlink_1_1_1: '300' # Downlink Guaranteed Bandwidth
+
+      # Dedicated bearer ARP Rules
+      # Name Pattern: TyCcV4SrvPrArpEn_<RULE_SET_NUM>_<CHAR_RULE_NUM>_<RULE_DEF_NUM>
+      # Name Pattern: TyCcV4SrvPrArpValue_<RULE_SET_NUM>_<CHAR_RULE_NUM>_<RULE_DEF_NUM>
+      TyCcV4SrvPrArpEn_1_1_1: 'true' # Enable ARP Rules
+      TyCcV4SrvPrArpValue_1_1_1: '1' # ARP Value
+      TyCcV4SrvPrArpPreemptCapEn_1_1_1: 'true' # Enable Pre-emption Capability
+      TyCcV4SrvPrArpPreemptVulnEn_1_1_1: 'true' # Enable Pre-emption Vulnerability
+
+      # Packet Filter Description
+      # Name Pattern:
+      # TyCcV4SrvCrFilter_<RULE_SET_NUM>_<CHAR_RULE_NUM>_<RULE_DEF_NUM>_<FILTER_NUM>
+      # To explicitly specify protocol number with decimal number, use following naming pattern:
+      # permit in <PROTOCOL_NUMBER> from
+      TyCcV4SrvCrFilter_1_1_1_1: permit in 17 from
+
+      # Packet Filter Destination IP
+      # Name Pattern:
+      # TyCcV4SrvCrFilterDestIp_<RULE_SET_NUM>_<CHAR_RULE_NUM>_<RULE_DEF_NUM>_<FILTER_NUM>
+      # Parameter's value specifies filter's destination IP address and remote port range
+      TyCcV4SrvCrFilterDestIp_1_1_1_1: 0.0.0.0 0-65535
+
+      # Packet Filter IP Ext
+      # Name Pattern:
+      # TyCcV4SrvCrUserIpExt_<RULE_SET_NUM>_<CHAR_RULE_NUM>_<RULE_DEF_NUM>_<FILTER_NUM>
+      # Parameter's value specifies filter's local port range
+      TyCcV4SrvCrUserIpExt_1_1_1_1: 0-65535
+
+      # Packet Filter Flow Direction
+      # Name Pattern:
+      # TyCcV4SrvCrFilterDirection_<RULE_SET_NUM>_<CHAR_RULE_NUM>_<RULE_DEF_NUM>_<FILTER_NUM>
+      TyCcV4SrvCrFilterDirection_1_1_1_1: '3' # Bi-Directional
+
+      # Diameter Transmission Protocol
+      TyCcSrvTcpProtocol: '1' # 0 - TCP, 1 - SCTP
+
+  runner:
+    type: Duration
+    duration: 600
+    interval: 5
+
+contexts:
+- name: traffic_gen
+  type: Node
+  file: /etc/yardstick/nodes/pod_landslide_network_dedicated.yaml
+- name: vnf_epc
+  type: Node
+  file: /etc/yardstick/nodes/pod_vepc_sut.yaml

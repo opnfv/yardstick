@@ -1,0 +1,228 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: yardstick:task:0.1
+description: >
+    UE triggered bearer modification request with new QoS and TFT settings
+
+scenarios:
+- type: NSPerf
+  traffic_profile: "../../traffic_profiles/landslide/landslide_dmf_udp.yaml"
+  session_profile: "../../traffic_profiles/landslide/landslide_session_ue_service_request.yaml"
+  topology: "vepc_vnf_topology_landslide.yaml"
+  nodes:
+    tg__0: tg__0.traffic_gen
+    vnf__0: vnf__0.vnf_epc
+  options:
+    dmf:
+      transactionRate: 5
+      packetSize: 512
+      burstCount: 1 # Applies only to Basic UDP DMF, DataProtocol==udp
+    test_cases:  # test case parameters to apply on session profile
+    - type: SGW_Node  # test type from test session profile
+      AssociatedPhys: 'eth6'
+      BearerAddrPool: 2001::1
+      BearerV4AddrPool: 1.0.0.1
+      Sessions: '20000'
+      UeInitBearerEn: 'true'
+      DedicatedsPerDefaultBearer: 1 # number of dedicated bearers per default
+      DefaultBearers: 1 # number of default bearers
+      FireballEn: 'false' # Fireball settings
+
+      # Number of TFTs
+      # Parameter name pattern: TrafficNumTftsForContext<DEDICATED_BEARER_INDEX>
+      TrafficNumTftsForContext0: '1'
+
+      # TFT Settings
+      # Parameter name(s) depends on number of dedicated bearers and number of TFTs per bearer.
+      # Parameter naming pattern: "TrafficTftForContext<DEDICATED_BEARER_INDEX>_<TFT_INDEX>"
+      # E.g.:
+      # "TrafficTftForContext0_0" - dedicated bearer 1, 1st TFT
+      # "TrafficTftForContext0_1" - dedicated bearer 1, 2nd TFT
+      # "TrafficTftForContext1_0" - dedicated bearer 2, 1st TFT
+      TrafficTftForContext0_0:
+        array:
+        - '255'     # Packet Evaluation Precedence
+        - '6'      # Protocol Number
+        - ''
+        - ''        # Starting Remote Port
+        - ''        # Ending Remote Port
+        - ''        # Remote Address
+        - ''        # Starting Local Port
+        - ''        # Ending Local Port
+        - ''        # Type of Service
+        - ''        # Mask
+        - ''        # Security Parameter Index
+        - ''        # Flow Label
+        - ''
+        - ''        # Include In Bearer Modification Request
+        - '3'       # Direction: 0 - Pre Rel 7, 1 - Downlink, 2 - Uplink, 3 - Bi-Directional
+        - ''
+        - ''
+        - ''
+        - ''
+        class: Array
+
+    - type: SGW_Nodal  # test type from test session profile
+      StartRate: '1000.0'
+      DisconnectRate: '1000.0'
+      Sessions: '20000'
+      UeInitBearerEn: 'true'
+      DedicatedsPerDefaultBearer: '1' # number of dedicated bearers per default
+      DefaultBearers: '1' # number of default bearers
+      FireballEn: 'false' # Fireball settings
+
+      # Creation delay individually for each dedicated bearer
+      # Array items specifies timeout between default and dedicated bearers creation
+      # Array items corresponds to specific dedicated bearer:
+      # E.g. 1st item - 1st dedicated bearer, 2nd item - 2nd dedicated bearer, etc.
+      ConnectBearerDelay:
+        class: Array
+        array: ['1']
+
+      # Data start delay (ms)
+      TrafficStartDelay: 1000
+
+      # Number of TFTs
+      # Parameter name pattern: TrafficNumTftsForContext<DEDICATED_BEARER_INDEX>
+      TrafficNumTftsForContext0: '1'
+
+      # TFT settings
+      # Parameter name(s) depends on number of dedicated bearers and number of TFTs per bearer.
+      # Parameter naming pattern: "TrafficTftForContext<DEDICATED_BEARER_INDEX>_<TFT_INDEX>"
+      # E.g.:
+      # "TrafficTftForContext0_0" - dedicated bearer 1, 1st TFT
+      # "TrafficTftForContext0_1" - dedicated bearer 1, 2nd TFT
+      # "TrafficTftForContext1_0" - dedicated bearer 2, 1st TFT
+      TrafficTftForContext0_0:
+        array:
+        - '255'     # Packet Evaluation Precedence
+        - '6'      # Protocol Number
+        - ''
+        - ''        # Starting Remote Port
+        - ''        # Ending Remote Port
+        - ''        # Remote Address
+        - ''        # Starting Local Port
+        - ''        # Ending Local Port
+        - ''        # Type of Service
+        - ''        # Mask
+        - ''        # Security Parameter Index
+        - ''        # Flow Label
+        - ''
+        - ''        # Include In Bearer Modification Request
+        - '3'       # Direction: 0 - Pre Rel 7, 1 - Downlink, 2 - Uplink, 3 - Bi-Directional
+        - ''
+        - ''
+        - ''
+        - ''
+        class: Array
+
+      # Bearers modification settings
+      # Dedicated bearers modification settings and TFT filters
+      Gtp2BearerModEn: 'true' # Enable/Disable bearer modification
+      Gtp2BearerModInit: 'UE' # Bearer modification initiator
+      Gtp2BearerDelayTime: '5' # Delay time (s)
+      Gtp2IncModQos_2: 'true' # Include QoS IE
+      Gtp2BearerContinuousMod: 'false' # Continuous modifications
+      # Operation code in TFT settings:
+      # Parameter name(s) depends on number of dedicated bearers
+      # Parameter naming pattern: "TrafficOpCodeForContext<DEDICATED_BEARER_INDEX>_2"
+      # E.g.:
+      # TrafficOpCodeForContext0_2 - operation code for 1st dedicated bearer's TFT
+      # TrafficOpCodeForContext1_2 - operation code for 2st dedicated bearer's TFT
+      # 1 - create new TFT
+      # 2 - delete existing TFT
+      # 3 - add packet filters to existing TFT
+      # 4 - replace packet filters in existing TFT
+      # 5 - delete packet filters from existing TFT
+      TrafficOpCodeForContext0_2: '1'
+
+      # Number of TFTs
+      # Parameter name pattern: TrafficNumTftsForContext<DEDICATED_BEARER_INDEX>_2
+      TrafficNumTftsForContext0_2: '1'
+
+      # TFT settings
+      # Parameter name(s) depends on number of dedicated bearers and number of TFTs per bearer.
+      # Parameter naming pattern: "TrafficTftForContext<DEDICATED_BEARER_INDEX>_<TFT_INDEX>_2"
+      # E.g.:
+      # "TrafficTftForContext0_0" - dedicated bearer 1, 1st TFT
+      # "TrafficTftForContext0_1" - dedicated bearer 1, 2nd TFT
+      # "TrafficTftForContext1_0" - dedicated bearer 2, 1st TFT
+      TrafficTftForContext0_0_2:
+        class: Array
+        array:
+        - '255'     # Packet Evaluation Precedence
+        - '17'       # Protocol Number
+        - ''
+        - '2003'    # Starting Remote Port
+        - '2003'    # Ending Remote Port
+        - ''        # Remote Address
+        - '2002'    # Starting Local Port
+        - '2002'    # Ending Local Port
+        - ''        # Type of Service
+        - ''        # Mask
+        - ''        # Security Parameter Index
+        - ''        # Flow Label
+        - ''
+        - 'true'    # Include In Bearer Modification Request
+        - '3'       # Direction: 0 - Pre Rel 7, 1 - Downlink, 2 - Uplink, 3 - Bi-Directional
+        - ''
+        - ''
+        - ''
+        - ''
+
+      # Modified bearers QoS settings
+      Gtp2QosDetail_2: Individual # bearers QoS details (Summary, Individual, Per Bearer)
+
+      # Parameter name(s) depends on number of dedicated bearers
+      # Parameter(s) naming pattern: "Gtp2QosClassId_2_<BEARER_INDEX>"
+      # E.g.:
+      # Gtp2QosClassId_2_1 - default bearer class identifier
+      # Gtp2QosClassId_2_2 - 1st dedicated bearer class identifier
+      # Gtp2QosClassId_2_3 - 2st dedicated bearer class identifier
+      # Modified default bearer settings
+      Gtp2QosClassId_2_1: '1' # Bearer class identifier
+      Gtp2QosArpValue_2_1: '1' # Bearer ARP priority level
+      Gtp2QosArpPreemptCapEn_2_1: 'false' # Pre-emption capability
+      Gtp2QosArpPreemptVulnEn_2_1: 'false' # Pre-emption vulnerability
+      Gtp2QosMaxUplink_2_1: '1000' # Uplink maximum bit rates (kb/s)
+      Gtp2QosMaxDownlink_2_1: '1000' # Downlink maximum bit rates (kb/s)
+      Gtp2QosGuarUplink_2_1: '1000' # Uplink guaranteed bit rates (kb/s)
+      Gtp2QosGuarDownlink_2_1: '1000' # Downlink guaranteed bit rates (kb/s)
+
+      # Modified dedicated bearer settings
+      Gtp2QosClassId_2_2: '5' # Bearer class identifier
+      Gtp2QosArpValue_2_2: '1' # Bearer ARP priority level
+      Gtp2QosArpPreemptCapEn_2_2: 'false' # Pre-emption capability
+      Gtp2QosArpPreemptVulnEn_2_2: 'false' # Pre-emption vulnerability
+
+      # Uncomment this settings in case Gtp2QosClassId_2_2 is equal to 1
+      # Gtp2QosMaxUplink_2_2: '1000' # Uplink maximum bit rates (kb/s)
+      # Gtp2QosMaxDownlink_2_2: '1000' # Downlink maximum bit rates (kb/s)
+      # Gtp2QosGuarUplink_2_2: '1000' # Uplink guaranteed bit rates (kb/s)
+      # Gtp2QosGuarDownlink_2_2: '1000' # Downlink guaranteed bit rates (kb/s)
+
+  runner:
+    type: Duration
+    duration: 300
+    interval: 5
+
+contexts:
+- name: traffic_gen
+  type: Node
+  file: /etc/yardstick/nodes/pod_landslide.yaml
+- name: vnf_epc
+  type: Node
+  file: /etc/yardstick/nodes/pod_vepc_sut.yaml
