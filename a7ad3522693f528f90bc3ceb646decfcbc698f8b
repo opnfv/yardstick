@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_e27c2175",
+        "filename": "docker/k8s/yardstick-manifest.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-09-21T09:26:27Z",
+      "side": 1,
+      "message": "Thanks for pointing out that :)",
+      "parentUuid": "5a682502_af2b32ea",
+      "range": {
+        "startLine": 82,
+        "startChar": 15,
+        "endLine": 82,
+        "endChar": 38
+      },
+      "revId": "a7ad3522693f528f90bc3ceb646decfcbc698f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_788f2724",
         "filename": "docker/k8s/yardstick-manifest.yaml",
         "patchSetId": 5
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_c281254c",
+        "filename": "docker/k8s/yardstick-manifest.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-09-21T09:26:27Z",
+      "side": 1,
+      "message": "Ok, sounds good",
+      "parentUuid": "5a682502_0f3ce62e",
+      "range": {
+        "startLine": 84,
+        "startChar": 25,
+        "endLine": 84,
+        "endChar": 29
+      },
+      "revId": "a7ad3522693f528f90bc3ceb646decfcbc698f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_5894eb36",
         "filename": "docker/k8s/yardstick-manifest.yaml",
         "patchSetId": 5
@@ -131,6 +179,30 @@
       "side": 1,
       "message": "Thank you for pointing out. I plan to have another patch to align the same version for both influxdb and grafana. Both tutum/influxdb:0.13 and grafan:4.43 are 2 years ago.",
       "parentUuid": "5a682502_5894eb36",
+      "range": {
+        "startLine": 110,
+        "startChar": 15,
+        "endLine": 110,
+        "endChar": 29
+      },
+      "revId": "a7ad3522693f528f90bc3ceb646decfcbc698f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_62b9312e",
+        "filename": "docker/k8s/yardstick-manifest.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-09-21T09:26:27Z",
+      "side": 1,
+      "message": "I agree with the upgrade, however, we need to make sure the compatibility of previous dashboards doesn\u0027t break. I had that upgrade in mind as I heavily used influxdb and grafana myself.\nI have seen the dashboards created in Grafana 5.xx doesn\u0027t work on 4.xx.",
+      "parentUuid": "5a682502_0ff50683",
       "range": {
         "startLine": 110,
         "startChar": 15,
