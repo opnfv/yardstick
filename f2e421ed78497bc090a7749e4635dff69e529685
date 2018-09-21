@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_02515d62",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T14:01:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_22957940",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_62c81175",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -65,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_624e51c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T14:01:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_62c81175",
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_42c5155a",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -88,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_424b55b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T14:01:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_42c5155a",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 1
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_a2a189ab",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -99,6 +165,30 @@
       "writtenOn": "2018-09-21T11:52:16Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 1
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a2c7c911",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T14:01:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_a2a189ab",
       "range": {
         "startLine": 21,
         "startChar": 0,
@@ -180,6 +270,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_22545953",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_64B_trex.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T14:01:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_c287650e",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 27,
+        "endChar": 27
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_62765140",
         "filename": "samples/vnf_samples/vnf_descriptors/agnostic_vnf.yaml",
         "patchSetId": 5
@@ -191,6 +305,30 @@
       "writtenOn": "2018-09-21T11:52:16Z",
       "side": 1,
       "message": "Can you add a short description here, for example:\n\n    VNFD for AgnosticVNF which wraps around any unsupported VNF and allows for blackbox testing of the VNF.",
+      "range": {
+        "startLine": 20,
+        "startChar": 20,
+        "endLine": 20,
+        "endChar": 32
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e2d1c1ce",
+        "filename": "samples/vnf_samples/vnf_descriptors/agnostic_vnf.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T14:01:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_62765140",
       "range": {
         "startLine": 20,
         "startChar": 20,
@@ -220,6 +358,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_22dbb9ee",
+        "filename": "yardstick/network_services/vnf_generic/vnf/agnostic_vnf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T14:01:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_a28fc922",
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_e299c16f",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_agnostic_vnf.py",
         "patchSetId": 5
@@ -231,6 +387,30 @@
       "writtenOn": "2018-09-21T11:52:16Z",
       "side": 1,
       "message": "these comments are not required",
+      "range": {
+        "startLine": 31,
+        "startChar": 32,
+        "endLine": 31,
+        "endChar": 58
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c2d645c5",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_agnostic_vnf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T14:01:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_e299c16f",
       "range": {
         "startLine": 31,
         "startChar": 32,
