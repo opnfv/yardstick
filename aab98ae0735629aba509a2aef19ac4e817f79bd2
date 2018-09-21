@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_e2f38108",
+        "filename": "docker/grafana/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-21T09:31:33Z",
+      "side": 1,
+      "message": "Agreed. I meant please be consistent, more than please upgrade.",
+      "parentUuid": "5a682502_42b6b53e",
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_8cd3e937",
         "filename": "docker/grafana/Dockerfile",
         "patchSetId": 2
