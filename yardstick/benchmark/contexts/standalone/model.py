@@ -564,7 +564,7 @@ class StandaloneContextHelper(object):
             key_filename = ''.join(
                 [constants.YARDSTICK_ROOT_PATH,
                  'yardstick/resources/files/yardstick_key-',
-                 id_name])
+                 id_name, '-', vm_name])
             ssh.SSH.gen_keys(key_filename)
             node['key_filename'] = key_filename
         # Update image with public key
