@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_af2b32ea",
+        "filename": "docker/k8s/yardstick-manifest.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-21T02:13:35Z",
+      "side": 1,
+      "message": "this is for the image: https://gerrit.opnfv.org/gerrit/#/c/62447/",
+      "parentUuid": "5a682502_78b607de",
+      "range": {
+        "startLine": 82,
+        "startChar": 15,
+        "endLine": 82,
+        "endChar": 38
+      },
+      "revId": "a7ad3522693f528f90bc3ceb646decfcbc698f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_788f2724",
         "filename": "docker/k8s/yardstick-manifest.yaml",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_0f3ce62e",
+        "filename": "docker/k8s/yardstick-manifest.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-21T02:13:35Z",
+      "side": 1,
+      "message": "This port here is the default Grafana port. Yardstick map it to 1948 of host in the docker situation. Typically, a user would use Node IP and NodePort to access Grafana(see line 187). So I can change it at the NodePort part to align with 1948.",
+      "parentUuid": "5a682502_788f2724",
+      "range": {
+        "startLine": 84,
+        "startChar": 25,
+        "endLine": 84,
+        "endChar": 29
+      },
+      "revId": "a7ad3522693f528f90bc3ceb646decfcbc698f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_5894eb36",
         "filename": "docker/k8s/yardstick-manifest.yaml",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2018-09-20T10:44:46Z",
       "side": 1,
       "message": "I think we need to maintain consistency across the yardstick project to use influxdb and grafana version.\nWe currently use tutum/inlfluxdb:0.13 in master. https://git.opnfv.org/yardstick/tree/yardstick/common/constants.py#n116",
+      "range": {
+        "startLine": 110,
+        "startChar": 15,
+        "endLine": 110,
+        "endChar": 29
+      },
+      "revId": "a7ad3522693f528f90bc3ceb646decfcbc698f8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_0ff50683",
+        "filename": "docker/k8s/yardstick-manifest.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-09-21T02:13:35Z",
+      "side": 1,
+      "message": "Thank you for pointing out. I plan to have another patch to align the same version for both influxdb and grafana. Both tutum/influxdb:0.13 and grafan:4.43 are 2 years ago.",
+      "parentUuid": "5a682502_5894eb36",
       "range": {
         "startLine": 110,
         "startChar": 15,
