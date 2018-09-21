@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_22957940",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T11:52:16Z",
+      "side": 1,
+      "message": "IMHO, this would be better as\n    [NSB] Adds support for running \"black box\" test cases for VNFs",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_62c81175",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T11:52:16Z",
+      "side": 1,
+      "message": "Please wrap line in commit messages at 72 characters, per the guidelines at  [1]\n\nWhen a change is merged, the commit message may be indented, so the line length is wrapped at 72 so that it stays below the 80 character limit when indented.\n\nhttps://wiki.opnfv.org/display/DEV/Contribution+Guidelines#ContributionGuidelines-Gitcommitmessagestyle",
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c2b005f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T11:52:16Z",
+      "side": 1,
+      "message": "This should have some documentation included on how to use \nAgnosticVNF.\n\nYou can include it in a follow-up patch, or add a ticket to follow up under the documentation epic at YARDSTCK-1335",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 73
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_42c5155a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T11:52:16Z",
+      "side": 1,
+      "message": "replace the tab with spaces",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 1
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a2a189ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T11:52:16Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 1
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e28261ff",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_64B_ixia.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T11:52:16Z",
+      "side": 1,
+      "message": "Is the latency profile always used for ixia rfc2544 tests? \n\nSuggest renaming this TC file tc_baremetal_latency_ipv4_64B_ixia.yaml or tc_baremetal_rfc2544_latency_ipv4_64B_ixia.yaml",
+      "range": {
+        "startLine": 19,
+        "startChar": 42,
+        "endLine": 19,
+        "endChar": 64
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_828d6d34",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_64B_ixia.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T11:52:16Z",
+      "side": 1,
+      "message": "This file is called tc_baremetal_rfc2544_ipv4_64B_ixia.yaml\n\nframesize should be 64B, or file should be renamed to tc_baremetal_rfc2544_ipv4_128B_ixia.yaml",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 27
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c287650e",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_64B_trex.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T11:52:16Z",
+      "side": 1,
+      "message": "same comments as in the previous file regarding naming",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 27,
+        "endChar": 27
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_62765140",
+        "filename": "samples/vnf_samples/vnf_descriptors/agnostic_vnf.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T11:52:16Z",
+      "side": 1,
+      "message": "Can you add a short description here, for example:\n\n    VNFD for AgnosticVNF which wraps around any unsupported VNF and allows for blackbox testing of the VNF.",
+      "range": {
+        "startLine": 20,
+        "startChar": 20,
+        "endLine": 20,
+        "endChar": 32
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a28fc922",
+        "filename": "yardstick/network_services/vnf_generic/vnf/agnostic_vnf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T11:52:16Z",
+      "side": 1,
+      "message": "Please add a docstring here.",
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e299c16f",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_agnostic_vnf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-21T11:52:16Z",
+      "side": 1,
+      "message": "these comments are not required",
+      "range": {
+        "startLine": 31,
+        "startChar": 32,
+        "endLine": 31,
+        "endChar": 58
+      },
+      "revId": "f2e421ed78497bc090a7749e4635dff69e529685",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
