@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_42b6b53e",
+        "filename": "docker/grafana/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-09-21T09:21:38Z",
+      "side": 1,
+      "message": "Need to check the compatibility of dashboards moving from version 4.43 to 5.x.x",
+      "parentUuid": "5a682502_376ca29c",
+      "revId": "aab98ae0735629aba509a2aef19ac4e817f79bd2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_8cd3e937",
         "filename": "docker/grafana/Dockerfile",
         "patchSetId": 2
