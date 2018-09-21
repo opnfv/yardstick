@@ -764,6 +764,53 @@ class SampleVNF(GenericVNF):
             # by other VNF output
             self.q_in.put('\r\n')
 
+    def wait_for_initialize(self):
+        buf = []
+        vnf_prompt_found = False
+        prompt_command = '\r\n'
+        script_name = 'non_existent_script_name'
+        done_string = 'Cannot open file "{}"'.format(script_name)
+        time.sleep(self.WAIT_TIME)  # Give some time for config to load
+        while True:
+            if not self._vnf_process.is_alive():
+                raise RuntimeError("%s VNF process died." % self.APP_NAME)
+            while self.q_out.qsize() > 0:
+                buf.append(self.q_out.get())
+                message = ''.join(buf)
+
+                if self.VNF_PROMPT in message and not vnf_prompt_found:
+                    # Once we got VNF promt, it doesn't mean that the VNF is
+                    # up and running/initialized completely. But we can run
+                    # addition (any) VNF command and wait for it to complete
+                    # as it will be finished ONLY at the end of the VNF
+                    # initialization. So, this approach can be used to
+                    # indentify that VNF is completely initialized.
+                    LOG.info("Got %s VNF prompt.", self.APP_NAME)
+                    prompt_command = "run {}\r\n".format(script_name)
+                    self.q_in.put(prompt_command)
+                    # Cut the buffer since we are not interesting to find
+                    # the VNF prompt anymore
+                    prompt_pos = message.find(self.VNF_PROMPT)
+                    buf = [ message[prompt_pos + len(self.VNF_PROMPT):] ]
+                    vnf_prompt_found = True
+                    continue
+
+                if done_string in message:
+                    LOG.info("%s VNF is up and running.", self.APP_NAME)
+                    self._vnf_up_post()
+                    self.queue_wrapper.clear()
+                    return self._vnf_process.exitcode
+
+                if "PANIC" in message:
+                    raise RuntimeError("Error starting %s VNF." %
+                                       self.APP_NAME)
+
+            LOG.info("Waiting for %s VNF to start.. ", self.APP_NAME)
+            time.sleep(self.WAIT_TIME_FOR_SCRIPT)
+            # Send command again to display the expected prompt in case the
+            # expected text was corrupted by other VNF output
+            self.q_in.put(prompt_command)
+
     def start_collect(self):
         self.resource_helper.start_collect()
 

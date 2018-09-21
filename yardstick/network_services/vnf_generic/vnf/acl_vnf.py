@@ -252,3 +252,7 @@ class AclApproxVnf(SampleVNF):
             setup_env_helper_type = AclApproxSetupEnvSetupEnvHelper
         super(AclApproxVnf, self).__init__(
             name, vnfd, task_id, setup_env_helper_type, resource_helper_type)
+
+    def wait_for_instantiate(self):
+        """Wait for VNF to initialize"""
+        self.wait_for_initialize()

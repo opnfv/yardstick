@@ -120,3 +120,7 @@ class CgnaptApproxVnf(SampleVNF):
             self.vnf_execute(cmd)
 
         time.sleep(WAIT_FOR_STATIC_NAPT)
+
+    def wait_for_instantiate(self):
+        """Wait for VNF to initialize"""
+        self.wait_for_initialize()

@@ -1678,6 +1678,39 @@ class TestSampleVnf(unittest.TestCase):
         self.assertEqual(sample_vnf.wait_for_instantiate(), 0)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
+    @mock.patch("yardstick.ssh.SSH")
+    def test_wait_for_initialize(self, ssh, *args):
+        test_base.mock_ssh(ssh, exec_result=(1, "", ""))
+        queue_get_list = [
+            'some output',
+            'pipeline> ',
+            'run non_existent_script_name',
+            'Cannot open file "non_existent_script_name"'
+        ]
+        queue_size_list = [
+            0,
+            len(queue_get_list[0]),
+            0,
+            len(queue_get_list[1]),
+            len(queue_get_list[2]),
+            0,
+            len(queue_get_list[3])
+        ]
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        sample_vnf = SampleVNF('vnf1', vnfd, 'task_id')
+        sample_vnf.APP_NAME = 'sample1'
+        sample_vnf.WAIT_TIME_FOR_SCRIPT = 0
+        sample_vnf._vnf_process = mock.MagicMock()
+        sample_vnf._vnf_process.exitcode = 0
+        sample_vnf._vnf_process._is_alive.return_value = 1
+        sample_vnf.queue_wrapper = mock.Mock()
+        sample_vnf.q_in = mock.Mock()
+        sample_vnf.q_out = mock.Mock()
+        sample_vnf.q_out.qsize.side_effect = iter(queue_size_list)
+        sample_vnf.q_out.get.side_effect = iter(queue_get_list)
+        sample_vnf.wait_for_initialize()
+
+    @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
     def test_vnf_execute_with_queue_data(self, *args):
         queue_size_list = [
             1,
