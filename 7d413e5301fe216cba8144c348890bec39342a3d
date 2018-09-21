@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a682502_c249258d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-21T14:58:36Z",
+      "side": 1,
+      "message": "will be collected",
+      "range": {
+        "startLine": 22,
+        "startChar": 21,
+        "endLine": 22,
+        "endChar": 35
+      },
+      "revId": "7d413e5301fe216cba8144c348890bec39342a3d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_82cc4d37",
         "filename": "/COMMIT_MSG",
         "patchSetId": 6
@@ -18,6 +41,75 @@
         "startChar": 0,
         "endLine": 24,
         "endChar": 20
+      },
+      "revId": "7d413e5301fe216cba8144c348890bec39342a3d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_82360d02",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_64B_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-21T14:58:36Z",
+      "side": 1,
+      "message": "naming zoo again",
+      "range": {
+        "startLine": 20,
+        "startChar": 12,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "7d413e5301fe216cba8144c348890bec39342a3d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_220c5942",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_latency_ipv4_64B_ixia.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-21T14:58:36Z",
+      "side": 1,
+      "message": "we might need to use only one naming convention",
+      "range": {
+        "startLine": 20,
+        "startChar": 12,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "7d413e5301fe216cba8144c348890bec39342a3d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8268cdf6",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_latency_ipv4_64B_ixia.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-09-21T14:58:36Z",
+      "side": 1,
+      "message": "This file does not exist in the repo. Is it expected reference?\nAnd if it would exist, it probably should use underscore instead of dash delimiter.",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 42
       },
       "revId": "7d413e5301fe216cba8144c348890bec39342a3d",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
