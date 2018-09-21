@@ -222,6 +222,24 @@
       "revId": "d5aba759ca08fa04e88ec7095a48b914698b9d8a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_621ad118",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-21T11:03:47Z",
+      "side": 1,
+      "message": "See internal discussion.",
+      "parentUuid": "5a682502_e3fef037",
+      "revId": "d5aba759ca08fa04e88ec7095a48b914698b9d8a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
