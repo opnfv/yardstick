@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_b12555ad",
+        "filename": "docs/testing/user/userguide/10-yardstick-user-interface.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-09-24T13:09:23Z",
+      "side": 1,
+      "message": "nit: pls add link for influxdb as well",
+      "range": {
+        "startLine": 21,
+        "startChar": 13,
+        "endLine": 21,
+        "endChar": 21
+      },
+      "revId": "af0aae5cce01c4503a9a06732b5fecd205e3a1df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
