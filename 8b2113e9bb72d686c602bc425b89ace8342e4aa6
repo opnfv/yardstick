@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a682502_11afe9e4",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-09-24T14:42:49Z",
+      "side": 1,
+      "message": "Why put this here?\nit should be in install dependencies\nThis is for ubuntu IIRC its different for centos/redhat",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 36
+      },
+      "revId": "8b2113e9bb72d686c602bc425b89ace8342e4aa6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_516201d9",
         "filename": "ansible/roles/install_dependencies_jumphost/tasks/Debian.yml",
         "patchSetId": 4
@@ -49,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_1196c994",
+        "filename": "ansible/roles/install_dependencies_jumphost/tasks/Debian.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-09-24T14:42:49Z",
+      "side": 1,
+      "message": "I think just because we don\u0027t support doesn\u0027t mean we should break it. In line 66 you could guess and put in \u003c 18 you have a 50% chance of been correct.",
+      "parentUuid": "5a682502_51b9612d",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 50
+      },
+      "revId": "8b2113e9bb72d686c602bc425b89ace8342e4aa6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_83a1fcab",
         "filename": "ansible/roles/install_dependencies_jumphost/tasks/Debian.yml",
         "patchSetId": 4
@@ -60,6 +107,29 @@
       "writtenOn": "2018-09-17T11:26:36Z",
       "side": 1,
       "message": "I understand this line is not related to the change under code review, but I\u0027ll take the opportunity to ask the question:\nWhat is the rationale for installing ARM64 flavor of libc6 package into the x86_64 container?\nIs there a !\u003d vs. \u003d\u003d typo on L82?\nIf we really intend to cross build anything inside the container, I would expect libc6-dev-arm64-cross package here, so I\u0027m puzzled...\nThis was added by https://gerrit.opnfv.org/gerrit/#/c/52935/17/ansible/roles/install_dependencies_jumphost/tasks/Debian.yml@61, together with https://gerrit.opnfv.org/gerrit/#/c/52935/17/ansible/roles/add_repos_jumphost/tasks/Debian.yml@67, but I just don\u0027t get it!",
+      "revId": "8b2113e9bb72d686c602bc425b89ace8342e4aa6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b181d54c",
+        "filename": "ansible/roles/install_yardstick/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-09-24T14:42:49Z",
+      "side": 1,
+      "message": "what happens when a redhat guy comes along?\nplease include a Debian.yml task and RedHat.yml task to install pip",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 50
+      },
       "revId": "8b2113e9bb72d686c602bc425b89ace8342e4aa6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
