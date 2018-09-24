@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_51b9612d",
+        "filename": "ansible/roles/install_dependencies_jumphost/tasks/Debian.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-09-24T14:11:19Z",
+      "side": 1,
+      "message": "I was told that we don\u0027t neede to support Ubuntu 17.xx as it not LTS version.",
+      "parentUuid": "5a682502_516201d9",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 50
+      },
+      "revId": "8b2113e9bb72d686c602bc425b89ace8342e4aa6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_83a1fcab",
         "filename": "ansible/roles/install_dependencies_jumphost/tasks/Debian.yml",
         "patchSetId": 4
