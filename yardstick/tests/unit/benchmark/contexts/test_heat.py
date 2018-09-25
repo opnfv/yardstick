@@ -81,6 +81,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertIsNone(self.test_context.template_file)
         self.assertIsNone(self.test_context.heat_parameters)
         self.assertIsNone(self.test_context.key_filename)
+        self.assertTrue(self.test_context.yardstick_gen_key_file)
 
     @mock.patch.object(yaml_loader, 'read_yaml_file')
     @mock.patch('yardstick.benchmark.contexts.heat.PlacementGroup')
@@ -172,6 +173,23 @@ class HeatContextTestCase(unittest.TestCase):
 
         self.assertTrue(self.test_context._flags.no_setup)
         self.assertTrue(self.test_context._flags.no_teardown)
+
+    def test_init_key_filename(self):
+        attrs = {'name': 'foo',
+                 'file': 'pod.yaml',
+                 'task_id': '1234567890',
+                 'server_groups': {},
+                 'networks': {},
+                 'servers': {},
+                 'heat_template': "/root/clearwater.yaml",
+                 'key_filename': '/etc/yardstick/yardstick.pem'}
+
+        with mock.patch.object(openstack_utils, 'get_shade_client'), \
+             mock.patch.object(openstack_utils, 'get_shade_operator_client'):
+            self.test_context.init(attrs)
+
+        self.assertIsNotNone(self.test_context.key_filename)
+        self.assertFalse(self.test_context.yardstick_gen_key_file)
 
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_resources_to_template_no_servers(self, mock_template):
@@ -372,6 +390,25 @@ class HeatContextTestCase(unittest.TestCase):
             mock.call._add_resources_to_template('heat_template'))
         self.assertTrue(mock_manager.mock_calls.index(mock_call_gen_keys) <
                         mock_manager.mock_calls.index(mock_call_add_resources))
+
+    @mock.patch.object(os.path, 'exists', return_value=False)
+    @mock.patch.object(heat, 'HeatTemplate')
+    @mock.patch.object(heat.HeatContext, '_create_new_stack')
+    @mock.patch.object(heat.HeatContext, 'get_neutron_info')
+    def test_deploy_with_key_filename_provided(self, mock_template,
+            mock_create_new_stack, mock_get_neutron_info, mock_path_exists):
+        self.test_context._name = 'foo'
+        self.test_context._task_id = '1234567890'
+        self.test_context._name_task_id = '{}-{}'.format(
+            self.test_context._name, self.test_context._task_id[:8])
+        self.test_context.template_file = '/bar/baz/some-heat-file'
+        self.test_context.heat_parameters = {'image': 'cirros'}
+        self.test_context.yardstick_gen_key_file = False
+        self.test_context.key_filename = '/etc/yardstick/yardstick.pem'
+        self.test_context.get_neutron_info = mock.MagicMock()
+        self.test_context.deploy()
+        mock_create_new_stack.assert_called()
+        mock_get_neutron_info.assert_called()
 
     def test_check_for_context(self):
         pass
