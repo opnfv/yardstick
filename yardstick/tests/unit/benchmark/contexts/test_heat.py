@@ -81,6 +81,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertIsNone(self.test_context.template_file)
         self.assertIsNone(self.test_context.heat_parameters)
         self.assertIsNone(self.test_context.key_filename)
+        self.assertTrue(self.test_context.yardstick_gen_key_file)
 
     @mock.patch.object(yaml_loader, 'read_yaml_file')
     @mock.patch('yardstick.benchmark.contexts.heat.PlacementGroup')
@@ -173,6 +174,24 @@ class HeatContextTestCase(unittest.TestCase):
         self.assertTrue(self.test_context._flags.no_setup)
         self.assertTrue(self.test_context._flags.no_teardown)
 
+    def test_init_key_filename(self):
+        attrs = {'name': 'foo',
+                 'file': 'pod.yaml',
+                 'task_id': '1234567890',
+                 'server_groups': {},
+                 'networks': {},
+                 'servers': {},
+                 'file': "pod.yaml",
+                 'heat_template': "/root/clearwater.yaml",
+                 'key_filename': '/etc/yardstick/yardstick.pem'}
+
+        with mock.patch.object(openstack_utils, 'get_shade_client'), \
+             mock.patch.object(openstack_utils, 'get_shade_operator_client'):
+            self.test_context.init(attrs)
+
+        self.assertIsNotNone(self.test_context.key_filename)
+        self.assertFalse(self.test_context.yardstick_gen_key_file)
+
     @mock.patch('yardstick.benchmark.contexts.heat.HeatTemplate')
     def test__add_resources_to_template_no_servers(self, mock_template):
         self.test_context._name = 'ctx'
@@ -182,7 +201,7 @@ class HeatContextTestCase(unittest.TestCase):
         self.test_context.keypair_name = "ctx-key"
         self.test_context.secgroup_name = "ctx-secgroup"
         self.test_context.key_uuid = "2f2e4997-0a8e-4eb7-9fa4-f3f8fbbc393b"
-        netattrs = {'cidr': '10.0.0.0/24', 'provider': None,
+        netattrs = {'cidr': '11.0.0.0/24', 'provider': None,
                     'external_network': 'ext_net'}
 
         self.test_context.networks = OrderedDict(
@@ -343,7 +362,7 @@ class HeatContextTestCase(unittest.TestCase):
     @mock.patch.object(heat.HeatContext, '_add_resources_to_template')
     @mock.patch.object(os.path, 'exists', return_value=False)
     @mock.patch.object(ssh.SSH, 'gen_keys')
-    def test_deploy_ssh_key_before_adding_resources(self, mock_genkeys,
+    def test_deploy_sshkey_before_adding_resources(self, mock_genkeys,
             mock_path_exists, mock_add_resources, *args):
         mock_manager = mock.Mock()
         mock_manager.attach_mock(mock_add_resources,
@@ -372,6 +391,29 @@ class HeatContextTestCase(unittest.TestCase):
             mock.call._add_resources_to_template('heat_template'))
         self.assertTrue(mock_manager.mock_calls.index(mock_call_gen_keys) <
                         mock_manager.mock_calls.index(mock_call_add_resources))
+
+    @mock.patch.object(os.path, 'exists', return_value=False)
+    @mock.patch.object(ssh.SSH, 'gen_keys')
+    @mock.patch.object(heat, 'HeatTemplate')
+    def test_deploy_with_key_filename_provided(self, mock_template,
+                                               mock_genkeys, mock_path_exists):
+        self.test_context._name = 'foo'
+        self.test_context._task_id = '1234567890'
+        self.test_context._name_task_id = '{}-{}'.format(
+        self.test_context._name, self.test_context._task_id[:8])
+        self.test_context.template_file = '/bar/baz/some-heat-file'
+        self.test_context.heat_parameters = {'image': 'cirros'}
+        self.test_context.key_filename = '/etc/yardstick/yardstick.pem'
+        self.test_context.get_neutron_info = mock.MagicMock()
+        self.test_context.deploy()
+
+        mock_template.assert_called_with(
+            'foo-12345678', template_file='/bar/baz/some-heat-file',
+            heat_parameters={'image': 'cirros'},
+            os_cloud_config=self.test_context._flags.os_cloud_config)
+        self.assertIsNotNone(self.test_context.stack)
+        self.assertIsNotNone(self.test_context.key_filename)
+        mock_path_exists.assert_any_call(self.test_context.key_filename)
 
     def test_check_for_context(self):
         pass
