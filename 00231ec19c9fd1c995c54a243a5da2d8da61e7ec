@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_19a0af42",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
+        "patchSetId": 12
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-09-25T13:53:58Z",
+      "side": 1,
+      "message": "Should we document the defaults here?",
+      "revId": "00231ec19c9fd1c995c54a243a5da2d8da61e7ec",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b99a5b12",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
+        "patchSetId": 12
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-09-25T13:53:58Z",
+      "side": 1,
+      "message": "Maybe reword to \"number of volumes per virtual machine\"?  This might be confusing otherwise.",
+      "revId": "00231ec19c9fd1c995c54a243a5da2d8da61e7ec",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d99597e5",
+        "filename": "tests/opnfv/test_cases/opnfv_yardstick_tc074.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-09-25T13:53:58Z",
+      "side": 1,
+      "message": "We should not set a default here unless it is an actual recognized default.  \u0027tripleo-ceph\u0027 is not something that anyone else would have on their installation.",
+      "revId": "00231ec19c9fd1c995c54a243a5da2d8da61e7ec",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
