@@ -46,6 +46,23 @@
       "revId": "76989703bf2b8fb6637fe22333dc2973fff3f64f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_39864bba",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-09-25T13:55:26Z",
+      "side": 1,
+      "message": "Are you not able to use:\n\nreport_res_content \u003d jsonutils.loads(report_res.content)\n\nlike in ll 128-129 below?",
+      "revId": "76989703bf2b8fb6637fe22333dc2973fff3f64f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
