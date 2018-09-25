@@ -421,17 +421,24 @@ class TestIxNextgen(unittest.TestCase):
                                 '-trackBy', 'trafficGroupId0')
 
     def test__create_flow_groups(self):
+        uplink_endpoints = ['up_endp1', 'up_endp2']
+        downlink_endpoints = ['down_endp1', 'down_endp2']
         self.ixnet_gen.ixnet.getList.side_effect = [['traffic_item'], ['1', '2']]
-        self.ixnet_gen.ixnet.add.side_effect = ['endp1', 'endp2']
-        self.ixnet_gen._create_flow_groups()
+        self.ixnet_gen.ixnet.add.side_effect = ['endp1', 'endp2', 'endp3',
+                                                'endp4']
+        self.ixnet_gen._create_flow_groups(uplink_endpoints, downlink_endpoints)
         self.ixnet_gen.ixnet.add.assert_has_calls([
             mock.call('traffic_item', 'endpointSet'),
             mock.call('traffic_item', 'endpointSet')])
         self.ixnet_gen.ixnet.setMultiAttribute.assert_has_calls([
-            mock.call('endp1', '-name', '1', '-sources', ['1/protocols'],
-                      '-destinations', ['2/protocols']),
-            mock.call('endp2', '-name', '2', '-sources', ['2/protocols'],
-                      '-destinations', ['1/protocols'])])
+            mock.call('endp1', '-name', '1', '-sources', ['up_endp1'],
+                      '-destinations', ['down_endp1']),
+            mock.call('endp2', '-name', '2', '-sources', ['down_endp1'],
+                      '-destinations', ['up_endp1']),
+            mock.call('endp3', '-name', '3', '-sources', ['up_endp2'],
+                      '-destinations', ['down_endp2']),
+            mock.call('endp4', '-name', '4', '-sources', ['down_endp2'],
+                      '-destinations', ['up_endp2'])])
 
     def test__append_protocol_to_stack(self):
 
@@ -461,11 +468,30 @@ class TestIxNextgen(unittest.TestCase):
     def test_create_traffic_model(self, mock__setup_config_elements,
                                   mock__create_flow_groups,
                                   mock__create_traffic_item):
-
-        self.ixnet_gen.create_traffic_model()
-        mock__create_traffic_item.assert_called_once()
-        mock__create_flow_groups.assert_called_once()
+        uplink_ports = ['port1', 'port3']
+        downlink_ports = ['port2', 'port4']
+        uplink_endpoints = ['port1/protocols', 'port3/protocols']
+        downlink_endpoints = ['port2/protocols', 'port4/protocols']
+        self.ixnet_gen.create_traffic_model(uplink_ports, downlink_ports)
+        mock__create_traffic_item.assert_called_once_with('raw')
+        mock__create_flow_groups.assert_called_once_with(uplink_endpoints,
+                                                         downlink_endpoints)
         mock__setup_config_elements.assert_called_once()
+
+    @mock.patch.object(ixnet_api.IxNextgen, '_create_traffic_item')
+    @mock.patch.object(ixnet_api.IxNextgen, '_create_flow_groups')
+    @mock.patch.object(ixnet_api.IxNextgen, '_setup_config_elements')
+    def test_create_ipv4_traffic_model(self, mock__setup_config_elements,
+                                       mock__create_flow_groups,
+                                       mock__create_traffic_item):
+        uplink_topologies = ['up1', 'up3']
+        downlink_topologies = ['down2', 'down4']
+        self.ixnet_gen.create_ipv4_traffic_model(uplink_topologies,
+                                                 downlink_topologies)
+        mock__create_traffic_item.assert_called_once_with('ipv4')
+        mock__create_flow_groups.assert_called_once_with(uplink_topologies,
+                                                         downlink_topologies)
+        mock__setup_config_elements.assert_called_once_with(False)
 
     def test__update_frame_mac(self):
         with mock.patch.object(self.ixnet_gen, '_get_field_in_stack_item') as \
@@ -672,3 +698,16 @@ class TestIxNextgen(unittest.TestCase):
         self.assertIsNone(result)
         self.ixnet.getList.assert_called_once()
         self.assertEqual(3, self.ixnet_gen._ixnet.execute.call_count)
+
+    def test_start_protocols(self):
+        self.ixnet_gen.start_protocols()
+        self.ixnet.execute.assert_called_once_with('startAllProtocols')
+
+    def test_stop_protocols(self):
+        self.ixnet_gen.stop_protocols()
+        self.ixnet.execute.assert_called_once_with('stopAllProtocols')
+
+    def test_get_vports(self):
+        self.ixnet_gen._ixnet.getRoot.return_value = 'root'
+        self.ixnet_gen.get_vports()
+        self.ixnet.getList.assert_called_once_with('root', 'vport')
