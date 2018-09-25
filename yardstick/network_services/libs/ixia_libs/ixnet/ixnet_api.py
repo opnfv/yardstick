@@ -121,6 +121,11 @@ class IxNextgen(object):  # pragma: no cover
             return self._ixnet
         raise exceptions.IxNetworkClientNotConnected()
 
+    def get_vports(self):
+        vports = self.ixnet.getList(self.ixnet.getRoot(), 'vport')
+
+        return vports
+
     def _get_config_element_by_flow_group_name(self, flow_group_name):
         """Get a config element using the flow group name
 
@@ -252,7 +257,7 @@ class IxNextgen(object):  # pragma: no cover
             if self.ixnet.getAttribute(vport, '-state') != 'up':
                 log.warning('Port %s is down', vport)
 
-    def _create_traffic_item(self):
+    def _create_traffic_item(self, traffic_type='raw'):
         """Create the traffic item to hold the flow groups
 
         The traffic item tracking by "Traffic Item" is enabled to retrieve the
@@ -262,7 +267,7 @@ class IxNextgen(object):  # pragma: no cover
         traffic_item = self.ixnet.add(self.ixnet.getRoot() + '/traffic',
                                       'trafficItem')
         self.ixnet.setMultiAttribute(traffic_item, '-name', 'RFC2544',
-                                     '-trafficType', 'raw')
+                                     '-trafficType', traffic_type)
         self.ixnet.commit()
 
         traffic_item_id = self.ixnet.remapIds(traffic_item)[0]
@@ -270,27 +275,25 @@ class IxNextgen(object):  # pragma: no cover
                                 '-trackBy', 'trafficGroupId0')
         self.ixnet.commit()
 
-    def _create_flow_groups(self):
-        """Create the flow groups between the assigned ports"""
+    def _create_flow_groups(self, uplink, downlink):
+        """Create the flow groups between the endpoints"""
         traffic_item_id = self.ixnet.getList(self.ixnet.getRoot() + 'traffic',
                                              'trafficItem')[0]
         log.info('Create the flow groups')
-        vports = self.ixnet.getList(self.ixnet.getRoot(), 'vport')
-        uplink_ports = vports[::2]
-        downlink_ports = vports[1::2]
+
         index = 0
-        for up, down in zip(uplink_ports, downlink_ports):
+        for up, down in zip(uplink, downlink):
             log.info('FGs: %s <--> %s', up, down)
             endpoint_set_1 = self.ixnet.add(traffic_item_id, 'endpointSet')
             endpoint_set_2 = self.ixnet.add(traffic_item_id, 'endpointSet')
             self.ixnet.setMultiAttribute(
                 endpoint_set_1, '-name', str(index + 1),
-                '-sources', [up + '/protocols'],
-                '-destinations', [down + '/protocols'])
+                '-sources', [up],
+                '-destinations', [down])
             self.ixnet.setMultiAttribute(
                 endpoint_set_2, '-name', str(index + 2),
-                '-sources', [down + '/protocols'],
-                '-destinations', [up + '/protocols'])
+                '-sources', [down],
+                '-destinations', [up])
             self.ixnet.commit()
             index += 2
 
@@ -300,7 +303,7 @@ class IxNextgen(object):  # pragma: no cover
                     '/traffic/protocolTemplate:"{}"'.format(protocol_name))
         self.ixnet.execute('append', previous_element, protocol)
 
-    def _setup_config_elements(self):
+    def _setup_config_elements(self, add_default_proto=True):
         """Setup the config elements
 
         The traffic item is configured to allow individual configurations per
@@ -322,12 +325,13 @@ class IxNextgen(object):  # pragma: no cover
             self.ixnet.setAttribute(config_element + '/frameRateDistribution',
                                     '-streamDistribution', 'splitRateEvenly')
             self.ixnet.commit()
-            self._append_procotol_to_stack(
-                PROTO_UDP, config_element + '/stack:"ethernet-1"')
-            self._append_procotol_to_stack(
-                PROTO_IPV4, config_element + '/stack:"ethernet-1"')
+            if add_default_proto:
+                self._append_procotol_to_stack(
+                    PROTO_UDP, config_element + '/stack:"ethernet-1"')
+                self._append_procotol_to_stack(
+                    PROTO_IPV4, config_element + '/stack:"ethernet-1"')
 
-    def create_traffic_model(self):
+    def create_traffic_model(self, uplink_ports, downlink_ports):
         """Create a traffic item and the needed flow groups
 
         Each flow group inside the traffic item (only one is present)
@@ -338,9 +342,26 @@ class IxNextgen(object):  # pragma: no cover
             FlowGroup3: port3    -> port4
             FlowGroup4: port3    <- port4
         """
-        self._create_traffic_item()
-        self._create_flow_groups()
+        self._create_traffic_item('raw')
+        uplink_endpoints = [port + '/protocols' for port in uplink_ports]
+        downlink_endpoints = [port + '/protocols' for port in downlink_ports]
+        self._create_flow_groups(uplink_endpoints, downlink_endpoints)
         self._setup_config_elements()
+
+    def create_ipv4_traffic_model(self, uplink_topologies, downlink_topologies):
+        """Create a traffic item and the needed flow groups
+
+        Each flow group inside the traffic item (only one is present)
+        represents the traffic between two topologies:
+                        (uplink)    (downlink)
+            FlowGroup1: uplink1    -> downlink1
+            FlowGroup2: uplink1    <- downlink1
+            FlowGroup3: uplink2    -> downlink2
+            FlowGroup4: uplink2    <- downlink2
+        """
+        self._create_traffic_item('ipv4')
+        self._create_flow_groups(uplink_topologies, downlink_topologies)
+        self._setup_config_elements(False)
 
     def _update_frame_mac(self, ethernet_descriptor, field, mac_address):
         """Set the MAC address in a config element stack Ethernet field
@@ -588,6 +609,12 @@ class IxNextgen(object):  # pragma: no cover
         stats.update(self._build_stats_map(flow_statistics,
                                           self.LATENCY_NAME_MAP))
         return stats
+
+    def start_protocols(self):
+        self.ixnet.execute('startAllProtocols')
+
+    def stop_protocols(self):
+        self.ixnet.execute('stopAllProtocols')
 
     def start_traffic(self):
         """Start the traffic injection in the traffic item
