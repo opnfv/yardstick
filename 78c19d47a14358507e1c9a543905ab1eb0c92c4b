@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_7c9c316a",
+        "filename": "yardstick/common/report.js",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-09-26T09:42:39Z",
+      "side": 1,
+      "message": "Not sure about this.\nsurely we should pass a table object and remove the rows from that object?",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 58
+      },
+      "revId": "78c19d47a14358507e1c9a543905ab1eb0c92c4b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
