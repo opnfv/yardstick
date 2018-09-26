@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_9c930dfa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-09-26T12:26:49Z",
+      "side": 1,
+      "message": "volume size was already there as one of the option parameters",
+      "range": {
+        "startLine": 10,
+        "startChar": 27,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "7af6ad103021f03a1b15ee7135a841e7a6ecc199",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5c8975c9",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-09-26T12:26:49Z",
+      "side": 1,
+      "message": "looks incomplete or insufficient.",
+      "range": {
+        "startLine": 114,
+        "startChar": 38,
+        "endLine": 114,
+        "endChar": 64
+      },
+      "revId": "7af6ad103021f03a1b15ee7135a841e7a6ecc199",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_fca4c158",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-09-26T12:26:49Z",
+      "side": 1,
+      "message": ": missing",
+      "range": {
+        "startLine": 119,
+        "startChar": 30,
+        "endLine": 119,
+        "endChar": 31
+      },
+      "revId": "7af6ad103021f03a1b15ee7135a841e7a6ecc199",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_3c8639ba",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
+        "patchSetId": 13
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-09-26T12:26:49Z",
+      "side": 1,
+      "message": "nit: Caps \u0027S\u0027 and same for below.",
+      "range": {
+        "startLine": 119,
+        "startChar": 31,
+        "endLine": 119,
+        "endChar": 32
+      },
+      "revId": "7af6ad103021f03a1b15ee7135a841e7a6ecc199",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
