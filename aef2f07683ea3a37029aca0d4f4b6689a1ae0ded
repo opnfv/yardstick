@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a682502_fc14c1f6",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-26T07:13:26Z",
+      "side": 1,
+      "message": "typo on yardstick",
+      "revId": "aef2f07683ea3a37029aca0d4f4b6689a1ae0ded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_5cc4d591",
         "filename": "yardstick/benchmark/contexts/heat.py",
         "patchSetId": 1
@@ -13,6 +30,86 @@
       "writtenOn": "2018-09-26T02:02:14Z",
       "side": 1,
       "message": "The comment should be changed to easy trace: The variable name/value and comment need to have a semantic relationship",
+      "revId": "aef2f07683ea3a37029aca0d4f4b6689a1ae0ded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_9c030db8",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-26T07:13:26Z",
+      "side": 1,
+      "message": "s/Not/Do not/",
+      "range": {
+        "startLine": 455,
+        "startChar": 10,
+        "endLine": 455,
+        "endChar": 13
+      },
+      "revId": "aef2f07683ea3a37029aca0d4f4b6689a1ae0ded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_3cf639d8",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-26T07:13:26Z",
+      "side": 1,
+      "message": "this needs to be indented by two more spaces",
+      "revId": "aef2f07683ea3a37029aca0d4f4b6689a1ae0ded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5cf975c7",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-26T07:13:26Z",
+      "side": 1,
+      "message": "This whitespace change is unrelated",
+      "revId": "aef2f07683ea3a37029aca0d4f4b6689a1ae0ded",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7c00b1aa",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-09-26T07:13:26Z",
+      "side": 1,
+      "message": "IMHO, there should be a check here to make sure the file exists before attempting to open it.\n\nIf the file doesn\u0027t exist, an appropriate error should inform the user what this issue is \ne.g. \"The key_filename provided does not exist. Check the path.\"",
+      "range": {
+        "startLine": 525,
+        "startChar": 12,
+        "endLine": 525,
+        "endChar": 69
+      },
       "revId": "aef2f07683ea3a37029aca0d4f4b6689a1ae0ded",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
