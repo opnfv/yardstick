@@ -388,13 +388,13 @@ class SSH(object):
     def put(self, files, remote_path=b'.', recursive=False):
         client = self._get_client()
 
-        with SCPClient(client.get_transport()) as scp:
+        with SCPClient(client.get_transport(), sanitize=lambda x: x) as scp:
             scp.put(files, remote_path, recursive)
 
     def get(self, remote_path, local_path='/tmp/', recursive=True):
         client = self._get_client()
 
-        with SCPClient(client.get_transport()) as scp:
+        with SCPClient(client.get_transport(), sanitize=lambda x: x) as scp:
             scp.get(remote_path, local_path, recursive)
 
     # keep shell running in the background, e.g. screen
