@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_bc31a9a4",
+        "filename": "yardstick/benchmark/runners/duration.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-26T08:43:35Z",
+      "side": 1,
+      "message": "Please use parentheses instead of \\ line continuation",
+      "range": {
+        "startLine": 109,
+        "startChar": 68,
+        "endLine": 109,
+        "endChar": 69
+      },
+      "revId": "08ad4d6f5491e3b4f10fabb0483f7e1238799567",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_1c27fd65",
+        "filename": "yardstick/benchmark/runners/proxduration.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-26T08:43:35Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 115,
+        "startChar": 68,
+        "endLine": 115,
+        "endChar": 69
+      },
+      "revId": "08ad4d6f5491e3b4f10fabb0483f7e1238799567",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_fc2b212e",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-26T08:43:35Z",
+      "side": 1,
+      "message": "You forgot to commit NetworkServiceTestCase.is_ended() so this wouldn\u0027t get called.",
+      "revId": "08ad4d6f5491e3b4f10fabb0483f7e1238799567",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
