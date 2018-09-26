@@ -81,6 +81,24 @@
       "revId": "76989703bf2b8fb6637fe22333dc2973fff3f64f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_3fac6bed",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-09-26T14:55:25Z",
+      "side": 1,
+      "message": "Sorry - I actually meant for this comment to be for line 108 - can we not give the the content instead of just the status_code in the exception (L108) and the LOG.error (L105)",
+      "parentUuid": "5a682502_7c5271de",
+      "revId": "76989703bf2b8fb6637fe22333dc2973fff3f64f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
