@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_bff35b72",
+        "filename": "ansible/group_vars/all.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-27T12:52:39Z",
+      "side": 1,
+      "message": "I tend to agree that using 18.04 (bionic) would be good.\nBut that needs to be properly planned, advertised, documented...\nAs soon as this commit is merged, with PS3 modification on L6, 18.04 becomes the default.\nHave current users been properly informed that they should now \"export OS_RELEASE\u003dxenial\" if they want to deploy the same setup? Obviously not, because looking for OS_RELEASE has just been introduced in PS1.\n\nIf L6 in PS3 is merged as is, then the commit title MUST be changed from:\nModify install.yaml to support Ubuntu 18\nto:\nWARNING: Modify install.yaml to use Ubuntu 18.04 as default\nor similar explicit wording.\n\nDon\u0027t get me wrong: I fully agree it would make sense to move to 18.04, but that should be sequenced:\n- revert L6 to PS2, with xenial as default\n- get this commit merged, with xenial as default\n- document OS_RELEASE in another commit\n- create an RFC commit with L6 default changed to bionic, together with updated release notes\n- add many reviewers for this RFC commit, and don\u0027t merge it until widely approved",
+      "parentUuid": "5a682502_6dbc906d",
+      "range": {
+        "startLine": 6,
+        "startChar": 36,
+        "endLine": 6,
+        "endChar": 42
+      },
+      "revId": "041bc885e0b3c0241e3db0cd14b8b2195ea259ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_6d31300b",
         "filename": "ansible/install.yaml",
         "patchSetId": 2
