@@ -147,6 +147,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_c2047c17",
+        "filename": "ansible/roles/install_yardstick/tasks/Debian.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-27T18:04:43Z",
+      "side": 1,
+      "message": "OK, I think I start to get it! ;-)\n\nSo, there is (at least) one currently open issue, either in ansible\u0027s easy_install module, or in easy_install itself, or both:\n- https://github.com/ansible/ansible/issues/23534\n- https://github.com/ansible/ansible/issues/37296\n- https://github.com/ansible/ansible/pull/39073\n- https://github.com/pypa/setuptools/issues/1334\n\nIn order to workaround this issue, install_yardstick role was previously running \"easy_install -U pip\" directly, using ansible\u0027s shell module, whatever the distribution: https://gerrit.opnfv.org/gerrit/#/c/61985/1/ansible/roles/install_yardstick/tasks/main.yml@a35\nOK, fine.\n\nThen for some reason, PS1 decided to install pip using different methods, depending on Ubuntu version: https://gerrit.opnfv.org/gerrit/#/c/61985/1/ansible/roles/install_yardstick/tasks/main.yml@40\n\nThen PS5 added more methods, depending on OS family:\n- easy_install -U pip, for Ubuntu \u003c\u003d 16 and Suse\n- apt install python-pip, for Ubuntu \u003e\u003d 17\n- yum install python27-python-pip, for RedHat\n\nNow the question is whether these different methods are really needed. Wouldn\u0027t \"easy_install -U pip\" work on all OS families and versions? Again, the mentioned issue triggers when using ansible\u0027s easy_install module, and the workaround consists in running \"easy_install -U pip\" directly, using ansible\u0027s shell module...\n\nAnd the even more important question is whether pip really needs to be installed at this stage, by the install_yardstick role. Because according to ansible/install.yaml, this install_yardstick role is performed after the install_dependencies_jumphost role: https://gerrit.opnfv.org/gerrit/#/c/61985/6/ansible/install.yaml@36\n\nFor all Debian/Ubuntu versions, \"apt install python-pip\" has already been done by the install_dependencies_jumphost role: https://gerrit.opnfv.org/gerrit/#/c/61985/6/ansible/roles/install_dependencies_jumphost/tasks/Debian.yml@45\nSo it seems useless to install pip again here! Even in case we really need to easy_install a version of pip more recent than 8.1.1 provided by Ubuntu 16.04 (https://packages.ubuntu.com/xenial/python-pip), this should better be done by the install_dependencies_jumphost role.\n\nFor RedHat and Suse, pip should be installed from ansible/roles/install_dependencies_jumphost/tasks/RedHat.yml and ansible/roles/install_dependencies_jumphost/tasks/Suse.yml respectively, rather than from this install_yardstick role.",
+      "parentUuid": "5a682502_bf687bf6",
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ffa4b358",
         "filename": "ansible/roles/install_yardstick/tasks/Suse.yml",
         "patchSetId": 5
