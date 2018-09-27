@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_1fe9af80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-27T12:52:39Z",
+      "side": 1,
+      "message": "With current changes in ansible/group_vars/all.yml, this MUST be changed to:\nWARNING: Modify install.yaml to use Ubuntu 18.04 as default\nor similar explicit wording.",
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ffedd38c",
+        "filename": "ansible/roles/configure_gui/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-27T12:52:39Z",
+      "side": 1,
+      "message": "Confusing at first glance vs. L24\nWhat is actually removed is /etc/nginx/yardstick/gui/dist",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5f02073f",
+        "filename": "ansible/roles/download_drivers/defaults/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-27T12:52:39Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this change of driver version be documented in release notes?",
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ffbb1370",
+        "filename": "ansible/roles/download_samplevnfs/defaults/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-27T12:52:39Z",
+      "side": 1,
+      "message": "Good that you rebased PS6 on top of ee5d6413dbcbab40234e47ed3e74b85b704d6493",
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_1fa08f42",
+        "filename": "ansible/roles/install_yardstick/tasks/Debian.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-27T12:52:39Z",
+      "side": 1,
+      "message": "When was that bug fixed?\nI don\u0027t know myself, but L20,L26 suggest it was fixed in 17.04.\nIf fixed in 16.10 or 17.10, then L20,L26 are wrong.",
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ffa4b358",
+        "filename": "ansible/roles/install_yardstick/tasks/Suse.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-27T12:52:39Z",
+      "side": 1,
+      "message": "Looks useless",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 18
+      },
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
