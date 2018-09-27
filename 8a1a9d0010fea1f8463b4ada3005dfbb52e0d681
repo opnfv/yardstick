@@ -111,6 +111,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_7fa70350",
+        "filename": "ansible/roles/install_yardstick/tasks/Debian.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-09-27T13:15:53Z",
+      "side": 1,
+      "message": "easy install comes from the install.sh script",
+      "parentUuid": "5a682502_3fad8b32",
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ffa4b358",
         "filename": "ansible/roles/install_yardstick/tasks/Suse.yml",
         "patchSetId": 5
