@@ -16,6 +16,14 @@ import sys
 import os
 import logging
 import collections
+import subprocess
+try:
+    libs = subprocess.check_output(
+        'python -c "import site; print(site.getsitepackages())"', shell=True)
+
+    sys.path.extend(libs[1:-1].replace("'", "").split(','))
+except subprocess.CalledProcessError:
+    pass
 
 # ixload uses its own py2. So importing jsonutils fails. So adding below
 # workaround to support call from yardstick
@@ -24,6 +32,7 @@ try:
 except ImportError:
     import json as jsonutils
 
+#pylint: disable=wrong-import-position
 from yardstick.common import exceptions
 
 try:
