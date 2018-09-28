@@ -37,3 +37,4 @@ NSB PROX Test Case Descriptions
    tc_vfw_rfc2544_correlated
    tc_vfw_rfc3511
    tc_vpp_baremetal_crypto_ipsec
+   tc_vims_context_sipp
