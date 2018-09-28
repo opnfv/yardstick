@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_82ef24b0",
+        "filename": "ansible/group_vars/all.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-09-28T10:33:19Z",
+      "side": 1,
+      "message": "Let\u0027s wait for Emma\u0027s feedback on that:\n- Adding *support* for 18.04 is good.\n- IMHO, setting 18.04 as *default* should be done in 2 steps, to avoid surprising current users.",
+      "parentUuid": "5a682502_bff35b72",
+      "range": {
+        "startLine": 6,
+        "startChar": 36,
+        "endLine": 6,
+        "endChar": 42
+      },
+      "revId": "041bc885e0b3c0241e3db0cd14b8b2195ea259ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_6d31300b",
         "filename": "ansible/install.yaml",
         "patchSetId": 2
