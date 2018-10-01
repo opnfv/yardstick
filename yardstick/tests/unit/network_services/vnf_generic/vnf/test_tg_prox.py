@@ -329,13 +329,27 @@ class TestProxTrafficGen(unittest.TestCase):
         }
         prox_traffic_gen._vnf_wrapper.resource_helper.resource = mock.MagicMock(
             **{"self.check_if_system_agent_running.return_value": [False]})
+
+        vnfd_helper = mock.MagicMock()
+        vnfd_helper.ports_iter.return_value = [('xe0', 0), ('xe1', 1)]
+        prox_traffic_gen.resource_helper.vnfd_helper = vnfd_helper
+
+        prox_traffic_gen._vnf_wrapper.resource_helper.client = mock.MagicMock()
+        prox_traffic_gen._vnf_wrapper.resource_helper.client.multi_port_stats.return_value = \
+            [[0, 1, 2, 3, 4, 5], [1, 1, 2, 3, 4, 5]]
+        prox_traffic_gen._vnf_wrapper.resource_helper.client.multi_port_stats_diff.return_value = \
+            [0, 1, 2, 3, 4, 5, 6, 7], [0, 1, 2, 3, 4, 5, 6, 7]
+        prox_traffic_gen._vnf_wrapper.resource_helper.client.\
+            multi_port_stats_tuple.return_value = \
+                {"xe0": {"in_packets": 1, "out_packets": 2}}
+
         prox_traffic_gen._vnf_wrapper.vnf_execute = mock.Mock(return_value="")
         expected = {
-            'collect_stats': {},
+            'collect_stats': {'live_stats': {'xe0': {'in_packets': 1, 'out_packets': 2}}},
             'physical_node': 'mock_node'
         }
-        self.assertEqual(prox_traffic_gen.collect_kpi(), expected)
-
+        result = prox_traffic_gen.collect_kpi()
+        self.assertDictEqual(result, expected)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.find_relative_file')
     @mock.patch(
