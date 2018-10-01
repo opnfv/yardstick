@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_e81237b3",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-01T10:59:17Z",
+      "side": 1,
+      "message": "Keep line length to 80 characters please.\n\nIt\u0027s not currently checked by pylint, but that\u0027s because there are a lot of lines exceeding that at the moment, and pylint would block changes to some existing files, based on long lines.",
+      "revId": "83c3d74c8901094315add23c1e6747f22de630dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_081213b1",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-01T10:59:17Z",
+      "side": 1,
+      "message": "Pylint is failing with logging-not-lazy here.\nThis should be:\n\n    LOG.info(\"Job %s completed with steady state %s\", \n             job_id, steady_state)",
+      "range": {
+        "startLine": 223,
+        "startChar": 25,
+        "endLine": 223,
+        "endChar": 90
+      },
+      "revId": "83c3d74c8901094315add23c1e6747f22de630dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
