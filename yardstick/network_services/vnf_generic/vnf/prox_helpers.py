@@ -601,6 +601,69 @@ class ProxSocketHelper(object):
         LOG.debug("Multi port packet ..OK.. %s", tot_result)
         return True, tot_result
 
+    @staticmethod
+    def multi_port_stats_tuple(stats, ports):
+
+        samples = {}
+        port_names = []
+
+        for port_name, port_num in ports:
+            port_names.append(port_name)
+        try:
+            for stat in stats:
+                port_num = stat[0]
+                samples[port_names[port_num]] = {
+                    "in_packets": stat[1],
+                    "out_packets": stat[2]}
+        except (TypeError, IndexError, KeyError):
+            LOG.info("Ports do not match sample.. next sample")
+            return {}
+
+        return samples
+
+    @staticmethod
+    def multi_port_stats_diff(prev_stats, new_stats, hz):
+        stats = []
+
+        if len(prev_stats) is not len(new_stats):
+            for port_index, stat in enumerate(new_stats):
+                stats.append([port_index, float(0), float(0), 0, 0, 0])
+            return stats, new_stats
+
+        try:
+            for port_index, stat in enumerate(new_stats):
+                if stat[1] > prev_stats[port_index][1]:
+                    rx_total = stat[1] - prev_stats[port_index][1]
+                else:
+                    rx_total = stat[1]
+
+                if stat[2] > prev_stats[port_index][2]:
+                    tx_total = stat[2] - prev_stats[port_index][2]
+                else:
+                    tx_total = stat[2]
+
+                if stat[5] > prev_stats[port_index][5]:
+                    tsc = stat[5] - prev_stats[port_index][5]
+                else:
+                    tsc = stat[5]
+
+                if tsc is 0:
+                    rx_total = tx_total = float(0)
+                else:
+                    if hz is 0:
+                        LOG.error("HZ is ZERO ... %d", hz)
+                        rx_total = tx_total = float(0)
+                    else:
+                        rx_total = float(rx_total * hz / tsc)
+                        tx_total = float(tx_total * hz / tsc)
+
+                stats.append([port_index, rx_total, tx_total, 0, 0, tsc])
+        except (TypeError, IndexError, KeyError):
+            stats = []
+            LOG.info("Error ... recalc")
+
+        return stats, new_stats
+
     def port_stats(self, ports):
         """get counter values from a specific port"""
         tot_result = [0] * 12
@@ -968,6 +1031,8 @@ class ProxResourceHelper(ClientResourceHelper):
         self.step_delta = 1
         self.step_time = 0.5
         self._test_type = None
+        self.prev_multi_port = []
+        self.prev_hz = 0
 
     @property
     def sut(self):
@@ -1006,11 +1071,40 @@ class ProxResourceHelper(ClientResourceHelper):
     def collect_collectd_kpi(self):
         return self._collect_resource_kpi()
 
+    def collect_live_stats(self):
+        ports = []
+        port_names = []
+        for port_name, port_num in self.vnfd_helper.ports_iter():
+            ports.append(port_num)
+            port_names.append(port_name)
+
+        ok, all_port_stats = self.sut.multi_port_stats(ports)
+        if not ok:
+            return False, {}
+
+        hz = self.sut.hz()
+        if hz is 0:
+            hz = self.prev_hz
+        else:
+            self.prev_hz = hz
+
+        new_all_port_stats, self.prev_multi_port = \
+            self.sut.multi_port_stats_diff(self.prev_multi_port, all_port_stats, hz)
+
+        live_stats = self.sut.multi_port_stats_tuple(new_all_port_stats,
+                                                     self.vnfd_helper.ports_iter())
+        return True, live_stats
+
     def collect_kpi(self):
         result = super(ProxResourceHelper, self).collect_kpi()
         # add in collectd kpis manually
         if result:
             result['collect_stats'] = self._collect_resource_kpi()
+
+        ok, live_stats = self.collect_live_stats()
+        if ok:
+            result.update({'live_stats': live_stats})
+
         return result
 
     def terminate(self):
