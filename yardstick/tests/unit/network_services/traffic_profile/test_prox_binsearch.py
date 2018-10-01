@@ -80,7 +80,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
         # Result Samples inc theor_max
         result_tuple = {'Actual_throughput': 5e-07,
-                        'theor_max_throughput': 7.5e-07,
+                        'theor_max_throughput': 0.00012340000000000002,
                         'PktSize': 200,
                         'Status': 'Result'}
 
@@ -216,6 +216,8 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
     def test_execute_4(self):
 
+        THEOR_MAX_THROUGHPUT = 0.00012340000000000002
+
         def target(*args, **_):
             runs.append(args[2])
             if args[2] < 0 or args[2] > 100:
@@ -258,7 +260,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
         # Result Samples inc theor_max
         result_tuple = {'Actual_throughput': 5e-07,
-                        'theor_max_throughput': 7.5e-07,
+                        'theor_max_throughput': THEOR_MAX_THROUGHPUT,
                         'PktSize': 200,
                         "Status": 'Result'}
 
@@ -274,7 +276,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
                                 "PktSize": 200,
                                 "RxThroughput": 7.5e-07,
                                 "Throughput": 7.5e-07,
-                                "TxThroughput": 0.00012340000000000002,
+                                "TxThroughput": THEOR_MAX_THROUGHPUT,
                                 "Status": 'Success'}
 
         calls = profile.queue.put(success_result_tuple)
