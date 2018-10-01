@@ -80,7 +80,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
         # Result Samples inc theor_max
         result_tuple = {'Actual_throughput': 5e-07,
-                        'theor_max_throughput': 7.5e-07,
+                        'theor_max_throughput': 0.00012340000000000002,
                         'PktSize': 200,
                         'Status': 'Result'}
 
@@ -258,7 +258,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
         # Result Samples inc theor_max
         result_tuple = {'Actual_throughput': 5e-07,
-                        'theor_max_throughput': 7.5e-07,
+                        'theor_max_throughput': 0.00012340000000000002,
                         'PktSize': 200,
                         "Status": 'Result'}
 
