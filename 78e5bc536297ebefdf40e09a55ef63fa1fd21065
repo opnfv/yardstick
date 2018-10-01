@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_686d8732",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-01T11:17:31Z",
+      "side": 1,
+      "message": "Please keep line lengths under 80 characters",
+      "revId": "78e5bc536297ebefdf40e09a55ef63fa1fd21065",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
