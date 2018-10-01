@@ -1365,7 +1365,7 @@
               "measurement": "tc_prox_baremetal_l3fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe0.out_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe0.out_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1373,7 +1373,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.collect_stats.xe0.out_packets"
+                      "tg__0.collect_stats.live_stats.xe0.out_packets"
                     ],
                     "type": "field"
                   },
@@ -1405,7 +1405,7 @@
               "measurement": "tc_prox_baremetal_l3fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe1.out_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe1.out_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1413,7 +1413,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.collect_stats.xe1.out_packets"
+                      "tg__0.collect_stats.live_stats.xe1.out_packets"
                     ],
                     "type": "field"
                   },
@@ -1445,7 +1445,7 @@
               "measurement": "tc_prox_baremetal_l3fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe2.out_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe2.out_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": true,
               "refId": "C",
               "resultFormat": "time_series",
@@ -1453,7 +1453,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.collect_stats.xe2.out_packets"
+                      "tg__0.collect_stats.live_stats.xe2.out_packets"
                     ],
                     "type": "field"
                   },
@@ -1485,7 +1485,7 @@
               "measurement": "tc_prox_baremetal_l3fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe3.out_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats,xe3.out_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": true,
               "refId": "D",
               "resultFormat": "time_series",
@@ -1493,7 +1493,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.collect_stats.xe3.out_packets"
+                      "tg__0.collect_stats.live_stats.xe3.out_packets"
                     ],
                     "type": "field"
                   },
@@ -1614,7 +1614,7 @@
               "measurement": "tc_prox_baremetal_l3fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe0.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe0.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1622,7 +1622,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.collect_stats.xe0.in_packets"
+                      "tg__0.collect_stats.live_stats.xe0.in_packets"
                     ],
                     "type": "field"
                   },
@@ -1654,7 +1654,7 @@
               "measurement": "tc_prox_baremetal_l3fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe1.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe1.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1662,7 +1662,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.collect_stats.xe1.in_packets"
+                      "tg__0.collect_stats.live_stats.xe1.in_packets"
                     ],
                     "type": "field"
                   },
@@ -1694,7 +1694,7 @@
               "measurement": "tc_prox_baremetal_l3fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe2.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe2.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": true,
               "refId": "C",
               "resultFormat": "time_series",
@@ -1702,7 +1702,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.collect_stats.xe2.in_packets"
+                      "tg__0.collect_stats.live_stats.xe2.in_packets"
                     ],
                     "type": "field"
                   },
@@ -1734,7 +1734,7 @@
               "measurement": "tc_prox_baremetal_l3fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe3.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe3.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": true,
               "refId": "D",
               "resultFormat": "time_series",
@@ -1742,7 +1742,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.collect_stats.xe3.in_packets"
+                      "tg__0.collect_stats.live_stats.xe3.in_packets"
                     ],
                     "type": "field"
                   },
