@@ -14,7 +14,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "4.6.3"
+      "version": "4.4.3"
     },
     {
       "type": "panel",
@@ -60,7 +60,7 @@
   "hideControls": false,
   "id": null,
   "links": [],
-  "refresh": false,
+  "refresh": "5s",
   "rows": [
     {
       "collapse": false,
@@ -547,7 +547,7 @@
             "max": true,
             "min": true,
             "show": true,
-            "sortDesc": true,
+            "sortDesc": false,
             "total": false,
             "values": true
           },
@@ -855,7 +855,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Generator stats",
+          "title": "Generator Stats: Average Throughout per step",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -1295,7 +1295,7 @@
           ]
         },
         {
-          "content": "<h5 style=\"font-family:Verdana\"> <a style=\"color:#31A7D3\"><a style=\"font: 22px '#31A7D3'\"><center>Prox L3Fwd Traffic Gen stats</center> </a></h5>\n",
+          "content": "<h5 style=\"font-family:Verdana\"> <a style=\"color:#31A7D3\"><a style=\"font: 22px '#31A7D3'\"><center>Generator Stats: Average Throughout per Step</center> </a></h5>\n",
           "editable": true,
           "error": false,
           "height": "40",
@@ -1362,11 +1362,12 @@
                   "type": "fill"
                 }
               ],
+              "hide": false,
               "measurement": "tc_prox_baremetal_l3fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT mean(\"tg__0.collect_stats.xe0.out_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "rawQuery": true,
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1380,6 +1381,12 @@
                   {
                     "params": [],
                     "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
                   }
                 ]
               ],
@@ -1402,11 +1409,12 @@
                   "type": "fill"
                 }
               ],
+              "hide": false,
               "measurement": "tc_prox_baremetal_l3fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT mean(\"tg__0.collect_stats.xe1.out_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "rawQuery": true,
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1420,6 +1428,12 @@
                   {
                     "params": [],
                     "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
                   }
                 ]
               ],
@@ -1442,11 +1456,12 @@
                   "type": "fill"
                 }
               ],
+              "hide": false,
               "measurement": "tc_prox_baremetal_l3fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT mean(\"tg__0.collect_stats.xe2.out_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "rawQuery": true,
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -1460,6 +1475,12 @@
                   {
                     "params": [],
                     "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
                   }
                 ]
               ],
@@ -1486,7 +1507,7 @@
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT mean(\"tg__0.collect_stats.xe3.out_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "rawQuery": true,
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -1500,6 +1521,12 @@
                   {
                     "params": [],
                     "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
                   }
                 ]
               ],
@@ -1524,7 +1551,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Packets Sent by Generator",
+          "title": "Packets Sent by Generator per Step",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -1542,7 +1569,7 @@
           "yaxes": [
             {
               "format": "short",
-              "label": "Packets ",
+              "label": "Million Packets  Per Step",
               "logBase": 1,
               "max": null,
               "min": "0",
@@ -1564,6 +1591,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "${DS_YARDSTICK}",
+          "decimals": 4,
           "editable": true,
           "error": false,
           "fill": 1,
@@ -1615,7 +1643,7 @@
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT mean(\"tg__0.collect_stats.xe0.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "rawQuery": true,
+              "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1629,6 +1657,12 @@
                   {
                     "params": [],
                     "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
                   }
                 ]
               ],
@@ -1655,7 +1689,7 @@
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT mean(\"tg__0.collect_stats.xe1.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "rawQuery": true,
+              "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1669,6 +1703,12 @@
                   {
                     "params": [],
                     "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
                   }
                 ]
               ],
@@ -1695,7 +1735,7 @@
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT mean(\"tg__0.collect_stats.xe2.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "rawQuery": true,
+              "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
               "select": [
@@ -1709,6 +1749,12 @@
                   {
                     "params": [],
                     "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
                   }
                 ]
               ],
@@ -1735,7 +1781,7 @@
               "orderByTime": "ASC",
               "policy": "default",
               "query": "SELECT mean(\"tg__0.collect_stats.xe3.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "rawQuery": true,
+              "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
               "select": [
@@ -1749,6 +1795,12 @@
                   {
                     "params": [],
                     "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
                   }
                 ]
               ],
@@ -1773,7 +1825,7 @@
           ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Packets Received by Generator",
+          "title": "Packets Received by Generator per Step",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -1791,7 +1843,572 @@
           "yaxes": [
             {
               "format": "short",
-              "label": "Packets Per Second",
+              "label": "Million Packets Per Step",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "content": "<h5 style=\"font-family:Verdana\"> <a style=\"color:#31A7D3\"><a style=\"font: 22px '#31A7D3'\"><center>Prox L3Fwd Traffic Gen stats:  Average Throughput per Second and per Interface</center> </a></h5>\n",
+          "editable": true,
+          "error": false,
+          "height": "40",
+          "id": 208,
+          "links": [],
+          "minSpan": 12,
+          "mode": "html",
+          "span": 12,
+          "title": "",
+          "type": "text"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_YARDSTICK}",
+          "decimals": 4,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "height": "300px",
+          "id": 206,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": true,
+          "targets": [
+            {
+              "alias": "TG xe-0 Out packets",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "tc_prox_baremetal_l3fwd-4",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe0.out_packets\")  / 1000000 FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "tg__0.collect_stats.live_stats.xe0.out_packets"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "TG xe-1 Out packets",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "tc_prox_baremetal_l3fwd-4",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe1.out_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "tg__0.collect_stats.live_stats.xe1.out_packets"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "TG xe-2 Out packets",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "tc_prox_baremetal_l3fwd-4",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe2.out_packets\")  / 1000000 FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "tg__0.collect_stats.live_stats.xe2.out_packets"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "TG xe-3 Out packets",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "tc_prox_baremetal_l3fwd-4",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe3.out_packets\")  / 1000000 FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "tg__0.collect_stats.live_stats.xe3.out_packets"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [
+            {
+              "colorMode": "custom",
+              "fill": true,
+              "fillColor": "rgba(216, 200, 27, 0.27)",
+              "op": "gt",
+              "value": 0
+            },
+            {
+              "colorMode": "custom",
+              "fill": true,
+              "fillColor": "rgba(234, 112, 112, 0.22)",
+              "op": "gt",
+              "value": 0
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Packets Sent by Generator per second and per interface",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "Million Packets  Per Second",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_YARDSTICK}",
+          "decimals": 4,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "height": "300px",
+          "id": 207,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "TG xe-0 in packets",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "tc_prox_baremetal_l3fwd-4",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe0.in_packets\")  / 1000000 FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "tg__0.collect_stats.live_stats.xe0.in_packets"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "TG xe-1 in packets",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "tc_prox_baremetal_l3fwd-4",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe1.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "tg__0.collect_stats.live_stats.xe1.in_packets"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "TG xe-2 in packets",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "tc_prox_baremetal_l3fwd-4",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe2.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "tg__0.collect_stats.live_stats.xe2.in_packets"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": []
+            },
+            {
+              "alias": "TG xe-3 in packets",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "tc_prox_baremetal_l3fwd-4",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe3.in_packets\") FROM \"tc_prox_baremetal_l3fwd-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "tg__0.collect_stats.live_stats.xe3.in_packets"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000000"
+                    ],
+                    "type": "math"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [
+            {
+              "colorMode": "custom",
+              "fill": true,
+              "fillColor": "rgba(216, 200, 27, 0.27)",
+              "op": "gt",
+              "value": 0
+            },
+            {
+              "colorMode": "custom",
+              "fill": true,
+              "fillColor": "rgba(234, 112, 112, 0.22)",
+              "op": "gt",
+              "value": 0
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Packets Received by Generator per second and per interface",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "Million Packets Per Second",
               "logBase": 1,
               "max": null,
               "min": "0",
@@ -12457,8 +13074,8 @@
     "list": []
   },
   "time": {
-    "from": "2018-09-04T00:52:16.948Z",
-    "to": "2018-09-04T12:52:16.948Z"
+    "from": "now-3h",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -12487,5 +13104,5 @@
   },
   "timezone": "browser",
   "title": "Prox_BM_L3FWD-4Port",
-  "version": 3
+  "version": 5
 }
