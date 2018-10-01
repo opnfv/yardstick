@@ -1492,7 +1492,16 @@ class TestProxResourceHelper(unittest.TestCase):
         helper = prox_helpers.ProxResourceHelper(mock.MagicMock())
         helper._queue = queue = mock.MagicMock()
         helper._result = {'z': 123}
+
+        helper.client = mock.MagicMock()
+        helper.client.multi_port_stats.return_value = [[0, 1, 2, 3, 4, 5], [1, 1, 2, 3, 4, 5]]
+        helper.client.multi_port_stats_diff.return_value = [0,1,2,3,4,5,6,7] , [0,1,2,3,4,5,6,7]
+        helper.client.multi_port_stats_tuple.return_value = {"xe0": {"in_packets": 1, "out_packets": 2}}
         helper.resource = resource = mock.MagicMock()
+
+        vnfd_helper = mock.MagicMock()
+        vnfd_helper.ports_iter.return_value = [('xe0', 0), ('xe1', 1)]
+        helper.vnfd_helper = vnfd_helper
 
         resource.check_if_system_agent_running.return_value = 0, '1234'
         resource.amqp_collect_nfvi_kpi.return_value = 543
@@ -1501,7 +1510,9 @@ class TestProxResourceHelper(unittest.TestCase):
         queue.empty.return_value = False
         queue.get.return_value = {'a': 789}
 
-        expected = {'z': 123, 'a': 789, 'collect_stats': {'core': 543}}
+        expected = {'z': 123, 'a': 789,
+                    'collect_stats': {'core': 543},
+                    'live_stats': {'xe0': {'in_packets': 1, 'out_packets': 2}}}
         result = helper.collect_kpi()
         self.assertDictEqual(result, expected)
 
