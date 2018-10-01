@@ -168,8 +168,8 @@ class ProxBinSearchProfile(ProxProfile):
 
                 samples = result.get_samples(pkt_size, successful_pkt_loss, port_samples)
 
-                if theor_max_thruput < samples["TxThroughput"]:
-                    theor_max_thruput = samples['TxThroughput']
+                if theor_max_thruput < samples["RequestedTxThroughput"]:
+                    theor_max_thruput = samples['RequestedTxThroughput']
                 samples['theor_max_throughput'] = theor_max_thruput
 
                 samples["rx_total"] = int(result.rx_total)
