@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_e8c7d710",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-01T12:00:14Z",
+      "side": 1,
+      "message": "This is not lazily evaluated, and should still use the string formatting.",
+      "range": {
+        "startLine": 216,
+        "startChar": 1,
+        "endLine": 217,
+        "endChar": 76
+      },
+      "revId": "3e09195f707fc6fbbbae8093ba885c32aaccf7bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c8cc9b38",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-01T12:00:14Z",
+      "side": 1,
+      "message": "ditto, needs string formatting",
+      "range": {
+        "startLine": 226,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 79
+      },
+      "revId": "3e09195f707fc6fbbbae8093ba885c32aaccf7bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
