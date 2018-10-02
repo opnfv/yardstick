@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_934bf8af",
+        "filename": "ansible/roles/configure_gui/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-02T10:51:24Z",
+      "side": 1,
+      "message": "I agree, at first glance I thought it was removing nginx and yardstick directories.\n\nI suggest adding the full path to be removed.",
+      "parentUuid": "5a682502_ffedd38c",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_5f02073f",
         "filename": "ansible/roles/download_drivers/defaults/main.yml",
         "patchSetId": 5
@@ -59,6 +83,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_f3c7cc10",
+        "filename": "ansible/roles/download_drivers/defaults/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-02T10:51:24Z",
+      "side": 1,
+      "message": "This change is separate from updating the OS version.\nIt will change the version used for xenial as well as adding support for the version used in bionic.",
+      "parentUuid": "5a682502_5f02073f",
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ffbb1370",
         "filename": "ansible/roles/download_samplevnfs/defaults/main.yml",
         "patchSetId": 5
@@ -70,6 +112,24 @@
       "writtenOn": "2018-09-27T12:52:39Z",
       "side": 1,
       "message": "Good that you rebased PS6 on top of ee5d6413dbcbab40234e47ed3e74b85b704d6493",
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d3cc5038",
+        "filename": "ansible/roles/download_samplevnfs/defaults/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-02T10:51:24Z",
+      "side": 1,
+      "message": "This can be updated when this change is backported to stable/gambia, but the comment will need to be removed for the master version too.",
+      "parentUuid": "5a682502_ffbb1370",
       "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -183,6 +243,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_33d2e4d2",
+        "filename": "ansible/roles/install_yardstick/tasks/Debian.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-02T10:51:24Z",
+      "side": 1,
+      "message": "These details should be added here, so that the comment in this file shows all required references to know when  the bug is resolved.\n\nEither that, or a Jira ticket should be logged with these details and referenced here in the file.",
+      "parentUuid": "5a682502_e22b78e9",
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ffa4b358",
         "filename": "ansible/roles/install_yardstick/tasks/Suse.yml",
         "patchSetId": 5
@@ -194,6 +272,30 @@
       "writtenOn": "2018-09-27T12:52:39Z",
       "side": 1,
       "message": "Looks useless",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 18
+      },
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_13d7e8c2",
+        "filename": "ansible/roles/install_yardstick/tasks/Suse.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-02T10:51:24Z",
+      "side": 1,
+      "message": "+1 Remove the commented commands",
+      "parentUuid": "5a682502_ffa4b358",
       "range": {
         "startLine": 20,
         "startChar": 0,
