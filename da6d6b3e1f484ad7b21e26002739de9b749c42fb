@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_d31730a2",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-10-02T10:11:00Z",
+      "side": 1,
+      "message": "please update",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "da6d6b3e1f484ad7b21e26002739de9b749c42fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_131248b1",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-10-02T10:11:00Z",
+      "side": 1,
+      "message": "seems it is not used",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 16
+      },
+      "revId": "da6d6b3e1f484ad7b21e26002739de9b749c42fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_931db8c0",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-10-02T10:11:00Z",
+      "side": 1,
+      "message": "not used",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 19
+      },
+      "revId": "da6d6b3e1f484ad7b21e26002739de9b749c42fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b320b4f8",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-10-02T10:11:00Z",
+      "side": 1,
+      "message": "not used",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 17
+      },
+      "revId": "da6d6b3e1f484ad7b21e26002739de9b749c42fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_3384a4d3",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-10-02T10:11:00Z",
+      "side": 1,
+      "message": "not used",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "da6d6b3e1f484ad7b21e26002739de9b749c42fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_1389a8eb",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-10-02T10:11:00Z",
+      "side": 1,
+      "message": "Maybe needs a docstring to explain what is done here, and what is returned from ixnet (3rd party module).",
+      "revId": "da6d6b3e1f484ad7b21e26002739de9b749c42fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_f3606c37",
+        "filename": "yardstick/tests/unit/network_services/libs/ixia_libs/test_ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-10-02T10:11:00Z",
+      "side": 1,
+      "message": "one too many empty lines",
+      "revId": "da6d6b3e1f484ad7b21e26002739de9b749c42fb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
