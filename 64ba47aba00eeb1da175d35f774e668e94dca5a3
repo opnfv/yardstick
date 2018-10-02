@@ -70,6 +70,30 @@
       "revId": "64ba47aba00eeb1da175d35f774e668e94dca5a3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8e00ebab",
+        "filename": "yardstick/network_services/traffic_profile/http_ixload.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-02T15:46:53Z",
+      "side": 1,
+      "message": "Okay. This disables the check for the rest of the file too. \n\nPlease either do an inline check (add comment at the end of the line) or re-enable the check following the import.\n\n    # pylint: disable\u003dwrong-import-order\n    from yardstick...\n    # pylint: enable\u003dwrong-import-order\n\n OR\n\n    from yardstick.common import exceptions  # pylint: enable\u003dwrong-import-order\n\n\nThe # should be followed by a single space for a comment\nthe # should be preceeded by two spaces if it\u0027s an end-of-line comment.",
+      "parentUuid": "5a682502_aeb96730",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 38
+      },
+      "revId": "64ba47aba00eeb1da175d35f774e668e94dca5a3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
