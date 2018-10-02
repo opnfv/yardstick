@@ -59,6 +59,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_d368d0f7",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-02T13:07:44Z",
+      "side": 1,
+      "message": "It should make it, once grammar fixed ;-)",
+      "parentUuid": "5a682502_633140a2",
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_433c0594",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -94,6 +112,30 @@
       "side": 1,
       "message": "Yes. A chain of patches is a development branch, and running git review on the tip of the branch creates a series of reviews in gerrit.\nThis can probably be phrased a bit better to make this clearer in a concise manner.\n\nHow about:\n\n   When developing larger features, the entire development branch can be submitted together, by running ``git review`` on the tip of the branch. This creates a chain of related patches in gerrit. Each commit should contain one logical and should be kept to a maximum of ~300 lines of code per patch (including unit tests).",
       "parentUuid": "5a682502_433c0594",
+      "range": {
+        "startLine": 576,
+        "startChar": 68,
+        "endLine": 576,
+        "endChar": 76
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b381d491",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-02T13:07:44Z",
+      "side": 1,
+      "message": "Something like that would definitely help. Not sure though about the number of lines limitation.\nInstead of \"development branch\", I would say \"local topic branch\".\nI\u0027ll forward to you the How-To that I use daily, which describes how to create such \"local topic branches\", which are really helpful to switch between tickets and to rebase on top of updated master.",
+      "parentUuid": "5a682502_03f96cc8",
       "range": {
         "startLine": 576,
         "startChar": 68,
