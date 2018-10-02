@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_b7ca7b6c",
+        "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-02T13:08:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_65a64c12",
+      "revId": "04d668cd879b32bee385047fbd5d4be129331e39",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_05883070",
         "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
         "patchSetId": 14
@@ -30,6 +48,24 @@
       "writtenOn": "2018-08-23T12:30:15Z",
       "side": 1,
       "message": "Missing conversion to float, for consistency with line 68.",
+      "revId": "04d668cd879b32bee385047fbd5d4be129331e39",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_77b0e3f4",
+        "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-02T13:08:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_05883070",
       "revId": "04d668cd879b32bee385047fbd5d4be129331e39",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_97abff88",
+        "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-02T13:08:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_2583b457",
+      "revId": "04d668cd879b32bee385047fbd5d4be129331e39",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_c5b6383d",
         "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
         "patchSetId": 14
@@ -64,6 +118,24 @@
       "writtenOn": "2018-08-23T12:30:15Z",
       "side": 1,
       "message": "Missing conversion to int, for consistency with line 66.",
+      "revId": "04d668cd879b32bee385047fbd5d4be129331e39",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d7945746",
+        "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-02T13:08:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_c5b6383d",
       "revId": "04d668cd879b32bee385047fbd5d4be129331e39",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_662b0e83",
+        "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-02T13:08:02Z",
+      "side": 1,
+      "message": "Can can not directly hard code ProxBinSearchProfile here. What if another profile was used. \n\nThis will call ProxBinSearchProfile because of traffic_type\nwhich will call ProxBinSearchProfile.__init__",
+      "parentUuid": "9a561d44_45822850",
+      "revId": "04d668cd879b32bee385047fbd5d4be129331e39",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_e5909c97",
         "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
         "patchSetId": 14
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_c620229e",
+        "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-02T13:08:02Z",
+      "side": 1,
+      "message": "as above.",
+      "parentUuid": "9a561d44_e5909c97",
+      "revId": "04d668cd879b32bee385047fbd5d4be129331e39",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_c5bbd80c",
         "filename": "yardstick/tests/unit/network_services/traffic_profile/test_prox_profile.py",
         "patchSetId": 14
@@ -115,6 +223,24 @@
       "writtenOn": "2018-08-23T12:30:15Z",
       "side": 1,
       "message": "Nice to inject traffic_config options.\nWhere is the impact tested afterwards?",
+      "revId": "04d668cd879b32bee385047fbd5d4be129331e39",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_48607d32",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_prox_profile.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-02T13:08:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_c5bbd80c",
       "revId": "04d668cd879b32bee385047fbd5d4be129331e39",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
