@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_2eb1d7e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-02T17:35:59Z",
+      "side": 1,
+      "message": "Should be \"Adds option parameters to TC074\"",
+      "revId": "69fe1a556adff6141080c48fce5c854825151b8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_cebb03c3",
+        "filename": "docs/testing/user/userguide/opnfv_yardstick_tc074.rst",
+        "patchSetId": 15
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-02T17:35:59Z",
+      "side": 1,
+      "message": "Align this with the line above",
+      "revId": "69fe1a556adff6141080c48fce5c854825151b8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
