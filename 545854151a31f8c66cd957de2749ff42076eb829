@@ -94,6 +94,30 @@
       "revId": "545854151a31f8c66cd957de2749ff42076eb829",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8ec10b31",
+        "filename": "tox.ini",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-02T17:44:48Z",
+      "side": 1,
+      "message": "By default, does releng trigger docs and docs-linkcheck with changes to docs?",
+      "parentUuid": "5a682502_e6471e1c",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 50
+      },
+      "revId": "545854151a31f8c66cd957de2749ff42076eb829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
