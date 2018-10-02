@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_6ecaaf50",
+        "filename": "docs/testing/user/userguide/nsb/nsb-list-of-tcs.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-02T17:42:05Z",
+      "side": 1,
+      "message": "Where are these two documents coming from? This should list the names of docs in to be included in this page, and it should be existing file names.\n\nYou should be adding just one additional entry here\n    tc_vims_context",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "aff66666cd71a7deeb91f0abc6b04a6d2c7e1f94",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_4ec7f345",
+        "filename": "docs/testing/user/userguide/nsb/tc_vims_context.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-02T17:42:05Z",
+      "side": 1,
+      "message": "nit: the \u0027 is not needed",
+      "range": {
+        "startLine": 80,
+        "startChar": 45,
+        "endLine": 80,
+        "endChar": 46
+      },
+      "revId": "aff66666cd71a7deeb91f0abc6b04a6d2c7e1f94",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
