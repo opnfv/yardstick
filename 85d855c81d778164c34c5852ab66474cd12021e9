@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_ee887f24",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-02T17:15:52Z",
+      "side": 1,
+      "message": "remove space",
+      "range": {
+        "startLine": 527,
+        "startChar": 70,
+        "endLine": 527,
+        "endChar": 71
+      },
+      "revId": "85d855c81d778164c34c5852ab66474cd12021e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_2e839705",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-02T17:15:52Z",
+      "side": 1,
+      "message": "suggest the following minor alteration\n\n    The key_filename provided (%s) does not exist!",
+      "range": {
+        "startLine": 527,
+        "startChar": 26,
+        "endLine": 527,
+        "endChar": 72
+      },
+      "revId": "85d855c81d778164c34c5852ab66474cd12021e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ce8dc333",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-02T17:15:52Z",
+      "side": 1,
+      "message": "1. keep it consistent with L527\n\n   \"The key_filename provided (%s) is unreadable.\"\n\n2. Line length",
+      "range": {
+        "startLine": 533,
+        "startChar": 31,
+        "endLine": 533,
+        "endChar": 67
+      },
+      "revId": "85d855c81d778164c34c5852ab66474cd12021e9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
