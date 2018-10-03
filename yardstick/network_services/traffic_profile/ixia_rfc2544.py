@@ -56,67 +56,82 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
             if not traffickey.startswith((self.UPLINK, self.DOWNLINK)):
                 continue
 
+            # values should be single-item dict, so just grab the first item
             try:
-                # values should be single-item dict, so just grab the first item
-                try:
-                    key, value = next(iter(values.items()))
-                except StopIteration:
-                    result[traffickey] = {}
-                    continue
-
-                port_id = value.get('id', 1)
-                port_index = port_id - 1
-
-                if value.get('outer_l3v4'):
-                    ip = value['outer_l3v4']
-                    src_key, dst_key = 'srcip4', 'dstip4'
-                else:
-                    ip = value['outer_l3v6']
-                    src_key, dst_key = 'srcip6', 'dstip6'
-
-                srcip, srcmask = self._get_ip_and_mask(ip[src_key])
-                dstip, dstmask = self._get_ip_and_mask(ip[dst_key])
-
-                outer_l4 = value.get('outer_l4')
-                src_port, src_port_mask = self._get_fixed_and_mask(outer_l4['srcport'])
-                dst_port, dst_port_mask = self._get_fixed_and_mask(outer_l4['dstport'])
-                result[traffickey] = {
-                    'bidir': False,
-                    'id': port_id,
-                    'rate': self.rate,
-                    'rate_unit': self.rate_unit,
-                    'outer_l2': {
-                        'framesize': value['outer_l2']['framesize'],
-                        'framesPerSecond': True,
-                        'QinQ': value['outer_l2'].get('QinQ'),
-                        'srcmac': mac['src_mac_{}'.format(port_index)],
-                        'dstmac': mac['dst_mac_{}'.format(port_index)],
-                    },
-                    'outer_l3': {
-                        'count': ip['count'],
-                        'dscp': ip['dscp'],
-                        'ttl': ip['ttl'],
-                        'srcseed': ip.get('srcseed', 1),
-                        'dstseed': ip.get('dstseed', 1),
-                        'srcip': srcip,
-                        'dstip': dstip,
-                        'srcmask': srcmask,
-                        'dstmask': dstmask,
-                        'type': key,
-                        'proto': ip['proto'],
-                    },
-                    'outer_l4': {
-                        'srcport': src_port,
-                        'dstport': dst_port,
-                        'srcportmask': src_port_mask,
-                        'dstportmask': dst_port_mask,
-                        'count': outer_l4['count'],
-                        'seed': outer_l4.get('seed', 1)
-                    }
-
-                }
-            except KeyError:
+                key, value = next(iter(values.items()))
+            except StopIteration:
+                result[traffickey] = {}
                 continue
+
+            port_id = value.get('id', 1)
+            port_index = port_id - 1
+
+            result[traffickey] = {
+                'bidir': False,
+                'id': port_id,
+                'rate': self.rate,
+                'rate_unit': self.rate_unit,
+                'outer_l2': {},
+                'outer_l3': {},
+                'outer_l4': {},
+            }
+
+            outer_l2 = value.get('outer_l2')
+            if outer_l2:
+                result[traffickey]['outer_l2'].update({
+                    'framesize': outer_l2.get('framesize'),
+                    'framesPerSecond': True,
+                    'QinQ': outer_l2.get('QinQ'),
+                    'srcmac': mac.get('src_mac_{}'.format(port_index)),
+                    'dstmac': mac.get('dst_mac_{}'.format(port_index)),
+                })
+
+            if value.get('outer_l3v4'):
+                outer_l3 = value['outer_l3v4']
+                src_key, dst_key = 'srcip4', 'dstip4'
+            else:
+                outer_l3 = value.get('outer_l3v6')
+                src_key, dst_key = 'srcip6', 'dstip6'
+            if outer_l3:
+                srcip = srcmask = dstip = dstmask = None
+                if outer_l3.get(src_key):
+                    srcip, srcmask = self._get_ip_and_mask(outer_l3[src_key])
+                if outer_l3.get(dst_key):
+                    dstip, dstmask = self._get_ip_and_mask(outer_l3[dst_key])
+
+                result[traffickey]['outer_l3'].update({
+                    'count': outer_l3.get('count', 1),
+                    'dscp': outer_l3.get('dscp'),
+                    'ttl': outer_l3.get('ttl'),
+                    'srcseed': outer_l3.get('srcseed', 1),
+                    'dstseed': outer_l3.get('dstseed', 1),
+                    'srcip': srcip,
+                    'dstip': dstip,
+                    'srcmask': srcmask,
+                    'dstmask': dstmask,
+                    'type': key,
+                    'proto': outer_l3.get('proto'),
+                })
+
+            outer_l4 = value.get('outer_l4')
+            if outer_l4:
+                src_port = src_port_mask = dst_port = dst_port_mask = None
+                if outer_l4.get('srcport'):
+                    src_port, src_port_mask = (
+                        self._get_fixed_and_mask(outer_l4['srcport']))
+
+                if outer_l4.get('dstport'):
+                    dst_port, dst_port_mask = (
+                        self._get_fixed_and_mask(outer_l4['dstport']))
+
+                result[traffickey]['outer_l4'].update({
+                    'srcport': src_port,
+                    'dstport': dst_port,
+                    'srcportmask': src_port_mask,
+                    'dstportmask': dst_port_mask,
+                    'count': outer_l4.get('count', 1),
+                    'seed': outer_l4.get('seed', 1),
+                })
 
         return result
 

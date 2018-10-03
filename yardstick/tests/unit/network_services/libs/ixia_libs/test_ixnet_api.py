@@ -643,6 +643,9 @@ class TestIxNextgen(unittest.TestCase):
                 'outer_l3': {
                     'proto': 'unsupported',
                 },
+                'outer_l4': {
+                    'seed': 1
+                }
             },
         }
         with mock.patch.object(self.ixnet_gen,
