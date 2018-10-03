@@ -35,18 +35,18 @@ Yardstick Test Case Description TC050
 |              | 3) interface: the network interface to be turned off.        |
 |              |                                                              |
 |              | The interface to be closed by the attacker can be set by the |
-|              | variable of "{{ interface_name }}"                           |
+|              | variable of "{{ interface_name }}"::                         |
 |              |                                                              |
-|              | attackers:                                                   |
-|              |   -                                                          |
-|              |     fault_type: "general-attacker"                           |
-|              |     host: {{ attack_host }}                                  |
-|              |     key: "close-br-public"                                   |
-|              |     attack_key: "close-interface"                            |
-|              |     action_parameter:                                        |
-|              |       interface: {{ interface_name }}                        |
-|              |     rollback_parameter:                                      |
-|              |       interface: {{ interface_name }}                        |
+|              |   attackers:                                                 |
+|              |     -                                                        |
+|              |       fault_type: "general-attacker"                         |
+|              |       host: {{ attack_host }}                                |
+|              |       key: "close-br-public"                                 |
+|              |       attack_key: "close-interface"                          |
+|              |       action_parameter:                                      |
+|              |         interface: {{ interface_name }}                      |
+|              |       rollback_parameter:                                    |
+|              |         interface: {{ interface_name }}                      |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |monitors      | In this test case, the monitor named "openstack-cmd" is      |
@@ -56,19 +56,20 @@ Yardstick Test Case Description TC050
 |              | "openstack-cmd" for this monitor.                            |
 |              | 2) command_name: which is the command name used for request  |
 |              |                                                              |
-|              | There are four instance of the "openstack-cmd" monitor:      |
-|              | monitor1:                                                    |
-|              |     - monitor_type: "openstack-cmd"                          |
-|              |     - command_name: "nova image-list"                        |
-|              | monitor2:                                                    |
-|              |     - monitor_type: "openstack-cmd"                          |
-|              |     - command_name: "neutron router-list"                    |
-|              | monitor3:                                                    |
-|              |     - monitor_type: "openstack-cmd"                          |
-|              |     - command_name: "heat stack-list"                        |
-|              | monitor4:                                                    |
-|              |     - monitor_type: "openstack-cmd"                          |
-|              |     - command_name: "cinder list"                            |
+|              | There are four instance of the "openstack-cmd" monitor::     |
+|              |                                                              |
+|              |   monitor1:                                                  |
+|              |       - monitor_type: "openstack-cmd"                        |
+|              |       - command_name: "nova image-list"                      |
+|              |   monitor2:                                                  |
+|              |       - monitor_type: "openstack-cmd"                        |
+|              |       - command_name: "neutron router-list"                  |
+|              |   monitor3:                                                  |
+|              |       - monitor_type: "openstack-cmd"                        |
+|              |       - command_name: "heat stack-list"                      |
+|              |   monitor4:                                                  |
+|              |       - monitor_type: "openstack-cmd"                        |
+|              |       - command_name: "cinder list"                          |
 +--------------+--------------------------------------------------------------+
 |metrics       | In this test case, there is one metric:                      |
 |              | 1)service_outage_time: which indicates the maximum outage    |

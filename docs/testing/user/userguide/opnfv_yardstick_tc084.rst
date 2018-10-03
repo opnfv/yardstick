@@ -92,18 +92,19 @@ Yardstick Test Case Description TC084
 +--------------+--------------------------------------------------------------+
 |pre-test      | To run and install SPEC CPU 2006, the following are          |
 |conditions    | required:                                                    |
-|              |  * For SPECint 2006: Both C99 and C++98 compilers are        |
-|              |    installed in VM images;                                   |
-|              |  * For SPECfp 2006: All three of C99, C++98 and Fortran-95   |
-|              |    compilers installed in VM images;                         |
-|              |  * At least 4GB of disk space availabile on VM.              |
 |              |                                                              |
-|              |  gcc 4.8.* and g++ 4.8.* version have been tested in Ubuntu  |
-|              |  14.04, Ubuntu 16.04 and Redhat Enterprise Linux 7.4 image.  |
-|              |  Higher gcc and g++ version may cause compiling error.       |
+|              | * For SPECint 2006: Both C99 and C++98 compilers are         |
+|              |   installed in VM images;                                    |
+|              | * For SPECfp 2006: All three of C99, C++98 and Fortran-95    |
+|              |   compilers installed in VM images;                          |
+|              | * At least 4GB of disk space availabile on VM.               |
 |              |                                                              |
-|              |  For more SPEC CPU 2006 dependencies please visit            |
-|              |  (https://www.spec.org/cpu2006/Docs/techsupport.html)        |
+|              | gcc 4.8.* and g++ 4.8.* version have been tested in Ubuntu   |
+|              | 14.04, Ubuntu 16.04 and Redhat Enterprise Linux 7.4 image.   |
+|              | Higher gcc and g++ version may cause compiling error.        |
+|              |                                                              |
+|              | For more SPEC CPU 2006 dependencies please visit             |
+|              | (https://www.spec.org/cpu2006/Docs/techsupport.html)         |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test sequence | description and expected result                              |

@@ -34,6 +34,7 @@ Yardstick Test Case Description TC010
 |              |                                                              |
 |              | Lmbench is a suite of operating system microbenchmarks. This |
 |              | test uses lat_mem_rd tool from that suite including:         |
+|              |                                                              |
 |              |  * Context switching                                         |
 |              |  * Networking: connection establishment, pipe, TCP, UDP, and |
 |              |    RPC hot potato                                            |
@@ -55,7 +56,7 @@ Yardstick Test Case Description TC010
 |              | The benchmark runs as two nested loops. The outer loop is    |
 |              | the stride size. The inner loop is the array size. For each  |
 |              | array size, the benchmark creates a ring of pointers that    |
-|              | point backward one stride.Traversing the array is done by:   |
+|              | point backward one stride. Traversing the array is done by:: |
 |              |                                                              |
 |              |         p = (char **)*p;                                     |
 |              |                                                              |
