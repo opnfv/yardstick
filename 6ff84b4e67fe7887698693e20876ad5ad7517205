@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_a29a1b12",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T16:25:36Z",
+      "side": 1,
+      "message": "Fair point. Created new section after \"4.5. Verify the installation\".",
+      "parentUuid": "5a682502_6ea3cf9e",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 39
+      },
+      "revId": "6ff84b4e67fe7887698693e20876ad5ad7517205",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_6e7c6f21",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-02T17:27:54Z",
       "side": 1,
       "message": "I would phrase this as:\n   There are different package requirements for bionic and xenial.\n\nThis could also be removed completely, as the difference in package version is expected for different distros",
+      "range": {
+        "startLine": 120,
+        "startChar": 70,
+        "endLine": 121,
+        "endChar": 63
+      },
+      "revId": "6ff84b4e67fe7887698693e20876ad5ad7517205",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_62f9234d",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T16:25:36Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "5a682502_6e7c6f21",
       "range": {
         "startLine": 120,
         "startChar": 70,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_c29597e5",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T16:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_8e73cb4c",
+      "range": {
+        "startLine": 123,
+        "startChar": 80,
+        "endLine": 123,
+        "endChar": 83
+      },
+      "revId": "6ff84b4e67fe7887698693e20876ad5ad7517205",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_03d16cfb",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -82,6 +154,24 @@
       "writtenOn": "2018-09-17T11:04:48Z",
       "side": 1,
       "message": "Can you mention how to build the NSB image and what the image property needs to be set? SOme example here will be very useful.\neg: IMG_PROPERTY \u003d \"nsb\"",
+      "revId": "6ff84b4e67fe7887698693e20876ad5ad7517205",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a2685bf6",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T16:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_03d16cfb",
       "revId": "6ff84b4e67fe7887698693e20876ad5ad7517205",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -134,6 +224,54 @@
     },
     {
       "key": {
+        "uuid": "5a682502_02a02f42",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T16:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_4e79b32e",
+      "range": {
+        "startLine": 133,
+        "startChar": 18,
+        "endLine": 133,
+        "endChar": 35
+      },
+      "revId": "6ff84b4e67fe7887698693e20876ad5ad7517205",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e2a41359",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T16:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_ae76873c",
+      "range": {
+        "startLine": 133,
+        "startChar": 80,
+        "endLine": 133,
+        "endChar": 85
+      },
+      "revId": "6ff84b4e67fe7887698693e20876ad5ad7517205",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ee8fdf21",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -145,6 +283,30 @@
       "writtenOn": "2018-10-02T17:27:54Z",
       "side": 1,
       "message": "Please keep lines to 80 characters",
+      "range": {
+        "startLine": 350,
+        "startChar": 80,
+        "endLine": 350,
+        "endChar": 83
+      },
+      "revId": "6ff84b4e67fe7887698693e20876ad5ad7517205",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_428987c9",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T16:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_ee8fdf21",
       "range": {
         "startLine": 350,
         "startChar": 80,
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_22860bba",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T16:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_ce94a339",
+      "range": {
+        "startLine": 355,
+        "startChar": 21,
+        "endLine": 355,
+        "endChar": 38
+      },
+      "revId": "6ff84b4e67fe7887698693e20876ad5ad7517205",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_2e9a7763",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 1
@@ -191,6 +377,30 @@
       "writtenOn": "2018-10-02T17:27:54Z",
       "side": 1,
       "message": "ditto on literals",
+      "range": {
+        "startLine": 357,
+        "startChar": 18,
+        "endLine": 357,
+        "endChar": 35
+      },
+      "revId": "6ff84b4e67fe7887698693e20876ad5ad7517205",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_82939ff9",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T16:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_2e9a7763",
       "range": {
         "startLine": 357,
         "startChar": 18,
