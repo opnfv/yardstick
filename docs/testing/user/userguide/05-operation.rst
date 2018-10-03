@@ -183,7 +183,7 @@ Combining these elements together, a sample Heat context config looks like:
 .. literalinclude::
    ../../../../yardstick/tests/integration/dummy-scenario-heat-context.yaml
    :start-after: ---
-   :empahsise-lines: 14-
+   :emphasize-lines: 14-
 
 Using exisiting HOT Templates
 '''''''''''''''''''''''''''''
