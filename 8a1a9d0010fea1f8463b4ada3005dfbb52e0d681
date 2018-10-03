@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_c2b637dc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T14:12:39Z",
+      "side": 1,
+      "message": "Updated with default version 16.04. So no Warning needed.",
+      "parentUuid": "5a682502_1fe9af80",
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ffedd38c",
         "filename": "ansible/roles/configure_gui/tasks/main.yml",
         "patchSetId": 5
@@ -66,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_e2ec13ca",
+        "filename": "ansible/roles/configure_gui/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T14:12:39Z",
+      "side": 1,
+      "message": "Added to keep ansible script idempotent. Path updated.",
+      "parentUuid": "5a682502_934bf8af",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_5f02073f",
         "filename": "ansible/roles/download_drivers/defaults/main.yml",
         "patchSetId": 5
@@ -95,6 +137,24 @@
       "side": 1,
       "message": "This change is separate from updating the OS version.\nIt will change the version used for xenial as well as adding support for the version used in bionic.",
       "parentUuid": "5a682502_5f02073f",
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a2097b97",
+        "filename": "ansible/roles/download_drivers/defaults/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T14:12:39Z",
+      "side": 1,
+      "message": "Without this change Ubuntu 18.04 will not work.\nI can add dependency on which i40e driver version to use.\nBut i think it\u0027s better to use latest driver version. Isn\u0027t it? \nDo you think driver version will affect performance?",
+      "parentUuid": "5a682502_f3c7cc10",
       "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -148,6 +208,24 @@
       "side": 1,
       "message": "Ignore this comment, I was looking at PS5",
       "parentUuid": "5a682502_d3cc5038",
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a2bb3bc3",
+        "filename": "ansible/roles/download_samplevnfs/defaults/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T14:12:39Z",
+      "side": 1,
+      "message": "Rebased after Patrice changes as per commit ID for sample VNF. https://gerrit.opnfv.org/gerrit/#/c/62443/.",
+      "parentUuid": "5a682502_93e2d89d",
       "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -279,6 +357,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_22a0cb8f",
+        "filename": "ansible/roles/install_yardstick/tasks/Debian.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T14:12:39Z",
+      "side": 1,
+      "message": "Removed this as duplication of existing role.\nAdded bug as a reference to ansible/roles/install_dependencies_jumphost/tasks/Debian.yml",
+      "parentUuid": "5a682502_33d2e4d2",
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ffa4b358",
         "filename": "ansible/roles/install_yardstick/tasks/Suse.yml",
         "patchSetId": 5
@@ -314,6 +410,30 @@
       "side": 1,
       "message": "+1 Remove the commented commands",
       "parentUuid": "5a682502_ffa4b358",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 18
+      },
+      "revId": "8a1a9d0010fea1f8463b4ada3005dfbb52e0d681",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_22c72b47",
+        "filename": "ansible/roles/install_yardstick/tasks/Suse.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-03T14:12:39Z",
+      "side": 1,
+      "message": "Moved to ansible/roles/install_dependencies_jumphost/tasks/Suse.yml\nDone.",
+      "parentUuid": "5a682502_13d7e8c2",
       "range": {
         "startLine": 20,
         "startChar": 0,
