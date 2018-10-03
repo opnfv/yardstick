@@ -9,9 +9,6 @@ Yardstick Test Case Description TC069
 
 .. _RAMspeed: http://alasir.com/software/ramspeed/
 
-.. table::
-    :class: longtable
-
 +-----------------------------------------------------------------------------+
 |Memory Bandwidth                                                             |
 |                                                                             |

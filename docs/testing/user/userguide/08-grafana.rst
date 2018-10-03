@@ -36,7 +36,7 @@ of TC002.
 
 .. image:: images/TC002.png
    :width: 800px
-   :alt:TC002 dashboard
+   :alt: TC002 dashboard
 
 For each test case dashboard. On the top left, we have a dashboard selection,
 you can switch to different test cases using this pull-down menu.
