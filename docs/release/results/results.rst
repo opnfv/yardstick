@@ -54,8 +54,6 @@ The following features were verified by Yardstick test cases:
 
    * Parser
 
-   * Virtual Traffic Classifier (see :doc:`yardstick-opnfv-vtc`)
-
    * StorPerf
 
 .. note:: The test cases for IPv6 and Parser Projects are included in the

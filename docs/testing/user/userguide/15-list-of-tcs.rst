@@ -118,17 +118,6 @@ StorPerf
 
    opnfv_yardstick_tc074.rst
 
-virtual Traffic Classifier
---------------------------
-
-.. toctree::
-   :maxdepth: 1
-
-   opnfv_yardstick_tc006.rst
-   opnfv_yardstick_tc007.rst
-   opnfv_yardstick_tc020.rst
-   opnfv_yardstick_tc021.rst
-
 Templates
 =========
 
