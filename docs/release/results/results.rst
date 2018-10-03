@@ -2,8 +2,17 @@
 .. License.
 .. http://creativecommons.org/licenses/by/4.0
 
+..
+      Convention for heading levels in Yardstick:
+      =======  Heading 0 (reserved for the title in a document)
+      -------  Heading 1
+      ^^^^^^^  Heading 2
+      +++++++  Heading 3
+      '''''''  Heading 4
+      Avoid deeper levels because they do not render well.
+
 Results listed by test cases
-==========================
+----------------------------
 
 .. _TOM: https://wiki.opnfv.org/display/testing/R+post-processing+of+the+Yardstick+results
 
@@ -14,7 +23,7 @@ the determined state of the specific test case as executed in the Fraser release
 process. All test date are analyzed using TOM_ tool.
 
 Scenario Results
-================
+----------------
 
 .. _Dashboard: http://testresults.opnfv.org/grafana/dashboard/db/yardstick-main
 .. _Jenkins: https://build.opnfv.org/ci/view/yardstick/
@@ -42,7 +51,7 @@ Test results of executed tests are avilable in Dashboard_ and logs in Jenkins_.
 Test results for Fraser release are collected from April 10, 2018 to May 13, 2018.
 
 Feature Test Results
-====================
+--------------------
 
 The following features were verified by Yardstick test cases:
 
