@@ -14,8 +14,8 @@ Yardstick Test Case Description TC081
 |Network Latency                                                              |
 |                                                                             |
 +--------------+--------------------------------------------------------------+
-|test case id  | OPNFV_YARDSTICK_TC081_NETWORK_LATENCY_BETWEEN_CONTAINER_AND_ |
-|              | VM                                                           |
+|test case id  | OPNFV_YARDSTICK_TC081_NETWORK_LATENCY_BETWEEN_CONTAINER_AND  |
+|              | _VM                                                          |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |metric        | RTT (Round Trip Time)                                        |
