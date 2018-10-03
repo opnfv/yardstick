@@ -91,12 +91,15 @@ Yardstick Test Case Description TC074
 |              | * workload=[workload module]                                 |
 |              |   If not specified, the default is to run all workloads. The |
 |              |   workload types are:                                        |
+|              |                                                              |
 |              |      - rs: 100% Read, sequential data                        |
 |              |      - ws: 100% Write, sequential data                       |
 |              |      - rr: 100% Read, random access                          |
 |              |      - wr: 100% Write, random access                         |
 |              |      - rw: 70% Read / 30% write, random access               |
+|              |                                                              |
 |              |   measurements.                                              |
+|              |                                                              |
 |              | * workloads={json maps}                                      |
 |              |   This parameter supercedes the workload and calls the V2.0  |
 |              |   API in StorPerf. It allows for greater control of the      |
@@ -120,11 +123,13 @@ Yardstick Test Case Description TC074
 |              |                                                              |
 |              | Storperf is required to be installed in the environment.     |
 |              | There are two possible methods for Storperf installation:    |
-|              |     Run container on Jump Host                               |
-|              |     Run container in a VM                                    |
+|              |                                                              |
+|              |     - Run container on Jump Host                             |
+|              |     - Run container in a VM                                  |
 |              |                                                              |
 |              | Running StorPerf on Jump Host                                |
 |              | Requirements:                                                |
+|              |                                                              |
 |              |     - Docker must be installed                               |
 |              |     - Jump Host must have access to the OpenStack Controller |
 |              |       API                                                    |
@@ -135,6 +140,7 @@ Yardstick Test Case Description TC074
 |              |                                                              |
 |              | Running StorPerf in a VM                                     |
 |              | Requirements:                                                |
+|              |                                                              |
 |              |     - VM has docker installed                                |
 |              |     - VM has OpenStack Controller credentials and can        |
 |              |       communicate with the Controller API                    |

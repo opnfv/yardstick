@@ -43,20 +43,24 @@ Yardstick Test Case Description TC019
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |monitors      | In this test case, two kinds of monitor are needed:          |
+|              |                                                              |
 |              | 1. the "openstack-cmd" monitor constantly request a specific |
 |              |    Openstack command, which needs two parameters:            |
-|              | 1) monitor_type: which is used for finding the monitor class |
-|              | and related scritps. It should be always set to              |
-|              | "openstack-cmd" for this monitor.                            |
-|              | 2) command_name: which is the command name used for request  |
+|              |                                                              |
+|              |    1. monitor_type: which is used for finding the monitor    |
+|              |       class and related scritps. It should be always set to  |
+|              |       "openstack-cmd" for this monitor.                      |
+|              |    2. command_name: which is the command name used for       |
+|              |       request                                                |
 |              |                                                              |
 |              | 2. the "process" monitor check whether a process is running  |
 |              |    on a specific node, which needs three parameters:         |
-|              | 1) monitor_type: which used for finding the monitor class    |
-|              | and related scritps. It should be always set to "process"    |
-|              | for this monitor.                                            |
-|              | 2) process_name: which is the process name for monitor       |
-|              | 3) host: which is the name of the node runing the process    |
+|              |                                                              |
+|              |    1. monitor_type: which used for finding the monitor class |
+|              |       and related scritps. It should be always set to        |
+|              |       "process" for this monitor.                            |
+|              |    2. process_name: which is the process name for monitor    |
+|              |    3. host: which is the name of the node runing the process |
 |              |                                                              |
 |              | e.g.                                                         |
 |              | monitor1:                                                    |

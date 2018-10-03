@@ -65,15 +65,16 @@ Yardstick Test Case Description TC052
 |              |                                                              |
 |              | In this case, the "operation" adds a flavor and the "result  |
 |              | checker" checks whether ths flavor is created. Their         |
-|              | parameters show as follows:                                  |
-|              | operation:                                                   |
-|              | -operation_type: "nova-create-flavor"                        |
-|              | -action_parameter:                                           |
-|              |    flavorconfig: "test-001 test-001 100 1 1"                 |
-|              | result checker:                                              |
-|              | -checker_type: "check-flavor"                                |
-|              | -expectedValue: "test-001"                                   |
-|              | -condition: "in"                                             |
+|              | parameters show as follows::                                 |
+|              |                                                              |
+|              |   operation:                                                 |
+|              |   -operation_type: "nova-create-flavor"                      |
+|              |   -action_parameter:                                         |
+|              |      flavorconfig: "test-001 test-001 100 1 1"               |
+|              |   result checker:                                            |
+|              |   -checker_type: "check-flavor"                              |
+|              |   -expectedValue: "test-001"                                 |
+|              |   -condition: "in"                                           |
 +--------------+--------------------------------------------------------------+
 |metrics       | In this test case, there is one metric:                      |
 |              | 1)service_outage_time: which indicates the maximum outage    |

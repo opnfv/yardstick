@@ -41,7 +41,8 @@ Yardstick Test Case Description TC069
 |              | * SLA (optional): 7000 (MBps) min_bandwidth: The minimum     |
 |              |   amount of memory bandwidth that is accepted.               |
 |              | * type_id: 1 - runs a specified benchmark                    |
-|              |   (by an ID number):                                         |
+|              |   (by an ID number)::                                        |
+|              |                                                              |
 |              |     1 -- INTmark [writing]          4 -- FLOATmark [writing] |
 |              |     2 -- INTmark [reading]          5 -- FLOATmark [reading] |
 |              |     3 -- INTmem                     6 -- FLOATmem            |

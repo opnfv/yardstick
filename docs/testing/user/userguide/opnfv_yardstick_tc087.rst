@@ -10,7 +10,7 @@ Yardstick Test Case Description TC087
 +-----------------------------------------------------------------------------+
 |SDN Controller resilience in non-HA configuration                            |
 |                                                                             |
-+==============+==============================================================+
++--------------+--------------------------------------------------------------+
 |test case id  | OPNFV_YARDSTICK_TC087: SDN controller resilience in          |
 |              | non-HA configuration                                         |
 |              |                                                              |
@@ -41,6 +41,7 @@ Yardstick Test Case Description TC087
 +--------------+--------------------------------------------------------------+
 |attackers     | In this test case, an attacker called “kill-process” is      |
 |              | needed. This attacker includes three parameters:             |
+|              |                                                              |
 |              |  1. fault_type: which is used for finding the attacker's     |
 |              |     scripts. It should be set to 'kill-process' in this test |
 |              |                                                              |
@@ -58,6 +59,7 @@ Yardstick Test Case Description TC087
 |monitors      | This test case utilizes two monitors of type "ip-status"     |
 |              | and one monitor of type "process" to track the following     |
 |              | conditions:                                                  |
+|              |                                                              |
 |              |  1. "ping_same_network_l2": monitor ICMP traffic between     |
 |              |     VMs in the same Neutron network                          |
 |              |                                                              |
@@ -74,11 +76,13 @@ Yardstick Test Case Description TC087
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |operations    | In this test case, the following operations are needed:      |
+|              |                                                              |
 |              |  1. "nova-create-instance-in_network": create a VM instance  |
 |              |     in one of the existing Neutron network.                  |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |metrics       | In this test case, there are two metrics:                    |
+|              |                                                              |
 |              |  1. process_recover_time: which indicates the maximun        |
 |              |     time (seconds) from the process being killed to          |
 |              |     recovered                                                |
@@ -95,7 +99,9 @@ Yardstick Test Case Description TC087
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |configuration | This test case needs two configuration files:                |
+|              |                                                              |
 |              |  1. test case file: opnfv_yardstick_tc087.yaml               |
+|              |                                                              |
 |              |     - Attackers: see above “attackers” discription           |
 |              |     - waiting_time: which is the time (seconds) from the     |
 |              |       process being killed to stoping monitors the monitors  |
@@ -126,7 +132,7 @@ Yardstick Test Case Description TC087
 |              |     Neutron network.                                         |
 |              |                                                              |
 |              |  2. Check connectivity from one VM to an external host on    |
-|              |     the Internet to verify SNAT functionality.
+|              |     the Internet to verify SNAT functionality.               |
 |              |                                                              |
 |              | Result: The monitor info will be collected.                  |
 |              |                                                              |
@@ -171,11 +177,14 @@ Yardstick Test Case Description TC087
 |test verdict  | This test fails if the SLAs are not met or if there is a     |
 |              | test case execution problem. The SLAs are define as follows  |
 |              | for this test:                                               |
+|              |                                                              |
 |              |  * SDN Controller recovery                                   |
+|              |                                                              |
 |              |    * process_recover_time <= 30 sec                          |
 |              |                                                              |
 |              |  * no impact on data plane connectivity during SDN           |
 |              |    controller failure and recovery.                          |
+|              |                                                              |
 |              |    * packet_drop == 0                                        |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+

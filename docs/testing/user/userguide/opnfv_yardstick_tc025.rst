@@ -39,12 +39,15 @@ Yardstick Test Case Description TC025
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |monitors      | In this test case, one kind of monitor are needed:           |
+|              |                                                              |
 |              | 1. the "openstack-cmd" monitor constantly request a specific |
 |              |    Openstack command, which needs two parameters             |
-|              | 1) monitor_type: which is used for finding the monitor class |
-|              | and related scritps. It should be always set to              |
-|              | "openstack-cmd" for this monitor.                            |
-|              | 2) command_name: which is the command name used for request  |
+|              |                                                              |
+|              |    1) monitor_type: which is used for finding the monitor    |
+|              |       class and related scripts. It should be always set to  |
+|              |       "openstack-cmd" for this monitor.                      |
+|              |    2) command_name: which is the command name used for       |
+|              |       request                                                |
 |              |                                                              |
 |              | There are four instance of the "openstack-cmd" monitor:      |
 |              | monitor1:                                                    |

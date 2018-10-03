@@ -7,7 +7,7 @@
 Yardstick Test Case Description TC055
 *************************************
 
-.. _/proc/cpuinfo: http://www.linfo.org/proc_cpuinfo.html
+.. _`/proc/cpuinfo`: http://www.linfo.org/proc_cpuinfo.html
 
 +-----------------------------------------------------------------------------+
 |Compute Capacity                                                             |
@@ -41,7 +41,7 @@ Yardstick Test Case Description TC055
 |              | capacity output.                                             |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|references    | /proc/cpuinfo_                                               |
+|references    | `/proc/cpuinfo`_                                             |
 |              |                                                              |
 |              | ETSI-NFV-TST001                                              |
 |              |                                                              |

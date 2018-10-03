@@ -61,16 +61,16 @@ TCXXX
    on-demand test cases (HA, KVM, Parser)
 
 * Overview of test results
-.. general on metrics collected, number of iterations
+  .. general on metrics collected, number of iterations
 
 * Detailed test results
-.. info on lab, installer, scenario
+  .. info on lab, installer, scenario
 
 * Rationale for decisions
-.. pass/fail
+  .. pass/fail
 
 * Conclusions and recommendations
-.. did the expected behavior occured?
+  .. did the expected behavior occured?
 
 General
 =======

@@ -60,14 +60,14 @@ Yardstick Test Case Description TC011
 |              |                                                              |
 |              | * options:                                                   |
 |              |   protocol: udp # The protocol used by iperf3 tools          |
-|              |   bandwidth: 20m # It will send the given number of packets  |
-|              |                    without pausing                           |
+|              |   # Send the given number of packets without pausing:        |
+|              |   bandwidth: 20m                                             |
 |              | * runner:                                                    |
 |              |   duration: 30 # Total test duration 30 seconds.             |
 |              |                                                              |
 |              | * SLA (optional):                                            |
 |              |   jitter: 10 (ms) # The maximum amount of jitter that is     |
-|              |     accepted.                                                |
+|              |   accepted.                                                  |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |applicability | Test can be configured with different:                       |

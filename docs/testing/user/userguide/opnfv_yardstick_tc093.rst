@@ -43,14 +43,15 @@ Yardstick Test Case Description TC093
 +--------------+--------------------------------------------------------------+
 |attackers     | In this test case, two attackers called “kill-process” are   |
 |              | needed. These attackers include three parameters:            |
-|              |  1. fault_type: which is used for finding the attacker's     |
-|              |     scripts. It should be set to 'kill-process' in this test |
 |              |                                                              |
-|              |  2. process_name: should be set to the name of the Vswitch   |
-|              |     process                                                  |
+|              | 1. fault_type: which is used for finding the attacker's      |
+|              |    scripts. It should be set to 'kill-process' in this test  |
 |              |                                                              |
-|              |  3. host: which is the name of the compute node where the    |
-|              |     Vswitch process is running                               |
+|              | 2. process_name: should be set to the name of the Vswitch    |
+|              |    process                                                   |
+|              |                                                              |
+|              | 3. host: which is the name of the compute node where the     |
+|              |    Vswitch process is running                                |
 |              |                                                              |
 |              | e.g. -fault_type: "kill-process"                             |
 |              |      -process_name: "openvswitch"                            |
@@ -60,16 +61,17 @@ Yardstick Test Case Description TC093
 |monitors      | This test case utilizes two monitors of type "ip-status"     |
 |              | and one monitor of type "process" to track the following     |
 |              | conditions:                                                  |
-|              |  1. "ping_same_network_l2": monitor ICMP traffic between     |
-|              |     VMs in the same Neutron network                          |
 |              |                                                              |
-|              |  2. "ping_external_snat": monitor ICMP traffic from VMs to   |
-|              |     an external host on the Internet to verify SNAT          |
-|              |     functionality.                                           |
+|              | 1. "ping_same_network_l2": monitor ICMP traffic between      |
+|              |    VMs in the same Neutron network                           |
 |              |                                                              |
-|              |  3. "Vswitch process monitor": a monitor checking the        |
-|              |     state of the specified Vswitch process. It measures      |
-|              |     the recovery time of the given process.                  |
+|              | 2. "ping_external_snat": monitor ICMP traffic from VMs to    |
+|              |    an external host on the Internet to verify SNAT           |
+|              |    functionality.                                            |
+|              |                                                              |
+|              | 3. "Vswitch process monitor": a monitor checking the         |
+|              |    state of the specified Vswitch process. It measures       |
+|              |    the recovery time of the given process.                   |
 |              |                                                              |
 |              | Monitors of type "ip-status" use the "ping" utility to       |
 |              | verify reachability of a given target IP.                    |
@@ -99,6 +101,7 @@ Yardstick Test Case Description TC093
 +--------------+--------------------------------------------------------------+
 |configuration | This test case needs two configuration files:                |
 |              |  1. test case file: opnfv_yardstick_tc093.yaml               |
+|              |                                                              |
 |              |     - Attackers: see above “attackers” description           |
 |              |     - monitor_time: which is the time (seconds) from         |
 |              |       starting to stoping the monitors                       |
@@ -173,12 +176,14 @@ Yardstick Test Case Description TC093
 |test verdict  | This test fails if the SLAs are not met or if there is a     |
 |              | test case execution problem. The SLAs are define as follows  |
 |              | for this test:                                               |
-|              |  * SDN Vswitch recovery                                      |
-|              |    * process_recover_time <= 30 sec                          |
+|              | * SDN Vswitch recovery                                       |
 |              |                                                              |
-|              |  * no impact on data plane connectivity during SDN           |
-|              |    Vswitch failure and recovery.                             |
-|              |    * packet_drop == 0                                        |
+|              |   * process_recover_time <= 30 sec                           |
+|              |                                                              |
+|              | * no impact on data plane connectivity during SDN            |
+|              |   Vswitch failure and recovery.                              |
+|              |                                                              |
+|              |   * packet_drop == 0                                         |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 

@@ -43,6 +43,7 @@ Yardstick Test Case Description TC092
 +--------------+--------------------------------------------------------------+
 |attackers     | In this test case, an attacker called “kill-process” is      |
 |              | needed. This attacker includes three parameters:             |
+|              |                                                              |
 |              |  1. ``fault_type``: which is used for finding the attacker's |
 |              |     scripts. It should be set to 'kill-process' in this test |
 |              |                                                              |
@@ -92,17 +93,20 @@ Yardstick Test Case Description TC092
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |configuration | This test case needs two configuration files:                |
-|              |  1. test case file: opnfv_yardstick_tc092.yaml               |
-|              |     - Attackers: see above “attackers” discription           |
-|              |     - Monitors: see above “monitors” discription             |
-|              |       - waiting_time: which is the time (seconds) from the   |
-|              |         process being killed to stoping monitors the         |
-|              |         monitors                                             |
-|              |     - SLA: see above “metrics” discription                   |
+|              | 1. test case file: opnfv_yardstick_tc092.yaml                |
 |              |                                                              |
-|              |  2. POD file: pod.yaml The POD configuration should record   |
-|              |     on pod.yaml first. the “host” item in this test case     |
-|              |     will use the node name in the pod.yaml.                  |
+|              |    - Attackers: see above “attackers” discription            |
+|              |    - Monitors: see above “monitors” discription              |
+|              |                                                              |
+|              |      - waiting_time: which is the time (seconds) from the    |
+|              |        process being killed to stoping monitors the          |
+|              |        monitors                                              |
+|              |                                                              |
+|              |    - SLA: see above “metrics” discription                    |
+|              |                                                              |
+|              | 2. POD file: pod.yaml The POD configuration should record    |
+|              |    on pod.yaml first. the “host” item in this test case      |
+|              |    will use the node name in the pod.yaml.                   |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test sequence | Description and expected result                              |
@@ -168,11 +172,12 @@ Yardstick Test Case Description TC092
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |step 8        | Start IP connectivity monitors for the  new VM:              |
-|              |  1. Check the L2 connectivity from the existing VMs to the   |
-|              |     new VM in the Neutron network.                           |
 |              |                                                              |
-|              |  2. Check connectivity from one VM to an external host on    |
-|              |     the Internet to verify SNAT functionality.               |
+|              | 1. Check the L2 connectivity from the existing VMs to the    |
+|              |    new VM in the Neutron network.                            |
+|              |                                                              |
+|              | 2. Check connectivity from one VM to an external host on     |
+|              |    the Internet to verify SNAT functionality.                |
 |              |                                                              |
 |              | Result: The monitor info will be collected.                  |
 |              |                                                              |
