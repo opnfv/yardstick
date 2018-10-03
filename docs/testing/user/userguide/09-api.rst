@@ -433,7 +433,7 @@ Example::
 
 
 /api/v2/yardstick/tasks/<task_id>
---------------------------------
+---------------------------------
 
 Description: This API is used to do some work related to yardstick tasks. For Euphrates, it supports:
 

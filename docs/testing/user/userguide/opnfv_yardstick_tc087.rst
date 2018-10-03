@@ -10,7 +10,7 @@ Yardstick Test Case Description TC087
 +-----------------------------------------------------------------------------+
 |SDN Controller resilience in non-HA configuration                            |
 |                                                                             |
-+--------------+--------------------------------------------------------------+
++==============+==============================================================+
 |test case id  | OPNFV_YARDSTICK_TC087: SDN controller resilience in          |
 |              | non-HA configuration                                         |
 |              |                                                              |
