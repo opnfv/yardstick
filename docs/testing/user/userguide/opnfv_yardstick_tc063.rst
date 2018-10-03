@@ -58,6 +58,7 @@ Yardstick Test Case Description TC063
 |              |  * count: 15 - how many times to stat disk utilization       |
 |              |     type: int                                                |
 |              |     unit: na                                                 |
+|              |                                                              |
 |              | There are default values for each above-mentioned option.    |
 |              | Run in background with other test cases.                     |
 |              |                                                              |
