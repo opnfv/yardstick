@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_a9cfb7af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:55:42Z",
+      "side": 1,
+      "message": "This is very generic, can you update it to be more specific\n\ne.g.\n    Added traffic update capability to ixia\n    Allows Ixia to update IP/MAC of netTraffic",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 45
+      },
+      "revId": "58adbf5172c683d66f13756e497cb41e85158373",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_49bee300",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:55:42Z",
+      "side": 1,
+      "message": "IMHO, this should be bulleted, since you are listing the changes required in a number of files.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 6
+      },
+      "revId": "58adbf5172c683d66f13756e497cb41e85158373",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
