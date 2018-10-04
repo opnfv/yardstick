@@ -166,8 +166,7 @@ class OvsDpdkContext(base.Context):
         version = self.ovs_properties.get('version', {})
         ovs_ver = [int(x) for x in version.get('ovs', self.DEFAULT_OVS).split('.')]
         ovs_add_port = ('ovs-vsctl add-port {br} {port} -- '
-                        'set Interface {port} type={type_}{dpdk_args}')
-        ovs_add_queue = 'ovs-vsctl set Interface {port} options:n_rxq={queue}'
+                        'set Interface {port} type={type_}{dpdk_args}{dpdk_rxq}')
         chmod_vpath = 'chmod 0777 {0}/var/run/openvswitch/dpdkvhostuser*'
 
         cmd_list = [
@@ -176,6 +175,8 @@ class OvsDpdkContext(base.Context):
             'ovs-vsctl add-br {0} -- set bridge {0} datapath_type=netdev'.
             format(MAIN_BRIDGE)
         ]
+        dpdk_rxq = " options:n_rxq={queue}".format(
+            queue=self.ovs_properties.get("queues", 1))
 
         ordered_network = collections.OrderedDict(self.networks)
         for index, vnf in enumerate(ordered_network.values()):
@@ -183,10 +184,7 @@ class OvsDpdkContext(base.Context):
                 dpdk_args = " options:dpdk-devargs=%s" % vnf.get("phy_port")
             dpdk_list.append(ovs_add_port.format(
                 br=MAIN_BRIDGE, port='dpdk%s' % vnf.get("port_num", 0),
-                type_='dpdk', dpdk_args=dpdk_args))
-            dpdk_list.append(ovs_add_queue.format(
-                port='dpdk%s' % vnf.get("port_num", 0),
-                queue=self.ovs_properties.get("queues", 1)))
+                type_='dpdk', dpdk_args=dpdk_args, dpdk_rxq=dpdk_rxq))
 
         # Sorting the array to make sure we execute dpdk0... in the order
         list.sort(dpdk_list)
@@ -196,7 +194,7 @@ class OvsDpdkContext(base.Context):
         for index, _ in enumerate(ordered_network):
             cmd_list.append(ovs_add_port.format(
                 br=MAIN_BRIDGE, port='dpdkvhostuser%s' % index,
-                type_='dpdkvhostuser', dpdk_args=""))
+                type_='dpdkvhostuser', dpdk_args="", dpdk_rxq=""))
 
         ovs_flow = ("ovs-ofctl add-flow {0} in_port=%s,action=output:%s".
                     format(MAIN_BRIDGE))
