@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_1810a04d",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2018-10-04T12:55:15Z",
+      "side": 1,
+      "message": "I would use as default the value specified in the commit message (i.e. 30 seconds). This is the step duration, hence a 1h default value is probably too high",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_581a186f",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2018-10-04T12:55:15Z",
+      "side": 1,
+      "message": "I would use the same value as in commit message and prox_binserach (i.e. 0.1)",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
