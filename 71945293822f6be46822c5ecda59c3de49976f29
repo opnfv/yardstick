@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_bb9b66c8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-04T19:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_c3d93585",
+      "range": {
+        "startLine": 10,
+        "startChar": 22,
+        "endLine": 10,
+        "endChar": 34
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_43a6c5c2",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -36,6 +60,24 @@
       "writtenOn": "2018-09-15T18:32:39Z",
       "side": 1,
       "message": "L431-L450 rehashed, though with more details, by new L599-L647\nShould we keep both? Point to each other? Merge?",
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_bb4d2675",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-04T19:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_43a6c5c2",
       "revId": "71945293822f6be46822c5ecda59c3de49976f29",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -71,6 +113,24 @@
       "side": 1,
       "message": "It should make it, once grammar fixed ;-)",
       "parentUuid": "5a682502_633140a2",
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_bb74069d",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-04T19:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_d368d0f7",
       "revId": "71945293822f6be46822c5ecda59c3de49976f29",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -148,6 +208,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_db5c6228",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-04T19:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_b381d491",
+      "range": {
+        "startLine": 576,
+        "startChar": 68,
+        "endLine": 576,
+        "endChar": 76
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_03e4cd39",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -159,6 +243,30 @@
       "writtenOn": "2018-09-15T18:32:39Z",
       "side": 1,
       "message": "OPNFV Coding Guidelines\nis actual section name",
+      "range": {
+        "startLine": 591,
+        "startChar": 5,
+        "endLine": 591,
+        "endChar": 21
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_3b41163a",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-04T19:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_03e4cd39",
       "range": {
         "startLine": 591,
         "startChar": 5,
@@ -324,6 +432,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_1b3edab8",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-04T19:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_8ee46b3c",
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_e3943146",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -347,6 +473,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_7b4b8e59",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-04T19:14:48Z",
+      "side": 1,
+      "message": "Not done, but you can forget it.\nSufficient usage instructions are provided below.",
+      "parentUuid": "5a682502_e3943146",
+      "range": {
+        "startLine": 603,
+        "startChar": 24,
+        "endLine": 603,
+        "endChar": 27
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_633781b1",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -358,6 +508,30 @@
       "writtenOn": "2018-09-15T18:32:39Z",
       "side": 1,
       "message": "Lack of consistency: see L609, L622, vs. L633-L647 which are a bit better.\nIn tox terminology, these are (virtual) environments. You refer to them as either targets, commands, environments, or set of tests, which might confuse readers.\nI suggest to consistently use \"test environments\". With that, L603-L604 could be reworked as:\nYou can do this using ``tox``, for which a number of test environments have been configured in ``tox.ini``.",
+      "range": {
+        "startLine": 604,
+        "startChar": 0,
+        "endLine": 604,
+        "endChar": 7
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5b48525b",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-04T19:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_633781b1",
       "range": {
         "startLine": 604,
         "startChar": 0,
@@ -840,6 +1014,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_db73c2af",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-04T19:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_43e524a7",
+      "range": {
+        "startLine": 633,
+        "startChar": 0,
+        "endLine": 633,
+        "endChar": 3
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_438d2531",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -851,6 +1049,30 @@
       "writtenOn": "2018-09-15T18:32:39Z",
       "side": 1,
       "message": "As per L604 comment, L633-L634 could be reworked as:\n``tox`` uses `virtualenv`_ to create isolated Python test environments, located at",
+      "range": {
+        "startLine": 634,
+        "startChar": 8,
+        "endLine": 634,
+        "endChar": 15
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_3b68f6b9",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-04T19:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_438d2531",
       "range": {
         "startLine": 634,
         "startChar": 8,
@@ -910,6 +1132,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_1b653ae1",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-04T19:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_23e2a89f",
+      "range": {
+        "startLine": 635,
+        "startChar": 51,
+        "endLine": 635,
+        "endChar": 60
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_83873d0f",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -921,6 +1167,30 @@
       "writtenOn": "2018-09-15T18:32:39Z",
       "side": 1,
       "message": "these test environments",
+      "range": {
+        "startLine": 637,
+        "startChar": 55,
+        "endLine": 637,
+        "endChar": 74
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7b626ed9",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-04T19:14:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_83873d0f",
       "range": {
         "startLine": 637,
         "startChar": 55,
