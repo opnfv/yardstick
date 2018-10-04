@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_b8636c19",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-04T16:11:03Z",
+      "side": 1,
+      "message": "Taras, can you add your email id in the sign-off message in the commit message.",
+      "revId": "6e924fe85d0ca9f41aa3b1b09e16e29bdc8e98b1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
