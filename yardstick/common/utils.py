@@ -499,6 +499,23 @@ def read_meminfo(ssh_client):
     return output
 
 
+def setup_hugepages(ssh_client, size_kb):
+    """Setup needed number of hugepages for the size specified"""
+
+    NR_HUGEPAGES_PATH = '/proc/sys/vm/nr_hugepages'
+    meminfo = read_meminfo(ssh_client)
+    hp_size_kb = int(meminfo['Hugepagesize'])
+    hp_number = int(abs(size_kb / hp_size_kb))
+    ssh_client.execute(
+        'echo %s | sudo tee %s' % (hp_number, NR_HUGEPAGES_PATH))
+    hp = six.BytesIO()
+    ssh_client.get_file_obj(NR_HUGEPAGES_PATH, hp)
+    hp_number_set = int(hp.getvalue().decode('utf-8').splitlines()[0])
+    logger.info('Hugepages size (kB): %s, number claimed: %s, number set: %s',
+                hp_size_kb, hp_number, hp_number_set)
+    return hp_size_kb, hp_number, hp_number_set
+
+
 def find_relative_file(path, task_path):
     """
     Find file in one of places: in abs of path or relative to a directory path,

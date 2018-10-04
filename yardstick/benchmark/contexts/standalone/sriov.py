@@ -21,6 +21,7 @@ from yardstick import ssh
 from yardstick.benchmark import contexts
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts.standalone import model
+from yardstick.common import utils
 from yardstick.network_services.utils import get_nsb_option
 from yardstick.network_services.utils import PciAddress
 
@@ -221,6 +222,9 @@ class SriovContext(base.Context):
 
         #   1 : modprobe host_driver with num_vfs
         self.configure_nics_for_sriov()
+
+        hp_total_mb = int(self.vm_flavor.get('ram', '4096')) * len(self.servers)
+        utils.setup_hugepages(self.connection, hp_total_mb * 1024)
 
         for index, (key, vnf) in enumerate(collections.OrderedDict(
                 self.servers).items()):

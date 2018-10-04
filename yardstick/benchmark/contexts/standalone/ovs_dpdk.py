@@ -24,6 +24,7 @@ from yardstick.benchmark import contexts
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.common import exceptions
+from yardstick.common import utils as common_utils
 from yardstick.network_services import utils
 from yardstick.network_services.utils import get_nsb_option
 
@@ -236,7 +237,6 @@ class OvsDpdkContext(base.Context):
 
     def check_ovs_dpdk_env(self):
         self.cleanup_ovs_dpdk_env()
-        self._check_hugepages()
 
         version = self.ovs_properties.get("version", {})
         ovs_ver = version.get("ovs", self.DEFAULT_OVS)
@@ -390,6 +390,11 @@ class OvsDpdkContext(base.Context):
         nodes = []
 
         self.configure_nics_for_ovs_dpdk()
+
+        hp_total_mb = int(self.vm_flavor.get('ram', '4096')) * len(self.servers)
+        common_utils.setup_hugepages(self.connection, hp_total_mb * 1024)
+
+        self._check_hugepages()
 
         for index, (key, vnf) in enumerate(collections.OrderedDict(
                 self.servers).items()):

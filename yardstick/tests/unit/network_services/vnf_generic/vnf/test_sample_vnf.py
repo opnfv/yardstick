@@ -16,7 +16,6 @@ from copy import deepcopy
 
 import unittest
 import mock
-import six
 
 from yardstick.common import exceptions as y_exceptions
 from yardstick.common import utils
@@ -521,38 +520,6 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
         result = DpdkVnfSetupEnvHelper._update_traffic_type(ip_pipeline_cfg, traffic_options)
         self.assertEqual(result, expected)
 
-    @mock.patch.object(six, 'BytesIO', return_value=six.BytesIO(b'100\n'))
-    @mock.patch.object(utils, 'read_meminfo',
-                       return_value={'Hugepagesize': '2048'})
-    def test__setup_hugepages_no_hugepages_defined(self, mock_meminfo, *args):
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        scenario_helper.all_options = {}
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
-            mock.ANY, ssh_helper, scenario_helper)
-        with mock.patch.object(sample_vnf.LOG, 'info') as mock_info:
-            dpdk_setup_helper._setup_hugepages()
-            mock_info.assert_called_once_with(
-                'Hugepages size (kB): %s, number claimed: %s, number set: '
-                '%s', 2048, 8192, 100)
-        mock_meminfo.assert_called_once_with(ssh_helper)
-
-    @mock.patch.object(six, 'BytesIO', return_value=six.BytesIO(b'100\n'))
-    @mock.patch.object(utils, 'read_meminfo',
-                       return_value={'Hugepagesize': '1048576'})
-    def test__setup_hugepages_8gb_hugepages_defined(self, mock_meminfo, *args):
-        ssh_helper = mock.Mock()
-        scenario_helper = mock.Mock()
-        scenario_helper.all_options = {'hugepages_gb': 8}
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(
-            mock.ANY, ssh_helper, scenario_helper)
-        with mock.patch.object(sample_vnf.LOG, 'info') as mock_info:
-            dpdk_setup_helper._setup_hugepages()
-            mock_info.assert_called_once_with(
-                'Hugepages size (kB): %s, number claimed: %s, number set: '
-                '%s', 1048576, 8, 100)
-        mock_meminfo.assert_called_once_with(ssh_helper)
-
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.open')
     @mock.patch.object(utils, 'find_relative_file')
     @mock.patch('yardstick.network_services.vnf_generic.vnf.sample_vnf.MultiPortConfig')
@@ -638,15 +605,17 @@ class TestDpdkVnfSetupEnvHelper(unittest.TestCase):
                 dpdk_vnf_setup_env_helper.setup_vnf_environment(),
                 ResourceProfile)
 
-    def test__setup_dpdk(self):
+    @mock.patch.object(utils, 'setup_hugepages')
+    def test__setup_dpdk(self, mock_setup_hugepages):
         ssh_helper = mock.Mock()
         ssh_helper.execute = mock.Mock()
         ssh_helper.execute.return_value = (0, 0, 0)
-        dpdk_setup_helper = DpdkVnfSetupEnvHelper(mock.ANY, ssh_helper, mock.ANY)
-        with mock.patch.object(dpdk_setup_helper, '_setup_hugepages') as \
-                mock_setup_hp:
-            dpdk_setup_helper._setup_dpdk()
-        mock_setup_hp.assert_called_once()
+        scenario_helper = mock.Mock()
+        scenario_helper.all_options = {'hugepages_gb': 8}
+        dpdk_setup_helper = DpdkVnfSetupEnvHelper(mock.ANY, ssh_helper,
+                                                  scenario_helper)
+        dpdk_setup_helper._setup_dpdk()
+        mock_setup_hugepages.assert_called_once_with(ssh_helper, 8*1024*1024)
         ssh_helper.execute.assert_has_calls([
             mock.call('sudo modprobe uio && sudo modprobe igb_uio'),
             mock.call('lsmod | grep -i igb_uio')
