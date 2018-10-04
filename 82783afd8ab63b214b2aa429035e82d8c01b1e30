@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_38a3dc9f",
+        "filename": "samples/vnf_samples/traffic_profiles/vfw/HTTP-vFW_IPv4_2Ports_Concurrency.rxf",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-10-04T15:43:49Z",
+      "side": 1,
+      "message": "no. This rxf file was just exported back form newer version of Ixload",
+      "parentUuid": "5a682502_a517c5a2",
+      "range": {
+        "startLine": 13,
+        "startChar": 1,
+        "endLine": 13,
+        "endChar": 43
+      },
+      "revId": "82783afd8ab63b214b2aa429035e82d8c01b1e30",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_050dd990",
         "filename": "yardstick/common/exceptions.py",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-04T09:55:42Z",
       "side": 1,
       "message": "Update this to:\n    Loaded rxf file has an invalid format.",
+      "range": {
+        "startLine": 87,
+        "startChar": 15,
+        "endLine": 87,
+        "endChar": 56
+      },
+      "revId": "82783afd8ab63b214b2aa429035e82d8c01b1e30",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_98bb10c4",
+        "filename": "yardstick/common/exceptions.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-10-04T15:43:49Z",
+      "side": 1,
+      "message": "I would rather go with \"unexpected format\". Cause it can be valid rxf file but for different test, thus the objects we are tying to change might not be there",
+      "parentUuid": "5a682502_050dd990",
       "range": {
         "startLine": 87,
         "startChar": 15,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_d888e8e9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ixload.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-10-04T15:43:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_8520c9f8",
+      "revId": "82783afd8ab63b214b2aa429035e82d8c01b1e30",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_c52be1e9",
         "filename": "yardstick/tests/unit/network_services/traffic_profile/test_http_ixload.py",
         "patchSetId": 6
@@ -76,6 +142,30 @@
       "writtenOn": "2018-10-04T09:55:42Z",
       "side": 1,
       "message": "Coding guidelines for Yardstick [1] say import the module, not the class.\n\n    from yardstick.common import exceptions\n\nIt is also keeping with the convention in this file too\n\n[1] https://gerrit.opnfv.org/gerrit/#/c/60531/7/docs/testing/developer/devguide/devguide.rst@597",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 54
+      },
+      "revId": "82783afd8ab63b214b2aa429035e82d8c01b1e30",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_9865d047",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_http_ixload.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2018-10-04T15:43:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_c52be1e9",
       "range": {
         "startLine": 19,
         "startChar": 0,
