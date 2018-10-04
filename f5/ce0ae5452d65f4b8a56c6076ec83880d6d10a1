@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Emma Foley <emma.l.foley@intel.com>
+Submitted-by: Emma Foley <emma.l.foley@intel.com>
+Submitted-at: Thu, 04 Oct 2018 09:18:17 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/63113
+Project: yardstick
+Branch: refs/heads/stable/gambia
