@@ -96,7 +96,7 @@ class ProxBinSearchProfile(ProxProfile):
         # success, the binary search will complete on an integer multiple
         # of the precision, rather than on a fraction of it.
 
-        theor_max_thruput = 0
+        theor_max_thruput = 0.0
 
         result_samples = {}
 
@@ -198,9 +198,9 @@ class ProxBinSearchProfile(ProxProfile):
 
         LOG.info(
             ">>>##>> Result Reached PktSize %s Theor_Max_Thruput %s Actual_throughput %s",
-            pkt_size, theor_max_thruput, result_samples.get("RxThroughput", 0))
+            pkt_size, theor_max_thruput, result_samples.get("RxThroughput", 0.0))
         result_samples["Status"] = STATUS_RESULT
         result_samples["Next_Step"] = ""
-        result_samples["Actual_throughput"] = result_samples.get("RxThroughput", 0)
+        result_samples["Actual_throughput"] = result_samples.get("RxThroughput", 0.0)
         result_samples["theor_max_throughput"] = theor_max_thruput
         self.queue.put(result_samples)
