@@ -97,9 +97,9 @@ class DurationRunnerTest(unittest.TestCase):
                                  multiprocessing.Event(), mock.Mock())
 
         self._assert_defaults__worker_run_setup_and_teardown()
-        self.assertGreater(self.benchmark.pre_run_wait_time.call_count, 2)
-        self.assertGreater(self.benchmark.my_method.call_count, 2)
-        self.assertGreater(self.benchmark.post_run_wait_time.call_count, 2)
+        self.assertGreater(self.benchmark.pre_run_wait_time.call_count, 0)
+        self.assertGreater(self.benchmark.my_method.call_count, 0)
+        self.assertGreater(self.benchmark.post_run_wait_time.call_count, 0)
 
     def test__worker_process_called_without_cfg(self):
         scenario_cfg = {'runner': {}}
@@ -140,9 +140,9 @@ class DurationRunnerTest(unittest.TestCase):
         time.sleep(0.1)
 
         self._assert_defaults__worker_run_setup_and_teardown()
-        self.assertGreater(self.benchmark.pre_run_wait_time.call_count, 2)
-        self.assertGreater(self.benchmark.my_method.count, 103)
-        self.assertGreater(self.benchmark.post_run_wait_time.call_count, 2)
+        self.assertGreater(self.benchmark.pre_run_wait_time.call_count, 0)
+        self.assertGreater(self.benchmark.my_method.count, 1)
+        self.assertGreater(self.benchmark.post_run_wait_time.call_count, 0)
 
         count = 101
         while not output_queue.empty():
@@ -181,9 +181,9 @@ class DurationRunnerTest(unittest.TestCase):
         time.sleep(0.1)
 
         self._assert_defaults__worker_run_setup_and_teardown()
-        self.assertGreater(self.benchmark.pre_run_wait_time.call_count, 2)
-        self.assertGreater(self.benchmark.my_method.count, 103)
-        self.assertGreater(self.benchmark.post_run_wait_time.call_count, 2)
+        self.assertGreater(self.benchmark.pre_run_wait_time.call_count, 0)
+        self.assertGreater(self.benchmark.my_method.count, 1)
+        self.assertGreater(self.benchmark.post_run_wait_time.call_count, 0)
 
         count = 0
         while not queue.empty():

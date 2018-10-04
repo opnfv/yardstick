@@ -66,6 +66,9 @@ class ProxBinSearchProfile(ProxProfile):
             yield test_value
             test_value = self.mid_point
 
+    def is_ended(self):
+        return self.done.is_set()
+
     def run_test_with_pkt_size(self, traffic_gen, pkt_size, duration):
         """Run the test for a single packet size.
 
