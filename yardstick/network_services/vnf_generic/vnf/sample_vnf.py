@@ -21,7 +21,6 @@ import uuid
 import subprocess
 import time
 
-import six
 
 from trex_stl_lib.trex_stl_client import LoggerApi
 from trex_stl_lib.trex_stl_client import STLClient
@@ -112,19 +111,6 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         self.socket = None
         self.used_drivers = None
         self.dpdk_bind_helper = DpdkBindHelper(ssh_helper)
-
-    def _setup_hugepages(self):
-        meminfo = utils.read_meminfo(self.ssh_helper)
-        hp_size_kb = int(meminfo['Hugepagesize'])
-        hugepages_gb = self.scenario_helper.all_options.get('hugepages_gb', 16)
-        nr_hugepages = int(abs(hugepages_gb * 1024 * 1024 / hp_size_kb))
-        self.ssh_helper.execute('echo %s | sudo tee %s' %
-                                (nr_hugepages, self.NR_HUGEPAGES_PATH))
-        hp = six.BytesIO()
-        self.ssh_helper.get_file_obj(self.NR_HUGEPAGES_PATH, hp)
-        nr_hugepages_set = int(hp.getvalue().decode('utf-8').splitlines()[0])
-        LOG.info('Hugepages size (kB): %s, number claimed: %s, number set: %s',
-                 hp_size_kb, nr_hugepages, nr_hugepages_set)
 
     def build_config(self):
         vnf_cfg = self.scenario_helper.vnf_cfg
@@ -238,7 +224,8 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
 
     def _setup_dpdk(self):
         """Setup DPDK environment needed for VNF to run"""
-        self._setup_hugepages()
+        hugepages_gb = self.scenario_helper.all_options.get('hugepages_gb', 16)
+        utils.setup_hugepages(self.ssh_helper, hugepages_gb * 1024 * 1024)
         self.dpdk_bind_helper.load_dpdk_driver()
 
         exit_status = self.dpdk_bind_helper.check_dpdk_driver()

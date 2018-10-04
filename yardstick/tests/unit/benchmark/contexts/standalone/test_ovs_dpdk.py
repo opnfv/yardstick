@@ -24,6 +24,7 @@ from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.benchmark.contexts.standalone import ovs_dpdk
 from yardstick.common import exceptions
+from yardstick.common import utils as common_utils
 from yardstick.network_services import utils
 
 
@@ -171,11 +172,9 @@ class OvsDpdkContextTestCase(unittest.TestCase):
        self.ovs_dpdk.wait_for_vswitchd = 0
        self.assertIsNone(self.ovs_dpdk.cleanup_ovs_dpdk_env())
 
-    @mock.patch.object(ovs_dpdk.OvsDpdkContext, '_check_hugepages')
     @mock.patch.object(utils, 'get_nsb_option')
     @mock.patch.object(model.OvsDeploy, 'ovs_deploy')
-    def test_check_ovs_dpdk_env(self, mock_ovs_deploy, mock_get_nsb_option,
-                                mock_check_hugepages):
+    def test_check_ovs_dpdk_env(self, mock_ovs_deploy, mock_get_nsb_option):
         self.ovs_dpdk.connection = mock.Mock()
         self.ovs_dpdk.connection.execute = mock.Mock(
             return_value=(1, 0, 0))
@@ -189,11 +188,9 @@ class OvsDpdkContextTestCase(unittest.TestCase):
 
         self.ovs_dpdk.check_ovs_dpdk_env()
         mock_ovs_deploy.assert_called_once()
-        mock_check_hugepages.assert_called_once()
         mock_get_nsb_option.assert_called_once_with('bin_path')
 
-    @mock.patch.object(ovs_dpdk.OvsDpdkContext, '_check_hugepages')
-    def test_check_ovs_dpdk_env_wrong_version(self, mock_check_hugepages):
+    def test_check_ovs_dpdk_env_wrong_version(self):
         self.ovs_dpdk.connection = mock.Mock()
         self.ovs_dpdk.connection.execute = mock.Mock(
             return_value=(1, 0, 0))
@@ -206,7 +203,6 @@ class OvsDpdkContextTestCase(unittest.TestCase):
 
         with self.assertRaises(exceptions.OVSUnsupportedVersion):
             self.ovs_dpdk.check_ovs_dpdk_env()
-        mock_check_hugepages.assert_called_once()
 
     @mock.patch('yardstick.ssh.SSH')
     def test_deploy(self, *args):
@@ -391,13 +387,18 @@ class OvsDpdkContextTestCase(unittest.TestCase):
             'fake_path', 0, self.NETWORKS['private_0']['vpci'],
             self.NETWORKS['private_0']['mac'], 'test')
 
+    @mock.patch.object(ovs_dpdk.OvsDpdkContext, '_check_hugepages')
+    @mock.patch.object(common_utils, 'setup_hugepages')
     @mock.patch.object(model.StandaloneContextHelper, 'check_update_key')
     @mock.patch.object(model.Libvirt, 'write_file')
     @mock.patch.object(model.Libvirt, 'build_vm_xml')
     @mock.patch.object(model.Libvirt, 'check_if_vm_exists_and_delete')
     @mock.patch.object(model.Libvirt, 'virsh_create_vm')
-    def test_setup_ovs_dpdk_context(self, mock_create_vm, mock_check_if_exists, mock_build_xml,
-                                    mock_write_file, mock_check_update_key):
+    def test_setup_ovs_dpdk_context(self, mock_create_vm, mock_check_if_exists,
+                                    mock_build_xml, mock_write_file,
+                                    mock_check_update_key,
+                                    mock_setup_hugepages,
+                                    mock__check_hugepages):
         self.ovs_dpdk.vm_deploy = True
         self.ovs_dpdk.connection = mock.Mock()
         self.ovs_dpdk.vm_names = ['vm-0', 'vm-1']
@@ -413,7 +414,7 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         }
         self.ovs_dpdk.networks = self.NETWORKS
         self.ovs_dpdk.host_mgmt = {}
-        self.ovs_dpdk.flavor = {}
+        self.ovs_dpdk.vm_flavor = {'ram': '1024'}
         self.ovs_dpdk.file_path = '/var/lib/libvirt/images/cdrom-0.img'
         self.ovs_dpdk.configure_nics_for_ovs_dpdk = mock.Mock(return_value="")
         self.ovs_dpdk._name_task_id = 'fake_name'
@@ -429,6 +430,8 @@ class OvsDpdkContextTestCase(unittest.TestCase):
 
         self.assertEqual([vnf_instance_2],
                          self.ovs_dpdk.setup_ovs_dpdk_context())
+        mock_setup_hugepages.assert_called_once_with(self.ovs_dpdk.connection, 1024 * 1024)
+        mock__check_hugepages.assert_called_once()
         mock_create_vm.assert_called_once_with(
             self.ovs_dpdk.connection, '/tmp/vm_ovs_0.xml')
         mock_check_if_exists.assert_called_once_with(
