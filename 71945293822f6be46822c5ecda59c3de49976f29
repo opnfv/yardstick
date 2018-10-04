@@ -218,6 +218,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_4eda5379",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_e3f550cc",
+      "range": {
+        "startLine": 594,
+        "startChar": 11,
+        "endLine": 594,
+        "endChar": 31
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_63d02154",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -241,6 +265,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_aee7a73f",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_63d02154",
+      "range": {
+        "startLine": 596,
+        "startChar": 34,
+        "endLine": 596,
+        "endChar": 50
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_a3ab5988",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -252,6 +300,24 @@
       "writtenOn": "2018-09-15T18:32:39Z",
       "side": 1,
       "message": "L599-L647 look like a rehash with more details of L431-L450\nShould we keep both? Point to each other? Merge?",
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8ee46b3c",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:35:01Z",
+      "side": 1,
+      "message": "See above, additional detail is here, and these sections are referenced above",
+      "parentUuid": "5a682502_a3ab5988",
       "revId": "71945293822f6be46822c5ecda59c3de49976f29",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -374,6 +440,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_eed07f55",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_a3ca399f",
+      "range": {
+        "startLine": 611,
+        "startChar": 15,
+        "endLine": 611,
+        "endChar": 24
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_e3c39188",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -420,6 +510,54 @@
     },
     {
       "key": {
+        "uuid": "5a682502_2ecb97a6",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_e3c39188",
+      "range": {
+        "startLine": 612,
+        "startChar": 30,
+        "endLine": 612,
+        "endChar": 37
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ced5c344",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_83cf3db0",
+      "range": {
+        "startLine": 612,
+        "startChar": 14,
+        "endLine": 612,
+        "endChar": 23
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_03bb2d0f",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -431,6 +569,30 @@
       "writtenOn": "2018-09-15T18:32:39Z",
       "side": 1,
       "message": "updated\nfor consistency with L625",
+      "range": {
+        "startLine": 613,
+        "startChar": 42,
+        "endLine": 613,
+        "endChar": 49
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_4ec1b37f",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_03bb2d0f",
       "range": {
         "startLine": 613,
         "startChar": 42,
@@ -466,6 +628,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_6ec46f92",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_c3c0157f",
+      "range": {
+        "startLine": 615,
+        "startChar": 48,
+        "endLine": 615,
+        "endChar": 55
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_03ee8dec",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -477,6 +663,30 @@
       "writtenOn": "2018-09-15T18:32:39Z",
       "side": 1,
       "message": "those changes to be checked.",
+      "range": {
+        "startLine": 618,
+        "startChar": 71,
+        "endLine": 619,
+        "endChar": 26
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_0ed05b4f",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_03ee8dec",
       "range": {
         "startLine": 618,
         "startChar": 71,
@@ -512,6 +722,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_ee37dfae",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_23c8e973",
+      "range": {
+        "startLine": 621,
+        "startChar": 36,
+        "endLine": 621,
+        "endChar": 40
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_23be2900",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -523,6 +757,30 @@
       "writtenOn": "2018-09-15T18:32:39Z",
       "side": 1,
       "message": "test environments\nAs per L604 comment, L621-L622 could be reworked as:\nIn addition to the default set of tests (listed above), run by Jenkins CI when you submit a patch, a few more test environments can be selected with the following command-line options:",
+      "range": {
+        "startLine": 622,
+        "startChar": 6,
+        "endLine": 622,
+        "endChar": 18
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8ebbcb0d",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_23be2900",
       "range": {
         "startLine": 622,
         "startChar": 6,
@@ -698,6 +956,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_0e47bb20",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_a38239fe",
+      "range": {
+        "startLine": 638,
+        "startChar": 62,
+        "endLine": 639,
+        "endChar": 15
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_63882123",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 6
@@ -709,6 +991,30 @@
       "writtenOn": "2018-09-15T18:32:39Z",
       "side": 1,
       "message": "test",
+      "range": {
+        "startLine": 643,
+        "startChar": 42,
+        "endLine": 643,
+        "endChar": 49
+      },
+      "revId": "71945293822f6be46822c5ecda59c3de49976f29",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_2e427710",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-04T09:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_63882123",
       "range": {
         "startLine": 643,
         "startChar": 42,
