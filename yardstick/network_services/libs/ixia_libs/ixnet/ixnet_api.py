@@ -798,3 +798,29 @@ class IxNextgen(object):  # pragma: no cover
 
         self.ixnet.commit()
         return obj
+
+    def add_bgp(self, ipv4, dut_ip, local_as, bgp_type=None):
+        """Add BGP protocol"""
+        log.debug("add_bgp: ipv4='%s', dut_ip='%s', local_as='%s'", ipv4,
+                  dut_ip, local_as)
+        obj = self.ixnet.add(ipv4, 'bgpIpv4Peer')
+        self.ixnet.commit()
+
+        # Set DUT IP address
+        dut_ip_addr = self.ixnet.getAttribute(obj, '-dutIp')
+        self.ixnet.setAttribute(dut_ip_addr + '/singleValue',
+                                '-value', dut_ip)
+
+        # Set local AS number
+        local_as_number = self.ixnet.getAttribute(obj, '-localAs2Bytes')
+        self.ixnet.setAttribute(local_as_number + '/singleValue',
+                                '-value', local_as)
+
+        if bgp_type:
+            # Set BGP type. If not specified, default value is using.
+            # Default type is "internal"
+            bgp_type_field = self.ixnet.getAttribute(obj, '-type')
+            self.ixnet.setAttribute(bgp_type_field + '/singleValue',
+                                    '-value', bgp_type)
+        self.ixnet.commit()
+        return obj
