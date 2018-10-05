@@ -19,7 +19,7 @@
 # the profile defines a public and private side to make limited traffic correlation
 # between private and public side same way as it is made by IXIA solution.
 #
-schema: "isb:traffic_profile:0.1"
+schema: "nsb:traffic_profile:0.1"
 
 # This file is a template, it will be filled with values from tc.yaml before passing to the traffic generator
 
