@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_f6cfb5ae",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-10-05T12:23:31Z",
+      "side": 1,
+      "message": "It doesn\u0027t make sense to use `get` here. The keys are always present and they are set in _get_ixia_traffic_profile() function.",
+      "range": {
+        "startLine": 409,
+        "startChar": 0,
+        "endLine": 420,
+        "endChar": 68
+      },
+      "revId": "47645b86051ff40941f033755460f2af9e1459c3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d6d0b955",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-10-05T12:23:31Z",
+      "side": 1,
+      "message": "It doesn\u0027t make sense to use `get` here. The keys are always present and they are set in _get_ixia_traffic_profile() function.",
+      "range": {
+        "startLine": 524,
+        "startChar": 0,
+        "endLine": 532,
+        "endChar": 42
+      },
+      "revId": "47645b86051ff40941f033755460f2af9e1459c3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_db72a2e4",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-10-05T12:23:31Z",
+      "side": 1,
+      "message": "Do:\n\n--------------\nif not proto:\n    continue\n----------------\n\ninstead and you don\u0027t need to make code shift.",
+      "revId": "47645b86051ff40941f033755460f2af9e1459c3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
