@@ -899,6 +899,8 @@ class SampleVNFTrafficGen(GenericTrafficGen):
             self.scenario_helper.nodes[self.name]
         )
 
+        self.resource_helper.context_cfg = context_cfg
+
         self.resource_helper.setup()
         # must generate_cfg after DPDK bind because we need port number
         self.resource_helper.generate_cfg()
