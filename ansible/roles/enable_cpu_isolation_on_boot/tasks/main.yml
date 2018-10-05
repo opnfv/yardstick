@@ -1,0 +1,61 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+- name: check if isolcpus is set by this role in {{ grub_file}}
+  lineinfile:
+    path: "{{ grub_file}}"
+    regexp: '{{ isolcpus_help_string }}'
+    line: '{{ isolcpus_help_string }}'
+    state: absent
+  check_mode: yes
+  register: is_nsb_isolcpus_role
+  ignore_errors: True
+
+- name: Check if isolcpus is set by someone else
+  lineinfile:
+    path: "{{ grub_file}}"
+    regexp: "isolcpus="
+    line: '{{ isolcpus_help_string }}'
+    state: absent
+  check_mode: yes
+  register: is_isolcpu
+  ignore_errors: True
+
+- name: Send warning that CPU isolation cannot be configured
+  debug:
+    msg: "WARNING: CPU isolation is not configured"
+  when:
+    - not is_nsb_isolcpus_role.changed and not is_isolcpu.changed
+    - ISOL_CPUS is not defined
+
+- name: Send info that CPU isolation configured by someone else
+  debug:
+    msg: "INFO: NOT modified, CPU isolation is already configured by someone."
+  when:
+    - not is_nsb_isolcpus_role.changed and is_isolcpu.changed
+
+- name: Add/update isolcpus when ISOL_CPUS is defined and not set at all or set by this role
+  lineinfile:
+    path: "{{ grub_file }}"
+    regexp: "{{ isolcpus_help_string }}"
+    line: '{{ enable_isolcpu }}" {{ isolcpus_help_string }}'
+  when:
+    - is_nsb_isolcpus_role.changed or not is_nsb_isolcpus_role.changed and not is_isolcpu.changed
+    - ISOL_CPUS is defined
+
+- name: Update grub for bare metal usage
+  command: "{{ update_grub[ansible_os_family] }}"
+  when:
+    - is_nsb_isolcpus_role.changed or not is_nsb_isolcpus_role.changed and not is_isolcpu.changed
+    - ISOL_CPUS is defined
