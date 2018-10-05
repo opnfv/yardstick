@@ -1,0 +1,86 @@
+# flow definition for ACL tests - 1K flows - ipv4 only
+#
+# the number of flows defines the widest range of parameters
+# for example if srcip_range=1.0.0.1-1.0.0.255 and dst_ip_range=10.0.0.1-10.0.1.255
+# and it should define only 16 flows
+#
+#there is assumption that packets generated will have a random sequences of following addresses pairs
+# in the packets
+# 1. src=1.x.x.x(x.x.x =random from 1..255) dst=10.x.x.x (random from 1..512)
+# 2. src=1.x.x.x(x.x.x =random from 1..255) dst=10.x.x.x (random from 1..512)
+# ...
+# 512. src=1.x.x.x(x.x.x =random from 1..255) dst=10.x.x.x (random from 1..512)
+#
+# not all combination should be filled
+# Any other field with random range will be added to flow definition
+#
+# the example.yaml provides all possibilities for traffic generation
+#
+# the profile defines a public and private side to make limited traffic correlation
+# between private and public side same way as it is made by IXIA solution.
+#
+schema: "isb:traffic_profile:0.1"
+
+# This file is a template, it will be filled with values from tc.yaml before passing to the traffic generator
+
+name:            rfc2544
+description:     Traffic profile to run RFC2544 latency
+traffic_profile:
+  traffic_type : IXIARFC2544Profile # defines traffic behavior - constant or look for highest possible throughput
+  frame_rate : 1%  # pc of linerate
+  duration: {{ duration }}
+  enable_latency: True
+
+uplink_0:
+      ipv4:
+        id: 1
+        outer_l2:
+          framesize:
+            70B: "{{get(imix, 'imix.uplink.70B', '0') }}"
+            940B: "{{get(imix, 'imix.uplink.940B', '0') }}"
+            1470B: "{{get(imix, 'imix.uplink.1470B', '0') }}"
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: [0, 4, 7]
+downlink_0:
+      ipv4:
+        id: 2
+        outer_l2:
+          framesize:
+            68B: "{{get(imix, 'imix.downlink.68B', '0') }}"
+            932B: "{{get(imix, 'imix.downlink.932B', '0') }}"
+            1470B: "{{get(imix, 'imix.downlink.1470B', '0') }}"
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: [0, 4, 7]
+uplink_1:
+      ipv4:
+        id: 3
+        outer_l2:
+          framesize:
+            70B: "{{get(imix, 'imix.uplink.70B', '0') }}"
+            940B: "{{get(imix, 'imix.uplink.940B', '0') }}"
+            1470B: "{{get(imix, 'imix.uplink.1470B', '0') }}"
+
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: [0, 4, 7]
+downlink_1:
+      ipv4:
+        id: 4
+        outer_l2:
+          framesize:
+            68B: "{{get(imix, 'imix.downlink.68B', '0') }}"
+            932B: "{{get(imix, 'imix.downlink.932B', '0') }}"
+            1470B: "{{get(imix, 'imix.downlink.1470B', '0') }}"
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: [0, 4, 7]
