@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_1b109a4d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_a314f8f5",
+      "range": {
+        "startLine": 548,
+        "startChar": 45,
+        "endLine": 548,
+        "endChar": 49
+      },
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_e3f550cc",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 13
@@ -36,6 +60,24 @@
       "writtenOn": "2018-08-03T16:05:54Z",
       "side": 1,
       "message": "I still believe there should be no need to retry at this level, although I have seen the examples you provided at https://gerrit.opnfv.org/gerrit/#/c/58261/21/yardstick/network_services/vnf_generic/vnf/prox_helpers.py@548\nClearly, the get_data() and _parse_socket_data() methods should be reworked to properly read from the socket until the EOL delimiter has been received.\nAlso, PROX could be enhanced to return an empty line or an error line, instead of nothing at all, in case of errors. This would eliminate the need for timeout handling, because all commands would get an answer, so we would have to wait for it until EOL. But this change might require all PROX clients to be reworked, unless a different PROX socket port, or an additional PROX command-line switch, is used by NSB to enable this new \"always an answer\" protocol.\nIn the meantime, a higher default timeout on line 328 might help with slightly delayed answers from PROX and/or long answer lines.\nAnyway, retrying at this level should ultimately be avoidable and avoided.",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7b1d4e66",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_e3f550cc",
       "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_5b1a126f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_deabbfd4",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_3ee75b42",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
         "patchSetId": 13
@@ -70,6 +130,24 @@
       "writtenOn": "2018-08-03T16:05:54Z",
       "side": 1,
       "message": "These expected values for port 2 are wrong. It does not trigger an error, because \"expected\" is only used for its length on line 591. You might want instead to define \"expected\" below line 589 as follows:\nexpected \u003d [sample1, sample2, sample3]",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d63719af",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_3ee75b42",
       "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_b63c1d95",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_7ed0b353",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_1ee4173a",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
         "patchSetId": 13
@@ -104,6 +200,24 @@
       "writtenOn": "2018-08-03T16:05:54Z",
       "side": 1,
       "message": "ditto for port 6 (not 2) here",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_16423110",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_1ee4173a",
       "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_9655a1c8",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 1681,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "added as separate test .. below",
+      "parentUuid": "9a561d44_5269638a",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_b2055fc4",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
         "patchSetId": 13
@@ -138,6 +270,24 @@
       "writtenOn": "2018-08-03T16:05:54Z",
       "side": 1,
       "message": "with this line adjusted of course for port ids",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d65ef9e8",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 1684,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_b2055fc4",
       "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -161,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_b6637db0",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 1689,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_920adbd0",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_72c8e774",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
         "patchSetId": 13
@@ -172,6 +340,30 @@
       "writtenOn": "2018-08-03T16:05:54Z",
       "side": 1,
       "message": "These two lines seem plain useless, because _totals_and_pps is hardcoded on line 1713, so there will be no attempt to call port_stats() or multi_port_stats().\nAnd the return value for multi_port_stats() looks wrong anyway.",
+      "range": {
+        "startLine": 1708,
+        "startChar": 0,
+        "endLine": 1709,
+        "endChar": 67
+      },
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_165991fe",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 1709,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_72c8e774",
       "range": {
         "startLine": 1708,
         "startChar": 0,
@@ -207,6 +399,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_f65df5ea",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 2065,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_5273234d",
+      "range": {
+        "startLine": 2063,
+        "startChar": 0,
+        "endLine": 2065,
+        "endChar": 75
+      },
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_92e2dbd3",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
         "patchSetId": 13
@@ -218,6 +434,24 @@
       "writtenOn": "2018-08-03T16:05:54Z",
       "side": 1,
       "message": "This line is likely useless now.",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5672e97c",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 2080,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_92e2dbd3",
       "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -241,6 +475,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_366f6d94",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 2086,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_7220e7f7",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_927e5be3",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
         "patchSetId": 13
@@ -252,6 +504,24 @@
       "writtenOn": "2018-08-03T16:05:54Z",
       "side": 1,
       "message": "Likely useless line.",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7669e58a",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 2229,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_927e5be3",
       "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -275,6 +545,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_d60559c3",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 2235,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_5274c3fc",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_9265bb47",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
         "patchSetId": 13
@@ -286,6 +574,24 @@
       "writtenOn": "2018-08-03T16:05:54Z",
       "side": 1,
       "message": "Wrong number of arguments.",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_56f949c7",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 2239,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_9265bb47",
       "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -309,6 +615,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_16107100",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 2349,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_d288d3e9",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_326dcf33",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
         "patchSetId": 13
@@ -320,6 +644,24 @@
       "writtenOn": "2018-08-03T16:05:54Z",
       "side": 1,
       "message": "Likely useless line.",
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_f614d5f6",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 2465,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_326dcf33",
       "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -349,6 +691,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_961ac115",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_vnf.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_f29fd701",
+      "range": {
+        "startLine": 372,
+        "startChar": 0,
+        "endLine": 373,
+        "endChar": 55
+      },
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_d2d613c5",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_vnf.py",
         "patchSetId": 13
@@ -360,6 +726,30 @@
       "writtenOn": "2018-08-03T16:05:54Z",
       "side": 1,
       "message": "These lines should be deleted. This unit test is configured with 2 ports, not 4. See lines 78-117.",
+      "range": {
+        "startLine": 375,
+        "startChar": 0,
+        "endLine": 400,
+        "endChar": 0
+      },
+      "revId": "f10be0a175cf27aff675b533c7354c81f9f059e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_16deb13f",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_vnf.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-05T14:33:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_d2d613c5",
       "range": {
         "startLine": 375,
         "startChar": 0,
