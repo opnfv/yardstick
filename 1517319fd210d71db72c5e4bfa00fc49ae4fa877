@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_966c819e",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vpe.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-05T13:57:51Z",
+      "side": 1,
+      "message": "I guess \"duration\" was meant twice here.\nAs of today\u0027s master, grep for injection_time only reports this file, which means this template variable is not provided by _fill_traffic_profile() in yardstick/benchmark/scenarios/networking/vnf_generic.py\nThis TP file is only used by samples/vnf_samples/nsut/vpe/tc_baremetal_rfc2544_ipv4_1flow_64B_ixia.yaml",
+      "revId": "1517319fd210d71db72c5e4bfa00fc49ae4fa877",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
