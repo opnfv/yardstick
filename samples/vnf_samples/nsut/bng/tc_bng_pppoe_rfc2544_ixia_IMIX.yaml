@@ -1,0 +1,63 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: yardstick:task:0.1
+scenarios:
+- type: NSPerf
+  traffic_profile: "../../traffic_profiles/ixia_ipv4_latency_vbng-4.yaml"
+  topology: "../agnostic/agnostic_vnf_topology_ixia_2ports.yaml"
+  ixia_config: IxiaPppoeClient
+  nodes:
+    tg__0: tg_0.yardstick
+    vnf__0: vnf_0.yardstick
+  options:
+    pppoe_client: # access network
+      sessions_per_port: 4000
+      sessions_per_svlan: 1000
+      pap_user: 'wfnos'
+      pap_password: ''
+      ip: [{'tg__0': 'xe0'}]
+      s_vlan: 100  # s-vlan applies per device group
+      c_vlan: 1000  # c-vlan applies per subscriber
+    ipv4_client: # core network
+      sessions_per_port: 1
+      sessions_per_vlan: 1
+      ip: [{'tg__0': 'xe1'}]
+      gateway_ip: [{'vnf__0': 'xe1'}]
+      prefix: '24'
+      vlan: 101
+      bgp:
+        bgp_type: external
+        dut_ip: 10.0.0.3
+        as_number: 65000
+    framesize:
+      uplink: {64B: 100}
+      downlink: {64B: 100}
+    flow:
+      src_ip: [{'tg__0': 'xe0'}]
+      dst_ip: [{'tg__0': 'xe1'}]
+      count: 1
+    traffic_type: 4
+    rfc2544:
+      allowed_drop_rate: 0.0001 - 0.0001
+  runner:
+    type: Iteration
+    iterations: 10
+    interval: 75
+context:
+  type: Node
+  name: yardstick
+  nfvi_type: baremetal
+  file: /etc/yardstick/nodes/pod_ixia.yaml

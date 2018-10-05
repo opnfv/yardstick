@@ -49,6 +49,19 @@ PROTOCOL_STATUS_DOWN = ['down', 'notStarted']
 
 SUPPORTED_PROTO = [PROTO_UDP]
 
+SUPPORTED_DSCP_CLASSES = [
+    'defaultPHB',
+    'classSelectorPHB',
+    'assuredForwardingPHB',
+    'expeditedForwardingPHB']
+
+SUPPORTED_TOS_FIELDS = [
+    'precedence',
+    'delay',
+    'throughput',
+    'reliability'
+]
+
 
 class Vlan(object):
     def __init__(self,
@@ -198,9 +211,10 @@ class IxNextgen(object):  # pragma: no cover
 
         :param proto: IxNet protocol str representation, e.g.:
         '::ixNet::OBJ-/topology:2/deviceGroup:1/ethernet:1/ipv4:L14'
-        :return: (str) protocol status: 'up', 'down' or 'notStarted'
+        :return: (list) protocol status: list of sessions protocol
+        statuses which include states 'up', 'down' and 'notStarted'
         """
-        return self.ixnet.getAttribute(proto, '-sessionStatus')[0]
+        return self.ixnet.getAttribute(proto, '-sessionStatus')
 
     def is_traffic_running(self):
         """Returns true if traffic state == TRAFFIC_STATUS_STARTED"""
@@ -218,8 +232,8 @@ class IxNextgen(object):  # pragma: no cover
         :return: (bool) True if all protocols status is 'up', False if any
         protocol status is 'down' or 'notStarted'
         """
-        return all(self._get_protocol_status(proto) == PROTOCOL_STATUS_UP
-                   for proto in protocols)
+        return all(session_status is PROTOCOL_STATUS_UP for proto in protocols
+                   for session_status in self._get_protocol_status(proto))
 
     def is_protocols_stopped(self, protocols):
         """Returns true if all protocols statuses are in PROTOCOL_STATUS_DOWN
@@ -229,8 +243,8 @@ class IxNextgen(object):  # pragma: no cover
         :return: (bool) True if all protocols status is 'down' or 'notStarted',
         False if any protocol status is 'up'
         """
-        return all(self._get_protocol_status(proto) in PROTOCOL_STATUS_DOWN
-                   for proto in protocols)
+        return all(session_status in PROTOCOL_STATUS_DOWN for proto in protocols
+                   for session_status in self._get_protocol_status(proto))
 
     @staticmethod
     def _parse_framesize(framesize):
@@ -597,23 +611,25 @@ class IxNextgen(object):  # pragma: no cover
             'precedence': [1, 4, 7]
             }
          """
-        if 'raw' in priority:
+        if priority.get('raw'):
             priority_field = self._get_field_in_stack_item(ip_descriptor,
                                                            'priority.raw')
             self._set_priority_field(priority_field, priority['raw'])
 
-        elif 'dscp' in priority:
+        elif priority.get('dscp'):
             for field, value in priority['dscp'].items():
-                priority_field = self._get_field_in_stack_item(
-                    ip_descriptor,
-                    'priority.ds.phb.{field}.{field}'.format(field=field))
-                self._set_priority_field(priority_field, value)
+                if field in SUPPORTED_DSCP_CLASSES:
+                    priority_field = self._get_field_in_stack_item(
+                        ip_descriptor,
+                        'priority.ds.phb.{field}.{field}'.format(field=field))
+                    self._set_priority_field(priority_field, value)
 
-        elif 'tos' in priority:
+        elif priority.get('tos'):
             for field, value in priority['tos'].items():
-                priority_field = self._get_field_in_stack_item(
-                    ip_descriptor, 'priority.tos.' + field)
-                self._set_priority_field(priority_field, value)
+                if field in SUPPORTED_TOS_FIELDS:
+                    priority_field = self._get_field_in_stack_item(
+                        ip_descriptor, 'priority.tos.' + field)
+                    self._set_priority_field(priority_field, value)
 
     def _set_priority_field(self, field_descriptor, value):
         """Set the priority field described by field_descriptor
@@ -938,7 +954,7 @@ class IxNextgen(object):  # pragma: no cover
         self.ixnet.commit()
         return obj
 
-    def add_pppox_client(self, xproto, auth, user, pwd):
+    def add_pppox_client(self, xproto, auth, user, pwd, enable_redial=True):
         log.debug(
             "add_pppox_client: xproto='%s', auth='%s', user='%s', pwd='%s'",
             xproto, auth, user, pwd)
@@ -957,6 +973,10 @@ class IxNextgen(object):  # pragma: no cover
                                          pwd)
         else:
             raise NotImplementedError()
+
+        if enable_redial:
+            redial = self.ixnet.getAttribute(obj, '-enableRedial')
+            self.ixnet.setAttribute(redial + '/singleValue', '-value', 'true')
 
         self.ixnet.commit()
         return obj
