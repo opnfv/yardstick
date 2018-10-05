@@ -855,7 +855,7 @@ class IxNextgen(object):  # pragma: no cover
         self.ixnet.commit()
         return obj
 
-    def add_pppox_client(self, xproto, auth, user, pwd):
+    def add_pppox_client(self, xproto, auth, user, pwd, enable_redial=True):
         log.debug(
             "add_pppox_client: xproto='%s', auth='%s', user='%s', pwd='%s'",
             xproto, auth, user, pwd)
@@ -874,6 +874,10 @@ class IxNextgen(object):  # pragma: no cover
                                          pwd)
         else:
             raise NotImplementedError()
+
+        if enable_redial:
+            redial = self.ixnet.getAttribute(obj, '-enableRedial')
+            self.ixnet.setAttribute(redial + '/singleValue', '-value', 'true')
 
         self.ixnet.commit()
         return obj

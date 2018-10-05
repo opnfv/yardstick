@@ -17,8 +17,10 @@ import os
 import mock
 import six
 import unittest
+import ipaddress
 
 from yardstick.common import utils
+from yardstick.common import exceptions
 from yardstick.benchmark import contexts
 from yardstick.benchmark.contexts import base as ctx_base
 from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
@@ -49,12 +51,43 @@ class TestIxiaResourceHelper(unittest.TestCase):
             mock.Mock(), MyRfcHelper)
         self.assertIsInstance(ixia_resource_helper.rfc_helper, MyRfcHelper)
 
+    def test__init_ix_scenario(self):
+        mock_scenario = mock.Mock()
+        mock_scenario_helper = mock.Mock()
+        mock_scenario_helper.scenario_cfg = {'ixia_config': 'TestScenario',
+                                             'options': 'scenario_options'}
+        mock_setup_helper = mock.Mock(scenario_helper=mock_scenario_helper)
+        ixia_resource_helper = tg_rfc2544_ixia.IxiaResourceHelper(mock_setup_helper)
+        ixia_resource_helper._ixia_scenarios = {'TestScenario': mock_scenario}
+        ixia_resource_helper.client = 'client'
+        ixia_resource_helper.context_cfg = 'context'
+        ixia_resource_helper._init_ix_scenario()
+        mock_scenario.assert_called_once_with('client', 'context', 'scenario_options')
+
+    def test__init_ix_scenario_not_supported_cfg_type(self):
+        mock_scenario_helper = mock.Mock()
+        mock_scenario_helper.scenario_cfg = {'ixia_config': 'FakeScenario',
+                                             'options': 'scenario_options'}
+        mock_setup_helper = mock.Mock(scenario_helper=mock_scenario_helper)
+        ixia_resource_helper = tg_rfc2544_ixia.IxiaResourceHelper(mock_setup_helper)
+        ixia_resource_helper._ixia_scenarios = {'TestScenario': mock.Mock()}
+        with self.assertRaises(RuntimeError):
+            ixia_resource_helper._init_ix_scenario()
+
+    @mock.patch.object(tg_rfc2544_ixia.IxiaResourceHelper, '_init_ix_scenario')
+    def test_setup(self, mock__init_ix_scenario):
+        ixia_resource_helper = tg_rfc2544_ixia.IxiaResourceHelper(mock.Mock())
+        ixia_resource_helper.setup()
+        mock__init_ix_scenario.assert_called_once()
+
     def test_stop_collect_with_client(self):
         mock_client = mock.Mock()
         ixia_resource_helper = tg_rfc2544_ixia.IxiaResourceHelper(mock.Mock())
         ixia_resource_helper.client = mock_client
+        ixia_resource_helper._ix_scenario = mock.Mock()
         ixia_resource_helper.stop_collect()
         self.assertEqual(1, ixia_resource_helper._terminated.value)
+        ixia_resource_helper._ix_scenario.stop_protocols.assert_called_once()
 
     def test_run_traffic(self):
         mock_tprofile = mock.Mock()
@@ -63,6 +96,7 @@ class TestIxiaResourceHelper(unittest.TestCase):
         ixia_rhelper = tg_rfc2544_ixia.IxiaResourceHelper(mock.Mock())
         ixia_rhelper.rfc_helper = mock.Mock()
         ixia_rhelper.vnfd_helper = mock.Mock()
+        ixia_rhelper._ix_scenario = mock.Mock()
         ixia_rhelper.vnfd_helper.port_pairs.all_ports = []
         with mock.patch.object(ixia_rhelper, 'generate_samples'), \
                 mock.patch.object(ixia_rhelper, '_build_ports'), \
@@ -261,8 +295,8 @@ class TestIXIATrafficGen(unittest.TestCase):
             ssh_mock.execute = \
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
-            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd,
-                                                               'task_id')
+            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(
+                NAME, vnfd, 'task_id', resource_helper_type=mock.Mock())
             ixnet_traffic_gen._terminated = mock.MagicMock()
             ixnet_traffic_gen._terminated.value = 0
             ixnet_traffic_gen._ixia_traffic_gen = mock.MagicMock()
@@ -360,6 +394,7 @@ class TestIXIATrafficGen(unittest.TestCase):
         sut.resource_helper.client_started = mock.MagicMock()
         sut.resource_helper.client_started.value = 1
         sut.resource_helper.rfc_helper.iteration.value = 11
+        sut.resource_helper._ix_scenario = mock.Mock()
 
         sut.scenario_helper.scenario_cfg = {
             'options': {
@@ -393,3 +428,336 @@ class TestIXIATrafficGen(unittest.TestCase):
             self.assertIsNone(result)
 
         _traffic_runner()
+
+
+class TestIxiaBasicScenario(unittest.TestCase):
+
+    def setUp(self):
+        self._mock_IxNextgen = mock.patch.object(ixnet_api, 'IxNextgen')
+        self.mock_IxNextgen = self._mock_IxNextgen.start()
+        self.context_cfg = mock.Mock()
+        self.ixia_cfg = mock.Mock()
+        self.scenario = tg_rfc2544_ixia.IxiaBasicScenario(self.mock_IxNextgen,
+                                                          self.context_cfg,
+                                                          self.ixia_cfg)
+        self.addCleanup(self._stop_mocks)
+
+    def _stop_mocks(self):
+        self._mock_IxNextgen.stop()
+
+    def test___init___(self):
+        self.assertIsInstance(self.scenario, tg_rfc2544_ixia.IxiaBasicScenario)
+        self.assertEqual(self.scenario.client, self.mock_IxNextgen)
+
+    def test_apply_config(self):
+        self.assertIsNone(self.scenario.apply_config())
+
+    def test_create_traffic_model(self):
+        self.mock_IxNextgen.get_vports.return_value = [1, 2, 3, 4]
+        self.scenario.create_traffic_model()
+        self.scenario.client.get_vports.assert_called_once()
+        self.scenario.client.create_traffic_model.assert_called_once_with([1, 3], [2, 4])
+
+    def test_run_protocols(self):
+        self.assertIsNone(self.scenario.run_protocols())
+
+    def test_stop_protocols(self):
+        self.assertIsNone(self.scenario.stop_protocols())
+
+
+class TestIxiaPppoeClientScenario(unittest.TestCase):
+
+    IXIA_CFG = {
+        'proto_start_timeout': 2,
+        'pppoe_client': {
+            'sessions_per_port': 4,
+            'sessions_per_svlan': 1,
+            's_vlan': 10,
+            'c_vlan': 20,
+            'ip': ['10.3.3.1', '10.4.4.1']
+        },
+        'ipv4_client': {
+            'sessions_per_port': 1,
+            'sessions_per_vlan': 1,
+            'vlan': 101,
+            'gateway_ip': ['10.1.1.1', '10.2.2.1'],
+            'ip': ['10.1.1.1', '10.2.2.1'],
+            'prefix': ['24', '24']
+        }
+    }
+
+    CONTEXT_CFG = {
+        'nodes': {'tg__0': {
+            'interfaces': {'xe0': {
+                'local_ip': '10.1.1.1',
+                'netmask': '255.255.255.0'
+                }}}}}
+
+    def setUp(self):
+        self._mock_IxNextgen = mock.patch.object(ixnet_api, 'IxNextgen')
+        self.mock_IxNextgen = self._mock_IxNextgen.start()
+        self.scenario = tg_rfc2544_ixia.IxiaPppoeClientScenario(
+            self.mock_IxNextgen, self.CONTEXT_CFG, self.IXIA_CFG)
+        self.addCleanup(self._stop_mocks)
+
+    def _stop_mocks(self):
+        self._mock_IxNextgen.stop()
+
+    def test___init___(self):
+        self.assertIsInstance(self.scenario, tg_rfc2544_ixia.IxiaPppoeClientScenario)
+        self.assertEqual(self.scenario.client, self.mock_IxNextgen)
+
+    @mock.patch.object(tg_rfc2544_ixia.IxiaPppoeClientScenario,
+                       '_fill_ixia_config')
+    @mock.patch.object(tg_rfc2544_ixia.IxiaPppoeClientScenario,
+                       '_apply_access_network_config')
+    @mock.patch.object(tg_rfc2544_ixia.IxiaPppoeClientScenario,
+                       '_apply_core_network_config')
+    def test_apply_config(self, mock_apply_core_net_cfg,
+                          mock_apply_access_net_cfg,
+                          mock_fill_ixia_config):
+        self.mock_IxNextgen.get_vports.return_value = [1, 2, 3, 4]
+        self.scenario.apply_config()
+        self.scenario.client.get_vports.assert_called_once()
+        self.assertEqual(self.scenario._uplink_vports, [1, 3])
+        self.assertEqual(self.scenario._downlink_vports, [2, 4])
+        mock_fill_ixia_config.assert_called_once()
+        mock_apply_core_net_cfg.assert_called_once()
+        mock_apply_access_net_cfg.assert_called_once()
+
+    def test_create_traffic_model(self):
+        self.scenario._access_topologies = 'access'
+        self.scenario._core_topologies = 'core'
+        self.scenario.create_traffic_model()
+        self.scenario.client.create_ipv4_traffic_model.assert_called_once_with(
+            'access', 'core')
+
+    def test_run_protocols(self):
+        self.scenario.client.is_protocols_running.return_value = True
+        self.scenario.run_protocols()
+        self.scenario.client.start_protocols.assert_called_once()
+
+    def test_run_protocols_timeout_exception(self):
+        self.scenario.client.is_protocols_running.return_value = False
+        with self.assertRaises(exceptions.WaitTimeout):
+            self.scenario.run_protocols()
+        self.scenario.client.start_protocols.assert_called_once()
+
+    def test_stop_protocols(self):
+        self.scenario.stop_protocols()
+        self.scenario.client.stop_protocols.assert_called_once()
+
+    def test__get_intf_addr_str_type_input(self):
+        intf = '192.168.10.2/24'
+        ip, mask = self.scenario._get_intf_addr(intf)
+        self.assertEqual(ip, '192.168.10.2')
+        self.assertEqual(mask, 24)
+
+    def test__get_intf_addr_dict_type_input(self):
+        intf = {'tg__0': 'xe0'}
+        ip, mask = self.scenario._get_intf_addr(intf)
+        self.assertEqual(ip, '10.1.1.1')
+        self.assertEqual(mask, 24)
+
+    @mock.patch.object(tg_rfc2544_ixia.IxiaPppoeClientScenario, '_get_intf_addr')
+    def test__fill_ixia_config(self, mock_get_intf_addr):
+
+        ixia_cfg = {
+            'pppoe_client': {
+                'sessions_per_port': 4,
+                'sessions_per_svlan': 1,
+                's_vlan': 10,
+                'c_vlan': 20,
+                'ip': ['10.3.3.1/24', '10.4.4.1/24']
+            },
+            'ipv4_client': {
+                'sessions_per_port': 1,
+                'sessions_per_vlan': 1,
+                'vlan': 101,
+                'gateway_ip': ['10.1.1.1/24', '10.2.2.1/24'],
+                'ip': ['10.1.1.1/24', '10.2.2.1/24']
+            }
+        }
+
+        mock_get_intf_addr.side_effect = [
+            ('10.3.3.1', '24'),
+            ('10.4.4.1', '24'),
+            ('10.1.1.1', '24'),
+            ('10.2.2.1', '24'),
+            ('10.1.1.1', '24'),
+            ('10.2.2.1', '24')
+        ]
+        self.scenario._ixia_cfg = ixia_cfg
+        self.scenario._fill_ixia_config()
+        self.assertEqual(mock_get_intf_addr.call_count, 6)
+        self.assertEqual(self.scenario._ixia_cfg['pppoe_client']['ip'],
+                         ['10.3.3.1', '10.4.4.1'])
+        self.assertEqual(self.scenario._ixia_cfg['ipv4_client']['ip'],
+                         ['10.1.1.1', '10.2.2.1'])
+        self.assertEqual(self.scenario._ixia_cfg['ipv4_client']['prefix'],
+                         ['24', '24'])
+
+    @mock.patch('yardstick.network_services.libs.ixia_libs.ixnet.ixnet_api.Vlan')
+    def test__apply_access_network_config_pap_auth(self, mock_vlan):
+        _ixia_cfg = {
+            'pppoe_client': {
+                'sessions_per_port': 4,
+                'sessions_per_svlan': 1,
+                's_vlan': 10,
+                'c_vlan': 20,
+                'pap_user': 'test_pap',
+                'pap_password': 'pap'
+                }}
+        pap_user = _ixia_cfg['pppoe_client']['pap_user']
+        pap_passwd = _ixia_cfg['pppoe_client']['pap_password']
+        self.scenario._ixia_cfg = _ixia_cfg
+        self.scenario._uplink_vports = [0, 2]
+        self.scenario.client.add_topology.side_effect = ['Topology 1', 'Topology 2']
+        self.scenario.client.add_device_group.side_effect = ['Dg1', 'Dg2', 'Dg3',
+                                                             'Dg4', 'Dg5', 'Dg6',
+                                                             'Dg7', 'Dg8']
+        self.scenario.client.add_ethernet.side_effect = ['Eth1', 'Eth2', 'Eth3',
+                                                         'Eth4', 'Eth5', 'Eth6',
+                                                         'Eth7', 'Eth8']
+        self.scenario._apply_access_network_config()
+        self.assertEqual(self.scenario.client.add_topology.call_count, 2)
+        self.assertEqual(self.scenario.client.add_device_group.call_count, 8)
+        self.assertEqual(self.scenario.client.add_ethernet.call_count, 8)
+        self.assertEqual(mock_vlan.call_count, 16)
+        self.assertEqual(self.scenario.client.add_vlans.call_count, 8)
+        self.assertEqual(self.scenario.client.add_pppox_client.call_count, 8)
+        self.scenario.client.add_topology.assert_has_calls([
+            mock.call('Topology access 0', 0),
+            mock.call('Topology access 1', 2)
+        ])
+        self.scenario.client.add_device_group.assert_has_calls([
+            mock.call('Topology 1', 'Device Group 1', 1),
+            mock.call('Topology 2', 'Device Group 1', 1)
+        ])
+        self.scenario.client.add_ethernet.assert_has_calls([
+            mock.call('Dg1', 'Ethernet 1'),
+            mock.call('Dg2', 'Ethernet 1'),
+            mock.call('Dg3', 'Ethernet 1'),
+            mock.call('Dg4', 'Ethernet 1'),
+            mock.call('Dg5', 'Ethernet 1'),
+            mock.call('Dg6', 'Ethernet 1'),
+            mock.call('Dg7', 'Ethernet 1'),
+            mock.call('Dg8', 'Ethernet 1')
+        ])
+        mock_vlan.assert_has_calls([
+            mock.call(vlan_id=10),
+            mock.call(vlan_id=20, vlan_id_step=1),
+            mock.call(vlan_id=11),
+            mock.call(vlan_id=20, vlan_id_step=1),
+            mock.call(vlan_id=12),
+            mock.call(vlan_id=20, vlan_id_step=1),
+            mock.call(vlan_id=13),
+            mock.call(vlan_id=20, vlan_id_step=1),
+            mock.call(vlan_id=14),
+            mock.call(vlan_id=20, vlan_id_step=1),
+            mock.call(vlan_id=15),
+            mock.call(vlan_id=20, vlan_id_step=1),
+            mock.call(vlan_id=16),
+            mock.call(vlan_id=20, vlan_id_step=1),
+            mock.call(vlan_id=17),
+            mock.call(vlan_id=20, vlan_id_step=1)
+        ])
+        self.scenario.client.add_pppox_client.assert_has_calls([
+            mock.call('Eth1', 'pap', pap_user, pap_passwd),
+            mock.call('Eth2', 'pap', pap_user, pap_passwd),
+            mock.call('Eth3', 'pap', pap_user, pap_passwd),
+            mock.call('Eth4', 'pap', pap_user, pap_passwd),
+            mock.call('Eth5', 'pap', pap_user, pap_passwd),
+            mock.call('Eth6', 'pap', pap_user, pap_passwd),
+            mock.call('Eth7', 'pap', pap_user, pap_passwd),
+            mock.call('Eth8', 'pap', pap_user, pap_passwd)
+        ])
+
+    def test__apply_access_network_config_chap_auth(self):
+        _ixia_cfg = {
+            'pppoe_client': {
+                'sessions_per_port': 4,
+                'sessions_per_svlan': 1,
+                's_vlan': 10,
+                'c_vlan': 20,
+                'chap_user': 'test_chap',
+                'chap_password': 'chap'
+            }}
+        chap_user = _ixia_cfg['pppoe_client']['chap_user']
+        chap_passwd = _ixia_cfg['pppoe_client']['chap_password']
+        self.scenario._ixia_cfg = _ixia_cfg
+        self.scenario._uplink_vports = [0, 2]
+        self.scenario.client.add_ethernet.side_effect = ['Eth1', 'Eth2', 'Eth3',
+                                                         'Eth4', 'Eth5', 'Eth6',
+                                                         'Eth7', 'Eth8']
+        self.scenario._apply_access_network_config()
+        self.assertEqual(self.scenario.client.add_pppox_client.call_count, 8)
+        self.scenario.client.add_pppox_client.assert_has_calls([
+            mock.call('Eth1', 'chap', chap_user, chap_passwd),
+            mock.call('Eth2', 'chap', chap_user, chap_passwd),
+            mock.call('Eth3', 'chap', chap_user, chap_passwd),
+            mock.call('Eth4', 'chap', chap_user, chap_passwd),
+            mock.call('Eth5', 'chap', chap_user, chap_passwd),
+            mock.call('Eth6', 'chap', chap_user, chap_passwd),
+            mock.call('Eth7', 'chap', chap_user, chap_passwd),
+            mock.call('Eth8', 'chap', chap_user, chap_passwd)
+        ])
+
+    @mock.patch('yardstick.network_services.libs.ixia_libs.ixnet.ixnet_api.Vlan')
+    def test__apply_core_network_config_no_bgp_proto(self, mock_vlan):
+        self.scenario._downlink_vports = [1, 3]
+        self.scenario.client.add_topology.side_effect = ['Topology 1', 'Topology 2']
+        self.scenario.client.add_device_group.side_effect = ['Dg1', 'Dg2']
+        self.scenario.client.add_ethernet.side_effect = ['Eth1', 'Eth2']
+        self.scenario._apply_core_network_config()
+        self.assertEqual(self.scenario.client.add_topology.call_count, 2)
+        self.assertEqual(self.scenario.client.add_device_group.call_count, 2)
+        self.assertEqual(self.scenario.client.add_ethernet.call_count, 2)
+        self.assertEqual(mock_vlan.call_count, 2)
+        self.assertEqual(self.scenario.client.add_vlans.call_count, 2)
+        self.assertEqual(self.scenario.client.add_ipv4.call_count, 2)
+        self.scenario.client.add_topology.assert_has_calls([
+            mock.call('Topology core 0', 1),
+            mock.call('Topology core 1', 3)
+        ])
+        self.scenario.client.add_device_group.assert_has_calls([
+            mock.call('Topology 1', 'Device Group 1', 1),
+            mock.call('Topology 2', 'Device Group 1', 1)
+        ])
+        self.scenario.client.add_ethernet.assert_has_calls([
+            mock.call('Dg1', 'Ethernet 1'),
+            mock.call('Dg2', 'Ethernet 1')
+        ])
+        mock_vlan.assert_has_calls([
+            mock.call(vlan_id=101),
+            mock.call(vlan_id=102)
+        ])
+        self.scenario.client.add_ipv4.assert_has_calls([
+            mock.call('Eth1', name='ipv4 1', addr=ipaddress.IPv4Address('10.1.1.2'),
+                      addr_step='0.0.0.1', prefix='24', gateway='10.1.1.1'),
+            mock.call('Eth2', name='ipv4 1', addr=ipaddress.IPv4Address('10.2.2.2'),
+                      addr_step='0.0.0.1', prefix='24', gateway='10.2.2.1')
+        ])
+        self.scenario.client.add_bgp.assert_not_called()
+
+    def test__apply_core_network_config_with_bgp_proto(self):
+        bgp_params = {
+            'bgp': {
+                'bgp_type': 'external',
+                'dut_ip': '10.0.0.1',
+                'as_number': 65000
+            }
+        }
+        self.scenario._ixia_cfg['ipv4_client'].update(bgp_params)
+        self.scenario._downlink_vports = [1, 3]
+        self.scenario.client.add_ipv4.side_effect = ['ipv4_1', 'ipv4_2']
+        self.scenario._apply_core_network_config()
+        self.assertEqual(self.scenario.client.add_bgp.call_count, 2)
+        self.scenario.client.add_bgp.assert_has_calls([
+            mock.call('ipv4_1', dut_ip=bgp_params["bgp"]["dut_ip"],
+                      local_as=bgp_params["bgp"]["as_number"],
+                      bgp_type=bgp_params["bgp"]["bgp_type"]),
+            mock.call('ipv4_2', dut_ip=bgp_params["bgp"]["dut_ip"],
+                      local_as=bgp_params["bgp"]["as_number"],
+                      bgp_type=bgp_params["bgp"]["bgp_type"])
+        ])
