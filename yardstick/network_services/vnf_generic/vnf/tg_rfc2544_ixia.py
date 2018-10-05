@@ -96,7 +96,10 @@ class IxiaResourceHelper(ClientResourceHelper):
         """Initialize the IXIA IxNetwork client and configure the server"""
         self.client.clear_config()
         self.client.assign_ports()
-        self.client.create_traffic_model()
+        vports = self.client.get_vports()
+        uplink_vports = vports[::2]
+        downlink_vports = vports[1::2]
+        self.client.create_traffic_model(uplink_vports, downlink_vports)
 
     def run_traffic(self, traffic_profile, *args):
         if self._terminated.value:
