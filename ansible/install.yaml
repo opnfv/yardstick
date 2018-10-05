@@ -65,6 +65,7 @@
     # can't update grub in chroot/docker
     # ?? - enable_iommu_on_boot
     - enable_hugepages_on_boot
+    - enable_cpu_isolation_on_boot
     # needed for collectd plugins
     - increase_open_file_limits
     - install_image_dependencies
