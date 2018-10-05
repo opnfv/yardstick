@@ -15,3 +15,8 @@ Yardstick test results
 .. include:: ./overview.rst
 .. include:: ./results.rst
 .. include:: ./euphrates_fraser_comparison.rst
+
+.. include:: ./yardstick-opnfv-ha.rst
+.. include:: ./yardstick-opnfv-kvm.rst
+.. include:: ./yardstick-opnfv-parser.rst
+
