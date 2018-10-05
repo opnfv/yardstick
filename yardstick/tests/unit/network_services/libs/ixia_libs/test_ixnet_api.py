@@ -334,6 +334,21 @@ class TestIxNextgen(unittest.TestCase):
 
         self.ixnet_gen.ixnet.setMultiAttribute.assert_not_called()
 
+    def test_add_bgp(self):
+        self.ixnet_gen.ixnet.add.return_value = 'obj'
+        self.ixnet_gen.ixnet.getAttribute.return_value = 'attr'
+        self.ixnet_gen.add_bgp(ipv4='ipv4 1',
+                               dut_ip='10.0.0.1',
+                               local_as=65000,
+                               bgp_type='external')
+        self.ixnet_gen.ixnet.add.assert_called_once_with('ipv4 1', 'bgpIpv4Peer')
+        self.ixnet_gen.ixnet.setAttribute.assert_any_call(
+            'attr/singleValue', '-value', '10.0.0.1')
+        self.ixnet_gen.ixnet.setAttribute.assert_any_call(
+            'attr/singleValue', '-value', 65000)
+        self.ixnet_gen.ixnet.setAttribute.assert_any_call(
+            'attr/singleValue', '-value', 'external')
+
     @mock.patch.object(IxNetwork, 'IxNet')
     def test_connect(self, mock_ixnet):
         mock_ixnet.return_value = self.ixnet
