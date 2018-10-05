@@ -122,8 +122,8 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
 
     def _ixia_traffic_generate(self, traffic, ixia_obj):
         ixia_obj.update_frame(traffic, self.config.duration)
-        ixia_obj.update_ip_packet(traffic)
-        ixia_obj.update_l4(traffic)
+        # ixia_obj.update_ip_packet(traffic)
+        # ixia_obj.update_l4(traffic)
         ixia_obj.start_traffic()
 
     def update_traffic_profile(self, traffic_generator):
