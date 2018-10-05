@@ -745,13 +745,13 @@ class TestIxNextgen(unittest.TestCase):
 
     @mock.patch.object(ixnet_api.IxNextgen, '_get_protocol_status')
     def test_is_protocols_running(self, mock_ixnextgen_get_protocol_status):
-        mock_ixnextgen_get_protocol_status.return_value = 'up'
+        mock_ixnextgen_get_protocol_status.return_value = ['up', 'up']
         result = self.ixnet_gen.is_protocols_running(['ethernet', 'ipv4'])
         self.assertTrue(result)
 
     @mock.patch.object(ixnet_api.IxNextgen, '_get_protocol_status')
     def test_is_protocols_stopped(self, mock_ixnextgen_get_protocol_status):
-        mock_ixnextgen_get_protocol_status.return_value = 'down'
+        mock_ixnextgen_get_protocol_status.return_value = ['down', 'down']
         result = self.ixnet_gen.is_protocols_running(['ethernet', 'ipv4'])
         self.assertFalse(result)
 
