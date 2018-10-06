@@ -2,6 +2,338 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a682502_9b7e6ae3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "Summarize commit title on one line, \u003c\u003d 50 chars, e.g.:\nTest case override of traffic profile settings\nPer test case override of traffic profile settings",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_3b6d9633",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "yaml",
+      "range": {
+        "startLine": 12,
+        "startChar": 50,
+        "endLine": 12,
+        "endChar": 53
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_db88e2e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "e.g.",
+      "range": {
+        "startLine": 12,
+        "startChar": 20,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_fb831eca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "test case file",
+      "range": {
+        "startLine": 12,
+        "startChar": 10,
+        "endLine": 12,
+        "endChar": 19
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_1b6a5a1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "settings",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 7
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7b770e03",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "e.g.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 2
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_3b547653",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "test case file",
+      "range": {
+        "startLine": 16,
+        "startChar": 61,
+        "endLine": 16,
+        "endChar": 70
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_fb5afe81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "the \"traffic_config\"",
+      "range": {
+        "startLine": 16,
+        "startChar": 23,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_db5f4271",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "the \"options\" section",
+      "range": {
+        "startLine": 16,
+        "startChar": 36,
+        "endLine": 16,
+        "endChar": 53
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_f6033571",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "This whole block could be replaced by the following explanation, much easier to understand in my opinion:\n\nPrecedence of traffic profile settings:\n1. values provided in the \"traffic_config\" section, inside the \"options\" section, of the test case file\n2. values provided in the \"traffic_profile\" section of the traffic_profile file\n3. default values provided by the _fill_traffic_profile() function in yardstick/benchmark/scenarios/networking/vnf_generic.py",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 67
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5be4d23a",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "Good idea to have moved implementation for overridable default values from ProxProfile (in PS14) to NetworkServiceTestCase.\nThis means all test cases using the NSPerf scenario type will benefit from this.",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b6bffdcf",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "Some work for later, once this commit has been merged...\n\nOut of the 296 test case files under samples/vnf_samples/nsut/ that use this NSPerf scenario type, none of them makes use (anymore?) of the testcase:scenario:options:duration feature, implemented by https://gerrit.opnfv.org/gerrit/57759\nThis means that _get_duration() will always return TrafficProfileConfig.DEFAULT_DURATION, i.e. 30.\nThis function is only used to feed the tprofile_data dict on L163, which in turn is provided to vnfdgen.generate_vnfd() on L164. Instead of simply being merged into the returned traffic_vnfd dict, the tprofile_data dict is used as the set of template variables to render the tprofile template obtained as a string on L155.\nIn other words, _get_duration() and L163 are only used to replace the occurences of \"{{ duration }}\" in the traffic_profile (template) file.\n\nOnce this commit has been merged, it will be easy to override traffic profile settings from the test case file, using the new \"traffic_config\" section inside the \"options\" section.\nThen it will be much more efficient to:\n\n1. delete all occurences of \"duration: {{ duration }}\", in all traffic_profile files:\n- the default value will be provided by L171-L172\n\n2. remove the testcase:scenario:options:duration feature, i.e.:\n- remove _get_duration()\n- remove L163\n\n3. set testcase:scenario:options:traffic_config:duration\n- instead of the currently unused testcase:scenario:options:duration\n- when the step duration needs to be set from the test case file",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7100cfaa",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "Nice, but you can factor this further. See comment for L183.\nAnd since you don\u0027t need self, this could be a static method or a function outside of class scope.",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_568949c9",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "Since TrafficProfile.get(), called on L184, will blindly access traffic_vnfd[\"traffic_profile\"][\"traffic_type\"], you could assume that traffic_vnfd[\"traffic_profile\"] exists and is a dict. See https://github.com/opnfv/yardstick/blob/master/yardstick/network_services/traffic_profile/base.py#L86\n\nBut it\u0027s good to be on the safe side.\nThen please call setdefault() once here, rather than repeatedly on L171-L181.\n\nSo this line should be:\nt_vnfd \u003d traffic_vnfd.setdefault(\"traffic_profile\", {})",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_9103ebb7",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "This should be empty dict {} rather than None ...",
+      "range": {
+        "startLine": 168,
+        "startChar": 71,
+        "endLine": 168,
+        "endChar": 75
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7b58ae56",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "... and this test should be removed.\nOtherwise, L171-L182 will not set any default values when there is no \"traffic_config\" section in the test case file, while they would set them if there is (at least) an empty \"traffic_config\" section. :-/",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_1810a04d",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 22
@@ -19,6 +351,47 @@
     },
     {
       "key": {
+        "uuid": "5a682502_3b2596c2",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "+1\nDefault value should be: tprofile_base.TrafficProfileConfig.DEFAULT_DURATION\nThis is the step duration, not the runner duration, which can be specified in the \"runner\" section of the test case file.",
+      "parentUuid": "5a682502_1810a04d",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_db40e258",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "Is that the correct default value?\nIf the list of packet sizes is not set otherwise, shouldn\u0027t we aim for [64, 128, 256, 512, 1024, 1280, 1518] as default?",
+      "range": {
+        "startLine": 180,
+        "startChar": 80,
+        "endLine": 180,
+        "endChar": 84
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_581a186f",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 22
@@ -30,6 +403,121 @@
       "writtenOn": "2018-10-04T12:55:15Z",
       "side": 1,
       "message": "I would use the same value as in commit message and prox_binserach (i.e. 0.1)",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5b55f21b",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "+1\nDefault value should be 0.1",
+      "parentUuid": "5a682502_581a186f",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d6eef98a",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "About default values: instead of hard-coding them inline here, you might want to define a set of NetworkServiceTestCase class constants that you would reference here.\n\nAbout further factoring this code:\n- L171-L182 are not easy to read, and typo-prone with the setting names provided twice\n- _get_custom_config() does not have to be a method, and is not even needed\n\nWith that, you could delete _get_custom_config() on L151-L152, and add this below L51:\n\n    DEFAULT_DURATION \u003d tprofile_base.TrafficProfileConfig.DEFAULT_DURATION\n    DEFAULT_TOLERATED_LOSS \u003d 0.001\n    DEFAULT_LOWER_BOUND \u003d 0.0\n    DEFAULT_UPPER_BOUND \u003d 100.0\n    DEFAULT_PACKET_SIZES \u003d [64, 128, 256, 512, 1024, 1280, 1518]\n    DEFAULT_TEST_PRECISION \u003d 0.1\n\nThen replace L170-L182 with:\n\n        for (item, val, cast) in [\n                [\"duration\", self.DEFAULT_DURATION, int],\n                [\"tolerated_loss\", self.DEFAULT_TOLERATED_LOSS, float],\n                [\"lower_bound\", self.DEFAULT_LOWER_BOUND, float],\n                [\"upper_bound\", self.DEFAULT_UPPER_BOUND, float],\n                [\"packet_sizes\", self.DEFAULT_PACKET_SIZES, list],\n                [\"test_precision\", self.DEFAULT_TEST_PRECISION, float],\n                ]:\n            t_vnfd[item] \u003d cast(traffic_config.get(item, t_vnfd.get(item, val)))",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7be70e41",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "Useless, as well as L44.\nSo you should just keep this file unmodified.",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_96812192",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "Do you really care that/how setdefault().__setitem__() has been called?\nThat\u0027s just implementation details, which in fact could/should be written differently!\nWhat\u0027s important is that the step duration has been set to the expected value. This can be verified with:\nself.assertIn(\"traffic_profile\", fake_vnfd)\nself.assertIn(\"duration\", fake_vnfd[\"traffic_profile\"])\nself.assertEqual(99899, fake_vnfd[\"traffic_profile\"][\"duration\"])",
+      "range": {
+        "startLine": 663,
+        "startChar": 0,
+        "endLine": 670,
+        "endChar": 40
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_16b7d187",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "self.assertTrue",
+      "range": {
+        "startLine": 670,
+        "startChar": 12,
+        "endLine": 670,
+        "endChar": 18
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d12c434d",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_prox_binsearch.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "Did not review this file so far.",
       "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
