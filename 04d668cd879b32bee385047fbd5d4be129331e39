@@ -177,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_bb824650",
+        "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-06T18:26:18Z",
+      "side": 1,
+      "message": "I was not suggesting to hard-code anything, at all.",
+      "parentUuid": "5a682502_662b0e83",
+      "revId": "04d668cd879b32bee385047fbd5d4be129331e39",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_e5909c97",
         "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
         "patchSetId": 14
