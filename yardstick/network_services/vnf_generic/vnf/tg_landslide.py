@@ -600,6 +600,13 @@ class LandslideResourceHelper(sample_vnf.ClientResourceHelper):
     def create_test_session(self, test_session):
         # Use tcl client to create session
         test_session['library'] = self._user_id
+
+        # If no traffic duration set in test case, use predefined default value
+        # in session profile
+        test_session['duration'] = self.scenario_helper.all_options.get(
+            'traffic_duration',
+            test_session['duration'])
+
         LOG.debug("Creating session='%s'", test_session['name'])
         self._tcl.create_test_session(test_session)
 
