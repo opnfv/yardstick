@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_517793d4",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-10-08T13:33:46Z",
+      "side": 1,
+      "message": "I would prefer \u0027 Automatic Installation of Yardstick using ansible\u0027",
+      "range": {
+        "startLine": 447,
+        "startChar": 0,
+        "endLine": 447,
+        "endChar": 22
+      },
+      "revId": "5b0de6edf06d3f0971c11c081a57ef80ed72755f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_f1405f58",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-10-08T13:33:46Z",
+      "side": 1,
+      "message": "To make things for clear: \u0027Automatic installation of yardstick using ansible can be used as an alternative to the manual as mentioned above.\u0027",
+      "range": {
+        "startLine": 450,
+        "startChar": 0,
+        "endLine": 450,
+        "endChar": 34
+      },
+      "revId": "5b0de6edf06d3f0971c11c081a57ef80ed72755f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_3122d7b9",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-10-08T13:33:46Z",
+      "side": 1,
+      "message": "My suggestion: Ansible script \u0027install.yaml can be used either to install Yardstick on baremetal or to pull/build yardstick container.",
+      "range": {
+        "startLine": 451,
+        "startChar": 0,
+        "endLine": 451,
+        "endChar": 66
+      },
+      "revId": "5b0de6edf06d3f0971c11c081a57ef80ed72755f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_712c4fac",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-10-08T13:33:46Z",
+      "side": 1,
+      "message": "We can add a line here that: Please refer section \u0027Parameters for ``install.yaml``\u0027 below for more details about the parameters.",
+      "revId": "5b0de6edf06d3f0971c11c081a57ef80ed72755f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d118c386",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-10-08T13:33:46Z",
+      "side": 1,
+      "message": "Are we starting the container or just pulling it?",
+      "range": {
+        "startLine": 488,
+        "startChar": 35,
+        "endLine": 488,
+        "endChar": 58
+      },
+      "revId": "5b0de6edf06d3f0971c11c081a57ef80ed72755f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b11d4776",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-10-08T13:33:46Z",
+      "side": 1,
+      "message": "``INSTALLATION_MODE``",
+      "range": {
+        "startLine": 512,
+        "startChar": 18,
+        "endLine": 512,
+        "endChar": 35
+      },
+      "revId": "5b0de6edf06d3f0971c11c081a57ef80ed72755f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_11135b67",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-10-08T13:33:46Z",
+      "side": 1,
+      "message": "or may be \u0027Description table of the parameters used with ``install.yaml`` script.",
+      "range": {
+        "startLine": 521,
+        "startChar": 0,
+        "endLine": 521,
+        "endChar": 52
+      },
+      "revId": "5b0de6edf06d3f0971c11c081a57ef80ed72755f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
