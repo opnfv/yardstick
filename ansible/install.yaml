@@ -63,8 +63,8 @@
     - role: set_package_installer_proxy
       when: proxy_env is defined and proxy_env
     # can't update grub in chroot/docker
-    # ?? - enable_iommu_on_boot
     - enable_hugepages_on_boot
+    - enable_iommu_on_boot
     # needed for collectd plugins
     - increase_open_file_limits
     - install_image_dependencies

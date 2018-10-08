@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation
+# Copyright (c) 2017-2018 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,14 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-
-
 - name: check if iommu is set by this role in /boot grub.cfg files
   lineinfile:
     path: "{{ item.path }}"
-    regexp: '{{ hugepages_params }}{{ iommu_boot_params }}'
-    line: ''
-  #changed_when: no
+    regexp: '{{ iommu_boot_params }}'
+    line: '{{ iommu_boot_params }}'
+    state: absent
   check_mode: yes
   register: is_mine_iommu_boot_grub
   ignore_errors: True
@@ -29,6 +27,6 @@
     path: "{{ item.path }}"
     regexp: '(.*linux\s+/boot/vmlinuz.*)$'
     replace: '\1{{ iommu_boot_params }}'
-  when: is_mine_iommu_boot_grub.msg != "line replaced"
+  when: not is_mine_iommu_boot_grub.changed
 
 - debug: var=ansible_kernel
