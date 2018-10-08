@@ -11,7 +11,6 @@ Yardstick User Guide
 
 .. toctree::
    :maxdepth: 4
-   :numbered:
 
    01-introduction
    02-methodology
