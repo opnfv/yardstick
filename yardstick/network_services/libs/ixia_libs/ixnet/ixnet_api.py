@@ -47,6 +47,9 @@ IP_VERSION_6_MASK = 64
 TRAFFIC_STATUS_STARTED = 'started'
 TRAFFIC_STATUS_STOPPED = 'stopped'
 
+PROTOCOL_STATUS_UP = 'up'
+PROTOCOL_STATUS_DOWN = ['down', 'notStarted']
+
 SUPPORTED_PROTO = [PROTO_UDP]
 
 
@@ -180,6 +183,15 @@ class IxNextgen(object):  # pragma: no cover
         return self.ixnet.getAttribute(self.ixnet.getRoot() + 'traffic',
                                        '-state')
 
+    def _get_protocol_status(self, proto):
+        """Get protocol status
+
+        :param proto: IxNet protocol str representation, e.g.:
+        '::ixNet::OBJ-/topology:2/deviceGroup:1/ethernet:1/ipv4:L14'
+        :return: (str) protocol status: 'up', 'down' or 'notStarted'
+        """
+        return self.ixnet.getAttribute(proto, '-sessionStatus')[0]
+
     def is_traffic_running(self):
         """Returns true if traffic state == TRAFFIC_STATUS_STARTED"""
         return self._get_traffic_state() == TRAFFIC_STATUS_STARTED
@@ -187,6 +199,28 @@ class IxNextgen(object):  # pragma: no cover
     def is_traffic_stopped(self):
         """Returns true if traffic state == TRAFFIC_STATUS_STOPPED"""
         return self._get_traffic_state() == TRAFFIC_STATUS_STOPPED
+
+    def is_protocols_running(self, protocols):
+        """Returns true if all protocols statuses are PROTOCOL_STATUS_UP
+
+        :param protocols: list of protocols str representations, e.g.:
+        ['::ixNet::OBJ-/topology:2/deviceGroup:1/ethernet:1/ipv4:L14', ...]
+        :return: (bool) True if all protocols status is 'up', False if any
+        protocol status is 'down' or 'notStarted'
+        """
+        return all(self._get_protocol_status(proto) == PROTOCOL_STATUS_UP
+                   for proto in protocols)
+
+    def is_protocols_stopped(self, protocols):
+        """Returns true if all protocols statuses are in PROTOCOL_STATUS_DOWN
+
+        :param protocols: list of protocols str representations, e.g.:
+        ['::ixNet::OBJ-/topology:2/deviceGroup:1/ethernet:1/ipv4:L14', ...]
+        :return: (bool) True if all protocols status is 'down' or 'notStarted',
+        False if any protocol status is 'up'
+        """
+        return all(self._get_protocol_status(proto) in PROTOCOL_STATUS_DOWN
+                   for proto in protocols)
 
     @staticmethod
     def _parse_framesize(framesize):
