@@ -11,7 +11,6 @@ Yardstick Developer Guide
 
 .. toctree::
    :maxdepth: 4
-   :numbered:
 
    devguide
    devguide_nsb_prox
