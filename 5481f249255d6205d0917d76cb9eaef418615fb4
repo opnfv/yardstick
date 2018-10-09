@@ -260,6 +260,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_0c7dfe6e",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-09T16:16:56Z",
+      "side": 1,
+      "message": "I suggest you log this as a JIRA ticket.",
+      "parentUuid": "5a682502_b6bffdcf",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_7100cfaa",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 22
@@ -294,6 +312,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_cc2ca64d",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-09T16:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_568949c9",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_9103ebb7",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 22
@@ -317,6 +353,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_ac316aa4",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-09T16:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_9103ebb7",
+      "range": {
+        "startLine": 168,
+        "startChar": 71,
+        "endLine": 168,
+        "endChar": 75
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_7b58ae56",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 22
@@ -328,6 +388,24 @@
       "writtenOn": "2018-10-06T18:26:18Z",
       "side": 1,
       "message": "... and this test should be removed.\nOtherwise, L171-L182 will not set any default values when there is no \"traffic_config\" section in the test case file, while they would set them if there is (at least) an empty \"traffic_config\" section. :-/",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_879f295f",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-09T16:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_7b58ae56",
       "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -369,6 +447,42 @@
     },
     {
       "key": {
+        "uuid": "5a682502_27ad7532",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-09T16:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_1810a04d",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e7bb7d70",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-09T16:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_3b2596c2",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_db40e258",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 22
@@ -380,6 +494,30 @@
       "writtenOn": "2018-10-06T18:26:18Z",
       "side": 1,
       "message": "Is that the correct default value?\nIf the list of packet sizes is not set otherwise, shouldn\u0027t we aim for [64, 128, 256, 512, 1024, 1280, 1518] as default?",
+      "range": {
+        "startLine": 180,
+        "startChar": 80,
+        "endLine": 180,
+        "endChar": 84
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_07b79987",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-09T16:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_db40e258",
       "range": {
         "startLine": 180,
         "startChar": 80,
@@ -427,6 +565,42 @@
     },
     {
       "key": {
+        "uuid": "5a682502_67a76d50",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-09T16:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_581a186f",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_87aa8917",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-09T16:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_5b55f21b",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_d6eef98a",
         "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
         "patchSetId": 22
@@ -444,6 +618,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_c763e118",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-09T16:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_d6eef98a",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_7be70e41",
         "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
         "patchSetId": 22
@@ -455,6 +647,24 @@
       "writtenOn": "2018-10-06T18:26:18Z",
       "side": 1,
       "message": "Useless, as well as L44.\nSo you should just keep this file unmodified.",
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_07acb99f",
+        "filename": "yardstick/network_services/traffic_profile/prox_binsearch.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-09T16:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_7be70e41",
       "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -500,6 +710,30 @@
         "startChar": 12,
         "endLine": 670,
         "endChar": 18
+      },
+      "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8793a8a2",
+        "filename": "yardstick/tests/unit/benchmark/scenarios/networking/test_vnf_generic.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-09T16:16:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_96812192",
+      "range": {
+        "startLine": 663,
+        "startChar": 0,
+        "endLine": 670,
+        "endChar": 40
       },
       "revId": "5481f249255d6205d0917d76cb9eaef418615fb4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
