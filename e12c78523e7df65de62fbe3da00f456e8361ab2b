@@ -45,6 +45,30 @@
       "revId": "e12c78523e7df65de62fbe3da00f456e8361ab2b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_47db51ed",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-10-09T14:09:53Z",
+      "side": 1,
+      "message": "I like showing it as a full function so that if there is any other clean up that might need to be done, people can see how to do that here.",
+      "parentUuid": "5a682502_075959fe",
+      "range": {
+        "startLine": 704,
+        "startChar": 0,
+        "endLine": 707,
+        "endChar": 33
+      },
+      "revId": "e12c78523e7df65de62fbe3da00f456e8361ab2b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
