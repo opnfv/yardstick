@@ -22,6 +22,30 @@
       "revId": "d6e4b6e637c22dd4435a71a07422c0043c7b68ae",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_47d07050",
+        "filename": "ansible/roles/configure_gui/tasks/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-09T16:41:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_71172fee",
+      "range": {
+        "startLine": 30,
+        "startChar": 36,
+        "endLine": 30,
+        "endChar": 45
+      },
+      "revId": "d6e4b6e637c22dd4435a71a07422c0043c7b68ae",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
