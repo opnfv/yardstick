@@ -287,6 +287,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_e7bedcfe",
+        "filename": "ansible/roles/download_drivers/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-09T16:41:48Z",
+      "side": 1,
+      "message": "Change is related only to Yardstick NSB image which is\nused for VM ramp up.\nThis change could affect only standalone SRIOV context.\nRetested on Ubuntu 16.04 - test case ran with modified Yardstick NSB image inside VM.",
+      "parentUuid": "5a682502_2d2f38a3",
+      "range": {
+        "startLine": 15,
+        "startChar": 16,
+        "endLine": 15,
+        "endChar": 24
+      },
+      "revId": "041bc885e0b3c0241e3db0cd14b8b2195ea259ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_add188cf",
         "filename": "ansible/roles/install_yardstick/tasks/main.yml",
         "patchSetId": 2
