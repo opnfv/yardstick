@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_a76345b0",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-10-09T09:28:00Z",
+      "side": 1,
+      "message": "In some cases negative testing is not possible, or needed (e.g. stub methods, or straightforward steps).\nIs it worth to mention something like \"negative testing, where it is appropriate\"?",
+      "range": {
+        "startLine": 661,
+        "startChar": 15,
+        "endLine": 661,
+        "endChar": 50
+      },
+      "revId": "e12c78523e7df65de62fbe3da00f456e8361ab2b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_075959fe",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 9
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-10-09T09:28:00Z",
+      "side": 1,
+      "message": "This specific example could be represented as a single line:\n\n self.addCleanup(self._mock_ssh.stop())\n\nWould it be stylistically appropriate, or is the function declaration more preferable? Or, let it be personal preference? Please advise.",
+      "range": {
+        "startLine": 704,
+        "startChar": 0,
+        "endLine": 707,
+        "endChar": 33
+      },
+      "revId": "e12c78523e7df65de62fbe3da00f456e8361ab2b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
