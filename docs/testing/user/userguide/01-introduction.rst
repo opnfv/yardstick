@@ -83,4 +83,4 @@ Contact Yardstick
 
 Feedback? `Contact us`_
 
-.. _Contact us: mailto:opnfv-users@lists.opnfv.org&subject="[yardstick]"
+.. _Contact us: mailto:opnfv-users@lists.opnfv.org&subject="#yardstick"

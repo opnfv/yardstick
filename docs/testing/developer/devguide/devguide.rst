@@ -52,9 +52,9 @@ Where can I find some help to start?
 
 This guide is made for you. You can have a look at the `user guide`_.
 There are also references on documentation, video tutorials, tips in the
-project `wiki page`_. You can also directly contact us by mail with [Yardstick]
-prefix in the subject at opnfv-tech-discuss@lists.opnfv.org or on the IRC chan
-#opnfv-yardstick.
+project `wiki page`_. You can also directly contact us by mail with
+``#yardstick`` or ``[yardstick]`` prefix in the subject at
+``opnfv-tech-discuss@lists.opnfv.org`` or on the IRC chan ``#opnfv-yardstick``.
 
 
 Yardstick developer areas
