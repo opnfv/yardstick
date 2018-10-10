@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "5a682502_4704f07a",
+        "filename": "docs/testing/user/userguide/nsb/nsb-list-of-tcs.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-10T09:52:30Z",
+      "side": 1,
+      "message": "I can only see one document in the review. Can you reduce this list to just the file you are adding \"tc_vims_context\"",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "aff66666cd71a7deeb91f0abc6b04a6d2c7e1f94",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_87f56885",
+        "filename": "docs/testing/user/userguide/nsb/tc_vims_context.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-10T09:52:30Z",
+      "side": 1,
+      "message": "I haven\u0027t seen the test case name for vIMS. The test case id is basically the test case name with the appropriate context its used in with a mention to the traffic generator. \neg: tc_vims_{context}_{traffic_gen_name}",
+      "range": {
+        "startLine": 14,
+        "startChar": 17,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "aff66666cd71a7deeb91f0abc6b04a6d2c7e1f94",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_e7db7c19",
         "filename": "docs/testing/user/userguide/nsb/tc_vims_context.rst",
         "patchSetId": 1
