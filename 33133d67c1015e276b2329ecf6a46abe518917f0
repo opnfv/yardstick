@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_a7f8647d",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-10T09:27:55Z",
+      "side": 1,
+      "message": "This is modifying how the installer behaves with different installation modes.\n\nThis is unrelated to the support for Bionic, right?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 24
+      },
+      "revId": "33133d67c1015e276b2329ecf6a46abe518917f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
