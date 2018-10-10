@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "5a682502_e7db7c19",
+        "filename": "docs/testing/user/userguide/nsb/tc_vims_context.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-10T09:06:51Z",
+      "side": 1,
+      "message": "This one-space indentation of the bullets will cause an unexpected indentation warning.",
+      "revId": "aff66666cd71a7deeb91f0abc6b04a6d2c7e1f94",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_4ec7f345",
         "filename": "docs/testing/user/userguide/nsb/tc_vims_context.rst",
         "patchSetId": 1
