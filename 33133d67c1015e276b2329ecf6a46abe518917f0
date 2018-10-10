@@ -46,6 +46,30 @@
       "revId": "33133d67c1015e276b2329ecf6a46abe518917f0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e706dc1f",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-10T15:36:01Z",
+      "side": 1,
+      "message": "Change this back as \"configure_rabbitmq\" should be executed while building container and when installing on bare metal.\nOnce docker image is pulled rabbitmq server should be already configured.",
+      "parentUuid": "5a682502_47d7d0c1",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 24
+      },
+      "revId": "33133d67c1015e276b2329ecf6a46abe518917f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
