@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_873c4831",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-10T09:31:53Z",
+      "side": 1,
+      "message": "I am still not clear why are we doing this change? Can you update comment with \"WHY\" rather than \"HOW\" are you doing this change in the comment section?",
+      "revId": "afa6bc61aec1d5f46185bb8285762cae00a5ef7f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
