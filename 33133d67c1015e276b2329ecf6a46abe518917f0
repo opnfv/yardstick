@@ -22,6 +22,30 @@
       "revId": "33133d67c1015e276b2329ecf6a46abe518917f0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_47d7d0c1",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-10T10:44:40Z",
+      "side": 1,
+      "message": "Yes, this is related to Yardstick installation mode.",
+      "parentUuid": "5a682502_a7f8647d",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 24
+      },
+      "revId": "33133d67c1015e276b2329ecf6a46abe518917f0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
