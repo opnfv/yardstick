@@ -118,6 +118,30 @@
       "revId": "545854151a31f8c66cd957de2749ff42076eb829",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_4d2c0f48",
+        "filename": "tox.ini",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1451
+      },
+      "writtenOn": "2018-10-11T17:02:34Z",
+      "side": 1,
+      "message": "Just the \u0027docs\u0027 env.",
+      "parentUuid": "5a682502_8ec10b31",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 50
+      },
+      "revId": "545854151a31f8c66cd957de2749ff42076eb829",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
