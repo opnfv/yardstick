@@ -389,7 +389,7 @@ class OvsDpdkContextTestCase(unittest.TestCase):
         self.ovs_dpdk._enable_interfaces(0, ["private_0"], 'test')
         mock_add_ovs_interface.assert_called_once_with(
             'fake_path', 0, self.NETWORKS['private_0']['vpci'],
-            self.NETWORKS['private_0']['mac'], 'test')
+            self.NETWORKS['private_0']['mac'], 'test', '1')
 
     @mock.patch.object(model.StandaloneContextHelper, 'check_update_key')
     @mock.patch.object(model.Libvirt, 'write_file')

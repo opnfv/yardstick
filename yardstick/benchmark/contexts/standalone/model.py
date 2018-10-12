@@ -161,7 +161,7 @@ class Libvirt(object):
         return vm_pci
 
     @classmethod
-    def add_ovs_interface(cls, vpath, port_num, vpci, vports_mac, xml_str):
+    def add_ovs_interface(cls, vpath, port_num, vpci, vports_mac, xml_str, queues):
         """Add a DPDK OVS 'interface' XML node in 'devices' node
 
         <devices>
@@ -203,7 +203,7 @@ class Libvirt(object):
         model.set('type', 'virtio')
 
         driver = ET.SubElement(interface, 'driver')
-        driver.set('queues', '4')
+        driver.set('queues', str(queues))
 
         host = ET.SubElement(driver, 'host')
         host.set('mrg_rxbuf', 'off')
