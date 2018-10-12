@@ -406,16 +406,15 @@ class IxNextgen(object):  # pragma: no cover
                 raise exceptions.IxNetworkFlowNotPresent(flow_group=fg_id)
 
             type = traffic_param.get('traffic_type', 'fixedDuration')
-            rate = traffic_param['rate']
             rate_unit = (
                 'framesPerSecond' if traffic_param['rate_unit'] ==
                 tp_base.TrafficProfileConfig.RATE_FPS else 'percentLineRate')
             weighted_range_pairs = self._parse_framesize(
-                traffic_param['outer_l2']['framesize'])
+                traffic_param['outer_l2'].get('framesize', {}))
             srcmac = str(traffic_param['outer_l2'].get('srcmac', '00:00:00:00:00:01'))
             dstmac = str(traffic_param['outer_l2'].get('dstmac', '00:00:00:00:00:02'))
 
-            if traffic_param['outer_l2']['QinQ']:
+            if traffic_param['outer_l2'].get('QinQ'):
                 s_vlan = traffic_param['outer_l2']['QinQ']['S-VLAN']
                 c_vlan = traffic_param['outer_l2']['QinQ']['C-VLAN']
 
@@ -440,21 +439,27 @@ class IxNextgen(object):  # pragma: no cover
             self.ixnet.setMultiAttribute(
                 config_element + '/transmissionControl',
                 '-type', type, '-duration', duration)
+
             self.ixnet.setMultiAttribute(
                 config_element + '/frameRate',
-                '-rate', rate, '-type', rate_unit)
-            self.ixnet.setMultiAttribute(
-                config_element + '/frameSize',
-                '-type', 'weightedPairs',
-                '-weightedRangePairs', weighted_range_pairs)
+                '-rate', traffic_param['rate'], '-type', rate_unit)
+
+            if len(weighted_range_pairs):
+                self.ixnet.setMultiAttribute(
+                    config_element + '/frameSize',
+                    '-type', 'weightedPairs',
+                    '-weightedRangePairs', weighted_range_pairs)
+
             self.ixnet.commit()
 
-            self._update_frame_mac(
-                self._get_stack_item(fg_id, PROTO_ETHERNET)[0],
-                'destinationAddress', dstmac)
-            self._update_frame_mac(
-                self._get_stack_item(fg_id, PROTO_ETHERNET)[0],
-                'sourceAddress', srcmac)
+            if dstmac:
+                self._update_frame_mac(
+                    self._get_stack_item(fg_id, PROTO_ETHERNET)[0],
+                    'destinationAddress', dstmac)
+            if srcmac:
+                self._update_frame_mac(
+                    self._get_stack_item(fg_id, PROTO_ETHERNET)[0],
+                    'sourceAddress', srcmac)
 
     def _update_vlan_tag(self, fg_id, params, vlan=0):
         field_to_param_map = {
@@ -514,20 +519,24 @@ class IxNextgen(object):  # pragma: no cover
             if not self._get_config_element_by_flow_group_name(fg_id):
                 raise exceptions.IxNetworkFlowNotPresent(flow_group=fg_id)
 
-            count = traffic_param['outer_l3']['count']
-            srcip = str(traffic_param['outer_l3']['srcip'])
-            dstip = str(traffic_param['outer_l3']['dstip'])
-            srcseed = traffic_param['outer_l3']['srcseed']
-            dstseed = traffic_param['outer_l3']['dstseed']
-            srcmask = traffic_param['outer_l3']['srcmask'] or IP_VERSION_4_MASK
-            dstmask = traffic_param['outer_l3']['dstmask'] or IP_VERSION_4_MASK
-
-            self._update_ipv4_address(
-                self._get_stack_item(fg_id, PROTO_IPV4)[0],
-                'srcIp', srcip, srcseed, srcmask, count)
-            self._update_ipv4_address(
-                self._get_stack_item(fg_id, PROTO_IPV4)[0],
-                'dstIp', dstip, dstseed, dstmask, count)
+            if traffic_param['outer_l3']:
+                count = traffic_param['outer_l3']['count']
+                srcip = traffic_param['outer_l3']['srcip']
+                dstip = traffic_param['outer_l3']['dstip']
+                srcseed = traffic_param['outer_l3']['srcseed']
+                dstseed = traffic_param['outer_l3']['dstseed']
+                srcmask = traffic_param['outer_l3']['srcmask'] \
+                          or IP_VERSION_4_MASK
+                dstmask = traffic_param['outer_l3']['dstmask'] \
+                          or IP_VERSION_4_MASK
+                if srcip:
+                    self._update_ipv4_address(
+                        self._get_stack_item(fg_id, PROTO_IPV4)[0],
+                        'srcIp', str(srcip), srcseed, srcmask, count)
+                if dstip:
+                    self._update_ipv4_address(
+                        self._get_stack_item(fg_id, PROTO_IPV4)[0],
+                        'dstIp', str(dstip), dstseed, dstmask, count)
 
     def update_l4(self, traffic):
         """Update the L4 headers
@@ -541,7 +550,10 @@ class IxNextgen(object):  # pragma: no cover
             if not self._get_config_element_by_flow_group_name(fg_id):
                 raise exceptions.IxNetworkFlowNotPresent(flow_group=fg_id)
 
-            proto = traffic_param['outer_l3']['proto']
+            proto = traffic_param['outer_l3'].get('proto')
+            if not (proto and traffic_param['outer_l4']):
+                continue
+
             if proto not in SUPPORTED_PROTO:
                 raise exceptions.IXIAUnsupportedProtocol(protocol=proto)
 
@@ -554,12 +566,15 @@ class IxNextgen(object):  # pragma: no cover
             dstport = traffic_param['outer_l4']['dstport']
             dstmask = traffic_param['outer_l4']['dstportmask']
 
-            if proto in SUPPORTED_PROTO:
-                self._update_udp_port(self._get_stack_item(fg_id, proto)[0],
-                                      'srcPort', srcport, seed, srcmask, count)
-
-                self._update_udp_port(self._get_stack_item(fg_id, proto)[0],
-                                      'dstPort', dstport, seed, dstmask, count)
+            if proto == PROTO_UDP:
+                if srcport:
+                    self._update_udp_port(
+                        self._get_stack_item(fg_id, proto)[0],
+                        'srcPort', srcport, seed, srcmask, count)
+                if dstport:
+                    self._update_udp_port(
+                        self._get_stack_item(fg_id, proto)[0],
+                        'dstPort', dstport, seed, dstmask, count)
 
     def _update_udp_port(self, descriptor, field, value,
                          seed=1, mask=0, count=1):
