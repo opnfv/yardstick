@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Orest Voznyy <orestx.voznyy@intel.com>
+Code-Review+1: Serhiy Pshyk <serhiyx.pshyk@intel.com>
+Code-Review+2: Abhijit Sinha <abhijit.sinha@intel.com>
+Submitted-by: Abhijit Sinha <abhijit.sinha@intel.com>
+Submitted-at: Fri, 12 Oct 2018 15:16:55 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/63149
+Project: yardstick
+Branch: refs/heads/master
