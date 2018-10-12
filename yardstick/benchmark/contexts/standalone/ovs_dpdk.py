@@ -197,7 +197,7 @@ class OvsDpdkContext(base.Context):
                 br=MAIN_BRIDGE, port='dpdkvhostuser%s' % index,
                 type_='dpdkvhostuser', dpdk_args="", dpdk_rxq=""))
 
-        ovs_flow = ("ovs-ofctl add-flow {0} in_port=%s,action=output:%s".
+        ovs_flow = ("ovs-ofctl add-flow {0} in_port=%s,dl_type=0x800,idle_timeout=0,action=output:%s".
                     format(MAIN_BRIDGE))
         network_count = len(ordered_network) + 1
         for in_port, out_port in zip(range(1, network_count),

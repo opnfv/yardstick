@@ -207,6 +207,13 @@ class Libvirt(object):
 
         host = ET.SubElement(driver, 'host')
         host.set('mrg_rxbuf', 'off')
+        host.set('csum', 'off')
+        host.set('gso', 'off')
+
+        host = ET.SubElement(driver, 'guest')
+        host.set('tso4', 'off')
+        host.set('tso6', 'off')
+        host.set('ecn', 'off')
 
         cls._add_interface_address(interface, pci_address)
 
