@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_4d41af59",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-10-12T12:54:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_2dc8b321",
+      "range": {
+        "startLine": 599,
+        "startChar": 7,
+        "endLine": 600,
+        "endChar": 34
+      },
+      "revId": "8887890e998db56d7a16d7772fba8e0b1f21bb21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_addb23ec",
         "filename": "yardstick/tests/unit/network_services/libs/ixia_libs/test_ixnet_api.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-12T09:05:22Z",
       "side": 1,
       "message": "does the order of these calls matter? As shown here, seems it does not.",
+      "range": {
+        "startLine": 592,
+        "startChar": 0,
+        "endLine": 598,
+        "endChar": 57
+      },
+      "revId": "8887890e998db56d7a16d7772fba8e0b1f21bb21",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ad25e3c3",
+        "filename": "yardstick/tests/unit/network_services/libs/ixia_libs/test_ixnet_api.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-10-12T12:54:44Z",
+      "side": 1,
+      "message": "You\u0027re right, the order of this calls doesn\u0027t matter.",
+      "parentUuid": "5a682502_addb23ec",
       "range": {
         "startLine": 592,
         "startChar": 0,
