@@ -593,6 +593,39 @@ class IxNextgen(object):  # pragma: no cover
             'getColumnValues', view_obj, data_ixia)
             for data_yardstick, data_ixia in name_map.items()}
 
+    def _set_egress_flow_tracking(self, encapsulation, offset):
+        """
+        Set egress flow tracking options
+        :param encapsulation: encapsulation type
+        :type encapsulation: str, e.g. 'Ethernet'
+        :param offset: offset type
+        :type offset: str, e.g. 'IPv4 TOS Precedence (3 bits)'
+        """
+        traffic_item = self.ixnet.getList(self.ixnet.getRoot() + '/traffic',
+                                          'trafficItem')[0]
+        # Enable Egress Tracking
+        self.ixnet.setAttribute(traffic_item, '-egressEnabled', True)
+        self.ixnet.commit()
+
+        # Set encapsulation type
+        enc_obj = self.ixnet.getList(traffic_item, 'egressTracking')[0]
+        self.ixnet.setAttribute(enc_obj, '-encapsulation', encapsulation)
+
+        # Set offset
+        self.ixnet.setAttribute(enc_obj, '-offset', offset)
+        self.ixnet.commit()
+
+    def _set_flow_tracking(self, track_by):
+        """
+        Set flow tracking options
+        :param track_by: list of tracking fields
+        :type track_by: list, e.g. ['vlanVlanId0','ipv4Precedence0']
+        """
+        traffic_item = self.ixnet.getList(self.ixnet.getRoot() + '/traffic',
+                                          'trafficItem')[0]
+        self.ixnet.setAttribute(traffic_item + '/tracking', '-trackBy', track_by)
+        self.ixnet.commit()
+
     def get_statistics(self):
         """Retrieve port and flow statistics
 
