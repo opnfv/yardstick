@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_b0725c7a",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-12T15:15:10Z",
+      "side": 1,
+      "message": "a space is needed after 1st line of comment in multi-line comment.\nsame for other comments",
+      "revId": "090a05b009219b44e0d0e9bdc561941ddf321e76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
