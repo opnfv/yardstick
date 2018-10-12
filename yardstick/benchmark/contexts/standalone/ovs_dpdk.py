@@ -143,6 +143,10 @@ class OvsDpdkContext(base.Context):
         if lcore_mask:
             lcore_mask = ovs_other_config.format("--no-wait ", "dpdk-lcore-mask='%s'" % lcore_mask)
 
+        max_idle = self.ovs_properties.get("max_idle", '')
+        if max_idle:
+            max_idle = ovs_other_config.format("", "max-idle=%s" % max_idle)
+
         cmd_list = [
             "mkdir -p /usr/local/var/run/openvswitch",
             "mkdir -p {}".format(os.path.dirname(log_path)),
@@ -153,6 +157,7 @@ class OvsDpdkContext(base.Context):
             lcore_mask,
             detach_cmd.format(vpath, ovs_sock_path, log_path),
             ovs_other_config.format("", "pmd-cpu-mask=%s" % pmd_mask),
+            max_idle,
         ]
 
         for cmd in cmd_list:
@@ -176,8 +181,10 @@ class OvsDpdkContext(base.Context):
             'ovs-vsctl add-br {0} -- set bridge {0} datapath_type=netdev'.
             format(MAIN_BRIDGE)
         ]
-        dpdk_rxq = " options:n_rxq={queue}".format(
-            queue=self.ovs_properties.get("queues", 1))
+        dpdk_rxq = ""
+        queues = self.ovs_properties.get("queues")
+        if queues:
+            dpdk_rxq = " options:n_rxq={queue}".format(queue=queues)
 
         ordered_network = collections.OrderedDict(self.networks)
         for index, vnf in enumerate(ordered_network.values()):
@@ -197,7 +204,7 @@ class OvsDpdkContext(base.Context):
                 br=MAIN_BRIDGE, port='dpdkvhostuser%s' % index,
                 type_='dpdkvhostuser', dpdk_args="", dpdk_rxq=""))
 
-        ovs_flow = ("ovs-ofctl add-flow {0} in_port=%s,action=output:%s".
+        ovs_flow = ("ovs-ofctl add-flow {0} in_port=%s,dl_type=0x800,idle_timeout=0,action=output:%s".
                     format(MAIN_BRIDGE))
         network_count = len(ordered_network) + 1
         for in_port, out_port in zip(range(1, network_count),
@@ -375,6 +382,7 @@ class OvsDpdkContext(base.Context):
 
     def _enable_interfaces(self, index, vfs, xml_str):
         vpath = self.ovs_properties.get("vpath", "/usr/local")
+        queue = self.ovs_properties.get("queues", '1')
         vf = self.networks[vfs[0]]
         port_num = vf.get('port_num', 0)
         vpci = utils.PciAddress(vf['vpci'].strip())
@@ -383,7 +391,7 @@ class OvsDpdkContext(base.Context):
         vf['vpci'] = \
             "{}:{}:{:02x}.{}".format(vpci.domain, vpci.bus, slot, vpci.function)
         return model.Libvirt.add_ovs_interface(
-            vpath, port_num, vf['vpci'], vf['mac'], xml_str)
+            vpath, port_num, vf['vpci'], vf['mac'], xml_str, queue)
 
     def setup_ovs_dpdk_context(self):
         nodes = []
