@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_4d188f81",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-12T13:34:27Z",
+      "side": 1,
+      "message": "I\u0027ve provided details how exactly it is installed mentioning \u0027install.yaml\u0027 lots of times.",
+      "parentUuid": "5a682502_4d4a4f81",
+      "range": {
+        "startLine": 451,
+        "startChar": 0,
+        "endLine": 451,
+        "endChar": 66
+      },
+      "revId": "5b0de6edf06d3f0971c11c081a57ef80ed72755f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_712c4fac",
         "filename": "docs/testing/user/userguide/04-installation.rst",
         "patchSetId": 2
@@ -261,6 +285,30 @@
       "side": 1,
       "message": "No but I mean that with below mentioned command(Line 492) we are just pulling the container not starting it. For builing and starting the container command in line 508 is used.",
       "parentUuid": "5a682502_6da0eb43",
+      "range": {
+        "startLine": 488,
+        "startChar": 35,
+        "endLine": 488,
+        "endChar": 58
+      },
+      "revId": "5b0de6edf06d3f0971c11c081a57ef80ed72755f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8d090734",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-12T13:34:27Z",
+      "side": 1,
+      "message": "Pull action will pull docker image and start it.\nBuild action will build docker image.",
+      "parentUuid": "5a682502_ad77a3d3",
       "range": {
         "startLine": 488,
         "startChar": 35,
