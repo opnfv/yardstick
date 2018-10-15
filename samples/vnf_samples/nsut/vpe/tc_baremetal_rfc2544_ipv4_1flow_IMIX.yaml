@@ -35,7 +35,7 @@ scenarios:
       allowed_drop_rate: 0.0001 - 0.0001
     vnf__0:
       nfvi_enable: True
-      vnf_config: vpe_config
+      vnf_config: {file: '/home/opnfv/repos/yardstick/samples/vnf_samples/nsut/vpe/vpe_config/vpe_sample_2ports.conf'}
   runner:
     type: Iteration
     iterations: 10
