@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a682502_36ee4489",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-10-15T08:09:12Z",
+      "side": 1,
+      "message": "Gambia",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 12
+      },
+      "revId": "d1c47e0787bce1339e38c8f421b0a8240970ac67",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_9602b83c",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-10-15T08:09:12Z",
+      "side": 1,
+      "message": "Gambia",
+      "range": {
+        "startLine": 54,
+        "startChar": 6,
+        "endLine": 54,
+        "endChar": 12
+      },
+      "revId": "d1c47e0787bce1339e38c8f421b0a8240970ac67",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_f6f32c71",
         "filename": "docs/release/release-notes/release-notes.rst",
         "patchSetId": 1
