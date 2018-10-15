@@ -240,7 +240,6 @@ class ConfigCreate(object):
 class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
 
     APP_NAME = 'vPE_vnf'
-    CFG_CONFIG = "/tmp/vpe_config"
     CFG_SCRIPT = "/tmp/vpe_script"
     TM_CONFIG = "/tmp/full_tm_profile_10G.cfg"
     CORES = ['0', '1', '2', '3', '4', '5']
@@ -253,19 +252,18 @@ class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
         self.all_ports = self._port_pairs.all_ports
 
     def build_config(self):
+        vnf_cfg = self.scenario_helper.vnf_cfg
+        config_file = vnf_cfg.get('file', '/tmp/vpe_config')
         vpe_vars = {
             "bin_path": self.ssh_helper.bin_path,
             "socket": self.socket,
         }
-
         self._build_vnf_ports()
         vpe_conf = ConfigCreate(self.vnfd_helper, self.socket)
-        vpe_conf.create_vpe_config(self.scenario_helper.vnf_cfg)
 
         config_basename = posixpath.basename(self.CFG_CONFIG)
         script_basename = posixpath.basename(self.CFG_SCRIPT)
-        tm_basename = posixpath.basename(self.TM_CONFIG)
-        with open(self.CFG_CONFIG) as handle:
+        with open(config_file) as handle:
             vpe_config = handle.read()
 
         self.ssh_helper.upload_config_file(config_basename, vpe_config.format(**vpe_vars))
@@ -273,11 +271,8 @@ class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
         vpe_script = vpe_conf.generate_vpe_script(self.vnfd_helper.interfaces)
         self.ssh_helper.upload_config_file(script_basename, vpe_script.format(**vpe_vars))
 
-        tm_config = vpe_conf.generate_tm_cfg(self.scenario_helper.vnf_cfg)
-        self.ssh_helper.upload_config_file(tm_basename, tm_config)
-
         LOG.info("Provision and start the %s", self.APP_NAME)
-        LOG.info(self.CFG_CONFIG)
+        LOG.info(config_file)
         LOG.info(self.CFG_SCRIPT)
         self._build_pipeline_kwargs()
         return self.PIPELINE_COMMAND.format(**self.pipeline_kwargs)
