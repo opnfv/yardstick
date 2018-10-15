@@ -48,6 +48,52 @@
     },
     {
       "key": {
+        "uuid": "5a682502_d6fc3041",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-10-15T08:13:15Z",
+      "side": 1,
+      "message": "Gambia 7.0.0?",
+      "range": {
+        "startLine": 177,
+        "startChar": 20,
+        "endLine": 177,
+        "endChar": 32
+      },
+      "revId": "d1c47e0787bce1339e38c8f421b0a8240970ac67",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b6f9b44f",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-10-15T08:13:15Z",
+      "side": 1,
+      "message": "Gambia",
+      "range": {
+        "startLine": 424,
+        "startChar": 0,
+        "endLine": 424,
+        "endChar": 6
+      },
+      "revId": "d1c47e0787bce1339e38c8f421b0a8240970ac67",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_f6f32c71",
         "filename": "docs/release/release-notes/release-notes.rst",
         "patchSetId": 1
