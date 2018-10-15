@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_d64ef0c0",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2018-10-15T07:57:59Z",
+      "side": 1,
+      "message": "I know this is not your change but...\n1) Does this work writing packet content w/o spaces? Should we not clean this as well?\n2) IP len \u003d 0x1c (28) and UDP len \u003d 8 are wrong and should be corrected as well if adding bytes at the end of the packet\n\nIf frame has 54 bytes (final crc not included), then UDP len should be 20 and IP len 40",
+      "revId": "de5ed81632ddf759f092c6908bedea875f3ebd48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_16c86821",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2018-10-15T07:57:59Z",
+      "side": 1,
+      "message": "Is packet long enough to hold latency as byte 50",
+      "revId": "de5ed81632ddf759f092c6908bedea875f3ebd48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_96dbd8ec",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2018-10-15T07:57:59Z",
+      "side": 1,
+      "message": "Should we also add signature, or should this be a different commit?",
+      "revId": "de5ed81632ddf759f092c6908bedea875f3ebd48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d6e550a9",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-4.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2018-10-15T07:57:59Z",
+      "side": 1,
+      "message": "Same comment as 2 ports config file",
+      "revId": "de5ed81632ddf759f092c6908bedea875f3ebd48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
