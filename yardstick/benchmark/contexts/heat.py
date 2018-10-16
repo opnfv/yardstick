@@ -496,6 +496,46 @@ class HeatContext(Context):
 
             server.private_ip = self.stack.outputs.get(
                 attr_name.get("private_ip_attr", object()), None)
+            # Try to find interfaces
+            """
+            scenario:
+            nodes:
+                tg__0:
+                    name: tg_0.yardstick
+                    public_ip_attr: "server1_public_ip"
+                    private_ip_attr: "server1_private_ip"
+                    interfaces:
+                      data_net:
+                        local_ip: ""
+                        local_mac: ""
+                        netmask: ""
+                        network: ""
+                        gateway_ip: ""
+                vnf__0:
+                    name: vnf_0.yardstick
+                    public_ip_attr: "server2_public_ip"
+                    private_ip_attr: "server2_private_ip"
+                    interfaces:
+                      data_net:
+                        local_ip: ""
+                        local_mac: ""
+                        netmask: ""
+                        network: ""
+                        gateway_ip: ""
+            """
+            if bool(attr_name.get("interfaces")):
+                for key, value in attr_name.get("interfaces").items():
+                    value["local_ip"] = server.private_ip
+                    get_mac = attr_name['interfaces'][key]['local_mac']
+                    local_mac = self.stack.outputs.get(get_mac, None)
+                    value["local_mac"] = local_mac
+                    get_netmask = attr_name['interfaces'][key]['netmask']
+                    value["netmask"] = self.stack.outputs.get(get_netmask, None)
+                    get_network = attr_name['interfaces'][key]['network']
+                    value["network"] = self.stack.outputs.get(get_network, None)
+                    get_gateway_ip = attr_name['interfaces'][key]['gateway_ip']
+                    value["gateway_ip"] = self.stack.outputs.get(get_gateway_ip, None)
+                    server.interfaces.update( {key: value} )
         else:
             try:
                 server = self._server_map[attr_name]
