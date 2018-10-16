@@ -640,3 +640,35 @@ A testcase can be started with the following command as an example:
 .. code-block:: bash
 
     yardstick task start /yardstick/samples/vnf_samples/nsut/vpe/tc_baremetal_rfc2544_ipv4_1flow_64B_ixia.yaml
+
+Preparing test run of vIPSEC test case
+------------------------------------
+
+Location of vIPSEC test cases: ``samples/vnf_samples/nsut/ipsec/``.
+
+Before running a specific vIPSEC test case using NSB, some dependencies have to be preinstalled and properly configured.
+- VPP
+
+    | ``$ export UBUNTU="xenial"``
+    | ``$ export RELEASE=".stable.1810"``
+    | ``$ sudo rm /etc/apt/sources.list.d/99fd.io.list``
+    | ``$ echo "deb [trusted=yes] https://nexus.fd.io/content/repositories/fd.io$RELEASE.ubuntu.$UBUNTU.main/ ./" | sudo tee -a /etc/apt/sources.list.d/99fd.io.list``
+    | ``$ sudo apt-get update``
+    | ``$ sudo apt-get install vpp vpp-lib vpp-plugin vpp-dbg vpp-dev vpp-api-java vpp-api-python vpp-api-lua``
+
+- VAT templates
+
+    VAT templates is required for the VPP API.
+
+    ```sh
+    mkdir -p /opt/nsb_bin/vpp/templates/
+    echo 'exec trace add dpdk-input 50' > /opt/nsb_bin/vpp/templates/enable_dpdk_traces.vat
+    echo 'exec trace add vhost-user-input 50' > /opt/nsb_bin/vpp/templates/enable_vhost_user_traces.vat
+    echo 'exec trace add memif-input 50' > /opt/nsb_bin/vpp/templates/enable_memif_traces.vat
+    cat > /opt/nsb_bin/vpp/templates/dump_interfaces.vat << EOL
+    sw_interface_dump
+    dump_interface_table
+    quit
+    EOL
+    
+    ```
