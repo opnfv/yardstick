@@ -28,3 +28,4 @@ NSB PROX Test Case Descriptions
    tc_prox_context_load_balancer_port
    tc_prox_context_vpe_port
    tc_prox_context_lw_after_port
+   tc_vpp_context_crypto_ipsec
