@@ -33,3 +33,4 @@ NSB PROX Test Case Descriptions
    tc_epc_saegw_tput_relocation_landslide
    tc_epc_network_service_request_landslide
    tc_epc_ue_service_request_landslide
+   tc_vpp_context_crypto_ipsec
