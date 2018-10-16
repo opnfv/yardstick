@@ -623,6 +623,16 @@ class TaskParser(object):       # pragma: no cover
             tg__0: tg_0.yardstick
             vnf__0: vnf_0.yardstick
 
+        scenario:
+          nodes:
+            tg__0:
+                name: tg_0.yardstick
+                public_ip_attr: "server1_public_ip"
+                private_ip_attr: "server1_private_ip"
+            vnf__0:
+                name: vnf_0.yardstick
+                public_ip_attr: "server2_public_ip"
+                private_ip_attr: "server2_private_ip"
         NOTE: in Kubernetes context, the separator character between the server
         name and the context name is "-":
         scenario:
@@ -654,7 +664,15 @@ class TaskParser(object):       # pragma: no cover
                 scenario['targets'][idx] = qualified_name(target)
         if 'nodes' in scenario:
             for scenario_node, target in scenario['nodes'].items():
-                scenario['nodes'][scenario_node] = qualified_name(target)
+                if isinstance(target, collections.Mapping):
+                    # Update node info on scenario with context info
+                    # Just update the node name with context
+                    # Append context information
+                    target['name'] = qualified_name(target['name'])
+                    # Then update node
+                    scenario['nodes'][scenario_node] = target
+                else:
+                    scenario['nodes'][scenario_node] = qualified_name(target)
 
     def _check_schema(self, cfg_schema, schema_type):
         """Check if config file is using the correct schema type"""
