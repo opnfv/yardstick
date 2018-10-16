@@ -18,6 +18,7 @@ import six
 from six.moves import builtins
 import unittest
 import uuid
+import collections
 
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import dummy
@@ -486,6 +487,29 @@ key2:
 
         self.parser._change_node_names(scenario, [my_context])
         self.assertIsNone(scenario['options']['server_name'])
+
+    def test__change_node_names_target_map(self):
+        ctx_attrs = {
+            'name': 'demo',
+            'task_id': '1234567890'
+        }
+        my_context = dummy.DummyContext()
+        self.addCleanup(self._remove_contexts)
+        my_context.init(ctx_attrs)
+        scenario = copy.deepcopy(self.scenario)
+        scenario['nodes'] = {
+            'tg__0': {
+                'name': 'tg__0.demo',
+                'public_ip_attr': "1.1.1.1",
+                },
+            'vnf__0': {
+                'name': 'vnf__0.demo',
+                'public_ip_attr': "2.2.2.2",
+                }
+           }
+        self.parser._change_node_names(scenario, [my_context])
+        for target in scenario['nodes'].values():
+            self.assertIsInstance(target, collections.Mapping)
 
     def test__parse_tasks(self):
         task_obj = task.Task()
