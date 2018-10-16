@@ -496,6 +496,14 @@ class HeatContext(Context):
 
             server.private_ip = self.stack.outputs.get(
                 attr_name.get("private_ip_attr", object()), None)
+
+            # Try to find interfaces
+            for key, value in attr_name.get("interfaces", {}).items():
+                value["local_ip"] = server.private_ip
+                for k in ["local_mac", "netmask"]:
+                    value[k] = self.stack.outputs.get(attr_name.get("interfaces", {}).
+                                                      get(key, None).get(k, None))
+                server.interfaces.update({key: value})
         else:
             try:
                 server = self._server_map[attr_name]
