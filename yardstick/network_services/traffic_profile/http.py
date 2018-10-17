@@ -24,6 +24,10 @@ class TrafficProfileGenericHTTP(TrafficProfile):
     def __init__(self, TrafficProfile):
         super(TrafficProfileGenericHTTP, self).__init__(TrafficProfile)
 
+    def get_links_param(self):
+        return {k: v for k, v in self.params.items() if
+                "uplink" in k or "downlink" in k}
+
     def execute(self, traffic_generator):
         ''' send run traffic for a selected traffic generator'''
         pass

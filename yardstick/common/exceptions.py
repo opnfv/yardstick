@@ -83,6 +83,10 @@ class InvalidType(YardstickException):
     message = 'Type "%(type_to_convert)s" is not valid'
 
 
+class InvalidRxfFile(YardstickException):
+    message = 'Loaded rxf file has unexpected format'
+
+
 class InfluxDBConfigurationMissing(YardstickException):
     message = ('InfluxDB configuration is not available. Add "influxdb" as '
                'a dispatcher and the configuration section')
