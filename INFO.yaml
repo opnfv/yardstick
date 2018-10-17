@@ -74,6 +74,10 @@ committers:
       email: 'ross.b.brattain@intel.com'
       id: 'rbbratta'
       company: 'intel.com'
+    - name: 'Volodymyr Mytnyk'
+      email: 'volodymyrx.mytnyk@intel.com'
+      id: 'vmytnykx'
+      company: 'intel.com'
 tsc:
     # yamllint disable rule:line-length
     approval: 'http//meetbot.opnfv.org/meetings/'
