@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Trevor Bramwell <tbramwell@linuxfoundation.org>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Submitted-by: Rex Lee <limingjiang@huawei.com>
+Submitted-at: Wed, 17 Oct 2018 03:26:58 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/62049
+Project: yardstick
+Branch: refs/heads/master
