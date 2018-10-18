@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_c955aac7",
+        "filename": "etc/yardstick/nodes/standalone/prox_bm.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-10-18T11:30:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_0927a2b7",
+      "revId": "94f5b96de48f981993c8876718fab7654a671397",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_6910d64e",
         "filename": "etc/yardstick/nodes/standalone/prox_bm.yaml",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_6948d62d",
+        "filename": "etc/yardstick/nodes/standalone/prox_bm.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-10-18T11:30:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_6910d64e",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 2
+      },
+      "revId": "94f5b96de48f981993c8876718fab7654a671397",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_094e826f",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fw-2.yaml",
         "patchSetId": 2
@@ -53,6 +95,24 @@
       "writtenOn": "2018-10-18T09:25:23Z",
       "side": 1,
       "message": "file name change : tc_prox_sriov_l2fwd-2.yaml",
+      "revId": "94f5b96de48f981993c8876718fab7654a671397",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a952eeda",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fw-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-10-18T11:30:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_094e826f",
       "revId": "94f5b96de48f981993c8876718fab7654a671397",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -105,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_095fa2e6",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fw-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-10-18T11:30:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_e92b4680",
+      "range": {
+        "startLine": 52,
+        "startChar": 43,
+        "endLine": 52,
+        "endChar": 50
+      },
+      "revId": "94f5b96de48f981993c8876718fab7654a671397",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_a9314eee",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fw-2.yaml",
         "patchSetId": 2
@@ -144,6 +228,30 @@
         "startChar": 43,
         "endLine": 55,
         "endChar": 53
+      },
+      "revId": "94f5b96de48f981993c8876718fab7654a671397",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_295edee6",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fw-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-10-18T11:30:02Z",
+      "side": 1,
+      "message": "The vnf__0 made no difference. Its back to the sriov naming and it works fine. Should we leave this or still follow through with the path?",
+      "parentUuid": "5a682502_a9314eee",
+      "range": {
+        "startLine": 55,
+        "startChar": 11,
+        "endLine": 55,
+        "endChar": 43
       },
       "revId": "94f5b96de48f981993c8876718fab7654a671397",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
