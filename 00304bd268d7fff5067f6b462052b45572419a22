@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_09bde268",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fwd-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-10-18T14:34:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_89545255",
+      "revId": "00304bd268d7fff5067f6b462052b45572419a22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_e9650646",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fwd-2.yaml",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_89b0d28c",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fwd-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-10-18T14:34:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_e9650646",
+      "range": {
+        "startLine": 25,
+        "startChar": 11,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "00304bd268d7fff5067f6b462052b45572419a22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_495b5a87",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fwd-2.yaml",
         "patchSetId": 2
@@ -53,6 +95,30 @@
       "writtenOn": "2018-10-18T14:06:54Z",
       "side": 1,
       "message": "vnf_0",
+      "range": {
+        "startLine": 26,
+        "startChar": 12,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "00304bd268d7fff5067f6b462052b45572419a22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_69ad7631",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fwd-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-10-18T14:34:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_495b5a87",
       "range": {
         "startLine": 26,
         "startChar": 12,
