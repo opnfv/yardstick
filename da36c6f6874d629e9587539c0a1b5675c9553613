@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_c62f59a0",
+        "filename": "samples/vnf_samples/nsut/agnostic/agnostic_vnf_topology_ixload_2ports.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T09:14:34Z",
+      "side": 1,
+      "message": "just noticed, why we have VFW references in agnostic vnf topology?",
+      "range": {
+        "startLine": 18,
+        "startChar": 14,
+        "endLine": 18,
+        "endChar": 17
+      },
+      "revId": "da36c6f6874d629e9587539c0a1b5675c9553613",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a62cddac",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_http_ixload__Requests_Concurrency_template.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T09:14:34Z",
+      "side": 1,
+      "message": "is it Ok to have vfw reference?",
+      "range": {
+        "startLine": 35,
+        "startChar": 39,
+        "endLine": 35,
+        "endChar": 42
+      },
+      "revId": "da36c6f6874d629e9587539c0a1b5675c9553613",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
