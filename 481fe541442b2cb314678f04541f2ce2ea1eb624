@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_c94e4ac1",
+        "filename": "samples/vnf_samples/nsut/prox/prox_tg_bm.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T14:08:23Z",
+      "side": 1,
+      "message": "tg_0",
+      "range": {
+        "startLine": 17,
+        "startChar": 11,
+        "endLine": 17,
+        "endChar": 16
+      },
+      "revId": "481fe541442b2cb314678f04541f2ce2ea1eb624",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a94b0eaf",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fwd-2.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T14:08:23Z",
+      "side": 1,
+      "message": "tg_0",
+      "range": {
+        "startLine": 25,
+        "startChar": 11,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "481fe541442b2cb314678f04541f2ce2ea1eb624",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_09c84221",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fwd-2.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T14:08:23Z",
+      "side": 1,
+      "message": "vnf_0",
+      "range": {
+        "startLine": 26,
+        "startChar": 12,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "481fe541442b2cb314678f04541f2ce2ea1eb624",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e9cce637",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fwd-2.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T14:08:23Z",
+      "side": 1,
+      "message": "vnf_0",
+      "range": {
+        "startLine": 67,
+        "startChar": 7,
+        "endLine": 67,
+        "endChar": 13
+      },
+      "revId": "481fe541442b2cb314678f04541f2ce2ea1eb624",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
