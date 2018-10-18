@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_49acfaa0",
+        "filename": "samples/vnf_samples/nsut/prox/prox_tg_bm.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T13:00:48Z",
+      "side": 1,
+      "message": "remove this line",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 20
+      },
+      "revId": "0d1af18db54c932935a0d477e1e2107c1595fe07",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
