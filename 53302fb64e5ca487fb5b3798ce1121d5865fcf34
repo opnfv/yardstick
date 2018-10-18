@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_2989beeb",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 10
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-10-18T14:08:49Z",
+      "side": 1,
+      "message": "Nit: reword \u0027feature\u0027 here.  Suggestions:\n\nEach review ...\nEach commit ...\nEach patch...",
+      "revId": "53302fb64e5ca487fb5b3798ce1121d5865fcf34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_29d7fec2",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 10
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-10-18T14:08:49Z",
+      "side": 1,
+      "message": "Is it possible with Yardstick to run just one test via tox, instead of running the full suite?",
+      "revId": "53302fb64e5ca487fb5b3798ce1121d5865fcf34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
