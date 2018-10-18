@@ -22,7 +22,6 @@ nodes:
     user: "root"
     ssh_port: "22"
     password: "r00t"
-    key_filename: ""
     interfaces:
         xe0:
             vpci: "0000:05:00.0"
@@ -45,7 +44,6 @@ nodes:
     user: "root"
     ssh_port: "22"
     password: "r00t"
-    key_filename: ""
     interfaces:
         xe0:
             vpci: "0000:05:00.0"
