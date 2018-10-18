@@ -12,6 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
+- name: Create rabbitmq configuration
+  template:
+    src: rabbitmq.config.j2
+    dest: /etc/rabbitmq/rabbitmq.config
+
+- name: Define user definitions file
+  template:
+    src: user_definitions.json.j2
+    dest: /etc/rabbitmq/definitions.json
+
 - name: Restart rabbitmq
   service:
     name: rabbitmq-server
@@ -20,11 +30,5 @@
 - name: rabbitmqctl start_app
   shell: rabbitmqctl start_app
 
-- name: Configure rabbitmq
-  rabbitmq_user:
-    user: yardstick
-    password: yardstick
-    configure_priv: .*
-    read_priv: .*
-    write_priv: .*
-    state: present
+- name: Enable management plugin
+  shell: rabbitmq-plugins enable rabbitmq_management
