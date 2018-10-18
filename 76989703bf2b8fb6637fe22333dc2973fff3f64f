@@ -117,6 +117,24 @@
       "revId": "76989703bf2b8fb6637fe22333dc2973fff3f64f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e97ea6e3",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-10-18T13:56:51Z",
+      "side": 1,
+      "message": "Perhaps do both, something like:\n\n  raise RuntimeError(\"Failed to create stack. {0}: {1}\".format(\n     setup_res.status_code, \n     setup_res.content))",
+      "parentUuid": "5a682502_1fffef68",
+      "revId": "76989703bf2b8fb6637fe22333dc2973fff3f64f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
