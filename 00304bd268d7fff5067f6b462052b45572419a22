@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_89545255",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fwd-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T14:06:54Z",
+      "side": 1,
+      "message": "some changes needed to make with existing node definition of Prox TC and VNF node",
+      "revId": "00304bd268d7fff5067f6b462052b45572419a22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e9650646",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fwd-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T14:06:54Z",
+      "side": 1,
+      "message": "tg_0",
+      "range": {
+        "startLine": 25,
+        "startChar": 11,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "00304bd268d7fff5067f6b462052b45572419a22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_495b5a87",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fwd-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T14:06:54Z",
+      "side": 1,
+      "message": "vnf_0",
+      "range": {
+        "startLine": 26,
+        "startChar": 12,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "00304bd268d7fff5067f6b462052b45572419a22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_29609e31",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fwd-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T14:06:54Z",
+      "side": 1,
+      "message": "vnf_0",
+      "range": {
+        "startLine": 77,
+        "startChar": 7,
+        "endLine": 77,
+        "endChar": 13
+      },
+      "revId": "00304bd268d7fff5067f6b462052b45572419a22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
