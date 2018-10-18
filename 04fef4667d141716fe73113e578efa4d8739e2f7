@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_a9482e5c",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fw-2.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T09:28:14Z",
+      "side": 1,
+      "message": "test case name correction: tc_prox_ovs-dpdk_l2fwd-2.yaml",
+      "revId": "04fef4667d141716fe73113e578efa4d8739e2f7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c94bea57",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fw-2.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T09:28:14Z",
+      "side": 1,
+      "message": "does this file work out of the box? If not, suggest to keep a copy of the file on prox test directory and remove the path \"/etc/yardstick/nodes/standalone/\"",
+      "range": {
+        "startLine": 55,
+        "startChar": 43,
+        "endLine": 55,
+        "endChar": 50
+      },
+      "revId": "04fef4667d141716fe73113e578efa4d8739e2f7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
