@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_0927a2b7",
+        "filename": "etc/yardstick/nodes/standalone/prox_bm.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T09:25:23Z",
+      "side": 1,
+      "message": "file name: can you add this file in the prox test directory and rename it to prox_tg_bm.yaml",
+      "revId": "94f5b96de48f981993c8876718fab7654a671397",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_094e826f",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fw-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T09:25:23Z",
+      "side": 1,
+      "message": "file name change : tc_prox_sriov_l2fwd-2.yaml",
+      "revId": "94f5b96de48f981993c8876718fab7654a671397",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c9348ae0",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fw-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T09:25:23Z",
+      "side": 1,
+      "message": "on the path: try to align with other prox test cases. just add the file name and remove the path highlighted.",
+      "range": {
+        "startLine": 52,
+        "startChar": 11,
+        "endLine": 52,
+        "endChar": 43
+      },
+      "revId": "94f5b96de48f981993c8876718fab7654a671397",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e92b4680",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fw-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T09:25:23Z",
+      "side": 1,
+      "message": "file name change as mentioned.",
+      "range": {
+        "startLine": 52,
+        "startChar": 43,
+        "endLine": 52,
+        "endChar": 50
+      },
+      "revId": "94f5b96de48f981993c8876718fab7654a671397",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a9314eee",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fw-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T09:25:23Z",
+      "side": 1,
+      "message": "same here for the path",
+      "range": {
+        "startLine": 55,
+        "startChar": 11,
+        "endLine": 55,
+        "endChar": 43
+      },
+      "revId": "94f5b96de48f981993c8876718fab7654a671397",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_2926deb7",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fw-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-18T09:25:23Z",
+      "side": 1,
+      "message": "I remember we have done some changes to this file to add the vnf__0 details. Can you rename and add this file as prox_sriov_host.yaml in the prox test directory",
+      "range": {
+        "startLine": 55,
+        "startChar": 43,
+        "endLine": 55,
+        "endChar": 53
+      },
+      "revId": "94f5b96de48f981993c8876718fab7654a671397",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
