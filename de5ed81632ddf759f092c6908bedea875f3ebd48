@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_fa12e6b2",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-19T15:37:46Z",
+      "side": 1,
+      "message": "1) Done: used base-10 offset for byte values as visual cue, instead of FFFFFFFF\n2) Done: although with QinQ, IP len is 32 and UDP len is 12",
+      "parentUuid": "5a682502_d64ef0c0",
+      "revId": "de5ed81632ddf759f092c6908bedea875f3ebd48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_16c86821",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-2.cfg",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2018-10-15T07:57:59Z",
       "side": 1,
       "message": "Is packet long enough to hold latency as byte 50",
+      "revId": "de5ed81632ddf759f092c6908bedea875f3ebd48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5a231a05",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-19T15:37:46Z",
+      "side": 1,
+      "message": "Now it is long enough and reflected in IP len and UDP len",
+      "parentUuid": "5a682502_16c86821",
       "revId": "de5ed81632ddf759f092c6908bedea875f3ebd48",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_da7e0ae4",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-19T15:37:46Z",
+      "side": 1,
+      "message": "Considering the various random fields that we already have, it might impact TGEN performance and throughput to add signature.\nThis can be revisited later, possibly together with assigning more cores per port.",
+      "parentUuid": "5a682502_96dbd8ec",
+      "revId": "de5ed81632ddf759f092c6908bedea875f3ebd48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_d6e550a9",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-4.cfg",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2018-10-15T07:57:59Z",
       "side": 1,
       "message": "Same comment as 2 ports config file",
+      "revId": "de5ed81632ddf759f092c6908bedea875f3ebd48",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_1a89a2eb",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_acl-4.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-19T15:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_d6e550a9",
       "revId": "de5ed81632ddf759f092c6908bedea875f3ebd48",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
