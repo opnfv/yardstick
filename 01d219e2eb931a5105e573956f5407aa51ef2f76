@@ -45,6 +45,52 @@
       "revId": "01d219e2eb931a5105e573956f5407aa51ef2f76",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_bf2060f8",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-19T11:03:39Z",
+      "side": 1,
+      "message": "Seems different issue for YARDSTICK-1137:\nIncorrect yardstick docker image version installed when older/previous branch is selected.",
+      "range": {
+        "startLine": 393,
+        "startChar": 1,
+        "endLine": 393,
+        "endChar": 70
+      },
+      "revId": "01d219e2eb931a5105e573956f5407aa51ef2f76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5f3cac2f",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-19T11:03:39Z",
+      "side": 1,
+      "message": "Seems different issue for YARDSTICK-1418:\nImplement functionality for updating traffics IP/MAC address in ixload configuration",
+      "range": {
+        "startLine": 416,
+        "startChar": 23,
+        "endLine": 416,
+        "endChar": 86
+      },
+      "revId": "01d219e2eb931a5105e573956f5407aa51ef2f76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
