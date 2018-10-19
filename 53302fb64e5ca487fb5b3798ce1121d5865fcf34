@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_da2baa80",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 10
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-19T14:23:53Z",
+      "side": 1,
+      "message": "These shouldn\u0027t necessarily be in the same commit/review/patch though. A feature should be a set of commits on a branch, but for a bug, the fix might be a single commit",
+      "parentUuid": "5a682502_2989beeb",
+      "revId": "53302fb64e5ca487fb5b3798ce1121d5865fcf34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_29d7fec2",
         "filename": "docs/testing/developer/devguide/devguide.rst",
         "patchSetId": 10
@@ -30,6 +48,24 @@
       "writtenOn": "2018-10-18T14:08:49Z",
       "side": 1,
       "message": "Is it possible with Yardstick to run just one test via tox, instead of running the full suite?",
+      "revId": "53302fb64e5ca487fb5b3798ce1121d5865fcf34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a48df57d",
+        "filename": "docs/testing/developer/devguide/devguide.rst",
+        "patchSetId": 10
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-19T14:23:53Z",
+      "side": 1,
+      "message": "Not via tox.\n\nTox uses the tools/run_tests.sh script to run functional, unit and coverage tests.\n\nTo run unit tests manually, you can use the following command:\n    python -m unittest discover -v -s yardstick/tests/unit/\u003cpatch to test file\u003e\n\nYou can modify the path here to choose a test file to run.\nI recommend activating a tox environment first though, so that all the  requirements are installed.\n    ./.tox/py27/bin/activate\n    OR\n    ./.tox/py3/bin/activate",
+      "parentUuid": "5a682502_29d7fec2",
       "revId": "53302fb64e5ca487fb5b3798ce1121d5865fcf34",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
