@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_9fef64b0",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-19T10:46:40Z",
+      "side": 1,
+      "message": "nit: Notes ?",
+      "range": {
+        "startLine": 14,
+        "startChar": 21,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "01d219e2eb931a5105e573956f5407aa51ef2f76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_1f3b543b",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-19T10:46:40Z",
+      "side": 1,
+      "message": "Any new runners?\nAre we expecting anything else besides runners?",
+      "range": {
+        "startLine": 177,
+        "startChar": 52,
+        "endLine": 177,
+        "endChar": 53
+      },
+      "revId": "01d219e2eb931a5105e573956f5407aa51ef2f76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
