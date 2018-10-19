@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_ff7938fd",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-19T11:36:37Z",
+      "side": 1,
+      "message": "Despite its title, https://jira.opnfv.org/browse/YARDSTICK-1137 is the correct ticket.\nhttps://gerrit.opnfv.org/gerrit/56493 (meant to provide the ability to select the yardstick docker image) introduced a regression in nsb_setup.sh, which has been fixed by https://gerrit.opnfv.org/gerrit/61477",
+      "parentUuid": "5a682502_bf2060f8",
+      "range": {
+        "startLine": 393,
+        "startChar": 1,
+        "endLine": 393,
+        "endChar": 70
+      },
+      "revId": "01d219e2eb931a5105e573956f5407aa51ef2f76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_5f3cac2f",
         "filename": "docs/release/release-notes/release-notes.rst",
         "patchSetId": 2
@@ -82,6 +106,30 @@
       "writtenOn": "2018-10-19T11:03:39Z",
       "side": 1,
       "message": "Seems different issue for YARDSTICK-1418:\nImplement functionality for updating traffics IP/MAC address in ixload configuration",
+      "range": {
+        "startLine": 416,
+        "startChar": 23,
+        "endLine": 416,
+        "endChar": 86
+      },
+      "revId": "01d219e2eb931a5105e573956f5407aa51ef2f76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_df7efce3",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-19T11:36:37Z",
+      "side": 1,
+      "message": "Indeed, typo here: correct ticket is 1419\nSee https://jira.opnfv.org/browse/YARDSTICK-1419",
+      "parentUuid": "5a682502_5f3cac2f",
       "range": {
         "startLine": 416,
         "startChar": 23,
