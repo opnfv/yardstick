@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_1a2c0247",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-10-19T15:07:30Z",
+      "side": 1,
+      "message": "Please clarify what is returned. And I wonder if this type is correct (don\u0027t have ixnet lib to check).\nFor the style, it could follow L143",
+      "range": {
+        "startLine": 191,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 21
+      },
+      "revId": "e5b398328c959a8d8da7cc222080842468e70442",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_1aba42de",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-10-19T15:07:30Z",
+      "side": 1,
+      "message": "According to current use cases, might make sense to return a string, not list",
+      "revId": "e5b398328c959a8d8da7cc222080842468e70442",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_7a209649",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-10-19T15:07:30Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 217,
+        "startChar": 4,
+        "endLine": 217,
+        "endChar": 11
+      },
+      "revId": "e5b398328c959a8d8da7cc222080842468e70442",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
