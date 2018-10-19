@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_1fa51453",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-19T12:46:22Z",
+      "side": 1,
+      "message": "I see, corrected the issue introduced before.",
+      "parentUuid": "5a682502_ff7938fd",
+      "range": {
+        "startLine": 393,
+        "startChar": 1,
+        "endLine": 393,
+        "endChar": 70
+      },
+      "revId": "01d219e2eb931a5105e573956f5407aa51ef2f76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_5f3cac2f",
         "filename": "docs/release/release-notes/release-notes.rst",
         "patchSetId": 2
