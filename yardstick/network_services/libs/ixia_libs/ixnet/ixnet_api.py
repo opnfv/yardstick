@@ -69,6 +69,7 @@ class IxNextgen(object):  # pragma: no cover
 
     PORT_STATS_NAME_MAP = {
         "stat_name": 'Stat Name',
+        "port_name": 'Port Name',
         "Frames_Tx": 'Frames Tx.',
         "Valid_Frames_Rx": 'Valid Frames Rx.',
         "Frames_Tx_Rate": 'Frames Tx. Rate',
@@ -84,6 +85,18 @@ class IxNextgen(object):  # pragma: no cover
         "Store-Forward_Min_latency_ns": 'Store-Forward Min Latency (ns)',
         "Store-Forward_Max_latency_ns": 'Store-Forward Max Latency (ns)',
     }
+
+    PPPOX_CLIENT_PER_PORT_NAME_MAP = {
+        'subs_port': 'Port',
+        'Sessions_Up': 'Sessions Up',
+        'Sessions_Down': 'Sessions Down',
+        'Sessions_Not_Started': 'Sessions Not Started',
+        'Sessions_Total': 'Sessions Total'
+    }
+
+    PORT_STATISTICS = '::ixNet::OBJ-/statistics/view:"Port Statistics"'
+    FLOW_STATISTICS = '::ixNet::OBJ-/statistics/view:"Flow Statistics"'
+    PPPOX_CLIENT_PER_PORT = '::ixNet::OBJ-/statistics/view:"PPPoX Client Per Port"'
 
     @staticmethod
     def get_config(tg_cfg):
@@ -617,12 +630,30 @@ class IxNextgen(object):  # pragma: no cover
         :return: dictionary with the statistics; the keys of this dictionary
                  are PORT_STATS_NAME_MAP and LATENCY_NAME_MAP keys.
         """
-        port_statistics = '::ixNet::OBJ-/statistics/view:"Port Statistics"'
-        flow_statistics = '::ixNet::OBJ-/statistics/view:"Flow Statistics"'
-        stats = self._build_stats_map(port_statistics,
+        stats = self._build_stats_map(self.PORT_STATISTICS,
                                       self.PORT_STATS_NAME_MAP)
-        stats.update(self._build_stats_map(flow_statistics,
-                                          self.LATENCY_NAME_MAP))
+        stats.update(self._build_stats_map(self.FLOW_STATISTICS,
+                                           self.LATENCY_NAME_MAP))
+        return stats
+
+    def get_pppoe_scenario_statistics(self):
+        """Retrieve port, flow and PPPoE subscribers statistics
+
+        "Port Statistics" parameters are stored in self.PORT_STATS_NAME_MAP.
+        "Flow Statistics" parameters are stored in self.LATENCY_NAME_MAP.
+        "PPPoX Client Per Port" parameters are stored in
+        self.PPPOE_CLIENT_PER_PORT_NAME_MAP
+
+        :return: dictionary with the statistics; the keys of this dictionary
+                 are PORT_STATS_NAME_MAP, LATENCY_NAME_MAP and
+                 PPPOE_CLIENT_PER_PORT_NAME_MAP keys.
+        """
+        stats = self._build_stats_map(self.PORT_STATISTICS,
+                                      self.PORT_STATS_NAME_MAP)
+        stats.update(self._build_stats_map(self.FLOW_STATISTICS,
+                                           self.LATENCY_NAME_MAP))
+        stats.update(self._build_stats_map(self.PPPOX_CLIENT_PER_PORT,
+                                           self.PPPOX_CLIENT_PER_PORT_NAME_MAP))
         return stats
 
     def start_protocols(self):
