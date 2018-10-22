@@ -582,15 +582,15 @@ class TestIxNextgen(unittest.TestCase):
                 self.ixnet_gen.update_frame(TRAFFIC_PARAMETERS, 40)
 
     def test_get_statistics(self):
-        port_statistics = '::ixNet::OBJ-/statistics/view:"Port Statistics"'
-        flow_statistics = '::ixNet::OBJ-/statistics/view:"Flow Statistics"'
         with mock.patch.object(self.ixnet_gen, '_build_stats_map') as \
                 mock_build_stats:
             self.ixnet_gen.get_statistics()
 
         mock_build_stats.assert_has_calls([
-            mock.call(port_statistics, self.ixnet_gen.PORT_STATS_NAME_MAP),
-            mock.call(flow_statistics, self.ixnet_gen.LATENCY_NAME_MAP)])
+            mock.call(self.ixnet_gen.PORT_STATISTICS,
+                      self.ixnet_gen.PORT_STATS_NAME_MAP),
+            mock.call(self.ixnet_gen.FLOW_STATISTICS,
+                      self.ixnet_gen.LATENCY_NAME_MAP)])
 
     def test__set_flow_tracking(self):
         self.ixnet_gen._ixnet.getList.return_value = ['traffic_item']
@@ -611,6 +611,18 @@ class TestIxNextgen(unittest.TestCase):
         self.ixnet_gen.ixnet.setAttribute.assert_any_call(
             'encapsulation', '-offset', 'IPv4 TOS Precedence')
         self.assertEqual(self.ixnet.commit.call_count, 2)
+
+    def test_get_pppoe_scenario_statistics(self):
+        with mock.patch.object(self.ixnet_gen, '_build_stats_map') as \
+                mock_build_stats:
+            self.ixnet_gen.get_pppoe_scenario_statistics()
+
+        mock_build_stats.assert_any_call(self.ixnet_gen.PORT_STATISTICS,
+                                         self.ixnet_gen.PORT_STATS_NAME_MAP)
+        mock_build_stats.assert_any_call(self.ixnet_gen.FLOW_STATISTICS,
+                                         self.ixnet_gen.LATENCY_NAME_MAP)
+        mock_build_stats.assert_any_call(self.ixnet_gen.PPPOX_CLIENT_PER_PORT,
+                                         self.ixnet_gen.PPPOX_CLIENT_PER_PORT_NAME_MAP)
 
     def test__update_ipv4_address(self):
         with mock.patch.object(self.ixnet_gen, '_get_field_in_stack_item',
