@@ -29,7 +29,7 @@
     - vim
     - libffi-dev
     - libfuse-dev
-    - libssl-dev
+#    - libssl-dev
     - libxft-dev
     - libxml2-dev
     - libxss-dev
@@ -52,7 +52,7 @@
     - uwsgi-plugin-python
     - supervisor
     - lsof
-    - nodejs
+#    - nodejs
     - npm
     - rabbitmq-server
 
