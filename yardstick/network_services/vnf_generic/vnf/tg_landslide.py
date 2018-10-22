@@ -129,6 +129,17 @@ class LandslideTrafficGen(sample_vnf.SampleVNFTrafficGen):
                 self.session_profile['reservePorts'] = 'true'
                 self.session_profile['reservations'] = [reservation]
 
+    def _update_session_library_name(self, test_session):
+        """Update DMF library name in session profile"""
+        for _ts_group in test_session['tsGroups']:
+            for _tc in _ts_group['testCases']:
+                try:
+                    for _mainflow in _tc['parameters']['Dmf']['mainflows']:
+                        _mainflow['library'] = \
+                            self.vnfd_helper.mgmt_interface['user']
+                except KeyError:
+                    pass
+
     @staticmethod
     def _update_session_tc_params(tc_options, testcase):
         for _param_key in tc_options:
@@ -205,6 +216,8 @@ class LandslideTrafficGen(sample_vnf.SampleVNFTrafficGen):
             self.session_profile['tsGroups'][_tsgroup_idx]['testCases'][
                 _testcase_idx].update(
                 self._update_session_tc_params(tc_options, _testcase))
+
+        self._update_session_library_name(self.session_profile)
 
 
 class LandslideResourceHelper(sample_vnf.ClientResourceHelper):
@@ -459,11 +472,14 @@ class LandslideResourceHelper(sample_vnf.ClientResourceHelper):
         self._terminated.value = 1
 
     def create_dmf(self, dmf):
-        if isinstance(dmf, list):
-            for _dmf in dmf:
-                self._tcl.create_dmf(_dmf)
-        else:
-            self._tcl.create_dmf(dmf)
+        if isinstance(dmf, dict):
+            dmf = [dmf]
+        for _dmf in dmf:
+            # Update DMF library name in traffic profile
+            _dmf['dmf'].update(
+                {'library': self.vnfd_helper.mgmt_interface['user']})
+            # Create DMF on Landslide server
+            self._tcl.create_dmf(_dmf)
 
     def delete_dmf(self, dmf):
         if isinstance(dmf, list):
