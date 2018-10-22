@@ -27,7 +27,7 @@ from yardstick.network_services import utils as net_serv_utils
 from yardstick.network_services.traffic_profile import landslide_profile
 from yardstick.network_services.vnf_generic.vnf import sample_vnf
 from yardstick.network_services.vnf_generic.vnf import tg_landslide
-
+from yardstick.network_services.vnf_generic.vnf import base as vnf_base
 
 NAME = "tg__0"
 
@@ -465,8 +465,10 @@ class TestLandslideTrafficGen(unittest.TestCase):
         self.ls_tg.scenario_helper.scenario_cfg = self.SCENARIO_CFG
         mock_traffic_profile = mock.Mock(
             spec=landslide_profile.LandslideProfile)
-        mock_traffic_profile.dmf_config = {'keywords': 'UDP',
-                                           'dataProtocol': 'udp'}
+        mock_traffic_profile.dmf_config = {
+            'keywords': 'UDP',
+            'dataProtocol': 'udp',
+            'dmf': {'library': 'test', 'name': 'name'}}
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
         self.ls_tg.resource_helper._user_id = self.TEST_USER_ID
         mock_get_tests.return_value = [{'id': self.SUCCESS_RECORD_ID,
@@ -597,6 +599,28 @@ class TestLandslideTrafficGen(unittest.TestCase):
                         _val,
                         get_session_tc_param_value(_key, _tc.get('type'),
                                                    self.ls_tg.session_profile))
+
+    def test__update_session_library_name(self, *args):
+        _session = copy.deepcopy(SESSION_PROFILE)
+        _session['tsGroups'].pop(0)
+        self.ls_tg.vnfd_helper = mock.MagicMock()
+        self.ls_tg.vnfd_helper.mgmt_interface.__getitem__.side_effect = {
+            'user': TAS_INFO['user']}
+        self.ls_tg._update_session_library_name(_session)
+        _dmf = _session['tsGroups'][0]['testCases'][0]['parameters']['Dmf']
+        # Expect DMF library name updated in Nodal test types
+        self.assertEqual(TAS_INFO['user'], _dmf['mainflows'][0]['library'])
+
+    def test__update_session_library_name_wrong_tc_type(self, *args):
+        _session = copy.deepcopy(SESSION_PROFILE)
+        _session['tsGroups'].pop(1)
+        self.ls_tg.vnfd_helper = mock.MagicMock()
+        self.ls_tg.vnfd_helper.mgmt_interface.__getitem__.side_effect = {
+            'user': TAS_INFO['user']}
+        # Expect DMF library name not updated in Node test types
+        self.assertNotIn('Dmf',
+                         _session['tsGroups'][0]['testCases'][0]['parameters'])
+        self.ls_tg._update_session_library_name(_session)
 
     @mock.patch.object(common_utils, 'open_relative_file')
     @mock.patch.object(yaml_loader, 'yaml_load')
@@ -986,11 +1010,15 @@ class TestLandslideResourceHelper(unittest.TestCase):
 
     def test_create_dmf(self, *args):
         self.res_helper._tcl = mock.Mock()
+        self.res_helper.vnfd_helper = mock.Mock(spec=vnf_base.VnfdHelper)
+        self.res_helper.vnfd_helper.mgmt_interface = {'user': TAS_INFO['user']}
         self.assertIsNone(self.res_helper.create_dmf(DMF_CFG))
         self.res_helper._tcl.create_dmf.assert_called_once_with(DMF_CFG)
 
     def test_create_dmf_as_list(self, *args):
         self.res_helper._tcl = mock.Mock()
+        self.res_helper.vnfd_helper = mock.Mock(spec=vnf_base.VnfdHelper)
+        self.res_helper.vnfd_helper.mgmt_interface = {'user': TAS_INFO['user']}
         self.assertIsNone(self.res_helper.create_dmf([DMF_CFG]))
         self.res_helper._tcl.create_dmf.assert_called_once_with(DMF_CFG)
 
@@ -1597,7 +1625,7 @@ class TestLandslideTclClient(unittest.TestCase):
         self.mock_tcl_handler.execute.assert_has_calls([
             mock.call('set dmf_ [ls::create Dmf]'),
             mock.call(
-                'ls::get [ls::query LibraryInfo -systemLibraryName test] -Id'),
+                'ls::get [ls::query LibraryInfo -systemLibraryName user] -Id'),
             mock.call('ls::config $dmf_ -Library 2 -Name "Basic UDP"'),
             mock.call('ls::config $dmf_ -dataProtocol "udp"'),
             # mock.call(
@@ -1623,7 +1651,7 @@ class TestLandslideTclClient(unittest.TestCase):
         self.mock_tcl_handler.execute.assert_has_calls([
             mock.call('set dmf_ [ls::create Dmf]'),
             mock.call(
-                'ls::get [ls::query LibraryInfo -systemLibraryName test] -Id'),
+                'ls::get [ls::query LibraryInfo -systemLibraryName user] -Id'),
             mock.call('ls::config $dmf_ -Library 2 -Name "Basic UDP"'),
             mock.call('ls::config $dmf_ -dataProtocol "udp"'),
             # mock.call(
