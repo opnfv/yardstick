@@ -50,7 +50,7 @@ uplink_0:
         id: 1
         outer_l2:
             framesize:
-                64B: "{{ get(imix, 'imix.uplink.imix_small', '0') }}"
+                64B: "{{ get(imix, 'imix.uplink.imix_64B', '0') }}"
                 128B: "{{ get(imix, 'imix.uplink.imix_128B', '0') }}"
                 256B: "{{ get(imix, 'imix.uplink.imix_256B', '0') }}"
                 373b: "{{ get(imix, 'imix.uplink.imix_373B', '0') }}"
@@ -69,7 +69,7 @@ uplink_0:
                     cfi: 0
 
         outer_l3v4:
-            proto: "tcp"
+            proto: "udp"
             srcip4: "{{get(flow, 'flow.src_ip_0', '192.168.0.0-192.168.255.255') }}"
             dstip4: "{{get(flow, 'flow.dst_ip_0', '192.16.0.0-192.16.0.31') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
@@ -84,11 +84,11 @@ uplink_0:
             count: "{{get(flow, 'flow.count', '1') }}"
             seed: "{{get(flow, 'flow.seed', '1') }}"
 downlink_0:
-      id: 2
       ipv4:
+        id: 2
         outer_l2:
             framesize:
-                64B: "{{ get(imix, 'imix.uplink.imix_small', '0') }}"
+                64B: "{{ get(imix, 'imix.uplink.imix_64B', '0') }}"
                 128B: "{{ get(imix, 'imix.uplink.imix_128B', '0') }}"
                 256B: "{{ get(imix, 'imix.uplink.imix_256B', '0') }}"
                 373b: "{{ get(imix, 'imix.uplink.imix_373B', '0') }}"
@@ -97,7 +97,7 @@ downlink_0:
                 1518B: "{{get(imix, 'imix.uplink.imix_1500B', '0') }}"
 
         outer_l3v4:
-            proto: "tcp"
+            proto: "udp"
             srcip4: "{{get(flow, 'flow.dst_ip_0', '192.16.0.0-192.16.0.31') }}"
             dstip4: "{{get(flow, 'flow.src_ip_0', '192.168.0.0-192.168.255.255') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
@@ -112,11 +112,11 @@ downlink_0:
             count: "{{get(flow, 'flow.count', '1') }}"
             seed: "{{get(flow, 'flow.seed', '1') }}"
 uplink_1:
-      id: 3
       ipv4:
+        id: 3
         outer_l2:
             framesize:
-                64B: "{{ get(imix, 'imix.uplink.imix_small', '0') }}"
+                64B: "{{ get(imix, 'imix.uplink.imix_64B', '0') }}"
                 128B: "{{ get(imix, 'imix.uplink.imix_128B', '0') }}"
                 256B: "{{ get(imix, 'imix.uplink.imix_256B', '0') }}"
                 373b: "{{ get(imix, 'imix.uplink.imix_373B', '0') }}"
@@ -135,7 +135,7 @@ uplink_1:
                     cfi: 0
 
         outer_l3v4:
-            proto: "tcp"
+            proto: "udp"
             srcip4: "{{get(flow, 'flow.srcip_1', '192.168.0.0-192.168.255.255') }}"
             dstip4: "{{get(flow, 'flow.dstip_1', '192.16.0.0-192.16.0.31') }}"
             count: "{{get(flow, 'flow.count', '1') }}"
@@ -150,11 +150,11 @@ uplink_1:
             count: "{{get(flow, 'flow.count', '1') }}"
             seed: "{{get(flow, 'flow.seed', '1') }}"
 downlink_1:
-      id: 4
       ipv4:
+        id: 4
         outer_l2:
             framesize:
-                64B: "{{ get(imix, 'imix.uplink.imix_small', '0') }}"
+                64B: "{{ get(imix, 'imix.uplink.imix_64B', '0') }}"
                 128B: "{{ get(imix, 'imix.uplink.imix_128B', '0') }}"
                 256B: "{{ get(imix, 'imix.uplink.imix_256B', '0') }}"
                 373b: "{{ get(imix, 'imix.uplink.imix_373B', '0') }}"
@@ -163,7 +163,7 @@ downlink_1:
                 1518B: "{{get(imix, 'imix.uplink.imix_1500B', '0') }}"
 
         outer_l3v4:
-            proto: "tcp"
+            proto: "udp"
             srcip4: "{{get(flow, 'flow.dst_ip_1', '192.16.0.0-192.16.0.31') }}"
             dstip4: "{{get(flow, 'flow.src_ip_1', '192.168.0.0-192.168.255.255') }}"
             count: "{{get(flow, 'flow.count', '1') }}"

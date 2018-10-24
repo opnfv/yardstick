@@ -22,7 +22,7 @@ from yardstick.common import utils
 
 FIREWALL_ADD_DEFAULT = "p {0} firewall add default 1"
 FIREWALL_ADD_PRIO = """\
-p {0} firewall add priority 1 ipv4  {1} 24 0.0.0.0 0 0 65535 0 65535 6 0xFF port 0"""
+p {0} firewall add priority 1 ipv4  {1} 24 0.0.0.0 0 0 65535 0 65535 17 0xFF port 0"""
 
 FLOW_ADD_QINQ_RULES = """\
 p {0} flow add qinq 128 512 port 0 id 1
