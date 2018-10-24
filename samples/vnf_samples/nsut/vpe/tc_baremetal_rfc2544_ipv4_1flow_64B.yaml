@@ -34,7 +34,9 @@ scenarios:
       allowed_drop_rate: 0.0001 - 0.0001
     vnf__0:
       nfvi_enable: True
-      vnf_config: vpe_config
+            vnf_config: {file: './vpe_config/vpe_config_2_ports',
+                   action_bulk_file: './vpe_config/action_bulk_512.txt',
+                   full_tm_profile_file: './vpe_config/full_tm_profile_10G.cfg'}
   runner:
     type: Iteration
     iterations: 10

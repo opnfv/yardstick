@@ -43,15 +43,6 @@ Pkts in:\\s(\\d+)\r\n\
 
 class ConfigCreate(object):
 
-    @staticmethod
-    def vpe_tmq(config, index):
-        tm_q = 'TM{0}'.format(index)
-        config.add_section(tm_q)
-        config.set(tm_q, 'burst_read', '24')
-        config.set(tm_q, 'burst_write', '32')
-        config.set(tm_q, 'cfg', '/tmp/full_tm_profile_10G.cfg')
-        return config
-
     def __init__(self, vnfd_helper, socket):
         super(ConfigCreate, self).__init__()
         self.sw_q = -1
@@ -64,141 +55,6 @@ class ConfigCreate(object):
         self.socket = socket
         self._dpdk_port_to_link_id_map = None
 
-    @property
-    def dpdk_port_to_link_id_map(self):
-        # we need interface name -> DPDK port num (PMD ID) -> LINK ID
-        # LINK ID -> PMD ID is governed by the port mask
-        # LINK instances are created implicitly based on the PORT_MASK application startup
-        # argument. LINK0 is the first port enabled in the PORT_MASK, port 1 is the next one,
-        # etc. The LINK ID is different than the DPDK PMD-level NIC port ID, which is the actual
-        #  position in the bitmask mentioned above. For example, if bit 5 is the first bit set
-        # in the bitmask, then LINK0 is having the PMD ID of 5. This mechanism creates a
-        # contiguous LINK ID space and isolates the configuration file against changes in the
-        # board PCIe slots where NICs are plugged in.
-        if self._dpdk_port_to_link_id_map is None:
-            self._dpdk_port_to_link_id_map = {}
-            for link_id, port_name in enumerate(sorted(self.vnfd_helper.port_pairs.all_ports,
-                                                       key=self.vnfd_helper.port_num)):
-                self._dpdk_port_to_link_id_map[port_name] = link_id
-        return self._dpdk_port_to_link_id_map
-
-    def vpe_initialize(self, config):
-        config.add_section('EAL')
-        config.set('EAL', 'log_level', '0')
-
-        config.add_section('PIPELINE0')
-        config.set('PIPELINE0', 'type', 'MASTER')
-        config.set('PIPELINE0', 'core', 's%sC0' % self.socket)
-
-        config.add_section('MEMPOOL0')
-        config.set('MEMPOOL0', 'pool_size', '256K')
-
-        config.add_section('MEMPOOL1')
-        config.set('MEMPOOL1', 'pool_size', '2M')
-        return config
-
-    def vpe_rxq(self, config):
-        for port in self.downlink_ports:
-            new_section = 'RXQ{0}.0'.format(self.dpdk_port_to_link_id_map[port])
-            config.add_section(new_section)
-            config.set(new_section, 'mempool', 'MEMPOOL1')
-
-        return config
-
-    def get_sink_swq(self, parser, pipeline, k, index):
-        sink = ""
-        pktq = parser.get(pipeline, k)
-        if "SINK" in pktq:
-            self.sink_q += 1
-            sink = " SINK{0}".format(self.sink_q)
-        if "TM" in pktq:
-            sink = " TM{0}".format(index)
-        pktq = "SWQ{0}{1}".format(self.sw_q, sink)
-        return pktq
-
-    def vpe_upstream(self, vnf_cfg, index=0):  # pragma: no cover
-        # NOTE(ralonsoh): this function must be covered in UTs.
-        parser = configparser.ConfigParser()
-        parser.read(os.path.join(vnf_cfg, 'vpe_upstream'))
-
-        for pipeline in parser.sections():
-            for k, v in parser.items(pipeline):
-                if k == "pktq_in":
-                    if "RXQ" in v:
-                        port = self.dpdk_port_to_link_id_map[self.uplink_ports[index]]
-                        value = "RXQ{0}.0".format(port)
-                    else:
-                        value = self.get_sink_swq(parser, pipeline, k, index)
-
-                    parser.set(pipeline, k, value)
-
-                elif k == "pktq_out":
-                    if "TXQ" in v:
-                        port = self.dpdk_port_to_link_id_map[self.downlink_ports[index]]
-                        value = "TXQ{0}.0".format(port)
-                    else:
-                        self.sw_q += 1
-                        value = self.get_sink_swq(parser, pipeline, k, index)
-
-                    parser.set(pipeline, k, value)
-
-            new_pipeline = 'PIPELINE{0}'.format(self.n_pipeline)
-            if new_pipeline != pipeline:
-                parser._sections[new_pipeline] = parser._sections[pipeline]
-                parser._sections.pop(pipeline)
-            self.n_pipeline += 1
-        return parser
-
-    def vpe_downstream(self, vnf_cfg, index):  # pragma: no cover
-        # NOTE(ralonsoh): this function must be covered in UTs.
-        parser = configparser.ConfigParser()
-        parser.read(os.path.join(vnf_cfg, 'vpe_downstream'))
-        for pipeline in parser.sections():
-            for k, v in parser.items(pipeline):
-
-                if k == "pktq_in":
-                    port = self.dpdk_port_to_link_id_map[self.downlink_ports[index]]
-                    if "RXQ" not in v:
-                        value = self.get_sink_swq(parser, pipeline, k, index)
-                    elif "TM" in v:
-                        value = "RXQ{0}.0 TM{1}".format(port, index)
-                    else:
-                        value = "RXQ{0}.0".format(port)
-
-                    parser.set(pipeline, k, value)
-
-                if k == "pktq_out":
-                    port = self.dpdk_port_to_link_id_map[self.uplink_ports[index]]
-                    if "TXQ" not in v:
-                        self.sw_q += 1
-                        value = self.get_sink_swq(parser, pipeline, k, index)
-                    elif "TM" in v:
-                        value = "TXQ{0}.0 TM{1}".format(port, index)
-                    else:
-                        value = "TXQ{0}.0".format(port)
-
-                    parser.set(pipeline, k, value)
-
-            new_pipeline = 'PIPELINE{0}'.format(self.n_pipeline)
-            if new_pipeline != pipeline:
-                parser._sections[new_pipeline] = parser._sections[pipeline]
-                parser._sections.pop(pipeline)
-            self.n_pipeline += 1
-        return parser
-
-    def create_vpe_config(self, vnf_cfg):
-        config = configparser.ConfigParser()
-        vpe_cfg = os.path.join("/tmp/vpe_config")
-        with open(vpe_cfg, 'w') as cfg_file:
-            config = self.vpe_initialize(config)
-            config = self.vpe_rxq(config)
-            config.write(cfg_file)
-            for index, _ in enumerate(self.uplink_ports):
-                config = self.vpe_upstream(vnf_cfg, index)
-                config.write(cfg_file)
-                config = self.vpe_downstream(vnf_cfg, index)
-                config = self.vpe_tmq(config, index)
-                config.write(cfg_file)
 
     def generate_vpe_script(self, interfaces):
         rules = PipelineRules(pipeline_id=1)
@@ -231,16 +87,10 @@ class ConfigCreate(object):
 
         return rules.get_string()
 
-    def generate_tm_cfg(self, vnf_cfg):
-        vnf_cfg = os.path.join(vnf_cfg, "full_tm_profile_10G.cfg")
-        if os.path.exists(vnf_cfg):
-            return open(vnf_cfg).read()
-
 
 class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
 
     APP_NAME = 'vPE_vnf'
-    CFG_CONFIG = "/tmp/vpe_config"
     CFG_SCRIPT = "/tmp/vpe_script"
     TM_CONFIG = "/tmp/full_tm_profile_10G.cfg"
     CORES = ['0', '1', '2', '3', '4', '5']
@@ -253,33 +103,42 @@ class VpeApproxSetupEnvHelper(DpdkVnfSetupEnvHelper):
         self.all_ports = self._port_pairs.all_ports
 
     def build_config(self):
+        vnf_cfg = self.scenario_helper.vnf_cfg
+        action_bulk_file = vnf_cfg.get('action_bulk_file', '/tmp/action_bulk_512.txt')
+        full_tm_profile_file = vnf_cfg.get('full_tm_profile_file', '/tmp/full_tm_profile_10G.cfg')
+        config_file = vnf_cfg.get('file', '/tmp/vpe_config')
         vpe_vars = {
             "bin_path": self.ssh_helper.bin_path,
             "socket": self.socket,
         }
-
         self._build_vnf_ports()
         vpe_conf = ConfigCreate(self.vnfd_helper, self.socket)
-        vpe_conf.create_vpe_config(self.scenario_helper.vnf_cfg)
 
-        config_basename = posixpath.basename(self.CFG_CONFIG)
+        config_basename = posixpath.basename(config_file)
         script_basename = posixpath.basename(self.CFG_SCRIPT)
-        tm_basename = posixpath.basename(self.TM_CONFIG)
-        with open(self.CFG_CONFIG) as handle:
+
+        with open(action_bulk_file) as handle:
+            action_bulk = handle.read()
+
+        with open(full_tm_profile_file) as handle:
+            full_tm_profile = handle.read()
+
+        with open(config_file) as handle:
             vpe_config = handle.read()
 
-        self.ssh_helper.upload_config_file(config_basename, vpe_config.format(**vpe_vars))
-
+        # vpe_script needs to be autogenerated
         vpe_script = vpe_conf.generate_vpe_script(self.vnfd_helper.interfaces)
+        # upload teh 4 config files to the target server
+        self.ssh_helper.upload_config_file(config_basename, vpe_config.format(**vpe_vars))
         self.ssh_helper.upload_config_file(script_basename, vpe_script.format(**vpe_vars))
-
-        tm_config = vpe_conf.generate_tm_cfg(self.scenario_helper.vnf_cfg)
-        self.ssh_helper.upload_config_file(tm_basename, tm_config)
+        self.ssh_helper.upload_config_file(posixpath.basename(action_bulk_file), action_bulk.format(**vpe_vars))
+        self.ssh_helper.upload_config_file(posixpath.basename(full_tm_profile_file), full_tm_profile.format(**vpe_vars))
 
         LOG.info("Provision and start the %s", self.APP_NAME)
-        LOG.info(self.CFG_CONFIG)
+        LOG.info(config_file)
         LOG.info(self.CFG_SCRIPT)
         self._build_pipeline_kwargs()
+        self.pipeline_kwargs['cfg_file'] = '/tmp/' + config_basename
         return self.PIPELINE_COMMAND.format(**self.pipeline_kwargs)
 
 
