@@ -529,6 +529,7 @@ class IxNextgen(object):  # pragma: no cover
                           or IP_VERSION_4_MASK
                 dstmask = traffic_param['outer_l3']['dstmask'] \
                           or IP_VERSION_4_MASK
+                priority = traffic_param['outer_l3']['priority']
                 if srcip:
                     self._update_ipv4_address(
                         self._get_stack_item(fg_id, PROTO_IPV4)[0],
@@ -537,6 +538,56 @@ class IxNextgen(object):  # pragma: no cover
                     self._update_ipv4_address(
                         self._get_stack_item(fg_id, PROTO_IPV4)[0],
                         'dstIp', str(dstip), dstseed, dstmask, count)
+                if priority:
+                    self._update_ipv4_priority(
+                        self._get_stack_item(fg_id, PROTO_IPV4)[0], priority)
+
+    def _update_ipv4_priority(self, ip_descriptor, priority):
+        """Set the IPv4 priority in a config element stack IP field
+
+        :param ip_descriptor: (str) IP descriptor, e.g.:
+        /traffic/trafficItem:1/configElement:1/stack:"ipv4-2"
+        :param priority: (dict) priority configuration from traffic profile, e.g.:
+        {'tos':
+            'precedence': [1, 4, 7]
+            }
+         """
+        if 'raw' in priority:
+            priority_field = self._get_field_in_stack_item(ip_descriptor,
+                                                           'priority.raw')
+            self._set_priority_field(priority_field, priority['raw'])
+
+        elif 'dscp' in priority:
+            for field, value in priority['dscp'].items():
+                priority_field = self._get_field_in_stack_item(
+                    ip_descriptor,
+                    'priority.ds.phb.{field}.{field}'.format(field=field))
+                self._set_priority_field(priority_field, value)
+
+        elif 'tos' in priority:
+            for field, value in priority['tos'].items():
+                priority_field = self._get_field_in_stack_item(
+                    ip_descriptor, 'priority.tos.' + field)
+                self._set_priority_field(priority_field, value)
+
+    def _set_priority_field(self, field_descriptor, value):
+        """Set the priority field described by field_descriptor
+
+        :param field_descriptor: (str) field descriptor, e.g.:
+        /traffic/trafficItem:1/configElement:1/stack:"ipv4-2"/ \
+        field:"ipv4.header.priority.raw-3
+        :param value: (list, int) list of integers or single integer value
+        """
+        if isinstance(value, list):
+            self.ixnet.setMultiAttribute(field_descriptor,
+                                         '-valueList', value,
+                                         '-activeFieldChoice', 'true',
+                                         '-valueType', 'valueList')
+        else:
+            self.ixnet.setMultiAttribute(field_descriptor,
+                                         '-activeFieldChoice', 'true',
+                                         '-singleValue', str(value))
+        self.ixnet.commit()
 
     def update_l4(self, traffic):
         """Update the L4 headers

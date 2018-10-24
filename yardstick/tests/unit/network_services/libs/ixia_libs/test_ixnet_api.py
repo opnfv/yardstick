@@ -46,7 +46,8 @@ TRAFFIC_PARAMETERS = {
             'dstip': '152.16.40.20',
             'srcip': '152.16.100.20',
             'dstmask': 24,
-            'srcmask': 24
+            'srcmask': 24,
+            'priority': {'raw': '0x01'}
         },
         'outer_l4': {
             'seed': 1,
@@ -78,7 +79,8 @@ TRAFFIC_PARAMETERS = {
             'dstip': '2001::10',
             'srcip': '2021::10',
             'dstmask': 64,
-            'srcmask': 64
+            'srcmask': 64,
+            'priority': {'raw': '0x01'}
         },
         'outer_l4': {
             'seed': 1,
@@ -602,6 +604,62 @@ class TestIxNextgen(unittest.TestCase):
             '-randomMask', '0.0.0.63', '-valueType', 'random',
             '-countValue', 25)
 
+    def test__update_ipv4_priority_raw(self):
+        priority = {'raw': '0x01'}
+        self.ixnet_gen._set_priority_field = mock.Mock()
+        with mock.patch.object(self.ixnet_gen, '_get_field_in_stack_item',
+                               return_value='field_desc'):
+            self.ixnet_gen._update_ipv4_priority('field_desc', priority)
+
+        self.ixnet_gen._set_priority_field.assert_called_once_with(
+            'field_desc', priority['raw'])
+
+    def test__update_ipv4_priority_dscp(self):
+        priority = {'dscp': {'defaultPHB': [0, 1, 2, 3]}}
+        self.ixnet_gen._set_priority_field = mock.Mock()
+        with mock.patch.object(self.ixnet_gen, '_get_field_in_stack_item',
+                               return_value='field_desc'):
+            self.ixnet_gen._update_ipv4_priority('field_desc', priority)
+
+        self.ixnet_gen._set_priority_field.assert_called_once_with(
+            'field_desc', priority['dscp']['defaultPHB'])
+
+    def test__update_ipv4_priority_tos(self):
+        priority = {'tos': {'precedence': [0, 4, 7]}}
+        self.ixnet_gen._set_priority_field = mock.Mock()
+        with mock.patch.object(self.ixnet_gen, '_get_field_in_stack_item',
+                               return_value='field_desc'):
+            self.ixnet_gen._update_ipv4_priority('field_desc', priority)
+
+        self.ixnet_gen._set_priority_field.assert_called_once_with(
+            'field_desc', priority['tos']['precedence'])
+
+    def test__update_ipv4_priority_wrong_priority_type(self):
+        priority = {'test': [0, 4, 7]}
+        self.ixnet_gen._set_priority_field = mock.Mock()
+        with mock.patch.object(self.ixnet_gen, '_get_field_in_stack_item',
+                               return_value='field_desc'):
+            self.ixnet_gen._update_ipv4_priority('field_desc', priority)
+
+        self.assertEqual(self.ixnet_gen._set_priority_field.call_count, 0)
+
+    def test__set_priority_field_list_value(self):
+        value = [1, 4, 7]
+        self.ixnet_gen._set_priority_field('field_desc', value)
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_called_once_with(
+            'field_desc',
+            '-valueList', [1, 4, 7],
+            '-activeFieldChoice', 'true',
+            '-valueType', 'valueList')
+
+    def test__set_priority_field_single_value(self):
+        value = 7
+        self.ixnet_gen._set_priority_field('field_desc', value)
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_called_once_with(
+            'field_desc',
+            '-activeFieldChoice', 'true',
+            '-singleValue', '7')
+
     def test__update_udp_port(self):
         with mock.patch.object(self.ixnet_gen, '_get_field_in_stack_item',
                                return_value='field_desc'):
@@ -622,10 +680,13 @@ class TestIxNextgen(unittest.TestCase):
                 mock_update_add, \
                 mock.patch.object(self.ixnet_gen, '_get_stack_item'), \
                 mock.patch.object(self.ixnet_gen,
-                '_get_config_element_by_flow_group_name', return_value='celm'):
+                '_get_config_element_by_flow_group_name', return_value='celm'), \
+                mock.patch.object(self.ixnet_gen, '_update_ipv4_priority') as \
+                        mock_update_priority:
             self.ixnet_gen.update_ip_packet(TRAFFIC_PARAMETERS)
 
         self.assertEqual(4, len(mock_update_add.mock_calls))
+        self.assertEqual(2, len(mock_update_priority.mock_calls))
 
     def test_update_ip_packet_exception_no_config_element(self):
         with mock.patch.object(self.ixnet_gen,
