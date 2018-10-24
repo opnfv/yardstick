@@ -34,6 +34,7 @@ class PipPackagesTestCase(base.BaseFunctionalTestCase):
             helper_command=' '.join(['sudo', '-EH', privsep_helper]),
             group='yardstick_privileged')
         self.addCleanup(self._cleanup)
+        os.system('sudo python -m pip install --upgrade "pip<10.0"')
 
     def _cleanup(self):
         utils.execute_command('sudo rm -rf %s' % self.TMP_FOLDER)
