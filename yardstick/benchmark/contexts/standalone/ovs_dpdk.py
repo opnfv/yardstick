@@ -24,7 +24,6 @@ from yardstick.benchmark import contexts
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.common import exceptions
-from yardstick.common import utils as common_utils
 from yardstick.network_services import utils
 from yardstick.network_services.utils import get_nsb_option
 
@@ -144,21 +143,16 @@ class OvsDpdkContext(base.Context):
         if lcore_mask:
             lcore_mask = ovs_other_config.format("--no-wait ", "dpdk-lcore-mask='%s'" % lcore_mask)
 
-        max_idle = self.ovs_properties.get("max_idle", '')
-        if max_idle:
-            max_idle = ovs_other_config.format("", "max-idle=%s" % max_idle)
-
         cmd_list = [
             "mkdir -p /usr/local/var/run/openvswitch",
             "mkdir -p {}".format(os.path.dirname(log_path)),
-            ("ovsdb-server --remote=punix:/{0}/{1} --remote=ptcp:6640"
-             " --pidfile --detach").format(vpath, ovs_sock_path),
+            "ovsdb-server --remote=punix:/{0}/{1}  --pidfile --detach".format(vpath,
+                                                                              ovs_sock_path),
             ovs_other_config.format("--no-wait ", "dpdk-init=true"),
             ovs_other_config.format("--no-wait ", "dpdk-socket-mem='%s,%s'" % (socket0, socket1)),
             lcore_mask,
             detach_cmd.format(vpath, ovs_sock_path, log_path),
             ovs_other_config.format("", "pmd-cpu-mask=%s" % pmd_mask),
-            max_idle,
         ]
 
         for cmd in cmd_list:
@@ -182,10 +176,8 @@ class OvsDpdkContext(base.Context):
             'ovs-vsctl add-br {0} -- set bridge {0} datapath_type=netdev'.
             format(MAIN_BRIDGE)
         ]
-        dpdk_rxq = ""
-        queues = self.ovs_properties.get("queues")
-        if queues:
-            dpdk_rxq = " options:n_rxq={queue}".format(queue=queues)
+        dpdk_rxq = " options:n_rxq={queue}".format(
+            queue=self.ovs_properties.get("queues", 1))
 
         ordered_network = collections.OrderedDict(self.networks)
         for index, vnf in enumerate(ordered_network.values()):
@@ -243,6 +235,7 @@ class OvsDpdkContext(base.Context):
 
     def check_ovs_dpdk_env(self):
         self.cleanup_ovs_dpdk_env()
+        self._check_hugepages()
 
         version = self.ovs_properties.get("version", {})
         ovs_ver = version.get("ovs", self.DEFAULT_OVS)
@@ -294,12 +287,12 @@ class OvsDpdkContext(base.Context):
         self.cleanup_ovs_dpdk_env()
 
         # Bind nics back to kernel
-        bind_cmd = "{dpdk_devbind} --force -b {driver} {port}"
-        for port in self.networks.values():
-            vpci = port.get("phy_port")
-            phy_driver = port.get("driver")
-            self.connection.execute(bind_cmd.format(
-                dpdk_devbind=self.dpdk_devbind, driver=phy_driver, port=vpci))
+        # bind_cmd = "{dpdk_devbind} --force -b {driver} {port}"
+        # for port in self.networks.values():
+        #     vpci = port.get("phy_port")
+        #     phy_driver = port.get("driver")
+        #     self.connection.execute(bind_cmd.format(
+        #         dpdk_devbind=self.dpdk_devbind, driver=phy_driver, port=vpci))
 
         # Todo: NFVi undeploy (sriov, vswitch, ovs etc) based on the config.
         for vm in self.vm_names:
@@ -382,7 +375,6 @@ class OvsDpdkContext(base.Context):
 
     def _enable_interfaces(self, index, vfs, xml_str):
         vpath = self.ovs_properties.get("vpath", "/usr/local")
-        queue = self.ovs_properties.get("queues", 1)
         vf = self.networks[vfs[0]]
         port_num = vf.get('port_num', 0)
         vpci = utils.PciAddress(vf['vpci'].strip())
@@ -391,17 +383,12 @@ class OvsDpdkContext(base.Context):
         vf['vpci'] = \
             "{}:{}:{:02x}.{}".format(vpci.domain, vpci.bus, slot, vpci.function)
         return model.Libvirt.add_ovs_interface(
-            vpath, port_num, vf['vpci'], vf['mac'], xml_str, queue)
+            vpath, port_num, vf['vpci'], vf['mac'], xml_str)
 
     def setup_ovs_dpdk_context(self):
         nodes = []
 
         self.configure_nics_for_ovs_dpdk()
-
-        hp_total_mb = int(self.vm_flavor.get('ram', '4096')) * len(self.servers)
-        common_utils.setup_hugepages(self.connection, hp_total_mb * 1024)
-
-        self._check_hugepages()
 
         for index, (key, vnf) in enumerate(collections.OrderedDict(
                 self.servers).items()):
