@@ -28,3 +28,8 @@ NSB PROX Test Case Descriptions
    tc_prox_context_load_balancer_port
    tc_prox_context_vpe_port
    tc_prox_context_lw_after_port
+   tc_epc_default_bearer_landslide
+   tc_epc_dedicated_bearer_landslide
+   tc_epc_saegw_tput_relocation_landslide
+   tc_epc_nw_service_request_landslide
+   tc_epc_ue_service_request_landslide
