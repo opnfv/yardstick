@@ -111,6 +111,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
                     'dstmask': dstmask,
                     'type': key,
                     'proto': outer_l3.get('proto'),
+                    'priority': outer_l3.get('priority')
                 })
 
             outer_l4 = value.get('outer_l4')
