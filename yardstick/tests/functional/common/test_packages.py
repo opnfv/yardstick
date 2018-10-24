@@ -34,19 +34,22 @@ class PipPackagesTestCase(base.BaseFunctionalTestCase):
             helper_command=' '.join(['sudo', '-EH', privsep_helper]),
             group='yardstick_privileged')
         self.addCleanup(self._cleanup)
+        os.system('sudo python -m pip install --upgrade "pip<10.0"')
 
     def _cleanup(self):
         utils.execute_command('sudo rm -rf %s' % self.TMP_FOLDER)
 
     def _remove_package(self, package):
-        os.system('%s pip uninstall %s -y' % (self.PYTHONPATH, package))
+        os.system('%s python -m pip uninstall %s -y' %
+                  (self.PYTHONPATH, package))
 
     def _list_packages(self):
         pip_list_regex = re.compile(
             r"(?P<name>[\w\.-]+) \((?P<version>[\w\d_\.\-]+),*.*\)")
         pkg_dict = {}
-        pkgs = utils.execute_command('pip list',
+        pkgs = utils.execute_command('python -m pip list',
                                      env={'PYTHONPATH': self.TMP_FOLDER})
+        print ("pkgs=%s" % pkgs)
         for line in pkgs:
             match = pip_list_regex.match(line)
             if match and match.group('name'):
