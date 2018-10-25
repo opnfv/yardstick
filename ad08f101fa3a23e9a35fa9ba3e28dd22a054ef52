@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_acb4b3d1",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-10-25T14:05:00Z",
+      "side": 1,
+      "message": "Should we put the value of steady state into the Yardstick result object?",
+      "revId": "ad08f101fa3a23e9a35fa9ba3e28dd22a054ef52",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
