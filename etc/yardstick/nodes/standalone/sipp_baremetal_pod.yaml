@@ -1,0 +1,52 @@
+# Copyright (c) 2019 Viosoft Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+nodes:
+-
+    name: sipp
+    role: TrafficGen
+    ip: 10.80.3.7
+    user: USER_ROOT
+    password: PASSWORD_ROOT
+    interfaces:
+        xe0:  # logical name from topology.yaml and vnfd.yaml
+            local_ip: "10.80.3.7"
+            netmask:   "255.255.255.0"
+            local_mac:   "90:e2:ba:7c:30:e8"
+        xe1:
+            local_ip: "10.80.3.7"
+            netmask:   "255.255.255.0"
+            local_mac:   "90:e2:ba:7c:30:e8"
+-
+    name: pcscf
+    role: VirtualNetworkFunction
+    ip: 10.80.3.11
+    user: USER_ROOT
+    password: PASSWORD_ROOT
+    interfaces:
+        xe0:
+            local_ip: "10.80.3.11"
+            netmask:   "255.255.255.0"
+            local_mac:   "90:e2:ba:7c:41:a8"
+-
+    name: hss
+    role: VirtualNetworkFunction
+    ip: 10.80.3.11
+    user: USER_ROOT
+    password: PASSWORD_ROOT
+    interfaces:
+        xe0:
+            local_ip: "10.80.3.11"
+            netmask:   "255.255.255.0"
+            local_mac: "90:e2:ba:7c:41:a8"
