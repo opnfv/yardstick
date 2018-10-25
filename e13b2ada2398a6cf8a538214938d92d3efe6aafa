@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_b116d053",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-10-25T09:52:17Z",
+      "side": 1,
+      "message": "no commented code should be left in the project. please remove. also remove 334 and 339",
+      "range": {
+        "startLine": 335,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 34
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_f107a81b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-10-25T09:52:17Z",
+      "side": 1,
+      "message": "no commented code should be left in the project. please remove. remove 386",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 385,
+        "endChar": 34
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_110d043f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-10-25T09:52:17Z",
+      "side": 1,
+      "message": "1009 can be removed",
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
