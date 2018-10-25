@@ -1,0 +1,56 @@
+# Copyright (c) 2018 Viosoft Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+schema: yardstick:task:0.1
+run_in_parallel: false
+scenarios:
+-
+  type: NSPerf
+  traffic_profile: "../../traffic_profiles/ipv4_throughput.yaml"
+  topology: vims-topology.yaml
+
+  nodes:
+    vnf__0: pcscf.yardstick
+    vnf__1: hss.yardstick
+    tg__0: sipp.yardstick
+
+  runner:
+    type: Vims
+    duration: 60
+    interval: 1
+  options:
+    port: 5060
+    start_user: 1
+    end_user: 10000
+    init_reg_cps: 50
+    init_reg_max: 5000
+    reg_cps: 20
+    reg_step: 10
+    rereg_cps: 20
+    rereg_step: 10
+    dereg_cps: 20
+    dereg_step: 10
+    msgc_cps: 10
+    msgc_step: 5
+    run_mode: nortp
+    call_cps: 10
+    hold_time: 15
+    call_step: 5
+    wait_time: 5
+
+context:
+  type: Node
+  name: yardstick
+  nfvi_type: baremetal
+  file: /etc/yardstick/nodes/sipp_baremetal_pod.yaml

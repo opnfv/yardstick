@@ -1,0 +1,97 @@
+# Copyright (c) 2018 Viosoft Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+schema: "yardstick:task:0.1"
+run_in_parallel: false
+scenarios:
+-
+  type: NSPerf
+  traffic_profile: "../../traffic_profiles/ipv4_throughput.yaml"
+  topology: vims-topology.yaml
+  nodes:
+    tg__0: sipp.trafficgen
+    vnf__0:
+      name: bono-0.yardstick
+      public_ip_attr: "bono_public_ip"
+      private_ip_attr: "bono_private_ip"
+      interfaces:
+        ims_network:
+          local_ip: bono_private_ip
+          local_mac: bono_local_mac
+          netmask: "255.255.255.0"
+          network: private_net_name
+          gateway_ip: private_net_gateway
+
+    vnf__1:
+      name: homestead-0.yardstick
+      public_ip_attr: "homestead_public_ip"
+      private_ip_attr: "homestead_private_ip"
+      interfaces:
+        ims_network:
+          local_ip: homestead_private_ip
+          local_mac: homestead_local_mac
+          netmask: "255.255.255.0"
+          network: private_net_name
+          gateway_ip: private_net_gateway
+  options:
+      # Public key to create keypair on openstack
+      key_name: yardstick
+      public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDXtjr5vxpqmjTe/12wJakI46oyYiWKoJlTgLMs6uXntlz7tDuk9IKXtMc4G7daEmxt74J09JwYION4GwB4QIv+h9Vnz5Oy9OgSVJAnzYquqFlm+V2ioO1Nz/D9LAXF1nRlifwjxZOq48WDdmOOXGZelQCE84xe4lNg27olwa6sPHug0D83CPFJJia17HtiqWyEGtsDDFDYWt7H/qhamNnbPh5y+VDeZUUsVSr8nouUiuSyp5Ynuy91ABfmaLottYZhgHTNMFpGoXZJKuYURovNVhQVAU+vcMiQBUwZA4xHElGJQQucfl//TP/gChv8d28+itX6/HMSZMHZlMFoYEyF"
+      port: 5060
+      start_user: 1
+      end_user: 10000
+      init_reg_cps: 50
+      init_reg_max: 5000
+      reg_cps: 50
+      reg_step: 10
+      rereg_cps: 10
+      rereg_step: 5
+      dereg_cps: 10
+      dereg_step: 5
+      msgc_cps: 10
+      msgc_step: 2
+      run_mode: nortp
+      call_cps: 10
+      hold_time: 15
+      call_step: 5
+      wait_time: 600
+  runner:
+    type: Vims
+contexts:
+# put node context first, so we don't HEAT deploy if node has errors
+-
+  name: trafficgen
+  type: Node
+  nfvi_type: baremetal
+  file: /etc/yardstick/nodes/sipp_pod.yaml
+
+-
+  name: yardstick
+  user: ubuntu
+  # Private key to access VM
+  key_filename: /etc/yardstick/yardstick.pem
+  heat_template: /tmp/clearwater.yaml
+  heat_parameters:
+    image: "Ubuntu_14_trusty"
+    flavor: m1.small
+    key_name: yardstick
+    public_net_id: "public1"
+    repo_url: "http://repo.cw-ngv.com/archive/repo107/"
+    dnssec_key: "HOz2ZYgvbyCFRUymRLBXyLD4+tESevesP07hhzs/uKUD+Oy3aWvReEWMKgBwy75FAl9XQqw6wIGb"
+    private_net_name: "ims_network"
+    private_net_cidr: "10.0.1.0/24"
+    private_net_gateway: "10.0.1.1"
+    private_net_pool_start: "10.0.1.2"
+    private_net_pool_end: "10.0.1.200"
+    zone: "example.com"
