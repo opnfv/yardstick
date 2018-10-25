@@ -31,6 +31,7 @@ def register_modules():
         'yardstick.network_services.traffic_profile.pktgen',
         'yardstick.network_services.traffic_profile.landslide_profile',
         'yardstick.network_services.traffic_profile.vpp_rfc2544',
+        'yardstick.network_services.traffic_profile.sip',
     ]
 
     for module in modules:
