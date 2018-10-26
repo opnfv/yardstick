@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_869f13b4",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fwd-4.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-26T16:20:36Z",
+      "side": 1,
+      "message": "update the name and file to prox_tg_bm.yaml",
+      "range": {
+        "startLine": 52,
+        "startChar": 11,
+        "endLine": 52,
+        "endChar": 18
+      },
+      "revId": "5bed8cf42ce93185982815096b813873f025e3c7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
