@@ -22,6 +22,30 @@
       "revId": "3418c047fb420d2e226357cf8a7c783f8f997676",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_9fc12431",
+        "filename": "ansible/install-inventory.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-10-26T09:48:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_272c5402",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 50
+      },
+      "revId": "3418c047fb420d2e226357cf8a7c783f8f997676",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
