@@ -155,10 +155,17 @@ class OvsDpdkContextTestCase(unittest.TestCase):
             self.ovs_dpdk.connection = ssh_mock
             self.ovs_dpdk.networks = self.NETWORKS
             self.ovs_dpdk.ovs_properties = {
-                'version': {'ovs': '2.7.0'}
+                'version': {'ovs': '2.7.0'},
+                'dpdk_pmd-rxq-affinity': {0: "0: 1"},
+                'vhost_pmd-rxq-affinity': {0: "0: 1"}
             }
             self.ovs_dpdk.wait_for_vswitchd = 0
             self.assertIsNone(self.ovs_dpdk.setup_ovs_bridge_add_flows())
+            self.ovs_dpdk.ovs_properties.update(
+                {'dpdk_pmd-rxq-affinity': {0: "0: 1"}})
+            self.ovs_dpdk.ovs_properties.update(
+                {'vhost_pmd-rxq-affinity': {0: "0: 1"}})
+            self.ovs_dpdk.setup_ovs_bridge_add_flows()
 
     @mock.patch("yardstick.ssh.SSH")
     def test_cleanup_ovs_dpdk_env(self, mock_ssh):
