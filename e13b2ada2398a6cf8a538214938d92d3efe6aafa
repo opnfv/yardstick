@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_52565ad3",
+        "filename": "yardstick/network_services/constants.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_d727fc62",
+      "range": {
+        "startLine": 1,
+        "startChar": 21,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_b72a402a",
         "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
         "patchSetId": 22
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-26T10:29:29Z",
       "side": 1,
       "message": "2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 21,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_32511ed9",
+        "filename": "yardstick/network_services/traffic_profile/prox_profile.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_b72a402a",
       "range": {
         "startLine": 1,
         "startChar": 21,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_f2468620",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_f71b181a",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_b116d053",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 22
@@ -82,6 +154,30 @@
       "writtenOn": "2018-10-25T09:52:17Z",
       "side": 1,
       "message": "no commented code should be left in the project. please remove. also remove 334 and 339",
+      "range": {
+        "startLine": 335,
+        "startChar": 0,
+        "endLine": 338,
+        "endChar": 34
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_12c5028e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_b116d053",
       "range": {
         "startLine": 335,
         "startChar": 0,
@@ -140,6 +236,54 @@
     },
     {
       "key": {
+        "uuid": "5a682502_32babe0a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "It iterates thru a number of sockets.\n\nSee get_data below for original method!",
+      "parentUuid": "5a682502_77a548b4",
+      "range": {
+        "startLine": 344,
+        "startChar": 26,
+        "endLine": 344,
+        "endChar": 52
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_f2bfa6fa",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "While stats is False ... exit condition",
+      "parentUuid": "5a682502_57a00c9f",
+      "range": {
+        "startLine": 344,
+        "startChar": 16,
+        "endLine": 344,
+        "endChar": 22
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_379bd073",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 22
@@ -151,6 +295,30 @@
       "writtenOn": "2018-10-26T10:29:29Z",
       "side": 1,
       "message": "Not sure if \"status\" flag is needed in this method, since we decide based on value of \"done\".",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 349,
+        "endChar": 25
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_9238f2a1",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "Status is needed for exit loop condition",
+      "parentUuid": "5a682502_379bd073",
       "range": {
         "startLine": 347,
         "startChar": 0,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_72d43647",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_f107a81b",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 385,
+        "endChar": 34
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_d7ac1ca3",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 22
@@ -197,6 +389,30 @@
       "writtenOn": "2018-10-26T10:29:29Z",
       "side": 1,
       "message": "This seems to override timeout set in line #340 (whenever that method is called). Is it expected? Please let me see code intent.",
+      "range": {
+        "startLine": 387,
+        "startChar": 0,
+        "endLine": 387,
+        "endChar": 30
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d2cb8aa3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "modified",
+      "parentUuid": "5a682502_d7ac1ca3",
       "range": {
         "startLine": 387,
         "startChar": 0,
@@ -226,6 +442,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_b2ceceb2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_110d043f",
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_f7779839",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 22
@@ -237,6 +471,30 @@
       "writtenOn": "2018-10-26T10:29:29Z",
       "side": 1,
       "message": "Could you please make the failure reason more clear, instead of using general exception?\nSame in other properties below.",
+      "range": {
+        "startLine": 1111,
+        "startChar": 8,
+        "endLine": 1111,
+        "endChar": 15
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_723b969c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 1111,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_f7779839",
       "range": {
         "startLine": 1111,
         "startChar": 8,
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_d2426a0f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_d79a5c62",
+      "range": {
+        "startLine": 1145,
+        "startChar": 12,
+        "endLine": 1145,
+        "endChar": 20
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_7799c81e",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
         "patchSetId": 22
@@ -283,6 +565,30 @@
       "writtenOn": "2018-10-26T10:29:29Z",
       "side": 1,
       "message": "2017-2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_726276ae",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_7799c81e",
       "range": {
         "startLine": 1,
         "startChar": 16,
@@ -318,6 +624,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_925f52e5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_vnf.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_d7a09c45",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 20
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_57948ce1",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
         "patchSetId": 22
@@ -341,6 +671,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_b25c0eef",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_57948ce1",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_378f50ce",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_vnf.py",
         "patchSetId": 22
@@ -352,6 +706,30 @@
       "writtenOn": "2018-10-26T10:29:29Z",
       "side": 1,
       "message": "2016-2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "e13b2ada2398a6cf8a538214938d92d3efe6aafa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d259caff",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_vnf.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-10-26T12:40:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_378f50ce",
       "range": {
         "startLine": 1,
         "startChar": 16,
