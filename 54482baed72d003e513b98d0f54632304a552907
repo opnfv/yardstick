@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_6607571d",
+        "filename": "samples/vnf_samples/nsut/vpe/tc_baremetal_rfc2544_ipv4_1flow_64B_ixia.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-27T18:39:40Z",
+      "side": 1,
+      "message": "This file is not needed anymore, we are using ixnet api\u0027s to create config files.\nCan you try to remove this and validate?",
+      "range": {
+        "startLine": 44,
+        "startChar": 2,
+        "endLine": 44,
+        "endChar": 14
+      },
+      "revId": "54482baed72d003e513b98d0f54632304a552907",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
