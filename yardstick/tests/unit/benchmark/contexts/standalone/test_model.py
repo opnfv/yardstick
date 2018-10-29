@@ -17,6 +17,7 @@ import os
 import uuid
 
 import mock
+import netaddr
 import unittest
 from xml.etree import ElementTree
 
@@ -292,6 +293,7 @@ class ModelLibvirtTestCase(unittest.TestCase):
         hostname = root.find('name').text
         mac = "00:11:22:33:44:55"
         ip = "{0}/{1}".format(node.get('ip'), node.get('netmask'))
+        ip = "{0}/{1}".format(node.get('ip'), netaddr.IPNetwork(ip).prefixlen)
         model.StandaloneContextHelper.check_update_key(self.mock_ssh, node, hostname, id_name,
                                                        cdrom_img, mac)
         mock_gen_cdrom_image.assert_called_once_with(self.mock_ssh, cdrom_img, hostname,
