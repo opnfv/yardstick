@@ -107,7 +107,7 @@ version: 2
 ethernets:
   ens3:
     match:
-      mac_address: {mac_address}
+      macaddress: {mac_address}
     addresses:
       - {ip_address}
 EOF
@@ -570,6 +570,8 @@ class StandaloneContextHelper(object):
         # Update image with public key
         key_filename = node.get('key_filename')
         ip_netmask = "{0}/{1}".format(node.get('ip'), node.get('netmask'))
+        ip_netmask = "{0}/{1}".format(node.get('ip'),
+                                      IPNetwork(ip_netmask).prefixlen)
         Libvirt.gen_cdrom_image(connection, cdrom_img, vm_name, user_name, key_filename, mac,
                                 ip_netmask)
         return node
