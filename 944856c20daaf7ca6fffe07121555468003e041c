@@ -25,6 +25,69 @@
     },
     {
       "key": {
+        "uuid": "5a682502_5073ed14",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T18:39:57Z",
+      "side": 1,
+      "message": "import the module, not the library",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 86
+      },
+      "revId": "944856c20daaf7ca6fffe07121555468003e041c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b061a13b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T18:39:57Z",
+      "side": 1,
+      "message": "there should be two blank lines between classes",
+      "revId": "944856c20daaf7ca6fffe07121555468003e041c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_30559150",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T18:39:57Z",
+      "side": 1,
+      "message": "Why is the SampleVNFTrafficGen being used here instead of the GenericTrafficGen?",
+      "range": {
+        "startLine": 32,
+        "startChar": 14,
+        "endLine": 32,
+        "endChar": 33
+      },
+      "revId": "944856c20daaf7ca6fffe07121555468003e041c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_d7e9bc81",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
         "patchSetId": 1
@@ -48,6 +111,92 @@
     },
     {
       "key": {
+        "uuid": "5a682502_f05b1985",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T18:39:57Z",
+      "side": 1,
+      "message": "Please limit line lengths to 79 character (pep8 convention, not currently enforced by pylint)",
+      "range": {
+        "startLine": 54,
+        "startChar": 80,
+        "endLine": 54,
+        "endChar": 95
+      },
+      "revId": "944856c20daaf7ca6fffe07121555468003e041c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_9064654a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T18:39:57Z",
+      "side": 1,
+      "message": "there should be a blank line between methods",
+      "revId": "944856c20daaf7ca6fffe07121555468003e041c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_306e3130",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T18:39:57Z",
+      "side": 1,
+      "message": "space, not tab",
+      "range": {
+        "startLine": 62,
+        "startChar": 70,
+        "endLine": 62,
+        "endChar": 71
+      },
+      "revId": "944856c20daaf7ca6fffe07121555468003e041c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_10697525",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T18:39:57Z",
+      "side": 1,
+      "message": "space, not tab",
+      "range": {
+        "startLine": 63,
+        "startChar": 78,
+        "endLine": 63,
+        "endChar": 79
+      },
+      "revId": "944856c20daaf7ca6fffe07121555468003e041c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_77f26870",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
         "patchSetId": 1
@@ -59,6 +208,30 @@
       "writtenOn": "2018-10-26T10:09:31Z",
       "side": 1,
       "message": "There seems to be a mismatch between space and tab",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 2
+      },
+      "revId": "944856c20daaf7ca6fffe07121555468003e041c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d087fdd5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T18:39:57Z",
+      "side": 1,
+      "message": "Please use spaces only",
+      "parentUuid": "5a682502_77f26870",
       "range": {
         "startLine": 78,
         "startChar": 0,
