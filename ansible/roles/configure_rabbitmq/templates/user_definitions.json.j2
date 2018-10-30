@@ -1,0 +1,23 @@
+ {
+    "users": [{
+        "name": "yardstick",
+        "password_hash": "{{  }}",
+        "hashing_algorithm": "rabbit_password_hashing_sha256",
+        "tags": ""
+    }],
+    "vhosts": [{
+        "name": "/"
+    }],
+    "permissions": [{
+        "user": "yardstick",
+        "vhost": "/",
+        "configure": ".*",
+        "write": ".*",
+        "read": ".*"
+    }],
+    "parameters": [],
+    "policies": [],
+    "queues": [],
+    "exchanges": [],
+    "bindings": []
+}
