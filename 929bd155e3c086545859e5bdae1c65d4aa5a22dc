@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_d0d53dba",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T19:10:54Z",
+      "side": 1,
+      "message": "This is not needed",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "929bd155e3c086545859e5bdae1c65d4aa5a22dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_30dc71e4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T19:10:54Z",
+      "side": 1,
+      "message": "please import the module, not the class",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 77
+      },
+      "revId": "929bd155e3c086545859e5bdae1c65d4aa5a22dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_10d7b5c0",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T19:10:54Z",
+      "side": 1,
+      "message": "Two blank lines between classes",
+      "revId": "929bd155e3c086545859e5bdae1c65d4aa5a22dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_70e6e9b5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T19:10:54Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "929bd155e3c086545859e5bdae1c65d4aa5a22dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_50e12d99",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T19:10:54Z",
+      "side": 1,
+      "message": "there should be a blank line between methods",
+      "revId": "929bd155e3c086545859e5bdae1c65d4aa5a22dc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
