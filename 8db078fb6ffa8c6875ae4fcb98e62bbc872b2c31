@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_f584abd5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T15:20:52Z",
+      "side": 1,
+      "message": "nit: should be import Decimal (guidelines are import the module, not the class)",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 27
+      },
+      "revId": "8db078fb6ffa8c6875ae4fcb98e62bbc872b2c31",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5573df14",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_ixia_rfc2544.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T15:20:52Z",
+      "side": 1,
+      "message": "nit: line length should be 79 (pep8 convention, but not currently enforced by pylint)",
+      "range": {
+        "startLine": 589,
+        "startChar": 65,
+        "endLine": 589,
+        "endChar": 82
+      },
+      "revId": "8db078fb6ffa8c6875ae4fcb98e62bbc872b2c31",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
