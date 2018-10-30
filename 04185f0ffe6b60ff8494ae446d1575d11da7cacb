@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_1f21864d",
+        "filename": "yardstick/benchmark/scenarios/storage/storperf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2018-10-30T09:26:42Z",
+      "side": 1,
+      "message": "Using config file /home/opnfv/repos/yardstick/.pylintrc\n************* Module yardstick.benchmark.scenarios.storage.storperf\nW:107,22: Use % formatting in logging functions and pass the % parameters as arguments (logging-format-interpolation)\nW:195,22: Use % formatting in logging functions and pass the % parameters as arguments (logging-format-interpolation)\nW:255,22: Use % formatting in logging functions and pass the % parameters as arguments (logging-format-interpolation)\n\nYou can run \"tox -e pep8\" locally to verify.",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 81
+      },
+      "revId": "04185f0ffe6b60ff8494ae446d1575d11da7cacb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
