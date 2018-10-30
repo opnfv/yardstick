@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_10f4d585",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-30T18:02:27Z",
+      "side": 1,
+      "message": "Not sure how you back-ported this change, but the commit message lacks the usual line:\n(cherry picked from commit a5021a12cdce9f68ff15eb0f1d8d30204081bacc)",
+      "revId": "ddeab7c51942b19c1c88efe58339964afca941bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
