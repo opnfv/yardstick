@@ -337,6 +337,7 @@ class TestLandslideTrafficGen(unittest.TestCase):
         'traffic_profile': '../../traffic_profiles/landslide/'
                            'landslide_dmf_udp.yaml',
         'options': {
+            'traffic_duration': 71,
             'test_cases': [
                 {
                     'BearerAddrPool': '2002::2',
@@ -1178,10 +1179,24 @@ class TestLandslideResourceHelper(unittest.TestCase):
     def test_create_test_session_res_helper(self, *args):
         self.res_helper._user_id = self.SUCCESS_RECORD_ID
         self.res_helper._tcl = mock.Mock()
-        test_session = {'name': 'test'}
-        self.assertIsNone(self.res_helper.create_test_session(test_session))
+        self.res_helper.scenario_helper.all_options = {'traffic_duration': 71}
+        _session = {'name': 'test', 'duration': 60}
+        self.assertIsNone(self.res_helper.create_test_session(_session))
         self.res_helper._tcl.create_test_session.assert_called_once_with(
-            {'name': 'test', 'library': self.SUCCESS_RECORD_ID})
+            {'name': _session['name'],
+             'duration': 71,
+             'library': self.SUCCESS_RECORD_ID})
+
+    def test_create_test_session_res_helper_no_traffic_duration(self, *args):
+        self.res_helper._user_id = self.SUCCESS_RECORD_ID
+        self.res_helper._tcl = mock.Mock()
+        self.res_helper.scenario_helper.all_options = {}
+        _session = {'name': 'test', 'duration': 60}
+        self.assertIsNone(self.res_helper.create_test_session(_session))
+        self.res_helper._tcl.create_test_session.assert_called_once_with(
+            {'name': _session['name'],
+             'duration': 60,
+             'library': self.SUCCESS_RECORD_ID})
 
     @mock.patch.object(tg_landslide.LandslideTclClient,
                        'resolve_test_server_name',

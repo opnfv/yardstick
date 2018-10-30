@@ -27,6 +27,7 @@ scenarios:
     tg__0: tg__0.traffic_gen
     vnf__0: vnf__0.vnf_epc
   options:
+    traffic_duration: 70
     dmf:
       transactionRate: 5
       packetSize: 512
