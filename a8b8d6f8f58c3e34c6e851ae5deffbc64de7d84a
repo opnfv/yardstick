@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_f5b5cbee",
+        "filename": "docs/testing/user/userguide/nsb/tc_vims_context_sipp.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T14:55:48Z",
+      "side": 1,
+      "message": "Can you add a link to this, for further reading please?",
+      "range": {
+        "startLine": 44,
+        "startChar": 17,
+        "endLine": 44,
+        "endChar": 21
+      },
+      "revId": "a8b8d6f8f58c3e34c6e851ae5deffbc64de7d84a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d5b88fe7",
+        "filename": "docs/testing/user/userguide/nsb/tc_vims_context_sipp.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T14:55:48Z",
+      "side": 1,
+      "message": "nit: users",
+      "range": {
+        "startLine": 52,
+        "startChar": 29,
+        "endLine": 52,
+        "endChar": 33
+      },
+      "revId": "a8b8d6f8f58c3e34c6e851ae5deffbc64de7d84a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_35cf4381",
+        "filename": "docs/testing/user/userguide/nsb/tc_vims_context_sipp.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T14:55:48Z",
+      "side": 1,
+      "message": "nit: configurations",
+      "range": {
+        "startLine": 55,
+        "startChar": 23,
+        "endLine": 55,
+        "endChar": 32
+      },
+      "revId": "a8b8d6f8f58c3e34c6e851ae5deffbc64de7d84a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_d5afef92",
+        "filename": "docs/testing/user/userguide/nsb/tc_vims_context_sipp.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T14:55:48Z",
+      "side": 1,
+      "message": "In other test case definitions, this section describes what causes the test to pass/fail\n\ne.g. \nhttps://github.com/opnfv/yardstick/blob/master/docs/testing/user/userguide/opnfv_yardstick_tc019.rst\nhttps://github.com/opnfv/yardstick/blob/master/docs/testing/user/userguide/opnfv_yardstick_tc038.rst",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 79
+      },
+      "revId": "a8b8d6f8f58c3e34c6e851ae5deffbc64de7d84a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
