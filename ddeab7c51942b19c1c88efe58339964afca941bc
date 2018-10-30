@@ -34,6 +34,24 @@
       "revId": "ddeab7c51942b19c1c88efe58339964afca941bc",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_704f09be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-10-30T18:41:23Z",
+      "side": 1,
+      "message": "Might prove useful later when we try to correlate changes on master and stable branches, using git or tig tools.\nNot mandatory, since both commit ids can be retrieved from gerrit by means of searching on the Change-Id.",
+      "parentUuid": "5a682502_b07a41ef",
+      "revId": "ddeab7c51942b19c1c88efe58339964afca941bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
