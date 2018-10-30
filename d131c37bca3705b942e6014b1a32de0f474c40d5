@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_f0367951",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T18:20:59Z",
+      "side": 1,
+      "message": "nit: limit line length to 79 (pep8 convention, not currently enforce in pylint because of existing code, trying to keep new code compliant)",
+      "range": {
+        "startLine": 341,
+        "startChar": 80,
+        "endLine": 341,
+        "endChar": 84
+      },
+      "revId": "d131c37bca3705b942e6014b1a32de0f474c40d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_70c5493b",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T18:20:59Z",
+      "side": 1,
+      "message": "IMHO, this should be three separate tests.\n\nYou\u0027re checking for three different sets of return values, and resetting the mocks in between.\n\nMaking this into three separate tests will mean that all three tests are run even if one fails.\nThe way it is now, if the the first test (len\u003d1) fails, we don\u0027t see whether the other tests (len\u003d1, len\u003d3) pass or not.",
+      "range": {
+        "startLine": 338,
+        "startChar": 3,
+        "endLine": 339,
+        "endChar": 43
+      },
+      "revId": "d131c37bca3705b942e6014b1a32de0f474c40d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_90e105d3",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T18:20:59Z",
+      "side": 1,
+      "message": "nit: keep line length to 79 (pep8 convention, not currently tested by pylint)",
+      "range": {
+        "startLine": 360,
+        "startChar": 80,
+        "endLine": 360,
+        "endChar": 84
+      },
+      "revId": "d131c37bca3705b942e6014b1a32de0f474c40d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_10c69549",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_helpers.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T18:20:59Z",
+      "side": 1,
+      "message": "nit: use mock_select.select.assert_called_once()",
+      "range": {
+        "startLine": 364,
+        "startChar": 0,
+        "endLine": 364,
+        "endChar": 58
+      },
+      "revId": "d131c37bca3705b942e6014b1a32de0f474c40d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b01361b7",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_vnf.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T18:20:59Z",
+      "side": 1,
+      "message": "IMHO, this should be two different tests, as you are checking the effect of two different bad inputs.\n\nIt should be split after L396, where the resource helper is reset",
+      "range": {
+        "startLine": 380,
+        "startChar": 0,
+        "endLine": 380,
+        "endChar": 53
+      },
+      "revId": "d131c37bca3705b942e6014b1a32de0f474c40d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_103b3539",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_prox_vnf.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-30T18:20:59Z",
+      "side": 1,
+      "message": "nit: unless you need access to magic methods in the resource_helper, use mock.Mock instead of mock.MagicMock",
+      "range": {
+        "startLine": 397,
+        "startChar": 26,
+        "endLine": 397,
+        "endChar": 42
+      },
+      "revId": "d131c37bca3705b942e6014b1a32de0f474c40d5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
