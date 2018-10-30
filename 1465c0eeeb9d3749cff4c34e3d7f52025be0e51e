@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_9593b74e",
+        "filename": "yardstick/tests/unit/network_services/libs/ixia_libs/test_ixnet_api.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-10-30T14:57:32Z",
+      "side": 1,
+      "message": "Rather use PORT_STATISTICS, FLOW_STATISTICS and   PPPOX_CLIENT_PER_PORT from ixnet_gen.",
+      "range": {
+        "startLine": 596,
+        "startChar": 0,
+        "endLine": 598,
+        "endChar": 82
+      },
+      "revId": "1465c0eeeb9d3749cff4c34e3d7f52025be0e51e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
