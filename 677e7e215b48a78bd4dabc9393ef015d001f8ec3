@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_71ceeab5",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T20:00:01Z",
+      "side": 1,
+      "message": "Its not yet merged so I will keep it generic for now",
+      "parentUuid": "5a682502_0ee671b4",
+      "range": {
+        "startLine": 105,
+        "startChar": 63,
+        "endLine": 106,
+        "endChar": 64
+      },
+      "revId": "677e7e215b48a78bd4dabc9393ef015d001f8ec3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_4e96a9f1",
         "filename": "docs/testing/user/userguide/nsb/tc_epc_nw_service_request_landslide.rst",
         "patchSetId": 5
