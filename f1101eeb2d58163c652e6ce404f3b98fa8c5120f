@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_51d48e1f",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T20:00:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_358aa3bf",
+      "range": {
+        "startLine": 10,
+        "startChar": 79,
+        "endLine": 10,
+        "endChar": 84
+      },
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_1508472c",
         "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
         "patchSetId": 2
@@ -224,6 +248,24 @@
       "writtenOn": "2018-10-31T17:25:38Z",
       "side": 1,
       "message": "You need a blank line before the start of the bulleted list.\n\n    Test duration:\n\n\n    * set at 60sec (specified in the test session profile);",
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_3162b2ad",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T20:00:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_f5b78b84",
       "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
