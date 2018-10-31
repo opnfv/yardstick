@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a682502_eb720710",
+        "filename": "samples/vnf_samples/nsut/vpe/tc_baremetal_http_ipv4_ixload.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T10:12:06Z",
+      "side": 1,
+      "message": "can be removed",
+      "range": {
+        "startLine": 41,
+        "startChar": 1,
+        "endLine": 41,
+        "endChar": 71
+      },
+      "revId": "47052b4753354b8ea102d6075265281090c7e2a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_8b8433d5",
         "filename": "samples/vnf_samples/nsut/vpe/tc_ovs_rfc2544_ipv4_1rule_64B_ixia.yaml",
         "patchSetId": 6
