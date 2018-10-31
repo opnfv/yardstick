@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_8b8433d5",
+        "filename": "samples/vnf_samples/nsut/vpe/tc_ovs_rfc2544_ipv4_1rule_64B_ixia.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T10:11:11Z",
+      "side": 1,
+      "message": "can be removed",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 73
+      },
+      "revId": "47052b4753354b8ea102d6075265281090c7e2a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_6b8717d8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T10:11:11Z",
+      "side": 1,
+      "message": "can be removed, it\u0027s obsolete now",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 37
+      },
+      "revId": "47052b4753354b8ea102d6075265281090c7e2a4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
