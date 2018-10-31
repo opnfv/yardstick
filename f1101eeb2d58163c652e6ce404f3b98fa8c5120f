@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_aee2ddfe",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T14:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_1508472c",
+      "range": {
+        "startLine": 17,
+        "startChar": 39,
+        "endLine": 17,
+        "endChar": 41
+      },
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_d00d3d39",
         "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-10-30T16:12:59Z",
       "side": 1,
       "message": "I\u0027d remove this, we don\u0027t use anywhere else.\nBesides, IMO DUT means not emulated EPC component, which is not the case in current scope.",
+      "range": {
+        "startLine": 24,
+        "startChar": 63,
+        "endLine": 24,
+        "endChar": 70
+      },
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_eeecd5f5",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T14:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_d00d3d39",
       "range": {
         "startLine": 24,
         "startChar": 63,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_4ebb49e5",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T14:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_30147143",
+      "range": {
+        "startLine": 28,
+        "startChar": 68,
+        "endLine": 28,
+        "endChar": 71
+      },
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_100fb52f",
         "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2018-10-30T16:12:59Z",
       "side": 1,
       "message": "I would remove this bit",
+      "range": {
+        "startLine": 34,
+        "startChar": 67,
+        "endLine": 34,
+        "endChar": 74
+      },
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_6eb8c5e5",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T14:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_100fb52f",
       "range": {
         "startLine": 34,
         "startChar": 67,
@@ -140,6 +236,54 @@
     },
     {
       "key": {
+        "uuid": "5a682502_aec93d7b",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T14:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_b027e1b5",
+      "range": {
+        "startLine": 67,
+        "startChar": 51,
+        "endLine": 67,
+        "endChar": 54
+      },
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_cece3983",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T14:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_50192d78",
+      "range": {
+        "startLine": 67,
+        "startChar": 17,
+        "endLine": 67,
+        "endChar": 21
+      },
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_d0241db1",
         "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
         "patchSetId": 2
@@ -151,6 +295,30 @@
       "writtenOn": "2018-10-30T16:12:59Z",
       "side": 1,
       "message": "do we post this file?",
+      "range": {
+        "startLine": 105,
+        "startChar": 55,
+        "endLine": 105,
+        "endChar": 65
+      },
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_0ec95178",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T14:59:33Z",
+      "side": 1,
+      "message": "Added reference to chapter 13 and 14 from NSB docmentation",
+      "parentUuid": "5a682502_d0241db1",
       "range": {
         "startLine": 105,
         "startChar": 55,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_eec33555",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T14:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_303bd1d2",
+      "range": {
+        "startLine": 109,
+        "startChar": 19,
+        "endLine": 109,
+        "endChar": 21
+      },
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_103695e7",
         "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
         "patchSetId": 2
@@ -197,6 +389,30 @@
       "writtenOn": "2018-10-30T16:12:59Z",
       "side": 1,
       "message": "Administration",
+      "range": {
+        "startLine": 120,
+        "startChar": 68,
+        "endLine": 120,
+        "endChar": 78
+      },
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_4ea229af",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T14:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_103695e7",
       "range": {
         "startLine": 120,
         "startChar": 68,
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_8e9a8161",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T14:59:33Z",
+      "side": 1,
+      "message": "Changed sentence",
+      "parentUuid": "5a682502_703549d9",
+      "range": {
+        "startLine": 132,
+        "startChar": 23,
+        "endLine": 132,
+        "endChar": 28
+      },
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_50300de8",
         "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
         "patchSetId": 2
@@ -243,6 +483,30 @@
       "writtenOn": "2018-10-30T16:12:59Z",
       "side": 1,
       "message": "remove, plural clause is meant, not possessive",
+      "range": {
+        "startLine": 138,
+        "startChar": 70,
+        "endLine": 138,
+        "endChar": 71
+      },
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_6e9d6559",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T14:59:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_50300de8",
       "range": {
         "startLine": 138,
         "startChar": 70,
@@ -278,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_2e936d50",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T14:59:33Z",
+      "side": 1,
+      "message": "Changed sentence",
+      "parentUuid": "5a682502_d05b7d2c",
+      "range": {
+        "startLine": 139,
+        "startChar": 17,
+        "endLine": 139,
+        "endChar": 31
+      },
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_b075219a",
         "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
         "patchSetId": 2
@@ -289,6 +577,30 @@
       "writtenOn": "2018-10-30T16:12:59Z",
       "side": 1,
       "message": "maybe this step should be removed, since we use Duration runner currently",
+      "range": {
+        "startLine": 142,
+        "startChar": 17,
+        "endLine": 143,
+        "endChar": 56
+      },
+      "revId": "f1101eeb2d58163c652e6ce404f3b98fa8c5120f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_cea3d99c",
+        "filename": "docs/testing/user/userguide/nsb/tc_epc_dedicated_bearer_landslide.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-10-31T14:59:33Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "5a682502_b075219a",
       "range": {
         "startLine": 142,
         "startChar": 17,
