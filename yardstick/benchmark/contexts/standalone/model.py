@@ -26,6 +26,7 @@ import xml.etree.ElementTree as ET
 from yardstick import ssh
 from yardstick.common import constants
 from yardstick.common import exceptions
+from yardstick.common import utils as common_utils
 from yardstick.common import yaml_loader
 from yardstick.network_services.utils import PciAddress
 from yardstick.network_services.helpers.cpu import CpuSysCores
@@ -540,6 +541,14 @@ class StandaloneContextHelper(object):
                 mgmtip = str(out.split(" ")[0]).strip()
                 client = ssh.SSH.from_node(node, overrides={"ip": mgmtip})
                 client.wait()
+                os_ver, kernel_ver = common_utils.get_os_version(client)
+                LOG.debug("OS version: %s", os_ver)
+                LOG.debug("Kernel version: %s", kernel_ver)
+                vnfs_data = common_utils.get_sample_vnf_info(client)
+                for vnf_name, vnf_data in vnfs_data.items():
+                    LOG.debug("VNF name: '%s', commit ID/branch: '%s'",
+                              vnf_name, vnf_data["branch_commit"])
+                    LOG.debug("%s", vnf_data["md5_result"])
                 break
 
             time.sleep(WAIT_FOR_BOOT)  # FixMe: How to find if VM is booted?
