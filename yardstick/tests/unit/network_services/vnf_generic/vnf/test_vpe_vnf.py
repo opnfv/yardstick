@@ -16,7 +16,6 @@ from multiprocessing import Process, Queue
 import time
 
 import mock
-from six.moves import configparser
 import unittest
 
 from yardstick.benchmark.contexts import base as ctx_base
@@ -147,48 +146,6 @@ class TestConfigCreate(unittest.TestCase):
         self.assertEqual(config_create.downlink_ports, ['xe1'])
         self.assertEqual(config_create.socket, 2)
 
-    def test_dpdk_port_to_link_id(self):
-        vnfd_helper = vnf_base.VnfdHelper(self.VNFD_0)
-        config_create = vpe_vnf.ConfigCreate(vnfd_helper, 2)
-        self.assertEqual(config_create.dpdk_port_to_link_id_map, {'xe0': 0, 'xe1': 1})
-
-    def test_vpe_initialize(self):
-        vnfd_helper = vnf_base.VnfdHelper(self.VNFD_0)
-        config_create = vpe_vnf.ConfigCreate(vnfd_helper, 2)
-        config = configparser.ConfigParser()
-        config_create.vpe_initialize(config)
-        self.assertEqual(config.get('EAL', 'log_level'), '0')
-        self.assertEqual(config.get('PIPELINE0', 'type'), 'MASTER')
-        self.assertEqual(config.get('PIPELINE0', 'core'), 's2C0')
-        self.assertEqual(config.get('MEMPOOL0', 'pool_size'), '256K')
-        self.assertEqual(config.get('MEMPOOL1', 'pool_size'), '2M')
-
-    def test_vpe_rxq(self):
-        vnfd_helper = vnf_base.VnfdHelper(self.VNFD_0)
-        config_create = vpe_vnf.ConfigCreate(vnfd_helper, 2)
-        config = configparser.ConfigParser()
-        config_create.downlink_ports = ['xe0']
-        config_create.vpe_rxq(config)
-        self.assertEqual(config.get('RXQ0.0', 'mempool'), 'MEMPOOL1')
-
-    def test_get_sink_swq(self):
-        vnfd_helper = vnf_base.VnfdHelper(self.VNFD_0)
-        config_create = vpe_vnf.ConfigCreate(vnfd_helper, 2)
-        config = configparser.ConfigParser()
-        config.add_section('PIPELINE0')
-        config.set('PIPELINE0', 'key1', 'value1')
-        config.set('PIPELINE0', 'key2', 'value2 SINK')
-        config.set('PIPELINE0', 'key3', 'TM value3')
-        config.set('PIPELINE0', 'key4', 'value4')
-        config.set('PIPELINE0', 'key5', 'the SINK value5')
-
-        self.assertEqual(config_create.get_sink_swq(config, 'PIPELINE0', 'key1', 5), 'SWQ-1')
-        self.assertEqual(config_create.get_sink_swq(config, 'PIPELINE0', 'key2', 5), 'SWQ-1 SINK0')
-        self.assertEqual(config_create.get_sink_swq(config, 'PIPELINE0', 'key3', 5), 'SWQ-1 TM5')
-        config_create.sw_q += 1
-        self.assertEqual(config_create.get_sink_swq(config, 'PIPELINE0', 'key4', 5), 'SWQ0')
-        self.assertEqual(config_create.get_sink_swq(config, 'PIPELINE0', 'key5', 5), 'SWQ0 SINK1')
-
     def test_generate_vpe_script(self):
         vnfd_helper = vnf_base.VnfdHelper(self.VNFD_0)
         vpe_config_vnf = vpe_vnf.ConfigCreate(vnfd_helper, 2)
@@ -213,36 +170,6 @@ class TestConfigCreate(unittest.TestCase):
         result = vpe_config_vnf.generate_vpe_script(intf)
         self.assertIsInstance(result, str)
         self.assertNotEqual(result, '')
-
-    def test_create_vpe_config(self):
-        vnfd_helper = vnf_base.VnfdHelper(self.VNFD_0)
-        config_create = vpe_vnf.ConfigCreate(vnfd_helper, 23)
-        config_create.uplink_ports = ['xe1']
-        with mock.patch.object(config_create, 'vpe_upstream') as mock_up, \
-                mock.patch.object(config_create, 'vpe_downstream') as \
-                mock_down, \
-                mock.patch.object(config_create, 'vpe_tmq') as mock_tmq, \
-                mock.patch.object(config_create, 'vpe_initialize') as \
-                mock_ini, \
-                mock.patch.object(config_create, 'vpe_rxq') as mock_rxq:
-            mock_ini_obj = mock.Mock()
-            mock_rxq_obj = mock.Mock()
-            mock_up_obj = mock.Mock()
-            mock_down_obj = mock.Mock()
-            mock_tmq_obj = mock.Mock()
-            mock_ini.return_value = mock_ini_obj
-            mock_rxq.return_value = mock_rxq_obj
-            mock_up.return_value = mock_up_obj
-            mock_down.return_value = mock_down_obj
-            mock_tmq.return_value = mock_tmq_obj
-            config_create.create_vpe_config('fake_config_file')
-
-        mock_rxq.assert_called_once_with(mock_ini_obj)
-        mock_up.assert_called_once_with('fake_config_file', 0)
-        mock_down.assert_called_once_with('fake_config_file', 0)
-        mock_tmq.assert_called_once_with(mock_down_obj, 0)
-        mock_up_obj.write.assert_called_once()
-        mock_tmq_obj.write.assert_called_once()
 
 
 class TestVpeApproxVnf(unittest.TestCase):
