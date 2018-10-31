@@ -540,6 +540,12 @@ class StandaloneContextHelper(object):
                 mgmtip = str(out.split(" ")[0]).strip()
                 client = ssh.SSH.from_node(node, overrides={"ip": mgmtip})
                 client.wait()
+                LOG.debug("Virtual machine OS version")
+                client.execute("cat /etc/lsb-release && uname -a")
+                LOG.debug("Sample VNF commit ID, branch")
+                client.execute("cd /opt/tempT/samplevnf && "
+                               "git log -1 --pretty=format:'%H' && "
+                               "git rev-parse --abbrev-ref HEAD")
                 break
 
             time.sleep(WAIT_FOR_BOOT)  # FixMe: How to find if VM is booted?
