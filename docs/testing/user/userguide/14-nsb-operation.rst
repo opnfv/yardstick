@@ -1,7 +1,7 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International
 .. License.
 .. http://creativecommons.org/licenses/by/4.0
-.. (c) OPNFV, 2016-2017 Intel Corporation.
+.. (c) OPNFV, 2016-2018 Intel Corporation.
 
 Yardstick - NSB Testing - Operation
 ===================================
@@ -459,3 +459,107 @@ Sample test case file
 
 .. literalinclude:: /samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml
    :language: yaml
+
+Preparing test run of vEPC test case
+------------------------------------
+
+Provided vEPC test cases are examples of emulation of vEPC infrastructure
+components, such as UE, eNodeB, MME, SGW, PGW.
+
+Location of vEPC test cases: **samples/vnf_samples/nsut/vepc/**.
+
+Before running a specific vEPC test case using NSB, some preconfigurations
+need to be done.
+
+Update Spirent Landslide TG configuration in pod file
+=====================================================
+
+Examples of pod files could be found in :file:`etc/yardstick/nodes/standalone`.
+The name of related pod file could be checked in the context section of NSB
+test case.
+
+The pod file related to vEPC test case uses some sub-structures that hold the
+details of accessing the Spirent Landslide traffic generator.
+These subsections and the changes to be done in provided example pod file are
+described below.
+
+1. **tas_manager**: data under this key holds the information required to
+access Landslide TAS (Test Administration Server) and perform needed
+configurations on it.
+
+ * **ip**: IP address of TAS Manager node; should be updated according to test
+   setup used
+ * **super_user**: superuser name; could be retrieved from Landslide documentation
+ * **super_user_password**: superuser password; could be retrieved from
+   Landslide documentation
+ * **cfguser_password**: password of predefined user named 'cfguser'; default
+   password could be retrieved from Landslide documentation
+ * **test_user**: username to be used during test run as a Landslide library
+   name; to be defined by test run operator
+ * **test_user_password**: password of test user; to be defined by test run
+   operator
+ * **proto**: *http* or *https*; to be defined by test run operator
+ * **license**: Landslide license number installed on TAS
+
+2. **config**: section with this key holds information about used test servers
+(TS) and systems under test (SUT). Data is represented as a list of entries.
+Each such entry contains:
+
+ * **test_server**: this subsection represents data related to test server
+   configuration, such as:
+
+   * **name**: test server name; unique custom name to be defined by test
+     operator
+   * **role**: this value is used as a key to bind specific Test Server and
+     TestCase; should be set to one of test types supported by TAS license
+   * **ip**: Test Server IP address
+   * **thread_model**: parameter related to Test Server performance mode.
+     The value should be one of the following: "Legacy" | "Max" | "Fireball".
+     Refer to Landslide documentation for details.
+   * **phySubnets**: a structure used to specify IP ranges reservations on
+     specific network interfaces of related Test Server. Structure fields are:
+
+    * *base*: start of IP address range
+    * *mask*: IP range mask in CIDR format
+    * *name*: network interface name, e.g. *eth1*
+    * *numIps*: size of IP address range
+
+ * **preResolvedArpAddress**: a structure used to specify the range of IP
+   addresses for which the ARP responses will be emulated
+
+    * *StartingAddress*: IP address specifying the start of IP address range
+    * *NumNodes*: size of the IP address range
+
+ * **suts**: a structure that contains definitions of each specific SUT
+   (represents a vEPC component). SUT structure contains following key/value
+   pairs:
+
+    * *name*: unique custom string specifying SUT name
+    * *role*: string value corresponding with an SUT role specified in the
+      session profile (test session template) file
+    * *managementIp*: SUT management IP adress
+    * *phy*: network interface name, e.g. *eth1*
+    * *ip*: vEPC component IP address used in test case topology
+    * *nextHop*: next hop IP address, to allow for vEPC inter-node communication
+
+Update NSB test case definitions
+================================
+NSB test case file designated for vEPC testing contains an example of specific
+test scenario configuration.
+Test operator may change these definitions as required for the use case that
+requires testing.
+Specifically, following subsections of the vEPC test case (section **scenarios**)
+may be changed.
+
+1. Subsection **options**: contains custom parameters used for vEPC testing
+
+ * subsection **dmf**: may contain one or more parameters specified in
+   *traffic_profile* template file
+ * subsection **test_cases**: contains re-definitions of parameters specified
+   in *session_profile* template file
+
+    .. note:: All parameters in *session_profile*, value of which is a
+      placeholder, needs to be re-defined to construct a valid test session.
+
+2. Subsection **runner**: specifies the test duration and the interval of
+TG and VNF side KPIs polling.
