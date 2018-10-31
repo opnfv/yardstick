@@ -27,3 +27,7 @@
 
 - set_fact:
     samplevnf_path: "{{ samplevnf_dest }}"
+
+- file:
+   dest: "{{ path_json }}"
+   state: absent

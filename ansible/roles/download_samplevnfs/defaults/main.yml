@@ -14,3 +14,4 @@
 samplevnf_url: "https://git.opnfv.org/samplevnf"
 samplevnf_dest: "{{ clone_dest }}/samplevnf"
 samplevnf_version: "47123bfc1b3c0d0b01884aebbce1a3e09ad7ddb0"
+path_json: "{{ INSTALL_BIN_PATH }}/{{ inventory_hostname | basename }}_sample_vnf.json"

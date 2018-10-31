@@ -19,6 +19,7 @@ import datetime
 import errno
 import importlib
 import ipaddress
+import json
 import logging
 import os
 import pydoc
@@ -629,3 +630,47 @@ def safe_cast(value, type_to_convert, default_value):
         return _type(value)
     except ValueError:
         return default_value
+
+
+def get_os_version(ssh_client):
+    """Return OS version.
+
+    :param ssh_client: SSH
+    :return str: Linux OS versions
+    """
+    os_ver = ssh_client.execute("cat /etc/lsb-release")[1]
+    return os_ver
+
+
+def get_kernel_version(ssh_client):
+    """Return kernel version.
+
+    :param ssh_client: SSH
+    :return str: Linux kernel versions
+    """
+    kernel_ver = ssh_client.execute("uname -a")[1]
+    return kernel_ver
+
+
+def get_sample_vnf_info(ssh_client,
+                        json_file='/opt/nsb_bin/yardstick_sample_vnf.json'):
+    """Return sample VNF data.
+
+    :param ssh_client: SSH
+    :param json_file: str
+    :return dict: information about sample VNF
+    """
+    rc, json_str, err = ssh_client.execute("cat %s" % json_file)
+    logger.debug("cat  %s: %s, rc: %s, err: %s", json_file, json_str, rc, err)
+
+    if rc:
+        return {}
+    json_data = json.loads(json_str)
+    for vnf_data in json_data.values():
+        out = ssh_client.execute("md5sum %s" % vnf_data["path_vnf"])[1]
+        md5 = out.split()[0].strip()
+        if md5 == vnf_data["md5"]:
+            vnf_data["md5_result"] = "MD5 checksum is valid"
+        else:
+            vnf_data["md5_result"] = "MD5 checksum is invalid"
+    return json_data

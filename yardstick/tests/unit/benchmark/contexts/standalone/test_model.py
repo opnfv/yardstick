@@ -25,6 +25,7 @@ from yardstick import ssh
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.common import exceptions
 from yardstick import constants
+from yardstick.common import utils as common_utils
 from yardstick.network_services import utils
 
 

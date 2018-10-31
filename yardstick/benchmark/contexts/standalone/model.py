@@ -26,6 +26,7 @@ import xml.etree.ElementTree as ET
 from yardstick import ssh
 from yardstick.common import constants
 from yardstick.common import exceptions
+from yardstick.common import utils as common_utils
 from yardstick.common import yaml_loader
 from yardstick.network_services.utils import PciAddress
 from yardstick.network_services.helpers.cpu import CpuSysCores
@@ -554,6 +555,16 @@ class StandaloneContextHelper(object):
             ip = cls.get_mgmt_ip(connection, node["mac"], mgmtip, node)
             if ip:
                 node["ip"] = ip
+                client = ssh.SSH.from_node(node)
+                LOG.debug("OS version: %s",
+                          common_utils.get_os_version(client))
+                LOG.debug("Kernel version: %s",
+                          common_utils.get_kernel_version(client))
+                vnfs_data = common_utils.get_sample_vnf_info(client)
+                for vnf_name, vnf_data in vnfs_data.items():
+                    LOG.debug("VNF name: '%s', commit ID/branch: '%s'",
+                              vnf_name, vnf_data["branch_commit"])
+                    LOG.debug("%s", vnf_data["md5_result"])
         return nodes
 
     @classmethod
