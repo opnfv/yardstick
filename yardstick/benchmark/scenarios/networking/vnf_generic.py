@@ -220,7 +220,6 @@ class NetworkServiceTestCase(scenario_base.Scenario):
                 nodes = self.context_cfg["nodes"]
                 node0_if = self.find_node_if(nodes, node0_name, node0_if_name, vld["id"])
                 node1_if = self.find_node_if(nodes, node1_name, node1_if_name, vld["id"])
-
                 # names so we can do reverse lookups
                 node0_if["ifname"] = node0_if_name
                 node1_if["ifname"] = node1_if_name
@@ -280,8 +279,29 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             # TODO: don't waste memory
             node0_copy = node0_if.copy()
             node1_copy = node1_if.copy()
-            node0_if["peer_intf"] = node1_copy
-            node1_if["peer_intf"] = node0_copy
+
+            # Support multiple peer interfaces
+            if node0_if.get("peer_intf"):
+                if node0_if.get("node_name"):
+                    first_peer = node0_if["peer_intf"]
+                    node0_if["peer_intf"] = {}
+                    node_name = str(first_peer["node_name"])
+                    node0_if["peer_intf"][node_name] = first_peer
+
+                node0_if["peer_intf"][node1_copy["node_name"]] = node1_copy
+            else:
+                node0_if["peer_intf"] = node1_copy
+
+            if node1_if.get("peer_intf"):
+                if node1_if.get("node_name"):
+                    second_peer = node1_if["peer_intf"]
+                    node1_if["peer_intf"] = {}
+                    node1_if["peer_intf"][second_peer["node_name"]] = second_peer
+
+                node1_if["peer_intf"][node0_copy["node_name"]] = node0_copy
+
+            else:
+                node1_if["peer_intf"] = node0_copy
 
     def _update_context_with_topology(self):  # pragma: no cover
         for vnfd in self.topology["constituent-vnfd"]:
