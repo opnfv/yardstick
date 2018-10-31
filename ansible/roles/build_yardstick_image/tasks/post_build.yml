@@ -51,17 +51,6 @@
 
 - set_fact:
     imgdest: "/var/lib/libvirt/images/{{ imgfile | basename}}"
-    name: "{{ (imgfile | basename | splitext)[0] }}"
-    ext: "{{ (imgfile | basename | splitext)[1] }}"
-
-- name: Verify if imgfile exists in libvirt images
-  stat:
-    path: "{{ imgdest }}"
-  register: imgdest_stat
-
-- set_fact:
-    imgdest: "/var/lib/libvirt/images/{{ name }}_autogen{{ ext }}"
-  when: imgdest_stat.stat.exists
 
 - name: Copy image to libvirt images
   shell: "cp {{ imgfile }} {{ imgdest }}"

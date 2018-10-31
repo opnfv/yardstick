@@ -1433,3 +1433,31 @@ class SetupHugepagesTestCase(unittest.TestCase):
         self.assertEqual(hp_size_kb, 1024)
         self.assertEqual(hp_number, 10)
         self.assertEqual(hp_number_set, 5)
+
+
+class GetOSSampleInfoTestCase(unittest.TestCase):
+
+    def test_get_os_version(self, *args):
+        ssh = mock.Mock()
+        ssh.execute.return_value = (0, "18.04", "")
+        utils.get_os_version(ssh)
+        ssh.execute.assert_called_once_with("cat /etc/lsb-release")
+
+    def test_get_kernel_version(self, *args):
+        ssh = mock.Mock()
+        ssh.execute.return_value = (0, "Linux", "")
+        utils.get_kernel_version(ssh)
+        ssh.execute.assert_called_once_with("uname -a")
+
+    def test_get_sample_vnf_info(self, *args):
+        json_out = """
+        {"UDP_Replay": {
+            "branch_commit": "47123bfc1b3c0d0b01884aebbce1a3e09ad7ddb0",
+            "md5": "4577702f6d6848380bd912232a1b9ca5",
+            "path_vnf": "/opt/nsb_bin/UDP_Replay"
+            }
+        }"""
+        json_file = '/opt/nsb_bin/yardstick_sample_vnf.json'
+        ssh = mock.Mock()
+        ssh.execute.return_value = (0, json_out, "")
+        utils.get_sample_vnf_info(ssh, json_file)
