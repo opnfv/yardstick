@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_6e2445af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-31T13:06:09Z",
+      "side": 1,
+      "message": "What featuer does this support? What problem does it solve? Or What usecase does this address?\nPlease add a why explanation here.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 15
+      },
+      "revId": "e7c3cc33137ad40fcf387249e7d338cf6b986eb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_2e2a4d7e",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-31T13:06:09Z",
+      "side": 1,
+      "message": "More UTs are required. \n\nThere should be a UT for each branching point/state of the system.",
+      "revId": "e7c3cc33137ad40fcf387249e7d338cf6b986eb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8e21e1a1",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-31T13:06:09Z",
+      "side": 1,
+      "message": "Would it make sense to break this out to it\u0027s own method, since it is called below in L297-L301 as well?\n\nIt might make it easier if changes are needed later to extend this further.",
+      "range": {
+        "startLine": 286,
+        "startChar": 20,
+        "endLine": 291,
+        "endChar": 75
+      },
+      "revId": "e7c3cc33137ad40fcf387249e7d338cf6b986eb5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

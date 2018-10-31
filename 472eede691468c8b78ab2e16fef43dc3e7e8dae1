@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_0e1e7163",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-10-31T13:06:09Z",
+      "side": 0,
+      "message": "Removing this white space is unrelated to the change, and IMHO, unnecessary.",
+      "revId": "472eede691468c8b78ab2e16fef43dc3e7e8dae1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
