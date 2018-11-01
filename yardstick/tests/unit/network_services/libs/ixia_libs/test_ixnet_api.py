@@ -592,6 +592,26 @@ class TestIxNextgen(unittest.TestCase):
             mock.call(port_statistics, self.ixnet_gen.PORT_STATS_NAME_MAP),
             mock.call(flow_statistics, self.ixnet_gen.LATENCY_NAME_MAP)])
 
+    def test__set_flow_tracking(self):
+        self.ixnet_gen._ixnet.getList.return_value = ['traffic_item']
+        self.ixnet_gen._set_flow_tracking(track_by=['vlanVlanId0'])
+        self.ixnet_gen.ixnet.setAttribute.assert_called_once_with(
+            'traffic_item/tracking', '-trackBy', ['vlanVlanId0'])
+        self.assertEqual(self.ixnet.commit.call_count, 1)
+
+    def test__set_egress_flow_tracking(self):
+        self.ixnet_gen._ixnet.getList.side_effect = [['traffic_item'],
+                                                     ['encapsulation']]
+        self.ixnet_gen._set_egress_flow_tracking(encapsulation='Ethernet',
+                                                 offset='IPv4 TOS Precedence')
+        self.ixnet_gen.ixnet.setAttribute.assert_any_call(
+            'traffic_item', '-egressEnabled', True)
+        self.ixnet_gen.ixnet.setAttribute.assert_any_call(
+            'encapsulation', '-encapsulation', 'Ethernet')
+        self.ixnet_gen.ixnet.setAttribute.assert_any_call(
+            'encapsulation', '-offset', 'IPv4 TOS Precedence')
+        self.assertEqual(self.ixnet.commit.call_count, 2)
+
     def test__update_ipv4_address(self):
         with mock.patch.object(self.ixnet_gen, '_get_field_in_stack_item',
                                return_value='field_desc'):
