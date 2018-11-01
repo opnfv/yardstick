@@ -41,9 +41,6 @@ C_VLAN = 1
 
 ETHER_TYPE_802_1ad = '0x88a8'
 
-IP_VERSION_4_MASK = 24
-IP_VERSION_6_MASK = 64
-
 TRAFFIC_STATUS_STARTED = 'started'
 TRAFFIC_STATUS_STOPPED = 'stopped'
 
@@ -519,8 +516,10 @@ class IxNextgen(object):  # pragma: no cover
             dstip = str(traffic_param['outer_l3']['dstip'])
             srcseed = traffic_param['outer_l3']['srcseed']
             dstseed = traffic_param['outer_l3']['dstseed']
-            srcmask = traffic_param['outer_l3']['srcmask'] or IP_VERSION_4_MASK
-            dstmask = traffic_param['outer_l3']['dstmask'] or IP_VERSION_4_MASK
+            srcmask = traffic_param['outer_l3']['srcmask'] \
+                      or ipaddress.IPV4LENGTH
+            dstmask = traffic_param['outer_l3']['dstmask'] \
+                      or ipaddress.IPV4LENGTH
 
             self._update_ipv4_address(
                 self._get_stack_item(fg_id, PROTO_IPV4)[0],
