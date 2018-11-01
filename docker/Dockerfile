@@ -17,6 +17,9 @@ ARG BRANCH=master
 ENV REPOS_DIR="/home/opnfv/repos" \
     IMAGE_DIR="/home/opnfv/images/"
 
+# Change root home directory
+RUN sed -i "s|root:x:0:0:root:/root:/bin/bash|root:x:0:0:root:/home/opnfv/repos:/bin/bash|g" /etc/passwd
+
 # Set work directory
 
 # Yardstick repo

@@ -18,7 +18,8 @@ ENV REPOS_DIR /home/opnfv/repos
 
 # Yardstick repo
 ENV YARDSTICK_REPO_DIR ${REPOS_DIR}/yardstick
-
+# Change root home directory
+RUN sed -i "s|root:x:0:0:root:/root:/bin/bash|root:x:0:0:root:/home/opnfv/repos:/bin/bash|g" /etc/passwd
 RUN yum -y install\
     deltarpm \
     wget \
