@@ -18,6 +18,8 @@ ENV REPOS_DIR /home/opnfv/repos
 
 # Yardstick repo
 ENV YARDSTICK_REPO_DIR ${REPOS_DIR}/yardstick
+#change root home directory
+RUN sed -i "s|root:x:0:0:root:/root:/bin/bash|root:x:0:0:root:/home/opnfv/repos:/bin/bash|g" /etc/passwd
 RUN sed -i -e 's/^deb /deb [arch=amd64] /g;s/^deb-src /# deb-src /g' /etc/apt/sources.list && \
     echo "\n\
 deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ trusty main universe multiverse restricted \n\
