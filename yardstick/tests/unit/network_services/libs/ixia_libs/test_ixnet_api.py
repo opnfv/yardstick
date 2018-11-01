@@ -717,6 +717,24 @@ class TestIxNextgen(unittest.TestCase):
         self.ixnet.getList.assert_called_once()
         self.assertEqual(3, self.ixnet_gen._ixnet.execute.call_count)
 
+    def test__get_protocol_status(self):
+        self.ixnet.getAttribute.return_value = ['up']
+        self.ixnet_gen._get_protocol_status('ipv4')
+        self.ixnet.getAttribute.assert_called_once_with('ipv4',
+                                                        '-sessionStatus')
+
+    @mock.patch.object(ixnet_api.IxNextgen, '_get_protocol_status')
+    def test_is_protocols_running(self, mock_ixnextgen_get_protocol_status):
+        mock_ixnextgen_get_protocol_status.return_value = 'up'
+        result = self.ixnet_gen.is_protocols_running(['ethernet', 'ipv4'])
+        self.assertTrue(result)
+
+    @mock.patch.object(ixnet_api.IxNextgen, '_get_protocol_status')
+    def test_is_protocols_stopped(self, mock_ixnextgen_get_protocol_status):
+        mock_ixnextgen_get_protocol_status.return_value = 'down'
+        result = self.ixnet_gen.is_protocols_running(['ethernet', 'ipv4'])
+        self.assertFalse(result)
+
     def test_start_protocols(self):
         self.ixnet_gen.start_protocols()
         self.ixnet.execute.assert_called_once_with('startAllProtocols')
