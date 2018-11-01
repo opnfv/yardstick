@@ -205,8 +205,8 @@ class TestIXIATrafficGen(unittest.TestCase):
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd,
                                                                'task_id')
-            scenario_cfg = {'tc': "nsb_test_case", "topology": "",
-                            'ixia_profile': "ixload.cfg"}
+            scenario_cfg = {'tc': "nsb_test_case",
+                            "topology": ""}
             scenario_cfg.update(
                 {
                     'options': {
@@ -379,7 +379,6 @@ class TestIXIATrafficGen(unittest.TestCase):
                     },
                 },
             },
-            'ixia_profile': '/path/to/profile',
             'task_path': '/path/to/task'
         }
 
