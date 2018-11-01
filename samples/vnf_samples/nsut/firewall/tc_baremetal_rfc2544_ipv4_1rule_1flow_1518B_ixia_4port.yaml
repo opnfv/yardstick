@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2017 Intel Corporation
+# Copyright (c) 2016-2018 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# vfw_ipv4_profile_1flows.ixncfg
 
 ---
 schema: yardstick:task:0.1
@@ -41,7 +40,6 @@ scenarios:
     type: Iteration
     iterations: 10
     interval: 35
-  ixia_profile: ../../traffic_profiles/vfw/vfw_ipv4_profile_muttiport_1518B.ixncfg
 context:
   type: Node
   name: yardstick
