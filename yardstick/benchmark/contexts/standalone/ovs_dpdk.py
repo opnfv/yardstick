@@ -229,9 +229,26 @@ class OvsDpdkContext(base.Context):
                 total_hugepages=int(match.group('hp_total')))
 
     def cleanup_ovs_dpdk_env(self):
-        self.connection.execute(
+        rc, _, _ = self.connection.execute('pgrep ovs')
+        if rc == 1:
+            return
+        rc, out, _ = self.connection.execute('ovs-vsctl list-ports '
+                                             '{0}'.format(MAIN_BRIDGE))
+        if not rc and out.strip():
+            br_ports = out.strip().split('\n')
+            for br_port in br_ports:
+                cmd = "ovs-vsctl del-port {0} {1}".format(MAIN_BRIDGE, br_port)
+                LOG.debug(cmd)
+                rc, out, err = self.connection.execute(cmd)
+                LOG.debug("RC=%s, OUT=%s, ERR=%s", rc, out, err)
+        LOG.debug("Deleting bridge %s", MAIN_BRIDGE)
+        rc, out, err = self.connection.execute(
             'ovs-vsctl --if-exists del-br {0}'.format(MAIN_BRIDGE))
+        LOG.debug("RC=%s, OUT=%s, ERR=%s", rc, out, err)
+        LOG.debug("Killing ovs")
         self.connection.execute("pkill -9 ovs")
+        rc, out, err = self.connection.execute('pgrep ovs')
+        LOG.debug("RC=%s, OUT=%s, ERR=%s", rc, out, err)
 
     def check_ovs_dpdk_env(self):
         self.cleanup_ovs_dpdk_env()
@@ -282,6 +299,9 @@ class OvsDpdkContext(base.Context):
 
         if not self.vm_deploy:
             return
+        # Clean up VMs first
+        for vm in self.vm_names:
+            model.Libvirt.check_if_vm_exists_and_delete(vm, self.connection)
 
         # Cleanup the ovs installation...
         self.cleanup_ovs_dpdk_env()
@@ -291,12 +311,13 @@ class OvsDpdkContext(base.Context):
         for port in self.networks.values():
             vpci = port.get("phy_port")
             phy_driver = port.get("driver")
-            self.connection.execute(bind_cmd.format(
-                dpdk_devbind=self.dpdk_devbind, driver=phy_driver, port=vpci))
+            cmd = bind_cmd.format(
+                dpdk_devbind=self.dpdk_devbind, driver=phy_driver, port=vpci)
+            LOG.info(cmd)
+            rc, out, err = self.connection.execute(cmd)
+            LOG.debug("RC=%s, OUT=%s, ERR=%s", rc, out, err)
 
         # Todo: NFVi undeploy (sriov, vswitch, ovs etc) based on the config.
-        for vm in self.vm_names:
-            model.Libvirt.check_if_vm_exists_and_delete(vm, self.connection)
 
     def _get_physical_nodes(self):
         return self.nfvi_host
