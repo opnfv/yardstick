@@ -229,6 +229,16 @@ class OvsDpdkContext(base.Context):
                 total_hugepages=int(match.group('hp_total')))
 
     def cleanup_ovs_dpdk_env(self):
+        rc, _, _ = self.connection.execute('pgrep ovs')
+        if rc == 1:
+            return
+        rc, out, _ = self.connection.execute('ovs-vsctl list-ports '
+                                             '{0}'.format(MAIN_BRIDGE))
+        if not rc and out.strip():
+            br_ports = out.strip().split('\n')
+            for br_port in br_ports:
+                self.connection.execute(
+                    "ovs-vsctl del-port {0} {1}".format(MAIN_BRIDGE, br_port))
         self.connection.execute(
             'ovs-vsctl --if-exists del-br {0}'.format(MAIN_BRIDGE))
         self.connection.execute("pkill -9 ovs")
