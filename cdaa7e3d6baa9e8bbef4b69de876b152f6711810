@@ -1126,6 +1126,30 @@
       "revId": "cdaa7e3d6baa9e8bbef4b69de876b152f6711810",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_b4c9907b",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-11-01T13:30:05Z",
+      "side": 1,
+      "message": "What document specifically do you mean?",
+      "parentUuid": "5a682502_54063ccf",
+      "range": {
+        "startLine": 564,
+        "startChar": 3,
+        "endLine": 564,
+        "endChar": 25
+      },
+      "revId": "cdaa7e3d6baa9e8bbef4b69de876b152f6711810",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
