@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Orest Voznyy <orestx.voznyy@intel.com>
+Code-Review+2: Abhijit Sinha <abhijit.sinha@intel.com>
+Code-Review+2: Emma Foley <emma.l.foley@intel.com>
+Submitted-by: Emma Foley <emma.l.foley@intel.com>
+Submitted-at: Thu, 01 Nov 2018 16:17:52 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/63963
+Project: yardstick
+Branch: refs/heads/master
