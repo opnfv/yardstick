@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_3fb719da",
+        "filename": "yardstick/benchmark/scenarios/networking/vnf_generic.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-02T13:52:54Z",
+      "side": 1,
+      "message": "remove this space",
+      "range": {
+        "startLine": 183,
+        "startChar": 12,
+        "endLine": 183,
+        "endChar": 13
+      },
+      "revId": "41effbcfb1bf113fbc68aedccf32c5722efbafa2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
