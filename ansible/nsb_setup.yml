@@ -23,7 +23,6 @@
     "{{ proxy_env }}"
   roles:
     - install_dependencies_jumphost
-    - docker
 
 - name: "handle all openstack stuff when: openrc_file is defined"
   include: prepare_openstack.yml
