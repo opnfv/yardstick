@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_bf4b292a",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-02T09:20:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_94ac54a2",
+      "revId": "e6853a6114ad9729a016d7aafa6f2ab031245296",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_74aff894",
         "filename": "yardstick/benchmark/contexts/standalone/model.py",
         "patchSetId": 5
@@ -42,6 +60,47 @@
     },
     {
       "key": {
+        "uuid": "5a682502_ff55a1c6",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-02T09:20:02Z",
+      "side": 1,
+      "message": "We\u0027re casting integer into string all the time as we receive int form the YAML.",
+      "parentUuid": "5a682502_74aff894",
+      "range": {
+        "startLine": 206,
+        "startChar": 8,
+        "endLine": 206,
+        "endChar": 41
+      },
+      "revId": "e6853a6114ad9729a016d7aafa6f2ab031245296",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_3f5f19e7",
+        "filename": "yardstick/benchmark/contexts/standalone/ovs_dpdk.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-02T09:20:02Z",
+      "side": 1,
+      "message": "fixed to int",
+      "revId": "e6853a6114ad9729a016d7aafa6f2ab031245296",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_14a0449e",
         "filename": "yardstick/tests/unit/benchmark/contexts/standalone/test_model.py",
         "patchSetId": 5
@@ -53,6 +112,30 @@
       "writtenOn": "2018-11-01T13:32:03Z",
       "side": 1,
       "message": "This is cast to a string by the method. Should this be passed as an int?",
+      "range": {
+        "startLine": 126,
+        "startChar": 72,
+        "endLine": 126,
+        "endChar": 75
+      },
+      "revId": "e6853a6114ad9729a016d7aafa6f2ab031245296",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_df50a5d6",
+        "filename": "yardstick/tests/unit/benchmark/contexts/standalone/test_model.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-02T09:20:02Z",
+      "side": 1,
+      "message": "Fixed to int",
+      "parentUuid": "5a682502_14a0449e",
       "range": {
         "startLine": 126,
         "startChar": 72,
