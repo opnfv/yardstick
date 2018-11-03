@@ -1150,6 +1150,30 @@
       "revId": "cdaa7e3d6baa9e8bbef4b69de876b152f6711810",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_5a5ca3ed",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-11-03T13:52:40Z",
+      "side": 1,
+      "message": "https://opnfv-yardstick.readthedocs.io/en/latest/testing/user/userguide/03-architecture.html#runner-types",
+      "parentUuid": "5a682502_b4c9907b",
+      "range": {
+        "startLine": 564,
+        "startChar": 3,
+        "endLine": 564,
+        "endChar": 25
+      },
+      "revId": "cdaa7e3d6baa9e8bbef4b69de876b152f6711810",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
