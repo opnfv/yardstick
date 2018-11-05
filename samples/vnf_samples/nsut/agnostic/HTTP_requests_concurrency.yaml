@@ -1,0 +1,56 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or imp
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+schema: "nsb:traffic_profile:0.1"
+
+name:            TrafficProfileGenericHTTP
+description:     Traffic profile to run HTTP test
+traffic_profile:
+  traffic_type: TrafficProfileGenericHTTP
+
+uplink_0:
+    ip:
+        address: "152.16.100.32"          # must be in same subnet with gateway
+        subnet_prefix: 24                 # subnet prefix
+        mac: "Auto"                       # port mac addr or auto to generate automatically
+        gateway: <GATEWAY_ADDR>           # will be taken from pod file
+
+    http_client:
+        simulated_users: {{ get(simulated_users, 'simulated_users.uplink_0', '65000') }} # number of threads to be run
+        page_object:  {{ get(page_object, 'page_object.uplink_0', '/1b.html') }} # http locator to be read
+
+downlink_0:
+    ip:
+        address: "152.40.40.32"           # must be in same subnet with gateway
+        subnet_prefix: 24                 # subnet prefix
+        mac: "Auto"                       # port mac addr or auto to generate automatically
+        gateway: <GATEWAY_ADDR>           # will be taken from pod file
+
+uplink_1:
+    ip:
+        address: "12.12.12.32"
+        subnet_prefix: 24
+        mac: "00:00:00:00:00:01"
+        gateway: <GATEWAY_ADDR>
+
+    http_client:
+        simulated_users: {{ get(simulated_users, 'simulated_users.uplink_1', '65000') }} # number of threads to be run
+        page_object:  {{ get(page_object, 'page_object.uplink_1', '/1b.html') }} # http locator to be read
+
+downlink_1:
+    ip:
+        address: "13.13.13.32"
+        subnet_prefix: 24
+        mac: "00:00:00:00:00:02"
+        gateway: <GATEWAY_ADDR>
