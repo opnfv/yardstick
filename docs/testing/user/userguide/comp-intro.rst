@@ -7,10 +7,10 @@
 Yardstick
 =========
 
-.. _Yardstick: https://wiki.opnfv.org/yardstick
+.. _Yardstick: https://wiki.opnfv.org/display/yardstick
 .. _Presentation: https://wiki.opnfv.org/_media/opnfv_summit_-_yardstick_project.pdf
 .. _NFV-TST001: https://docbox.etsi.org/ISG/NFV/Open/Drafts/TST001_-_Pre-deployment_Validation/
-.. _Yardsticktst: https://wiki.opnfv.org/_media/opnfv_summit_-_bridging_opnfv_and_etsi.pdf
+.. _Yardsticktst: http://events17.linuxfoundation.org/sites/events/files/slides/OPNFV%20Summit%20-%20bridging_opnfv_and_etsi.pdf
 
 The project's goal is to verify infrastructure compliance, from the perspective
 of a Virtual Network Function (VNF).
