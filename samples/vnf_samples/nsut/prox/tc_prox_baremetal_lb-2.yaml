@@ -18,6 +18,7 @@ schema: "yardstick:task:0.1"
 scenarios:
 -
   type: NSPerf
+
   traffic_profile: ../../traffic_profiles/prox_binsearch.yaml
   topology: prox-tg-topology-2.yaml
 
@@ -26,19 +27,22 @@ scenarios:
     vnf__0: vnf_0.yardstick
 
   options:
+    hugepages_gb: 4
     vnf__0:
       collectd:
         interval: 1
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/handle_l2fwd_multiflow-2.cfg"
+      prox_config: "configs/handle_lb-2.cfg"
       prox_args:
         "-t": ""
+      prox_files:
+        "configs/tuples-2.lua": ""
 
     tg__0:
       collectd:
         interval: 1
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/gen_l2fwd_multiflow-2.cfg"
+      prox_config: "configs/gen_lb-2.cfg"
       prox_args:
         "-e": ""
         "-t": ""

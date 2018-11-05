@@ -30,7 +30,7 @@ scenarios:
       collectd:
         interval: 1
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/handle_l2fwd_multiflow-2.cfg"
+      prox_config: "configs/handle_buffering-2.cfg"
       prox_args:
         "-t": ""
 
@@ -38,7 +38,7 @@ scenarios:
       collectd:
         interval: 1
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/gen_l2fwd_multiflow-2.cfg"
+      prox_config: "configs/gen_buffering-2.cfg"
       prox_args:
         "-e": ""
         "-t": ""
