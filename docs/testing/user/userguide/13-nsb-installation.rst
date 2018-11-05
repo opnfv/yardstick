@@ -1,7 +1,7 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International
 .. License.
 .. http://creativecommons.org/licenses/by/4.0
-.. (c) OPNFV, 2016-2017 Intel Corporation.
+.. (c) OPNFV, 2016-2018 Intel Corporation.
 
 ..
    Convention for heading levels in Yardstick documentation:
@@ -936,7 +936,7 @@ Setup system proxy (if needed). Add the following configuration into the
 ``/etc/environment`` file:
 
 .. note:: The proxy server name/port and IPs should be changed according to
-  actuall/current proxy configuration in the lab.
+  actual/current proxy configuration in the lab.
 
 .. code:: bash
 
@@ -1192,3 +1192,52 @@ installed as part of the requirements of the project.
 
 3. Execute testcase in samplevnf folder e.g.
    ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml``
+
+Spirent Landslide
+-----------------
+
+In order to use Spirent Landslide for vEPC testcases, some dependencies have
+to be preinstalled and properly configured.
+
+- Java
+
+    32-bit Java installation is required for the Spirent Landslide TCL API.
+
+    | ``$ sudo apt-get install openjdk-8-jdk:i386``
+
+    .. important::
+      Make sure ``LD_LIBRARY_PATH`` is pointing to 32-bit JRE. For more details
+      check `Linux Troubleshooting <http://TAS_HOST_IP/tclapiinstall.html#trouble>`
+      section of installation instructions.
+
+- LsApi (Tcl API module)
+
+    Follow Landslide documentation for detailed instructions on Linux
+    installation of Tcl API and its dependencies
+    ``http://TAS_HOST_IP/tclapiinstall.html``.
+    For working with LsApi Python wrapper only steps 1-5 are required.
+
+    .. note:: After installation make sure your API home path is included in
+      ``PYTHONPATH`` environment variable.
+
+    .. important::
+    The current version of LsApi module has an issue with reading LD_LIBRARY_PATH.
+    For LsApi module to initialize correctly following lines (184-186) in
+    lsapi.py
+
+    .. code-block:: python
+
+        ldpath = os.environ.get('LD_LIBRARY_PATH', '')
+        if ldpath == '':
+         environ['LD_LIBRARY_PATH'] = environ['LD_LIBRARY_PATH'] + ':' + ldpath
+
+    should be changed to:
+
+    .. code-block:: python
+
+        ldpath = os.environ.get('LD_LIBRARY_PATH', '')
+        if not ldpath == '':
+               environ['LD_LIBRARY_PATH'] = environ['LD_LIBRARY_PATH'] + ':' + ldpath
+
+.. note:: The Spirent landslide TCL software package needs to be updated in case
+  the user upgrades to a new version of Spirent landslide software.
