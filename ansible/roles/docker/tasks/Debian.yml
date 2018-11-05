@@ -14,3 +14,24 @@
 ---
   - name: Install docker.io
     action: "{{ ansible_pkg_mgr }} name=docker.io state=present force=yes"
+
+  - name: update package manager cache
+    tags:
+       - cache_update
+    package:
+       update_cache: yes
+
+  - name: install python
+    package:
+       name: python
+       state: present
+
+  - name: install python-pip
+    package:
+       name: python-pip
+       state: present
+
+  - name: install docker-py
+    pip:
+       name: docker-py
+       state: present
