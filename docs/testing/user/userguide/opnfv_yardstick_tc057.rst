@@ -49,12 +49,15 @@ Yardstick Test Case Description TC057
 |              | -host: node1                                                 |
 +--------------+--------------------------------------------------------------+
 |monitors      | In this test case, a kind of monitor is needed:              |
+|              |                                                              |
 |              | 1. the "openstack-cmd" monitor constantly request a specific |
 |              |    Openstack command, which needs two parameters:            |
-|              | 1) monitor_type: which is used for finding the monitor class |
-|              | and related scripts. It should be always set to              |
-|              | "openstack-cmd" for this monitor.                            |
-|              | 2) command_name: which is the command name used for request  |
+|              |                                                              |
+|              |    1. monitor_type: which is used for finding the monitor    |
+|              |       class and related scripts. It should be always set to  |
+|              |       "openstack-cmd" for this monitor.                      |
+|              |    2. command_name: which is the command name used for       |
+|              |       request                                                |
 |              |                                                              |
 |              | In this case, the command_name of monitor1 should be         |
 |              | services that are managed by the cluster manager.            |

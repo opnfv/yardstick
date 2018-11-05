@@ -34,6 +34,7 @@ Yardstick Test Case Description TC012
 |              |                                                              |
 |              | LMbench is a suite of operating system microbenchmarks.      |
 |              | This test uses bw_mem tool from that suite including:        |
+|              |                                                              |
 |              |  * Cached file read                                          |
 |              |  * Memory copy (bcopy)                                       |
 |              |  * Memory read                                               |
