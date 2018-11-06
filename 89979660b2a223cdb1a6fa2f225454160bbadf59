@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_9078e590",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fwd-4.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-06T14:31:21Z",
+      "side": 1,
+      "message": "rename this as per the tg file",
+      "range": {
+        "startLine": 52,
+        "startChar": 11,
+        "endLine": 52,
+        "endChar": 18
+      },
+      "revId": "89979660b2a223cdb1a6fa2f225454160bbadf59",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
