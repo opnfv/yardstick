@@ -22,6 +22,30 @@
       "revId": "1465c0eeeb9d3749cff4c34e3d7f52025be0e51e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_34829b94",
+        "filename": "yardstick/tests/unit/network_services/libs/ixia_libs/test_ixnet_api.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-11-06T11:16:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_9593b74e",
+      "range": {
+        "startLine": 596,
+        "startChar": 0,
+        "endLine": 598,
+        "endChar": 82
+      },
+      "revId": "1465c0eeeb9d3749cff4c34e3d7f52025be0e51e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
