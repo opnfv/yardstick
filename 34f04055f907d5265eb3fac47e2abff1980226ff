@@ -16,6 +16,24 @@
       "revId": "34f04055f907d5265eb3fac47e2abff1980226ff",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_37945de1",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fwd_pktTouch-4.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-06T17:28:54Z",
+      "side": 1,
+      "message": "Just tested again. User \u0026 password credentials don\u0027t affect test run. So either with or without.",
+      "parentUuid": "5a682502_77b7f5d8",
+      "revId": "34f04055f907d5265eb3fac47e2abff1980226ff",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
