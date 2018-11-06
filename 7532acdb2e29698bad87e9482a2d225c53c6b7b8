@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_b7b18de3",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs_l2fwd-4.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-06T15:05:05Z",
+      "side": 1,
+      "message": "Are any of these configurable? user/password ... Am I to update this field.",
+      "revId": "7532acdb2e29698bad87e9482a2d225c53c6b7b8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
