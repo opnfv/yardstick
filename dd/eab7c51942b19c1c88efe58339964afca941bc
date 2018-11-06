@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Submitted-by: Rex Lee <limingjiang@huawei.com>
+Submitted-at: Tue, 06 Nov 2018 06:35:15 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/64225
+Project: yardstick
+Branch: refs/heads/stable/gambia
