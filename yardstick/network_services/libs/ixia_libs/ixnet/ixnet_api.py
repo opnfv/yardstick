@@ -471,14 +471,16 @@ class IxNextgen(object):  # pragma: no cover
                                              '-singleValue', ETHER_TYPE_802_1ad,
                                              '-fieldValue', ETHER_TYPE_802_1ad,
                                              '-valueType', SINGLE_VALUE)
-
-                self._append_procotol_to_stack(
-                    PROTO_VLAN, config_element + '/stack:"ethernet-1"')
-                self._append_procotol_to_stack(
-                    PROTO_VLAN, config_element + '/stack:"ethernet-1"')
-
-                self._update_vlan_tag(fg_id, s_vlan, S_VLAN)
-                self._update_vlan_tag(fg_id, c_vlan, C_VLAN)
+                try:
+                    self._update_vlan_tag(fg_id, s_vlan, S_VLAN)
+                    self._update_vlan_tag(fg_id, c_vlan, C_VLAN)
+                except IndexError:
+                    self._append_procotol_to_stack(
+                        PROTO_VLAN, config_element + '/stack:"ethernet-1"')
+                    self._append_procotol_to_stack(
+                        PROTO_VLAN, config_element + '/stack:"ethernet-1"')
+                    self._update_vlan_tag(fg_id, s_vlan, S_VLAN)
+                    self._update_vlan_tag(fg_id, c_vlan, C_VLAN)
 
             self.ixnet.setMultiAttribute(
                 config_element + '/transmissionControl',
