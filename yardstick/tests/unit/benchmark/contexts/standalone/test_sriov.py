@@ -22,6 +22,7 @@ from yardstick.benchmark import contexts
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts.standalone import model
 from yardstick.benchmark.contexts.standalone import sriov
+from yardstick.common import utils
 
 
 class SriovContextTestCase(unittest.TestCase):
@@ -276,13 +277,15 @@ class SriovContextTestCase(unittest.TestCase):
         mock_add_sriov.assert_called_once_with(
             '0000:00:0a.0', 0, self.NETWORKS['private_0']['mac'], 'test')
 
+    @mock.patch.object(utils, 'setup_hugepages')
     @mock.patch.object(model.StandaloneContextHelper, 'check_update_key')
     @mock.patch.object(model.Libvirt, 'build_vm_xml')
     @mock.patch.object(model.Libvirt, 'check_if_vm_exists_and_delete')
     @mock.patch.object(model.Libvirt, 'write_file')
     @mock.patch.object(model.Libvirt, 'virsh_create_vm')
-    def test_setup_sriov_context(self, mock_create_vm, mock_write_file, mock_check,
-                                 mock_build_vm_xml, mock_check_update_key):
+    def test_setup_sriov_context(self, mock_create_vm, mock_write_file,
+                                 mock_check, mock_build_vm_xml,
+                                 mock_check_update_key, mock_setup_hugepages):
         self.sriov.servers = {
             'vnf_0': {
                 'network_ports': {
@@ -295,7 +298,7 @@ class SriovContextTestCase(unittest.TestCase):
         connection = mock.Mock()
         self.sriov.connection = connection
         self.sriov.host_mgmt = {'ip': '1.2.3.4'}
-        self.sriov.vm_flavor = 'flavor'
+        self.sriov.vm_flavor = {'ram': '1024'}
         self.sriov.networks = 'networks'
         self.sriov.configure_nics_for_sriov = mock.Mock()
         self.sriov._name_task_id = 'fake_name'
@@ -314,15 +317,16 @@ class SriovContextTestCase(unittest.TestCase):
             mock_vnf_node.generate_vnf_instance = mock.Mock(
                 return_value='node_1')
             nodes_out = self.sriov.setup_sriov_context()
+        mock_setup_hugepages.assert_called_once_with(connection, 1024*1024)
         mock_check_update_key.assert_called_once_with(connection, 'node_1', vm_name,
                                                       self.sriov._name_task_id, cdrom_img,
                                                       mac)
         self.assertEqual(['node_2'], nodes_out)
         mock_vnf_node.generate_vnf_instance.assert_called_once_with(
-            'flavor', 'networks', '1.2.3.4', 'vnf_0',
+            self.sriov.vm_flavor, 'networks', '1.2.3.4', 'vnf_0',
             self.sriov.servers['vnf_0'], '00:00:00:00:00:01')
         mock_build_vm_xml.assert_called_once_with(
-            connection, 'flavor', vm_name, 0, cdrom_img)
+            connection, self.sriov.vm_flavor, vm_name, 0, cdrom_img)
         mock_create_vm.assert_called_once_with(connection, cfg)
         mock_check.assert_called_once_with(vm_name, connection)
         mock_write_file.assert_called_once_with(cfg, 'out_xml')

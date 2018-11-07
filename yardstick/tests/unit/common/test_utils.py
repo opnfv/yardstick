@@ -1407,3 +1407,20 @@ class SafeCaseTestCase(unittest.TestCase):
 
     def test_default_value(self):
         self.assertEqual(0, utils.safe_cast('', 'int', 0))
+
+
+class SetupHugepagesTestCase(unittest.TestCase):
+
+    @mock.patch.object(six, 'BytesIO', return_value=six.BytesIO(b'5\n'))
+    @mock.patch.object(utils, 'read_meminfo',
+                       return_value={'Hugepagesize': '1024'})
+    def test_setup_hugepages(self, mock_meminfo, *args):
+        ssh = mock.Mock()
+        ssh.execute = mock.Mock()
+        hp_size_kb, hp_number, hp_number_set = utils.setup_hugepages(ssh, 10 * 1024)
+        mock_meminfo.assert_called_once_with(ssh)
+        ssh.execute.assert_called_once_with(
+            'echo 10 | sudo tee /proc/sys/vm/nr_hugepages')
+        self.assertEqual(hp_size_kb, 1024)
+        self.assertEqual(hp_number, 10)
+        self.assertEqual(hp_number_set, 5)
