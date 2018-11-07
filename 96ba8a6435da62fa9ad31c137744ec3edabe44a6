@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_68bb90e5",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-07T18:05:52Z",
+      "side": 1,
+      "message": "do we need to set any values here or can leave as blank and added in the documentation?",
+      "range": {
+        "startLine": 31,
+        "startChar": 21,
+        "endLine": 31,
+        "endChar": 38
+      },
+      "revId": "96ba8a6435da62fa9ad31c137744ec3edabe44a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_48d7b423",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-07T18:05:52Z",
+      "side": 1,
+      "message": "can you increase the iteration to 10",
+      "range": {
+        "startLine": 54,
+        "startChar": 16,
+        "endLine": 54,
+        "endChar": 17
+      },
+      "revId": "96ba8a6435da62fa9ad31c137744ec3edabe44a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_88e1cc00",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-07T18:05:52Z",
+      "side": 1,
+      "message": "we need interval to be consistent, another file has 75 secs interval.",
+      "range": {
+        "startLine": 55,
+        "startChar": 14,
+        "endLine": 55,
+        "endChar": 16
+      },
+      "revId": "96ba8a6435da62fa9ad31c137744ec3edabe44a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_88b8ace6",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_4port.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-07T18:05:52Z",
+      "side": 1,
+      "message": "I didn\u0027t see this section in the previous test case",
+      "range": {
+        "startLine": 41,
+        "startChar": 5,
+        "endLine": 44,
+        "endChar": 24
+      },
+      "revId": "96ba8a6435da62fa9ad31c137744ec3edabe44a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e8ce8082",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_4port.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-07T18:05:52Z",
+      "side": 1,
+      "message": "if we are doing an imix traffic, the test case should be renamed to append imix into it.",
+      "revId": "96ba8a6435da62fa9ad31c137744ec3edabe44a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a8de483d",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_4port.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-07T18:05:52Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 57,
+        "startChar": 16,
+        "endLine": 57,
+        "endChar": 17
+      },
+      "revId": "96ba8a6435da62fa9ad31c137744ec3edabe44a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c8c9047b",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-07T18:05:52Z",
+      "side": 1,
+      "message": "Does this section mean we can only use this packet sizes as traffic?",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 34,
+        "endChar": 20
+      },
+      "revId": "96ba8a6435da62fa9ad31c137744ec3edabe44a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_28c99878",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-07T18:05:52Z",
+      "side": 1,
+      "message": "can you explain the precedence?",
+      "range": {
+        "startLine": 39,
+        "startChar": 16,
+        "endLine": 39,
+        "endChar": 37
+      },
+      "revId": "96ba8a6435da62fa9ad31c137744ec3edabe44a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
