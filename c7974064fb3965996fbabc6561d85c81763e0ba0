@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_be0e8230",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-08T14:06:48Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be the date changed?",
+      "range": {
+        "startLine": 39,
+        "startChar": 1,
+        "endLine": 39,
+        "endChar": 12
+      },
+      "revId": "c7974064fb3965996fbabc6561d85c81763e0ba0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_1e1e9663",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-08T14:06:48Z",
+      "side": 1,
+      "message": "if no new runners has been added, maybe it\u0027s better to change like:\n.. note:: No new runners have been introduced in Yardstick Gambia 7.0.0 release.",
+      "range": {
+        "startLine": 177,
+        "startChar": 10,
+        "endLine": 177,
+        "endChar": 54
+      },
+      "revId": "c7974064fb3965996fbabc6561d85c81763e0ba0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
