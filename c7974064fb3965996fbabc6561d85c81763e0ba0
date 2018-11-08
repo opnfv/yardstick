@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_1e35f6d9",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-08T14:20:59Z",
+      "side": 1,
+      "message": "Yes 9th Novemeber",
+      "parentUuid": "5a682502_be0e8230",
+      "range": {
+        "startLine": 39,
+        "startChar": 1,
+        "endLine": 39,
+        "endChar": 12
+      },
+      "revId": "c7974064fb3965996fbabc6561d85c81763e0ba0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_1e1e9663",
         "filename": "docs/release/release-notes/release-notes.rst",
         "patchSetId": 5
@@ -42,6 +66,23 @@
         "endLine": 177,
         "endChar": 54
       },
+      "revId": "c7974064fb3965996fbabc6561d85c81763e0ba0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_fe2f5a86",
+        "filename": "docs/release/release-notes/release-notes.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-08T14:20:59Z",
+      "side": 1,
+      "message": "can we add the following here:\n-\tAgnostic VNF tests cases for reuse of standard RFC-2544 test case\n-\tPROX enhancements and the addition of Standalone test case using SRIOV and OVS-DPDK\n-\tIxia enhancements for vBNG and PPPoE traffic",
       "revId": "c7974064fb3965996fbabc6561d85c81763e0ba0",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
