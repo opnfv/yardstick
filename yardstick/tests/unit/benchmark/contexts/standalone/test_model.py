@@ -123,7 +123,7 @@ class ModelLibvirtTestCase(unittest.TestCase):
     def test_add_ovs_interfaces(self):
         xml_input = copy.deepcopy(XML_SAMPLE)
         xml_output = model.Libvirt.add_ovs_interface(
-            '/usr/local', 0, self.pci_address_str, self.mac, xml_input)
+            '/usr/local', 0, self.pci_address_str, self.mac, xml_input, 4)
 
         root = ElementTree.fromstring(xml_output)
         et_out = ElementTree.ElementTree(element=root)
