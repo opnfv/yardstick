@@ -55,7 +55,7 @@ class ModelLibvirtTestCase(unittest.TestCase):
         numa_cpus=0 - 10,
         socket=1, threads=1,
         vm_image="/var/lib/libvirt/images/yardstick-nsb-image.img",
-        cpuset=2 - 10, cputune='')
+        cpuset=2 - 10, cputune='', machine='pc')
 
     def setUp(self):
         self.pci_address_str = '0001:04:03.2'
