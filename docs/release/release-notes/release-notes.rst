@@ -1,18 +1,12 @@
-=======
-License
-=======
-
-OPNFV Fraser release note for Yardstick Docs
-are licensed under a Creative Commons Attribution 4.0 International License.
-You should have received a copy of the license along with this.
-If not, see <https://creativecommons.org/licenses/by/4.0/>.
+.. This work is licensed under a Creative Commons Attribution 4.0 International License.
+.. http://creativecommons.org/licenses/by/4.0
 
 The *Yardstick framework*, the *Yardstick test cases* are open-source software,
  licensed under the terms of the Apache License, Version 2.0.
 
-=======================================
-OPNFV Fraser Release Note for Yardstick
-=======================================
+=======================
+Yardstick Release Notes
+=======================
 
 .. toctree::
    :maxdepth: 2
@@ -27,27 +21,7 @@ OPNFV Fraser Release Note for Yardstick
 Abstract
 ========
 
-This document describes the release note of Yardstick project.
-
-
-Version History
-===============
-+-------------------+-----------+---------------------------------+
-| *Date*            | *Version* | *Comment*                       |
-|                   |           |                                 |
-+-------------------+-----------+---------------------------------+
-| Jul 2, 2018       | 6.2.1     | Yardstick for Fraser release    |
-|                   |           |                                 |
-+-------------------+-----------+---------------------------------+
-| Jun 29, 2018      | 6.2.0     | Yardstick for Fraser release    |
-|                   |           |                                 |
-+-------------------+-----------+---------------------------------+
-| May 25, 2018      | 6.1.0     | Yardstick for Fraser release    |
-|                   |           |                                 |
-+-------------------+-----------+---------------------------------+
-| April 27, 2018    | 6.0.0     | Yardstick for Fraser release    |
-|                   |           |                                 |
-+-------------------+-----------+---------------------------------+
+This document compiles the release notes for the Gambia release of OPNFV Yardstick.
 
 
 Important Notes
@@ -60,10 +34,10 @@ the methodology in ETSI-ISG NFV-TST001_.
 The *Yardstick* framework is *installer*, *infrastructure* and *application*
 independent.
 
-OPNFV Fraser Release
+OPNFV Gambia Release
 ====================
 
-This Fraser release provides *Yardstick* as a framework for NFVI testing
+This Gambia release provides *Yardstick* as a framework for NFVI testing
 and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
 
 * Documentation generated with Sphinx
@@ -126,19 +100,19 @@ Release Data
 | **Project**                    | Yardstick             |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Repo/tag**                   | yardstick/opnfv-6.2.0 |
+| **Repo/tag**                   | opnfv-7.0.0           |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Yardstick Docker image tag** | opnfv-6.2.0           |
+| **Yardstick Docker image tag** |                       |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release designation**        | Fraser                |
+| **Release designation**        | Gambia 7.0            |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release date**               | Jun 29, 2018          |
+| **Release date**               | November 9, 2018      |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Purpose of the delivery**    | OPNFV Fraser 6.2.0    |
+| **Purpose of the delivery**    |                       |
 |                                |                       |
 +--------------------------------+-----------------------+
 
