@@ -55,7 +55,7 @@ class ModelLibvirtTestCase(unittest.TestCase):
         numa_cpus=0 - 10,
         socket=1, threads=1,
         vm_image="/var/lib/libvirt/images/yardstick-nsb-image.img",
-        cpuset=2 - 10, cputune='')
+        cpuset=2 - 10, cputune='', machine='pc')
 
     def setUp(self):
         self.pci_address_str = '0001:04:03.2'
@@ -352,7 +352,7 @@ class ModelLibvirtTestCase(unittest.TestCase):
         xml_ref = model.VM_TEMPLATE.format(vm_name='vm_name',
             random_uuid=_uuid, mac_addr=mac, memory='1024', vcpu='8', cpu='4',
             numa_cpus='0-7', socket='3', threads='2',
-            vm_image='qemu_image', cpuset='4,5', cputune='cool')
+            vm_image='qemu_image', cpuset='4,5', cputune='cool', machine='pc')
         xml_ref = model.Libvirt.add_cdrom(cdrom_img, xml_ref)
         self.assertEqual(xml_out, xml_ref)
         mock_get_mac_address.assert_called_once_with(0x00)

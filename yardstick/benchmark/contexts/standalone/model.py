@@ -45,7 +45,7 @@ VM_TEMPLATE = """
   <vcpu cpuset='{cpuset}'>{vcpu}</vcpu>
  {cputune}
   <os>
-    <type arch="x86_64" machine="pc-i440fx-xenial">hvm</type>
+    <type arch="x86_64" machine="{machine}">hvm</type>
     <boot dev="hd" />
   </os>
   <features>
@@ -306,6 +306,7 @@ class Libvirt(object):
         cpuset = Libvirt.pin_vcpu_for_perf(connection, hw_socket)
 
         cputune = extra_spec.get('cputune', '')
+        machine = extra_spec.get('machine_type', 'pc-i440fx-xenial')
         mac = StandaloneContextHelper.get_mac_address(0x00)
         image = cls.create_snapshot_qemu(connection, index,
                                          flavor.get("images", None))
@@ -316,7 +317,8 @@ class Libvirt(object):
             memory=memory, vcpu=vcpu, cpu=cpu,
             numa_cpus=numa_cpus,
             socket=socket, threads=threads,
-            vm_image=image, cpuset=cpuset, cputune=cputune)
+            vm_image=image, cpuset=cpuset,
+            machine=machine, cputune=cputune)
 
         # Add CD-ROM device
         vm_xml = Libvirt.add_cdrom(cdrom_img, vm_xml)
