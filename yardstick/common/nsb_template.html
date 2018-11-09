@@ -12,7 +12,7 @@
        <script src="{{template_dir}}/report.js"></script>
    </head>
    <body>
-       <div class="container" style="width:80%">
+       <div class="container" style="width:100%">
            <div class="row"><!-- header can be id here-->
                <header class="jumbotron text-center">
                    <h1>Yardstick User Interface</h1>
@@ -41,21 +41,27 @@
             timestamps = {{Timestamps|safe}}
             jstree_data = {{jstree_nodes|safe}}
 
-            create_table(arr);
+            create_table(arr, timestamps);
             create_jstree(jstree_data);
             render_highcharts([''], timestamps)
 
             $('#data_selector').on('check_node.jstree uncheck_node.jstree', function (e, data){
 
                 selected_leaves = []
+                new_arr = {}
+                deleteRows();
 
                 for (var i=0; i < data.selected.length; i++){
                     node = data.instance.get_node(data.selected[i])
                     if (node.children.length == 0){
                         point = {"name": node.id, "data": arr[node.id], "visible": true }
+                        <!-- Create new array for table to show only subset of metrics -->
+                        new_arr[node.id] = arr[node.id]
                         selected_leaves.push(point)
                     }
                 }
+
+                create_table(new_arr, timestamps);
 
                 render_highcharts(selected_leaves, timestamps)
                 // refresh highchart
