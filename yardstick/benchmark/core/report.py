@@ -10,10 +10,6 @@
 
 """ Handler for yardstick command 'report' """
 
-from __future__ import print_function
-
-from __future__ import absolute_import
-
 import ast
 import re
 import uuid
@@ -64,7 +60,7 @@ class Report(object):
         if query_exec:
             return query_exec
         else:
-            raise KeyError("Task ID or Test case not found..")
+            raise KeyError("Test case not found.")
 
     def _get_tasks(self):
         task_cmd = "select * from \"%s\" where task_id= '%s'"
@@ -73,7 +69,7 @@ class Report(object):
         if query_exec:
             return query_exec
         else:
-            raise KeyError("Task ID or Test case not found..")
+            raise KeyError("Task ID or Test case not found.")
 
     @cliargs("task_id", type=str, help=" task id", nargs=1)
     @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
