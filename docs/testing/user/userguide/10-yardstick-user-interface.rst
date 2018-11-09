@@ -11,6 +11,7 @@ Command
 ::
 
     yardstick report generate <task-ID> <testcase-filename>
+    yardstick report generate-nsb <task-ID> <testcase-filename>
 
 
 Description
