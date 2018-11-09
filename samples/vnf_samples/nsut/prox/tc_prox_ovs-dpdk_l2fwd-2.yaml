@@ -71,8 +71,6 @@ contexts:
          hw:cpu_sockets: 1
          hw:cpu_cores: 10
          hw:cpu_threads: 2
-       user: "root"
-       password: ""
      servers:
        vnf_0:
          network_ports:
