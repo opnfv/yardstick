@@ -27,13 +27,25 @@ function create_tree(jstree_data)
     });
 }
 
-// may need to pass timestamps too...
-function create_table(table_data)
+function create_table(table_data, timestamps)
 {
     var tab, tr, td, tn, tbody, keys, key, curr_data;
     // create table
     tab = document.getElementsByTagName('table')[0];
     tbody = document.createElement('tbody');
+    // create table headings using timestamps
+    tr = document.createElement('tr');
+    td = document.createElement('td');
+    tn = document.createTextNode('Timestamps');
+    td.appendChild(tn);
+    tr.appendChild(td);
+    for (var k = 0; k < timestamps.length; k++) {
+        td = document.createElement('td');
+        tn = document.createTextNode(timestamps[k]);
+        td.appendChild(tn);
+        tr.appendChild(td);
+    }
+    tbody.appendChild(tr);
     // for each metric
     keys = Object.keys(table_data);
     for (var i = 0; i < keys.length; i++) {
@@ -54,6 +66,15 @@ function create_table(table_data)
         tbody.appendChild(tr);
     }
     tab.appendChild(tbody);
+}
+
+function deleteRows()
+{
+    // delete rows of the table
+    var tab = document.getElementsByTagName('table')[0];
+    for (var i = tab.rows.length - 1; i >= 0; i--) {
+        tab.deleteRow(i);
+    }
 }
 
 function render_graph(plot_data, timestamps)
