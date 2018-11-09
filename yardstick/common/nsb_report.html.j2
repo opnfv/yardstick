@@ -21,6 +21,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="{{template_dir}}/nsb_report.js"></script>
     </head>
 
     <body>
@@ -47,112 +48,30 @@
         </div>
 
         <script>
-            var arr, tab, tr, td, tbody, keys, key, curr_data;
+            var arr, jstree_data, timestamps;
             arr = {{table|safe}};
+            timestamps = {{Timestamps|safe}};
+            jstree_data = {{jstree_nodes|safe}};
 
-            tab = document.getElementsByTagName('table')[0];
-            tbody = document.createElement('tbody');
-            keys = Object.keys(arr);
-            // for each metric
-            for (var i = 0; i < keys.length; i++) {
-                tr = document.createElement('tr');
-                td = document.createElement('td');
-                key = keys[i];
-                td.append(key);
-                tr.append(td);
-                curr_data = arr[key];
-                // add each piece of data as its own column
-                for (var j = 0; j < curr_data.length; j++) {
-                    td = document.createElement('td');
-                    td.append(curr_data[j]);
-                    tr.append(td);
+            create_table(arr);
+            create_tree(jstree_data);
+            render_graph([''], timestamps);
+
+            $('#data_selector').on('check_node.jstree uncheck_node.jstree', function(e, data) {
+                var selected_leaves = [];
+                for (var i = 0; i < data.selected.length; i++) {
+                    var node = data.instance.get_node(data.selected[i]);
+                    if (node.children.length == 0) {
+                        var point = {name: node.id, data: arr[node.id], visible: true};
+                        selected_leaves.push(point);
+                    }
                 }
-                tbody.append(tr);
-            }
-            tab.appendChild(tbody);
 
-            $(function() {
-                $('#data_selector').jstree({
-                    plugins: ['checkbox'],
-                    checkbox: {
-                        three_state: false,
-                        whole_node: true,
-                        tie_selection: false,
-                    },
-                    core: {
-                        themes: {
-                            icons: false,
-                            stripes: true,
-                        },
-                        data: {{jstree_nodes|safe}},
-                    },
-                });
-
-                $('#data_selector').on('check_node.jstree uncheck_node.jstree', function(e, data) {
-                    var selected_leaves = [];
-                    for (var i = 0; i < data.selected.length; i++) {
-                        var node = data.instance.get_node(data.selected[i]);
-                        if (node.children.length == 0) {
-                            var point = {name: node.id, data: arr[node.id]};
-                            selected_leaves.push(point);
-                        }
-                    }
-
-                    $('#graph').highcharts({
-                        title: {
-                            text: 'Yardstick Graphs',
-                            x: -20, //center
-                        },
-                        chart: {
-                            marginLeft: 400,
-                            zoomType: 'x',
-                            type: 'spline',
-                        },
-                        xAxis: {
-                            crosshair: {
-                                width: 1,
-                                color: 'black',
-                            },
-                            title: {
-                                text: 'Timestamp',
-                            },
-                            categories: {{Timestamps|safe}},
-                        },
-                        yAxis: {
-                            crosshair: {
-                                width: 1,
-                                color: 'black',
-                            },
-                            plotLines: [{
-                                value: 0,
-                                width: 1,
-                                color: '#808080',
-                            }],
-                        },
-                        plotOptions: {
-                            series: {
-                                showCheckbox: false,
-                                visible: false,
-                            },
-                        },
-                        tooltip: {
-                            valueSuffix: '',
-                        },
-                        legend: {
-                            enabled: true,
-                        },
-                        series: selected_leaves,
-                    });
-
-                    var chart = $('#graph').highcharts();
-                    for (var i = 0; i < chart.series.length; i++) {
-                        var series = chart.series[i];
-                        if (series.visible) {
-                            series.hide();
-                        } else {
-                            series.show();
-                        }
-                    }
+                // refresh graph
+                render_graph(selected_leaves, timestamps);
+                var chart = $('#graph').highcharts();
+                chart.update({
+                    series: selected_leaves,
                 });
             });
         </script>
