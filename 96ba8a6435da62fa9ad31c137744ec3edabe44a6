@@ -134,6 +134,52 @@
     },
     {
       "key": {
+        "uuid": "5a682502_c130beea",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-09T10:02:55Z",
+      "side": 1,
+      "message": "nsb",
+      "range": {
+        "startLine": 22,
+        "startChar": 9,
+        "endLine": 22,
+        "endChar": 12
+      },
+      "revId": "96ba8a6435da62fa9ad31c137744ec3edabe44a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e135fada",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-09T10:02:55Z",
+      "side": 1,
+      "message": "nsb",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 15,
+        "endChar": 12
+      },
+      "revId": "96ba8a6435da62fa9ad31c137744ec3edabe44a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_c8c9047b",
         "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng-4.yaml",
         "patchSetId": 8
