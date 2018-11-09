@@ -16,11 +16,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.7/themes/default/style.min.css">
-        <link rel="stylesheet" href="{{template_dir}}/nsb_report.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.7/jstree.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+        <style>
+            {% include 'nsb_report.css' %}
+        </style>
+        <script>
+            {% include 'nsb_report.js' %}
+        </script>
     </head>
 
     <body>
@@ -47,94 +52,15 @@
         </div>
 
         <script>
-            var None = null;
-            var arr, tab, tr, td, tbody, keys, key, curr_data, val;
+            var arr, jstree_data, timestamps;
             arr = {{table|safe}};
-
-            tab = document.getElementsByTagName('table')[0];
-            tbody = document.createElement('tbody');
-            keys = Object.keys(arr);
-            // for each metric
-            for (var i = 0; i < keys.length; i++) {
-                tr = document.createElement('tr');
-                td = document.createElement('td');
-                key = keys[i];
-                td.append(key);
-                tr.append(td);
-                curr_data = arr[key];
-                // add each piece of data as its own column
-                for (var j = 0; j < curr_data.length; j++) {
-                    val = curr_data[j];
-                    td = document.createElement('td');
-                    td.append(val === None ? '' : val);
-                    tr.append(td);
-                }
-                tbody.append(tr);
-            }
-            tab.appendChild(tbody);
+            timestamps = {{Timestamps|safe}};
+            jstree_data = {{jstree_nodes|safe}};
 
             $(function() {
-                $('#data_selector').jstree({
-                    plugins: ['checkbox'],
-                    checkbox: {
-                        three_state: false,
-                        whole_node: true,
-                        tie_selection: false,
-                    },
-                    core: {
-                        themes: {
-                            icons: false,
-                            stripes: true,
-                        },
-                        data: {{jstree_nodes|safe}},
-                    },
-                });
-
-                var objGraph = new Chart($('#cnvGraph'), {
-                    type: 'line',
-                    data: {
-                        labels: {{Timestamps|safe}},
-                        datasets: [],
-                    },
-                    options: {
-                        elements: {
-                            line: {
-                                borderWidth: 2,
-                                fill: false,
-                                tension: 0,
-                            },
-                        },
-                        scales: {
-                            xAxes: [{
-                                type: 'category',
-                            }],
-                            yAxes: [{
-                                type: 'linear',
-                            }],
-                        },
-                        tooltips: {
-                            mode: 'point',
-                            intersect: true,
-                        },
-                        hover: {
-                            mode: 'index',
-                            intersect: false,
-                            animationDuration: 0,
-                        },
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                usePointStyle: true,
-                            },
-                        },
-                        animation: {
-                            duration: 0,
-                        },
-                        responsive: true,
-                        responsiveAnimationDuration: 0,
-                        maintainAspectRatio: false,
-                    },
-                });
+                create_table(arr);
+                create_tree(jstree_data);
+                var objGraph = create_graph($('#cnvGraph'), timestamps);
 
                 $('#data_selector').on('check_node.jstree uncheck_node.jstree', function(e, data) {
                     var selected_datasets = [];
@@ -148,40 +74,7 @@
                             selected_datasets.push(dataset);
                         }
                     }
-
-                    var colors = [
-                        '#FF0000',  // Red
-                        '#228B22',  // ForestGreen
-                        '#FF8C00',  // DarkOrange
-                        '#00008B',  // DarkBlue
-                        '#FF00FF',  // Fuchsia
-                        '#9ACD32',  // YellowGreen
-                        '#FFD700',  // Gold
-                        '#4169E1',  // RoyalBlue
-                        '#A0522D',  // Sienna
-                        '#20B2AA',  // LightSeaGreen
-                        '#8A2BE2',  // BlueViolet
-                    ];
-
-                    var points = [
-                        {s: 'circle',   r: 3},
-                        {s: 'rect',     r: 4},
-                        {s: 'triangle', r: 4},
-                        {s: 'star',     r: 4},
-                        {s: 'rectRot',  r: 5},
-                    ];
-
-                    selected_datasets.forEach(function(d, i) {
-                        var color = colors[i % colors.length];
-                        var point = points[i % points.length];
-                        d.borderColor = color;
-                        d.backgroundColor = color;
-                        d.pointStyle = point.s;
-                        d.pointRadius = point.r;
-                        d.pointHoverRadius = point.r + 1;
-                    });
-                    objGraph.data.datasets = selected_datasets;
-                    objGraph.update();
+                    update_graph(objGraph, selected_datasets);
                 });
             });
         </script>
