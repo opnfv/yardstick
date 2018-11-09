@@ -7,13 +7,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-
 """ Handler for yardstick command 'report' """
-
-from __future__ import print_function
-
-from __future__ import absolute_import
-
 import ast
 import re
 import uuid
