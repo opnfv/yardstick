@@ -16,6 +16,7 @@ table {
     overflow-y: scroll;
     height: 360px;
     display: block;
+    width: 100%;
 }
 
 header {
@@ -24,6 +25,23 @@ header {
     text-align: center;
 }
 
+h1 {
+    font-size: 20pt;
+    font-weight: bold;
+    height: 20px;
+    margin: 0px 0px;
+}
+
+h4 {
+    font-size: 13pt;
+    height: 1px;
+    margin-bottom: 0px;
+}
+
 .control-pane {
     font-size: 10pt;
+}
+
+.data-pane {
+    width: 100%;
 }
