@@ -20,10 +20,10 @@ GOOD_YAML_NAME = 'fake_name'
 GOOD_TASK_ID = str(uuid.uuid4())
 GOOD_DB_FIELDKEYS = [{'fieldKey': 'fake_key'}]
 GOOD_DB_TASK = [{
-        'fake_key': 0.000,
-        'time': '0000-00-00T00:00:00.000000Z',
+        'fake_key': 1.234,
+        'time': '0000-00-00T12:34:56.789012Z',
         }]
-GOOD_TIMESTAMP = ['00:00:00.000000']
+GOOD_TIMESTAMP = ['12:34:56.789012']
 BAD_YAML_NAME = 'F@KE_NAME'
 BAD_TASK_ID = 'aaaaaa-aaaaaaaa-aaaaaaaaaa-aaaaaa'
 
@@ -47,23 +47,23 @@ class JSTreeTestCase(unittest.TestCase):
 
     def test_format_for_jstree(self):
         data = [
-            {'data': [0, ], 'name': 'tg__0.DropPackets'},
-            {'data': [548, ], 'name': 'tg__0.LatencyAvg.5'},
-            {'data': [1172, ], 'name': 'tg__0.LatencyAvg.6'},
-            {'data': [1001, ], 'name': 'tg__0.LatencyMax.5'},
-            {'data': [1468, ], 'name': 'tg__0.LatencyMax.6'},
-            {'data': [18.11, ], 'name': 'tg__0.RxThroughput'},
-            {'data': [18.11, ], 'name': 'tg__0.TxThroughput'},
-            {'data': [0, ], 'name': 'tg__1.DropPackets'},
-            {'data': [548, ], 'name': 'tg__1.LatencyAvg.5'},
-            {'data': [1172, ], 'name': 'tg__1.LatencyAvg.6'},
-            {'data': [1001, ], 'name': 'tg__1.LatencyMax.5'},
-            {'data': [1468, ], 'name': 'tg__1.LatencyMax.6'},
-            {'data': [18.1132084505, ], 'name': 'tg__1.RxThroughput'},
-            {'data': [18.1157260383, ], 'name': 'tg__1.TxThroughput'},
-            {'data': [9057888, ], 'name': 'vnf__0.curr_packets_in'},
-            {'data': [0, ], 'name': 'vnf__0.packets_dropped'},
-            {'data': [617825443, ], 'name': 'vnf__0.packets_fwd'},
+            {'data': [0, ], 'label': 'tg__0.DropPackets'},
+            {'data': [548, ], 'label': 'tg__0.LatencyAvg.5'},
+            {'data': [1172, ], 'label': 'tg__0.LatencyAvg.6'},
+            {'data': [1001, ], 'label': 'tg__0.LatencyMax.5'},
+            {'data': [1468, ], 'label': 'tg__0.LatencyMax.6'},
+            {'data': [18.11, ], 'label': 'tg__0.RxThroughput'},
+            {'data': [18.11, ], 'label': 'tg__0.TxThroughput'},
+            {'data': [0, ], 'label': 'tg__1.DropPackets'},
+            {'data': [548, ], 'label': 'tg__1.LatencyAvg.5'},
+            {'data': [1172, ], 'label': 'tg__1.LatencyAvg.6'},
+            {'data': [1001, ], 'label': 'tg__1.LatencyMax.5'},
+            {'data': [1468, ], 'label': 'tg__1.LatencyMax.6'},
+            {'data': [18.1132084505, ], 'label': 'tg__1.RxThroughput'},
+            {'data': [18.1157260383, ], 'label': 'tg__1.TxThroughput'},
+            {'data': [9057888, ], 'label': 'vnf__0.curr_packets_in'},
+            {'data': [0, ], 'label': 'vnf__0.packets_dropped'},
+            {'data': [617825443, ], 'label': 'vnf__0.packets_fwd'},
         ]
 
         expected_output = [
@@ -164,6 +164,18 @@ class ReportTestCase(unittest.TestCase):
         mock_tasks.return_value = GOOD_DB_TASK
         mock_keys.return_value = GOOD_DB_FIELDKEYS
         self.rep.generate(self.param)
+        mock_valid.assert_called_once_with(GOOD_YAML_NAME, GOOD_TASK_ID)
+        mock_tasks.assert_called_once_with()
+        mock_keys.assert_called_once_with()
+        self.assertEqual(GOOD_TIMESTAMP, self.rep.Timestamp)
+
+    @mock.patch.object(report.Report, '_get_tasks')
+    @mock.patch.object(report.Report, '_get_fieldkeys')
+    @mock.patch.object(report.Report, '_validate')
+    def test_generate_nsb(self, mock_valid, mock_keys, mock_tasks):
+        mock_tasks.return_value = GOOD_DB_TASK
+        mock_keys.return_value = GOOD_DB_FIELDKEYS
+        self.rep.generate_nsb(self.param)
         mock_valid.assert_called_once_with(GOOD_YAML_NAME, GOOD_TASK_ID)
         mock_tasks.assert_called_once_with()
         mock_keys.assert_called_once_with()
