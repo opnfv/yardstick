@@ -2,15 +2,31 @@
 Yardstick User Interface
 ========================
 
-This interface provides a user to view the test result
-in table format and also values pinned on to a graph.
+This chapter describes how to generate HTML reports, used to view, store, share
+or publish test results in table and graph formats.
+
+The following layouts are available:
+
+* The compact HTML report layout is suitable for testcases producing a few
+  metrics over a short period of time. All metrics for all timestamps are
+  displayed in the data table and on the graph.
+
+* The dynamic HTML report layout consists of a wider data table, a graph, and
+  a tree that allows selecting the metrics to be displayed. This layout is
+  suitable for testcases, such as NSB ones, producing a lot of metrics over
+  a longer period of time.
 
 
-Command
-=======
-::
+Commands
+========
+
+To generate the compact HTML report, run::
 
     yardstick report generate <task-ID> <testcase-filename>
+
+To generate the dynamic HTML report, run::
+
+    yardstick report generate-nsb <task-ID> <testcase-filename>
 
 
 Description
