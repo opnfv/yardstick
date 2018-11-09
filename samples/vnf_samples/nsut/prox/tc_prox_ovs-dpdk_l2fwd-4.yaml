@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2018 Intel Corporation
+# Copyright (c) 2018 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,13 +30,13 @@ scenarios:
 
     vnf__0:
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/handle_l2fwd_pktTouch-4.cfg"
+      prox_config: "configs/handle_l2fwd-4.cfg"
       prox_args:
         "-t": ""
 
     tg__0:
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/gen_l2fwd_pktTouch-4.cfg"
+      prox_config: "configs/gen_l2fwd-4.cfg"
       prox_args:
         "-e": ""
         "-t": ""
@@ -71,13 +71,11 @@ contexts:
          hw:cpu_sockets: 1
          hw:cpu_cores: 10
          hw:cpu_threads: 2
-       user: ""
-       password: ""
      servers:
        vnf__0:
          network_ports:
            mgmt:
-             cidr: '1.1.1.61/24'
+             cidr: '1.1.1.62/24'
            xe0:
              - uplink_0
            xe1:
@@ -86,6 +84,7 @@ contexts:
              - uplink_1
            xe3:
              - downlink_1
+
      networks:
        uplink_0:
          port_num: 0
