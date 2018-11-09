@@ -168,3 +168,15 @@ class ReportTestCase(unittest.TestCase):
         mock_tasks.assert_called_once_with()
         mock_keys.assert_called_once_with()
         self.assertEqual(GOOD_TIMESTAMP, self.rep.Timestamp)
+
+    @mock.patch.object(report.Report, '_get_tasks')
+    @mock.patch.object(report.Report, '_get_fieldkeys')
+    @mock.patch.object(report.Report, '_validate')
+    def test_generate_nsb(self, mock_valid, mock_keys, mock_tasks):
+        mock_tasks.return_value = GOOD_DB_TASK
+        mock_keys.return_value = GOOD_DB_FIELDKEYS
+        self.rep.generate_nsb(self.param)
+        mock_valid.assert_called_once_with(GOOD_YAML_NAME, GOOD_TASK_ID)
+        mock_tasks.assert_called_once_with()
+        mock_keys.assert_called_once_with()
+        self.assertEqual(GOOD_TIMESTAMP, self.rep.Timestamp)
