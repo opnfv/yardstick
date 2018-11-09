@@ -15,9 +15,6 @@ ansible==2.5.5          # GPLv3; OSI Approved  GNU General Public License v3 or 
 backport-ipaddress==0.1; python_version <= "2.7"    # OSI Approved  Python Software Foundation License
 chainmap==1.0.2         # Python Software Foundation License; OSI Approved  Python Software Foundation License
 cmd2==0.8.6             # MIT License; OSI Approved  MIT License
-django==1.8.17          # BSD; OSI Approved  BSD License
-                        # NOTE(ralonsoh): django must be bumped to 1.11.8; consider the migration notes [1]
-                        # [1] https://docs.djangoproject.com/ja/1.11/ref/templates/upgrading/
 docker-py==1.10.6       # OSI Approved  Apache Software License
 extras==1.0.0           # OSI Approved  MIT License
 flasgger==0.5.13        # MIT
