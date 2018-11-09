@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<!--
+ Copyright (c) 2017 Rajesh Kudaka <4k.rajesh@gmail.com>
+ Copyright (c) 2018 Intel Corporation.
+
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Apache License, Version 2.0
+ which accompanies this distribution, and is available at
+ http://www.apache.org/licenses/LICENSE-2.0
+-->
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.5/themes/default/style.min.css">
+        <link rel="stylesheet" href="{{template_dir}}/nsb_report.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+    </head>
+
+    <body>
+        <div class="container" style="width:80%">
+            <div class="row">
+                <header class="jumbotron">
+                    <h1>Yardstick User Interface</h1>
+                    <h4>Report of {{task_id}} Generated</h4>
+                </header>
+            </div>
+            <div class="row" style="height:500px">
+                <div class="col-md-2 control-pane">
+                    <div id="data_selector"></div>
+                </div>
+                <div class="col-md-10 data-pane">
+                    <div id="graph"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 table-responsive">
+                    <table class="table table-hover"></table>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var arr, tab, tr, td, tbody, keys, key, curr_data;
+            arr = {{table|safe}};
+
+            tab = document.getElementsByTagName('table')[0];
+            tbody = document.createElement('tbody');
+            keys = Object.keys(arr);
+            // for each metric
+            for (var i = 0; i < keys.length; i++) {
+                tr = document.createElement('tr');
+                td = document.createElement('td');
+                key = keys[i];
+                td.append(key);
+                tr.append(td);
+                curr_data = arr[key];
+                // add each piece of data as its own column
+                for (var j = 0; j < curr_data.length; j++) {
+                    td = document.createElement('td');
+                    td.append(curr_data[j]);
+                    tr.append(td);
+                }
+                tbody.append(tr);
+            }
+            tab.appendChild(tbody);
+
+            $(function() {
+                $('#data_selector').jstree({
+                    plugins: ['checkbox'],
+                    checkbox: {
+                        three_state: false,
+                        whole_node: true,
+                        tie_selection: false,
+                    },
+                    core: {
+                        themes: {
+                            icons: false,
+                            stripes: true,
+                        },
+                        data: {{jstree_nodes|safe}},
+                    },
+                });
+
+                $('#data_selector').on('check_node.jstree uncheck_node.jstree', function(e, data) {
+                    var selected_leaves = [];
+                    for (var i = 0; i < data.selected.length; i++) {
+                        var node = data.instance.get_node(data.selected[i]);
+                        if (node.children.length == 0) {
+                            var point = {name: node.id, data: arr[node.id]};
+                            selected_leaves.push(point);
+                        }
+                    }
+
+                    $('#graph').highcharts({
+                        title: {
+                            text: 'Yardstick Graphs',
+                            x: -20, //center
+                        },
+                        chart: {
+                            marginLeft: 400,
+                            zoomType: 'x',
+                            type: 'spline',
+                        },
+                        xAxis: {
+                            crosshair: {
+                                width: 1,
+                                color: 'black',
+                            },
+                            title: {
+                                text: 'Timestamp',
+                            },
+                            categories: {{Timestamps|safe}},
+                        },
+                        yAxis: {
+                            crosshair: {
+                                width: 1,
+                                color: 'black',
+                            },
+                            plotLines: [{
+                                value: 0,
+                                width: 1,
+                                color: '#808080',
+                            }],
+                        },
+                        plotOptions: {
+                            series: {
+                                showCheckbox: false,
+                                visible: false,
+                            },
+                        },
+                        tooltip: {
+                            valueSuffix: '',
+                        },
+                        legend: {
+                            enabled: true,
+                        },
+                        series: selected_leaves,
+                    });
+
+                    var chart = $('#graph').highcharts();
+                    for (var i = 0; i < chart.series.length; i++) {
+                        var series = chart.series[i];
+                        if (series.visible) {
+                            series.hide();
+                        } else {
+                            series.show();
+                        }
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
