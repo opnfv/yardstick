@@ -19,7 +19,7 @@ scenarios:
 -
   type: NSPerf
   traffic_profile: ../../traffic_profiles/prox_binsearch.yaml
-  topology: prox-tg-topology-2.yaml
+  topology: prox-tg-topology-4.yaml
 
   nodes:
     tg__0: tg__0.yardstick
@@ -30,13 +30,13 @@ scenarios:
 
     vnf__0:
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/handle_l2fwd_pktTouch-2.cfg"
+      prox_config: "configs/handle_l2fwd-4.cfg"
       prox_args:
         "-t": ""
 
     tg__0:
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/gen_l2fwd_pktTouch-2.cfg"
+      prox_config: "configs/gen_l2fwd-4.cfg"
       prox_args:
         "-e": ""
         "-t": ""
@@ -71,27 +71,43 @@ contexts:
          hw:cpu_sockets: 1
          hw:cpu_cores: 10
          hw:cpu_threads: 2
-       user: ""
-       password: ""
      servers:
        vnf__0:
          network_ports:
            mgmt:
-             cidr: '1.1.1.61/24'
+             cidr: '1.1.1.62/24'
            xe0:
              - uplink_0
            xe1:
              - downlink_0
+           xe2:
+             - uplink_1
+           xe3:
+             - downlink_1
+
      networks:
        uplink_0:
          port_num: 0
          phy_port: "0000:05:00.0"
-         vpci: "0000:00:07.0"
+         vpci: "0000:00:0a.0"
          cidr: '152.16.100.10/24'
          gateway_ip: '152.16.100.20'
        downlink_0:
          port_num: 1
          phy_port: "0000:05:00.1"
-         vpci: "0000:00:08.0"
+         vpci: "0000:00:0b.0"
          cidr: '152.16.40.10/24'
          gateway_ip: '152.16.100.20'
+       uplink_1:
+         port_num: 2
+         phy_port: "0000:05:00.2"
+         vpci: "0000:00:0c.0"
+         cidr: '152.16.50.10/24'
+         gateway_ip: '152.16.100.20'
+       downlink_1:
+         port_num: 3
+         phy_port: "0000:05:00.3"
+         vpci: "0000:00:0d.0"
+         cidr: '152.16.30.10/24'
+         gateway_ip: '152.16.100.20'
+
