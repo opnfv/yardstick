@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_44b03cf4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-09T18:02:07Z",
+      "side": 1,
+      "message": "context",
+      "range": {
+        "startLine": 10,
+        "startChar": 46,
+        "endLine": 10,
+        "endChar": 52
+      },
+      "revId": "a7fe879ddd9dcf7d6f009c264b76c2fefdc65063",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_64b618fc",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l2fwd-2.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-09T18:02:07Z",
+      "side": 1,
+      "message": "Looks like \"port_num\" is missing for these NICs, when looking at change for samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fwd-4.yaml\nBut maybe not needed for SR-IOV...",
+      "revId": "a7fe879ddd9dcf7d6f009c264b76c2fefdc65063",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
