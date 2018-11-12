@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_aa03d740",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng-4.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-12T12:01:02Z",
+      "side": 1,
+      "message": "is 64 byte a valid packet for BNG test? I think BNG adds some VLAN tags which is of 4(SVLAN) + 4(CVLAN) + PPPoE(8bytes?), so minimum packet size seems to be more than 64 bytes. Can we discuss on this?",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "95403a474c73472b2ee56c8c964a210c31b37aeb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
