@@ -128,3 +128,18 @@
     remote_src: yes
     force: yes
     mode: 0755
+
+- name: make vPE binary
+  command: make -j {{ ansible_processor_vcpus }}
+  args:
+    chdir: "{{ dpdk_path }}/examples/ip_pipeline"
+  environment:
+    RTE_SDK: "{{ dpdk_path }}"
+
+- name: Copy vPE to correct location
+  copy:
+    src: "{{ dpdk_path }}/examples/ip_pipeline/build/app/ip_pipeline"
+    dest: "{{ INSTALL_BIN_PATH }}/vPE_vnf"
+    remote_src: yes
+    force: yes
+    mode: 0755
