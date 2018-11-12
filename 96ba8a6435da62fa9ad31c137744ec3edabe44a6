@@ -180,6 +180,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_6a141f4e",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-11-12T13:43:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a682502_e135fada",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 15,
+        "endChar": 12
+      },
+      "revId": "96ba8a6435da62fa9ad31c137744ec3edabe44a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_c8c9047b",
         "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng-4.yaml",
         "patchSetId": 8
@@ -203,6 +227,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_4a17a351",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-11-12T13:43:04Z",
+      "side": 1,
+      "message": "Updated these frame sizes with values from ixia_ipv4_latency.yaml traffic profile.",
+      "parentUuid": "5a682502_c8c9047b",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 34,
+        "endChar": 20
+      },
+      "revId": "96ba8a6435da62fa9ad31c137744ec3edabe44a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_28c99878",
         "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng-4.yaml",
         "patchSetId": 8
@@ -214,6 +262,30 @@
       "writtenOn": "2018-11-07T18:05:52Z",
       "side": 1,
       "message": "can you explain the precedence?",
+      "range": {
+        "startLine": 39,
+        "startChar": 16,
+        "endLine": 39,
+        "endChar": 37
+      },
+      "revId": "96ba8a6435da62fa9ad31c137744ec3edabe44a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_aa0d9740",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng-4.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-11-12T13:43:04Z",
+      "side": 1,
+      "message": "Added description for precedence values.",
+      "parentUuid": "5a682502_28c99878",
       "range": {
         "startLine": 39,
         "startChar": 16,
