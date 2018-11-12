@@ -22,6 +22,30 @@
       "revId": "95403a474c73472b2ee56c8c964a210c31b37aeb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8a21bbb6",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng-4.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-12T13:31:30Z",
+      "side": 1,
+      "message": "Ok so the minimum Uplink packet size is 82 bytes in Ixia, even if we set 64B or 68B in test case.",
+      "parentUuid": "5a682502_aa03d740",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "95403a474c73472b2ee56c8c964a210c31b37aeb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
