@@ -70,6 +70,30 @@
       "revId": "a0c0ace02e68edb88423b4113378118836241d91",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b388d8c7",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-11-13T14:48:59Z",
+      "side": 1,
+      "message": "Yes, printed in expected order. Tested on my setup.",
+      "parentUuid": "1a622d24_d3f8f44b",
+      "range": {
+        "startLine": 541,
+        "startChar": 15,
+        "endLine": 546,
+        "endChar": 65
+      },
+      "revId": "a0c0ace02e68edb88423b4113378118836241d91",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
