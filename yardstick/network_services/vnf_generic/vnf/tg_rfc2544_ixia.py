@@ -43,7 +43,8 @@ class IxiaBasicScenario(object):
     def apply_config(self):
         pass
 
-    def create_traffic_model(self):
+    def create_traffic_model(self, traffic_profile=None):
+        # pylint: disable=unused-argument
         vports = self.client.get_vports()
         self._uplink_vports = vports[::2]
         self._downlink_vports = vports[1::2]
@@ -71,6 +72,7 @@ class IxiaPppoeClientScenario(object):
         self._context_cfg = context_cfg
         self._ixia_cfg = ixia_cfg
         self.protocols = []
+        self.device_groups = []
 
     def apply_config(self):
         vports = self.client.get_vports()
@@ -80,9 +82,15 @@ class IxiaPppoeClientScenario(object):
         self._apply_access_network_config()
         self._apply_core_network_config()
 
-    def create_traffic_model(self):
-        self.client.create_ipv4_traffic_model(self._access_topologies,
-                                              self._core_topologies)
+    def create_traffic_model(self, traffic_profile):
+        endpoints_id_pairs = self._get_endpoints_src_dst_id_pairs(
+            traffic_profile.full_profile)
+        endpoints_obj_pairs = \
+            self._get_endpoints_src_dst_obj_pairs(endpoints_id_pairs)
+        uplink_endpoints = endpoints_obj_pairs[::2]
+        downlink_endpoints = endpoints_obj_pairs[1::2]
+        self.client.create_ipv4_traffic_model(uplink_endpoints,
+                                              downlink_endpoints)
 
     def run_protocols(self):
         LOG.info('PPPoE Scenario - Start Protocols')
@@ -115,6 +123,144 @@ class IxiaPppoeClientScenario(object):
         ipaddr = ipaddress.ip_network(six.text_type('{}/{}'.format(ip, mask)),
                                       strict=False)
         return ip, ipaddr.prefixlen
+
+    @staticmethod
+    def _get_endpoints_src_dst_id_pairs(flows_params):
+        """Get list of flows src/dst port pairs
+
+        Create list of flows src/dst port pairs based on traffic profile
+        flows data. Each uplink/downlink pair in traffic profile represents
+        specific flows between the pair of ports.
+
+        Example ('port' key represents port on which flow will be created):
+
+        Input flows data:
+        uplink_0:
+          ipv4:
+            id: 1
+            port: xe0
+        downlink_0:
+          ipv4:
+            id: 2
+            port: xe1
+        uplink_1:
+          ipv4:
+            id: 3
+            port: xe2
+        downlink_1:
+          ipv4:
+            id: 4
+            port: xe3
+
+        Result list: ['xe0', 'xe1', 'xe2', 'xe3']
+
+        Result list means that the following flows pairs will be created:
+        - uplink 0: port xe0 <-> port xe1
+        - downlink 0: port xe1 <-> port xe0
+        - uplink 1: port xe2 <-> port xe3
+        - downlink 1: port xe3 <-> port xe2
+
+        :param flows_params: ordered dict of traffic profile flows params
+        :return: (list) list of flows src/dst ports
+        """
+        if len(flows_params) % 2:
+            raise RuntimeError('Number of uplink/downlink pairs'
+                               ' in traffic profile is not equal')
+        endpoint_pairs = []
+        for flow in flows_params:
+            port = flows_params[flow]['ipv4'].get('port')
+            if port is None:
+                continue
+            endpoint_pairs.append(port)
+        return endpoint_pairs
+
+    def _get_endpoints_src_dst_obj_pairs(self, endpoints_id_pairs):
+        """Create list of uplink/downlink device groups pairs
+
+        Based on traffic profile options, create list of uplink/downlink
+        device groups pairs between which flow groups will be created:
+
+        1. In case uplink/downlink flows in traffic profile doesn't have
+           specified 'port' key, flows will be created between each device
+           group on access port and device group on corresponding core port.
+           E.g.:
+           Device groups created on access port xe0: dg1, dg2, dg3
+           Device groups created on core port xe1: dg4
+           Flows will be created between:
+           dg1 -> dg4
+           dg4 -> dg1
+           dg2 -> dg4
+           dg4 -> dg2
+           dg3 -> dg4
+           dg4 -> dg3
+
+        2. In case uplink/downlink flows in traffic profile have specified
+           'port' key, flows will be created between device groups on this
+           port.
+           E.g., for the following traffic profile
+           uplink_0:
+             port: xe0
+           downlink_0:
+             port: xe1
+           uplink_1:
+             port: xe0
+           downlink_0:
+             port: xe3
+           Flows will be created between:
+           Port xe0 (dg1) -> Port xe1 (dg1)
+           Port xe1 (dg1) -> Port xe0 (dg1)
+           Port xe0 (dg2) -> Port xe3 (dg1)
+           Port xe3 (dg3) -> Port xe0 (dg1)
+
+        :param endpoints_id_pairs: (list) List of uplink/downlink flows ports
+         pairs
+        :return: (list) list of uplink/downlink device groups descriptors pairs
+        """
+        pppoe = self._ixia_cfg['pppoe_client']
+        sessions_per_port = pppoe['sessions_per_port']
+        sessions_per_svlan = pppoe['sessions_per_svlan']
+        svlan_count = int(sessions_per_port / sessions_per_svlan)
+
+        uplink_ports = [p['tg__0'] for p in self._ixia_cfg['flow']['src_ip']]
+        downlink_ports = [p['tg__0'] for p in self._ixia_cfg['flow']['dst_ip']]
+        uplink_port_topology_map = zip(uplink_ports, self._access_topologies)
+        downlink_port_topology_map = zip(downlink_ports, self._core_topologies)
+
+        port_to_dev_group_mapping = {}
+        for port, topology in uplink_port_topology_map:
+            topology_dgs = self.client.get_topology_device_groups(topology)
+            port_to_dev_group_mapping[port] = topology_dgs
+        for port, topology in downlink_port_topology_map:
+            topology_dgs = self.client.get_topology_device_groups(topology)
+            port_to_dev_group_mapping[port] = topology_dgs
+
+        uplink_endpoints = endpoints_id_pairs[::2]
+        downlink_endpoints = endpoints_id_pairs[1::2]
+
+        uplink_dev_groups = []
+        group_up = [uplink_endpoints[i:i + svlan_count]
+                    for i in range(0, len(uplink_endpoints), svlan_count)]
+
+        for group in group_up:
+            for i, port in enumerate(group):
+                uplink_dev_groups.append(port_to_dev_group_mapping[port][i])
+
+        downlink_dev_groups = []
+        for port in downlink_endpoints:
+            downlink_dev_groups.append(port_to_dev_group_mapping[port][0])
+
+        endpoint_obj_pairs = []
+        [endpoint_obj_pairs.extend([up, down])
+         for up, down in zip(uplink_dev_groups, downlink_dev_groups)]
+
+        if not endpoint_obj_pairs:
+            for up, down in zip(uplink_ports, downlink_ports):
+                uplink_dev_groups = port_to_dev_group_mapping[up]
+                downlink_dev_groups = \
+                    port_to_dev_group_mapping[down] * len(uplink_dev_groups)
+                [endpoint_obj_pairs.extend(list(i))
+                 for i in zip(uplink_dev_groups, downlink_dev_groups)]
+        return endpoint_obj_pairs
 
     def _fill_ixia_config(self):
         pppoe = self._ixia_cfg["pppoe_client"]
@@ -151,6 +297,7 @@ class IxiaPppoeClientScenario(object):
                 c_vlan = ixnet_api.Vlan(vlan_id=pppoe['c_vlan'], vlan_id_step=1)
                 name = 'SVLAN {}'.format(s_vlan_id)
                 dg = self.client.add_device_group(tp, name, sessions_per_svlan)
+                self.device_groups.append(dg)
                 # add ethernet layer to device group
                 ethernet = self.client.add_ethernet(dg, 'Ethernet')
                 self.protocols.append(ethernet)
@@ -181,6 +328,7 @@ class IxiaPppoeClientScenario(object):
             for dg_id in range(vlan_count):
                 name = 'Core port {}'.format(core_tp_id)
                 dg = self.client.add_device_group(tp, name, sessions_per_vlan)
+                self.device_groups.append(dg)
                 # add ethernet layer to device group
                 ethernet = self.client.add_ethernet(dg, 'Ethernet')
                 self.protocols.append(ethernet)
@@ -295,12 +443,12 @@ class IxiaResourceHelper(ClientResourceHelper):
             raise RuntimeError(
                 "IXIA config type '{}' not supported".format(ixia_config))
 
-    def _initialize_client(self):
+    def _initialize_client(self, traffic_profile):
         """Initialize the IXIA IxNetwork client and configure the server"""
         self.client.clear_config()
         self.client.assign_ports()
         self._ix_scenario.apply_config()
-        self._ix_scenario.create_traffic_model()
+        self._ix_scenario.create_traffic_model(traffic_profile)
 
     def run_traffic(self, traffic_profile, *args):
         if self._terminated.value:
@@ -312,7 +460,8 @@ class IxiaResourceHelper(ClientResourceHelper):
         default = "00:00:00:00:00:00"
 
         self._build_ports()
-        self._initialize_client()
+        traffic_profile.update_traffic_profile(self)
+        self._initialize_client(traffic_profile)
 
         mac = {}
         for port_name in self.vnfd_helper.port_pairs.all_ports:

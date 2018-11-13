@@ -19,75 +19,18 @@ schema: "nsb:traffic_profile:0.1"
 name:            rfc2544
 description:     Traffic profile to run RFC2544 latency
 traffic_profile:
-  traffic_type : IXIARFC2544Profile # defines traffic behavior - constant or look for highest possible throughput
-  frame_rate : 25%  # pc of linerate
+  traffic_type : IXIARFC2544PppoeScenarioProfile # defines traffic behavior - constant or look for highest possible throughput
+  frame_rate : 12.5%  # pc of linerate
   duration: {{ duration }}
   enable_latency: True
 
-uplink_0:
+{% set svlan_per_port = get(extra_args, 'svlans_per_port') %}
+{% set ports = get(extra_args, 'access_vports_num')|int %}
+{% set counter = {'id': 1} %}
+{% for i in range(svlan_per_port|int * ports|int) %}
+uplink_{{ i }}:
       ipv4:
-        id: 1
-        outer_l2:
-          framesize:
-            64B: "{{get(imix, 'imix.uplink.64B', '0') }}"
-            68B: "{{get(imix, 'imix.uplink.68B', '0') }}"
-            70B: "{{get(imix, 'imix.uplink.70B', '0') }}"
-            128B: "{{get(imix, 'imix.uplink.128B', '0') }}"
-            256B: "{{get(imix, 'imix.uplink.256B', '0') }}"
-            373b: "{{get(imix, 'imix.uplink.373B', '0') }}"
-            512B: "{{get(imix, 'imix.uplink.512B', '0') }}"
-            570B: "{{get(imix, 'imix.uplink.570B', '0') }}"
-            932B: "{{get(imix, 'imix.uplink.932B', '0') }}"
-            940B: "{{get(imix, 'imix.uplink.940B', '0') }}"
-            1024B: "{{get(imix, 'imix.uplink.1024B', '0') }}"
-            1280B: "{{get(imix, 'imix.uplink.1280B', '0') }}"
-            1400B: "{{get(imix, 'imix.uplink.1400B', '0') }}"
-            1470B: "{{get(imix, 'imix.uplink.1470B', '0') }}"
-            1500B: "{{get(imix, 'imix.uplink.1500B', '0') }}"
-            1518B: "{{get(imix, 'imix.uplink.1518B', '0') }}"
-
-        outer_l3v4:
-            priority:
-              tos:
-                # Precedence values:
-                # 0 - (000) Routine
-                # 1 - (001) Priority
-                # 2 - (010) Immediate
-                # 3 - (011) Flash
-                # 4 - (100) Flash Override
-                # 5 - (101) CRITIC/ECP
-                # 6 - (110) Internetwork Control
-                # 7 - (111) Network Control
-                precedence: [0, 4, 7]
-downlink_0:
-      ipv4:
-        id: 2
-        outer_l2:
-          framesize:
-            64B: "{{get(imix, 'imix.downlink.64B', '0') }}"
-            68B: "{{get(imix, 'imix.downlink.68B', '0') }}"
-            70B: "{{get(imix, 'imix.downlink.70B', '0') }}"
-            128B: "{{get(imix, 'imix.downlink.128B', '0') }}"
-            256B: "{{get(imix, 'imix.downlink.256B', '0') }}"
-            373b: "{{get(imix, 'imix.downlink.373B', '0') }}"
-            512B: "{{get(imix, 'imix.downlink.512B', '0') }}"
-            570B: "{{get(imix, 'imix.downlink.570B', '0') }}"
-            932B: "{{get(imix, 'imix.downlink.932B', '0') }}"
-            940B: "{{get(imix, 'imix.downlink.940B', '0') }}"
-            1024B: "{{get(imix, 'imix.downlink.1024B', '0') }}"
-            1280B: "{{get(imix, 'imix.downlink.1280B', '0') }}"
-            1400B: "{{get(imix, 'imix.downlink.1400B', '0') }}"
-            1470B: "{{get(imix, 'imix.downlink.1470B', '0') }}"
-            1500B: "{{get(imix, 'imix.downlink.1500B', '0') }}"
-            1518B: "{{get(imix, 'imix.downlink.1518B', '0') }}"
-
-        outer_l3v4:
-            priority:
-              tos:
-                precedence: [0, 4, 7]
-uplink_1:
-      ipv4:
-        id: 3
+        id: {{ counter['id'] }}
         outer_l2:
           framesize:
             64B: "{{get(imix, 'imix.uplink.64B', '0') }}"
@@ -111,9 +54,9 @@ uplink_1:
             priority:
               tos:
                 precedence: [0, 4, 7]
-downlink_1:
+downlink_{{ i }}:
       ipv4:
-        id: 4
+        id: {{ counter['id'] + 1 }}
         outer_l2:
           framesize:
             64B: "{{get(imix, 'imix.downlink.64B', '0') }}"
@@ -137,3 +80,5 @@ downlink_1:
             priority:
               tos:
                 precedence: [0, 4, 7]
+{% if counter.update({'id': counter['id'] + 2}) %} {% endif %}
+{% endfor %}
