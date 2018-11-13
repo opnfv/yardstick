@@ -1,0 +1,411 @@
+# Copyright (c) 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+schema: "nsb:traffic_profile:0.1"
+
+# This file is a template, it will be filled with values from tc.yaml before passing to the traffic generator
+
+name:            rfc2544
+description:     Traffic profile to run RFC2544 latency
+traffic_profile:
+  traffic_type : IXIARFC2544PppoeScenarioProfile # defines traffic behavior - constant or look for highest possible throughput
+  frame_rate : 25%  # pc of linerate
+  duration: {{ duration }}
+  enable_latency: True
+
+uplink_0:
+      ipv4:
+        id: 1
+        endpoint_id: 0
+        outer_l2:
+          framesize: &uplink_framesize
+            64B: "{{get(imix, 'imix.uplink.64B', '0') }}"
+            68B: "{{get(imix, 'imix.uplink.68B', '0') }}"
+            70B: "{{get(imix, 'imix.uplink.70B', '0') }}"
+            128B: "{{get(imix, 'imix.uplink.128B', '0') }}"
+            256B: "{{get(imix, 'imix.uplink.256B', '0') }}"
+            373b: "{{get(imix, 'imix.uplink.373B', '0') }}"
+            512B: "{{get(imix, 'imix.uplink.512B', '0') }}"
+            570B: "{{get(imix, 'imix.uplink.570B', '0') }}"
+            932B: "{{get(imix, 'imix.uplink.932B', '0') }}"
+            940B: "{{get(imix, 'imix.uplink.940B', '0') }}"
+            1024B: "{{get(imix, 'imix.uplink.1024B', '0') }}"
+            1280B: "{{get(imix, 'imix.uplink.1280B', '0') }}"
+            1400B: "{{get(imix, 'imix.uplink.1400B', '0') }}"
+            1470B: "{{get(imix, 'imix.uplink.1470B', '0') }}"
+            1500B: "{{get(imix, 'imix.uplink.1500B', '0') }}"
+            1518B: "{{get(imix, 'imix.uplink.1518B', '0') }}"
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: &uplink_precedence [0, 4, 7]
+downlink_0:
+      ipv4:
+        id: 2
+        endpoint_id: 16
+        outer_l2:
+          framesize: &downlink_framesize
+            64B: "{{get(imix, 'imix.downlink.64B', '0') }}"
+            68B: "{{get(imix, 'imix.downlink.68B', '0') }}"
+            70B: "{{get(imix, 'imix.downlink.70B', '0') }}"
+            128B: "{{get(imix, 'imix.downlink.128B', '0') }}"
+            256B: "{{get(imix, 'imix.downlink.256B', '0') }}"
+            373b: "{{get(imix, 'imix.downlink.373B', '0') }}"
+            512B: "{{get(imix, 'imix.downlink.512B', '0') }}"
+            570B: "{{get(imix, 'imix.downlink.570B', '0') }}"
+            932B: "{{get(imix, 'imix.downlink.932B', '0') }}"
+            940B: "{{get(imix, 'imix.downlink.940B', '0') }}"
+            1024B: "{{get(imix, 'imix.downlink.1024B', '0') }}"
+            1280B: "{{get(imix, 'imix.downlink.1280B', '0') }}"
+            1400B: "{{get(imix, 'imix.downlink.1400B', '0') }}"
+            1470B: "{{get(imix, 'imix.downlink.1470B', '0') }}"
+            1500B: "{{get(imix, 'imix.downlink.1500B', '0') }}"
+            1518B: "{{get(imix, 'imix.downlink.1518B', '0') }}"
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: &downlink_precedence [0, 4, 7]
+uplink_1:
+      ipv4:
+        id: 3
+        endpoint_id: 1
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_1:
+      ipv4:
+        id: 4
+        endpoint_id: 16
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
+uplink_2:
+      ipv4:
+        id: 5
+        endpoint_id: 2
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_2:
+      ipv4:
+        id: 6
+        endpoint_id: 17
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
+uplink_3:
+      ipv4:
+        id: 7
+        endpoint_id: 3
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_3:
+      ipv4:
+        id: 8
+        endpoint_id: 17
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
+uplink_4:
+      ipv4:
+        id: 9
+        endpoint_id: 4
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_4:
+      ipv4:
+        id: 10
+        endpoint_id: 18
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
+uplink_5:
+      ipv4:
+        id: 11
+        endpoint_id: 5
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_5:
+      ipv4:
+        id: 12
+        endpoint_id: 18
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
+uplink_6:
+      ipv4:
+        id: 13
+        endpoint_id: 6
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_6:
+      ipv4:
+        id: 14
+        endpoint_id: 18
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
+uplink_7:
+      ipv4:
+        id: 15
+        endpoint_id: 7
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_7:
+      ipv4:
+        id: 16
+        endpoint_id: 18
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
+uplink_8:
+      ipv4:
+        id: 17
+        endpoint_id: 8
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_8:
+      ipv4:
+        id: 18
+        endpoint_id: 18
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
+uplink_9:
+      ipv4:
+        id: 19
+        endpoint_id: 9
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_9:
+      ipv4:
+        id: 20
+        endpoint_id: 18
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
+uplink_10:
+      ipv4:
+        id: 21
+        endpoint_id: 10
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_10:
+      ipv4:
+        id: 22
+        endpoint_id: 19
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
+uplink_11:
+      ipv4:
+        id: 23
+        endpoint_id: 11
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_11:
+      ipv4:
+        id: 24
+        endpoint_id: 19
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
+
+uplink_12:
+      ipv4:
+        id: 25
+        endpoint_id: 12
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_12:
+      ipv4:
+        id: 26
+        endpoint_id: 19
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
+uplink_13:
+      ipv4:
+        id: 27
+        endpoint_id: 13
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_13:
+      ipv4:
+        id: 28
+        endpoint_id: 19
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
+uplink_14:
+      ipv4:
+        id: 29
+        endpoint_id: 14
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_14:
+      ipv4:
+        id: 30
+        endpoint_id: 19
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
+uplink_15:
+      ipv4:
+        id: 31
+        endpoint_id: 15
+        outer_l2:
+          framesize: *uplink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *uplink_precedence
+downlink_15:
+      ipv4:
+        id: 32
+        endpoint_id: 19
+        outer_l2:
+          framesize: *downlink_framesize
+
+        outer_l3v4:
+            priority:
+              tos:
+                precedence: *downlink_precedence
