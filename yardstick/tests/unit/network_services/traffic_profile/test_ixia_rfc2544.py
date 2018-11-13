@@ -16,6 +16,7 @@ import copy
 
 import mock
 import unittest
+from collections import OrderedDict
 
 from yardstick.network_services.traffic_profile import ixia_rfc2544
 from yardstick.network_services.traffic_profile import trex_traffic_profile
@@ -511,9 +512,7 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         with mock.patch.object(rfc2544_profile, '_get_ixia_traffic_profile') \
                 as mock_get_tp, \
                 mock.patch.object(rfc2544_profile, '_ixia_traffic_generate') \
-                as mock_tgenerate, \
-                mock.patch.object(rfc2544_profile, 'update_traffic_profile') \
-                as mock_update_tp:
+                as mock_tgenerate:
             mock_get_tp.return_value = 'fake_tprofile'
             output = rfc2544_profile.execute_traffic(mock.ANY,
                                                      ixia_obj=mock.ANY)
@@ -524,7 +523,6 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         self.assertEqual(0, rfc2544_profile.min_rate)
         mock_get_tp.assert_called_once()
         mock_tgenerate.assert_called_once()
-        mock_update_tp.assert_called_once()
 
     def test_execute_traffic_not_first_run(self):
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
@@ -683,3 +681,36 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         self.assertEqual(66.833, samples['RxThroughput'])
         self.assertEqual(0.099651, samples['DropPercentage'])
         self.assertEqual(33.45, rfc2544_profile.rate)
+
+
+class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
+
+    TRAFFIC_PROFILE = {
+        "schema": "nsb:traffic_profile:0.1",
+        "name": "fixed",
+        "description": "Fixed traffic profile to run UDP traffic",
+        "traffic_profile": {
+            "traffic_type": "FixedTraffic",
+            "frame_rate": 100},
+        'uplink_0': {'ipv4': {'endpoint_id': 0, 'id': 1}},
+        'downlink_0': {'ipv4': {'endpoint_id': 2, 'id': 2}},
+        'uplink_1': {'ipv4': {'endpoint_id': 1, 'id': 3}},
+        'downlink_1': {'ipv4': {'endpoint_id': 2, 'id': 4}}
+    }
+
+    def setUp(self):
+        self.ixia_tp = ixia_rfc2544.IXIARFC2544PppoeScenarioProfile(
+            self.TRAFFIC_PROFILE)
+
+    def test___init__(self):
+        self.assertIsInstance(self.ixia_tp.full_profile, OrderedDict)
+
+    def test__get_flow_groups_params(self):
+        expected_tp = OrderedDict([
+            ('uplink_0', {'ipv4': {'id': 1, 'endpoint_id': 0}}),
+            ('downlink_0', {'ipv4': {'id': 2, 'endpoint_id': 2}}),
+            ('uplink_1', {'ipv4': {'id': 3, 'endpoint_id': 1}}),
+            ('downlink_1', {'ipv4': {'id': 4, 'endpoint_id': 2}})])
+
+        self.ixia_tp._get_flow_groups_params()
+        self.assertDictEqual(self.ixia_tp.full_profile, expected_tp)
