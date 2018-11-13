@@ -22,6 +22,30 @@
       "revId": "9ddd034637a58ea46e407bc6d035f2623ea4171e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d34ab4ab",
+        "filename": "ansible/roles/install_dependencies_jumphost/tasks/Debian.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-11-13T14:04:30Z",
+      "side": 1,
+      "message": "Sure. I\u0027ll update it soon.",
+      "parentUuid": "1a622d24_13a6ecc1",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 17
+      },
+      "revId": "9ddd034637a58ea46e407bc6d035f2623ea4171e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
