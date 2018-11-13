@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_93695c28",
+        "filename": "yardstick/benchmark/contexts/standalone/model.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-11-13T13:52:15Z",
+      "side": 1,
+      "message": "log.debug will only print if debug enabled?\nclient.execute will always execute?",
+      "range": {
+        "startLine": 541,
+        "startChar": 15,
+        "endLine": 546,
+        "endChar": 65
+      },
+      "revId": "a0c0ace02e68edb88423b4113378118836241d91",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
