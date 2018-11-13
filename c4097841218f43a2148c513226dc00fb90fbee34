@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_b3cd7889",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fwd-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-13T10:13:35Z",
+      "side": 1,
+      "message": "need consistency, just keep 2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "c4097841218f43a2148c513226dc00fb90fbee34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_93cafc6c",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fwd-4.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-13T10:13:35Z",
+      "side": 1,
+      "message": "need consistency, just keep 2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "c4097841218f43a2148c513226dc00fb90fbee34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f3c7f062",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fwd_pktTouch-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-13T10:13:35Z",
+      "side": 1,
+      "message": "need consistency, just keep 2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "c4097841218f43a2148c513226dc00fb90fbee34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d3c47461",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l2fwd_pktTouch-4.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-13T10:13:35Z",
+      "side": 1,
+      "message": "need consistency, just keep 2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "c4097841218f43a2148c513226dc00fb90fbee34",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
