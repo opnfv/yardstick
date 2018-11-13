@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+from collections import OrderedDict
 
 from yardstick.common import utils
 from yardstick.network_services.traffic_profile import base as tp_base
@@ -35,6 +36,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         super(IXIARFC2544Profile, self).__init__(yaml_data)
         self.rate = self.config.frame_rate
         self.rate_unit = self.config.rate_unit
+        self.full_profile = {}
 
     def _get_ip_and_mask(self, ip_range):
         _ip_range = ip_range.split('-')
@@ -164,9 +166,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         first_run = self.first_run
         if self.first_run:
             self.first_run = False
-            self.full_profile = {}
             self.pg_id = 0
-            self.update_traffic_profile(traffic_generator)
             self.max_rate = self.rate
             self.min_rate = 0.0
         else:
@@ -237,3 +237,31 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         samples['latency_ns_max'] = latency_ns_max
 
         return completed, samples
+
+
+class IXIARFC2544PppoeScenarioProfile(IXIARFC2544Profile):
+    def __init__(self, yaml_data):
+        super(IXIARFC2544PppoeScenarioProfile, self).__init__(yaml_data)
+        self.full_profile = OrderedDict()
+
+    def _get_flow_groups_params(self):
+        flows_data = [key for key in self.params.keys()
+                      if key.split('_')[0] in [self.UPLINK, self.DOWNLINK]]
+        for i in range(len(flows_data)):
+            uplink = '_'.join([self.UPLINK, str(i)])
+            downlink = '_'.join([self.DOWNLINK, str(i)])
+            if uplink in flows_data:
+                self.full_profile.update({uplink: self.params[uplink]})
+            if downlink in flows_data:
+                self.full_profile.update({downlink: self.params[downlink]})
+
+    def update_traffic_profile(self, traffic_generator):
+        def port_generator():
+            for vld_id, intfs in sorted(traffic_generator.networks.items()):
+                if not vld_id.startswith((self.UPLINK, self.DOWNLINK)):
+                    continue
+                for intf in intfs:
+                    yield traffic_generator.vnfd_helper.port_num(intf)
+
+        self._get_flow_groups_params()
+        self.ports = [port for port in port_generator()]
