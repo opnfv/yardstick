@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_16525a13",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-11-13T16:51:15Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "1a622d24_73b6408c",
+      "range": {
+        "startLine": 268,
+        "startChar": 13,
+        "endLine": 268,
+        "endChar": 17
+      },
+      "revId": "a16916ace96e93d07ba30e8e62be6d797b8237ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_d3ed94f1",
         "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
         "patchSetId": 9
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_76574e03",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-11-13T16:51:15Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "1a622d24_d3ed94f1",
+      "range": {
+        "startLine": 279,
+        "startChar": 17,
+        "endLine": 279,
+        "endChar": 20
+      },
+      "revId": "a16916ace96e93d07ba30e8e62be6d797b8237ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_53bb4472",
         "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
         "patchSetId": 9
@@ -82,6 +130,24 @@
       "writtenOn": "2018-11-13T15:01:49Z",
       "side": 1,
       "message": "Can we change the ._build_pipeline_kwargs() function to accept the default parameter like :\n_build_pipeline_kwargs(config_file\u003d\u0027xxxx\u0027)?",
+      "revId": "a16916ace96e93d07ba30e8e62be6d797b8237ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_364dd673",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-11-13T16:51:15Z",
+      "side": 1,
+      "message": "Currently this function is in the sample_vnf.py if we change anything here we will need to change it for all samplevnf\u0027s?",
+      "parentUuid": "1a622d24_53bb4472",
       "revId": "a16916ace96e93d07ba30e8e62be6d797b8237ac",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
