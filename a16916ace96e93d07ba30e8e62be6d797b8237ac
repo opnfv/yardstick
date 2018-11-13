@@ -151,6 +151,24 @@
       "revId": "a16916ace96e93d07ba30e8e62be6d797b8237ac",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f64a3e54",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpe_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-13T16:58:16Z",
+      "side": 1,
+      "message": "Should be safe to if the default argument is used as below:\n----------\n    def _build_pipeline_kwargs(self, cfg_file\u003dNone):\n        ...\n        self.pipeline_kwargs \u003d {\n            \u0027cfg_file\u0027: cfg_file if cfg_file else self.CFG_CONFIG,\n            ...\n        }\n----------------------",
+      "parentUuid": "1a622d24_364dd673",
+      "revId": "a16916ace96e93d07ba30e8e62be6d797b8237ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
