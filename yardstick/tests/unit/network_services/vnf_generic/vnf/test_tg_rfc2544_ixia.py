@@ -18,6 +18,7 @@ import mock
 import six
 import unittest
 import ipaddress
+from collections import OrderedDict
 
 from yardstick.common import utils
 from yardstick.common import exceptions
@@ -105,6 +106,7 @@ class TestIxiaResourceHelper(unittest.TestCase):
             ixia_rhelper.run_traffic(mock_tprofile)
 
         self.assertEqual('fake_samples', ixia_rhelper._queue.get())
+        mock_tprofile.update_traffic_profile.assert_called_once()
 
 
 @mock.patch.object(tg_rfc2544_ixia, 'ixnet_api')
@@ -524,12 +526,67 @@ class TestIxiaPppoeClientScenario(unittest.TestCase):
         mock_apply_core_net_cfg.assert_called_once()
         mock_apply_access_net_cfg.assert_called_once()
 
-    def test_create_traffic_model(self):
-        self.scenario._access_topologies = 'access'
-        self.scenario._core_topologies = 'core'
-        self.scenario.create_traffic_model()
+    @mock.patch.object(tg_rfc2544_ixia.IxiaPppoeClientScenario,
+                       '_get_endpoints_src_dst_id_pairs')
+    @mock.patch.object(tg_rfc2544_ixia.IxiaPppoeClientScenario,
+                       '_get_endpoints_src_dst_obj_pairs')
+    def test_create_traffic_model(self, mock_obj_pairs, mock_id_pairs):
+        uplink_endpoints = ['group1', 'group2']
+        downlink_endpoints = ['group3', 'group3']
+        mock_id_pairs.return_value = [0, 2, 1, 2]
+        mock_obj_pairs.return_value = ['group1', 'group3', 'group2', 'group3']
+        mock_tp = mock.Mock()
+        mock_tp.full_profile = {'uplink_0': 'data',
+                                'downlink_0': 'data',
+                                'uplink_1': 'data',
+                                'downlink_1': 'data'
+                                }
+        self.scenario.device_groups = ['group1', 'group2', 'group3']
+        self.scenario.create_traffic_model(mock_tp)
+        mock_id_pairs.assert_called_once_with(mock_tp.full_profile)
+        mock_obj_pairs.assert_called_once_with(
+            ['group1', 'group2', 'group3'], [0, 2, 1, 2])
         self.scenario.client.create_ipv4_traffic_model.assert_called_once_with(
-            'access', 'core')
+            uplink_endpoints, downlink_endpoints)
+
+    def test__get_endpoints_src_dst_id_pairs(self):
+        full_tp = OrderedDict([
+            ('uplink_0', {'ipv4': {'endpoint_id': 0}}),
+            ('downlink_0', {'ipv4': {'endpoint_id': 2}}),
+            ('uplink_1', {'ipv4': {'endpoint_id': 1}}),
+            ('downlink_1', {'ipv4': {'endpoint_id': 2}})])
+        endpoints_src_dst_pairs = [0, 2, 1, 2]
+        res = self.scenario._get_endpoints_src_dst_id_pairs(full_tp)
+        self.assertEqual(res, endpoints_src_dst_pairs)
+
+    def test__get_endpoints_src_dst_id_pairs_wrong_flows_number(self):
+        full_tp = OrderedDict([
+            ('uplink_0', {'ipv4': {'endpoint_id': 0}}),
+            ('downlink_0', {'ipv4': {'endpoint_id': 2}}),
+            ('uplink_1', {'ipv4': {'endpoint_id': 1}})])
+        with self.assertRaises(RuntimeError):
+            self.scenario._get_endpoints_src_dst_id_pairs(full_tp)
+
+    def test__get_endpoints_src_dst_id_pairs_missing_endpoint_id_key(self):
+        full_tp = OrderedDict([
+            ('uplink_0', {'ipv4': {'id': 1, 'endpoint_id': 0}}),
+            ('downlink_0', {'ipv4': {'id': 2}})])
+        with self.assertRaises(RuntimeError):
+            self.scenario._get_endpoints_src_dst_id_pairs(full_tp)
+
+    def test__get_endpoints_src_dst_obj_pairs(self):
+        endpoints_obj_pairs = ['group1', 'group2', 'group3']
+        endpoints_id_pairs = [0, 2, 1, 2]
+        res = self.scenario._get_endpoints_src_dst_obj_pairs(
+            endpoints_obj_pairs, endpoints_id_pairs)
+        self.assertEqual(res, ['group1', 'group3', 'group2', 'group3'])
+
+    def test__get_endpoints_src_dst_obj_pairs_endpoints_number_mismatch(self):
+        endpoints_obj_pairs = ['group1', 'group2']
+        endpoints_id_pairs = [0, 2, 1, 2]
+        with self.assertRaises(RuntimeError):
+            self.scenario._get_endpoints_src_dst_obj_pairs(
+                endpoints_obj_pairs, endpoints_id_pairs)
 
     def test_run_protocols(self):
         self.scenario.client.is_protocols_running.return_value = True

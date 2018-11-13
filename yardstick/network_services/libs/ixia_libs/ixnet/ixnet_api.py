@@ -406,7 +406,7 @@ class IxNextgen(object):  # pragma: no cover
         self._create_flow_groups(uplink_endpoints, downlink_endpoints)
         self._setup_config_elements()
 
-    def create_ipv4_traffic_model(self, uplink_topologies, downlink_topologies):
+    def create_ipv4_traffic_model(self, uplink_endpoints, downlink_endpoints):
         """Create a traffic item and the needed flow groups
 
         Each flow group inside the traffic item (only one is present)
@@ -418,7 +418,7 @@ class IxNextgen(object):  # pragma: no cover
             FlowGroup4: uplink2    <- downlink2
         """
         self._create_traffic_item('ipv4')
-        self._create_flow_groups(uplink_topologies, downlink_topologies)
+        self._create_flow_groups(uplink_endpoints, downlink_endpoints)
         self._setup_config_elements(False)
 
     def _update_frame_mac(self, ethernet_descriptor, field, mac_address):
