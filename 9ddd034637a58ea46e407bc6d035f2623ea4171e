@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_13a6ecc1",
+        "filename": "ansible/roles/install_dependencies_jumphost/tasks/Debian.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-13T10:15:40Z",
+      "side": 1,
+      "message": "Can we remove commented lines to avoid confusion?\nIf needed for specifc cases, add a comment then.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 17
+      },
+      "revId": "9ddd034637a58ea46e407bc6d035f2623ea4171e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
