@@ -325,6 +325,34 @@ class ProxSocketHelper(object):
 
         return ret_str, False
 
+    def is_ready(self):
+        # recv() is blocking, so avoid calling it when no data is waiting.
+        ready = select.select([self._sock], [], [], self.timeout)
+        return bool(ready[0])
+
+    def get_string(self, pkt_dump_only=False, timeout=0.01):
+
+        #def is_ready():
+        #    # recv() is blocking, so avoid calling it when no data is waiting.
+        #    ready = select.select([self._sock], [], [], timeout)
+        #    return bool(ready[0])
+
+        self.timeout = timeout
+        status = False
+        ret_str = ""
+        retry_counter = 0
+        while status is False and retry_counter < 1000:
+            for status in iter(self.is_ready, False):
+                decoded_data = self._sock.recv(256).decode('utf-8')
+                ret_str, done = self._parse_socket_data(decoded_data, pkt_dump_only)
+                if (done):
+                    status = True
+                    break
+            retry_counter = retry_counter + 1
+
+        LOG.debug("Received data from socket: [%s]", ret_str)
+        return status, ret_str
+
     def get_data(self, pkt_dump_only=False, timeout=0.01):
         """ read data from the socket """
 
@@ -353,14 +381,15 @@ class ProxSocketHelper(object):
         #   - Store the packet dump for later retrieval
         #   - Return True to signify a packet dump was successfully read
 
-        def is_ready():
-            # recv() is blocking, so avoid calling it when no data is waiting.
-            ready = select.select([self._sock], [], [], timeout)
-            return bool(ready[0])
+        #def is_ready():
+        #    # recv() is blocking, so avoid calling it when no data is waiting.
+        #    ready = select.select([self._sock], [], [], timeout)
+        #    return bool(ready[0])
 
+        self.timeout = timeout
         status = False
         ret_str = ""
-        for status in iter(is_ready, False):
+        for status in iter(self.is_ready, False):
             decoded_data = self._sock.recv(256).decode('utf-8')
             ret_str, done = self._parse_socket_data(decoded_data, pkt_dump_only)
             if (done):
@@ -394,7 +423,6 @@ class ProxSocketHelper(object):
         """ stop all cores on the remote instance """
         LOG.debug("Stop all")
         self.put_command("stop all\n")
-        time.sleep(3)
 
     def stop(self, cores, task=''):
         """ stop specific cores on the remote instance """
@@ -406,7 +434,6 @@ class ProxSocketHelper(object):
 
         LOG.debug("Stopping cores %s", tmpcores)
         self.put_command("stop {} {}\n".format(join_non_strings(',', tmpcores), task))
-        time.sleep(3)
 
     def start_all(self):
         """ start all cores on the remote instance """
@@ -423,13 +450,11 @@ class ProxSocketHelper(object):
 
         LOG.debug("Starting cores %s", tmpcores)
         self.put_command("start {}\n".format(join_non_strings(',', tmpcores)))
-        time.sleep(3)
 
     def reset_stats(self):
         """ reset the statistics on the remote instance """
         LOG.debug("Reset stats")
         self.put_command("reset stats\n")
-        time.sleep(1)
 
     def _run_template_over_cores(self, template, cores, *args):
         for core in cores:
@@ -440,7 +465,6 @@ class ProxSocketHelper(object):
         LOG.debug("Set packet size for core(s) %s to %d", cores, pkt_size)
         pkt_size -= 4
         self._run_template_over_cores("pkt_size {} 0 {}\n", cores, pkt_size)
-        time.sleep(1)
 
     def set_value(self, cores, offset, value, length):
         """ set value on the remote instance """
@@ -544,50 +568,78 @@ class ProxSocketHelper(object):
             tsc = int(ret[3])
         return rx, tx, drop, tsc
 
+    def irq_core_stats(self, cores_tasks):
+        """ get IRQ stats per core"""
+
+        stat =  {}
+        core = 0
+        task = 0
+        for core, task in cores_tasks:
+            self.put_command("stats task.core({}).task({}).max_irq,task.core({}).task({}).irq(0),"
+                             "task.core({}).task({}).irq(1),task.core({}).task({}).irq(2),"
+                             "task.core({}).task({}).irq(3),task.core({}).task({}).irq(4),"
+                             "task.core({}).task({}).irq(5),task.core({}).task({}).irq(6),"
+                             "task.core({}).task({}).irq(7),task.core({}).task({}).irq(8),"
+                             "task.core({}).task({}).irq(9),task.core({}).task({}).irq(10),"
+                             "task.core({}).task({}).irq(11),task.core({}).task({}).irq(12)"
+                             "\n".format(core, task, core, task, core, task, core, task,
+                                         core, task, core, task, core, task, core, task,
+                                         core, task, core, task, core, task, core, task,
+                                         core, task, core, task))
+            in_data_str = self.get_data().split(",")
+            ret = [try_int(s, 0) for s in in_data_str]
+            key = "core_" + str(core)
+            try:
+                stat[key] = {"cpu": core, "max_irq": ret[0], 0: ret[1], 1: ret[2], 2: ret[3],
+                            3: ret[4], 4: ret[5], 5: ret[6], 6: ret[7],
+                            7: ret[8], 8: ret[9], 9: ret[10], 10: ret[11],
+                            11: ret[12], 12: ret[13],
+                             "overflow": ret[10] + ret[11] + ret[12] + ret[13]}
+            except (KeyError, IndexError):
+                LOG.error("Corrupted PACKET %s", in_data_str)
+
+        LOG.debug("IRQ Stats: ", stat)
+        return stat
+
     def multi_port_stats(self, ports):
-        """get counter values from all ports port"""
+        """get counter values from all  ports at once"""
 
-        ports_str = ""
-        for port in ports:
-            ports_str = ports_str + str(port) + ","
-        ports_str = ports_str[:-1]
-
+        ports_str = ",".join(map(str, ports))
         ports_all_data = []
         tot_result = [0] * len(ports)
 
-        retry_counter = 0
         port_index = 0
-        while (len(ports) is not len(ports_all_data)) and (retry_counter < 10):
+        while (len(ports) is not len(ports_all_data)):
             self.put_command("multi port stats {}\n".format(ports_str))
-            ports_all_data = self.get_data().split(";")
+            status, ports_all_data_str = self.get_string()
+
+            if not status:
+                return False, []
+
+            ports_all_data = ports_all_data_str.split(";")
 
             if len(ports) is len(ports_all_data):
                 for port_data_str in ports_all_data:
 
+                    tmpdata = []
                     try:
-                        tot_result[port_index] = [try_int(s, 0) for s in port_data_str.split(",")]
+                        tmpdata = [try_int(s, 0) for s in port_data_str.split(",")]
                     except (IndexError, TypeError):
-                        LOG.error("Port Index error %d  %s - retrying ", port_index, port_data_str)
+                        LOG.error("Unpacking data error %s", port_data_str)
+                        return False, []
 
-                    if (len(tot_result[port_index]) is not 6) or \
-                                    tot_result[port_index][0] is not ports[port_index]:
-                        ports_all_data = []
-                        tot_result = [0] * len(ports)
-                        port_index = 0
-                        time.sleep(0.1)
+                    if (len(tmpdata) < 6) or tmpdata[0] not in ports:
                         LOG.error("Corrupted PACKET %s - retrying", port_data_str)
-                        break
+                        return False, []
                     else:
+                        tot_result[port_index] = tmpdata
                         port_index = port_index + 1
             else:
                 LOG.error("Empty / too much data - retry -%s-", ports_all_data)
-                ports_all_data = []
-                tot_result = [0] * len(ports)
-                port_index = 0
-                time.sleep(0.1)
+                return False, []
 
-            retry_counter = retry_counter + 1
-        return tot_result
+        LOG.debug("Multi port packet ..OK.. %s", tot_result)
+        return True, tot_result
 
     def port_stats(self, ports):
         """get counter values from a specific port"""
@@ -648,7 +700,6 @@ class ProxSocketHelper(object):
         LOG.debug("Force Quit prox")
         self.put_command("quit_force\n")
         time.sleep(3)
-
 
 _LOCAL_OBJECT = object()
 
@@ -1070,41 +1121,70 @@ class ProxDataHelper(object):
     def totals_and_pps(self):
         if self._totals_and_pps is None:
             rx_total = tx_total = 0
-            all_ports = self.sut.multi_port_stats(range(self.port_count))
-            for port in all_ports:
-                rx_total = rx_total + port[1]
-                tx_total = tx_total + port[2]
-            requested_pps = self.value / 100.0 * self.line_rate_to_pps()
-            self._totals_and_pps = rx_total, tx_total, requested_pps
+            ok = False
+            timeout = time.time() + constants.RETRY_TIMEOUT
+            while not ok:
+                ok, all_ports = self.sut.multi_port_stats([
+                    self.vnfd_helper.port_num(port_name)
+                    for port_name in self.vnfd_helper.port_pairs.all_ports])
+                if time.time() > timeout:
+                    break
+            if ok:
+                for port in all_ports:
+                    rx_total = rx_total + port[1]
+                    tx_total = tx_total + port[2]
+                requested_pps = self.value / 100.0 * self.line_rate_to_pps()
+                self._totals_and_pps = rx_total, tx_total, requested_pps
         return self._totals_and_pps
 
     @property
     def rx_total(self):
-        return self.totals_and_pps[0]
+        try:
+            ret_val = self.totals_and_pps[0]
+        except:
+            ret_val = 0
+        return ret_val
 
     @property
     def tx_total(self):
-        return self.totals_and_pps[1]
+        try:
+            ret_val = self.totals_and_pps[1]
+        except:
+            ret_val = 0
+        return ret_val
 
     @property
     def requested_pps(self):
-        return self.totals_and_pps[2]
+        try:
+            ret_val = self.totals_and_pps[2]
+        except:
+            ret_val = 0
+        return ret_val
 
     @property
     def samples(self):
         samples = {}
         ports = []
-        port_names = []
+        port_names = {}
         for port_name, port_num in self.vnfd_helper.ports_iter():
             ports.append(port_num)
-            port_names.append(port_name)
+            port_names[port_num] = port_name
 
-        results = self.sut.multi_port_stats(ports)
-        for result in results:
-            port_num = result[0]
-            samples[port_names[port_num]] = {
-                    "in_packets": result[1],
-                    "out_packets": result[2]}
+        ok = False
+        timeout = time.time() + constants.RETRY_TIMEOUT
+        while not ok:
+            ok, results = self.sut.multi_port_stats(ports)
+            if time.time() > timeout:
+                    break
+        if ok:
+            for result in results:
+                port_num = result[0]
+                try:
+                    samples[port_names[port_num]] = {
+                        "in_packets": result[1],
+                        "out_packets": result[2]}
+                except (IndexError, KeyError):
+                    pass
         return samples
 
     def __enter__(self):
@@ -1521,7 +1601,6 @@ class ProxBngProfileHelper(ProxProfileHelper):
 
         return data_helper.result_tuple, data_helper.samples
 
-
 class ProxVpeProfileHelper(ProxProfileHelper):
 
     __prox_profile_type__ = "vPE gen"
@@ -1710,7 +1789,6 @@ class ProxVpeProfileHelper(ProxProfileHelper):
                 data_helper.latency = self.get_latency()
 
         return data_helper.result_tuple, data_helper.samples
-
 
 class ProxlwAFTRProfileHelper(ProxProfileHelper):
 
@@ -1902,3 +1980,14 @@ class ProxlwAFTRProfileHelper(ProxProfileHelper):
                 data_helper.latency = self.get_latency()
 
         return data_helper.result_tuple, data_helper.samples
+
+class ProxIrqProfileHelper(ProxProfileHelper):
+
+    __prox_profile_type__ = "IRQ Query"
+
+    def __init__(self, resource_helper):
+        super(ProxIrqProfileHelper, self).__init__(resource_helper)
+        self._cores_tuple = None
+        self._ports_tuple = None
+        self.step_delta = 5
+        self.step_time = 0.5

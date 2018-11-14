@@ -117,6 +117,7 @@ class ProxProfile(TrafficProfile):
         try:
             pkt_size = next(self.pkt_size_iterator)
         except StopIteration:
+            time.sleep(5)
             self.done.set()
             return
 
