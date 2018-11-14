@@ -590,6 +590,23 @@ class TestProxSocketHelper(unittest.TestCase):
         self.assertEqual(result, expected)
 
     @mock.patch.object(prox_helpers.LOG, 'error')
+    def test_irq_core_stats(self, *args):
+        mock_socket = mock.MagicMock()
+        prox = prox_helpers.ProxSocketHelper(mock_socket)
+        prox.get_data = mock.MagicMock(return_value=('0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3'))
+
+        data_0 = {"cpu": 0, 0: 1, 1: 2, 2: 3, 3: 4, 4: 5, 5: 0, 6: 1, 7: 2, 8: 3,
+                 9: 4, 10: 5, 11: 0, 12: 1, "max_irq": 0, "overflow": 10}
+
+        data_1 = {"cpu": 1, 0: 1, 1: 2, 2: 3, 3: 4, 4: 5, 5: 0, 6: 1, 7: 2, 8: 3,
+                  9: 4, 10: 5, 11: 0, 12: 1, "max_irq": 0, "overflow": 10}
+
+        expected = {"core_0": data_0, "core_1": data_1}
+
+        result = prox.irq_core_stats([[0, 1], [1, 0]])
+        self.assertDictEqual(result, expected)
+
+    @mock.patch.object(prox_helpers.LOG, 'error')
     def test_multi_port_stats(self, *args):
         mock_socket = mock.MagicMock()
         prox = prox_helpers.ProxSocketHelper(mock_socket)
@@ -2556,3 +2573,15 @@ class TestProxlwAFTRProfileHelper(unittest.TestCase):
         # negative pkt_size is the only way to make ratio > 1
         helper.run_test(pkt_size=-1000, duration=5, value=6.5, tolerated_loss=0.0,
                         line_speed=constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+
+
+class TestProxIrqProfileHelper(unittest.TestCase):
+
+    def test_run_test(self, *args):
+        resource_helper = mock.MagicMock()
+        helper = prox_helpers.ProxIrqProfileHelper(resource_helper)
+        self.assertIsNone(helper._cores_tuple)
+        self.assertIsNone(helper._ports_tuple)
+        self.assertIsNone(helper._latency_cores)
+        self.assertIsNone(helper._test_cores)
+        self.assertIsNone(helper._cpu_topology)
