@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_59aa43d5",
+        "filename": "ansible/roles/install_dpdk/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-14T11:46:43Z",
+      "side": 1,
+      "message": "command: make -j {{ ansible_processor_vcpus }}",
+      "revId": "dfc07da6f388ad1e5f18d4814152076bba93d713",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
