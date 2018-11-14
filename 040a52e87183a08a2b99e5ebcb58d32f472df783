@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_59d6c3c6",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l3fwd-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-14T16:52:41Z",
+      "side": 1,
+      "message": "Can you also add a description to the test cases?\n\neg: https://git.opnfv.org/yardstick/tree/samples/vnf_samples/nsut/vepc/tc_epc_default_bearer_create_landslide.yaml#n17\n\nThis will help for the configurable dashboards task as we can use the description as metadata. \n\nINFO on description can be found in the Grafana dashboards as of today.",
+      "revId": "040a52e87183a08a2b99e5ebcb58d32f472df783",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b9da77e7",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l3fwd-4.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-14T16:52:41Z",
+      "side": 1,
+      "message": "same.",
+      "revId": "040a52e87183a08a2b99e5ebcb58d32f472df783",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
