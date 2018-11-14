@@ -1,0 +1,8 @@
+Code-Review+1: Abhijit Sinha <abhijit.sinha@intel.com>
+Code-Review+2: Volodymyr Mytnyk <volodymyrx.mytnyk@intel.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Submitted-by: Abhijit Sinha <abhijit.sinha@intel.com>
+Submitted-at: Wed, 14 Nov 2018 18:13:45 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/64311
+Project: yardstick
+Branch: refs/heads/master
