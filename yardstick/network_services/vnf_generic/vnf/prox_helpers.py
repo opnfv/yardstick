@@ -561,6 +561,41 @@ class ProxSocketHelper(object):
             tsc = int(ret[3])
         return rx, tx, drop, tsc
 
+    def core_stats(self, cores_tasks):
+        """ get IRQ stats per core"""
+
+        stat = {}
+        core = 0
+        task = 0
+        for core, task in cores_tasks:
+            self.put_command("stats task.core({}).task({}).max_irq,task.core({}).task({}).irq(0),"
+                             "task.core({}).task({}).irq(1),task.core({}).task({}).irq(2),"
+                             "task.core({}).task({}).irq(3),task.core({}).task({}).irq(4),"
+                             "task.core({}).task({}).irq(5),task.core({}).task({}).irq(6),"
+                             "task.core({}).task({}).irq(7),task.core({}).task({}).irq(8),"
+                             "task.core({}).task({}).irq(9),task.core({}).task({}).irq(10),"
+                             "task.core({}).task({}).irq(11),task.core({}).task({}).irq(12)"
+                             "\n".format(core, task, core, task, core, task, core, task,
+                                         core, task, core, task, core, task, core, task,
+                                         core, task, core, task, core, task, core, task,
+                                         core, task, core, task))
+            in_data_str = self.get_data().split(",")
+            ret = [try_int(s, 0) for s in in_data_str]
+            key = "core_" + str(core)
+            try:
+                stat[key] = {"cpu": core, "max_irq": ret[0], "bucket_0" : ret[1],
+                             "bucket_1" : ret[2], "bucket_2" : ret[3],
+                             "bucket_3" : ret[4], "bucket_4" : ret[5],
+                             "bucket_5" : ret[6], "bucket_6" : ret[7],
+                             "bucket_7" : ret[8], "bucket_8" : ret[9],
+                             "bucket_9" : ret[10], "bucket_10" : ret[11],
+                             "bucket_11" : ret[12], "bucket_12" : ret[13],
+                             "overflow": ret[10] + ret[11] + ret[12] + ret[13]}
+            except (KeyError, IndexError):
+                LOG.error("Corrupted PACKET %s", in_data_str)
+
+        return stat
+
     def multi_port_stats(self, ports):
         """get counter values from all  ports at once"""
 
@@ -660,7 +695,6 @@ class ProxSocketHelper(object):
         LOG.debug("Force Quit prox")
         self.put_command("quit_force\n")
         time.sleep(3)
-
 
 _LOCAL_OBJECT = object()
 
@@ -1943,3 +1977,15 @@ class ProxlwAFTRProfileHelper(ProxProfileHelper):
                 data_helper.latency = self.get_latency()
 
         return data_helper.result_tuple, data_helper.samples
+
+
+class ProxIrqProfileHelper(ProxProfileHelper):
+
+    __prox_profile_type__ = "IRQ Query"
+
+    def __init__(self, resource_helper):
+        super(ProxIrqProfileHelper, self).__init__(resource_helper)
+        self._cores_tuple = None
+        self._ports_tuple = None
+        self.step_delta = 5
+        self.step_time = 0.5
