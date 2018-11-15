@@ -217,7 +217,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
 
     def kill_vnf(self):
         # pkill is not matching, debug with pgrep
-        self.ssh_helper.execute("sudo pgrep -lax  %s" % self.APP_NAME)
+        self.ssh_helper.execute("sudo pgrep -lax %s" % self.APP_NAME)
         self.ssh_helper.execute("sudo ps aux | grep -i %s" % self.APP_NAME)
         # have to use exact match
         # try using killall to match
