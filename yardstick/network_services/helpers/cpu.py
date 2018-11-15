@@ -33,11 +33,11 @@ class CpuSysCores(object):
         core_lines = {}
         for line in lines:
             if line.strip():
-                    name, value = line.split(":", 1)
-                    core_lines[name.strip()] = value.strip()
+                name, value = line.split(":", 1)
+                core_lines[name.strip()] = value.strip()
             else:
-                    core_details.append(core_lines)
-                    core_lines = {}
+                core_details.append(core_lines)
+                core_lines = {}
 
         return core_details
 
@@ -60,6 +60,16 @@ class CpuSysCores(object):
 
         return self.core_map
 
+    def get_cpu_layout(self):
+        _, stdout, _ = self.connection.execute("lscpu -p")
+        cpuinfo = {}
+        cpuinfo['cpuinfo'] = list()
+        for line in stdout.split("\n"):
+            if line and line[0] != "#":
+                cpuinfo['cpuinfo'].append([CpuSysCores._str2int(x) for x in
+                                           line.split(",")])
+        return cpuinfo
+
     def validate_cpu_cfg(self, vnf_cfg=None):
         if vnf_cfg is None:
             vnf_cfg = {
@@ -78,3 +88,10 @@ class CpuSysCores(object):
                 return -1
 
         return 0
+
+    @staticmethod
+    def _str2int(string):
+        try:
+            return int(string)
+        except ValueError:
+            return 0
