@@ -286,6 +286,48 @@ class SSHTestCase(unittest.TestCase):
         mock_paramiko_exec_command.assert_called_once_with('cmd',
                                                            get_pty=True)
 
+    @mock.patch("yardstick.ssh.paramiko")
+    def test_interactive_terminal_open(self, mock_paramiko):
+        fake_client = mock.Mock()
+        fake_session = mock.Mock()
+        fake_session.recv.return_value = ":~# "
+        fake_transport = mock.Mock()
+        fake_transport.open_session.return_value = fake_session
+        fake_client.get_transport.return_value = fake_transport
+        mock_paramiko.SSHClient.return_value = fake_client
+
+        test_ssh = ssh.SSH("admin", "example.net", pkey="key")
+        result = test_ssh.interactive_terminal_open()
+        self.assertEqual(fake_session, result)
+
+    @mock.patch("yardstick.ssh.paramiko")
+    def test_interactive_terminal_exec_command(self, mock_paramiko):
+        fake_client = mock.Mock()
+        fake_session = mock.Mock()
+        fake_session.recv.return_value = "stdout fake data"
+        fake_transport = mock.Mock()
+        fake_transport.open_session.return_value = fake_session
+        fake_client.get_transport.return_value = fake_transport
+        mock_paramiko.SSHClient.return_value = fake_client
+
+        test_ssh = ssh.SSH("admin", "example.net", pkey="key")
+        with mock.patch.object(fake_session, "sendall") \
+                as mock_paramiko_send_command:
+            result = test_ssh.interactive_terminal_exec_command(fake_session,
+                                                                'cmd', "vat# ")
+        self.assertEqual("stdout fake data", result)
+        mock_paramiko_send_command.assert_called_once_with('cmd\n')
+
+    @mock.patch("yardstick.ssh.paramiko")
+    def test_interactive_terminal_close(self, _):
+        fake_session = mock.Mock()
+        paramiko_sshclient = self.test_client._get_client()
+        paramiko_sshclient.get_transport.open_session.return_value = fake_session
+        with mock.patch.object(fake_session, "close") \
+                as mock_paramiko_terminal_close:
+            self.test_client.interactive_terminal_close(fake_session)
+        mock_paramiko_terminal_close.assert_called_once_with()
+
 
 class SSHRunTestCase(unittest.TestCase):
     """Test SSH.run method in different aspects.
