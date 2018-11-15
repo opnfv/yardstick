@@ -39,7 +39,7 @@
     - { role: configure_gui, when: installation_mode != inst_mode_container_pull }
     - { role: download_trex, when: installation_mode != inst_mode_container_pull }
     - { role: install_trex, when: installation_mode != inst_mode_container_pull }
-    - { role: configure_rabbitmq, when: installation_mode != inst_mode_container_pull }
+    - { role: configure_rabbitmq, when: installation_mode == inst_mode_baremetal }
 
 
   post_tasks:
