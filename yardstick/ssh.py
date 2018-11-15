@@ -456,6 +456,87 @@ class SSH(object):
         with client.open_sftp() as sftp:
             sftp.getfo(remotepath, file_obj)
 
+    def interactive_terminal_open(self, time_out=45):
+        """Open interactive terminal on a SSH channel.
+
+        :param time_out: Timeout in seconds.
+        :returns: SSH channel with opened terminal.
+
+        .. warning:: Interruptingcow is used here, and it uses
+           signal(SIGALRM) to let the operating system interrupt program
+           execution. This has the following limitations: Python signal
+           handlers only apply to the main thread, so you cannot use this
+           from other threads. You must not use this in a program that
+           uses SIGALRM itself (this includes certain profilers)
+        """
+        chan = self._get_client().get_transport().open_session()
+        chan.get_pty()
+        chan.invoke_shell()
+        chan.settimeout(int(time_out))
+        chan.set_combine_stderr(True)
+
+        buf = ''
+        while not buf.endswith((":~# ", ":~$ ", "~]$ ", "~]# ")):
+            try:
+                chunk = chan.recv(10*1024*1024)
+                if not chunk:
+                    break
+                buf += chunk
+                if chan.exit_status_ready():
+                    self.log.error('Channel exit status ready')
+                    break
+            except socket.timeout:
+                self.log.error('Socket timeout: {0}'.format(buf))
+                raise Exception('Socket timeout: {0}'.format(buf))
+        return chan
+
+    def interactive_terminal_exec_command(self, chan, cmd, prompt):
+        """Execute command on interactive terminal.
+
+        interactive_terminal_open() method has to be called first!
+
+        :param chan: SSH channel with opened terminal.
+        :param cmd: Command to be executed.
+        :param prompt: Command prompt, sequence of characters used to
+        indicate readiness to accept commands.
+        :returns: Command output.
+
+        .. warning:: Interruptingcow is used here, and it uses
+           signal(SIGALRM) to let the operating system interrupt program
+           execution. This has the following limitations: Python signal
+           handlers only apply to the main thread, so you cannot use this
+           from other threads. You must not use this in a program that
+           uses SIGALRM itself (this includes certain profilers)
+        """
+        chan.sendall('{c}\n'.format(c=cmd))
+        buf = ''
+        while not buf.endswith(prompt):
+            try:
+                chunk = chan.recv(10*1024*1024)
+                if not chunk:
+                    break
+                buf += chunk
+                if chan.exit_status_ready():
+                    self.log.error('Channel exit status ready')
+                    break
+            except socket.timeout:
+                self.log.error('Socket timeout during execution of command: '
+                               '{0}\nBuffer content:\n{1}'.format(cmd, buf))
+                raise Exception('Socket timeout during execution of command: '
+                                '{0}\nBuffer content:\n{1}'.format(cmd, buf))
+        tmp = buf.replace(cmd.replace('\n', ''), '')
+        for item in prompt:
+            tmp.replace(item, '')
+        return tmp
+
+    @staticmethod
+    def interactive_terminal_close(chan):
+        """Close interactive terminal SSH channel.
+
+        :param: chan: SSH channel to be closed.
+        """
+        chan.close()
+
 
 class AutoConnectSSH(SSH):
 
