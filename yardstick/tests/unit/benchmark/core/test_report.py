@@ -9,6 +9,7 @@
 ##############################################################################
 
 import mock
+import six
 import unittest
 import uuid
 
@@ -20,12 +21,81 @@ GOOD_YAML_NAME = 'fake_name'
 GOOD_TASK_ID = str(uuid.uuid4())
 GOOD_DB_FIELDKEYS = [{'fieldKey': 'fake_key'}]
 GOOD_DB_TASK = [{
-        'fake_key': 0.000,
-        'time': '0000-00-00T00:00:00.000000Z',
+        'fake_key': 1.234,
+        'time': '0000-00-00T12:34:56.789012Z',
         }]
-GOOD_TIMESTAMP = ['00:00:00.000000']
+GOOD_TIMESTAMP = ['12:34:56.789012']
 BAD_YAML_NAME = 'F@KE_NAME'
 BAD_TASK_ID = 'aaaaaa-aaaaaaaa-aaaaaaaaaa-aaaaaa'
+MORE_DB_FIELDKEYS = [
+        {'fieldKey': 'fake_key'},
+        {'fieldKey': 'str_str'},
+        {'fieldKey': u'str_unicode'},
+        {u'fieldKey': 'unicode_str'},
+        {u'fieldKey': u'unicode_unicode'},
+        ]
+MORE_DB_TASK = [{
+        'fake_key': None,
+        'time': '0000-00-00T00:00:00.000000Z',
+        }, {
+        'fake_key': 123,
+        'time': '0000-00-00T00:00:01.000000Z',
+        }, {
+        'fake_key': 4.56,
+        'time': '0000-00-00T00:00:02.000000Z',
+        }, {
+        'fake_key': 9876543210987654321,
+        'time': '0000-00-00T00:00:03.000000Z',
+        }, {
+        'fake_key': 'str_str value',
+        'time': '0000-00-00T00:00:04.000000Z',
+        }, {
+        'fake_key': u'str_unicode value',
+        'time': '0000-00-00T00:00:05.000000Z',
+        }, {
+        u'fake_key': 'unicode_str value',
+        'time': '0000-00-00T00:00:06.000000Z',
+        }, {
+        u'fake_key': u'unicode_unicode value',
+        'time': '0000-00-00T00:00:07.000000Z',
+        }, {
+        'fake_key': '7.89',
+        'time': '0000-00-00T00:00:08.000000Z',
+        }, {
+        'fake_key': '1011',
+        'time': '0000-00-00T00:00:09.000000Z',
+        }, {
+        'fake_key': '9876543210123456789',
+        'time': '0000-00-00T00:00:10.000000Z',
+        }]
+MORE_TIMESTAMP = ['00:00:%02d.000000' % n for n in range(len(MORE_DB_TASK))]
+MORE_EMPTY_DATA = [''] * len(MORE_DB_TASK)
+MORE_EXPECTED_TABLE_VALS = {
+        'Timestamp': MORE_TIMESTAMP,
+        'fake_key': [
+            '',
+            123,
+            4.56,
+            9876543210987654321 if six.PY3 else 9.876543210987655e+18,
+            'str_str value',
+            'str_unicode value',
+            'unicode_str value',
+            'unicode_unicode value',
+            7.89,
+            1011,
+            9876543210123456789 if six.PY3 else 9.876543210123457e+18,
+            ],
+        'str_str': MORE_EMPTY_DATA,
+        'str_unicode': MORE_EMPTY_DATA,
+        'unicode_str': MORE_EMPTY_DATA,
+        'unicode_unicode': MORE_EMPTY_DATA,
+        }
+MORE_EXPECTED_SERIES = [{
+        'name': key,
+        'data': MORE_EXPECTED_TABLE_VALS[key],
+        }
+        for key in map(str, [field['fieldKey'] for field in MORE_DB_FIELDKEYS])
+        ]
 
 
 class JSTreeTestCase(unittest.TestCase):
@@ -117,11 +187,11 @@ class ReportTestCase(unittest.TestCase):
         self.assertEqual(GOOD_TASK_ID, str(self.rep.task_id))
 
     def test__validate_invalid_yaml_name(self):
-        with self.assertRaisesRegexp(ValueError, "yaml*"):
+        with six.assertRaisesRegex(self, ValueError, "yaml*"):
             self.rep._validate(BAD_YAML_NAME, GOOD_TASK_ID)
 
     def test__validate_invalid_task_id(self):
-        with self.assertRaisesRegexp(ValueError, "task*"):
+        with six.assertRaisesRegex(self, ValueError, "task*"):
             self.rep._validate(GOOD_YAML_NAME, BAD_TASK_ID)
 
     @mock.patch.object(influx, 'query')
@@ -141,7 +211,7 @@ class ReportTestCase(unittest.TestCase):
         mock_query.return_value = []
         self.rep.yaml_name = GOOD_YAML_NAME
         self.rep.task_id = GOOD_TASK_ID
-        self.assertRaisesRegexp(KeyError, "Test case", self.rep._get_fieldkeys)
+        six.assertRaisesRegex(self, KeyError, "Test case", self.rep._get_fieldkeys)
 
     @mock.patch.object(influx, 'query')
     def test__get_tasks(self, mock_query):
@@ -155,7 +225,16 @@ class ReportTestCase(unittest.TestCase):
         mock_query.return_value = []
         self.rep.yaml_name = GOOD_YAML_NAME
         self.rep.task_id = GOOD_TASK_ID
-        self.assertRaisesRegexp(KeyError, "Task ID", self.rep._get_tasks)
+        six.assertRaisesRegex(self, KeyError, "Task ID", self.rep._get_tasks)
+
+    @mock.patch.object(report.Report, '_get_tasks')
+    @mock.patch.object(report.Report, '_get_fieldkeys')
+    def test__generate_common(self, mock_keys, mock_tasks):
+        mock_tasks.return_value = MORE_DB_TASK
+        mock_keys.return_value = MORE_DB_FIELDKEYS
+        series, table_vals = self.rep._generate_common(self.param)
+        self.assertEqual(MORE_EXPECTED_SERIES, series)
+        self.assertEqual(MORE_EXPECTED_TABLE_VALS, table_vals)
 
     @mock.patch.object(report.Report, '_get_tasks')
     @mock.patch.object(report.Report, '_get_fieldkeys')
