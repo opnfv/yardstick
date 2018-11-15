@@ -119,3 +119,25 @@ class TestCpuSysCores(unittest.TestCase):
             vnf_cfg = {'lb_config': 'SW', 'lb_count': 1, 'worker_config':
                        '1C/1T', 'worker_threads': 1}
             self.assertEqual(-1, cpu_topo.validate_cpu_cfg(vnf_cfg))
+
+    def test_get_cpu_layout(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(
+                    return_value=(1, "# CPU,Core,Socket,Node,,L1d,L1i,L2,L3\n'"
+                                     "0,0,0,0,,0,0,0,0\n"
+                                     "1,1,0,0,,1,1,1,0\n", ""))
+            ssh_mock.put = \
+                mock.Mock(return_value=(1, "", ""))
+            cpu_topo = CpuSysCores(ssh_mock)
+            subprocess.check_output = mock.Mock(return_value=0)
+            self.assertEqual({'cpuinfo': [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                          [1, 1, 0, 0, 0, 1, 1, 1, 0]]},
+                             cpu_topo.get_cpu_layout())
+
+    def test__str2int(self):
+        self.assertEqual(1, CpuSysCores._str2int("1"))
+
+    def test__str2int_error(self):
+        self.assertEqual(0, CpuSysCores._str2int("err"))
