@@ -308,7 +308,7 @@ class ResourceHelper(object):
         self.resource = None
         self.setup_helper = setup_helper
         self.ssh_helper = setup_helper.ssh_helper
-        self._enable = True
+        self._enable = False
 
     def setup(self):
         self.resource = self.setup_helper.setup_vnf_environment()
