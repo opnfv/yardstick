@@ -22,6 +22,30 @@
       "revId": "78c19d47a14358507e1c9a543905ab1eb0c92c4b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_620e6836",
+        "filename": "yardstick/common/report.js",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-16T16:39:48Z",
+      "side": 1,
+      "message": "Agreed. Will be addressed in commit 11, WIP, which will declare variables for manipulated DOM objects in HTML file, and pass them as arguments to functions in this JS file.",
+      "parentUuid": "5a682502_7c9c316a",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 58
+      },
+      "revId": "78c19d47a14358507e1c9a543905ab1eb0c92c4b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
