@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_627308b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-16T17:40:28Z",
+      "side": 1,
+      "message": "Still busy working on commit 11, which will consist of HTML, JS and CSS changes.\n\nIn the meantime, commits 1-10 can be reviewed:\n- 1: https://gerrit.opnfv.org/gerrit/60975\n- 2: https://gerrit.opnfv.org/gerrit/60699\n- 3: https://gerrit.opnfv.org/gerrit/60701\n- 4: https://gerrit.opnfv.org/gerrit/60061\n- 5: https://gerrit.opnfv.org/gerrit/60703\n- 6: https://gerrit.opnfv.org/gerrit/60705\n- 7: https://gerrit.opnfv.org/gerrit/60707\n- 8: https://gerrit.opnfv.org/gerrit/61203\n- 9: https://gerrit.opnfv.org/gerrit/61011\n- 10: https://gerrit.opnfv.org/gerrit/65159",
+      "range": {
+        "startLine": 25,
+        "startChar": 25,
+        "endLine": 25,
+        "endChar": 35
+      },
+      "revId": "b52f91d2130e992f5f676f7d6ab0abf16a7d1883",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
