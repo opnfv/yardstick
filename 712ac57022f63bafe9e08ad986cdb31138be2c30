@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_8220e49c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-16T16:39:48Z",
+      "side": 1,
+      "message": "Still busy working on commit 11, which will consist of HTML, JS and CSS changes.\n\nIn the meantime, commits 1-10 can be reviewed:\n- 1: https://gerrit.opnfv.org/gerrit/60975\n- 2: https://gerrit.opnfv.org/gerrit/60699\n- 3: https://gerrit.opnfv.org/gerrit/60701\n- 4: https://gerrit.opnfv.org/gerrit/60061\n- 5: https://gerrit.opnfv.org/gerrit/60703\n- 6: https://gerrit.opnfv.org/gerrit/60705\n- 7: https://gerrit.opnfv.org/gerrit/60707\n- 8: https://gerrit.opnfv.org/gerrit/61203\n- 9: https://gerrit.opnfv.org/gerrit/61011\n- 10: https://gerrit.opnfv.org/gerrit/65159",
+      "range": {
+        "startLine": 13,
+        "startChar": 25,
+        "endLine": 13,
+        "endChar": 34
+      },
+      "revId": "712ac57022f63bafe9e08ad986cdb31138be2c30",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6225c8aa",
+        "filename": "yardstick/common/nsb_template.html",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-16T16:39:48Z",
+      "side": 1,
+      "message": "Remaining indentation and missing var issues will be addressed in commit 11, WIP.",
+      "revId": "712ac57022f63bafe9e08ad986cdb31138be2c30",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c2393cda",
+        "filename": "yardstick/common/report.css",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-16T16:39:48Z",
+      "side": 1,
+      "message": "Remaining indentation issues will be addressed in commit 11, WIP.\nCopyright+License header will be added too.",
+      "revId": "712ac57022f63bafe9e08ad986cdb31138be2c30",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a236c0e5",
+        "filename": "yardstick/common/report.js",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-16T16:39:48Z",
+      "side": 1,
+      "message": "Remaining indentation and missing var issues will be addressed in commit 11, WIP.\nCopyright+License header will be added too.",
+      "revId": "712ac57022f63bafe9e08ad986cdb31138be2c30",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
