@@ -614,17 +614,74 @@ class TestIxNextgen(unittest.TestCase):
             'encapsulation', '-offset', 'IPv4 TOS Precedence')
         self.assertEqual(self.ixnet.commit.call_count, 2)
 
-    def test_get_pppoe_scenario_statistics(self):
-        with mock.patch.object(self.ixnet_gen, '_build_stats_map') as \
-                mock_build_stats:
-            self.ixnet_gen.get_pppoe_scenario_statistics()
+    def test__get_view_page_stats(self):
+        expected_stats = [
+            {'header1': 'row1_1', 'header2': 'row1_2'},
+            {'header1': 'row2_1', 'header2': 'row2_2'}
+        ]
+        self.ixnet_gen._ixnet.getAttribute.side_effect = [
+            ['header1', 'header2'],
+            [
+                [['row1_1', 'row1_2']],
+                [['row2_1', 'row2_2']]
+            ]
+        ]
+        stats = self.ixnet_gen._get_view_page_stats('view_obj')
+        self.assertListEqual(stats, expected_stats)
 
-        mock_build_stats.assert_any_call(self.ixnet_gen.PORT_STATISTICS,
-                                         self.ixnet_gen.PORT_STATS_NAME_MAP)
-        mock_build_stats.assert_any_call(self.ixnet_gen.FLOW_STATISTICS,
-                                         self.ixnet_gen.LATENCY_NAME_MAP)
-        mock_build_stats.assert_any_call(self.ixnet_gen.PPPOX_CLIENT_PER_PORT,
-                                         self.ixnet_gen.PPPOX_CLIENT_PER_PORT_NAME_MAP)
+    @mock.patch.object(ixnet_api.IxNextgen, '_get_view_page_stats')
+    def test_get_pppoe_scenario_statistics(self, mock_get_view):
+        expected_stats = {
+            'port_statistics': [{
+                'port_1': 'port_stat1',
+                'port_2': 'port_stat2'
+            }],
+            'flow_statistic': [{
+                'flow_1': 'flow_stat1',
+                'flow_2': 'flow_stat2'
+            }],
+            'pppox_client_per_port': [{
+                'sub_1': 'sub_stat1',
+                'sub_2': 'sub_stat2'
+            }]
+        }
+
+        port_stats_name_map = {
+            'port_1': 'Port 1',
+            'port_2': 'Port 2'
+        }
+        flows_stats_name_map = {
+            'flow_1': 'Flow 1',
+            'flow_2': 'Flow 2'
+        }
+        pppoe_client_per_port_name_map = {
+            'sub_1': 'Sub 1',
+            'sub_2': 'Sub 2'
+        }
+
+        # All stats keys
+        port_stats = [{'Port 1': 'port_stat1',
+                       'Port 2': 'port_stat2',
+                       'Port 3': 'port_stat3'}]
+        flows_stats = [{'Flow 1': 'flow_stat1',
+                        'Flow 2': 'flow_stat2',
+                        'Flow 3': 'flow_stat3'}]
+        pppoe_sub_stats = [{'Sub 1': 'sub_stat1',
+                            'Sub 2': 'sub_stat2',
+                            'Sub 3': 'sub_stat3'}]
+        mock_get_view.side_effect = [port_stats, flows_stats, pppoe_sub_stats]
+        self.ixnet_gen._ixnet.getAttribute.return_value = '1'
+
+        self.ixnet_gen.PORT_STATS_NAME_MAP = mock.PropertyMock(
+            return_value=port_stats_name_map)
+        self.ixnet_gen.FLOWS_STATS = mock.PropertyMock(
+            return_value=flows_stats_name_map)
+        self.ixnet_gen.PPPOX_CLIENT_PER_PORT_NAME_MAP = mock.PropertyMock(
+            return_value=pppoe_client_per_port_name_map)
+        stats = self.ixnet_gen.get_pppoe_scenario_statistics()
+        self.assertDictEqual(stats, expected_stats)
+        self.assertEqual(self.ixnet_gen.ixnet.getAttribute.call_count, 2)
+        self.ixnet_gen.ixnet.setAttribute.assert_not_called()
 
     def test__update_ipv4_address(self):
         with mock.patch.object(self.ixnet_gen, '_get_field_in_stack_item',
