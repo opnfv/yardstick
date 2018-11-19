@@ -256,10 +256,20 @@ class IXIARFC2544PppoeScenarioProfile(IXIARFC2544Profile):
                 self.full_profile.update({downlink: self.params[downlink]})
 
     def update_traffic_profile(self, traffic_generator):
+
+        networks = OrderedDict()
+
+        # Sort network interfaces pairs
+        for i in range(len(traffic_generator.networks)):
+            uplink = '_'.join([self.UPLINK, str(i)])
+            downlink = '_'.join([self.DOWNLINK, str(i)])
+            if uplink in traffic_generator.networks:
+                networks[uplink] = traffic_generator.networks[uplink]
+            if downlink in traffic_generator.networks:
+                networks[downlink] = traffic_generator.networks[downlink]
+
         def port_generator():
-            for vld_id, intfs in sorted(traffic_generator.networks.items()):
-                if not vld_id.startswith((self.UPLINK, self.DOWNLINK)):
-                    continue
+            for intfs in networks.values():
                 for intf in intfs:
                     yield traffic_generator.vnfd_helper.port_num(intf)
 

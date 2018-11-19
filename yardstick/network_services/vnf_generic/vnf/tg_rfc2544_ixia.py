@@ -15,6 +15,7 @@
 import ipaddress
 import logging
 import six
+from collections import defaultdict
 
 from yardstick.common import utils
 from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
@@ -50,6 +51,41 @@ class IxiaBasicScenario(object):
         self._downlink_vports = vports[1::2]
         self.client.create_traffic_model(self._uplink_vports,
                                          self._downlink_vports)
+
+    def get_stats(self):
+        return self.client.get_statistics()
+
+    def generate_samples(self, resource_helper, ports, duration):
+        stats = self.get_stats()
+
+        samples = {}
+        # this is not DPDK port num, but this is whatever number we gave
+        # when we selected ports and programmed the profile
+        for port_num in ports:
+            try:
+                # reverse lookup port name from port_num so the stats dict is descriptive
+                intf = resource_helper.vnfd_helper.find_interface_by_port(port_num)
+                port_name = intf['name']
+                avg_latency = stats['Store-Forward_Avg_latency_ns'][port_num]
+                min_latency = stats['Store-Forward_Min_latency_ns'][port_num]
+                max_latency = stats['Store-Forward_Max_latency_ns'][port_num]
+                samples[port_name] = {
+                    'rx_throughput_kps': float(stats['Rx_Rate_Kbps'][port_num]),
+                    'tx_throughput_kps': float(stats['Tx_Rate_Kbps'][port_num]),
+                    'rx_throughput_mbps': float(stats['Rx_Rate_Mbps'][port_num]),
+                    'tx_throughput_mbps': float(stats['Tx_Rate_Mbps'][port_num]),
+                    'in_packets': int(stats['Valid_Frames_Rx'][port_num]),
+                    'out_packets': int(stats['Frames_Tx'][port_num]),
+                    'RxThroughput': float(stats['Valid_Frames_Rx'][port_num]) / duration,
+                    'TxThroughput': float(stats['Frames_Tx'][port_num]) / duration,
+                    'Store-Forward_Avg_latency_ns': utils.safe_cast(avg_latency, int, 0),
+                    'Store-Forward_Min_latency_ns': utils.safe_cast(min_latency, int, 0),
+                    'Store-Forward_Max_latency_ns': utils.safe_cast(max_latency, int, 0)
+                }
+            except IndexError:
+                pass
+
+        return samples
 
     def run_protocols(self):
         pass
@@ -293,6 +329,117 @@ class IxiaPppoeClientScenario(object):
                                                        bgp_type=ipv4["bgp"].get("bgp_type"))
                     self.protocols.append(bgp_peer_obj)
 
+    def get_stats(self):
+        return self.client.get_pppoe_scenario_statistics()
+
+    def generate_samples(self, resource_helper, ports, duration):
+
+        def _get_precedence_flows_data(flow_id, key):
+            flow_id_data = fl_stats[flow_id]
+            key_data = [int(flow_id_data[prior_flow][key]) for prior_flow in
+                        flow_id_data]
+            return sum(key_data) / len(flow_id_data)
+
+        stats = self.get_stats()
+        samples = {}
+        ports_stats = stats['port_statistics']
+        flows_stats = stats['flow_statistic']
+        pppoe_subs_per_port = stats['pppox_client_per_port']
+
+        # Set 'port_id' key for ports stats items
+        for item in ports_stats:
+            port_id = item.pop('port_name').split('-')[-1].strip()
+            item['port_id'] = int(port_id)
+
+        # Set 'id' key for flows stats items
+        for item in flows_stats:
+            flow_id = item.pop('Flow_Group').split('-')[1].strip()
+            item['id'] = int(flow_id)
+
+        # Set 'port_id' key for pppoe subs per port stats
+        for item in pppoe_subs_per_port:
+            port_id = item.pop('subs_port').split('-')[-1].strip()
+            item['port_id'] = int(port_id)
+
+        # Sort ports stats
+        ports_stats = sorted(ports_stats, key=lambda k: k['port_id'])
+
+        # Sort flows stats
+        flows_stats = sorted(flows_stats, key=lambda k: k['id'])
+        flows_id = list(set([flow['id'] for flow in flows_stats]))
+
+        # Collect ip precedence flows under one flow group id
+        fl_stats = defaultdict(dict)
+        for flow in flows_stats:
+            flow_id = flow.pop('id')
+            ip_precedence = flow.pop('IPv4_Precedence')
+            fl_stats[flow_id].update({ip_precedence: flow})
+
+        uplink_flows = flows_id[::2]
+        downlink_flows = flows_id[1::2]
+        uplink_ports = ports[::2]
+        downlink_ports = ports[1::2]
+
+        port_flow_map = {}
+        svlan_per_port = 4
+
+        # Map traffic flows to ports
+        start_id = 0
+        end_id = svlan_per_port
+        for port in uplink_ports:
+            port_flow_map[port] = uplink_flows[start_id:end_id]
+            start_id = end_id
+            end_id += svlan_per_port
+
+        start_id = 0
+        end_id = svlan_per_port
+        for port in downlink_ports:
+            port_flow_map[port] = downlink_flows[start_id:end_id]
+            start_id = end_id
+            end_id += svlan_per_port
+
+        # this is not DPDK port num, but this is whatever number we gave
+        # when we selected ports and programmed the profile
+        for port_num in ports:
+            try:
+                # reverse lookup port name from port_num so the stats dict is descriptive
+                intf = resource_helper.vnfd_helper.find_interface_by_port(port_num)
+                port_name = intf['name']
+
+                _avg_latency = sum(
+                    [_get_precedence_flows_data(flow,
+                                                'Store-Forward_Avg_latency_ns')
+                     for flow in
+                     port_flow_map[port_num]]) / len(port_flow_map[port_num])
+                _min_latency = sum(
+                    [_get_precedence_flows_data(flow,
+                                                'Store-Forward_Min_latency_ns')
+                     for flow in
+                     port_flow_map[port_num]]) / len(port_flow_map[port_num])
+                _max_latency = sum(
+                    [_get_precedence_flows_data(flow,
+                                                'Store-Forward_Max_latency_ns')
+                     for flow in
+                     port_flow_map[port_num]]) / len(port_flow_map[port_num])
+
+                samples[port_name] = {
+                    'rx_throughput_kps': float(ports_stats[port_num]['Rx_Rate_Kbps']),
+                    'tx_throughput_kps': float(ports_stats[port_num]['Tx_Rate_Kbps']),
+                    'rx_throughput_mbps': float(ports_stats[port_num]['Rx_Rate_Mbps']),
+                    'tx_throughput_mbps': float(ports_stats[port_num]['Tx_Rate_Mbps']),
+                    'in_packets': int(ports_stats[port_num]['Valid_Frames_Rx']),
+                    'out_packets': int(ports_stats[port_num]['Frames_Tx']),
+                    'RxThroughput': float(ports_stats[port_num]['Valid_Frames_Rx']) / duration,
+                    'TxThroughput': float(ports_stats[port_num]['Frames_Tx']) / duration,
+                    'Store-Forward_Avg_latency_ns': utils.safe_cast(_avg_latency, int, 0),
+                    'Store-Forward_Min_latency_ns': utils.safe_cast(_min_latency, int, 0),
+                    'Store-Forward_Max_latency_ns': utils.safe_cast(_max_latency, int, 0)
+                }
+            except IndexError:
+                pass
+
+        return samples
+
 
 class IxiaRfc2544Helper(Rfc2544ResourceHelper):
 
@@ -329,7 +476,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         self.client.connect(self.vnfd_helper)
 
     def get_stats(self, *args, **kwargs):
-        return self.client.get_statistics()
+        return self._ix_scenario.get_statistics()
 
     def setup(self):
         super(IxiaResourceHelper, self).setup()
@@ -340,36 +487,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         self._terminated.value = 1
 
     def generate_samples(self, ports, duration):
-        stats = self.get_stats()
-
-        samples = {}
-        # this is not DPDK port num, but this is whatever number we gave
-        # when we selected ports and programmed the profile
-        for port_num in ports:
-            try:
-                # reverse lookup port name from port_num so the stats dict is descriptive
-                intf = self.vnfd_helper.find_interface_by_port(port_num)
-                port_name = intf['name']
-                avg_latency = stats['Store-Forward_Avg_latency_ns'][port_num]
-                min_latency = stats['Store-Forward_Min_latency_ns'][port_num]
-                max_latency = stats['Store-Forward_Max_latency_ns'][port_num]
-                samples[port_name] = {
-                    'rx_throughput_kps': float(stats['Rx_Rate_Kbps'][port_num]),
-                    'tx_throughput_kps': float(stats['Tx_Rate_Kbps'][port_num]),
-                    'rx_throughput_mbps': float(stats['Rx_Rate_Mbps'][port_num]),
-                    'tx_throughput_mbps': float(stats['Tx_Rate_Mbps'][port_num]),
-                    'in_packets': int(stats['Valid_Frames_Rx'][port_num]),
-                    'out_packets': int(stats['Frames_Tx'][port_num]),
-                    'RxThroughput': float(stats['Valid_Frames_Rx'][port_num]) / duration,
-                    'TxThroughput': float(stats['Frames_Tx'][port_num]) / duration,
-                    'Store-Forward_Avg_latency_ns': utils.safe_cast(avg_latency, int, 0),
-                    'Store-Forward_Min_latency_ns': utils.safe_cast(min_latency, int, 0),
-                    'Store-Forward_Max_latency_ns': utils.safe_cast(max_latency, int, 0)
-                }
-            except IndexError:
-                pass
-
-        return samples
+        return self._ix_scenario.generate_samples(self, ports, duration)
 
     def _init_ix_scenario(self):
         ixia_config = self.scenario_helper.scenario_cfg.get('ixia_config', 'IxiaBasic')
