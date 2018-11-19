@@ -25,9 +25,10 @@ traffic_profile:
   duration: {{ duration }}
   enable_latency: True
 
-uplink_0:
+uplink_0:  # traffic flow from xe0 to xe1
       ipv4:
         id: 1
+        frame_rate: 12.5%
         port: xe0
         outer_l2:
           framesize: &uplink_framesize
@@ -49,12 +50,17 @@ uplink_0:
             1518B: "{{get(imix, 'imix.uplink.1518B', '0') }}"
 
         outer_l3v4:
-            priority:
+            priority: &uplink_precedence
+              {% if priority %}
+              {{ priority }}
+              {% else %}
               tos:
-                precedence: &uplink_precedence [0, 4, 7]
-downlink_0:
+                precedence: [0, 4, 7]
+              {% endif %}
+downlink_0:  # traffic flow from xe1 to xe0
       ipv4:
         id: 2
+        frame_rate: 50%
         port: xe1
         outer_l2:
           framesize: &downlink_framesize
@@ -76,337 +82,311 @@ downlink_0:
             1518B: "{{get(imix, 'imix.downlink.1518B', '0') }}"
 
         outer_l3v4:
-            priority:
+            priority: &downlink_precedence
+              {% if priority %}
+              {{ priority }}
+              {% else %}
               tos:
-                precedence: &downlink_precedence [0, 4, 7]
-uplink_1:
+                precedence: [0, 4, 7]
+              {% endif %}
+uplink_1:  # traffic flow from xe0 to xe1
       ipv4:
         id: 3
+        frame_rate: 12.5%
         port: xe0
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_1:
+            priority: *uplink_precedence
+downlink_1:  # traffic flow from xe1 to xe0
       ipv4:
         id: 4
+        frame_rate: 50%
         port: xe1
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
-uplink_2:
+            priority: *downlink_precedence
+uplink_2:  # traffic flow from xe0 to xe3
       ipv4:
         id: 5
+        frame_rate: 12.5%
         port: xe0
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_2:
+            priority: *uplink_precedence
+downlink_2:  # traffic flow from xe3 to xe0
       ipv4:
         id: 6
+        frame_rate: 50%
         port: xe3
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
-uplink_3:
+            priority: *downlink_precedence
+uplink_3:  # traffic flow from xe0 to xe3
       ipv4:
         id: 7
+        frame_rate: 12.5%
         port: xe0
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_3:
+            priority: *uplink_precedence
+downlink_3:  # traffic flow from xe3 to xe0
       ipv4:
         id: 8
+        frame_rate: 50%
         port: xe3
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
-uplink_4:
+            priority: *downlink_precedence
+uplink_4:  # traffic flow from xe2 to xe5
       ipv4:
         id: 9
+        frame_rate: 12.5%
         port: xe2
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_4:
+            priority: *uplink_precedence
+downlink_4:  # traffic flow from xe5 to xe2
       ipv4:
         id: 10
+        frame_rate: 7%
         port: xe5
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
-uplink_5:
+            priority: *downlink_precedence
+uplink_5:  # traffic flow from xe2 to xe5
       ipv4:
         id: 11
+        frame_rate: 12.5%
         port: xe2
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_5:
+            priority: *uplink_precedence
+downlink_5:  # traffic flow from xe5 to xe2
       ipv4:
         id: 12
+        frame_rate: 7%
         port: xe5
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
-uplink_6:
+            priority: *downlink_precedence
+uplink_6:  # traffic flow from xe2 to xe5
       ipv4:
         id: 13
+        frame_rate: 12.5%
         port: xe2
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_6:
+            priority: *uplink_precedence
+downlink_6:  # traffic flow from xe5 to xe2
       ipv4:
         id: 14
+        frame_rate: 7%
         port: xe5
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
-uplink_7:
+            priority: *downlink_precedence
+uplink_7:  # traffic flow from xe2 to xe5
       ipv4:
         id: 15
+        frame_rate: 12.5%
         port: xe2
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_7:
+            priority: *uplink_precedence
+downlink_7:  # traffic flow from xe5 to xe2
       ipv4:
         id: 16
+        frame_rate: 7%
         port: xe5
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
-uplink_8:
+            priority: *downlink_precedence
+uplink_8:  # traffic flow from xe4 to xe5
       ipv4:
         id: 17
+        frame_rate: 12.5%
         port: xe4
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_8:
+            priority: *uplink_precedence
+downlink_8:  # traffic flow from xe5 to xe4
       ipv4:
         id: 18
+        frame_rate: 7%
         port: xe5
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
-uplink_9:
+            priority: *downlink_precedence
+uplink_9:  # traffic flow from xe4 to xe5
       ipv4:
         id: 19
+        frame_rate: 12.5%
         port: xe4
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_9:
+            priority: *uplink_precedence
+downlink_9:  # traffic flow from xe5 to xe4
       ipv4:
         id: 20
+        frame_rate: 7%
         port: xe5
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
-uplink_10:
+            priority: *downlink_precedence
+uplink_10:  # traffic flow from xe4 to xe7
       ipv4:
         id: 21
+        frame_rate: 12.5%
         port: xe4
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_10:
+            priority: *uplink_precedence
+downlink_10:  # traffic flow from xe7 to xe4
       ipv4:
         id: 22
+        frame_rate: 7%
         port: xe7
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
-uplink_11:
+            priority: *downlink_precedence
+uplink_11:  # traffic flow from xe4 to xe7
       ipv4:
         id: 23
+        frame_rate: 12.5%
         port: xe4
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_11:
+            priority: *uplink_precedence
+downlink_11:  # traffic flow from xe7 to xe4
       ipv4:
         id: 24
+        frame_rate: 7%
         port: xe7
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 
-uplink_12:
+uplink_12:  # traffic flow from xe6 to xe7
       ipv4:
         id: 25
+        frame_rate: 12.5%
         port: xe6
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_12:
+            priority: *uplink_precedence
+downlink_12:  # traffic flow from xe7 to xe6
       ipv4:
         id: 26
+        frame_rate: 7%
         port: xe7
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
-uplink_13:
+            priority: *downlink_precedence
+uplink_13:  # traffic flow from xe6 to xe7
       ipv4:
         id: 27
+        frame_rate: 12.5%
         port: xe6
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_13:
+            priority: *uplink_precedence
+downlink_13:  # traffic flow from xe7 to xe6
       ipv4:
         id: 28
+        frame_rate: 7%
         port: xe7
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
-uplink_14:
+            priority: *downlink_precedence
+uplink_14:  # traffic flow from xe6 to xe7
       ipv4:
         id: 29
+        frame_rate: 12.5%
         port: xe6
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_14:
+            priority: *uplink_precedence
+downlink_14:  # traffic flow from xe7 to xe6
       ipv4:
         id: 30
+        frame_rate: 7%
         port: xe7
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
-uplink_15:
+            priority: *downlink_precedence
+uplink_15:  # traffic flow from xe6 to xe7
       ipv4:
         id: 31
+        frame_rate: 12.5%
         port: xe6
         outer_l2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
-downlink_15:
+            priority: *uplink_precedence
+downlink_15:  # traffic flow from xe7 to xe6
       ipv4:
         id: 32
+        frame_rate: 7%
         port: xe7
         outer_l2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence

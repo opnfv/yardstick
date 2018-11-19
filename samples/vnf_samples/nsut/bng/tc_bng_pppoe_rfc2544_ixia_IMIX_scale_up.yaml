@@ -15,6 +15,7 @@
 ---
 {% set sessions_per_port = sessions_per_port or 4000 %}
 {% set sessions_per_svlan = sessions_per_svlan or 1000 %}
+{% set duration = duration or 60 %}
 {% set vports = vports or 2 %}
 {% set svlans_per_port = sessions_per_port / sessions_per_svlan %}
 schema: yardstick:task:0.1
@@ -34,6 +35,7 @@ scenarios:
     tg__0: tg_0.yardstick
     vnf__0: vnf_0.yardstick
   options:
+    duration: {{ duration }}
     pppoe_client: # access network
       sessions_per_port: {{ sessions_per_port }}
       sessions_per_svlan: {{ sessions_per_svlan }}
@@ -80,7 +82,7 @@ scenarios:
   runner:
     type: Iteration
     iterations: 10
-    interval: 75
+    interval: {{ duration + 15 }}
 context:
   type: Node
   name: yardstick
