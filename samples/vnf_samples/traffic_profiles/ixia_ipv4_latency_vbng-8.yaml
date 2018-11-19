@@ -20,7 +20,7 @@ name:            rfc2544
 description:     Traffic profile to run RFC2544 latency
 traffic_profile:
   traffic_type : IXIARFC2544PppoeScenarioProfile # defines traffic behavior - constant or look for highest possible throughput
-  frame_rate : 25%  # pc of linerate
+  frame_rate : 12%  # pc of linerate
   duration: {{ duration }}
   enable_latency: True
 
