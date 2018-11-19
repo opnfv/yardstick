@@ -15,6 +15,7 @@
 import ipaddress
 import logging
 import six
+import collections
 
 from yardstick.common import utils
 from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
@@ -27,7 +28,7 @@ LOG = logging.getLogger(__name__)
 
 WAIT_AFTER_CFG_LOAD = 10
 WAIT_FOR_TRAFFIC = 30
-WAIT_PROTOCOLS_STARTED = 360
+WAIT_PROTOCOLS_STARTED = 420
 
 
 class IxiaBasicScenario(object):
@@ -51,10 +52,51 @@ class IxiaBasicScenario(object):
         self.client.create_traffic_model(self._uplink_vports,
                                          self._downlink_vports)
 
+    def get_stats(self):
+        return self.client.get_statistics()
+
+    def generate_samples(self, resource_helper, ports, duration):
+        stats = self.get_stats()
+
+        samples = {}
+        # this is not DPDK port num, but this is whatever number we gave
+        # when we selected ports and programmed the profile
+        for port_num in ports:
+            try:
+                # reverse lookup port name from port_num so the stats dict is descriptive
+                intf = resource_helper.vnfd_helper.find_interface_by_port(port_num)
+                port_name = intf['name']
+                avg_latency = stats['Store-Forward_Avg_latency_ns'][port_num]
+                min_latency = stats['Store-Forward_Min_latency_ns'][port_num]
+                max_latency = stats['Store-Forward_Max_latency_ns'][port_num]
+                samples[port_name] = {
+                    'rx_throughput_kps': float(stats['Rx_Rate_Kbps'][port_num]),
+                    'tx_throughput_kps': float(stats['Tx_Rate_Kbps'][port_num]),
+                    'rx_throughput_mbps': float(stats['Rx_Rate_Mbps'][port_num]),
+                    'tx_throughput_mbps': float(stats['Tx_Rate_Mbps'][port_num]),
+                    'in_packets': int(stats['Valid_Frames_Rx'][port_num]),
+                    'out_packets': int(stats['Frames_Tx'][port_num]),
+                    'RxThroughput': float(stats['Valid_Frames_Rx'][port_num]) / duration,
+                    'TxThroughput': float(stats['Frames_Tx'][port_num]) / duration,
+                    'Store-Forward_Avg_latency_ns': utils.safe_cast(avg_latency, int, 0),
+                    'Store-Forward_Min_latency_ns': utils.safe_cast(min_latency, int, 0),
+                    'Store-Forward_Max_latency_ns': utils.safe_cast(max_latency, int, 0)
+                }
+            except IndexError:
+                pass
+
+        return samples
+
     def run_protocols(self):
         pass
 
     def stop_protocols(self):
+        pass
+
+    def update_tracking_options(self):
+        pass
+
+    def get_tc_rfc2544_options(self):
         pass
 
 
@@ -87,8 +129,12 @@ class IxiaPppoeClientScenario(object):
             traffic_profile.full_profile)
         endpoints_obj_pairs = \
             self._get_endpoints_src_dst_obj_pairs(endpoints_id_pairs)
-        uplink_endpoints = endpoints_obj_pairs[::2]
-        downlink_endpoints = endpoints_obj_pairs[1::2]
+        if endpoints_obj_pairs:
+            uplink_endpoints = endpoints_obj_pairs[::2]
+            downlink_endpoints = endpoints_obj_pairs[1::2]
+        else:
+            uplink_endpoints = self._access_topologies
+            downlink_endpoints = self._core_topologies
         self.client.create_ipv4_traffic_model(uplink_endpoints,
                                               downlink_endpoints)
 
@@ -181,18 +227,14 @@ class IxiaPppoeClientScenario(object):
         device groups pairs between which flow groups will be created:
 
         1. In case uplink/downlink flows in traffic profile doesn't have
-           specified 'port' key, flows will be created between each device
-           group on access port and device group on corresponding core port.
+           specified 'port' key, flows will be created between topologies
+           on corresponding access and core port.
            E.g.:
-           Device groups created on access port xe0: dg1, dg2, dg3
-           Device groups created on core port xe1: dg4
+           Access topology on xe0: topology1
+           Core topology on xe1: topology2
            Flows will be created between:
-           dg1 -> dg4
-           dg4 -> dg1
-           dg2 -> dg4
-           dg4 -> dg2
-           dg3 -> dg4
-           dg4 -> dg3
+           topology1 -> topology2
+           topology2 -> topology1
 
         2. In case uplink/downlink flows in traffic profile have specified
            'port' key, flows will be created between device groups on this
@@ -253,13 +295,6 @@ class IxiaPppoeClientScenario(object):
         [endpoint_obj_pairs.extend([up, down])
          for up, down in zip(uplink_dev_groups, downlink_dev_groups)]
 
-        if not endpoint_obj_pairs:
-            for up, down in zip(uplink_ports, downlink_ports):
-                uplink_dev_groups = port_to_dev_group_mapping[up]
-                downlink_dev_groups = \
-                    port_to_dev_group_mapping[down] * len(uplink_dev_groups)
-                [endpoint_obj_pairs.extend(list(i))
-                 for i in zip(uplink_dev_groups, downlink_dev_groups)]
         return endpoint_obj_pairs
 
     def _fill_ixia_config(self):
@@ -353,6 +388,168 @@ class IxiaPppoeClientScenario(object):
                                                        bgp_type=ipv4["bgp"].get("bgp_type"))
                     self.protocols.append(bgp_peer_obj)
 
+    def update_tracking_options(self):
+        priority_map = {
+            'raw': 'ipv4Raw0',
+            'tos': {'precedence': 'ipv4Precedence0'},
+            'dscp': {'defaultPHB': 'ipv4DefaultPhb0',
+                     'selectorPHB': 'ipv4ClassSelectorPhb0',
+                     'assuredPHB': 'ipv4AssuredForwardingPhb0',
+                     'expeditedPHB': 'ipv4ExpeditedForwardingPhb0'}
+        }
+
+        prio_trackby_key = 'ipv4Precedence0'
+
+        try:
+            priority = list(self._ixia_cfg['priority'])[0]
+            if priority == 'raw':
+                prio_trackby_key = priority_map[priority]
+            elif priority in ['tos', 'dscp']:
+                priority_type = list(self._ixia_cfg['priority'][priority])[0]
+                prio_trackby_key = priority_map[priority][priority_type]
+        except KeyError:
+            pass
+
+        tracking_options = ['flowGroup0', 'vlanVlanId0', prio_trackby_key]
+        self.client.set_flow_tracking(tracking_options)
+
+    def get_tc_rfc2544_options(self):
+        return self._ixia_cfg.get('rfc2544')
+
+    def get_stats(self):
+        return self.client.get_pppoe_scenario_statistics()
+
+    @staticmethod
+    def _get_flow_id_data(stats, flow_id, key):
+        result = [float(flow.get(key)) for flow in stats if flow['id'] == flow_id]
+        return sum(result) / len(result)
+
+    def get_priority_flows_stats(self, samples, duration):
+        results = {}
+        priorities = set([flow['IP_Priority'] for flow in samples])
+        for priority in priorities:
+            tx_frames = sum(
+                [int(flow['Tx_Frames']) for flow in samples
+                 if flow['IP_Priority'] == priority])
+            rx_frames = sum(
+                [int(flow['Rx_Frames']) for flow in samples
+                 if flow['IP_Priority'] == priority])
+            prio_flows_num = len([flow for flow in samples
+                                  if flow['IP_Priority'] == priority])
+            avg_latency_ns = sum(
+                [int(flow['Store-Forward_Avg_latency_ns']) for flow in samples
+                 if flow['IP_Priority'] == priority]) / prio_flows_num
+            min_latency_ns = sum(
+                [int(flow['Store-Forward_Min_latency_ns']) for flow in samples
+                 if flow['IP_Priority'] == priority]) / prio_flows_num
+            max_latency_ns = sum(
+                [int(flow['Store-Forward_Max_latency_ns']) for flow in samples
+                 if flow['IP_Priority'] == priority]) / prio_flows_num
+            tx_throughput = float(tx_frames) / duration
+            rx_throughput = float(rx_frames) / duration
+            results[priority] = {
+                'in_packets': rx_frames,
+                'out_packets': tx_frames,
+                'RxThroughput': round(rx_throughput, 3),
+                'TxThroughput': round(tx_throughput, 3),
+                'avg_latency_ns': utils.safe_cast(avg_latency_ns, int, 0),
+                'min_latency_ns': utils.safe_cast(min_latency_ns, int, 0),
+                'max_latency_ns': utils.safe_cast(max_latency_ns, int, 0)
+            }
+        return results
+
+    def generate_samples(self, resource_helper, ports, duration):
+
+        stats = self.get_stats()
+        samples = {}
+        ports_stats = stats['port_statistics']
+        flows_stats = stats['flow_statistic']
+        pppoe_subs_per_port = stats['pppox_client_per_port']
+
+        # Get sorted list of ixia ports names
+        ixia_port_names = sorted([data['port_name'] for data in ports_stats])
+
+        # Set 'port_id' key for ports stats items
+        for item in ports_stats:
+            port_id = item.pop('port_name').split('-')[-1].strip()
+            item['port_id'] = int(port_id)
+
+        # Set 'id' key for flows stats items
+        for item in flows_stats:
+            flow_id = item.pop('Flow_Group').split('-')[1].strip()
+            item['id'] = int(flow_id)
+
+        # Set 'port_id' key for pppoe subs per port stats
+        for item in pppoe_subs_per_port:
+            port_id = item.pop('subs_port').split('-')[-1].strip()
+            item['port_id'] = int(port_id)
+
+        # Map traffic flows to ports
+        port_flow_map = collections.defaultdict(set)
+        for item in flows_stats:
+            tx_port = item.pop('Tx_Port')
+            tx_port_index = ixia_port_names.index(tx_port)
+            port_flow_map[tx_port_index].update([item['id']])
+
+        # Sort ports stats
+        ports_stats = sorted(ports_stats, key=lambda k: k['port_id'])
+
+        # Get priority flows stats
+        prio_flows_stats = self.get_priority_flows_stats(flows_stats, duration)
+        samples['priority_stats'] = prio_flows_stats
+
+        # this is not DPDK port num, but this is whatever number we gave
+        # when we selected ports and programmed the profile
+        for port_num in ports:
+            try:
+                # reverse lookup port name from port_num so the stats dict is descriptive
+                intf = resource_helper.vnfd_helper.find_interface_by_port(port_num)
+                port_name = intf['name']
+                port_id = ports_stats[port_num]['port_id']
+                port_subs_stats = \
+                    [port_data for port_data in pppoe_subs_per_port
+                     if port_data.get('port_id') == port_id]
+
+                avg_latency = \
+                    sum([float(self._get_flow_id_data(
+                        flows_stats, flow, 'Store-Forward_Avg_latency_ns'))
+                        for flow in port_flow_map[port_num]]) / len(port_flow_map[port_num])
+                min_latency = \
+                    sum([float(self._get_flow_id_data(
+                        flows_stats, flow, 'Store-Forward_Min_latency_ns'))
+                        for flow in port_flow_map[port_num]]) / len(port_flow_map[port_num])
+                max_latency = \
+                    sum([float(self._get_flow_id_data(
+                        flows_stats, flow, 'Store-Forward_Max_latency_ns'))
+                        for flow in port_flow_map[port_num]]) / len(port_flow_map[port_num])
+
+                samples[port_name] = {
+                    'rx_throughput_kps': float(ports_stats[port_num]['Rx_Rate_Kbps']),
+                    'tx_throughput_kps': float(ports_stats[port_num]['Tx_Rate_Kbps']),
+                    'rx_throughput_mbps': float(ports_stats[port_num]['Rx_Rate_Mbps']),
+                    'tx_throughput_mbps': float(ports_stats[port_num]['Tx_Rate_Mbps']),
+                    'in_packets': int(ports_stats[port_num]['Valid_Frames_Rx']),
+                    'out_packets': int(ports_stats[port_num]['Frames_Tx']),
+                    'RxThroughput': float(ports_stats[port_num]['Valid_Frames_Rx']) / duration,
+                    'TxThroughput': float(ports_stats[port_num]['Frames_Tx']) / duration,
+                    'Store-Forward_Avg_latency_ns': utils.safe_cast(avg_latency, int, 0),
+                    'Store-Forward_Min_latency_ns': utils.safe_cast(min_latency, int, 0),
+                    'Store-Forward_Max_latency_ns': utils.safe_cast(max_latency, int, 0)
+                }
+
+                if port_subs_stats:
+                    samples[port_name].update(
+                        {'sessions_up': int(port_subs_stats[0]['Sessions_Up']),
+                         'sessions_down': int(port_subs_stats[0]['Sessions_Down']),
+                         'sessions_not_started': int(port_subs_stats[0]['Sessions_Not_Started']),
+                         'sessions_total': int(port_subs_stats[0]['Sessions_Total'])}
+                    )
+
+            except IndexError:
+                pass
+
+        return samples
+
 
 class IxiaRfc2544Helper(Rfc2544ResourceHelper):
 
@@ -389,7 +586,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         self.client.connect(self.vnfd_helper)
 
     def get_stats(self, *args, **kwargs):
-        return self.client.get_statistics()
+        return self._ix_scenario.get_statistics()
 
     def setup(self):
         super(IxiaResourceHelper, self).setup()
@@ -400,36 +597,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         self._terminated.value = 1
 
     def generate_samples(self, ports, duration):
-        stats = self.get_stats()
-
-        samples = {}
-        # this is not DPDK port num, but this is whatever number we gave
-        # when we selected ports and programmed the profile
-        for port_num in ports:
-            try:
-                # reverse lookup port name from port_num so the stats dict is descriptive
-                intf = self.vnfd_helper.find_interface_by_port(port_num)
-                port_name = intf['name']
-                avg_latency = stats['Store-Forward_Avg_latency_ns'][port_num]
-                min_latency = stats['Store-Forward_Min_latency_ns'][port_num]
-                max_latency = stats['Store-Forward_Max_latency_ns'][port_num]
-                samples[port_name] = {
-                    'rx_throughput_kps': float(stats['Rx_Rate_Kbps'][port_num]),
-                    'tx_throughput_kps': float(stats['Tx_Rate_Kbps'][port_num]),
-                    'rx_throughput_mbps': float(stats['Rx_Rate_Mbps'][port_num]),
-                    'tx_throughput_mbps': float(stats['Tx_Rate_Mbps'][port_num]),
-                    'in_packets': int(stats['Valid_Frames_Rx'][port_num]),
-                    'out_packets': int(stats['Frames_Tx'][port_num]),
-                    'RxThroughput': float(stats['Valid_Frames_Rx'][port_num]) / duration,
-                    'TxThroughput': float(stats['Frames_Tx'][port_num]) / duration,
-                    'Store-Forward_Avg_latency_ns': utils.safe_cast(avg_latency, int, 0),
-                    'Store-Forward_Min_latency_ns': utils.safe_cast(min_latency, int, 0),
-                    'Store-Forward_Max_latency_ns': utils.safe_cast(max_latency, int, 0)
-                }
-            except IndexError:
-                pass
-
-        return samples
+        return self._ix_scenario.generate_samples(self, ports, duration)
 
     def _init_ix_scenario(self):
         ixia_config = self.scenario_helper.scenario_cfg.get('ixia_config', 'IxiaBasic')
@@ -449,6 +617,9 @@ class IxiaResourceHelper(ClientResourceHelper):
         self.client.assign_ports()
         self._ix_scenario.apply_config()
         self._ix_scenario.create_traffic_model(traffic_profile)
+
+    def update_tracking_options(self):
+        self._ix_scenario.update_tracking_options()
 
     def run_traffic(self, traffic_profile, *args):
         if self._terminated.value:
@@ -483,11 +654,13 @@ class IxiaResourceHelper(ClientResourceHelper):
                 # pylint: disable=unnecessary-lambda
                 utils.wait_until_true(lambda: self.client.is_traffic_stopped(),
                                       timeout=traffic_profile.config.duration * 2)
+                rfc2544_opts = self._ix_scenario.get_tc_rfc2544_options()
                 samples = self.generate_samples(traffic_profile.ports,
                                                 traffic_profile.config.duration)
 
                 completed, samples = traffic_profile.get_drop_percentage(
-                    samples, min_tol, max_tol, precision, first_run=first_run)
+                    samples, min_tol, max_tol, precision, first_run=first_run,
+                    tc_rfc2544_opts=rfc2544_opts)
                 self._queue.put(samples)
 
                 if completed:
