@@ -95,18 +95,18 @@ class TrafficProfileConfigTestCase(unittest.TestCase):
     def test__parse_rate(self):
         tp_config = {'traffic_profile': {'packet_sizes': {'64B': 100}}}
         tp_config_obj = base.TrafficProfileConfig(tp_config)
-        self.assertEqual((100.0, 'fps'), tp_config_obj._parse_rate('100  '))
-        self.assertEqual((200.5, 'fps'), tp_config_obj._parse_rate('200.5'))
-        self.assertEqual((300.8, 'fps'), tp_config_obj._parse_rate('300.8fps'))
+        self.assertEqual((100.0, 'fps'), tp_config_obj.parse_rate('100  '))
+        self.assertEqual((200.5, 'fps'), tp_config_obj.parse_rate('200.5'))
+        self.assertEqual((300.8, 'fps'), tp_config_obj.parse_rate('300.8fps'))
         self.assertEqual((400.2, 'fps'),
-                         tp_config_obj._parse_rate('400.2 fps'))
-        self.assertEqual((500.3, '%'), tp_config_obj._parse_rate('500.3%'))
-        self.assertEqual((600.1, '%'), tp_config_obj._parse_rate('600.1 %'))
+                         tp_config_obj.parse_rate('400.2 fps'))
+        self.assertEqual((500.3, '%'), tp_config_obj.parse_rate('500.3%'))
+        self.assertEqual((600.1, '%'), tp_config_obj.parse_rate('600.1 %'))
 
     def test__parse_rate_exception(self):
         tp_config = {'traffic_profile': {'packet_sizes': {'64B': 100}}}
         tp_config_obj = base.TrafficProfileConfig(tp_config)
         with self.assertRaises(exceptions.TrafficProfileRate):
-            tp_config_obj._parse_rate('100Fps')
+            tp_config_obj.parse_rate('100Fps')
         with self.assertRaises(exceptions.TrafficProfileRate):
-            tp_config_obj._parse_rate('100 kbps')
+            tp_config_obj.parse_rate('100 kbps')

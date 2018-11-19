@@ -78,6 +78,12 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
                 'outer_l4': {},
             }
 
+            frame_rate = value.get('frame_rate')
+            if frame_rate:
+                flow_rate, flow_rate_unit = self.config.parse_rate(frame_rate)
+                result[traffickey]['rate'] = flow_rate
+                result[traffickey]['rate_unit'] = flow_rate_unit
+
             outer_l2 = value.get('outer_l2')
             if outer_l2:
                 result[traffickey]['outer_l2'].update({
