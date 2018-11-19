@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_0df1a5cd",
+        "filename": "yardstick/network_services/vnf_generic/vnf/base.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-19T14:43:48Z",
+      "side": 1,
+      "message": "This is OK",
+      "revId": "20dd9195063a7b16c736a62cfe93d290ef2bf8bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_eded49f1",
+        "filename": "yardstick/network_services/vnf_generic/vnf/ipsec_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-19T14:43:48Z",
+      "side": 1,
+      "message": "can be removed",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 37
+      },
+      "revId": "20dd9195063a7b16c736a62cfe93d290ef2bf8bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2dbf41d2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/ipsec_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-19T14:43:48Z",
+      "side": 1,
+      "message": "are we instantiating the application using yardstick/NSB or manually on-boarding it?\nIt seems like there is ongoing work and few functionalities need to be added as defined in TODO",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 52
+      },
+      "revId": "20dd9195063a7b16c736a62cfe93d290ef2bf8bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4dba7de2",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-19T14:43:48Z",
+      "side": 1,
+      "message": "This change is OK",
+      "revId": "20dd9195063a7b16c736a62cfe93d290ef2bf8bc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
