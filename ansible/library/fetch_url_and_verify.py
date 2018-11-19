@@ -42,6 +42,7 @@ def main():
     dest = params['dest']
     sha256url = params['sha256url']
     retries = params['retries']
+    sha256line = ''
 
     image_dir, image_filename = os.path.split(dest)
     rc, stdout, stderr = module.run_command(['curl', '-sS', sha256url])
