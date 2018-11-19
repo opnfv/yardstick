@@ -15,8 +15,10 @@
 ---
 {% set sessions_per_port = sessions_per_port or 4000 %}
 {% set sessions_per_svlan = sessions_per_svlan or 1000 %}
+{% set duration = duration or 60 %}
 {% set vports = vports or 2 %}
-{% set svlans_per_port = sessions_per_port / sessions_per_svlan %}
+{% set tolerance_low = tolerance_low or 0.0001 %}
+{% set tolerance_high = tolerance_high or 0.0001 %}
 schema: yardstick:task:0.1
 description: >
   vBNG RFC2544 test case with QoS base line without link congestion.
@@ -28,16 +30,16 @@ scenarios:
   topology: "../agnostic/agnostic_vnf_topology_ixia_{{ vports }}ports.yaml"
   ixia_config: IxiaPppoeClient
   extra_args:
-    svlans_per_port: {{ svlans_per_port|int }}
     access_vports_num: {{ vports|int / 2 }}
   nodes:
     tg__0: tg_0.yardstick
     vnf__0: vnf_0.yardstick
   options:
+    duration: {{ duration }}
     pppoe_client: # access network
       sessions_per_port: {{ sessions_per_port }}
       sessions_per_svlan: {{ sessions_per_svlan }}
-      pap_user: 'wfnos'
+      pap_user: 'pppoe_user'
       pap_password: ''
       ip:
 {% for vnf_num in range(0, vports|int, 2) %}
@@ -64,6 +66,16 @@ scenarios:
     framesize:
       uplink: {70B: 33, 940B: 33, 1470B: 34}
       downlink: {68B: 3, 932B: 1, 1470B: 96}
+    priority:
+      # 0 - (000) Routine
+      # 1 - (001) Priority
+      # 2 - (010) Immediate
+      # 3 - (011) Flash
+      # 4 - (100) Flash Override
+      # 5 - (101) CRITIC/ECP
+      # 6 - (110) Internetwork Control
+      # 7 - (111) Network Control
+      tos: {precedence: [0, 4, 7]}
     flow:
       src_ip:
 {% for vnf_num in range(0, vports|int, 2) %}
@@ -76,11 +88,11 @@ scenarios:
       count: 1
     traffic_type: 4
     rfc2544:
-      allowed_drop_rate: 0.0001 - 0.0001
+      allowed_drop_rate: "{{ tolerance_low }} - {{ tolerance_high }}"
   runner:
     type: Iteration
     iterations: 10
-    interval: 75
+    interval: {{ duration + 15 }}
 context:
   type: Node
   name: yardstick
