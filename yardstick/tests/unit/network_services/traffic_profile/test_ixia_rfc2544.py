@@ -487,7 +487,9 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         result = r_f_c2544_profile._get_ixia_traffic_profile({})
         self.assertDictEqual(result, expected)
 
-    def test__ixia_traffic_generate(self):
+    @mock.patch.object(ixia_rfc2544.IXIARFC2544Profile,
+                       '_update_traffic_tracking_options')
+    def test__ixia_traffic_generate(self, mock_upd_tracking_opts):
         traffic_generator = mock.Mock(
             autospec=trex_traffic_profile.TrexProfile)
         traffic_generator.networks = {
@@ -502,8 +504,16 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         r_f_c2544_profile = ixia_rfc2544.IXIARFC2544Profile(
             self.TRAFFIC_PROFILE)
         r_f_c2544_profile.rate = 100
-        result = r_f_c2544_profile._ixia_traffic_generate(traffic, ixia_obj)
+        result = r_f_c2544_profile._ixia_traffic_generate(traffic, ixia_obj,
+                                                          traffic_generator)
         self.assertIsNone(result)
+        mock_upd_tracking_opts.assert_called_once_with(traffic_generator)
+
+    def test__update_traffic_tracking_options(self):
+        mock_traffic_gen = mock.Mock()
+        rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
+        rfc2544_profile._update_traffic_tracking_options(mock_traffic_gen)
+        mock_traffic_gen.update_tracking_options.assert_called_once()
 
     def test_execute_traffic_first_run(self):
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
@@ -715,3 +725,180 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
 
         self.ixia_tp._get_flow_groups_params()
         self.assertDictEqual(self.ixia_tp.full_profile, expected_tp)
+
+    @mock.patch.object(ixia_rfc2544.IXIARFC2544PppoeScenarioProfile,
+                       '_get_flow_groups_params')
+    def test_update_traffic_profile(self, mock_get_flow_groups_params):
+        networks = {
+            'uplink_0': 'data1',
+            'downlink_0': 'data2',
+            'uplink_1': 'data3',
+            'downlink_1': 'data4'
+        }
+        ports = ['xe0', 'xe1', 'xe2', 'xe3']
+        mock_traffic_gen = mock.Mock()
+        mock_traffic_gen.networks = networks
+        mock_traffic_gen.vnfd_helper.port_num.side_effect = ports
+        self.ixia_tp.update_traffic_profile(mock_traffic_gen)
+        mock_get_flow_groups_params.assert_called_once()
+        self.assertEqual(self.ixia_tp.ports, ports)
+
+    def test__get_prio_flows_drop_percentage(self):
+
+        input_stats = {
+            '0': {
+                'in_packets': 50,
+                'out_packets': 100,
+                'Store-Forward_Avg_latency_ns': 10,
+                'Store-Forward_Min_latency_ns': 10,
+                'Store-Forward_Max_latency_ns': 10}}
+
+        result = self.ixia_tp._get_prio_flows_drop_percentage(input_stats)
+        self.assertIsNotNone(result['0'].get('DropPercentage'))
+        self.assertEqual(result['0'].get('DropPercentage'), 50.0)
+
+    def test__get_prio_flows_drop_percentage_traffic_not_flowing(self):
+        input_stats = {
+            '0': {
+                'in_packets': 0,
+                'out_packets': 0,
+                'Store-Forward_Avg_latency_ns': 0,
+                'Store-Forward_Min_latency_ns': 0,
+                'Store-Forward_Max_latency_ns': 0}}
+
+        result = self.ixia_tp._get_prio_flows_drop_percentage(input_stats)
+        self.assertIsNotNone(result['0'].get('DropPercentage'))
+        self.assertEqual(result['0'].get('DropPercentage'), 100)
+
+    def test__get_summary_pppoe_subs_counters(self):
+        input_stats = {
+            'xe0': {
+                'out_packets': 100,
+                'sessions_up': 4,
+                'sessions_down': 0,
+                'sessions_not_started': 0,
+                'sessions_total': 4},
+            'xe1': {
+                'out_packets': 100,
+                'sessions_up': 4,
+                'sessions_down': 0,
+                'sessions_not_started': 0,
+                'sessions_total': 4}
+        }
+
+        expected_stats = {
+            'sessions_up': 8,
+            'sessions_down': 0,
+            'sessions_not_started': 0,
+            'sessions_total': 8
+        }
+
+        res = self.ixia_tp._get_summary_pppoe_subs_counters(input_stats)
+        self.assertDictEqual(res, expected_stats)
+
+    @mock.patch.object(ixia_rfc2544.IXIARFC2544PppoeScenarioProfile,
+                       '_get_prio_flows_drop_percentage')
+    @mock.patch.object(ixia_rfc2544.IXIARFC2544PppoeScenarioProfile,
+                       '_get_summary_pppoe_subs_counters')
+    def test_get_drop_percentage(self, mock_get_pppoe_subs,
+                                 mock_sum_prio_drop_rate):
+        samples = {
+            'priority_stats': {
+                '0': {
+                    'in_packets': 100,
+                    'out_packets': 100,
+                    'Store-Forward_Avg_latency_ns': 10,
+                    'Store-Forward_Min_latency_ns': 10,
+                    'Store-Forward_Max_latency_ns': 10}},
+            'xe0': {
+                'in_packets': 100,
+                'out_packets': 100,
+                'Store-Forward_Avg_latency_ns': 10,
+                'Store-Forward_Min_latency_ns': 10,
+                'Store-Forward_Max_latency_ns': 10}}
+
+        mock_get_pppoe_subs.return_value = {'sessions_up': 1}
+        mock_sum_prio_drop_rate.return_value = {'0': {'DropPercentage': 0.0}}
+
+        status, res = self.ixia_tp.get_drop_percentage(
+            samples, tol_min=0.0, tolerance=0.0001, precision=0,
+            first_run=True)
+        self.assertIsNotNone(res.get('DropPercentage'))
+        self.assertIsNotNone(res.get('priority'))
+        self.assertIsNotNone(res.get('sessions_up'))
+        self.assertEqual(res['DropPercentage'], 0.0)
+        self.assertTrue(status)
+        mock_sum_prio_drop_rate.assert_called_once()
+        mock_get_pppoe_subs.assert_called_once()
+
+    @mock.patch.object(ixia_rfc2544.IXIARFC2544PppoeScenarioProfile,
+                       '_get_prio_flows_drop_percentage')
+    @mock.patch.object(ixia_rfc2544.IXIARFC2544PppoeScenarioProfile,
+                       '_get_summary_pppoe_subs_counters')
+    def test_get_drop_percentage_failed_status(self, mock_get_pppoe_subs,
+                                               mock_sum_prio_drop_rate):
+        samples = {
+            'priority_stats': {
+                '0': {
+                    'in_packets': 90,
+                    'out_packets': 100,
+                    'Store-Forward_Avg_latency_ns': 10,
+                    'Store-Forward_Min_latency_ns': 10,
+                    'Store-Forward_Max_latency_ns': 10}},
+            'xe0': {
+                'in_packets': 90,
+                'out_packets': 100,
+                'Store-Forward_Avg_latency_ns': 10,
+                'Store-Forward_Min_latency_ns': 10,
+                'Store-Forward_Max_latency_ns': 10}}
+
+        mock_get_pppoe_subs.return_value = {'sessions_up': 1}
+        mock_sum_prio_drop_rate.return_value = {'0': {'DropPercentage': 0.0}}
+
+        status, res = self.ixia_tp.get_drop_percentage(
+            samples, tol_min=0.0, tolerance=0.0001, precision=0,
+            first_run=True)
+        self.assertIsNotNone(res.get('DropPercentage'))
+        self.assertIsNotNone(res.get('priority'))
+        self.assertIsNotNone(res.get('sessions_up'))
+        self.assertEqual(res['DropPercentage'], 10.0)
+        self.assertFalse(status)
+        mock_sum_prio_drop_rate.assert_called_once()
+        mock_get_pppoe_subs.assert_called_once()
+
+    @mock.patch.object(ixia_rfc2544.IXIARFC2544PppoeScenarioProfile,
+                       '_get_prio_flows_drop_percentage')
+    @mock.patch.object(ixia_rfc2544.IXIARFC2544PppoeScenarioProfile,
+                       '_get_summary_pppoe_subs_counters')
+    def test_get_drop_percentage_priority_flow_check(self, mock_get_pppoe_subs,
+                                                     mock_sum_prio_drop_rate):
+        samples = {
+            'priority_stats': {
+                '0': {
+                    'in_packets': 100,
+                    'out_packets': 100,
+                    'Store-Forward_Avg_latency_ns': 10,
+                    'Store-Forward_Min_latency_ns': 10,
+                    'Store-Forward_Max_latency_ns': 10}},
+            'xe0': {
+                'in_packets': 90,
+                'out_packets': 100,
+                'Store-Forward_Avg_latency_ns': 10,
+                'Store-Forward_Min_latency_ns': 10,
+                'Store-Forward_Max_latency_ns': 10
+        }}
+
+        mock_get_pppoe_subs.return_value = {'sessions_up': 1}
+        mock_sum_prio_drop_rate.return_value = {'0': {'DropPercentage': 0.0}}
+
+        tc_rfc2544_opts = {'priority': '0',
+                           'allowed_drop_rate': '0.0001 - 0.0001'}
+        status, res = self.ixia_tp.get_drop_percentage(
+            samples, tol_min=15.0000, tolerance=15.0001, precision=0,
+            first_run=True, tc_rfc2544_opts=tc_rfc2544_opts)
+        self.assertIsNotNone(res.get('DropPercentage'))
+        self.assertIsNotNone(res.get('priority'))
+        self.assertIsNotNone(res.get('sessions_up'))
+        self.assertTrue(status)
+        mock_sum_prio_drop_rate.assert_called_once()
+        mock_get_pppoe_subs.assert_called_once()

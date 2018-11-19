@@ -433,6 +433,21 @@ class TestIXIATrafficGen(unittest.TestCase):
 
 class TestIxiaBasicScenario(unittest.TestCase):
 
+    STATS = {'stat_name': ['Card01/Port01',
+                           'Card02/Port02'],
+             'port_name': ['Ethernet - 001', 'Ethernet - 002'],
+             'Frames_Tx': ['150', '150'],
+             'Valid_Frames_Rx': ['150', '150'],
+             'Frames_Tx_Rate': ['0.0', '0.0'],
+             'Valid_Frames_Rx_Rate': ['0.0', '0.0'],
+             'Tx_Rate_Kbps': ['0.0', '0.0'],
+             'Rx_Rate_Mbps': ['0.0', '0.0'],
+             'Tx_Rate_Mbps': ['0.0', '0.0'],
+             'Rx_Rate_Kbps': ['0.0', '0.0'],
+             'Store-Forward_Max_latency_ns': ['100', '200'],
+             'Store-Forward_Min_latency_ns': ['100', '200'],
+             'Store-Forward_Avg_latency_ns': ['100', '200']}
+
     def setUp(self):
         self._mock_IxNextgen = mock.patch.object(ixnet_api, 'IxNextgen')
         self.mock_IxNextgen = self._mock_IxNextgen.start()
@@ -465,6 +480,48 @@ class TestIxiaBasicScenario(unittest.TestCase):
     def test_stop_protocols(self):
         self.assertIsNone(self.scenario.stop_protocols())
 
+    def test_get_stats(self):
+        self.scenario.get_stats()
+        self.scenario.client.get_statistics.assert_called_once()
+
+    @mock.patch.object(tg_rfc2544_ixia.IxiaBasicScenario, 'get_stats')
+    def test_generate_samples(self, mock_get_stats):
+
+        expected_samples = {'xe0': {
+                                'in_packets': 150,
+                                'out_packets': 150,
+                                'rx_throughput_mbps': 0.0,
+                                'rx_throughput_kps': 0.0,
+                                'RxThroughput': 5.0,
+                                'TxThroughput': 5.0,
+                                'tx_throughput_mbps': 0.0,
+                                'tx_throughput_kps': 0.0,
+                                'Store-Forward_Max_latency_ns': 100,
+                                'Store-Forward_Min_latency_ns': 100,
+                                'Store-Forward_Avg_latency_ns': 100},
+                            'xe1': {
+                                'in_packets': 150,
+                                'out_packets': 150,
+                                'rx_throughput_mbps': 0.0,
+                                'rx_throughput_kps': 0.0,
+                                'RxThroughput': 5.0,
+                                'TxThroughput': 5.0,
+                                'tx_throughput_mbps': 0.0,
+                                'tx_throughput_kps': 0.0,
+                                'Store-Forward_Max_latency_ns': 200,
+                                'Store-Forward_Min_latency_ns': 200,
+                                'Store-Forward_Avg_latency_ns': 200}}
+
+        res_helper = mock.Mock()
+        res_helper.vnfd_helper.find_interface_by_port.side_effect = \
+            [{'name': 'xe0'}, {'name': 'xe1'}]
+        ports = [0, 1]
+        duration = 30
+        mock_get_stats.return_value = self.STATS
+        samples = self.scenario.generate_samples(res_helper, ports, duration)
+        mock_get_stats.assert_called_once()
+        self.assertEqual(samples, expected_samples)
+
 
 class TestIxiaPppoeClientScenario(unittest.TestCase):
 
@@ -483,6 +540,9 @@ class TestIxiaPppoeClientScenario(unittest.TestCase):
             'gateway_ip': ['10.1.1.1', '10.2.2.1'],
             'ip': ['10.1.1.1', '10.2.2.1'],
             'prefix': ['24', '24']
+        },
+        'priority': {
+            'tos': {'precedence': [0, 4]}
         }
     }
 
@@ -492,6 +552,49 @@ class TestIxiaPppoeClientScenario(unittest.TestCase):
                 'local_ip': '10.1.1.1',
                 'netmask': '255.255.255.0'
                 }}}}}
+
+    STATS = {1: {'VLAN100': {'in_packets': 500,
+                             'rx_throughput_kbps': 500.0,
+                             'rx_throughput_mbps': 0.5,
+                             'Store-Forward_Avg_latency_ns': 100,
+                             'Store-Forward_Max_latency_ns': 100,
+                             'Store-Forward_Min_latency_ns': 100,
+                             'out_packets': 500,
+                             'tx_throughput_kbps': 2000.0,
+                             'tx_throughput_mbps': 2.0,
+                             'priority': {'0': {'in_packets': 500,
+                                                'rx_throughput_kbps': 500.0,
+                                                'rx_throughput_mbps': 0.5,
+                                                'Store-Forward_Avg_latency_ns': 100,
+                                                'Store-Forward_Max_latency_ns': 100,
+                                                'Store-Forward_Min_latency_ns': 100,
+                                                'out_packets': 500,
+                                                'tx_throughput_kbps': 2000.0,
+                                                'tx_throughput_mbps': 2.0,
+                                                'avg_sub_rx_throughput_kbps': 500.0,
+                                                'avg_sub_rx_throughput_mbps': 0.5,
+                                                'avg_sub_tx_throughput_kbps': 2000.0,
+                                                'avg_sub_tx_throughput_mbps': 2.0}
+                                          }}},
+             2: {'VLAN101': {'in_packets': 500,
+                             'rx_throughput_kbps': 500.0,
+                             'rx_throughput_mbps': 0.5,
+                             'Store-Forward_Avg_latency_ns': 200,
+                             'Store-Forward_Max_latency_ns': 200,
+                             'Store-Forward_Min_latency_ns': 200,
+                             'out_packets': 500,
+                             'tx_throughput_kbps': 2000.0,
+                             'tx_throughput_mbps': 2.0,
+                             'priority': {'0': {'in_packets': 500,
+                                                'rx_throughput_kbps': 500.0,
+                                                'rx_throughput_mbps': 0.5,
+                                                'Store-Forward_Avg_latency_ns': 200,
+                                                'Store-Forward_Max_latency_ns': 200,
+                                                'Store-Forward_Min_latency_ns': 200,
+                                                'out_packets': 500,
+                                                'tx_throughput_kbps': 2000.0,
+                                                'tx_throughput_mbps': 2.0}
+                                          }}}}
 
     def setUp(self):
         self._mock_IxNextgen = mock.patch.object(ixnet_api, 'IxNextgen')
@@ -546,6 +649,30 @@ class TestIxiaPppoeClientScenario(unittest.TestCase):
         mock_obj_pairs.assert_called_once_with(['xe0', 'xe1', 'xe0', 'xe1'])
         self.scenario.client.create_ipv4_traffic_model.assert_called_once_with(
             uplink_endpoints, downlink_endpoints)
+
+    @mock.patch.object(tg_rfc2544_ixia.IxiaPppoeClientScenario,
+                       '_get_endpoints_src_dst_id_pairs')
+    @mock.patch.object(tg_rfc2544_ixia.IxiaPppoeClientScenario,
+                       '_get_endpoints_src_dst_obj_pairs')
+    def test_create_traffic_model_topology_based_flows(self, mock_obj_pairs,
+                                                       mock_id_pairs):
+        uplink_topologies = ['topology1', 'topology3']
+        downlink_topologies = ['topology2', 'topology4']
+        mock_id_pairs.return_value = []
+        mock_obj_pairs.return_value = []
+        mock_tp = mock.Mock()
+        mock_tp.full_profile = {'uplink_0': 'data',
+                                'downlink_0': 'data',
+                                'uplink_1': 'data',
+                                'downlink_1': 'data'
+                                }
+        self.scenario._access_topologies = ['topology1', 'topology3']
+        self.scenario._core_topologies = ['topology2', 'topology4']
+        self.scenario.create_traffic_model(mock_tp)
+        mock_id_pairs.assert_called_once_with(mock_tp.full_profile)
+        mock_obj_pairs.assert_called_once_with([])
+        self.scenario.client.create_ipv4_traffic_model.assert_called_once_with(
+            uplink_topologies, downlink_topologies)
 
     def test__get_endpoints_src_dst_id_pairs(self):
         full_tp = OrderedDict([
@@ -616,22 +743,10 @@ class TestIxiaPppoeClientScenario(unittest.TestCase):
             }
         }
 
-        expected_result = ['tp1_dg1', 'tp3_dg1', 'tp1_dg2', 'tp3_dg1',
-                           'tp1_dg3', 'tp3_dg1', 'tp1_dg4', 'tp3_dg1',
-                           'tp2_dg1', 'tp4_dg1', 'tp2_dg2', 'tp4_dg1',
-                           'tp2_dg3', 'tp4_dg1', 'tp2_dg4', 'tp4_dg1']
-
         self.scenario._ixia_cfg = ixia_cfg
-        self.scenario._access_topologies = ['topology1', 'topology2']
-        self.scenario._core_topologies = ['topology3', 'topology4']
-        self.mock_IxNextgen.get_topology_device_groups.side_effect = \
-            [['tp1_dg1', 'tp1_dg2', 'tp1_dg3', 'tp1_dg4'],
-             ['tp2_dg1', 'tp2_dg2', 'tp2_dg3', 'tp2_dg4'],
-             ['tp3_dg1'],
-             ['tp4_dg1']]
         res = self.scenario._get_endpoints_src_dst_obj_pairs(
             endpoints_id_pairs)
-        self.assertEqual(res, expected_result)
+        self.assertEqual(res, [])
 
     def test_run_protocols(self):
         self.scenario.client.is_protocols_running.return_value = True
@@ -868,3 +983,161 @@ class TestIxiaPppoeClientScenario(unittest.TestCase):
                       local_as=bgp_params["bgp"]["as_number"],
                       bgp_type=bgp_params["bgp"]["bgp_type"])
         ])
+
+    def test_update_tracking_options_raw_priority(self):
+        raw_priority = {'raw': 4}
+        self.scenario._ixia_cfg['priority'] = raw_priority
+        self.scenario.update_tracking_options()
+        self.scenario.client.set_flow_tracking.assert_called_once_with(
+            ['flowGroup0', 'vlanVlanId0', 'ipv4Raw0'])
+
+    def test_update_tracking_options_tos_priority(self):
+        tos_priority = {'tos': {'precedence': [4, 7]}}
+        self.scenario._ixia_cfg['priority'] = tos_priority
+        self.scenario.update_tracking_options()
+        self.scenario.client.set_flow_tracking.assert_called_once_with(
+            ['flowGroup0', 'vlanVlanId0', 'ipv4Precedence0'])
+
+    def test_update_tracking_options_dscp_priority(self):
+        dscp_priority = {'dscp': {'defaultPHB': [4, 7]}}
+        self.scenario._ixia_cfg['priority'] = dscp_priority
+        self.scenario.update_tracking_options()
+        self.scenario.client.set_flow_tracking.assert_called_once_with(
+            ['flowGroup0', 'vlanVlanId0', 'ipv4DefaultPhb0'])
+
+    def test_update_tracking_options_invalid_priority_data(self):
+        invalid_priority = {'tos': {'inet-precedence': [4, 7]}}
+        self.scenario._ixia_cfg['priority'] = invalid_priority
+        self.scenario.update_tracking_options()
+        self.scenario.client.set_flow_tracking.assert_called_once_with(
+            ['flowGroup0', 'vlanVlanId0', 'ipv4Precedence0'])
+
+    def test_get_tc_rfc2544_options(self):
+        rfc2544_tc_opts = {'allowed_drop_rate': '0.0001 - 0.0001'}
+        self.scenario._ixia_cfg['rfc2544'] = rfc2544_tc_opts
+        res = self.scenario.get_tc_rfc2544_options()
+        self.assertEqual(res, rfc2544_tc_opts)
+
+    def test_get_stats(self):
+        self.scenario.get_stats()
+        self.scenario.client.get_pppoe_scenario_statistics.assert_called_once()
+
+    def test__get_flow_id_data(self):
+        stats = [{'id': 1, 'in_packets': 10, 'out_packets': 20}]
+        key = "in_packets"
+        flow_id = 1
+        res = self.scenario._get_flow_id_data(stats, flow_id, key)
+        self.assertEqual(res, 10)
+
+    @mock.patch.object(tg_rfc2544_ixia.IxiaPppoeClientScenario, 'get_stats')
+    @mock.patch.object(tg_rfc2544_ixia.IxiaPppoeClientScenario,
+                       'get_priority_flows_stats')
+    def test_generate_samples(self, mock_prio_flow_statistics,
+                              mock_get_stats):
+        ixia_stats = {
+            'flow_statistic': [
+                {'Flow_Group': 'RFC2544-1 - Flow Group 0001',
+                 'Frames_Delta': '0',
+                 'IP_Priority': '0',
+                 'Rx_Frames': '3000',
+                 'Tx_Frames': '3000',
+                 'VLAN-ID': '100',
+                 'Tx_Port': 'Ethernet - 001',
+                 'Store-Forward_Avg_latency_ns': '2',
+                 'Store-Forward_Min_latency_ns': '2',
+                 'Store-Forward_Max_latency_ns': '2'},
+                {'Flow_Group': 'RFC2544-2 - Flow Group 0001',
+                 'Frames_Delta': '0',
+                 'IP_Priority': '0',
+                 'Rx_Frames': '3000',
+                 'Tx_Frames': '3000',
+                 'VLAN-ID': '101',
+                 'Tx_Port': 'Ethernet - 002',
+                 'Store-Forward_Avg_latency_ns': '2',
+                 'Store-Forward_Min_latency_ns': '2',
+                 'Store-Forward_Max_latency_ns': '2'
+                 }],
+            'port_statistics': [
+                {'Frames_Tx': '3000',
+                 'Valid_Frames_Rx': '3000',
+                 'Rx_Rate_Kbps': '0.0',
+                 'Tx_Rate_Kbps': '0.0',
+                 'Rx_Rate_Mbps': '0.0',
+                 'Tx_Rate_Mbps': '0.0',
+                 'port_name': 'Ethernet - 001'},
+                {'Frames_Tx': '3000',
+                 'Valid_Frames_Rx': '3000',
+                 'Rx_Rate_Kbps': '0.0',
+                 'Tx_Rate_Kbps': '0.0',
+                 'Rx_Rate_Mbps': '0.0',
+                 'Tx_Rate_Mbps': '0.0',
+                 'port_name': 'Ethernet - 002'}],
+            'pppox_client_per_port': [
+                {'Sessions_Down': '0',
+                 'Sessions_Not_Started': '0',
+                 'Sessions_Total': '1',
+                 'Sessions_Up': '1',
+                 'subs_port': 'Ethernet - 001'}]}
+
+        prio_flows_stats = {
+            '0': {
+                'in_packets': 6000,
+                'out_packets': 6000,
+                'RxThroughput': 200.0,
+                'TxThroughput': 200.0,
+                'avg_latency_ns': 2,
+                'max_latency_ns': 2,
+                'min_latency_ns': 2
+            }
+        }
+
+        expected_result = {'priority_stats': {
+            '0': {'RxThroughput': 200.0,
+                  'TxThroughput': 200.0,
+                  'avg_latency_ns': 2,
+                  'max_latency_ns': 2,
+                  'min_latency_ns': 2,
+                  'in_packets': 6000,
+                  'out_packets': 6000}},
+            'xe0': {'RxThroughput': 100.0,
+                    'Store-Forward_Avg_latency_ns': 2,
+                    'Store-Forward_Max_latency_ns': 2,
+                    'Store-Forward_Min_latency_ns': 2,
+                    'TxThroughput': 100.0,
+                    'in_packets': 3000,
+                    'out_packets': 3000,
+                    'rx_throughput_kps': 0.0,
+                    'rx_throughput_mbps': 0.0,
+                    'sessions_down': 0,
+                    'sessions_not_started': 0,
+                    'sessions_total': 1,
+                    'sessions_up': 1,
+                    'tx_throughput_kps': 0.0,
+                    'tx_throughput_mbps': 0.0},
+            'xe1': {'RxThroughput': 100.0,
+                    'Store-Forward_Avg_latency_ns': 2,
+                    'Store-Forward_Max_latency_ns': 2,
+                    'Store-Forward_Min_latency_ns': 2,
+                    'TxThroughput': 100.0,
+                    'in_packets': 3000,
+                    'out_packets': 3000,
+                    'rx_throughput_kps': 0.0,
+                    'rx_throughput_mbps': 0.0,
+                    'tx_throughput_kps': 0.0,
+                    'tx_throughput_mbps': 0.0}}
+
+        mock_get_stats.return_value = ixia_stats
+        mock_prio_flow_statistics.return_value = prio_flows_stats
+        ports = [0, 1]
+        port_names = [{'name': 'xe0'}, {'name': 'xe1'}]
+        duration = 30
+        res_helper = mock.Mock()
+        res_helper.vnfd_helper.find_interface_by_port.side_effect = \
+            port_names
+        samples = self.scenario.generate_samples(res_helper, ports, duration)
+        self.assertIsNotNone(samples)
+        self.assertIsNotNone(samples.get('xe0'))
+        self.assertIsNotNone(samples.get('xe1'))
+        self.assertEqual(samples, expected_result)
+        mock_get_stats.assert_called_once()
+        mock_prio_flow_statistics.assert_called_once()
