@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_8de775e4",
+        "filename": "samples/vnf_samples/nsut/prox/configs/irq.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "YES - This is a convention that most prox cfg files\nfollow.",
+      "parentUuid": "1a622d24_cd1fad08",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 2
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_8d265567",
         "filename": "samples/vnf_samples/nsut/prox/configs/irq2.cfg",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-19T14:09:15Z",
       "side": 1,
       "message": "should this be here?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 2
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6dec99c8",
+        "filename": "samples/vnf_samples/nsut/prox/configs/irq2.cfg",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "YES - This is a convention that most prox cfg files\nfollow.",
+      "parentUuid": "1a622d24_8d265567",
       "range": {
         "startLine": 15,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_4d043d7e",
+        "filename": "samples/vnf_samples/nsut/prox/prox-irq-baremetal.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "YES - This is a convention that all the prox-baremetal-X.yaml follow.",
+      "parentUuid": "1a622d24_2d3101a3",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 2
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_4d5efdea",
         "filename": "samples/vnf_samples/nsut/prox/prox-irq-baremetal.yaml",
         "patchSetId": 8
@@ -82,6 +154,30 @@
       "writtenOn": "2018-11-19T14:09:15Z",
       "side": 1,
       "message": "192.168.1.1",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 21
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8dfe556a",
+        "filename": "samples/vnf_samples/nsut/prox/prox-irq-baremetal.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "I will not change it to 192.168.1.1\n- It would not match the other prox-baremetal config files.\n\nI will change to 1.1.1.1 as per prox-baremetal-1.yaml",
+      "parentUuid": "1a622d24_4d5efdea",
       "range": {
         "startLine": 21,
         "startChar": 8,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_adf4f187",
+        "filename": "samples/vnf_samples/nsut/prox/prox-irq-baremetal.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "~Yes it is a password. \n\nI will change to \"r00t\" as per prox-baremetal-1.yaml",
+      "parentUuid": "1a622d24_2d63c1b2",
+      "range": {
+        "startLine": 24,
+        "startChar": 15,
+        "endLine": 24,
+        "endChar": 27
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_8d5815fc",
         "filename": "samples/vnf_samples/nsut/prox/prox-irq-baremetal.yaml",
         "patchSetId": 8
@@ -128,6 +248,30 @@
       "writtenOn": "2018-11-19T14:09:15Z",
       "side": 1,
       "message": "as above",
+      "range": {
+        "startLine": 36,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 21
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0df2459a",
+        "filename": "samples/vnf_samples/nsut/prox/prox-irq-baremetal.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "I will not change it to 192.168.1.2\n- It would not match the other prox-baremetal config files.\n\nI will change to 1.1.1.2 as per prox-baremetal-1.yaml",
+      "parentUuid": "1a622d24_8d5815fc",
       "range": {
         "startLine": 36,
         "startChar": 8,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_edeee9b3",
+        "filename": "samples/vnf_samples/nsut/prox/prox-irq-baremetal.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "~Yes it is a password. \n\nI will change to \"r00t\" as per prox-baremetal-1.yaml",
+      "parentUuid": "1a622d24_6d5db9e9",
+      "range": {
+        "startLine": 39,
+        "startChar": 14,
+        "endLine": 39,
+        "endChar": 28
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_cd716d79",
         "filename": "samples/vnf_samples/nsut/prox/prox-tg-topology-0.yaml",
         "patchSetId": 8
@@ -174,6 +342,30 @@
       "writtenOn": "2018-11-19T14:09:15Z",
       "side": 1,
       "message": "18",
+      "range": {
+        "startLine": 1,
+        "startChar": 19,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4d2b9deb",
+        "filename": "samples/vnf_samples/nsut/prox/prox-tg-topology-0.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_cd716d79",
       "range": {
         "startLine": 1,
         "startChar": 19,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_8d35b548",
+        "filename": "samples/vnf_samples/traffic_profiles/prox_irq.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_ad6eb194",
+      "range": {
+        "startLine": 1,
+        "startChar": 23,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_0d6c059c",
         "filename": "samples/vnf_samples/vnf_descriptors/prox_irq_vnf.yaml",
         "patchSetId": 8
@@ -220,6 +436,30 @@
       "writtenOn": "2018-11-19T14:09:15Z",
       "side": 1,
       "message": "18",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2d30e155",
+        "filename": "samples/vnf_samples/vnf_descriptors/prox_irq_vnf.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_0d6c059c",
       "range": {
         "startLine": 1,
         "startChar": 17,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_ad3b5137",
+        "filename": "samples/vnf_samples/vnf_descriptors/tg_prox_irq.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_4d055dc1",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_2d0aa1d2",
         "filename": "yardstick/network_services/traffic_profile/prox_irq.py",
         "patchSetId": 8
@@ -266,6 +530,30 @@
       "writtenOn": "2018-11-19T14:09:15Z",
       "side": 1,
       "message": "18",
+      "range": {
+        "startLine": 1,
+        "startChar": 22,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_cd3e8d29",
+        "filename": "yardstick/network_services/traffic_profile/prox_irq.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_2d0aa1d2",
       "range": {
         "startLine": 1,
         "startChar": 22,
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_6d3ad937",
+        "filename": "yardstick/network_services/traffic_profile/prox_irq.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_8d0f75e1",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 41
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_0d0365b9",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 8
@@ -312,6 +624,30 @@
       "writtenOn": "2018-11-19T14:09:15Z",
       "side": 1,
       "message": "should be 2 lines between each class",
+      "range": {
+        "startLine": 1595,
+        "startChar": 0,
+        "endLine": 1596,
+        "endChar": 46
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4d127db5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1596,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_0d0365b9",
       "range": {
         "startLine": 1595,
         "startChar": 0,
@@ -347,6 +683,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_0d49a5d0",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1785,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_edff09a9",
+      "range": {
+        "startLine": 1784,
+        "startChar": 0,
+        "endLine": 1785,
+        "endChar": 49
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_4d2c3d4b",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 8
@@ -358,6 +718,30 @@
       "writtenOn": "2018-11-19T14:09:15Z",
       "side": 1,
       "message": "should be 2 lines between each class",
+      "range": {
+        "startLine": 1975,
+        "startChar": 0,
+        "endLine": 1976,
+        "endChar": 46
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ed4549b4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1976,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_4d2c3d4b",
       "range": {
         "startLine": 1975,
         "startChar": 0,
@@ -393,6 +777,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_2d1741a5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_irq.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_6d1499f5",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_cdf84dc7",
         "filename": "yardstick/tests/unit/network_services/traffic_profile/test_prox_irq.py",
         "patchSetId": 8
@@ -404,6 +812,30 @@
       "writtenOn": "2018-11-19T14:09:15Z",
       "side": 1,
       "message": "18",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "912e7202fe0862677dfc8e14f6a56acb17bb31cc",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8d0c9596",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_prox_irq.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-19T16:20:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_cdf84dc7",
       "range": {
         "startLine": 1,
         "startChar": 17,
