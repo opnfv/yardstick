@@ -36,7 +36,7 @@ class TrafficProfileConfig(object):
         self.description = tp_config.get('description')
         tprofile = tp_config['traffic_profile']
         self.traffic_type = tprofile.get('traffic_type')
-        self.frame_rate, self.rate_unit = self._parse_rate(
+        self.frame_rate, self.rate_unit = self.parse_rate(
             tprofile.get('frame_rate', self.DEFAULT_FRAME_RATE))
         self.test_precision = tprofile.get('test_precision')
         self.packet_sizes = tprofile.get('packet_sizes')
@@ -46,7 +46,7 @@ class TrafficProfileConfig(object):
         self.step_interval = tprofile.get('step_interval')
         self.enable_latency = tprofile.get('enable_latency', False)
 
-    def _parse_rate(self, rate):
+    def parse_rate(self, rate):
         """Parse traffic profile rate
 
         The line rate can be defined in fps or percentage over the maximum line
