@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_2d790194",
+        "filename": "docs/testing/user/userguide/nsb/tc_vpp_context_crypto_ipsec.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-19T12:49:10Z",
+      "side": 1,
+      "message": "please restrict to 80 characters as column width for all documentaion",
+      "range": {
+        "startLine": 10,
+        "startChar": 78,
+        "endLine": 10,
+        "endChar": 80
+      },
+      "revId": "92861d4aff9790ce8d5bfa5fe1ed6c3592174027",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ad64f1e5",
+        "filename": "docs/testing/user/userguide/nsb/tc_vpp_context_crypto_ipsec.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-19T12:49:10Z",
+      "side": 1,
+      "message": "can we remove vpp from the test case name? The VNF is IPsec and let\u0027s stick to that.",
+      "range": {
+        "startLine": 43,
+        "startChar": 22,
+        "endLine": 43,
+        "endChar": 26
+      },
+      "revId": "92861d4aff9790ce8d5bfa5fe1ed6c3592174027",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
