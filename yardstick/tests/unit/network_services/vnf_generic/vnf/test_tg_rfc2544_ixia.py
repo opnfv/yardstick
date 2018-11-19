@@ -493,6 +493,57 @@ class TestIxiaPppoeClientScenario(unittest.TestCase):
                 'netmask': '255.255.255.0'
                 }}}}}
 
+    STATS = {1: {'VLAN100': {'Frames_Delta': 0,
+                             'Rx_Frames': 500,
+                             'Rx_Rate_Kbps': 500.0,
+                             'Rx_Rate_Mbps': 0.5,
+                             'Store-Forward_Avg_latency_ns': 100,
+                             'Store-Forward_Max_latency_ns': 100,
+                             'Store-Forward_Min_latency_ns': 100,
+                             'Tx_Frames': 500,
+                             'Tx_Rate_Kbps': 2000.0,
+                             'Tx_Rate_Mbps': 2.0,
+                             'priority': {'0': {'Frames_Delta': 0,
+                                                'Rx_Frames': 500,
+                                                'Rx_Rate_Kbps': 500.0,
+                                                'Rx_Rate_Mbps': 0.5,
+                                                'Store-Forward_Avg_latency_ns': 100,
+                                                'Store-Forward_Max_latency_ns': 100,
+                                                'Store-Forward_Min_latency_ns': 100,
+                                                'Tx_Frames': 500,
+                                                'Tx_Rate_Kbps': 2000.0,
+                                                'Tx_Rate_Mbps': 2.0,
+                                                'avg_sub_Rx_Rate_Kbps': 500.0,
+                                                'avg_sub_Rx_Rate_Mbps': 0.5,
+                                                'avg_sub_Tx_Rate_Kbps': 2000.0,
+                                                'avg_sub_Tx_Rate_Mbps': 2.0}
+                                          }}},
+             2: {'VLAN101': {'Frames_Delta': 0,
+                             'Rx_Frames': 500,
+                             'Rx_Rate_Kbps': 500.0,
+                             'Rx_Rate_Mbps': 0.5,
+                             'Store-Forward_Avg_latency_ns': 200,
+                             'Store-Forward_Max_latency_ns': 200,
+                             'Store-Forward_Min_latency_ns': 200,
+                             'Tx_Frames': 500,
+                             'Tx_Rate_Kbps': 2000.0,
+                             'Tx_Rate_Mbps': 2.0,
+                             'priority': {'0': {'Frames_Delta': 0,
+                                                'Rx_Frames': 500,
+                                                'Rx_Rate_Kbps': 500.0,
+                                                'Rx_Rate_Mbps': 0.5,
+                                                'Store-Forward_Avg_latency_ns': 200,
+                                                'Store-Forward_Max_latency_ns': 200,
+                                                'Store-Forward_Min_latency_ns': 200,
+                                                'Tx_Frames': 500,
+                                                'Tx_Rate_Kbps': 2000.0,
+                                                'Tx_Rate_Mbps': 2.0,
+                                                'avg_sub_Rx_Rate_Kbps': 500.0,
+                                                'avg_sub_Rx_Rate_Mbps': 0.5,
+                                                'avg_sub_Tx_Rate_Kbps': 2000.0,
+                                                'avg_sub_Tx_Rate_Mbps': 2.0}
+                                          }}}}
+
     def setUp(self):
         self._mock_IxNextgen = mock.patch.object(ixnet_api, 'IxNextgen')
         self.mock_IxNextgen = self._mock_IxNextgen.start()
@@ -823,3 +874,64 @@ class TestIxiaPppoeClientScenario(unittest.TestCase):
                       local_as=bgp_params["bgp"]["as_number"],
                       bgp_type=bgp_params["bgp"]["bgp_type"])
         ])
+
+    def test__get_flow_vlan_data(self):
+        key = "Rx_Frames"
+        flow_id = 1
+        res = self.scenario._get_flow_vlan_data(self.STATS, flow_id, key)
+        self.assertEqual(res, self.STATS[flow_id]['VLAN100'][key])
+
+    @mock.patch.object(tg_rfc2544_ixia.IxiaPppoeClientScenario,
+                       '_get_flow_vlan_data')
+    def test__get_port_ip_priority_stats(self, mock__get_flow_vlan_data):
+        expected_result = {'0': {
+            'Tx_Frames': 1000,
+            'Rx_Frames': 1000,
+            'Frames_Delta': 0,
+            'Tx_Rate_Kbps': 4000.0,
+            'Rx_Rate_Kbps': 1000.0,
+            'Tx_Rate_Mbps': 4.0,
+            'Rx_Rate_Mbps': 1.0,
+            'Store-Forward_Avg_latency_ns': 150.0,
+            'Store-Forward_Max_latency_ns': 150.0,
+            'Store-Forward_Min_latency_ns': 150.0}
+        }
+        port_flows_id = [1, 2]
+        mock__get_flow_vlan_data.side_effect = [
+            self.STATS[1]['VLAN100']['priority'],
+            self.STATS[2]['VLAN101']['priority']
+        ]
+        result = self.scenario._get_port_ip_priority_stats(
+            self.STATS, port_flows_id)
+        self.assertEqual(mock__get_flow_vlan_data.call_count, 2)
+        self.assertDictEqual(result, expected_result)
+
+    def test__update_flow_statistics(self):
+        input_stats = {
+            1: {'VLAN100': {
+                '0': {
+                    'Frames_Delta': 0,
+                    'Rx_Frames': 500,
+                    'Rx_Rate_Kbps': 500.0,
+                    'Rx_Rate_Mbps': 0.5,
+                    'Store-Forward_Avg_latency_ns': 100,
+                    'Store-Forward_Max_latency_ns': 100,
+                    'Store-Forward_Min_latency_ns': 100,
+                    'Tx_Frames': 500,
+                    'Tx_Rate_Kbps': 2000.0,
+                    'Tx_Rate_Mbps': 2.0}}},
+            2: {'VLAN101': {
+                '0': {
+                    'Frames_Delta': 0,
+                    'Rx_Frames': 500,
+                    'Rx_Rate_Kbps': 500.0,
+                    'Rx_Rate_Mbps': 0.5,
+                    'Store-Forward_Avg_latency_ns': 200,
+                    'Store-Forward_Max_latency_ns': 200,
+                    'Store-Forward_Min_latency_ns': 200,
+                    'Tx_Frames': 500,
+                    'Tx_Rate_Kbps': 2000.0,
+                    'Tx_Rate_Mbps': 2.0}}}}
+
+        stats = self.scenario._update_flow_statistics(input_stats)
+        self.assertDictEqual(stats, self.STATS)

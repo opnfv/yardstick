@@ -256,12 +256,138 @@ class IXIARFC2544PppoeScenarioProfile(IXIARFC2544Profile):
                 self.full_profile.update({downlink: self.params[downlink]})
 
     def update_traffic_profile(self, traffic_generator):
+
+        networks = OrderedDict()
+
+        # Sort network interfaces pairs
+        for i in range(len(traffic_generator.networks)):
+            uplink = '_'.join([self.UPLINK, str(i)])
+            downlink = '_'.join([self.DOWNLINK, str(i)])
+            if uplink in traffic_generator.networks:
+                networks[uplink] = traffic_generator.networks[uplink]
+            if downlink in traffic_generator.networks:
+                networks[downlink] = traffic_generator.networks[downlink]
+
         def port_generator():
-            for vld_id, intfs in sorted(traffic_generator.networks.items()):
-                if not vld_id.startswith((self.UPLINK, self.DOWNLINK)):
-                    continue
+            for intfs in networks.values():
                 for intf in intfs:
                     yield traffic_generator.vnfd_helper.port_num(intf)
 
         self._get_flow_groups_params()
         self.ports = [port for port in port_generator()]
+
+    def _update_flows_drop_percentage(self, samples):
+        port_drop_percent = 100
+        for port_name in samples:
+            port_stats = samples[port_name]
+            for vlan_name in port_stats['vlan']:
+                vlan_stats = port_stats['vlan'][vlan_name]
+                for prio in vlan_stats['priority']:
+                    prio_stats = vlan_stats['priority'][prio]
+                    tx_frames = prio_stats['Tx_Frames']
+                    frames_delta = prio_stats['Frames_Delta']
+                    drop_rate = (float(frames_delta) * 100) / float(
+                        tx_frames)
+                    prio_stats['DropPercentage'] = round(drop_rate, 3)
+                _vlan_drop_rate = (float(
+                    vlan_stats['Frames_Delta']) * 100) / float(vlan_stats['Tx_Frames'])
+                vlan_stats['DropPercentage'] = round(_vlan_drop_rate, 3)
+            in_packets = port_stats['in_packets']
+            out_packets = port_stats['out_packets']
+            packet_drop = abs(out_packets - in_packets)
+            try:
+                port_drop_percent = round(
+                    (packet_drop / float(out_packets)) * 100,
+                    self.DROP_PERCENT_ROUND)
+            except ZeroDivisionError:
+                LOG.info('No traffic is flowing')
+            port_stats['DropPercentage'] = port_drop_percent
+        return samples
+
+    def _get_summary_priority_flows_drop_percentage(self, samples):
+        result = {}
+        for iface in samples:
+            for prio_id in samples[iface]['priority']:
+                prio_data = samples[iface]['priority'][prio_id]
+                if prio_id not in result:
+                    result[prio_id] = {
+                        'Tx_Frames': int(prio_data['Tx_Frames']),
+                        'Rx_Frames': int(prio_data['Rx_Frames']),
+                        'Frames_Delta': int(prio_data['Frames_Delta'])
+                    }
+                else:
+                    result[prio_id]['Tx_Frames'] += int(prio_data['Tx_Frames'])
+                    result[prio_id]['Rx_Frames'] += int(prio_data['Rx_Frames'])
+                    result[prio_id]['Frames_Delta'] += int(prio_data['Frames_Delta'])
+
+        for prio_id in result:
+            tx_frames = result[prio_id]['Tx_Frames']
+            frames_delta = result[prio_id]['Frames_Delta']
+            drop_percentage = (float(frames_delta) * 100) / float(tx_frames)
+            result[prio_id]['DropPercentage'] = round(drop_percentage, 3)
+        return result
+
+    def get_drop_percentage(self, samples, tol_min, tolerance, precision,
+                            first_run=False):
+        samples = self._update_flows_drop_percentage(samples)
+        summary_prio_flows_stats = \
+            self._get_summary_priority_flows_drop_percentage(samples)
+        completed = False
+        drop_percent = 100
+        num_ifaces = len(samples)
+        duration = self.config.duration
+        in_packets_sum = sum(
+            [samples[iface]['in_packets'] for iface in samples])
+        out_packets_sum = sum(
+            [samples[iface]['out_packets'] for iface in samples])
+        rx_throughput = round(float(in_packets_sum) / duration, 3)
+        tx_throughput = round(float(out_packets_sum) / duration, 3)
+        packet_drop = abs(out_packets_sum - in_packets_sum)
+
+        try:
+            drop_percent = round(
+                (packet_drop / float(out_packets_sum)) * 100,
+                self.DROP_PERCENT_ROUND)
+        except ZeroDivisionError:
+            LOG.info('No traffic is flowing')
+
+        if first_run:
+            completed = True if drop_percent <= tolerance else False
+        if (first_run and
+                self.rate_unit == tp_base.TrafficProfileConfig.RATE_FPS):
+            self.rate = float(out_packets_sum) / duration / num_ifaces
+
+        if drop_percent > tolerance:
+            self.max_rate = self.rate
+        elif drop_percent < tol_min:
+            self.min_rate = self.rate
+        else:
+            completed = True
+
+        LOG.debug("tolerance=%s, tolerance_precision=%s drop_percent=%s "
+                  "completed=%s", tolerance, precision, drop_percent,
+                  completed)
+
+        latency_ns_avg = float(
+            sum([samples[iface]['Store-Forward_Avg_latency_ns']
+            for iface in samples])) / num_ifaces
+        latency_ns_min = float(
+            sum([samples[iface]['Store-Forward_Min_latency_ns']
+            for iface in samples])) / num_ifaces
+        latency_ns_max = float(
+            sum([samples[iface]['Store-Forward_Max_latency_ns']
+            for iface in samples])) / num_ifaces
+
+        samples['Status'] = self.STATUS_FAIL
+        if round(drop_percent, precision) <= tolerance:
+            samples['Status'] = self.STATUS_SUCCESS
+
+        samples['TxThroughput'] = tx_throughput
+        samples['RxThroughput'] = rx_throughput
+        samples['DropPercentage'] = drop_percent
+        samples['latency_ns_avg'] = latency_ns_avg
+        samples['latency_ns_min'] = latency_ns_min
+        samples['latency_ns_max'] = latency_ns_max
+        samples['priority'] = summary_prio_flows_stats
+
+        return completed, samples

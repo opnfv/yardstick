@@ -15,6 +15,7 @@
 import ipaddress
 import logging
 import six
+from collections import defaultdict
 
 from yardstick.common import utils
 from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
@@ -50,6 +51,41 @@ class IxiaBasicScenario(object):
         self._downlink_vports = vports[1::2]
         self.client.create_traffic_model(self._uplink_vports,
                                          self._downlink_vports)
+
+    def get_stats(self):
+        return self.client.get_statistics()
+
+    def generate_samples(self, resource_helper, ports, duration):
+        stats = self.get_stats()
+
+        samples = {}
+        # this is not DPDK port num, but this is whatever number we gave
+        # when we selected ports and programmed the profile
+        for port_num in ports:
+            try:
+                # reverse lookup port name from port_num so the stats dict is descriptive
+                intf = resource_helper.vnfd_helper.find_interface_by_port(port_num)
+                port_name = intf['name']
+                avg_latency = stats['Store-Forward_Avg_latency_ns'][port_num]
+                min_latency = stats['Store-Forward_Min_latency_ns'][port_num]
+                max_latency = stats['Store-Forward_Max_latency_ns'][port_num]
+                samples[port_name] = {
+                    'rx_throughput_kps': float(stats['Rx_Rate_Kbps'][port_num]),
+                    'tx_throughput_kps': float(stats['Tx_Rate_Kbps'][port_num]),
+                    'rx_throughput_mbps': float(stats['Rx_Rate_Mbps'][port_num]),
+                    'tx_throughput_mbps': float(stats['Tx_Rate_Mbps'][port_num]),
+                    'in_packets': int(stats['Valid_Frames_Rx'][port_num]),
+                    'out_packets': int(stats['Frames_Tx'][port_num]),
+                    'RxThroughput': float(stats['Valid_Frames_Rx'][port_num]) / duration,
+                    'TxThroughput': float(stats['Frames_Tx'][port_num]) / duration,
+                    'Store-Forward_Avg_latency_ns': utils.safe_cast(avg_latency, int, 0),
+                    'Store-Forward_Min_latency_ns': utils.safe_cast(min_latency, int, 0),
+                    'Store-Forward_Max_latency_ns': utils.safe_cast(max_latency, int, 0)
+                }
+            except IndexError:
+                pass
+
+        return samples
 
     def run_protocols(self):
         pass
@@ -293,6 +329,274 @@ class IxiaPppoeClientScenario(object):
                                                        bgp_type=ipv4["bgp"].get("bgp_type"))
                     self.protocols.append(bgp_peer_obj)
 
+    def get_stats(self):
+        return self.client.get_pppoe_scenario_statistics()
+
+    @staticmethod
+    def _get_flow_vlan_data(stats, flow_id, key):
+        if stats.get(flow_id):
+            for vlan in stats[flow_id]:
+                return stats[flow_id][vlan][key]
+
+    def _get_port_ip_priority_stats(self, stats, flows_id_list):
+        _keys = [('Tx_Frames', int),
+                 ('Rx_Frames', int),
+                 ('Frames_Delta', int),
+                 ('Tx_Rate_Kbps', float),
+                 ('Rx_Rate_Kbps', float),
+                 ('Tx_Rate_Mbps', float),
+                 ('Rx_Rate_Mbps', float),
+                 ('Store-Forward_Avg_latency_ns', float),
+                 ('Store-Forward_Max_latency_ns', float),
+                 ('Store-Forward_Min_latency_ns', float)]
+
+        _result = {}
+        _prio_flows = [self._get_flow_vlan_data(stats, _flow_id, 'priority')
+                       for _flow_id in flows_id_list]
+
+        for _flow in _prio_flows:
+            for _prio_id in _flow:
+                if _prio_id not in _result:
+                    _result[_prio_id] = {}
+                    for _key, _key_type in _keys:
+                        _result[_prio_id][_key] = \
+                            _key_type(_flow[_prio_id][_key])
+                else:
+                    for _key, _key_type in _keys:
+                        _result[_prio_id][_key] += \
+                            _key_type(_flow[_prio_id][_key])
+
+        # Recalculate latency
+        for _port_prio_id in _result:
+            _prio_flow = _result[_port_prio_id]
+            _prio_flows_on_port = len(
+                [_flow.get(_port_prio_id) for _flow in _prio_flows if
+                 _flow.get(_port_prio_id) is not None])
+            _prio_flow['Store-Forward_Avg_latency_ns'] = \
+                _prio_flow[
+                    'Store-Forward_Avg_latency_ns'] / _prio_flows_on_port
+            _prio_flow['Store-Forward_Max_latency_ns'] = \
+                _prio_flow[
+                    'Store-Forward_Max_latency_ns'] / _prio_flows_on_port
+            _prio_flow['Store-Forward_Min_latency_ns'] = \
+                _prio_flow[
+                    'Store-Forward_Min_latency_ns'] / _prio_flows_on_port
+        return _result
+
+    def _update_flow_statistics(self, flow_stats):
+        _vlan_subs_num = self._ixia_cfg["pppoe_client"]['sessions_per_svlan']
+        for _flow in flow_stats:
+            _priority = {}
+            _vlan = {}
+            # Get VLAN data from flow data
+            vlan_key = flow_stats[_flow].keys()[0]
+            vlan_data = flow_stats[_flow].pop(vlan_key)
+
+            for prior_flow_id in vlan_data:
+                prio_flow = vlan_data[prior_flow_id]
+                prio_flow['avg_sub_Tx_Rate_Kbps'] = \
+                    float(prio_flow['Tx_Rate_Kbps']) / _vlan_subs_num
+                prio_flow['avg_sub_Rx_Rate_Kbps'] = \
+                    float(prio_flow['Rx_Rate_Kbps']) / _vlan_subs_num
+                prio_flow['avg_sub_Tx_Rate_Mbps'] = \
+                    float(prio_flow['Tx_Rate_Mbps']) / _vlan_subs_num
+                prio_flow['avg_sub_Rx_Rate_Mbps'] = \
+                    float(prio_flow['Rx_Rate_Mbps']) / _vlan_subs_num
+                # Update flow statistics with updated flow data
+                _priority[prior_flow_id] = prio_flow
+
+            tx_frames = [int(vlan_data[_prio_id]['Tx_Frames'])
+                         for _prio_id in vlan_data]
+            rx_frames = [int(vlan_data[_prio_id]['Rx_Frames'])
+                         for _prio_id in vlan_data]
+            frames_delta = [int(vlan_data[_prio_id]['Frames_Delta'])
+                            for _prio_id in vlan_data]
+            tx_rate_kbps = [float(vlan_data[_prio_id]['Tx_Rate_Kbps'])
+                            for _prio_id in vlan_data]
+            rx_rate_kbps = [float(vlan_data[_prio_id]['Rx_Rate_Kbps'])
+                            for _prio_id in vlan_data]
+            tx_rate_mbps = [float(vlan_data[_prio_id]['Tx_Rate_Mbps'])
+                            for _prio_id in vlan_data]
+            rx_rate_mbps = [float(vlan_data[_prio_id]['Rx_Rate_Mbps'])
+                            for _prio_id in vlan_data]
+            avg_latency = [
+                int(vlan_data[_prio_id]['Store-Forward_Avg_latency_ns'])
+                for _prio_id in vlan_data]
+            max_latency = [
+                int(vlan_data[_prio_id]['Store-Forward_Max_latency_ns'])
+                for _prio_id in vlan_data]
+            min_latency = [
+                int(vlan_data[_prio_id]['Store-Forward_Min_latency_ns'])
+                for _prio_id in vlan_data]
+
+            _vlan['Tx_Frames'] = sum(tx_frames)
+            _vlan['Rx_Frames'] = sum(rx_frames)
+            _vlan['Frames_Delta'] = sum(frames_delta)
+            _vlan['Tx_Rate_Kbps'] = sum(tx_rate_kbps)
+            _vlan['Rx_Rate_Kbps'] = sum(rx_rate_kbps)
+            _vlan['Tx_Rate_Mbps'] = sum(tx_rate_mbps)
+            _vlan['Rx_Rate_Mbps'] = sum(rx_rate_mbps)
+            _vlan['Store-Forward_Avg_latency_ns'] = \
+                sum(avg_latency) / len(avg_latency)
+            _vlan['Store-Forward_Max_latency_ns'] = \
+                sum(max_latency) / len(max_latency)
+            _vlan['Store-Forward_Min_latency_ns'] = \
+                sum(min_latency) / len(min_latency)
+            _vlan['priority'] = _priority
+
+            vlan_name = 'VLAN{}'.format(vlan_key)
+            flow_stats[_flow].update({vlan_name: _vlan})
+        return flow_stats
+
+    def generate_samples(self, resource_helper, ports, duration):
+
+        stats = self.get_stats()
+        samples = {}
+        ports_stats = stats['port_statistics']
+        flows_stats = stats['flow_statistic']
+        pppoe_subs_per_port = stats['pppox_client_per_port']
+
+        # Set 'port_id' key for ports stats items
+        for item in ports_stats:
+            port_id = item.pop('port_name').split('-')[-1].strip()
+            item['port_id'] = int(port_id)
+
+        # Set 'id' key for flows stats items
+        for item in flows_stats:
+            flow_id = item.pop('Flow_Group').split('-')[1].strip()
+            item['id'] = int(flow_id)
+
+        # Set 'port_id' key for pppoe subs per port stats
+        for item in pppoe_subs_per_port:
+            port_id = item.pop('subs_port').split('-')[-1].strip()
+            item['port_id'] = int(port_id)
+
+        # Sort ports stats
+        ports_stats = sorted(ports_stats, key=lambda k: k['port_id'])
+
+        # Sort flows stats
+        flows_stats = sorted(flows_stats, key=lambda k: k['id'])
+        flows_id = list(set([flow['id'] for flow in flows_stats]))
+
+        # Collect ip precedence flows under one flow vlan id
+        flow_stats = defaultdict(dict)
+        for flow in flows_stats:
+            flow_id = flow.pop('id')
+            vlan_id = flow.pop('VLAN-ID')
+            # TODO: this key is specific only for ToS IP Precedence!!!!!
+            ip_precedence = flow.pop('IPv4_Precedence')
+            if flow_stats[flow_id].get(vlan_id):
+                flow_stats[flow_id][vlan_id].update({ip_precedence: flow})
+            else:
+                flow_stats[flow_id].update({vlan_id: {ip_precedence: flow}})
+
+        # Update Flow Statistics
+        flow_stats = self._update_flow_statistics(flow_stats)
+
+        uplink_flows = flows_id[::2]
+        downlink_flows = flows_id[1::2]
+        up_down_flows_pairs = zip(uplink_flows, downlink_flows)
+        uplink_ports = ports[::2]
+        downlink_ports = ports[1::2]
+
+        port_flow_map = {}
+
+        pppoe = self._ixia_cfg["pppoe_client"]
+        sessions_per_port = pppoe['sessions_per_port']
+        sessions_per_svlan = pppoe['sessions_per_svlan']
+        svlan_per_port = int(sessions_per_port / sessions_per_svlan)
+
+        # Map traffic flows to ports
+        start_id = 0
+        end_id = svlan_per_port
+        for port in uplink_ports:
+            port_flow_map[port] = uplink_flows[start_id:end_id]
+            start_id = end_id
+            end_id += svlan_per_port
+
+        start_id = 0
+        end_id = svlan_per_port
+        for port in downlink_ports:
+            port_flow_map[port] = downlink_flows[start_id:end_id]
+            start_id = end_id
+            end_id += svlan_per_port
+
+        # this is not DPDK port num, but this is whatever number we gave
+        # when we selected ports and programmed the profile
+        for port_num in ports:
+            try:
+                # reverse lookup port name from port_num so the stats dict is descriptive
+                intf = resource_helper.vnfd_helper.find_interface_by_port(port_num)
+                port_name = intf['name']
+                port_id = ports_stats[port_num]['port_id']
+                port_subs_stats = \
+                    [port_data for port_data in pppoe_subs_per_port
+                     if port_data.get('port_id') == port_id]
+
+                _avg_latency = \
+                    sum([self._get_flow_vlan_data(
+                        flow_stats, flow, 'Store-Forward_Avg_latency_ns')
+                        for flow in port_flow_map[port_num]]) / len(port_flow_map[port_num])
+                _min_latency = \
+                    sum([self._get_flow_vlan_data(
+                        flow_stats, flow, 'Store-Forward_Min_latency_ns')
+                        for flow in port_flow_map[port_num]]) / len(port_flow_map[port_num])
+                _max_latency = \
+                    sum([self._get_flow_vlan_data(
+                        flow_stats, flow, 'Store-Forward_Max_latency_ns')
+                        for flow in port_flow_map[port_num]]) / len(port_flow_map[port_num])
+
+                _port_ip_priority = self._get_port_ip_priority_stats(
+                    flow_stats, port_flow_map[port_num])
+
+                # Collect port VLANs data
+                _vlans = {}
+                for flow in port_flow_map[port_num]:
+                    if flow in downlink_flows:
+                        # Get uplink port pair for downlink port
+                        uplink_flow_id = \
+                            [up for (up, down) in up_down_flows_pairs
+                             if down == flow][0]
+                        # Form VLAN key name
+                        _key_name = 'to'.join([
+                            flow_stats[flow].keys()[0],
+                            flow_stats[uplink_flow_id].keys()[0]])
+                        _vlan_id = flow_stats[flow].keys()[0]
+                    else:
+                        # Form VLAN key name
+                        _key_name = flow_stats[flow].keys()[0]
+                        _vlan_id = flow_stats[flow].keys()[0]
+                    _vlans.update({_key_name: flow_stats[flow][_vlan_id]})
+
+                samples[port_name] = {
+                    'rx_throughput_kps': float(ports_stats[port_num]['Rx_Rate_Kbps']),
+                    'tx_throughput_kps': float(ports_stats[port_num]['Tx_Rate_Kbps']),
+                    'rx_throughput_mbps': float(ports_stats[port_num]['Rx_Rate_Mbps']),
+                    'tx_throughput_mbps': float(ports_stats[port_num]['Tx_Rate_Mbps']),
+                    'in_packets': int(ports_stats[port_num]['Valid_Frames_Rx']),
+                    'out_packets': int(ports_stats[port_num]['Frames_Tx']),
+                    'RxThroughput': float(ports_stats[port_num]['Valid_Frames_Rx']) / duration,
+                    'TxThroughput': float(ports_stats[port_num]['Frames_Tx']) / duration,
+                    'Store-Forward_Avg_latency_ns': utils.safe_cast(_avg_latency, int, 0),
+                    'Store-Forward_Min_latency_ns': utils.safe_cast(_min_latency, int, 0),
+                    'Store-Forward_Max_latency_ns': utils.safe_cast(_max_latency, int, 0),
+                    'priority': _port_ip_priority,
+                    'vlan': _vlans
+                }
+
+                if port_subs_stats:
+                    samples[port_name].update(
+                        {'sessions_up': port_subs_stats[0]['Sessions_Up'],
+                         'sessions_down': port_subs_stats[0]['Sessions_Down'],
+                         'sessions_not_started': port_subs_stats[0]['Sessions_Not_Started'],
+                         'sessions_total': port_subs_stats[0]['Sessions_Total']}
+                    )
+
+            except IndexError:
+                pass
+
+        return samples
+
 
 class IxiaRfc2544Helper(Rfc2544ResourceHelper):
 
@@ -329,7 +633,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         self.client.connect(self.vnfd_helper)
 
     def get_stats(self, *args, **kwargs):
-        return self.client.get_statistics()
+        return self._ix_scenario.get_statistics()
 
     def setup(self):
         super(IxiaResourceHelper, self).setup()
@@ -340,36 +644,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         self._terminated.value = 1
 
     def generate_samples(self, ports, duration):
-        stats = self.get_stats()
-
-        samples = {}
-        # this is not DPDK port num, but this is whatever number we gave
-        # when we selected ports and programmed the profile
-        for port_num in ports:
-            try:
-                # reverse lookup port name from port_num so the stats dict is descriptive
-                intf = self.vnfd_helper.find_interface_by_port(port_num)
-                port_name = intf['name']
-                avg_latency = stats['Store-Forward_Avg_latency_ns'][port_num]
-                min_latency = stats['Store-Forward_Min_latency_ns'][port_num]
-                max_latency = stats['Store-Forward_Max_latency_ns'][port_num]
-                samples[port_name] = {
-                    'rx_throughput_kps': float(stats['Rx_Rate_Kbps'][port_num]),
-                    'tx_throughput_kps': float(stats['Tx_Rate_Kbps'][port_num]),
-                    'rx_throughput_mbps': float(stats['Rx_Rate_Mbps'][port_num]),
-                    'tx_throughput_mbps': float(stats['Tx_Rate_Mbps'][port_num]),
-                    'in_packets': int(stats['Valid_Frames_Rx'][port_num]),
-                    'out_packets': int(stats['Frames_Tx'][port_num]),
-                    'RxThroughput': float(stats['Valid_Frames_Rx'][port_num]) / duration,
-                    'TxThroughput': float(stats['Frames_Tx'][port_num]) / duration,
-                    'Store-Forward_Avg_latency_ns': utils.safe_cast(avg_latency, int, 0),
-                    'Store-Forward_Min_latency_ns': utils.safe_cast(min_latency, int, 0),
-                    'Store-Forward_Max_latency_ns': utils.safe_cast(max_latency, int, 0)
-                }
-            except IndexError:
-                pass
-
-        return samples
+        return self._ix_scenario.generate_samples(self, ports, duration)
 
     def _init_ix_scenario(self):
         ixia_config = self.scenario_helper.scenario_cfg.get('ixia_config', 'IxiaBasic')
