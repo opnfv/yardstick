@@ -140,6 +140,13 @@ class NetworkServiceTestCase(scenario_base.Scenario):
             imix = {}
         return imix
 
+    def _get_ip_priority(self):
+        try:
+            priority = self.scenario_cfg['options']['priority']
+        except KeyError:
+            priority = {}
+        return priority
+
     def _get_traffic_profile(self):
         profile = self.scenario_cfg["traffic_profile"]
         path = self.scenario_cfg["task_path"]
@@ -177,6 +184,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         tprofile_data = {
             'flow': self._get_traffic_flow(),
             'imix': self._get_traffic_imix(),
+            'priority': self._get_ip_priority(),
             tprofile_base.TrafficProfile.UPLINK: {},
             tprofile_base.TrafficProfile.DOWNLINK: {},
             'extra_args': extra_args,

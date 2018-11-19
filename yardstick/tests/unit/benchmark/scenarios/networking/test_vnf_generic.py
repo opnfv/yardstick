@@ -641,6 +641,14 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self.assertEqual({'imix': {'64B': 100}},
                              self.s._get_traffic_imix())
 
+    def test__get_ip_priority(self):
+        with mock.patch.dict(self.scenario_cfg["options"],
+                             {'priority': {'raw': '0x01'}}):
+            self.assertEqual({'raw': '0x01'}, self.s._get_ip_priority())
+
+    def test__get_ip_priority_exception(self):
+        self.assertEqual({}, self.s._get_ip_priority())
+
     @mock.patch.object(base.TrafficProfile, 'get')
     @mock.patch.object(vnfdgen, 'generate_vnfd')
     def test__fill_traffic_profile(self, mock_generate, mock_tprofile_get):
@@ -657,6 +665,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                  'extra_args': {'arg1': 'value1', 'arg2': 'value2'},
                  'flow': {'flow': {}},
                  'imix': {'imix': {'64B': 100}},
+                 'priority': {},
                  'uplink': {},
                  'duration': 30,
                  'simulated_users': {

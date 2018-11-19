@@ -20,7 +20,7 @@ name:            rfc2544
 description:     Traffic profile to run RFC2544 latency
 traffic_profile:
   traffic_type : IXIARFC2544PppoeScenarioProfile # defines traffic behavior - constant or look for highest possible throughput
-  frame_rate : 25%  # pc of linerate
+  frame_rate : 12%  # pc of linerate
   duration: {{ duration }}
   enable_latency: True
 
@@ -48,9 +48,14 @@ uplink_0:
             1518B: "{{get(imix, 'imix.uplink.1518B', '0') }}"
 
         outer_l3v4:
-            priority:
+            priority: &uplink_precedence
+              {% if priority %}
+              {{ priority }}
+              {% else %}
               tos:
-                precedence: &uplink_precedence [0, 4, 7]
+                precedence: [0, 4, 7]
+              {% endif %}
+
 downlink_0:
       ipv4:
         id: 2
@@ -75,9 +80,13 @@ downlink_0:
             1518B: "{{get(imix, 'imix.downlink.1518B', '0') }}"
 
         outer_l3v4:
-            priority:
+            priority: &downlink_precedence
+              {% if priority %}
+              {{ priority }}
+              {% else %}
               tos:
-                precedence: &downlink_precedence [0, 4, 7]
+                precedence: [0, 4, 7]
+              {% endif %}
 uplink_1:
       ipv4:
         id: 3
@@ -86,9 +95,7 @@ uplink_1:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_1:
       ipv4:
         id: 4
@@ -97,9 +104,7 @@ downlink_1:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 uplink_2:
       ipv4:
         id: 5
@@ -108,9 +113,7 @@ uplink_2:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_2:
       ipv4:
         id: 6
@@ -119,9 +122,7 @@ downlink_2:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 uplink_3:
       ipv4:
         id: 7
@@ -130,9 +131,7 @@ uplink_3:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_3:
       ipv4:
         id: 8
@@ -141,9 +140,7 @@ downlink_3:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 uplink_4:
       ipv4:
         id: 9
@@ -152,9 +149,7 @@ uplink_4:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_4:
       ipv4:
         id: 10
@@ -163,9 +158,7 @@ downlink_4:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 uplink_5:
       ipv4:
         id: 11
@@ -174,9 +167,7 @@ uplink_5:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_5:
       ipv4:
         id: 12
@@ -185,9 +176,7 @@ downlink_5:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 uplink_6:
       ipv4:
         id: 13
@@ -196,9 +185,7 @@ uplink_6:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_6:
       ipv4:
         id: 14
@@ -207,9 +194,7 @@ downlink_6:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 uplink_7:
       ipv4:
         id: 15
@@ -218,9 +203,7 @@ uplink_7:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_7:
       ipv4:
         id: 16
@@ -229,9 +212,7 @@ downlink_7:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 uplink_8:
       ipv4:
         id: 17
@@ -240,9 +221,7 @@ uplink_8:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_8:
       ipv4:
         id: 18
@@ -251,9 +230,7 @@ downlink_8:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 uplink_9:
       ipv4:
         id: 19
@@ -262,9 +239,7 @@ uplink_9:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_9:
       ipv4:
         id: 20
@@ -273,9 +248,7 @@ downlink_9:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 uplink_10:
       ipv4:
         id: 21
@@ -284,9 +257,7 @@ uplink_10:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_10:
       ipv4:
         id: 22
@@ -295,9 +266,7 @@ downlink_10:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 uplink_11:
       ipv4:
         id: 23
@@ -306,9 +275,7 @@ uplink_11:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_11:
       ipv4:
         id: 24
@@ -317,9 +284,7 @@ downlink_11:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 
 uplink_12:
       ipv4:
@@ -329,9 +294,7 @@ uplink_12:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_12:
       ipv4:
         id: 26
@@ -340,9 +303,7 @@ downlink_12:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 uplink_13:
       ipv4:
         id: 27
@@ -351,9 +312,7 @@ uplink_13:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_13:
       ipv4:
         id: 28
@@ -362,9 +321,7 @@ downlink_13:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 uplink_14:
       ipv4:
         id: 29
@@ -373,9 +330,7 @@ uplink_14:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_14:
       ipv4:
         id: 30
@@ -384,9 +339,7 @@ downlink_14:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
 uplink_15:
       ipv4:
         id: 31
@@ -395,9 +348,7 @@ uplink_15:
           framesize: *uplink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *uplink_precedence
+            priority: *uplink_precedence
 downlink_15:
       ipv4:
         id: 32
@@ -406,6 +357,4 @@ downlink_15:
           framesize: *downlink_framesize
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: *downlink_precedence
+            priority: *downlink_precedence
