@@ -22,6 +22,30 @@
       "revId": "972429ed0ae8a694d038b45b6d6fee21003f7286",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ad78712c",
+        "filename": "docs/testing/user/userguide/10-yardstick-user-interface.rst",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-19T15:24:06Z",
+      "side": 1,
+      "message": "I don\u0027t think so. Would not make much more sense either.\nThis text originates from https://gerrit.opnfv.org/gerrit/#/c/29435/17/docs/testing/user/userguide/Yardstick_user_interface.rst\nI think the original author meant: \"When the command is triggered, the relevant values for the provided task-id and testcase name are retrieved from the database\".\nShould I reword it like that?",
+      "parentUuid": "1a622d24_4d88bd22",
+      "range": {
+        "startLine": 20,
+        "startChar": 3,
+        "endLine": 20,
+        "endChar": 16
+      },
+      "revId": "972429ed0ae8a694d038b45b6d6fee21003f7286",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
