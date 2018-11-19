@@ -146,6 +146,9 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         ixia_obj.update_l4(traffic)
         ixia_obj.start_traffic()
 
+    def _update_traffic_tracking_options(self, traffic_gen):
+        traffic_gen.update_tracking_options()
+
     def update_traffic_profile(self, traffic_generator):
         def port_generator():
             for vld_id, intfs in sorted(traffic_generator.networks.items()):
@@ -169,6 +172,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
             self.pg_id = 0
             self.max_rate = self.rate
             self.min_rate = 0.0
+            self._update_traffic_tracking_options(traffic_generator)
         else:
             self.rate = round(float(self.max_rate + self.min_rate) / 2.0,
                               self.RATE_ROUND)
@@ -177,8 +181,9 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         self._ixia_traffic_generate(traffic, ixia_obj)
         return first_run
 
+    # pylint: disable=unused-argument
     def get_drop_percentage(self, samples, tol_min, tolerance, precision,
-                            first_run=False):
+                            first_run=False, tc_rfc2544_opts=None):
         completed = False
         drop_percent = 100
         num_ifaces = len(samples)
@@ -256,12 +261,172 @@ class IXIARFC2544PppoeScenarioProfile(IXIARFC2544Profile):
                 self.full_profile.update({downlink: self.params[downlink]})
 
     def update_traffic_profile(self, traffic_generator):
+
+        networks = OrderedDict()
+
+        # Sort network interfaces pairs
+        for i in range(len(traffic_generator.networks)):
+            uplink = '_'.join([self.UPLINK, str(i)])
+            downlink = '_'.join([self.DOWNLINK, str(i)])
+            if uplink in traffic_generator.networks:
+                networks[uplink] = traffic_generator.networks[uplink]
+            if downlink in traffic_generator.networks:
+                networks[downlink] = traffic_generator.networks[downlink]
+
         def port_generator():
-            for vld_id, intfs in sorted(traffic_generator.networks.items()):
-                if not vld_id.startswith((self.UPLINK, self.DOWNLINK)):
-                    continue
+            for intfs in networks.values():
                 for intf in intfs:
                     yield traffic_generator.vnfd_helper.port_num(intf)
 
         self._get_flow_groups_params()
         self.ports = [port for port in port_generator()]
+
+    def _update_flows_drop_percentage(self, samples):
+        for port_name in samples:
+            port_stats = samples[port_name]
+            for vlan_name in port_stats['vlan']:
+                vlan_stats = port_stats['vlan'][vlan_name]
+                for prio in vlan_stats['priority']:
+                    prio_stats = vlan_stats['priority'][prio]
+                    tx_frames = prio_stats['Tx_Frames']
+                    frames_delta = prio_stats['Frames_Delta']
+                    drop_percent = (float(frames_delta) * 100) / float(
+                        tx_frames)
+                    prio_stats['DropPercentage'] = round(drop_percent, 3)
+                vlan_drop_rate = (float(
+                    vlan_stats['Frames_Delta']) * 100) / vlan_stats['Tx_Frames']
+                vlan_stats['DropPercentage'] = round(vlan_drop_rate, 3)
+            port_tx_frames = sum(
+                [port_stats['vlan'][vlan]['Tx_Frames']
+                 for vlan in port_stats['vlan']])
+            port_frames_delta = sum(
+                [port_stats['vlan'][vlan]['Frames_Delta']
+                 for vlan in port_stats['vlan']])
+            port_drop_percentage = round(
+                (float(port_frames_delta) * 100) / port_tx_frames, 3)
+            port_stats['DropPercentage'] = port_drop_percentage
+        return samples
+
+    def _get_summary_priority_flows_drop_percentage(self, samples):
+        result = {}
+        for iface in samples:
+            for prio_id in samples[iface]['priority']:
+                prio_data = samples[iface]['priority'][prio_id]
+                if prio_id not in result:
+                    result[prio_id] = {
+                        'Tx_Frames': int(prio_data['Tx_Frames']),
+                        'Rx_Frames': int(prio_data['Rx_Frames']),
+                        'Frames_Delta': int(prio_data['Frames_Delta'])
+                    }
+                else:
+                    result[prio_id]['Tx_Frames'] += \
+                        int(prio_data['Tx_Frames'])
+                    result[prio_id]['Rx_Frames'] += \
+                        int(prio_data['Rx_Frames'])
+                    result[prio_id]['Frames_Delta'] += \
+                        int(prio_data['Frames_Delta'])
+
+        for prio_id in result:
+            tx_frames = result[prio_id]['Tx_Frames']
+            frames_delta = result[prio_id]['Frames_Delta']
+            drop_percentage = (float(frames_delta) * 100) / float(tx_frames)
+            result[prio_id]['DropPercentage'] = round(drop_percentage, 3)
+        return result
+
+    def _get_summary_pppoe_subs_counters(self, samples):
+        result = {'sessions_up': 0,
+                  'sessions_down': 0,
+                  'sessions_not_started': 0,
+                  'sessions_total': 0}
+        for port in samples:
+            port_data = samples[port]
+            try:
+                result['sessions_up'] += port_data['sessions_up']
+                result['sessions_down'] += port_data['sessions_down']
+                result['sessions_not_started'] += port_data['sessions_not_started']
+                result['sessions_total'] += port_data['sessions_total']
+            except KeyError:
+                pass
+        return result
+
+    def get_drop_percentage(self, samples, tol_min, tolerance, precision,
+                            first_run=False, tc_rfc2544_opts=None):
+        completed = False
+        sum_drop_percent = 100
+        num_ifaces = len(samples)
+        duration = self.config.duration
+        samples = self._update_flows_drop_percentage(samples)
+        summary_prio_flows_stats = \
+            self._get_summary_priority_flows_drop_percentage(samples)
+        summary_subs_stats = self._get_summary_pppoe_subs_counters(samples)
+        in_packets_sum = sum(
+            [samples[iface]['in_packets'] for iface in samples])
+        out_packets_sum = sum(
+            [samples[iface]['out_packets'] for iface in samples])
+        rx_throughput = round(float(in_packets_sum) / duration, 3)
+        tx_throughput = round(float(out_packets_sum) / duration, 3)
+        sum_packet_drop = abs(out_packets_sum - in_packets_sum)
+
+        try:
+            sum_drop_percent = round(
+                (sum_packet_drop / float(out_packets_sum)) * 100,
+                self.DROP_PERCENT_ROUND)
+        except ZeroDivisionError:
+            LOG.info('No traffic is flowing')
+
+        latency_ns_avg = float(
+            sum([samples[iface]['Store-Forward_Avg_latency_ns']
+                 for iface in samples])) / num_ifaces
+        latency_ns_min = float(
+            sum([samples[iface]['Store-Forward_Min_latency_ns']
+                 for iface in samples])) / num_ifaces
+        latency_ns_max = float(
+            sum([samples[iface]['Store-Forward_Max_latency_ns']
+                 for iface in samples])) / num_ifaces
+
+        samples['TxThroughput'] = tx_throughput
+        samples['RxThroughput'] = rx_throughput
+        samples['DropPercentage'] = sum_drop_percent
+        samples['latency_ns_avg'] = latency_ns_avg
+        samples['latency_ns_min'] = latency_ns_min
+        samples['latency_ns_max'] = latency_ns_max
+        samples['priority'] = summary_prio_flows_stats
+        samples.update(summary_subs_stats)
+
+        if tc_rfc2544_opts:
+            port = tc_rfc2544_opts.get('port')
+            priority = tc_rfc2544_opts.get('priority')
+            if port and not priority:
+                drop_percent = samples[port]['DropPercentage']
+            elif priority and not port:
+                drop_percent = samples['priority'][priority]['DropPercentage']
+            elif port and priority:
+                drop_percent = \
+                    samples[port]['priority'][priority]['DropPercentage']
+            else:
+                drop_percent = sum_drop_percent
+        else:
+            drop_percent = sum_drop_percent
+
+        if first_run:
+            completed = True if drop_percent <= tolerance else False
+        if (first_run and
+                self.rate_unit == tp_base.TrafficProfileConfig.RATE_FPS):
+            self.rate = float(out_packets_sum) / duration / num_ifaces
+
+        if drop_percent > tolerance:
+            self.max_rate = self.rate
+        elif drop_percent < tol_min:
+            self.min_rate = self.rate
+        else:
+            completed = True
+
+        LOG.debug("tolerance=%s, tolerance_precision=%s drop_percent=%s "
+                  "completed=%s", tolerance, precision, drop_percent,
+                  completed)
+
+        samples['Status'] = self.STATUS_FAIL
+        if round(drop_percent, precision) <= tolerance:
+            samples['Status'] = self.STATUS_SUCCESS
+
+        return completed, samples
