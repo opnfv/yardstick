@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_ed1c29c4",
+        "filename": "samples/vnf_samples/nsut/prox/configs/irq.cfg",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-19T16:31:43Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "ada051660cd68b845f446b593bc37fa15b876b5e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4d79ddfb",
+        "filename": "samples/vnf_samples/nsut/prox/configs/irq2.cfg",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-19T16:31:43Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "ada051660cd68b845f446b593bc37fa15b876b5e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2d7e21e5",
+        "filename": "samples/vnf_samples/nsut/prox/prox-irq-baremetal.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-19T16:31:43Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "ada051660cd68b845f446b593bc37fa15b876b5e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8d83f5cb",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_irq.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-19T16:31:43Z",
+      "side": 1,
+      "message": "2018",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "ada051660cd68b845f446b593bc37fa15b876b5e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
