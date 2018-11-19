@@ -13,7 +13,6 @@
 # limitations under the License.
 
 ---
-{% set svlan_per_port = get(extra_args, 'svlans_per_port') %}
 {% set ports = get(extra_args, 'access_vports_num')|int %}
 schema: "nsb:traffic_profile:0.1"
 
@@ -23,11 +22,11 @@ name:            rfc2544
 description:     Traffic profile to run RFC2544 latency
 traffic_profile:
   traffic_type : IXIARFC2544PppoeScenarioProfile # defines traffic behavior - constant or look for highest possible throughput
-  frame_rate : 12.5%  # pc of linerate
+  frame_rate : 100%  # pc of linerate
   duration: {{ duration }}
   enable_latency: True
 
-{% for i in range(svlan_per_port|int * ports|int) %}
+{% for i in range(ports|int) %}
 uplink_{{ i }}:
       ipv4:
         id: {{ (i * 2) + 1 }}
@@ -51,9 +50,13 @@ uplink_{{ i }}:
             1518B: "{{get(imix, 'imix.uplink.1518B', '0') }}"
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: [0, 4, 7]
+          priority:
+            {% if priority %}
+            {{ priority }}
+            {% else %}
+            tos:
+              precedence: [0, 4, 7]
+            {% endif %}
 downlink_{{ i }}:
       ipv4:
         id: {{ (i * 2) + 2 }}
@@ -77,7 +80,11 @@ downlink_{{ i }}:
             1518B: "{{get(imix, 'imix.downlink.1518B', '0') }}"
 
         outer_l3v4:
-            priority:
-              tos:
-                precedence: [0, 4, 7]
+          priority:
+            {% if priority %}
+            {{ priority }}
+            {% else %}
+            tos:
+              precedence: [0, 4, 7]
+            {% endif %}
 {% endfor %}
