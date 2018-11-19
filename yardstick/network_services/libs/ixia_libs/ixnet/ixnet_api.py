@@ -14,6 +14,8 @@
 
 import ipaddress
 import logging
+import re
+from collections import defaultdict
 
 import IxNetwork
 
@@ -62,6 +64,13 @@ SUPPORTED_TOS_FIELDS = [
     'reliability'
 ]
 
+IP_PRIORITY_PATTERN = r'[^\w+]*.+(Raw priority|' \
+                      'Precedence|' \
+                      'Default PHB|' \
+                      'Class selector PHB|' \
+                      'Assured forwarding selector PHB|' \
+                      'Expedited forwarding PHB)'
+
 
 class Vlan(object):
     def __init__(self,
@@ -99,6 +108,22 @@ class IxNextgen(object):  # pragma: no cover
         "Store-Forward_Max_latency_ns": 'Store-Forward Max Latency (ns)',
     }
 
+    FLOWS_STATS = {
+        "VLAN-ID": 'VLAN:VLAN-ID',
+        "IP_Priority": re.compile(IP_PRIORITY_PATTERN),
+        "Flow_Group": 'Flow Group',
+        "Tx_Frames": 'Tx Frames',
+        "Rx_Frames": 'Rx Frames',
+        "Frames_Delta": 'Frames Delta',
+        "Tx_Rate_Kbps": 'Tx Rate (Kbps)',
+        "Rx_Rate_Kbps": 'Rx Rate (Kbps)',
+        "Tx_Rate_Mbps": 'Tx Rate (Mbps)',
+        "Rx_Rate_Mbps": 'Rx Rate (Mbps)',
+        "Store-Forward_Avg_latency_ns": 'Store-Forward Avg Latency (ns)',
+        "Store-Forward_Min_latency_ns": 'Store-Forward Min Latency (ns)',
+        "Store-Forward_Max_latency_ns": 'Store-Forward Max Latency (ns)'
+    }
+
     PPPOX_CLIENT_PER_PORT_NAME_MAP = {
         'subs_port': 'Port',
         'Sessions_Up': 'Sessions Up',
@@ -110,6 +135,18 @@ class IxNextgen(object):  # pragma: no cover
     PORT_STATISTICS = '::ixNet::OBJ-/statistics/view:"Port Statistics"'
     FLOW_STATISTICS = '::ixNet::OBJ-/statistics/view:"Flow Statistics"'
     PPPOX_CLIENT_PER_PORT = '::ixNet::OBJ-/statistics/view:"PPPoX Client Per Port"'
+
+    PPPOE_SCENARIO_STATS = {
+        'port_statistics': PORT_STATISTICS,
+        'flow_statistic': FLOW_STATISTICS,
+        'pppox_client_per_port': PPPOX_CLIENT_PER_PORT
+    }
+
+    PPPOE_SCENARIO_STATS_MAP = {
+        'port_statistics': PORT_STATS_NAME_MAP,
+        'flow_statistic': FLOWS_STATS,
+        'pppox_client_per_port': PPPOX_CLIENT_PER_PORT_NAME_MAP
+    }
 
     @staticmethod
     def get_config(tg_cfg):
@@ -720,6 +757,19 @@ class IxNextgen(object):  # pragma: no cover
             'getColumnValues', view_obj, data_ixia)
             for data_yardstick, data_ixia in name_map.items()}
 
+    def _get_view_page_stats(self, view_obj):
+        """Get full view page stats
+
+        :param view_obj: view object, e.g.
+        '::ixNet::OBJ-/statistics/view:"Port Statistics"'
+        :return: (list) List of dicts. Each dict represents view page row
+        """
+        view = view_obj + '/page'
+        column_headers = self.ixnet.getAttribute(view, '-columnCaptions')
+        view_rows = self.ixnet.getAttribute(view, '-rowValues')
+        view_page = [dict(zip(column_headers, row[0])) for row in view_rows]
+        return view_page
+
     def _set_egress_flow_tracking(self, encapsulation, offset):
         """Set egress flow tracking options
 
@@ -742,7 +792,7 @@ class IxNextgen(object):  # pragma: no cover
         self.ixnet.setAttribute(enc_obj, '-offset', offset)
         self.ixnet.commit()
 
-    def _set_flow_tracking(self, track_by):
+    def set_flow_tracking(self, track_by):
         """Set flow tracking options
 
         :param track_by: list of tracking fields
@@ -769,24 +819,38 @@ class IxNextgen(object):  # pragma: no cover
         return stats
 
     def get_pppoe_scenario_statistics(self):
-        """Retrieve port, flow and PPPoE subscribers statistics
-
-        "Port Statistics" parameters are stored in self.PORT_STATS_NAME_MAP.
-        "Flow Statistics" parameters are stored in self.LATENCY_NAME_MAP.
-        "PPPoX Client Per Port" parameters are stored in
-        self.PPPOE_CLIENT_PER_PORT_NAME_MAP
-
-        :return: dictionary with the statistics; the keys of this dictionary
-                 are PORT_STATS_NAME_MAP, LATENCY_NAME_MAP and
-                 PPPOE_CLIENT_PER_PORT_NAME_MAP keys.
-        """
-        stats = self._build_stats_map(self.PORT_STATISTICS,
-                                      self.PORT_STATS_NAME_MAP)
-        stats.update(self._build_stats_map(self.FLOW_STATISTICS,
-                                           self.LATENCY_NAME_MAP))
-        stats.update(self._build_stats_map(self.PPPOX_CLIENT_PER_PORT,
-                                           self.PPPOX_CLIENT_PER_PORT_NAME_MAP))
-        return stats
+        """Retrieve port, flow and PPPoE subscribers statistics"""
+        stats = defaultdict(list)
+        result = defaultdict(list)
+        for stat, view in self.PPPOE_SCENARIO_STATS.items():
+            # Get view total pages number
+            total_pages = self.ixnet.getAttribute(
+                view + '/page', '-totalPages')
+            # Collect stats from all view pages
+            for page in range(1, int(total_pages) + 1):
+                current_page = int(self.ixnet.getAttribute(
+                    view + '/page', '-currentPage'))
+                if page != int(current_page):
+                    self.ixnet.setAttribute(view + '/page', '-currentPage',
+                                            str(page))
+                    self.ixnet.commit()
+                page_data = self._get_view_page_stats(view)
+                stats[stat].extend(page_data)
+        # Filter collected views stats
+        for stat in stats:
+            for view_row in stats[stat]:
+                filtered_row = {}
+                for key, value in self.PPPOE_SCENARIO_STATS_MAP[stat].items():
+                    if isinstance(value, str):
+                        filtered_row.update({key: view_row[value]})
+                    else:
+                        for k in view_row.keys():
+                            if value.match(k):
+                                value = value.match(k).group()
+                                filtered_row.update({key: view_row[value]})
+                                break
+                result[stat].append(filtered_row)
+        return result
 
     def start_protocols(self):
         self.ixnet.execute('startAllProtocols')
