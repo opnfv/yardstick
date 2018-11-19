@@ -46,6 +46,30 @@
       "revId": "972429ed0ae8a694d038b45b6d6fee21003f7286",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ad9fd14f",
+        "filename": "docs/testing/user/userguide/10-yardstick-user-interface.rst",
+        "patchSetId": 10
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-11-19T15:30:00Z",
+      "side": 1,
+      "message": "if possible please do so, as it will clear the confusion.",
+      "parentUuid": "1a622d24_ad78712c",
+      "range": {
+        "startLine": 20,
+        "startChar": 3,
+        "endLine": 20,
+        "endChar": 16
+      },
+      "revId": "972429ed0ae8a694d038b45b6d6fee21003f7286",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
