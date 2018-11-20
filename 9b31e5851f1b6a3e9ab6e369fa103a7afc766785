@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_63c8d322",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "I did. It looked dreadful and unclear so returned to original .. it looks better.",
+      "parentUuid": "9a561d44_800e1733",
+      "range": {
+        "startLine": 300,
+        "startChar": 3,
+        "endLine": 312,
+        "endChar": 73
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_6074a39c",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -131,6 +155,30 @@
       "writtenOn": "2018-07-20T11:48:08Z",
       "side": 1,
       "message": "Why is this label here? IS it to reference from an external doc?\nIf it\u0027s for reference within this document only, you can use the headings. The section titles are targets [1].\n\n[1] http://docutils.sourceforge.net/docs/user/rst/quickref.html#title",
+      "range": {
+        "startLine": 320,
+        "startChar": 0,
+        "endLine": 320,
+        "endChar": 30
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_03e11f9a",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_6074a39c",
       "range": {
         "startLine": 320,
         "startChar": 0,
@@ -166,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_c3d607c3",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_e0127357",
+      "range": {
+        "startLine": 322,
+        "startChar": 0,
+        "endLine": 322,
+        "endChar": 22
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_c00f6f2d",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -183,6 +255,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_63ef3388",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_c00f6f2d",
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_e039d3d9",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -194,6 +284,30 @@
       "writtenOn": "2018-07-20T11:48:08Z",
       "side": 1,
       "message": "You can use a literal include [1] for this, so that any updates to the prox_vpe.yaml file are picked up in the docs.\n\n.. literalinclude::\n   ../../../../\u003crelative_path_to\u003e/prox_vpe.yaml\n   :lines: 15-\n\n[1] http://www.sphinx-doc.org/en/stable/markup/code.html#directive-literalinclude",
+      "range": {
+        "startLine": 378,
+        "startChar": 0,
+        "endLine": 393,
+        "endChar": 25
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_43f2f76f",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "I could ... but I do not want to.\n\nI want to be able to add/modify this fragment without modifying the real one.",
+      "parentUuid": "9a561d44_e039d3d9",
       "range": {
         "startLine": 378,
         "startChar": 0,
@@ -229,6 +343,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_a3e94b82",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "What is the question?",
+      "parentUuid": "9a561d44_0048475a",
+      "range": {
+        "startLine": 433,
+        "startChar": 17,
+        "endLine": 435,
+        "endChar": 47
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_20346bdd",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -240,6 +378,30 @@
       "writtenOn": "2018-07-20T11:48:08Z",
       "side": 1,
       "message": "Could use literalinclude here too",
+      "range": {
+        "startLine": 436,
+        "startChar": 56,
+        "endLine": 461,
+        "endChar": 28
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_e302233d",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "I could ... but I do not want to.\n\nI want to be able to add/modify this fragment without modifying the real one.",
+      "parentUuid": "9a561d44_20346bdd",
       "range": {
         "startLine": 436,
         "startChar": 56,
@@ -275,6 +437,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_e38983cb",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 717,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_e06713e9",
+      "range": {
+        "startLine": 717,
+        "startChar": 0,
+        "endLine": 717,
+        "endChar": 28
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_609b03ca",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -292,6 +478,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_23941be1",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_609b03ca",
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_40a07ff4",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -303,6 +507,30 @@
       "writtenOn": "2018-07-20T11:48:08Z",
       "side": 1,
       "message": "ditto: titles are targets",
+      "range": {
+        "startLine": 848,
+        "startChar": 0,
+        "endLine": 849,
+        "endChar": 27
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_038f5fcd",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_40a07ff4",
       "range": {
         "startLine": 848,
         "startChar": 0,
@@ -338,6 +566,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_63bd7368",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_a0a51b06",
+      "range": {
+        "startLine": 1020,
+        "startChar": 0,
+        "endLine": 1020,
+        "endChar": 10
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_80aa97d2",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -361,6 +613,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_43c037e0",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "I could .. but prefer not. It looks better.\n\nThis is done down further and looks terrible.",
+      "parentUuid": "9a561d44_80aa97d2",
+      "range": {
+        "startLine": 1124,
+        "startChar": 2,
+        "endLine": 1126,
+        "endChar": 47
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_e0aef3e6",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -372,6 +648,30 @@
       "writtenOn": "2018-07-20T11:48:08Z",
       "side": 1,
       "message": "note",
+      "range": {
+        "startLine": 1130,
+        "startChar": 50,
+        "endLine": 1130,
+        "endChar": 53
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_83ba4f6c",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_e0aef3e6",
       "range": {
         "startLine": 1130,
         "startChar": 50,
@@ -430,6 +730,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_c3aba71c",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_20b90b2f",
+      "range": {
+        "startLine": 1245,
+        "startChar": 3,
+        "endLine": 1252,
+        "endChar": 90
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_192f1ea3",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -441,6 +765,30 @@
       "writtenOn": "2018-07-24T16:53:54Z",
       "side": 1,
       "message": "Duration",
+      "range": {
+        "startLine": 1281,
+        "startChar": 36,
+        "endLine": 1281,
+        "endChar": 43
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_23ab7b1e",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1281,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_192f1ea3",
       "range": {
         "startLine": 1281,
         "startChar": 36,
@@ -499,6 +847,54 @@
     },
     {
       "key": {
+        "uuid": "5a682502_63645322",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_ec026f0a",
+      "range": {
+        "startLine": 1283,
+        "startChar": 11,
+        "endLine": 1283,
+        "endChar": 13
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_03a63f53",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1283,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_4004ff14",
+      "range": {
+        "startLine": 1283,
+        "startChar": 3,
+        "endLine": 1283,
+        "endChar": 10
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_60ff8302",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -510,6 +906,30 @@
       "writtenOn": "2018-07-20T11:48:08Z",
       "side": 1,
       "message": "No. if",
+      "range": {
+        "startLine": 1289,
+        "startChar": 3,
+        "endLine": 1289,
+        "endChar": 5
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_43679725",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1289,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_60ff8302",
       "range": {
         "startLine": 1289,
         "startChar": 3,
@@ -539,6 +959,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_8371afe2",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_a0099b2e",
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ac08772e",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 2
@@ -550,6 +988,30 @@
       "writtenOn": "2018-07-20T11:48:08Z",
       "side": 1,
       "message": "The phrase \"This is the\" is redundant, and can be removed.\n\n(applies to all this list)",
+      "range": {
+        "startLine": 1313,
+        "startChar": 3,
+        "endLine": 1313,
+        "endChar": 15
+      },
+      "revId": "9b31e5851f1b6a3e9ab6e369fa103a7afc766785",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a36e6bff",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:01:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_ac08772e",
       "range": {
         "startLine": 1313,
         "startChar": 3,
