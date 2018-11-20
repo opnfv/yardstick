@@ -434,6 +434,43 @@ There two types of Standalone contexts available: OVS-DPDK and SRIOV.
 OVS-DPDK uses OVS network with DPDK drivers.
 SRIOV enables network traffic to bypass the software switch layer of the Hyper-V stack.
 
+Emulated machine type
+^^^^^^^^^^^^^^^^^^^^^
+
+For better performance test results of emulated VM spawned by Yardstick SA
+context (OvS-DPDK/SRIOV), it may be important to control the emulated machine
+type used by QEMU emulator. This attribute can be configured via TC definition
+in ``contexts`` section under ``extra_specs`` configuration.
+
+For example:
+
+.. code-block:: yaml
+
+  contexts:
+     ...
+     - type: StandaloneSriov
+       ...
+       flavor:
+         ...
+         extra_specs:
+           ...
+           machine_type: pc-i440fx-bionic
+
+Where, ``machine_type`` can be set to one of the emulated machine type
+supported by QEMU running on SUT platform. To get full list of supported
+emulated machine types, the following command can be used on the target SUT
+host.
+
+.. code-block:: yaml
+
+  # qemu-system-x86_64 -machine ?
+
+By default, the ``machine_type`` option is set to ``pc-i440fx-xenial`` which is
+suitable for running Ubuntu 16.04 VM image. So, if this type is not supported
+by the target platform or another VM image is used for stand alone (SA) context
+VM (e.g.: ``bionic`` image for Ubuntu 18.04), this configuration should be
+changed accordingly.
+
 Standalone with OVS-DPDK
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
