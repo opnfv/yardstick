@@ -141,3 +141,74 @@ class TestCpuSysCores(unittest.TestCase):
 
     def test__str2int_error(self):
         self.assertEqual(0, CpuSysCores._str2int("err"))
+
+    def test_smt_enabled(self):
+        self.assertEqual(False, CpuSysCores.smt_enabled(
+            [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [1, 1, 0, 0, 0, 1, 1, 1, 0]]))
+
+    def test_is_smt_enabled(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            cpu_topo = CpuSysCores(ssh_mock)
+            cpu_topo.cpuinfo = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+            self.assertEqual(False, cpu_topo.is_smt_enabled())
+
+    def test_cpu_list_per_node(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            cpu_topo = CpuSysCores(ssh_mock)
+            cpu_topo.cpuinfo = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+            self.assertEqual([0, 1], cpu_topo.cpu_list_per_node(0, False))
+
+    def test_cpu_list_per_node_error(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            cpu_topo = CpuSysCores(ssh_mock)
+            cpu_topo.cpuinfo = None
+            with self.assertRaises(RuntimeError) as raised:
+                cpu_topo.cpu_list_per_node(0, False)
+            self.assertIn('Node cpuinfo not available.', str(raised.exception))
+
+    def test_cpu_list_per_node_smt_error(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            cpu_topo = CpuSysCores(ssh_mock)
+            cpu_topo.cpuinfo = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+            with self.assertRaises(RuntimeError) as raised:
+                cpu_topo.cpu_list_per_node(0, True)
+            self.assertIn('SMT is not enabled.', str(raised.exception))
+
+    def test_cpu_slice_of_list_per_node(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            cpu_topo = CpuSysCores(ssh_mock)
+            cpu_topo.cpuinfo = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+            self.assertEqual([1],
+                             cpu_topo.cpu_slice_of_list_per_node(0, 1, 0,
+                                                                 False))
+
+    def test_cpu_slice_of_list_per_node_error(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            cpu_topo = CpuSysCores(ssh_mock)
+            cpu_topo.cpuinfo = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+            with self.assertRaises(RuntimeError) as raised:
+                cpu_topo.cpu_slice_of_list_per_node(1, 1, 1, False)
+            self.assertIn('cpu_cnt + skip_cnt > length(cpu list).',
+                          str(raised.exception))
+
+    def test_cpu_list_per_node_str(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            cpu_topo = CpuSysCores(ssh_mock)
+            cpu_topo.cpuinfo = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                                [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+            self.assertEqual("1",
+                             cpu_topo.cpu_list_per_node_str(0, 1, 1, ',',
+                                                            False))
