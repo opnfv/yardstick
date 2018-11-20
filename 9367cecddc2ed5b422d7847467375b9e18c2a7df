@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_fc3058ea",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T11:31:17Z",
+      "side": 1,
+      "message": "I find this method easier \n\n1)\tJust download / fetch  the patch\n2)\tInstall in a temp folder on linux or windows\n3)\tUse a markdown viewer (on Linux I use retext) and \n        windows CHROME has a number of plugins",
+      "parentUuid": "1a622d24_c824bbc8",
+      "revId": "9367cecddc2ed5b422d7847467375b9e18c2a7df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_a8217fb6",
         "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
         "patchSetId": 3
