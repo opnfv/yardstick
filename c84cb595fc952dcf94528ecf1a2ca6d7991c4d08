@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_bc3d40be",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-11-20T11:43:03Z",
+      "side": 1,
+      "message": "nit: stand alone context here or update glossary https://gerrit.opnfv.org/gerrit/#/c/63769",
+      "range": {
+        "startLine": 470,
+        "startChar": 55,
+        "endLine": 470,
+        "endChar": 57
+      },
+      "revId": "c84cb595fc952dcf94528ecf1a2ca6d7991c4d08",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
