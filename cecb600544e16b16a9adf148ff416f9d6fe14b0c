@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_9cd164d0",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T20:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_bc6420e6",
+      "revId": "cecb600544e16b16a9adf148ff416f9d6fe14b0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_dc675ce9",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 17
@@ -30,6 +48,30 @@
       "writtenOn": "2018-11-20T12:33:08Z",
       "side": 1,
       "message": "port_names \u003d [port_name for port_name, _ in ports]\n\nSeems \"port_num\" is never used here.\n\nHmm, is there a chance that the element of ports list would not expand? If yes, needs a try/except wrap.",
+      "range": {
+        "startLine": 608,
+        "startChar": 0,
+        "endLine": 611,
+        "endChar": 40
+      },
+      "revId": "cecb600544e16b16a9adf148ff416f9d6fe14b0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3fa002f4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T20:39:38Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "1a622d24_dc675ce9",
       "range": {
         "startLine": 608,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_dfdc6e77",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T20:39:38Z",
+      "side": 1,
+      "message": "It goes thru a list of list (1 list per port)\n\nIf for some reason a sample is dropped due to bad or incorrect data the system handle it.",
+      "parentUuid": "1a622d24_3c793094",
+      "range": {
+        "startLine": 619,
+        "startChar": 49,
+        "endLine": 619,
+        "endChar": 62
+      },
+      "revId": "cecb600544e16b16a9adf148ff416f9d6fe14b0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_fc5e9811",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 17
@@ -76,6 +142,24 @@
       "writtenOn": "2018-11-20T12:33:08Z",
       "side": 1,
       "message": "Do you really mean to silently move on here? Please explain the intent.",
+      "revId": "cecb600544e16b16a9adf148ff416f9d6fe14b0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7ff8bae5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T20:39:38Z",
+      "side": 1,
+      "message": "It sometimes happens for data in stats structure to be periodically corrupted. (data is transferred Via ssh). If a sample is missed no big deal, the next interval (1 sec later) will pick up the data. The system will handle it and the pps is calculated on TSC readings.",
+      "parentUuid": "1a622d24_fc5e9811",
       "revId": "cecb600544e16b16a9adf148ff416f9d6fe14b0c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_9ff3160a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T20:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_1c6274d8",
+      "revId": "cecb600544e16b16a9adf148ff416f9d6fe14b0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_1c3434dd",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 17
@@ -110,6 +212,30 @@
       "writtenOn": "2018-11-20T12:33:08Z",
       "side": 1,
       "message": "nit:\n\nI\u0027d use \"0.0\" instead:\n\u003e\u003e\u003e 0.0, float(0)\n(0.0, 0.0)\n\u003e\u003e\u003e type(0.0), type(float(0))\n(\u003ctype \u0027float\u0027\u003e, \u003ctype \u0027float\u0027\u003e)\n\nUp to you to change or keep as is.",
+      "range": {
+        "startLine": 630,
+        "startChar": 42,
+        "endLine": 630,
+        "endChar": 50
+      },
+      "revId": "cecb600544e16b16a9adf148ff416f9d6fe14b0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9fa5d606",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T20:39:38Z",
+      "side": 1,
+      "message": "read",
+      "parentUuid": "1a622d24_1c3434dd",
       "range": {
         "startLine": 630,
         "startChar": 42,
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_dfae2ee7",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T20:39:38Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "1a622d24_9c57a402",
+      "range": {
+        "startLine": 631,
+        "startChar": 26,
+        "endLine": 631,
+        "endChar": 35
+      },
+      "revId": "cecb600544e16b16a9adf148ff416f9d6fe14b0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_3c52d013",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 17
@@ -156,6 +306,30 @@
       "writtenOn": "2018-11-20T12:33:08Z",
       "side": 1,
       "message": "Please consider adding a comment to reveal magic of indices 1,2,5.",
+      "range": {
+        "startLine": 635,
+        "startChar": 0,
+        "endLine": 648,
+        "endChar": 33
+      },
+      "revId": "cecb600544e16b16a9adf148ff416f9d6fe14b0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bfab72d5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T20:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_3c52d013",
       "range": {
         "startLine": 635,
         "startChar": 0,
@@ -191,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_df958e89",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T20:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_dc40fc37",
+      "range": {
+        "startLine": 663,
+        "startChar": 21,
+        "endLine": 663,
+        "endChar": 39
+      },
+      "revId": "cecb600544e16b16a9adf148ff416f9d6fe14b0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_7c5c4826",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 17
@@ -202,6 +400,30 @@
       "writtenOn": "2018-11-20T12:33:08Z",
       "side": 1,
       "message": "same as above",
+      "range": {
+        "startLine": 665,
+        "startChar": 22,
+        "endLine": 665,
+        "endChar": 31
+      },
+      "revId": "cecb600544e16b16a9adf148ff416f9d6fe14b0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bf92529d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T20:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_7c5c4826",
       "range": {
         "startLine": 665,
         "startChar": 22,
@@ -237,6 +459,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_5fe97e19",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T20:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_dc959c89",
+      "range": {
+        "startLine": 1075,
+        "startChar": 0,
+        "endLine": 1079,
+        "endChar": 40
+      },
+      "revId": "cecb600544e16b16a9adf148ff416f9d6fe14b0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_fc8cd881",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 17
@@ -260,6 +506,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_3fee4223",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T20:39:38Z",
+      "side": 1,
+      "message": "A previous reviewer on another item requested this style now this methodology is used extensively in this file.\n\nTo be consistent .. I will keep this",
+      "parentUuid": "1a622d24_fc8cd881",
+      "range": {
+        "startLine": 1083,
+        "startChar": 12,
+        "endLine": 1083,
+        "endChar": 28
+      },
+      "revId": "cecb600544e16b16a9adf148ff416f9d6fe14b0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_9cf3240a",
         "filename": "yardstick/tests/unit/network_services/traffic_profile/test_prox_binsearch.py",
         "patchSetId": 17
@@ -271,6 +541,30 @@
       "writtenOn": "2018-11-20T12:33:08Z",
       "side": 1,
       "message": "magic number used twice -\u003e please consider using a \"constant\"",
+      "range": {
+        "startLine": 261,
+        "startChar": 47,
+        "endLine": 261,
+        "endChar": 70
+      },
+      "revId": "cecb600544e16b16a9adf148ff416f9d6fe14b0c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bfd9b285",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_prox_binsearch.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T20:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_9cf3240a",
       "range": {
         "startLine": 261,
         "startChar": 47,
