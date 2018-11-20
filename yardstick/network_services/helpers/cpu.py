@@ -15,6 +15,9 @@
 
 import io
 
+# Number of threads per core.
+NR_OF_THREADS = 2
+
 
 class CpuSysCores(object):
 
@@ -95,3 +98,71 @@ class CpuSysCores(object):
             return int(string)
         except ValueError:
             return 0
+
+    @staticmethod
+    def is_smt_enabled(cpu_info):
+        cpu_mems = [item[-4:] for item in cpu_info]
+        cpu_mems_len = int(len(cpu_mems) / NR_OF_THREADS)
+        count = 0
+        for cpu_mem in cpu_mems[:cpu_mems_len]:
+            if cpu_mem in cpu_mems[cpu_mems_len:]:
+                count += 1
+        return bool(count == cpu_mems_len)
+
+    @staticmethod
+    def cpu_list_per_node(node, cpu_node, smt_used=False):
+        cpu_node = int(cpu_node)
+        cpu_info = node.get("cpuinfo")
+        if cpu_info is None:
+            raise RuntimeError("Node cpuinfo not available.")
+
+        smt_enabled = CpuSysCores.is_smt_enabled(cpu_info)
+        if not smt_enabled and smt_used:
+            raise RuntimeError("SMT is not enabled.")
+
+        cpu_list = []
+        for cpu in cpu_info:
+            if cpu[3] == cpu_node:
+                cpu_list.append(cpu[0])
+
+        if not smt_enabled or smt_enabled and smt_used:
+            pass
+
+        if smt_enabled and not smt_used:
+            cpu_list_len = len(cpu_list)
+            cpu_list = cpu_list[:int(cpu_list_len / NR_OF_THREADS)]
+
+        return cpu_list
+
+    @staticmethod
+    def cpu_slice_of_list_per_node(node, cpu_node, skip_cnt=0, cpu_cnt=0,
+                                   smt_used=False):
+        cpu_list = CpuSysCores.cpu_list_per_node(node, cpu_node, smt_used)
+
+        cpu_list_len = len(cpu_list)
+        if cpu_cnt + skip_cnt > cpu_list_len:
+            raise RuntimeError("cpu_cnt + skip_cnt > length(cpu list).")
+
+        if cpu_cnt == 0:
+            cpu_cnt = cpu_list_len - skip_cnt
+
+        if smt_used:
+            cpu_list_0 = cpu_list[:int(cpu_list_len / NR_OF_THREADS)]
+            cpu_list_1 = cpu_list[int(cpu_list_len / NR_OF_THREADS):]
+            cpu_list = [cpu for cpu in cpu_list_0[skip_cnt:skip_cnt + cpu_cnt]]
+            cpu_list_ex = [cpu for cpu in
+                           cpu_list_1[skip_cnt:skip_cnt + cpu_cnt]]
+            cpu_list.extend(cpu_list_ex)
+        else:
+            cpu_list = [cpu for cpu in cpu_list[skip_cnt:skip_cnt + cpu_cnt]]
+
+        return cpu_list
+
+    @staticmethod
+    def cpu_list_per_node_str(node, cpu_node, skip_cnt=0, cpu_cnt=0, sep=",",
+                              smt_used=False):
+        cpu_list = CpuSysCores.cpu_slice_of_list_per_node(node, cpu_node,
+                                                          skip_cnt=skip_cnt,
+                                                          cpu_cnt=cpu_cnt,
+                                                          smt_used=smt_used)
+        return sep.join(str(cpu) for cpu in cpu_list)
