@@ -16,7 +16,6 @@
 {% set vports = vports or 2 %}
 {% set tolerance_low = tolerance_low or 0.0 %}
 {% set tolerance_high = tolerance_high or 0.005 %}
-{% set frame_size = frame_size or 64 %}
 {% set tunnels = tunnels or 1 %}
 {% set flow_count = flow_count or 1 %}
 {% set worker_threads = worker_threads or [1] %}
@@ -26,8 +25,8 @@ description: >
     This is the VPP IPSec performance tests based on the Data Plane Development
     Kit (DPDK) Cryptodev framework. DUT1 and DUT2 are configured with DPDK SW
     cryptodev devices and {{ tunnels }} IPsec tunnels between them. DUTs get
-    IPv4 traffic from TG with {{ frame_size }}B packet size and number of flows
-    is {{ flow_count }}, encrypt it and send to another DUT, where packets are
+    IPv4 traffic from TG with IMIX packet size and number of flows is
+    {{ flow_count }}, encrypt it and send to another DUT, where packets are
     decrypted and sent back to TG. Measure successful transmit rate, throughput
     NDR/PDR with MLR search is {{ "enabled" if mlr_search else "disabled" }}, latency.
 
@@ -48,8 +47,8 @@ scenarios:
     rfc2544:
       allowed_drop_rate: {{ tolerance_low }} - {{ tolerance_high }}
     framesize:
-      uplink: {'{{ frame_size }}B': 100}
-      downlink: {'{{ frame_size }}B': 100}
+      uplink: {64B: 28, 570B: 16, 1518B: 4}
+      downlink: {64B: 28, 570B: 16, 1518B: 4}
     flow:
       src_ip:
         - '10.0.0.0-10.0.0.100'
@@ -62,12 +61,12 @@ scenarios:
       # Crypto device type. Type: string - *Example:* HW_cryptodev | SW_cryptodev
       # Number of RX queues, default value: ${None}. Type: integer
       vnf_config: {crypto_type: 'SW_cryptodev', rxq: 1, worker_config: '1C/1T',
-                   worker_threads: {{worker_thread}}}
+                   worker_threads: {{ worker_thread }}}
     vnf__1:
       collectd:
         interval: 1
       vnf_config: {crypto_type: 'SW_cryptodev', rxq: 1, worker_config: '1C/1T',
-                   worker_threads: {{worker_thread}}}
+                   worker_threads: {{ worker_thread }}}
     tg__0:
       collectd:
         interval: 1
@@ -80,9 +79,9 @@ scenarios:
       crypto_algorithms: 'aes-gcm'
 {% if mlr_search %}
       # Maximum Frame Rate depend on Ethernet Link Speed and Frame Size
-      # for a 10 Gb/s Ethernet link and 64 bytes,
-      # maximum rate = 10*10^9/((64+8+12)*8)
-      max_rate: {{ (10 * 10 ** 9 / ((frame_size + 8 + 12) * 8)) | int }}
+      # for a 10 Gb/s Ethernet link and IMIX packet size,
+      # maximum rate = 10*10^9/(((28*64+16*570+4*1518)/48+8+12)*8)
+      max_rate: 3351206
 {% endif %}
   runner:
     type: Duration
