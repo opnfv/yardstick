@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a622d24_9cb044df",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l3fwd-2.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-20T14:57:14Z",
+      "side": 1,
+      "message": "Need to add more information here. The test case name suggests its ovs-dpdk test. Need to add unique info here per test type.\n\"NSB PROX 2 port OVS-DPDK L3FWD test case in standalone context. The application performs routing of packets with LPM based look-up method.\\nThe KPI is the number of packets per second for a specified packet size with an accepted minimal packet loss.\"\n\nThe goal is that the configurable dashboards should be able to read this info and store in the metadata table.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "f8174a192526f98ca3262174df8406694ec386ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_adacf136",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l3fwd-2.yaml",
         "patchSetId": 3
@@ -18,6 +41,29 @@
         "startChar": 62,
         "endLine": 18,
         "endChar": 63
+      },
+      "revId": "f8174a192526f98ca3262174df8406694ec386ac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7cb568cc",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l3fwd-4.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-20T14:57:14Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 11
       },
       "revId": "f8174a192526f98ca3262174df8406694ec386ac",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
