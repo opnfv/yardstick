@@ -96,6 +96,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
             except Exception:  # pylint: disable=broad-except
                 errors = traceback.format_exc()
                 LOG.exception("")
+				raise
             else:
                 if result:
                     # add timeout for put so we don't block test
