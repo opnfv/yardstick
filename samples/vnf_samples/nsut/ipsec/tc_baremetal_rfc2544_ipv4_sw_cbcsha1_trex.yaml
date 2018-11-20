@@ -71,7 +71,7 @@ scenarios:
       tunnels: {{ tunnels }}
       # Encryption algorithms - Integrity algorithm. Type: string
       # Example: aes-gcm | cbc-sha1
-      crypto_algorithms: 'aes-gcm'
+      crypto_algorithms: 'cbc-sha1'
 {% if mlr_search %}
       # Maximum Frame Rate depend on Ethernet Link Speed and Frame Size
       # for a 10 Gb/s Ethernet link and 64 bytes, maximum rate = 10*10^9/((64+8+12)*8)

@@ -15,7 +15,6 @@
 ---
 
 {% set mlr_search = mlr_search or True %}
-{% set frame_size = frame_size or 64 %}
 {% set tunnels = tunnels or 1 %}
 {% set flow_count = flow_count or 1 %}
 {% set worker_threads = worker_threads or [1] %}
@@ -24,10 +23,10 @@ schema: yardstick:task:0.1
 description: >
     DUT1 and DUT2 are configured with DPDK SW cryptodev devices
     and {{ tunnels }} IPsec tunnels between them. DUTs get IPv4 traffic from TG
-    with {{ frame_size }}B packet size and number of flows is {{ flow_count }},
-    encrypt it and send to another DUT, where packets are decrypted and sent
-    back to TG. Measure successful transmit rate, throughput NDR/PDR with
-    MLR search is {{ "enabled" if mlr_search else "disabled" }}, latency.
+    with IMIX packet size and number of flows is {{ flow_count }}, encrypt it
+    and send to another DUT, where packets are decrypted and sent back to TG.
+    Measure successful transmit rate, throughput NDR/PDR with MLR search
+    is {{ "enabled" if mlr_search else "disabled" }}, latency.
 
 scenarios:
 {% for worker_thread in worker_threads %}
@@ -44,8 +43,8 @@ scenarios:
     rfc2544:
       allowed_drop_rate: 0.0 - 0.005
     framesize:
-      uplink: {'{{ frame_size }}B': 100}
-      downlink: {'{{ frame_size }}B': 100}
+      uplink: {64B: 28, 570B: 16, 1518B: 4}
+      downlink: {64B: 28, 570B: 16, 1518B: 4}
     flow:
       src_ip:
         - '10.0.0.0-10.0.0.100'
@@ -71,11 +70,11 @@ scenarios:
       tunnels: {{ tunnels }}
       # Encryption algorithms - Integrity algorithm. Type: string
       # Example: aes-gcm | cbc-sha1
-      crypto_algorithms: 'aes-gcm'
+      crypto_algorithms: 'cbc-sha1'
 {% if mlr_search %}
       # Maximum Frame Rate depend on Ethernet Link Speed and Frame Size
-      # for a 10 Gb/s Ethernet link and 64 bytes, maximum rate = 10*10^9/((64+8+12)*8)
-      max_rate: {{ (10 * 10 ** 9 / ((frame_size + 8 + 12) * 8)) | int }}
+      # for a 10 Gb/s Ethernet link and IMIX packet size, maximum rate = 10*10^9/(((28*64+16*570+4*1518)/48+8+12)*8)
+      max_rate: 3351206
 {% endif %}
   runner:
     type: Duration
