@@ -22,6 +22,30 @@
       "revId": "02a0a2495668e40caeb10e5ece415f16a01f5acb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_88e8037e",
+        "filename": "yardstick/common/report.js",
+        "patchSetId": 13
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-20T09:57:23Z",
+      "side": 1,
+      "message": "Agreed. As self-commented on PS12:\nRemaining indentation and missing var issues will be addressed in commit 11, WIP.\nhttps://gerrit.opnfv.org/gerrit/#/c/61011/12..13/yardstick/common/report.js",
+      "parentUuid": "1a622d24_685f6773",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 10
+      },
+      "revId": "02a0a2495668e40caeb10e5ece415f16a01f5acb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
