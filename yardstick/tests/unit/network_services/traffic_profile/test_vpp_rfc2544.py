@@ -112,6 +112,7 @@ class TestVppRFC2544Profile(base.BaseUnitTestCase):
         self.assertEqual(vpp_rfc2544_profile.max_rate,
                          vpp_rfc2544_profile.rate)
         self.assertEqual(0, vpp_rfc2544_profile.min_rate)
+        self.assertEqual(2, vpp_rfc2544_profile.number_of_intermediate_phases)
         self.assertEqual(30, vpp_rfc2544_profile.duration)
         self.assertEqual(0.1, vpp_rfc2544_profile.precision)
         self.assertEqual(1.0, vpp_rfc2544_profile.lower_bound)
@@ -595,6 +596,6 @@ class TestVppRFC2544Profile(base.BaseUnitTestCase):
             test_data={})
 
         expected = {'Result_theor_max_throughput': 104338192.0,
-                    'xe0': {'Result_Actual_throughput': 104338192.0},
+                    'xe0': {'Result_Actual_throughput': 104339032.0},
                     'xe0': {'Result_Actual_throughput': 134119648.0}}
         self.assertEqual(expected, result_samples)
