@@ -1,0 +1,62 @@
+# Copyright (c) 2018 Viosoft Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+nsd:nsd-catalog:
+    nsd:
+    -   id: ipsec-tg-topology
+        name: ipsec-tg-topology
+        short-name: ipsec-tg-topology
+        description: ipsec-tg-topology
+        constituent-vnfd:
+        -   member-vnf-index: '1'
+            vnfd-id-ref: tg__0
+            VNF model: ../../vnf_descriptors/tg_vpp_tpl.yaml      # Traffic Generator
+        -   member-vnf-index: '2'
+            vnfd-id-ref: vnf__0
+            VNF model: ../../vnf_descriptors/vpp_vnfd.yaml      # IPSec
+        -   member-vnf-index: '3'
+            vnfd-id-ref: vnf__1
+            VNF model: ../../vnf_descriptors/vpp_vnfd.yaml      # IPSec
+
+        vld:
+        -   id: uplink_0
+            name: tg__0 to vnf__0 link 1
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: '1'
+                vnfd-connection-point-ref: enp129s0f0
+                vnfd-id-ref: tg__0
+            -   member-vnf-index-ref: '2'
+                vnfd-connection-point-ref: ens6
+                vnfd-id-ref: vnf__0
+        -   id: ciphertext
+            name: vnf__0 to vnf__1 link 2
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: '2'
+                vnfd-connection-point-ref: ens7
+                vnfd-id-ref: vnf__0
+            -   member-vnf-index-ref: '3'
+                vnfd-connection-point-ref: ens7
+                vnfd-id-ref: vnf__1
+        -   id: downlink_0
+            name: vnf__1 to tg__0 link 3
+            type: ELAN
+            vnfd-connection-point-ref:
+            -   member-vnf-index-ref: '3'
+                vnfd-connection-point-ref: ens6
+                vnfd-id-ref: vnf__1
+            -   member-vnf-index-ref: '1'
+                vnfd-connection-point-ref: enp129s0f1
+                vnfd-id-ref: tg__0
