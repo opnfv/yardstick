@@ -18,11 +18,12 @@ import mock
 
 from yardstick.benchmark.contexts import base as ctx_base
 from yardstick.common import utils
+from yardstick.network_services.helpers import cpu
 from yardstick.network_services.nfvi.resource import ResourceProfile
-from yardstick.network_services.vnf_generic.vnf import ipsec_vnf
+from yardstick.network_services.vnf_generic.vnf import ipsec_vnf, vpp_helpers
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
-from yardstick.network_services.vnf_generic.vnf.ipsec_vnf import \
-    VipsecApproxSetupEnvHelper
+from yardstick.network_services.vnf_generic.vnf.ipsec_vnf import CryptoAlg, \
+    IntegAlg, VipsecApproxSetupEnvHelper
 from yardstick.tests.unit.network_services.vnf_generic.vnf.test_base import \
     mock_ssh
 
@@ -559,6 +560,24 @@ class TestVipsecApproxVnf(unittest.TestCase):
         self.assertIsNone(vipsec_vnf.terminate())
 
 
+class TestCryptoAlg(unittest.TestCase):
+
+    def test__init__(self):
+        encr_alg = CryptoAlg.AES_GCM_128
+        self.assertEqual('aes-gcm-128', encr_alg.alg_name)
+        self.assertEqual('AES-GCM', encr_alg.scapy_name)
+        self.assertEqual(20, encr_alg.key_len)
+
+
+class TestIntegAlg(unittest.TestCase):
+
+    def test__init__(self):
+        auth_alg = IntegAlg.AES_GCM_128
+        self.assertEqual('aes-gcm-128', auth_alg.alg_name)
+        self.assertEqual('AES-GCM', auth_alg.scapy_name)
+        self.assertEqual(20, auth_alg.key_len)
+
+
 class TestVipsecApproxSetupEnvHelper(unittest.TestCase):
     ALL_OPTIONS = {
         "flow": {
@@ -808,7 +827,25 @@ class TestVipsecApproxSetupEnvHelper(unittest.TestCase):
                          ipsec_approx_setup_helper._get_flow_dst_start_ip())
 
     def test_build_config(self):
-        pass
+        vnfd_helper = VnfdHelper(
+            TestVipsecApproxVnf.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = 0, '0', ''
+        scenario_helper = mock.Mock()
+        scenario_helper.options = self.OPTIONS
+        scenario_helper.all_options = self.ALL_OPTIONS
+
+        ipsec_approx_setup_helper = VipsecApproxSetupEnvHelper(vnfd_helper,
+                                                               ssh_helper,
+                                                               scenario_helper)
+
+        with mock.patch.object(cpu.CpuSysCores, 'get_cpu_layout') as \
+                mock_get_cpu_layout:
+            mock_get_cpu_layout.return_value = self.CPU_LAYOUT
+            sys_cores = cpu.CpuSysCores(ssh_helper)
+            ipsec_approx_setup_helper._update_vnfd_helper(
+                sys_cores.get_cpu_layout())
+            self.assertIsNone(ipsec_approx_setup_helper.build_config())
 
     @mock.patch.object(utils, 'setup_hugepages')
     def test_setup_vnf_environment(self, *args):
@@ -824,9 +861,12 @@ class TestVipsecApproxSetupEnvHelper(unittest.TestCase):
         ipsec_approx_setup_helper = VipsecApproxSetupEnvHelper(vnfd_helper,
                                                                ssh_helper,
                                                                scenario_helper)
-        self.assertIsInstance(
-            ipsec_approx_setup_helper.setup_vnf_environment(),
-            ResourceProfile)
+        with mock.patch.object(cpu.CpuSysCores, 'get_cpu_layout') as \
+                mock_get_cpu_layout:
+            mock_get_cpu_layout.return_value = self.CPU_LAYOUT
+            self.assertIsInstance(
+                ipsec_approx_setup_helper.setup_vnf_environment(),
+                ResourceProfile)
 
     def test_calculate_frame_size(self):
         vnfd_helper = VnfdHelper(
@@ -855,6 +895,29 @@ class TestVipsecApproxSetupEnvHelper(unittest.TestCase):
 
     def test_get_vpp_statistics(self):
         pass
+
+    def test_parser_vpp_stats(self):
+        output = '              Name               Idx    State  MTU (L3/IP4/IP6/MPLS)     Counter          Count     \n' \
+                 'TenGigabitEthernetff/6/0          1      up          9200/0/0/0     rx packets              23373568\n' \
+                 '                                                                    rx bytes              1402414080\n' \
+                 '                                                                    tx packets              20476416\n' \
+                 '                                                                    tx bytes              1228584960\n' \
+                 '                                                                    ip4                     23373568\n' \
+                 '                                                                    rx-miss                 27789925'
+        vnfd_helper = VnfdHelper(
+            TestVipsecApproxVnf.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        ssh_helper = mock.Mock()
+        scenario_helper = mock.Mock()
+
+        ipsec_approx_setup_helper = VipsecApproxSetupEnvHelper(vnfd_helper,
+                                                               ssh_helper,
+                                                               scenario_helper)
+        self.assertEqual({'xe0': {'packets_dropped': 27789925,
+                                  'packets_fwd': 20476416,
+                                  'packets_in': 23373568}},
+                         ipsec_approx_setup_helper.parser_vpp_stats('xe0',
+                                                                    'TenGigabitEthernetff/6/0',
+                                                                    output))
 
     def test_create_ipsec_tunnels(self):
         pass
@@ -937,3 +1000,105 @@ class TestVipsecApproxSetupEnvHelper(unittest.TestCase):
                                                                scenario_helper)
         self.assertEqual(expected,
                          ipsec_approx_setup_helper.find_encrypted_data_interface())
+
+    def test_create_startup_configuration_of_vpp(self):
+        vnfd_helper = VnfdHelper(
+            TestVipsecApproxVnf.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = 0, '0', ''
+        scenario_helper = mock.Mock()
+        scenario_helper.options = self.OPTIONS
+        scenario_helper.all_options = self.ALL_OPTIONS
+
+        ipsec_approx_setup_helper = VipsecApproxSetupEnvHelper(vnfd_helper,
+                                                               ssh_helper,
+                                                               scenario_helper)
+
+        with mock.patch.object(cpu.CpuSysCores, 'get_cpu_layout') as \
+                mock_get_cpu_layout:
+            mock_get_cpu_layout.return_value = self.CPU_LAYOUT
+            sys_cores = cpu.CpuSysCores(ssh_helper)
+            ipsec_approx_setup_helper._update_vnfd_helper(
+                sys_cores.get_cpu_layout())
+            self.assertIsInstance(
+                ipsec_approx_setup_helper.create_startup_configuration_of_vpp(),
+                vpp_helpers.VppConfigGenerator)
+
+    def test_add_worker_threads_and_rxqueues(self):
+        vnfd_helper = VnfdHelper(
+            TestVipsecApproxVnf.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = 0, '0', ''
+        scenario_helper = mock.Mock()
+        scenario_helper.options = self.OPTIONS
+        scenario_helper.all_options = self.ALL_OPTIONS
+        vpp_config_generator = vpp_helpers.VppConfigGenerator()
+
+        ipsec_approx_setup_helper = VipsecApproxSetupEnvHelper(vnfd_helper,
+                                                               ssh_helper,
+                                                               scenario_helper)
+
+        with mock.patch.object(cpu.CpuSysCores, 'get_cpu_layout') as \
+                mock_get_cpu_layout:
+            mock_get_cpu_layout.return_value = self.CPU_LAYOUT
+            sys_cores = cpu.CpuSysCores(ssh_helper)
+            ipsec_approx_setup_helper._update_vnfd_helper(
+                sys_cores.get_cpu_layout())
+            self.assertIsNone(
+                ipsec_approx_setup_helper.add_worker_threads_and_rxqueues(
+                    vpp_config_generator, 1, 1))
+        self.assertEqual(
+            'cpu\n{\n  corelist-workers 2\n  main-core 1\n}\ndpdk\n{\n  dev default\n  {\n    num-rx-queues 1\n  }\n  num-mbufs 32768\n}\n',
+            vpp_config_generator.dump_config())
+
+    def test_add_pci_devices(self):
+        vnfd_helper = VnfdHelper(
+            TestVipsecApproxVnf.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = 0, '0', ''
+        scenario_helper = mock.Mock()
+        scenario_helper.options = self.OPTIONS
+        scenario_helper.all_options = self.ALL_OPTIONS
+        vpp_config_generator = vpp_helpers.VppConfigGenerator()
+
+        ipsec_approx_setup_helper = VipsecApproxSetupEnvHelper(vnfd_helper,
+                                                               ssh_helper,
+                                                               scenario_helper)
+
+        with mock.patch.object(cpu.CpuSysCores, 'get_cpu_layout') as \
+                mock_get_cpu_layout:
+            mock_get_cpu_layout.return_value = self.CPU_LAYOUT
+            sys_cores = cpu.CpuSysCores(ssh_helper)
+            ipsec_approx_setup_helper._update_vnfd_helper(
+                sys_cores.get_cpu_layout())
+            self.assertIsNone(ipsec_approx_setup_helper.add_pci_devices(
+                vpp_config_generator))
+        self.assertEqual(
+            'dpdk\n{\n  dev 0000:ff:06.0 \n  dev 0000:ff:07.0 \n}\n',
+            vpp_config_generator.dump_config())
+
+    def test_add_dpdk_cryptodev(self):
+        vnfd_helper = VnfdHelper(
+            TestVipsecApproxVnf.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = 0, '0', ''
+        scenario_helper = mock.Mock()
+        scenario_helper.options = self.OPTIONS
+        scenario_helper.all_options = self.ALL_OPTIONS
+        vpp_config_generator = vpp_helpers.VppConfigGenerator()
+
+        ipsec_approx_setup_helper = VipsecApproxSetupEnvHelper(vnfd_helper,
+                                                               ssh_helper,
+                                                               scenario_helper)
+
+        with mock.patch.object(cpu.CpuSysCores, 'get_cpu_layout') as \
+                mock_get_cpu_layout:
+            mock_get_cpu_layout.return_value = self.CPU_LAYOUT
+            sys_cores = cpu.CpuSysCores(ssh_helper)
+            ipsec_approx_setup_helper._update_vnfd_helper(
+                sys_cores.get_cpu_layout())
+            self.assertIsNone(ipsec_approx_setup_helper.add_dpdk_cryptodev(
+                vpp_config_generator, 'aesni_gcm', 1))
+        self.assertEqual(
+            'dpdk\n{\n  vdev cryptodev_aesni_gcm_pmd,socket_id=None \n}\n',
+            vpp_config_generator.dump_config())
