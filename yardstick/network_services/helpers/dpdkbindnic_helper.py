@@ -13,14 +13,12 @@
 # limitations under the License.
 import logging
 import os
-
 import re
 from collections import defaultdict
 from itertools import chain
 
 from yardstick.common import exceptions
 from yardstick.common.utils import validate_non_string_sequence
-
 
 NETWORK_KERNEL = 'network_kernel'
 NETWORK_DPDK = 'network_dpdk'
@@ -288,12 +286,18 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
             raise DpdkBindHelperException(template.format(self.dpdk_devbind, res[0]))
         return res
 
-    def load_dpdk_driver(self):
+    def load_dpdk_driver(self, dpdk_driver=None):
+        if dpdk_driver is None:
+            dpdk_driver = self.dpdk_driver
         cmd_template = "sudo modprobe {} && sudo modprobe {}"
-        self.ssh_helper.execute(cmd_template.format(self.UIO_DRIVER, self.dpdk_driver))
+        self.ssh_helper.execute(
+            cmd_template.format(self.UIO_DRIVER, dpdk_driver))
 
-    def check_dpdk_driver(self):
-        return self.ssh_helper.execute("lsmod | grep -i {}".format(self.dpdk_driver))[0]
+    def check_dpdk_driver(self, dpdk_driver=None):
+        if dpdk_driver is None:
+            dpdk_driver = self.dpdk_driver
+        return \
+        self.ssh_helper.execute("lsmod | grep -i {}".format(dpdk_driver))[0]
 
     @property
     def _status_cmd(self):

@@ -1368,6 +1368,51 @@ class TestVipsecApproxSetupEnvHelper(unittest.TestCase):
                              'xe1', 'vpp_sw_index'))
         self.assertGreaterEqual(ssh_helper.execute.call_count, 4)
 
+    @mock.patch.object(utils, 'setup_hugepages')
+    def test_setup_vnf_environment_hw(self, *args):
+        vnfd_helper = VnfdHelper(
+            TestVipsecApproxVnf.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = 0, '0', ''
+        scenario_helper = mock.Mock()
+        scenario_helper.nodes = [None, None]
+        scenario_helper.options = self.OPTIONS_HW
+        scenario_helper.all_options = self.ALL_OPTIONS
+
+        ipsec_approx_setup_helper = VipsecApproxSetupEnvHelper(vnfd_helper,
+                                                               ssh_helper,
+                                                               scenario_helper)
+        with mock.patch.object(cpu.CpuSysCores, 'get_cpu_layout') as \
+                mock_get_cpu_layout, \
+                mock.patch.object(ipsec_approx_setup_helper,
+                                  'execute_script_json_out') as \
+                        mock_execute_script_json_out:
+            mock_get_cpu_layout.return_value = self.CPU_LAYOUT
+            mock_execute_script_json_out.return_value = str(
+                self.VPP_INTERFACES_DUMP).replace("\'", "\"")
+            self.assertIsInstance(
+                ipsec_approx_setup_helper.setup_vnf_environment(),
+                ResourceProfile)
+        self.assertEqual(0,
+                         ipsec_approx_setup_helper.get_value_by_interface_key(
+                             'xe0', 'numa_node'))
+        self.assertEqual('TenGigabitEthernetff/6/0',
+                         ipsec_approx_setup_helper.get_value_by_interface_key(
+                             'xe0', 'vpp_name'))
+        self.assertEqual(1,
+                         ipsec_approx_setup_helper.get_value_by_interface_key(
+                             'xe0', 'vpp_sw_index'))
+        self.assertEqual(0,
+                         ipsec_approx_setup_helper.get_value_by_interface_key(
+                             'xe1', 'numa_node'))
+        self.assertEqual('VirtualFunctionEthernetff/7/0',
+                         ipsec_approx_setup_helper.get_value_by_interface_key(
+                             'xe1', 'vpp_name'))
+        self.assertEqual(2,
+                         ipsec_approx_setup_helper.get_value_by_interface_key(
+                             'xe1', 'vpp_sw_index'))
+        self.assertGreaterEqual(ssh_helper.execute.call_count, 4)
+
     def test_calculate_frame_size(self):
         vnfd_helper = VnfdHelper(
             TestVipsecApproxVnf.VNFD['vnfd:vnfd-catalog']['vnfd'][0])
