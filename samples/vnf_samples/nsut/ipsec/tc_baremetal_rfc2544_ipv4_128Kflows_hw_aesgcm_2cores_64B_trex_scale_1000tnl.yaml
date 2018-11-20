@@ -1,0 +1,78 @@
+# Copyright (c) 2018 Viosoft Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+schema: yardstick:task:0.1
+description: >
+    DUT1 and DUT2 are configured with DPDK SW crypto devices
+    and multiple IPsec tunnels between them. DUTs get IPv4 traffic from TG,
+    encrypt it and send to another DUT, where packets are decrypted
+    and sent back to TG.
+    Measure successful transmit rate, throughput NDR/PDR, latency.
+
+{% set mlr_search = mlr_search or True %}
+
+scenarios:
+-
+  type: NSPerf
+{% if mlr_search %}
+  traffic_profile: ../../traffic_profiles/ipv4_throughput_latency_mlrsearch_vpp.yaml
+{% else %}
+  traffic_profile: ../../traffic_profiles/ipv4_throughput_latency_vpp.yaml
+{% endif %}
+  topology: "vpp-tg-topology-2.yaml"
+  nodes:
+    tg__0: trafficgen.yardstick
+    vnf__0: vnf0.yardstick
+    vnf__1: vnf1.yardstick
+  options:
+    traffic_type: 4
+    rfc2544:
+      allowed_drop_rate: 0.0 - 0.005
+    framesize:
+      uplink: {64B: 100}
+      downlink: {64B: 100}
+    flow:
+      src_ip:
+        - '10.0.0.0-10.0.0.100'
+      dst_ip:
+        - '20.0.0.0-20.0.0.100'
+      count: 128000
+    vnf__0:
+      collectd:
+        interval: 1
+      # Crypto device type. Type: string - *Example:* HW_cryptodev | SW_cryptodev
+      # Number of RX queues, default value: ${None}. Type: integer
+      vnf_config: {crypto_type: 'HW_cryptodev', rxq: 1, worker_config: '1C/1T', worker_threads: 2}
+    vnf__1:
+      collectd:
+        interval: 1
+      vnf_config: {crypto_type: 'HW_cryptodev', rxq: 1, worker_config: '1C/1T', worker_threads: 2}
+    tg__0:
+      collectd:
+        interval: 1
+      queues_per_port: 7
+    vpp_config:
+      # Number of tunnels
+      tunnel: 1000
+      # Encryption algorithms - Integrity algorithm. Type: string - *Example:* aes-gcm | cbc-sha1
+      crypto_algorithms: 'aes-gcm'
+  runner:
+    type: Duration
+    duration: 800
+context:
+  type: Node
+  name: yardstick
+  nfvi_type: baremetal
+  file: /etc/yardstick/nodes/vpp-baremetal-2.yaml
