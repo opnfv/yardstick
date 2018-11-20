@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_484a6b84",
+        "filename": "yardstick/benchmark/runners/iteration.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-11-20T10:17:55Z",
+      "side": 1,
+      "message": "Please use spaces instead of tabs.\n\nYou should add a unit test to make sure that the exception is raised.",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 4
+      },
+      "revId": "985f6cdec071c098be692f3e3fcd8af7a66a0eac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
