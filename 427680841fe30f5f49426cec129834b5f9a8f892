@@ -22,6 +22,30 @@
       "revId": "427680841fe30f5f49426cec129834b5f9a8f892",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9fcaf69f",
+        "filename": "samples/vnf_samples/nsut/prox/prox-irq-baremetal.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-20T20:43:11Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "1a622d24_4d639d1a",
+      "range": {
+        "startLine": 35,
+        "startChar": 10,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "427680841fe30f5f49426cec129834b5f9a8f892",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
