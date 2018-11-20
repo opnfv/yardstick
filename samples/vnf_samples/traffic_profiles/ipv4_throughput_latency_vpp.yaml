@@ -20,12 +20,13 @@ description:     Traffic profile to run RFC2544 latency
 traffic_profile:
   traffic_type : VppRFC2544Profile # defines traffic behavior - constant or look for highest possible throughput
   enable_latency: true
+  intermediate_phases: 2
   test_precision: 0.1
   duration: 30
   lower_bound: 1.0
   upper_bound: 100.0
   step_interval: 0.5
-  frame_rate : 100  # pc of linerate
+  frame_rate : 14880000  # 14880000 - 14.88 Mpps for 64B 10GE link rate or 100 - pc of linerate
 
 uplink_0:
       ipv4:
