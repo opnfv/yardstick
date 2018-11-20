@@ -163,6 +163,14 @@ class VipsecApproxSetupEnvHelper(VppSetupEnvHelper):
 
         self.start_vpp_service()
 
+        # for QAT device DH895xCC, the number of VFs is required as 32
+        if self._get_crypto_type() == 'HW_cryptodev':
+            sriov_numvfs = self.get_sriov_numvfs(
+                self.find_encrypted_data_interface()["vpci"])
+            if sriov_numvfs != 32:
+                self.crypto_device_init(
+                    self.find_encrypted_data_interface()["vpci"], 32)
+
         sys_cores = CpuSysCores(self.ssh_helper)
         self._update_vnfd_helper(sys_cores.get_cpu_layout())
         self.update_vpp_interface_data()
