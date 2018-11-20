@@ -154,6 +154,8 @@ class VipsecApproxSetupEnvHelper(VppSetupEnvHelper):
 
         vpp_cfg.add_dpdk_dev_default_rxd(2048)
         vpp_cfg.add_dpdk_dev_default_txd(2048)
+        self.apply_config(vpp_cfg, True)
+        self.update_vpp_interface_data()
 
     def setup_vnf_environment(self):
         resource = super(VipsecApproxSetupEnvHelper,
@@ -163,6 +165,8 @@ class VipsecApproxSetupEnvHelper(VppSetupEnvHelper):
 
         sys_cores = CpuSysCores(self.ssh_helper)
         self._update_vnfd_helper(sys_cores.get_cpu_layout())
+        self.update_vpp_interface_data()
+        self.iface_update_numa()
 
         return resource
 
@@ -244,8 +248,43 @@ class VipsecApproxSetupEnvHelper(VppSetupEnvHelper):
         return result
 
     def create_ipsec_tunnels(self):
-        # TODO Implement later
-        pass
+        self.initialize_ipsec()
+
+        # TODO generate the same key
+        crypto_algorithms = self._get_crypto_algorithms()
+        if crypto_algorithms == 'aes-gcm':
+            encr_alg = CryptoAlg.AES_GCM_128
+            auth_alg = IntegAlg.AES_GCM_128
+            encr_key = 'LNYZXMBQDKESNLREHJMS'
+            auth_key = 'SWGLDTYZSQKVBZZMPIEV'
+        elif crypto_algorithms == 'cbc-sha1':
+            encr_alg = CryptoAlg.AES_CBC_128
+            auth_alg = IntegAlg.SHA1_96
+            encr_key = 'IFEMSHYLCZIYFUTT'
+            auth_key = 'PEALEIPSCPTRHYJSDXLY'
+
+        self.execute_script("enable_dpdk_traces.vat", json_out=False)
+        self.execute_script("enable_vhost_user_traces.vat", json_out=False)
+        self.execute_script("enable_memif_traces.vat", json_out=False)
+
+        node_name = self.find_encrypted_data_interface()["node_name"]
+        n_tunnels = self._get_n_tunnels()
+        n_connections = self._get_n_connections()
+        flow_dst_start_ip = self._get_flow_dst_start_ip()
+        if node_name == "vnf__0":
+            self.vpp_create_ipsec_tunnels(
+                self.find_encrypted_data_interface()["local_ip"],
+                self.find_encrypted_data_interface()["peer_intf"]["local_ip"],
+                self.find_encrypted_data_interface()["ifname"],
+                n_tunnels, n_connections, encr_alg, encr_key, auth_alg,
+                auth_key, flow_dst_start_ip)
+        elif node_name == "vnf__1":
+            self.vpp_create_ipsec_tunnels(
+                self.find_encrypted_data_interface()["local_ip"],
+                self.find_encrypted_data_interface()["peer_intf"]["local_ip"],
+                self.find_encrypted_data_interface()["ifname"],
+                n_tunnels, n_connections, encr_alg, encr_key, auth_alg,
+                auth_key, flow_dst_start_ip, 20000, 10000)
 
     def find_raw_data_interface(self):
         try:
@@ -360,6 +399,41 @@ class VipsecApproxSetupEnvHelper(VppSetupEnvHelper):
             else:
                 vpp_cfg.add_dpdk_sw_cryptodev(sw_pmd_type, socket_id,
                                               thr_count_int)
+
+    def initialize_ipsec(self):
+        flow_src_start_ip = self._get_flow_src_start_ip()
+
+        self.set_interface_state(
+            self.find_encrypted_data_interface()["ifname"], 'up')
+        self.set_interface_state(self.find_raw_data_interface()["ifname"],
+                                 'up')
+        self.vpp_interfaces_ready_wait()
+        self.vpp_set_interface_mtu(
+            self.find_encrypted_data_interface()["ifname"])
+        self.vpp_set_interface_mtu(self.find_raw_data_interface()["ifname"])
+        self.vpp_interfaces_ready_wait()
+
+        self.set_ip(self.find_encrypted_data_interface()["ifname"],
+                    self.find_encrypted_data_interface()["local_ip"], 24)
+        self.set_ip(self.find_raw_data_interface()["ifname"],
+                    self.find_raw_data_interface()["local_ip"],
+                    24)
+
+        self.add_arp_on_dut(self.find_encrypted_data_interface()["ifname"],
+                            self.find_encrypted_data_interface()["peer_intf"][
+                                "local_ip"],
+                            self.find_encrypted_data_interface()["peer_intf"][
+                                "local_mac"])
+        self.add_arp_on_dut(self.find_raw_data_interface()["ifname"],
+                            self.find_raw_data_interface()["peer_intf"][
+                                "local_ip"],
+                            self.find_raw_data_interface()["peer_intf"][
+                                "local_mac"])
+
+        self.vpp_route_add(flow_src_start_ip, 8,
+                           self.find_raw_data_interface()["peer_intf"][
+                               "local_ip"],
+                           self.find_raw_data_interface()["ifname"])
 
 
 class VipsecApproxVnf(SampleVNF):
