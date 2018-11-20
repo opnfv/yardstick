@@ -14,10 +14,12 @@
 import unittest
 
 import mock
+from ipaddress import ip_address
 
+from yardstick.network_services.vnf_generic.vnf import vpp_helpers
 from yardstick.network_services.vnf_generic.vnf.base import VnfdHelper
 from yardstick.network_services.vnf_generic.vnf.vpp_helpers import \
-    VppSetupEnvHelper, VppConfigGenerator
+    VppSetupEnvHelper, VppConfigGenerator, VatTerminal
 
 
 class TestVppConfigGenerator(unittest.TestCase):
@@ -409,3 +411,329 @@ class TestVppSetupEnvHelper(unittest.TestCase):
         self.assertEqual({'vpp-key': 'vpp-value'},
                          vpp_setup_env_helper.get_value_by_interface_key(
                              'xe0', 'vpp-data'))
+
+    def test_vpp_create_ipsec_tunnels(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = 0, '', ''
+
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+
+        self.assertIsNone(
+            vpp_setup_env_helper.vpp_create_ipsec_tunnels('10.10.10.2',
+                                                          '10.10.10.1', 'xe0',
+                                                          1, 1, mock.Mock(),
+                                                          'crypto_key',
+                                                          mock.Mock(),
+                                                          'integ_key',
+                                                          '20.20.20.0'))
+        self.assertGreaterEqual(ssh_helper.execute.call_count, 2)
+
+    def test_apply_config(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = 0, '', ''
+
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+        self.assertIsNone(vpp_setup_env_helper.apply_config(mock.Mock()))
+        self.assertGreaterEqual(ssh_helper.execute.call_count, 2)
+
+    def test_vpp_route_add(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+
+        with mock.patch.object(vpp_helpers.VatTerminal,
+                               'vat_terminal_exec_cmd_from_template') as \
+                mock_vat_terminal_exec_cmd_from_template:
+            mock_vat_terminal_exec_cmd_from_template.return_value = ''
+            self.assertIsNone(
+                vpp_setup_env_helper.vpp_route_add('xe0', '10.10.10.1', 24))
+
+    def test_add_arp_on_dut(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+
+        with mock.patch.object(vpp_helpers.VatTerminal,
+                               'vat_terminal_exec_cmd_from_template') as \
+                mock_vat_terminal_exec_cmd_from_template:
+            mock_vat_terminal_exec_cmd_from_template.return_value = ''
+            self.assertEqual('', vpp_setup_env_helper.add_arp_on_dut('xe0',
+                                                                     '10.10.10.1',
+                                                                     '00:00:00:00:00:00'))
+
+    def test_set_ip(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+
+        with mock.patch.object(vpp_helpers.VatTerminal,
+                               'vat_terminal_exec_cmd_from_template') as \
+                mock_vat_terminal_exec_cmd_from_template:
+            mock_vat_terminal_exec_cmd_from_template.return_value = ''
+            self.assertEqual('',
+                             vpp_setup_env_helper.set_ip('xe0', '10.10.10.1',
+                                                         24))
+
+    def test_set_interface_state(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+
+        with mock.patch.object(vpp_helpers.VatTerminal,
+                               'vat_terminal_exec_cmd_from_template') as \
+                mock_vat_terminal_exec_cmd_from_template:
+            mock_vat_terminal_exec_cmd_from_template.return_value = ''
+            self.assertEqual('',
+                             vpp_setup_env_helper.set_interface_state('xe0',
+                                                                      'up'))
+
+    def test_vpp_set_interface_mtu(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+
+        with mock.patch.object(vpp_helpers.VatTerminal,
+                               'vat_terminal_exec_cmd_from_template') as \
+                mock_vat_terminal_exec_cmd_from_template:
+            mock_vat_terminal_exec_cmd_from_template.return_value = ''
+            self.assertIsNone(
+                vpp_setup_env_helper.vpp_set_interface_mtu('xe0', 9200))
+
+    def test_vpp_interfaces_ready_wait(self):
+        json_output = [self.VPP_INTERFACES_DUMP]
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+
+        with mock.patch.object(vpp_helpers.VatTerminal,
+                               'vat_terminal_exec_cmd_from_template') as \
+                mock_vat_terminal_exec_cmd_from_template:
+            mock_vat_terminal_exec_cmd_from_template.return_value = json_output
+            self.assertIsNone(vpp_setup_env_helper.vpp_interfaces_ready_wait())
+
+    def test_vpp_get_interface_data(self):
+        json_output = [[
+            {
+                "sw_if_index": 0,
+                "sup_sw_if_index": 0
+            },
+            {
+                "l2_address_length": 6,
+                "l2_address": [144, 226, 186, 124, 65, 168, 0, 0]
+            },
+            {
+                "interface_name": "VirtualFunctionEthernetff/7/0",
+                "admin_up_down": 0
+            }
+        ]]
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+
+        with mock.patch.object(vpp_helpers.VatTerminal,
+                               'vat_terminal_exec_cmd_from_template') as \
+                mock_vat_terminal_exec_cmd_from_template:
+            mock_vat_terminal_exec_cmd_from_template.return_value = json_output
+            self.assertEqual(json_output[0],
+                             vpp_setup_env_helper.vpp_get_interface_data())
+
+    def test_update_vpp_interface_data(self):
+        output = '{}\n{}'.format(self.VPP_INTERFACES_DUMP,
+                                 'dump_interface_table:6019: JSON output supported only for VPE API calls and dump_stats_table\n' \
+                                 '/opt/nsb_bin/vpp/templates/dump_interfaces.vat(2): \n' \
+                                 'dump_interface_table error: Misc')
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = 0, output.replace("\'", "\""), ''
+        ssh_helper.join_bin_path.return_value = '/opt/nsb_bin/vpp/templates'
+
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+        self.assertIsNone(vpp_setup_env_helper.update_vpp_interface_data())
+        self.assertGreaterEqual(ssh_helper.execute.call_count, 1)
+        self.assertEqual('TenGigabitEthernetff/6/0',
+                         vpp_setup_env_helper.get_value_by_interface_key(
+                             'xe0', 'vpp_name'))
+        self.assertEqual(1, vpp_setup_env_helper.get_value_by_interface_key(
+            'xe0', 'vpp_sw_index'))
+        self.assertEqual('VirtualFunctionEthernetff/7/0',
+                         vpp_setup_env_helper.get_value_by_interface_key(
+                             'xe1', 'vpp_name'))
+        self.assertEqual(2, vpp_setup_env_helper.get_value_by_interface_key(
+            'xe1', 'vpp_sw_index'))
+
+    def test_iface_update_numa(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = 0, '0', ''
+
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+        self.assertIsNone(vpp_setup_env_helper.iface_update_numa())
+        self.assertGreaterEqual(ssh_helper.execute.call_count, 2)
+        self.assertEqual(0, vpp_setup_env_helper.get_value_by_interface_key(
+            'xe0', 'numa_node'))
+        self.assertEqual(0, vpp_setup_env_helper.get_value_by_interface_key(
+            'xe1', 'numa_node'))
+
+    def test_execute_script(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+        vpp_setup_env_helper.execute_script('dump_interfaces.vat', True, True)
+        self.assertGreaterEqual(ssh_helper.put_file.call_count, 1)
+        self.assertGreaterEqual(ssh_helper.execute.call_count, 1)
+
+    def test_execute_script_json_out(self):
+        json_output = [
+            {
+                "sw_if_index": 0,
+                "sup_sw_if_index": 0
+            },
+            {
+                "l2_address_length": 6,
+                "l2_address": [144, 226, 186, 124, 65, 168, 0, 0]
+            },
+            {
+                "interface_name": "VirtualFunctionEthernetff/7/0",
+                "admin_up_down": 0
+            }
+        ]
+        output = '{}\n{}'.format(json_output,
+                                 'dump_interface_table:6019: JSON output supported only for VPE API calls and dump_stats_table\n' \
+                                 '/opt/nsb_bin/vpp/templates/dump_interfaces.vat(2): \n' \
+                                 'dump_interface_table error: Misc')
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = 0, output, ''
+        ssh_helper.join_bin_path.return_value = '/opt/nsb_bin/vpp/templates'
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+        self.assertEqual(str(json_output),
+                         vpp_setup_env_helper.execute_script_json_out(
+                             'dump_interfaces.vat'))
+
+    def test_self_cleanup_vat_json_output(self):
+        json_output = [
+            {
+                "sw_if_index": 0,
+                "sup_sw_if_index": 0
+            },
+            {
+                "l2_address_length": 6,
+                "l2_address": [144, 226, 186, 124, 65, 168, 0, 0]
+            },
+            {
+                "interface_name": "VirtualFunctionEthernetff/7/0",
+                "admin_up_down": 0
+            }
+        ]
+
+        output = '{}\n{}'.format(json_output,
+                                 'dump_interface_table:6019: JSON output supported only for VPE API calls and dump_stats_table\n' \
+                                 '/opt/nsb_bin/vpp/templates/dump_interfaces.vat(2): \n' \
+                                 'dump_interface_table error: Misc')
+        self.assertEqual(str(json_output),
+                         VppSetupEnvHelper.cleanup_vat_json_output(output,
+                                                                   '/opt/nsb_bin/vpp/templates/dump_interfaces.vat'))
+
+    def test__convert_mac_to_number_list(self):
+        self.assertEqual([144, 226, 186, 124, 65, 168],
+                         VppSetupEnvHelper._convert_mac_to_number_list(
+                             '90:e2:ba:7c:41:a8'))
+
+    def test_get_vpp_interface_by_mac(self):
+        mac_address = '90:e2:ba:7c:41:a8'
+        self.assertEqual({'admin_up_down': 0,
+                          'interface_name': 'TenGigabitEthernetff/6/0',
+                          'l2_address': [144, 226, 186, 124, 65, 168, 0, 0],
+                          'l2_address_length': 6,
+                          'link_duplex': 2,
+                          'link_speed': 32,
+                          'link_up_down': 0,
+                          'mtu': 9202,
+                          'sub_default': 0,
+                          'sub_dot1ad': 0,
+                          'sub_exact_match': 0,
+                          'sub_id': 0,
+                          'sub_inner_vlan_id': 0,
+                          'sub_inner_vlan_id_any': 0,
+                          'sub_number_of_tags': 0,
+                          'sub_outer_vlan_id': 0,
+                          'sub_outer_vlan_id_any': 0,
+                          'sup_sw_if_index': 1,
+                          'sw_if_index': 1,
+                          'vtr_op': 0,
+                          'vtr_push_dot1q': 0,
+                          'vtr_tag1': 0,
+                          'vtr_tag2': 0},
+                         VppSetupEnvHelper.get_vpp_interface_by_mac(
+                             self.VPP_INTERFACES_DUMP, mac_address))
+
+    def test_get_prefix_length(self):
+        start_ip = '10.10.10.0'
+        end_ip = '10.10.10.127'
+        ips = [ip_address(ip) for ip in
+               [str(ip_address(start_ip)), str(end_ip)]]
+        lowest_ip, highest_ip = min(ips), max(ips)
+
+        self.assertEqual(25,
+                         VppSetupEnvHelper.get_prefix_length(int(lowest_ip),
+                                                             int(highest_ip),
+                                                             lowest_ip.max_prefixlen))
+
+
+class TestVatTerminal(unittest.TestCase):
+
+    def test_vat_terminal_exec_cmd(self):
+        ssh_helper = mock.Mock()
+        ssh_helper.interactive_terminal_exec_command.return_value = str(
+            {'empty': 'value'}).replace("\'", "\"")
+        vat_terminal = VatTerminal(ssh_helper, json_param=True)
+
+        self.assertEqual({'empty': 'value'},
+                         vat_terminal.vat_terminal_exec_cmd(
+                             "hw_interface_set_mtu sw_if_index 1 mtu 9200"))
+
+    def test_vat_terminal_close(self):
+        ssh_helper = mock.Mock()
+        vat_terminal = VatTerminal(ssh_helper, json_param=False)
+        self.assertIsNone(vat_terminal.vat_terminal_close())
+
+    def test_vat_terminal_exec_cmd_from_template(self):
+        ssh_helper = mock.Mock()
+        vat_terminal = VatTerminal(ssh_helper, json_param=False)
+
+        with mock.patch.object(vat_terminal, 'vat_terminal_exec_cmd') as \
+                mock_vat_terminal_exec_cmd:
+            mock_vat_terminal_exec_cmd.return_value = 'empty'
+            self.assertEqual(['empty'],
+                             vat_terminal.vat_terminal_exec_cmd_from_template(
+                                 "hw_interface_set_mtu.vat", sw_if_index=1,
+                                 mtu=9200))
