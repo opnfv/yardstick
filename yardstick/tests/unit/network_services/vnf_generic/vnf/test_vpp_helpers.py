@@ -837,6 +837,122 @@ class TestVppSetupEnvHelper(unittest.TestCase):
         self.assertIsNone(vpp_setup_env_helper.get_value_by_interface_key(
             'xe2', 'vpp-err'))
 
+    def test_crypto_device_init(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+        vpp_setup_env_helper.dpdk_bind_helper.load_dpdk_driver = mock.Mock()
+        vpp_setup_env_helper.dpdk_bind_helper.bind = mock.Mock()
+
+        vpp_setup_env_helper.kill_vnf = mock.Mock()
+        vpp_setup_env_helper.pci_driver_unbind = mock.Mock()
+
+        with mock.patch.object(vpp_setup_env_helper, 'get_pci_dev_driver') as \
+                mock_get_pci_dev_driver, \
+                mock.patch.object(vpp_setup_env_helper, 'set_sriov_numvfs') as \
+                        mock_set_sriov_numvfs:
+            mock_get_pci_dev_driver.return_value = 'igb_uio'
+            self.assertIsNone(
+                vpp_setup_env_helper.crypto_device_init('0000:ff:06.0', 32))
+            mock_set_sriov_numvfs.assert_called()
+
+    def test_get_sriov_numvfs(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = 0, '32', ''
+
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+        self.assertEqual(32,
+                         vpp_setup_env_helper.get_sriov_numvfs('0000:ff:06.0'))
+
+    def test_get_sriov_numvfs_error(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = 0, 'err', ''
+
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+        self.assertEqual(0,
+                         vpp_setup_env_helper.get_sriov_numvfs('0000:ff:06.0'))
+
+    def test_set_sriov_numvfs(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+        vpp_setup_env_helper.set_sriov_numvfs('0000:ff:06.0')
+        self.assertEqual(ssh_helper.execute.call_count, 1)
+
+    def test_pci_driver_unbind(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+        vpp_setup_env_helper.pci_driver_unbind('0000:ff:06.0')
+        self.assertEqual(ssh_helper.execute.call_count, 1)
+
+    def test_get_pci_dev_driver(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = \
+            0, 'Slot:	ff:07.0\n' \
+               'Class:	Ethernet controller\n' \
+               'Vendor:	Intel Corporation\n' \
+               'Device:	82599 Ethernet Controller Virtual Function\n' \
+               'SVendor:	Intel Corporation\n' \
+               'SDevice:	82599 Ethernet Controller Virtual Function\n' \
+               'Rev:	01\n' \
+               'Driver:	igb_uio\n' \
+               'Module:	ixgbevf', ''
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+        self.assertEqual('igb_uio', vpp_setup_env_helper.get_pci_dev_driver(
+            '0000:ff:06.0'))
+
+    def test_get_pci_dev_driver_error(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = 1, 'err', ''
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+        with self.assertRaises(RuntimeError) as raised:
+            vpp_setup_env_helper.get_pci_dev_driver(
+                '0000:ff:06.0')
+
+        self.assertIn("'lspci -vmmks 0000:ff:06.0' failed",
+                      str(raised.exception))
+
+    def test_get_pci_dev_driver_output_error(self):
+        vnfd_helper = VnfdHelper(self.VNFD_0)
+        ssh_helper = mock.Mock()
+        ssh_helper.execute.return_value = \
+            0, 'Slot:	ff:07.0\n' \
+               '\n\t' \
+               'Vendor:	Intel Corporation\n' \
+               'Device:	82599 Ethernet Controller Virtual Function\n' \
+               'SVendor:	Intel Corporation\n' \
+               'SDevice:	82599 Ethernet Controller Virtual Function\n' \
+               'Rev:	01\n' \
+               'Driver_err:	igb_uio\n' \
+               'Module:	ixgbevf', ''
+        scenario_helper = mock.Mock()
+        vpp_setup_env_helper = VppSetupEnvHelper(vnfd_helper, ssh_helper,
+                                                 scenario_helper)
+        self.assertIsNone(
+            vpp_setup_env_helper.get_pci_dev_driver('0000:ff:06.0'))
+
     def test_vpp_create_ipsec_tunnels(self):
         vnfd_helper = VnfdHelper(self.VNFD_0)
         ssh_helper = mock.Mock()
