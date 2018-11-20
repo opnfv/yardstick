@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_e8541723",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-11-20T10:42:09Z",
+      "side": 1,
+      "message": "nit: could have used \"Add\" once and put items as a list.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 30
+      },
+      "revId": "9367cecddc2ed5b422d7847467375b9e18c2a7df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c824bbc8",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-11-20T10:42:09Z",
+      "side": 1,
+      "message": "I can\u0027t find this document rendered for PS3.\nPlease direct me if I missed it. Thanks.",
+      "revId": "9367cecddc2ed5b422d7847467375b9e18c2a7df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a8217fb6",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-11-20T10:42:09Z",
+      "side": 1,
+      "message": "Seems this picture needs an update, since the numbers moved away, and #11 missing.\nSame might need to be checked for other screenshots.",
+      "range": {
+        "startLine": 236,
+        "startChar": 11,
+        "endLine": 236,
+        "endChar": 41
+      },
+      "revId": "9367cecddc2ed5b422d7847467375b9e18c2a7df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_28360f04",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2018-11-20T10:42:09Z",
+      "side": 1,
+      "message": "11?",
+      "range": {
+        "startLine": 339,
+        "startChar": 0,
+        "endLine": 339,
+        "endChar": 2
+      },
+      "revId": "9367cecddc2ed5b422d7847467375b9e18c2a7df",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
