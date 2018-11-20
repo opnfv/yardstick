@@ -141,3 +141,58 @@ class TestCpuSysCores(unittest.TestCase):
 
     def test__str2int_error(self):
         self.assertEqual(0, CpuSysCores._str2int("err"))
+
+    def test_is_smt_enabled(self):
+        self.assertEqual(False,
+                         CpuSysCores.is_smt_enabled(
+                             [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                              [1, 1, 0, 0, 0, 1, 1, 1, 0]]))
+
+    def test_cpu_list_per_node(self):
+        cpuinfo = {}
+        cpuinfo['cpuinfo'] = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                              [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+        self.assertEqual([0, 1],
+                         CpuSysCores.cpu_list_per_node(cpuinfo, 0, False))
+
+    def test_cpu_list_per_node_error(self):
+        cpuinfo = {}
+        cpuinfo['err'] = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                          [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+        with self.assertRaises(RuntimeError) as raised:
+            CpuSysCores.cpu_list_per_node(cpuinfo, 0, False)
+        self.assertIn('Node cpuinfo not available.', str(raised.exception))
+
+    def test_cpu_list_per_node_smt_error(self):
+        cpuinfo = {}
+        cpuinfo['cpuinfo'] = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                              [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+        with self.assertRaises(RuntimeError) as raised:
+            CpuSysCores.cpu_list_per_node(cpuinfo, 0, True)
+        self.assertIn('SMT is not enabled.', str(raised.exception))
+
+    def test_cpu_slice_of_list_per_node(self):
+        cpuinfo = {}
+        cpuinfo['cpuinfo'] = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                              [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+        self.assertEqual([1],
+                         CpuSysCores.cpu_slice_of_list_per_node(cpuinfo, 0, 1,
+                                                                0, False))
+
+    def test_cpu_slice_of_list_per_node_error(self):
+        cpuinfo = {}
+        cpuinfo['cpuinfo'] = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                              [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+        with self.assertRaises(RuntimeError) as raised:
+            CpuSysCores.cpu_slice_of_list_per_node(cpuinfo, 1, 1,
+                                                   1, False)
+        self.assertIn('cpu_cnt + skip_cnt > length(cpu list).',
+                      str(raised.exception))
+
+    def test_cpu_list_per_node_str(self):
+        cpuinfo = {}
+        cpuinfo['cpuinfo'] = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                              [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+        self.assertEqual("1",
+                         CpuSysCores.cpu_list_per_node_str(cpuinfo, 0, 1, 1,
+                                                           ',', False))
