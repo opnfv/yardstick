@@ -14,16 +14,18 @@
 
 import datetime
 import logging
+from ipaddress import ip_address
 from random import choice
 from string import ascii_letters
 
-from ipaddress import ip_address
 from trex_stl_lib import api as Pkt
 from trex_stl_lib import trex_stl_client
 from trex_stl_lib import trex_stl_packet_builder_scapy
 from trex_stl_lib import trex_stl_streams
 
 from yardstick.common import constants
+from yardstick.network_services.helpers.vpp_helpers.multiple_loss_ratio_search import \
+    MultipleLossRatioSearch
 from yardstick.network_services.traffic_profile.rfc2544 import RFC2544Profile, \
     PortPgIDMap
 from yardstick.network_services.traffic_profile.trex_traffic_profile import IP, \
@@ -36,6 +38,10 @@ class VppRFC2544Profile(RFC2544Profile):
 
     def __init__(self, traffic_generator):
         super(VppRFC2544Profile, self).__init__(traffic_generator)
+
+        tp_cfg = traffic_generator["traffic_profile"]
+        self.number_of_intermediate_phases = tp_cfg.get("intermediate_phases",
+                                                        2)
 
         self.duration = self.config.duration
         self.precision = self.config.test_precision
@@ -248,8 +254,19 @@ class VppRFC2544Profile(RFC2544Profile):
 
     def binary_search_with_optimized(self, traffic_generator, duration,
                                      timeout, test_data):
-        # TODO Support FD.io Multiple Loss Ratio search (MLRsearch)
-        pass
+        self.queue.cancel_join_thread()
+        algorithm = MultipleLossRatioSearch(
+            measurer=traffic_generator, latency=self.enable_latency,
+            pkt_size=self.pkt_size,
+            final_trial_duration=duration,
+            final_relative_width=self.step_interval / 100,
+            number_of_intermediate_phases=self.number_of_intermediate_phases,
+            initial_trial_duration=1,
+            timeout=timeout)
+        algorithm.init_generator(self.ports, self.port_pg_id, self.profiles,
+                                 test_data, self.queue)
+        return algorithm.narrow_down_ndr_and_pdr(10000, self.max_rate,
+                                                 self.tolerance_high)
 
     def binary_search(self, traffic_generator, duration, tolerance_value,
                       test_data):
