@@ -138,3 +138,32 @@ class TestCpuSysCores(unittest.TestCase):
 
     def test__str2int(self):
         self.assertEqual(1, CpuSysCores._str2int("1"))
+
+    def test_is_smt_enabled(self):
+        self.assertEqual(False,
+                         CpuSysCores.is_smt_enabled(
+                             [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                              [1, 1, 0, 0, 0, 1, 1, 1, 0]]))
+
+    def test_cpu_list_per_node(self):
+        cpuinfo = {}
+        cpuinfo['cpuinfo'] = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                              [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+        self.assertEqual([0, 1],
+                         CpuSysCores.cpu_list_per_node(cpuinfo, 0, False))
+
+    def test_cpu_slice_of_list_per_node(self):
+        cpuinfo = {}
+        cpuinfo['cpuinfo'] = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                              [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+        self.assertEqual([1],
+                         CpuSysCores.cpu_slice_of_list_per_node(cpuinfo, 0, 1,
+                                                                1, False))
+
+    def test_cpu_list_per_node_str(self):
+        cpuinfo = {}
+        cpuinfo['cpuinfo'] = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                              [1, 1, 0, 0, 0, 1, 1, 1, 0]]
+        self.assertEqual("1",
+                         CpuSysCores.cpu_list_per_node_str(cpuinfo, 0, 1, 1,
+                                                           ',', False))

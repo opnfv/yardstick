@@ -33,7 +33,8 @@ setup(
             'network_services/nfvi/collectd.sh',
             'resources/files/*',
             'resources/scripts/install/*.bash',
-            'resources/scripts/remove/*.bash'
+            'resources/scripts/remove/*.bash',
+            'resources/templates/*.vat'
         ],
         'etc': [
             'yardstick/nodes/*/*.yaml',
