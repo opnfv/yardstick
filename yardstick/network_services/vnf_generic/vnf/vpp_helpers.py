@@ -198,6 +198,7 @@ class VppSetupEnvHelper(DpdkVnfSetupEnvHelper):
     CFG_CONFIG = "/etc/vpp/startup.conf"
     CFG_SCRIPT = ""
     PIPELINE_COMMAND = ""
+    QAT_DRIVER = "qat_dh895xcc"
     VNF_TYPE = "IPSEC"
     VAT_BIN_NAME = 'vpp_api_test'
 
@@ -247,6 +248,63 @@ class VppSetupEnvHelper(DpdkVnfSetupEnvHelper):
                 ifname=interface).get(key)
         except (KeyError, ValueError):
             return None
+
+    def crypto_device_init(self, pci_addr, numvfs):
+        # QAT device must be re-bound to kernel driver before initialization.
+        self.dpdk_bind_helper.load_dpdk_driver(self.QAT_DRIVER)
+
+        # Stop VPP to prevent deadlock.
+        self.kill_vnf()
+
+        current_driver = self.get_pci_dev_driver(pci_addr.replace(':', r'\:'))
+        if current_driver is not None:
+            self.pci_driver_unbind(pci_addr)
+
+        # Bind to kernel driver.
+        self.dpdk_bind_helper.bind(pci_addr, self.QAT_DRIVER.replace('qat_', ''))
+
+        # Initialize QAT VFs.
+        if numvfs > 0:
+            self.set_sriov_numvfs(pci_addr, numvfs)
+
+    def get_sriov_numvfs(self, pf_pci_addr):
+        command = 'cat /sys/bus/pci/devices/{pci}/sriov_numvfs'. \
+            format(pci=pf_pci_addr.replace(':', r'\:'))
+        _, stdout, _ = self.ssh_helper.execute(command)
+        try:
+            return int(stdout)
+        except ValueError:
+            LOG.debug('Reading sriov_numvfs info failed')
+            return 0
+
+    def set_sriov_numvfs(self, pf_pci_addr, numvfs=0):
+        command = "sh -c 'echo {num} | tee /sys/bus/pci/devices/{pci}/sriov_numvfs'". \
+            format(num=numvfs, pci=pf_pci_addr.replace(':', r'\:'))
+        self.ssh_helper.execute(command)
+
+    def pci_driver_unbind(self, pci_addr):
+        command = "sh -c 'echo {pci} | tee /sys/bus/pci/devices/{pcie}/driver/unbind'". \
+            format(pci=pci_addr, pcie=pci_addr.replace(':', r'\:'))
+        self.ssh_helper.execute(command)
+
+    def get_pci_dev_driver(self, pci_addr):
+        cmd = 'lspci -vmmks {0}'.format(pci_addr)
+        ret_code, stdout, _ = self.ssh_helper.execute(cmd)
+        if int(ret_code):
+            raise RuntimeError("'{0}' failed".format(cmd))
+        for line in stdout.splitlines():
+            if not line:
+                continue
+            name = None
+            value = None
+            try:
+                name, value = line.split("\t", 1)
+            except ValueError:
+                if name == "Driver:":
+                    return None
+            if name == 'Driver:':
+                return value
+        return None
 
     def vpp_create_ipsec_tunnels(self, if1_ip_addr, if2_ip_addr, if_name,
                                  n_tunnels, n_connections, crypto_alg,
