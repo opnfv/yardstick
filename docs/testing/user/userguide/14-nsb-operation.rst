@@ -564,3 +564,31 @@ may be changed.
 
 2. Subsection ``runner``: specifies the test duration and the interval of
 TG and VNF side KPIs polling. For more details, refer to :doc:`03-architecture`.
+
+Preparing test run of vPE test case
+-----------------------------------
+The vPE (Provider Edge Router) is a VNF (Virtual Network Function)approximation
+serving as an Edge Router. The vPE is approximated using the ip_pipeline dpdk application.
+
+         .. image:: images/vPE_Diagram.png
+            :width: 800px
+            :alt: NSB vPE Diagram
+
+The vpe_config file must be passed as it is not auto generated.
+The vpe_script defines the rules applied to each of the pipelines. This can be auto generated
+or a file can be passed using the script_file option in vnf_config as seen below.
+The full_tm_profile_file: option must be used if a traffic manager is defined in vpe_config.
+
+.. code-block:: yaml
+
+         vnf_config: { file: './vpe_config/vpe_config_2_ports',
+                       action_bulk_file: './vpe_config/action_bulk_512.txt',
+                       full_tm_profile_file: './vpe_config/full_tm_profile_10G.cfg',
+                       script_file: './vpe_config/vpe_script_sample' }
+
+Testcases for Vpe can be found in the vnf_samples/nsut/vpe directory
+A testcase can be started with the following command as an example,
+
+.. code-block:: bash
+
+    yardstick task start /yardstick/samples/vnf_samples/nsut/vpe/tc_baremetal_rfc2544_ipv4_1flow_64B_ixia.yaml
