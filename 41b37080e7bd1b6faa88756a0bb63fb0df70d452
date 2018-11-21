@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_bff41288",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_1flow_sw_aesgcm_1core_1518B_trex.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-21T10:21:28Z",
+      "side": 1,
+      "message": "can you add a test case description? This applies to al test cases.\nFor reference: https://git.opnfv.org/yardstick/tree/samples/vnf_samples/nsut/vepc/tc_epc_default_bearer_create_landslide.yaml#n17",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 6
+      },
+      "revId": "41b37080e7bd1b6faa88756a0bb63fb0df70d452",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3f092296",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_1flow_sw_aesgcm_1core_1518B_trex.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-21T10:21:28Z",
+      "side": 1,
+      "message": "What is the max rate correspond to in the VNF?\nany reason for this specific rate?\nhow this rate is computed or a user will select?",
+      "range": {
+        "startLine": 57,
+        "startChar": 18,
+        "endLine": 57,
+        "endChar": 24
+      },
+      "revId": "41b37080e7bd1b6faa88756a0bb63fb0df70d452",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7f039a73",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_1flow_sw_aesgcm_1core_1518B_trex.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-21T10:21:28Z",
+      "side": 1,
+      "message": "any reason for having interval as 10?",
+      "range": {
+        "startLine": 60,
+        "startChar": 16,
+        "endLine": 60,
+        "endChar": 18
+      },
+      "revId": "41b37080e7bd1b6faa88756a0bb63fb0df70d452",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
