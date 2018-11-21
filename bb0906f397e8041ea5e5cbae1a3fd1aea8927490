@@ -1,0 +1,301 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_ffee8ab3",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "Since mac\u003dhardware above, no need to change src_mac here.",
+      "range": {
+        "startLine": 56,
+        "startChar": 23,
+        "endLine": 56,
+        "endChar": 40
+      },
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9f0cb696",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "The single-byte random below results in odd IPs out of /28.",
+      "range": {
+        "startLine": 57,
+        "startChar": 22,
+        "endLine": 57,
+        "endChar": 24
+      },
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ff45eab3",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "Now 192.168.1.0",
+      "range": {
+        "startLine": 57,
+        "startChar": 10,
+        "endLine": 57,
+        "endChar": 22
+      },
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5f121eb5",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "Now 192.168.1.0",
+      "range": {
+        "startLine": 60,
+        "startChar": 10,
+        "endLine": 60,
+        "endChar": 22
+      },
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3f1762a5",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "The single-byte random below results in even IPs out of /28.",
+      "range": {
+        "startLine": 60,
+        "startChar": 22,
+        "endLine": 60,
+        "endChar": 24
+      },
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7f11daab",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "Please add comment above:\n; src_port: 5000-5007, dst_port: 5000-5007",
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7f88bae7",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "Missing lines:\nlat pos\u003d42\nsignature pos\u003d46\nsignature\u003d0xcafedeca\n\nWithout lat pos, mode\u003dgen does not store any latency data into generated packets, so mode\u003dlat cores always see the same static data from pkt inline.\nWithout signature lines, adding 4 trailing bytes to pkt inline would have been enough.",
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1f20a6f6",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "Same comments as for core 1",
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ff1ccac3",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "Ignored because of L75 and L78",
+      "range": {
+        "startLine": 73,
+        "startChar": 83,
+        "endLine": 73,
+        "endChar": 106
+      },
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bf2252ff",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "These 4-bytes random, here and on L78, actually result in 152.16.40.0/28, so new 192.168.1.1 on L73 are ignored.\nYou should adjust L75-L76 to be the same as L58-L59, and L78-L79 same as L61-L62.\nThen adjust comments accordingly.",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 39
+      },
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3ff3e274",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "Missing lines:\nsignature pos\u003d46\nsignature\u003d0xcafedeca\n\nWithout them, signature is not verified by mode\u003dlat cores, so any spurious packet would be wrongly considered for latency measurement.",
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9fe8367e",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fff84a4b",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-4.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "Missing lines for all 4 ports:\nrx desc\u003d2048\ntx desc\u003d2048\nWithout them, packets can be lost on RX on \"long\" interrupts.",
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3f9ac214",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-4.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "Same comments as for gen_l2fwd_multiflow-2.cfg",
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9f9f9603",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-4.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-21T11:50:32Z",
+      "side": 1,
+      "message": "Missing lines for cores 5-8:\nsignature pos\u003d46\nsignature\u003d0xcafedeca",
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
