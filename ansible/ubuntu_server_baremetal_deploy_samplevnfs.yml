@@ -54,3 +54,5 @@
     - install_pmu_tools
     - download_collectd
     - install_collectd
+    - docker
+    - barometer_collectd
