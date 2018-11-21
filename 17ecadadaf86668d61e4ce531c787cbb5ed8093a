@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_9f0f96e1",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_4port_IMIX.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-21T01:23:52Z",
+      "side": 1,
+      "message": "can we get a test case description for all the test cases",
+      "revId": "17ecadadaf86668d61e4ce531c787cbb5ed8093a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
