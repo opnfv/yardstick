@@ -30,6 +30,7 @@ import subprocess
 import sys
 import time
 import threading
+import math
 
 import six
 from flask import jsonify
@@ -505,7 +506,7 @@ def setup_hugepages(ssh_client, size_kb):
     NR_HUGEPAGES_PATH = '/proc/sys/vm/nr_hugepages'
     meminfo = read_meminfo(ssh_client)
     hp_size_kb = int(meminfo['Hugepagesize'])
-    hp_number = int(abs(size_kb / hp_size_kb))
+    hp_number = int(math.ceil(size_kb / float(hp_size_kb)))
     ssh_client.execute(
         'echo %s | sudo tee %s' % (hp_number, NR_HUGEPAGES_PATH))
     hp = six.BytesIO()
