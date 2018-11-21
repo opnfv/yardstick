@@ -46,6 +46,30 @@
       "revId": "737a588181792c27ad63a63bcfa9981580e6897c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ffc04a2c",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-11-21T09:15:48Z",
+      "side": 1,
+      "message": "\u0027update_frame\u0027 method is using only for updating packet fields, it\u0027s not a place to add new layers!\n\n\u0027_setup_config_elements\u0027 method has an option \u0027add_default_proto\u0027, which tells create IPv4 and UDP layers or no. QinQ layers should be handled here in the same way (e.g. new option for additional layers creation, separate method for doing this, etc.).",
+      "parentUuid": "1a622d24_6dcf79b1",
+      "range": {
+        "startLine": 465,
+        "startChar": 16,
+        "endLine": 470,
+        "endChar": 64
+      },
+      "revId": "737a588181792c27ad63a63bcfa9981580e6897c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
