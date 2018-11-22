@@ -74,6 +74,11 @@ class OvsDpdkContext(base.Context):
         self.wait_for_vswitchd = 10
         super(OvsDpdkContext, self).__init__()
 
+    def get_dpdk_socket_mem_size(self, socket_id):
+        """Get the size of OvS DPDK socket memory (Mb)"""
+        ram = self.ovs_properties.get("ram", {})
+        return ram.get('socket_%d' % (socket_id), 2048)
+
     def init(self, attrs):
         """initializes itself from the supplied arguments"""
         super(OvsDpdkContext, self).init(attrs)
@@ -134,9 +139,6 @@ class OvsDpdkContext(base.Context):
         if pmd_cpu_mask:
             pmd_mask = pmd_cpu_mask
 
-        socket0 = self.ovs_properties.get("ram", {}).get("socket_0", "2048")
-        socket1 = self.ovs_properties.get("ram", {}).get("socket_1", "2048")
-
         ovs_other_config = "ovs-vsctl {0}set Open_vSwitch . other_config:{1}"
         detach_cmd = "ovs-vswitchd unix:{0}{1} --pidfile --detach --log-file={2}"
 
@@ -154,7 +156,9 @@ class OvsDpdkContext(base.Context):
             ("ovsdb-server --remote=punix:/{0}/{1} --remote=ptcp:6640"
              " --pidfile --detach").format(vpath, ovs_sock_path),
             ovs_other_config.format("--no-wait ", "dpdk-init=true"),
-            ovs_other_config.format("--no-wait ", "dpdk-socket-mem='%s,%s'" % (socket0, socket1)),
+            ovs_other_config.format("--no-wait ", "dpdk-socket-mem='%d,%d'" % (
+                self.get_dpdk_socket_mem_size(0),
+                self.get_dpdk_socket_mem_size(1))),
             lcore_mask,
             detach_cmd.format(vpath, ovs_sock_path, log_path),
             ovs_other_config.format("", "pmd-cpu-mask=%s" % pmd_mask),
@@ -399,7 +403,9 @@ class OvsDpdkContext(base.Context):
         self.configure_nics_for_ovs_dpdk()
 
         hp_total_mb = int(self.vm_flavor.get('ram', '4096')) * len(self.servers)
-        common_utils.setup_hugepages(self.connection, hp_total_mb * 1024)
+        common_utils.setup_hugepages(self.connection, (hp_total_mb + \
+                                     self.get_dpdk_socket_mem_size(0) + \
+                                     self.get_dpdk_socket_mem_size(1)) * 1024)
 
         self._check_hugepages()
 
