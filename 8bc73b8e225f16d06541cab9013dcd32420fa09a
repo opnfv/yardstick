@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_b51c3315",
+        "filename": "docs/testing/user/userguide/nsb/tc_vpp_context_crypto_ipsec.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:52:07Z",
+      "side": 1,
+      "message": "we can add \"baremetal\" here if there is no other option",
+      "range": {
+        "startLine": 14,
+        "startChar": 21,
+        "endLine": 14,
+        "endChar": 28
+      },
+      "revId": "8bc73b8e225f16d06541cab9013dcd32420fa09a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d51f2f08",
+        "filename": "docs/testing/user/userguide/nsb/tc_vpp_context_crypto_ipsec.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:52:07Z",
+      "side": 1,
+      "message": "DPDK",
+      "range": {
+        "startLine": 127,
+        "startChar": 51,
+        "endLine": 127,
+        "endChar": 55
+      },
+      "revId": "8bc73b8e225f16d06541cab9013dcd32420fa09a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_752bbb30",
+        "filename": "docs/testing/user/userguide/nsb/tc_vpp_context_crypto_ipsec.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:52:07Z",
+      "side": 1,
+      "message": "a packet size specified in the test case",
+      "range": {
+        "startLine": 149,
+        "startChar": 64,
+        "endLine": 150,
+        "endChar": 28
+      },
+      "revId": "8bc73b8e225f16d06541cab9013dcd32420fa09a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
