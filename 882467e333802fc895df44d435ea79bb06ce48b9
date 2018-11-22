@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_7503bb73",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-11-22T17:11:21Z",
+      "side": 1,
+      "message": "There\u0027s no need to extend the acronym.\n\nYou could link to the glossary instead:\n\n    :term:`VNF`",
+      "range": {
+        "startLine": 570,
+        "startChar": 36,
+        "endLine": 570,
+        "endChar": 66
+      },
+      "revId": "882467e333802fc895df44d435ea79bb06ce48b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f5eeabb3",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-11-22T17:11:21Z",
+      "side": 1,
+      "message": "Please keep lines to 80 columns",
+      "range": {
+        "startLine": 571,
+        "startChar": 80,
+        "endLine": 571,
+        "endChar": 90
+      },
+      "revId": "882467e333802fc895df44d435ea79bb06ce48b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d5f72f8b",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-11-22T17:11:21Z",
+      "side": 1,
+      "message": "``ip_pipeline``",
+      "range": {
+        "startLine": 571,
+        "startChar": 61,
+        "endLine": 571,
+        "endChar": 72
+      },
+      "revId": "882467e333802fc895df44d435ea79bb06ce48b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_35094396",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-11-22T17:11:21Z",
+      "side": 1,
+      "message": "Use monospaced font here to highlight the variable name\n\n    ``vpe_config``",
+      "range": {
+        "startLine": 577,
+        "startChar": 4,
+        "endLine": 577,
+        "endChar": 14
+      },
+      "revId": "882467e333802fc895df44d435ea79bb06ce48b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_95fe576a",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 578,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-11-22T17:11:21Z",
+      "side": 1,
+      "message": "monospaced",
+      "range": {
+        "startLine": 578,
+        "startChar": 4,
+        "endLine": 578,
+        "endChar": 14
+      },
+      "revId": "882467e333802fc895df44d435ea79bb06ce48b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_753a9b37",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-11-22T17:11:21Z",
+      "side": 1,
+      "message": "monospaced",
+      "range": {
+        "startLine": 579,
+        "startChar": 34,
+        "endLine": 579,
+        "endChar": 45
+      },
+      "revId": "882467e333802fc895df44d435ea79bb06ce48b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9535b748",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-11-22T17:11:21Z",
+      "side": 1,
+      "message": "monospaced",
+      "range": {
+        "startLine": 579,
+        "startChar": 56,
+        "endLine": 579,
+        "endChar": 66
+      },
+      "revId": "882467e333802fc895df44d435ea79bb06ce48b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b5f43388",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-11-22T17:11:21Z",
+      "side": 1,
+      "message": "monospaced",
+      "range": {
+        "startLine": 580,
+        "startChar": 81,
+        "endLine": 580,
+        "endChar": 91
+      },
+      "revId": "882467e333802fc895df44d435ea79bb06ce48b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_15f2479a",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 580,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-11-22T17:11:21Z",
+      "side": 1,
+      "message": "monospaced\n\nremove the colon",
+      "range": {
+        "startLine": 580,
+        "startChar": 4,
+        "endLine": 580,
+        "endChar": 24
+      },
+      "revId": "882467e333802fc895df44d435ea79bb06ce48b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5504bf7d",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-11-22T17:11:21Z",
+      "side": 1,
+      "message": "Use four spaces instead of 8 (for consistency with L594)",
+      "range": {
+        "startLine": 584,
+        "startChar": 0,
+        "endLine": 584,
+        "endChar": 9
+      },
+      "revId": "882467e333802fc895df44d435ea79bb06ce48b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_552b1feb",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-11-22T17:11:21Z",
+      "side": 1,
+      "message": "monospaced",
+      "range": {
+        "startLine": 589,
+        "startChar": 38,
+        "endLine": 589,
+        "endChar": 58
+      },
+      "revId": "882467e333802fc895df44d435ea79bb06ce48b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_35302356",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-11-22T17:11:21Z",
+      "side": 1,
+      "message": "This doesn\u0027t have to be limited to 80 characters",
+      "range": {
+        "startLine": 594,
+        "startChar": 80,
+        "endLine": 594,
+        "endChar": 84
+      },
+      "revId": "882467e333802fc895df44d435ea79bb06ce48b9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
