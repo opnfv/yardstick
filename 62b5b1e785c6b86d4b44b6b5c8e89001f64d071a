@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_f22b6192",
+        "filename": "requirements.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-22T10:38:56Z",
+      "side": 0,
+      "message": "Are you sure that Django is not used by some other component like Yardstick GUI?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "62b5b1e785c6b86d4b44b6b5c8e89001f64d071a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
