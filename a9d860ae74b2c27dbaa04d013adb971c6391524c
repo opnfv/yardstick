@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_f59b4b70",
+        "filename": "docs/testing/user/userguide/nsb/nsb-list-of-tcs.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T14:44:58Z",
+      "side": 1,
+      "message": "baremetal?",
+      "range": {
+        "startLine": 36,
+        "startChar": 10,
+        "endLine": 36,
+        "endChar": 17
+      },
+      "revId": "a9d860ae74b2c27dbaa04d013adb971c6391524c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_55883f22",
+        "filename": "docs/testing/user/userguide/nsb/tc_vpp_context_crypto_ipsec.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T14:44:58Z",
+      "side": 1,
+      "message": "file name is needs to be changed to reflect test case id \u003cbaremetal\u003e",
+      "revId": "a9d860ae74b2c27dbaa04d013adb971c6391524c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
