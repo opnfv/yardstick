@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_95577702",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:22:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_ffee8ab3",
+      "range": {
+        "startLine": 56,
+        "startChar": 23,
+        "endLine": 56,
+        "endChar": 40
+      },
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_9f0cb696",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
         "patchSetId": 1
@@ -64,6 +88,30 @@
         "startChar": 10,
         "endLine": 57,
         "endChar": 22
+      },
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d54a8f26",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:22:37Z",
+      "side": 1,
+      "message": "I am not sure if I understood this correctly. Is there any reference config I can use or is it always hand coded per use case?",
+      "parentUuid": "1a622d24_9f0cb696",
+      "range": {
+        "startLine": 57,
+        "startChar": 22,
+        "endLine": 57,
+        "endChar": 24
       },
       "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -117,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_f5518bd9",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:22:37Z",
+      "side": 1,
+      "message": "Need some help here!",
+      "parentUuid": "1a622d24_3f1762a5",
+      "range": {
+        "startLine": 60,
+        "startChar": 22,
+        "endLine": 60,
+        "endChar": 24
+      },
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_7f11daab",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
         "patchSetId": 1
@@ -128,6 +200,24 @@
       "writtenOn": "2018-11-21T11:50:32Z",
       "side": 1,
       "message": "Please add comment above:\n; src_port: 5000-5007, dst_port: 5000-5007",
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7573bbb1",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:22:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_7f11daab",
       "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -157,6 +247,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_d5672fe9",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:22:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_bf8532af",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 11
+      },
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_7f88bae7",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
         "patchSetId": 1
@@ -168,6 +282,24 @@
       "writtenOn": "2018-11-21T11:50:32Z",
       "side": 1,
       "message": "Missing lines:\nlat pos\u003d42\nsignature pos\u003d46\nsignature\u003d0xcafedeca\n\nWithout lat pos, mode\u003dgen does not store any latency data into generated packets, so mode\u003dlat cores always see the same static data from pkt inline.\nWithout signature lines, adding 4 trailing bytes to pkt inline would have been enough.",
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b56433e6",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:22:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_7f88bae7",
       "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -214,6 +346,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_3552e313",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:22:37Z",
+      "side": 1,
+      "message": "understood it will be overwritten by random.",
+      "parentUuid": "1a622d24_ff1ccac3",
+      "range": {
+        "startLine": 73,
+        "startChar": 83,
+        "endLine": 73,
+        "endChar": 106
+      },
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_bf2252ff",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
         "patchSetId": 1
@@ -225,6 +381,30 @@
       "writtenOn": "2018-11-21T11:50:32Z",
       "side": 1,
       "message": "These 4-bytes random, here and on L78, actually result in 152.16.40.0/28, so new 192.168.1.1 on L73 are ignored.\nYou should adjust L75-L76 to be the same as L58-L59, and L78-L79 same as L61-L62.\nThen adjust comments accordingly.",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 39
+      },
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_35a023f4",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:22:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_bf2252ff",
       "range": {
         "startLine": 75,
         "startChar": 7,
@@ -254,6 +434,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_d540cf37",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:22:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_3ff3e274",
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_9fe8367e",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
         "patchSetId": 1
@@ -271,6 +469,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_b53d53be",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:22:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_9fe8367e",
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_fff84a4b",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-4.cfg",
         "patchSetId": 1
@@ -282,6 +498,24 @@
       "writtenOn": "2018-11-21T11:50:32Z",
       "side": 1,
       "message": "Missing lines for all 4 ports:\nrx desc\u003d2048\ntx desc\u003d2048\nWithout them, packets can be lost on RX on \"long\" interrupts.",
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9541370e",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-4.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:22:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_fff84a4b",
       "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -316,6 +550,24 @@
       "writtenOn": "2018-11-21T11:50:32Z",
       "side": 1,
       "message": "Missing lines for cores 5-8:\nsignature pos\u003d46\nsignature\u003d0xcafedeca",
+      "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_75461b25",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-4.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T13:22:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_9f9f9603",
       "revId": "bb0906f397e8041ea5e5cbae1a3fd1aea8927490",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
