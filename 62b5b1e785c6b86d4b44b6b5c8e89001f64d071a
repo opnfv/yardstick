@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_b221e9b6",
+        "filename": "yardstick/common/template.html",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-22T10:33:34Z",
+      "side": 1,
+      "message": "This file is not just html file, but Jinja2 template too. So, the extension should be something like \"template.html.j2\" Also, the \"template\" name is to generic. Please rename it \"report\" or something else but not template.",
+      "revId": "62b5b1e785c6b86d4b44b6b5c8e89001f64d071a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d22465c8",
+        "filename": "yardstick/common/template.html",
+        "patchSetId": 11
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-22T10:33:34Z",
+      "side": 1,
+      "message": "This is new file. Why do we need the author?",
+      "range": {
+        "startLine": 5,
+        "startChar": 1,
+        "endLine": 5,
+        "endChar": 55
+      },
+      "revId": "62b5b1e785c6b86d4b44b6b5c8e89001f64d071a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
