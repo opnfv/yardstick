@@ -399,7 +399,10 @@ class OvsDpdkContext(base.Context):
         self.configure_nics_for_ovs_dpdk()
 
         hp_total_mb = int(self.vm_flavor.get('ram', '4096')) * len(self.servers)
-        common_utils.setup_hugepages(self.connection, hp_total_mb * 1024)
+        socket0_mb = self.ovs_properties.get("ram", {}).get("socket_0", 2048)
+        socket1_mb = self.ovs_properties.get("ram", {}).get("socket_1", 2048)
+        common_utils.setup_hugepages(self.connection,
+            (hp_total_mb + socket0_mb + socket1_mb) * 1024)
 
         self._check_hugepages()
 
