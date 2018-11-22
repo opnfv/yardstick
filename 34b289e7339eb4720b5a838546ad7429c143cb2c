@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_55d31f38",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_128Kflows_hw_aesgcm_1core_1518B_trex_scale_1000tnl.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T14:42:36Z",
+      "side": 1,
+      "message": "I expect a unique description for each test case. Reason being this will be used in the Grafana dashboards as the test description.",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 66
+      },
+      "revId": "34b289e7339eb4720b5a838546ad7429c143cb2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_75b0dbf4",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_128Kflows_sw_aesgcm_4cores_64B_trex_scale_1000tnl.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T14:42:36Z",
+      "side": 1,
+      "message": "In general, some of the test cases can be reduced by adding templated variables which will be passed while running the test case as a cli command. This will reduce the number of test cases.\n\nParameters like: packet size or the number of tunnels can be templated here.",
+      "revId": "34b289e7339eb4720b5a838546ad7429c143cb2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_55a15fa8",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_128Kflows_sw_aesgcm_4cores_64B_trex_scale_1000tnl.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T14:42:36Z",
+      "side": 1,
+      "message": "can be templated in test case",
+      "range": {
+        "startLine": 44,
+        "startChar": 15,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "34b289e7339eb4720b5a838546ad7429c143cb2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_95abf788",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_128Kflows_sw_aesgcm_4cores_64B_trex_scale_1000tnl.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T14:42:36Z",
+      "side": 1,
+      "message": "can be templated in test case",
+      "range": {
+        "startLine": 45,
+        "startChar": 17,
+        "endLine": 45,
+        "endChar": 20
+      },
+      "revId": "34b289e7339eb4720b5a838546ad7429c143cb2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d5944f46",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_128Kflows_sw_aesgcm_4cores_64B_trex_scale_1000tnl.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T14:42:36Z",
+      "side": 1,
+      "message": "any reason for not templating it? some files have {phy_cores}",
+      "range": {
+        "startLine": 57,
+        "startChar": 96,
+        "endLine": 57,
+        "endChar": 97
+      },
+      "revId": "34b289e7339eb4720b5a838546ad7429c143cb2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b591d354",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_128Kflows_sw_aesgcm_4cores_64B_trex_scale_1000tnl.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T14:42:36Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 61,
+        "startChar": 96,
+        "endLine": 61,
+        "endChar": 97
+      },
+      "revId": "34b289e7339eb4720b5a838546ad7429c143cb2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f5c4eb60",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_128Kflows_sw_aesgcm_4cores_64B_trex_scale_1000tnl.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-22T14:42:36Z",
+      "side": 1,
+      "message": "can be made an a template variable",
+      "range": {
+        "startLine": 68,
+        "startChar": 6,
+        "endLine": 68,
+        "endChar": 12
+      },
+      "revId": "34b289e7339eb4720b5a838546ad7429c143cb2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
