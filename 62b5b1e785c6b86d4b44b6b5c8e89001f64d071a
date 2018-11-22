@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_55baffe1",
+        "filename": "yardstick/common/template.html",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-22T14:29:09Z",
+      "side": 1,
+      "message": "Looks good, thanks.",
+      "parentUuid": "1a622d24_f5ba2b09",
+      "revId": "62b5b1e785c6b86d4b44b6b5c8e89001f64d071a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_d22465c8",
         "filename": "yardstick/common/template.html",
         "patchSetId": 11
@@ -72,6 +90,30 @@
       "side": 1,
       "message": "Because the contents of this new file consists of cut/paste/rework from html_template.py [1] which was created last year by change 29435 [2].\nSo we must give credit to the original author.\n\n[1] https://gerrit.opnfv.org/gerrit/#/c/60699/11/yardstick/common/html_template.py\n[2] https://gerrit.opnfv.org/gerrit/#/c/29435/17/yardstick/common/html_template.py",
       "parentUuid": "1a622d24_d22465c8",
+      "range": {
+        "startLine": 5,
+        "startChar": 1,
+        "endLine": 5,
+        "endChar": 55
+      },
+      "revId": "62b5b1e785c6b86d4b44b6b5c8e89001f64d071a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_35bf83d2",
+        "filename": "yardstick/common/template.html",
+        "patchSetId": 11
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-22T14:29:09Z",
+      "side": 1,
+      "message": "Ok, great.",
+      "parentUuid": "1a622d24_55379fb0",
       "range": {
         "startLine": 5,
         "startChar": 1,
