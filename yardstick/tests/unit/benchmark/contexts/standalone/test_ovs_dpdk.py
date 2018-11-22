@@ -430,7 +430,8 @@ class OvsDpdkContextTestCase(unittest.TestCase):
 
         self.assertEqual([vnf_instance_2],
                          self.ovs_dpdk.setup_ovs_dpdk_context())
-        mock_setup_hugepages.assert_called_once_with(self.ovs_dpdk.connection, 1024 * 1024)
+        mock_setup_hugepages.assert_called_once_with(self.ovs_dpdk.connection,
+            (1024 + 4096) * 1024) # ram + dpdk_socket0_mem + dpdk_socket1_mem
         mock__check_hugepages.assert_called_once()
         mock_create_vm.assert_called_once_with(
             self.ovs_dpdk.connection, '/tmp/vm_ovs_0.xml')
