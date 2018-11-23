@@ -347,7 +347,13 @@ class IxNextgen(object):  # pragma: no cover
                     '/traffic/protocolTemplate:"{}"'.format(protocol_name))
         self.ixnet.execute('append', previous_element, protocol)
 
-    def _setup_config_elements(self, add_default_proto=True):
+    def is_qinq(self, flow_data):
+        for traffic_type in flow_data:
+            if flow_data[traffic_type]['outer_l2'].get('QinQ'):
+                return True
+        return False
+
+    def _setup_config_elements(self, traffic_profile, add_default_proto=True):
         """Setup the config elements
 
         The traffic item is configured to allow individual configurations per
@@ -363,7 +369,7 @@ class IxNextgen(object):  # pragma: no cover
                                              'trafficItem')[0]
         log.info('Split the frame rate distribution per config element')
         config_elements = self.ixnet.getList(traffic_item_id, 'configElement')
-        for config_element in config_elements:
+        for config_element, flow_data in zip(config_elements, flows):
             self.ixnet.setAttribute(config_element + '/frameRateDistribution',
                                     '-portDistribution', 'splitRateEvenly')
             self.ixnet.setAttribute(config_element + '/frameRateDistribution',
@@ -374,8 +380,13 @@ class IxNextgen(object):  # pragma: no cover
                     PROTO_UDP, config_element + '/stack:"ethernet-1"')
                 self._append_procotol_to_stack(
                     PROTO_IPV4, config_element + '/stack:"ethernet-1"')
+                if self.is_qinq(flow_data):
+                    self._append_procotol_to_stack(
+                        PROTO_VLAN, config_element + '/stack:"ethernet-1"')
+                    self._append_procotol_to_stack(
+                        PROTO_VLAN, config_element + '/stack:"ethernet-1"')
 
-    def create_traffic_model(self, uplink_ports, downlink_ports):
+    def create_traffic_model(self, uplink_ports, downlink_ports, traffic_profile):
         """Create a traffic item and the needed flow groups
 
         Each flow group inside the traffic item (only one is present)
@@ -390,7 +401,7 @@ class IxNextgen(object):  # pragma: no cover
         uplink_endpoints = [port + '/protocols' for port in uplink_ports]
         downlink_endpoints = [port + '/protocols' for port in downlink_ports]
         self._create_flow_groups(uplink_endpoints, downlink_endpoints)
-        self._setup_config_elements()
+        self._setup_config_elements(traffic_profile=traffic_profile)
 
     def create_ipv4_traffic_model(self, uplink_topologies, downlink_topologies):
         """Create a traffic item and the needed flow groups
@@ -471,11 +482,6 @@ class IxNextgen(object):  # pragma: no cover
                                              '-singleValue', ETHER_TYPE_802_1ad,
                                              '-fieldValue', ETHER_TYPE_802_1ad,
                                              '-valueType', SINGLE_VALUE)
-
-                self._append_procotol_to_stack(
-                    PROTO_VLAN, config_element + '/stack:"ethernet-1"')
-                self._append_procotol_to_stack(
-                    PROTO_VLAN, config_element + '/stack:"ethernet-1"')
 
                 self._update_vlan_tag(fg_id, s_vlan, S_VLAN)
                 self._update_vlan_tag(fg_id, c_vlan, C_VLAN)
