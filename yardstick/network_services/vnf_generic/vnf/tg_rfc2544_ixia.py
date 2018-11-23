@@ -43,12 +43,12 @@ class IxiaBasicScenario(object):
     def apply_config(self):
         pass
 
-    def create_traffic_model(self):
+    def create_traffic_model(self, traffic_profile):
         vports = self.client.get_vports()
         self._uplink_vports = vports[::2]
         self._downlink_vports = vports[1::2]
         self.client.create_traffic_model(self._uplink_vports,
-                                         self._downlink_vports)
+                                         self._downlink_vports, traffic_profile)
 
     def run_protocols(self):
         pass
@@ -295,12 +295,12 @@ class IxiaResourceHelper(ClientResourceHelper):
             raise RuntimeError(
                 "IXIA config type '{}' not supported".format(ixia_config))
 
-    def _initialize_client(self):
+    def _initialize_client(self, traffic_profile):
         """Initialize the IXIA IxNetwork client and configure the server"""
         self.client.clear_config()
         self.client.assign_ports()
         self._ix_scenario.apply_config()
-        self._ix_scenario.create_traffic_model()
+        self._ix_scenario.create_traffic_model(traffic_profile=traffic_profile)
 
     def run_traffic(self, traffic_profile, *args):
         if self._terminated.value:
@@ -312,7 +312,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         default = "00:00:00:00:00:00"
 
         self._build_ports()
-        self._initialize_client()
+        self._initialize_client(traffic_profile)
 
         mac = {}
         for port_name in self.vnfd_helper.port_pairs.all_ports:
