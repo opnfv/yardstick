@@ -58,7 +58,7 @@ class IxiaBasicScenario(object):
         self._uplink_vports = vports[::2]
         self._downlink_vports = vports[1::2]
         self.client.create_traffic_model(self._uplink_vports,
-                                         self._downlink_vports)
+                                         self._downlink_vports, traffic_profile)
 
 
 class IxiaL3Scenario(IxiaBasicScenario):
