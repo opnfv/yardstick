@@ -16,6 +16,24 @@
       "revId": "17ecadadaf86668d61e4ce531c787cbb5ed8093a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d050dd60",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_4port_IMIX.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-11-23T10:21:22Z",
+      "side": 1,
+      "message": "Sure. I will add the description when all test cases will be created (TC1 and TC2).",
+      "parentUuid": "1a622d24_9f0f96e1",
+      "revId": "17ecadadaf86668d61e4ce531c787cbb5ed8093a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
