@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_90bb0572",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_acl-2.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T11:23:18Z",
+      "side": 1,
+      "message": "add a test description for test cases",
+      "revId": "8a28e3faff7982df83674adc1291934a4183bbb2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f0afd929",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_acl-4.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T11:23:18Z",
+      "side": 1,
+      "message": "add a test description for test cases",
+      "revId": "8a28e3faff7982df83674adc1291934a4183bbb2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d0ac5d38",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_acl-2.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T11:23:18Z",
+      "side": 1,
+      "message": "add a test description for test cases",
+      "revId": "8a28e3faff7982df83674adc1291934a4183bbb2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_30aaf119",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_acl-4.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T11:23:18Z",
+      "side": 1,
+      "message": "add a test description for test cases",
+      "revId": "8a28e3faff7982df83674adc1291934a4183bbb2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
