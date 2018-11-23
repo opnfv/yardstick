@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_50c16de3",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_8ports_1port_congested_IMIX.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T11:19:36Z",
+      "side": 1,
+      "message": "test description needs to be added",
+      "revId": "387c13b4744d146425ee39e00ab5e54331ae5184",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
