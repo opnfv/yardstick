@@ -1,0 +1,343 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_b083a1cb",
+        "filename": "etc/yardstick/nodes/pod.yaml.vpp.sample",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "use generic name: xe0, xe1, etc",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 18
+      },
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_908825e9",
+        "filename": "etc/yardstick/nodes/pod.yaml.vpp.sample",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 18
+      },
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_707909fc",
+        "filename": "etc/yardstick/nodes/pod.yaml.vpp.sample",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "xe0",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 12
+      },
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_507e8de5",
+        "filename": "etc/yardstick/nodes/pod.yaml.vpp.sample",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "xe1",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 12
+      },
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f06cf938",
+        "filename": "etc/yardstick/nodes/pod.yaml.vpp.sample",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 12
+      },
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d069fd26",
+        "filename": "etc/yardstick/nodes/pod.yaml.vpp.sample",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 12
+      },
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_903ae534",
+        "filename": "samples/vnf_samples/nsut/ipsec/vpp-tg-topology-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "why using hard-coded interface names here? This should be generic",
+      "range": {
+        "startLine": 38,
+        "startChar": 43,
+        "endLine": 38,
+        "endChar": 53
+      },
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f03eb928",
+        "filename": "samples/vnf_samples/nsut/ipsec/vpp-tg-topology-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 41,
+        "startChar": 43,
+        "endLine": 41,
+        "endChar": 47
+      },
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d03bbd36",
+        "filename": "samples/vnf_samples/nsut/ipsec/vpp-tg-topology-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 48,
+        "startChar": 43,
+        "endLine": 48,
+        "endChar": 47
+      },
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_304951d1",
+        "filename": "samples/vnf_samples/nsut/ipsec/vpp-tg-topology-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 51,
+        "startChar": 43,
+        "endLine": 51,
+        "endChar": 47
+      },
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1046d5bf",
+        "filename": "samples/vnf_samples/nsut/ipsec/vpp-tg-topology-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 58,
+        "startChar": 43,
+        "endLine": 58,
+        "endChar": 47
+      },
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5017ada3",
+        "filename": "samples/vnf_samples/nsut/ipsec/vpp-tg-topology-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 61,
+        "startChar": 43,
+        "endLine": 61,
+        "endChar": 53
+      },
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_101d35be",
+        "filename": "samples/vnf_samples/vnf_descriptors/tg_vpp_tpl.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "Can we re-use the existing T-Rex topology file?\nhttps://git.opnfv.org/yardstick/tree/samples/vnf_samples/vnf_descriptors/tg_trex_tpl.yaml",
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_901145af",
+        "filename": "samples/vnf_samples/vnf_descriptors/vpp_vnfd.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "prefer using a generic name: like \"xe0\"",
+      "range": {
+        "startLine": 36,
+        "startChar": 18,
+        "endLine": 36,
+        "endChar": 22
+      },
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d0229d00",
+        "filename": "samples/vnf_samples/vnf_descriptors/vpp_vnfd.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T10:14:51Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 22
+      },
+      "revId": "4230b7c814e0d0ddc214892af3db85c7edaa998e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
