@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_cb47901c",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_mpls_tagging-2.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-23T15:12:58Z",
+      "side": 1,
+      "message": "Could you please split the description into multiple line? Please check in all files too.",
+      "revId": "6af278cfc7547593040357ee2e013c940f94729c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2b5564c6",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_mpls_tagging-2.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-23T15:12:58Z",
+      "side": 1,
+      "message": "Let\u0027s use the same patch fro all POD file:\nE.g:\n/etc/yardstick/nodes/prox_tg_bm.yaml\n\nPlease check in all places.",
+      "revId": "6af278cfc7547593040357ee2e013c940f94729c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
