@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_0beea8ec",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-23T16:59:50Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 323,
+        "startChar": 73,
+        "endLine": 323,
+        "endChar": 74
+      },
+      "revId": "2fc1aae6fe8198aa395703735b68d158a521ceb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
