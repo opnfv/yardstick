@@ -43,13 +43,12 @@ class IxiaBasicScenario(object):
     def apply_config(self):
         pass
 
-    def create_traffic_model(self, traffic_profile=None):
-        # pylint: disable=unused-argument
+    def create_traffic_model(self, traffic_profile):
         vports = self.client.get_vports()
         self._uplink_vports = vports[::2]
         self._downlink_vports = vports[1::2]
         self.client.create_traffic_model(self._uplink_vports,
-                                         self._downlink_vports)
+                                         self._downlink_vports, traffic_profile)
 
     def run_protocols(self):
         pass
