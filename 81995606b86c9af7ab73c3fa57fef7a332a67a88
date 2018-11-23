@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_30fcb13e",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_4port_IMIX.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T11:03:39Z",
+      "side": 1,
+      "message": "can you add a test description field? This will help in the configurable dashboards",
+      "revId": "81995606b86c9af7ab73c3fa57fef7a332a67a88",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_10f9b54d",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_IMIX.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-23T11:03:39Z",
+      "side": 1,
+      "message": "can you add a test description field? This will help in the configurable dashboards",
+      "revId": "81995606b86c9af7ab73c3fa57fef7a332a67a88",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
