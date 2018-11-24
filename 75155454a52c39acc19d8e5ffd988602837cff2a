@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_a6352b48",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l3fwd-2.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-24T22:23:26Z",
+      "side": 1,
+      "message": "maintain the column width of 80 characters",
+      "range": {
+        "startLine": 18,
+        "startChar": 78,
+        "endLine": 18,
+        "endChar": 80
+      },
+      "revId": "75155454a52c39acc19d8e5ffd988602837cff2a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_863aaf34",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l3fwd-4.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-24T22:23:26Z",
+      "side": 1,
+      "message": "maintain the column width of 80 characters",
+      "range": {
+        "startLine": 18,
+        "startChar": 76,
+        "endLine": 18,
+        "endChar": 81
+      },
+      "revId": "75155454a52c39acc19d8e5ffd988602837cff2a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
