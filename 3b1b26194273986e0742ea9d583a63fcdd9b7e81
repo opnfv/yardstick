@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_01ee89ec",
+        "filename": "samples/vnf_samples/nsut/prox/prox-tg-topology-0.yaml",
+        "patchSetId": 17
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-26T12:00:15Z",
+      "side": 1,
+      "message": "No. It is nothing to do with loopback. This is for SUT and TG",
+      "parentUuid": "1a622d24_c6cdc75f",
+      "range": {
+        "startLine": 20,
+        "startChar": 21,
+        "endLine": 20,
+        "endChar": 37
+      },
+      "revId": "3b1b26194273986e0742ea9d583a63fcdd9b7e81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_a6e7ebe3",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_irq.yaml",
         "patchSetId": 17
@@ -36,6 +60,24 @@
       "writtenOn": "2018-11-24T22:18:09Z",
       "side": 1,
       "message": "add a description for the test case",
+      "revId": "3b1b26194273986e0742ea9d583a63fcdd9b7e81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_61badde2",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_irq.yaml",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-26T12:00:15Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "1a622d24_a6e7ebe3",
       "revId": "3b1b26194273986e0742ea9d583a63fcdd9b7e81",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_41bfe1d0",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_irq.yaml",
+        "patchSetId": 17
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-26T12:00:15Z",
+      "side": 1,
+      "message": "YES .. In NSB NFVI Devquide",
+      "parentUuid": "1a622d24_86ec6fc9",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 19
+      },
+      "revId": "3b1b26194273986e0742ea9d583a63fcdd9b7e81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_e6d0c3f9",
         "filename": "yardstick/network_services/traffic_profile/prox_irq.py",
         "patchSetId": 17
@@ -76,6 +142,30 @@
       "writtenOn": "2018-11-24T22:18:09Z",
       "side": 1,
       "message": "can be removed",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 38
+      },
+      "revId": "3b1b26194273986e0742ea9d583a63fcdd9b7e81",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a1b4f5f2",
+        "filename": "yardstick/network_services/traffic_profile/prox_irq.py",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-26T12:00:15Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "1a622d24_e6d0c3f9",
       "range": {
         "startLine": 16,
         "startChar": 0,
