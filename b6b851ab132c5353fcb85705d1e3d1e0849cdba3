@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_81d619c4",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-2.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-26T22:53:56Z",
+      "side": 1,
+      "message": "Sure, will do that",
+      "parentUuid": "1a622d24_d5d0cff9",
+      "revId": "b6b851ab132c5353fcb85705d1e3d1e0849cdba3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_95e777e4",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-4.cfg",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2018-11-22T18:33:28Z",
       "side": 1,
       "message": "40\nOn L115, L118, L136 and L139 as well.\nAny reason why you changed these src/dst IPs in pkt inline?\nThis makes core 1 generate different traffic than cores 2-4.",
+      "range": {
+        "startLine": 97,
+        "startChar": 17,
+        "endLine": 97,
+        "endChar": 20
+      },
+      "revId": "b6b851ab132c5353fcb85705d1e3d1e0849cdba3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a1d195cf",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l2fwd_multiflow-4.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-26T22:53:56Z",
+      "side": 1,
+      "message": "No specific reason. I am going to change the packet back to 152.12.100.0/8 range, like core 1",
+      "parentUuid": "1a622d24_95e777e4",
       "range": {
         "startLine": 97,
         "startChar": 17,
