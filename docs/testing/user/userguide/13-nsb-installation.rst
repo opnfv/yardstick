@@ -288,7 +288,7 @@ Bare-Metal Config pod.yaml
 Before executing Yardstick test cases, make sure that pod.yaml reflects the
 topology and update all the required fields.::
 
-    cp /etc/yardstick/nodes/pod.yaml.nsb.sample /etc/yardstick/nodes/pod.yaml
+    cp <repo>/etc/yardstick/nodes/pod.yaml.nsb.sample /etc/yardstick/nodes/pod.yaml
 
 .. code-block:: YAML
 
@@ -497,8 +497,8 @@ topology and update all the required fields.
 
 .. code-block:: console
 
-    cp <yardstick>/etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
-    cp <yardstick>/etc/yardstick/nodes/standalone/host_sriov.yaml /etc/yardstick/nodes/standalone/host_sriov.yaml
+    cp <repo>/etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
+    cp <repo>/etc/yardstick/nodes/standalone/host_sriov.yaml /etc/yardstick/nodes/standalone/host_sriov.yaml
 
 .. note:: Update all the required fields like ip, user, password, pcis, etc...
 
@@ -545,7 +545,7 @@ SR-IOV Config host_sriov.yaml
        password: ""
 
 SR-IOV testcase update:
-``<yardstick>/samples/vnf_samples/nsut/vfw/tc_sriov_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
+``<repo>/samples/vnf_samples/nsut/vfw/tc_sriov_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
 
 Update "contexts" section
 '''''''''''''''''''''''''
@@ -737,8 +737,8 @@ topology and update all the required fields.
 
 .. code-block:: console
 
-  cp <yardstick>/etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
-  cp <yardstick>/etc/yardstick/nodes/standalone/host_ovs.yaml /etc/yardstick/nodes/standalone/host_ovs.yaml
+  cp <repo>/etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
+  cp <repo>/etc/yardstick/nodes/standalone/host_ovs.yaml /etc/yardstick/nodes/standalone/host_ovs.yaml
 
 .. note:: Update all the required fields like ip, user, password, pcis, etc...
 
@@ -784,7 +784,7 @@ OVS-DPDK Config host_ovs.yaml
        password: ""
 
 ovs_dpdk testcase update:
-``<yardstick>/samples/vnf_samples/nsut/vfw/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
+``<repo>/samples/vnf_samples/nsut/vfw/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
 
 Update "contexts" section
 '''''''''''''''''''''''''
