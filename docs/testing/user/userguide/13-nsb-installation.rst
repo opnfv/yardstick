@@ -1,7 +1,7 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International
 .. License.
 .. http://creativecommons.org/licenses/by/4.0
-.. (c) OPNFV, 2016-2018 Intel Corporation.
+.. (c) OPNFV, 2016-2019 Intel Corporation.
 
 ..
    Convention for heading levels in Yardstick documentation:
@@ -232,7 +232,7 @@ OpenStack::
 
 Finally, you should be able to run the testcase::
 
-  yardstick --debug task start yardstick/samples/vnf_samples/nsut/<vnf>/<test case>
+  yardstick --debug task start ./yardstick/samples/vnf_samples/nsut/<vnf>/<test case>
 
 Network Service Benchmarking - Bare-Metal
 -----------------------------------------
@@ -273,7 +273,7 @@ Bare-Metal Config pod.yaml
 Before executing Yardstick test cases, make sure that ``pod.yaml`` reflects the
 topology and update all the required fields.::
 
-    cp /etc/yardstick/nodes/pod.yaml.nsb.sample /etc/yardstick/nodes/pod.yaml
+    cp ./etc/yardstick/nodes/pod.yaml.nsb.sample /etc/yardstick/nodes/pod.yaml
 
 .. code-block:: YAML
 
@@ -481,8 +481,8 @@ topology and update all the required fields.
 
 .. code-block:: console
 
-    cp <yardstick>/etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
-    cp <yardstick>/etc/yardstick/nodes/standalone/host_sriov.yaml /etc/yardstick/nodes/standalone/host_sriov.yaml
+    cp ./etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
+    cp ./etc/yardstick/nodes/standalone/host_sriov.yaml /etc/yardstick/nodes/standalone/host_sriov.yaml
 
 .. note:: Update all the required fields like ip, user, password, pcis, etc...
 
@@ -529,7 +529,7 @@ SR-IOV Config host_sriov.yaml
        password: ""
 
 SR-IOV testcase update:
-``<yardstick>/samples/vnf_samples/nsut/vfw/tc_sriov_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
+``./samples/vnf_samples/nsut/vfw/tc_sriov_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
 
 Update contexts section
 '''''''''''''''''''''''
@@ -719,8 +719,8 @@ OVS-DPDK 3-Node setup - Correlated Traffic
 Before executing Yardstick test cases, make sure that the ``pod.yaml`` reflects
 the topology and update all the required fields::
 
-  cp <yardstick>/etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
-  cp <yardstick>/etc/yardstick/nodes/standalone/host_ovs.yaml /etc/yardstick/nodes/standalone/host_ovs.yaml
+  cp ./etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
+  cp ./etc/yardstick/nodes/standalone/host_ovs.yaml /etc/yardstick/nodes/standalone/host_ovs.yaml
 
 .. note:: Update all the required fields like ip, user, password, pcis, etc...
 
@@ -766,7 +766,7 @@ OVS-DPDK Config host_ovs.yaml
        password: ""
 
 ovs_dpdk testcase update:
-``<yardstick>/samples/vnf_samples/nsut/vfw/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
+``./samples/vnf_samples/nsut/vfw/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
 
 Update contexts section
 '''''''''''''''''''''''
@@ -1110,8 +1110,8 @@ IxLoad
 
   .. code-block:: console
 
-    cp <repo>/etc/yardstick/nodes/pod.yaml.nsb.sample.ixia \
-      etc/yardstick/nodes/pod_ixia.yaml
+    cp ./etc/yardstick/nodes/pod.yaml.nsb.sample.ixia \
+      /etc/yardstick/nodes/pod_ixia.yaml
 
   Config ``pod_ixia.yaml``
 
@@ -1134,7 +1134,7 @@ IxLoad
 4. Create a folder ``Results`` in c:\ and share the folder on the network.
 
 5. Execute testcase in samplevnf folder e.g.
-   ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_1b_Requests-65000_Concurrency.yaml``
+   ``./samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_1b_Requests-65000_Concurrency.yaml``
 
 IxNetwork
 ^^^^^^^^^
@@ -1146,8 +1146,8 @@ installed as part of the requirements of the project.
 
   .. code-block:: console
 
-    cp <repo>/etc/yardstick/nodes/pod.yaml.nsb.sample.ixia \
-    etc/yardstick/nodes/pod_ixia.yaml
+    cp ./etc/yardstick/nodes/pod.yaml.nsb.sample.ixia \
+    /etc/yardstick/nodes/pod_ixia.yaml
 
   Configure ``pod_ixia.yaml``
 
@@ -1167,7 +1167,7 @@ installed as part of the requirements of the project.
       (or ``IxNetworkApiServer``)
 
 3. Execute testcase in samplevnf folder e.g.
-   ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml``
+   ``./samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml``
 
 Spirent Landslide
 -----------------
