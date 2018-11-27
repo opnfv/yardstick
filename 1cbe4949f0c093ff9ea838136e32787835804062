@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_65d82854",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-27T14:51:55Z",
+      "side": 1,
+      "message": "Dict",
+      "range": {
+        "startLine": 614,
+        "startChar": 18,
+        "endLine": 614,
+        "endChar": 23
+      },
+      "revId": "1cbe4949f0c093ff9ea838136e32787835804062",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_85d3c437",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-27T14:51:55Z",
+      "side": 1,
+      "message": "If this message is critical, use critical() function for this purpose. In that case user will be able to filter all messages with critical severity. https://docs.python.org/2/library/logging.html#logging.critical",
+      "revId": "1cbe4949f0c093ff9ea838136e32787835804062",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_25ee30ed",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-27T14:51:55Z",
+      "side": 1,
+      "message": "It doesn\u0027t make seance to print the value since it is zero anyway. \nLOG.error(\"HZ is ZERO\") should be enough.",
+      "range": {
+        "startLine": 684,
+        "startChar": 24,
+        "endLine": 684,
+        "endChar": 58
+      },
+      "revId": "1cbe4949f0c093ff9ea838136e32787835804062",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_25c5905b",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_prox_binsearch.py",
+        "patchSetId": 20
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-27T14:51:55Z",
+      "side": 1,
+      "message": "make it global in the class and reuse it in L83 too.",
+      "range": {
+        "startLine": 219,
+        "startChar": 8,
+        "endLine": 219,
+        "endChar": 28
+      },
+      "revId": "1cbe4949f0c093ff9ea838136e32787835804062",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
