@@ -81,6 +81,30 @@
       "revId": "eedf287dbef58ada1cfe299eae87067c03f390b4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_05c4d490",
+        "filename": "yardstick/common/nsb_report.html.j2",
+        "patchSetId": 12
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-27T14:02:41Z",
+      "side": 1,
+      "message": "\"\n \u003e For the same reason, we first need to tell the browser that what\n \u003e follows in the stream consists of HTML5 syntax (L1+L2), so that\n \u003e \"\u003c!--\" on L4 is correctly seen as the beginning of a comment block.\n \u003e So it seems to me that this copyright header is as close to the top\n \u003e as possible.\n\"\nIf this is the case, than it is fine.",
+      "parentUuid": "1a622d24_2548f05a",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 3
+      },
+      "revId": "eedf287dbef58ada1cfe299eae87067c03f390b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
