@@ -22,6 +22,30 @@
       "revId": "2fc1aae6fe8198aa395703735b68d158a521ceb4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a58880e8",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2018-11-27T18:26:43Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "1a622d24_0beea8ec",
+      "range": {
+        "startLine": 323,
+        "startChar": 73,
+        "endLine": 323,
+        "endChar": 74
+      },
+      "revId": "2fc1aae6fe8198aa395703735b68d158a521ceb4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
