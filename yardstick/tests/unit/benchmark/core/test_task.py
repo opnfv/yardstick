@@ -526,6 +526,112 @@ key2:
             '/output_directory/000-task_file_name.yml', 'File content')
         mock_exit.assert_called_once_with(0)
 
+
+    @mock.patch.object(base, 'Context')
+    @mock.patch.object(task, 'base_runner')
+    def test__parser_parse_task_no_args(self, mock_base_runner, mock_context):
+        task_parser = task.TaskParser("task_file")
+        task_id = str(uuid.uuid4())
+        task_tpl = """
+schema: "yardstick:task:0.1"
+{% set task_prefix = task_id[:8] %}
+
+scenarios:
+-
+  type: Ping
+  options:
+    packetsize: 100
+    task: {{task_prefix}}
+  host: athena.demo
+  target: athena.demo
+
+  runner:
+    type: Duration
+    duration: 60
+    interval: 10
+
+  sla:
+    max_rtt: 10
+    action: monitor
+context:
+  name: demo
+"""
+        runner = mock.Mock()
+        runner.join.return_value = 0
+        runner.get_output.return_value = {}
+        runner.get_result.return_value = []
+        mock_base_runner.Runner.get.return_value = runner
+
+        context = mock.Mock()
+        context.split_host_name.return_value = ("athena", "demo")
+        context.assigned_name = "demo"
+
+        mock_context.get.return_value = context
+        task_str = io.StringIO(six.text_type(task_tpl))
+
+        with mock.patch.object(six.moves.builtins, "open", return_value=task_str) as mock_open:
+            task_info = task_parser.parse_task(task_id)
+        mock_open.assert_called_once_with("task_file")
+
+        self.assertIn("scenarios", task_info)
+        self.assertIn("run_in_parallel", task_info)
+        self.assertIn("meet_precondition", task_info)
+        self.assertIn("contexts", task_info)
+        self.assertIn("rendered", task_info)
+
+    @mock.patch.object(base, 'Context')
+    @mock.patch.object(task, 'base_runner')
+    def test__parser_parse_task_with_args(self, mock_base_runner, mock_context):
+        task_parser = task.TaskParser("task_file")
+        task_id = str(uuid.uuid4())
+        task_tpl = """
+schema: "yardstick:task:0.1"
+{% set task_prefix = task_id[:8] %}
+
+scenarios:
+-
+  type: Ping
+  options:
+    packetsize: 100
+    task: {{task_prefix}}
+    other: {{other}}
+  host: athena.demo
+  target: athena.demo
+
+  runner:
+    type: Duration
+    duration: 60
+    interval: 10
+
+  sla:
+    max_rtt: 10
+    action: monitor
+context:
+  name: demo
+"""
+        runner = mock.Mock()
+        runner.join.return_value = 0
+        runner.get_output.return_value = {}
+        runner.get_result.return_value = []
+        mock_base_runner.Runner.get.return_value = runner
+
+        context = mock.Mock()
+        context.split_host_name.return_value = ("athena", "demo")
+        context.assigned_name = "demo"
+
+        mock_context.get.return_value = context
+        task_str = io.StringIO(six.text_type(task_tpl))
+
+        with mock.patch.object(six.moves.builtins, "open", return_value=task_str) as mock_open:
+            task_info = task_parser.parse_task(task_id, '{"other": 100}')
+
+        mock_open.assert_called_once_with("task_file")
+        self.assertIn("scenarios", task_info)
+        self.assertIn("run_in_parallel", task_info)
+        self.assertIn("meet_precondition", task_info)
+        self.assertIn("contexts", task_info)
+        self.assertIn("rendered", task_info)
+
     def test__render_task_no_args(self):
         task_parser = task.TaskParser('task_file')
         task_str = io.StringIO(six.text_type(self.TASK))
