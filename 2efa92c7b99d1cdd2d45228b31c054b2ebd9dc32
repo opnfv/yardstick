@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_c5b01ce0",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_IMIX_trex_scale_up.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-27T16:02:43Z",
+      "side": 1,
+      "message": "why only the IMIX test cases are named as scale up? I am not understanding the link between packet type and scale up.\n\nAlso, scale up on what parameter exactly: Cores, Ports, or Tunnels?",
+      "revId": "2efa92c7b99d1cdd2d45228b31c054b2ebd9dc32",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
