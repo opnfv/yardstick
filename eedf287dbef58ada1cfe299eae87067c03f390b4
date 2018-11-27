@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_c5577c01",
+        "filename": "yardstick/common/nsb_report.css",
+        "patchSetId": 12
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-27T11:59:18Z",
+      "side": 1,
+      "message": "Yes, we do, because this new CSS file mostly consists of copy/paste from https://gerrit.opnfv.org/gerrit/#/c/60699/12/yardstick/common/report.html.j2@22\nSo we must carry forward the list of copyright owners.",
+      "parentUuid": "1a622d24_012cc9aa",
+      "revId": "eedf287dbef58ada1cfe299eae87067c03f390b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_61181d85",
         "filename": "yardstick/common/nsb_report.html.j2",
         "patchSetId": 12
@@ -30,6 +48,30 @@
       "writtenOn": "2018-11-27T09:05:22Z",
       "side": 1,
       "message": "move the top of the file.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 3
+      },
+      "revId": "eedf287dbef58ada1cfe299eae87067c03f390b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2548f05a",
+        "filename": "yardstick/common/nsb_report.html.j2",
+        "patchSetId": 12
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-11-27T11:59:18Z",
+      "side": 1,
+      "message": "In a shell script or Python script, copyright header is provided in a comment block under the shebang line, which is used to load the relevant interpreter, which in turn has rules to distinguish comments from executable lines.\nFor the same reason, we first need to tell the browser that what follows in the stream consists of HTML5 syntax (L1+L2), so that \"\u003c!--\" on L4 is correctly seen as the beginning of a comment block.\nSo it seems to me that this copyright header is as close to the top as possible.\n\nHowever, at first place, this file is a Jinja2 template before it is translated to HTML5 file. So it would be possible to move the copyright header at the top, using the Jinja2 \"{# ... #}\" syntax for comments: http://jinja.pocoo.org/docs/2.10/templates/#comments\nIn that case, this copyright header would be provided in this Jinja2 template file in Yardstick source code repository, but would be removed from the generated HTML5 file that users can then store, share, publish...\n\nI am not sure whether or not Yardstick-generated files should carry copyright headers from Yardstick authors, so I am seeking some advice on what to do here!",
+      "parentUuid": "1a622d24_61181d85",
       "range": {
         "startLine": 5,
         "startChar": 0,
