@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_012cc9aa",
+        "filename": "yardstick/common/nsb_report.css",
+        "patchSetId": 12
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-27T09:05:22Z",
+      "side": 1,
+      "message": "Do we really need it here?",
+      "revId": "eedf287dbef58ada1cfe299eae87067c03f390b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_61181d85",
+        "filename": "yardstick/common/nsb_report.html.j2",
+        "patchSetId": 12
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-27T09:05:22Z",
+      "side": 1,
+      "message": "move the top of the file.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 3
+      },
+      "revId": "eedf287dbef58ada1cfe299eae87067c03f390b4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
