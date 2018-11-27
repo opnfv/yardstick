@@ -10,6 +10,7 @@
 import sys
 import os
 from collections import OrderedDict
+import json
 
 import yaml
 import atexit
@@ -544,7 +545,11 @@ class TaskParser(object):       # pragma: no cover
     def parse_task(self, task_id, task_args=None, task_args_file=None):
         """parses the task file and return an context and scenario instances"""
         LOG.info("Parsing task config: %s", self.path)
-
+        if task_args:
+            task_args = json.loads(task_args)
+            task_args["task_id"] = task_id
+        else:
+            task_args = {"task_id": task_id}
         cfg, rendered = self._render_task(task_args, task_args_file)
         self._check_schema(cfg["schema"], "task")
         meet_precondition = self._check_precondition(cfg)
