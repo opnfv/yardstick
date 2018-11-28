@@ -12,6 +12,7 @@ import io
 import logging
 import os
 import sys
+import importlib
 
 import mock
 import six
@@ -26,6 +27,7 @@ from yardstick.common import constants as consts
 from yardstick.common import exceptions
 from yardstick.common import task_template
 from yardstick.common import utils
+from yardstick.benchmark.scenarios import base as base_scenario
 
 
 class TaskTestCase(unittest.TestCase):
@@ -157,6 +159,34 @@ class TaskTestCase(unittest.TestCase):
         mock_base_runner.Runner.get.return_value = runner
         t._run([scenario], False, "yardstick.out")
         runner.run.assert_called_once()
+
+    @mock.patch.object(importlib, "import_module")
+    @mock.patch.object(base_scenario, "Scenario")
+    def test_teardown_error_handler(self, mock_scenario, mock_import_module):
+        t = task.Task()
+        scenario_cfg = {
+            "host": "athena.demo",
+            "type": "Server",
+            "options":{
+                "ip": "127.0.0.1",
+                "user": "admin"
+            }
+        }
+        mock_scenario.get.return_value = "scenario.create_server"
+        mock_module = mock.Mock()
+        run_mock = mock.Mock()
+
+        run_mock.run.return_value = {"result": "success."}
+        mock_module.create_server.return_value = run_mock
+        mock_import_module.return_value = mock_module
+
+        task.Task.teardown_error_handler(t, scenario_cfg)
+
+        mock_scenario.get.assert_called_once()
+        mock_import_module.assert_called_once()
+        run_mock.run.assert_called_once()
+
+        self.assertEqual(run_mock.run.return_value, t.outputs)
 
     @mock.patch.object(base, 'Context')
     @mock.patch.object(task, 'base_runner')
