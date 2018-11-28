@@ -21,6 +21,8 @@ from yardstick.network_services.traffic_profile import prox_binsearch
 
 class TestProxBinSearchProfile(unittest.TestCase):
 
+    THEOR_MAX_THROUGHPUT = 0.00012340000000000002
+
     def setUp(self):
         self._mock_log_info = mock.patch.object(prox_binsearch.LOG, 'info')
         self.mock_log_info = self._mock_log_info.start()
@@ -80,7 +82,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
         # Result Samples inc theor_max
         result_tuple = {'Actual_throughput': 5e-07,
-                        'theor_max_throughput': 7.5e-07,
+                        'theor_max_throughput': self.THEOR_MAX_THROUGHPUT,
                         'PktSize': 200,
                         'Status': 'Result'}
 
@@ -96,7 +98,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
                                 "PktSize": 200,
                                 "RxThroughput": 7.5e-07,
                                 "Throughput": 7.5e-07,
-                                "TxThroughput": 0.00012340000000000002,
+                                "TxThroughput": self.THEOR_MAX_THROUGHPUT,
                                 "Status": 'Success'}
 
         calls = profile.queue.put(success_result_tuple)
@@ -222,6 +224,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
                 raise RuntimeError(' '.join([str(args), str(runs)]))
             if args[2] > 75.0:
                 return fail_tuple, {}
+
             return success_tuple, {}
 
         tp_config = {
@@ -258,7 +261,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
 
         # Result Samples inc theor_max
         result_tuple = {'Actual_throughput': 5e-07,
-                        'theor_max_throughput': 7.5e-07,
+                        'theor_max_throughput': self.THEOR_MAX_THROUGHPUT,
                         'PktSize': 200,
                         "Status": 'Result'}
 
@@ -274,7 +277,7 @@ class TestProxBinSearchProfile(unittest.TestCase):
                                 "PktSize": 200,
                                 "RxThroughput": 7.5e-07,
                                 "Throughput": 7.5e-07,
-                                "TxThroughput": 0.00012340000000000002,
+                                "TxThroughput": self.THEOR_MAX_THROUGHPUT,
                                 "Status": 'Success'}
 
         calls = profile.queue.put(success_result_tuple)
