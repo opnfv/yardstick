@@ -18,6 +18,7 @@ import time
 import logging
 import uuid
 import collections
+import importlib
 
 from six.moves import filter
 from jinja2 import Environment
@@ -33,6 +34,7 @@ from yardstick.common import exceptions as y_exc
 from yardstick.common import task_template
 from yardstick.common import utils
 from yardstick.common.html_template import report_template
+from yardstick.benchmark.scenarios import base as base_scenario
 
 output_file_default = "/tmp/yardstick.out"
 test_cases_dir_default = "tests/opnfv/test_cases/"
@@ -242,6 +244,11 @@ class Task(object):     # pragma: no cover
 
     def _run(self, scenarios, run_in_parallel, output_config):
         """Deploys context and calls runners"""
+        teardowns = list((i for i in scenarios if i.get('teardown')))[::-1]
+        for scenario in teardowns:
+            atexit.register(self.teardown_error_handler, self, scenario)
+            scenarios.remove(scenario)
+
         for context in self.contexts:
             context.deploy()
 
@@ -298,6 +305,22 @@ class Task(object):     # pragma: no cover
 
             print("Background task ended")
         return task_success, result
+
+    @staticmethod
+    def teardown_error_handler(instance, scenario_cfg):
+        scenario_type = scenario_cfg['type']
+        class_name = base_scenario.Scenario.get(scenario_type)
+        path_split = class_name.split(".")
+        module_path = '.'.join(path_split[:-1])
+        module = importlib.import_module(module_path)
+
+        options = scenario_cfg.get('options', {})
+        options = instance._parse_options(options)
+        scenario_cfg['option'] = options
+        method = getattr(module, path_split[-1])(scenario_cfg, {}).run
+        result = method({})
+        if result:
+            instance.outputs.update(result)
 
     def atexit_handler(self):
         """handler for process termination"""
