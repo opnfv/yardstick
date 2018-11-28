@@ -33,3 +33,6 @@ NSB PROX Test Case Descriptions
    tc_epc_saegw_tput_relocation_landslide
    tc_epc_network_service_request_landslide
    tc_epc_ue_service_request_landslide
+   tc_vfw_rfc2544.rst
+   tc_vfw_rfc2544_correlated.rst
+   tc_vfw_rfc3511.rst
