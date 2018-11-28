@@ -11,6 +11,7 @@ import sys
 import os
 from collections import OrderedDict
 
+import six
 import yaml
 import atexit
 import ipaddress
@@ -313,7 +314,7 @@ class Task(object):     # pragma: no cover
             return {k: self._parse_options(v) for k, v in op.items()}
         elif isinstance(op, list):
             return [self._parse_options(v) for v in op]
-        elif isinstance(op, str):
+        elif isinstance(op, six.string_types):
             return self.outputs.get(op[1:]) if op.startswith('$') else op
         else:
             return op
