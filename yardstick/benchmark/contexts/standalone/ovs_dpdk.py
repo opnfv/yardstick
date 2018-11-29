@@ -172,12 +172,12 @@ class OvsDpdkContext(base.Context):
 
     def setup_ovs_bridge_add_flows(self):
         dpdk_args = ""
-        dpdk_list = []
         vpath = self.ovs_properties.get("vpath", "/usr/local")
         version = self.ovs_properties.get('version', {})
         ovs_ver = [int(x) for x in version.get('ovs', self.DEFAULT_OVS).split('.')]
         ovs_add_port = ('ovs-vsctl add-port {br} {port} -- '
-                        'set Interface {port} type={type_}{dpdk_args}{dpdk_rxq}')
+                        'set Interface {port} type={type_}{dpdk_args}'
+                        '{dpdk_rxq}{pmd_rx_aff}')
         chmod_vpath = 'chmod 0777 {0}/var/run/openvswitch/dpdkvhostuser*'
 
         cmd_list = [
@@ -191,23 +191,38 @@ class OvsDpdkContext(base.Context):
         if queues:
             dpdk_rxq = " options:n_rxq={queue}".format(queue=queues)
 
-        ordered_network = collections.OrderedDict(self.networks)
+        # Sorting the array to make sure we execute dpdk0... in the order
+        ordered_network = collections.OrderedDict(
+            sorted(self.networks.items(), key=lambda t: t[1].get('port_num', 0)))
+        pmd_rx_aff_ports = self.ovs_properties.get("dpdk_pmd-rxq-affinity", {})
         for index, vnf in enumerate(ordered_network.values()):
             if ovs_ver >= [2, 7, 0]:
                 dpdk_args = " options:dpdk-devargs=%s" % vnf.get("phy_port")
-            dpdk_list.append(ovs_add_port.format(
+            affinity = pmd_rx_aff_ports.get(vnf.get("port_num", -1), "")
+            if affinity:
+                pmd_rx_aff = ' other_config:pmd-rxq-affinity=' \
+                             '"{affinity}"'.format(affinity=affinity)
+            else:
+                pmd_rx_aff = ""
+            cmd_list.append(ovs_add_port.format(
                 br=MAIN_BRIDGE, port='dpdk%s' % vnf.get("port_num", 0),
-                type_='dpdk', dpdk_args=dpdk_args, dpdk_rxq=dpdk_rxq))
-
-        # Sorting the array to make sure we execute dpdk0... in the order
-        list.sort(dpdk_list)
-        cmd_list.extend(dpdk_list)
+                type_='dpdk', dpdk_args=dpdk_args, dpdk_rxq=dpdk_rxq,
+                pmd_rx_aff=pmd_rx_aff))
 
         # Need to do two for loop to maintain the dpdk/vhost ports.
+        pmd_rx_aff_ports = self.ovs_properties.get("vhost_pmd-rxq-affinity",
+                                                   {})
         for index, _ in enumerate(ordered_network):
+            affinity = pmd_rx_aff_ports.get(index)
+            if affinity:
+                pmd_rx_aff = ' other_config:pmd-rxq-affinity=' \
+                             '"{affinity}"'.format(affinity=affinity)
+            else:
+                pmd_rx_aff = ""
             cmd_list.append(ovs_add_port.format(
                 br=MAIN_BRIDGE, port='dpdkvhostuser%s' % index,
-                type_='dpdkvhostuser', dpdk_args="", dpdk_rxq=""))
+                type_='dpdkvhostuser', dpdk_args="", dpdk_rxq=dpdk_rxq,
+                pmd_rx_aff=pmd_rx_aff))
 
         ovs_flow = ("ovs-ofctl add-flow {0} in_port=%s,action=output:%s".
                     format(MAIN_BRIDGE))
