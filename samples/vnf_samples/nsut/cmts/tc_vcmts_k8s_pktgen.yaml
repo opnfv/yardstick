@@ -1,0 +1,360 @@
+# Copyright (c) 2019 Viosoft Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+{% set num_tg = 2 %}
+{% set num_sg = 4 %}
+
+{% set vcmtsd_image = "vcmts-d:perf" %}
+{% set qat_on = false %}
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+- type: NSPerf
+  traffic_profile: ../../traffic_profiles/fixed.yaml
+  extra_args:
+    num_sg: {{ num_sg }}
+    num_tg: {{ num_tg }}
+  topology: k8s_vcmts_topology.yaml
+  nodes:
+{% for tg_num in range(0, num_tg) %}
+    tg__{{ tg_num }}: pktgen{{ tg_num }}-k8syardstick
+{% endfor %}
+{% for vnf_index in range(0, num_sg) %}
+    vnf__{{ vnf_index * 2 }}: vnf{{ vnf_index }}us-k8syardstick
+    vnf__{{ (vnf_index * 2) + 1}}: vnf{{ vnf_index }}ds-k8syardstick
+{% endfor %}
+
+  runner:
+    type: Duration
+    duration: 120
+
+  options:
+    vcmts_influxdb_ip: "10.80.5.150"
+    vcmts_influxdb_port: 8086
+    vcmtsd_values: /etc/yardstick/vcmtsd_values.yaml
+    pktgen_values: /etc/yardstick/pktgen_values.yaml
+    pktgen_rate: 6.5
+{% for vnf_index in range(0, num_sg) %}
+    vnf__{{ vnf_index * 2 }}:
+      sg_id: {{ vnf_index }}
+      stream_dir: "us"
+    vnf__{{ (vnf_index * 2) + 1}}:
+      sg_id: {{ vnf_index }}
+      stream_dir: "ds"
+{% endfor %}
+{% for tg_num in range(0, num_tg) %}
+    tg__{{ tg_num }}:
+      pktgen_id: {{ tg_num }}
+{% endfor %}
+
+context:
+  name: k8syardstick
+  type: Kubernetes
+
+  servers:
+{% for vnf_index in range(0, num_sg) %}
+    vnf{{ vnf_index }}us:
+      nodeSelector:
+        vcmts: "true"
+      containers:
+        - image: {{ vcmtsd_image }}
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: CMK_PROC_FS
+            value: "/host/proc"
+          command: /bin/bash
+          args: ['-c', 'mkdir /root/.ssh; cp /tmp/.ssh/authorized_keys ~/.ssh/.;
+                    chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; service ssh restart;
+                    while true ; do sleep 10000; done']
+          resources:
+            requests:
+              memory: 10Ki
+{% if qat_on %}
+              hugepages-1Gi: 2Gi
+              qat.intel.com/generic: '1'
+{% else %}
+              hugepages-1Gi: 1Gi
+{% endif %}
+            limits:
+              memory: 1Gi
+{% if qat_on %}
+              hugepages-1Gi: 2Gi
+              qat.intel.com/generic: '1'
+{% else %}
+              hugepages-1Gi: 1Gi
+{% endif %}
+          lifecycle:
+            postStart:
+              exec:
+                command: [ "/bin/bash", "-c", "env > /tmp/qat" ]
+          volumeMounts:
+            - name: vcmts-configmap-vcmtspod
+              mountPath: /vcmts-config
+            - name: hugepages
+              mountPath: /hugepages
+              readOnly: false
+            - name: collectd
+              mountPath: /opt/collectd/var
+              readOnly: false
+            - name: sysfs
+              mountPath: /sys
+              readOnly: false
+            - name: sriov
+              mountPath: /sriov-cni
+              readOnly: false
+            - name: host-proc
+              mountPath: /host/proc
+              readOnly: true
+            - name: cmk-install-dir
+              mountPath: /opt/bin
+            - name: cmk-conf-dir
+              mountPath: /etc/cmk
+            - name: power-mgmt
+              mountPath: /opt/power_mgmt
+          ports:
+            - containerPort: 22022
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+      node_ports:
+        - name: lua  # Lower case alphanumeric characters or '-'
+          port: 22022
+      networks:
+        - flannel
+        - xe0
+        - xe1
+      volumes:
+      - name: vcmts-configmap-vcmtspod
+        configMap:
+          name: vcmts-configmap-vcmtspod
+          defaultMode: 0744
+      - name: hugepages
+        emptyDir:
+          medium: HugePages
+      - name: collectd
+        hostPath:
+          path: /opt/collectd/var
+      - name: sysfs
+        hostPath:
+          path: /sys
+      - name: sriov
+        hostPath:
+          path: /var/lib/cni/sriov
+      - name: cmk-install-dir
+        hostPath:
+          path: /opt/bin
+      - name: host-proc
+        hostPath:
+          path: /proc
+      - name: cmk-conf-dir
+        hostPath:
+          path: /etc/cmk
+      - name: power-mgmt
+        hostPath:
+          path: /opt/power_mgmt
+
+    vnf{{ vnf_index }}ds:
+      nodeSelector:
+        vcmts: "true"
+      containers:
+        - image: {{ vcmtsd_image }}
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: CMK_PROC_FS
+            value: "/host/proc"
+          command: /bin/bash
+          args: ['-c', 'mkdir /root/.ssh; cp /tmp/.ssh/authorized_keys ~/.ssh/.;
+                    chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; service ssh restart;
+                    while true ; do sleep 10000; done']
+          resources:
+            requests:
+              memory: 10Ki
+{% if qat_on %}
+              hugepages-1Gi: 2Gi
+              qat.intel.com/generic: '1'
+{% else %}
+              hugepages-1Gi: 1Gi
+{% endif %}
+            limits:
+              memory: 1Gi
+{% if qat_on %}
+              hugepages-1Gi: 2Gi
+              qat.intel.com/generic: '1'
+{% else %}
+              hugepages-1Gi: 1Gi
+{% endif %}
+          lifecycle:
+            postStart:
+              exec:
+                command: [ "/bin/bash", "-c", "env > /tmp/qat" ]
+          volumeMounts:
+            - name: vcmts-configmap-vcmtspod
+              mountPath: /vcmts-config
+            - name: hugepages
+              mountPath: /hugepages
+              readOnly: false
+            - name: collectd
+              mountPath: /opt/collectd/var
+              readOnly: false
+            - name: sysfs
+              mountPath: /sys
+              readOnly: false
+            - name: sriov
+              mountPath: /sriov-cni
+              readOnly: false
+            - name: host-proc
+              mountPath: /host/proc
+              readOnly: true
+            - name: cmk-install-dir
+              mountPath: /opt/bin
+            - name: cmk-conf-dir
+              mountPath: /etc/cmk
+            - name: power-mgmt
+              mountPath: /opt/power_mgmt
+          ports:
+            - containerPort: 22022
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+      node_ports:
+        - name: lua  # Lower case alphanumeric characters or '-'
+          port: 22022
+      networks:
+        - flannel
+        - xe0
+        - xe1
+      volumes:
+      - name: vcmts-configmap-vcmtspod
+        configMap:
+          name: vcmts-configmap-vcmtspod
+          defaultMode: 0744
+      - name: hugepages
+        emptyDir:
+          medium: HugePages
+      - name: collectd
+        hostPath:
+          path: /opt/collectd/var
+      - name: sysfs
+        hostPath:
+          path: /sys
+      - name: sriov
+        hostPath:
+          path: /var/lib/cni/sriov
+      - name: cmk-install-dir
+        hostPath:
+          path: /opt/bin
+      - name: host-proc
+        hostPath:
+          path: /proc
+      - name: cmk-conf-dir
+        hostPath:
+          path: /etc/cmk
+      - name: power-mgmt
+        hostPath:
+          path: /opt/power_mgmt
+{% endfor %}
+
+{% for index in range(0, num_tg) %}
+    pktgen{{index}}:
+      nodeSelector:
+        vcmtspktgen: "true"
+      containers:
+        - image: vcmts-pktgen:v18.10
+          imagePullPolicy: IfNotPresent
+          tty: true
+          stdin: true
+          env:
+          - name: LUA_PATH
+            value: "/vcmts/Pktgen.lua"
+          - name: CMK_PROC_FS
+            value: "/host/proc"
+          command: /bin/bash
+          args: ['-c', 'mkdir /root/.ssh; cp /tmp/.ssh/authorized_keys ~/.ssh/.;
+                    chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; service ssh restart;
+                    while true ; do sleep 10000; done']
+          resources:
+            requests:
+              hugepages-1Gi: 9Gi
+              memory: 200Mi
+            limits:
+              hugepages-1Gi: 9Gi
+              memory: 200Mi
+          volumeMounts:
+            - name: sysfs
+              mountPath: /sys
+              readOnly: false
+            - name: hugepages
+              mountPath: /hugepages
+              readOnly: false
+            - name: sriov
+              mountPath: /sriov-cni
+              readOnly: false
+            - name: host-proc
+              mountPath: /host/proc
+              readOnly: true
+            - name: cmk-install-dir
+              mountPath: /opt/bin
+            - name: cmk-conf-dir
+              mountPath: /etc/cmk
+            - name: pktgen-config
+              mountPath: /pktgen-config
+          ports:
+            - containerPort: 22022
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+      volumes:
+        - name: sysfs
+          hostPath:
+            path: /sys
+        - name: hugepages
+          emptyDir:
+            medium: HugePages
+        - name: sriov
+          hostPath:
+            path: /var/lib/cni/sriov
+        - name: cmk-install-dir
+          hostPath:
+            path: /opt/bin
+        - name: host-proc
+          hostPath:
+            path: /proc
+        - name: cmk-conf-dir
+          hostPath:
+            path: /etc/cmk
+        - name: pktgen-config
+          configMap:
+            name: vcmts-configmap-pktgen
+            defaultMode: 0744
+      node_ports:
+        - name: lua  # Lower case alphanumeric characters or '-'
+          port: 22022
+      networks:
+        - flannel
+        - xe0
+        - xe1
+{% endfor %}
+
+  networks:
+    flannel:
+      args: '[{ "delegate": { "isDefaultGateway": true }}]'
+      plugin: flannel
+    xe0:
+      args: '[{ "delegate": { "isDefaultGateway": true }}]'
+      plugin: flannel
+    xe1:
+      args: '[{ "delegate": { "isDefaultGateway": true }}]'
+      plugin: flannel
