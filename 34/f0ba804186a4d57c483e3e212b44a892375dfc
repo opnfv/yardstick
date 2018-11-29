@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Patrice Buriez <patrice.buriez@intel.com>
+Code-Review+2: Abhijit Sinha <abhijit.sinha@intel.com>
+Submitted-by: Abhijit Sinha <abhijit.sinha@intel.com>
+Submitted-at: Thu, 29 Nov 2018 23:47:53 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/65465
+Project: yardstick
+Branch: refs/heads/stable/gambia
