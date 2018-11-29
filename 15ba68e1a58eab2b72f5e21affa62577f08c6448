@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_ce0f99e0",
+        "filename": "samples/vnf_samples/nsut/prox/prox-tg-topology-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-11-29T15:32:34Z",
+      "side": 1,
+      "message": "space each side of +",
+      "range": {
+        "startLine": 47,
+        "startChar": 46,
+        "endLine": 47,
+        "endChar": 56
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ae14ddf5",
+        "filename": "samples/vnf_samples/nsut/prox/prox-tg-topology-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-11-29T15:32:34Z",
+      "side": 1,
+      "message": "space each side of +",
+      "range": {
+        "startLine": 50,
+        "startChar": 41,
+        "endLine": 50,
+        "endChar": 56
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8e2c814c",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-11-29T15:32:34Z",
+      "side": 1,
+      "message": "8",
+      "range": {
+        "startLine": 1,
+        "startChar": 24,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2e00cda9",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-11-29T15:32:34Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 15,
+        "startChar": 30,
+        "endLine": 15,
+        "endChar": 31
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6e3125a2",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-11-29T15:32:34Z",
+      "side": 1,
+      "message": "should this be before line 15?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 3
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ce267968",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-11-29T15:32:34Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 92,
+        "startChar": 64,
+        "endLine": 92,
+        "endChar": 65
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
