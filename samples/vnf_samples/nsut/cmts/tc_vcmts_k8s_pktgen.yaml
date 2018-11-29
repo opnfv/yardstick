@@ -1,0 +1,307 @@
+# Copyright (c) 2018 Viosoft Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+schema: "yardstick:task:0.1"
+
+scenarios:
+- type: NSPerf
+  traffic_profile: ../../traffic_profiles/fixed.yaml
+  topology: vcmts_k8s_topology.yaml
+  nodes:
+    tg__0: pktgen0-k8syardstick
+    vnf__0: vnf0us-k8syardstick
+    vnf__1: vnf0ds-k8syardstick
+
+  runner:
+    type: Duration
+    duration: 15
+
+  options:
+    vcmtsd_values: /etc/yardstick/vcmtsd_values.yaml
+    pktgen_values: /etc/yardstick/pktgen_values.yaml
+    vnf__0:
+      sg_id: 0
+      stream_dir: us
+      collectd:
+        interval: 1
+    vnf__1:
+      sg_id: 0
+      stream_dir: ds
+      collectd:
+        interval: 1
+    tg__0:
+      pktgen_id: 0
+      collectd:
+        interval: 1
+
+context:
+  name: k8syardstick
+  type: Kubernetes
+
+  servers:
+    vnf0us:
+      containers:
+        - image: vcmts-d:feat
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: CMK_PROC_FS
+            value: "/host/proc"
+          command: /bin/bash
+          args: ['-c', 'mkdir /root/.ssh; cp /tmp/.ssh/authorized_keys ~/.ssh/.;
+                    chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; service ssh restart;
+                    while true ; do sleep 10000; done']
+          resources:
+            requests:
+              memory: 10Ki
+              hugepages-1Gi: 1Gi
+            limits:
+              memory: 1Gi
+              hugepages-1Gi: 1Gi
+          lifecycle:
+            postStart:
+              exec:
+                command: [ "/bin/bash", "-c", "env > /tmp/qat" ]
+          volumeMounts:
+            - name: vcmts-configmap-vcmtspod
+              mountPath: /vcmts-config
+            - name: hugepages
+              mountPath: /hugepages
+              readOnly: false
+            - name: collectd
+              mountPath: /opt/collectd/var
+              readOnly: false
+            - name: sysfs
+              mountPath: /sys
+              readOnly: false
+            - name: sriov
+              mountPath: /sriov-cni
+              readOnly: false
+            - name: host-proc
+              mountPath: /host/proc
+              readOnly: true
+            - name: cmk-install-dir
+              mountPath: /opt/bin
+            - name: cmk-conf-dir
+              mountPath: /etc/cmk
+            - name: power-mgmt
+              mountPath: /opt/power_mgmt
+          ports:
+            - containerPort: 22022
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+      node_ports:
+        - name: lua  # Lower case alphanumeric characters or '-'
+          port: 22022
+      networks:
+        - flannel
+        - xe0
+        - xe1
+      volumes:
+      - name: vcmts-configmap-vcmtspod
+        configMap:
+          name: vcmts-configmap-vcmtspod
+          defaultMode: 0744
+      - name: hugepages
+        emptyDir:
+          medium: HugePages
+      - name: collectd
+        hostPath:
+          path: /opt/collectd/var
+      - name: sysfs
+        hostPath:
+          path: /sys
+      - name: sriov
+        hostPath:
+          path: /var/lib/cni/sriov
+      - name: cmk-install-dir
+        hostPath:
+          path: /opt/bin
+      - name: host-proc
+        hostPath:
+          path: /proc
+      - name: cmk-conf-dir
+        hostPath:
+          path: /etc/cmk
+      - name: power-mgmt
+        hostPath:
+          path: /opt/power_mgmt
+
+    vnf0ds:
+      containers:
+        - image: vcmts-d:feat
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: CMK_PROC_FS
+            value: "/host/proc"
+          command: /bin/bash
+          args: ['-c', 'mkdir /root/.ssh; cp /tmp/.ssh/authorized_keys ~/.ssh/.;
+                    chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; service ssh restart;
+                    while true ; do sleep 10000; done']
+          resources:
+            requests:
+              memory: 10Ki
+              hugepages-1Gi: 1Gi
+            limits:
+              memory: 1Gi
+              hugepages-1Gi: 1Gi
+          lifecycle:
+            postStart:
+              exec:
+                command: [ "/bin/bash", "-c", "env > /tmp/qat" ]
+          volumeMounts:
+            - name: vcmts-configmap-vcmtspod
+              mountPath: /vcmts-config
+            - name: hugepages
+              mountPath: /hugepages
+              readOnly: false
+            - name: collectd
+              mountPath: /opt/collectd/var
+              readOnly: false
+            - name: sysfs
+              mountPath: /sys
+              readOnly: false
+            - name: sriov
+              mountPath: /sriov-cni
+              readOnly: false
+            - name: host-proc
+              mountPath: /host/proc
+              readOnly: true
+            - name: cmk-install-dir
+              mountPath: /opt/bin
+            - name: cmk-conf-dir
+              mountPath: /etc/cmk
+            - name: power-mgmt
+              mountPath: /opt/power_mgmt
+          ports:
+            - containerPort: 22022
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+      node_ports:
+        - name: lua  # Lower case alphanumeric characters or '-'
+          port: 22022
+      networks:
+        - flannel
+        - xe0
+        - xe1
+      volumes:
+      - name: vcmts-configmap-vcmtspod
+        configMap:
+          name: vcmts-configmap-vcmtspod
+          defaultMode: 0744
+      - name: hugepages
+        emptyDir:
+          medium: HugePages
+      - name: collectd
+        hostPath:
+          path: /opt/collectd/var
+      - name: sysfs
+        hostPath:
+          path: /sys
+      - name: sriov
+        hostPath:
+          path: /var/lib/cni/sriov
+      - name: cmk-install-dir
+        hostPath:
+          path: /opt/bin
+      - name: host-proc
+        hostPath:
+          path: /proc
+      - name: cmk-conf-dir
+        hostPath:
+          path: /etc/cmk
+      - name: power-mgmt
+        hostPath:
+          path: /opt/power_mgmt
+
+    pktgen0:
+      containers:
+        - image: vcmts-pktgen:v18.10
+          imagePullPolicy: IfNotPresent
+          command: /bin/bash
+          args: ['-c', 'mkdir /root/.ssh; cp /tmp/.ssh/authorized_keys ~/.ssh/.;
+                    chmod 700 ~/.ssh; chmod 600 ~/.ssh/*; service ssh restart;
+                    while true ; do sleep 10000; done']
+          resources:
+            requests:
+              hugepages-1Gi: 9Gi
+              memory: 200Mi
+            limits:
+              hugepages-1Gi: 9Gi
+              memory: 200Mi
+          volumeMounts:
+            - name: sysfs
+              mountPath: /sys
+              readOnly: false
+            - name: hugepages
+              mountPath: /hugepages
+              readOnly: false
+            - name: sriov
+              mountPath: /sriov-cni
+              readOnly: false
+            - name: host-proc
+              mountPath: /host/proc
+              readOnly: true
+            - name: cmk-install-dir
+              mountPath: /opt/bin
+            - name: cmk-conf-dir
+              mountPath: /etc/cmk
+            - name: pktgen-config
+              mountPath: /pktgen-config
+          ports:
+            - containerPort: 22022
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+      volumes:
+        - name: sysfs
+          hostPath:
+            path: /sys
+        - name: hugepages
+          emptyDir:
+            medium: HugePages
+        - name: sriov
+          hostPath:
+            path: /var/lib/cni/sriov
+        - name: cmk-install-dir
+          hostPath:
+            path: /opt/bin
+        - name: host-proc
+          hostPath:
+            path: /proc
+        - name: cmk-conf-dir
+          hostPath:
+            path: /etc/cmk
+        - name: pktgen-config
+          configMap:
+            name: vcmts-configmap-pktgen
+            defaultMode: 0744
+      node_ports:
+        - name: lua  # Lower case alphanumeric characters or '-'
+          port: 22022
+      networks:
+        - flannel
+        - xe0
+        - xe1
+  networks:
+    flannel:
+      args: '[{ "delegate": { "isDefaultGateway": true }}]'
+      plugin: flannel
+    xe0:
+      args: '[{ "delegate": { "isDefaultGateway": true }}]'
+      plugin: flannel
+    xe1:
+      args: '[{ "delegate": { "isDefaultGateway": true }}]'
+      plugin: flannel
