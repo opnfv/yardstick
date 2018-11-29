@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_4e9f0960",
+        "filename": "samples/vnf_samples/nsut/prox/prox-tg-topology-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-29T16:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_ceb4b9f4",
+      "range": {
+        "startLine": 15,
+        "startChar": 42,
+        "endLine": 15,
+        "endChar": 45
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_ce0f99e0",
         "filename": "samples/vnf_samples/nsut/prox/prox-tg-topology-scale-up.yaml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-29T15:32:34Z",
       "side": 1,
       "message": "space each side of +",
+      "range": {
+        "startLine": 47,
+        "startChar": 46,
+        "endLine": 47,
+        "endChar": 56
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2e9c4d69",
+        "filename": "samples/vnf_samples/nsut/prox/prox-tg-topology-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-29T16:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_ce0f99e0",
       "range": {
         "startLine": 47,
         "startChar": 46,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_8e880124",
+        "filename": "samples/vnf_samples/nsut/prox/prox-tg-topology-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-29T16:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_ae14ddf5",
+      "range": {
+        "startLine": 50,
+        "startChar": 41,
+        "endLine": 50,
+        "endChar": 56
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_aeb97deb",
         "filename": "samples/vnf_samples/nsut/prox/standalone-args.yaml",
         "patchSetId": 1
@@ -82,6 +154,24 @@
       "writtenOn": "2018-11-29T16:20:38Z",
       "side": 1,
       "message": "\u003clicense \u0026 header\u003e\n---",
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6e8da531",
+        "filename": "samples/vnf_samples/nsut/prox/standalone-args.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-29T16:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_aeb97deb",
       "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_ae87bd0e",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-29T16:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_8e2c814c",
+      "range": {
+        "startLine": 1,
+        "startChar": 24,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_2e00cda9",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
         "patchSetId": 1
@@ -122,6 +236,30 @@
       "writtenOn": "2018-11-29T15:32:34Z",
       "side": 1,
       "message": "remove",
+      "range": {
+        "startLine": 15,
+        "startChar": 30,
+        "endLine": 15,
+        "endChar": 31
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ce82f9ff",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-29T16:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_2e00cda9",
       "range": {
         "startLine": 15,
         "startChar": 30,
@@ -181,6 +319,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_0e7cf11f",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-29T16:56:37Z",
+      "side": 1,
+      "message": "Will make them the same as other scale up test cases.",
+      "parentUuid": "1a622d24_0eceb183",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 3
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_2ec56d5b",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
         "patchSetId": 1
@@ -192,6 +354,30 @@
       "writtenOn": "2018-11-29T16:20:38Z",
       "side": 1,
       "message": "Would be great to rename configs/ipv4.lua to configs/ipv4-4port.lua\" but this is separate task. It will require to change some more places too.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 11
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2e73ad4e",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-29T16:56:37Z",
+      "side": 1,
+      "message": "Originally I had changed the ipv4.lua to ipv4-4port.lua but seen that a good number of prox tc files would need to be edited. The if condition will work until a task is added for lua file rename.",
+      "parentUuid": "1a622d24_2ec56d5b",
       "range": {
         "startLine": 39,
         "startChar": 0,
@@ -227,6 +413,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_8e8f6123",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-29T16:56:37Z",
+      "side": 1,
+      "message": "Done in all files",
+      "parentUuid": "1a622d24_eeca556d",
+      "range": {
+        "startLine": 87,
+        "startChar": 20,
+        "endLine": 87,
+        "endChar": 61
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_ce267968",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
         "patchSetId": 1
@@ -238,6 +448,30 @@
       "writtenOn": "2018-11-29T15:32:34Z",
       "side": 1,
       "message": "space",
+      "range": {
+        "startLine": 92,
+        "startChar": 64,
+        "endLine": 92,
+        "endChar": 65
+      },
+      "revId": "15ba68e1a58eab2b72f5e21affa62577f08c6448",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6e948537",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2018-11-29T16:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_ce267968",
       "range": {
         "startLine": 92,
         "startChar": 64,
