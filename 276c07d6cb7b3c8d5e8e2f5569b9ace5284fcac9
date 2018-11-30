@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_391db567",
+        "filename": "samples/vnf_samples/nsut/prox/standalone-args.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-30T14:23:03Z",
+      "side": 1,
+      "message": "btw, shouldn\u0027t be just 2018?",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "276c07d6cb7b3c8d5e8e2f5569b9ace5284fcac9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0e0cf141",
+        "filename": "samples/vnf_samples/nsut/prox/standalone-args.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-30T14:23:03Z",
+      "side": 1,
+      "message": "---",
+      "revId": "276c07d6cb7b3c8d5e8e2f5569b9ace5284fcac9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_191a796e",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-30T14:23:03Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "276c07d6cb7b3c8d5e8e2f5569b9ace5284fcac9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f9121d57",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-30T14:23:03Z",
+      "side": 1,
+      "message": "The variable is not used here, so rename it to \"_\" or use it something like this:\n\n{% for port_num in range((vports/2)|int) %}\n           xe{{ port_num  * 2 }}:\n             - uplink_{{ port_num  }}\n           xe{{ (port_num  * 2) + 1 }}:\n             - downlink_{{ port_num  }}\n{% endfor %}",
+      "range": {
+        "startLine": 77,
+        "startChar": 7,
+        "endLine": 77,
+        "endChar": 15
+      },
+      "revId": "276c07d6cb7b3c8d5e8e2f5569b9ace5284fcac9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d90f612d",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_l3fwd-scale-up.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-11-30T14:23:03Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "276c07d6cb7b3c8d5e8e2f5569b9ace5284fcac9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
