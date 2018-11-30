@@ -227,8 +227,8 @@ class StorPerf(base.Scenario):
                 LOG.info("Job %s completed with steady state %s",
                          job_id, steady_state)
 
-            result_res = requests.get('http://%s:5000/api/v1.0/jobs?'
-                                      'type=status&id=%s' % (self.target, job_id))
+            result_res = requests.get('http://%s:5000/api/v1.0/jobs?id=%s' %
+                                      (self.target, job_id))
             result_res_content = jsonutils.loads(
                 result_res.content)
             result.update(result_res_content)
