@@ -15,12 +15,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.5/themes/default/style.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.7/themes/default/style.min.css">
         <link rel="stylesheet" href="{{template_dir}}/nsb_report.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.7/jstree.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
     </head>
 
     <body>
@@ -31,12 +31,12 @@
                     <h4>Report of {{task_id}} Generated</h4>
                 </header>
             </div>
-            <div class="row" style="height:500px">
+            <div class="row">
                 <div class="col-md-2 control-pane">
                     <div id="data_selector"></div>
                 </div>
                 <div class="col-md-10 data-pane">
-                    <div id="graph"></div>
+                    <canvas id="cnvGraph" style="width: 100%; height: 500px"></canvas>
                 </div>
             </div>
             <div class="row">
@@ -47,7 +47,8 @@
         </div>
 
         <script>
-            var arr, tab, tr, td, tbody, keys, key, curr_data;
+            var None = null;
+            var arr, tab, tr, td, tbody, keys, key, curr_data, val;
             arr = {{table|safe}};
 
             tab = document.getElementsByTagName('table')[0];
@@ -63,8 +64,9 @@
                 curr_data = arr[key];
                 // add each piece of data as its own column
                 for (var j = 0; j < curr_data.length; j++) {
+                    val = curr_data[j];
                     td = document.createElement('td');
-                    td.append(curr_data[j]);
+                    td.append(val === None ? '' : val);
                     tr.append(td);
                 }
                 tbody.append(tr);
@@ -88,71 +90,98 @@
                     },
                 });
 
+                var objGraph = new Chart($('#cnvGraph'), {
+                    type: 'line',
+                    data: {
+                        labels: {{Timestamps|safe}},
+                        datasets: [],
+                    },
+                    options: {
+                        elements: {
+                            line: {
+                                borderWidth: 2,
+                                fill: false,
+                                tension: 0,
+                            },
+                        },
+                        scales: {
+                            xAxes: [{
+                                type: 'category',
+                            }],
+                            yAxes: [{
+                                type: 'linear',
+                            }],
+                        },
+                        tooltips: {
+                            mode: 'point',
+                            intersect: true,
+                        },
+                        hover: {
+                            mode: 'index',
+                            intersect: false,
+                            animationDuration: 0,
+                        },
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                usePointStyle: true,
+                            },
+                        },
+                        animation: {
+                            duration: 0,
+                        },
+                        responsive: true,
+                        responsiveAnimationDuration: 0,
+                        maintainAspectRatio: false,
+                    },
+                });
+
                 $('#data_selector').on('check_node.jstree uncheck_node.jstree', function(e, data) {
-                    var selected_leaves = [];
+                    var selected_datasets = [];
                     for (var i = 0; i < data.selected.length; i++) {
                         var node = data.instance.get_node(data.selected[i]);
                         if (node.children.length == 0) {
-                            var point = {name: node.id, data: arr[node.id]};
-                            selected_leaves.push(point);
+                            var dataset = {
+                                label: node.id,
+                                data: arr[node.id],
+                            };
+                            selected_datasets.push(dataset);
                         }
                     }
 
-                    $('#graph').highcharts({
-                        title: {
-                            text: 'Yardstick Graphs',
-                            x: -20, //center
-                        },
-                        chart: {
-                            marginLeft: 400,
-                            zoomType: 'x',
-                            type: 'spline',
-                        },
-                        xAxis: {
-                            crosshair: {
-                                width: 1,
-                                color: 'black',
-                            },
-                            title: {
-                                text: 'Timestamp',
-                            },
-                            categories: {{Timestamps|safe}},
-                        },
-                        yAxis: {
-                            crosshair: {
-                                width: 1,
-                                color: 'black',
-                            },
-                            plotLines: [{
-                                value: 0,
-                                width: 1,
-                                color: '#808080',
-                            }],
-                        },
-                        plotOptions: {
-                            series: {
-                                showCheckbox: false,
-                                visible: false,
-                            },
-                        },
-                        tooltip: {
-                            valueSuffix: '',
-                        },
-                        legend: {
-                            enabled: true,
-                        },
-                        series: selected_leaves,
+                    var colors = [
+                        '#FF0000',  // Red
+                        '#228B22',  // ForestGreen
+                        '#FF8C00',  // DarkOrange
+                        '#00008B',  // DarkBlue
+                        '#FF00FF',  // Fuchsia
+                        '#9ACD32',  // YellowGreen
+                        '#FFD700',  // Gold
+                        '#4169E1',  // RoyalBlue
+                        '#A0522D',  // Sienna
+                        '#20B2AA',  // LightSeaGreen
+                        '#8A2BE2',  // BlueViolet
+                    ];
+
+                    var points = [
+                        {s: 'circle',   r: 3},
+                        {s: 'rect',     r: 4},
+                        {s: 'triangle', r: 4},
+                        {s: 'star',     r: 4},
+                        {s: 'rectRot',  r: 5},
+                    ];
+
+                    selected_datasets.forEach(function(d, i) {
+                        var color = colors[i % colors.length];
+                        var point = points[i % points.length];
+                        d.borderColor = color;
+                        d.backgroundColor = color;
+                        d.pointStyle = point.s;
+                        d.pointRadius = point.r;
+                        d.pointHoverRadius = point.r + 1;
                     });
-
-                    var chart = $('#graph').highcharts();
-                    for (var i = 0; i < chart.series.length; i++) {
-                        var series = chart.series[i];
-                        if (series.visible) {
-                            series.hide();
-                        } else {
-                            series.show();
-                        }
-                    }
+                    objGraph.data.datasets = selected_datasets;
+                    objGraph.update();
                 });
             });
         </script>
