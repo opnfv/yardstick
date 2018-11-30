@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_4e4ee9c2",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_acl-2.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-11-30T00:33:30Z",
+      "side": 1,
+      "message": "update with the templated version",
+      "revId": "171d06e58f74b98cad1679e50388e079e21cdaf0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_26f2bb9a",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_acl-4.yaml",
         "patchSetId": 2
