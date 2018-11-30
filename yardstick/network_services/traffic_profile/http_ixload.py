@@ -278,8 +278,12 @@ class IXLOADHttpTest(object):
         :param param: (dict) http_client section from traffic profile
         :return:
         """
-        self.update_page_size(net_traffic, param["page_object"])
-        self.update_user_count(net_traffic, param["simulated_users"])
+        page = param.get("page_object")
+        if page:
+            self.update_page_size(net_traffic, page)
+        users = param.get("simulated_users")
+        if users:
+            self.update_user_count(net_traffic, users)
 
     def update_page_size(self, net_traffic, page_object):
         """Update page_object field in http client object in net_traffic
