@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 {% set file = file or "/etc/yardstick/nodes/pod.yaml" %}
-{% set frame_rate = frame_rate or "100" %}
+{% set vports = vports or 2 %}
+{% set frame_rate = frame_rate or 100 %}
 {% set framesize = framesize or "{64B: 100}" %}
 {% set allowed_drop_rate = allowed_drop_rate or 0.0001 %}
 {% set iterations = iterations or 10 %}
@@ -25,6 +26,12 @@ scenarios:
   topology: agnostic_vnf_topology_trex_tmpl.yaml
   extra_args:
     frame_rate: {{ frame_rate }}
+<<<<<<< HEAD
+=======
+  topology: agnostic_vnf_topology_trex_multi_ports.yaml
+  extra_args:
+    vports: {{ vports }}
+>>>>>>> d6a659a0... Allow testcases to be configured over cli
   nodes:
     tg__0: tg_0.yardstick
     vnf__0: vnf_0.yardstick

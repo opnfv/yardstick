@@ -27,7 +27,9 @@ description: >
 scenarios:
 - type: NSPerf
   traffic_profile: "../../traffic_profiles/ixia_ipv4_latency_vbng_scale_up.yaml"
-  topology: "../agnostic/agnostic_vnf_topology_ixia_{{ vports }}ports.yaml"
+  topology: "../agnostic/agnostic_vnf_topology_ixia_multi_ports.yaml"
+  extra_args:
+    vports: {{ vports }}
   ixia_config: IxiaPppoeClient
   extra_args:
     access_vports_num: {{ vports|int / 2 }}
