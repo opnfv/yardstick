@@ -12,13 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 {% set file = file or "/etc/yardstick/nodes/pod_ixia.yaml" %}
+{% set vports = vports or 2 %}
 ---
 schema: yardstick:task:0.1
 {% set page = page or "/1b.html" %}
 scenarios:
 - type: NSPerf-RFC3511
   traffic_profile: "../../traffic_profiles/ixload/http_ixload.yaml"
-  topology: agnostic_vnf_topology_ixload_2ports.yaml
+  topology: agnostic_vnf_topology_ixload_multi_ports.yaml
+  extra_args:
+    vports: {{ vports }}
   nodes:
     tg__0: trafficgen_0.yardstick
     vnf__0: vnf_0.yardstick
