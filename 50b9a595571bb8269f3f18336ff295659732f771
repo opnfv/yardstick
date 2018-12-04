@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_f4f864c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-04T10:52:34Z",
+      "side": 1,
+      "message": "There should be a description of WHY the change was made.\n\nThere should also be a Jira ticket linked\n\nhttps://wiki.opnfv.org/display/DEV/Contribution+Guidelines",
+      "revId": "50b9a595571bb8269f3f18336ff295659732f771",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
