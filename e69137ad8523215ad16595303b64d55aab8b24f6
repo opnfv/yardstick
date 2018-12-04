@@ -16,6 +16,24 @@
       "revId": "e69137ad8523215ad16595303b64d55aab8b24f6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_34c49c3f",
+        "filename": "samples/vnf_samples/nsut/agnostic/agnostic_vnf_topology_ixia_multi_ports.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-04T15:42:44Z",
+      "side": 1,
+      "message": "Sorry, missed this",
+      "parentUuid": "1a622d24_748f3424",
+      "revId": "e69137ad8523215ad16595303b64d55aab8b24f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
