@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_945db0ec",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-04T10:50:20Z",
+      "side": 1,
+      "message": "Is there something else to list here?",
+      "revId": "e9e3d3363e069652b4909f597f9ede812873eefe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f4718478",
+        "filename": "docs/testing/developer/devguide/devguide_nsb_prox.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-04T10:50:20Z",
+      "side": 1,
+      "message": "Should this text be part of the indented literal block?",
+      "range": {
+        "startLine": 292,
+        "startChar": 3,
+        "endLine": 292,
+        "endChar": 5
+      },
+      "revId": "e9e3d3363e069652b4909f597f9ede812873eefe",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
