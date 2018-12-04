@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_745e14eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-04T10:40:36Z",
+      "side": 1,
+      "message": "Why is this needed?\n\nThe commit message should have a description of WHY the change is needed.\n\nThere should also be a Jira ticket associated with the commit, so other reviewers can track what feature/bug fix this is part of\n\nhttps://wiki.opnfv.org/display/DEV/Contribution+Guidelines",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "ec650eb76f5fedcf19d0c3b50a86e2fabcb53394",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
