@@ -13,6 +13,7 @@
 # limitations under the License.
 
 ---
+{% set vports = vports or 8 %}
 {% set sessions_per_port = sessions_per_port or 4000 %}
 {% set sessions_per_svlan = sessions_per_svlan or 1000 %}
 schema: yardstick:task:0.1
@@ -25,7 +26,9 @@ description: >
 scenarios:
 - type: NSPerf
   traffic_profile: "../../traffic_profiles/ixia_ipv4_latency_vbng_1port_congested-8.yaml"
-  topology: "../agnostic/agnostic_vnf_topology_ixia_8ports.yaml"
+  topology: "../agnostic/agnostic_vnf_topology_ixia_multi_ports.yaml"
+  extra_args:
+    vports: {{ vports }}
   ixia_config: IxiaPppoeClient
   nodes:
     tg__0: tg_0.yardstick
