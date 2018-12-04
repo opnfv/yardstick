@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_748f3424",
+        "filename": "samples/vnf_samples/nsut/agnostic/agnostic_vnf_topology_ixia_multi_ports.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-04T14:56:55Z",
+      "side": 1,
+      "message": "In other TCs, there is a section here that sets default values for when no task-args are passed in, like in [1]\n\n[1] https://github.com/opnfv/yardstick/blob/master/samples/fio.yaml",
+      "revId": "e69137ad8523215ad16595303b64d55aab8b24f6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
