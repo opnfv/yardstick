@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_94465022",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-04T10:35:25Z",
+      "side": 1,
+      "message": "nit: There should not be a space here",
+      "range": {
+        "startLine": 570,
+        "startChar": 42,
+        "endLine": 570,
+        "endChar": 43
+      },
+      "revId": "e0f0e5468e470abf0c944ce773da516808747026",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
