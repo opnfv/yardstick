@@ -11,35 +11,42 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+{% set file = file or "/etc/yardstick/nodes/pod_ixia.yaml" %}
+{% set frame_rate = frame_rate or "100%" %}
+{% set framesize = framesize or "{64B: 100}" %}
+{% set allowed_drop_rate = allowed_drop_rate or "0.0001 - 0.001" %}
+{% set iterations = iterations or 1 %}
+{% set interval = interval or 5 %}
 ---
 schema: yardstick:task:0.1
 scenarios:
-- type: NSPerf
-  traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
-  topology: agnostic_vnf_topology_trex_tmpl.yaml
+- type: NSPerf-RFC2544
+  traffic_profile: ../../traffic_profiles/ixia_ipv4_latency.yaml
+  extra_args:
+    frame_rate: {{ frame_rate }}
+  topology: agnostic_vnf_topology_ixia_2ports.yaml
   nodes:
     tg__0: trafficgen_0.yardstick
     vnf__0: vnf_0.yardstick
   options:
     framesize:
-      uplink: {64B: 100}
-      downlink: {64B: 100}
+      uplink: {{ framesize }}
+      downlink: {{ framesize }}
     flow:
       src_ip: [{'tg__0': 'xe0'}]
       dst_ip: [{'tg__0': 'xe1'}]
       count: 1
     traffic_type: 4
     rfc2544:
-      allowed_drop_rate: 0.0001 - 0.0001
+      allowed_drop_rate: {{ allowed_drop_rate }}
     vnf__0:
         []
   runner:
     type: Iteration
-    iterations: 10
-    interval: 35
+    iterations: {{ iterations }}
+    interval: {{ interval }}
 context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: /etc/yardstick/nodes/pod.yaml
+  file: {{ file }}
