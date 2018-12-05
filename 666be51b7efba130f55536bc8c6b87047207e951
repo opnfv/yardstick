@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_9f2b0930",
+        "filename": "samples/vnf_samples/nsut/ipsec/vpp-tg-topology-2.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-05T19:59:23Z",
+      "side": 1,
+      "message": "can this file be templated too so that it\u0027s not restricted to the number of ports and can be scaled up with a default of 2 ports? If needed, do create a new file called scale-up but I would like to see it more re-useable.\neg: https://github.com/opnfv/yardstick/blob/master/samples/vnf_samples/nsut/prox/prox-tg-topology-scale-up.yaml",
+      "revId": "666be51b7efba130f55536bc8c6b87047207e951",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
