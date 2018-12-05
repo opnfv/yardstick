@@ -1,4 +1,4 @@
-# Copyright (c) 2019 Intel Corporation
+# Copyright (c) 2018-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,16 +11,22 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+{% set file = file or "/etc/yardstick/nodes/pod.yaml" %}
+{% set frame_rate = frame_rate or "100" %}
 {% set framesize = framesize or "{64B: 100}" %}
+{% set allowed_drop_rate = allowed_drop_rate or 0.0001 %}
+{% set iterations = iterations or 10 %}
+{% set interval = interval or 35 %}
 ---
 schema: yardstick:task:0.1
 scenarios:
-- type: NSPerf-RFC2544
+- type: NSPerf
   traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
+  extra_args:
+    frame_rate: {{ frame_rate }}
   topology: agnostic_vnf_topology_trex_2ports.yaml
   nodes:
-    tg__0: trafficgen_0.yardstick
+    tg__0: tg_0.yardstick
     vnf__0: vnf_0.yardstick
   options:
     framesize:
@@ -32,15 +38,15 @@ scenarios:
       count: 1
     traffic_type: 4
     rfc2544:
-      allowed_drop_rate: 0.0001 - 0.0001
+      allowed_drop_rate: 0.0001 - {{ allowed_drop_rate }}
     vnf__0:
         []
   runner:
     type: Iteration
-    iterations: 1
-    interval: 5
+    iterations: {{ iterations }}
+    interval: {{ interval }}
 context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: /etc/yardstick/nodes/pod_trex.yaml
+  file: {{ file }}
