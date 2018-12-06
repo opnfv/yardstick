@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation
+# Copyright (c) 2017-2018 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,41 +22,45 @@
     iommu_boot_params: ' amd_iommu=on iommu=pt'
   when: hostvars[inventory_hostname]['ansible_system_vendor'] == "AuthenticAMD"
 
-- name: Set facts for this role
+- name: Define grub string for IOMMU
   set_fact:
-    hugepages_help_string: '  # added by hugepages role'
-    iommu_help_string: ', added by iommu role'
-    hugepages_params: " default_hugepagesz=1G hugepagesz=1G hugepages=8"
-    iommu_original_kernel_params: 'GRUB_CMDLINE_LINUX="\$GRUB_CMDLINE_LINUX{{ hugepages_params }}'
-    iommu_enabled_kernel_params: '{{ iommu_original_kernel_params }}{{ iommu_boot_params }}"'
-    iommu_enabled_kernel_params_with_help: '{{ iommu_original_kernel_params }}{{ iommu_boot_params }}"{{ hugepages_help_string }}{{ iommu_help_string }}'
+    enable_iommu: 'GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX{{ iommu_boot_params }}'
 
-- name: check if iommu is set by this role in /etc/default/grub
+- name: check if iommu is set by this role in {{ grub_file}}
   lineinfile:
-    path: /etc/default/grub
-    line: '{{ iommu_enabled_kernel_params_with_help }}'
-  #changed_when: no
+    path: "{{ grub_file}}"
+    regexp: '{{ iommu_help_string }}'
+    line: '{{ iommu_help_string }}'
+    state: absent
   check_mode: yes
-  register: is_mine_iommu_etc_grub
+  register: is_nsb_iommu_role
   ignore_errors: True
 
-- name: check if iommu is set by someone else
-  command: "grep -o 'iommu' /etc/default/grub"
+- name: Check if IOMMU is set by someone else
+  lineinfile:
+    path: "{{ grub_file}}"
+    regexp: "_iommu="
+    line: '{{ iommu_help_string }}'
+    state: absent
+  check_mode: yes
   register: is_iommu
   ignore_errors: True
 
-- fail:
-    msg: "Iommu already set by someone else"
-  when: is_mine_iommu_etc_grub.changed == false and is_iommu.stdout != ""
+- name: Send info that IOMMU is configured by someone else
+  debug:
+    msg: "INFO: NOT modified, IOMMU is already configured by someone."
+  when:
+    - not is_nsb_iommu_role.changed
+    - is_iommu.changed
 
-- name: 'Configure iommu in /etc/default/grub'
-# and /boot/grub/grub.cfg(when: ansible_distribution == "Ubuntu")'
+- name: Add IOMMU when it is not set
   lineinfile:
-    path: /etc/default/grub
-    regexp: '({{ iommu_original_kernel_params }})"{{ hugepages_help_string }}'
-    line: '\1{{ iommu_boot_params }}"{{ hugepages_help_string }}{{ iommu_help_string }}'
-    backrefs: yes
-  when: is_mine_iommu_etc_grub.changed == true
+    path: "{{ grub_file }}"
+    regexp: "{{ iommu_help_string }}"
+    line: '{{ enable_iommu }}" {{ iommu_help_string }}'
+  when:
+    - not is_nsb_iommu_role.changed
+    - not is_iommu.changed
 
 - name: find boot grub.cfg
   find:
