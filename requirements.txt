@@ -34,7 +34,8 @@ netaddr==0.7.19         # BSD License; OSI Approved  BSD License; OSI Approved  
 netifaces==0.10.6       # MIT License; OSI Approved  MIT License
 os-client-config==1.28.0    # OSI Approved  Apache Software License
 osc-lib==1.8.0          # OSI Approved  Apache Software License
-oslo.config==5.1.0     # OSI Approved  Apache Software License
+oslo.log==3.41.0        # OSI Approved  Apache Software License
+oslo.config==5.1.0      # OSI Approved  Apache Software License
 oslo.i18n==3.17.0       # OSI Approved  Apache Software License
 oslo.messaging==5.36.0 # OSI Approved  Apache Software License
 oslo.privsep==1.23.0   # OSI Approved  Apache Software License
