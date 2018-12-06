@@ -22,6 +22,30 @@
       "revId": "5875c74b0b63f4e04549e4d9933cf702d29dae8b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bf5a4581",
+        "filename": "ansible/roles/enable_iommu_on_boot/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-12-06T10:52:34Z",
+      "side": 1,
+      "message": "Message is sent only when IOMMU was changed manually by someone else but not by this script.",
+      "parentUuid": "1a622d24_34581c56",
+      "range": {
+        "startLine": 49,
+        "startChar": 29,
+        "endLine": 49,
+        "endChar": 58
+      },
+      "revId": "5875c74b0b63f4e04549e4d9933cf702d29dae8b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
