@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_ee57f000",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng-8.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-07T15:23:32Z",
+      "side": 1,
+      "message": "why not 12.5% for 8 ports, can ixia only handle integer numbers?",
+      "range": {
+        "startLine": 23,
+        "startChar": 15,
+        "endLine": 23,
+        "endChar": 17
+      },
+      "revId": "340700940e0e98d2c436185a63c7909dbb03576d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
