@@ -14,7 +14,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "4.4.3"
+      "version": "4.6.3"
     },
     {
       "type": "panel",
@@ -60,7 +60,7 @@
   "hideControls": false,
   "id": null,
   "links": [],
-  "refresh": "5s",
+  "refresh": false,
   "rows": [
     {
       "collapse": false,
@@ -777,6 +777,7 @@
                   "type": "fill"
                 }
               ],
+              "hide": false,
               "measurement": "tc_prox_baremetal_l3fwd-4",
               "orderByTime": "ASC",
               "policy": "default",
@@ -786,7 +787,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.TxThroughput"
+                      "tg__0.collect_stats.TxThroughput"
                     ],
                     "type": "field"
                   },
@@ -825,7 +826,7 @@
                 [
                   {
                     "params": [
-                      "tg__0.RxThroughput"
+                      "tg__0.collect_stats.RxThroughput"
                     ],
                     "type": "field"
                   },
@@ -13063,8 +13064,8 @@
     "list": []
   },
   "time": {
-    "from": "now-3h",
-    "to": "now"
+    "from": "2018-12-06T16:29:45.156Z",
+    "to": "2018-12-06T17:29:57.941Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -13093,5 +13094,5 @@
   },
   "timezone": "browser",
   "title": "Prox_BM_L3FWD-4Port",
-  "version": 6
+  "version": 7
 }
