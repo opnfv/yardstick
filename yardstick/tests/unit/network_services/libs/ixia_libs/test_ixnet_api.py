@@ -673,7 +673,23 @@ class TestIxNextgen(unittest.TestCase):
                                return_value='field_desc'):
             self.ixnet_gen._update_ipv4_priority('field_desc', priority)
 
-        self.assertEqual(self.ixnet_gen._set_priority_field.call_count, 0)
+        self.ixnet_gen._set_priority_field.assert_not_called()
+
+    def test__update_ipv4_priority_not_supported_dscp_class(self):
+        priority = {'dscp': {'testPHB': [0, 4, 7]}}
+        self.ixnet_gen._set_priority_field = mock.Mock()
+        self.ixnet_gen._get_field_in_stack_item = mock.Mock()
+        self.ixnet_gen._update_ipv4_priority('field_desc', priority)
+        self.ixnet_gen._set_priority_field.assert_not_called()
+        self.ixnet_gen._get_field_in_stack_item.assert_not_called()
+
+    def test__update_ipv4_priority_not_supported_tos_field(self):
+        priority = {'tos': {'test': [0, 4, 7]}}
+        self.ixnet_gen._set_priority_field = mock.Mock()
+        self.ixnet_gen._get_field_in_stack_item = mock.Mock()
+        self.ixnet_gen._update_ipv4_priority('field_desc', priority)
+        self.ixnet_gen._set_priority_field.assert_not_called()
+        self.ixnet_gen._get_field_in_stack_item.assert_not_called()
 
     def test__set_priority_field_list_value(self):
         value = [1, 4, 7]
@@ -818,13 +834,13 @@ class TestIxNextgen(unittest.TestCase):
 
     @mock.patch.object(ixnet_api.IxNextgen, '_get_protocol_status')
     def test_is_protocols_running(self, mock_ixnextgen_get_protocol_status):
-        mock_ixnextgen_get_protocol_status.return_value = 'up'
+        mock_ixnextgen_get_protocol_status.return_value = ['up', 'up']
         result = self.ixnet_gen.is_protocols_running(['ethernet', 'ipv4'])
         self.assertTrue(result)
 
     @mock.patch.object(ixnet_api.IxNextgen, '_get_protocol_status')
     def test_is_protocols_stopped(self, mock_ixnextgen_get_protocol_status):
-        mock_ixnextgen_get_protocol_status.return_value = 'down'
+        mock_ixnextgen_get_protocol_status.return_value = ['down', 'down']
         result = self.ixnet_gen.is_protocols_running(['ethernet', 'ipv4'])
         self.assertFalse(result)
 
