@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_11e40d0c",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_64B_trex.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-10T17:03:52Z",
+      "side": 1,
+      "message": "rename the file and remove the 64B from the test case.",
+      "revId": "668a3a1d99382abab0ae0533896f7c1ebec1b05e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_71f101cd",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_latency_ipv4_64B_ixia.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-10T17:03:52Z",
+      "side": 1,
+      "message": "rename the file and remove the 64B from the test case.",
+      "revId": "668a3a1d99382abab0ae0533896f7c1ebec1b05e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
