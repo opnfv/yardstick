@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_0474cdcd",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_template_IMIX.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-11T18:07:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_04e4cd0b",
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_24e74914",
         "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_template_IMIX.yaml",
         "patchSetId": 11
@@ -30,6 +48,30 @@
       "writtenOn": "2018-12-11T15:10:14Z",
       "side": 1,
       "message": "Can we use one pod file with all ports specified and use it for TC with different number of ports?",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 59
+      },
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6481418f",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_template_IMIX.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-11T18:07:52Z",
+      "side": 1,
+      "message": "Yes, we can. Removed ports number in pod file name.",
+      "parentUuid": "1a622d24_24e74914",
       "range": {
         "startLine": 88,
         "startChar": 8,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_447ec5af",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_1port_congested-8.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-11T18:07:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_e4b431f4",
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_c4b935eb",
         "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_1port_congested-8.yaml",
         "patchSetId": 11
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_a44a3981",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_1port_congested-8.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-11T18:07:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_c4b935eb",
+      "range": {
+        "startLine": 38,
+        "startChar": 15,
+        "endLine": 38,
+        "endChar": 16
+      },
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_84bf3dd0",
         "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_template.yaml",
         "patchSetId": 11
@@ -93,6 +177,24 @@
       "writtenOn": "2018-12-11T15:10:14Z",
       "side": 1,
       "message": "rename to: ixia_ipv4_latency_vbng_scale_up.yaml",
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_844f3d92",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_template.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-11T18:07:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_84bf3dd0",
       "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -169,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_e4443176",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_template.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-11T18:07:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_44eec5ed",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 29
+      },
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_a4ba39df",
         "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_template.yaml",
         "patchSetId": 11
@@ -180,6 +306,30 @@
       "writtenOn": "2018-12-11T15:10:14Z",
       "side": 1,
       "message": "{{ (i * 2) + 1 }} can be used instead.",
+      "range": {
+        "startLine": 33,
+        "startChar": 15,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c449358d",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_template.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-11T18:07:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_a4ba39df",
       "range": {
         "startLine": 33,
         "startChar": 15,
@@ -215,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_245e2946",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_template.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-11T18:07:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_64f141cd",
+      "range": {
+        "startLine": 41,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 16
+      },
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_04cb2d73",
         "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
         "patchSetId": 11
@@ -232,6 +406,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_045b2d55",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-11T18:07:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_04cb2d73",
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_24ce2984",
         "filename": "yardstick/tests/unit/network_services/traffic_profile/test_ixia_rfc2544.py",
         "patchSetId": 11
@@ -243,6 +435,30 @@
       "writtenOn": "2018-12-11T15:10:14Z",
       "side": 1,
       "message": "This configuration is not used in vBNG traffic profile. Please verify this.",
+      "range": {
+        "startLine": 695,
+        "startChar": 30,
+        "endLine": 695,
+        "endChar": 43
+      },
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_64582157",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_ixia_rfc2544.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-11T18:07:52Z",
+      "side": 1,
+      "message": "Updated test data with actual values.",
+      "parentUuid": "1a622d24_24ce2984",
       "range": {
         "startLine": 695,
         "startChar": 30,
