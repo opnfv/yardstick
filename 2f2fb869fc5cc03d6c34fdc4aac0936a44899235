@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_f16d1106",
+        "filename": "ansible/library/fetch_url_and_verify.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T08:55:20Z",
+      "side": 1,
+      "message": "Probably, this should be fixed in the future as a separate changes.",
+      "revId": "2f2fb869fc5cc03d6c34fdc4aac0936a44899235",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
