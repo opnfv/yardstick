@@ -22,6 +22,30 @@
       "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_84d8dd54",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_template.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-11T14:02:29Z",
+      "side": 1,
+      "message": "By default, duration value is 30 seconds.\nUser can change it specifying new duration value in test case file inside \"options\" configuration block, e.g.:\n\noptions:\n  duration: 300",
+      "parentUuid": "1a622d24_843c5d95",
+      "range": {
+        "startLine": 24,
+        "startChar": 15,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
