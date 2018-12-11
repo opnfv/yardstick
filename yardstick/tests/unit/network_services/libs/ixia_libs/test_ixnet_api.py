@@ -351,6 +351,38 @@ class TestIxNextgen(unittest.TestCase):
         self.ixnet_gen.ixnet.setAttribute.assert_any_call(
             'attr/singleValue', '-value', 'external')
 
+    def test_add_interface(self):
+        self.ixnet_gen.ixnet.add.return_value = 'obj'
+        self.ixnet_gen.add_interface(vport='vport',
+                                     ip='10.0.0.2',
+                                     mac='00:00:00:00:00:00',
+                                     gateway='10.0.0.1')
+        self.ixnet_gen.ixnet.add.assert_any_call('vport', 'interface')
+        self.ixnet_gen.ixnet.add.assert_any_call('obj', 'ipv4')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call(
+            'obj/ethernet', '-macAddress', '00:00:00:00:00:00')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call(
+            'obj', '-ip', '10.0.0.2')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call(
+            'obj', '-gateway', '10.0.0.1')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call(
+            'obj', '-enabled', 'true')
+
+    def test_add_static_ipv4(self):
+        self.ixnet_gen.ixnet.add.return_value = 'obj'
+        self.ixnet_gen.add_static_ipv4(iface='iface',
+                                       vport='vport',
+                                       start_ip='10.0.0.0',
+                                       count='100')
+        self.ixnet_gen.ixnet.add.assert_called_once_with(
+            'vport/protocols/static', 'ip')
+        self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call(
+            'obj', '-protocolInterface', 'iface',
+            '-ipStart', '10.0.0.0',
+            '-count', '100',
+            '-enabled', 'true')
+
+
     @mock.patch.object(IxNetwork, 'IxNet')
     def test_connect(self, mock_ixnet):
         mock_ixnet.return_value = self.ixnet
