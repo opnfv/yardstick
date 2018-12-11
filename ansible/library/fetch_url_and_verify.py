@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# pylint: disable-all
+
 DOCUMENTATION = '''
 ---
 module: fetch_url_and_verify
@@ -59,7 +61,7 @@ def main():
         module.exit_json(changed=False, dest=dest, url=url,
                          sha256sum=sha256sum)
 
-    for retry in range(retries):
+    for _ in range(retries):
         curl_rc, stdout, stderr = module.run_command(
             ['curl', '-sS', '-o', dest, url], cwd=image_dir)
         if curl_rc == 0:
@@ -74,7 +76,7 @@ def main():
 
 
 # <<INCLUDE_ANSIBLE_MODULE_COMMON>>
-from ansible.module_utils.basic import *  # noqa
+from ansible.module_utils.basic import *
 
 if __name__ == '__main__':
     main()
