@@ -17,6 +17,7 @@ import requests
 from requests import ConnectionError
 
 from yardstick.common import utils
+#from yardstick.benchmark.core import task
 from third_party.influxdb.influxdb_line_protocol import make_lines
 from yardstick.dispatcher.base import Base as DispatchBase
 
@@ -41,6 +42,7 @@ class InfluxdbDispatcher(DispatchBase):
         self.influxdb_url = "%s/write?db=%s" % (self.target, self.db_name)
 
         self.task_id = None
+        self.metadata_table = 'metadata'
         self.tags = None
 
     def flush_result_data(self, data):
@@ -61,6 +63,8 @@ class InfluxdbDispatcher(DispatchBase):
                 # skip results with no data because we influxdb encode empty dicts
                 if record.get("data"):
                     self.upload_one_record(record, case, tc_criteria)
+                    self.upload_metadata_record(case, self.task_id,
+                                                self.metadata_table)
 
         return 0
 
@@ -83,6 +87,44 @@ class InfluxdbDispatcher(DispatchBase):
                 LOG.error('Test result posting finished with status code'
                           ' %d.', res.status_code)
                 LOG.error(res.text)
+
+    def upload_metadata_record(self, tc_name, task_id,
+                               metadata_table):
+        line = self._metadata_to_line_protocol(tc_name, task_id, metadata_table)
+        LOG.debug('Test result line format : %s', line)
+
+        try:
+            res = requests.post(self.influxdb_url,
+                                data=line,
+                                auth=(self.username, self.password),
+                                timeout=self.timeout)
+        except ConnectionError as err:
+            LOG.exception('Failed to record meta data: %s', err)
+        else:
+            if res.status_code != 204:
+                LOG.error('Test metadata posting finished with status code'
+                          ' %d.', res.status_code)
+                LOG.error(res.text)
+
+    def _metadata_to_line_protocol(self, tc_name, task_id, metadata_table):
+        msg = {}
+
+        if not self.tags:
+            self.tags = {
+                'task_id': task_id,
+                'tc_name': tc_name,
+            }
+
+        point = {
+            'measurement': metadata_table,
+            # "time": self._get_nano_timestamp(data),
+            # need to pass the time when tc started
+            'tags': self.tags,
+        }
+        msg['points'] = [point]
+        msg['tags'] = self.tags
+
+        return make_lines(msg).encode('utf-8')
 
     def _data_to_line_protocol(self, data, case, criteria):
         msg = {}

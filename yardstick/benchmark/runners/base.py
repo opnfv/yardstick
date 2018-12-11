@@ -140,6 +140,7 @@ class Runner(object):
     def __init__(self, config):
         self.task_id = None
         self.case_name = None
+        self.metadata_table = 'metadata'
         self.config = config
         self.periodic_action_process = None
         self.output_queue = multiprocessing.Queue()
@@ -263,7 +264,10 @@ class Runner(object):
             else:
                 if output_in_influxdb:
                     self._output_to_influxdb(one_record)
-
+                    # passing record i.e. data to influxdb
+                    self._metadata_table_output_to_influxdb()  # needs to fill
+                    # something here instead of record.' \
+                    # Record( = one_record is the data you wnat to send'
                 result.append(one_record)
         return result
 
@@ -271,6 +275,13 @@ class Runner(object):
         dispatchers = DispatcherBase.get(self.config['output_config'])
         dispatcher = next((d for d in dispatchers if d.__dispatcher_type__ == 'Influxdb'))
         dispatcher.upload_one_record(record, self.case_name, '', task_id=self.task_id)
+
+    def _metadata_table_output_to_influxdb(self):
+        dispatchers = DispatcherBase.get(self.config['output_config'])
+        dispatcher = next(
+            (d for d in dispatchers if d.__dispatcher_type__ == 'Influxdb'))
+        dispatcher.upload_metadata_record(self.case_name, self.task_id,
+                                          self.metadata_table)
 
 
 class RunnerProducer(producer.MessagingProducer):
