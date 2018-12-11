@@ -1006,3 +1006,37 @@ class IxNextgen(object):  # pragma: no cover
                                     '-value', bgp_type)
         self.ixnet.commit()
         return obj
+
+    def add_interface(self, vport, ip, mac=None, gateway=None):
+        """Add protocol interface to the vport"""
+        log.debug("add_interface: mac='%s', ip='%s', gateway='%s'", mac, ip,
+                  gateway)
+        obj = self.ixnet.add(vport, 'interface')
+        self.ixnet.commit()
+
+        if mac is not None:
+            self.ixnet.setMultiAttribute(obj + '/ethernet', '-macAddress', mac)
+
+        ipv4 = self.ixnet.add(obj, 'ipv4')
+        self.ixnet.setMultiAttribute(ipv4, '-ip', ip)
+
+        if gateway is not None:
+            self.ixnet.setMultiAttribute(ipv4, '-gateway', gateway)
+
+        self.ixnet.commit()
+
+        self.ixnet.setMultiAttribute(obj, '-enabled', 'true')
+        self.ixnet.commit()
+
+        return obj
+
+    def add_static_ipv4(self, iface, vport, start_ip, count):
+        """Add static IP range to thr interface"""
+        log.debug("add_static_ipv4: start_ip:'%s', count:'%s'",
+                  start_ip, count)
+        obj = self.ixnet.add(vport + '/protocols/static', 'ip')
+
+        self.ixnet.setMultiAttribute(obj, '-protocolInterface', iface,
+                                     '-ipStart', start_ip, '-count', count,
+                                     '-enabled', 'true')
+        self.ixnet.commit()
