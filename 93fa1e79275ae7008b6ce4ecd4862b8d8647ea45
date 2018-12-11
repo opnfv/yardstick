@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_843c5d95",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_template.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T12:08:32Z",
+      "side": 1,
+      "message": "How do we set the duration in this file?",
+      "range": {
+        "startLine": 24,
+        "startChar": 15,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
