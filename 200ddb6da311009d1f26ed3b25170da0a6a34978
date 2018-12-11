@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_04516d62",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_aesgcm_trex.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:33:11Z",
+      "side": 1,
+      "message": "rephrase the description. \n\"This is an IPsec test which does....\"",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 19
+      },
+      "revId": "200ddb6da311009d1f26ed3b25170da0a6a34978",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_644e61c3",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_aesgcm_trex.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:33:11Z",
+      "side": 1,
+      "message": "can be templated",
+      "range": {
+        "startLine": 44,
+        "startChar": 31,
+        "endLine": 44,
+        "endChar": 36
+      },
+      "revId": "200ddb6da311009d1f26ed3b25170da0a6a34978",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
