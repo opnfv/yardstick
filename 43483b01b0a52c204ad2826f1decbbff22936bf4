@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_5155e51b",
+        "filename": "docs/testing/user/userguide/nsb/tc_vfw_rfc2544.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T10:18:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_f1dd1144",
+      "range": {
+        "startLine": 11,
+        "startChar": 19,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "43483b01b0a52c204ad2826f1decbbff22936bf4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_d1e29502",
         "filename": "docs/testing/user/userguide/nsb/tc_vfw_rfc2544.rst",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2018-12-10T17:02:13Z",
       "side": 1,
       "message": "OvS-DPDK",
+      "range": {
+        "startLine": 143,
+        "startChar": 22,
+        "endLine": 143,
+        "endChar": 25
+      },
+      "revId": "43483b01b0a52c204ad2826f1decbbff22936bf4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b131d90d",
+        "filename": "docs/testing/user/userguide/nsb/tc_vfw_rfc2544.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T10:18:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_d1e29502",
       "range": {
         "startLine": 143,
         "startChar": 22,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_91365d02",
+        "filename": "docs/testing/user/userguide/nsb/tc_vfw_rfc2544_correlated.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T10:18:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b1d39937",
+      "range": {
+        "startLine": 11,
+        "startChar": 19,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "43483b01b0a52c204ad2826f1decbbff22936bf4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_b10559c4",
         "filename": "docs/testing/user/userguide/nsb/tc_vfw_rfc3511.rst",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2018-12-10T17:02:13Z",
       "side": 1,
       "message": "VNF",
+      "range": {
+        "startLine": 11,
+        "startChar": 19,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "43483b01b0a52c204ad2826f1decbbff22936bf4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f13b51e9",
+        "filename": "docs/testing/user/userguide/nsb/tc_vfw_rfc3511.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T10:18:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b10559c4",
       "range": {
         "startLine": 11,
         "startChar": 19,
@@ -111,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_d140d558",
+        "filename": "docs/testing/user/userguide/nsb/tc_vfw_rfc3511.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T10:18:22Z",
+      "side": 1,
+      "message": "no at the moment",
+      "parentUuid": "1a622d24_711aa118",
+      "revId": "43483b01b0a52c204ad2826f1decbbff22936bf4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_d12bb52e",
         "filename": "docs/testing/user/userguide/nsb/tc_vfw_rfc3511.rst",
         "patchSetId": 3
@@ -122,6 +236,24 @@
       "writtenOn": "2018-12-10T17:02:13Z",
       "side": 1,
       "message": "this will change later, once we do test templating, but OK for now.",
+      "revId": "43483b01b0a52c204ad2826f1decbbff22936bf4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_11224db9",
+        "filename": "docs/testing/user/userguide/nsb/tc_vfw_rfc3511.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T10:18:22Z",
+      "side": 1,
+      "message": "right, once the documentation is merged, everyone who modify the TC will have to modify the descriptions.",
+      "parentUuid": "1a622d24_d12bb52e",
       "revId": "43483b01b0a52c204ad2826f1decbbff22936bf4",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -145,6 +277,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_4448855b",
+        "filename": "docs/testing/user/userguide/nsb/tc_vfw_rfc3511.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T10:18:22Z",
+      "side": 1,
+      "message": "All RXF files for described HTTP TCs are in the repo, so no need to mention it here.",
+      "parentUuid": "1a622d24_111d2d10",
+      "revId": "43483b01b0a52c204ad2826f1decbbff22936bf4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_5117a5ed",
         "filename": "docs/testing/user/userguide/nsb/tc_vfw_rfc3511.rst",
         "patchSetId": 3
@@ -156,6 +306,30 @@
       "writtenOn": "2018-12-10T17:02:13Z",
       "side": 1,
       "message": "is it TCL or REST for IXLOAD?",
+      "range": {
+        "startLine": 95,
+        "startChar": 66,
+        "endLine": 95,
+        "endChar": 69
+      },
+      "revId": "43483b01b0a52c204ad2826f1decbbff22936bf4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_512cc5ab",
+        "filename": "docs/testing/user/userguide/nsb/tc_vfw_rfc3511.rst",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T10:18:22Z",
+      "side": 1,
+      "message": "AFAIK, we are using IxLoad python API which is wrapper on TCL, but let\u0027s mention it as IxLoad API rather. Thanks.",
+      "parentUuid": "1a622d24_5117a5ed",
       "range": {
         "startLine": 95,
         "startChar": 66,
