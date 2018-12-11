@@ -17,6 +17,7 @@
   with_items:
     - libpcap-dev
     - pciutils
+    - libelf-dev
 
 - name: Install kernel headers
   action: "{{ ansible_pkg_mgr }} name=linux-headers-{{ dpdk_kernel }} state=present"
