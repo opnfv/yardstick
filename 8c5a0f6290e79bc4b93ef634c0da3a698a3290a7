@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_c43ad535",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "start with a better statement which describes the test case rather than the test set-up.\neg: \"IPsec test case which does .....xyz .....\"",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 30
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8430dd57",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "can be templated",
+      "range": {
+        "startLine": 46,
+        "startChar": 31,
+        "endLine": 46,
+        "endChar": 36
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_243f4927",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "start with a better statement which describes the test case rather than the test set-up.",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e4355147",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "can be templated",
+      "range": {
+        "startLine": 46,
+        "startChar": 31,
+        "endLine": 46,
+        "endChar": 36
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_043ccd2e",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_cbcsha1_IMIX_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "start with a better statement which describes the test case rather than the test set-up.",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 24
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_644941d0",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_cbcsha1_IMIX_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "can be templated",
+      "range": {
+        "startLine": 46,
+        "startChar": 30,
+        "endLine": 46,
+        "endChar": 36
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4446c5c0",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_cbcsha1_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "start with a better statement which describes the test case rather than the test set-up.",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 22
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a41239b2",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_cbcsha1_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "can be templated",
+      "range": {
+        "startLine": 46,
+        "startChar": 31,
+        "endLine": 46,
+        "endChar": 36
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_84173da3",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "start with a better statement which describes the test case rather than the test set-up.",
+      "range": {
+        "startLine": 24,
+        "startChar": 3,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e40c3197",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "can be templated",
+      "range": {
+        "startLine": 46,
+        "startChar": 30,
+        "endLine": 46,
+        "endChar": 36
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c41135ae",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_aesgcm_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "start with a better statement which describes the test case rather than the test set-up.",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 20
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_24262917",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_cbcsha1_IMIX_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "start with a better statement which describes the test case rather than the test set-up.",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_04232d06",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_cbcsha1_IMIX_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "can be templated",
+      "range": {
+        "startLine": 46,
+        "startChar": 31,
+        "endLine": 46,
+        "endChar": 36
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_046a0d1a",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_cbcsha1_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "Rephrase the description",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 14
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_64778103",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_cbcsha1_trex.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-11T16:25:21Z",
+      "side": 1,
+      "message": "can be templated",
+      "range": {
+        "startLine": 46,
+        "startChar": 31,
+        "endLine": 46,
+        "endChar": 36
+      },
+      "revId": "8c5a0f6290e79bc4b93ef634c0da3a698a3290a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
