@@ -2,6 +2,103 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a622d24_04e4cd0b",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_template_IMIX.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T15:10:14Z",
+      "side": 1,
+      "message": "rename to: tc_bng_pppoe_rfc2544_ixia_imix_scale_up.yaml",
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_24e74914",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_template_IMIX.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T15:10:14Z",
+      "side": 1,
+      "message": "Can we use one pod file with all ports specified and use it for TC with different number of ports?",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 59
+      },
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e4b431f4",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_1port_congested-8.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T15:10:14Z",
+      "side": 1,
+      "message": "---",
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c4b935eb",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_1port_congested-8.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T15:10:14Z",
+      "side": 1,
+      "message": "B",
+      "range": {
+        "startLine": 38,
+        "startChar": 15,
+        "endLine": 38,
+        "endChar": 16
+      },
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_84bf3dd0",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_template.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T15:10:14Z",
+      "side": 1,
+      "message": "rename to: ixia_ipv4_latency_vbng_scale_up.yaml",
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_843c5d95",
         "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_template.yaml",
         "patchSetId": 11
@@ -42,6 +139,115 @@
         "startChar": 15,
         "endLine": 24,
         "endChar": 23
+      },
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_44eec5ed",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_template.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T15:10:14Z",
+      "side": 1,
+      "message": "on top of the document  and use --- to mark the YAML document",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 29
+      },
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a4ba39df",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_template.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T15:10:14Z",
+      "side": 1,
+      "message": "{{ (i * 2) + 1 }} can be used instead.",
+      "range": {
+        "startLine": 33,
+        "startChar": 15,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_64f141cd",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_vbng_template.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T15:10:14Z",
+      "side": 1,
+      "message": "B",
+      "range": {
+        "startLine": 41,
+        "startChar": 15,
+        "endLine": 41,
+        "endChar": 16
+      },
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_04cb2d73",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T15:10:14Z",
+      "side": 1,
+      "message": "Please add the description of the class",
+      "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_24ce2984",
+        "filename": "yardstick/tests/unit/network_services/traffic_profile/test_ixia_rfc2544.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-11T15:10:14Z",
+      "side": 1,
+      "message": "This configuration is not used in vBNG traffic profile. Please verify this.",
+      "range": {
+        "startLine": 695,
+        "startChar": 30,
+        "endLine": 695,
+        "endChar": 43
       },
       "revId": "93fa1e79275ae7008b6ce4ecd4862b8d8647ea45",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
