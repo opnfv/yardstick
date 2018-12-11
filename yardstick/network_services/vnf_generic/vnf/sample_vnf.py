@@ -180,7 +180,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         """No actions/rules (flows) by default"""
         return None
 
-    def _build_pipeline_kwargs(self, cfg_file=None):
+    def _build_pipeline_kwargs(self, cfg_file=None, script=None):
         tool_path = self.ssh_helper.provision_tool(tool_file=self.APP_NAME)
         # count the number of actual ports in the list of pairs
         # remove duplicate ports
@@ -201,7 +201,7 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
 
         self.pipeline_kwargs = {
             'cfg_file': cfg_file if cfg_file else self.CFG_CONFIG,
-            'script': self.CFG_SCRIPT,
+            'script': script if script else self.CFG_SCRIPT,
             'port_mask_hex': ports_mask_hex,
             'tool_path': tool_path,
             'hwlb': hwlb,
