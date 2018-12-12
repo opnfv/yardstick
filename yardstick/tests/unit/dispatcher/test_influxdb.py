@@ -11,8 +11,10 @@
 
 import mock
 import unittest
+import requests
+import datetime
 
-from yardstick.dispatcher.influxdb import InfluxdbDispatcher
+from yardstick.dispatcher import influxdb
 from yardstick import _init_logging
 
 
@@ -22,60 +24,12 @@ _init_logging()
 class InfluxdbDispatcherTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.data1 = {
-            "runner_id": 8921,
-            "context_cfg": {
-                "host": {
-                    "ip": "10.229.43.154",
-                    "key_filename":
-                        "/root/yardstick/yardstick/resources/files"
-                        "/yardstick_key",
-                    "name": "kvm.LF",
-                    "user": "root"
-                },
-                "target": {
-                    "ipaddr": "10.229.44.134"
-                }
-            },
-            "scenario_cfg": {
-                "runner": {
-                    "interval": 1,
-                    "object": "yardstick.benchmark.scenarios.networking.ping"
-                              ".Ping",
-                    "output_filename": "/tmp/yardstick.out",
-                    "runner_id": 8921,
-                    "duration": 10,
-                    "type": "Duration"
-                },
-                "host": "kvm.LF",
-                "type": "Ping",
-                "target": "10.229.44.134",
-                "sla": {
-                    "action": "monitor",
-                    "max_rtt": 10
-                },
-                "tc": "ping",
-                "task_id": "ea958583-c91e-461a-af14-2a7f9d7f79e7"
-            }
-        }
-        self.data2 = {
-            "benchmark": {
-                "timestamp": "1451478117.883505",
-                "errors": "",
-                "data": {
-                    "rtt": 0.613
-                },
-                "sequence": 1
-            },
-            "runner_id": 8921
-        }
-
         self.yardstick_conf = {'dispatcher_influxdb': {}}
 
     @mock.patch('yardstick.dispatcher.influxdb.requests')
-    def test_record_result_data(self, mock_requests):
+    def test_flush_result_data(self, mock_requests):
         type(mock_requests.post.return_value).status_code = 204
-        influxdb = InfluxdbDispatcher(self.yardstick_conf)
+        influx = influxdb.InfluxdbDispatcher(self.yardstick_conf)
         data = {
             'status': 1,
             'result': {
@@ -87,18 +41,102 @@ class InfluxdbDispatcherTestCase(unittest.TestCase):
                 }
             }
         }
-        self.assertEqual(influxdb.flush_result_data(data), 0)
+        self.assertEqual(influx.flush_result_data(data), 0)
+
+    @mock.patch.object(datetime, 'datetime')
+    def test__metadata_to_line_protocol(self, mock_datetime):
+        influx = influxdb.InfluxdbDispatcher(self.yardstick_conf)
+        self.tc_name = "tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_trex_4port"
+        self.task_id = "4d978ecb-f962-47e1-9da1-2f3a35c2267e"
+
+        mock_datetime.now().isoformat.return_value = \
+            '2018-12-13T10:43:40.280419'
+
+        line_data = \
+            'metadata_table,' \
+            'tc_name=tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_trex_4port,' \
+            'tc_time=2018-12-13T10:43:40.280419 ' \
+            'task_id="4d978ecb-f962-47e1-9da1-2f3a35c2267e"\n'
+        self.assertEqual(influx._metadata_to_line_protocol(
+            self.tc_name, self.task_id, "metadata_table"), line_data)
+
+    @mock.patch.object(influxdb.InfluxdbDispatcher, '_metadata_to_line_protocol')
+    def test_upload_metadata_record_post(self, mock__metadata):
+        influx = influxdb.InfluxdbDispatcher(self.yardstick_conf)
+        self.tc_name = "tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_trex_4port"
+        self.task_id = "4d978ecb-f962-47e1-9da1-2f3a35c2267e"
+        self.mock_requests = mock.Mock()
+
+        mock__metadata.return_value = \
+            'metadata_table,' \
+            'tc_name=tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_trex_4port,' \
+            'tc_time=2018-12-13T10:43:40.280419' \
+            'task_id="4d978ecb-f962-47e1-9da1-2f3a35c2267e"\n'
+        self.assertIsNone(influx.upload_metadata_record(
+            self.tc_name, self.task_id, "metadata_table"))
+
+    @mock.patch.object(influxdb.InfluxdbDispatcher,
+                       '_metadata_to_line_protocol')
+    @mock.patch.object(requests, 'post')
+    @mock.patch.object(influxdb, 'LOG')
+    def test_upload_metadata_record_post_exception(
+            self, mock_logger, mock_requests_post, mock__metadata):
+        influx = influxdb.InfluxdbDispatcher(self.yardstick_conf)
+        self.tc_name = "tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_trex_4port"
+        self.task_id = "4d978ecb-f962-47e1-9da1-2f3a35c2267e"
+
+        mock__metadata.return_value = \
+            'metadata_table,' \
+            'tc_name=tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_trex_4port,' \
+            'tc_time=2018-12-13T10:43:40.280419' \
+            'task_id="4d978ecb-f962-47e1-9da1-2f3a35c2267e"\n'
+
+        mock_requests_post.side_effect = (
+            requests.ConnectionError('error message'))
+        self.assertIsNone(influx.upload_metadata_record(
+            self.tc_name, self.task_id, "metadata_table"))
+        mock_logger.exception.assert_called_once()
+
+    @mock.patch.object(influxdb.InfluxdbDispatcher,
+                       '_metadata_to_line_protocol')
+    @mock.patch.object(requests, 'post')
+    @mock.patch.object(influxdb, 'LOG')
+    def test_upload_metadata_record_post_status_code(
+            self, mock_logger, mock_requests_post, mock__metadata):
+        influx = influxdb.InfluxdbDispatcher(self.yardstick_conf)
+        self.tc_name = "tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_trex_4port"
+        self.task_id = "4d978ecb-f962-47e1-9da1-2f3a35c2267e"
+
+        mock__metadata.return_value = \
+            'metadata_table,' \
+            'tc_name=tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_trex_4port,' \
+            'tc_time=2018-12-13T10:43:40.280419' \
+            'task_id="4d978ecb-f962-47e1-9da1-2f3a35c2267e"\n'
+
+        mock_requests_post.status_code.return_value = 204
+        self.assertIsNone(influx.upload_metadata_record(
+            self.tc_name, self.task_id, "metadata_table"))
+        mock_logger.error.assert_called()
 
     def test__get_nano_timestamp(self):
-        influxdb = InfluxdbDispatcher(self.yardstick_conf)
+        influx = influxdb.InfluxdbDispatcher(self.yardstick_conf)
         results = {'timestamp': '1451461248.925574'}
-        self.assertEqual(influxdb._get_nano_timestamp(results),
+        self.assertEqual(influx._get_nano_timestamp(results),
                          '1451461248925574144')
 
     @mock.patch('yardstick.dispatcher.influxdb.time')
     def test__get_nano_timestamp_except(self, mock_time):
         results = {}
-        influxdb = InfluxdbDispatcher(self.yardstick_conf)
+        influx = influxdb.InfluxdbDispatcher(self.yardstick_conf)
         mock_time.time.return_value = 1451461248.925574
-        self.assertEqual(influxdb._get_nano_timestamp(results),
+        self.assertEqual(influx._get_nano_timestamp(results),
                          '1451461248925574144')
+
+    def test__get_extended_tags(self):
+        influx = influxdb.InfluxdbDispatcher(self.yardstick_conf)
+        criteria = 'PASS'
+        tags = {
+            'task_id': None,
+            'criteria': 'PASS'
+        }
+        self.assertEqual(influx._get_extended_tags(criteria), tags)
