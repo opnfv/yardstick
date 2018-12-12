@@ -13,8 +13,10 @@ import logging
 import time
 import os
 
+
 import requests
 from requests import ConnectionError
+
 
 from yardstick.common import utils
 from third_party.influxdb.influxdb_line_protocol import make_lines
@@ -42,26 +44,10 @@ class InfluxdbDispatcher(DispatchBase):
 
         self.task_id = None
         self.tags = None
+        self.metadata_tags = None
 
     def flush_result_data(self, data):
         LOG.debug('Test result all : %s', data)
-        if self.target == '':
-            # if the target was not set, do not do anything
-            LOG.error('Dispatcher target was not set, no data will be posted.')
-
-        result = data['result']
-        self.tags = result['info']
-        self.task_id = result['task_id']
-        self.criteria = result['criteria']
-        testcases = result['testcases']
-
-        for case, data in testcases.items():
-            tc_criteria = data['criteria']
-            for record in data['tc_data']:
-                # skip results with no data because we influxdb encode empty dicts
-                if record.get("data"):
-                    self.upload_one_record(record, case, tc_criteria)
-
         return 0
 
     def upload_one_record(self, data, case, tc_criteria, task_id=None):
@@ -83,6 +69,47 @@ class InfluxdbDispatcher(DispatchBase):
                 LOG.error('Test result posting finished with status code'
                           ' %d.', res.status_code)
                 LOG.error(res.text)
+
+    def upload_metadata_record(self, metadata):
+        line = self._metadata_to_line_protocol(metadata)
+        LOG.debug('Test result metadata line format : %s', line)
+
+        try:
+            res = requests.post(self.influxdb_url,
+                                data=line,
+                                auth=(self.username, self.password),
+                                timeout=self.timeout)
+        except ConnectionError as err:
+            LOG.exception('Failed to record meta data: %s', err)
+        else:
+            if res.status_code != 204:
+                LOG.error('Test metadata posting finished with status code'
+                          ' %d.', res.status_code)
+                LOG.error(res.text)
+
+    def _metadata_to_line_protocol(self, metadata):
+        msg = {}
+
+        if not self.metadata_tags:
+            self.metadata_tags = {
+                'tc_name': metadata['tc_name'],
+                'tc_time': metadata['tc_time'],
+                'task_id': metadata['task_id'],
+            }
+
+        self.fields = {
+            'fieldType': 'None',
+            }
+
+        point = {
+            'measurement': metadata['table_name'],
+            "fields": self.fields,
+            'tags': self.metadata_tags,
+        }
+        msg['points'] = [point]
+        msg['tags'] = self.metadata_tags
+
+        return make_lines(msg).encode('utf-8')
 
     def _data_to_line_protocol(self, data, case, criteria):
         msg = {}

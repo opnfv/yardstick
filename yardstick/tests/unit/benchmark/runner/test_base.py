@@ -117,3 +117,80 @@ class RunnerTestCase(ut_base.BaseUnitTestCase):
 
         with self.assertRaises(NotImplementedError):
             runner._run_benchmark(mock.Mock(), mock.Mock(), mock.Mock(), mock.Mock())
+
+    @mock.patch.object(runner_base.Runner, '_output_to_influxdb')
+    def test__get_result_influxdb(self, mock_influxdb):
+        config = {
+            'output_config': {
+                'DEFAULT': {
+                    'dispatcher': 'influxdb'
+                }
+            }
+        }
+        self.runner = iteration.IterationRunner(config)
+        self.runner.result_queue.put({'case': 'opnfv_yardstick_tc002'})
+        self.runner.result_queue.put({'criteria': 'PASS'})
+        mock_influxdb.return_value = None
+        idle_result = [
+            {'case': 'opnfv_yardstick_tc002'},
+            {'criteria': 'PASS'}
+        ]
+
+        for _ in range(1000):
+            time.sleep(0.01)
+            if not self.runner.result_queue.empty():
+                break
+        actual_result = self.runner.get_result()
+        self.assertEqual(idle_result, actual_result)
+
+
+class RunnerProducerTestCase(ut_base.BaseUnitTestCase):
+
+    @mock.patch.object(oslo_messaging, 'Target', return_value='rpc_target')
+    @mock.patch.object(oslo_messaging, 'RPCClient')
+    @mock.patch.object(oslo_messaging, 'get_rpc_transport',
+                       return_value='rpc_transport')
+    @mock.patch.object(cfg, 'CONF')
+    def test__init(self, mock_config, mock_transport, mock_rpcclient,
+                   mock_target):
+        _id = uuid.uuid1().int
+        runner_producer = runner_base.RunnerProducer(_id)
+        mock_transport.assert_called_once_with(
+            mock_config, url='rabbit://yardstick:yardstick@localhost:5672/')
+        mock_target.assert_called_once_with(topic=messaging.TOPIC_RUNNER,
+                                            fanout=True,
+                                            server=messaging.SERVER)
+        mock_rpcclient.assert_called_once_with('rpc_transport', 'rpc_target')
+        self.assertEqual(_id, runner_producer._id)
+        self.assertEqual(messaging.TOPIC_RUNNER, runner_producer._topic)
+
+    @mock.patch.object(oslo_messaging, 'Target', return_value='rpc_target')
+    @mock.patch.object(oslo_messaging, 'RPCClient')
+    @mock.patch.object(oslo_messaging, 'get_rpc_transport',
+                       return_value='rpc_transport')
+    @mock.patch.object(payloads, 'RunnerPayload', return_value='runner_pload')
+    def test_start_iteration(self, mock_runner_payload, *args):
+        runner_producer = runner_base.RunnerProducer(uuid.uuid1().int)
+        with mock.patch.object(runner_producer,
+                               'send_message') as mock_message:
+            runner_producer.start_iteration(version=10)
+
+        mock_message.assert_called_once_with(
+            messaging.RUNNER_METHOD_START_ITERATION, 'runner_pload')
+        mock_runner_payload.assert_called_once_with(version=10, data={})
+
+    @mock.patch.object(oslo_messaging, 'Target', return_value='rpc_target')
+    @mock.patch.object(oslo_messaging, 'RPCClient')
+    @mock.patch.object(oslo_messaging, 'get_rpc_transport',
+                       return_value='rpc_transport')
+    @mock.patch.object(payloads, 'RunnerPayload', return_value='runner_pload')
+    def test_stop_iteration(self, mock_runner_payload, *args):
+        runner_producer = runner_base.RunnerProducer(uuid.uuid1().int)
+        with mock.patch.object(runner_producer,
+                               'send_message') as mock_message:
+            runner_producer.stop_iteration(version=15)
+
+        mock_message.assert_called_once_with(
+            messaging.RUNNER_METHOD_STOP_ITERATION, 'runner_pload')
+        mock_runner_payload.assert_called_once_with(version=15, data={})
+
