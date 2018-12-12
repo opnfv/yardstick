@@ -22,55 +22,57 @@
     iommu_boot_params: ' amd_iommu=on iommu=pt'
   when: hostvars[inventory_hostname]['ansible_system_vendor'] == "AuthenticAMD"
 
-- name: Define grub string for IOMMU
-  set_fact:
-    enable_iommu: 'GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX{{ iommu_boot_params }}'
+- block:
+  - name: Define grub string for IOMMU
+    set_fact:
+      enable_iommu: 'GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX{{ iommu_boot_params }}'
 
-- name: check if iommu is set by this role in {{ grub_file}}
-  lineinfile:
-    path: "{{ grub_file}}"
-    regexp: '{{ iommu_help_string }}'
-    line: '{{ iommu_help_string }}'
-    state: absent
-  check_mode: yes
-  register: is_nsb_iommu_role
-  ignore_errors: True
+  - name: check if iommu is set by this role in {{ grub_file}}
+    lineinfile:
+      path: "{{ grub_file}}"
+      regexp: '{{ iommu_help_string }}'
+      line: '{{ iommu_help_string }}'
+      state: absent
+    check_mode: yes
+    register: is_nsb_iommu_role
+    ignore_errors: True
 
-- name: Check if IOMMU is set by someone else
-  lineinfile:
-    path: "{{ grub_file}}"
-    regexp: "_iommu="
-    line: '{{ iommu_help_string }}'
-    state: absent
-  check_mode: yes
-  register: is_iommu
-  ignore_errors: True
+  - name: Check if IOMMU is set by someone else
+    lineinfile:
+      path: "{{ grub_file}}"
+      regexp: "_iommu="
+      line: '{{ iommu_help_string }}'
+      state: absent
+    check_mode: yes
+    register: is_iommu
+    ignore_errors: True
 
-- name: Send info that IOMMU is configured by someone else
-  debug:
-    msg: "INFO: NOT modified, IOMMU is already configured by someone."
-  when:
-    - not is_nsb_iommu_role.changed
-    - is_iommu.changed
+  - name: Send info that IOMMU is configured by someone else
+    debug:
+      msg: "INFO: NOT modified, IOMMU is already configured by someone."
+    when:
+      - not is_nsb_iommu_role.changed
+      - is_iommu.changed
 
-- name: Add IOMMU when it is not set
-  lineinfile:
-    path: "{{ grub_file }}"
-    regexp: "{{ iommu_help_string }}"
-    line: '{{ enable_iommu }}" {{ iommu_help_string }}'
-  when:
-    - not is_nsb_iommu_role.changed
-    - not is_iommu.changed
+  - name: Add IOMMU when it is not set
+    lineinfile:
+      path: "{{ grub_file }}"
+      regexp: "{{ iommu_help_string }}"
+      line: '{{ enable_iommu }}" {{ iommu_help_string }}'
+    when:
+      - not is_nsb_iommu_role.changed
+      - not is_iommu.changed
 
-- name: find boot grub.cfg
-  find:
-    paths: /boot
-    file_type: file
-    patterns: 'grub*.cfg'
-    recurse: yes
-  register: grub_files
+  - name: find boot grub.cfg
+    find:
+      paths: /boot
+      file_type: file
+      patterns: 'grub*.cfg'
+      recurse: yes
+    register: grub_files
 
-- include: manual_modify_grub.yml
-  # only tested on Ubuntu, kernel line is probably different on other distros
-  with_items: "{{ grub_files.files }}"
-  when: ansible_distribution == "Ubuntu"
+  - include: manual_modify_grub.yml
+    # only tested on Ubuntu, kernel line is probably different on other distros
+    with_items: "{{ grub_files.files }}"
+    when: ansible_distribution == "Ubuntu"
+  when: iommu_boot_params is defined
