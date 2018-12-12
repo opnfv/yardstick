@@ -12,6 +12,7 @@ import io
 import logging
 import os
 import sys
+import time
 
 import mock
 import six
@@ -138,6 +139,9 @@ class TaskTestCase(unittest.TestCase):
     @mock.patch.object(base, 'Context')
     @mock.patch.object(task, 'base_runner')
     def test_run(self, mock_base_runner, *args):
+        metadata = {
+            'tc_time': time.time()
+        }
         scenario = {
             'host': 'athena.demo',
             'target': 'ares.demo',
@@ -155,12 +159,15 @@ class TaskTestCase(unittest.TestCase):
         runner.get_output.return_value = {}
         runner.get_result.return_value = []
         mock_base_runner.Runner.get.return_value = runner
-        t._run([scenario], False, "yardstick.out")
+        t._run([scenario], False, "yardstick.out", metadata)
         runner.run.assert_called_once()
 
     @mock.patch.object(base, 'Context')
     @mock.patch.object(task, 'base_runner')
     def test_run_ProxDuration(self, mock_base_runner, *args):
+        metadata = {
+            'tc_time': time.time()
+        }
         scenario = {
             'host': 'athena.demo',
             'target': 'ares.demo',
@@ -180,7 +187,7 @@ class TaskTestCase(unittest.TestCase):
         runner.get_output.return_value = {}
         runner.get_result.return_value = []
         mock_base_runner.Runner.get.return_value = runner
-        t._run([scenario], False, "yardstick.out")
+        t._run([scenario], False, "yardstick.out", metadata)
         runner.run.assert_called_once()
 
     @mock.patch.object(os, 'environ')
