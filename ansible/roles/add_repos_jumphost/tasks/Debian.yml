@@ -71,7 +71,6 @@
       deb [arch={{ extra_arch }}] {{ extra_repo }} {{ ansible_distribution_release }} main universe multiverse restricted
       deb [arch={{ extra_arch }}] {{ extra_repo }} {{ ansible_distribution_release }}-updates main universe multiverse restricted
       deb [arch={{ extra_arch }}] {{ extra_repo }} {{ ansible_distribution_release }}-security main universe multiverse restricted
-      deb [arch={{ extra_arch }}] {{ extra_repo }} {{ ansible_distribution_release }}-proposed main universe multiverse restricted
   when: installation_mode == "container"
 
 - name: Remove the marker
