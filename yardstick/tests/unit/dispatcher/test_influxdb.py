@@ -22,58 +22,10 @@ _init_logging()
 class InfluxdbDispatcherTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.data1 = {
-            "runner_id": 8921,
-            "context_cfg": {
-                "host": {
-                    "ip": "10.229.43.154",
-                    "key_filename":
-                        "/root/yardstick/yardstick/resources/files"
-                        "/yardstick_key",
-                    "name": "kvm.LF",
-                    "user": "root"
-                },
-                "target": {
-                    "ipaddr": "10.229.44.134"
-                }
-            },
-            "scenario_cfg": {
-                "runner": {
-                    "interval": 1,
-                    "object": "yardstick.benchmark.scenarios.networking.ping"
-                              ".Ping",
-                    "output_filename": "/tmp/yardstick.out",
-                    "runner_id": 8921,
-                    "duration": 10,
-                    "type": "Duration"
-                },
-                "host": "kvm.LF",
-                "type": "Ping",
-                "target": "10.229.44.134",
-                "sla": {
-                    "action": "monitor",
-                    "max_rtt": 10
-                },
-                "tc": "ping",
-                "task_id": "ea958583-c91e-461a-af14-2a7f9d7f79e7"
-            }
-        }
-        self.data2 = {
-            "benchmark": {
-                "timestamp": "1451478117.883505",
-                "errors": "",
-                "data": {
-                    "rtt": 0.613
-                },
-                "sequence": 1
-            },
-            "runner_id": 8921
-        }
-
         self.yardstick_conf = {'dispatcher_influxdb': {}}
 
     @mock.patch('yardstick.dispatcher.influxdb.requests')
-    def test_record_result_data(self, mock_requests):
+    def test_flush_result_data(self, mock_requests):
         type(mock_requests.post.return_value).status_code = 204
         influxdb = InfluxdbDispatcher(self.yardstick_conf)
         data = {
@@ -102,3 +54,12 @@ class InfluxdbDispatcherTestCase(unittest.TestCase):
         mock_time.time.return_value = 1451461248.925574
         self.assertEqual(influxdb._get_nano_timestamp(results),
                          '1451461248925574144')
+
+    def test__get_extended_tags(self):
+        influxdb = InfluxdbDispatcher(self.yardstick_conf)
+        criteria = 'PASS'
+        tags = {
+            'task_id': None,
+            'criteria': 'PASS'
+        }
+        self.assertEqual(influxdb._get_extended_tags(criteria), tags)
