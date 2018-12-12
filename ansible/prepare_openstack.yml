@@ -23,7 +23,6 @@
   include: build_yardstick_image.yml
   vars:
     YARD_IMG_ARCH: amd64
-    release: xenial
     img_property: nsb
 
 - name: Cleanup old OpenStack images and upload the new one

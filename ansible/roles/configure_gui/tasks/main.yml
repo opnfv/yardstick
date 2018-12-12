@@ -27,6 +27,11 @@
     state: directory
     recurse: yes
 
+- name: Remove /etc/nginx/yardstick/gui/dist directory if it exists
+  file:
+    path: /etc/nginx/yardstick/gui/dist
+    state: absent
+
 - name: Move dist to /etc/nginx/yardstick/gui
   shell:
     cmd: mv dist /etc/nginx/yardstick/gui
