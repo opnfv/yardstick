@@ -20,6 +20,7 @@ import logging
 import multiprocessing
 import subprocess
 import time
+import datetime
 import traceback
 
 from six import moves
@@ -139,7 +140,11 @@ class Runner(object):
 
     def __init__(self, config):
         self.task_id = None
+        # Counter for metadata table as we want to populate it only one time
+        self.metadata_counter = 1
         self.case_name = None
+        self.tc_time = None
+        self.metadata_table = 'metadata_table'
         self.config = config
         self.periodic_action_process = None
         self.output_queue = multiprocessing.Queue()
@@ -250,7 +255,6 @@ class Runner(object):
 
     def get_result(self):
         result = []
-
         dispatcher = self.config['output_config']['DEFAULT']['dispatcher']
         output_in_influxdb = 'influxdb' in dispatcher
 
@@ -262,15 +266,29 @@ class Runner(object):
                 pass
             else:
                 if output_in_influxdb:
+                    self._metadata_table_output_to_influxdb()
                     self._output_to_influxdb(one_record)
-
                 result.append(one_record)
+
         return result
 
     def _output_to_influxdb(self, record):
         dispatchers = DispatcherBase.get(self.config['output_config'])
         dispatcher = next((d for d in dispatchers if d.__dispatcher_type__ == 'Influxdb'))
         dispatcher.upload_one_record(record, self.case_name, '', task_id=self.task_id)
+
+    def metadata_tc_time(self, tc_time):
+        self.tc_time = datetime.datetime.fromtimestamp(tc_time).isoformat()
+
+    def _metadata_table_output_to_influxdb(self):
+        dispatchers = DispatcherBase.get(self.config['output_config'])
+        dispatcher = next(
+            (d for d in dispatchers if d.__dispatcher_type__ == 'Influxdb'))
+        if self.metadata_counter == 1:
+            dispatcher.upload_metadata_record(
+                tc_time=self.tc_time, tc_name=self.case_name,
+                task_id=self.task_id, table_name=self.metadata_table)
+            self.metadata_counter += 1
 
 
 class RunnerProducer(producer.MessagingProducer):
