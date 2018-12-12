@@ -49,6 +49,7 @@ class Task(object):     # pragma: no cover
     def __init__(self):
         self.contexts = []
         self.outputs = {}
+        self.metadata = {}
 
     def _set_dispatchers(self, output_config):
         dispatchers = output_config.get('DEFAULT', {}).get('dispatcher',
@@ -107,6 +108,9 @@ class Task(object):     # pragma: no cover
         # Execute task files.
         for i, _ in enumerate(task_files):
             one_task_start_time = time.time()
+            self.metadata = {
+                'tc_time': one_task_start_time
+            }
             self.contexts.extend(tasks[i]['contexts'])
             if not tasks[i]['meet_precondition']:
                 LOG.info('"meet_precondition" is %s, please check environment',
@@ -116,7 +120,7 @@ class Task(object):     # pragma: no cover
             try:
                 success, data = self._run(tasks[i]['scenarios'],
                                           tasks[i]['run_in_parallel'],
-                                          output_config)
+                                          output_config, self.metadata)
             except KeyboardInterrupt:
                 raise
             except Exception:  # pylint: disable=broad-except
@@ -241,7 +245,7 @@ class Task(object):     # pragma: no cover
         for dispatcher in dispatchers:
             dispatcher.flush_result_data(result)
 
-    def _run(self, scenarios, run_in_parallel, output_config):
+    def _run(self, scenarios, run_in_parallel, output_config, metadata):
         """Deploys context and calls runners"""
         for context in self.contexts:
             context.deploy()
@@ -275,6 +279,7 @@ class Task(object):     # pragma: no cover
             for scenario in scenarios:
                 if not _is_background_scenario(scenario):
                     runner = self.run_one_scenario(scenario, output_config)
+                    runner.metadata_tc_data(metadata)
                     status = runner_join(runner, background_runners, self.outputs, result)
                     if status != 0:
                         LOG.error('Scenario NO.%s: "%s" ERROR!',

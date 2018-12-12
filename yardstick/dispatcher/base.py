@@ -50,3 +50,7 @@ class Base(object):
     @abc.abstractmethod
     def flush_result_data(self, data):
         """Flush result data into permanent storage media interface."""
+
+    @abc.abstractmethod
+    def upload_metadata_record(self, metadata):
+        """Flush metadata into permanent storage media interface."""

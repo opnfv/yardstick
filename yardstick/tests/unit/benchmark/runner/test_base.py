@@ -100,6 +100,31 @@ class RunnerTestCase(ut_base.BaseUnitTestCase):
         with self.assertRaises(NotImplementedError):
             runner._run_benchmark(mock.Mock(), mock.Mock(), mock.Mock(), mock.Mock())
 
+    @mock.patch.object(runner_base.Runner, '_output_to_influxdb')
+    def test__get_result_influxdb(self, mock_influxdb):
+        config = {
+            'output_config': {
+                'DEFAULT': {
+                    'dispatcher': 'influxdb'
+                }
+            }
+        }
+        self.runner = iteration.IterationRunner(config)
+        self.runner.result_queue.put({'case': 'opnfv_yardstick_tc002'})
+        self.runner.result_queue.put({'criteria': 'PASS'})
+        mock_influxdb.return_value = None
+        idle_result = [
+            {'case': 'opnfv_yardstick_tc002'},
+            {'criteria': 'PASS'}
+        ]
+
+        for _ in range(1000):
+            time.sleep(0.01)
+            if not self.runner.result_queue.empty():
+                break
+        actual_result = self.runner.get_result()
+        self.assertEqual(idle_result, actual_result)
+
 
 class RunnerProducerTestCase(ut_base.BaseUnitTestCase):
 
