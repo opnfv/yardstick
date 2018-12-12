@@ -36,3 +36,6 @@ class FileDispatcher(DispatchBase):
 
     def flush_result_data(self, data):
         utils.write_json_to_file(self.target, data)
+
+    def upload_metadata_record(self, metadata):
+        utils.write_json_to_file(self.target, metadata)

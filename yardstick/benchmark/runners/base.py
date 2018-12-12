@@ -20,6 +20,7 @@ import logging
 import multiprocessing
 import subprocess
 import time
+import datetime
 import traceback
 
 from six import moves
@@ -163,7 +164,10 @@ class Runner(object):
 
     def __init__(self, config):
         self.task_id = None
+        self.metadata = {}
         self.case_name = None
+        self.tc_time = None
+        self.metadata_table = 'metadata_table'
         self.config = config
         self.periodic_action_process = None
         self.output_queue = multiprocessing.Queue()
@@ -274,7 +278,6 @@ class Runner(object):
 
     def get_result(self):
         result = []
-
         dispatcher = self.config['output_config']['DEFAULT']['dispatcher']
         output_in_influxdb = 'influxdb' in dispatcher
 
@@ -287,11 +290,24 @@ class Runner(object):
             else:
                 if output_in_influxdb:
                     self._output_to_influxdb(one_record)
-
                 result.append(one_record)
+
         return result
 
     def _output_to_influxdb(self, record):
         dispatchers = DispatcherBase.get(self.config['output_config'])
         dispatcher = next((d for d in dispatchers if d.__dispatcher_type__ == 'Influxdb'))
         dispatcher.upload_one_record(record, self.case_name, '', task_id=self.task_id)
+
+    def metadata_tc_data(self, metadata):
+        tc_time = metadata['tc_time']
+        self.tc_time = datetime.datetime.fromtimestamp(tc_time).isoformat()
+        dispatchers = DispatcherBase.get(self.config['output_config'])
+        for dispatcher in dispatchers:
+            self.metadata = {
+                'tc_time': self.tc_time,
+                'tc_name': self.case_name,
+                'task_id': self.task_id,
+                'table_name': self.metadata_table,
+            }
+            dispatcher.upload_metadata_record(self.metadata)

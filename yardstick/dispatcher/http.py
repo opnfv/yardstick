@@ -91,6 +91,32 @@ class HttpDispatcher(DispatchBase):
                                 headers=self.headers,
                                 timeout=self.timeout)
             LOG.debug('Test result posting finished with status code'
-                      ' %d.' % res.status_code)
-        except Exception as err:
+                      ' %s.', res.status_code)
+        except Exception as err:  # pylint: disable=broad-except
             LOG.exception('Failed to record result data: %s', err)
+
+    def upload_metadata_record(self, metadata):
+        if self.target == '':
+            # if the target was not set, do not do anything
+            LOG.error('Dispatcher target was not set, no data will'
+                      'be posted.')
+            return
+
+        metadata_result = {
+            "project_name": "yardstick",
+            "table_name": metadata['table_name'],
+            "testcase_start_time": metadata['tc_time'],
+            "testcase_name": metadata['tc_name'],
+            "task_id": metadata['task_id']
+        }
+
+        try:
+            LOG.debug('Test metadata result : %s', metadata_result)
+            res = requests.post(self.target,
+                                data=jsonutils.dump_as_bytes(metadata_result),
+                                headers=self.headers,
+                                timeout=self.timeout)
+            LOG.debug('Test result posting finished with status code'
+                      ' %s.', res.status_code)
+        except Exception as err:  # pylint: disable=broad-except
+            LOG.exception('Failed to record metadata: %s', err)
