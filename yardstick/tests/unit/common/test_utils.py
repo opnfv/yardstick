@@ -1135,6 +1135,15 @@ class TestUtilsIpAddrMethods(ut_base.BaseUnitTestCase):
         for addr in addr_list:
             self.assertRaises(Exception, utils.make_ipv4_address, addr)
 
+    def test_get_ip_range_count(self):
+        iprange = "192.168.0.1-192.168.0.25"
+        count = utils.get_ip_range_count(iprange)
+        self.assertEqual(count, 24)
+
+    def test_get_ip_range_start(self):
+        iprange = "192.168.0.1-192.168.0.25"
+        start = utils.get_ip_range_start(iprange)
+        self.assertEqual(start, "192.168.0.1")
 
     def test_safe_ip_address(self):
         addr_list = self.GOOD_IP_V4_ADDRESS_STR_LIST

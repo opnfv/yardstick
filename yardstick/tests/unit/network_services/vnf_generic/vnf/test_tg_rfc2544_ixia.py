@@ -432,7 +432,6 @@ class TestIXIATrafficGen(unittest.TestCase):
 
 
 class TestIxiaBasicScenario(unittest.TestCase):
-
     def setUp(self):
         self._mock_IxNextgen = mock.patch.object(ixnet_api, 'IxNextgen')
         self.mock_IxNextgen = self._mock_IxNextgen.start()
@@ -450,20 +449,111 @@ class TestIxiaBasicScenario(unittest.TestCase):
         self.assertIsInstance(self.scenario, tg_rfc2544_ixia.IxiaBasicScenario)
         self.assertEqual(self.scenario.client, self.mock_IxNextgen)
 
-    def test_apply_config(self):
-        self.assertIsNone(self.scenario.apply_config())
-
     def test_create_traffic_model(self):
         self.mock_IxNextgen.get_vports.return_value = [1, 2, 3, 4]
         self.scenario.create_traffic_model()
         self.scenario.client.get_vports.assert_called_once()
         self.scenario.client.create_traffic_model.assert_called_once_with([1, 3], [2, 4])
 
+    def test_apply_config(self):
+        self.assertIsNone(self.scenario.apply_config())
+
     def test_run_protocols(self):
         self.assertIsNone(self.scenario.run_protocols())
 
     def test_stop_protocols(self):
         self.assertIsNone(self.scenario.stop_protocols())
+
+
+class TestIxiaL3Scenario(TestIxiaBasicScenario):
+    IXIA_CFG = {
+        'flow': {
+            'src_ip': ['192.168.0.1-192.168.0.50'],
+            'dst_ip': ['192.168.1.1-192.168.1.150']
+        }
+    }
+
+    CONTEXT_CFG = {
+        'nodes': {
+            'tg__0': {
+                'role': 'IxNet',
+                'interfaces': {
+                    'xe0': {
+                        'vld_id': 'uplink_0',
+                        'local_ip': '10.1.1.1',
+                        'local_mac': 'aa:bb:cc:dd:ee:ff',
+                        'ifname': 'xe0'
+                    },
+                    'xe1': {
+                        'vld_id': 'downlink_0',
+                        'local_ip': '20.2.2.2',
+                        'local_mac': 'bb:bb:cc:dd:ee:ee',
+                        'ifname': 'xe1'
+                    }
+                },
+                'routing_table': [{
+                    'network': "152.16.100.20",
+                    'netmask': '255.255.0.0',
+                    'gateway': '152.16.100.21',
+                    'if': 'xe0'
+                }]
+            }
+        }
+    }
+
+    def setUp(self):
+        super(TestIxiaL3Scenario, self).setUp()
+        self.ixia_cfg = self.IXIA_CFG
+        self.context_cfg = self.CONTEXT_CFG
+        self.scenario = tg_rfc2544_ixia.IxiaL3Scenario(self.mock_IxNextgen,
+                                                       self.context_cfg,
+                                                       self.ixia_cfg)
+
+    def test___init___(self):
+        self.assertIsInstance(self.scenario, tg_rfc2544_ixia.IxiaL3Scenario)
+        self.assertEqual(self.scenario.client, self.mock_IxNextgen)
+
+    def test_create_traffic_model(self):
+        self.mock_IxNextgen.get_vports.return_value = ['1', '2']
+        self.scenario.create_traffic_model()
+        self.scenario.client.get_vports.assert_called_once()
+        self.scenario.client.create_ipv4_traffic_model.\
+            assert_called_once_with(['1/protocols/static'],
+                                    ['2/protocols/static'])
+
+    def test_apply_config(self):
+        self.scenario._add_interfaces = mock.Mock()
+        self.scenario._add_static_ips = mock.Mock()
+        self.assertIsNone(self.scenario.apply_config())
+
+    def test__add_static(self):
+        self.mock_IxNextgen.get_vports.return_value = ['1', '2']
+        self.mock_IxNextgen.get_static_interface.side_effect = ['intf1',
+                                                                'intf2']
+
+        self.scenario._add_static_ips()
+
+        self.mock_IxNextgen.get_static_interface.assert_any_call('1')
+        self.mock_IxNextgen.get_static_interface.assert_any_call('2')
+
+        self.scenario.client.add_static_ipv4.assert_any_call(
+            'intf1', '1', '192.168.0.1', 49)
+        self.scenario.client.add_static_ipv4.assert_any_call(
+            'intf2', '2', '192.168.1.1', 149)
+
+    def test__add_interfaces(self):
+        self.mock_IxNextgen.get_vports.return_value = ['1', '2']
+
+        self.scenario._add_interfaces()
+
+        self.mock_IxNextgen.add_interface.assert_any_call('1',
+                                                          '10.1.1.1',
+                                                          'aa:bb:cc:dd:ee:ff',
+                                                          '152.16.100.21')
+        self.mock_IxNextgen.add_interface.assert_any_call('2',
+                                                          '20.2.2.2',
+                                                          'bb:bb:cc:dd:ee:ee',
+                                                          None)
 
 
 class TestIxiaPppoeClientScenario(unittest.TestCase):
