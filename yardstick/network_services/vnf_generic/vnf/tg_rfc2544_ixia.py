@@ -30,7 +30,7 @@ WAIT_FOR_TRAFFIC = 30
 WAIT_PROTOCOLS_STARTED = 360
 
 
-class IxiaBasicScenario(object):
+class BaseIxiaScenario(object):
     def __init__(self, client, context_cfg, ixia_cfg):
 
         self.client = client
@@ -44,17 +44,97 @@ class IxiaBasicScenario(object):
         pass
 
     def create_traffic_model(self):
-        vports = self.client.get_vports()
-        self._uplink_vports = vports[::2]
-        self._downlink_vports = vports[1::2]
-        self.client.create_traffic_model(self._uplink_vports,
-                                         self._downlink_vports)
+        pass
 
     def run_protocols(self):
         pass
 
     def stop_protocols(self):
         pass
+
+
+class IxiaBasicScenario(BaseIxiaScenario):
+    def create_traffic_model(self):
+        vports = self.client.get_vports()
+        self._uplink_vports = vports[::2]
+        self._downlink_vports = vports[1::2]
+        self.client.create_traffic_model(self._uplink_vports,
+                                         self._downlink_vports)
+
+
+class IxiaL3Scenario(BaseIxiaScenario):
+    def _add_static(self):
+        vports = self.client.get_vports()
+        uplink_intf_vport = [(self.client.get_list(vport, 'interface'), vport)
+                       for vport in vports[::2]]
+        downlink_intf_vport = [(self.client.get_list(vport, 'interface'), vport)
+                         for vport in vports[1::2]]
+
+        for index in range(len(uplink_intf_vport)):
+            intf, vport = uplink_intf_vport[index]
+            try:
+                iprange = self.ixia_cfg['flow'].get('src_ip')[index]
+                start_ip, count = self._parse_IP_range(iprange)
+                self.client.add_static_ipv4(intf, vport, start_ip, count)
+            except IndexError:
+                pass
+
+            intf, vport = downlink_intf_vport[index]
+            try:
+                iprange = self.ixia_cfg['flow'].get('dst_ip')[index]
+                start_ip, count = self._parse_IP_range(iprange)
+                self.client.add_static_ipv4(intf, vport, start_ip, count)
+            except IndexError:
+                pass
+
+    def _parse_IP_range(self, iprange):
+        start_range, end_range = iprange.split("-")
+        ip1 = int(ipaddress.IPv4Address(start_range))
+        ip2 = int(ipaddress.IPv4Address(end_range))
+        return start_range, ip2 - ip1
+
+    def _add_interfaces(self):
+        vports = self.client.get_vports()
+        uplink_vports = (vport for vport in vports[::2])
+        downlink_vports = (vport for vport in vports[1::2])
+
+        ix_node = next(node for _, node in self.context_cfg['nodes'].items()
+                       if node['role'] == 'IxNet')
+
+        for intf in ix_node['interfaces'].values():
+            ip = intf.get('local_ip')
+            mac = intf.get('local_mac')
+            gateway = None
+            try:
+                gateway = next(route.get('gateway')
+                               for route in ix_node.get('routing_table')
+                               if route.get('if') == intf.get('ifname'))
+            except StopIteration as e:
+                LOG.debug("Gateway not provided")
+
+            if 'uplink' in intf.get('vld_id'):
+                self.client.add_interface(next(uplink_vports),
+                                          ip, mac, gateway)
+            else:
+                self.client.add_interface(next(downlink_vports),
+                                          ip, mac, gateway)
+
+    def apply_config(self):
+        self._add_interfaces()
+        self._add_static()
+
+    def create_traffic_model(self):
+        vports = self.client.get_vports()
+        self._uplink_vports = vports[::2]
+        self._downlink_vports = vports[1::2]
+
+        uplink_endpoints = [port + '/protocols/static'
+                            for port in self._uplink_vports]
+        downlink_endpoints = [port + '/protocols/static'
+                              for port in self._downlink_vports]
+
+        self.client.create_ipv4_traffic_model(uplink_endpoints,
+                                              downlink_endpoints)
 
 
 class IxiaPppoeClientScenario(object):
@@ -222,6 +302,7 @@ class IxiaResourceHelper(ClientResourceHelper):
 
         self._ixia_scenarios = {
             "IxiaBasic": IxiaBasicScenario,
+            "IxiaL3": IxiaL3Scenario,
             "IxiaPppoeClient": IxiaPppoeClientScenario,
         }
 
