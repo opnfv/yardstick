@@ -152,6 +152,9 @@ class IxNextgen(object):  # pragma: no cover
         vports = self.ixnet.getList(self.ixnet.getRoot(), 'vport')
         return vports
 
+    def get_static_interface(self, vport):
+        return self.ixnet.getList(vport, 'interface')
+
     def _get_config_element_by_flow_group_name(self, flow_group_name):
         """Get a config element using the flow group name
 
