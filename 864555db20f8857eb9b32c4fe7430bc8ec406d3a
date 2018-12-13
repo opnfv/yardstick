@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_427eb5af",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2018-12-13T15:21:14Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 48
+      },
+      "revId": "864555db20f8857eb9b32c4fe7430bc8ec406d3a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
