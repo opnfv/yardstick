@@ -293,6 +293,17 @@ def make_ipv4_address(ip_addr):
     return ipaddress.IPv4Address(six.text_type(ip_addr))
 
 
+def get_ip_range_count(iprange):
+    start_range, end_range = iprange.split("-")
+    start = int(make_ipv4_address(start_range))
+    end = int(make_ipv4_address(end_range))
+    return start - end
+
+
+def get_ip_range_start(iprange):
+    return str(make_ipv4_address(iprange.split("-")[0]))
+
+
 def safe_ip_address(ip_addr):
     """ get ip address version v6 or v4 """
     try:
