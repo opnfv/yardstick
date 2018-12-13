@@ -405,6 +405,10 @@ class IxNetworkFieldNotPresentInStackItem(YardstickException):
     message = 'Field "%(field_name)s" not present in stack item %(stack_item)s'
 
 
+class IncorrectFlowOption(YardstickException):
+    message = 'Flow option {option} for {link} is incorrect'
+
+
 class SLAValidationError(YardstickException):
     message = '%(case_name)s SLA validation failed. Error: %(error_msg)s'
 
