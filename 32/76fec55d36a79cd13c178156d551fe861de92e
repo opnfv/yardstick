@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: John O'Loughlin <john.oloughlin@intel.com>
+Code-Review+1: Shobhi Jain <shobhi.jain@intel.com>
+Code-Review+2: Abhijit Sinha <abhijit.sinha@intel.com>
+Submitted-by: Abhijit Sinha <abhijit.sinha@intel.com>
+Submitted-at: Mon, 17 Dec 2018 14:16:37 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/61201
+Project: yardstick
+Branch: refs/heads/master
