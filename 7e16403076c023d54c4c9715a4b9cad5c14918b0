@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_f3ca316d",
+        "filename": "yardstick/resources/templates/add_ip_address.vat",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-17T15:29:54Z",
+      "side": 1,
+      "message": "can this template be of yaml format or it needs to be *vat type?",
+      "revId": "7e16403076c023d54c4c9715a4b9cad5c14918b0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
