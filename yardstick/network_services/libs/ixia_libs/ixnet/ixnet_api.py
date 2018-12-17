@@ -216,6 +216,14 @@ class IxNextgen(object):  # pragma: no cover
         """
         return self.ixnet.getAttribute(proto, '-sessionStatus')
 
+    def get_topology_device_groups(self, topology):
+        """Get list of device groups in topology
+
+        :param topology: (str) topology descriptor
+        :return: (list) list of device groups descriptors
+        """
+        return self.ixnet.getList(topology, 'deviceGroup')
+
     def is_traffic_running(self):
         """Returns true if traffic state == TRAFFIC_STATUS_STARTED"""
         return self._get_traffic_state() == TRAFFIC_STATUS_STARTED
@@ -406,7 +414,7 @@ class IxNextgen(object):  # pragma: no cover
         self._create_flow_groups(uplink_endpoints, downlink_endpoints)
         self._setup_config_elements()
 
-    def create_ipv4_traffic_model(self, uplink_topologies, downlink_topologies):
+    def create_ipv4_traffic_model(self, uplink_endpoints, downlink_endpoints):
         """Create a traffic item and the needed flow groups
 
         Each flow group inside the traffic item (only one is present)
@@ -418,7 +426,7 @@ class IxNextgen(object):  # pragma: no cover
             FlowGroup4: uplink2    <- downlink2
         """
         self._create_traffic_item('ipv4')
-        self._create_flow_groups(uplink_topologies, downlink_topologies)
+        self._create_flow_groups(uplink_endpoints, downlink_endpoints)
         self._setup_config_elements(False)
 
     def _update_frame_mac(self, ethernet_descriptor, field, mac_address):
