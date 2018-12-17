@@ -9,38 +9,26 @@
  ******************************************************************************/
 
 body {
-    font-size: 16pt;
-}
-
-table {
-    overflow-y: scroll;
-    height: 360px;
-    display: block;
-    width: 100%;
+    font-family: Frutiger, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 header {
-    font-family: Frutiger, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    clear: left;
+    padding-top: 5px;
     text-align: center;
-}
-
-h1 {
-    font-size: 20pt;
     font-weight: bold;
-    height: 20px;
-    margin: 0px 0px;
 }
 
-h4 {
-    font-size: 13pt;
-    height: 1px;
-    margin-bottom: 0px;
+#tblMetrics {
+    overflow-y: scroll;
+    height: 360px;
+    display: block;
 }
 
-.control-pane {
+#cnvGraph {
+    width: 100%;
+    height: 500px;
+}
+
+#divTree {
     font-size: 10pt;
-}
-
-.data-pane {
 }
