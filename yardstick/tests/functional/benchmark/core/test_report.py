@@ -23,9 +23,9 @@ GOOD_YAML_NAME = 'fake_name'
 GOOD_TASK_ID = "9cbe74b6-df09-4535-8bdc-dc3a43b8a4e2"
 GOOD_DB_FIELDKEYS = [
     {u'fieldKey': u'metric1', u'fieldType': u'integer'},
+    {u'fieldKey': u'metric4', u'fieldType': u'integer'},
     {u'fieldKey': u'metric2', u'fieldType': u'integer'},
     {u'fieldKey': u'metric3', u'fieldType': u'integer'},
-    {u'fieldKey': u'metric4', u'fieldType': u'integer'},
 ]
 GOOD_DB_METRICS = [
     {u'time': u'2018-08-20T16:49:26.372662016Z',
@@ -77,28 +77,42 @@ class ReportTestCase(unittest.TestCase):
         with mock.patch.object(report.consts, 'DEFAULT_HTML_FILE', tmpfile.name):
             report.Report().generate_nsb(params)
 
+        data_act = None
+        time_act = None
+        keys_act = None
+        tree_act = None
         with open(tmpfile.name) as f:
             for l in f.readlines():
-                 if " arr = {" in l:
-                     arr_act = ast.literal_eval(l.strip()[6:-1])
-                 elif " jstree_data = [" in l:
-                     jstree_data_act = ast.literal_eval(l.strip()[14:-1])
+                 if "var report_data = {" in l:
+                     data_act = ast.literal_eval(l.strip()[18:-1])
+                 elif "var report_time = [" in l:
+                     time_act = ast.literal_eval(l.strip()[18:-1])
+                 elif "var report_keys = [" in l:
+                     keys_act = ast.literal_eval(l.strip()[18:-1])
+                 elif "var report_tree = [" in l:
+                     tree_act = ast.literal_eval(l.strip()[18:-1])
 
-        arr_exp = {
-            'Timestamp':
-                ['16:49:26.372662', '16:49:27.374208', '16:49:28.375742',
-                 '16:49:29.377299', '16:49:30.378252', '16:49:30.379359'],
+        data_exp = {
             'metric1': [1, 1, 2, 3, 5, 8],
             'metric2': [0, 1, 2, 3, 4, 5],
             'metric3': [8, 5, 3, 2, 1, 1],
             'metric4': [5, 4, 3, 2, 1, 0],
         }
-        jstree_data_exp = [
+        time_exp = [
+            '16:49:26.372662', '16:49:27.374208', '16:49:28.375742',
+            '16:49:29.377299', '16:49:30.378252', '16:49:30.379359',
+        ]
+        keys_exp = [
+            'metric1', 'metric2', 'metric3', 'metric4',
+        ]
+        tree_exp = [
             {'parent': '#', 'text': 'metric1', 'id': 'metric1'},
             {'parent': '#', 'text': 'metric2', 'id': 'metric2'},
             {'parent': '#', 'text': 'metric3', 'id': 'metric3'},
             {'parent': '#', 'text': 'metric4', 'id': 'metric4'},
         ]
 
-        self.assertEqual(arr_exp, arr_act)
-        self.assertEqual(jstree_data_exp, jstree_data_act)
+        self.assertEqual(data_exp, data_act)
+        self.assertEqual(time_exp, time_act)
+        self.assertEqual(keys_exp, keys_act)
+        self.assertEqual(tree_exp, tree_act)

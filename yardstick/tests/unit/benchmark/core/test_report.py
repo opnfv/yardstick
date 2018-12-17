@@ -117,23 +117,15 @@ class JSTreeTestCase(unittest.TestCase):
 
     def test_format_for_jstree(self):
         data = [
-            {'data': [0, ], 'label': 'tg__0.DropPackets'},
-            {'data': [548, ], 'label': 'tg__0.LatencyAvg.5'},
-            {'data': [1172, ], 'label': 'tg__0.LatencyAvg.6'},
-            {'data': [1001, ], 'label': 'tg__0.LatencyMax.5'},
-            {'data': [1468, ], 'label': 'tg__0.LatencyMax.6'},
-            {'data': [18.11, ], 'label': 'tg__0.RxThroughput'},
-            {'data': [18.11, ], 'label': 'tg__0.TxThroughput'},
-            {'data': [0, ], 'label': 'tg__1.DropPackets'},
-            {'data': [548, ], 'label': 'tg__1.LatencyAvg.5'},
-            {'data': [1172, ], 'label': 'tg__1.LatencyAvg.6'},
-            {'data': [1001, ], 'label': 'tg__1.LatencyMax.5'},
-            {'data': [1468, ], 'label': 'tg__1.LatencyMax.6'},
-            {'data': [18.1132084505, ], 'label': 'tg__1.RxThroughput'},
-            {'data': [18.1157260383, ], 'label': 'tg__1.TxThroughput'},
-            {'data': [9057888, ], 'label': 'vnf__0.curr_packets_in'},
-            {'data': [0, ], 'label': 'vnf__0.packets_dropped'},
-            {'data': [617825443, ], 'label': 'vnf__0.packets_fwd'},
+            'tg__0.DropPackets',
+            'tg__0.LatencyAvg.5', 'tg__0.LatencyAvg.6',
+            'tg__0.LatencyMax.5', 'tg__0.LatencyMax.6',
+            'tg__0.RxThroughput', 'tg__0.TxThroughput',
+            'tg__1.DropPackets',
+            'tg__1.LatencyAvg.5', 'tg__1.LatencyAvg.6',
+            'tg__1.LatencyMax.5', 'tg__1.LatencyMax.6',
+            'tg__1.RxThroughput', 'tg__1.TxThroughput',
+            'vnf__0.curr_packets_in', 'vnf__0.packets_dropped', 'vnf__0.packets_fwd',
         ]
 
         expected_output = [

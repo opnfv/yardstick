@@ -54,11 +54,9 @@ class JSTree(object):
     def format_for_jstree(self, data):
         """Format the data into the required format for jsTree.
 
-        The data format expected is a list of key-value pairs which represent
-        the data and label for each metric e.g.:
+        The data format expected is a list of metric names e.g.:
 
-            [{'data': [0, ], 'label': 'tg__0.DropPackets'},
-             {'data': [548, ], 'label': 'tg__0.LatencyAvg.5'},]
+            ['tg__0.DropPackets', 'tg__0.LatencyAvg.5']
 
         This data is converted into the format required for jsTree to group and
         display the metrics in a hierarchial fashion, including creating a
@@ -75,8 +73,8 @@ class JSTree(object):
         self._created_nodes = ['#']
         self.jstree_data = []
 
-        for item in data:
-            self._create_node(item["label"])
+        for metric in data:
+            self._create_node(metric)
 
         return self.jstree_data
 
@@ -230,8 +228,14 @@ class Report(object):
     @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
     def generate_nsb(self, args):
         """Start NSB report generation."""
-        datasets, table_vals = self._generate_common(args)
-        jstree_data = JSTree().format_for_jstree(datasets)
+        _, report_data = self._generate_common(args)
+        report_time = report_data.pop('Timestamp')
+        report_keys = sorted(report_data, key=str.lower)
+        report_tree = JSTree().format_for_jstree(report_keys)
+        report_meta = {
+            "testcase": self.yaml_name,
+            "task_id": self.task_id,
+        }
 
         template_dir = consts.YARDSTICK_ROOT_PATH + "yardstick/common"
         template_environment = jinja2.Environment(
@@ -240,10 +244,11 @@ class Report(object):
             lstrip_blocks=True)
 
         context = {
-            "Timestamps": self.Timestamp,
-            "task_id": self.task_id,
-            "table": table_vals,
-            "jstree_nodes": jstree_data,
+            "report_meta": report_meta,
+            "report_data": report_data,
+            "report_time": report_time,
+            "report_keys": report_keys,
+            "report_tree": report_tree,
         }
 
         template_html = template_environment.get_template("nsb_report.html.j2")
