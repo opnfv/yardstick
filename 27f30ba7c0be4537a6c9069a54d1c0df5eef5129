@@ -1,0 +1,389 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_d7044080",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "IMHO, this is not something that should be done in the test runner.\n\nDifferent runners will call the the dispatcher at different times, and different numbers of times.\nFor iteration, this will be done for each iteration.\n\nIf you want something to be done once, and only once, it might be better as be part of setting up the task. \nIn these cases, the start and end time could be stored as part of the task metadata (i.e. scenario, deployment, pass/fail info, and result data), as they are already collected by the task. The advantage to this would be that that metadata is available regardless of the dispatcher.\n\n\nYou could push this data to the dispatcher at the end of the task, if the architecture allows, or write it to the existing yardstick table and create some trigger in the database to update the metadata table automatically.",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 143,
+        "endChar": 33
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_17e878b3",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "IMHO, this check should be in _metadata_table_output_to_influxdb()",
+      "range": {
+        "startLine": 267,
+        "startChar": 0,
+        "endLine": 269,
+        "endChar": 50
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f7ecdcc9",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "IMHO, this should be called in the existing _output_to_influx\n\nThen there wouldn\u0027t be any need for checking whether the Dispatcher is influx or not.",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 62
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_37f5b483",
+        "filename": "yardstick/dispatcher/influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "Unless you\u0027re going to make this metadata table name configurable, there\u0027s no need to set this up as an instance variable, you can keep it local to _metadata_to_line_protocol()",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 46
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_57f8307c",
+        "filename": "yardstick/dispatcher/influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "If the start_time provided by the task was used for this metadata table, you could simply pass it to the results data in the task, and access it from here. \n\nThe data being passed to the metadata table would then be something like:\n    result \u003d data[\u0027result\u0027]\n    ...\n    self.task_id \u003d result[\u0027task_id\u0027]\n    start_time \u003d result[\u0027start_time\u0027]\n\n    .....\n    self.upload_metadata_record(\n        tc_name\u003dcase, task_id\u003dself.task_id,\n        task_time\u003dstart_time, ...)",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 54,
+        "endChar": 31
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b709c497",
+        "filename": "yardstick/dispatcher/influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "Does this need to be an instance variable? Or can it be a local variable?",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 112,
+        "endChar": 20
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_37a01490",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "The development guidelines[1] specifies that the module should be imported, not the class.\n\n    import requests\n\n[1] https://github.com/opnfv/yardstick/blob/master/docs/testing/developer/devguide/devguide.rst#coding-style",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 36
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_77ee0cee",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "There should only be two lines here, remove this additional blank line",
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_17b198e1",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "@reviewers: Does it need to be re-evaluated?\nThis should mock requests.post and assign the return value for that (like Shobhi has done below)",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 63
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d7ba80e0",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "These two lines should be indented another level -- insert four leading spaces into L42 and L43",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 8
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_97f128d0",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "I think this is what\u0027s causing the test failure --  an extra space in the text.\n\nYou can check this by using maxDiff\u003dNone [1], to print out the full diff between the actual and expected diffs. (Remember to remove this before submitting the update though)\n\n\n[1] https://docs.python.org/3/library/unittest.html#unittest.TestCase.maxDiff",
+      "range": {
+        "startLine": 58,
+        "startChar": 47,
+        "endLine": 58,
+        "endChar": 48
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b7bf04d0",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "Please use mock.patch.object instead of mock.patch.\n\nmock.patch can hide import errors, and mock.patch.object separates these from any other errors that might occur by forcing you to import separately",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 45
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f7b97cea",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "Use self.assertIsNone",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 64
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_17b518ee",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "ditto on mock.patch.object",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 52
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_57ce7084",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "use self.assertIsNone",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 64
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_37cbf473",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "use mock.patch.object",
+      "range": {
+        "startLine": 101,
+        "startChar": 1,
+        "endLine": 104,
+        "endChar": 52
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_97c80876",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2018-12-18T15:56:22Z",
+      "side": 1,
+      "message": "use self.assertIsNone",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 64
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
