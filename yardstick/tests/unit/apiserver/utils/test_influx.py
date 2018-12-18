@@ -1,5 +1,6 @@
 ##############################################################################
 # Copyright (c) 2016 Huawei Technologies Co.,Ltd and others.
+# Copyright (c) 2019 Intel Corporation.
 #
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
@@ -29,7 +30,7 @@ class GetDataDbClientTestCase(base.BaseUnitTestCase):
 
         self.assertEqual('fake_client', influx.get_data_db_client())
         _mock_parser.read.assert_called_once_with(constants.CONF_FILE)
-        mock_get_client.assert_called_once_with(_mock_parser)
+        mock_get_client.assert_called_once_with(_mock_parser, None)
 
     @mock.patch.object(influx.logger, 'error')
     @mock.patch.object(influx, '_get_influxdb_client',
@@ -46,7 +47,7 @@ class GetDataDbClientTestCase(base.BaseUnitTestCase):
             influx.get_data_db_client()
 
         _mock_parser.read.assert_called_once_with(constants.CONF_FILE)
-        mock_get_client.assert_called_once_with(_mock_parser)
+        mock_get_client.assert_called_once_with(_mock_parser, None)
 
 
 class GetIpTestCase(base.BaseUnitTestCase):
