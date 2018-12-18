@@ -29,7 +29,7 @@ class GetDataDbClientTestCase(base.BaseUnitTestCase):
 
         self.assertEqual('fake_client', influx.get_data_db_client())
         _mock_parser.read.assert_called_once_with(constants.CONF_FILE)
-        mock_get_client.assert_called_once_with(_mock_parser)
+        mock_get_client.assert_called_once_with(_mock_parser, None)
 
     @mock.patch.object(influx.logger, 'error')
     @mock.patch.object(influx, '_get_influxdb_client',
@@ -46,7 +46,7 @@ class GetDataDbClientTestCase(base.BaseUnitTestCase):
             influx.get_data_db_client()
 
         _mock_parser.read.assert_called_once_with(constants.CONF_FILE)
-        mock_get_client.assert_called_once_with(_mock_parser)
+        mock_get_client.assert_called_once_with(_mock_parser, None)
 
 
 class GetIpTestCase(base.BaseUnitTestCase):
