@@ -48,6 +48,138 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_1a453d70",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:46:50Z",
+      "side": 1,
+      "message": "VlanToVlan?",
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fa49618c",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:46:50Z",
+      "side": 1,
+      "message": "subscriber",
+      "range": {
+        "startLine": 43,
+        "startChar": 22,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5a5e9546",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:46:50Z",
+      "side": 1,
+      "message": "runs",
+      "range": {
+        "startLine": 43,
+        "startChar": 55,
+        "endLine": 43,
+        "endChar": 58
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3a5bd955",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:46:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 45,
+        "startChar": 27,
+        "endLine": 45,
+        "endChar": 38
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1a3c1de2",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:46:50Z",
+      "side": 1,
+      "message": "E",
+      "range": {
+        "startLine": 103,
+        "startChar": 20,
+        "endLine": 103,
+        "endChar": 21
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fa404158",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:46:50Z",
+      "side": 1,
+      "message": "resolves",
+      "range": {
+        "startLine": 134,
+        "startChar": 27,
+        "endLine": 134,
+        "endChar": 34
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_ba7ec9e2",
         "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
         "patchSetId": 1
