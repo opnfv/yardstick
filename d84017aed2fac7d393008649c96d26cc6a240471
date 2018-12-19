@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_733c6194",
+        "filename": "docs/testing/user/userguide/10-yardstick-user-interface.rst",
+        "patchSetId": 12
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-12-19T12:46:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_65bb08c5",
+      "revId": "d84017aed2fac7d393008649c96d26cc6a240471",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_c1081130",
         "filename": "docs/testing/user/userguide/10-yardstick-user-interface.rst",
         "patchSetId": 12
@@ -47,6 +65,24 @@
       "writtenOn": "2018-11-27T15:42:08Z",
       "side": 1,
       "message": "See documentation proposal below.",
+      "parentUuid": "1a622d24_c1081130",
+      "revId": "d84017aed2fac7d393008649c96d26cc6a240471",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d341f50c",
+        "filename": "docs/testing/user/userguide/10-yardstick-user-interface.rst",
+        "patchSetId": 12
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-12-19T12:46:19Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "1a622d24_c1081130",
       "revId": "d84017aed2fac7d393008649c96d26cc6a240471",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -83,6 +119,24 @@
       "side": 1,
       "message": "I would go with adding this description above in L5.\nYou could call them compact and dynamic reports, and use these terms to refer to them reports in other places (e.g. L13/14)",
       "parentUuid": "1a622d24_a51400f6",
+      "revId": "d84017aed2fac7d393008649c96d26cc6a240471",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b346f921",
+        "filename": "docs/testing/user/userguide/10-yardstick-user-interface.rst",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-12-19T12:46:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_85b624db",
       "revId": "d84017aed2fac7d393008649c96d26cc6a240471",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
