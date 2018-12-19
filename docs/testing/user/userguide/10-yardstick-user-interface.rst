@@ -27,8 +27,8 @@ Description
 
 The graph is framed with Timestamp on x-axis and output values
 (differ from testcase to testcase) on y-axis with the help of
-`Highcharts`_.
+`Chart.js`_.
 
 .. _InfluxDB: https://www.influxdata.com/time-series-platform/influxdb/
 .. _Jinja2: http://jinja.pocoo.org/docs/2.10/
-.. _Highcharts: https://www.highcharts.com/products/highcharts/
+.. _Chart.js: https://www.chartjs.org/

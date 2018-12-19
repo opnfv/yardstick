@@ -19,7 +19,7 @@ table {
 }
 
 header {
-    font-family: Frutiger;
+    font-family: Frutiger, "Helvetica Neue", Helvetica, Arial, sans-serif;
     clear: left;
     text-align: center;
 }

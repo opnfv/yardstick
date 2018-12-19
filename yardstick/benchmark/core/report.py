@@ -135,7 +135,7 @@ class Report(object):
         self.db_task = self._get_tasks()
 
         field_keys = []
-        temp_series = []
+        datasets = []
         table_vals = {}
 
         field_keys = [encodeutils.to_utf8(field['fieldKey'])
@@ -143,7 +143,6 @@ class Report(object):
 
         for key in field_keys:
             self.Timestamp = []
-            series = {}
             values = []
             for task in self.db_task:
                 task_time = encodeutils.to_utf8(task['time'])
@@ -155,16 +154,14 @@ class Report(object):
                 task_time = head + "." + tail[:6]
                 self.Timestamp.append(task_time)
                 if task[key] is None:
-                    values.append('')
+                    values.append(None)
                 elif isinstance(task[key], (int, float)) is True:
                     values.append(task[key])
                 else:
                     values.append(ast.literal_eval(task[key]))
+            datasets.append({'label': key, 'data': values})
             table_vals['Timestamp'] = self.Timestamp
             table_vals[key] = values
-            series['name'] = key
-            series['data'] = values
-            temp_series.append(series)
 
         template_dir = consts.YARDSTICK_ROOT_PATH + "yardstick/common"
         template_environment = jinja2.Environment(
@@ -173,7 +170,7 @@ class Report(object):
             trim_blocks=False)
 
         context = {
-            "series": temp_series,
+            "datasets": datasets,
             "Timestamps": self.Timestamp,
             "task_id": self.task_id,
             "table": table_vals,
