@@ -1353,6 +1353,36 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
                     ['missing_addtional_file', 'dofile("nosuch")'],
                 ],
             ],
+            [
+                'core 0',
+                [
+                    ['name', 'p0']
+                ]
+            ],
+            [
+                'core 1-4',
+                [
+                    ['name', 'p1']
+                ]
+            ],
+            [
+                'core 5,6',
+                [
+                    ['name', 'p2']
+                ]
+            ],
+            [
+                'core xx',
+                [
+                    ['name', 'p3']
+                ]
+            ],
+            [
+                'core $x',
+                [
+                    ['name', 'p4']
+                ]
+            ]
         ]
 
         expected = [
@@ -1382,6 +1412,54 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
                     ['missing_addtional_file', 'dofile("nosuch")'],
                 ],
             ],
+            [
+                'core 0',
+                [
+                    ['name', 'p0']
+                ]
+            ],
+            [
+                'core 1',
+                [
+                    ['name', 'p1']
+                ]
+            ],
+            [
+                'core 2',
+                [
+                    ['name', 'p1']
+                ]
+            ],
+            [
+                'core 3',
+                [
+                    ['name', 'p1']
+                ]
+            ],
+            [
+                'core 4',
+                [
+                    ['name', 'p1']
+                ]
+            ],
+            [
+                'core 5',
+                [
+                    ['name', 'p2']
+                ]
+            ],
+            [
+                'core 6',
+                [
+                    ['name', 'p2']
+                ]
+            ],
+            [
+                'core $x',
+                [
+                    ['name', 'p4']
+                ]
+            ]
         ]
         result = helper.generate_prox_config_file('/c/d/e')
         self.assertEqual(result, expected, str(result))
