@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_3a3c792f",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-19T15:03:28Z",
+      "side": 1,
+      "message": "vBNG",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9a494dd3",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-19T15:03:28Z",
+      "side": 1,
+      "message": "Isnt these numbers always 0 in the database?",
+      "range": {
+        "startLine": 28,
+        "startChar": 18,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ba7ec9e2",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-19T15:03:28Z",
+      "side": 1,
+      "message": "Can be rephrased:\n\"During each iteration interval in the test run, all specified metrics are *** \"",
+      "range": {
+        "startLine": 170,
+        "startChar": 17,
+        "endLine": 171,
+        "endChar": 40
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ba652947",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-19T15:03:28Z",
+      "side": 1,
+      "message": "Rephrase the sentence: The vBNG RFC2544 test case will achieve maximum traffic line rate with zero packet loss (or other non-zero allowed partial drop rate)",
+      "range": {
+        "startLine": 175,
+        "startChar": 17,
+        "endLine": 178,
+        "endChar": 65
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fa5fa170",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia_8ports_1port_congested.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-19T15:03:28Z",
+      "side": 1,
+      "message": "vBNG",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5a54d553",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia_8ports_1port_congested.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-19T15:03:28Z",
+      "side": 1,
+      "message": "with",
+      "range": {
+        "startLine": 11,
+        "startChar": 41,
+        "endLine": 11,
+        "endChar": 48
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3a511963",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia_8ports_1port_congested.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-19T15:03:28Z",
+      "side": 1,
+      "message": "test name is different",
+      "range": {
+        "startLine": 14,
+        "startChar": 17,
+        "endLine": 14,
+        "endChar": 56
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7a4b91b0",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia_8ports_1port_congested.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-19T15:03:28Z",
+      "side": 1,
+      "message": "add congested links on access port",
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
