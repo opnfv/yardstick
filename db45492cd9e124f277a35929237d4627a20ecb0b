@@ -48,6 +48,23 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_b77ee4e2",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_IMIX_scale_up.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:39:58Z",
+      "side": 1,
+      "message": "add priority options. Check all TCs.",
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_5af8557c",
         "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_IMIX_scale_up.yaml",
         "patchSetId": 12
@@ -94,6 +111,23 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_b730a457",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:39:58Z",
+      "side": 1,
+      "message": "import collections",
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_3af59983",
         "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
         "patchSetId": 12
@@ -110,6 +144,86 @@
         "startChar": 0,
         "endLine": 121,
         "endChar": 39
+      },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_170d1891",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:39:58Z",
+      "side": 1,
+      "message": "Add a comment that we are going to handle regexp here. It is not too obvious.",
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7a7ef1af",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:39:58Z",
+      "side": 1,
+      "message": "please check if precision 3 is enough.",
+      "range": {
+        "startLine": 304,
+        "startChar": 51,
+        "endLine": 304,
+        "endChar": 56
+      },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f7117cad",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:39:58Z",
+      "side": 1,
+      "message": "import collections",
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3a8639ba",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:39:58Z",
+      "side": 1,
+      "message": "flow",
+      "range": {
+        "startLine": 444,
+        "startChar": 44,
+        "endLine": 444,
+        "endChar": 49
       },
       "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
@@ -134,6 +248,70 @@
         "endLine": 493,
         "endChar": 80
       },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5a8975c9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:39:58Z",
+      "side": 1,
+      "message": "This stats actually in not valid (since it is realtime metrics which are valid only during traffic run) when traffic stopped. So, both of them can be removed at all. P/s: same happens with basic RFC2544 :)",
+      "parentUuid": "1a622d24_fa3a0135",
+      "range": {
+        "startLine": 490,
+        "startChar": 0,
+        "endLine": 493,
+        "endChar": 80
+      },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9a930dfa",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:39:58Z",
+      "side": 1,
+      "message": "should be flow. Please check _\u003cvar\u003e in all places and replace with var.",
+      "range": {
+        "startLine": 501,
+        "startChar": 19,
+        "endLine": 501,
+        "endChar": 24
+      },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_da4aa582",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-19T16:39:58Z",
+      "side": 1,
+      "message": "Please add a bit more description why format the naming.",
       "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
