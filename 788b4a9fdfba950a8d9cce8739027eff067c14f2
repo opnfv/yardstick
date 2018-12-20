@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_6020044a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-20T17:48:59Z",
+      "side": 1,
+      "message": "creating",
+      "range": {
+        "startLine": 10,
+        "startChar": 28,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "788b4a9fdfba950a8d9cce8739027eff067c14f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a0be9cfd",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_latency_ipv4_64B_ixia_L3.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-20T17:48:59Z",
+      "side": 1,
+      "message": "In case user will specify more than two vports, appropriate topology file should be used. Please use the following template to specify topology file name:\n\nagnostic_vnf_topology_ixia_{{ vports }}ports.yaml",
+      "range": {
+        "startLine": 21,
+        "startChar": 12,
+        "endLine": 21,
+        "endChar": 50
+      },
+      "revId": "788b4a9fdfba950a8d9cce8739027eff067c14f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_604be42b",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_L3.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-20T17:48:59Z",
+      "side": 1,
+      "message": "Based on the last comment, please use the following template:\n\n{{ (vport * 2) + 1 }}",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 33,
+        "endChar": 23
+      },
+      "revId": "788b4a9fdfba950a8d9cce8739027eff067c14f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4048682d",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_L3.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-20T17:48:59Z",
+      "side": 1,
+      "message": "{{ (vport * 2) + 2 }}",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 21
+      },
+      "revId": "788b4a9fdfba950a8d9cce8739027eff067c14f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_00479020",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_L3.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-20T17:48:59Z",
+      "side": 1,
+      "message": "Have you tried to run test case with more that 2 ports?\n\nLine \"{% set count \u003d count + 2 %}\" is not working as expected in latest versions of Jinja2. On each loop iteration starting \"count\" value won\u0027t be incremented and will be equal to 0.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 27
+      },
+      "revId": "788b4a9fdfba950a8d9cce8739027eff067c14f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_60f924c8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-20T17:48:59Z",
+      "side": 1,
+      "message": "Do we need this base class? \nIt makes sense to make it abstract class or at least raise exceptions inside interface methods.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 31
+      },
+      "revId": "788b4a9fdfba950a8d9cce8739027eff067c14f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2010cc00",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-20T17:48:59Z",
+      "side": 1,
+      "message": "It\u0027s better to create specific for needed action method, e.g. get_static_interface(...) in ixnet_api.py",
+      "range": {
+        "startLine": 75,
+        "startChar": 42,
+        "endLine": 75,
+        "endChar": 50
+      },
+      "revId": "788b4a9fdfba950a8d9cce8739027eff067c14f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0015d0f0",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-20T17:48:59Z",
+      "side": 1,
+      "message": "same as above",
+      "range": {
+        "startLine": 77,
+        "startChar": 44,
+        "endLine": 77,
+        "endChar": 52
+      },
+      "revId": "788b4a9fdfba950a8d9cce8739027eff067c14f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_002cb046",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-20T17:48:59Z",
+      "side": 1,
+      "message": "Could you please rename this method. It\u0027s not clear what this method doing.",
+      "range": {
+        "startLine": 129,
+        "startChar": 13,
+        "endLine": 129,
+        "endChar": 26
+      },
+      "revId": "788b4a9fdfba950a8d9cce8739027eff067c14f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a0033cb7",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_rfc2544_ixia.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2018-12-20T17:48:59Z",
+      "side": 1,
+      "message": "There\u0027s no method _parse_IP_range() inside scenario class.",
+      "range": {
+        "startLine": 573,
+        "startChar": 4,
+        "endLine": 577,
+        "endChar": 35
+      },
+      "revId": "788b4a9fdfba950a8d9cce8739027eff067c14f2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
