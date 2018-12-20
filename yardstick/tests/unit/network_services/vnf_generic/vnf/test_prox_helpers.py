@@ -1917,7 +1917,7 @@ class TestProxDataHelper(unittest.TestCase):
 
         data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
-            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS, 4)
 
         self.assertEqual(data_helper.rx_total, 4)
         self.assertEqual(data_helper.tx_total, 8)
@@ -1932,7 +1932,7 @@ class TestProxDataHelper(unittest.TestCase):
 
         data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
-            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS, 2)
 
         self.assertEqual(data_helper.rx_total, 2)
         self.assertEqual(data_helper.tx_total, 4)
@@ -1947,7 +1947,7 @@ class TestProxDataHelper(unittest.TestCase):
 
         data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
-            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS, 7)
 
         self.assertEqual(data_helper.rx_total, 2)
         self.assertEqual(data_helper.tx_total, 4)
@@ -1962,7 +1962,7 @@ class TestProxDataHelper(unittest.TestCase):
 
         data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
-            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS, 2)
 
         self.assertEqual(data_helper.rx_total, 2)
         self.assertEqual(data_helper.tx_total, 4)
@@ -1980,7 +1980,7 @@ class TestProxDataHelper(unittest.TestCase):
 
         data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
-            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS, 4)
 
         self.assertEqual(data_helper.rx_total, 0)
         self.assertEqual(data_helper.tx_total, 0)
@@ -1994,7 +1994,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut.multi_port_stats.return_value = (True, [[0, 1, 2, 3, 4, 5], [1, 11, 12, 3, 4, 5]])
 
         data_helper = prox_helpers.ProxDataHelper(
-            vnfd_helper, sut, None, None, None, None)
+            vnfd_helper, sut, None, None, None, None, None)
 
         expected = {
             'xe0': {
@@ -2017,7 +2017,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut.multi_port_stats.return_value = (True, [[3, 1, 2, 3, 4, 5], [7, 11, 12, 3, 4, 5]])
 
         data_helper = prox_helpers.ProxDataHelper(
-            vnfd_helper, sut, None, None, None, None)
+            vnfd_helper, sut, None, None, None, None, None)
 
         expected = {
             'xe1': {
@@ -2040,7 +2040,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut = mock.MagicMock()
 
         data_helper = prox_helpers.ProxDataHelper(vnfd_helper, sut, None, None,
-            5.4, constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+            5.4, constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS, 4)
         data_helper._totals_and_pps = 12, 32, 4.5
         data_helper.tsc_hz = 9.8
         data_helper.measured_stats = {
@@ -2065,7 +2065,7 @@ class TestProxDataHelper(unittest.TestCase):
         vnfd_helper = mock.MagicMock()
 
         data_helper = prox_helpers.ProxDataHelper(
-            vnfd_helper, None, None, None, None, None)
+            vnfd_helper, None, None, None, None, None, None)
 
         vnfd_helper.port_pairs.all_ports = []
         with self.assertRaises(AssertionError):
@@ -2088,7 +2088,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut.get_all_tot_stats = mock.MagicMock(side_effect=[start, end])
 
         data_helper = prox_helpers.ProxDataHelper(
-            vnfd_helper, sut, None, None, 5.4, None)
+            vnfd_helper, sut, None, None, 5.4, None, None)
 
         self.assertIsNone(data_helper.measured_stats)
 
@@ -2110,7 +2110,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut.hz.return_value = '54.6'
 
         data_helper = prox_helpers.ProxDataHelper(
-            vnfd_helper, sut, None, None, None, None)
+            vnfd_helper, sut, None, None, None, None, None)
 
         self.assertIsNone(data_helper.tsc_hz)
 
