@@ -163,6 +163,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_c02bd880",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-12-20T15:20:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_37a01490",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 36
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_77ee0cee",
         "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
         "patchSetId": 7
@@ -174,6 +198,24 @@
       "writtenOn": "2018-12-18T15:56:22Z",
       "side": 1,
       "message": "There should only be two lines here, remove this additional blank line",
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e026d4b9",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-12-20T15:20:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_77ee0cee",
       "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -226,6 +268,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_801a806c",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-12-20T15:20:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_d7ba80e0",
+      "range": {
+        "startLine": 41,
+        "startChar": 12,
+        "endLine": 42,
+        "endChar": 8
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_97f128d0",
         "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
         "patchSetId": 7
@@ -237,6 +303,30 @@
       "writtenOn": "2018-12-18T15:56:22Z",
       "side": 1,
       "message": "I think this is what\u0027s causing the test failure --  an extra space in the text.\n\nYou can check this by using maxDiff\u003dNone [1], to print out the full diff between the actual and expected diffs. (Remember to remove this before submitting the update though)\n\n\n[1] https://docs.python.org/3/library/unittest.html#unittest.TestCase.maxDiff",
+      "range": {
+        "startLine": 58,
+        "startChar": 47,
+        "endLine": 58,
+        "endChar": 48
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a01dfc68",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-12-20T15:20:06Z",
+      "side": 1,
+      "message": "Done. Although strange thing was that test was passing on my setup.",
+      "parentUuid": "1a622d24_97f128d0",
       "range": {
         "startLine": 58,
         "startChar": 47,
