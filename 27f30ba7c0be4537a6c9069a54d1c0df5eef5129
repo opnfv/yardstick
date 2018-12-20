@@ -339,6 +339,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_a0621cd6",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2018-12-20T15:28:49Z",
+      "side": 1,
+      "message": "Sorry no it was not due to this. as line data should be with space only.",
+      "parentUuid": "1a622d24_a01dfc68",
+      "range": {
+        "startLine": 58,
+        "startChar": 47,
+        "endLine": 58,
+        "endChar": 48
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_b7bf04d0",
         "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
         "patchSetId": 7
