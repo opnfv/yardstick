@@ -1,4 +1,3 @@
-# Copyright (c) 2018 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -1257,13 +1256,15 @@ class ProxResourceHelper(ClientResourceHelper):
 
 class ProxDataHelper(object):
 
-    def __init__(self, vnfd_helper, sut, pkt_size, value, tolerated_loss, line_speed):
+    def __init__(self, vnfd_helper, sut, pkt_size, value, tolerated_loss, line_speed,
+                 num_tx_cores):
         super(ProxDataHelper, self).__init__()
         self.vnfd_helper = vnfd_helper
         self.sut = sut
         self.pkt_size = pkt_size
         self.value = value
         self.line_speed = line_speed
+        self.num_tx_cores = num_tx_cores
         self.tolerated_loss = tolerated_loss
         self.port_count = len(self.vnfd_helper.port_pairs.all_ports)
         self.tsc_hz = None
@@ -1288,7 +1289,12 @@ class ProxDataHelper(object):
                 for port in all_ports:
                     rx_total = rx_total + port[1]
                     tx_total = tx_total + port[2]
-                requested_pps = self.value / 100.0 * self.line_rate_to_pps()
+                try:
+                    requested_pps = (self.value * (self.num_tx_cores / self.port_count)) / 100.0 \
+                                    * self.line_rate_to_pps()
+                except ZeroDivisionError:
+                    requested_pps = 0
+
                 self._totals_and_pps = rx_total, tx_total, requested_pps
         return self._totals_and_pps
 
@@ -1482,8 +1488,12 @@ class ProxProfileHelper(object):
 
     def run_test(self, pkt_size, duration, value, tolerated_loss=0.0,
                  line_speed=(constants.ONE_GIGABIT_IN_BITS * constants.NIC_GBPS_DEFAULT)):
+
+        gen_cores = self.get_cores(self.PROX_CORE_GEN_MODE)
+
         data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
-                                     value, tolerated_loss, line_speed)
+                                     value, tolerated_loss, line_speed,
+                                     len(gen_cores))
 
         with data_helper, self.traffic_context(pkt_size,
                                                self.pct_10gbps(value, line_speed)):
@@ -1743,8 +1753,12 @@ class ProxBngProfileHelper(ProxProfileHelper):
 
     def run_test(self, pkt_size, duration, value, tolerated_loss=0.0,
                  line_speed=(constants.ONE_GIGABIT_IN_BITS * constants.NIC_GBPS_DEFAULT)):
+
+        gen_cores = self.get_cores(self.PROX_CORE_GEN_MODE)
+
         data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
-                                     value, tolerated_loss, line_speed)
+                                     value, tolerated_loss, line_speed,
+                                     len(gen_cores))
 
         with data_helper, self.traffic_context(pkt_size,
                                                self.pct_10gbps(value, line_speed)):
@@ -1933,8 +1947,12 @@ class ProxVpeProfileHelper(ProxProfileHelper):
 
     def run_test(self, pkt_size, duration, value, tolerated_loss=0.0,
                  line_speed=(constants.ONE_GIGABIT_IN_BITS * constants.NIC_GBPS_DEFAULT)):
+
+        gen_cores = self.get_cores(self.PROX_CORE_GEN_MODE)
+
         data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
-                                     value, tolerated_loss, line_speed)
+                                     value, tolerated_loss, line_speed,
+                                     len(gen_cores))
 
         with data_helper, self.traffic_context(pkt_size,
                                                self.pct_10gbps(value, line_speed)):
@@ -2125,8 +2143,12 @@ class ProxlwAFTRProfileHelper(ProxProfileHelper):
 
     def run_test(self, pkt_size, duration, value, tolerated_loss=0.0,
                  line_speed=(constants.ONE_GIGABIT_IN_BITS * constants.NIC_GBPS_DEFAULT)):
+
+        gen_cores = self.get_cores(self.PROX_CORE_GEN_MODE)
+
         data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
-                                     value, tolerated_loss, line_speed)
+                                     value, tolerated_loss, line_speed,
+                                     len(gen_cores))
 
         with data_helper, self.traffic_context(pkt_size,
                                                self.pct_10gbps(value, line_speed)):
