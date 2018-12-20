@@ -23,6 +23,7 @@ def register_modules():
         'yardstick.network_services.traffic_profile.http_ixload',
         'yardstick.network_services.traffic_profile.ixia_rfc2544',
         'yardstick.network_services.traffic_profile.prox_ACL',
+        'yardstick.network_services.traffic_profile.prox_irq',
         'yardstick.network_services.traffic_profile.prox_binsearch',
         'yardstick.network_services.traffic_profile.prox_profile',
         'yardstick.network_services.traffic_profile.prox_ramp',
