@@ -1257,13 +1257,15 @@ class ProxResourceHelper(ClientResourceHelper):
 
 class ProxDataHelper(object):
 
-    def __init__(self, vnfd_helper, sut, pkt_size, value, tolerated_loss, line_speed):
+    def __init__(self, vnfd_helper, sut, pkt_size, value, tolerated_loss, line_speed,
+                 num_tx_cores):
         super(ProxDataHelper, self).__init__()
         self.vnfd_helper = vnfd_helper
         self.sut = sut
         self.pkt_size = pkt_size
         self.value = value
         self.line_speed = line_speed
+        self.num_tx_cores = num_tx_cores
         self.tolerated_loss = tolerated_loss
         self.port_count = len(self.vnfd_helper.port_pairs.all_ports)
         self.tsc_hz = None
@@ -1288,7 +1290,12 @@ class ProxDataHelper(object):
                 for port in all_ports:
                     rx_total = rx_total + port[1]
                     tx_total = tx_total + port[2]
-                requested_pps = self.value / 100.0 * self.line_rate_to_pps()
+                try:
+                    requested_pps = (self.value * (self.num_tx_cores / self.port_count)) / 100.0 \
+                                    * self.line_rate_to_pps()
+                except ZeroDivisionError:
+                    requested_pps = 0
+
                 self._totals_and_pps = rx_total, tx_total, requested_pps
         return self._totals_and_pps
 
@@ -1482,11 +1489,17 @@ class ProxProfileHelper(object):
 
     def run_test(self, pkt_size, duration, value, tolerated_loss=0.0,
                  line_speed=(constants.ONE_GIGABIT_IN_BITS * constants.NIC_GBPS_DEFAULT)):
-        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
-                                     value, tolerated_loss, line_speed)
 
-        with data_helper, self.traffic_context(pkt_size,
-                                               self.pct_10gbps(value, line_speed)):
+
+        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
+                                     value, tolerated_loss, line_speed,
+                                     len(self.test_cores))
+
+
+        with data_helper,\
+             self.traffic_context(pkt_size,
+                                  self.pct_10gbps(value, line_speed) *
+                                          data_helper.port_count / len(self.test_cores)):
             with data_helper.measure_tot_stats():
                 time.sleep(duration)
                 # Getting statistics to calculate PPS at right speed....
@@ -1743,11 +1756,16 @@ class ProxBngProfileHelper(ProxProfileHelper):
 
     def run_test(self, pkt_size, duration, value, tolerated_loss=0.0,
                  line_speed=(constants.ONE_GIGABIT_IN_BITS * constants.NIC_GBPS_DEFAULT)):
-        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
-                                     value, tolerated_loss, line_speed)
 
-        with data_helper, self.traffic_context(pkt_size,
-                                               self.pct_10gbps(value, line_speed)):
+        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
+                                     value, tolerated_loss, line_speed,
+                                     len(self.test_cores))
+
+        with data_helper, \
+            self.traffic_context(pkt_size,
+                                 self.pct_10gbps(value, line_speed) *
+                                         data_helper.port_count / len(self.test_cores)):
+
             with data_helper.measure_tot_stats():
                 time.sleep(duration)
                 # Getting statistics to calculate PPS at right speed....
@@ -1933,11 +1951,15 @@ class ProxVpeProfileHelper(ProxProfileHelper):
 
     def run_test(self, pkt_size, duration, value, tolerated_loss=0.0,
                  line_speed=(constants.ONE_GIGABIT_IN_BITS * constants.NIC_GBPS_DEFAULT)):
-        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
-                                     value, tolerated_loss, line_speed)
 
-        with data_helper, self.traffic_context(pkt_size,
-                                               self.pct_10gbps(value, line_speed)):
+        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
+                                     value, tolerated_loss, line_speed,
+                                     len(self.test_cores))
+
+        with data_helper,\
+             self.traffic_context(pkt_size,
+                                  self.pct_10gbps(value, line_speed) *
+                                          data_helper.port_count / len(self.test_cores)):
             with data_helper.measure_tot_stats():
                 time.sleep(duration)
                 # Getting statistics to calculate PPS at right speed....
@@ -2125,11 +2147,15 @@ class ProxlwAFTRProfileHelper(ProxProfileHelper):
 
     def run_test(self, pkt_size, duration, value, tolerated_loss=0.0,
                  line_speed=(constants.ONE_GIGABIT_IN_BITS * constants.NIC_GBPS_DEFAULT)):
-        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
-                                     value, tolerated_loss, line_speed)
 
-        with data_helper, self.traffic_context(pkt_size,
-                                               self.pct_10gbps(value, line_speed)):
+        data_helper = ProxDataHelper(self.vnfd_helper, self.sut, pkt_size,
+                                     value, tolerated_loss, line_speed,
+                                     len(self.test_cores))
+
+        with data_helper,\
+             self.traffic_context(pkt_size,
+                                  self.pct_10gbps(value, line_speed) *
+                                          data_helper.port_count / len(self.test_cores)):
             with data_helper.measure_tot_stats():
                 time.sleep(duration)
                 # Getting statistics to calculate PPS at right speed....

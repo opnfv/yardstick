@@ -731,6 +731,7 @@ class TestProxSocketHelper(unittest.TestCase):
         result = prox.multi_port_stats_diff(result1, result2, 1)
 
         vnfd_helper = mock.MagicMock()
+        vnfd_helper.port_count = 2
         vnfd_helper.ports_iter.return_value = [('xe0', 0), ('xe1', 1)]
 
         expected = {'xe0': {'in_packets': 1.0, 'out_packets': 2.0},
@@ -1226,6 +1227,7 @@ class TestProxDpdkVnfSetupEnvHelper(unittest.TestCase):
         }
 
         vnfd_helper.port_pairs.all_ports = ['xe0', 'xe1', 'xe2', 'xe3']
+        vnfd_helper.port_count = 4
         helper = prox_helpers.ProxDpdkVnfSetupEnvHelper(
             vnfd_helper, ssh_helper, scenario_helper)
         helper.copy_to_target = mock.MagicMock(side_effect=['33', '34', '35'])
@@ -1917,7 +1919,7 @@ class TestProxDataHelper(unittest.TestCase):
 
         data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
-            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS, 4)
 
         self.assertEqual(data_helper.rx_total, 4)
         self.assertEqual(data_helper.tx_total, 8)
@@ -1932,7 +1934,7 @@ class TestProxDataHelper(unittest.TestCase):
 
         data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
-            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS, 2)
 
         self.assertEqual(data_helper.rx_total, 2)
         self.assertEqual(data_helper.tx_total, 4)
@@ -1947,7 +1949,7 @@ class TestProxDataHelper(unittest.TestCase):
 
         data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
-            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS, 7)
 
         self.assertEqual(data_helper.rx_total, 2)
         self.assertEqual(data_helper.tx_total, 4)
@@ -1962,7 +1964,7 @@ class TestProxDataHelper(unittest.TestCase):
 
         data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
-            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS, 2)
 
         self.assertEqual(data_helper.rx_total, 2)
         self.assertEqual(data_helper.tx_total, 4)
@@ -1980,7 +1982,7 @@ class TestProxDataHelper(unittest.TestCase):
 
         data_helper = prox_helpers.ProxDataHelper(
             vnfd_helper, sut, pkt_size, 25, None,
-            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+            constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS, 4)
 
         self.assertEqual(data_helper.rx_total, 0)
         self.assertEqual(data_helper.tx_total, 0)
@@ -1994,7 +1996,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut.multi_port_stats.return_value = (True, [[0, 1, 2, 3, 4, 5], [1, 11, 12, 3, 4, 5]])
 
         data_helper = prox_helpers.ProxDataHelper(
-            vnfd_helper, sut, None, None, None, None)
+            vnfd_helper, sut, None, None, None, None, None)
 
         expected = {
             'xe0': {
@@ -2017,7 +2019,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut.multi_port_stats.return_value = (True, [[3, 1, 2, 3, 4, 5], [7, 11, 12, 3, 4, 5]])
 
         data_helper = prox_helpers.ProxDataHelper(
-            vnfd_helper, sut, None, None, None, None)
+            vnfd_helper, sut, None, None, None, None, None)
 
         expected = {
             'xe1': {
@@ -2040,7 +2042,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut = mock.MagicMock()
 
         data_helper = prox_helpers.ProxDataHelper(vnfd_helper, sut, None, None,
-            5.4, constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
+            5.4, constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS, 4)
         data_helper._totals_and_pps = 12, 32, 4.5
         data_helper.tsc_hz = 9.8
         data_helper.measured_stats = {
@@ -2065,7 +2067,7 @@ class TestProxDataHelper(unittest.TestCase):
         vnfd_helper = mock.MagicMock()
 
         data_helper = prox_helpers.ProxDataHelper(
-            vnfd_helper, None, None, None, None, None)
+            vnfd_helper, None, None, None, None, None, None)
 
         vnfd_helper.port_pairs.all_ports = []
         with self.assertRaises(AssertionError):
@@ -2088,7 +2090,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut.get_all_tot_stats = mock.MagicMock(side_effect=[start, end])
 
         data_helper = prox_helpers.ProxDataHelper(
-            vnfd_helper, sut, None, None, 5.4, None)
+            vnfd_helper, sut, None, None, 5.4, None, None)
 
         self.assertIsNone(data_helper.measured_stats)
 
@@ -2110,7 +2112,7 @@ class TestProxDataHelper(unittest.TestCase):
         sut.hz.return_value = '54.6'
 
         data_helper = prox_helpers.ProxDataHelper(
-            vnfd_helper, sut, None, None, None, None)
+            vnfd_helper, sut, None, None, None, None, None)
 
         self.assertIsNone(data_helper.tsc_hz)
 
@@ -2404,12 +2406,15 @@ class TestProxProfileHelper(unittest.TestCase):
     def test_run_test(self, *args):
         resource_helper = mock.MagicMock()
         resource_helper.step_delta = 0.4
+
+        resource_helper.vnfd_helper.port_count = 2
         resource_helper.vnfd_helper.port_pairs.all_ports = list(range(2))
         resource_helper.sut.multi_port_stats.return_value = (True, [[0, 1, 1, 2, 4, 5],
                                                                     [1, 1, 2, 3, 4, 5]])
 
         helper = prox_helpers.ProxProfileHelper(resource_helper)
 
+        helper._test_cores = [0, 1]
         helper.run_test(pkt_size=120, duration=5, value=6.5, tolerated_loss=0.0,
                         line_speed=constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
         self.assertTrue(resource_helper.sut.multi_port_stats.called)
@@ -2554,12 +2559,14 @@ class TestProxBngProfileHelper(unittest.TestCase):
     def test_run_test(self, *args):
         resource_helper = mock.MagicMock()
         resource_helper.step_delta = 0.4
+        resource_helper.vnfd_helper.port_count = 2
         resource_helper.vnfd_helper.port_pairs.all_ports = list(range(2))
         resource_helper.sut.multi_port_stats.return_value = (True, [[0, 1, 1, 2, 4, 5],
                                                                     [1, 1, 2, 3, 4, 5]])
 
         helper = prox_helpers.ProxBngProfileHelper(resource_helper)
 
+        helper._test_cores = [0, 1]
         helper.run_test(pkt_size=120, duration=5, value=6.5, tolerated_loss=0.0,
                         line_speed=constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
         self.assertTrue(resource_helper.sut.multi_port_stats.called)
@@ -2681,12 +2688,14 @@ class TestProxVpeProfileHelper(unittest.TestCase):
     def test_run_test(self, *args):
         resource_helper = mock.MagicMock()
         resource_helper.step_delta = 0.4
+        resource_helper.vnfd_helper.port_count = 2
         resource_helper.vnfd_helper.port_pairs.all_ports = list(range(2))
         resource_helper.sut.multi_port_stats.return_value = (True, [[0, 1, 1, 2, 4, 5],
                                                                     [1, 1, 2, 3, 4, 5]])
 
         helper = prox_helpers.ProxVpeProfileHelper(resource_helper)
 
+        helper._test_cores = [0, 1]
         helper.run_test(pkt_size=120, duration=5, value=6.5, tolerated_loss=0.0,
                         line_speed=constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
 
@@ -2799,12 +2808,14 @@ class TestProxlwAFTRProfileHelper(unittest.TestCase):
     def test_run_test(self, *args):
         resource_helper = mock.MagicMock()
         resource_helper.step_delta = 0.4
+        resource_helper.vnfd_helper.port_count = 2
         resource_helper.vnfd_helper.port_pairs.all_ports = list(range(2))
         resource_helper.sut.multi_port_stats.return_value = (True, [[0, 1, 2, 4, 6, 5],
                                                                     [1, 1, 2, 3, 4, 5]])
 
         helper = prox_helpers.ProxlwAFTRProfileHelper(resource_helper)
 
+        helper._test_cores = [0, 1]
         helper.run_test(pkt_size=120, duration=5, value=6.5, tolerated_loss=0.0,
                         line_speed=constants.NIC_GBPS_DEFAULT * constants.ONE_GIGABIT_IN_BITS)
 
