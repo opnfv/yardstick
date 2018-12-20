@@ -46,6 +46,30 @@
       "revId": "78c19d47a14358507e1c9a543905ab1eb0c92c4b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fdb5dbcd",
+        "filename": "yardstick/common/report.js",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-12-20T10:57:24Z",
+      "side": 1,
+      "message": "Done in commit 12/12: https://gerrit.opnfv.org/gerrit/#/c/65995/1/yardstick/common/nsb_report.js@32",
+      "parentUuid": "1a622d24_620e6836",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 58
+      },
+      "revId": "78c19d47a14358507e1c9a543905ab1eb0c92c4b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
