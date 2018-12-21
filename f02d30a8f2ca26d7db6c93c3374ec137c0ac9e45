@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_8b3101ef",
+        "filename": "yardstick/tests/functional/benchmark/core/test_report.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-12-21T17:45:53Z",
+      "side": 1,
+      "message": "OK, will do.",
+      "parentUuid": "1a622d24_4b10894e",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 17
+      },
+      "revId": "f02d30a8f2ca26d7db6c93c3374ec137c0ac9e45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_ab1ddd68",
         "filename": "yardstick/tests/functional/benchmark/core/test_report.py",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2018-12-21T15:35:51Z",
       "side": 1,
       "message": "Please don\u0027t relay on the file system. Please mock the function that read and returns some data similar as has been done for other tests, e.g. yardstick/tests/unit/benchmark/scenarios/networking/test_vnf_generic.py, line 685, test__get_topology function.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 73
+      },
+      "revId": "f02d30a8f2ca26d7db6c93c3374ec137c0ac9e45",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_cb793995",
+        "filename": "yardstick/tests/functional/benchmark/core/test_report.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2018-12-21T17:45:53Z",
+      "side": 1,
+      "message": "Are you sure about that?\nThe unit test that you mention mocks a file system read to always return some constant \"fake_data\".\nBut the goal here is to verify that the HTML report, generated and written to file system by L78, properly contains the expected JavaScript variable definitions.\nWhile we could mock the file system open+write inside generate_nsb() to make it write into a memory buffer, then read back its lines on L81, I don\u0027t really see the added value for this more complex implementation.\nAgain, the goal of this *functional* test is to verify that the HTML report was correctly written to disk, so I believe we should indeed rely on the file system.",
+      "parentUuid": "1a622d24_ab1ddd68",
       "range": {
         "startLine": 80,
         "startChar": 0,
