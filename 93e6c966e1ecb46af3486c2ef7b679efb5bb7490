@@ -22,6 +22,30 @@
       "revId": "93e6c966e1ecb46af3486c2ef7b679efb5bb7490",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_20b1ece1",
+        "filename": "samples/vnf_samples/traffic_profiles/ipv4_throughput_latency_vpp.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2018-12-21T09:01:41Z",
+      "side": 1,
+      "message": "The configurations can be changed",
+      "parentUuid": "1a622d24_dd045f80",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 20
+      },
+      "revId": "93e6c966e1ecb46af3486c2ef7b679efb5bb7490",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
