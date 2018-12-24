@@ -91,8 +91,16 @@
     - ansible_distribution == 'Ubuntu'
     - ansible_distribution_major_version|int >= 17
 
+- name: Uninstall docker as it conflicts with docker-py
+  pip:
+    name:
+      - docker
+    state: absent
+
 - name: Install required docker-py module
   pip:
-    name: docker-py
+    name:
+      - docker-py
+      - shade
     state: latest
   environment: "{{ proxy_env }}"
