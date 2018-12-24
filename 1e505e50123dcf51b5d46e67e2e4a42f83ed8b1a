@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_0b605131",
+        "filename": "ansible/roles/enable_cpu_isolation_on_boot/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-12-24T18:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_bc6c2538",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 9
+      },
+      "revId": "1e505e50123dcf51b5d46e67e2e4a42f83ed8b1a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_93acbc37",
         "filename": "ansible/roles/enable_cpu_isolation_on_boot/tasks/main.yml",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-15T17:03:25Z",
       "side": 1,
       "message": "nit:missing space",
+      "range": {
+        "startLine": 17,
+        "startChar": 23,
+        "endLine": 17,
+        "endChar": 24
+      },
+      "revId": "1e505e50123dcf51b5d46e67e2e4a42f83ed8b1a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6b546554",
+        "filename": "ansible/roles/enable_cpu_isolation_on_boot/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-12-24T18:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_93acbc37",
       "range": {
         "startLine": 17,
         "startChar": 23,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_ab4e7dbf",
+        "filename": "ansible/roles/enable_cpu_isolation_on_boot/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-12-24T18:53:22Z",
+      "side": 1,
+      "message": "Not needed, removed.",
+      "parentUuid": "1a622d24_fc4dfdc5",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 38
+      },
+      "revId": "1e505e50123dcf51b5d46e67e2e4a42f83ed8b1a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_537224e6",
         "filename": "ansible/roles/enable_cpu_isolation_on_boot/tasks/main.yml",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2018-11-15T17:03:25Z",
       "side": 1,
       "message": "nit:missing space",
+      "range": {
+        "startLine": 27,
+        "startChar": 23,
+        "endLine": 27,
+        "endChar": 24
+      },
+      "revId": "1e505e50123dcf51b5d46e67e2e4a42f83ed8b1a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2b5b8d88",
+        "filename": "ansible/roles/enable_cpu_isolation_on_boot/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-12-24T18:53:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_537224e6",
       "range": {
         "startLine": 27,
         "startChar": 23,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_8b4bc1af",
+        "filename": "ansible/roles/enable_cpu_isolation_on_boot/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-12-24T18:53:22Z",
+      "side": 1,
+      "message": "Not needed, removed.",
+      "parentUuid": "1a622d24_9c504960",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 38
+      },
+      "revId": "1e505e50123dcf51b5d46e67e2e4a42f83ed8b1a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_1c655945",
         "filename": "ansible/roles/enable_cpu_isolation_on_boot/tasks/main.yml",
         "patchSetId": 5
@@ -128,6 +248,30 @@
       "writtenOn": "2018-11-15T17:03:25Z",
       "side": 1,
       "message": "?-why not close this in enable_isolcpu ?",
+      "range": {
+        "startLine": 52,
+        "startChar": 31,
+        "endLine": 52,
+        "endChar": 32
+      },
+      "revId": "1e505e50123dcf51b5d46e67e2e4a42f83ed8b1a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ebc7d510",
+        "filename": "ansible/roles/enable_cpu_isolation_on_boot/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-12-24T18:53:22Z",
+      "side": 1,
+      "message": "Moved to variable.",
+      "parentUuid": "1a622d24_1c655945",
       "range": {
         "startLine": 52,
         "startChar": 31,
