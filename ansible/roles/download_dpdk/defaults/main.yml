@@ -1,11 +1,11 @@
 ---
 dpdk_version: "17.05"
+dpdk_version_for_PROX: "18.11"
 dpdk_url: "http://fast.dpdk.org/rel/dpdk-{{ dpdk_version }}.tar.xz"
 dpdk_file: "{{ dpdk_url|basename }}"
 dpdk_unarchive: "{{ dpdk_file|regex_replace('[.]tar[.]xz$', '') }}"
 dpdk_dest: "{{ clone_dest }}/"
 
-#NOTE(ralonsoh): DPDK > 17.02 are currently unsupported due to prox build issues
 dpdk_md5:
   "16.07.2": "md5:4922ea2ec935b64ff5c191fec53344a6"
   "16.11.7": "md5:c081d113dfd57633e3bc3ebc802691be"
@@ -16,3 +16,4 @@ dpdk_md5:
   "17.11.3": "md5:68ca84ac878011acf44e75d33b46f55b" #unsupported
   "18.02.2": "md5:75ad6d39b513649744e49c9fcbbb9ca5" #unsupported
   "18.05": "md5:9fc86367cd9407ff6a8dfea56c4eddc4" #unsupported
+  "18.11": "md5:04b86f4a77f4f81a7fbd26467dd2ea9f" # Not supported by SampleVNFs except PROX
