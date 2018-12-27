@@ -1387,6 +1387,63 @@ Where
     2) 10.237.223.80 = IP Address of Controller node
     3) 10.237.222.134 = IP Address of Compute Node
 
+How to verify multiqueue is enabled in Openstack VM Image?
+----------------------------------------------------------
+
+Multiqueue support is required to optimize performance. A single core generating packets
+may not be able to maximize throughput. To this end multipe cores can be used to maximize
+generated packets.
+
+When using Openstack you may need to confirm that multiqueue support is enabled. Enter::
+
+    glance image-list
+
+Response::
+
+    +--------------------------------------+----------------------+
+    | ID                                   | Name                 |
+    +--------------------------------------+----------------------+
+    | a452a1e4-76ae-42f6-a208-d901c1600b2a | yardstick-samplevnfs |
+    +--------------------------------------+----------------------+
+
+In this case only 1 image is available. To display the attributes of the image::
+
+    glance image-show  a452a1e4-76ae-42f6-a208-d901c1600b2a
+
+Response::
+
+    +------------------------------+------------------------------------------------------------------+
+    | Property                     | Value                                                            |
+    +------------------------------+------------------------------------------------------------------+
+    | checksum                     | 7d1e35e7775d32d6f5ab6171b6c72bb3                                 |
+    | container_format             | bare                                                             |
+    | created_at                   | 2019-01-08T15:50:32Z                                             |
+    | disk_format                  | qcow2                                                            |
+    | hw_vif_multiqueue_enabled    | True                                                             |
+    | id                           | a452a1e4-76ae-42f6-a208-d901c1600b2a                             |
+    | min_disk                     | 0                                                                |
+    | min_ram                      | 0                                                                |
+    | name                         | yardstick-samplevnfs                                             |
+    | owner                        | a1ca1d6ac78940a78c5033115688a2ae                                 |
+    | owner_specified.shade.md5    | 7d1e35e7775d32d6f5ab6171b6c72bb3                                 |
+    | owner_specified.shade.object | images/yardstick-samplevnfs                                      |
+    | owner_specified.shade.sha256 | 846d5d2e724e047835ada4159695ec862113eb0293768f5c6fb9f2b1dd495c15 |
+    | protected                    | False                                                            |
+    | size                         | 1494876160                                                       |
+    | status                       | active                                                           |
+    | tags                         | []                                                               |
+    | updated_at                   | 2019-01-08T15:50:45Z                                             |
+    | virtual_size                 | None                                                             |
+    | visibility                   | public                                                           |
+    +------------------------------+------------------------------------------------------------------+
+
+As you can see ``hw_vif_multiqueue_enabled`` is Enabled.
+
+By default the maximum number of queues in the VM interface is set to the same 
+value as the number of vCPUs in the guest. 
+
+For this reasone the number of vCPUS is set to 32 cores. 
+
 How to Understand the Grafana output?
 -------------------------------------
 
