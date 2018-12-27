@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_664bfc2b",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_L3.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-27T13:18:54Z",
+      "side": 1,
+      "message": "---",
+      "revId": "0922178d22ea6f1354b5716ba78e543920cdcf9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4648802d",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_L3.yaml",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-27T13:18:54Z",
+      "side": 1,
+      "message": "with L3 support",
+      "revId": "0922178d22ea6f1354b5716ba78e543920cdcf9f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
