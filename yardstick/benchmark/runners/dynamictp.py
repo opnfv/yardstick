@@ -52,10 +52,6 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
     method = getattr(benchmark, method_name)
 
-    queue.put({'runner_id': runner_cfg['runner_id'],
-               'scenario_cfg': scenario_cfg,
-               'context_cfg': context_cfg})
-
     if "run" in run_step:
         iterator = 0
         search_max = initial_rate
@@ -118,12 +114,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                         'errors': errors
                     }
 
-                    record = {
-                        'runner_id': runner_cfg['runner_id'],
-                        'benchmark': benchmark_output
-                    }
-
-                    queue.put(record)
+                    queue.put(benchmark_output)
                     max_throuput_found = True
 
                 if errors or aborted.is_set() or max_throuput_found:
