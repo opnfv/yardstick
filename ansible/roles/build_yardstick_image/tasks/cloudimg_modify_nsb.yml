@@ -52,15 +52,40 @@
     - install_image_dependencies
     - enable_hugepages_on_boot    # can't update grub in chroot/docker
     - increase_open_file_limits   # needed for collectd plugins
-    - download_dpdk
-    - install_dpdk
     - download_trex
     - install_trex
-    - download_pktgen
-    - install_pktgen
     - download_civetweb
     - install_civetweb
+  loop_control:
+    loop_var: role_item
+  environment: "{{ proxy_env }}"
+
+- include_role:
+    name: "{{ role_item }}"
+  vars:
+    dpdk_version: "18.11"
+  with_items:
+    - download_dpdk
+    - install_dpdk
     - download_samplevnfs
+  loop_control:
+    loop_var: role_item
+  environment: "{{ proxy_env }}"
+
+- include_role:
+    name: install_samplevnf
+  with_items:
+    - PROX
+  loop_control:
+    loop_var: vnf_name
+
+- include_role:
+    name: "{{ role_item }}"
+  with_items:
+    - download_dpdk
+    - install_dpdk
+    - download_pktgen
+    - install_pktgen
   loop_control:
     loop_var: role_item
   environment: "{{ proxy_env }}"
@@ -75,7 +100,6 @@
 - include_role:
     name: install_samplevnf
   with_items:
-    - PROX
     - UDP_Replay
     - ACL
     - FW

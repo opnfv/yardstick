@@ -16,3 +16,4 @@ dpdk_md5:
   "17.11.3": "md5:68ca84ac878011acf44e75d33b46f55b" #unsupported
   "18.02.2": "md5:75ad6d39b513649744e49c9fcbbb9ca5" #unsupported
   "18.05": "md5:9fc86367cd9407ff6a8dfea56c4eddc4" #unsupported
+  "18.11": "md5:04b86f4a77f4f81a7fbd26467dd2ea9f" # Not supported by SampleVNFs except PROX

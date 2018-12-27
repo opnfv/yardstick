@@ -28,16 +28,20 @@
     # needed for collectd plugins
     - increase_open_file_limits
     - install_image_dependencies
-    - role: download_dpdk
-#      dpdk_version: "17.02"
-    - install_dpdk
     - download_trex
     - install_trex
     - download_civetweb
     - install_civetweb
+    - role: download_dpdk
+      dpdk_version: "18.11"
+    - role: install_dpdk
+      dpdk_version: "18.11"
     - download_samplevnfs
     - role: install_samplevnf
       vnf_name: PROX
+    - role: download_dpdk
+      dpdk_version: "17.05"
+    - install_dpdk
     - role: install_samplevnf
       vnf_name: UDP_Replay
     - role: install_samplevnf
