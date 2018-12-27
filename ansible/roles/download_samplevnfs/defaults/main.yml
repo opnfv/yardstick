@@ -13,4 +13,4 @@
 
 samplevnf_url: "https://git.opnfv.org/samplevnf"
 samplevnf_dest: "{{ clone_dest }}/samplevnf"
-samplevnf_version: "3afd384b7e68a3cd29f4d2cdf39785f8441d0b6f"
+samplevnf_version: "47123bfc1b3c0d0b01884aebbce1a3e09ad7ddb0"

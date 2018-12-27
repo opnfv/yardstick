@@ -56,6 +56,8 @@
 - name: Prepare baremetal and standalone servers
   hosts: yardstick-baremetal,yardstick-standalone
   become: yes
+  vars_files:
+    - roles/download_dpdk/defaults/main.yml
   environment: "{{ proxy_env }}"
 
   roles:
@@ -69,15 +71,18 @@
     - increase_open_file_limits
     - install_image_dependencies
     - role: download_dpdk
-    # dpdk_version: "17.02"
+      dpdk_version: "{{ dpdk_version_for_PROX }}"
+    - role: install_dpdk
+      dpdk_version: "{{ dpdk_version_for_PROX }}"
+    - download_samplevnfs
+    - role: install_samplevnf
+      vnf_name: PROX
+    - download_dpdk
     - install_dpdk
     - download_trex
     - install_trex
     - download_civetweb
     - install_civetweb
-    - download_samplevnfs
-    - role: install_samplevnf
-      vnf_name: PROX
     - role: install_samplevnf
       vnf_name: UDP_Replay
     - role: install_samplevnf

@@ -20,6 +20,10 @@
 #  with_fileglob:
 #    - "{{ local_nsb_path }}/patches/dpdk_custom_patch/0*.patch"
 
+- debug:
+    var: dpdk_version
+    verbosity: 2
+
 - name: find kernel for image, (including chroot)
   find_kernel:
     kernel: "{{ ansible_kernel }}"
@@ -106,6 +110,7 @@
     src: "{{ dpdk_path }}/{{ dpdk_make_arch }}/kmod/igb_uio.ko"
     dest: "{{ dpdk_module_dir }}/igb_uio.ko"
     remote_src: yes
+  when: dpdk_version|float >= dpdk_version_for_PROX|float
 
 - name: run depmod for dpdk_kernel
   command: depmod "{{ dpdk_kernel }}"
@@ -128,6 +133,7 @@
     remote_src: yes
     force: yes
     mode: 0755
+  when: dpdk_version|float >= dpdk_version_for_PROX|float
 
 - name: make vPE binary
   command: make -j {{ ansible_processor_vcpus }}
@@ -135,6 +141,7 @@
     chdir: "{{ dpdk_path }}/examples/ip_pipeline"
   environment:
     RTE_SDK: "{{ dpdk_path }}"
+  when: dpdk_version != dpdk_version_for_PROX
 
 - name: Copy vPE to correct location
   copy:
@@ -143,3 +150,4 @@
     remote_src: yes
     force: yes
     mode: 0755
+  when: dpdk_version != dpdk_version_for_PROX
