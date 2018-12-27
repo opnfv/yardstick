@@ -133,17 +133,26 @@ class ProxTestDataTuple(namedtuple('ProxTestDataTuple', 'tolerated,tsc_hz,delta_
         try:
             return 1e2 * self.drop_total / float(self.tx_total)
         except ZeroDivisionError:
+            logger.error("ZeroDivisionError ... in pkt_loss")
             return 100.0
 
     @property
     def tx_mpps(self):
-        # calculate the effective throughput in Mpps
-        return float(self.delta_tx) * self.tsc_hz / self.delta_tsc / 1e6
+        try:
+           # calculate the effective throughput in Mpps
+           return float(self.delta_tx) * self.tsc_hz / self.delta_tsc / 1e6
+        except ZeroDivisionError:
+            logger.error("ZeroDivisionError ... in tx_mpps")
+            return 0.0
 
     @property
     def rx_mpps(self):
-        # calculate the effective throughput in Mpps
-        return float(self.delta_rx) * self.tsc_hz / self.delta_tsc / 1e6
+        try:
+            # calculate the effective throughput in Mpps
+            return float(self.delta_rx) * self.tsc_hz / self.delta_tsc / 1e6
+        except ZeroDivisionError:
+            logger.error("ZeroDivisionError ... in rx_mpps")
+            return 0.0
 
     @property
     def can_be_lost(self):
