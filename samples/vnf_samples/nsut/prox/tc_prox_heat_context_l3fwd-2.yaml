@@ -56,12 +56,12 @@ context:
   image: yardstick-samplevnfs
   user: ubuntu
   flavor:
-    vcpus: 10
+    vcpus: 32
     ram: 20480
     disk: 6
     extra_specs:
       hw:cpu_sockets: 1
-      hw:cpu_cores: 10
+      hw:cpu_cores: 32
       hw:cpu_threads: 1
 
   placement_groups:
