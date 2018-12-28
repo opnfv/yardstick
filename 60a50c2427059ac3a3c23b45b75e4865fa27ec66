@@ -128,6 +128,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_91e4903c",
+        "filename": "ansible/ubuntu_server_baremetal_deploy_samplevnfs.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-28T15:48:39Z",
+      "side": 1,
+      "message": "Don\u0027t we need this for sample-vnfs which use older dpdk version?\nsample-vnf like vFW, vCGNAPT, vACL might use this version for building the application",
+      "parentUuid": "1a622d24_b1342cdf",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_913130ef",
         "filename": "ansible/ubuntu_server_cloudimg_modify_samplevnfs.yml",
         "patchSetId": 1
@@ -139,6 +163,30 @@
       "writtenOn": "2018-12-28T11:04:31Z",
       "side": 1,
       "message": "Can be removed.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 27
+      },
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f1d06455",
+        "filename": "ansible/ubuntu_server_cloudimg_modify_samplevnfs.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6719
+      },
+      "writtenOn": "2018-12-28T15:48:39Z",
+      "side": 1,
+      "message": "sample-vnf like vFW, vCGNAPT, vACL might use this version for building the application",
+      "parentUuid": "1a622d24_913130ef",
       "range": {
         "startLine": 50,
         "startChar": 0,
