@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_115d2022",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-12-28T11:04:31Z",
+      "side": 1,
+      "message": "Let\u0027s define variable, like: \"dpdk_ver_for_PROX\" in ansible/roles/download_dpdk/defaults/main.yml.\nThen use it instead of \"18.11\" here and other files.",
+      "range": {
+        "startLine": 72,
+        "startChar": 20,
+        "endLine": 72,
+        "endChar": 27
+      },
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7141f438",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-12-28T11:04:31Z",
+      "side": 1,
+      "message": "Can be removed.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 27
+      },
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f14d0474",
+        "filename": "ansible/roles/build_yardstick_image/tasks/cloudimg_modify_nsb.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-12-28T11:04:31Z",
+      "side": 1,
+      "message": "Single role:\n- name: Install PROX\n  include_role:\n    name: install_samplevnf\n  vars:\n    vnf_name: PROX",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 22
+      },
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_513e78b9",
+        "filename": "ansible/roles/download_dpdk/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-12-28T11:04:31Z",
+      "side": 1,
+      "message": "Add here:\ndpdk_ver_for_PROX: \"18.11\"",
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_513798e3",
+        "filename": "ansible/roles/install_dpdk/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-12-28T11:04:31Z",
+      "side": 1,
+      "message": "Let\u0027s add debug level:\nverbosity: 2\ne.g.\n- debug:\n    var: dpdk_version\n    verbosity: 2\nThen use verbose \"-vv\" in ansible-playbook command line.",
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b1342cdf",
+        "filename": "ansible/ubuntu_server_baremetal_deploy_samplevnfs.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-12-28T11:04:31Z",
+      "side": 1,
+      "message": "Can be removed.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_913130ef",
+        "filename": "ansible/ubuntu_server_cloudimg_modify_samplevnfs.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2018-12-28T11:04:31Z",
+      "side": 1,
+      "message": "Can be removed.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 27
+      },
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
