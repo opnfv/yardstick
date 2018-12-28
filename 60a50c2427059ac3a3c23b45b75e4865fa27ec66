@@ -105,6 +105,40 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_b1038cb7",
+        "filename": "ansible/roles/install_dpdk/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-28T17:21:31Z",
+      "side": 1,
+      "message": "We should leave the old version of vPE, please don\u0027t move it to new version.",
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_910010ac",
+        "filename": "ansible/roles/install_dpdk/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2018-12-28T17:21:31Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_b1342cdf",
         "filename": "ansible/ubuntu_server_baremetal_deploy_samplevnfs.yml",
         "patchSetId": 1
