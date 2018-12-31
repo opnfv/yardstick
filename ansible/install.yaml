@@ -111,7 +111,9 @@
       include_role:
         name: build_yardstick_image
         tasks_from: pre_build.yml
-      when: installation_mode != inst_mode_container
+      when:
+        - installation_mode != inst_mode_container
+        - IMG_PROPERTY == 'nsb' or IMG_PROPERTY == 'normal'
 
 
 - name: Build VM in chroot
@@ -127,7 +129,9 @@
       include_role:
         name: build_yardstick_image
         tasks_from: "cloudimg_modify_{{ img_property }}.yml"
-      when: installation_mode != inst_mode_container
+      when:
+        - installation_mode != inst_mode_container
+        - IMG_PROPERTY == 'nsb' or IMG_PROPERTY == 'normal'
 
 
 - name: Clear up after VM is built
@@ -139,28 +143,48 @@
       include_role:
         name: build_yardstick_image
         tasks_from: post_build.yml
-      when: installation_mode != inst_mode_container
-
-
-- hosts: jumphost
-  vars_files:
-    - yardstick_config.yml
-
-  roles:
-    - { role: convert_openrc, when: openrc_file is defined }
+      when:
+        - installation_mode != inst_mode_container
+        - IMG_PROPERTY == 'nsb' or IMG_PROPERTY == 'normal'
 
 
 - name: Add OpenStack variables, image
   hosts: jumphost
+  vars:
+    openrc_flag: false
   vars_files:
     - yardstick_config.yml
-  environment:
-    "{{ openrc }}"
+
+  pre_tasks:
+    - name: Get information about external VM image
+      stat:
+        path: "{{ path_to_img }}"
+      register: image_file_stat
+      when:
+        - path_to_img is defined
+        - imgfile is not defined
+
+    - set_fact:
+        imgfile: "{{ path_to_img }}"
+      when:
+        - path_to_img is defined
+        - imgfile is not defined
+        - image_file_stat.stat.islnk is defined
+        - not image_file_stat.stat.islnk
+
+    - set_fact:
+        openrc_flag: true
+      when:
+        - openrc_file is defined
+        - imgfile is defined
 
   roles:
-    - { role: clean_images, when: openrc_file is defined }
-    - { role: clean_flavors, when: openrc_file is defined }
-    - { role: create_samplevnfs_image, when: openrc_file is defined }
+    - { role: convert_openrc, when: openrc_file is defined }
+    - { role: clean_images, when: openrc_flag }
+    - { role: clean_flavors, when: openrc_flag }
+    - { role: create_samplevnfs_image, when: openrc_flag }
+  environment:
+    "{{ openrc | default(None, true) }}"
 
 
 - name: Start yardstick container on jumphost
