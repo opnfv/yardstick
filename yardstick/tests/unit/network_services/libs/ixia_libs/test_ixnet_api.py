@@ -373,13 +373,15 @@ class TestIxNextgen(unittest.TestCase):
         self.ixnet_gen.add_static_ipv4(iface='iface',
                                        vport='vport',
                                        start_ip='10.0.0.0',
-                                       count='100')
+                                       count='100',
+                                       mask='32')
         self.ixnet_gen.ixnet.add.assert_called_once_with(
             'vport/protocols/static', 'ip')
         self.ixnet_gen.ixnet.setMultiAttribute.assert_any_call(
             'obj', '-protocolInterface', 'iface',
             '-ipStart', '10.0.0.0',
             '-count', '100',
+            '-mask', '32',
             '-enabled', 'true')
 
     @mock.patch.object(IxNetwork, 'IxNet')

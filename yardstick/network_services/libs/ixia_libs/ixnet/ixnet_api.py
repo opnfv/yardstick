@@ -1038,7 +1038,7 @@ class IxNextgen(object):  # pragma: no cover
 
         return obj
 
-    def add_static_ipv4(self, iface, vport, start_ip, count):
+    def add_static_ipv4(self, iface, vport, start_ip, count, mask='24'):
         """Add static IP range to the interface"""
         log.debug("add_static_ipv4: start_ip:'%s', count:'%s'",
                   start_ip, count)
@@ -1046,5 +1046,5 @@ class IxNextgen(object):  # pragma: no cover
 
         self.ixnet.setMultiAttribute(obj, '-protocolInterface', iface,
                                      '-ipStart', start_ip, '-count', count,
-                                     '-enabled', 'true')
+                                     '-mask', mask, '-enabled', 'true')
         self.ixnet.commit()
