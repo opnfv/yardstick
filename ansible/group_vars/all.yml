@@ -1,6 +1,6 @@
 ---
 target_os: "Ubuntu"
-YARD_IMG_ARCH: "amd64"
+YARD_IMG_ARCH: "{{ YARD_IMAGE_ARCH | default('amd64') }}"
 IMG_PROPERTY: "{{ IMAGE_PROPERTY | default('normal') }}"
 clone_dest: /opt/tempT
 release: "{{ OS_RELEASE  | default('xenial') }}"
