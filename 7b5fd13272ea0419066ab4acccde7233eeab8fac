@@ -33,6 +33,24 @@
       "revId": "7b5fd13272ea0419066ab4acccde7233eeab8fac",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8cb6373c",
+        "filename": "ansible/roles/install_dpdk/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-02T13:14:16Z",
+      "side": 1,
+      "message": "Can we use https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#version-comparison ansible API for this?",
+      "parentUuid": "1a622d24_4cac1fee",
+      "revId": "7b5fd13272ea0419066ab4acccde7233eeab8fac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
