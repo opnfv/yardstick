@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_ac34d3de",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-02T10:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_115d2022",
+      "range": {
+        "startLine": 72,
+        "startChar": 20,
+        "endLine": 72,
+        "endChar": 27
+      },
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_7141f438",
         "filename": "ansible/install.yaml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-12-28T11:04:31Z",
       "side": 1,
       "message": "Can be removed.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 27
+      },
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8c3117ef",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-02T10:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_7141f438",
       "range": {
         "startLine": 79,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_ec4d2b74",
+        "filename": "ansible/roles/build_yardstick_image/tasks/cloudimg_modify_nsb.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-02T10:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_f14d0474",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 22
+      },
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_513e78b9",
         "filename": "ansible/roles/download_dpdk/defaults/main.yml",
         "patchSetId": 1
@@ -82,6 +154,24 @@
       "writtenOn": "2018-12-28T11:04:31Z",
       "side": 1,
       "message": "Add here:\ndpdk_ver_for_PROX: \"18.11\"",
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_cc52ef12",
+        "filename": "ansible/roles/download_dpdk/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-02T10:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_513e78b9",
       "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_2c58c331",
+        "filename": "ansible/roles/install_dpdk/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-02T10:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_513798e3",
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_b1038cb7",
         "filename": "ansible/roles/install_dpdk/tasks/main.yml",
         "patchSetId": 1
@@ -122,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_0c5d0722",
+        "filename": "ansible/roles/install_dpdk/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-02T10:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b1038cb7",
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_910010ac",
         "filename": "ansible/roles/install_dpdk/tasks/main.yml",
         "patchSetId": 1
@@ -133,6 +259,24 @@
       "writtenOn": "2018-12-28T17:21:31Z",
       "side": 1,
       "message": "ditto",
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6c411b39",
+        "filename": "ansible/roles/install_dpdk/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-02T10:01:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_910010ac",
       "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_4c3edfb9",
+        "filename": "ansible/ubuntu_server_baremetal_deploy_samplevnfs.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-02T10:01:21Z",
+      "side": 1,
+      "message": "If \"dpdk_version\" key is not specified here, default DPDK version will be used. The default DPDK version is specified in yardstick/ansible/roles/download_dpdk/defaults/main.yml file (DPDK 17.05).\nDone.",
+      "parentUuid": "1a622d24_91e4903c",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 27
+      },
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_913130ef",
         "filename": "ansible/ubuntu_server_cloudimg_modify_samplevnfs.yml",
         "patchSetId": 1
@@ -221,6 +389,30 @@
       "side": 1,
       "message": "sample-vnf like vFW, vCGNAPT, vACL might use this version for building the application",
       "parentUuid": "1a622d24_913130ef",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 27
+      },
+      "revId": "60a50c2427059ac3a3c23b45b75e4865fa27ec66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ac4b3358",
+        "filename": "ansible/ubuntu_server_cloudimg_modify_samplevnfs.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-02T10:01:21Z",
+      "side": 1,
+      "message": "If \"dpdk_version\" key is not specified here, default DPDK version will be used. The default DPDK version is specified in yardstick/ansible/roles/download_dpdk/defaults/main.yml file (DPDK 17.05).\nDone.",
+      "parentUuid": "1a622d24_f1d06455",
       "range": {
         "startLine": 50,
         "startChar": 0,
