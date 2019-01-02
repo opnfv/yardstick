@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_4c489f2d",
+        "filename": "ansible/roles/download_dpdk/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-02T16:48:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_6caf5be4",
+      "revId": "7b5fd13272ea0419066ab4acccde7233eeab8fac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_4cac1fee",
         "filename": "ansible/roles/install_dpdk/tasks/main.yml",
         "patchSetId": 2
@@ -48,6 +66,24 @@
       "side": 1,
       "message": "Can we use https://docs.ansible.com/ansible/latest/user_guide/playbooks_tests.html#version-comparison ansible API for this?",
       "parentUuid": "1a622d24_4cac1fee",
+      "revId": "7b5fd13272ea0419066ab4acccde7233eeab8fac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ac55f3c7",
+        "filename": "ansible/roles/install_dpdk/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-02T16:48:07Z",
+      "side": 1,
+      "message": "Used ansible API for versions comparison.",
+      "parentUuid": "1a622d24_8cb6373c",
       "revId": "7b5fd13272ea0419066ab4acccde7233eeab8fac",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
