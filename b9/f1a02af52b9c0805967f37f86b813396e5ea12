@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Patrice Buriez <patrice.buriez@intel.com>
+Code-Review+1: Xavier Simonart <xavier.simonart@intel.com>
+Code-Review+2: Abhijit Sinha <abhijit.sinha@intel.com>
+Submitted-by: Abhijit Sinha <abhijit.sinha@intel.com>
+Submitted-at: Wed, 02 Jan 2019 17:14:23 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/66037
+Project: yardstick
+Branch: refs/heads/master
