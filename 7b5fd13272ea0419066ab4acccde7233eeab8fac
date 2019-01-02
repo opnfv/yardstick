@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_6caf5be4",
+        "filename": "ansible/roles/download_dpdk/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-02T13:11:36Z",
+      "side": 1,
+      "message": "This is not relevant anymore, can I ask you to remove it?",
+      "revId": "7b5fd13272ea0419066ab4acccde7233eeab8fac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4cac1fee",
+        "filename": "ansible/roles/install_dpdk/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-02T13:11:36Z",
+      "side": 1,
+      "message": "this will not work with X.Y.Z version. Please use the major_minor_version variable.",
+      "revId": "7b5fd13272ea0419066ab4acccde7233eeab8fac",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
