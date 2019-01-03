@@ -870,6 +870,30 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
         file_str[1] = self.additional_files[base_name]
         return '"'.join(file_str)
 
+    def _make_core_list(self, inputStr):
+
+        my_input = inputStr.split("core ", 1)[1]
+        ok_list = set()
+
+        substrs = [x.strip() for x in my_input.split(',')]
+        for i in substrs:
+            try:
+                ok_list.add(int(i))
+
+            except ValueError:
+                try:
+                    substr = [int(k.strip()) for k in i.split('-')]
+                    if len(substr) > 1:
+                        startstr = substr[0]
+                        endstr = substr[len(substr) - 1]
+                        for z in range(startstr, endstr + 1):
+                            ok_list.add(z)
+                except ValueError:
+                    LOG.error("Error in cores list ... resuming ")
+                    return ok_list
+
+        return ok_list
+
     def generate_prox_config_file(self, config_path):
         sections = []
         prox_config = ConfigParser(config_path, sections)
@@ -888,6 +912,18 @@ class ProxDpdkVnfSetupEnvHelper(DpdkVnfSetupEnvHelper):
                 for section_data in section:
                     if section_data[0] == "mac":
                         section_data[1] = "hardware"
+
+        # adjust for range of cores
+        new_sections = []
+        for section_name, section in sections:
+            if section_name.startswith('core') and section_name.find('$') == -1:
+                    core_list = self._make_core_list(section_name)
+                    for core in core_list:
+                        new_sections.append(["core " + str(core), section])
+            else:
+                new_sections.append([section_name, section])
+
+        sections = new_sections
 
         # search for dst mac
         for _, section in sections:
