@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_8303a5b7",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_8ports_1port_congested_IMIX.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_fa032171",
+      "range": {
+        "startLine": 63,
+        "startChar": 25,
+        "endLine": 63,
+        "endChar": 40
+      },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_ba09a997",
         "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_8ports_1port_congested_IMIX.yaml",
         "patchSetId": 12
@@ -36,6 +60,30 @@
       "writtenOn": "2018-12-19T14:52:47Z",
       "side": 1,
       "message": "I think this will lead to a problem to throughput convergence. For example, if the network infrastructure is not good, then the test may take 30*x intervals to get convergence with the specified tolerated loss. \nIn this case, the test will only run for 30 sec with 100% line rate and quit, without trying for other line rates.",
+      "range": {
+        "startLine": 67,
+        "startChar": 14,
+        "endLine": 67,
+        "endChar": 33
+      },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c32c7d4d",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_8ports_1port_congested_IMIX.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "This test case has only one iteration. It uses functionality which allows to set per flow traffic line rate and line rate won\u0027t be reduced/increased on each iteration.",
+      "parentUuid": "1a622d24_ba09a997",
       "range": {
         "startLine": 67,
         "startChar": 14,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_a33181a4",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_IMIX_scale_up.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b77ee4e2",
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_5af8557c",
         "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_IMIX_scale_up.yaml",
         "patchSetId": 12
@@ -76,6 +142,30 @@
       "writtenOn": "2018-12-19T14:52:47Z",
       "side": 1,
       "message": "same",
+      "range": {
+        "startLine": 81,
+        "startChar": 6,
+        "endLine": 81,
+        "endChar": 23
+      },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_03279565",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_IMIX_scale_up.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_5af8557c",
       "range": {
         "startLine": 81,
         "startChar": 6,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_231d7110",
+        "filename": "samples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_IMIX_scale_up.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "This test has configured 10 iterations and it should be enough to achieve expected tolerated loss and find needed traffic line rate.",
+      "parentUuid": "1a622d24_1afffd68",
+      "range": {
+        "startLine": 85,
+        "startChar": 15,
+        "endLine": 85,
+        "endChar": 33
+      },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_b730a457",
         "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
         "patchSetId": 12
@@ -122,6 +236,24 @@
       "writtenOn": "2018-12-19T16:39:58Z",
       "side": 1,
       "message": "import collections",
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a3d86154",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b730a457",
       "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_e3e25902",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "Since this stats is not valid(yardstick retrieves stats after traffic was stopped, that\u0027s why live stats data is not valid), I\u0027ve deleted both metrics.",
+      "parentUuid": "1a622d24_3af59983",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 39
+      },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_170d1891",
         "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
         "patchSetId": 12
@@ -168,6 +324,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_43e7cd12",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_170d1891",
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_7a7ef1af",
         "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
         "patchSetId": 12
@@ -179,6 +353,30 @@
       "writtenOn": "2018-12-19T16:39:58Z",
       "side": 1,
       "message": "please check if precision 3 is enough.",
+      "range": {
+        "startLine": 304,
+        "startChar": 51,
+        "endLine": 304,
+        "endChar": 56
+      },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e3b9b9ea",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "This method was deleted in the latest patch.",
+      "parentUuid": "1a622d24_7a7ef1af",
       "range": {
         "startLine": 304,
         "startChar": 51,
@@ -214,6 +412,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_43cead84",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "Updated in the latest patch sets: now line rate is setting per port, so the way how yardstick handles line rate on each iteration is the same as it was before.",
+      "parentUuid": "1a622d24_ba1d2976",
+      "range": {
+        "startLine": 443,
+        "startChar": 0,
+        "endLine": 444,
+        "endChar": 70
+      },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_f7117cad",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
         "patchSetId": 12
@@ -231,6 +453,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_23cbb173",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_f7117cad",
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_3a8639ba",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
         "patchSetId": 12
@@ -242,6 +482,30 @@
       "writtenOn": "2018-12-19T16:39:58Z",
       "side": 1,
       "message": "flow",
+      "range": {
+        "startLine": 444,
+        "startChar": 44,
+        "endLine": 444,
+        "endChar": 49
+      },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_63c5a95a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_3a8639ba",
       "range": {
         "startLine": 444,
         "startChar": 44,
@@ -301,6 +565,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_c3a11dab",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "Deleted this in latest patches.",
+      "parentUuid": "1a622d24_5a8975c9",
+      "range": {
+        "startLine": 490,
+        "startChar": 0,
+        "endLine": 493,
+        "endChar": 80
+      },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_9a930dfa",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
         "patchSetId": 12
@@ -324,6 +612,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_e3b099f6",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_9a930dfa",
+      "range": {
+        "startLine": 501,
+        "startChar": 19,
+        "endLine": 501,
+        "endChar": 24
+      },
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_da4aa582",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
         "patchSetId": 12
@@ -335,6 +647,24 @@
       "writtenOn": "2018-12-19T16:39:58Z",
       "side": 1,
       "message": "Please add a bit more description why format the naming.",
+      "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_43950d3f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T16:59:30Z",
+      "side": 1,
+      "message": "This block of code was deleted.",
+      "parentUuid": "1a622d24_da4aa582",
       "revId": "db45492cd9e124f277a35929237d4627a20ecb0b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
