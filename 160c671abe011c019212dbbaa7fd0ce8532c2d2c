@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_839f255f",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T17:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_3a3c792f",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_9a494dd3",
         "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_639c896a",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T17:09:07Z",
+      "side": 1,
+      "message": "\"Sessions up\" value is equal to number of connected subscribers. \"Sessions down\" will be equal 0 in most of the cases (but, e.g. if during test run some subscribers will disconnect, we will see this).",
+      "parentUuid": "1a622d24_9a494dd3",
+      "range": {
+        "startLine": 28,
+        "startChar": 18,
+        "endLine": 29,
+        "endChar": 33
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_1a453d70",
         "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
         "patchSetId": 1
@@ -59,6 +107,24 @@
       "writtenOn": "2018-12-19T16:46:50Z",
       "side": 1,
       "message": "VlanToVlan?",
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c388fd24",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T17:09:07Z",
+      "side": 1,
+      "message": "Not collecting this metrics anymore.",
+      "parentUuid": "1a622d24_1a453d70",
       "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -111,6 +177,54 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_03831505",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T17:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_fa49618c",
+      "range": {
+        "startLine": 43,
+        "startChar": 22,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a38d0134",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T17:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_5a5e9546",
+      "range": {
+        "startLine": 43,
+        "startChar": 55,
+        "endLine": 43,
+        "endChar": 58
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_3a5bd955",
         "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
         "patchSetId": 1
@@ -122,6 +236,30 @@
       "writtenOn": "2018-12-19T16:46:50Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 45,
+        "startChar": 27,
+        "endLine": 45,
+        "endChar": 38
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e387f90d",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T17:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_3a5bd955",
       "range": {
         "startLine": 45,
         "startChar": 27,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_437ced20",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T17:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_1a3c1de2",
+      "range": {
+        "startLine": 103,
+        "startChar": 20,
+        "endLine": 103,
+        "endChar": 21
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_fa404158",
         "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
         "patchSetId": 1
@@ -168,6 +330,30 @@
       "writtenOn": "2018-12-19T16:46:50Z",
       "side": 1,
       "message": "resolves",
+      "range": {
+        "startLine": 134,
+        "startChar": 27,
+        "endLine": 134,
+        "endChar": 34
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2379f12f",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T17:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_fa404158",
       "range": {
         "startLine": 134,
         "startChar": 27,
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_8376053d",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T17:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_ba7ec9e2",
+      "range": {
+        "startLine": 170,
+        "startChar": 17,
+        "endLine": 171,
+        "endChar": 40
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_ba652947",
         "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
         "patchSetId": 1
@@ -214,6 +424,30 @@
       "writtenOn": "2018-12-19T15:03:28Z",
       "side": 1,
       "message": "Rephrase the sentence: The vBNG RFC2544 test case will achieve maximum traffic line rate with zero packet loss (or other non-zero allowed partial drop rate)",
+      "range": {
+        "startLine": 175,
+        "startChar": 17,
+        "endLine": 178,
+        "endChar": 65
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6373e94d",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T17:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_ba652947",
       "range": {
         "startLine": 175,
         "startChar": 17,
@@ -272,6 +506,54 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_e39ed955",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia_8ports_1port_congested.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T17:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_fa5fa170",
+      "range": {
+        "startLine": 11,
+        "startChar": 5,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_039af562",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia_8ports_1port_congested.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T17:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_5a54d553",
+      "range": {
+        "startLine": 11,
+        "startChar": 41,
+        "endLine": 11,
+        "endChar": 48
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_3a511963",
         "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia_8ports_1port_congested.rst",
         "patchSetId": 1
@@ -295,6 +577,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_43a34d9e",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia_8ports_1port_congested.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T17:09:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_3a511963",
+      "range": {
+        "startLine": 14,
+        "startChar": 17,
+        "endLine": 14,
+        "endChar": 56
+      },
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_7a4b91b0",
         "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia_8ports_1port_congested.rst",
         "patchSetId": 1
@@ -306,6 +612,24 @@
       "writtenOn": "2018-12-19T15:03:28Z",
       "side": 1,
       "message": "add congested links on access port",
+      "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_23a0d18f",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia_8ports_1port_congested.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-04T17:09:07Z",
+      "side": 1,
+      "message": "Mentioned port name that will be congested.",
+      "parentUuid": "1a622d24_7a4b91b0",
       "revId": "160c671abe011c019212dbbaa7fd0ce8532c2d2c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
