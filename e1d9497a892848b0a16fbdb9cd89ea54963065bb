@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_f9b4c6f3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-07T16:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_5148382d",
+      "revId": "e1d9497a892848b0a16fbdb9cd89ea54963065bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_ec79abfd",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2019-01-03T14:45:13Z",
       "side": 1,
       "message": "I am not sure this will fix the issue. The issue is that if we use for instance 4 cores and 2 ports, we request (for instance at startup on a 10Gbps link) 100% of line rate (10Gbps) to each cores \u003d\u003e we will have on each port 2 cores trying to send at 10Gbps \u003d\u003e not possible.\n\nWith this proposal, we will still request 100% to each core (200% to each port). Then (on next iteration) we will request 50% to each core (100% to each port) and report we requested 100%...\n\nI see two issues with is:\n- There is one additional (un-necessary) iteration (generating at 200% per port)\n- At 200% the test might succeed (the test succeeds if the generated number of packets \u003d the received number of packets - independent of what was requested), and we would hence report that we requested 200% of line rate...",
+      "revId": "e1d9497a892848b0a16fbdb9cd89ea54963065bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_99095298",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-07T16:22:50Z",
+      "side": 1,
+      "message": "generation modified L1699",
+      "parentUuid": "1a622d24_ec79abfd",
       "revId": "e1d9497a892848b0a16fbdb9cd89ea54963065bb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_b9040e7f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 1492,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-07T16:22:50Z",
+      "side": 1,
+      "message": "gen_cores removed.\n\ntest_cores will do the same",
+      "parentUuid": "1a622d24_6c6d9b32",
+      "revId": "e1d9497a892848b0a16fbdb9cd89ea54963065bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_cc7e6fe4",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2019-01-03T14:45:13Z",
       "side": 1,
       "message": "This is where I would expect most of the change: instead of requesting to send at pct_10gbps(line_speed), we should request something like  pct_10gbps(line_speed) * self.port_count / len(gen_cores).\nIn this case, using 4 cores and 2 ports, we will generate (1st iteration) for each core at 50% of line rate, i.e. 100% for each port.",
+      "revId": "e1d9497a892848b0a16fbdb9cd89ea54963065bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_59d85a1d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 1499,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-07T16:22:50Z",
+      "side": 1,
+      "message": "implemented as suggested.",
+      "parentUuid": "1a622d24_cc7e6fe4",
       "revId": "e1d9497a892848b0a16fbdb9cd89ea54963065bb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
