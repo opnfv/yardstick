@@ -100,9 +100,12 @@
     - install_pmu_tools
     - download_collectd
     - install_collectd
+    - docker
+    - barometer_collectd
 
 
-- hosts: jumphost
+- name: Prepare to build VM
+  hosts: jumphost
   become: yes
   vars:
     img_prop_item: "{{ IMG_PROPERTY }}"
@@ -116,7 +119,8 @@
       when: installation_mode != inst_mode_container
 
 
-- hosts: chroot_image
+- name: Build VM in chroot
+  hosts: chroot_image
   connection: chroot
   become: yes
   vars:
@@ -131,7 +135,8 @@
       when: installation_mode != inst_mode_container
 
 
-- hosts: jumphost
+- name: Clear up after VM is built
+  hosts: jumphost
   become: yes
 
   tasks:
@@ -142,11 +147,33 @@
       when: installation_mode != inst_mode_container
 
 
-- name: start yardstick container on jumphost
+- hosts: jumphost
+  vars_files:
+    - yardstick_config.yml
+
+  roles:
+    - { role: convert_openrc, when: openrc_file is defined }
+
+
+- name: Add OpenStack variables, image
+  hosts: jumphost
+  vars_files:
+    - yardstick_config.yml
+  environment:
+    "{{ openrc }}"
+
+  roles:
+    - { role: clean_images, when: openrc_file is defined }
+    - { role: clean_flavors, when: openrc_file is defined }
+    - { role: create_samplevnfs_image, when: openrc_file is defined }
+
+
+- name: Start yardstick container on jumphost
   hosts: jumphost
 
   tasks:
-    - include_role:
+    - name: Install docker needed to pull Yardstick container
+      include_role:
         name: docker
       when: installation_mode == inst_mode_container_pull
 
