@@ -25,7 +25,7 @@ scenarios:
     simulated_users:
       uplink: [65000]
     page_object:
-      uplink: ["/1b.html"]
+      uplink: ["/1b.html"] #supports /4k /8k /16k /32k /64k /128k....
     framesize:
       uplink: {64B: 100}
       downlink: {64B: 100}
