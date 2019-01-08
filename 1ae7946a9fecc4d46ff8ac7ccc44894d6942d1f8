@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_d9174a50",
+        "filename": "yardstick/network_services/libs/ixia_libs/ixnet/ixnet_api.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-01-08T13:30:08Z",
+      "side": 1,
+      "message": "Could you please move this block above \"if add_default_proto\" block to keep the correct protocols stack sequence (L2/L3/L4) and make QinQ independent from \"add_default_proto\" key.",
+      "range": {
+        "startLine": 419,
+        "startChar": 16,
+        "endLine": 423,
+        "endChar": 75
+      },
+      "revId": "1ae7946a9fecc4d46ff8ac7ccc44894d6942d1f8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
