@@ -72,6 +72,9 @@
     loop_var: role_item
   environment: "{{ proxy_env }}"
 
+- include_vars: roles/install_dpdk/defaults/main.yml
+  when: INSTALL_BIN_PATH is undefined
+
 - name: Install PROX
   include_role:
     name: install_samplevnf
@@ -88,9 +91,6 @@
   loop_control:
     loop_var: role_item
   environment: "{{ proxy_env }}"
-
-- include_vars: roles/install_dpdk/defaults/main.yml
-  when: INSTALL_BIN_PATH is undefined
 
 - include_vars: roles/download_samplevnfs/defaults/main.yml
   when: samplevnf_dest is undefined
