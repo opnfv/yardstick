@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2017 Intel Corporation
+# Copyright (c) 2016-2018 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,12 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+{% set request_size = request_size or "4k" %}
+{% if 'request_size' not in [ "4k", "64k", "256k", "512k", "1024k" ] %}
+    {% set request_size = "4k" %}
+{% endif %}
 ---
 schema: yardstick:task:0.1
 scenarios:
 - type: NSPerf
-  traffic_profile: "../../traffic_profiles/http_tests/HTTP_4k-requests_65000_concurrency.yaml"
+  traffic_profile: "../../traffic_profiles/http_tests/HTTP_requests_65000_concurrency.yaml"
+  extra_args:
+      request_size: {{ request_size }}
   topology: vfw_vnf_topology_ixload.yaml
   nodes:
     tg__0: trafficgen_1.yardstick
