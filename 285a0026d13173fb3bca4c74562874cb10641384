@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_d6a43959",
+        "filename": "yardstick/tests/functional/benchmark/core/test_report.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-09T16:16:56Z",
+      "side": 1,
+      "message": "nit: This is over 80 char",
+      "range": {
+        "startLine": 70,
+        "startChar": 67,
+        "endLine": 70,
+        "endChar": 85
+      },
+      "revId": "285a0026d13173fb3bca4c74562874cb10641384",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_36892dcb",
+        "filename": "yardstick/tests/functional/benchmark/core/test_report.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-09T16:16:56Z",
+      "side": 1,
+      "message": "nit: same here",
+      "range": {
+        "startLine": 73,
+        "startChar": 79,
+        "endLine": 73,
+        "endChar": 81
+      },
+      "revId": "285a0026d13173fb3bca4c74562874cb10641384",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
