@@ -175,7 +175,7 @@ System Topology
   |          |              |          |
   |          | (1)<-----(1) |          |
   +----------+              +----------+
-  trafficgen_1                   vnf
+  trafficgen_0                   vnf
 
 
 Environment parameters and credentials
@@ -251,7 +251,7 @@ Bare-Metal 2-Node setup
   |          |              |          |
   |          | (n)<-----(n) |          |
   +----------+              +----------+
-  trafficgen_1                   vnf
+  trafficgen_0                   vnf
 
 Bare-Metal 3-Node setup - Correlated Traffic
 ++++++++++++++++++++++++++++++++++++++++++++
@@ -265,7 +265,7 @@ Bare-Metal 3-Node setup - Correlated Traffic
   |          |              |          |            |            |
   |          |              |          |(1)<---->(0)|            |
   +----------+              +----------+            +------------+
-  trafficgen_1                   vnf                 trafficgen_2
+  trafficgen_0                   vnf                 trafficgen_1
 
 
 Bare-Metal Config pod.yaml
@@ -279,7 +279,7 @@ topology and update all the required fields.::
 
     nodes:
     -
-        name: trafficgen_1
+        name: trafficgen_0
         role: TrafficGen
         ip: 1.1.1.1
         user: root
@@ -388,7 +388,7 @@ On Host, where VM is created:
   .. code-block:: YAML
 
     servers:
-      vnf:
+      vnf_0:
         network_ports:
           mgmt:
             cidr: '1.1.1.7/24'
@@ -446,7 +446,7 @@ SR-IOV 2-Node setup
   |          | (n)<----->(n) | -----------------       |
   |          |               |                         |
   +----------+               +-------------------------+
-  trafficgen_1                          host
+  trafficgen_0                          host
 
 
 
@@ -474,7 +474,7 @@ SR-IOV 3-Node setup - Correlated Traffic
   |          |               |                |    |            |              |
   |          | (n)<----->(n) |                -----| (n)<-->(n) |              |
   +----------+               +---------------------+            +--------------+
-  trafficgen_1                          host                      trafficgen_2
+  trafficgen_0                          host                      trafficgen_1
 
 Before executing Yardstick test cases, make sure that ``pod.yaml`` reflects the
 topology and update all the required fields.
@@ -493,7 +493,7 @@ SR-IOV Config pod_trex.yaml
 
     nodes:
     -
-        name: trafficgen_1
+        name: trafficgen_0
         role: TrafficGen
         ip: 1.1.1.1
         user: root
@@ -554,7 +554,7 @@ Update contexts section
        user: "" # update VM username
        password: "" # update password
      servers:
-       vnf:
+       vnf_0:
          network_ports:
            mgmt:
              cidr: '1.1.1.61/24'  # Update VM IP address, if static, <ip>/<mask> or if dynamic, <start of ip>/<mask>
@@ -619,7 +619,7 @@ On Host, where VM is created:
   .. code-block:: YAML
 
     servers:
-      vnf:
+      vnf_0:
         network_ports:
           mgmt:
             cidr: '1.1.1.7/24'
@@ -683,7 +683,7 @@ OVS-DPDK 2-Node setup
   |          |               |       (ovs-dpdk) |      |
   |          | (n)<----->(n) |------------------       |
   +----------+               +-------------------------+
-  trafficgen_1                          host
+  trafficgen_0                          host
 
 
 OVS-DPDK 3-Node setup - Correlated Traffic
@@ -713,7 +713,7 @@ OVS-DPDK 3-Node setup - Correlated Traffic
   |          |               |      (ovs-dpdk)  |      |          |            |
   |          | (n)<----->(n) |                  ------ |(n)<-->(n)|            |
   +----------+               +-------------------------+          +------------+
-  trafficgen_1                          host                       trafficgen_2
+  trafficgen_0                          host                       trafficgen_1
 
 
 Before executing Yardstick test cases, make sure that the ``pod.yaml`` reflects
@@ -731,7 +731,7 @@ OVS-DPDK Config pod_trex.yaml
 
     nodes:
     -
-      name: trafficgen_1
+      name: trafficgen_0
       role: TrafficGen
       ip: 1.1.1.1
       user: root
@@ -802,7 +802,7 @@ Update contexts section
        user: "" # update VM username
        password: "" # update password
      servers:
-       vnf:
+       vnf_0:
          network_ports:
            mgmt:
              cidr: '1.1.1.61/24'  # Update VM IP address, if static, <ip>/<mask> or if dynamic, <start of ip>/<mask>
@@ -859,7 +859,7 @@ Single node OpenStack with external TG
   |          | (PF1)<----->(PF1) +--------------------+       |
   |          |                   |                            |
   +----------+                   +----------------------------+
-  trafficgen_1                                 host
+  trafficgen_0                                 host
 
 
 Host pre-configuration
@@ -1022,7 +1022,7 @@ Multi node OpenStack TG and VNF setup (two nodes)
   |   |sample-VNF VM       |   |                   |   |sample-VNF VM       |   |
   |   |                    |   |                   |   |                    |   |
   |   |         TG         |   |                   |   |        DUT         |   |
-  |   |    trafficgen_1    |   |                   |   |       (VNF)        |   |
+  |   |    trafficgen_0    |   |                   |   |       (VNF)        |   |
   |   |                    |   |                   |   |                    |   |
   |   +--------+  +--------+   |                   |   +--------+  +--------+   |
   |   | VF NIC |  | VF NIC |   |                   |   | VF NIC |  | VF NIC |   |

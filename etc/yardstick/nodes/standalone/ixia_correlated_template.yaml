@@ -20,7 +20,7 @@
 
 nodes:
 -
-    name: tg__0
+    name: trafficgen_0
     role: IxNet
     ip: {{gen.ip.mgmt[0]| ipaddr('address')}}
     user: {{gen.user}}
@@ -53,7 +53,7 @@ nodes:
 {% endfor %}
 
 -
-    name: tg__1
+    name: trafficgen_1
     role: tg__1
     ip: {{gen_1.ip.mgmt[0]| ipaddr('address')}}
     user: {{gen_1.user}}
