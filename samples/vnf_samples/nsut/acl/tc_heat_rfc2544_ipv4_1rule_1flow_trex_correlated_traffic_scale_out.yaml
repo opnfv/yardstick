@@ -19,8 +19,8 @@ scenarios:
     traffic_profile: ../../traffic_profiles/ipv4_throughput-{{ num_vnfs }}.yaml
     topology: acl-tg-topology-3node-{{ num_vnfs }}.yaml
     nodes:
-      tg__0: tg_0.yardstick
-      tg__1: tg_1.yardstick
+      tg__0: trafficgen_0.yardstick
+      tg__1: trafficgen_1.yardstick
 {% for vnf_num in range(num_vnfs|int) %}
       vnf__{{ vnf_num }}: vnf_{{ vnf_num }}.yardstick
 {% endfor %}
@@ -67,7 +67,7 @@ context:
     pgrp1:
       policy: "availability"
   servers:
-    tg_0:
+    trafficgen_0:
       floating_ip: true
       placement: "pgrp1"
       network_ports:
@@ -77,7 +77,7 @@ context:
         uplink_{{ vnf_num }}:
           - xe{{ vnf_num }}
 {% endfor %}
-    tg_1:
+    trafficgen_1:
       floating_ip: true
       placement: "pgrp1"
       network_ports:
