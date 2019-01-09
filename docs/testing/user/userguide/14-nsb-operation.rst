@@ -126,7 +126,7 @@ case, please follow the instructions below.
        image: yardstick-samplevnfs
        ...
        servers:
-         vnf__0:
+         vnf_0:
            ...
            availability_zone: <AZ_NAME>
            ...
@@ -323,7 +323,7 @@ Baremetal
        topology: vfw-tg-topology.yaml
        nodes:
          tg__0: trafficgen_1.yardstick
-         vnf__0: vnf.yardstick
+         vnf__0: vnf_0.yardstick
        options:
          framesize:
            uplink: {64B: 100}
@@ -417,7 +417,7 @@ options section.
   scenarios:
     - type: NSPerf
       nodes:
-        tg__0: tg_0.yardstick
+        tg__0: trafficgen_1.yardstick
 
       options:
         tg_0:
