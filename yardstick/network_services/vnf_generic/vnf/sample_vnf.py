@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2018 Intel Corporation
+# Copyright (c) 2016-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -691,8 +691,8 @@ class SampleVNF(GenericVNF):
         scenarios:
         - type: NSPerf
           nodes:
-            tg__0: trafficgen_1.yardstick
-            vnf__0: vnf.yardstick
+            tg__0: trafficgen_0.yardstick
+            vnf__0: vnf_0.yardstick
           options:
             collectd:
               <options>  # COLLECTD priority 3
