@@ -19,8 +19,8 @@ scenarios:
   traffic_profile: ../../traffic_profiles/ipv4_throughput-2.yaml
   topology: router-tg-topology-4port.yaml
   nodes:
-    tg__0: trafficgen_1.yardstick
-    vnf__0: vnf.yardstick
+    tg__0: trafficgen_0.yardstick
+    vnf__0: vnf_0.yardstick
 # Required for enabling NFVi collection
     cpt__0: ovs_dpdk.yardstick
   options:
@@ -100,7 +100,7 @@ contexts:
        user: "root"
        password: "password"
      servers:
-       vnf:
+       vnf_0:
          network_ports:
            mgmt:
              ip: '10.166.31.252'
