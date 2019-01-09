@@ -36,7 +36,7 @@ nsd:nsd-catalog:
                 vnfd-id-ref: tg__0                  #TREX
             -   member-vnf-index-ref: '2'
                 vnfd-connection-point-ref: xe0
-                vnfd-id-ref: vnf__0                  #VNF
+                vnfd-id-ref: vnf__0                 #VNF
 
         -   id: downlink_0
             name: vnf__0 to tg__0 link 2
@@ -44,7 +44,7 @@ nsd:nsd-catalog:
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: '2'
                 vnfd-connection-point-ref: xe1
-                vnfd-id-ref: vnf__0                  #L3fwd
+                vnfd-id-ref: vnf__0
             -   member-vnf-index-ref: '1'
                 vnfd-connection-point-ref: xe1
-                vnfd-id-ref: tg__0                  #VPE VNF
+                vnfd-id-ref: tg__0

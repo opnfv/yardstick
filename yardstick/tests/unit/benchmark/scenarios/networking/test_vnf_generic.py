@@ -159,7 +159,7 @@ TRAFFIC_PROFILE = {
 class TestNetworkServiceTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.tg__1 = {
+        self.tg__0 = {
             'name': 'trafficgen_1.yardstick',
             'ip': '10.10.10.11',
             'role': 'TrafficGen',
@@ -185,7 +185,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             },
         }
 
-        self.vnf__1 = {
+        self.vnf__0 = {
             'name': 'vnf.yardstick',
             'ip': '10.10.10.12',
             'host': '10.223.197.164',
@@ -242,8 +242,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
 
         self.context_cfg = {
             'nodes': {
-                'tg__1': self.tg__1,
-                'vnf__1': self.vnf__1,
+                'tg__0': self.tg__0,
+                'vnf__0': self.vnf__0,
             },
             'networks': {
                 GenericVNF.UPLINK: {
@@ -270,7 +270,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ],
             'type': 'ELAN',
             'id': GenericVNF.UPLINK,
-            'name': 'tg__1 to vnf__1 link 1'
+            'name': 'tg__0 to vnf__0 link 1'
         }
 
         self.vld1 = {
@@ -288,7 +288,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ],
             'type': 'ELAN',
             'id': GenericVNF.DOWNLINK,
-            'name': 'vnf__1 to tg__1 link 2'
+            'name': 'vnf__0 to tg__0 link 2'
         }
 
         self.topology = {
@@ -300,12 +300,12 @@ class TestNetworkServiceTestCase(unittest.TestCase):
                 {
                     'member-vnf-index': '1',
                     'VNF model': 'tg_trex_tpl.yaml',
-                    'vnfd-id-ref': 'tg__1',
+                    'vnfd-id-ref': 'tg__0',
                 },
                 {
                     'member-vnf-index': '2',
                     'VNF model': 'tg_trex_tpl.yaml',
-                    'vnfd-id-ref': 'vnf__1',
+                    'vnfd-id-ref': 'vnf__0',
                 },
             ],
             'vld': [self.vld0, self.vld1],
@@ -343,8 +343,8 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             },
             'nodes': {
                 'tg__2': 'trafficgen_2.yardstick',
-                'tg__1': 'trafficgen_1.yardstick',
-                'vnf__1': 'vnf.yardstick',
+                'tg__0': 'trafficgen_1.yardstick',
+                'vnf__0': 'vnf.yardstick',
             },
         }
 
@@ -411,12 +411,12 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             'flow': {
                 'src_ip': [
                     {
-                        'tg__1': 'xe0',
+                        'tg__0': 'xe0',
                     },
                 ],
                 'dst_ip': [
                     {
-                        'tg__1': 'xe1',
+                        'tg__0': 'xe1',
                     },
                 ],
                 'public_ip': ['1.1.1.1'],
@@ -446,9 +446,9 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         self.assertIn('found in', exc_str)
 
     def test_load_vnf_models_invalid(self):
-        self.context_cfg["nodes"]['tg__1']['VNF model'] = \
+        self.context_cfg["nodes"]['tg__0']['VNF model'] = \
             self._get_file_abspath("tg_trex_tpl.yaml")
-        self.context_cfg["nodes"]['vnf__1']['VNF model'] = \
+        self.context_cfg["nodes"]['vnf__0']['VNF model'] = \
             self._get_file_abspath("tg_trex_tpl.yaml")
 
         vnf = mock.Mock(autospec=GenericVNF)
@@ -469,13 +469,13 @@ class TestNetworkServiceTestCase(unittest.TestCase):
 
         nodes = self.context_cfg["nodes"]
         self.assertEqual('../../vnf_descriptors/tg_rfc2544_tpl.yaml',
-                         nodes['tg__1']['VNF model'])
+                         nodes['tg__0']['VNF model'])
         self.assertEqual('../../vnf_descriptors/vpe_vnf.yaml',
-                         nodes['vnf__1']['VNF model'])
+                         nodes['vnf__0']['VNF model'])
 
     def test_map_topology_to_infrastructure_insufficient_nodes(self):
         cfg = deepcopy(self.context_cfg)
-        del cfg['nodes']['vnf__1']
+        del cfg['nodes']['vnf__0']
 
         cfg_patch = mock.patch.object(self.s, 'context_cfg', cfg)
         with cfg_patch:
@@ -489,10 +489,10 @@ class TestNetworkServiceTestCase(unittest.TestCase):
         cfg = deepcopy(self.s.context_cfg)
 
         # delete all, we don't know which will come first
-        del cfg['nodes']['vnf__1']['interfaces']['xe0']['local_mac']
-        del cfg['nodes']['vnf__1']['interfaces']['xe1']['local_mac']
-        del cfg['nodes']['tg__1']['interfaces']['xe0']['local_mac']
-        del cfg['nodes']['tg__1']['interfaces']['xe1']['local_mac']
+        del cfg['nodes']['vnf__0']['interfaces']['xe0']['local_mac']
+        del cfg['nodes']['vnf__0']['interfaces']['xe1']['local_mac']
+        del cfg['nodes']['tg__0']['interfaces']['xe0']['local_mac']
+        del cfg['nodes']['tg__0']['interfaces']['xe1']['local_mac']
 
         config_patch = mock.patch.object(self.s, 'context_cfg', cfg)
         with config_patch:
@@ -507,7 +507,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
 
             # purge an important key from the data structure
-            for interface in self.tg__1['interfaces'].values():
+            for interface in self.tg__0['interfaces'].values():
                 del interface['local_mac']
 
             with self.assertRaises(exceptions.IncorrectConfig) as raised:
@@ -516,7 +516,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self.assertIn('not found', str(raised.exception))
 
             # restore local_mac
-            for index, interface in enumerate(self.tg__1['interfaces'].values()):
+            for index, interface in enumerate(self.tg__0['interfaces'].values()):
                 interface['local_mac'] = '00:00:00:00:00:{:2x}'.format(index)
 
             # make a connection point ref with 3 points
