@@ -621,7 +621,7 @@ class TaskParser(object):       # pragma: no cover
 
         scenario:
           nodes:
-            tg__0: tg_0.yardstick
+            tg__0: trafficgen_0.yardstick
             vnf__0: vnf_0.yardstick
 
         NOTE: in Kubernetes context, the separator character between the server
