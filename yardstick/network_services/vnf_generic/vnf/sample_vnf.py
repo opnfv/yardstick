@@ -716,8 +716,8 @@ class SampleVNF(GenericVNF):
         scenarios:
         - type: NSPerf
           nodes:
-            tg__0: trafficgen_1.yardstick
-            vnf__0: vnf.yardstick
+            tg__0: trafficgen_0.yardstick
+            vnf__0: vnf_0.yardstick
           options:
             collectd:
               <options>  # COLLECTD priority 3
