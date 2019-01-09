@@ -405,7 +405,7 @@ On Host, where VM is created:
   .. code-block:: YAML
 
     servers:
-      vnf:
+      vnf_0:
         network_ports:
           mgmt:
             cidr: '1.1.1.7/24'
@@ -570,7 +570,7 @@ Update "contexts" section
        user: "" # update VM username
        password: "" # update password
      servers:
-       vnf:
+       vnf_0:
          network_ports:
            mgmt:
              cidr: '1.1.1.61/24'  # Update VM IP address, if static, <ip>/<mask> or if dynamic, <start of ip>/<mask>
@@ -636,7 +636,7 @@ On Host, where VM is created:
   .. code-block:: YAML
 
     servers:
-      vnf:
+      vnf_0:
         network_ports:
           mgmt:
             cidr: '1.1.1.7/24'
@@ -820,7 +820,7 @@ Update "contexts" section
        user: "" # update VM username
        password: "" # update password
      servers:
-       vnf:
+       vnf_0:
          network_ports:
            mgmt:
              cidr: '1.1.1.61/24'  # Update VM IP address, if static, <ip>/<mask> or if dynamic, <start of ip>/<mask>
