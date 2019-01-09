@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation
+# Copyright (c) 2017-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ scenarios:
   traffic_profile: "../../traffic_profiles/http_tests/HTTP_1b-requests_65000_concurrency.yaml"
   topology: vfw_vnf_topology_ixload.yaml
   nodes:
-    tg__0: trafficgen_1.yardstick1
-    vnf__0: vnf.yardstick
+    tg__0: trafficgen_0.yardstick
+    vnf__0: vnf_0.yardstick
   options:
     framesize:
       private: {64B: 100}
@@ -37,7 +37,7 @@ scenarios:
     duration: 2
   ixia_profile: ../../traffic_profiles/vfw/HTTP-vFW_IPv4_2Ports_Concurrency.rxf # Need vlan update
 contexts:
-  - name: yardstick1
+  - name: yardstick
     type: Node
     file: /etc/yardstick/nodes/pod_ixia.yaml
   - name: yardstick
@@ -55,7 +55,7 @@ contexts:
       pgrp1:
         policy: "availability"
     servers:
-      vnf:
+      vnf_0:
         floating_ip: true
         placement: "pgrp1"
         network_ports:
