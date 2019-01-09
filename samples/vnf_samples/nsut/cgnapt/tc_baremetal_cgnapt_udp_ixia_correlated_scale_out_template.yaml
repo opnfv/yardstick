@@ -1,4 +1,4 @@
-# Copyright (c) 2018 Intel Corporation
+# Copyright (c) 2018-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ scenarios:
     traffic_profile: ../../traffic_profiles/ipv4_throughput-ixia-{{ num_vnfs }}.yaml
     topology: cgnapt-tg-topology-ixia-correlated-scale-out-{{ num_vnfs }}.yaml
     nodes:
-      tg__0: tg__0.yardstick
-      tg__1: tg__1.yardstick
+      tg__0: trafficgen_1.yardstick
+      tg__1: trafficgen_2.yardstick
 {% for vnf_num in range(num_vnfs|int) %}
       vnf__{{ vnf_num }}: vnf_{{ vnf_num }}.yardstick
 {% endfor %}
