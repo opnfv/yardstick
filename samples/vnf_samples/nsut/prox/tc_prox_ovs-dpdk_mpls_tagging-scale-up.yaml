@@ -26,8 +26,8 @@ scenarios:
   topology: prox-tg-topology-scale-up.yaml
 
   nodes:
-    tg__0: tg__0.yardstick
-    vnf__0: vnf__0.yardstick
+    tg__0: trafficgen_0.yardstick
+    vnf__0: vnf_0.yardstick
 
   options:
     vnf__0:
