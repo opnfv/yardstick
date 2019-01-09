@@ -1,4 +1,4 @@
-# Copyright (c) 2018 Intel Corporation
+# Copyright (c) 2018-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ context:
   type: Kubernetes
 
   servers:
-    vnf:
+    vnf_0:
       containers:
         - image: si-docker.ir.intel.com/vcmts-ubuntu/vcmts-pktgen-uepi
           args: ["/opt/bin/cmk isolate --conf-dir=/etc/cmk --socket-id=0 --pool=dataplane /vcmts/setup.sh anga_mac_1_ds.pcap ds"]
