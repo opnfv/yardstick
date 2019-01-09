@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2017 Intel Corporation
+# Copyright (c) 2016-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ scenarios:
   traffic_profile: "../../traffic_profiles/ipv4_throughput_vpe.yaml"
   topology: vpe_vnf_topology.yaml
   nodes:
-    tg__1: trafficgen_1.yardstick
-    vnf__1: vnf.yardstick
+    tg__0: trafficgen_0.yardstick
+    vnf__0: vnf_0.yardstick
   tc_options:
     rfc2544:
       allowed_drop_rate: 0.8 - 1
