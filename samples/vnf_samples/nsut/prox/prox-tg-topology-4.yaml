@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation
+# Copyright (c) 2017-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,52 +20,52 @@ nsd:nsd-catalog:
         description: prox-tg-topology
         constituent-vnfd:
         -   member-vnf-index: '1'
-            vnfd-id-ref: tg__0
+            vnfd-id-ref: trafficgen_1
             VNF model: ../../vnf_descriptors/tg_prox_tpl.yaml
         -   member-vnf-index: '2'
-            vnfd-id-ref: vnf__0
+            vnfd-id-ref: vnf_0
             VNF model: ../../vnf_descriptors/prox_vnf.yaml
         vld:
         -   id: uplink_0
-            name: tg__0 to vnf__0 link 1
+            name: trafficgen_1 to vnf link 1
             type: ELAN
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: '1'
                 vnfd-connection-point-ref: xe0
-                vnfd-id-ref: tg__0
+                vnfd-id-ref: trafficgen_1
             -   member-vnf-index-ref: '2'
                 vnfd-connection-point-ref: xe0
-                vnfd-id-ref: vnf__0
+                vnfd-id-ref: vnf_0
 
         -   id: downlink_0
-            name: vnf__0 to tg__0 link 2
+            name: vnf to trafficgen_1 link 2
             type: ELAN
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: '2'
                 vnfd-connection-point-ref: xe1
-                vnfd-id-ref: vnf__0
+                vnfd-id-ref: vnf_0
             -   member-vnf-index-ref: '1'
                 vnfd-connection-point-ref: xe1
-                vnfd-id-ref: tg__0
+                vnfd-id-ref: trafficgen_1
 
         -   id: uplink_1
-            name: tg__0 to vnf__0 link 3
+            name: trafficgen_1 to vnf link 3
             type: ELAN
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: '1'
                 vnfd-connection-point-ref: xe2
-                vnfd-id-ref: tg__0
+                vnfd-id-ref: trafficgen_1
             -   member-vnf-index-ref: '2'
                 vnfd-connection-point-ref: xe2
-                vnfd-id-ref: vnf__0
+                vnfd-id-ref: vnf_0
 
         -   id: downlink_1
-            name: vnf__0 to tg__0 link 4
+            name: vnf to trafficgen_1 link 4
             type: ELAN
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: '2'
                 vnfd-connection-point-ref: xe3
-                vnfd-id-ref: vnf__0
+                vnfd-id-ref: vnf_0
             -   member-vnf-index-ref: '1'
                 vnfd-connection-point-ref: xe3
-                vnfd-id-ref: tg__0
+                vnfd-id-ref: trafficgen_1
