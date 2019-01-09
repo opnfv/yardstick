@@ -20,7 +20,7 @@
 
 nodes:
 -
-    name: tg__0
+    name: trafficgen_0
     role: IxNet
     ip: {{gen.ip.mgmt[0]| ipaddr('address')}}
     user: {{gen.user}}

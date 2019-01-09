@@ -1,4 +1,4 @@
-# Copyright (c) 2018 Intel Corporation
+# Copyright (c) 2018-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 
 nodes:
 -
-    name: "tg__0"
+    name: "trafficgen_0"
     role: tg__0
     tas_manager:
         ip: 192.168.122.100
@@ -161,4 +161,3 @@ nodes:
         phy: *ts2_port1
         ip: 10.42.32.95
         nextHop: ''
-
