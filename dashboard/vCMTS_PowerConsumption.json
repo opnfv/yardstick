@@ -1,0 +1,5295 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "$$hashKey": "object:38280",
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "iteration": 1537440922368,
+  "links": [],
+  "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 5,
+      "gridPos": {
+        "h": 12,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      "id": 9,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "downstream_rx.sum",
+          "yaxis": 2
+        },
+        {
+          "alias": "Downstream",
+          "yaxis": 2
+        },
+        {
+          "alias": "Upstream",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "$$hashKey": "object:607",
+          "alias": "Watts",
+          "groupBy": [
+            {
+              "params": [
+                "10s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "ipmi_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "type_instance",
+              "operator": "=",
+              "value": "PS1 Input Power power_supply (10.1)"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "power"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:608",
+          "alias": "Downstream",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"last\") / 1000000000\nFROM\n(\nSELECT last(\"value\") \nFROM \"autogen\".\"downstream_rx\" \nWHERE ( \"type\" = 'bits_per_second') \nGROUP BY host\n)\nGROUP BY time(10s) fill(previous)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "$$hashKey": "object:609",
+          "alias": "Upstream",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT sum(\"last\") / 1000000000\nFROM\n(\nSELECT last(\"value\") \nFROM \"autogen\".\"upstream_tx\" \nWHERE ( \"type\" = 'bits_per_second') \nGROUP BY host\n)\nGROUP BY time(10s) fill(previous)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Wall Power",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1002",
+          "format": "watt",
+          "label": null,
+          "logBase": 1,
+          "max": "500",
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1003",
+          "decimals": null,
+          "format": "Gbits",
+          "label": null,
+          "logBase": 1,
+          "max": "120",
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 12,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      },
+      "id": 8,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "$$hashKey": "object:719",
+          "alias": "Watts - Pkg 0",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "turbostat_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "instance",
+              "operator": "=",
+              "value": "pkg00"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "power"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "pkg"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:720",
+          "alias": "Watts - Pkg 1",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "turbostat_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "instance",
+              "operator": "=",
+              "value": "pkg01"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "power"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "pkg"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU Socket Power Consumption",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:875",
+          "format": "watt",
+          "label": null,
+          "logBase": 1,
+          "max": "500",
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:876",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 10,
+      "gridPos": {
+        "h": 12,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      "id": 4,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "$$hashKey": "object:1584",
+          "alias": "package 0",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "turbostat_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "instance",
+              "operator": "=",
+              "value": "pkg00"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "power"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "DRAM"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:1585",
+          "alias": "package 1",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "turbostat_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "instance",
+              "operator": "=",
+              "value": "pkg01"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "power"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "DRAM"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "DRAM Power Consumption",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1728",
+          "format": "watt",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1729",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "0": "#597550",
+        "1": "#597550",
+        "2": "#597550",
+        "3": "#597550",
+        "4": "#597550",
+        "5": "#597550",
+        "6": "#597550",
+        "7": "#597550",
+        "8": "#597550",
+        "9": "#597550",
+        "10": "#597550",
+        "11": "#597550",
+        "12": "#597550",
+        "13": "#597550",
+        "14": "#597550",
+        "15": "#597550",
+        "16": "#597550",
+        "17": "#597550",
+        "18": "#597550",
+        "19": "#597550",
+        "20": "#597550",
+        "21": "#597550",
+        "22": "#597550",
+        "23": "#597550",
+        "24": "#597550",
+        "25": "#597550",
+        "26": "#597550",
+        "27": "#597550",
+        "28": "#597550",
+        "29": "#597550",
+        "30": "#597550",
+        "31": "#597550",
+        "32": "#597550",
+        "33": "#597550",
+        "34": "#597550",
+        "35": "#597550",
+        "36": "#597550",
+        "37": "#597550",
+        "38": "#597550",
+        "39": "#597550"
+      },
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 12
+      },
+      "id": 6,
+      "legend": {
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "$$hashKey": "object:1809",
+          "alias": "0",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "0"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:487",
+          "alias": "1",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:553",
+          "alias": "2",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "2"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:619",
+          "alias": "3",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "3"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:626",
+          "alias": "4",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "4"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:633",
+          "alias": "5",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "F",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "5"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:640",
+          "alias": "6",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "G",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "6"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:647",
+          "alias": "7",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "H",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "7"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:654",
+          "alias": "8",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "I",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "8"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:661",
+          "alias": "9",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "J",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "9"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:668",
+          "alias": "10",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "K",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "10"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:675",
+          "alias": "11",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "L",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "11"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:682",
+          "alias": "12",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "M",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "12"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:689",
+          "alias": "13",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "N",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "13"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:696",
+          "alias": "14",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "O",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "14"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:703",
+          "alias": "15",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "P",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "15"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:710",
+          "alias": "16",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "Q",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "16"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:717",
+          "alias": "17",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "R",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "17"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:724",
+          "alias": "18",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "S",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "18"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:731",
+          "alias": "19",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "T",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "19"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:738",
+          "alias": "20",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "U",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "20"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:745",
+          "alias": "21",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "V",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "21"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:752",
+          "alias": "22",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "W",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "22"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:759",
+          "alias": "23",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "X",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "23"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:766",
+          "alias": "24",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "Y",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "24"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:773",
+          "alias": "25",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "refId": "Z",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "25"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:780",
+          "alias": "26",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "26"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:787",
+          "alias": "27",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "27"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:794",
+          "alias": "28",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "28"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:801",
+          "alias": "29",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "29"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:808",
+          "alias": "30",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "30"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:815",
+          "alias": "31",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "31"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:822",
+          "alias": "32",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "32"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:829",
+          "alias": "33",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "33"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:836",
+          "alias": "34",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "34"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:843",
+          "alias": "35",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "35"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:850",
+          "alias": "36",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "36"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:857",
+          "alias": "37",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "37"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:864",
+          "alias": "38",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "38"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:871",
+          "alias": "39",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "rawQuery": false,
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=",
+              "value": "39"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Frequency per Core",
+      "tooltip": {
+        "shared": false,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": true,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:2102",
+          "format": "hertz",
+          "label": "Frequency",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:2103",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 12
+      },
+      "id": 11,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "$$hashKey": "object:1407",
+          "alias": "$CPU_1",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=~",
+              "value": "/^$CPU_1$/"
+            }
+          ]
+        },
+        {
+          "$$hashKey": "object:1085",
+          "alias": "$CPU_2",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cpufreq_value",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "distinct"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "host",
+              "operator": "=",
+              "value": "localhost"
+            },
+            {
+              "condition": "AND",
+              "key": "type",
+              "operator": "=",
+              "value": "cpufreq"
+            },
+            {
+              "condition": "AND",
+              "key": "type_instance",
+              "operator": "=~",
+              "value": "/^$CPU_2$/"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "$CPU_1 and $CPU_2 Frequency",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1054",
+          "format": "hertz",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1055",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 16,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "$$hashKey": "object:479",
+          "selected": true,
+          "text": "10",
+          "value": "10"
+        },
+        "datasource": "vCMTS-collectd-stats",
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "CPU_1",
+        "options": [
+          {
+            "$$hashKey": "object:477",
+            "selected": false,
+            "text": "0",
+            "value": "0"
+          },
+          {
+            "$$hashKey": "object:478",
+            "selected": false,
+            "text": "1",
+            "value": "1"
+          },
+          {
+            "$$hashKey": "object:479",
+            "selected": true,
+            "text": "10",
+            "value": "10"
+          },
+          {
+            "$$hashKey": "object:480",
+            "selected": false,
+            "text": "11",
+            "value": "11"
+          },
+          {
+            "$$hashKey": "object:481",
+            "selected": false,
+            "text": "12",
+            "value": "12"
+          },
+          {
+            "$$hashKey": "object:482",
+            "selected": false,
+            "text": "13",
+            "value": "13"
+          },
+          {
+            "$$hashKey": "object:483",
+            "selected": false,
+            "text": "14",
+            "value": "14"
+          },
+          {
+            "$$hashKey": "object:484",
+            "selected": false,
+            "text": "15",
+            "value": "15"
+          },
+          {
+            "$$hashKey": "object:485",
+            "selected": false,
+            "text": "16",
+            "value": "16"
+          },
+          {
+            "$$hashKey": "object:486",
+            "selected": false,
+            "text": "17",
+            "value": "17"
+          },
+          {
+            "$$hashKey": "object:487",
+            "selected": false,
+            "text": "18",
+            "value": "18"
+          },
+          {
+            "$$hashKey": "object:488",
+            "selected": false,
+            "text": "19",
+            "value": "19"
+          },
+          {
+            "$$hashKey": "object:489",
+            "selected": false,
+            "text": "2",
+            "value": "2"
+          },
+          {
+            "$$hashKey": "object:490",
+            "selected": false,
+            "text": "20",
+            "value": "20"
+          },
+          {
+            "$$hashKey": "object:491",
+            "selected": false,
+            "text": "21",
+            "value": "21"
+          },
+          {
+            "$$hashKey": "object:492",
+            "selected": false,
+            "text": "22",
+            "value": "22"
+          },
+          {
+            "$$hashKey": "object:493",
+            "selected": false,
+            "text": "23",
+            "value": "23"
+          },
+          {
+            "$$hashKey": "object:494",
+            "selected": false,
+            "text": "24",
+            "value": "24"
+          },
+          {
+            "$$hashKey": "object:495",
+            "selected": false,
+            "text": "25",
+            "value": "25"
+          },
+          {
+            "$$hashKey": "object:496",
+            "selected": false,
+            "text": "26",
+            "value": "26"
+          },
+          {
+            "$$hashKey": "object:497",
+            "selected": false,
+            "text": "27",
+            "value": "27"
+          },
+          {
+            "$$hashKey": "object:498",
+            "selected": false,
+            "text": "28",
+            "value": "28"
+          },
+          {
+            "$$hashKey": "object:499",
+            "selected": false,
+            "text": "29",
+            "value": "29"
+          },
+          {
+            "$$hashKey": "object:500",
+            "selected": false,
+            "text": "3",
+            "value": "3"
+          },
+          {
+            "$$hashKey": "object:501",
+            "selected": false,
+            "text": "30",
+            "value": "30"
+          },
+          {
+            "$$hashKey": "object:502",
+            "selected": false,
+            "text": "31",
+            "value": "31"
+          },
+          {
+            "$$hashKey": "object:503",
+            "selected": false,
+            "text": "32",
+            "value": "32"
+          },
+          {
+            "$$hashKey": "object:504",
+            "selected": false,
+            "text": "33",
+            "value": "33"
+          },
+          {
+            "$$hashKey": "object:505",
+            "selected": false,
+            "text": "34",
+            "value": "34"
+          },
+          {
+            "$$hashKey": "object:506",
+            "selected": false,
+            "text": "35",
+            "value": "35"
+          },
+          {
+            "$$hashKey": "object:507",
+            "selected": false,
+            "text": "36",
+            "value": "36"
+          },
+          {
+            "$$hashKey": "object:508",
+            "selected": false,
+            "text": "37",
+            "value": "37"
+          },
+          {
+            "$$hashKey": "object:509",
+            "selected": false,
+            "text": "38",
+            "value": "38"
+          },
+          {
+            "$$hashKey": "object:510",
+            "selected": false,
+            "text": "39",
+            "value": "39"
+          },
+          {
+            "$$hashKey": "object:511",
+            "selected": false,
+            "text": "4",
+            "value": "4"
+          },
+          {
+            "$$hashKey": "object:512",
+            "selected": false,
+            "text": "40",
+            "value": "40"
+          },
+          {
+            "$$hashKey": "object:513",
+            "selected": false,
+            "text": "41",
+            "value": "41"
+          },
+          {
+            "$$hashKey": "object:514",
+            "selected": false,
+            "text": "42",
+            "value": "42"
+          },
+          {
+            "$$hashKey": "object:515",
+            "selected": false,
+            "text": "43",
+            "value": "43"
+          },
+          {
+            "$$hashKey": "object:516",
+            "selected": false,
+            "text": "44",
+            "value": "44"
+          },
+          {
+            "$$hashKey": "object:517",
+            "selected": false,
+            "text": "45",
+            "value": "45"
+          },
+          {
+            "$$hashKey": "object:518",
+            "selected": false,
+            "text": "46",
+            "value": "46"
+          },
+          {
+            "$$hashKey": "object:519",
+            "selected": false,
+            "text": "47",
+            "value": "47"
+          },
+          {
+            "$$hashKey": "object:520",
+            "selected": false,
+            "text": "48",
+            "value": "48"
+          },
+          {
+            "$$hashKey": "object:521",
+            "selected": false,
+            "text": "49",
+            "value": "49"
+          },
+          {
+            "$$hashKey": "object:522",
+            "selected": false,
+            "text": "5",
+            "value": "5"
+          },
+          {
+            "$$hashKey": "object:523",
+            "selected": false,
+            "text": "50",
+            "value": "50"
+          },
+          {
+            "$$hashKey": "object:524",
+            "selected": false,
+            "text": "51",
+            "value": "51"
+          },
+          {
+            "$$hashKey": "object:525",
+            "selected": false,
+            "text": "52",
+            "value": "52"
+          },
+          {
+            "$$hashKey": "object:526",
+            "selected": false,
+            "text": "53",
+            "value": "53"
+          },
+          {
+            "$$hashKey": "object:527",
+            "selected": false,
+            "text": "54",
+            "value": "54"
+          },
+          {
+            "$$hashKey": "object:528",
+            "selected": false,
+            "text": "55",
+            "value": "55"
+          },
+          {
+            "$$hashKey": "object:529",
+            "selected": false,
+            "text": "56",
+            "value": "56"
+          },
+          {
+            "$$hashKey": "object:530",
+            "selected": false,
+            "text": "57",
+            "value": "57"
+          },
+          {
+            "$$hashKey": "object:531",
+            "selected": false,
+            "text": "58",
+            "value": "58"
+          },
+          {
+            "$$hashKey": "object:532",
+            "selected": false,
+            "text": "59",
+            "value": "59"
+          },
+          {
+            "$$hashKey": "object:533",
+            "selected": false,
+            "text": "6",
+            "value": "6"
+          },
+          {
+            "$$hashKey": "object:534",
+            "selected": false,
+            "text": "60",
+            "value": "60"
+          },
+          {
+            "$$hashKey": "object:535",
+            "selected": false,
+            "text": "61",
+            "value": "61"
+          },
+          {
+            "$$hashKey": "object:536",
+            "selected": false,
+            "text": "62",
+            "value": "62"
+          },
+          {
+            "$$hashKey": "object:537",
+            "selected": false,
+            "text": "63",
+            "value": "63"
+          },
+          {
+            "$$hashKey": "object:538",
+            "selected": false,
+            "text": "64",
+            "value": "64"
+          },
+          {
+            "$$hashKey": "object:539",
+            "selected": false,
+            "text": "65",
+            "value": "65"
+          },
+          {
+            "$$hashKey": "object:540",
+            "selected": false,
+            "text": "66",
+            "value": "66"
+          },
+          {
+            "$$hashKey": "object:541",
+            "selected": false,
+            "text": "67",
+            "value": "67"
+          },
+          {
+            "$$hashKey": "object:542",
+            "selected": false,
+            "text": "68",
+            "value": "68"
+          },
+          {
+            "$$hashKey": "object:543",
+            "selected": false,
+            "text": "69",
+            "value": "69"
+          },
+          {
+            "$$hashKey": "object:544",
+            "selected": false,
+            "text": "7",
+            "value": "7"
+          },
+          {
+            "$$hashKey": "object:545",
+            "selected": false,
+            "text": "70",
+            "value": "70"
+          },
+          {
+            "$$hashKey": "object:546",
+            "selected": false,
+            "text": "71",
+            "value": "71"
+          },
+          {
+            "$$hashKey": "object:547",
+            "selected": false,
+            "text": "72",
+            "value": "72"
+          },
+          {
+            "$$hashKey": "object:548",
+            "selected": false,
+            "text": "73",
+            "value": "73"
+          },
+          {
+            "$$hashKey": "object:549",
+            "selected": false,
+            "text": "74",
+            "value": "74"
+          },
+          {
+            "$$hashKey": "object:550",
+            "selected": false,
+            "text": "75",
+            "value": "75"
+          },
+          {
+            "$$hashKey": "object:551",
+            "selected": false,
+            "text": "76",
+            "value": "76"
+          },
+          {
+            "$$hashKey": "object:552",
+            "selected": false,
+            "text": "77",
+            "value": "77"
+          },
+          {
+            "$$hashKey": "object:553",
+            "selected": false,
+            "text": "78",
+            "value": "78"
+          },
+          {
+            "$$hashKey": "object:554",
+            "selected": false,
+            "text": "79",
+            "value": "79"
+          },
+          {
+            "$$hashKey": "object:555",
+            "selected": false,
+            "text": "8",
+            "value": "8"
+          },
+          {
+            "$$hashKey": "object:556",
+            "selected": false,
+            "text": "9",
+            "value": "9"
+          },
+          {
+            "$$hashKey": "object:557",
+            "selected": false,
+            "text": "Agg Therm Mgn 1 system_board (7.1)",
+            "value": "Agg Therm Mgn 1 system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:558",
+            "selected": false,
+            "text": "Agg Therm Mgn 2 system_board (7.2)",
+            "value": "Agg Therm Mgn 2 system_board (7.2)"
+          },
+          {
+            "$$hashKey": "object:559",
+            "selected": false,
+            "text": "BB +12.0V system_board (7.1)",
+            "value": "BB +12.0V system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:560",
+            "selected": false,
+            "text": "BB +3.3V Vbat system_board (7.1)",
+            "value": "BB +3.3V Vbat system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:561",
+            "selected": false,
+            "text": "BB BMC Temp system_board (7.1)",
+            "value": "BB BMC Temp system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:562",
+            "selected": false,
+            "text": "BB Lft Rear Temp system_board (7.1)",
+            "value": "BB Lft Rear Temp system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:563",
+            "selected": false,
+            "text": "BB P1 VR Temp system_board (7.1)",
+            "value": "BB P1 VR Temp system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:564",
+            "selected": false,
+            "text": "BB P2 VR Temp system_board (7.2)",
+            "value": "BB P2 VR Temp system_board (7.2)"
+          },
+          {
+            "$$hashKey": "object:565",
+            "selected": false,
+            "text": "BB Rt Rear Temp system_board (7.1)",
+            "value": "BB Rt Rear Temp system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:566",
+            "selected": false,
+            "text": "DIMM Thrm Mrgn 1 memory_module (8.1)",
+            "value": "DIMM Thrm Mrgn 1 memory_module (8.1)"
+          },
+          {
+            "$$hashKey": "object:567",
+            "selected": false,
+            "text": "DIMM Thrm Mrgn 3 memory_module (8.3)",
+            "value": "DIMM Thrm Mrgn 3 memory_module (8.3)"
+          },
+          {
+            "$$hashKey": "object:568",
+            "selected": false,
+            "text": "DRAM",
+            "value": "DRAM"
+          },
+          {
+            "$$hashKey": "object:569",
+            "selected": false,
+            "text": "Exit Air Temp system_board (7.1)",
+            "value": "Exit Air Temp system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:570",
+            "selected": false,
+            "text": "Front Panel Temp front_panel_board (12.1)",
+            "value": "Front Panel Temp front_panel_board (12.1)"
+          },
+          {
+            "$$hashKey": "object:571",
+            "selected": false,
+            "text": "HSBP 1 Temp drive_backplane (15.1)",
+            "value": "HSBP 1 Temp drive_backplane (15.1)"
+          },
+          {
+            "$$hashKey": "object:572",
+            "selected": false,
+            "text": "L1-dcache-load-misses",
+            "value": "L1-dcache-load-misses"
+          },
+          {
+            "$$hashKey": "object:573",
+            "selected": false,
+            "text": "L1-dcache-load-misses-rate",
+            "value": "L1-dcache-load-misses-rate"
+          },
+          {
+            "$$hashKey": "object:574",
+            "selected": false,
+            "text": "L1-dcache-loads",
+            "value": "L1-dcache-loads"
+          },
+          {
+            "$$hashKey": "object:575",
+            "selected": false,
+            "text": "L1-dcache-loads-rate",
+            "value": "L1-dcache-loads-rate"
+          },
+          {
+            "$$hashKey": "object:576",
+            "selected": false,
+            "text": "L1-dcache-stores",
+            "value": "L1-dcache-stores"
+          },
+          {
+            "$$hashKey": "object:577",
+            "selected": false,
+            "text": "L1-icache-load-misses",
+            "value": "L1-icache-load-misses"
+          },
+          {
+            "$$hashKey": "object:578",
+            "selected": false,
+            "text": "L2_RQSTS.ALL_CODE_RD",
+            "value": "L2_RQSTS.ALL_CODE_RD"
+          },
+          {
+            "$$hashKey": "object:579",
+            "selected": false,
+            "text": "L2_RQSTS.CODE_RD_HIT",
+            "value": "L2_RQSTS.CODE_RD_HIT"
+          },
+          {
+            "$$hashKey": "object:580",
+            "selected": false,
+            "text": "L2_RQSTS.CODE_RD_HIT-rate",
+            "value": "L2_RQSTS.CODE_RD_HIT-rate"
+          },
+          {
+            "$$hashKey": "object:581",
+            "selected": false,
+            "text": "L2_RQSTS.CODE_RD_MISS",
+            "value": "L2_RQSTS.CODE_RD_MISS"
+          },
+          {
+            "$$hashKey": "object:582",
+            "selected": false,
+            "text": "L2_RQSTS.CODE_RD_MISS-rate",
+            "value": "L2_RQSTS.CODE_RD_MISS-rate"
+          },
+          {
+            "$$hashKey": "object:583",
+            "selected": false,
+            "text": "LAN NIC Temp system_board (7.1)",
+            "value": "LAN NIC Temp system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:584",
+            "selected": false,
+            "text": "LLC-load-misses",
+            "value": "LLC-load-misses"
+          },
+          {
+            "$$hashKey": "object:585",
+            "selected": false,
+            "text": "LLC-load-misses-rate",
+            "value": "LLC-load-misses-rate"
+          },
+          {
+            "$$hashKey": "object:586",
+            "selected": false,
+            "text": "LLC-loads",
+            "value": "LLC-loads"
+          },
+          {
+            "$$hashKey": "object:587",
+            "selected": false,
+            "text": "LLC-loads-rate",
+            "value": "LLC-loads-rate"
+          },
+          {
+            "$$hashKey": "object:588",
+            "selected": false,
+            "text": "LLC-store-misses",
+            "value": "LLC-store-misses"
+          },
+          {
+            "$$hashKey": "object:589",
+            "selected": false,
+            "text": "LLC-stores",
+            "value": "LLC-stores"
+          },
+          {
+            "$$hashKey": "object:590",
+            "selected": false,
+            "text": "P1 DTS Therm Mgn processor (3.1)",
+            "value": "P1 DTS Therm Mgn processor (3.1)"
+          },
+          {
+            "$$hashKey": "object:591",
+            "selected": false,
+            "text": "P2 DTS Therm Mgn processor (3.2)",
+            "value": "P2 DTS Therm Mgn processor (3.2)"
+          },
+          {
+            "$$hashKey": "object:592",
+            "selected": false,
+            "text": "PS1 Input Power power_supply (10.1)",
+            "value": "PS1 Input Power power_supply (10.1)"
+          },
+          {
+            "$$hashKey": "object:593",
+            "selected": false,
+            "text": "PS1 Temperature power_supply (10.1)",
+            "value": "PS1 Temperature power_supply (10.1)"
+          },
+          {
+            "$$hashKey": "object:594",
+            "selected": false,
+            "text": "Riser 1 Temp system_internal_expansion_board (16.1)",
+            "value": "Riser 1 Temp system_internal_expansion_board (16.1)"
+          },
+          {
+            "$$hashKey": "object:595",
+            "selected": false,
+            "text": "Riser 2 Temp system_internal_expansion_board (16.2)",
+            "value": "Riser 2 Temp system_internal_expansion_board (16.2)"
+          },
+          {
+            "$$hashKey": "object:596",
+            "selected": false,
+            "text": "Riser 3 Temp system_internal_expansion_board (16.3)",
+            "value": "Riser 3 Temp system_internal_expansion_board (16.3)"
+          },
+          {
+            "$$hashKey": "object:597",
+            "selected": false,
+            "text": "SSB Temp system_board (7.1)",
+            "value": "SSB Temp system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:598",
+            "selected": false,
+            "text": "System Airflow system_chassis (23.1)",
+            "value": "System Airflow system_chassis (23.1)"
+          },
+          {
+            "$$hashKey": "object:599",
+            "selected": false,
+            "text": "System Fan 1 fan_cooling (29.1)",
+            "value": "System Fan 1 fan_cooling (29.1)"
+          },
+          {
+            "$$hashKey": "object:600",
+            "selected": false,
+            "text": "System Fan 2 fan_cooling (29.2)",
+            "value": "System Fan 2 fan_cooling (29.2)"
+          },
+          {
+            "$$hashKey": "object:601",
+            "selected": false,
+            "text": "System Fan 3 fan_cooling (29.3)",
+            "value": "System Fan 3 fan_cooling (29.3)"
+          },
+          {
+            "$$hashKey": "object:602",
+            "selected": false,
+            "text": "System Fan 4 fan_cooling (29.4)",
+            "value": "System Fan 4 fan_cooling (29.4)"
+          },
+          {
+            "$$hashKey": "object:603",
+            "selected": false,
+            "text": "System Fan 5 fan_cooling (29.5)",
+            "value": "System Fan 5 fan_cooling (29.5)"
+          },
+          {
+            "$$hashKey": "object:604",
+            "selected": false,
+            "text": "System Fan 6 fan_cooling (29.6)",
+            "value": "System Fan 6 fan_cooling (29.6)"
+          },
+          {
+            "$$hashKey": "object:605",
+            "selected": false,
+            "text": "TSC",
+            "value": "TSC"
+          },
+          {
+            "$$hashKey": "object:606",
+            "selected": false,
+            "text": "average",
+            "value": "average"
+          },
+          {
+            "$$hashKey": "object:607",
+            "selected": false,
+            "text": "branch-load-misses",
+            "value": "branch-load-misses"
+          },
+          {
+            "$$hashKey": "object:608",
+            "selected": false,
+            "text": "branch-loads",
+            "value": "branch-loads"
+          },
+          {
+            "$$hashKey": "object:609",
+            "selected": false,
+            "text": "branch-misses",
+            "value": "branch-misses"
+          },
+          {
+            "$$hashKey": "object:610",
+            "selected": false,
+            "text": "branches",
+            "value": "branches"
+          },
+          {
+            "$$hashKey": "object:611",
+            "selected": false,
+            "text": "bus-cycles",
+            "value": "bus-cycles"
+          },
+          {
+            "$$hashKey": "object:612",
+            "selected": false,
+            "text": "busy",
+            "value": "busy"
+          },
+          {
+            "$$hashKey": "object:613",
+            "selected": false,
+            "text": "c0",
+            "value": "c0"
+          },
+          {
+            "$$hashKey": "object:614",
+            "selected": false,
+            "text": "c1",
+            "value": "c1"
+          },
+          {
+            "$$hashKey": "object:615",
+            "selected": false,
+            "text": "cache-misses",
+            "value": "cache-misses"
+          },
+          {
+            "$$hashKey": "object:616",
+            "selected": false,
+            "text": "cache-references",
+            "value": "cache-references"
+          },
+          {
+            "$$hashKey": "object:617",
+            "selected": false,
+            "text": "cpu-cycles",
+            "value": "cpu-cycles"
+          },
+          {
+            "$$hashKey": "object:618",
+            "selected": false,
+            "text": "dTLB-load-misses",
+            "value": "dTLB-load-misses"
+          },
+          {
+            "$$hashKey": "object:619",
+            "selected": false,
+            "text": "dTLB-loads",
+            "value": "dTLB-loads"
+          },
+          {
+            "$$hashKey": "object:620",
+            "selected": false,
+            "text": "dTLB-store-misses",
+            "value": "dTLB-store-misses"
+          },
+          {
+            "$$hashKey": "object:621",
+            "selected": false,
+            "text": "dTLB-stores",
+            "value": "dTLB-stores"
+          },
+          {
+            "$$hashKey": "object:622",
+            "selected": false,
+            "text": "iTLB-load-misses",
+            "value": "iTLB-load-misses"
+          },
+          {
+            "$$hashKey": "object:623",
+            "selected": false,
+            "text": "iTLB-loads",
+            "value": "iTLB-loads"
+          },
+          {
+            "$$hashKey": "object:624",
+            "selected": false,
+            "text": "idle",
+            "value": "idle"
+          },
+          {
+            "$$hashKey": "object:625",
+            "selected": false,
+            "text": "instructions",
+            "value": "instructions"
+          },
+          {
+            "$$hashKey": "object:626",
+            "selected": false,
+            "text": "instructions-rate",
+            "value": "instructions-rate"
+          },
+          {
+            "$$hashKey": "object:627",
+            "selected": false,
+            "text": "interrupt",
+            "value": "interrupt"
+          },
+          {
+            "$$hashKey": "object:628",
+            "selected": false,
+            "text": "llc",
+            "value": "llc"
+          },
+          {
+            "$$hashKey": "object:629",
+            "selected": false,
+            "text": "local",
+            "value": "local"
+          },
+          {
+            "$$hashKey": "object:630",
+            "selected": false,
+            "text": "nice",
+            "value": "nice"
+          },
+          {
+            "$$hashKey": "object:631",
+            "selected": false,
+            "text": "percent-MTT CPU1 processor (3.1)",
+            "value": "percent-MTT CPU1 processor (3.1)"
+          },
+          {
+            "$$hashKey": "object:632",
+            "selected": false,
+            "text": "percent-MTT CPU2 processor (3.2)",
+            "value": "percent-MTT CPU2 processor (3.2)"
+          },
+          {
+            "$$hashKey": "object:633",
+            "selected": false,
+            "text": "percent-P1 Therm Ctrl % processor (3.1)",
+            "value": "percent-P1 Therm Ctrl % processor (3.1)"
+          },
+          {
+            "$$hashKey": "object:634",
+            "selected": false,
+            "text": "percent-P2 Therm Ctrl % processor (3.2)",
+            "value": "percent-P2 Therm Ctrl % processor (3.2)"
+          },
+          {
+            "$$hashKey": "object:635",
+            "selected": false,
+            "text": "percent-PS1 Curr Out % power_supply (10.1)",
+            "value": "percent-PS1 Curr Out % power_supply (10.1)"
+          },
+          {
+            "$$hashKey": "object:636",
+            "selected": false,
+            "text": "pkg",
+            "value": "pkg"
+          },
+          {
+            "$$hashKey": "object:637",
+            "selected": false,
+            "text": "remote",
+            "value": "remote"
+          },
+          {
+            "$$hashKey": "object:638",
+            "selected": false,
+            "text": "softirq",
+            "value": "softirq"
+          },
+          {
+            "$$hashKey": "object:639",
+            "selected": false,
+            "text": "steal",
+            "value": "steal"
+          },
+          {
+            "$$hashKey": "object:640",
+            "selected": false,
+            "text": "system",
+            "value": "system"
+          },
+          {
+            "$$hashKey": "object:641",
+            "selected": false,
+            "text": "user",
+            "value": "user"
+          },
+          {
+            "$$hashKey": "object:642",
+            "selected": false,
+            "text": "wait",
+            "value": "wait"
+          }
+        ],
+        "query": "show tag values with key = \"type_instance\"",
+        "refresh": 0,
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "$$hashKey": "object:814",
+          "selected": true,
+          "text": "12",
+          "value": "12"
+        },
+        "datasource": "vCMTS-collectd-stats",
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "CPU_2",
+        "options": [
+          {
+            "$$hashKey": "object:810",
+            "selected": false,
+            "text": "0",
+            "value": "0"
+          },
+          {
+            "$$hashKey": "object:811",
+            "selected": false,
+            "text": "1",
+            "value": "1"
+          },
+          {
+            "$$hashKey": "object:812",
+            "selected": false,
+            "text": "10",
+            "value": "10"
+          },
+          {
+            "$$hashKey": "object:813",
+            "selected": false,
+            "text": "11",
+            "value": "11"
+          },
+          {
+            "$$hashKey": "object:814",
+            "selected": true,
+            "text": "12",
+            "value": "12"
+          },
+          {
+            "$$hashKey": "object:815",
+            "selected": false,
+            "text": "13",
+            "value": "13"
+          },
+          {
+            "$$hashKey": "object:816",
+            "selected": false,
+            "text": "14",
+            "value": "14"
+          },
+          {
+            "$$hashKey": "object:817",
+            "selected": false,
+            "text": "15",
+            "value": "15"
+          },
+          {
+            "$$hashKey": "object:818",
+            "selected": false,
+            "text": "16",
+            "value": "16"
+          },
+          {
+            "$$hashKey": "object:819",
+            "selected": false,
+            "text": "17",
+            "value": "17"
+          },
+          {
+            "$$hashKey": "object:820",
+            "selected": false,
+            "text": "18",
+            "value": "18"
+          },
+          {
+            "$$hashKey": "object:821",
+            "selected": false,
+            "text": "19",
+            "value": "19"
+          },
+          {
+            "$$hashKey": "object:822",
+            "selected": false,
+            "text": "2",
+            "value": "2"
+          },
+          {
+            "$$hashKey": "object:823",
+            "selected": false,
+            "text": "20",
+            "value": "20"
+          },
+          {
+            "$$hashKey": "object:824",
+            "selected": false,
+            "text": "21",
+            "value": "21"
+          },
+          {
+            "$$hashKey": "object:825",
+            "selected": false,
+            "text": "22",
+            "value": "22"
+          },
+          {
+            "$$hashKey": "object:826",
+            "selected": false,
+            "text": "23",
+            "value": "23"
+          },
+          {
+            "$$hashKey": "object:827",
+            "selected": false,
+            "text": "24",
+            "value": "24"
+          },
+          {
+            "$$hashKey": "object:828",
+            "selected": false,
+            "text": "25",
+            "value": "25"
+          },
+          {
+            "$$hashKey": "object:829",
+            "selected": false,
+            "text": "26",
+            "value": "26"
+          },
+          {
+            "$$hashKey": "object:830",
+            "selected": false,
+            "text": "27",
+            "value": "27"
+          },
+          {
+            "$$hashKey": "object:831",
+            "selected": false,
+            "text": "28",
+            "value": "28"
+          },
+          {
+            "$$hashKey": "object:832",
+            "selected": false,
+            "text": "29",
+            "value": "29"
+          },
+          {
+            "$$hashKey": "object:833",
+            "selected": false,
+            "text": "3",
+            "value": "3"
+          },
+          {
+            "$$hashKey": "object:834",
+            "selected": false,
+            "text": "30",
+            "value": "30"
+          },
+          {
+            "$$hashKey": "object:835",
+            "selected": false,
+            "text": "31",
+            "value": "31"
+          },
+          {
+            "$$hashKey": "object:836",
+            "selected": false,
+            "text": "32",
+            "value": "32"
+          },
+          {
+            "$$hashKey": "object:837",
+            "selected": false,
+            "text": "33",
+            "value": "33"
+          },
+          {
+            "$$hashKey": "object:838",
+            "selected": false,
+            "text": "34",
+            "value": "34"
+          },
+          {
+            "$$hashKey": "object:839",
+            "selected": false,
+            "text": "35",
+            "value": "35"
+          },
+          {
+            "$$hashKey": "object:840",
+            "selected": false,
+            "text": "36",
+            "value": "36"
+          },
+          {
+            "$$hashKey": "object:841",
+            "selected": false,
+            "text": "37",
+            "value": "37"
+          },
+          {
+            "$$hashKey": "object:842",
+            "selected": false,
+            "text": "38",
+            "value": "38"
+          },
+          {
+            "$$hashKey": "object:843",
+            "selected": false,
+            "text": "39",
+            "value": "39"
+          },
+          {
+            "$$hashKey": "object:844",
+            "selected": false,
+            "text": "4",
+            "value": "4"
+          },
+          {
+            "$$hashKey": "object:845",
+            "selected": false,
+            "text": "40",
+            "value": "40"
+          },
+          {
+            "$$hashKey": "object:846",
+            "selected": false,
+            "text": "41",
+            "value": "41"
+          },
+          {
+            "$$hashKey": "object:847",
+            "selected": false,
+            "text": "42",
+            "value": "42"
+          },
+          {
+            "$$hashKey": "object:848",
+            "selected": false,
+            "text": "43",
+            "value": "43"
+          },
+          {
+            "$$hashKey": "object:849",
+            "selected": false,
+            "text": "44",
+            "value": "44"
+          },
+          {
+            "$$hashKey": "object:850",
+            "selected": false,
+            "text": "45",
+            "value": "45"
+          },
+          {
+            "$$hashKey": "object:851",
+            "selected": false,
+            "text": "46",
+            "value": "46"
+          },
+          {
+            "$$hashKey": "object:852",
+            "selected": false,
+            "text": "47",
+            "value": "47"
+          },
+          {
+            "$$hashKey": "object:853",
+            "selected": false,
+            "text": "48",
+            "value": "48"
+          },
+          {
+            "$$hashKey": "object:854",
+            "selected": false,
+            "text": "49",
+            "value": "49"
+          },
+          {
+            "$$hashKey": "object:855",
+            "selected": false,
+            "text": "5",
+            "value": "5"
+          },
+          {
+            "$$hashKey": "object:856",
+            "selected": false,
+            "text": "50",
+            "value": "50"
+          },
+          {
+            "$$hashKey": "object:857",
+            "selected": false,
+            "text": "51",
+            "value": "51"
+          },
+          {
+            "$$hashKey": "object:858",
+            "selected": false,
+            "text": "52",
+            "value": "52"
+          },
+          {
+            "$$hashKey": "object:859",
+            "selected": false,
+            "text": "53",
+            "value": "53"
+          },
+          {
+            "$$hashKey": "object:860",
+            "selected": false,
+            "text": "54",
+            "value": "54"
+          },
+          {
+            "$$hashKey": "object:861",
+            "selected": false,
+            "text": "55",
+            "value": "55"
+          },
+          {
+            "$$hashKey": "object:862",
+            "selected": false,
+            "text": "56",
+            "value": "56"
+          },
+          {
+            "$$hashKey": "object:863",
+            "selected": false,
+            "text": "57",
+            "value": "57"
+          },
+          {
+            "$$hashKey": "object:864",
+            "selected": false,
+            "text": "58",
+            "value": "58"
+          },
+          {
+            "$$hashKey": "object:865",
+            "selected": false,
+            "text": "59",
+            "value": "59"
+          },
+          {
+            "$$hashKey": "object:866",
+            "selected": false,
+            "text": "6",
+            "value": "6"
+          },
+          {
+            "$$hashKey": "object:867",
+            "selected": false,
+            "text": "60",
+            "value": "60"
+          },
+          {
+            "$$hashKey": "object:868",
+            "selected": false,
+            "text": "61",
+            "value": "61"
+          },
+          {
+            "$$hashKey": "object:869",
+            "selected": false,
+            "text": "62",
+            "value": "62"
+          },
+          {
+            "$$hashKey": "object:870",
+            "selected": false,
+            "text": "63",
+            "value": "63"
+          },
+          {
+            "$$hashKey": "object:871",
+            "selected": false,
+            "text": "64",
+            "value": "64"
+          },
+          {
+            "$$hashKey": "object:872",
+            "selected": false,
+            "text": "65",
+            "value": "65"
+          },
+          {
+            "$$hashKey": "object:873",
+            "selected": false,
+            "text": "66",
+            "value": "66"
+          },
+          {
+            "$$hashKey": "object:874",
+            "selected": false,
+            "text": "67",
+            "value": "67"
+          },
+          {
+            "$$hashKey": "object:875",
+            "selected": false,
+            "text": "68",
+            "value": "68"
+          },
+          {
+            "$$hashKey": "object:876",
+            "selected": false,
+            "text": "69",
+            "value": "69"
+          },
+          {
+            "$$hashKey": "object:877",
+            "selected": false,
+            "text": "7",
+            "value": "7"
+          },
+          {
+            "$$hashKey": "object:878",
+            "selected": false,
+            "text": "70",
+            "value": "70"
+          },
+          {
+            "$$hashKey": "object:879",
+            "selected": false,
+            "text": "71",
+            "value": "71"
+          },
+          {
+            "$$hashKey": "object:880",
+            "selected": false,
+            "text": "72",
+            "value": "72"
+          },
+          {
+            "$$hashKey": "object:881",
+            "selected": false,
+            "text": "73",
+            "value": "73"
+          },
+          {
+            "$$hashKey": "object:882",
+            "selected": false,
+            "text": "74",
+            "value": "74"
+          },
+          {
+            "$$hashKey": "object:883",
+            "selected": false,
+            "text": "75",
+            "value": "75"
+          },
+          {
+            "$$hashKey": "object:884",
+            "selected": false,
+            "text": "76",
+            "value": "76"
+          },
+          {
+            "$$hashKey": "object:885",
+            "selected": false,
+            "text": "77",
+            "value": "77"
+          },
+          {
+            "$$hashKey": "object:886",
+            "selected": false,
+            "text": "78",
+            "value": "78"
+          },
+          {
+            "$$hashKey": "object:887",
+            "selected": false,
+            "text": "79",
+            "value": "79"
+          },
+          {
+            "$$hashKey": "object:888",
+            "selected": false,
+            "text": "8",
+            "value": "8"
+          },
+          {
+            "$$hashKey": "object:889",
+            "selected": false,
+            "text": "9",
+            "value": "9"
+          },
+          {
+            "$$hashKey": "object:890",
+            "selected": false,
+            "text": "Agg Therm Mgn 1 system_board (7.1)",
+            "value": "Agg Therm Mgn 1 system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:891",
+            "selected": false,
+            "text": "Agg Therm Mgn 2 system_board (7.2)",
+            "value": "Agg Therm Mgn 2 system_board (7.2)"
+          },
+          {
+            "$$hashKey": "object:892",
+            "selected": false,
+            "text": "BB +12.0V system_board (7.1)",
+            "value": "BB +12.0V system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:893",
+            "selected": false,
+            "text": "BB +3.3V Vbat system_board (7.1)",
+            "value": "BB +3.3V Vbat system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:894",
+            "selected": false,
+            "text": "BB BMC Temp system_board (7.1)",
+            "value": "BB BMC Temp system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:895",
+            "selected": false,
+            "text": "BB Lft Rear Temp system_board (7.1)",
+            "value": "BB Lft Rear Temp system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:896",
+            "selected": false,
+            "text": "BB P1 VR Temp system_board (7.1)",
+            "value": "BB P1 VR Temp system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:897",
+            "selected": false,
+            "text": "BB P2 VR Temp system_board (7.2)",
+            "value": "BB P2 VR Temp system_board (7.2)"
+          },
+          {
+            "$$hashKey": "object:898",
+            "selected": false,
+            "text": "BB Rt Rear Temp system_board (7.1)",
+            "value": "BB Rt Rear Temp system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:899",
+            "selected": false,
+            "text": "DIMM Thrm Mrgn 1 memory_module (8.1)",
+            "value": "DIMM Thrm Mrgn 1 memory_module (8.1)"
+          },
+          {
+            "$$hashKey": "object:900",
+            "selected": false,
+            "text": "DIMM Thrm Mrgn 3 memory_module (8.3)",
+            "value": "DIMM Thrm Mrgn 3 memory_module (8.3)"
+          },
+          {
+            "$$hashKey": "object:901",
+            "selected": false,
+            "text": "DRAM",
+            "value": "DRAM"
+          },
+          {
+            "$$hashKey": "object:902",
+            "selected": false,
+            "text": "Exit Air Temp system_board (7.1)",
+            "value": "Exit Air Temp system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:903",
+            "selected": false,
+            "text": "Front Panel Temp front_panel_board (12.1)",
+            "value": "Front Panel Temp front_panel_board (12.1)"
+          },
+          {
+            "$$hashKey": "object:904",
+            "selected": false,
+            "text": "HSBP 1 Temp drive_backplane (15.1)",
+            "value": "HSBP 1 Temp drive_backplane (15.1)"
+          },
+          {
+            "$$hashKey": "object:905",
+            "selected": false,
+            "text": "L1-dcache-load-misses",
+            "value": "L1-dcache-load-misses"
+          },
+          {
+            "$$hashKey": "object:906",
+            "selected": false,
+            "text": "L1-dcache-load-misses-rate",
+            "value": "L1-dcache-load-misses-rate"
+          },
+          {
+            "$$hashKey": "object:907",
+            "selected": false,
+            "text": "L1-dcache-loads",
+            "value": "L1-dcache-loads"
+          },
+          {
+            "$$hashKey": "object:908",
+            "selected": false,
+            "text": "L1-dcache-loads-rate",
+            "value": "L1-dcache-loads-rate"
+          },
+          {
+            "$$hashKey": "object:909",
+            "selected": false,
+            "text": "L1-dcache-stores",
+            "value": "L1-dcache-stores"
+          },
+          {
+            "$$hashKey": "object:910",
+            "selected": false,
+            "text": "L1-icache-load-misses",
+            "value": "L1-icache-load-misses"
+          },
+          {
+            "$$hashKey": "object:911",
+            "selected": false,
+            "text": "L2_RQSTS.ALL_CODE_RD",
+            "value": "L2_RQSTS.ALL_CODE_RD"
+          },
+          {
+            "$$hashKey": "object:912",
+            "selected": false,
+            "text": "L2_RQSTS.CODE_RD_HIT",
+            "value": "L2_RQSTS.CODE_RD_HIT"
+          },
+          {
+            "$$hashKey": "object:913",
+            "selected": false,
+            "text": "L2_RQSTS.CODE_RD_HIT-rate",
+            "value": "L2_RQSTS.CODE_RD_HIT-rate"
+          },
+          {
+            "$$hashKey": "object:914",
+            "selected": false,
+            "text": "L2_RQSTS.CODE_RD_MISS",
+            "value": "L2_RQSTS.CODE_RD_MISS"
+          },
+          {
+            "$$hashKey": "object:915",
+            "selected": false,
+            "text": "L2_RQSTS.CODE_RD_MISS-rate",
+            "value": "L2_RQSTS.CODE_RD_MISS-rate"
+          },
+          {
+            "$$hashKey": "object:916",
+            "selected": false,
+            "text": "LAN NIC Temp system_board (7.1)",
+            "value": "LAN NIC Temp system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:917",
+            "selected": false,
+            "text": "LLC-load-misses",
+            "value": "LLC-load-misses"
+          },
+          {
+            "$$hashKey": "object:918",
+            "selected": false,
+            "text": "LLC-load-misses-rate",
+            "value": "LLC-load-misses-rate"
+          },
+          {
+            "$$hashKey": "object:919",
+            "selected": false,
+            "text": "LLC-loads",
+            "value": "LLC-loads"
+          },
+          {
+            "$$hashKey": "object:920",
+            "selected": false,
+            "text": "LLC-loads-rate",
+            "value": "LLC-loads-rate"
+          },
+          {
+            "$$hashKey": "object:921",
+            "selected": false,
+            "text": "LLC-store-misses",
+            "value": "LLC-store-misses"
+          },
+          {
+            "$$hashKey": "object:922",
+            "selected": false,
+            "text": "LLC-stores",
+            "value": "LLC-stores"
+          },
+          {
+            "$$hashKey": "object:923",
+            "selected": false,
+            "text": "P1 DTS Therm Mgn processor (3.1)",
+            "value": "P1 DTS Therm Mgn processor (3.1)"
+          },
+          {
+            "$$hashKey": "object:924",
+            "selected": false,
+            "text": "P2 DTS Therm Mgn processor (3.2)",
+            "value": "P2 DTS Therm Mgn processor (3.2)"
+          },
+          {
+            "$$hashKey": "object:925",
+            "selected": false,
+            "text": "PS1 Input Power power_supply (10.1)",
+            "value": "PS1 Input Power power_supply (10.1)"
+          },
+          {
+            "$$hashKey": "object:926",
+            "selected": false,
+            "text": "PS1 Temperature power_supply (10.1)",
+            "value": "PS1 Temperature power_supply (10.1)"
+          },
+          {
+            "$$hashKey": "object:927",
+            "selected": false,
+            "text": "Riser 1 Temp system_internal_expansion_board (16.1)",
+            "value": "Riser 1 Temp system_internal_expansion_board (16.1)"
+          },
+          {
+            "$$hashKey": "object:928",
+            "selected": false,
+            "text": "Riser 2 Temp system_internal_expansion_board (16.2)",
+            "value": "Riser 2 Temp system_internal_expansion_board (16.2)"
+          },
+          {
+            "$$hashKey": "object:929",
+            "selected": false,
+            "text": "Riser 3 Temp system_internal_expansion_board (16.3)",
+            "value": "Riser 3 Temp system_internal_expansion_board (16.3)"
+          },
+          {
+            "$$hashKey": "object:930",
+            "selected": false,
+            "text": "SSB Temp system_board (7.1)",
+            "value": "SSB Temp system_board (7.1)"
+          },
+          {
+            "$$hashKey": "object:931",
+            "selected": false,
+            "text": "System Airflow system_chassis (23.1)",
+            "value": "System Airflow system_chassis (23.1)"
+          },
+          {
+            "$$hashKey": "object:932",
+            "selected": false,
+            "text": "System Fan 1 fan_cooling (29.1)",
+            "value": "System Fan 1 fan_cooling (29.1)"
+          },
+          {
+            "$$hashKey": "object:933",
+            "selected": false,
+            "text": "System Fan 2 fan_cooling (29.2)",
+            "value": "System Fan 2 fan_cooling (29.2)"
+          },
+          {
+            "$$hashKey": "object:934",
+            "selected": false,
+            "text": "System Fan 3 fan_cooling (29.3)",
+            "value": "System Fan 3 fan_cooling (29.3)"
+          },
+          {
+            "$$hashKey": "object:935",
+            "selected": false,
+            "text": "System Fan 4 fan_cooling (29.4)",
+            "value": "System Fan 4 fan_cooling (29.4)"
+          },
+          {
+            "$$hashKey": "object:936",
+            "selected": false,
+            "text": "System Fan 5 fan_cooling (29.5)",
+            "value": "System Fan 5 fan_cooling (29.5)"
+          },
+          {
+            "$$hashKey": "object:937",
+            "selected": false,
+            "text": "System Fan 6 fan_cooling (29.6)",
+            "value": "System Fan 6 fan_cooling (29.6)"
+          },
+          {
+            "$$hashKey": "object:938",
+            "selected": false,
+            "text": "TSC",
+            "value": "TSC"
+          },
+          {
+            "$$hashKey": "object:939",
+            "selected": false,
+            "text": "average",
+            "value": "average"
+          },
+          {
+            "$$hashKey": "object:940",
+            "selected": false,
+            "text": "branch-load-misses",
+            "value": "branch-load-misses"
+          },
+          {
+            "$$hashKey": "object:941",
+            "selected": false,
+            "text": "branch-loads",
+            "value": "branch-loads"
+          },
+          {
+            "$$hashKey": "object:942",
+            "selected": false,
+            "text": "branch-misses",
+            "value": "branch-misses"
+          },
+          {
+            "$$hashKey": "object:943",
+            "selected": false,
+            "text": "branches",
+            "value": "branches"
+          },
+          {
+            "$$hashKey": "object:944",
+            "selected": false,
+            "text": "bus-cycles",
+            "value": "bus-cycles"
+          },
+          {
+            "$$hashKey": "object:945",
+            "selected": false,
+            "text": "busy",
+            "value": "busy"
+          },
+          {
+            "$$hashKey": "object:946",
+            "selected": false,
+            "text": "c0",
+            "value": "c0"
+          },
+          {
+            "$$hashKey": "object:947",
+            "selected": false,
+            "text": "c1",
+            "value": "c1"
+          },
+          {
+            "$$hashKey": "object:948",
+            "selected": false,
+            "text": "cache-misses",
+            "value": "cache-misses"
+          },
+          {
+            "$$hashKey": "object:949",
+            "selected": false,
+            "text": "cache-references",
+            "value": "cache-references"
+          },
+          {
+            "$$hashKey": "object:950",
+            "selected": false,
+            "text": "cpu-cycles",
+            "value": "cpu-cycles"
+          },
+          {
+            "$$hashKey": "object:951",
+            "selected": false,
+            "text": "dTLB-load-misses",
+            "value": "dTLB-load-misses"
+          },
+          {
+            "$$hashKey": "object:952",
+            "selected": false,
+            "text": "dTLB-loads",
+            "value": "dTLB-loads"
+          },
+          {
+            "$$hashKey": "object:953",
+            "selected": false,
+            "text": "dTLB-store-misses",
+            "value": "dTLB-store-misses"
+          },
+          {
+            "$$hashKey": "object:954",
+            "selected": false,
+            "text": "dTLB-stores",
+            "value": "dTLB-stores"
+          },
+          {
+            "$$hashKey": "object:955",
+            "selected": false,
+            "text": "iTLB-load-misses",
+            "value": "iTLB-load-misses"
+          },
+          {
+            "$$hashKey": "object:956",
+            "selected": false,
+            "text": "iTLB-loads",
+            "value": "iTLB-loads"
+          },
+          {
+            "$$hashKey": "object:957",
+            "selected": false,
+            "text": "idle",
+            "value": "idle"
+          },
+          {
+            "$$hashKey": "object:958",
+            "selected": false,
+            "text": "instructions",
+            "value": "instructions"
+          },
+          {
+            "$$hashKey": "object:959",
+            "selected": false,
+            "text": "instructions-rate",
+            "value": "instructions-rate"
+          },
+          {
+            "$$hashKey": "object:960",
+            "selected": false,
+            "text": "interrupt",
+            "value": "interrupt"
+          },
+          {
+            "$$hashKey": "object:961",
+            "selected": false,
+            "text": "llc",
+            "value": "llc"
+          },
+          {
+            "$$hashKey": "object:962",
+            "selected": false,
+            "text": "local",
+            "value": "local"
+          },
+          {
+            "$$hashKey": "object:963",
+            "selected": false,
+            "text": "nice",
+            "value": "nice"
+          },
+          {
+            "$$hashKey": "object:964",
+            "selected": false,
+            "text": "percent-MTT CPU1 processor (3.1)",
+            "value": "percent-MTT CPU1 processor (3.1)"
+          },
+          {
+            "$$hashKey": "object:965",
+            "selected": false,
+            "text": "percent-MTT CPU2 processor (3.2)",
+            "value": "percent-MTT CPU2 processor (3.2)"
+          },
+          {
+            "$$hashKey": "object:966",
+            "selected": false,
+            "text": "percent-P1 Therm Ctrl % processor (3.1)",
+            "value": "percent-P1 Therm Ctrl % processor (3.1)"
+          },
+          {
+            "$$hashKey": "object:967",
+            "selected": false,
+            "text": "percent-P2 Therm Ctrl % processor (3.2)",
+            "value": "percent-P2 Therm Ctrl % processor (3.2)"
+          },
+          {
+            "$$hashKey": "object:968",
+            "selected": false,
+            "text": "percent-PS1 Curr Out % power_supply (10.1)",
+            "value": "percent-PS1 Curr Out % power_supply (10.1)"
+          },
+          {
+            "$$hashKey": "object:969",
+            "selected": false,
+            "text": "pkg",
+            "value": "pkg"
+          },
+          {
+            "$$hashKey": "object:970",
+            "selected": false,
+            "text": "remote",
+            "value": "remote"
+          },
+          {
+            "$$hashKey": "object:971",
+            "selected": false,
+            "text": "softirq",
+            "value": "softirq"
+          },
+          {
+            "$$hashKey": "object:972",
+            "selected": false,
+            "text": "steal",
+            "value": "steal"
+          },
+          {
+            "$$hashKey": "object:973",
+            "selected": false,
+            "text": "system",
+            "value": "system"
+          },
+          {
+            "$$hashKey": "object:974",
+            "selected": false,
+            "text": "user",
+            "value": "user"
+          },
+          {
+            "$$hashKey": "object:975",
+            "selected": false,
+            "text": "wait",
+            "value": "wait"
+          }
+        ],
+        "query": "show tag values with key = \"type_instance\"",
+        "refresh": 0,
+        "regex": null,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "2s",
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "Power Consumption",
+  "uid": "Gbnerihmk",
+  "version": 1
+}
