@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2017 Intel Corporation
+# Copyright (c) 2016-2018 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ import logging
 import six
 
 from yardstick.common import utils
+from yardstick.common import exceptions
 from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import SampleVNFTrafficGen
 from yardstick.network_services.vnf_generic.vnf.sample_vnf import ClientResourceHelper
@@ -31,6 +32,8 @@ WAIT_PROTOCOLS_STARTED = 360
 
 
 class IxiaBasicScenario(object):
+    """Ixia Basic scenario for flow from port to port"""
+
     def __init__(self, client, context_cfg, ixia_cfg):
 
         self.client = client
@@ -43,6 +46,12 @@ class IxiaBasicScenario(object):
     def apply_config(self):
         pass
 
+    def run_protocols(self):
+        pass
+
+    def stop_protocols(self):
+        pass
+
     def create_traffic_model(self, traffic_profile=None):
         # pylint: disable=unused-argument
         vports = self.client.get_vports()
@@ -51,11 +60,81 @@ class IxiaBasicScenario(object):
         self.client.create_traffic_model(self._uplink_vports,
                                          self._downlink_vports)
 
-    def run_protocols(self):
-        pass
 
-    def stop_protocols(self):
-        pass
+class IxiaL3Scenario(IxiaBasicScenario):
+    """Ixia scenario for L3 flow between static ip's"""
+
+    def _add_static_ips(self):
+        vports = self.client.get_vports()
+        uplink_intf_vport = [(self.client.get_static_interface(vport), vport)
+                             for vport in vports[::2]]
+        downlink_intf_vport = [(self.client.get_static_interface(vport), vport)
+                               for vport in vports[1::2]]
+
+        for index in range(len(uplink_intf_vport)):
+            intf, vport = uplink_intf_vport[index]
+            try:
+                iprange = self.ixia_cfg['flow'].get('src_ip')[index]
+                start_ip = utils.get_ip_range_start(iprange)
+                count = utils.get_ip_range_count(iprange)
+                self.client.add_static_ipv4(intf, vport, start_ip, count)
+            except IndexError:
+                raise exceptions.IncorrectFlowOption(
+                    option="src_ip", link="uplink_{}".format(index))
+
+            intf, vport = downlink_intf_vport[index]
+            try:
+                iprange = self.ixia_cfg['flow'].get('dst_ip')[index]
+                start_ip = utils.get_ip_range_start(iprange)
+                count = utils.get_ip_range_count(iprange)
+                self.client.add_static_ipv4(intf, vport, start_ip, count)
+            except IndexError:
+                raise exceptions.IncorrectFlowOption(
+                    option="dst_ip", link="downlink_{}".format(index))
+
+    def _add_interfaces(self):
+        vports = self.client.get_vports()
+        uplink_vports = (vport for vport in vports[::2])
+        downlink_vports = (vport for vport in vports[1::2])
+
+        ix_node = next(node for _, node in self.context_cfg['nodes'].items()
+                       if node['role'] == 'IxNet')
+
+        for intf in ix_node['interfaces'].values():
+            ip = intf.get('local_ip')
+            mac = intf.get('local_mac')
+            gateway = None
+            try:
+                gateway = next(route.get('gateway')
+                               for route in ix_node.get('routing_table')
+                               if route.get('if') == intf.get('ifname'))
+            except StopIteration:
+                LOG.debug("Gateway not provided")
+
+            if 'uplink' in intf.get('vld_id'):
+                self.client.add_interface(next(uplink_vports),
+                                          ip, mac, gateway)
+            else:
+                self.client.add_interface(next(downlink_vports),
+                                          ip, mac, gateway)
+
+    def apply_config(self):
+        self._add_interfaces()
+        self._add_static_ips()
+
+    def create_traffic_model(self, traffic_profile=None):
+        # pylint: disable=unused-argument
+        vports = self.client.get_vports()
+        self._uplink_vports = vports[::2]
+        self._downlink_vports = vports[1::2]
+
+        uplink_endpoints = [port + '/protocols/static'
+                            for port in self._uplink_vports]
+        downlink_endpoints = [port + '/protocols/static'
+                              for port in self._downlink_vports]
+
+        self.client.create_ipv4_traffic_model(uplink_endpoints,
+                                              downlink_endpoints)
 
 
 class IxiaPppoeClientScenario(object):
@@ -370,6 +449,7 @@ class IxiaResourceHelper(ClientResourceHelper):
 
         self._ixia_scenarios = {
             "IxiaBasic": IxiaBasicScenario,
+            "IxiaL3": IxiaL3Scenario,
             "IxiaPppoeClient": IxiaPppoeClientScenario,
         }
 
