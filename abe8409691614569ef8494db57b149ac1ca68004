@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_4fb08c8b",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_latency_ipv4_ixia.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-10T13:06:46Z",
+      "side": 1,
+      "message": "can we template it too? It will be useful for the CI to provide correct pod file.",
+      "revId": "abe8409691614569ef8494db57b149ac1ca68004",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_efbb5870",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency.yaml",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-10T13:06:46Z",
+      "side": 1,
+      "message": "probably it should be 100% for IXIA traffic profile.",
+      "range": {
+        "startLine": 22,
+        "startChar": 33,
+        "endLine": 22,
+        "endChar": 37
+      },
+      "revId": "abe8409691614569ef8494db57b149ac1ca68004",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
