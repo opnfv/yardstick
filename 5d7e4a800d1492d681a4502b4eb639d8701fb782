@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_4af87a7c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-11T10:09:00Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 9,
+        "startChar": 18,
+        "endLine": 9,
+        "endChar": 19
+      },
+      "revId": "5d7e4a800d1492d681a4502b4eb639d8701fb782",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2af53e83",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_mpls_tagging-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-11T10:09:00Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be 2018? Same in all files.",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "5d7e4a800d1492d681a4502b4eb639d8701fb782",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8af29298",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_mpls_tagging-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-11T10:09:00Z",
+      "side": 1,
+      "message": "extra line",
+      "revId": "5d7e4a800d1492d681a4502b4eb639d8701fb782",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6aef36b1",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_mpls_tagging-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-11T10:09:00Z",
+      "side": 1,
+      "message": "extra line",
+      "revId": "5d7e4a800d1492d681a4502b4eb639d8701fb782",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
