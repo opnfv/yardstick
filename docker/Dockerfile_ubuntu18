@@ -9,7 +9,7 @@
 
 FROM ubuntu:18.04
 
-LABEL image=opnfv/yardstick
+LABEL image=opnfv/yardstick-ubuntu-18.04
 
 ARG BRANCH=master
 
