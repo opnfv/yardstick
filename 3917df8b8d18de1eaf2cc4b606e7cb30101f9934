@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_ecdb6119",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:58:54Z",
+      "side": 1,
+      "message": "Looks okay to me except for the chosen names.\n\nIt looks like a typo when trafficgen_1 and tg__0 are used.\nIs there any issue with using the name trafficgen_0 instead?\n\nOR \n\nincrement them all to 1.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 14
+      },
+      "revId": "3917df8b8d18de1eaf2cc4b606e7cb30101f9934",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
