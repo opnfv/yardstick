@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_294b8b88",
+        "filename": "dashboard/Prox_BM_L3FWD-2Port-1545924376615.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 11704,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-15T12:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_c97497ff",
+      "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_2961cb39",
         "filename": "dashboard/Prox_BM_L3FWD-2Port-1545924376615.json",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2019-01-15T08:39:21Z",
       "side": 1,
       "message": "cpu.8.percent (not 80)",
+      "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a95e7b43",
+        "filename": "dashboard/Prox_BM_L3FWD-2Port-1545924376615.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 11881,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-15T12:09:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_2961cb39",
       "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_895bbf53",
+        "filename": "dashboard/Prox_BM_L3FWD-2Port-1545924376615.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 11919,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-15T12:09:06Z",
+      "side": 1,
+      "message": "No.\n\nDisplaying \n0 -master\n1-4 gen xe0 \n5-8 gen xe1\n9 idle\n28 latency\n29 latency",
+      "parentUuid": "1a622d24_8951ff64",
+      "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_e94eb3c0",
         "filename": "dashboard/Prox_BM_L3FWD-2Port-1545924376615.json",
         "patchSetId": 6
@@ -64,6 +118,24 @@
       "writtenOn": "2019-01-15T08:39:21Z",
       "side": 1,
       "message": "Why are we adding all thos idle CPUS on the vnf? It does not hurt, but I do not understand (we\u0027ve not changed the VNF)",
+      "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e9587358",
+        "filename": "dashboard/Prox_BM_L3FWD-2Port-1545924376615.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 12270,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-15T12:09:06Z",
+      "side": 1,
+      "message": "Because of the CPU Utilization graph. If we do not display the same no of CPUs on tg and the vnf CPU Utilization (Side by side)  it looks stupid and \"lopsided\"",
+      "parentUuid": "1a622d24_e94eb3c0",
       "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_c9a7774e",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l3fwd-2.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-15T12:09:06Z",
+      "side": 1,
+      "message": "The reason to have 28, 29, (and 30 and 31 for 4 ports) is\nto be consistent across all configurations for the dashboards. However many generators and ports we use Latency port 0 will be @ CPU 28, port will be 29 etc...",
+      "parentUuid": "1a622d24_09668f51",
+      "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_49608732",
         "filename": "samples/vnf_samples/nsut/prox/configs/gen_l3fwd-4.cfg",
         "patchSetId": 6
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_29642b21",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l3fwd-4.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-15T12:09:06Z",
+      "side": 1,
+      "message": "I have stated in the documentation that a requirement is 32 cores. However I have also stated that to run with fewer cores the dashboard needs to be modified.",
+      "parentUuid": "1a622d24_49608732",
+      "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_a954bb54",
         "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
         "patchSetId": 6
@@ -115,6 +223,24 @@
       "writtenOn": "2019-01-15T08:39:21Z",
       "side": 1,
       "message": "While changes in this file are good, I think that they should be part of a different commit - they fix a different issue (I think that this is the workaround - not the fix - for issue HAA-3860)",
+      "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_497367e9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-15T12:09:06Z",
+      "side": 1,
+      "message": "Firstly this was not written with reference to HAA-2860 \nThis was discovered when testing with openstack configuration.\n\nI will remove it here and submit as HAA-3860",
+      "parentUuid": "1a622d24_a954bb54",
       "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
