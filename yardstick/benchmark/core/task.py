@@ -540,13 +540,37 @@ class TaskParser(object):       # pragma: no cover
         except Exception:
             raise y_exc.TaskRenderError(input_task=input_task)
 
+        for item in parsed_task['scenarios']:
+            traffic_profile = item.get('traffic_profile')
+            extra_args = item.get('extra_args')
+            topology_profile = item.get('topology')
+            #ToDo store the following in dict
+            var1, var2 = self.render_template(traffic_profile,extra_args)
+            var3, var4 = self.render_template(topology_profile, extra_args)
+
         return parsed_task, rendered_task
+
+    def render_template(self, path, kw):
+        try:
+            with open(path) as f:
+                input_task = f.read()
+            import jinja2
+            #ToDo: so this fails if it finds something like {% set frame_rate = get(extra_args, 'frame_rate' or 100%) %}
+            #I am unsure how to fix this
+            rendered_template = jinja2.Template(input_task).render(kw)
+            LOG.debug('Input task is:\n%s', rendered_template)
+            parsed_template = yaml_load(rendered_template)
+        except (IOError, OSError):
+            raise y_exc.TaskReadError(task_file=self.path)
+        except Exception:
+            raise y_exc.TaskRenderError(input_task=input_task)
+        return rendered_template, parsed_template
 
     def parse_task(self, task_id, task_args=None, task_args_file=None):
         """parses the task file and return an context and scenario instances"""
         LOG.info("Parsing task config: %s", self.path)
 
-        cfg, rendered = self._render_task(task_args, task_args_file)
+        cfg, rendered = self._render_task(task_args, task_args_file, self.path)
         self._check_schema(cfg["schema"], "task")
         meet_precondition = self._check_precondition(cfg)
 
