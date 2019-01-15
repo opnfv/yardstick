@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_c97497ff",
+        "filename": "dashboard/Prox_BM_L3FWD-2Port-1545924376615.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 11704,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2019-01-15T08:39:21Z",
+      "side": 1,
+      "message": "4",
+      "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2961cb39",
+        "filename": "dashboard/Prox_BM_L3FWD-2Port-1545924376615.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 11881,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2019-01-15T08:39:21Z",
+      "side": 1,
+      "message": "cpu.8.percent (not 80)",
+      "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8951ff64",
+        "filename": "dashboard/Prox_BM_L3FWD-2Port-1545924376615.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 11919,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2019-01-15T08:39:21Z",
+      "side": 1,
+      "message": "should this not be tg_0 CPU?",
+      "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e94eb3c0",
+        "filename": "dashboard/Prox_BM_L3FWD-2Port-1545924376615.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 12270,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2019-01-15T08:39:21Z",
+      "side": 1,
+      "message": "Why are we adding all thos idle CPUS on the vnf? It does not hurt, but I do not understand (we\u0027ve not changed the VNF)",
+      "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_09668f51",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l3fwd-2.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2019-01-15T08:39:21Z",
+      "side": 1,
+      "message": "Is there any reason to use cores 28 and 29 instead of 9 and 10? Using 28 and 29 instead of 9 and 10 requires a host (or VM) with at least 30 cores.\nIn addition, core 28 and 29 are often on socket 1, causing a potential impact on latency measurement\nThis should of course be changed in the dashboard as well.",
+      "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_49608732",
+        "filename": "samples/vnf_samples/nsut/prox/configs/gen_l3fwd-4.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2019-01-15T08:39:21Z",
+      "side": 1,
+      "message": "Same comment as for 2 ports.\nIn addition, even if we use cores 17 to 20, this means we have as a requirement that the generator must support at least 21 cores. Is this an acceptable requirement?",
+      "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a954bb54",
+        "filename": "yardstick/network_services/vnf_generic/vnf/prox_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6899
+      },
+      "writtenOn": "2019-01-15T08:39:21Z",
+      "side": 1,
+      "message": "While changes in this file are good, I think that they should be part of a different commit - they fix a different issue (I think that this is the workaround - not the fix - for issue HAA-3860)",
+      "revId": "d6e04744f02a46f582a6fc29132a50e351f5eaaf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
