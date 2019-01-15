@@ -77,7 +77,7 @@ class IxiaL3Scenario(IxiaBasicScenario):
                 iprange = self.ixia_cfg['flow'].get('src_ip')[index]
                 start_ip = utils.get_ip_range_start(iprange)
                 count = utils.get_ip_range_count(iprange)
-                self.client.add_static_ipv4(intf, vport, start_ip, count)
+                self.client.add_static_ipv4(intf, vport, start_ip, count, '32')
             except IndexError:
                 raise exceptions.IncorrectFlowOption(
                     option="src_ip", link="uplink_{}".format(index))
@@ -87,7 +87,7 @@ class IxiaL3Scenario(IxiaBasicScenario):
                 iprange = self.ixia_cfg['flow'].get('dst_ip')[index]
                 start_ip = utils.get_ip_range_start(iprange)
                 count = utils.get_ip_range_count(iprange)
-                self.client.add_static_ipv4(intf, vport, start_ip, count)
+                self.client.add_static_ipv4(intf, vport, start_ip, count, '32')
             except IndexError:
                 raise exceptions.IncorrectFlowOption(
                     option="dst_ip", link="downlink_{}".format(index))

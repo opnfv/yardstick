@@ -537,9 +537,9 @@ class TestIxiaL3Scenario(TestIxiaBasicScenario):
         self.mock_IxNextgen.get_static_interface.assert_any_call('2')
 
         self.scenario.client.add_static_ipv4.assert_any_call(
-            'intf1', '1', '192.168.0.1', 49)
+            'intf1', '1', '192.168.0.1', 49, '32')
         self.scenario.client.add_static_ipv4.assert_any_call(
-            'intf2', '2', '192.168.1.1', 149)
+            'intf2', '2', '192.168.1.1', 149, '32')
 
     def test__add_interfaces(self):
         self.mock_IxNextgen.get_vports.return_value = ['1', '2']
