@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_8cc74d45",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_vcmts_pktgen.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:54:38Z",
+      "side": 1,
+      "message": "please import the module, not the class",
+      "range": {
+        "startLine": 21,
+        "startChar": 48,
+        "endLine": 21,
+        "endChar": 58
+      },
+      "revId": "f67a7039445fe6f34679ce0dde2a21163011d4c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ecc40142",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_vcmts_pktgen.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:54:38Z",
+      "side": 1,
+      "message": "The class naming indicated that the TG (pktgen) is coupled to the VNF (vCMTS).\n\nWhy is this the case?\nThe traffic gen should operate independently from any vnf.",
+      "range": {
+        "startLine": 133,
+        "startChar": 6,
+        "endLine": 133,
+        "endChar": 17
+      },
+      "revId": "f67a7039445fe6f34679ce0dde2a21163011d4c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ccc14530",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_vcmts_pktgen.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:54:38Z",
+      "side": 1,
+      "message": "Please keep the line length below 80 characters",
+      "revId": "f67a7039445fe6f34679ce0dde2a21163011d4c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2cdef911",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_vcmts_pktgen.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:54:38Z",
+      "side": 1,
+      "message": "import the module, not the class",
+      "range": {
+        "startLine": 26,
+        "startChar": 71,
+        "endLine": 26,
+        "endChar": 83
+      },
+      "revId": "f67a7039445fe6f34679ce0dde2a21163011d4c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0ce33dda",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_vcmts_pktgen.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:54:38Z",
+      "side": 1,
+      "message": "These two lines appear in each test, they could be moved to a setUp method, and declared as instance variables",
+      "range": {
+        "startLine": 559,
+        "startChar": 8,
+        "endLine": 560,
+        "endChar": 73
+      },
+      "revId": "f67a7039445fe6f34679ce0dde2a21163011d4c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4ced35c3",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_vcmts_pktgen.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:54:38Z",
+      "side": 1,
+      "message": "This looks like it\u0027s testing multiple sets of inputs. This UT should be split into smaller tests.",
+      "range": {
+        "startLine": 576,
+        "startChar": 8,
+        "endLine": 576,
+        "endChar": 24
+      },
+      "revId": "f67a7039445fe6f34679ce0dde2a21163011d4c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_acd169fd",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_vcmts_pktgen.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:54:38Z",
+      "side": 1,
+      "message": "This should be split into smaller UTs\n\nL628 looks like it\u0027s a good point to split",
+      "range": {
+        "startLine": 621,
+        "startChar": 8,
+        "endLine": 621,
+        "endChar": 24
+      },
+      "revId": "f67a7039445fe6f34679ce0dde2a21163011d4c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
