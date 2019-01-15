@@ -12,6 +12,7 @@ python-subunit==1.2.0       # OSI Approved  Apache Software License; OSI Approve
 testrepository==0.0.20      # OSI Approved  BSD License; OSI Approved  Apache Software License
 testtools==2.3.0            # OSI Approved  MIT License
 unittest2==1.1.0            # OSI Approved  BSD License
+yamllint
 
 # NOTE(ralonsoh): to be removed, only for coverage support
 python-heatclient==1.11.0        # OSI Approved  Apache Software License
