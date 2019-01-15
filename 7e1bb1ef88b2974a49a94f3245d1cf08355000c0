@@ -1,0 +1,203 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_ac7cc921",
+        "filename": "yardstick/network_services/helpers/vpp_helpers/AbstractSearchAlgorithm.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:32:00Z",
+      "side": 1,
+      "message": "This file should be called abstract_search_algorithm.py\n\nThis is in line with module naming conventions",
+      "revId": "7e1bb1ef88b2974a49a94f3245d1cf08355000c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ec76c13d",
+        "filename": "yardstick/network_services/helpers/vpp_helpers/MultipleLossRatioSearch.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:32:00Z",
+      "side": 1,
+      "message": "This file should be called multiple_loss_ratio_search.py",
+      "revId": "7e1bb1ef88b2974a49a94f3245d1cf08355000c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8c790d32",
+        "filename": "yardstick/network_services/helpers/vpp_helpers/MultipleLossRatioSearch.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:32:00Z",
+      "side": 1,
+      "message": "There\u0027s no need to prepend this with \"yardstick comment\"",
+      "range": {
+        "startLine": 15,
+        "startChar": 1,
+        "endLine": 15,
+        "endChar": 20
+      },
+      "revId": "7e1bb1ef88b2974a49a94f3245d1cf08355000c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_cc73054c",
+        "filename": "yardstick/network_services/helpers/vpp_helpers/NdrPdrResult.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:32:00Z",
+      "side": 1,
+      "message": "this file should be called ndr_pdr_result.py",
+      "revId": "7e1bb1ef88b2974a49a94f3245d1cf08355000c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2c90b942",
+        "filename": "yardstick/network_services/helpers/vpp_helpers/ReceiveRateInterval.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:32:00Z",
+      "side": 1,
+      "message": "this file should be called receive_rate_interval.py",
+      "revId": "7e1bb1ef88b2974a49a94f3245d1cf08355000c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0c95fd32",
+        "filename": "yardstick/network_services/helpers/vpp_helpers/ReceiveRateMeasurement.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:32:00Z",
+      "side": 1,
+      "message": "this file should be called receive_rate_measurement.py",
+      "revId": "7e1bb1ef88b2974a49a94f3245d1cf08355000c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6c9ab164",
+        "filename": "yardstick/network_services/traffic_profile/vpp_rfc2544.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:32:00Z",
+      "side": 1,
+      "message": "import the module, not the class.",
+      "range": {
+        "startLine": 27,
+        "startChar": 52,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "7e1bb1ef88b2974a49a94f3245d1cf08355000c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4c9ff552",
+        "filename": "yardstick/tests/unit/network_services/helpers/vpp_helpers/test_MultipleLossRatioSearch.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:32:00Z",
+      "side": 1,
+      "message": "This file should be called test_multiple_loss_ratio_search.py",
+      "revId": "7e1bb1ef88b2974a49a94f3245d1cf08355000c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_aca3299d",
+        "filename": "yardstick/tests/unit/network_services/helpers/vpp_helpers/test_NdrPdrResult.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:32:00Z",
+      "side": 1,
+      "message": "this should be called test_ndr_pdr_result.py",
+      "revId": "7e1bb1ef88b2974a49a94f3245d1cf08355000c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8ca0ed91",
+        "filename": "yardstick/tests/unit/network_services/helpers/vpp_helpers/test_ReceiveRateInterval.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:32:00Z",
+      "side": 1,
+      "message": "this file should be called test_receive_rate_interval.py",
+      "revId": "7e1bb1ef88b2974a49a94f3245d1cf08355000c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ecad218a",
+        "filename": "yardstick/tests/unit/network_services/helpers/vpp_helpers/test_ReceiveRateMeasurement.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-15T17:32:00Z",
+      "side": 1,
+      "message": "this file should be called test_receive_rate_measurement.py",
+      "revId": "7e1bb1ef88b2974a49a94f3245d1cf08355000c0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
