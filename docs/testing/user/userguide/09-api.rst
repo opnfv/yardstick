@@ -284,7 +284,8 @@ Example::
 /api/v2/yardstick/openrcs/<openrc_id>
 -------------------------------------
 
-Description: This API provides functionality of handling OpenStack credential file (openrc). For Euphrates, it supports:
+Description: This API provides functionality of handling OpenStack credential
+file (openrc). For Euphrates, it supports:
 
 1. Get openrc file information;
 2. Delete an openrc file.
@@ -336,7 +337,8 @@ Example::
 /api/v2/yardstick/pods/<pod_id>
 -------------------------------
 
-Description: This API provides functionality of handling Yardstick pod file (pod.yaml). For Euphrates, it supports:
+Description: This API provides functionality of handling Yardstick pod file
+(pod.yaml). For Euphrates, it supports:
 
 1. Get pod file information;
 2. Delete an openrc file.
@@ -385,7 +387,8 @@ Example::
 /api/v2/yardstick/images/<image_id>
 -----------------------------------
 
-Description: This API is used to do some work related to Yardstick VM images. For Euphrates, it supports:
+Description: This API is used to do some work related to Yardstick VM images.
+For Euphrates, it supports:
 
 1. Get image's information;
 2. Delete images
@@ -435,7 +438,8 @@ Example::
 /api/v2/yardstick/tasks/<task_id>
 ---------------------------------
 
-Description: This API is used to do some work related to yardstick tasks. For Euphrates, it supports:
+Description: This API is used to do some work related to yardstick tasks. For
+Euphrates, it supports:
 
 1. Add a environment to a task
 2. Add a test case to a task;
@@ -555,7 +559,8 @@ Example::
 /api/v2/yardstick/testcases/<case_name>
 ---------------------------------------
 
-Description: This API is used to do some work related to yardstick testcases. For Euphrates, it supports:
+Description: This API is used to do some work related to yardstick testcases.
+For Euphrates, it supports:
 
 1. Get certain released test case's information;
 2. Delete a test case.
@@ -619,7 +624,8 @@ Example::
 /api/v2/yardstick/testsuites
 ----------------------------
 
-Description: This API is used to do some work related to yardstick test suites. For Euphrates, it supports:
+Description: This API is used to do some work related to yardstick test suites.
+For Euphrates, it supports:
 
 1. Get certain test suite's information;
 2. Delete a test case.
@@ -680,7 +686,8 @@ Example::
 /api/v2/yardstick/projects
 --------------------------
 
-Description: This API is used to do some work related to yardstick test projects. For Euphrates, it supports:
+Description: This API is used to do some work related to yardstick test
+projects. For Euphrates, it supports:
 
 1. Get certain project's information;
 2. Delete a project.
@@ -746,7 +753,8 @@ Example::
 /api/v2/yardstick/containers/<container_id>
 -------------------------------------------
 
-Description: This API is used to do some work related to Docker containers. For Euphrates, it supports:
+Description: This API is used to do some work related to Docker containers. For
+Euphrates, it supports:
 
 1. Get certain container's information;
 2. Delete a container.
