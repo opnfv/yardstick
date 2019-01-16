@@ -145,7 +145,54 @@ No additional information is required for the Dummy context::
 Node Context
 ++++++++++++
 
-TODO
+The ``Node`` context defines how to connect to an existing environment. This
+can be used to run tests on baremetal servers, pre-previsioned VMs and
+containers, and also connect to hareware resources such as traffic generators.
+
+The ``Node`` context definition uses a ``pod.yaml`` file to define the hosts
+that will be used for the test::
+
+  context:
+    name: my_node_context
+    type: Node
+    file: /etc/yardstick/nodes/jumphost.yaml
+
+pod.yaml
+''''''''
+
+Depending on the ``scenario``, different information wil be required in the
+``pod file``.
+
+The minimum that is required is that Yardstick knows how to identify and
+connect to a host. Yardstick uses ssh to connect to hosts, and requires either
+a ``password`` or ``key_filename``.
+
+A basic ``pod.yaml`` describing a single node will look like this::
+
+  nodes:
+  -
+    name: my_hostname  # name to identify a host within the context
+    ip: 192.168.10.1  # IP address or hostname
+    user: root
+    # either password or key_filename is used
+    key_filename: /path/to/private/key
+    password: secret
+
+.. sometimes, role is required, may depend on scenario
+.. user and password are generally required.
+
+.. interface is not required if all you need to do is ping a server or shell in and run a tool
+   some scenarios require interfaces to be defined (such as NSB)
+   Additional information is typically required per interface (ex below)
+
+.. interfaces:
+     xe0:  # logical name from topology.yaml and vnfd.yaml
+       #vpci:      <>"0000:05:00.0"
+       #driver:    <nic kernel driver>
+       dpdk_port_num: 0  # arbitrary, leave this as-is
+       local_ip: "172.19.0.2"
+       netmask:   "255.255.255.0"
+       local_mac:  "02:42:ac:13:00:02"  # mac address from ifconfig
 
 Heat Context
 ++++++++++++
