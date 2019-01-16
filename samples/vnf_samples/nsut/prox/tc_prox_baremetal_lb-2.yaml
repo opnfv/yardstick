@@ -20,7 +20,7 @@ scenarios:
   type: NSPerf
 
   traffic_profile: ../../traffic_profiles/prox_binsearch.yaml
-  topology: prox-tg-topology-4.yaml
+  topology: prox-tg-topology-2.yaml
 
   nodes:
     tg__0: tg_0.yardstick
@@ -31,7 +31,7 @@ scenarios:
       collectd:
         interval: 1
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/handle_lb-4.cfg"
+      prox_config: "configs/handle_lb-2.cfg"
       prox_args:
         "-t": ""
       prox_files:
@@ -41,7 +41,7 @@ scenarios:
       collectd:
         interval: 1
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/gen_lb-4.cfg"
+      prox_config: "configs/gen_lb-2.cfg"
       prox_args:
         "-e": ""
         "-t": ""
@@ -61,4 +61,4 @@ context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: prox-baremetal-4.yaml
+  file: prox-baremetal-2.yaml
