@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_6fcbc3a5",
+        "filename": "docs/testing/user/userguide/03-architecture.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-16T13:38:48Z",
+      "side": 1,
+      "message": "In most of the changes there is new line after heading (see other changed files). So, to make it more consistent please add new line after each heading too.\nCheck rest of the files.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 8
+      },
+      "revId": "164d29e7cf7084639ea37fbd9c291a8c18487f0f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
