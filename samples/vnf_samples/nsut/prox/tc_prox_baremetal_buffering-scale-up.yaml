@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2017 Intel Corporation
+# Copyright (c) 2016-2018 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,15 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+{% set vports = vports or 2 %}
+{% set duration = duration or 300 %}
 ---
 schema: "yardstick:task:0.1"
 
 scenarios:
 -
   type: NSPerf
-
   traffic_profile: ../../traffic_profiles/prox_binsearch.yaml
-  topology: prox-tg-topology-4.yaml
+  extra_args:
+    vports: {{ vports }}
+  topology: prox-tg-topology-scale-up.yaml
 
   nodes:
     tg__0: tg_0.yardstick
@@ -28,37 +31,25 @@ scenarios:
 
   options:
     vnf__0:
-      collectd:
-        interval: 1
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/handle_lb-4.cfg"
+      prox_config: "configs/handle_buffering-{{ vports }}.cfg"
       prox_args:
         "-t": ""
-      prox_files:
-        "configs/tuples.lua": ""
 
     tg__0:
-      collectd:
-        interval: 1
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/gen_lb-4.cfg"
+      prox_config: "configs/gen_buffering-{{ vports }}.cfg"
       prox_args:
         "-e": ""
         "-t": ""
 
   runner:
-    type: ProxDuration
-    # sampling interval
-    interval: 1
-    # sampled : yes OR sampled: no (DEFAULT yes)
-    sampled: yes
+    type: Duration
     # we kill after duration, independent of test duration, so set this high
-    duration: 4000
-    # Confirmation attempts
-    confirmation: 1
+    duration: {{ duration }}
 
 context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: prox-baremetal-4.yaml
+  file: prox-baremetal-{{ vports }}.yaml
