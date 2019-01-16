@@ -1,8 +1,9 @@
-.. This work is licensed under a Creative Commons Attribution 4.0 International License.
+.. This work is licensed under a Creative Commons Attribution 4.0
+.. International License.
 .. http://creativecommons.org/licenses/by/4.0
 
-The *Yardstick framework*, the *Yardstick test cases* are open-source software,
- licensed under the terms of the Apache License, Version 2.0.
+The *Yardstick framework*, the *Yardstick test cases* are open-source
+software, licensed under the terms of the Apache License, Version 2.0.
 
 =======================
 Yardstick Release Notes
@@ -21,7 +22,8 @@ Yardstick Release Notes
 Abstract
 ========
 
-This document compiles the release notes for the Gambia release of OPNFV Yardstick.
+This document compiles the release notes for the Gambia release of OPNFV
+Yardstick.
 
 
 Version History
@@ -126,7 +128,7 @@ Release Data
 | **Release designation**        | Gambia 7.2            |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release date**               | January 25, 2019     |
+| **Release date**               | January 25, 2019      |
 |                                |                       |
 +--------------------------------+-----------------------+
 | **Purpose of the delivery**    | OPNFV Gambia 7.2.0    |
@@ -283,7 +285,8 @@ New Test cases
 
 * HA Test cases
 
- * (e.g.) OPNFV_YARDSTICK_TC093 - SDN Vswitch resilience in non-HA or HA configuration
+ * (e.g.) OPNFV_YARDSTICK_TC093 - SDN Vswitch resilience in non-HA or HA
+   configuration
 
 
 Version Change
@@ -316,7 +319,8 @@ It includes the following documentation updates:
 Feature additions
 -----------------
 
-- Simplify Yardstick installation to use a single ansible playbook (nsb_setup.yaml)....
+- Simplify Yardstick installation to use a single ansible playbook
+  (nsb_setup.yaml)....
 - Spirent support.
 - vEPC testcases.
 - Agnostic VNF tests cases for reuse of standard RFC-2544 test case.
@@ -378,12 +382,12 @@ Corrected Faults
 
 Gambia 7.2.0:
 
-+--------------------+--------------------------------------------------------------------------+
-| **JIRA REFERENCE** |                             **DESCRIPTION**                              |
-+====================+==========================================================================+
-| YARDSTICK-1512     | [dovetail] split the sla check results into process recovery and service |
-|                    | recovery for HA test cases.                                              |
-+--------------------+--------------------------------------------------------------------------+
++--------------------+---------------------------------------------------------+
+| **JIRA REFERENCE** |                             **DESCRIPTION**             |
++====================+=========================================================+
+| YARDSTICK-1512     | [dovetail] split the sla check results into process     |
+|                    | recovery and service recovery for HA test cases.        |
++--------------------+---------------------------------------------------------+
 
 Gambia 7.2.0 known restrictions/issues
 ======================================

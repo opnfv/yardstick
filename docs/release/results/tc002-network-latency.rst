@@ -14,8 +14,10 @@ Test results for TC002 network latency
 Overview of test case
 =====================
 
-TC002 verifies that network latency is within acceptable boundaries when packets travel between hosts located on same or different compute blades.
-Ping packets (ICMP protocol's mandatory ECHO_REQUEST datagram) are sent from host VM to target VM(s) to elicit ICMP ECHO_RESPONSE.
+TC002 verifies that network latency is within acceptable boundaries when
+packets travel between hosts located on same or different compute blades.
+Ping packets (ICMP protocol's mandatory ECHO_REQUEST datagram) are sent from
+host VM to target VM(s) to elicit ICMP ECHO_RESPONSE.
 
 Metric: RTT (Round Trip Time)
 Unit: ms

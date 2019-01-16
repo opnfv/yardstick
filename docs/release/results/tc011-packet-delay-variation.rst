@@ -14,7 +14,8 @@ Test results for TC011 packet delay variation
 Overview of test case
 =====================
 
-TC011 measures the packet delay variation sending the packets from one VM to the other.
+TC011 measures the packet delay variation sending the packets from one VM to
+the other.
 
 Metric: packet delay variation (jitter)
 Unit: ms

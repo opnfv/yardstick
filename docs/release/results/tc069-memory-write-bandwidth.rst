@@ -14,9 +14,10 @@ Test results for TC069 memory write bandwidth
 Overview of test case
 =====================
 
-TC069 measures the maximum possible cache and memory performance while reading and writing certain
-blocks of data (starting from 1Kb and further in power of 2) continuously through ALU and FPU
-respectively. Measure different aspects of memory performance via synthetic simulations.
+TC069 measures the maximum possible cache and memory performance while reading
+and writing certain blocks of data (starting from 1Kb and further in power of
+2) continuously through ALU and FPU respectively. Measure different aspects of
+memory performance via synthetic simulations.
 Each simulation consists of four performances (Copy, Scale, Add, Triad).
 The test results shown below are for writing 32MB integer block size.
 

@@ -54,7 +54,8 @@ This guide is made for you. You can have a look at the `user guide`_.
 There are also references on documentation, video tutorials, tips in the
 project `wiki page`_. You can also directly contact us by mail with
 ``#yardstick`` or ``[yardstick]`` prefix in the subject at
-``opnfv-tech-discuss@lists.opnfv.org`` or on the IRC channel ``#opnfv-yardstick``.
+``opnfv-tech-discuss@lists.opnfv.org`` or on the IRC channel
+``#opnfv-yardstick``.
 
 
 Yardstick developer areas
@@ -89,7 +90,8 @@ How Todos?
 How Yardstick works?
 ~~~~~~~~~~~~~~~~~~~~
 
-The installation and configuration of the Yardstick is described in the `user guide`_.
+The installation and configuration of the Yardstick is described in the
+`user guide`_.
 
 How to work with test cases?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -97,7 +99,8 @@ How to work with test cases?
 Sample Test cases
 +++++++++++++++++
 
-Yardstick provides many sample test cases which are located at ``samples`` directory of repo.
+Yardstick provides many sample test cases which are located at ``samples``
+directory of repo.
 
 Sample test cases are designed with the following goals:
 
@@ -255,7 +258,8 @@ After you select the type of scenario (such as Ping), you will select one type
 of ``runner``, there are 4 types of runner. ``Iteration`` and ``Duration`` are
 the most commonly used, and the default is ``Iteration``.
 
-For ``Iteration``, you can specify the iteration number and interval of iteration. ::
+For ``Iteration``, you can specify the iteration number and interval of
+iteration. ::
 
   runner:
     type: Iteration
@@ -392,7 +396,8 @@ database.
 
 We distinguish 2 levels of contributors:
 
-* the standard contributor can push patch and vote +1/0/-1 on any Yardstick patch
+* the standard contributor can push patch and vote +1/0/-1 on any Yardstick
+  patch
 * The commitor can vote -2/-1/0/+1/+2 and merge
 
 Yardstick commitors are promoted by the Yardstick contributors.

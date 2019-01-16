@@ -122,9 +122,10 @@ case, please follow the instructions below.
      # add selected host into the host aggregate
      openstack aggregate add host <AGG_NAME> <HOST>
 
-2. To specify the OpenStack location (the exact compute host or group of the hosts)
-   of SampleVNF or traffic generator in the heat test case, the ``availability_zone`` server
-   configuration option should be used. For example:
+2. To specify the OpenStack location (the exact compute host or group of the
+   hosts) of SampleVNF or traffic generator in the heat test case, the
+   ``availability_zone`` server configuration option should be used.
+   For example:
 
    .. note:: The ``<AZ_NAME>`` (availability zone name) should be changed according
      to the name used during the host aggregate creation steps above.
@@ -268,7 +269,8 @@ An example scale-up Heat testcase is:
 .. literalinclude:: /../samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_scale-up.yaml
    :language: yaml
 
-This testcase template requires specifying the number of VCPUs, Memory and Ports.
+This testcase template requires specifying the number of VCPUs, Memory and
+Ports.
 We set the VCPUs and memory using the ``--task-args`` options
 
 .. code-block:: console
@@ -276,7 +278,8 @@ We set the VCPUs and memory using the ``--task-args`` options
   yardstick task start --task-args='{"mem": 10480, "vcpus": 4, "vports": 2}' \
   samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_scale-up.yaml
 
-In order to support ports scale-up, traffic and topology templates need to be used in testcase.
+In order to support ports scale-up, traffic and topology templates need to be
+used in testcase.
 
 A example topology template is:
 
@@ -438,10 +441,12 @@ Standalone configuration
 ------------------------
 
 NSB supports certain Standalone deployment configurations.
-Standalone supports provisioning a VM in a standalone visualised environment using kvm/qemu.
+Standalone supports provisioning a VM in a standalone visualised environment
+using kvm/qemu.
 There two types of Standalone contexts available: OVS-DPDK and SRIOV.
 OVS-DPDK uses OVS network with DPDK drivers.
-SRIOV enables network traffic to bypass the software switch layer of the Hyper-V stack.
+SRIOV enables network traffic to bypass the software switch layer of the
+Hyper-V stack.
 
 Emulated machine type
 ^^^^^^^^^^^^^^^^^^^^^
@@ -499,7 +504,8 @@ Sample test case file
 
 1. Prepare SampleVNF image and copy it to ``flavor/images``.
 2. Prepare context files for TREX and SampleVNF under ``contexts/file``.
-3. Add bridge named ``br-int`` to the baremetal where SampleVNF image is deployed.
+3. Add bridge named ``br-int`` to the baremetal where SampleVNF image is
+   deployed.
 4. Modify ``networks/phy_port`` accordingly to the baremetal setup.
 5. Run test from:
 
@@ -525,8 +531,8 @@ Examples of ``pod.yaml`` files could be found in
 The name of related pod file could be checked in the context section of NSB
 test case.
 
-The ``pod.yaml`` related to vEPC test case uses some sub-structures that hold the
-details of accessing the Spirent Landslide traffic generator.
+The ``pod.yaml`` related to vEPC test case uses some sub-structures that hold
+the details of accessing the Spirent Landslide traffic generator.
 These subsections and the changes to be done in provided example pod file are
 described below.
 
@@ -536,7 +542,8 @@ configurations on it.
 
  * ``ip``: IP address of TAS Manager node; should be updated according to test
    setup used
- * ``super_user``: superuser name; could be retrieved from Landslide documentation
+ * ``super_user``: superuser name; could be retrieved from Landslide
+   documentation
  * ``super_user_password``: superuser password; could be retrieved from
    Landslide documentation
  * ``cfguser_password``: password of predefined user named 'cfguser'; default
@@ -587,7 +594,8 @@ Each such entry contains:
     * ``managementIp``: SUT management IP adress
     * ``phy``: network interface name, e.g. *eth1*
     * ``ip``: vEPC component IP address used in test case topology
-    * ``nextHop``: next hop IP address, to allow for vEPC inter-node communication
+    * ``nextHop``: next hop IP address, to allow for vEPC inter-node
+      communication
 
 Update NSB test case definitions
 ================================
@@ -595,8 +603,8 @@ NSB test case file designated for vEPC testing contains an example of specific
 test scenario configuration.
 Test operator may change these definitions as required for the use case that
 requires testing.
-Specifically, following subsections of the vEPC test case (section **scenarios**)
-may be changed.
+Specifically, following subsections of the vEPC test case (section
+**scenarios**) may be changed.
 
 1. Subsection ``options``: contains custom parameters used for vEPC testing
 
@@ -622,8 +630,8 @@ serving as an Edge Router. The vPE is approximated using the
             :alt: NSB vPE Diagram
 
 The ``vpe_config`` file must be passed as it is not auto generated.
-The ``vpe_script`` defines the rules applied to each of the pipelines. This can be
-auto generated or a file can be passed using the ``script_file`` option in
+The ``vpe_script`` defines the rules applied to each of the pipelines. This can
+be auto generated or a file can be passed using the ``script_file`` option in
 ``vnf_config`` as shown below. The ``full_tm_profile_file`` option must be
 used if a traffic manager is defined in ``vpe_config``.
 

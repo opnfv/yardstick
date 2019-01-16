@@ -14,8 +14,10 @@ Test results for TC012 memory read/write bandwidth
 Overview of test case
 =====================
 
-TC012 measures the rate at which data can be read from and written to the memory (this includes all levels of memory).
-In this test case,  the bandwidth to read data from memory and then write data to the same memory location are measured.
+TC012 measures the rate at which data can be read from and written to the
+memory (this includes all levels of memory).
+In this test case, the bandwidth to read data from memory and then write
+data to the same memory location are measured.
 
 Metric: memory bandwidth
 Unit: MBps

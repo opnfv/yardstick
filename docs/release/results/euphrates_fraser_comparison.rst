@@ -21,10 +21,10 @@ The round-trip-time (RTT) between 2 VMs on different blades is measured using
 ping.
 
 Most test run measurements result on average between 0.39 and 4.00 ms.
-Compared with Euphrates release, the average RTT result of the same pod experiences
-a slight decline in Fraser release. For example, the average RTT of arm-pod5 is
-1.518 in Ehphrates and 1.714 in Fraser. The average RTT of intel-pod18 is 1.6575
-ms in Ehphrates and 1.856 ms in Fraser.
+Compared with Euphrates release, the average RTT result of the same pod
+experiences a slight decline in Fraser release. For example, the average RTT of
+arm-pod5 is 1.518 in Euphrates and 1.714 in Fraser. The average RTT of
+intel-pod18 is 1.6575 ms in Ehphrates and 1.856 ms in Fraser.
 
 {
 
@@ -107,10 +107,10 @@ TC010
 
 The tool we use to measure memory read latency is lmbench, which is a series of
 micro benchmarks intended to measure basic operating system and hardware system
-metrics. Compared with Euphrates release, the memory read latency of the same pod
-also experience a slight decline. Virtual pods seem to have a higher memory read
-latency than physical pods. Compared with X86 pods, the memory read latency of
-arm pods is significant higher.
+metrics. Compared with Euphrates release, the memory read latency of the same
+pod also experience a slight decline. Virtual pods seem to have a higher memory
+read latency than physical pods. Compared with X86 pods, the memory read
+latency of arm pods is significant higher.
 
 {
 
@@ -270,8 +270,8 @@ TC012
 
 Lmbench is also used to measure the memory read and write bandwidth.
 Like TC010, compared with Euphrates release, the memory read and write bandwidth
-of the same pod also experience a slight decline. And compared with X86 pods, the memory
-read and write bandwidth of arm pods is significant lower.
+of the same pod also experience a slight decline. And compared with X86 pods,
+the memory read and write bandwidth of arm pods is significant lower.
 
 {
 
@@ -353,9 +353,10 @@ TC014
 -----
 
 The Unixbench is used to evaluate the IaaS processing speed with regards to
-score of single CPU running and parallel running. Below are the single CPU running
-scores. It can be seen that the processing test results vary from scores 715 to 3737.
-In general, the single CPU score of the two releases look similar.
+score of single CPU running and parallel running. Below are the single CPU
+running scores. It can be seen that the processing test results vary from
+scores 715 to 3737. In general, the single CPU score of the two releases
+look similar.
 
 {
 

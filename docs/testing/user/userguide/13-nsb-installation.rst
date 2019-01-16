@@ -182,10 +182,10 @@ Environment parameters and credentials
 --------------------------------------
 
 Configure yardstick.conf
-^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you did not run ``yardstick env influxdb`` inside the container to generate
- ``yardstick.conf``, then create the config file manually (run inside the
+``yardstick.conf``, then create the config file manually (run inside the
 container)::
 
     cp ./etc/yardstick/yardstick.conf.sample /etc/yardstick/yardstick.conf
@@ -717,10 +717,12 @@ OVS-DPDK 3-Node setup - Correlated Traffic
 
 
 Before executing Yardstick test cases, make sure that the ``pod.yaml`` reflects
-the topology and update all the required fields::
+the topology and update all the required fields:
 
-  cp <yardstick>/etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
-  cp <yardstick>/etc/yardstick/nodes/standalone/host_ovs.yaml /etc/yardstick/nodes/standalone/host_ovs.yaml
+.. code-block:: console
+
+    cp <yardstick>/etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
+    cp <yardstick>/etc/yardstick/nodes/standalone/host_ovs.yaml /etc/yardstick/nodes/standalone/host_ovs.yaml
 
 .. note:: Update all the required fields like ip, user, password, pcis, etc...
 
@@ -1118,18 +1120,22 @@ IxLoad
   .. literalinclude:: code/pod_ixia.yaml
      :language: console
 
-  for sriov/ovs_dpdk pod files, please refer to `Standalone Virtualization`_
-  for ovs-dpdk/sriov configuration
+  for sriov/ovs_dpdk pod files, please refer to
+  `Network Service Benchmarking - Standalone Virtualization`_ for
+  ovs-dpdk/sriov configuration
 
 3. Start IxOS TCL Server (Install 'Ixia IxExplorer IxOS <version>')
    You will also need to configure the IxLoad machine to start the IXIA
    IxosTclServer. This can be started like so:
 
    * Connect to the IxLoad machine using RDP
-   * Go to:
-     ``Start->Programs->Ixia->IxOS->IxOS 8.01-GA-Patch1->Ixia Tcl Server IxOS 8.01-GA-Patch1``
-     or
-     ``C:\Program Files (x86)\Ixia\IxOS\8.01-GA-Patch1\ixTclServer.exe``
+   * Go to::
+
+        ``Start->Programs->Ixia->IxOS->IxOS 8.01-GA-Patch1->Ixia Tcl Server IxOS 8.01-GA-Patch1``
+
+     or::
+
+       ``C:\Program Files (x86)\Ixia\IxOS\8.01-GA-Patch1\ixTclServer.exe``
 
 4. Create a folder ``Results`` in c:\ and share the folder on the network.
 
@@ -1155,15 +1161,18 @@ installed as part of the requirements of the project.
      :language: console
 
   for sriov/ovs_dpdk pod files, please refer to above
-  `Standalone Virtualization`_ for ovs-dpdk/sriov configuration
+  `Network Service Benchmarking - Standalone Virtualization`_ for
+  ovs-dpdk/sriov configuration
 
 2. Start IxNetwork TCL Server
    You will also need to configure the IxNetwork machine to start the IXIA
    IxNetworkTclServer. This can be started like so:
 
     * Connect to the IxNetwork machine using RDP
-    * Go to:
-      ``Start->Programs->Ixia->IxNetwork->IxNetwork 7.21.893.14 GA->IxNetworkTclServer``
+    * Go to::
+
+        Start->Programs->Ixia->IxNetwork->IxNetwork 7.21.893.14 GA->IxNetworkTclServer
+
       (or ``IxNetworkApiServer``)
 
 3. Execute testcase in samplevnf folder e.g.
@@ -1197,9 +1206,10 @@ to be preinstalled and properly configured.
       ``PYTHONPATH`` environment variable.
 
     .. important::
-    The current version of LsApi module has an issue with reading LD_LIBRARY_PATH.
-    For LsApi module to initialize correctly following lines (184-186) in
-    lsapi.py
+
+      The current version of LsApi module has an issue with reading LD_LIBRARY_PATH.
+      For LsApi module to initialize correctly following lines (184-186) in
+      lsapi.py
 
     .. code-block:: python
 
