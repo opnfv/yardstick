@@ -18,7 +18,6 @@ schema: "yardstick:task:0.1"
 scenarios:
 -
   type: NSPerf
-
   traffic_profile: ../../traffic_profiles/prox_binsearch.yaml
   topology: prox-tg-topology-4.yaml
 
@@ -31,31 +30,23 @@ scenarios:
       collectd:
         interval: 1
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/handle_lb-4.cfg"
+      prox_config: "configs/handle_buffering-4.cfg"
       prox_args:
         "-t": ""
-      prox_files:
-        "configs/tuples.lua": ""
 
     tg__0:
       collectd:
         interval: 1
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/gen_lb-4.cfg"
+      prox_config: "configs/gen_buffering-4.cfg"
       prox_args:
         "-e": ""
         "-t": ""
 
   runner:
-    type: ProxDuration
-    # sampling interval
-    interval: 1
-    # sampled : yes OR sampled: no (DEFAULT yes)
-    sampled: yes
+    type: Duration
     # we kill after duration, independent of test duration, so set this high
     duration: 4000
-    # Confirmation attempts
-    confirmation: 1
 
 context:
   type: Node
