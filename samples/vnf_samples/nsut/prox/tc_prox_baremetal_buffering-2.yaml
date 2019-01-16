@@ -19,7 +19,7 @@ scenarios:
 -
   type: NSPerf
   traffic_profile: ../../traffic_profiles/prox_binsearch.yaml
-  topology: prox-tg-topology-4.yaml
+  topology: prox-tg-topology-2.yaml
 
   nodes:
     tg__0: tg_0.yardstick
@@ -30,17 +30,15 @@ scenarios:
       collectd:
         interval: 1
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/handle_lb-4.cfg"
+      prox_config: "configs/handle_buffering-2.cfg"
       prox_args:
         "-t": ""
-      prox_files:
-        "configs/tuples.lua": ""
 
     tg__0:
       collectd:
         interval: 1
       prox_path: /opt/nsb_bin/prox
-      prox_config: "configs/gen_lb-4.cfg"
+      prox_config: "configs/gen_buffering-2.cfg"
       prox_args:
         "-e": ""
         "-t": ""
@@ -51,51 +49,7 @@ scenarios:
     duration: 4000
 
 context:
+  type: Node
   name: yardstick
-  image: yardstick-samplevnfs
-  user: ubuntu
-  flavor:
-    vcpus: 32
-    ram: 40960
-    disk: 6
-    extra_specs:
-      hw:cpu_sockets: 1
-      hw:cpu_cores: 32
-      hw:cpu_threads: 1
-
-  placement_groups:
-    pgrp1:
-      policy: "availability"
-
-  servers:
-    vnf_0:
-      floating_ip: true
-      placement: "pgrp1"
-    tg_0:
-      floating_ip: true
-      placement: "pgrp1"
-
-  networks:
-    mgmt:
-      cidr: '10.0.1.0/24'
-    uplink_0:
-      cidr: '10.0.2.0/24'
-      gateway_ip: 'null'
-      port_security_enabled: False
-      enable_dhcp: 'false'
-    downlink_0:
-      cidr: '10.0.3.0/24'
-      gateway_ip: 'null'
-      port_security_enabled: False
-      enable_dhcp: 'false'
-    uplink_1:
-      cidr: '10.0.4.0/24'
-      gateway_ip: 'null'
-      port_security_enabled: False
-      enable_dhcp: 'false'
-    downlink_1:
-      cidr: '10.0.5.0/24'
-      gateway_ip: 'null'
-      port_security_enabled: False
-      enable_dhcp: 'false'
-
+  nfvi_type: baremetal
+  file: prox-baremetal-2.yaml
