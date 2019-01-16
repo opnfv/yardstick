@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2017 Intel Corporation
+# Copyright (c) 2016-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ schema: "yardstick:task:0.1"
 scenarios:
 -
   type: NSPerf
-  traffic_profile: ../../traffic_profiles/prox_lb.yaml
+  traffic_profile: ../../traffic_profiles/prox_binsearch.yaml
   topology: prox-tg-topology-4.yaml
 
   nodes:
@@ -48,19 +48,19 @@ scenarios:
   runner:
     type: Duration
     # we kill after duration, independent of test duration, so set this high
-    duration: 300
+    duration: 4300
 
 context:
   name: yardstick
   image: yardstick-samplevnfs
   user: ubuntu
   flavor:
-    vcpus: 12
+    vcpus: 32
     ram: 40960
     disk: 6
     extra_specs:
       hw:cpu_sockets: 1
-      hw:cpu_cores: 12
+      hw:cpu_cores: 32
       hw:cpu_threads: 1
 
   placement_groups:
