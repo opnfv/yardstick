@@ -1,0 +1,694 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_ef587358",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": "not used",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 39
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0f37af00",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": "please keep under 80 char",
+      "range": {
+        "startLine": 32,
+        "startChar": 75,
+        "endLine": 32,
+        "endChar": 103
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_cf55b71e",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": "please keep under 80 char. {{worker_thread}} should be {{ worker_thread }}",
+      "range": {
+        "startLine": 64,
+        "startChar": 79,
+        "endLine": 64,
+        "endChar": 114
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2f326b10",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": "please keep under 80 char. {{worker_thread}} should be {{ worker_thread }}",
+      "range": {
+        "startLine": 68,
+        "startChar": 80,
+        "endLine": 68,
+        "endChar": 114
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6f3c63e3",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": "please keep under 80 char.",
+      "range": {
+        "startLine": 81,
+        "startChar": 73,
+        "endLine": 81,
+        "endChar": 116
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4f41a759",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": "put on new line",
+      "range": {
+        "startLine": 32,
+        "startChar": 77,
+        "endLine": 32,
+        "endChar": 112
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_af25dbc3",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": "please keep under 80 char. {{worker_thread}} should be {{ worker_thread }}",
+      "range": {
+        "startLine": 64,
+        "startChar": 79,
+        "endLine": 64,
+        "endChar": 114
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8f229fb7",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": "please keep under 80 char. {{worker_thread}} should be {{ worker_thread }}",
+      "range": {
+        "startLine": 68,
+        "startChar": 78,
+        "endLine": 68,
+        "endChar": 114
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ef2fd39f",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": "put on new line",
+      "range": {
+        "startLine": 81,
+        "startChar": 65,
+        "endLine": 81,
+        "endChar": 86
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_af0cbb43",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_cbcsha1_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": "not used here?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 39
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2f19cb88",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_cbcsha1_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 32,
+        "startChar": 77,
+        "endLine": 32,
+        "endChar": 102
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0f1e8f70",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_cbcsha1_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 64,
+        "startChar": 80,
+        "endLine": 64,
+        "endChar": 114
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6f13c366",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_cbcsha1_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 68,
+        "startChar": 79,
+        "endLine": 68,
+        "endChar": 114
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4f188781",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_cbcsha1_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 81,
+        "startChar": 73,
+        "endLine": 81,
+        "endChar": 116
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_32001001",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_cbcsha1_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 32,
+        "startChar": 79,
+        "endLine": 32,
+        "endChar": 111
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ef06b31f",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_cbcsha1_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 64,
+        "startChar": 79,
+        "endLine": 64,
+        "endChar": 114
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8f09ff33",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_cbcsha1_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 68,
+        "startChar": 80,
+        "endLine": 68,
+        "endChar": 114
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_cf03f70d",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_cbcsha1_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 81,
+        "startChar": 65,
+        "endLine": 81,
+        "endChar": 84
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_12051411",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 32,
+        "startChar": 79,
+        "endLine": 32,
+        "endChar": 103
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_720a8822",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 64,
+        "startChar": 80,
+        "endLine": 64,
+        "endChar": 114
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_520f8c30",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 68,
+        "startChar": 80,
+        "endLine": 68,
+        "endChar": 114
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b213805b",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 81,
+        "startChar": 73,
+        "endLine": 81,
+        "endChar": 116
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d21a7c6d",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_aesgcm_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 32,
+        "startChar": 80,
+        "endLine": 32,
+        "endChar": 112
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_122cf498",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_cbcsha1_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 32,
+        "startChar": 80,
+        "endLine": 32,
+        "endChar": 103
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_52266cb8",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_cbcsha1_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 64,
+        "startChar": 80,
+        "endLine": 64,
+        "endChar": 114
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b23a60cb",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_cbcsha1_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 68,
+        "startChar": 80,
+        "endLine": 68,
+        "endChar": 114
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_923764e3",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_cbcsha1_IMIX_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 81,
+        "startChar": 73,
+        "endLine": 81,
+        "endChar": 116
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f234d8df",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_cbcsha1_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 64,
+        "startChar": 80,
+        "endLine": 64,
+        "endChar": 114
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d231dced",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_cbcsha1_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 68,
+        "startChar": 80,
+        "endLine": 68,
+        "endChar": 114
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_324e5070",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_sw_cbcsha1_trex.yaml",
+        "patchSetId": 7
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T11:07:17Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 81,
+        "startChar": 80,
+        "endLine": 81,
+        "endChar": 85
+      },
+      "revId": "c509b5cac57bb642490d845525a34bfd6ad00a64",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
