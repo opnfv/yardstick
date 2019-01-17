@@ -22,6 +22,30 @@
       "revId": "62a5d6bfc8480dfd0bfa2d6937f31125ba443e56",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7258c832",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-01-17T11:07:40Z",
+      "side": 1,
+      "message": "I don\u0027t think so.\nI believe a clean up task should be followed and prioritized accordingly.",
+      "parentUuid": "1a622d24_6f45836f",
+      "range": {
+        "startLine": 140,
+        "startChar": 34,
+        "endLine": 140,
+        "endChar": 46
+      },
+      "revId": "62a5d6bfc8480dfd0bfa2d6937f31125ba443e56",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
