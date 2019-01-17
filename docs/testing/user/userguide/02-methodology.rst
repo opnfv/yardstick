@@ -1,20 +1,30 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International
-.. License.
-.. http://creativecommons.org/licenses/by/4.0
-.. (c) OPNFV, Ericsson AB and others.
+   License.
+   http://creativecommons.org/licenses/by/4.0
+   (c) OPNFV, Ericsson AB and others.
+
+   Convention for heading levels in Yardstick documentation:
+
+   =======  Heading 0 (reserved for the title in a document)
+   -------  Heading 1
+   ^^^^^^^  Heading 2
+   +++++++  Heading 3
+   '''''''  Heading 4
+
+   Avoid deeper levels because they do not render well.
 
 ===========
 Methodology
 ===========
 
 Abstract
-========
+--------
 
 This chapter describes the methodology implemented by the Yardstick project for
 verifying the :term:`NFVI` from the perspective of a :term:`VNF`.
 
 ETSI-NFV
-========
+--------
 
 .. _NFV-TST001: http://www.etsi.org/deliver/etsi_gs/NFV-TST/001_099/001/01.01.01_60/gs_NFV-TST001v010101p.pdf
 .. _Yardsticktst: https://wiki.opnfv.org/download/attachments/2925202/opnfv_summit_-_bridging_opnfv_and_etsi.pdf?version=1&modificationDate=1458848320000&api=v2
@@ -53,7 +63,7 @@ The methodology includes five steps:
 .. seealso:: Yardsticktst_ for material on alignment ETSI TST001 and Yardstick.
 
 Metrics
-=======
+-------
 
 The metrics, as defined by ETSI GS NFV-TST001, are shown in
 :ref:`Table1 <table2_1>`, :ref:`Table2 <table2_2>` and

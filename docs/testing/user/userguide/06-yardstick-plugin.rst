@@ -3,13 +3,23 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, Ericsson AB, Huawei Technologies Co.,Ltd and others.
 
+.. Convention for heading levels in Yardstick documentation:
+
+   =======  Heading 0 (reserved for the title in a document)
+   -------  Heading 1
+   ^^^^^^^  Heading 2
+   +++++++  Heading 3
+   '''''''  Heading 4
+
+   Avoid deeper levels because they do not render well.
+
 ===================================
 Installing a plug-in into Yardstick
 ===================================
 
 
 Abstract
-========
+--------
 
 Yardstick provides a ``plugin`` CLI command to support integration with other
 OPNFV testing projects. Below is an example invocation of Yardstick plugin
@@ -17,7 +27,7 @@ command and Storperf plug-in sample.
 
 
 Installing Storperf into Yardstick
-==================================
+----------------------------------
 
 Storperf is delivered as a Docker container from
 https://hub.docker.com/r/opnfv/storperf/tags/.
@@ -31,7 +41,7 @@ In this introduction we will install Storperf on Jump Host.
 
 
 Step 0: Environment preparation
--------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Running Storperf on Jump Host
 Requirements:
@@ -100,7 +110,7 @@ container. You may need to copy it to the root directory of the Storperf
 deployed host.
 
 Step 1: Plug-in configuration file preparation
-----------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To install a plug-in, first you need to prepare a plug-in configuration file in
 YAML format and store it in the "plugin" directory. The plugin configration
@@ -125,7 +135,7 @@ Here the Storperf will be installed on IP 192.168.23.2 which is the Jump Host
 in my local environment.
 
 Step 2: Plug-in install/remove scripts preparation
---------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In ``yardstick/resource/scripts`` directory, there are two folders: an
 ``install`` folder and a ``remove`` folder. You need to store the plug-in
@@ -139,15 +149,15 @@ For example, the install and remove scripts for Storperf are both named
 ``storperf.bash``.
 
 Step 3: Install and remove Storperf
------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To install Storperf, simply execute the following command::
 
   # Install Storperf
   yardstick plugin install plugin/storperf.yaml
 
-Removing Storperf from yardstick
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Removing Storperf from Yardstick
+++++++++++++++++++++++++++++++++
 
 To remove Storperf, simply execute the following command::
 

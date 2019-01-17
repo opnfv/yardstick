@@ -1,3 +1,17 @@
+.. This work is licensed under a Creative Commons Attribution 4.0 International
+.. License.
+.. http://creativecommons.org/licenses/by/4.0
+
+.. Convention for heading levels in Yardstick documentation:
+
+   =======  Heading 0 (reserved for the title in a document)
+   -------  Heading 1
+   ^^^^^^^  Heading 2
+   +++++++  Heading 3
+   '''''''  Heading 4
+
+   Avoid deeper levels because they do not render well.
+
 ========================
 Yardstick User Interface
 ========================
@@ -18,7 +32,7 @@ The following layouts are available:
 
 
 Commands
-========
+--------
 
 To generate the compact HTML report, run::
 
@@ -30,7 +44,7 @@ To generate the dynamic HTML report, run::
 
 
 Description
-===========
+-----------
 
 1. When the command is triggered, the relevant values for the
    provided task-id and testcase name are retrieved from the
