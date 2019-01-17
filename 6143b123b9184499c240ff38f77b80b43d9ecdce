@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_8f745fd0",
+        "filename": "docs/testing/user/userguide/12-nsb-overview.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-17T10:04:03Z",
+      "side": 1,
+      "message": "not sure we can enable these. I suggest to remove it at the moment from the list. We can add interface stats at the moment.",
+      "range": {
+        "startLine": 203,
+        "startChar": 0,
+        "endLine": 204,
+        "endChar": 13
+      },
+      "revId": "6143b123b9184499c240ff38f77b80b43d9ecdce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ef819390",
+        "filename": "docs/testing/user/userguide/12-nsb-overview.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-17T10:04:03Z",
+      "side": 1,
+      "message": "RAM, CPU usage",
+      "revId": "6143b123b9184499c240ff38f77b80b43d9ecdce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_cf7e57ae",
+        "filename": "docs/testing/user/userguide/12-nsb-overview.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-17T10:04:03Z",
+      "side": 1,
+      "message": "Intel RDT",
+      "revId": "6143b123b9184499c240ff38f77b80b43d9ecdce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
