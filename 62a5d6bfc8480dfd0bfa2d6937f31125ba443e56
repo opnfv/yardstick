@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_6f45836f",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-17T10:29:26Z",
+      "side": 1,
+      "message": "will nsb_setup.yml be used anymore?\nshould it be removed?",
+      "range": {
+        "startLine": 140,
+        "startChar": 34,
+        "endLine": 140,
+        "endChar": 46
+      },
+      "revId": "62a5d6bfc8480dfd0bfa2d6937f31125ba443e56",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
