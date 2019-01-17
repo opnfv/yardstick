@@ -231,6 +231,9 @@ class DpdkVnfSetupEnvHelper(SetupEnvHelper):
         exit_status = self.dpdk_bind_helper.check_dpdk_driver()
         if exit_status == 0:
             return
+        else:
+            LOG.critical("DPDK Driver not installed")
+            return
 
     def _setup_resources(self):
         # what is this magic?  how do we know which socket is for which port?
