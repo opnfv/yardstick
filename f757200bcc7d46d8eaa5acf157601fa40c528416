@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_322770b8",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-17T11:03:47Z",
+      "side": 1,
+      "message": "This TC doesn\u0027t exist in Yardstick, are you referring to:\nsamples/vnf_samples/nsut/bng/tc_bng_pppoe_rfc2544_ixia_IMIX_scale_up.yaml, which matches the test case ID above?",
+      "range": {
+        "startLine": 48,
+        "startChar": 19,
+        "endLine": 48,
+        "endChar": 69
+      },
+      "revId": "f757200bcc7d46d8eaa5acf157601fa40c528416",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
