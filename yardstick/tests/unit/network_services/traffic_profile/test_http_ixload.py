@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation
+# Copyright (c) 2017-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@ import mock
 
 from oslo_serialization import jsonutils
 
-from yardstick.common import exceptions
 from yardstick.network_services.traffic_profile import http_ixload
 from yardstick.network_services.traffic_profile.http_ixload import \
     join_non_strings, validate_non_string_sequence
@@ -288,7 +287,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
 
         net_traffic.network.getL1Plugin.return_value = Exception
 
-        with self.assertRaises(exceptions.InvalidRxfFile):
+        with self.assertRaises(http_ixload.InvalidRxfFile):
             ixload.update_network_mac_address(net_traffic, "auto")
 
     def test_update_network_address(self):
@@ -312,7 +311,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
 
         net_traffic.network.getL1Plugin.return_value = Exception
 
-        with self.assertRaises(exceptions.InvalidRxfFile):
+        with self.assertRaises(http_ixload.InvalidRxfFile):
             ixload.update_network_address(net_traffic, "address", "gateway",
                                           "prefix")
 
@@ -375,7 +374,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
             pageObject="page_object")
 
         net_traffic.activityList = []
-        with self.assertRaises(exceptions.InvalidRxfFile):
+        with self.assertRaises(http_ixload.InvalidRxfFile):
             ixload.update_page_size(net_traffic, "page_object")
 
     def test_update_user_count(self):
@@ -390,7 +389,7 @@ class TestIxLoadTrafficGen(unittest.TestCase):
         activity.config.assert_called_once_with(userObjectiveValue=123)
 
         net_traffic.activityList = []
-        with self.assertRaises(exceptions.InvalidRxfFile):
+        with self.assertRaises(http_ixload.InvalidRxfFile):
             ixload.update_user_count(net_traffic, 123)
 
     @mock.patch('yardstick.network_services.traffic_profile.http_ixload.IxLoad')
