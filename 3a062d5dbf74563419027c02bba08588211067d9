@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_3db621da",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-18T11:58:02Z",
+      "side": 1,
+      "message": "import the module, not the class\n\ni.e. from yardstick.network_services.vnf_generic.vnf import sample_vnf",
+      "range": {
+        "startLine": 18,
+        "startChar": 66,
+        "endLine": 18,
+        "endChar": 75
+      },
+      "revId": "3a062d5dbf74563419027c02bba08588211067d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9dcad54d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-18T11:58:02Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 86
+      },
+      "revId": "3a062d5dbf74563419027c02bba08588211067d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7dc7f945",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-18T11:58:02Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 80
+      },
+      "revId": "3a062d5dbf74563419027c02bba08588211067d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
