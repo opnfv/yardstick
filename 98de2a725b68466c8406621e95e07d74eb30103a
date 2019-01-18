@@ -93,6 +93,30 @@
       "revId": "98de2a725b68466c8406621e95e07d74eb30103a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bdf9914f",
+        "filename": "docs/testing/user/userguide/nsb/tc_prox_context_l3fwd_port.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-18T14:46:34Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "1a622d24_d2bb9c0c",
+      "range": {
+        "startLine": 78,
+        "startChar": 20,
+        "endLine": 78,
+        "endChar": 28
+      },
+      "revId": "98de2a725b68466c8406621e95e07d74eb30103a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
