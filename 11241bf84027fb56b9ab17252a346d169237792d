@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_78ac27ee",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_buffering-4.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-18T17:04:05Z",
+      "side": 1,
+      "message": "besides the different runner type, the only different between this file and tc_prox_baremetal_buffering-4.yaml is the name of the supporting files.\n\nGiven the efforts to consolidate and template the testcases, is it possible to template the number of ports here?\nThen modify the filename based on 2 or 4?\n\n[1] https://gerrit.opnfv.org/gerrit/#/c/65595",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 35
+      },
+      "revId": "11241bf84027fb56b9ab17252a346d169237792d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f8a037f6",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_buffering-4.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-18T17:04:05Z",
+      "side": 1,
+      "message": "Duration vs ProxDuration, why is one vs the other used?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "11241bf84027fb56b9ab17252a346d169237792d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_189c13c0",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_buffering-2.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-18T17:04:05Z",
+      "side": 1,
+      "message": "Why is this one using Duration and the other using ProxDuration?\n\nAs a user, I would expect the behaviour to be the same for both, and the runners behave slightly differently",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "11241bf84027fb56b9ab17252a346d169237792d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d8b9fb2f",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_buffering-4.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-18T17:04:05Z",
+      "side": 1,
+      "message": "rm trailing whitespaces",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 4
+      },
+      "revId": "11241bf84027fb56b9ab17252a346d169237792d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b8b6bf3b",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_buffering-4.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-18T17:04:05Z",
+      "side": 1,
+      "message": "trailing whitespaces",
+      "range": {
+        "startLine": 68,
+        "startChar": 13,
+        "endLine": 68,
+        "endChar": 14
+      },
+      "revId": "11241bf84027fb56b9ab17252a346d169237792d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
