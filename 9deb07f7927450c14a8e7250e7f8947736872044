@@ -46,6 +46,30 @@
       "revId": "9deb07f7927450c14a8e7250e7f8947736872044",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1da245ae",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_l3fwd-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-18T11:24:54Z",
+      "side": 1,
+      "message": "I wasn\u0027t sure where it was coming from. Thanks Alan",
+      "parentUuid": "1a622d24_ddc8cd76",
+      "range": {
+        "startLine": 102,
+        "startChar": 31,
+        "endLine": 102,
+        "endChar": 39
+      },
+      "revId": "9deb07f7927450c14a8e7250e7f8947736872044",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
