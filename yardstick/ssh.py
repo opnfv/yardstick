@@ -89,14 +89,6 @@ def convert_key_to_str(key):
     return k.getvalue()
 
 
-# class SSHError(Exception):
-#     pass
-#
-#
-# class SSHTimeout(SSHError):
-#     pass
-
-
 class SSH(object):
     """Represent ssh connection."""
 
