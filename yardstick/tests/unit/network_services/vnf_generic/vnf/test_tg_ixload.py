@@ -142,6 +142,17 @@ class TestIxLoadTrafficGen(ut_base.BaseUnitTestCase):
         self.assertEqual("152.16.100.20", links["uplink_0"]["ip"]["gateway"])
         self.assertEqual("0.0.0.0", links["downlink_1"]["ip"]["gateway"])
 
+    def test_update_gateways_ip_not_defined(self):
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        ixload_traffic_gen = tg_ixload.IxLoadTrafficGen(NAME, vnfd, 'task_id')
+        links = {'uplink_0': {},
+                 'downlink_1': {}}
+
+        ixload_traffic_gen.update_gateways(links)
+
+        self.assertEqual("152.16.100.20", links["uplink_0"]["ip"]["gateway"])
+        self.assertEqual("0.0.0.0", links["downlink_1"]["ip"]["gateway"])
+
     @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server',
                        return_value='mock_node')
     def test_collect_kpi(self, *args):
