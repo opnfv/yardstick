@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_dd93adf8",
+        "filename": "docs/testing/user/userguide/nsb/tc_prox_context_l3fwd_port.rst",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-18T14:54:49Z",
+      "side": 1,
+      "message": "This needs to be removed space needed here",
+      "range": {
+        "startLine": 60,
+        "startChar": 79,
+        "endLine": 60,
+        "endChar": 134
+      },
+      "revId": "c5732b83b3747014c309a11d3dbc064ccfc41246",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1dbd2569",
+        "filename": "docs/testing/user/userguide/nsb/tc_prox_context_l3fwd_port.rst",
+        "patchSetId": 11
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-18T14:54:49Z",
+      "side": 1,
+      "message": "The border is missing for the table here.",
+      "revId": "c5732b83b3747014c309a11d3dbc064ccfc41246",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
