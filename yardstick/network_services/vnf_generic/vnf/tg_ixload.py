@@ -137,16 +137,19 @@ class IxLoadTrafficGen(sample_vnf.SampleVNFTrafficGen):
 
     def update_gateways(self, links):
         for name in links:
+            gateway = "0.0.0.0"
             try:
                 gateway = next(intf["virtual-interface"]["dst_ip"] for intf in
                                self.setup_helper.vnfd_helper["vdu"][0][
                                    "external-interface"] if
                                intf["virtual-interface"]["vld_id"] == name)
-
-                links[name]["ip"]["gateway"] = gateway
             except StopIteration:
                 LOG.debug("Cant find gateway for link %s", name)
-                links[name]["ip"]["gateway"] = "0.0.0.0"
+
+            try:
+                links[name]["ip"]["gateway"] = gateway
+            except KeyError:
+                links[name]["ip"] = {"gateway": gateway}
 
         return links
 
