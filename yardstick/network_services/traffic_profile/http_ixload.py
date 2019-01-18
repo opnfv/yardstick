@@ -16,14 +16,6 @@ import sys
 import os
 import logging
 import collections
-import subprocess
-try:
-    libs = subprocess.check_output(
-        'python -c "import site; print(site.getsitepackages())"', shell=True)
-
-    sys.path.extend(libs[1:-1].replace("'", "").split(','))
-except subprocess.CalledProcessError:
-    pass
 
 # ixload uses its own py2. So importing jsonutils fails. So adding below
 # workaround to support call from yardstick
@@ -32,14 +24,26 @@ try:
 except ImportError:
     import json as jsonutils
 
-from yardstick.common import exceptions #pylint: disable=wrong-import-position
+
+class ErrorClass(object):
+
+    def __init__(self, *args, **kwargs):
+        if 'test' not in kwargs:
+            raise RuntimeError
+
+    def __getattr__(self, item):
+        raise AttributeError
+
+
+class InvalidRxfFile(Exception):
+    message = 'Loaded rxf file has unexpected format'
+
 
 try:
     from IxLoad import IxLoad, StatCollectorUtils
 except ImportError:
-    IxLoad = exceptions.ErrorClass
-    StatCollectorUtils = exceptions.ErrorClass
-
+    IxLoad = ErrorClass
+    StatCollectorUtils = ErrorClass
 
 LOG = logging.getLogger(__name__)
 CSV_FILEPATH_NAME = 'IxL_statResults.csv'
@@ -205,7 +209,7 @@ class IXLOADHttpTest(object):
                 ipAddress=address,
                 gatewayAddress=gateway)
         except Exception:
-            raise exceptions.InvalidRxfFile
+            raise InvalidRxfFile
 
     def update_network_mac_address(self, net_traffic, mac):
         """Update MACaddress for net_traffic object
@@ -233,7 +237,7 @@ class IXLOADHttpTest(object):
                     "MacRange")
                 mac_range.config(mac=mac)
         except Exception:
-            raise exceptions.InvalidRxfFile
+            raise InvalidRxfFile
 
     def update_network_param(self, net_traffic, param):
         """Update net_traffic by parameters specified in param"""
@@ -301,7 +305,7 @@ class IXLOADHttpTest(object):
             ix_http_command = activity.agent.actionList[0]
             ix_http_command.config(pageObject=page_object)
         except Exception:
-            raise exceptions.InvalidRxfFile
+            raise InvalidRxfFile
 
     def update_user_count(self, net_traffic, user_count):
         """Update userObjectiveValue field in activity object in net_traffic
@@ -318,7 +322,7 @@ class IXLOADHttpTest(object):
             activity = net_traffic.activityList[0]
             activity.config(userObjectiveValue=user_count)
         except Exception:
-            raise exceptions.InvalidRxfFile
+            raise InvalidRxfFile
 
     def start_http_test(self):
         self.ix_load = IxLoad()
