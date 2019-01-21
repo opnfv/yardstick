@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_e3db6c19",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-01-21T14:26:27Z",
+      "side": 1,
+      "message": "As we wants don\u0027t want to make any type of change in existing yardstick table so we should not write it to existing yardstick table. Also, I think this implementation is also fine as it is just some metadata and we wan\u0027t to populate it only once so having it implemented in base file seems fine.",
+      "parentUuid": "1a622d24_d7044080",
+      "range": {
+        "startLine": 142,
+        "startChar": 8,
+        "endLine": 143,
+        "endChar": 33
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_17e878b3",
         "filename": "yardstick/benchmark/runners/base.py",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2018-12-18T15:56:22Z",
       "side": 1,
       "message": "IMHO, this check should be in _metadata_table_output_to_influxdb()",
+      "range": {
+        "startLine": 267,
+        "startChar": 0,
+        "endLine": 269,
+        "endChar": 50
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c3d8f01f",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-01-21T14:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_17e878b3",
       "range": {
         "startLine": 267,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_2305647a",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-01-21T14:26:27Z",
+      "side": 1,
+      "message": "I tried that but it is then messing with existing table. Also, it is is better to keep separate method for metadata table.",
+      "parentUuid": "1a622d24_f7ecdcc9",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 285,
+        "endChar": 62
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_37f5b483",
         "filename": "yardstick/dispatcher/influxdb.py",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2018-12-18T15:56:22Z",
       "side": 1,
       "message": "Unless you\u0027re going to make this metadata table name configurable, there\u0027s no need to set this up as an instance variable, you can keep it local to _metadata_to_line_protocol()",
+      "range": {
+        "startLine": 45,
+        "startChar": 8,
+        "endLine": 45,
+        "endChar": 46
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_030ae889",
+        "filename": "yardstick/dispatcher/influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-01-21T14:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_37f5b483",
       "range": {
         "startLine": 45,
         "startChar": 8,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_63ff5c68",
+        "filename": "yardstick/dispatcher/influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-01-21T14:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_57f8307c",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 54,
+        "endChar": 31
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_b709c497",
         "filename": "yardstick/dispatcher/influxdb.py",
         "patchSetId": 7
@@ -128,6 +248,30 @@
       "writtenOn": "2018-12-18T15:56:22Z",
       "side": 1,
       "message": "Does this need to be an instance variable? Or can it be a local variable?",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 112,
+        "endChar": 20
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4304e07a",
+        "filename": "yardstick/dispatcher/influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-01-21T14:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b709c497",
       "range": {
         "startLine": 112,
         "startChar": 8,
@@ -386,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_e3f24c99",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-01-21T14:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b7bf04d0",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 45
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_f7b97cea",
         "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
         "patchSetId": 7
@@ -397,6 +565,30 @@
       "writtenOn": "2018-12-18T15:56:22Z",
       "side": 1,
       "message": "Use self.assertIsNone",
+      "range": {
+        "startLine": 76,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 64
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a3f8547d",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-01-21T14:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_f7b97cea",
       "range": {
         "startLine": 76,
         "startChar": 8,
@@ -432,6 +624,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_83f55885",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-01-21T14:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_17b518ee",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 52
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_57ce7084",
         "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
         "patchSetId": 7
@@ -443,6 +659,30 @@
       "writtenOn": "2018-12-18T15:56:22Z",
       "side": 1,
       "message": "use self.assertIsNone",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 64
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c3ef50af",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-01-21T14:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_57ce7084",
       "range": {
         "startLine": 97,
         "startChar": 0,
@@ -478,6 +718,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_232c4402",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-01-21T14:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_37cbf473",
+      "range": {
+        "startLine": 101,
+        "startChar": 1,
+        "endLine": 104,
+        "endChar": 52
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_97c80876",
         "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
         "patchSetId": 7
@@ -489,6 +753,30 @@
       "writtenOn": "2018-12-18T15:56:22Z",
       "side": 1,
       "message": "use self.assertIsNone",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 64
+      },
+      "revId": "27f30ba7c0be4537a6c9069a54d1c0df5eef5129",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0331485a",
+        "filename": "yardstick/tests/unit/dispatcher/test_influxdb.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-01-21T14:26:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_97c80876",
       "range": {
         "startLine": 118,
         "startChar": 0,
