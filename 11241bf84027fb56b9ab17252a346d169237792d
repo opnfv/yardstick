@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_03a788be",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_buffering-4.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-21T13:52:15Z",
+      "side": 1,
+      "message": "I will add a scale up baremetal and heat file.",
+      "parentUuid": "1a622d24_78ac27ee",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 35
+      },
+      "revId": "11241bf84027fb56b9ab17252a346d169237792d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_f8a037f6",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_buffering-4.yaml",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-18T17:04:05Z",
       "side": 1,
       "message": "Duration vs ProxDuration, why is one vs the other used?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "11241bf84027fb56b9ab17252a346d169237792d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_63ac7ca1",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_buffering-4.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-21T13:52:15Z",
+      "side": 1,
+      "message": "ProxDuration gives the user to opportunity to request a confirmation before making a \"go/no-go\" division.  As specified in the NSB PROX DEVGUIDE either can be used.\n\nEither can be used.. But using ProxDuration gives greater accuracy in the results.",
+      "parentUuid": "1a622d24_f8a037f6",
       "range": {
         "startLine": 46,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_a395f441",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_buffering-2.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-21T13:52:15Z",
+      "side": 1,
+      "message": "ProxDuration gives the user to opportunity to request a confirmation before making a \"go/no-go\" division.  As specified in the NSB PROX DEVGUIDE either can be used.\n\nEither can be used.. But using ProxDuration gives greater accuracy in the results.",
+      "parentUuid": "1a622d24_189c13c0",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "11241bf84027fb56b9ab17252a346d169237792d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_d8b9fb2f",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_buffering-4.yaml",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_83cb9871",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_buffering-4.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-21T13:52:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_d8b9fb2f",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 4
+      },
+      "revId": "11241bf84027fb56b9ab17252a346d169237792d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_b8b6bf3b",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_buffering-4.yaml",
         "patchSetId": 5
@@ -105,6 +201,30 @@
       "writtenOn": "2019-01-18T17:04:05Z",
       "side": 1,
       "message": "trailing whitespaces",
+      "range": {
+        "startLine": 68,
+        "startChar": 13,
+        "endLine": 68,
+        "endChar": 14
+      },
+      "revId": "11241bf84027fb56b9ab17252a346d169237792d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e3c88c76",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_buffering-4.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-21T13:52:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b8b6bf3b",
       "range": {
         "startLine": 68,
         "startChar": 13,
