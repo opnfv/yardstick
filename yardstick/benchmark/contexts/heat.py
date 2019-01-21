@@ -508,10 +508,12 @@ class HeatContext(Context):
         pkey = pkg_resources.resource_string(
             'yardstick.resources',
             h_join('files/yardstick_key', self.name)).decode('utf-8')
-
+        key_filename = pkg_resources.resource_filename('yardstick.resources',
+            h_join('files/yardstick_key', self.name))
         result = {
             "user": server.context.user,
             "pkey": pkey,
+            "key_filename": key_filename,
             "private_ip": server.private_ip,
             "interfaces": server.interfaces,
             "routing_table": self.generate_routing_table(server),
