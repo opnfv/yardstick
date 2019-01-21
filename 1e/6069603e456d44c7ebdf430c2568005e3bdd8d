@@ -1,0 +1,9 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Code-Review+1: John O'Loughlin <john.oloughlin@intel.com>
+Code-Review+2: Emma Foley <emma.l.foley@intel.com>
+Submitted-by: Emma Foley <emma.l.foley@intel.com>
+Submitted-at: Mon, 21 Jan 2019 11:19:39 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/65445
+Project: yardstick
+Branch: refs/heads/master
