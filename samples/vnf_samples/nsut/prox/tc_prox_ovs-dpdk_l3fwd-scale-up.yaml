@@ -84,24 +84,24 @@ contexts:
          network_ports:
            mgmt:
              cidr: '1.1.1.62/24'
-{% for port_num in range(1,vports,2|int) %}
-           xe{{ loop.index0 * 2 }}:
-             - uplink_{{ loop.index0 }}
-           xe{{ (loop.index0 * 2) + 1 }}:
-             - downlink_{{ loop.index0 }}
+{% for port_num in range((vports/2)|int) %}
+           xe{{ port_num * 2 }}:
+             - uplink_{{ port_num }}
+           xe{{ (port_num * 2) + 1 }}:
+             - downlink_{{ port_num }}
 {% endfor %}
      networks:
-{% for port_num in range(1,vports,2|int) %}
-       uplink_{{ loop.index0 }}:
-         port_num: {{ networks.uplink[loop.index0].port_num }}
-         phy_port: "{{ networks.uplink[loop.index0].phy_port }}"
-         vpci: "{{ networks.uplink[loop.index0].vpci }}"
-         cidr: "{{ networks.uplink[loop.index0].cidr }}"
-         gateway_ip: "{{ networks.uplink[loop.index0].gateway_ip }}"
-       downlink_{{ loop.index0 }}:
-         port_num: {{ networks.downlink[loop.index0].port_num }}
-         phy_port: "{{ networks.downlink[loop.index0].phy_port }}"
-         vpci: "{{ networks.downlink[loop.index0].vpci }}"
-         cidr: "{{ networks.downlink[loop.index0].cidr }}"
-         gateway_ip: "{{ networks.downlink[loop.index0].gateway_ip }}"
+{% for port_num in range((vports/2)|int) %}
+       uplink_{{ port_num }}:
+         port_num: {{ networks.uplink[port_num].port_num }}
+         phy_port: "{{ networks.uplink[port_num].phy_port }}"
+         vpci: "{{ networks.uplink[port_num].vpci }}"
+         cidr: "{{ networks.uplink[port_num].cidr }}"
+         gateway_ip: "{{ networks.uplink[port_num].gateway_ip }}"
+       downlink_{{ port_num }}:
+         port_num: {{ networks.downlink[port_num].port_num }}
+         phy_port: "{{ networks.downlink[port_num].phy_port }}"
+         vpci: "{{ networks.downlink[port_num].vpci }}"
+         cidr: "{{ networks.downlink[port_num].cidr }}"
+         gateway_ip: "{{ networks.downlink[port_num].gateway_ip }}"
 {% endfor %}
