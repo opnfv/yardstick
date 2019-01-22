@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2018 Intel Corporation
+# Copyright (c) 2016-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+{% set framesize = framesize or "{64B: 100}" %}
 ---
 schema: yardstick:task:0.1
 scenarios:
@@ -20,11 +20,11 @@ scenarios:
   topology: acl_vnf_topology_ixia.yaml
   nodes:
     tg__0: tg__0.yardstick
-    vnf__0: vnf__0.yardstick
+    vnf__0: vnf.yardstick
   options:
     framesize:
-      uplink: {64B: 100}
-      downlink: {64B: 100}
+      uplink: {{ framesize }}
+      downlink: {{ framesize }}
     flow:
       src_ip: [{'tg__0': 'xe0'}]
       dst_ip: [{'tg__0': 'xe1'}]
@@ -43,21 +43,10 @@ contexts:
    - name: yardstick
      type: Node
      file: /etc/yardstick/nodes/standalone/pod_trex_ixia.yaml
-   - type: StandaloneOvsDpdk
+   - type: StandaloneSriov
+     file: /etc/yardstick/nodes/standalone/host_sriov.yaml
      name: yardstick
-     file: /etc/yardstick/nodes/standalone/pod_ovs.yaml
      vm_deploy: True
-     ovs_properties:
-       version:
-         ovs: 2.7.0
-         dpdk: 16.11.1
-       pmd_threads: 2
-       ram:
-         socket_0: 2048
-         socket_1: 2048
-       queues: 4
-       vpath: "/usr/local"
-
      flavor:
        images: "/var/lib/libvirt/images/ubuntu.qcow2"
        ram: 4096
@@ -68,23 +57,21 @@ contexts:
        user: ""
        password: ""
      servers:
-       vnf__0:
+       vnf:
          network_ports:
            mgmt:
-             cidr: '1.1.1.7/24'
+             cidr: '1.1.1.61/24'
            xe0:
              - uplink_0
            xe1:
              - downlink_0
      networks:
        uplink_0:
-         port_num: 0
          phy_port: "0000:07:00.0"
          vpci: "0000:00:07.0"
          cidr: '152.16.100.10/24'
          gateway_ip: '152.16.100.20'
        downlink_0:
-         port_num: 1
          phy_port: "0000:07:00.1"
          vpci: "0000:00:08.0"
          cidr: '152.16.40.10/24'
