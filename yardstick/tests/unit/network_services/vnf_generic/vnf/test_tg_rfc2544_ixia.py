@@ -18,6 +18,8 @@ import mock
 import six
 import unittest
 import ipaddress
+import time
+from multiprocessing import Process
 from collections import OrderedDict
 
 from yardstick.common import utils
@@ -107,6 +109,29 @@ class TestIxiaResourceHelper(unittest.TestCase):
 
         self.assertEqual('fake_samples', ixia_rhelper._queue.get())
         mock_tprofile.update_traffic_profile.assert_called_once()
+
+    def test_run_test(self):
+        mock_tprofile = mock.Mock()
+        mock_tprofile.config.duration = 10
+        mock_tprofile.get_drop_percentage.return_value = True, 'fake_samples'
+        ixia_rhelper = tg_rfc2544_ixia.IxiaResourceHelper(mock.Mock())
+        tasks_queue = mock.Mock()
+        tasks_queue.get.return_value = 'RUN_TRAFFIC'
+        results_queue = mock.Mock()
+        ixia_rhelper.rfc_helper = mock.Mock()
+        ixia_rhelper.vnfd_helper = mock.Mock()
+        ixia_rhelper._ix_scenario = mock.Mock()
+        ixia_rhelper.vnfd_helper.port_pairs.all_ports = []
+        with mock.patch.object(ixia_rhelper, 'generate_samples'), \
+                mock.patch.object(ixia_rhelper, '_build_ports'), \
+                mock.patch.object(ixia_rhelper, '_initialize_client'), \
+                mock.patch.object(utils, 'wait_until_true'):
+            ixia_rhelper.run_test(mock_tprofile, tasks_queue, results_queue)
+
+        self.assertEqual('fake_samples', ixia_rhelper._queue.get())
+        mock_tprofile.update_traffic_profile.assert_called_once()
+        tasks_queue.task_done.assert_called_once()
+        results_queue.put.assert_called_once_with('COMPLETE')
 
 
 @mock.patch.object(tg_rfc2544_ixia, 'ixnet_api')
@@ -429,6 +454,45 @@ class TestIXIATrafficGen(unittest.TestCase):
             self.assertIsNone(result)
 
         _traffic_runner()
+
+    def test_run_traffic_once(self, *args):
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        sut = tg_rfc2544_ixia.IxiaTrafficGen('vnf1', vnfd, 'task_id')
+        sut._init_traffic_process = mock.Mock()
+        sut._tasks_queue.put = mock.Mock()
+        sut.resource_helper.client_started.value = 0
+        sut.run_traffic_once(self.TRAFFIC_PROFILE)
+        sut._tasks_queue.put.assert_called_once_with("RUN_TRAFFIC")
+        sut._init_traffic_process.assert_called_once_with(self.TRAFFIC_PROFILE)
+
+    def test__test_runner(self, *args):
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        sut = tg_rfc2544_ixia.IxiaTrafficGen('vnf1', vnfd, 'task_id')
+        tasks = 'tasks'
+        results = 'results'
+        sut.resource_helper = mock.Mock()
+        sut._test_runner(self.TRAFFIC_PROFILE, tasks, results)
+        sut.resource_helper.run_test.assert_called_once_with(self.TRAFFIC_PROFILE,
+                                                             tasks, results)
+
+    @mock.patch.object(time, 'sleep', return_value=0)
+    def test__init_traffic_process(self, mock_sleep, *args):
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        sut = tg_rfc2544_ixia.IxiaTrafficGen('vnf1', vnfd, 'task_id')
+        sut._test_runner = mock.Mock(return_value=0)
+        sut.resource_helper = mock.Mock()
+        sut.resource_helper.client_started.value = 0
+        sut._init_traffic_process(self.TRAFFIC_PROFILE)
+
+    def test_wait_on_traffic(self, *args):
+        vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
+        sut = tg_rfc2544_ixia.IxiaTrafficGen('vnf1', vnfd, 'task_id')
+        sut._tasks_queue.join = mock.Mock(return_value=0)
+        sut._result_queue.get = mock.Mock(return_value='COMPLETE')
+        result = sut.wait_on_traffic()
+        sut._tasks_queue.join.assert_called_once()
+        sut._result_queue.get.assert_called_once()
+        self.assertEqual(result, 'COMPLETE')
 
 
 class TestIxiaBasicScenario(unittest.TestCase):

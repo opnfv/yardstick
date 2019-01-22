@@ -22,6 +22,7 @@ import unittest
 from yardstick import tests
 from yardstick.common import exceptions
 from yardstick.common import utils
+from yardstick.network_services.collector import subscriber
 from yardstick.network_services.collector.subscriber import Collector
 from yardstick.network_services.traffic_profile import base
 from yardstick.network_services.vnf_generic import vnfdgen
@@ -731,3 +732,57 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             mock.Mock(return_value=True)
         with self.assertRaises(RuntimeError):
             self.s.teardown()
+
+
+class TestNetworkServiceRFC2544TestCase(TestNetworkServiceTestCase):
+
+    def setUp(self):
+        super(TestNetworkServiceRFC2544TestCase, self).setUp()
+        self.s = vnf_generic.NetworkServiceRFC2544(self.scenario_cfg,
+                                                    self.context_cfg)
+
+    def test_run(self):
+        tgen = mock.Mock(autospec=GenericTrafficGen)
+        tgen.traffic_finished = True
+        verified_dict = {"verified": True}
+        tgen.verify_traffic = lambda x: verified_dict
+        tgen.name = "tgen__1"
+        tgen.wait_on_trafic.return_value = 'COMPLETE'
+        vnf = mock.Mock(autospec=GenericVNF)
+        vnf.runs_traffic = False
+        self.s.vnfs = [tgen, vnf]
+        self.s.traffic_profile = mock.Mock()
+        self.s._fill_traffic_profile = mock.Mock()
+        self.s.collector = mock.Mock(autospec=Collector)
+        self.s.collector.get_kpi = mock.Mock(
+            return_value={tgen.name: verified_dict})
+        result = mock.Mock()
+        self.s.run(result)
+        self.s._fill_traffic_profile.assert_called_once()
+        result.push.assert_called_once()
+
+    def test_setup(self):
+        with mock.patch("yardstick.ssh.SSH") as ssh:
+            ssh_mock = mock.Mock(autospec=ssh.SSH)
+            ssh_mock.execute = \
+                mock.Mock(return_value=(0, SYS_CLASS_NET + IP_ADDR_SHOW, ""))
+            ssh.from_node.return_value = ssh_mock
+
+            tgen = mock.Mock(autospec=GenericTrafficGen)
+            tgen.traffic_finished = True
+            verified_dict = {"verified": True}
+            tgen.verify_traffic = lambda x: verified_dict
+            tgen.terminate = mock.Mock(return_value=True)
+            tgen.name = "tgen__1"
+            tgen.run_traffic.return_value = 'tg_id'
+            vnf = mock.Mock(autospec=GenericVNF)
+            vnf.runs_traffic = False
+            vnf.terminate = mock.Mock(return_value=True)
+            self.s.vnfs = [tgen, vnf]
+            self.s.traffic_profile = mock.Mock()
+            self.s.collector = mock.Mock(autospec=Collector)
+            self.s.collector.get_kpi = \
+                mock.Mock(return_value={tgen.name: verified_dict})
+            self.s.map_topology_to_infrastructure = mock.Mock(return_value=0)
+            self.s.load_vnf_models = mock.Mock(return_value=self.s.vnfs)
+            self.s.setup()
