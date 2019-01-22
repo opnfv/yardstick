@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_9e13eb5b",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_buffering-scale-up.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-22T09:09:25Z",
+      "side": 1,
+      "message": "please use new names used by orest",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "6756da2fd99f64e8dad178455d3c761ec1a930b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3e0f3732",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_buffering-scale-up.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-22T09:09:25Z",
+      "side": 1,
+      "message": "please use new names used by orest",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 25
+      },
+      "revId": "6756da2fd99f64e8dad178455d3c761ec1a930b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
