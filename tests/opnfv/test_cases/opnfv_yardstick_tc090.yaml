@@ -57,8 +57,6 @@ scenarios:
       host: {{attack_host}}
       monitor_time: {{monitor_time}}
       monitor_number: 3
-      sla:
-        max_recover_time: 30
 
   nodes:
     {{attack_host}}: {{attack_host}}.LF

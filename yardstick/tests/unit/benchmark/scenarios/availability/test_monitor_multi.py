@@ -63,3 +63,20 @@ class MultiMonitorServiceTestCase(unittest.TestCase):
         ins.start_monitor()
         ins.wait_monitor()
         ins.verify_SLA()
+
+    def test__monitor_multi_no_sla(self, mock_open, mock_ssh):
+        monitor_cfg = {
+            'monitor_type': 'general-monitor',
+            'monitor_number': 3,
+            'key': 'service-status',
+            'monitor_key': 'service-status',
+            'host': 'node1',
+            'monitor_time': 0.1,
+            'parameter': {'serviceName': 'haproxy'}
+        }
+        ins = monitor_multi.MultiMonitor(
+            monitor_cfg, self.context, {"nova-api": 10})
+        mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
+        ins.start_monitor()
+        ins.wait_monitor()
+        self.assertTrue(ins.verify_SLA())
