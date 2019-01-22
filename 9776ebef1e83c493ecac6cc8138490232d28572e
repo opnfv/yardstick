@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_fe3c9f95",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_1b_Requests-65000_Concurrency.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-22T12:42:40Z",
+      "side": 1,
+      "message": "We shouldn\u0027t do any validation on this stage. The validation is done on IxLoad side. Also, fixing input attributes implicitly will case an issue when user will not know about the actual page size used by the Test case. Please remove this this validation.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "9776ebef1e83c493ecac6cc8138490232d28572e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
