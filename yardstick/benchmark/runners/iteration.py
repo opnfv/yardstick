@@ -34,13 +34,8 @@ from yardstick.common import exceptions as y_exc
 LOG = logging.getLogger(__name__)
 
 
-QUEUE_PUT_TIMEOUT = 10
-
-
 def _worker_process(queue, cls, method_name, scenario_cfg,
                     context_cfg, aborted, output_queue):
-
-    sequence = 1
 
     runner_cfg = scenario_cfg['runner']
 
@@ -53,7 +48,9 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
     runner_cfg['runner_id'] = os.getpid()
 
-    benchmark = cls(scenario_cfg, context_cfg)
+    scenario_output = base.ScenarioOutput(queue, output_queue, sequence=1,
+                                          errors="")
+    benchmark = cls(scenario_cfg, context_cfg, scenario_output)
     if "setup" in run_step:
         benchmark.setup()
 
@@ -67,11 +64,10 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
             LOG.debug("runner=%(runner)s seq=%(sequence)s START",
                       {"runner": runner_cfg["runner_id"],
-                       "sequence": sequence})
+                       "sequence": scenario_output.sequence})
 
             data = {}
-            errors = ""
-
+            scenario_output.errors = ""
             benchmark.pre_run_wait_time(interval)
 
             try:
@@ -82,7 +78,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                     raise
                 elif sla_action == "monitor":
                     LOG.warning("SLA validation failed: %s", error.args)
-                    errors = error.args
+                    scenario_output.errors = error.args
                 elif sla_action == "rate-control":
                     try:
                         scenario_cfg['options']['rate']
@@ -91,37 +87,31 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                         scenario_cfg['options']['rate'] = 100
 
                     scenario_cfg['options']['rate'] -= delta
-                    sequence = 1
+                    scenario_output.sequence = 1
                     continue
             except Exception:  # pylint: disable=broad-except
-                errors = traceback.format_exc()
+                scenario_output.errors = traceback.format_exc()
                 LOG.exception("")
                 raise
             else:
                 if result:
                     # add timeout for put so we don't block test
                     # if we do timeout we don't care about dropping individual KPIs
-                    output_queue.put(result, True, QUEUE_PUT_TIMEOUT)
+                    scenario_output.push_output(result)
 
             benchmark.post_run_wait_time(interval)
 
-            benchmark_output = {
-                'timestamp': time.time(),
-                'sequence': sequence,
-                'data': data,
-                'errors': errors
-            }
-
-            queue.put(benchmark_output, True, QUEUE_PUT_TIMEOUT)
+            if data:
+                scenario_output.push_result(data)
 
             LOG.debug("runner=%(runner)s seq=%(sequence)s END",
                       {"runner": runner_cfg["runner_id"],
-                       "sequence": sequence})
+                       "sequence": scenario_output.sequence})
 
-            sequence += 1
+            scenario_output.sequence += 1
 
-            if (errors and sla_action is None) or \
-                    (sequence > iterations or aborted.is_set()):
+            if (scenario_output.errors and sla_action is None) or \
+                    (scenario_output.sequence > iterations or aborted.is_set()):
                 LOG.info("worker END")
                 break
     if "teardown" in run_step:

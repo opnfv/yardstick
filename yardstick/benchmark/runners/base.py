@@ -80,6 +80,34 @@ def _periodic_action(interval, command, queue):
         queue.put({'periodic-action-data': data})
 
 
+QUEUE_PUT_TIMEOUT = 10
+
+
+class ScenarioOutput(object):
+
+    def __init__(self, result_queue, output_queue, **kwargs):
+        self._output_queue = output_queue
+        self._result_queue = result_queue
+        self.result = {
+            'timestamp': time.time(),
+            'data': {},
+        }
+        self.result_ext = dict()
+        for key, val in kwargs.items():
+            self.result_ext[key] = val
+            setattr(self, key, val)
+
+    def push_result(self, data):
+        self.result['timestamp'] = time.time()
+        self.result['data'] = data
+        for key in self.result_ext.keys():
+            self.result[key] = getattr(self, key)
+        self._result_queue.put(self.result, True, QUEUE_PUT_TIMEOUT)
+
+    def push_output(self, data):
+        self._output_queue.put(data, True, QUEUE_PUT_TIMEOUT)
+
+
 class Runner(object):
     runners = []
 
