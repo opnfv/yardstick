@@ -731,3 +731,26 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             mock.Mock(return_value=True)
         with self.assertRaises(RuntimeError):
             self.s.teardown()
+
+
+class TestNetworkServiceRFC2544TestCase(TestNetworkServiceTestCase):
+
+    def setUp(self):
+        super(TestNetworkServiceRFC2544TestCase, self).setUp()
+
+    def test_run(self):
+        tgen = mock.Mock(autospec=GenericTrafficGen)
+        tgen.traffic_finished = True
+        verified_dict = {"verified": True}
+        tgen.verify_traffic = lambda x: verified_dict
+        tgen.name = "tgen__1"
+        vnf = mock.Mock(autospec=GenericVNF)
+        vnf.runs_traffic = False
+        self.s.vnfs = [tgen, vnf]
+        self.s.traffic_profile = mock.Mock()
+        self.s.collector = mock.Mock(autospec=Collector)
+        self.s.collector.get_kpi = \
+            mock.Mock(return_value={tgen.name: verified_dict})
+        result = {}
+        self.s.run(result)
+        self.assertDictEqual(result, {tgen.name: verified_dict})
