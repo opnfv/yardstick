@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_bebb470d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ixload.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2019-01-22T12:34:37Z",
+      "side": 1,
+      "message": "it is better to say that incorrect traffic profile is used",
+      "range": {
+        "startLine": 149,
+        "startChar": 46,
+        "endLine": 149,
+        "endChar": 72
+      },
+      "revId": "a5d2857aea35e07b0c7c6c5145d8809518e9ff73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
