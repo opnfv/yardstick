@@ -11,7 +11,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+{% set page_size = page_size or "1b" %}
+{% if 'page_size' not in [ "1b", "4k", "8k", "16k", "64k", "256k", "512k", "1024k" ] %}
+    {% set page_size = "1b" %}
+{% endif %}
 ---
 schema: yardstick:task:0.1
 scenarios:
@@ -25,7 +28,7 @@ scenarios:
     simulated_users:
       uplink: [65000]
     page_object:
-      uplink: ["/1b.html"] #supports /4k /8k /16k /32k /64k /128k....
+      uplink: ["/{{ page_size }}.html"] #supports /1b /4k /8k /16k /32k /64k /128k....
     framesize:
       uplink: {64B: 100}
       downlink: {64B: 100}
