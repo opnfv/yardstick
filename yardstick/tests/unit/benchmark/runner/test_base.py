@@ -43,6 +43,29 @@ class ActionTestCase(ut_base.BaseUnitTestCase):
         runner_base._periodic_action(0, 'echo', mock.Mock())
 
 
+class ScenarioOutputTestCase(ut_base.BaseUnitTestCase):
+
+    def setUp(self):
+        self.output_queue = mock.Mock()
+        self.scenario_output = runner_base.ScenarioOutput(self.output_queue,
+                                                          sequence=1)
+
+    @mock.patch.object(time, 'time')
+    def test_push(self, mock_time):
+        mock_time.return_value = 2
+        data = {"value1": 1}
+        self.scenario_output.push(data)
+        self.output_queue.put.assert_called_once_with({'timestamp': 2,
+                                                       'sequence': 1,
+                                                       'data': data}, True, 10)
+
+    def test_push_no_timestamp(self):
+        self.scenario_output["value1"] = 1
+        self.scenario_output.push(None, False)
+        self.output_queue.put.assert_called_once_with({'sequence': 1,
+                                                       'value1': 1}, True, 10)
+
+
 class RunnerTestCase(ut_base.BaseUnitTestCase):
 
     def setUp(self):
