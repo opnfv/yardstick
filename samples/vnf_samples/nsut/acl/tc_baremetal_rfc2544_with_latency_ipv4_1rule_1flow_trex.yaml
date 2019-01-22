@@ -11,11 +11,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+{% set framesize = framesize or "{64B: 100}" %}
 ---
 schema: yardstick:task:0.1
 scenarios:
-{% for worker_thread in [1, 2, 3 , 4, 5, 6] %}
 - type: NSPerf
   traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
   topology: acl-tg-topology.yaml
@@ -24,8 +23,8 @@ scenarios:
     vnf__0: vnf.yardstick
   options:
     framesize:
-      uplink: {64B: 100}
-      downlink: {64B: 100}
+      uplink: {{ framesize }}
+      downlink: {{ framesize }}
     flow:
       src_ip: [{'tg__0': 'xe0'}]
       dst_ip: [{'tg__0': 'xe1'}]
@@ -35,13 +34,12 @@ scenarios:
       allowed_drop_rate: 0.0001 - 0.0001
     vnf__0:
       rules: acl_1rule.yaml
-      vnf_config: {lb_config: 'HW', lb_count: 1, worker_config: '1C/1T', worker_threads: {{worker_thread}}}
+      vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
       nfvi_enable: True
   runner:
     type: Iteration
-    iterations: 10
+    iterations: 28
     interval: 35
-{% endfor %}
 context:
   type: Node
   name: yardstick
