@@ -55,3 +55,19 @@ class MonitorProcessTestCase(unittest.TestCase):
         ins.monitor_func()
         ins._result = {"outage_time": 10}
         ins.verify_SLA()
+
+    def test__monitor_process_no_sla(self, mock_ssh):
+
+        monitor_cfg = {
+            'monitor_type': 'process',
+            'process_name': 'nova-api',
+            'host': "node1",
+            'monitor_time': 1,
+        }
+        ins = monitor_process.MonitorProcess(monitor_cfg, self.context, {"nova-api": 10})
+
+        mock_ssh.SSH.from_node().execute.return_value = (0, "0", '')
+        ins.setup()
+        ins.monitor_func()
+        ins._result = {"outage_time": 10}
+        self.assertTrue(ins.verify_SLA())
