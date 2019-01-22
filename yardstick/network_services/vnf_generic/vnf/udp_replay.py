@@ -109,7 +109,7 @@ class UdpReplayApproxVnf(SampleVNF):
 
     def collect_kpi(self):
         def get_sum(offset):
-            return sum(int(i) for i in split_stats[offset::5])
+            return sum(int(i) for i in split_stats[offset::6])
         # we can't get KPIs if the VNF is down
         check_if_process_failed(self._vnf_process)
 
@@ -117,7 +117,7 @@ class UdpReplayApproxVnf(SampleVNF):
 
         stats = self.get_stats()
         stats_words = stats.split()
-        split_stats = stats_words[stats_words.index('0'):][:number_of_ports * 5]
+        split_stats = stats_words[stats_words.index('arp_pkts') + 1:][:number_of_ports * 6]
 
         physical_node = ctx_base.Context.get_physical_node_from_server(
             self.scenario_helper.nodes[self.name])

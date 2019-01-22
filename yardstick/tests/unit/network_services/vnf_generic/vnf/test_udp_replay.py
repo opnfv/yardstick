@@ -329,9 +329,9 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         vnfd = self.VNFD_0
         get_stats_ret_val = \
             "stats\r\r\n\r\nUDP_Replay stats:\r\n--------------\r\n" \
-            "Port\t\tRx Packet\t\tTx Packet\t\tRx Pkt Drop\t\tTx Pkt Drop \r\n"\
-            "0\t\t7374156\t\t7374136\t\t\t0\t\t\t0\r\n" \
-            "1\t\t7374316\t\t7374315\t\t\t0\t\t\t0\r\n\r\nReplay>\r\r\nReplay>"
+            "Port\t\tRx Packet\t\tTx Packet\t\tRx Pkt Drop\t\tTx Pkt Drop\t\tarp_pkts \r\n"\
+            "0\t\t7374156\t\t7374136\t\t\t0\t\t\t0\t\t\t0\r\n" \
+            "1\t\t7374316\t\t7374315\t\t\t0\t\t\t0\t\t\t0\r\n\r\nReplay>\r\r\nReplay>"
         udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, vnfd)
         udp_replay_approx_vnf.scenario_helper.scenario_cfg = {
             'nodes': {udp_replay_approx_vnf.name: "mock"}
