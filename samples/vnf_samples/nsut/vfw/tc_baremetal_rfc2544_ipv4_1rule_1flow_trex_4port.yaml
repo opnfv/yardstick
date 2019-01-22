@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2018 Intel Corporation
+# Copyright (c) 2016-2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,31 +11,30 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+{% set framesize = framesize or "{64B: 100}" %}
 ---
 schema: yardstick:task:0.1
 scenarios:
 - type: NSPerf
-  traffic_profile: "../../traffic_profiles/ixia_ipv4_latency.yaml"
-  topology: vfw_vnf_topology_ixia.yaml
+  traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
+  topology: vfw-tg-topology-4port.yaml
   nodes:
     tg__0: trafficgen_1.yardstick
     vnf__0: vnf.yardstick
   options:
     framesize:
-      uplink: {64B: 100}
-      downlink: {64B: 100}
+      uplink: {{ framesize }}
+      downlink: {{ framesize }}
     flow:
-      src_ip: [{'tg__0': 'xe0'}]
-      dst_ip: [{'tg__0': 'xe1'}]
+      src_ip: [{'tg__0': 'xe0'}, {'tg__0': 'xe2'}]
+      dst_ip: [{'tg__0': 'xe1'}, {'tg__0': 'xe3'}]
       count: 1
     traffic_type: 4
     rfc2544:
       allowed_drop_rate: 0.0001 - 0.0001
     vnf__0:
       rules: acl_1rule.yaml
-      vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
-      nfvi_enable: True
+      vnf_config: {lb_config: 'SW', lb_count: 2, worker_config: '1C/1T', worker_threads: 1}
   runner:
     type: Iteration
     iterations: 10
@@ -44,4 +43,4 @@ context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: /etc/yardstick/nodes/pod_ixia.yaml
+  file: /etc/yardstick/nodes/pod_4.yaml
