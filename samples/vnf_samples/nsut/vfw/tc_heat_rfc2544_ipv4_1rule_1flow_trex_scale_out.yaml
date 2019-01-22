@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+{% set framesize = framesize or "{64B: 100}" %}
 {% set num_vnfs = num_vnfs or 1 %}
 {% set availability_zone = availability_zone or {} %}
 ---
@@ -28,8 +29,8 @@ scenarios:
 {% endfor %}
   options:
     framesize:
-      uplink: {64B: 100}
-      downlink: {64B: 100}
+      uplink: {{ framesize }}
+      downlink: {{ framesize }}
     flow:
       src_ip:
 {% for vnf_num in range(num_vnfs|int) %}
