@@ -23,7 +23,6 @@ from __future__ import absolute_import
 
 import logging
 import multiprocessing
-import time
 import traceback
 
 import os
@@ -40,8 +39,6 @@ QUEUE_PUT_TIMEOUT = 10
 def _worker_process(queue, cls, method_name, scenario_cfg,
                     context_cfg, aborted, output_queue):
 
-    sequence = 1
-
     runner_cfg = scenario_cfg['runner']
 
     interval = runner_cfg.get("interval", 1)
@@ -53,6 +50,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
     runner_cfg['runner_id'] = os.getpid()
 
+    scenario_output = base.ScenarioOutput(queue, sequence=1, errors="")
     benchmark = cls(scenario_cfg, context_cfg)
     if "setup" in run_step:
         benchmark.setup()
@@ -67,22 +65,21 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
             LOG.debug("runner=%(runner)s seq=%(sequence)s START",
                       {"runner": runner_cfg["runner_id"],
-                       "sequence": sequence})
+                       "sequence": scenario_output.sequence})
 
-            data = {}
-            errors = ""
-
+            scenario_output.clear()
+            scenario_output.errors = ""
             benchmark.pre_run_wait_time(interval)
 
             try:
-                result = method(data)
+                result = method(scenario_output)
             except y_exc.SLAValidationError as error:
                 # SLA validation failed in scenario, determine what to do now
                 if sla_action == "assert":
                     raise
                 elif sla_action == "monitor":
                     LOG.warning("SLA validation failed: %s", error.args)
-                    errors = error.args
+                    scenario_output.errors = error.args
                 elif sla_action == "rate-control":
                     try:
                         scenario_cfg['options']['rate']
@@ -91,10 +88,10 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
                         scenario_cfg['options']['rate'] = 100
 
                     scenario_cfg['options']['rate'] -= delta
-                    sequence = 1
+                    scenario_output.sequence = 1
                     continue
             except Exception:  # pylint: disable=broad-except
-                errors = traceback.format_exc()
+                scenario_output.errors = traceback.format_exc()
                 LOG.exception("")
                 raise
             else:
@@ -105,23 +102,17 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
             benchmark.post_run_wait_time(interval)
 
-            benchmark_output = {
-                'timestamp': time.time(),
-                'sequence': sequence,
-                'data': data,
-                'errors': errors
-            }
-
-            queue.put(benchmark_output, True, QUEUE_PUT_TIMEOUT)
+            if scenario_output:
+                scenario_output.push()
 
             LOG.debug("runner=%(runner)s seq=%(sequence)s END",
                       {"runner": runner_cfg["runner_id"],
-                       "sequence": sequence})
+                       "sequence": scenario_output.sequence})
 
-            sequence += 1
+            scenario_output.sequence += 1
 
-            if (errors and sla_action is None) or \
-                    (sequence > iterations or aborted.is_set()):
+            if (scenario_output.errors and sla_action is None) or \
+                    (scenario_output.sequence > iterations or aborted.is_set()):
                 LOG.info("worker END")
                 break
     if "teardown" in run_step:
