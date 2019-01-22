@@ -15,6 +15,9 @@
 import ipaddress
 import logging
 import six
+import os
+import time
+from multiprocessing import Queue, Value, Process, JoinableQueue
 
 from yardstick.common import utils
 from yardstick.common import exceptions
@@ -577,7 +580,75 @@ class IxiaResourceHelper(ClientResourceHelper):
             LOG.exception('Run Traffic terminated')
 
         self._ix_scenario.stop_protocols()
+        self.client_started.value = 0
         self._terminated.value = 1
+
+    def run_test(self, traffic_profile, tasks_queue, results_queue, *args):
+        LOG.info("Ixia resource_helper run_test")
+        if self._terminated.value:
+            return
+
+        min_tol = self.rfc_helper.tolerance_low
+        max_tol = self.rfc_helper.tolerance_high
+        precision = self.rfc_helper.tolerance_precision
+        default = "00:00:00:00:00:00"
+
+        self._build_ports()
+        traffic_profile.update_traffic_profile(self)
+        self._initialize_client(traffic_profile)
+
+        mac = {}
+        for port_name in self.vnfd_helper.port_pairs.all_ports:
+            intf = self.vnfd_helper.find_interface(name=port_name)
+            virt_intf = intf["virtual-interface"]
+            # we only know static traffic id by reading the json
+            # this is used by _get_ixia_trafficrofile
+            port_num = self.vnfd_helper.port_num(intf)
+            mac["src_mac_{}".format(port_num)] = virt_intf.get("local_mac", default)
+            mac["dst_mac_{}".format(port_num)] = virt_intf.get("dst_mac", default)
+
+        self._ix_scenario.run_protocols()
+
+        try:
+            completed = False
+            self.client_started.value = 1
+            while completed is False and not self._terminated.value:
+                LOG.info("Wait for task ...")
+
+                try:
+                    task = tasks_queue.get(True, 5)
+                except moves.queue.Empty:
+                    continue
+                else:
+                    if task != 'RUN_TRAFFIC':
+                        continue
+
+                LOG.info("Got {} task".format(task))
+                first_run = traffic_profile.execute_traffic(
+                    self, self.client, mac)
+                # pylint: disable=unnecessary-lambda
+                utils.wait_until_true(lambda: self.client.is_traffic_stopped(),
+                                      timeout=traffic_profile.config.duration * 2)
+                samples = self.generate_samples(traffic_profile.ports,
+                                                traffic_profile.config.duration)
+
+                completed, samples = traffic_profile.get_drop_percentage(
+                    samples, min_tol, max_tol, precision, first_run=first_run)
+                self._queue.put(samples)
+
+                if completed:
+                    LOG.debug("IxiaResourceHelper::run_test - test completed")
+                    results_queue.put('COMPLETE')
+                else:
+                    results_queue.put('CONTINUE')
+                tasks_queue.task_done()
+
+        except Exception:  # pylint: disable=broad-except
+            LOG.exception('Run Traffic terminated')
+
+        self._ix_scenario.stop_protocols()
+        self.client_started.value = 0
+        LOG.debug("IxiaResourceHelper::run_test done")
 
     def collect_kpi(self):
         self.rfc_helper.iteration.value += 1
@@ -597,10 +668,36 @@ class IxiaTrafficGen(SampleVNFTrafficGen):
         self._ixia_traffic_gen = None
         self.ixia_file_name = ''
         self.vnf_port_pairs = []
+        self._traffic_process = None
+        self._tasks_queue = JoinableQueue()
+        self._result_queue = Queue()
 
-    def _check_status(self):
-        pass
+    def _test_runner(self, traffic_profile, tasks, results):
+        self.resource_helper.run_test(traffic_profile, tasks, results)
 
-    def terminate(self):
-        self.resource_helper.stop_collect()
-        super(IxiaTrafficGen, self).terminate()
+    def _init_traffic_process(self, traffic_profile):
+        name = '{}-{}-{}-{}'.format(self.name, self.APP_NAME,
+                                    traffic_profile.__class__.__name__,
+                                    os.getpid())
+        self._traffic_process = Process(name=name, target=self._test_runner,
+                                        args=(traffic_profile, self._tasks_queue, self._result_queue))
+
+        self._traffic_process.start()
+        while self.resource_helper.client_started.value == 0:
+            time.sleep(1)
+            if not self._traffic_process.is_alive():
+                break
+
+    def run_traffic_once(self, traffic_profile):
+        # SP: init should be moved from here (to initialize ??)
+        if self.resource_helper.client_started.value == 0: # if self._traffic_process is None:
+            self._init_traffic_process(traffic_profile)
+
+        # continue test - run next iteration
+        LOG.info("Run next iteration ...")
+        self._tasks_queue.put('RUN_TRAFFIC')
+
+    def wait_on_traffic(self):
+        self._tasks_queue.join()
+        result = self._result_queue.get()
+        return result
