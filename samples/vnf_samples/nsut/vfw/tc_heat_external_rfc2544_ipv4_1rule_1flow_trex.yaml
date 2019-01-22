@@ -1,4 +1,4 @@
-# Copyright (c) 2017-2018 Intel Corporation
+# Copyright (c) 2016-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,20 +11,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+{% set framesize = framesize or "{64B: 100}" %}
 ---
 schema: yardstick:task:0.1
 scenarios:
 - type: NSPerf
-  traffic_profile: ../../traffic_profiles/ixia_ipv4_latency.yaml
-  topology: vfw_vnf_topology_ixia.yaml
+  traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
+  topology: vfw-tg-topology.yaml
   nodes:
-    tg__0: trafficgen_1.yardstick1
+    tg__0: trafficgen_1.baremetal
     vnf__0: vnf.yardstick
   options:
     framesize:
-      uplink: {512B: 100}
-      downlink: {512B: 100}
+      uplink: {{ framesize }}
+      downlink: {{ framesize }}
     flow:
       src_ip: [{'tg__0': 'xe0'}]
       dst_ip: [{'tg__0': 'xe1'}]
@@ -41,9 +41,9 @@ scenarios:
     interval: 35
 contexts:
   # put node context first, so we don't HEAT deploy if node has errors
-  - name: yardstick1
+  - name: baremetal
     type: Node
-    file: ixia.yml
+    file: trex-baremetal.yml
   - name: yardstick
     image: yardstick-samplevnfs
     flavor:
@@ -67,14 +67,12 @@ contexts:
         cidr: '10.0.1.0/24'
       xe0:
         cidr: '10.0.2.0/24'
-        vld_id: downlink_0
         gateway_ip: 'null'
         provider: true
         physical_network: phystenant1
         port_security_enabled: False
       xe1:
         cidr: '10.0.3.0/24'
-        vld_id: uplink_0
         gateway_ip: 'null'
         provider: true
         physical_network: phystenant2
