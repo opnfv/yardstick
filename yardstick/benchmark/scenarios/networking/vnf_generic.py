@@ -44,14 +44,13 @@ traffic_profile.register_modules()
 LOG = logging.getLogger(__name__)
 
 
-class NetworkServiceTestCase(scenario_base.Scenario):
-    """Class handles Generic framework to do pre-deployment VNF &
-       Network service testing  """
+class NetworkServiceBase(scenario_base.Scenario):
+    """Base class for Network service testing scenarios"""
 
-    __scenario_type__ = "NSPerf"
+    __scenario_type__ = ""
 
     def __init__(self, scenario_cfg, context_cfg):  # pragma: no cover
-        super(NetworkServiceTestCase, self).__init__()
+        super(NetworkServiceBase, self).__init__()
         self.scenario_cfg = scenario_cfg
         self.context_cfg = context_cfg
 
@@ -61,6 +60,32 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         self.traffic_profile = None
         self.node_netdevs = {}
         self.bin_path = get_nsb_option('bin_path', '')
+
+    def run(self, *args):
+        pass
+
+    def teardown(self):
+        """ Stop the collector and terminate VNF & TG instance
+
+        :return
+        """
+
+        try:
+            try:
+                self.collector.stop()
+                for vnf in self.vnfs:
+                    LOG.info("Stopping %s", vnf.name)
+                    vnf.terminate()
+                LOG.debug("all VNFs terminated: %s", ", ".join(vnf.name for vnf in self.vnfs))
+            finally:
+                terminate_children()
+        except Exception:
+            # catch any exception in teardown and convert to simple exception
+            # never pass exceptions back to multiprocessing, because some exceptions can
+            # be unpicklable
+            # https://bugs.python.org/issue9400
+            LOG.exception("")
+            raise RuntimeError("Error in teardown")
 
     def is_ended(self):
         return self.traffic_profile is not None and self.traffic_profile.is_ended()
@@ -451,6 +476,24 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         self.vnfs = vnfs
         return vnfs
 
+    def pre_run_wait_time(self, time_seconds):  # pragma: no cover
+        """Time waited before executing the run method"""
+        time.sleep(time_seconds)
+
+    def post_run_wait_time(self, time_seconds):  # pragma: no cover
+        """Time waited after executing the run method"""
+        pass
+
+
+class NetworkServiceTestCase(NetworkServiceBase):
+    """Class handles Generic framework to do pre-deployment VNF &
+       Network service testing  """
+
+    __scenario_type__ = "NSPerf"
+
+    def __init__(self, scenario_cfg, context_cfg):  # pragma: no cover
+        super(NetworkServiceTestCase, self).__init__(scenario_cfg, context_cfg)
+
     def setup(self):
         """Setup infrastructure, provission VNFs & start traffic"""
         # 1. Verify if infrastructure mapping can meet topology
@@ -509,33 +552,70 @@ class NetworkServiceTestCase(scenario_base.Scenario):
 
         result.update(self.collector.get_kpi())
 
-    def teardown(self):
-        """ Stop the collector and terminate VNF & TG instance
 
-        :return
+class NetworkServiceRFC2544(NetworkServiceBase):
+    """Class handles RFC2544 Network service testing"""
+
+    __scenario_type__ = "NSPerf-RFC2544"
+
+    def __init__(self, scenario_cfg, context_cfg):  # pragma: no cover
+        super(NetworkServiceRFC2544, self).__init__(scenario_cfg, context_cfg)
+
+    def setup(self):
+        """Setup infrastructure, provision VNFs"""
+        self.map_topology_to_infrastructure()
+        self.load_vnf_models()
+
+        traffic_runners = [vnf for vnf in self.vnfs if vnf.runs_traffic]
+        non_traffic_runners = [vnf for vnf in self.vnfs if not vnf.runs_traffic]
+        try:
+            for vnf in chain(traffic_runners, non_traffic_runners):
+                LOG.info("Instantiating %s", vnf.name)
+                vnf.instantiate(self.scenario_cfg, self.context_cfg)
+                LOG.info("Waiting for %s to instantiate", vnf.name)
+                vnf.wait_for_instantiate()
+        except:
+            LOG.exception("")
+            for vnf in self.vnfs:
+                vnf.terminate()
+            raise
+
+        self._generate_pod_yaml()
+
+    def run(self, output):
+        """ Run experiment
+
+        :param output: scenario output to push results
+        :return: None
         """
 
-        try:
-            try:
-                self.collector.stop()
-                for vnf in self.vnfs:
-                    LOG.info("Stopping %s", vnf.name)
-                    vnf.terminate()
-                LOG.debug("all VNFs terminated: %s", ", ".join(vnf.name for vnf in self.vnfs))
-            finally:
-                terminate_children()
-        except Exception:
-            # catch any exception in teardown and convert to simple exception
-            # never pass exceptions back to multiprocessing, because some exceptions can
-            # be unpicklable
-            # https://bugs.python.org/issue9400
-            LOG.exception("")
-            raise RuntimeError("Error in teardown")
+        self._fill_traffic_profile()
 
-    def pre_run_wait_time(self, time_seconds):  # pragma: no cover
-        """Time waited before executing the run method"""
-        time.sleep(time_seconds)
+        traffic_runners = [vnf for vnf in self.vnfs if vnf.runs_traffic]
 
-    def post_run_wait_time(self, time_seconds):  # pragma: no cover
-        """Time waited after executing the run method"""
-        pass
+        for traffic_gen in traffic_runners:
+            traffic_gen.listen_traffic(self.traffic_profile)
+
+        self.collector = Collector(self.vnfs,
+                                   context_base.Context.get_physical_nodes())
+        self.collector.start()
+
+        test_completed = False
+        while not test_completed:
+            for traffic_gen in traffic_runners:
+                LOG.info("Run traffic on %s", traffic_gen.name)
+                traffic_gen.run_traffic_once(self.traffic_profile)
+
+            test_completed = True
+            for traffic_gen in traffic_runners:
+                # wait for all tg to complete running traffic
+                status = traffic_gen.wait_on_traffic()
+                LOG.info("Run traffic on %s complete status=%s",
+                         traffic_gen.name, status)
+                if status == 'CONTINUE':
+                    # continue running if at least one tg is running
+                    test_completed = False
+
+            output.push(self.collector.get_kpi())
+
+        self.collector.stop()
