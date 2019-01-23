@@ -407,6 +407,10 @@ class ClientResourceHelper(ResourceHelper):
         try:
             self._build_ports()
             self.client = self._connect()
+            if self.client is None:
+                LOG.critical("Failure to Connect ... unable to continue")
+                return
+
             self.client.reset(ports=self.all_ports)
             self.client.remove_all_streams(self.all_ports)  # remove all streams
             traffic_profile.register_generator(self)
@@ -461,16 +465,28 @@ class ClientResourceHelper(ResourceHelper):
                                server=self.vnfd_helper.mgmt_interface["ip"],
                                verbose_level=LoggerApi.VERBOSE_QUIET)
 
-        # try to connect with 5s intervals, 30s max
+        # try to connect with 5s intervals
         for idx in range(6):
             try:
                 client.connect()
-                break
+                for idx2 in range(6):
+                    if client.is_connected():
+                        return client
+                    LOG.info("Waiting to confirm connection %s .. Attempt %s",
+			     idx, idx2)
+                    time.sleep(1)
+                client.disconnect(stop_traffic=True, release_ports=True)
             except STLError:
                 LOG.info("Unable to connect to Trex Server.. Attempt %s", idx)
                 time.sleep(5)
-        return client
 
+        if client.is_connected():
+            return client
+        else:
+            LOG.critical("Connection failure ..TRex username: %s server: %s",
+                         self.vnfd_helper.mgmt_interface["user"],
+                         self.vnfd_helper.mgmt_interface["ip"])
+            return None
 
 class Rfc2544ResourceHelper(object):
 
