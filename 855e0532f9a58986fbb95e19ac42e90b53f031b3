@@ -22,6 +22,30 @@
       "revId": "855e0532f9a58986fbb95e19ac42e90b53f031b3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b2c1bb30",
+        "filename": "yardstick/tests/functional/benchmark/core/test_report.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2019-01-23T19:16:22Z",
+      "side": 1,
+      "message": "Yes! It validates that field keys do not need to be sorted on input, and will be sorted on output, as checked on L113.\nSorting is performed by new L233 in report.py: https://gerrit.opnfv.org/gerrit/#/c/65995/2/yardstick/benchmark/core/report.py@233",
+      "parentUuid": "1a622d24_587deb6d",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 56
+      },
+      "revId": "855e0532f9a58986fbb95e19ac42e90b53f031b3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
