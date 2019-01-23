@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_12b7cfd9",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-23T18:56:05Z",
+      "side": 1,
+      "message": "This could be extracted into it\u0027s own method.\n\ndef self.get_timestamps(metrics):\n    timestamps \u003d []\n    # L153-159\n    return timestamps\n\n\nThis would help later when adding another source of data (such as pulling collectd metrics from influx)",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 160,
+        "endChar": 77
+      },
+      "revId": "f85bca25fd5a681215c210c51b703e0e957a91e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f2bb33c2",
+        "filename": "yardstick/benchmark/core/report.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-23T18:56:05Z",
+      "side": 1,
+      "message": "ditto here, a _format_datasets() would be useful",
+      "range": {
+        "startLine": 169,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 59
+      },
+      "revId": "f85bca25fd5a681215c210c51b703e0e957a91e5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
