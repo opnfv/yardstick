@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_b29c1b6b",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-01-23T15:46:15Z",
+      "side": 1,
+      "message": "Not sure. I\u0027d keep as is. Any other thoughts?",
+      "parentUuid": "1a622d24_52a66711",
+      "range": {
+        "startLine": 445,
+        "startChar": 6,
+        "endLine": 445,
+        "endChar": 10
+      },
+      "revId": "1024eafd9f9157f70ca88499e5d261f3f084f42d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_32abebd9",
         "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
         "patchSetId": 5
@@ -59,6 +83,30 @@
       "writtenOn": "2019-01-23T10:19:41Z",
       "side": 1,
       "message": "tg_1 trafficgen_0?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "1024eafd9f9157f70ca88499e5d261f3f084f42d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_72c1e37f",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/tc_baremetal_rfc2544_ipv4_1flow_64B.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-01-23T15:46:15Z",
+      "side": 1,
+      "message": "Must have missed this. Thanks!",
+      "parentUuid": "1a622d24_92af5fe3",
       "range": {
         "startLine": 22,
         "startChar": 0,
