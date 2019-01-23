@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_52a66711",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-23T10:19:41Z",
+      "side": 1,
+      "message": "should we change these to TG0?",
+      "range": {
+        "startLine": 445,
+        "startChar": 6,
+        "endLine": 445,
+        "endChar": 10
+      },
+      "revId": "1024eafd9f9157f70ca88499e5d261f3f084f42d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_32abebd9",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 5
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-23T10:19:41Z",
+      "side": 1,
+      "message": "and this to TG1?",
+      "range": {
+        "startLine": 472,
+        "startChar": 70,
+        "endLine": 472,
+        "endChar": 74
+      },
+      "revId": "1024eafd9f9157f70ca88499e5d261f3f084f42d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_92af5fe3",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/tc_baremetal_rfc2544_ipv4_1flow_64B.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-23T10:19:41Z",
+      "side": 1,
+      "message": "tg_1 trafficgen_0?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 27
+      },
+      "revId": "1024eafd9f9157f70ca88499e5d261f3f084f42d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
