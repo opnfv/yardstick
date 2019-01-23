@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_12750f98",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_buffering-scale-up.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-23T08:56:44Z",
+      "side": 1,
+      "message": "extra line",
+      "revId": "3171a50d89f31f9b8e1fbc9d87be07fa4d07554a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f2797394",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_sriov_buffering-scale-up.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-23T08:56:44Z",
+      "side": 1,
+      "message": "same",
+      "revId": "3171a50d89f31f9b8e1fbc9d87be07fa4d07554a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
