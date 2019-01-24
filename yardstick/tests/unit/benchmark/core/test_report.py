@@ -1,6 +1,6 @@
 ##############################################################################
 # Copyright (c) 2017 Rajesh Kudaka.
-# Copyright (c) 2018 Intel Corporation.
+# Copyright (c) 2018-2019 Intel Corporation.
 #
 # All rights reserved. This program and the accompanying materials
 # are made available under the terms of the Apache License, Version 2.0
@@ -218,6 +218,27 @@ class ReportTestCase(unittest.TestCase):
         self.rep.yaml_name = GOOD_YAML_NAME
         self.rep.task_id = GOOD_TASK_ID
         six.assertRaisesRegex(self, KeyError, "Task ID", self.rep._get_metrics)
+
+    def test__get_timestamps(self):
+
+        exp_timestamps = [
+            '00:00:00.000000',
+            '00:00:01.000000',
+            '00:00:02.000000',
+            '00:00:03.000000',
+            '00:00:04.000000',
+            '00:00:05.000000',
+            '00:00:06.000000',
+            '00:00:07.000000',
+            '00:00:08.000000',
+            '00:00:09.000000',
+            '00:00:10.000000',
+        ]
+        metrics = MORE_DB_METRICS
+        self.assertEqual(
+            exp_timestamps,
+            self.rep._get_timestamps(metrics)
+        )
 
     @mock.patch.object(report.Report, '_get_metrics')
     @mock.patch.object(report.Report, '_get_fieldkeys')
