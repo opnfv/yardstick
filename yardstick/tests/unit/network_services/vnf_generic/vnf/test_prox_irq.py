@@ -312,7 +312,7 @@ class TestProxIrqVNF(unittest.TestCase):
     }
 
     def test___init__(self):
-        prox_irq_vnf = ProxIrqVNF('vnf1', self.VNFD_0, 'task_id')
+        prox_irq_vnf = ProxIrqVNF('vnf1', self.VNFD_0)
 
         self.assertEqual(prox_irq_vnf.name, 'vnf1')
         self.assertDictEqual(prox_irq_vnf.vnfd_helper, self.VNFD_0)
@@ -342,7 +342,7 @@ class TestProxIrqVNF(unittest.TestCase):
         build_config_file = mock.MagicMock()
         build_config_file.return_value = None
 
-        prox_irq_vnf = ProxIrqVNF(VNF_NAME, vnfd, 'task_id')
+        prox_irq_vnf = ProxIrqVNF(VNF_NAME, vnfd)
 
         startup = ["global", [["eal", "-4"]]]
         master_0 = ["core 0", [["mode", "master"]]]
@@ -371,7 +371,7 @@ class TestProxIrqVNF(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        prox_irq_vnf = ProxIrqVNF(VNF_NAME, vnfd, 'task_id')
+        prox_irq_vnf = ProxIrqVNF(VNF_NAME, vnfd)
         prox_irq_vnf.resource_helper = resource_helper = mock.Mock()
 
         resource_helper.execute.side_effect = OSError(errno.EPIPE, "")
@@ -391,7 +391,7 @@ class TestProxIrqVNF(unittest.TestCase):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
 
         mock_ssh(ssh, exec_result=(1, "", ""))
-        prox_irq_vnf = ProxIrqVNF(VNF_NAME, vnfd, 'task_id')
+        prox_irq_vnf = ProxIrqVNF(VNF_NAME, vnfd)
 
         prox_irq_vnf._terminated = mock.MagicMock()
         prox_irq_vnf._traffic_process = mock.MagicMock()
@@ -414,7 +414,7 @@ class TestProxIrqVNF(unittest.TestCase):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
 
         mock_ssh(ssh, exec_result=(1, "", ""))
-        prox_irq_vnf = ProxIrqVNF(VNF_NAME, vnfd, 'task_id')
+        prox_irq_vnf = ProxIrqVNF(VNF_NAME, vnfd)
 
         prox_irq_vnf._terminated = mock.MagicMock()
         prox_irq_vnf._traffic_process = mock.MagicMock()
@@ -714,18 +714,18 @@ class TestProxIrqGen(unittest.TestCase):
 
 
     def test__check_status(self):
-        prox_irq_gen = ProxIrqGen('tg1', self.VNFD_0, 'task_id')
+        prox_irq_gen = ProxIrqGen('tg1', self.VNFD_0)
 
         with self.assertRaises(NotImplementedError):
             prox_irq_gen._check_status()
 
     def test_listen_traffic(self):
-        prox_irq_gen = ProxIrqGen('tg1', self.VNFD_0, 'task_id')
+        prox_irq_gen = ProxIrqGen('tg1', self.VNFD_0)
 
         prox_irq_gen.listen_traffic(mock.Mock())
 
     def test_verify_traffic(self):
-        prox_irq_gen = ProxIrqGen('tg1', self.VNFD_0, 'task_id')
+        prox_irq_gen = ProxIrqGen('tg1', self.VNFD_0)
 
         prox_irq_gen.verify_traffic(mock.Mock())
 
@@ -734,7 +734,7 @@ class TestProxIrqGen(unittest.TestCase):
     def test_terminate(self, ssh, *args):
         mock_ssh(ssh)
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        prox_traffic_gen = ProxIrqGen(VNF_NAME, vnfd, 'task_id')
+        prox_traffic_gen = ProxIrqGen(VNF_NAME, vnfd)
         prox_traffic_gen._terminated = mock.MagicMock()
         prox_traffic_gen._traffic_process = mock.MagicMock()
         prox_traffic_gen._traffic_process.terminate = mock.Mock()
@@ -747,7 +747,7 @@ class TestProxIrqGen(unittest.TestCase):
         self.assertIsNone(prox_traffic_gen.terminate())
 
     def test__wait_for_process(self):
-        prox_irq_gen = ProxIrqGen('tg1', self.VNFD_0, 'task_id')
+        prox_irq_gen = ProxIrqGen('tg1', self.VNFD_0)
         with mock.patch.object(prox_irq_gen, '_check_status',
                                return_value=0) as mock_status, \
                 mock.patch.object(prox_irq_gen, '_tg_process') as mock_proc:
@@ -758,14 +758,14 @@ class TestProxIrqGen(unittest.TestCase):
             mock_status.assert_called_once()
 
     def test__wait_for_process_not_alive(self):
-        prox_irq_gen = ProxIrqGen('tg1', self.VNFD_0, 'task_id')
+        prox_irq_gen = ProxIrqGen('tg1', self.VNFD_0)
         with mock.patch.object(prox_irq_gen, '_tg_process') as mock_proc:
             mock_proc.is_alive.return_value = False
             self.assertRaises(RuntimeError, prox_irq_gen._wait_for_process)
             mock_proc.is_alive.assert_called_once()
 
     def test__wait_for_process_delayed(self):
-        prox_irq_gen = ProxIrqGen('tg1', self.VNFD_0, 'task_id')
+        prox_irq_gen = ProxIrqGen('tg1', self.VNFD_0)
         with mock.patch.object(prox_irq_gen, '_check_status',
                                side_effect=[1, 0]) as mock_status, \
                 mock.patch.object(prox_irq_gen,
@@ -777,7 +777,7 @@ class TestProxIrqGen(unittest.TestCase):
             mock_status.assert_has_calls([mock.call(), mock.call()])
 
     def test_scale(self):
-        prox_irq_gen = ProxIrqGen('tg1', self.VNFD_0, 'task_id')
+        prox_irq_gen = ProxIrqGen('tg1', self.VNFD_0)
         self.assertRaises(y_exceptions.FunctionNotImplemented,
                           prox_irq_gen.scale)
 
@@ -804,7 +804,7 @@ class TestProxIrqGen(unittest.TestCase):
         build_config_file = mock.MagicMock()
         build_config_file.return_value = None
 
-        prox_irq_gen = ProxIrqGen(VNF_NAME, vnfd, 'task_id')
+        prox_irq_gen = ProxIrqGen(VNF_NAME, vnfd)
 
         startup = ["global", [["eal", "-4"]]]
         master_0 = ["core 0", [["mode", "master"]]]

@@ -14,15 +14,10 @@
 
 import multiprocessing
 import os
-import uuid
 
 import mock
-from oslo_config import cfg
-import oslo_messaging
 import unittest
 
-from yardstick.common import messaging
-from yardstick.common.messaging import payloads
 from yardstick.network_services.vnf_generic.vnf import base
 from yardstick.ssh import SSH
 from yardstick.tests.unit import base as ut_base
@@ -145,24 +140,6 @@ VNFD = {
 }
 
 
-class _DummyGenericTrafficGen(base.GenericTrafficGen):  # pragma: no cover
-
-    def run_traffic(self, *args):
-        pass
-
-    def terminate(self):
-        pass
-
-    def collect_kpi(self):
-        pass
-
-    def instantiate(self, *args):
-        pass
-
-    def scale(self, flavor=''):
-        pass
-
-
 class FileAbsPath(object):
     def __init__(self, module_file):
         super(FileAbsPath, self).__init__()
@@ -235,8 +212,7 @@ class TestGenericVNF(ut_base.BaseUnitTestCase):
         """Make sure that the abstract class cannot be instantiated"""
         with self.assertRaises(TypeError) as exc:
             # pylint: disable=abstract-class-instantiated
-            base.GenericVNF('vnf1', VNFD['vnfd:vnfd-catalog']['vnfd'][0],
-                            'task_id')
+            base.GenericVNF('vnf1', VNFD['vnfd:vnfd-catalog']['vnfd'][0])
 
         msg = ("Can't instantiate abstract class GenericVNF with abstract "
                "methods collect_kpi, instantiate, scale, start_collect, "
@@ -253,96 +229,8 @@ class GenericTrafficGenTestCase(ut_base.BaseUnitTestCase):
         name = 'vnf1'
         with self.assertRaises(TypeError) as exc:
             # pylint: disable=abstract-class-instantiated
-            base.GenericTrafficGen(name, vnfd, 'task_id')
+            base.GenericTrafficGen(name, vnfd)
         msg = ("Can't instantiate abstract class GenericTrafficGen with "
                "abstract methods collect_kpi, instantiate, run_traffic, "
                "scale, terminate")
         self.assertEqual(msg, str(exc.exception))
-
-    def test_get_mq_producer_id(self):
-        vnfd = {'benchmark': {'kpi': mock.ANY},
-                'vdu': [{'external-interface': 'ext_int'}]
-                }
-        tg = _DummyGenericTrafficGen('name', vnfd, 'task_id')
-        tg._mq_producer = mock.Mock()
-        tg._mq_producer.id = 'fake_id'
-        self.assertEqual('fake_id', tg.get_mq_producer_id())
-
-
-class TrafficGeneratorProducerTestCase(ut_base.BaseUnitTestCase):
-
-    @mock.patch.object(oslo_messaging, 'Target', return_value='rpc_target')
-    @mock.patch.object(oslo_messaging, 'RPCClient')
-    @mock.patch.object(oslo_messaging, 'get_rpc_transport',
-                       return_value='rpc_transport')
-    @mock.patch.object(cfg, 'CONF')
-    def test__init(self, mock_config, mock_transport, mock_rpcclient,
-                   mock_target):
-        _id = uuid.uuid1().int
-        tg_producer = base.TrafficGeneratorProducer(_id)
-        mock_transport.assert_called_once_with(
-            mock_config, url='rabbit://yardstick:yardstick@localhost:5672/')
-        mock_target.assert_called_once_with(topic=messaging.TOPIC_TG,
-                                            fanout=True,
-                                            server=messaging.SERVER)
-        mock_rpcclient.assert_called_once_with('rpc_transport', 'rpc_target')
-        self.assertEqual(_id, tg_producer._id)
-        self.assertEqual(messaging.TOPIC_TG, tg_producer._topic)
-
-    @mock.patch.object(oslo_messaging, 'Target', return_value='rpc_target')
-    @mock.patch.object(oslo_messaging, 'RPCClient')
-    @mock.patch.object(oslo_messaging, 'get_rpc_transport',
-                       return_value='rpc_transport')
-    @mock.patch.object(payloads, 'TrafficGeneratorPayload',
-                       return_value='tg_pload')
-    def test_tg_method_started(self, mock_tg_payload, *args):
-        tg_producer = base.TrafficGeneratorProducer(uuid.uuid1().int)
-        with mock.patch.object(tg_producer, 'send_message') as mock_message:
-            tg_producer.tg_method_started(version=10)
-
-        mock_message.assert_called_once_with(messaging.TG_METHOD_STARTED,
-                                             'tg_pload')
-        mock_tg_payload.assert_called_once_with(version=10, iteration=0,
-                                                kpi={})
-
-    @mock.patch.object(oslo_messaging, 'Target', return_value='rpc_target')
-    @mock.patch.object(oslo_messaging, 'RPCClient')
-    @mock.patch.object(oslo_messaging, 'get_rpc_transport',
-                       return_value='rpc_transport')
-    @mock.patch.object(payloads, 'TrafficGeneratorPayload',
-                       return_value='tg_pload')
-    def test_tg_method_finished(self, mock_tg_payload, *args):
-        tg_producer = base.TrafficGeneratorProducer(uuid.uuid1().int)
-        with mock.patch.object(tg_producer, 'send_message') as mock_message:
-            tg_producer.tg_method_finished(version=20)
-
-        mock_message.assert_called_once_with(messaging.TG_METHOD_FINISHED,
-                                             'tg_pload')
-        mock_tg_payload.assert_called_once_with(version=20, iteration=0,
-                                                kpi={})
-
-    @mock.patch.object(oslo_messaging, 'Target', return_value='rpc_target')
-    @mock.patch.object(oslo_messaging, 'RPCClient')
-    @mock.patch.object(oslo_messaging, 'get_rpc_transport',
-                       return_value='rpc_transport')
-    @mock.patch.object(payloads, 'TrafficGeneratorPayload',
-                       return_value='tg_pload')
-    def test_tg_method_iteration(self, mock_tg_payload, *args):
-        tg_producer = base.TrafficGeneratorProducer(uuid.uuid1().int)
-        with mock.patch.object(tg_producer, 'send_message') as mock_message:
-            tg_producer.tg_method_iteration(100, version=30, kpi={'k': 'v'})
-
-        mock_message.assert_called_once_with(messaging.TG_METHOD_ITERATION,
-                                             'tg_pload')
-        mock_tg_payload.assert_called_once_with(version=30, iteration=100,
-                                                kpi={'k': 'v'})
-
-
-class GenericVNFConsumerTestCase(ut_base.BaseUnitTestCase):
-
-    def test__init(self):
-        endpoints = 'endpoint_1'
-        _ids = [uuid.uuid1().int]
-        gvnf_consumer = base.GenericVNFConsumer(_ids, endpoints)
-        self.assertEqual(_ids, gvnf_consumer._ids)
-        self.assertEqual([endpoints], gvnf_consumer._endpoints)

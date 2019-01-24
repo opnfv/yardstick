@@ -26,8 +26,7 @@ from yardstick.network_services.vnf_generic.vnf import base as vnf_base
 LOG = logging.getLogger(__name__)
 
 
-class PktgenTrafficGen(vnf_base.GenericTrafficGen,
-                       vnf_base.GenericVNFEndpoint):
+class PktgenTrafficGen(vnf_base.GenericTrafficGen):
     """DPDK Pktgen traffic generator
 
     Website: http://pktgen-dpdk.readthedocs.io/en/latest/index.html
@@ -35,15 +34,8 @@ class PktgenTrafficGen(vnf_base.GenericTrafficGen,
 
     TIMEOUT = 30
 
-    def __init__(self, name, vnfd, task_id):
-        vnf_base.GenericTrafficGen.__init__(self, name, vnfd, task_id)
-        self.queue = multiprocessing.Queue()
-        self._id = uuid.uuid1().int
-        self._mq_producer = self._setup_mq_producer(self._id)
-        vnf_base.GenericVNFEndpoint.__init__(self, self._id, [task_id],
-                                             self.queue)
-        self._consumer = vnf_base.GenericVNFConsumer([task_id], self)
-        self._consumer.start_rpc_server()
+    def __init__(self, name, vnfd):
+        vnf_base.GenericTrafficGen.__init__(self, name, vnfd)
         self._traffic_profile = None
         self._node_ip = vnfd['mgmt-interface'].get('ip')
         self._lua_node_port = self._get_lua_node_port(
@@ -81,11 +73,6 @@ class PktgenTrafficGen(vnf_base.GenericTrafficGen,
         self._traffic_profile.rate(self._rate)
         time.sleep(4)
         self._traffic_profile.stop()
-        self._mq_producer.tg_method_iteration(1, 1, {})
-
-    def runner_method_stop_iteration(self, ctxt, **kwargs):  # pragma: no cover
-        # pragma: no cover
-        LOG.debug('Stop method')
 
     @staticmethod
     def _get_lua_node_port(service_ports):

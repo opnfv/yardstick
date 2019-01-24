@@ -61,7 +61,6 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         self.traffic_profile = None
         self.node_netdevs = {}
         self.bin_path = get_nsb_option('bin_path', '')
-        self._mq_ids = []
 
     def is_ended(self):
         return self.traffic_profile is not None and self.traffic_profile.is_ended()
@@ -446,7 +445,7 @@ class NetworkServiceTestCase(scenario_base.Scenario):
                 pass
             self.create_interfaces_from_node(vnfd, node)
             vnf_impl = self.get_vnf_impl(vnfd['id'])
-            vnf_instance = vnf_impl(node_name, vnfd, scenario_cfg['task_id'])
+            vnf_instance = vnf_impl(node_name, vnfd)
             vnfs.append(vnf_instance)
 
         self.vnfs = vnfs
@@ -495,11 +494,6 @@ class NetworkServiceTestCase(scenario_base.Scenario):
         for traffic_gen in traffic_runners:
             LOG.info("Starting traffic on %s", traffic_gen.name)
             traffic_gen.run_traffic(self.traffic_profile)
-            self._mq_ids.append(traffic_gen.get_mq_producer_id())
-
-    def get_mq_ids(self):  # pragma: no cover
-        """Return stored MQ producer IDs"""
-        return self._mq_ids
 
     def run(self, result):  # yardstick API
         """ Yardstick calls run() at intervals defined in the yaml and

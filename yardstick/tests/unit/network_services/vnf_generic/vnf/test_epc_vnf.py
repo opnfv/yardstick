@@ -45,12 +45,11 @@ VNFD = {
 class TestEPCVnf(unittest.TestCase):
 
     def setUp(self):
-        self._id = uuid.uuid1().int
         self.vnfd = VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        self.epc_vnf = epc_vnf.EPCVnf(NAME, self.vnfd, self._id)
+        self.epc_vnf = epc_vnf.EPCVnf(NAME, self.vnfd)
 
     def test___init__(self, *args):
-        _epc_vnf = epc_vnf.EPCVnf(NAME, self.vnfd, self._id)
+        _epc_vnf = epc_vnf.EPCVnf(NAME, self.vnfd)
         for x in {'user', 'password', 'ip'}:
             self.assertEqual(self.vnfd['mgmt-interface'][x],
                              _epc_vnf.vnfd_helper.mgmt_interface[x])
@@ -62,7 +61,7 @@ class TestEPCVnf(unittest.TestCase):
     def test___init__missing_ip(self, *args):
         _vnfd = copy.deepcopy(self.vnfd)
         _vnfd['mgmt-interface'].pop('ip')
-        _epc_vnf = epc_vnf.EPCVnf(NAME, _vnfd, self._id)
+        _epc_vnf = epc_vnf.EPCVnf(NAME, _vnfd)
         for x in {'user', 'password'}:
             self.assertEqual(_vnfd['mgmt-interface'][x],
                              _epc_vnf.vnfd_helper.mgmt_interface[x])

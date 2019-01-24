@@ -314,16 +314,15 @@ class TestProxTrafficGen(unittest.TestCase):
     @mock.patch(SSH_HELPER)
     def test___init__(self, ssh, *args):
         mock_ssh(ssh)
-        prox_traffic_gen = ProxTrafficGen(NAME, self.VNFD0, 'task_id')
+        prox_traffic_gen = ProxTrafficGen(NAME, self.VNFD0)
         self.assertIsNone(prox_traffic_gen._tg_process)
         self.assertIsNone(prox_traffic_gen._traffic_process)
-        self.assertIsNone(prox_traffic_gen._mq_producer)
 
     @mock.patch.object(ctx_base.Context, 'get_physical_node_from_server', return_value='mock_node')
     @mock.patch(SSH_HELPER)
     def test_collect_kpi(self, ssh, *args):
         mock_ssh(ssh)
-        prox_traffic_gen = ProxTrafficGen(NAME, self.VNFD0, 'task_id')
+        prox_traffic_gen = ProxTrafficGen(NAME, self.VNFD0)
         prox_traffic_gen.scenario_helper.scenario_cfg = {
             'nodes': {prox_traffic_gen.name: "mock"}
         }
@@ -365,7 +364,7 @@ class TestProxTrafficGen(unittest.TestCase):
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        prox_traffic_gen = ProxTrafficGen(NAME, vnfd, 'task_id')
+        prox_traffic_gen = ProxTrafficGen(NAME, vnfd)
         ssh_helper = mock.MagicMock(
             **{"execute.return_value": (0, "", ""), "bin_path": ""})
         prox_traffic_gen.ssh_helper = ssh_helper
@@ -407,22 +406,21 @@ class TestProxTrafficGen(unittest.TestCase):
         mock_traffic_profile.params = self.TRAFFIC_PROFILE
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sut = ProxTrafficGen(NAME, vnfd, 'task_id')
+        sut = ProxTrafficGen(NAME, vnfd)
         sut._get_socket = mock.MagicMock()
         sut.ssh_helper = mock.Mock()
         sut.ssh_helper.run = mock.Mock()
         sut.setup_helper.prox_config_dict = {}
         sut._connect_client = mock.Mock(autospec=mock.Mock())
         sut._connect_client.get_stats = mock.Mock(return_value="0")
-        sut._setup_mq_producer = mock.Mock(return_value='mq_producer')
-        sut._traffic_runner(mock_traffic_profile, mock.ANY)
+        sut._traffic_runner(mock_traffic_profile)
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.socket')
     @mock.patch(SSH_HELPER)
     def test_listen_traffic(self, ssh, *args):
         mock_ssh(ssh)
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        prox_traffic_gen = ProxTrafficGen(NAME, vnfd, 'task_id')
+        prox_traffic_gen = ProxTrafficGen(NAME, vnfd)
         self.assertIsNone(prox_traffic_gen.listen_traffic(mock.Mock()))
 
     @mock.patch('yardstick.network_services.vnf_generic.vnf.prox_helpers.socket')
@@ -430,7 +428,7 @@ class TestProxTrafficGen(unittest.TestCase):
     def test_terminate(self, ssh, *args):
         mock_ssh(ssh)
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        prox_traffic_gen = ProxTrafficGen(NAME, vnfd, 'task_id')
+        prox_traffic_gen = ProxTrafficGen(NAME, vnfd)
         prox_traffic_gen._terminated = mock.MagicMock()
         prox_traffic_gen._traffic_process = mock.MagicMock()
         prox_traffic_gen._traffic_process.terminate = mock.Mock()

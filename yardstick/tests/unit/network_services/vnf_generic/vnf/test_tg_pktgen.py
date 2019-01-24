@@ -33,23 +33,12 @@ class PktgenTrafficGenTestCase(ut_base.BaseUnitTestCase):
             'benchmark': {'kpi': 'fake_kpi'}
             }
 
-    def setUp(self):
-        self._id = uuid.uuid1().int
-        self._mock_vnf_consumer = mock.patch.object(vnf_base,
-                                                    'GenericVNFConsumer')
-        self.mock_vnf_consumer = self._mock_vnf_consumer.start()
-        self.addCleanup(self._stop_mock)
-
-    def _stop_mock(self):
-        self._mock_vnf_consumer.stop()
-
     def test__init(self):
-        tg = tg_pktgen.PktgenTrafficGen('name1', self.VNFD, self._id)
-        self.assertTrue(isinstance(tg, (vnf_base.GenericTrafficGen,
-                                        vnf_base.GenericVNFEndpoint)))
+        tg = tg_pktgen.PktgenTrafficGen('name1', self.VNFD)
+        self.assertTrue(isinstance(tg, vnf_base.GenericTrafficGen))
 
     def test_run_traffic(self):
-        tg = tg_pktgen.PktgenTrafficGen('name1', self.VNFD, self._id)
+        tg = tg_pktgen.PktgenTrafficGen('name1', self.VNFD)
         mock_tp = mock.Mock()
         with mock.patch.object(tg, '_is_running', return_value=True):
             tg.run_traffic(mock_tp)
@@ -57,23 +46,23 @@ class PktgenTrafficGenTestCase(ut_base.BaseUnitTestCase):
         mock_tp.init.assert_called_once_with(tg._node_ip, tg._lua_node_port)
 
     def test__get_lua_node_port(self):
-        tg = tg_pktgen.PktgenTrafficGen('name1', self.VNFD, self._id)
+        tg = tg_pktgen.PktgenTrafficGen('name1', self.VNFD)
         service_ports = [{'port': constants.LUA_PORT,
                           'node_port': '12345'}]
         self.assertEqual(12345, tg._get_lua_node_port(service_ports))
 
     def test__get_lua_node_port_no_lua_port(self):
-        tg = tg_pktgen.PktgenTrafficGen('name1', self.VNFD, self._id)
+        tg = tg_pktgen.PktgenTrafficGen('name1', self.VNFD)
         service_ports = [{'port': '333'}]
         self.assertIsNone(tg._get_lua_node_port(service_ports))
 
     def test__is_running(self):
-        tg = tg_pktgen.PktgenTrafficGen('name1', self.VNFD, self._id)
+        tg = tg_pktgen.PktgenTrafficGen('name1', self.VNFD)
         with mock.patch.object(tg, '_traffic_profile'):
             self.assertTrue(tg._is_running())
 
     def test__is_running_exception(self):
-        tg = tg_pktgen.PktgenTrafficGen('name1', self.VNFD, self._id)
+        tg = tg_pktgen.PktgenTrafficGen('name1', self.VNFD)
         with mock.patch.object(tg, '_traffic_profile') as mock_tp:
             mock_tp.help.side_effect = exceptions.PktgenActionError()
             self.assertFalse(tg._is_running())

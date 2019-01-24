@@ -28,13 +28,13 @@ LOG = logging.getLogger(__name__)
 
 class ProxIrq(SampleVNFTrafficGen):
 
-    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+    def __init__(self, name, vnfd, setup_env_helper_type=None,
                  resource_helper_type=None):
         vnfd_cpy = copy.deepcopy(vnfd)
-        super(ProxIrq, self).__init__(name, vnfd_cpy, task_id)
+        super(ProxIrq, self).__init__(name, vnfd_cpy)
 
         self._vnf_wrapper = ProxApproxVnf(
-            name, vnfd, task_id, setup_env_helper_type, resource_helper_type)
+            name, vnfd, setup_env_helper_type, resource_helper_type)
         self.bin_path = get_nsb_option('bin_path', '')
         self.name = self._vnf_wrapper.name
         self.ssh_helper = self._vnf_wrapper.ssh_helper
@@ -83,9 +83,9 @@ class ProxIrqVNF(ProxIrq, SampleVNFTrafficGen):
 
     APP_NAME = 'ProxIrqVNF'
 
-    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+    def __init__(self, name, vnfd, setup_env_helper_type=None,
                  resource_helper_type=None):
-        ProxIrq.__init__(self, name, vnfd, task_id, setup_env_helper_type,
+        ProxIrq.__init__(self, name, vnfd, setup_env_helper_type,
                         resource_helper_type)
 
         self.start_test_time = None
@@ -150,9 +150,9 @@ class ProxIrqGen(ProxIrq, SampleVNFTrafficGen):
 
     APP_NAME = 'ProxIrqGen'
 
-    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+    def __init__(self, name, vnfd, setup_env_helper_type=None,
                  resource_helper_type=None):
-        ProxIrq.__init__(self, name, vnfd, task_id, setup_env_helper_type,
+        ProxIrq.__init__(self, name, vnfd, setup_env_helper_type,
                                       resource_helper_type)
         self.start_test_time = None
         self.end_test_time = None

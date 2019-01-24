@@ -450,7 +450,6 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self._get_file_abspath("tg_trex_tpl.yaml")
         self.context_cfg["nodes"]['vnf__1']['VNF model'] = \
             self._get_file_abspath("tg_trex_tpl.yaml")
-        self.context_cfg['task_id'] = 'fake_task_id'
 
         vnf = mock.Mock(autospec=GenericVNF)
         self.s.get_vnf_impl = mock.Mock(return_value=vnf)
@@ -568,7 +567,6 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             tgen.verify_traffic = lambda x: verified_dict
             tgen.terminate = mock.Mock(return_value=True)
             tgen.name = "tgen__1"
-            tgen.run_traffic.return_value = 'tg_id'
             vnf = mock.Mock(autospec=GenericVNF)
             vnf.runs_traffic = False
             vnf.terminate = mock.Mock(return_value=True)
@@ -581,6 +579,7 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             self.s.load_vnf_models = mock.Mock(return_value=self.s.vnfs)
             self.s._fill_traffic_profile = \
                 mock.Mock(return_value=TRAFFIC_PROFILE)
+            self.assertIsNone(self.s.setup())
 
     def test_setup_exception(self):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -704,9 +703,6 @@ class TestNetworkServiceTestCase(unittest.TestCase):
             {'extra_args': {'arg1': 'value1', 'arg2': 'value2'}}
         )
         self.assertEqual(self.s.topology, 'fake_nsd')
-
-    def test_get_mq_ids(self):
-        self.assertEqual(self.s._mq_ids, self.s.get_mq_ids())
 
     def test_teardown(self):
         vnf = mock.Mock(autospec=GenericVNF)
