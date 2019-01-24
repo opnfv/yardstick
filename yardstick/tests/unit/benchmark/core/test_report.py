@@ -77,10 +77,10 @@ MORE_EXPECTED_TABLE_VALS = {
             123,
             4.56,
             9876543210987654321 if six.PY3 else 9.876543210987655e+18,
-            'str_str value',
-            'str_unicode value',
-            'unicode_str value',
-            'unicode_unicode value',
+            None,
+            None,
+            None,
+            None,
             7.89,
             1011,
             9876543210123456789 if six.PY3 else 9.876543210123457e+18,
@@ -225,6 +225,58 @@ class ReportTestCase(unittest.TestCase):
         self.assertEqual(
             MORE_TIMESTAMP,
             self.rep._get_timestamps(metrics)
+        )
+
+    def test__format_datasets(self):
+        metric_name = "free.memory0.used"
+        metrics = [{
+            u'free.memory1.free': u'1958664',
+            u'free.memory0.used': u'9789560',
+            }, {
+            u'free.memory1.free': u'1958228',
+            u'free.memory0.used': u'9789790',
+            }, {
+            u'free.memory1.free': u'1956156',
+            u'free.memory0.used': u'9791092',
+            }, {
+            u'free.memory1.free': u'1956280',
+            u'free.memory0.used': u'9790796',
+        }]
+        self.assertEqual(
+            [9789560, 9789790, 9791092, 9790796,],
+            self.rep._format_datasets(metric_name, metrics)
+        )
+
+    def test__format_datasets_val_none(self):
+         metric_name = "free.memory0.used"
+         metrics = [{
+            u'free.memory1.free': u'1958664',
+            u'free.memory0.used': 9876543109876543210,
+            }, {
+            u'free.memory1.free': u'1958228',
+            }, {
+            u'free.memory1.free': u'1956156',
+            u'free.memory0.used': u'9791092',
+            }, {
+            u'free.memory1.free': u'1956280',
+            u'free.memory0.used': u'9790796',
+         }]
+
+         exp0 = 9876543109876543210 if six.PY3 else 9.876543109876543e+18
+         self.assertEqual(
+            [exp0, None, 9791092, 9790796],
+            self.rep._format_datasets(metric_name, metrics)
+         )
+
+    def test__format_datasets_val_incompatible(self):
+        metric_name = "free.memory0.used"
+        metrics = [{
+            u'free.memory0.used': "some incompatible value",
+            }, {
+        }]
+        self.assertEqual(
+            [None, None],
+            self.rep._format_datasets(metric_name, metrics)
         )
 
     @mock.patch.object(report.Report, '_get_metrics')
