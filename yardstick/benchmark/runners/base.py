@@ -25,9 +25,6 @@ import traceback
 from six import moves
 
 from yardstick.benchmark.scenarios import base as base_scenario
-from yardstick.common import messaging
-from yardstick.common.messaging import payloads
-from yardstick.common.messaging import producer
 from yardstick.common import utils
 from yardstick.dispatcher.base import Base as DispatcherBase
 
@@ -271,22 +268,3 @@ class Runner(object):
         dispatchers = DispatcherBase.get(self.config['output_config'])
         dispatcher = next((d for d in dispatchers if d.__dispatcher_type__ == 'Influxdb'))
         dispatcher.upload_one_record(record, self.case_name, '', task_id=self.task_id)
-
-
-class RunnerProducer(producer.MessagingProducer):
-    """Class implementing the message producer for runners"""
-
-    def __init__(self, _id):
-        super(RunnerProducer, self).__init__(messaging.TOPIC_RUNNER, _id=_id)
-
-    def start_iteration(self, version=1, data=None):
-        data = {} if not data else data
-        self.send_message(
-            messaging.RUNNER_METHOD_START_ITERATION,
-            payloads.RunnerPayload(version=version, data=data))
-
-    def stop_iteration(self, version=1, data=None):
-        data = {} if not data else data
-        self.send_message(
-            messaging.RUNNER_METHOD_STOP_ITERATION,
-            payloads.RunnerPayload(version=version, data=data))

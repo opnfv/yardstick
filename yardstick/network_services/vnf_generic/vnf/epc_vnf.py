@@ -21,8 +21,8 @@ LOG = logging.getLogger(__name__)
 
 class EPCVnf(base.GenericVNF):
 
-    def __init__(self, name, vnfd, task_id):
-        super(EPCVnf, self).__init__(name, vnfd, task_id)
+    def __init__(self, name, vnfd):
+        super(EPCVnf, self).__init__(name, vnfd)
 
     def instantiate(self, scenario_cfg, context_cfg):
         """Prepare VNF for operation and start the VNF process/VM

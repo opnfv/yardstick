@@ -232,7 +232,7 @@ class TestFWApproxVnf(unittest.TestCase):
 
     def test___init__(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        vfw_approx_vnf = FWApproxVnf(name, vnfd, 'task_id')
+        vfw_approx_vnf = FWApproxVnf(name, vnfd)
         self.assertIsNone(vfw_approx_vnf._vnf_process)
 
     STATS = """\
@@ -255,7 +255,7 @@ pipeline>
     def test_collect_kpi(self, ssh, *args):
         mock_ssh(ssh)
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        vfw_approx_vnf = FWApproxVnf(name, vnfd, 'task_id')
+        vfw_approx_vnf = FWApproxVnf(name, vnfd)
         vfw_approx_vnf.scenario_helper.scenario_cfg = {
             'nodes': {vfw_approx_vnf.name: "mock"}
         }
@@ -281,7 +281,7 @@ pipeline>
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        vfw_approx_vnf = FWApproxVnf(name, vnfd, 'task_id')
+        vfw_approx_vnf = FWApproxVnf(name, vnfd)
         vfw_approx_vnf.q_in = mock.MagicMock()
         vfw_approx_vnf.q_out = mock.MagicMock()
         vfw_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
@@ -293,7 +293,7 @@ pipeline>
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        vfw_approx_vnf = FWApproxVnf(name, vnfd, 'task_id')
+        vfw_approx_vnf = FWApproxVnf(name, vnfd)
         vfw_approx_vnf.q_in = mock.MagicMock()
         vfw_approx_vnf.q_out = mock.MagicMock()
         vfw_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
@@ -313,7 +313,7 @@ pipeline>
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        vfw_approx_vnf = FWApproxVnf(name, vnfd, 'task_id')
+        vfw_approx_vnf = FWApproxVnf(name, vnfd)
         vfw_approx_vnf._build_config = mock.MagicMock()
         vfw_approx_vnf.queue_wrapper = mock.MagicMock()
         vfw_approx_vnf.ssh_helper = mock.MagicMock()
@@ -335,7 +335,7 @@ pipeline>
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        vfw_approx_vnf = FWApproxVnf(name, vnfd, 'task_id')
+        vfw_approx_vnf = FWApproxVnf(name, vnfd)
         vfw_approx_vnf.ssh_helper = ssh
         vfw_approx_vnf.deploy_helper = mock.MagicMock()
         vfw_approx_vnf.resource_helper = mock.MagicMock()
