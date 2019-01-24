@@ -227,6 +227,18 @@ class ReportTestCase(unittest.TestCase):
             self.rep._get_timestamps(metrics)
         )
 
+    def test__format_dataset(self):
+        pass
+
+    def test__format_dataset_val_none(self):
+        pass
+
+    def test__format_dataset_val_string(self):
+        pass
+
+    def test__format_dataset_val_incompatible(self):
+        pass
+
     @mock.patch.object(report.Report, '_get_metrics')
     @mock.patch.object(report.Report, '_get_fieldkeys')
     def test__generate_common(self, mock_keys, mock_metrics):
