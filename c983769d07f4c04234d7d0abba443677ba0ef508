@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_92547f55",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-01-24T09:24:36Z",
+      "side": 1,
+      "message": "log message will be incorrect for attempt number idx2 will go 0-6 and then reset? as idx is incremented\nplus if you get and STLError the attempt number could be different from the last one printed",
+      "range": {
+        "startLine": 475,
+        "startChar": 20,
+        "endLine": 475,
+        "endChar": 80
+      },
+      "revId": "c983769d07f4c04234d7d0abba443677ba0ef508",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
