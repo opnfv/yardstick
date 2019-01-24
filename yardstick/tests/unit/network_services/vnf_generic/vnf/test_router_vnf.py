@@ -199,7 +199,7 @@ class TestRouterVNF(unittest.TestCase):
 
     def test___init__(self):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        router_vnf = RouterVNF(name, vnfd, 'task_id')
+        router_vnf = RouterVNF(name, vnfd)
         self.assertIsNone(router_vnf._vnf_process)
 
     def test_get_stats(self):
@@ -213,7 +213,7 @@ class TestRouterVNF(unittest.TestCase):
         m = mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        router_vnf = RouterVNF(name, vnfd, 'task_id')
+        router_vnf = RouterVNF(name, vnfd)
         router_vnf.scenario_helper.scenario_cfg = {
             'nodes': {router_vnf.name: "mock"}
         }
@@ -232,7 +232,7 @@ class TestRouterVNF(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        router_vnf = RouterVNF(name, vnfd, 'task_id')
+        router_vnf = RouterVNF(name, vnfd)
         router_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
         router_vnf._run()
         router_vnf.ssh_helper.drop_connection.assert_called_once()
@@ -243,7 +243,7 @@ class TestRouterVNF(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        router_vnf = RouterVNF(name, vnfd, 'task_id')
+        router_vnf = RouterVNF(name, vnfd)
         router_vnf.WAIT_TIME = 0
         router_vnf.INTERFACE_WAIT = 0
         self.scenario_cfg.update({"nodes": {"vnf__1": ""}})
@@ -256,7 +256,7 @@ class TestRouterVNF(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        router_vnf = RouterVNF(name, vnfd, 'task_id')
+        router_vnf = RouterVNF(name, vnfd)
         router_vnf._vnf_process = mock.MagicMock()
         router_vnf._vnf_process.terminate = mock.Mock()
         self.assertIsNone(router_vnf.terminate())

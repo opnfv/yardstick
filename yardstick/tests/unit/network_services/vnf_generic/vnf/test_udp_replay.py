@@ -317,8 +317,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
     }
 
     def test___init__(self, *args):
-        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0,
-                                                   'task_id')
+        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
         self.assertIsNone(udp_replay_approx_vnf._vnf_process)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
@@ -333,7 +332,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
             "Port\t\tRx Packet\t\tTx Packet\t\tRx Pkt Drop\t\tTx Pkt Drop \r\n"\
             "0\t\t7374156\t\t7374136\t\t\t0\t\t\t0\r\n" \
             "1\t\t7374316\t\t7374315\t\t\t0\t\t\t0\r\n\r\nReplay>\r\r\nReplay>"
-        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, vnfd, 'task_id')
+        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, vnfd)
         udp_replay_approx_vnf.scenario_helper.scenario_cfg = {
             'nodes': {udp_replay_approx_vnf.name: "mock"}
         }
@@ -355,8 +354,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
     def test_get_stats(self, ssh, *args):
         mock_ssh(ssh)
 
-        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0,
-                                                   'task_id')
+        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
         udp_replay_approx_vnf.q_in = mock.MagicMock()
         udp_replay_approx_vnf.q_out = mock.MagicMock()
         udp_replay_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
@@ -382,8 +380,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         nfvi_context.attrs = {'nfvi_type': 'baremetal'}
         mock_get_ctx.return_value = nfvi_context
 
-        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0,
-                                                   'task_id')
+        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
         udp_replay_approx_vnf.queue_wrapper = mock.MagicMock()
         udp_replay_approx_vnf.nfvi_context = mock_get_ctx
         udp_replay_approx_vnf.nfvi_context.attrs = {'nfvi_type': 'baremetal'}
@@ -408,8 +405,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
         nfvi_context.attrs = {'nfvi_type': "baremetal"}
         mock_get_ctx.return_value = nfvi_context
 
-        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0,
-                                                   'task_id')
+        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
         udp_replay_approx_vnf.setup_helper.bound_pci = ['0000:00:0.1', '0000:00:0.3']
         udp_replay_approx_vnf.all_ports = ["xe0", "xe1"]
         udp_replay_approx_vnf.ssh_helper.provision_tool = mock.MagicMock(return_value="tool_path")
@@ -431,8 +427,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
     def test_run_udp_replay(self, ssh, *args):
         mock_ssh(ssh)
 
-        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0,
-                                                   'task_id')
+        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
         udp_replay_approx_vnf._build_config = mock.MagicMock()
         udp_replay_approx_vnf.queue_wrapper = mock.MagicMock()
         udp_replay_approx_vnf.scenario_helper = mock.MagicMock()
@@ -446,8 +441,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
     def test_instantiate(self, ssh, *args):
         mock_ssh(ssh)
 
-        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0,
-                                                   'task_id')
+        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
         udp_replay_approx_vnf.q_out.put("Replay>")
         udp_replay_approx_vnf.WAIT_TIME = 0
         udp_replay_approx_vnf.setup_helper.setup_vnf_environment = mock.Mock()
@@ -465,8 +459,7 @@ class TestUdpReplayApproxVnf(unittest.TestCase):
     @mock.patch('yardstick.ssh.SSH')
     @mock.patch(SSH_HELPER)
     def test_instantiate_panic(self, *args):
-        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0,
-                                                   'task_id')
+        udp_replay_approx_vnf = UdpReplayApproxVnf(NAME, self.VNFD_0)
         udp_replay_approx_vnf.WAIT_TIME = 0
         udp_replay_approx_vnf.q_out.put("some text PANIC some text")
         udp_replay_approx_vnf.setup_helper.setup_vnf_environment = mock.Mock()

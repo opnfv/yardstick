@@ -237,7 +237,7 @@ class TestAclApproxVnf(unittest.TestCase):
 
     def test___init__(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd, 'task_id')
+        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd)
         self.assertIsNone(acl_approx_vnf._vnf_process)
 
     @mock.patch("yardstick.network_services.vnf_generic.vnf.sample_vnf.time")
@@ -247,7 +247,7 @@ class TestAclApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd, 'task_id')
+        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd)
         acl_approx_vnf.scenario_helper.scenario_cfg = {
             'nodes': {acl_approx_vnf.name: "mock"}
         }
@@ -270,7 +270,7 @@ class TestAclApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd, 'task_id')
+        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd)
         acl_approx_vnf.q_in = mock.MagicMock()
         acl_approx_vnf.q_out = mock.MagicMock()
         acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
@@ -282,7 +282,7 @@ class TestAclApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd, 'task_id')
+        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd)
         acl_approx_vnf.q_in = mock.MagicMock()
         acl_approx_vnf.q_out = mock.MagicMock()
         acl_approx_vnf.q_out.qsize = mock.Mock(return_value=0)
@@ -303,7 +303,7 @@ class TestAclApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd, 'task_id')
+        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd)
         acl_approx_vnf._build_config = mock.MagicMock()
         acl_approx_vnf.queue_wrapper = mock.MagicMock()
         acl_approx_vnf.scenario_helper.scenario_cfg = self.scenario_cfg
@@ -323,7 +323,7 @@ class TestAclApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd, 'task_id')
+        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd)
         acl_approx_vnf.deploy_helper = mock.MagicMock()
         acl_approx_vnf.resource_helper = mock.MagicMock()
         acl_approx_vnf._build_config = mock.MagicMock()
@@ -341,7 +341,7 @@ class TestAclApproxVnf(unittest.TestCase):
         mock_ssh(ssh)
 
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd, 'task_id')
+        acl_approx_vnf = acl_vnf.AclApproxVnf(name, vnfd)
         acl_approx_vnf._vnf_process = mock.MagicMock()
         acl_approx_vnf._vnf_process.terminate = mock.Mock()
         acl_approx_vnf.used_drivers = {"01:01.0": "i40e",
