@@ -138,6 +138,46 @@ class Report(object):
             timestamps.append(metric_time)               # HH:MM:SS.micros
         return timestamps
 
+    def _format_datasets(self, metric_name, metrics):
+        values = []
+        for metric in metrics:
+            val = metric.get(metric_name, None)
+            if val is None:
+                # keep explicit None or missing entry as is
+                pass
+            elif isinstance(val, (int, float)):
+                # keep plain int or float as is
+                pass
+            elif six.PY2 and isinstance(val,
+                        long):  # pylint: disable=undefined-variable
+                # PY2: long value would be rendered with trailing L,
+                # which JS does not support, so convert it to float
+                val = float(val)
+            elif isinstance(val, six.string_types):
+                s = val
+                if not isinstance(s, str):
+                    s = s.encode('utf8')            # PY2: unicode to str
+                try:
+                    # convert until failure
+                    val = s
+                    val = float(s)
+                    val = int(s)
+                    if six.PY2 and isinstance(val,
+                                long):  # pylint: disable=undefined-variable
+                        val = float(val)            # PY2: long to float
+                except ValueError:
+                    # value may have been converted to a number
+                    pass
+                finally:
+                    # if val was not converted into a num, then it must be
+                    # text, which shouldn't end up in the report
+                    if isinstance(val, six.string_types):
+                        val = None
+            else:
+                raise ValueError("Cannot convert %r" % val)
+            values.append(val)
+        return values
+
     @cliargs("task_id", type=str, help=" task id", nargs=1)
     @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
     def _generate_common(self, args):
@@ -174,37 +214,7 @@ class Report(object):
 
         # extract and convert field values
         for key in field_keys:
-            values = []
-            for metric in db_metrics:
-                val = metric.get(key, None)
-                if val is None:
-                    # keep explicit None or missing entry as is
-                    pass
-                elif isinstance(val, (int, float)):
-                    # keep plain int or float as is
-                    pass
-                elif six.PY2 and isinstance(val,
-                            long):  # pylint: disable=undefined-variable
-                    # PY2: long value would be rendered with trailing L,
-                    # which JS does not support, so convert it to float
-                    val = float(val)
-                elif isinstance(val, six.string_types):
-                    s = val
-                    if not isinstance(s, str):
-                        s = s.encode('utf8')            # PY2: unicode to str
-                    try:
-                        # convert until failure
-                        val = s
-                        val = float(s)
-                        val = int(s)
-                        if six.PY2 and isinstance(val,
-                                    long):  # pylint: disable=undefined-variable
-                            val = float(val)            # PY2: long to float
-                    except ValueError:
-                        pass
-                else:
-                    raise ValueError("Cannot convert %r" % val)
-                values.append(val)
+            values = self._format_datasets(key, db_metrics)
             datasets.append({'label': key, 'data': values})
             table_vals[key] = values
 
