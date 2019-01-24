@@ -46,6 +46,30 @@
       "revId": "c983769d07f4c04234d7d0abba443677ba0ef508",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5245c76e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-24T10:51:04Z",
+      "side": 1,
+      "message": "Correct - that is the intent. \n\nConnection attempt 1 - check connection attempt 1 to 6\nConnection attempt 2 - check connection attempt 1 to 6\nConnection attempt 3 - check connection attempt 1 to 6\nConnection attempt 4 - check connection attempt 1 to 6\nConnection attempt 1 - check connection attempt 1 to 6\netc ...\n\nJust incrementing the idx2 provides no useful information!",
+      "parentUuid": "1a622d24_d24ef7c0",
+      "range": {
+        "startLine": 475,
+        "startChar": 20,
+        "endLine": 475,
+        "endChar": 80
+      },
+      "revId": "c983769d07f4c04234d7d0abba443677ba0ef508",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
