@@ -121,6 +121,25 @@ class Report(object):
         else:
             raise KeyError("Task ID or Test case not found.")
 
+    def _get_trimmed_timestamp(self, metric_time, resolution=4):
+        if not isinstance(metric_time, str):
+            metric_time = metric_time.encode('utf8') # PY2: unicode to str
+        metric_time = metric_time[11:]               # skip date, keep time
+        head, _, tail = metric_time.partition('.')   # split HH:MM:SS & nsZ
+        metric_time = head + '.' + tail[:resolution] # join HH:MM:SS & .us
+        return metric_time
+
+    def _get_timestamps(self, metrics, resolution=6):
+        # Extract the timestamps from a list of metrics
+        timestamps = []
+        for metric in metrics:
+            metric_time = self._get_trimmed_timestamp(
+                metric['time'], resolution)
+            timestamps.append(metric_time)               # HH:MM:SS.micros
+        return timestamps
+
+    @cliargs("task_id", type=str, help=" task id", nargs=1)
+    @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
     def _generate_common(self, args):
         """Actions that are common to both report formats.
 
@@ -147,15 +166,7 @@ class Report(object):
                            for field in db_fieldkeys]]
 
         # extract timestamps
-        self.Timestamp = []
-        for metric in db_metrics:
-            metric_time = metric['time']                    # in RFC3339 format
-            if not isinstance(metric_time, str):
-                metric_time = metric_time.encode('utf8')    # PY2: unicode to str
-            metric_time = metric_time[11:]                  # skip date, keep time
-            head, _, tail = metric_time.partition('.')      # split HH:MM:SS and nsZ
-            metric_time = head + '.' + tail[:6]             # join HH:MM:SS and .us
-            self.Timestamp.append(metric_time)              # HH:MM:SS.micros
+        self.Timestamp = self._get_timestamps(db_metrics)
 
         # prepare return values
         datasets = []
