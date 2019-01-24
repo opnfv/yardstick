@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_556f71c5",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_ovs-dpdk_lb-scale-up.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-24T12:25:08Z",
+      "side": 1,
+      "message": "Any reason you are using this form of iteration? In most of prox scale-up test cases the following form is used instead :\n{% for port_num in range((vports/2)|int) %}\n\nSo, I would suggest to keep same way of iteration in all test cases if possible.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 43
+      },
+      "revId": "07347282a0b630f738abc1f3fc1749b951a1880b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
