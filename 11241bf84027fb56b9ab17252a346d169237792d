@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_b5aa456e",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_buffering-4.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-24T19:06:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b548855c",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "11241bf84027fb56b9ab17252a346d169237792d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_78ac27ee",
         "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_buffering-4.yaml",
         "patchSetId": 5
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Yes, please template new test cases for 2,4 ports.",
       "parentUuid": "1a622d24_03a788be",
+      "range": {
+        "startLine": 22,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 35
+      },
+      "revId": "11241bf84027fb56b9ab17252a346d169237792d",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_15b7b9d9",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_baremetal_buffering-4.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-01-24T19:06:53Z",
+      "side": 1,
+      "message": "This was done in a previous patch set. Some how a later patch set removed this change. Added it back in.",
+      "parentUuid": "1a622d24_1575f997",
       "range": {
         "startLine": 22,
         "startChar": 13,
