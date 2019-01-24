@@ -11,13 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+{% set framesize = framesize or "{64B: 100}" %}
 ---
 schema: yardstick:task:0.1
 scenarios:
 - type: NSPerf
-  traffic_profile: ../../traffic_profiles/ipv4_throughput-2.yaml
-  topology: router-tg-topology-4port.yaml
+  traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
+  topology: router-tg-topology.yaml
   nodes:
     tg__0: trafficgen_1.yardstick
     vnf__0: vnf.yardstick
@@ -25,15 +25,13 @@ scenarios:
     cpt__0: ovs_dpdk.yardstick
   options:
     framesize:
-      uplink: {512B: 100}
-      downlink: {512B: 100}
+      uplink: {{ framesize }}
+      downlink: {{ framesize }}
     flow:
       src_ip:
         - '152.16.100.26-152.16.100.105'
-        - '152.16.101.26-152.16.101.105'
       dst_ip:
         - '152.16.40.26-152.16.40.105'
-        - '152.16.41.26-152.16.41.105'
       src_port:
         - '1234-1238'
       dst_port:
@@ -43,7 +41,7 @@ scenarios:
     rfc2544:
       allowed_drop_rate: 0.0001 - 0.1
     tg__0:
-      queues_per_port: 8
+      queues_per_port: 7
     vnf__0:
       nfvi_enable: True
   runner:
@@ -57,7 +55,7 @@ contexts:
 
    - name: yardstick
      type: Node
-     file: /etc/yardstick/nodes/standalone/pod_trex_4ports.yaml
+     file: /etc/yardstick/nodes/standalone/pod_trex.yaml
 
    - name: yardstick
      type: StandaloneOvsDpdk
@@ -67,37 +65,30 @@ contexts:
        version:
          ovs: 2.7.0
          dpdk: 16.11.1
-       pmd_threads: 8
-       # override pmd_threads to use NUMA 1 vcpus
-       pmd_cpu_mask: "0x3FC00000"
-       lcore_mask: "0x200000"
+       pmd_threads: 4
+       # override pmd_threads to use specific cpus
+       pmd_cpu_mask: "0x78"
+       lcore_mask: "0x4"
        ram:
-         socket_0: 0
-         socket_1: 4096
-       queues: 2
+         socket_0: 2048
+         socket_1: 2048
+       queues: 4
        vpath: "/usr/local"
 
      flavor:
-       images: "/var/lib/libvirt/images/ubuntu_9cores.qcow2"
+       images: "/var/lib/libvirt/images/ubuntu_5cores.qcow2"
        ram: 4096
-       hw_socket: 1
        extra_specs:
          hw:cpu_sockets: 1
-         hw:cpu_cores: 9
+         hw:cpu_cores: 5
          hw:cpu_threads: 1
          cputune: "<cputune>
-    <vcpupin vcpu='0' cpuset='31'/>
-    <vcpupin vcpu='1' cpuset='32'/>
-    <vcpupin vcpu='2' cpuset='33'/>
-    <vcpupin vcpu='3' cpuset='34'/>
-    <vcpupin vcpu='4' cpuset='35'/>
-    <vcpupin vcpu='5' cpuset='36'/>
-    <vcpupin vcpu='6' cpuset='37'/>
-    <vcpupin vcpu='7' cpuset='38'/>
-    <vcpupin vcpu='8' cpuset='39'/>
-    <emulatorpin cpuset='31-39'/>
+    <vcpupin vcpu='0' cpuset='11'/>
+    <vcpupin vcpu='1' cpuset='12'/>
+    <vcpupin vcpu='2' cpuset='13'/>
+    <vcpupin vcpu='3' cpuset='14'/>
+    <vcpupin vcpu='4' cpuset='15'/>
                    </cputune>"
-
        user: "root"
        password: "password"
      servers:
@@ -110,32 +101,16 @@ contexts:
              - uplink_0
            xe1:
              - downlink_0
-           xe2:
-             - uplink_1
-           xe3:
-             - downlink_1
      networks:
        uplink_0:
          port_num: 0
-         phy_port: "0000:88:00.0"
+         phy_port: "0000:1a:00.0"
          vpci: "0000:00:07.0"
          cidr: '152.16.100.19/24'
          gateway_ip: '152.16.100.20'
        downlink_0:
          port_num: 1
-         phy_port: "0000:d8:00.0"
+         phy_port: "0000:18:00.0"
          vpci: "0000:00:08.0"
          cidr: '152.16.40.19/24'
-         gateway_ip: '152.16.40.20'
-       uplink_1:
-         port_num: 2
-         phy_port: "0000:81:00.0"
-         vpci: "0000:00:09.0"
-         cidr: '152.16.101.19/24'
-         gateway_ip: '152.16.101.20'
-       downlink_1:
-         port_num: 3
-         phy_port: "0000:86:00.0"
-         vpci: "0000:00:0a.0"
-         cidr: '152.16.41.19/24'
-         gateway_ip: '152.16.41.20'
+         gateway_ip: '152.16.100.20'

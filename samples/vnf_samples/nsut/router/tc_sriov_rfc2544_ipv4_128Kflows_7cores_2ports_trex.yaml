@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+{% set framesize = framesize or "{64B: 100}" %}
 ---
 schema: yardstick:task:0.1
 scenarios:
@@ -24,8 +24,8 @@ scenarios:
     cpt__0: sriov.yardstick
   options:
     framesize:
-      uplink: {128B: 100}
-      downlink: {128B: 100}
+      uplink: {{ framesize }}
+      downlink: {{ framesize }}
     flow:
       src_ip:
         - '152.16.100.26-152.16.100.105'
@@ -48,7 +48,7 @@ scenarios:
     iterations: 10
     interval: 35
 contexts:
-   - name: yardstick
+   - name: yardstick 
      type: Node
      file: /etc/yardstick/nodes/standalone/host_sriov.yaml
 
@@ -59,7 +59,6 @@ contexts:
    - name: yardstick
      type: StandaloneSriov
      file: /etc/yardstick/nodes/standalone/host_sriov.yaml
-
      vm_deploy: True
      flavor:
        images: "/var/lib/libvirt/images/ubuntu.qcow2"
