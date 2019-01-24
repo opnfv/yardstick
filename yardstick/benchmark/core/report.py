@@ -10,13 +10,12 @@
 
 """ Handler for yardstick command 'report' """
 
-import ast
 import re
+import six
 import uuid
 
 import jinja2
 from api.utils import influx
-from oslo_utils import encodeutils
 from oslo_utils import uuidutils
 from yardstick.common import constants as consts
 from yardstick.common.utils import cliargs
@@ -55,11 +54,9 @@ class JSTree(object):
     def format_for_jstree(self, data):
         """Format the data into the required format for jsTree.
 
-        The data format expected is a list of key-value pairs which represent
-        the data and label for each metric e.g.:
+        The data format expected is a list of metric names e.g.:
 
-            [{'data': [0, ], 'label': 'tg__0.DropPackets'},
-             {'data': [548, ], 'label': 'tg__0.LatencyAvg.5'},]
+            ['tg__0.DropPackets', 'tg__0.LatencyAvg.5']
 
         This data is converted into the format required for jsTree to group and
         display the metrics in a hierarchial fashion, including creating a
@@ -76,8 +73,8 @@ class JSTree(object):
         self._created_nodes = ['#']
         self.jstree_data = []
 
-        for item in data:
-            self._create_node(item["label"])
+        for metric in data:
+            self._create_node(metric)
 
         return self.jstree_data
 
@@ -115,10 +112,10 @@ class Report(object):
         else:
             raise KeyError("Test case not found.")
 
-    def _get_tasks(self):
-        task_cmd = "select * from \"%s\" where task_id= '%s'"
-        task_query = task_cmd % (self.yaml_name, self.task_id)
-        query_exec = influx.query(task_query)
+    def _get_metrics(self):
+        metrics_cmd = "select * from \"%s\" where task_id = '%s'"
+        metrics_query = metrics_cmd % (self.yaml_name, self.task_id)
+        query_exec = influx.query(metrics_query)
         if query_exec:
             return query_exec
         else:
@@ -132,38 +129,72 @@ class Report(object):
         """
         self._validate(args.yaml_name[0], args.task_id[0])
 
-        self.db_fieldkeys = self._get_fieldkeys()
+        db_fieldkeys = self._get_fieldkeys()
+        # list of dicts of:
+        # - PY2: unicode key and unicode value
+        # - PY3: str key and str value
 
-        self.db_task = self._get_tasks()
+        db_metrics = self._get_metrics()
+        # list of dicts of:
+        # - PY2: unicode key and { None | unicode | float | long | int } value
+        # - PY3: str key and { None | str | float | int } value
 
-        field_keys = []
+        # extract fieldKey entries, and convert them to str where needed
+        field_keys = [key if isinstance(key, str)       # PY3: already str
+                          else key.encode('utf8')       # PY2: unicode to str
+                      for key in
+                          [field['fieldKey']
+                           for field in db_fieldkeys]]
+
+        # extract timestamps
+        self.Timestamp = []
+        for metric in db_metrics:
+            metric_time = metric['time']                    # in RFC3339 format
+            if not isinstance(metric_time, str):
+                metric_time = metric_time.encode('utf8')    # PY2: unicode to str
+            metric_time = metric_time[11:]                  # skip date, keep time
+            head, _, tail = metric_time.partition('.')      # split HH:MM:SS and nsZ
+            metric_time = head + '.' + tail[:6]             # join HH:MM:SS and .us
+            self.Timestamp.append(metric_time)              # HH:MM:SS.micros
+
+        # prepare return values
         datasets = []
-        table_vals = {}
+        table_vals = {'Timestamp': self.Timestamp}
 
-        field_keys = [encodeutils.to_utf8(field['fieldKey'])
-                      for field in self.db_fieldkeys]
-
+        # extract and convert field values
         for key in field_keys:
-            self.Timestamp = []
             values = []
-            for task in self.db_task:
-                task_time = encodeutils.to_utf8(task['time'])
-                if not isinstance(task_time, str):
-                    task_time = str(task_time, 'utf8')
-                if not isinstance(key, str):
-                    key = str(key, 'utf8')
-                task_time = task_time[11:]
-                head, _, tail = task_time.partition('.')
-                task_time = head + "." + tail[:6]
-                self.Timestamp.append(task_time)
-                if task[key] is None:
-                    values.append(None)
-                elif isinstance(task[key], (int, float)):
-                    values.append(task[key])
+            for metric in db_metrics:
+                val = metric.get(key, None)
+                if val is None:
+                    # keep explicit None or missing entry as is
+                    pass
+                elif isinstance(val, (int, float)):
+                    # keep plain int or float as is
+                    pass
+                elif six.PY2 and isinstance(val,
+                            long):  # pylint: disable=undefined-variable
+                    # PY2: long value would be rendered with trailing L,
+                    # which JS does not support, so convert it to float
+                    val = float(val)
+                elif isinstance(val, six.string_types):
+                    s = val
+                    if not isinstance(s, str):
+                        s = s.encode('utf8')            # PY2: unicode to str
+                    try:
+                        # convert until failure
+                        val = s
+                        val = float(s)
+                        val = int(s)
+                        if six.PY2 and isinstance(val,
+                                    long):  # pylint: disable=undefined-variable
+                            val = float(val)            # PY2: long to float
+                    except ValueError:
+                        pass
                 else:
-                    values.append(ast.literal_eval(task[key]))
+                    raise ValueError("Cannot convert %r" % val)
+                values.append(val)
             datasets.append({'label': key, 'data': values})
-            table_vals['Timestamp'] = self.Timestamp
             table_vals[key] = values
 
         return datasets, table_vals
@@ -197,8 +228,14 @@ class Report(object):
     @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
     def generate_nsb(self, args):
         """Start NSB report generation."""
-        datasets, table_vals = self._generate_common(args)
-        jstree_data = JSTree().format_for_jstree(datasets)
+        _, report_data = self._generate_common(args)
+        report_time = report_data.pop('Timestamp')
+        report_keys = sorted(report_data, key=str.lower)
+        report_tree = JSTree().format_for_jstree(report_keys)
+        report_meta = {
+            "testcase": self.yaml_name,
+            "task_id": self.task_id,
+        }
 
         template_dir = consts.YARDSTICK_ROOT_PATH + "yardstick/common"
         template_environment = jinja2.Environment(
@@ -207,10 +244,11 @@ class Report(object):
             lstrip_blocks=True)
 
         context = {
-            "Timestamps": self.Timestamp,
-            "task_id": self.task_id,
-            "table": table_vals,
-            "jstree_nodes": jstree_data,
+            "report_meta": report_meta,
+            "report_data": report_data,
+            "report_time": report_time,
+            "report_keys": report_keys,
+            "report_tree": report_tree,
         }
 
         template_html = template_environment.get_template("nsb_report.html.j2")

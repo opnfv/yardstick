@@ -10,9 +10,9 @@
 
 var None = null;
 
-function create_tree(jstree_data)
+function create_tree(divTree, jstree_data)
 {
-    $('#data_selector').jstree({
+    divTree.jstree({
         plugins: ['checkbox'],
         checkbox: {
             three_state: false,
@@ -29,34 +29,33 @@ function create_tree(jstree_data)
     });
 }
 
-// may need to pass timestamps too...
-function create_table(table_data)
+function create_table(tblMetrics, table_data, timestamps, table_keys)
 {
-    var tab, tr, td, tn, tbody, keys, key, curr_data, val;
-    // create table
-    tab = document.getElementsByTagName('table')[0];
-    tbody = document.createElement('tbody');
+    var tbody = $('<tbody></tbody>');
+    var tr0 = $('<tr></tr>');
+    var th0 = $('<th></th>');
+    var td0 = $('<td></td>');
+    var tr;
+
+    // create table headings using timestamps
+    tr = tr0.clone().append(th0.clone().text('Timestamp'));
+    timestamps.forEach(function(t) {
+        tr.append(th0.clone().text(t));
+    });
+    tbody.append(tr);
+
     // for each metric
-    keys = Object.keys(table_data);
-    for (var i = 0; i < keys.length; i++) {
-        key = keys[i];
-        tr = document.createElement('tr');
-        td = document.createElement('td');
-        tn = document.createTextNode(key);
-        td.appendChild(tn);
-        tr.appendChild(td);
+    table_keys.forEach(function(key) {
+        tr = tr0.clone().append(td0.clone().text(key));
         // add each piece of data as its own column
-        curr_data = table_data[key];
-        for (var j = 0; j < curr_data.length; j++) {
-            val = curr_data[j];
-            td = document.createElement('td');
-            tn = document.createTextNode(val === None ? '' : val);
-            td.appendChild(tn);
-            tr.appendChild(td);
-        }
-        tbody.appendChild(tr);
-    }
-    tab.appendChild(tbody);
+        table_data[key].forEach(function(val) {
+            tr.append(td0.clone().text(val === None ? '' : val));
+        });
+        tbody.append(tr);
+    });
+
+    // re-create table
+    tblMetrics.empty().append(tbody);
 }
 
 function create_graph(cnvGraph, timestamps)
@@ -143,4 +142,24 @@ function update_graph(objGraph, datasets)
     });
     objGraph.data.datasets = datasets;
     objGraph.update();
+}
+
+function handle_tree(divTree, tblMetrics, objGraph, table_data, timestamps)
+{
+    divTree.on('check_node.jstree uncheck_node.jstree', function(e, data) {
+        var selected_keys = [];
+        var selected_datasets = [];
+        data.selected.forEach(function(sel) {
+            var node = data.instance.get_node(sel);
+            if (node.children.length == 0) {
+                selected_keys.push(node.id);
+                selected_datasets.push({
+                    label: node.id,
+                    data: table_data[node.id],
+                });
+            }
+        });
+        create_table(tblMetrics, table_data, timestamps, selected_keys);
+        update_graph(objGraph, selected_datasets);
+    });
 }
