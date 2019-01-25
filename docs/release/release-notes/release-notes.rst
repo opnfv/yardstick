@@ -36,6 +36,9 @@ Version History
 | December 14, 2018 | 7.1.0     | Yardstick for Gambia release    |
 |                   |           |                                 |
 +-------------------+-----------+---------------------------------+
+| January 25, 2019  | 7.2.0     | Yardstick for Gambia release    |
+|                   |           |                                 |
++-------------------+-----------+---------------------------------+
 
 
 Important Notes
@@ -114,19 +117,19 @@ Release Data
 | **Project**                    | Yardstick             |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Repo/tag**                   | yardstick/opnfv-7.1.0 |
+| **Repo/tag**                   | yardstick/opnfv-7.2.0 |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Yardstick Docker image tag** | opnfv-7.1.0           |
+| **Yardstick Docker image tag** | opnfv-7.2.0           |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release designation**        | Gambia 7.1            |
+| **Release designation**        | Gambia 7.2            |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release date**               | December 14, 2018     |
+| **Release date**               | January 25, 2019     |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Purpose of the delivery**    | OPNFV Gambia 7.1.0    |
+| **Purpose of the delivery**    | OPNFV Gambia 7.2.0    |
 |                                |                       |
 +--------------------------------+-----------------------+
 
@@ -272,7 +275,7 @@ List of Scenarios
 New Test cases
 --------------
 
-.. note:: Yardstick Gambia 7.1.0 adds no new test cases.
+.. note:: Yardstick Gambia 7.2.0 adds no new test cases.
 
 * Generic NFVI test cases
 
@@ -329,7 +332,7 @@ Feature additions
 Scenario Matrix
 ===============
 
-For Gambia 7.1.0, Yardstick was tested on the following scenarios:
+For Gambia 7.2.0, Yardstick was tested on the following scenarios:
 
 +-------------------------+------+---------+----------+------+
 |        Scenario         | Apex | Compass | Fuel-arm | Fuel |
@@ -373,33 +376,16 @@ Known Issues/Faults
 Corrected Faults
 ----------------
 
-Gambia 7.1.0:
+Gambia 7.2.0:
 
 +--------------------+--------------------------------------------------------------------------+
 | **JIRA REFERENCE** |                             **DESCRIPTION**                              |
 +====================+==========================================================================+
-| YARDSTICK-1241     | Update NSB PROX devguide.                                                |
-+--------------------+--------------------------------------------------------------------------+
-| YARDSTICK-1458     | NSB NFVi PROX Should report realtime port activity not historical data.  |
-+--------------------+--------------------------------------------------------------------------+
-| YARDSTICK-1471     | Add Testcase Prox Standalone SRIOV.                                      |
-+--------------------+--------------------------------------------------------------------------+
-| YARDSTICK-1475     | Adding Testcase for Prox Stanalone OvS-DPDK.                             |
-+--------------------+--------------------------------------------------------------------------+
-| YARDSTICK-1500     | Adding Testcase for Prox L2FWD PktTouch Stanalone OvS-DPDK.              |
-+--------------------+--------------------------------------------------------------------------+
-| YARDSTICK-1517     | Missing opnfv "os-ovn-nofeature-ha" scenario test suite.                 |
-+--------------------+--------------------------------------------------------------------------+
-| YARDSTICK-l526     | Run testcase 074 result overridden by job status.                        |
-+--------------------+--------------------------------------------------------------------------+
-| YARDSTICK-1547     | Adding scale up test case for l3fwd OvS-DPDK.                            |
-+--------------------+--------------------------------------------------------------------------+
-| YARDSTICK-1560     | Fix pip environment.                                                     |
-+--------------------+--------------------------------------------------------------------------+
-| YARDSTICK-1561     | L3FWD Gradana Dashboards Out-of-date and incorrect.                      |
+| YARDSTICK-1512     | [dovetail] split the sla check results into process recovery and service |
+|                    | recovery for HA test cases.                                              |
 +--------------------+--------------------------------------------------------------------------+
 
-Gambia 7.1.0 known restrictions/issues
+Gambia 7.2.0 known restrictions/issues
 ======================================
 
 
