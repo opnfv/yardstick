@@ -322,7 +322,6 @@ class ReportTestCase(unittest.TestCase):
                 '14:11:45.3836': 3600281000,
             }
         }
-        self.maxDiff = None
         self.assertEqual(
             BARO_EXPECTED_METRICS,
             self.rep._get_baro_metrics()
