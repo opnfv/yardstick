@@ -299,18 +299,60 @@ class Report(object):
         times.sort()
         return times
 
+    def _combine_metrics(self, *args):
+        baro_data, baro_time, yard_data, yard_time = args
+        combo_time = self._combine_times(baro_time, yard_time)
+
+        data = {}
+        [data.update(x) for x in (baro_data, yard_data)]
+
+        table_data = {}
+        table_data['Timestamp'] = combo_time
+        combo = {}
+        keys = data.keys()
+        for met_name in data:
+            dataset = []
+            for point in data[met_name]:
+                 dataset.append({'x': point, 'y': data[met_name][point]})
+            # the metrics need to be ordered by time
+            combo[met_name] = sorted(dataset, key=lambda i: i['x'])
+        for met_name in data:
+            table_data[met_name] = []
+            for t in combo_time:
+                table_data[met_name].append(data[met_name].get(t, ''))
+        print(combo)
+        return combo, keys, table_data
+
     @cliargs("task_id", type=str, help=" task id", nargs=1)
     @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
     def generate_nsb(self, args):
         """Start NSB report generation."""
         _, report_data = self._generate_common(args)
         report_time = report_data.pop('Timestamp')
-        report_keys = sorted(report_data, key=str.lower)
-        report_tree = JSTree().format_for_jstree(report_keys)
+        # report_keys = sorted(report_data, key=str.lower)
+        # report_tree = JSTree().format_for_jstree(report_keys)
         report_meta = {
             "testcase": self.yaml_name,
             "task_id": self.task_id,
         }
+
+        yardstick_data = {}
+        for i, t in enumerate(report_time):
+            for m in report_data:
+                if not yardstick_data.get(m):
+                   yardstick_data[m] = {}
+                yardstick_data[m][t] = report_data[m][i]
+
+        baro_data = self._get_baro_metrics()
+        baro_timestamps = baro_data.pop('Timestamp')
+
+        yard_timestamps = report_time
+        report_time = self._combine_times(yard_timestamps, baro_timestamps)
+
+        combo_metrics, combo_keys, combo_table = self._combine_metrics(
+            baro_data, baro_timestamps, yardstick_data, yard_timestamps)
+        combo_time = self._combine_times(baro_timestamps, yard_timestamps)
+        combo_tree = JSTree().format_for_jstree(combo_keys)
 
         template_dir = consts.YARDSTICK_ROOT_PATH + "yardstick/common"
         template_environment = jinja2.Environment(
@@ -318,12 +360,14 @@ class Report(object):
             loader=jinja2.FileSystemLoader(template_dir),
             lstrip_blocks=True)
 
+        combo_data = combo_metrics
         context = {
             "report_meta": report_meta,
-            "report_data": report_data,
-            "report_time": report_time,
-            "report_keys": report_keys,
-            "report_tree": report_tree,
+            "report_data": combo_data,
+            "report_time": combo_time,
+            "report_keys": combo_keys,
+            "report_tree": combo_tree,
+            "table_data": combo_table,
         }
 
         template_html = template_environment.get_template("nsb_report.html.j2")
