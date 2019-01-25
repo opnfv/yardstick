@@ -333,6 +333,57 @@ class ReportTestCase(unittest.TestCase):
     def test__format_dataset_val_incompatible(self):
         pass
 
+    def test__combine_times(self):
+        yard_times = [
+            '00:00:00.000000',
+            '00:00:01.000000',
+            '00:00:02.000000',
+            '00:00:06.000000',
+            '00:00:08.000000',
+            '00:00:09.000000',
+        ]
+        baro_times = [
+            '00:00:01.000000',
+            '00:00:03.000000',
+            '00:00:04.000000',
+            '00:00:05.000000',
+            '00:00:07.000000',
+            '00:00:10.000000',
+        ]
+        expected_combo = [
+            '00:00:00.000000',
+            '00:00:01.000000',
+            '00:00:02.000000',
+            '00:00:03.000000',
+            '00:00:04.000000',
+            '00:00:05.000000',
+            '00:00:06.000000',
+            '00:00:07.000000',
+            '00:00:08.000000',
+            '00:00:09.000000',
+            '00:00:10.000000',
+        ]
+
+        actual_combo = self.rep._combine_times(yard_times, baro_times)
+        self.assertEqual(len(expected_combo), len(actual_combo))
+
+        self.assertEqual(
+            expected_combo,
+            actual_combo,
+        )
+
+    def test__combine_times_2(self):
+        time1 = ['14:11:25.383698', '14:11:25.383712', '14:11:35.383696',]
+        time2 = [
+            '16:20:14.568075', '16:20:24.575083',
+            '16:20:34.580989', '16:20:44.586801', ]
+        time_exp = [
+            '14:11:25.383698', '14:11:25.383712', '14:11:35.383696',
+            '16:20:14.568075', '16:20:24.575083', '16:20:34.580989',
+            '16:20:44.586801',
+        ]
+        self.assertEqual(time_exp, self.rep._combine_times(time1, time2))
+
     @mock.patch.object(report.Report, '_get_metrics')
     @mock.patch.object(report.Report, '_get_fieldkeys')
     def test__generate_common(self, mock_keys, mock_metrics):
