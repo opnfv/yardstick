@@ -174,7 +174,7 @@ class KubernetesContext(ctx_base.Context):
 
         return {
             'name': name,
-            'ip': self._get_node_ip(),
+            'ip': k8s_utils.get_pod_by_name(name).status.pod_ip,
             'private_ip': k8s_utils.get_pod_by_name(name).status.pod_ip,
             'ssh_port': node_port,
             'user': 'root',
@@ -207,7 +207,7 @@ class KubernetesContext(ctx_base.Context):
             return {}
         return {name: {'network_name': name,
                        'local_mac': None,
-                       'local_ip': None}
+                       'local_ip': k8s_utils.get_pod_by_name(rc_name).status.pod_ip}
                 for name in rc.networks}
 
     def _get_node_ip(self):
