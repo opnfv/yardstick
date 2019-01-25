@@ -3,7 +3,7 @@
 
 <!--
  Copyright (c) 2017 Rajesh Kudaka <4k.rajesh@gmail.com>
- Copyright (c) 2018 Intel Corporation.
+ Copyright (c) 2018-2019 Intel Corporation.
 
  All rights reserved. This program and the accompanying materials
  are made available under the terms of the Apache License, Version 2.0
@@ -57,6 +57,7 @@
             var report_time = {{report_time|safe}};
             var report_keys = {{report_keys|safe}};
             var report_tree = {{report_tree|safe}};
+            var table_data = {{table_data|safe}};
 
             // Wait for DOM to be loaded
             $(function() {
@@ -64,10 +65,10 @@
                 var cnvGraph = $('#cnvGraph');
                 var divTree = $('#divTree');
 
-                create_table(tblMetrics, report_data, report_time, report_keys);
+                create_table(tblMetrics, table_data, report_time, report_keys);
                 var objGraph = create_graph(cnvGraph, report_time);
                 create_tree(divTree, report_tree);
-                handle_tree(divTree, tblMetrics, objGraph, report_data, report_time);
+                handle_tree(divTree, tblMetrics, objGraph, report_data, table_data, report_time);
             });
         </script>
     </body>
