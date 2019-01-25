@@ -305,6 +305,37 @@ class Report(object):
 
         print("Report generated. View %s" % consts.DEFAULT_HTML_FILE)
 
+    def _combine_times(self, *args):
+        times = []
+        # Combines an arbitrary number of lists
+        [times.extend(x) for x in args]
+        times = list(set(times))
+        times.sort()
+        return times
+
+    def _combine_metrics(self, *args):
+        baro_data, baro_time, yard_data, yard_time = args
+        combo_time = self._combine_times(baro_time, yard_time)
+
+        data = {}
+        [data.update(x) for x in (baro_data, yard_data)]
+
+        table_data = {}
+        table_data['Timestamp'] = combo_time
+        combo = {}
+        keys = sorted(data.keys())
+        for met_name in data:
+            dataset = []
+            for point in data[met_name]:
+                 dataset.append({'x': point, 'y': data[met_name][point]})
+            # the metrics need to be ordered by time
+            combo[met_name] = sorted(dataset, key=lambda i: i['x'])
+        for met_name in data:
+            table_data[met_name] = []
+            for t in combo_time:
+                table_data[met_name].append(data[met_name].get(t, ''))
+        return combo, keys, table_data
+
     @cliargs("task_id", type=str, help=" task id", nargs=1)
     @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
     def generate_nsb(self, args):
