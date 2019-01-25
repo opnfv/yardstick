@@ -291,6 +291,14 @@ class Report(object):
 
         print("Report generated. View %s" % consts.DEFAULT_HTML_FILE)
 
+    def _combine_times(self, *args):
+        times = []
+        # Combines an arbitrary number of lists
+        [times.extend(x) for x in args]
+        times = list(set(times))
+        times.sort()
+        return times
+
     @cliargs("task_id", type=str, help=" task id", nargs=1)
     @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
     def generate_nsb(self, args):
