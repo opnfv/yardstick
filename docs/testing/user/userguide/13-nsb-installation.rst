@@ -28,7 +28,7 @@ Abstract
 The steps needed to run Yardstick with NSB testing are:
 
 * Install Yardstick (NSB Testing).
-* Setup/reference ``pod.yaml`` describing Test topology
+* Setup/reference ``pod.yaml`` describing Test topology.
 * Create/reference the test configuration yaml file.
 * Run the test case.
 
@@ -89,21 +89,24 @@ Boot and BIOS settings:
 Install Yardstick (NSB Testing)
 -------------------------------
 
-Download the source code and check out the latest stable branch::
+Yardstick with NSB can be installed using ``nsb_setup.sh``.
+The ``nsb_setup.sh`` allows to:
 
-.. code-block:: console
+1. Install Yardstick in specified mode: bare metal or container.
+   Refer :doc:`04-installation`.
+2. Install package dependencies on remote servers used as traffic generator or
+   sample VNF. Add such servers to ``install-inventory.ini`` file to either
+   ``yardstick-standalone`` or ``yardstick-baremetal`` server groups.
+   Configures IOMMU, hugepages, open file limits, CPU isolation, etc.
+3. Build VM image either nsb or normal. The nsb VM image is used to run
+   Yardstick sample VNF tests, like vFW, vACL, vCGNAPT, etc.
+   The normal VM image is used to run Yardstick ping tests in OpenStack context.
+4. Add nsb or normal VM image to OpenStack together with OpenStack variables.
 
-  git clone https://gerrit.opnfv.org/gerrit/yardstick
-  cd yardstick
-  # Switch to latest stable branch
-  git checkout stable/gambia
+Firstly, configure the network proxy, either using the environment variables or
+setting the global environment file.
 
-Configure the network proxy, either using the environment variables or setting
-the global environment file.
-
-* Set environment
-
-.. code-block::
+Set environment::
 
     http_proxy='http://proxy.company.com:port'
     https_proxy='http://proxy.company.com:port'
@@ -113,41 +116,101 @@ the global environment file.
     export http_proxy='http://proxy.company.com:port'
     export https_proxy='http://proxy.company.com:port'
 
-Modify the Yardstick installation inventory, used by Ansible::
+Download the source code and check out the latest stable branch
+
+.. code-block:: console
+
+  git clone https://gerrit.opnfv.org/gerrit/yardstick
+  cd yardstick
+  # Switch to latest stable branch
+  git checkout stable/gambia
+
+Modify the Yardstick installation inventory used by Ansible::
 
   cat ./ansible/install-inventory.ini
   [jumphost]
   localhost ansible_connection=local
-
-  [yardstick-standalone]
-  yardstick-standalone-node ansible_host=192.168.1.2
-  yardstick-standalone-node-2 ansible_host=192.168.1.3
 
   # section below is only due backward compatibility.
   # it will be removed later
   [yardstick:children]
   jumphost
 
+  [yardstick-standalone]
+  standalone ansible_host=192.168.2.51 ansible_connection=ssh
+
+  [yardstick-baremetal]
+  baremetal ansible_host=192.168.2.52 ansible_connection=ssh
+
   [all:vars]
+  arch_amd64=amd64
+  arch_arm64=arm64
+  inst_mode_baremetal=baremetal
+  inst_mode_container=container
+  inst_mode_container_pull=container_pull
+  ubuntu_archive={"amd64": "http://archive.ubuntu.com/ubuntu/", "arm64": "http://ports.ubuntu.com/ubuntu-ports/"}
   ansible_user=root
-  ansible_pass=root
+  ansible_ssh_pass=root  # OR ansible_ssh_private_key_file=/root/.ssh/id_rsa
+
+.. warning::
+
+   Before running ``nsb_setup.sh`` make sure python is installed on servers
+   added to ``yardstick-standalone`` or ``yardstick-baremetal`` groups.
 
 .. note::
 
    SSH access without password needs to be configured for all your nodes
-   defined in ``yardstick-install-inventory.ini`` file.
+   defined in ``install-inventory.ini`` file.
    If you want to use password authentication you need to install ``sshpass``::
 
      sudo -EH apt-get install sshpass
 
-To execute an installation for a BareMetal or a Standalone context::
+
+.. note::
+
+   A VM image built by other means than Yardstick can be added to OpenStack.
+   Uncomment and set correct path to the VM image in the
+   ``install-inventory.ini`` file::
+
+     path_to_img=/tmp/workspace/yardstick-image.img
+
+
+.. note::
+
+   CPU isolation can be applied to the remote servers, like:
+   ISOL_CPUS=2-27,30-55
+   Uncomment and modify accordingly in ``install-inventory.ini`` file.
+
+By default ``nsb_setup.sh`` pulls Yardstick image based on Ubuntu 16.04 from
+docker hub and starts container, builds NSB VM image based on Ubuntu 16.04,
+installs packages to the servers given in ``yardstick-standalone`` and
+``yardstick-baremetal`` host groups.
+
+To change default behavior modify parameters for ``install.yaml`` in
+``nsb_setup.sh`` file.
+
+Refer chapter :doc:`04-installation` for more details on ``install.yaml``
+parameters.
+
+To execute an installation for a **BareMetal** or a **Standalone context**::
 
     ./nsb_setup.sh
 
 
-To execute an installation for an OpenStack context::
+To execute an installation for an **OpenStack** context::
 
     ./nsb_setup.sh <path to admin-openrc.sh>
+
+.. warning::
+
+   The Yardstick VM image (NSB or normal) cannot be built inside a VM.
+
+.. warning::
+
+   The ``nsb_setup.sh`` configures huge pages, CPU isolation, IOMMU on the grub.
+   Reboot of the servers from ``yardstick-standalone`` or
+   ``yardstick-baremetal`` groups in the file ``install-inventory.ini`` is
+   required to apply those changes.
 
 The above commands will set up Docker with the latest Yardstick code. To
 execute::
@@ -158,10 +221,6 @@ It will also automatically download all the packages needed for NSB Testing
 setup. Refer chapter :doc:`04-installation` for more on Docker
 
 **Install Yardstick using Docker (recommended)**
-
-Another way to execute an installation for a Bare-Metal or a Standalone context
-is to use ansible script ``install.yaml``. Refer chapter :doc:`04-installation`
-for more details.
 
 System Topology
 ---------------
@@ -185,7 +244,7 @@ Configure yardstick.conf
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you did not run ``yardstick env influxdb`` inside the container to generate
- ``yardstick.conf``, then create the config file manually (run inside the
+``yardstick.conf``, then create the config file manually (run inside the
 container)::
 
     cp ./etc/yardstick/yardstick.conf.sample /etc/yardstick/yardstick.conf
@@ -1011,7 +1070,7 @@ context using steps described in `NS testing - using yardstick CLI`_ section.
 
 
 Multi node OpenStack TG and VNF setup (two nodes)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: console
 
@@ -1094,7 +1153,7 @@ Enabling other Traffic generators
 ---------------------------------
 
 IxLoad
-~~~~~~
+^^^^^^
 
 1. Software needed: IxLoadAPI ``<IxLoadTclApi verson>Linux64.bin.tgz`` and
    ``<IxOS version>Linux64.bin.tar.gz`` (Download from ixia support site)
@@ -1197,9 +1256,9 @@ to be preinstalled and properly configured.
       ``PYTHONPATH`` environment variable.
 
     .. important::
-    The current version of LsApi module has an issue with reading LD_LIBRARY_PATH.
-    For LsApi module to initialize correctly following lines (184-186) in
-    lsapi.py
+      The current version of LsApi module has an issue with reading LD_LIBRARY_PATH.
+      For LsApi module to initialize correctly following lines (184-186) in
+      lsapi.py
 
     .. code-block:: python
 
