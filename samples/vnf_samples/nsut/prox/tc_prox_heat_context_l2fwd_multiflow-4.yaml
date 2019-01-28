@@ -44,21 +44,27 @@ scenarios:
         "-t": ""
 
   runner:
-    type: Duration
+    type: ProxDuration
+    # sampling interval
+    interval: 1
+    # sampled : yes OR sampled: no (DEFAULT yes)
+    sampled: yes
     # we kill after duration, independent of test duration, so set this high
-    duration: 300
+    duration: 8000
+    # Confirmation attempts
+    confirmation: 1
 
 context:
   name: yardstick
   image: yardstick-samplevnfs
   user: ubuntu
   flavor:
-    vcpus: 12
+    vcpus: 32
     ram: 20480
     disk: 10
     extra_specs:
       hw:cpu_sockets: 1
-      hw:cpu_cores: 12
+      hw:cpu_cores: 32
       hw:cpu_threads: 1
   placement_groups:
     pgrp1:
