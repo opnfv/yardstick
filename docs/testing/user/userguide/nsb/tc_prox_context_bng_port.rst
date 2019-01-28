@@ -23,6 +23,8 @@ Yardstick Test Case Description: NSB PROX BNG
 |              | * VNF Packets Out;                                           |
 |              | * VNF Packets In;                                            |
 |              | * Dropped packets;                                           |
+|              | * CPU Utilization;                                           |
+|              | * Latency;                                                   |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test purpose  | The BNG workload converts packets from QinQ to GRE tunnels,  |
@@ -43,10 +45,9 @@ Yardstick Test Case Description: NSB PROX BNG
 |              | * tc_prox_heat_context_bng-2.yaml                            |
 |              | * tc_prox_heat_context_bng-4.yaml                            |
 |              |                                                              |
-|              | Test duration is set as 300sec for each test.                |
-|              | The minimum packet size for BNG test is 78 bytes. This is    |
-|              | set in the BNG traffic profile and can be configured to use  |
-|              | a higher packet size for the test.                           |
+|              | Test duration is set as 8000sec for each test.               |
+|              | Packet size set as 78, 128, 256, 512, 1024 and 1518 bytes.   |
+|              | This is set in the traffic profile and can be configured     |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test tool     | PROX                                                         |
@@ -59,6 +60,7 @@ Yardstick Test Case Description: NSB PROX BNG
 |              |  * packet sizes;                                             |
 |              |  * test durations;                                           |
 |              |  * tolerated loss;                                           |
+|              |  * Interface speed 10,25 and 40 Gbps interface are supported |
 |              |                                                              |
 |              | Default values exist.                                        |
 |              |                                                              |
@@ -66,10 +68,17 @@ Yardstick Test Case Description: NSB PROX BNG
 |pre-test      | For Openstack test case image (yardstick-samplevnfs) needs   |
 |conditions    | to be installed into Glance with Prox and Dpdk included in   |
 |              | it. The test need multi-queue enabled in Glance image.       |
+|              | Please Ensure                                                |
+|              | 1. Glance image created with hw:vif_multiqueue_enabled: true |
+|              | 2. SUT and VNF VMs support 32 VCPUs                          |
 |              |                                                              |
 |              | For Baremetal tests cases Prox and Dpdk must be installed in |
 |              | the hosts where the test is executed. The pod.yaml file must |
 |              | have the necessary system and NIC information                |
+|              | Please Ensure                                                |
+|              | 1. SUT and VNF support 32 CPUs                               |
+|              | 2. "/opt/nsb-bin" contains "prox", "dpdk-devbind.py" and     |
+|              |    "collectd"                                                |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test sequence | description and expected result                              |
