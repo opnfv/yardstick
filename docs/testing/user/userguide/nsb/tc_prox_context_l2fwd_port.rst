@@ -23,6 +23,8 @@ Yardstick Test Case Description: NSB PROX L2FWD
 |              | * VNF Packets Out;                                           |
 |              | * VNF Packets In;                                            |
 |              | * Dropped packets;                                           |
+|              | * CPU Utilization;                                           |
+|              | * Latency;                                                   |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test purpose  | The PROX L2FWD test has 3 types of test cases:               |
@@ -70,17 +72,25 @@ Yardstick Test Case Description: NSB PROX L2FWD
 |              |  * packet sizes;                                             |
 |              |  * test durations;                                           |
 |              |  * tolerated loss;                                           |
+|              |  * Interface speed 10,25 and 40 Gbps interface are supported |
 |              |                                                              |
 |              | Default values exist.                                        |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |pre-test      | For Openstack test case image (yardstick-samplevnfs) needs   |
 |conditions    | to be installed into Glance with Prox and Dpdk included in   |
-|              | it.                                                          |
+|              | it. The test need multi-queue enabled in Glance image.       |
+|              | Please Ensure                                                |
+|              | 1. Glance image created with hw:vif_multiqueue_enabled: true |
+|              | 2. SUT and VNF VMs support 32 VCPUs                          |
 |              |                                                              |
 |              | For Baremetal tests cases Prox and Dpdk must be installed in |
 |              | the hosts where the test is executed. The pod.yaml file must |
 |              | have the necessary system and NIC information                |
+|              | Please Ensure                                                |
+|              | 1. SUT and VNF support 32 CPUs                               |
+|              | 2. "/opt/nsb-bin" contains "prox", "dpdk-devbind.py" and     |
+|              |    "collectd"                                                |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test sequence | description and expected result                              |

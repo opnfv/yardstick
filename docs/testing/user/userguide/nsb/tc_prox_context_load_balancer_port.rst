@@ -13,8 +13,8 @@ Yardstick Test Case Description: NSB PROX Load Balancer
 +--------------+--------------------------------------------------------------+
 |test case id  | tc_prox_{context}_lb-{port_num}                              |
 |              |                                                              |
-|              | * context = baremetal or heat_context                        |
-|              | * port_num = 4                                               |
+|              | * context = baremetal or heat_context;                       |
+|              | * port_num = 2 or 4;                                         |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |metric        | * Network Throughput;                                        |
@@ -23,10 +23,12 @@ Yardstick Test Case Description: NSB PROX Load Balancer
 |              | * VNF Packets Out;                                           |
 |              | * VNF Packets In;                                            |
 |              | * Dropped packets;                                           |
+|              | * CPU Utilization;                                           |
+|              | * Latency;                                                   |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
-|test purpose  | The applciation transmits packets on one port and revieves   |
-|              | them on 4 ports.                                             |
+|test purpose  | The applciation transmits packets on 2 or 4 port and receives|
+|              | them on 2 or 4 ports.                                        |
 |              | The conventional 5-tuple is used in this test as it requires |
 |              | some extraction steps and allows defining enough distinct    |
 |              | values to find the performance limits.                       |
@@ -40,12 +42,14 @@ Yardstick Test Case Description: NSB PROX Load Balancer
 +--------------+--------------------------------------------------------------+
 |configuration | The Load Balancer test cases are listed below:               |
 |              |                                                              |
+|              | * tc_prox_baremetal_lb-2.yaml                                |
 |              | * tc_prox_baremetal_lb-4.yaml                                |
+|              | * tc_prox_heat_context_lb-2.yaml                             |
 |              | * tc_prox_heat_context_lb-4.yaml                             |
 |              |                                                              |
-|              | Test duration is set as 300sec for each test.                |
-|              | Packet size set as 64 bytes in traffic profile.              |
-|              | These can be configured                                      |
+|              | Test duration is set as 8000sec for each test.               |
+|              | Packet size set as 64, 128, 256, 512, 1024 and 1518 bytes.   |
+|              | This is set in the traffic profile and can be configured     |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test tool     | PROX                                                         |
@@ -59,6 +63,7 @@ Yardstick Test Case Description: NSB PROX Load Balancer
 |              |  * packet sizes;                                             |
 |              |  * test durations;                                           |
 |              |  * tolerated loss;                                           |
+|              |  * Interface speed 10,25 and 40 Gbps interface are supported |
 |              |                                                              |
 |              | Default values exist.                                        |
 |              |                                                              |
@@ -66,10 +71,17 @@ Yardstick Test Case Description: NSB PROX Load Balancer
 |pre-test      | For Openstack test case image (yardstick-samplevnfs) needs   |
 |conditions    | to be installed into Glance with Prox and Dpdk included in   |
 |              | it. The test need multi-queue enabled in Glance image.       |
+|              | Please Ensure                                                |
+|              | 1. Glance image created with hw:vif_multiqueue_enabled: true |
+|              | 2. SUT and VNF VMs support 32 VCPUs                          |
 |              |                                                              |
 |              | For Baremetal tests cases Prox and Dpdk must be installed in |
 |              | the hosts where the test is executed. The pod.yaml file must |
 |              | have the necessary system and NIC information                |
+|              | Please Ensure                                                |
+|              | 1. SUT and VNF support 32 CPUs                               |
+|              | 2. "/opt/nsb-bin" contains "prox", "dpdk-devbind.py" and     |
+|              |    "collectd"                                                |
 |              |                                                              |
 +--------------+--------------------------------------------------------------+
 |test sequence | description and expected result                              |
