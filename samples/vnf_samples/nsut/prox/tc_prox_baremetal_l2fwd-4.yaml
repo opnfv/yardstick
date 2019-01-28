@@ -53,7 +53,7 @@ scenarios:
     # sampled : yes OR sampled: no (DEFAULT yes)
     sampled: yes
     # we kill after duration, independent of test duration, so set this high
-    duration: 3100
+    duration: 8000
     # Confirmation attempts
     confirmation: 1
 

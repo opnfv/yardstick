@@ -49,7 +49,7 @@ scenarios:
   runner:
     type: Duration
     # we kill after duration, independent of test duration, so set this high
-    duration: 1800
+    duration: 8000
 
 context:
   name: yardstick
