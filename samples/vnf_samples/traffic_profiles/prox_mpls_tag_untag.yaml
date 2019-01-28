@@ -19,12 +19,10 @@ description:     MPLS tag/untag for max no-drop throughput over given packet siz
 
 traffic_profile:
   traffic_type: ProxBinSearchProfile
-  tolerated_loss: 0.001
+  tolerated_loss: 0.1
   test_precision: 0.1
-#  packet_sizes: [64, 128, 256, 512, 1024, 1280, 1518]
-# The minimum size of the Ethernet frame with 802.1Q tagging is 68 bytes.
-  packet_sizes: [68]
-  duration: 10
+  packet_sizes: [68, 128, 256, 512, 1024, 1280, 1518]
+  duration: 60
   lower_bound: 0.0
   upper_bound: 100.0
 
