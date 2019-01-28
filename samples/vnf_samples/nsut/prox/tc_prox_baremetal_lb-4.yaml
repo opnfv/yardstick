@@ -27,6 +27,12 @@ scenarios:
     vnf__0: vnf_0.yardstick
 
   options:
+    interface_speed_gbps: 10
+
+    traffic_config:
+      tolerated_loss: 0.1
+      test_precision: 0.01
+
     vnf__0:
       collectd:
         interval: 1
@@ -53,7 +59,7 @@ scenarios:
     # sampled : yes OR sampled: no (DEFAULT yes)
     sampled: yes
     # we kill after duration, independent of test duration, so set this high
-    duration: 4000
+    duration: 8000
     # Confirmation attempts
     confirmation: 1
 
