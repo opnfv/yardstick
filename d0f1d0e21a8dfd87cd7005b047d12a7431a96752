@@ -22,6 +22,46 @@
       "revId": "d0f1d0e21a8dfd87cd7005b047d12a7431a96752",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8668c1bb",
+        "filename": "samples/vnf_samples/nsut/cgnapt/tc_baremetal_http_ixload_1b_Requests-65000_Concurrency.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-01-28T14:35:08Z",
+      "side": 1,
+      "message": "Does it make sense to define separate configs for uplink and downlink? Is such use case required?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 31
+      },
+      "revId": "d0f1d0e21a8dfd87cd7005b047d12a7431a96752",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_26744d98",
+        "filename": "samples/vnf_samples/nsut/cgnapt/tc_baremetal_rfc2544_ipv4_1flow_trex_corelated_traffic.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-01-28T14:35:08Z",
+      "side": 1,
+      "message": "typo in filename: corelated -\u003e correlated",
+      "revId": "d0f1d0e21a8dfd87cd7005b047d12a7431a96752",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
