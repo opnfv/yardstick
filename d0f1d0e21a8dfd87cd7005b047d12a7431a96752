@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_4b6eb202",
+        "filename": "samples/vnf_samples/nsut/cgnapt/tc_baremetal_http_ixload_1b_Requests-65000_Concurrency.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-28T10:24:04Z",
+      "side": 1,
+      "message": "year. Check in all files.",
+      "range": {
+        "startLine": 1,
+        "startChar": 21,
+        "endLine": 1,
+        "endChar": 26
+      },
+      "revId": "d0f1d0e21a8dfd87cd7005b047d12a7431a96752",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
