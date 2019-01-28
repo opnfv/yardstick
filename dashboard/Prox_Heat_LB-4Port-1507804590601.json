@@ -67,7 +67,7 @@
       "height": -6,
       "panels": [
         {
-          "content": "<h5 style=\"font-family:Verdana\"> <a style=\"color:#31A7D3\"><a style=\"font: 32px '#31A7D3'\"><center>OPNFV_Yardstick_NSB_PROX_Heat_BNG_4Port_Test</center> </a></h5>\n<center>\n<p>\n<p style=\"font: 24px '#FF5733'\"> \nThe BNG workload converts packets from QinQ to GRE tunnels, handles routing and adds/removes MPLS tags. This use case simulates a realistic and complex application. The number of users is 32K per port and the number of routes is 8K.\n</a>\n</p>\n</center>",
+          "content": "<h5 style=\"font-family:Verdana\"> <a style=\"color:#31A7D3\"><a style=\"font: 32px '#31A7D3'\"><center>OPNFV_Yardstick_NSB_PROX_Heat_LB_4Port_Test</center> </a></h5>\n<center>\n<p>\n<p style=\"font: 24px '#FF5733'\"> \nThe application will take packets in from each port and distribute them to all the ports\nThe KPI is the number of packets per second for a specified packet size with an accepted minimal packet loss \n</a>\n</p>\n</center>",
           "editable": true,
           "error": false,
           "height": "200px",
@@ -162,7 +162,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -269,7 +269,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -376,7 +376,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -483,7 +483,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -583,7 +583,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -739,7 +739,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -778,7 +778,7 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -817,7 +817,7 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -945,7 +945,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -1087,10 +1087,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe0.out_packets\")  / 1000000 FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe0.out_packets\")  / 1000000 FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1134,10 +1134,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe1.out_packets\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe1.out_packets\") FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1181,10 +1181,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe2.out_packets\")  / 1000000 FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe2.out_packets\")  / 1000000 FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -1227,10 +1227,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe3.out_packets\")  / 1000000 FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe3.out_packets\")  / 1000000 FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -1363,10 +1363,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe0.in_packets\")  / 1000000 FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe0.in_packets\")  / 1000000 FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1409,10 +1409,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe1.in_packets\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe1.in_packets\") FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1455,10 +1455,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe2.in_packets\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe2.in_packets\") FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -1501,10 +1501,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe3.in_packets\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe3.in_packets\") FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -1633,7 +1633,7 @@
                   "type": "time"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "C",
@@ -1768,7 +1768,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -1917,10 +1917,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe0.out_packets\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe0.out_packets\") FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1964,10 +1964,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe1.out_packets\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe1.out_packets\") FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -2011,10 +2011,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe2.out_packets\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe2.out_packets\") FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -2057,10 +2057,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe3.out_packets\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe3.out_packets\") FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -2194,10 +2194,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe0.in_packets\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe0.in_packets\") FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2240,10 +2240,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe1.in_packets\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe1.in_packets\") FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -2286,10 +2286,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe2.in_packets\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe2.in_packets\") FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -2332,10 +2332,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe3.in_packets\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe3.in_packets\") FROM \"tc_prox_heat_context_lb-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -2479,10 +2479,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"tg__0.collect_stats.tx_total\" FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.tx_total\" = 'Success' AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT \"tg__0.collect_stats.tx_total\" FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.tx_total\" = 'Success' AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -2525,7 +2525,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -2570,7 +2570,7 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "C",
@@ -2680,10 +2680,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"tg__0.collect_stats.tx_total\" FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.tx_total\" = 'Success' AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT \"tg__0.collect_stats.tx_total\" FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.tx_total\" = 'Success' AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -2714,7 +2714,7 @@
                   "type": "time"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -2747,7 +2747,7 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "C",
@@ -3021,7 +3021,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "alias": "PktSize = 78",
+              "alias": "PktSize = 64",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -3038,10 +3038,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 78 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3063,7 +3063,7 @@
                 {
                   "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 },
                 {
                   "condition": "AND",
@@ -3146,7 +3146,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "alias": "Theor Max Throughput  (Mpps)  78",
+              "alias": "Theor Max Throughput  (Mpps)  64",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -3162,10 +3162,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 78  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3187,7 +3187,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -3263,7 +3263,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "alias": "TxThroughput  78",
+              "alias": "TxThroughput  64",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -3279,10 +3279,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 78 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3300,7 +3300,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -3376,7 +3376,7 @@
           "tableColumn": "last",
           "targets": [
             {
-              "alias": "RxThroughput 78",
+              "alias": "RxThroughput 64",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -3393,10 +3393,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 78 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3418,7 +3418,7 @@
                 {
                   "key": "tg__0.collect_stats.pktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -3494,7 +3494,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "alias": "Tot Sent 78",
+              "alias": "Tot Sent 64",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -3510,10 +3510,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 78 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3535,7 +3535,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -3611,7 +3611,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "alias": "Rx Tottal 78",
+              "alias": "Rx Tottal 64",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -3627,10 +3627,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 78 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3652,7 +3652,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -3728,7 +3728,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "alias": "drop total 78",
+              "alias": "drop total 64",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -3744,10 +3744,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 78 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3769,7 +3769,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -3845,7 +3845,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "alias": "Can be lost 78",
+              "alias": "Can be lost 64",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -3861,10 +3861,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 78 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3886,7 +3886,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -3962,7 +3962,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "alias": "Rx Throughput Gbps 78",
+              "alias": "Rx Throughput Gbps 64",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -3979,10 +3979,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 78 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4004,7 +4004,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -4108,10 +4108,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4133,7 +4133,7 @@
                 {
                   "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 },
                 {
                   "condition": "AND",
@@ -4232,10 +4232,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4257,7 +4257,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -4349,10 +4349,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4370,7 +4370,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -4463,10 +4463,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4488,7 +4488,7 @@
                 {
                   "key": "tg__0.collect_stats.pktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -4580,10 +4580,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4605,7 +4605,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -4697,10 +4697,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4722,7 +4722,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -4814,10 +4814,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4839,7 +4839,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -4931,10 +4931,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4956,7 +4956,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -5049,10 +5049,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5074,7 +5074,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -5178,10 +5178,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5203,7 +5203,7 @@
                 {
                   "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 },
                 {
                   "condition": "AND",
@@ -5302,10 +5302,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5327,7 +5327,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -5419,10 +5419,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5440,7 +5440,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -5533,10 +5533,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5558,7 +5558,7 @@
                 {
                   "key": "tg__0.collect_stats.pktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -5650,10 +5650,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5675,7 +5675,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -5767,10 +5767,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5792,7 +5792,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -5884,10 +5884,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5909,7 +5909,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -6001,10 +6001,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6026,7 +6026,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -6119,10 +6119,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6144,7 +6144,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -6248,10 +6248,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6273,7 +6273,7 @@
                 {
                   "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 },
                 {
                   "condition": "AND",
@@ -6372,10 +6372,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6397,7 +6397,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -6489,10 +6489,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6510,7 +6510,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -6603,10 +6603,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6628,7 +6628,7 @@
                 {
                   "key": "tg__0.collect_stats.pktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -6720,10 +6720,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6745,7 +6745,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -6837,10 +6837,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6862,7 +6862,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -6954,10 +6954,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6979,7 +6979,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -7071,10 +7071,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7096,7 +7096,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -7189,10 +7189,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7214,7 +7214,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -7318,10 +7318,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7343,7 +7343,7 @@
                 {
                   "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 },
                 {
                   "condition": "AND",
@@ -7442,10 +7442,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7467,7 +7467,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -7559,10 +7559,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7580,7 +7580,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -7673,10 +7673,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7698,7 +7698,7 @@
                 {
                   "key": "tg__0.collect_stats.pktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -7790,10 +7790,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7815,7 +7815,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -7907,10 +7907,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7932,7 +7932,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -8024,10 +8024,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8049,7 +8049,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -8141,10 +8141,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8166,7 +8166,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -8259,10 +8259,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8284,7 +8284,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -8388,10 +8388,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8413,7 +8413,7 @@
                 {
                   "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 },
                 {
                   "condition": "AND",
@@ -8512,10 +8512,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8537,7 +8537,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -8629,10 +8629,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8650,7 +8650,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -8743,10 +8743,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8768,7 +8768,7 @@
                 {
                   "key": "tg__0.collect_stats.pktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -8860,10 +8860,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8885,7 +8885,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -8977,10 +8977,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9002,7 +9002,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -9094,10 +9094,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9119,7 +9119,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -9211,10 +9211,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9236,7 +9236,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -9329,10 +9329,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9354,7 +9354,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -9458,10 +9458,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9483,7 +9483,7 @@
                 {
                   "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 },
                 {
                   "condition": "AND",
@@ -9582,10 +9582,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9607,7 +9607,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -9699,10 +9699,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9720,7 +9720,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -9813,10 +9813,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9838,7 +9838,7 @@
                 {
                   "key": "tg__0.collect_stats.pktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -9930,10 +9930,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9955,7 +9955,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -10047,10 +10047,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10072,7 +10072,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -10164,10 +10164,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10189,7 +10189,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -10281,10 +10281,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10306,7 +10306,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -10399,10 +10399,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10424,7 +10424,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -10528,10 +10528,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10553,7 +10553,7 @@
                 {
                   "key": "tg__0.collect_stats.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 },
                 {
                   "condition": "AND",
@@ -10652,10 +10652,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10677,7 +10677,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -10769,10 +10769,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10790,7 +10790,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -10883,10 +10883,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10908,7 +10908,7 @@
                 {
                   "key": "tg__0.collect_stats.pktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -11000,10 +11000,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -11025,7 +11025,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -11117,10 +11117,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -11142,7 +11142,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -11234,10 +11234,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -11259,7 +11259,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -11351,10 +11351,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_heat_context_lb-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -11376,7 +11376,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -11469,10 +11469,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_bng_qos-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_heat_context_lb-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -11494,7 +11494,7 @@
                 {
                   "key": "tg__0.PktSize",
                   "operator": "=",
-                  "value": "78"
+                  "value": "64"
                 }
               ]
             }
@@ -11607,7 +11607,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -11645,7 +11645,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -11753,7 +11753,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -11791,7 +11791,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -11899,7 +11899,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -11937,7 +11937,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -12045,7 +12045,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -12083,7 +12083,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -12227,7 +12227,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -12265,7 +12265,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -12303,7 +12303,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "C",
@@ -12341,7 +12341,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "D",
@@ -12379,7 +12379,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "E",
@@ -12417,7 +12417,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "F",
@@ -12455,7 +12455,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "G",
@@ -12493,7 +12493,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "H",
@@ -12531,7 +12531,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "I",
@@ -12569,7 +12569,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "J",
@@ -12607,7 +12607,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "K",
@@ -12645,7 +12645,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "L",
@@ -12683,7 +12683,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "M",
@@ -12721,7 +12721,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "N",
@@ -12759,7 +12759,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "O",
@@ -12797,7 +12797,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "P",
@@ -12835,7 +12835,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "Q",
@@ -12873,7 +12873,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "R",
@@ -12911,7 +12911,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "S",
@@ -12949,7 +12949,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "T",
@@ -12987,7 +12987,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_heat_context_bng_qos-4",
+              "measurement": "tc_prox_heat_context_lb-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "U",
@@ -13060,7 +13060,7 @@
     "yardstick",
     "NSB",
     "Prox",
-    "BNG-QoS",
+    "LB",
     "4Port",
     "Heat"
   ],
@@ -13097,6 +13097,6 @@
     ]
   },
   "timezone": "browser",
-  "title": "Prox_Heat_BNG-QoS-4Port",
+  "title": "Prox_Heat_LB-4Port",
   "version": 2
 }
