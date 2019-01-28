@@ -17,6 +17,10 @@ usage()
 {
     cat <<EOF
 
+
+
+
+
 Yardstick NSB setup script.
 
 Usage: $0 [-h] [[-o] admin-openrc-for-openstack] [-i yardstick-docker-image]
