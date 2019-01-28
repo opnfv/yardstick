@@ -219,6 +219,115 @@ class ReportTestCase(unittest.TestCase):
         self.rep.task_id = GOOD_TASK_ID
         six.assertRaisesRegex(self, KeyError, "Task ID", self.rep._get_metrics)
 
+    @mock.patch.object(influx, 'query')
+    def test__get_task_start_time(self, mock_query):
+        self.rep.yaml_name = GOOD_YAML_NAME
+        self.rep.task_id = GOOD_TASK_ID
+        mock_query.return_value = [{
+            u'free.memory0.used': u'9789088',
+            u'free.memory0.available': u'22192984',
+            u'free.memory0.shared': u'219152',
+            u'time': u'2019-01-22T16:20:14.568075776Z',
+        }]
+        expected = "2019-01-22T16:20:14.568075776Z"
+
+        self.assertEqual(
+            expected,
+            self.rep._get_task_start_time()
+        )
+
+    def test__get_task_start_time_task_not_found(self):
+        pass
+
+    @mock.patch.object(influx, 'query')
+    def test__get_task_end_time(self, mock_query):
+        self.rep.yaml_name = GOOD_YAML_NAME
+        self.rep.task_id = GOOD_TASK_ID
+        # TODO(elfoley): write this test!
+        mock_query.return_value = [{
+
+        }]
+
+    @mock.patch.object(influx, 'query')
+    def test__get_baro_metrics(self, mock_query):
+        self.rep.yaml_name = GOOD_YAML_NAME
+        self.rep.task_id = GOOD_TASK_ID
+        self.rep._get_task_start_time = mock.Mock(return_value=0)
+        self.rep._get_task_end_time = mock.Mock(return_value=0)
+
+        influx_return_values = ([{
+             u'value': 324050, u'instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:25.383698038Z',
+             u'type_instance': u'user', u'type': u'cpu',
+             }, {
+             u'value': 193798, u'instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:25.383712594Z',
+             u'type_instance': u'system', u'type': u'cpu',
+             }, {
+             u'value': 324051, u'instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:35.383696624Z',
+             u'type_instance': u'user', u'type': u'cpu',
+             }, {
+             u'value': 193800, u'instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:35.383713481Z',
+             u'type_instance': u'system', u'type': u'cpu',
+             }, {
+             u'value': 324054, u'instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:45.3836966789Z',
+             u'type_instance': u'user', u'type': u'cpu',
+             }, {
+             u'value': 193801, u'instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:45.383716296Z',
+             u'type_instance': u'system', u'type': u'cpu',
+             }],
+             [{
+             u'value': 3598453000, u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:25.383698038Z',
+             u'type_instance': u'0', u'type': u'cpufreq',
+             }, {
+             u'value': 3530250000, u'type_instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:35.383712594Z', u'type': u'cpufreq',
+             }, {
+             u'value': 3600281000, u'type_instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:45.383696624Z', u'type': u'cpufreq',
+            }],
+        )
+
+        def ret_vals(vals):
+            for x in vals:
+                yield x
+            while True:
+                yield []
+
+        mock_query.side_effect = ret_vals(influx_return_values)
+
+        BARO_EXPECTED_METRICS = {
+            'Timestamp': [
+                '14:11:25.3836', '14:11:25.3837',
+                '14:11:35.3836', '14:11:35.3837',
+                '14:11:45.3836', '14:11:45.3837'],
+            'myhostname.cpu_value.cpu.user.0': {
+                '14:11:25.3836': 324050,
+                '14:11:35.3836': 324051,
+                '14:11:45.3836': 324054,
+            },
+            'myhostname.cpu_value.cpu.system.0': {
+                '14:11:25.3837': 193798,
+                '14:11:35.3837': 193800,
+                '14:11:45.3837': 193801,
+            },
+            'myhostname.cpufreq_value.cpufreq.0': {
+                '14:11:25.3836': 3598453000,
+                '14:11:35.3837': 3530250000,
+                '14:11:45.3836': 3600281000,
+            }
+        }
+        self.maxDiff = None
+        self.assertEqual(
+            BARO_EXPECTED_METRICS,
+            self.rep._get_baro_metrics()
+        )
+
     def test__get_timestamps(self):
 
         metrics = MORE_DB_METRICS
@@ -300,12 +409,33 @@ class ReportTestCase(unittest.TestCase):
         mock_keys.assert_called_once_with()
         self.assertEqual(GOOD_TIMESTAMP, self.rep.Timestamp)
 
+    @mock.patch.object(report.Report, '_get_baro_metrics')
     @mock.patch.object(report.Report, '_get_metrics')
     @mock.patch.object(report.Report, '_get_fieldkeys')
     @mock.patch.object(report.Report, '_validate')
-    def test_generate_nsb(self, mock_valid, mock_keys, mock_metrics):
+    def test_generate_nsb(
+        self, mock_valid, mock_keys, mock_metrics, mock_baro_metrics):
+
         mock_metrics.return_value = GOOD_DB_METRICS
         mock_keys.return_value = GOOD_DB_FIELDKEYS
+        BARO_METRICS = {
+            # TODO: is timestamp needed here?
+            'Timestamp': [
+                '14:11:25.383698', '14:11:25.383712', '14:11:35.383696',
+                '14:11:35.383713', '14:11:45.383700', '14:11:45.383716'],
+            'myhostname.cpu_value.cpu.user.0': {
+                '14:11:25.383698': 324050,
+                '14:11:35.383696': 324051,
+                '14:11:45.383700': 324054,
+            },
+            'myhostname.cpu_value.cpu.system.0': {
+                '14:11:25.383712': 193798,
+                '14:11:35.383713': 193800,
+                '14:11:45.383716': 193801,
+            }
+        }
+        mock_baro_metrics.return_value = BARO_METRICS
+
         self.rep.generate_nsb(self.param)
         mock_valid.assert_called_once_with(GOOD_YAML_NAME, GOOD_TASK_ID)
         mock_metrics.assert_called_once_with()
