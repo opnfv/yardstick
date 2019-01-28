@@ -54,7 +54,7 @@ scenarios:
   runner:
     type: ProxDuration
     # we kill after duration, independent of test duration, so set this high
-    duration: 2900
+    duration: 8000
     confirmation: 1
     sampled: yes
     interval: 1
