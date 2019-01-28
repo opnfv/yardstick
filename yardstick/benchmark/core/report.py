@@ -121,6 +121,66 @@ class Report(object):
         else:
             raise KeyError("Task ID or Test case not found.")
 
+    def _get_task_start_time(self):
+        # The start time should come from the task or the metadata table.
+        # The first entry into influx for a task will be AFTER the first TC
+        # iteration
+        cmd = "select * from \"%s\" where task_id='%s' ORDER BY time ASC limit 1"
+        task_query = cmd % (self.yaml_name, self.task_id)
+
+        query_exec = influx.query(task_query)
+        start_time = query_exec[0]['time']
+        return start_time
+
+    def _get_task_end_time(self):
+        # NOTE(elfoley): when using select first() and select last() for the
+        # DB query, the timestamp returned is 0, so later queries try to
+        # return metrics from 1970
+        cmd = "select * from \"%s\" where task_id='%s' ORDER BY time DESC limit 1"
+        task_query = cmd % (self.yaml_name, self.task_id)
+        query_exec = influx.query(task_query)
+        end_time = query_exec[0]['time']
+        return end_time
+
+    def _get_baro_metrics(self):
+        start_time = self._get_task_start_time()
+        end_time = self._get_task_end_time()
+        metric_list = [
+                "cpu_value", "cpufreq_value", "intel_pmu_value",
+                 "virt_value", "memory_value"]
+        metrics = {}
+        times = []
+        query_exec = {}
+        for metric in metric_list:
+            cmd = "select * from \"%s\" where time >= '%s' and time <= '%s'"
+            query = cmd % (metric, start_time, end_time)
+            query_exec[metric] = influx.query(query, db='collectd')
+            print("query_exec: {}".format(query_exec))
+
+        for metric in query_exec:
+            print("metric in query_exec: {}".format(metric))
+            met_values = query_exec[metric]
+            print("met_values: {}".format(met_values))
+            for x in met_values:
+                x['name'] = metric
+                metric_name = str('.'.join(
+                    [x[f] for f in [
+                        'host', 'name', 'type', 'type_instance', 'instance'
+                         ] if x.get(f)]))
+
+                if not metrics.get(metric_name):
+                    metrics[metric_name] = {}
+                metric_time = self._get_trimmed_timestamp(x['time'])
+                times.append(metric_time)
+                time = metric_time
+                metrics[metric_name][time] = x['value']
+
+        times = sorted(list(set(times)))
+
+        metrics['Timestamp'] = times
+        print("metrics: {}".format(metrics))
+        return metrics
+
     def _get_trimmed_timestamp(self, metric_time, resolution=4):
         if not isinstance(metric_time, str):
             metric_time = metric_time.encode('utf8') # PY2: unicode to str
