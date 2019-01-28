@@ -67,7 +67,7 @@
       "height": -6,
       "panels": [
         {
-          "content": "<h5 style=\"font-family:Verdana\"> <a style=\"color:#31A7D3\"><a style=\"font: 32px '#31A7D3'\"><center>OPNFV_Yardstick_NSB_PROX_BM_L2Fwd_Packet_Touch_4Port_Test</center> </a></h5>\n<center>\n<p>The application will take packets in from one port, update src and dst MACs and forward them to another port.\nThe KPI is the number of packets per second for a specified packet size with an accepted minimal packet loss </p>\n</center>",
+          "content": "<h5 style=\"font-family:Verdana\"> <a style=\"color:#31A7D3\"><a style=\"font: 32px '#31A7D3'\"><center>OPNFV_Yardstick_NSB_PROX_BM_BUFFERING_4Port_Test</center> </a></h5>\n<center>\n<p>\n<p style=\"font: 24px '#FF5733'\"> \nThis test measures the impact of the condition when packets get buffered, thus they stay in memory for the extended period of time, 125ms in this case.\nThe KPI is the number of packets per second for a specified packet size with an accepted minimal packet loss \n</a>\n</p>\n</center>",
           "editable": true,
           "error": false,
           "height": "200px",
@@ -162,7 +162,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -269,7 +269,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -376,7 +376,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -483,7 +483,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -583,7 +583,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -739,7 +739,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -778,7 +778,7 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -817,7 +817,7 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -945,7 +945,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -1087,10 +1087,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe0.out_packets\")  / 1000000 FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe0.out_packets\")  / 1000000 FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1134,10 +1134,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe1.out_packets\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe1.out_packets\") FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1181,10 +1181,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe2.out_packets\")  / 1000000 FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe2.out_packets\")  / 1000000 FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -1227,10 +1227,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe3.out_packets\")  / 1000000 FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe3.out_packets\")  / 1000000 FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -1363,10 +1363,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe0.in_packets\")  / 1000000 FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe0.in_packets\")  / 1000000 FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1409,10 +1409,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe1.in_packets\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe1.in_packets\") FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1455,10 +1455,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe2.in_packets\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe2.in_packets\") FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -1501,10 +1501,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe3.in_packets\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.live_stats.xe3.in_packets\") FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -1633,7 +1633,7 @@
                   "type": "time"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "C",
@@ -1768,7 +1768,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -1917,10 +1917,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe0.out_packets\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe0.out_packets\") FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1964,10 +1964,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe1.out_packets\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe1.out_packets\") FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -2011,10 +2011,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe2.out_packets\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe2.out_packets\") FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -2057,10 +2057,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe3.out_packets\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe3.out_packets\") FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -2194,10 +2194,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe0.in_packets\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe0.in_packets\") FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2240,10 +2240,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe1.in_packets\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe1.in_packets\") FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -2286,10 +2286,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe2.in_packets\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe2.in_packets\") FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "C",
               "resultFormat": "time_series",
@@ -2332,10 +2332,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.xe3.in_packets\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.xe3.in_packets\") FROM \"tc_prox_baremetal_buffering-4\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "rawQuery": false,
               "refId": "D",
               "resultFormat": "time_series",
@@ -2479,10 +2479,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"tg__0.collect_stats.tx_total\" FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.tx_total\" = 'Success' AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT \"tg__0.collect_stats.tx_total\" FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.tx_total\" = 'Success' AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -2525,7 +2525,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -2570,7 +2570,7 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "C",
@@ -2680,10 +2680,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"tg__0.collect_stats.tx_total\" FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.tx_total\" = 'Success' AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT \"tg__0.collect_stats.tx_total\" FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.tx_total\" = 'Success' AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -2714,7 +2714,7 @@
                   "type": "time"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -2747,7 +2747,7 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "C",
@@ -3038,10 +3038,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3162,10 +3162,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3279,10 +3279,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3393,10 +3393,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3510,10 +3510,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3627,10 +3627,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3744,10 +3744,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3861,10 +3861,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3979,10 +3979,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 64 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4108,10 +4108,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4232,10 +4232,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4349,10 +4349,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4463,10 +4463,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4580,10 +4580,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4697,10 +4697,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4814,10 +4814,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4931,10 +4931,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5049,10 +5049,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 128 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5178,10 +5178,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5302,10 +5302,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5419,10 +5419,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5533,10 +5533,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5650,10 +5650,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5767,10 +5767,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5884,10 +5884,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6001,10 +6001,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6119,10 +6119,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 256 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6248,10 +6248,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6372,10 +6372,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6489,10 +6489,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6603,10 +6603,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6720,10 +6720,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6837,10 +6837,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -6954,10 +6954,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7071,10 +7071,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7189,10 +7189,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 512 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7318,10 +7318,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7442,10 +7442,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7559,10 +7559,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7673,10 +7673,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7790,10 +7790,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -7907,10 +7907,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8024,10 +8024,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8141,10 +8141,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8259,10 +8259,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1024 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8388,10 +8388,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8512,10 +8512,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280  AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8629,10 +8629,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8743,10 +8743,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8860,10 +8860,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -8977,10 +8977,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9094,10 +9094,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9211,10 +9211,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9329,10 +9329,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1280 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9458,10 +9458,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9582,10 +9582,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9699,10 +9699,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9813,10 +9813,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -9930,10 +9930,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10047,10 +10047,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10164,10 +10164,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10281,10 +10281,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10399,10 +10399,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 1518 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10528,10 +10528,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT mean(\"tg__0.collect_stats.PktSize\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10652,10 +10652,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT  last(\"tg__0.collect_stats.theor_max_throughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10769,10 +10769,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
+              "query": "SELECT last(\"tg__0.collect_stats.TxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result' AND $timeFilter GROUP BY time($__interval) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -10883,10 +10883,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -11000,10 +11000,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.tx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -11117,10 +11117,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.rx_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -11234,10 +11234,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.drop_total\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -11351,10 +11351,10 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
+              "query": "SELECT last(\"tg__0.collect_stats.can_be_lost\") FROM \"tc_prox_baremetal_buffering-4\" WHERE \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -11469,10 +11469,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_l2fwd_pktTouch-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
+              "query": "SELECT last(\"tg__0.collect_stats.RxThroughput_gbps\") FROM \"tc_prox_baremetal_buffering-4\" WHERE  \"tg__0.collect_stats.PktSize\" = 2048 AND \"tg__0.collect_stats.Status\" = 'Result'  AND $timeFilter GROUP BY time($__interval) fill(none)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -11607,7 +11607,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -11645,7 +11645,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -11753,7 +11753,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -11791,7 +11791,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -11899,7 +11899,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -11937,7 +11937,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -12045,7 +12045,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -12083,7 +12083,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -12227,7 +12227,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -12265,7 +12265,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -12303,7 +12303,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "C",
@@ -12341,7 +12341,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "D",
@@ -12379,7 +12379,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "E",
@@ -12417,7 +12417,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "K",
@@ -12455,7 +12455,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "L",
@@ -12493,7 +12493,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "M",
@@ -12531,7 +12531,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "N",
@@ -12569,7 +12569,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "O",
@@ -12607,7 +12607,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "P",
@@ -12645,7 +12645,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "Q",
@@ -12683,7 +12683,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "R",
@@ -12721,7 +12721,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "S",
@@ -12759,7 +12759,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "T",
@@ -12797,7 +12797,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "U",
@@ -12835,7 +12835,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "V",
@@ -12873,7 +12873,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "F",
@@ -12911,7 +12911,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "G",
@@ -12949,7 +12949,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "H",
@@ -12987,7 +12987,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "I",
@@ -13097,7 +13097,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "B",
@@ -13135,7 +13135,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "A",
@@ -13173,7 +13173,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "C",
@@ -13211,7 +13211,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "D",
@@ -13249,7 +13249,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "E",
@@ -13287,7 +13287,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "F",
@@ -13325,7 +13325,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "G",
@@ -13363,7 +13363,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "H",
@@ -13401,7 +13401,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "I",
@@ -13439,7 +13439,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "J",
@@ -13477,7 +13477,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "K",
@@ -13515,7 +13515,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "L",
@@ -13553,7 +13553,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "M",
@@ -13591,7 +13591,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "N",
@@ -13629,7 +13629,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "O",
@@ -13667,7 +13667,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "P",
@@ -13705,7 +13705,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "Q",
@@ -13743,7 +13743,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "R",
@@ -13781,7 +13781,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "S",
@@ -13819,7 +13819,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "T",
@@ -13857,7 +13857,7 @@
                   "type": "fill"
                 }
               ],
-              "measurement": "tc_prox_baremetal_l2fwd_pktTouch-4",
+              "measurement": "tc_prox_baremetal_buffering-4",
               "orderByTime": "ASC",
               "policy": "default",
               "refId": "U",
@@ -13930,7 +13930,7 @@
     "yardstick",
     "NSB",
     "Prox",
-    "L2FWD_Packet_Touch",
+    "Buffering",
     "4Port",
     "BM"
   ],
@@ -13967,6 +13967,6 @@
     ]
   },
   "timezone": "browser",
-  "title": "Prox_BM_L2FWD_Packet_Touch-4Port",
+  "title": "Prox_BM_BUFFERING-4Port",
   "version": 2
 }
