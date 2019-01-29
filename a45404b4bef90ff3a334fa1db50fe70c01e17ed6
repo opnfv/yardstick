@@ -46,6 +46,30 @@
       "revId": "a45404b4bef90ff3a334fa1db50fe70c01e17ed6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3c429a10",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ixload.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-29T16:32:23Z",
+      "side": 1,
+      "message": "If some of the keys are missing in the links dict, it means the Yardstick cannot continue (as I understand ) and the error should be thrown/shown to the user. Should Yardstick continue in the case of error? Why do we need to suppress this error?",
+      "parentUuid": "1a622d24_dca0c6f6",
+      "range": {
+        "startLine": 149,
+        "startChar": 24,
+        "endLine": 149,
+        "endChar": 29
+      },
+      "revId": "a45404b4bef90ff3a334fa1db50fe70c01e17ed6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
