@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_9cbbee0d",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 6903
+      },
+      "writtenOn": "2019-01-29T16:36:54Z",
+      "side": 1,
+      "message": "this function is called continuously during the test. \nmetadata should be saved only once before test starts.  instead of implementing logic with self.metadata_counter just initiate metadata saving from other place.",
+      "revId": "9274b03abdbe689dbecd2bce9de37816819b314a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_dc3c4696",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 6903
+      },
+      "writtenOn": "2019-01-29T16:36:54Z",
+      "side": 1,
+      "message": "metadata should be supported by all dispatchers. means new abstract method should be added to dispatcher base. currently only influx dispatcher can implement this new method. but all data should be dispatched only through this new API.",
+      "revId": "9274b03abdbe689dbecd2bce9de37816819b314a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bcbeaafd",
+        "filename": "yardstick/dispatcher/influxdb.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6903
+      },
+      "writtenOn": "2019-01-29T16:36:54Z",
+      "side": 1,
+      "message": "data that will be saved to metatable will be extended for sure. so it should be dict but not separate arguments.",
+      "revId": "9274b03abdbe689dbecd2bce9de37816819b314a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1cd07e4f",
+        "filename": "yardstick/dispatcher/influxdb.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6903
+      },
+      "writtenOn": "2019-01-29T16:36:54Z",
+      "side": 1,
+      "message": "self.tags is used in _data_to_line_protocol\nif it is set here _data_to_line_protocol will use wrong tags",
+      "revId": "9274b03abdbe689dbecd2bce9de37816819b314a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
