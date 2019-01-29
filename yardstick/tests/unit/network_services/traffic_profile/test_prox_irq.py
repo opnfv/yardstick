@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import time
 
 import unittest
 import mock
@@ -28,7 +29,8 @@ class TestProxIrqProfile(unittest.TestCase):
     def _stop_mocks(self):
         self._mock_log_info.stop()
 
-    def test_execute_1(self):
+    @mock.patch.object(time, 'sleep')
+    def test_execute_1(self, *args):
         tp_config = {
             'traffic_profile': {
             },

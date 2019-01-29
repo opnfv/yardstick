@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2017 Intel Corporation
+# Copyright (c) 2016-2018 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import time
 
 import mock
 import unittest
@@ -24,7 +25,8 @@ from yardstick.network_services.vnf_generic.vnf import tg_rfc2544_trex
 
 class TestTrexRfcResouceHelper(unittest.TestCase):
 
-    def test__run_traffic_once(self):
+    @mock.patch.object(time, 'sleep')
+    def test__run_traffic_once(self, *args):
         mock_setup_helper = mock.Mock()
         mock_traffic_profile = mock.Mock()
         mock_traffic_profile.config.duration = 3
