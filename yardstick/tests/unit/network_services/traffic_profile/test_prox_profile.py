@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import time
 
 import unittest
 import mock
@@ -78,7 +79,8 @@ class TestProxProfile(unittest.TestCase):
         profile.init(queue)
         self.assertIs(profile.queue, queue)
 
-    def test_execute_traffic(self):
+    @mock.patch.object(time, 'sleep')
+    def test_execute_traffic(self, *args):
         packet_sizes = [
             10,
             100,
