@@ -94,6 +94,30 @@
       "revId": "a45404b4bef90ff3a334fa1db50fe70c01e17ed6",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1c4a3e80",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_ixload.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-30T12:43:40Z",
+      "side": 1,
+      "message": "If you want to see the message, please change this message to error and raise the same exception as was before like:\n-----------------------\nexcept KeyError:\n  LOG.error(\"Invalid traffic profile: No P section defined for %s\", name)\n  raise",
+      "parentUuid": "1a622d24_7c72527d",
+      "range": {
+        "startLine": 149,
+        "startChar": 24,
+        "endLine": 149,
+        "endChar": 29
+      },
+      "revId": "a45404b4bef90ff3a334fa1db50fe70c01e17ed6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
