@@ -23,7 +23,7 @@ LOG = logging.getLogger(__name__)
 
 SSH_TIMEOUT = 60
 VNIC_TYPE_LIST = ["ovs", "sriov"]
-SRIOV_DRIVER_LIST = ["ixgbevf", "i40evf"]
+SRIOV_DRIVER_LIST = ["ixgbevf", "i40evf", "mlx5_core"]
 
 
 class Pktgen(base.Scenario):
@@ -279,6 +279,12 @@ class Pktgen(base.Scenario):
         pps = options.get("pps", 1000000)
         multiqueue = options.get("multiqueue", False)
 
+        vnic_driver_name = self._get_vnic_driver_name()
+        if vnic_driver_name == 'mlx5_core':
+            # Already enabled by default
+            self.queue_number = self._get_usable_queue_number()
+            multiqueue = False
+            
         if multiqueue and not self.multiqueue_setup_done:
             self.multiqueue_setup()
 
