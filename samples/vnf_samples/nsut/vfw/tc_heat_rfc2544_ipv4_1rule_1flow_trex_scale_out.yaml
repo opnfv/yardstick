@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation
+# Copyright (c) 2018-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,46 +11,48 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+{% set framesize = framesize or "{64B: 100}" %}
+{% set num_vnfs = num_vnfs or 1 %}
+{% set availability_zone = availability_zone or {} %}
 ---
 schema: yardstick:task:0.1
 scenarios:
-  - type: NSPerf
-    traffic_profile: ../../traffic_profiles/ipv4_throughput-{{ num_vnfs }}.yaml
-    topology: vfw-tg-topology-3node-{{ num_vnfs }}.yaml
-    nodes:
-      tg__0: tg_0.yardstick
-      tg__1: tg_1.yardstick
+- type: NSPerf
+  traffic_profile: ../../traffic_profiles/ipv4_throughput_scale_out.yaml
+  topology: vfw_tg_topology_scale_out.yaml
+  extra_args:
+    num_vnfs: {{ num_vnfs }}
+  nodes:
 {% for vnf_num in range(num_vnfs|int) %}
-      vnf__{{ vnf_num }}: vnf_{{ vnf_num }}.yardstick
+    tg__{{ vnf_num }}: tg_{{ vnf_num }}.yardstick
+    vnf__{{ vnf_num }}: vnf_{{ vnf_num }}.yardstick
 {% endfor %}
-    options:
-      framesize:
-        uplink: {64B: 100}
-        downlink: {64B: 100}
-      flow:
-        src_ip:
+  options:
+    framesize:
+      uplink: {{ framesize }}
+      downlink: {{ framesize }}
+    flow:
+      src_ip:
 {% for vnf_num in range(num_vnfs|int) %}
-          - {'tg__0': 'xe{{ vnf_num }}'}
+        - {'tg__{{ vnf_num }}': 'xe0'}
 {% endfor %}
-        dst_ip:
+      dst_ip:
 {% for vnf_num in range(num_vnfs|int) %}
-          - {'tg__1': 'xe{{ vnf_num }}'}
+        - {'tg__{{ vnf_num }}': 'xe1'}
 {% endfor %}
-        count: 1
-      traffic_type: 4
-      rfc2544:
-        allowed_drop_rate: 0.0001 - 0.0001
-        correlated_traffic: true
+      count: 1
+    traffic_type: 4
+    rfc2544:
+      allowed_drop_rate: 0.0001 - 0.0001
 {% for vnf_num in range(num_vnfs|int) %}
-      vnf__{{ vnf_num }}:
-        rules: acl_1rule.yaml
-        vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+    vnf__{{ vnf_num }}:
+      rules: acl_1rule.yaml
+      vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
 {% endfor %}
-    runner:
-      type: Iteration
-      iterations: 10
-      interval: 35
+  runner:
+    type: Iteration
+    iterations: 10
+    interval: 35
 context:
   # put node context first, so we don't HEAT deploy if node has errors
   name: yardstick
@@ -68,30 +70,26 @@ context:
     pgrp1:
       policy: "availability"
   servers:
-    tg_0:
-      floating_ip: true
-      placement: "pgrp1"
-      network_ports:
-        mgmt:
-          - mgmt
-{% for vnf_num in range(num_vnfs|int) %}
-        uplink_{{ vnf_num }}:
-          - xe{{ vnf_num }}
-{% endfor %}
-    tg_1:
-      floating_ip: true
-      placement: "pgrp1"
-      network_ports:
-        mgmt:
-          - mgmt
-{% for vnf_num in range(num_vnfs|int) %}
-        downlink_{{ vnf_num }}:
-          - xe{{ vnf_num }}
-{% endfor %}
 {% for vnf_num in range(num_vnfs|int) %}
     vnf_{{ vnf_num }}:
       floating_ip: true
       placement: "pgrp1"
+      {% if 'vnf_%s'|format(vnf_num) in availability_zone %}
+      availability_zone: "{{ availability_zone['vnf_%s'|format(vnf_num)] }}"
+      {% endif %}
+      network_ports:
+        mgmt:
+          - mgmt
+        uplink_{{ vnf_num }}:
+          - xe0
+        downlink_{{ vnf_num }}:
+          - xe1
+    tg_{{ vnf_num }}:
+      floating_ip: true
+      placement: "pgrp1"
+      {% if 'tg_%s'|format(vnf_num) in availability_zone %}
+      availability_zone: "{{ availability_zone['tg_%s'|format(vnf_num)] }}"
+      {% endif %}
       network_ports:
         mgmt:
           - mgmt
@@ -105,12 +103,12 @@ context:
       cidr: '10.0.1.0/24'
 {% for vnf_num in range(num_vnfs|int) %}
     uplink_{{ vnf_num }}:
-      cidr: '10.{{ vnf_num + 1 }}.0.0/24'
+      cidr: '10.0.{{ (vnf_num * 2) + 2 }}.0/24'
       gateway_ip: 'null'
       port_security_enabled: False
       enable_dhcp: 'false'
     downlink_{{ vnf_num }}:
-      cidr: '10.{{ vnf_num + 1 }}.1.0/24'
+      cidr: '10.0.{{ (vnf_num * 2) + 3 }}.0/24'
       gateway_ip: 'null'
       port_security_enabled: False
       enable_dhcp: 'false'

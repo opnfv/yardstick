@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 {% set page_size = page_size or "1b" %}
+{% set framesize = framesize or "{64B: 100}" %}
 ---
 schema: yardstick:task:0.1
 scenarios:
@@ -27,8 +28,8 @@ scenarios:
     page_object:
       uplink: ["/{{ page_size }}.html"] #supports /1b /4k /8k /16k /32k /64k /128k....
     framesize:
-      uplink: {64B: 100}
-      downlink: {64B: 100}
+      uplink: {{ framesize }}
+      downlink: {{ framesize }}
     traffic_type: 4
     rfc2544:
       allowed_drop_rate: 0.0001 - 0.0001
