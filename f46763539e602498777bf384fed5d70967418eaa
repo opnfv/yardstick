@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_b73405df",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_buffering-4.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2019-01-30T14:05:37Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 4
+      },
+      "revId": "f46763539e602498777bf384fed5d70967418eaa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_973109ef",
+        "filename": "samples/vnf_samples/nsut/prox/tc_prox_heat_context_buffering-4.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6927
+      },
+      "writtenOn": "2019-01-30T14:05:37Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 68,
+        "startChar": 13,
+        "endLine": 68,
+        "endChar": 14
+      },
+      "revId": "f46763539e602498777bf384fed5d70967418eaa",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
