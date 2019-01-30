@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_9cc12e31",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2019-01-30T02:15:16Z",
+      "side": 1,
+      "message": "there\u0027s several VNFD_0 in this file, I\u0027ve compared, there\u0027s minor difference between them. is it possible to also reduce the duplication? e.g. specify the difference part and use the common part as a template?",
+      "range": {
+        "startLine": 592,
+        "startChar": 4,
+        "endLine": 592,
+        "endChar": 10
+      },
+      "revId": "60881299c828c27f3f6b70e11e468c2a73da005a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
