@@ -16,6 +16,24 @@
       "revId": "1edde72f990f3482a92e04fa389323d1f16a4f73",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1cd7dec2",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 7491
+      },
+      "writtenOn": "2019-01-30T12:20:44Z",
+      "side": 1,
+      "message": "Sorry for late reply.\nThank you for your comment. \nI think the flow is just simple. In deploy() function, we has two cases:\nFirst case, using internal key is generate by yardstick ( by default yardstick flow).\nSecond case, using external key is provided by user.\n\nFor your two questions:\n1. Yes, this function is called after deploy() function.\n2. This is the first case, if the \"key_filename\" does not exist, it will raise the error, and does not generate the key by L356. Because L356 just generates the key in deploy() function before.",
+      "parentUuid": "1a622d24_ddf1edce",
+      "revId": "1edde72f990f3482a92e04fa389323d1f16a4f73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
