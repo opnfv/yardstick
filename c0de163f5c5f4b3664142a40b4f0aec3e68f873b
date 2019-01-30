@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_57ce515b",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-30T19:47:00Z",
+      "side": 1,
+      "message": "IMHO, the parameter list for install.yaml should be here in the main Yardstick install guide, since yardstick is the superset",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 526,
+        "endChar": 11
+      },
+      "revId": "c0de163f5c5f4b3664142a40b4f0aec3e68f873b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d709c196",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-30T19:47:00Z",
+      "side": 1,
+      "message": "``yardstick-standalone`` and ``yardstick-baremetal``",
+      "range": {
+        "startLine": 185,
+        "startChar": 42,
+        "endLine": 186,
+        "endChar": 19
+      },
+      "revId": "c0de163f5c5f4b3664142a40b4f0aec3e68f873b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b7db651a",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-30T19:47:00Z",
+      "side": 1,
+      "message": "Suggest rewording to:\n\nThe Yardstick VM image (NSB or normal) cannot be built inside a VM.",
+      "range": {
+        "startLine": 247,
+        "startChar": 3,
+        "endLine": 247,
+        "endChar": 73
+      },
+      "revId": "c0de163f5c5f4b3664142a40b4f0aec3e68f873b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f704bd7f",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-30T19:47:00Z",
+      "side": 1,
+      "message": "s/from/in the/",
+      "range": {
+        "startLine": 252,
+        "startChar": 25,
+        "endLine": 252,
+        "endChar": 29
+      },
+      "revId": "c0de163f5c5f4b3664142a40b4f0aec3e68f873b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_97d8e91e",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-30T19:47:00Z",
+      "side": 1,
+      "message": "``yardstick-standalone`` or ``yardstick-baremetal`` groups",
+      "range": {
+        "startLine": 252,
+        "startChar": 30,
+        "endLine": 252,
+        "endChar": 50
+      },
+      "revId": "c0de163f5c5f4b3664142a40b4f0aec3e68f873b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_37ff5569",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-30T19:47:00Z",
+      "side": 1,
+      "message": "L28 tells the user to checkout stable/gambia",
+      "range": {
+        "startLine": 255,
+        "startChar": 38,
+        "endLine": 255,
+        "endChar": 68
+      },
+      "revId": "c0de163f5c5f4b3664142a40b4f0aec3e68f873b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
