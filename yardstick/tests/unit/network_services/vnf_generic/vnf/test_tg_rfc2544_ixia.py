@@ -216,7 +216,7 @@ class TestIXIATrafficGen(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
             # NOTE(ralonsoh): check the object returned.
-            tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd, 'task_id')
+            tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd)
 
     def test_listen_traffic(self, *args):
         with mock.patch("yardstick.ssh.SSH") as ssh:
@@ -225,8 +225,7 @@ class TestIXIATrafficGen(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd,
-                                                               'task_id')
+            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd)
             self.assertIsNone(ixnet_traffic_gen.listen_traffic({}))
 
     @mock.patch.object(ctx_base.Context, 'get_context_from_server', return_value='fake_context')
@@ -239,8 +238,7 @@ class TestIXIATrafficGen(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd,
-                                                               'task_id')
+            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd)
             scenario_cfg = {'tc': "nsb_test_case",
                             "topology": ""}
             scenario_cfg.update(
@@ -277,8 +275,7 @@ class TestIXIATrafficGen(unittest.TestCase):
             ssh.from_node.return_value = ssh_mock
 
             vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd,
-                                                               'task_id')
+            ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(NAME, vnfd)
             ixnet_traffic_gen.scenario_helper.scenario_cfg = {
                 'nodes': {ixnet_traffic_gen.name: "mock"}
             }
@@ -298,7 +295,7 @@ class TestIXIATrafficGen(unittest.TestCase):
                 mock.Mock(return_value=(0, "", ""))
             ssh.from_node.return_value = ssh_mock
             ixnet_traffic_gen = tg_rfc2544_ixia.IxiaTrafficGen(
-                NAME, vnfd, 'task_id', resource_helper_type=mock.Mock())
+                NAME, vnfd, resource_helper_type=mock.Mock())
             ixnet_traffic_gen._terminated = mock.MagicMock()
             ixnet_traffic_gen._terminated.value = 0
             ixnet_traffic_gen._ixia_traffic_gen = mock.MagicMock()
@@ -314,7 +311,7 @@ class TestIXIATrafficGen(unittest.TestCase):
 
     def test__check_status(self, *args):
         vnfd = self.VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        sut = tg_rfc2544_ixia.IxiaTrafficGen('vnf1', vnfd, 'task_id')
+        sut = tg_rfc2544_ixia.IxiaTrafficGen('vnf1', vnfd)
         sut._check_status()
 
     @mock.patch("yardstick.ssh.SSH")
@@ -380,7 +377,7 @@ class TestIXIATrafficGen(unittest.TestCase):
         mock_traffic_profile.get_drop_percentage.return_value = [
             'Completed', samples]
 
-        sut = tg_rfc2544_ixia.IxiaTrafficGen(name, vnfd, 'task_id')
+        sut = tg_rfc2544_ixia.IxiaTrafficGen(name, vnfd)
         sut.vnf_port_pairs = [[[0], [1]]]
         sut.tc_file_name = self._get_file_abspath(TEST_FILE_YAML)
         sut.topology = ""
@@ -424,8 +421,7 @@ class TestIXIATrafficGen(unittest.TestCase):
                     mock.mock_open(), create=True)
         @mock.patch('yardstick.network_services.vnf_generic.vnf.tg_rfc2544_ixia.LOG.exception')
         def _traffic_runner(*args):
-            sut._setup_mq_producer = mock.Mock(return_value='mq_producer')
-            result = sut._traffic_runner(mock_traffic_profile, mock.ANY)
+            result = sut._traffic_runner(mock_traffic_profile)
             self.assertIsNone(result)
 
         _traffic_runner()

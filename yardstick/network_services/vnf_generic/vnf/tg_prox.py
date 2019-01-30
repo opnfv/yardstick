@@ -29,13 +29,13 @@ class ProxTrafficGen(SampleVNFTrafficGen):
     LUA_PARAMETER_NAME = "gen"
     WAIT_TIME = 1
 
-    def __init__(self, name, vnfd, task_id, setup_env_helper_type=None,
+    def __init__(self, name, vnfd, setup_env_helper_type=None,
                  resource_helper_type=None):
         vnfd_cpy = copy.deepcopy(vnfd)
-        super(ProxTrafficGen, self).__init__(name, vnfd_cpy, task_id)
+        super(ProxTrafficGen, self).__init__(name, vnfd_cpy)
 
         self._vnf_wrapper = ProxApproxVnf(
-            name, vnfd, task_id, setup_env_helper_type, resource_helper_type)
+            name, vnfd, setup_env_helper_type, resource_helper_type)
         self.bin_path = get_nsb_option('bin_path', '')
         self.name = self._vnf_wrapper.name
         self.ssh_helper = self._vnf_wrapper.ssh_helper

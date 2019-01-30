@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import unittest
-import uuid
 
 from yardstick.network_services.vnf_generic.vnf import agnostic_vnf
 
@@ -44,9 +43,8 @@ VNFD = {
 class TestAgnosticVnf(unittest.TestCase):
 
     def setUp(self):
-        self._id = uuid.uuid1().int
         self.vnfd = VNFD['vnfd:vnfd-catalog']['vnfd'][0]
-        self.agnostic_vnf = agnostic_vnf.AgnosticVnf(NAME, self.vnfd, self._id)
+        self.agnostic_vnf = agnostic_vnf.AgnosticVnf(NAME, self.vnfd)
 
     def test_instantiate(self):
         self.assertIsNone(self.agnostic_vnf.instantiate({}, {}))

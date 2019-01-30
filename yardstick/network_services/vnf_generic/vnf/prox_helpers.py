@@ -1146,7 +1146,7 @@ class ProxResourceHelper(ClientResourceHelper):
             self._test_type = self.setup_helper.find_in_section('global', 'name', None)
         return self._test_type
 
-    def run_traffic(self, traffic_profile, *args):
+    def run_traffic(self, traffic_profile):
         self._queue.cancel_join_thread()
         self.lower = 0.0
         self.upper = 100.0

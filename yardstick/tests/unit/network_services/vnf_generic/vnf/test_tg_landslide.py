@@ -17,7 +17,6 @@ import mock
 import requests
 import time
 import unittest
-import uuid
 
 from yardstick.benchmark.contexts import base as ctx_base
 from yardstick.common import exceptions
@@ -399,8 +398,6 @@ class TestLandslideTrafficGen(unittest.TestCase):
     TEST_USER_ID = 11
 
     def setUp(self):
-        self._id = uuid.uuid1().int
-
         self.mock_lsapi = mock.patch.object(tg_landslide, 'LsApi')
         self.mock_lsapi.start()
 
@@ -408,7 +405,7 @@ class TestLandslideTrafficGen(unittest.TestCase):
         self.mock_ssh_helper.start()
         self.vnfd = VNFD['vnfd:vnfd-catalog']['vnfd'][0]
         self.ls_tg = tg_landslide.LandslideTrafficGen(
-            NAME, self.vnfd, self._id)
+            NAME, self.vnfd)
         self.session_profile = copy.deepcopy(SESSION_PROFILE)
         self.ls_tg.session_profile = self.session_profile
 
@@ -422,7 +419,7 @@ class TestLandslideTrafficGen(unittest.TestCase):
     def test___init__(self, mock_get_nsb_option, *args):
         _path_to_nsb = 'path/to/nsb'
         mock_get_nsb_option.return_value = _path_to_nsb
-        ls_tg = tg_landslide.LandslideTrafficGen(NAME, self.vnfd, self._id)
+        ls_tg = tg_landslide.LandslideTrafficGen(NAME, self.vnfd)
         self.assertIsInstance(ls_tg.resource_helper,
                               tg_landslide.LandslideResourceHelper)
         mock_get_nsb_option.assert_called_once_with('bin_path')
@@ -655,7 +652,7 @@ class TestLandslideTrafficGen(unittest.TestCase):
     def test__load_session_profile_unequal_num_of_cfg_blocks(
             self, mock_yaml_load, *args):
         vnfd = copy.deepcopy(VNFD['vnfd:vnfd-catalog']['vnfd'][0])
-        ls_traffic_gen = tg_landslide.LandslideTrafficGen(NAME, vnfd, self._id)
+        ls_traffic_gen = tg_landslide.LandslideTrafficGen(NAME, vnfd)
         ls_traffic_gen.scenario_helper.scenario_cfg = self.SCENARIO_CFG
         mock_yaml_load.return_value = copy.deepcopy(SESSION_PROFILE)
         # Delete test_servers item from pod file to make it not valid
@@ -670,7 +667,7 @@ class TestLandslideTrafficGen(unittest.TestCase):
         vnfd = copy.deepcopy(VNFD['vnfd:vnfd-catalog']['vnfd'][0])
         # Swap test servers data in pod file
         vnfd['config'] = list(reversed(vnfd['config']))
-        ls_tg = tg_landslide.LandslideTrafficGen(NAME, vnfd, self._id)
+        ls_tg = tg_landslide.LandslideTrafficGen(NAME, vnfd)
         ls_tg.scenario_helper.scenario_cfg = self.SCENARIO_CFG
         mock_yaml_load.return_value = SESSION_PROFILE
         with self.assertRaises(RuntimeError):

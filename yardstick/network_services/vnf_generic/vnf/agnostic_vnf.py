@@ -21,8 +21,8 @@ LOG = logging.getLogger(__name__)
 
 class AgnosticVnf(base.GenericVNF):
     """ AgnosticVnf implementation. """
-    def __init__(self, name, vnfd, task_id):
-        super(AgnosticVnf, self).__init__(name, vnfd, task_id)
+    def __init__(self, name, vnfd):
+        super(AgnosticVnf, self).__init__(name, vnfd)
 
     def instantiate(self, scenario_cfg, context_cfg):
         pass
