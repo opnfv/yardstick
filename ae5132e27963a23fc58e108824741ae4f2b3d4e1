@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_5779312e",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2019-01-30T18:54:59Z",
+      "side": 1,
+      "message": "You missed that one ;-)",
+      "range": {
+        "startLine": 250,
+        "startChar": 31,
+        "endLine": 250,
+        "endChar": 40
+      },
+      "revId": "ae5132e27963a23fc58e108824741ae4f2b3d4e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_97aaa96e",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2019-01-30T18:54:59Z",
+      "side": 1,
+      "message": "Good catch, that was an error.\nBut this document used ./ so far for \u003crepo\u003e/ on L132, L163, L170, L212\nBut \u003crepo\u003e/ is used on L1141 and L1175 (which might lack a / for /etc target) and on L1163, L1194\nSo in the end, don\u0027t know what to recommend for global consistency...",
+      "range": {
+        "startLine": 291,
+        "startChar": 7,
+        "endLine": 291,
+        "endChar": 13
+      },
+      "revId": "ae5132e27963a23fc58e108824741ae4f2b3d4e1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
