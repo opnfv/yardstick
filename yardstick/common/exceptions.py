@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation
+# Copyright (c) 2017-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -81,10 +81,6 @@ class FunctionNotImplemented(YardstickException):
 
 class InvalidType(YardstickException):
     message = 'Type "%(type_to_convert)s" is not valid'
-
-
-class InvalidRxfFile(YardstickException):
-    message = 'Loaded rxf file has unexpected format'
 
 
 class InfluxDBConfigurationMissing(YardstickException):
