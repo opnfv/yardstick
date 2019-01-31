@@ -70,6 +70,24 @@
       "revId": "1edde72f990f3482a92e04fa389323d1f16a4f73",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3b4c5f70",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-31T12:44:43Z",
+      "side": 1,
+      "message": "Pulled down your changes. When existing key_filename is provided, the following error is raised (Running vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex.yaml TCs):\n------\n2019-01-31 12:39:39,208 [ERROR] yardstick.benchmark.core.task task.py:123 Testcase: \"tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex\" FAILED!!!\nTraceback (most recent call last):\n  File \"/home/opnfv/repos/yardstick/yardstick/benchmark/core/task.py\", line 118, in start\n    output_config)\n  File \"/home/opnfv/repos/yardstick/yardstick/benchmark/core/task.py\", line 246, in _run\n    context.deploy()\n  File \"/home/opnfv/repos/yardstick/yardstick/benchmark/contexts/heat.py\", line 364, in deploy\n    self._add_resources_to_template(heat_template)\n  File \"/home/opnfv/repos/yardstick/yardstick/benchmark/contexts/heat.py\", line 199, in _add_resources_to_template\n    template.add_keypair(self.keypair_name, self.name)\n  File \"/home/opnfv/repos/yardstick/yardstick/orchestrator/heat.py\", line 450, in add_keypair\n    key_id + \u0027.pub\u0027),\n  File \"build/bdist.linux-x86_64/egg/pkg_resources/__init__.py\", line 1210, in resource_string\n    self, resource_name\n  File \"build/bdist.linux-x86_64/egg/pkg_resources/__init__.py\", line 1452, in get_resource_string\n    return self._get(self._fn(self.module_path, resource_name))\n  File \"build/bdist.linux-x86_64/egg/pkg_resources/__init__.py\", line 1572, in _get\n    with open(path, \u0027rb\u0027) as stream:\nIOError: [Errno 2] No such file or directory: \u0027/home/opnfv/repos/yardstick/yardstick/resources/files/yardstick_key-yardstick-7a26f833.pub\u0027\n--------------------------------\n\nWhen wrong key_filename is provided, the same error is observed):\n-------------\n2019-01-31 12:42:51,516 [ERROR] yardstick.benchmark.core.task task.py:123 Testcase: \"tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex\" FAILED!!!\nTraceback (most recent call last):\n  File \"/home/opnfv/repos/yardstick/yardstick/benchmark/core/task.py\", line 118, in start\n    output_config)\n  File \"/home/opnfv/repos/yardstick/yardstick/benchmark/core/task.py\", line 246, in _run\n    context.deploy()\n  File \"/home/opnfv/repos/yardstick/yardstick/benchmark/contexts/heat.py\", line 364, in deploy\n    self._add_resources_to_template(heat_template)\n  File \"/home/opnfv/repos/yardstick/yardstick/benchmark/contexts/heat.py\", line 199, in _add_resources_to_template\n    template.add_keypair(self.keypair_name, self.name)\n  File \"/home/opnfv/repos/yardstick/yardstick/orchestrator/heat.py\", line 450, in add_keypair\n    key_id + \u0027.pub\u0027),\n  File \"build/bdist.linux-x86_64/egg/pkg_resources/__init__.py\", line 1210, in resource_string\n    self, resource_name\n  File \"build/bdist.linux-x86_64/egg/pkg_resources/__init__.py\", line 1452, in get_resource_string\n    return self._get(self._fn(self.module_path, resource_name))\n  File \"build/bdist.linux-x86_64/egg/pkg_resources/__init__.py\", line 1572, in _get\n    with open(path, \u0027rb\u0027) as stream:\nIOError: [Errno 2] No such file or directory: \u0027/home/opnfv/repos/yardstick/yardstick/resources/files/yardstick_key-yardstick-d81ef85d.pub\u0027\n------------------------------------",
+      "parentUuid": "1a622d24_f795dde4",
+      "revId": "1edde72f990f3482a92e04fa389323d1f16a4f73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
