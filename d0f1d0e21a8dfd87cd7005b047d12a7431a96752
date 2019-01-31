@@ -62,6 +62,24 @@
       "revId": "d0f1d0e21a8dfd87cd7005b047d12a7431a96752",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_977e29ad",
+        "filename": "samples/vnf_samples/nsut/cgnapt/tc_baremetal_rfc2544_ipv4_1flow_trex_corelated_traffic.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-31T09:33:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_26744d98",
+      "revId": "d0f1d0e21a8dfd87cd7005b047d12a7431a96752",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
