@@ -22,6 +22,30 @@
       "revId": "d00b543682b9462042d99cf62be44f49ada0ef5b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5b783b8f",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_trex.yaml",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-01-31T13:00:30Z",
+      "side": 1,
+      "message": "This is expected. Next file is IXIA TC which should use  % sign to specify 100% rate. For Trex, 100 means 100% rate. I know, it is confusing, but this haw it works now.",
+      "parentUuid": "1a622d24_9b0db33a",
+      "range": {
+        "startLine": 15,
+        "startChar": 35,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "d00b543682b9462042d99cf62be44f49ada0ef5b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
