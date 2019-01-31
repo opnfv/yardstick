@@ -52,6 +52,24 @@
       "revId": "1edde72f990f3482a92e04fa389323d1f16a4f73",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f795dde4",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 7491
+      },
+      "writtenOn": "2019-01-31T01:21:27Z",
+      "side": 1,
+      "message": "No. In the deploy() function, it only generates the key (in L356) in case the key_filename does not exist (L355).\nAnd, the user need make sure that they specified the right external key.",
+      "parentUuid": "1a622d24_97b6293c",
+      "revId": "1edde72f990f3482a92e04fa389323d1f16a4f73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
