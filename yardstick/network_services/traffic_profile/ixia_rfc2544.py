@@ -167,6 +167,10 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
 
         self.ports = [port for port in port_generator()]
 
+    def _get_next_rate(self):
+        rate = round(float(self.max_rate + self.min_rate)/2.0, self.RATE_ROUND)
+        return rate
+
     def execute_traffic(self, traffic_generator, ixia_obj=None, mac=None):
         mac = {} if mac is None else mac
         first_run = self.first_run
@@ -176,17 +180,16 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
             self.max_rate = self.rate
             self.min_rate = 0.0
         else:
-            self.rate = round(float(self.max_rate + self.min_rate) / 2.0,
-                              self.RATE_ROUND)
+            self.rate = self._get_next_rate()
 
         traffic = self._get_ixia_traffic_profile(self.full_profile, mac)
         self._ixia_traffic_generate(traffic, ixia_obj)
         return first_run
 
     def get_drop_percentage(self, samples, tol_min, tolerance, precision,
-                            first_run=False):
+                            resolution, first_run=False):
         completed = False
-        drop_percent = 100
+        drop_percent = 100.0
         num_ifaces = len(samples)
         duration = self.config.duration
         in_packets_sum = sum(
@@ -215,6 +218,14 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         elif drop_percent < tol_min:
             self.min_rate = self.rate
         else:
+            completed = True
+
+        next_rate = self._get_next_rate()
+        if abs(next_rate - self.rate) < resolution:
+            LOG.debug("rate=%s, next_rate=%s, resolution=%s", self.rate,
+                      next_rate, resolution)
+            # stop test if the difference between the rate transmission
+            # in two iterations is smaller than the value of the resolution
             completed = True
 
         LOG.debug("tolerance=%s, tolerance_precision=%s drop_percent=%s "

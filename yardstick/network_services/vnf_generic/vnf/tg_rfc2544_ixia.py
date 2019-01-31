@@ -543,6 +543,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         min_tol = self.rfc_helper.tolerance_low
         max_tol = self.rfc_helper.tolerance_high
         precision = self.rfc_helper.tolerance_precision
+        resolution = self.rfc_helper.resolution
         default = "00:00:00:00:00:00"
 
         self._build_ports()
@@ -563,8 +564,8 @@ class IxiaResourceHelper(ClientResourceHelper):
 
         try:
             while not self._terminated.value:
-                first_run = traffic_profile.execute_traffic(
-                    self, self.client, mac)
+                first_run = traffic_profile.execute_traffic(self, self.client,
+                                                            mac)
                 self.client_started.value = 1
                 # pylint: disable=unnecessary-lambda
                 utils.wait_until_true(lambda: self.client.is_traffic_stopped(),
@@ -573,7 +574,8 @@ class IxiaResourceHelper(ClientResourceHelper):
                                                 traffic_profile.config.duration)
 
                 completed, samples = traffic_profile.get_drop_percentage(
-                    samples, min_tol, max_tol, precision, first_run=first_run)
+                    samples, min_tol, max_tol, precision, resolution,
+                    first_run=first_run)
                 self._queue.put(samples)
 
                 if completed:
@@ -594,6 +596,7 @@ class IxiaResourceHelper(ClientResourceHelper):
         min_tol = self.rfc_helper.tolerance_low
         max_tol = self.rfc_helper.tolerance_high
         precision = self.rfc_helper.tolerance_precision
+        resolution = self.rfc_helper.resolution
         default = "00:00:00:00:00:00"
 
         self._build_ports()
@@ -614,6 +617,7 @@ class IxiaResourceHelper(ClientResourceHelper):
 
         try:
             completed = False
+            self.rfc_helper.iteration.value = 0
             self.client_started.value = 1
             while completed is False and not self._terminated.value:
                 LOG.info("Wait for task ...")
@@ -626,9 +630,11 @@ class IxiaResourceHelper(ClientResourceHelper):
                     if task != 'RUN_TRAFFIC':
                         continue
 
-                LOG.info("Got %s task", task)
-                first_run = traffic_profile.execute_traffic(
-                    self, self.client, mac)
+                self.rfc_helper.iteration.value += 1
+                LOG.info("Got %s task, start iteration %d", task,
+                         self.rfc_helper.iteration.value)
+                first_run = traffic_profile.execute_traffic(self, self.client,
+                                                            mac)
                 # pylint: disable=unnecessary-lambda
                 utils.wait_until_true(lambda: self.client.is_traffic_stopped(),
                                       timeout=traffic_profile.config.duration * 2)
@@ -636,7 +642,8 @@ class IxiaResourceHelper(ClientResourceHelper):
                                                 traffic_profile.config.duration)
 
                 completed, samples = traffic_profile.get_drop_percentage(
-                    samples, min_tol, max_tol, precision, first_run=first_run)
+                    samples, min_tol, max_tol, precision, resolution,
+                    first_run=first_run)
                 self._queue.put(samples)
 
                 if completed:
@@ -652,10 +659,6 @@ class IxiaResourceHelper(ClientResourceHelper):
         self._ix_scenario.stop_protocols()
         self.client_started.value = 0
         LOG.debug("IxiaResourceHelper::run_test done")
-
-    def collect_kpi(self):
-        self.rfc_helper.iteration.value += 1
-        return super(IxiaResourceHelper, self).collect_kpi()
 
 
 class IxiaTrafficGen(SampleVNFTrafficGen):

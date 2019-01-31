@@ -470,6 +470,7 @@ class Rfc2544ResourceHelper(object):
     DEFAULT_CORRELATED_TRAFFIC = False
     DEFAULT_LATENCY = False
     DEFAULT_TOLERANCE = '0.0001 - 0.0001'
+    DEFAULT_RESOLUTION = '0.1'
 
     def __init__(self, scenario_helper):
         super(Rfc2544ResourceHelper, self).__init__()
@@ -481,6 +482,7 @@ class Rfc2544ResourceHelper(object):
         self._tolerance_low = None
         self._tolerance_high = None
         self._tolerance_precision = None
+        self._resolution = None
 
     @property
     def rfc2544(self):
@@ -519,6 +521,13 @@ class Rfc2544ResourceHelper(object):
         if self._latency is None:
             self._latency = self.get_rfc2544('latency', self.DEFAULT_LATENCY)
         return self._latency
+
+    @property
+    def resolution(self):
+        if self._resolution is None:
+            self._resolution = float(self.get_rfc2544('resolution',
+                                                self.DEFAULT_RESOLUTION))
+        return self._resolution
 
     def get_rfc2544(self, name, default=None):
         return self.rfc2544.get(name, default)
