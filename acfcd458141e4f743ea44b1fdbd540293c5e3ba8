@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_1bc4035e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/sample_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-31T18:31:51Z",
+      "side": 1,
+      "message": "need to update",
+      "range": {
+        "startLine": 1,
+        "startChar": 21,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "acfcd458141e4f743ea44b1fdbd540293c5e3ba8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7ba257af",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-31T18:31:51Z",
+      "side": 1,
+      "message": "You should use:\n    @mock.patch.object(time, \u0027sleep\u0027)\n\nThis helps catch potential import issues because the import hss to be done separately.",
+      "range": {
+        "startLine": 1630,
+        "startChar": 0,
+        "endLine": 1630,
+        "endChar": 77
+      },
+      "revId": "acfcd458141e4f743ea44b1fdbd540293c5e3ba8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5ba5dbb3",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1631,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-31T18:31:51Z",
+      "side": 1,
+      "message": "ditto mock.patch.object",
+      "range": {
+        "startLine": 1631,
+        "startChar": 0,
+        "endLine": 1631,
+        "endChar": 36
+      },
+      "revId": "acfcd458141e4f743ea44b1fdbd540293c5e3ba8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bbacefa1",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_sample_vnf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 1653,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-31T18:31:51Z",
+      "side": 1,
+      "message": "could this be mock.Mock instead?",
+      "range": {
+        "startLine": 1653,
+        "startChar": 34,
+        "endLine": 1653,
+        "endChar": 50
+      },
+      "revId": "acfcd458141e4f743ea44b1fdbd540293c5e3ba8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
