@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_9b0db33a",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_trex.yaml",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-31T10:43:20Z",
+      "side": 1,
+      "message": "This is \"100\", but the framerate in the next file is \"100%\", what difference does it make?\nIf there\u0027s no difference, then this should use \"100%\" to be clearer to the user that it is a percentage",
+      "range": {
+        "startLine": 15,
+        "startChar": 35,
+        "endLine": 15,
+        "endChar": 38
+      },
+      "revId": "d00b543682b9462042d99cf62be44f49ada0ef5b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
