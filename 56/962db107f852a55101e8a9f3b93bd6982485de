@@ -1,0 +1,8 @@
+Code-Review+2: Volodymyr Mytnyk <volodymyrx.mytnyk@intel.com>
+Code-Review+1: Taras Chornyi <tarasx.chornyi@intel.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Submitted-by: Volodymyr Mytnyk <volodymyrx.mytnyk@intel.com>
+Submitted-at: Thu, 31 Jan 2019 12:46:13 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/66561
+Project: yardstick
+Branch: refs/heads/master
