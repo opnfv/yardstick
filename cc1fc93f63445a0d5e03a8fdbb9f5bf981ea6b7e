@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_3b1e1f64",
+        "filename": "samples/vnf_samples/nsut/agnostic/agnostic_vnf_topology_ixia_multi_ports.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-31T18:24:37Z",
+      "side": 1,
+      "message": "This should be {{ port_num*2+1 }}\n\nIn the case that port_num is 0, this should be 1",
+      "range": {
+        "startLine": 32,
+        "startChar": 38,
+        "endLine": 32,
+        "endChar": 55
+      },
+      "revId": "cc1fc93f63445a0d5e03a8fdbb9f5bf981ea6b7e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7b27f7b6",
+        "filename": "samples/vnf_samples/nsut/agnostic/agnostic_vnf_topology_ixload_multi_ports.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-31T18:24:37Z",
+      "side": 1,
+      "message": "When port_num is 0, this should be 1.\n\n{{ port_num*2+1 }}",
+      "range": {
+        "startLine": 32,
+        "startChar": 39,
+        "endLine": 32,
+        "endChar": 55
+      },
+      "revId": "cc1fc93f63445a0d5e03a8fdbb9f5bf981ea6b7e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5b2afb7e",
+        "filename": "samples/vnf_samples/nsut/agnostic/agnostic_vnf_topology_ixload_multi_ports.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-31T18:24:37Z",
+      "side": 1,
+      "message": "The port_num is 0, this should be 2, right?\n\n{{ port_num*2+1 }}",
+      "range": {
+        "startLine": 43,
+        "startChar": 39,
+        "endLine": 43,
+        "endChar": 57
+      },
+      "revId": "cc1fc93f63445a0d5e03a8fdbb9f5bf981ea6b7e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fbce6782",
+        "filename": "samples/vnf_samples/nsut/agnostic/agnostic_vnf_topology_trex_multi_ports.yaml",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-01-31T18:24:37Z",
+      "side": 1,
+      "message": "same as in the other files",
+      "range": {
+        "startLine": 32,
+        "startChar": 40,
+        "endLine": 32,
+        "endChar": 55
+      },
+      "revId": "cc1fc93f63445a0d5e03a8fdbb9f5bf981ea6b7e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
