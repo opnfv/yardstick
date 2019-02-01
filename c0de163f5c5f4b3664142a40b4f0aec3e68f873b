@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_3babbf1e",
+        "filename": "docs/testing/user/userguide/04-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-02-01T18:50:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_57ce515b",
+      "range": {
+        "startLine": 525,
+        "startChar": 0,
+        "endLine": 526,
+        "endChar": 11
+      },
+      "revId": "c0de163f5c5f4b3664142a40b4f0aec3e68f873b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_d709c196",
         "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
         "patchSetId": 2
@@ -48,6 +72,53 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_1ba6c353",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-02-01T18:50:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_d709c196",
+      "range": {
+        "startLine": 185,
+        "startChar": 42,
+        "endLine": 186,
+        "endChar": 19
+      },
+      "revId": "c0de163f5c5f4b3664142a40b4f0aec3e68f873b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5b4e7b97",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-02-01T18:50:21Z",
+      "side": 1,
+      "message": "Moved to 04-installation.",
+      "range": {
+        "startLine": 191,
+        "startChar": 0,
+        "endLine": 195,
+        "endChar": 79
+      },
+      "revId": "c0de163f5c5f4b3664142a40b4f0aec3e68f873b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_b7db651a",
         "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
         "patchSetId": 2
@@ -59,6 +130,30 @@
       "writtenOn": "2019-01-30T19:47:00Z",
       "side": 1,
       "message": "Suggest rewording to:\n\nThe Yardstick VM image (NSB or normal) cannot be built inside a VM.",
+      "range": {
+        "startLine": 247,
+        "startChar": 3,
+        "endLine": 247,
+        "endChar": 73
+      },
+      "revId": "c0de163f5c5f4b3664142a40b4f0aec3e68f873b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7b4b7787",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-02-01T18:50:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_b7db651a",
       "range": {
         "startLine": 247,
         "startChar": 3,
@@ -117,6 +212,54 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_5b679b25",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-02-01T18:50:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_f704bd7f",
+      "range": {
+        "startLine": 252,
+        "startChar": 25,
+        "endLine": 252,
+        "endChar": 29
+      },
+      "revId": "c0de163f5c5f4b3664142a40b4f0aec3e68f873b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7b641722",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-02-01T18:50:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_97d8e91e",
+      "range": {
+        "startLine": 252,
+        "startChar": 30,
+        "endLine": 252,
+        "endChar": 50
+      },
+      "revId": "c0de163f5c5f4b3664142a40b4f0aec3e68f873b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_37ff5569",
         "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
         "patchSetId": 2
@@ -128,6 +271,30 @@
       "writtenOn": "2019-01-30T19:47:00Z",
       "side": 1,
       "message": "L28 tells the user to checkout stable/gambia",
+      "range": {
+        "startLine": 255,
+        "startChar": 38,
+        "endLine": 255,
+        "endChar": 68
+      },
+      "revId": "c0de163f5c5f4b3664142a40b4f0aec3e68f873b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1b7d23b2",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-02-01T18:50:21Z",
+      "side": 1,
+      "message": "Two docker images are built for Yardstick on same Ubuntu version: latest(master) and stable(atm gambia).\nL128 refers to stable version, by default Yardstick pulls latest image.",
+      "parentUuid": "1a622d24_37ff5569",
       "range": {
         "startLine": 255,
         "startChar": 38,
