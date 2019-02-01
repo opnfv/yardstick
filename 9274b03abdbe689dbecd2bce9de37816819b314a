@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_bbb7cf85",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-02-01T12:29:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_9cbbee0d",
+      "revId": "9274b03abdbe689dbecd2bce9de37816819b314a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_dc3c4696",
         "filename": "yardstick/benchmark/runners/base.py",
         "patchSetId": 15
@@ -30,6 +48,24 @@
       "writtenOn": "2019-01-29T16:36:54Z",
       "side": 1,
       "message": "metadata should be supported by all dispatchers. means new abstract method should be added to dispatcher base. currently only influx dispatcher can implement this new method. but all data should be dispatched only through this new API.",
+      "revId": "9274b03abdbe689dbecd2bce9de37816819b314a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9bbad36c",
+        "filename": "yardstick/benchmark/runners/base.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-02-01T12:29:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_dc3c4696",
       "revId": "9274b03abdbe689dbecd2bce9de37816819b314a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_f74ddd73",
+        "filename": "yardstick/dispatcher/influxdb.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-02-01T12:29:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_bcbeaafd",
+      "revId": "9274b03abdbe689dbecd2bce9de37816819b314a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_1cd07e4f",
         "filename": "yardstick/dispatcher/influxdb.py",
         "patchSetId": 15
@@ -64,6 +118,24 @@
       "writtenOn": "2019-01-29T16:36:54Z",
       "side": 1,
       "message": "self.tags is used in _data_to_line_protocol\nif it is set here _data_to_line_protocol will use wrong tags",
+      "revId": "9274b03abdbe689dbecd2bce9de37816819b314a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d7526112",
+        "filename": "yardstick/dispatcher/influxdb.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 6869
+      },
+      "writtenOn": "2019-02-01T12:29:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_1cd07e4f",
       "revId": "9274b03abdbe689dbecd2bce9de37816819b314a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
