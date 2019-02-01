@@ -88,6 +88,24 @@
       "revId": "1edde72f990f3482a92e04fa389323d1f16a4f73",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bb0d0f93",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 7491
+      },
+      "writtenOn": "2019-02-01T07:30:22Z",
+      "side": 1,
+      "message": "Sorry, I forgot that, we just use the external key_filename in case using external heat template file. \nSo, we should add the condition of existing \"template_file \" before looking for the external private key.\nThank you!",
+      "parentUuid": "1a622d24_3b4c5f70",
+      "revId": "1edde72f990f3482a92e04fa389323d1f16a4f73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
