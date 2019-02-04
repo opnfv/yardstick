@@ -131,9 +131,11 @@ pip install ansible==2.5.5 shade==1.22.2 docker-py==1.10.6
 
 ANSIBLE_SCRIPTS="ansible"
 
-cd ${ANSIBLE_SCRIPTS} &&\
+cd ${ANSIBLE_SCRIPTS} && \
 ansible-playbook \
-         -e img_property="nsb" \
-         -e YARD_IMG_ARCH='amd64' ${extra_args}\
-         -i install-inventory.ini nsb_setup.yml
+         -e IMAGE_PROPERTY='nsb' \
+         -e OS_RELEASE='xenial' \
+         -e INSTALLATION_MODE='container_pull' \
+         -e YARD_IMAGE_ARCH='amd64' ${extra_args} \
+         -i install-inventory.ini install.yaml
 
