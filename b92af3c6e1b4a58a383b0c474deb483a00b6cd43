@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_5e1ca977",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-04T10:15:12Z",
+      "side": 1,
+      "message": "Is it correct to keep both \"scenario\" blocks?",
+      "range": {
+        "startLine": 621,
+        "startChar": 0,
+        "endLine": 635,
+        "endChar": 53
+      },
+      "revId": "b92af3c6e1b4a58a383b0c474deb483a00b6cd43",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
