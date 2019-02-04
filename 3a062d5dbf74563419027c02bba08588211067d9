@@ -68,6 +68,121 @@
       "revId": "3a062d5dbf74563419027c02bba08588211067d9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_de07191c",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-04T10:49:05Z",
+      "side": 1,
+      "message": "This makes the testing impossible.\nShould the script be a part of the yardstick repo (and this commit), too?",
+      "range": {
+        "startLine": 70,
+        "startChar": 16,
+        "endLine": 70,
+        "endChar": 39
+      },
+      "revId": "3a062d5dbf74563419027c02bba08588211067d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3e072d1e",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-04T10:49:05Z",
+      "side": 1,
+      "message": "what\u0027s the reason for this delay?",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 34
+      },
+      "revId": "3a062d5dbf74563419027c02bba08588211067d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1e02310b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-04T10:49:05Z",
+      "side": 1,
+      "message": "nit: these are default values",
+      "range": {
+        "startLine": 93,
+        "startChar": 35,
+        "endLine": 93,
+        "endChar": 54
+      },
+      "revId": "3a062d5dbf74563419027c02bba08588211067d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8100a602",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-04T10:49:05Z",
+      "side": 1,
+      "message": "Seems it could be a mere \n  pass()\nto override parent method, since execute() is a blocking call.",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 28
+      },
+      "revId": "3a062d5dbf74563419027c02bba08588211067d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9e164154",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-04T10:49:05Z",
+      "side": 1,
+      "message": "should it be self.WAIT_TIME?",
+      "range": {
+        "startLine": 96,
+        "startChar": 19,
+        "endLine": 96,
+        "endChar": 21
+      },
+      "revId": "3a062d5dbf74563419027c02bba08588211067d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
