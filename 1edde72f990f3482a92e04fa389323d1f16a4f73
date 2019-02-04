@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a622d24_5bf2fb6f",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-04T10:04:50Z",
+      "side": 1,
+      "message": "nit: it is default behavior to set None value if a dict key is missing.",
+      "range": {
+        "startLine": 110,
+        "startChar": 52,
+        "endLine": 110,
+        "endChar": 58
+      },
+      "revId": "1edde72f990f3482a92e04fa389323d1f16a4f73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9bec9391",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-04T10:04:50Z",
+      "side": 1,
+      "message": "L347 seems a risky check, since it won\u0027t trigger filename redefinition in case of\n- empty string\n- incorrect file path\n\nIn such cases SSH.gen_keys() will be unable to create new key file (can\u0027t create a file in a non-existing dir).\n\nI\u0027d suggest to redefine file name if the file does not exist, and then safely trigger generating a key file.",
+      "range": {
+        "startLine": 347,
+        "startChar": 0,
+        "endLine": 356,
+        "endChar": 43
+      },
+      "revId": "1edde72f990f3482a92e04fa389323d1f16a4f73",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_ddf1edce",
         "filename": "yardstick/benchmark/contexts/heat.py",
         "patchSetId": 12
