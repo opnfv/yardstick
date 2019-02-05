@@ -275,7 +275,7 @@ class TestRFC2544Profile(base.BaseUnitTestCase):
                      'timestamp': datetime.datetime(2000, 1, 1, 1, 1, 1, 31)}}
         ]
         completed, output = rfc2544_profile.get_drop_percentage(
-            samples, 0, 0, False)
+            samples, 0, 0, False, 0.1)
         expected = {'DropPercentage': 50.0,
                     'Latency': {'xe1': 'Latency1', 'xe2': 'Latency2'},
                     'RxThroughput': 1000000.0,
