@@ -14,7 +14,7 @@
 
 import logging
 import decimal
-from multiprocessing import Queue, Value, Process
+from multiprocessing import Queue, Value, Process, JoinableQueue
 import os
 import posixpath
 import re
@@ -948,6 +948,39 @@ class SampleVNFTrafficGen(GenericTrafficGen):
         self.traffic_finished = False
         self._tg_process = None
         self._traffic_process = None
+        self._tasks_queue = JoinableQueue()
+        self._result_queue = Queue()
+
+    def _test_runner(self, traffic_profile, tasks, results):
+        self.resource_helper.run_test(traffic_profile, tasks, results)
+
+    def _init_traffic_process(self, traffic_profile):
+        name = '{}-{}-{}-{}'.format(self.name, self.APP_NAME,
+                                    traffic_profile.__class__.__name__,
+                                    os.getpid())
+        self._traffic_process = Process(name=name, target=self._test_runner,
+                                        args=(
+                                        traffic_profile, self._tasks_queue,
+                                        self._result_queue))
+
+        self._traffic_process.start()
+        while self.resource_helper.client_started.value == 0:
+            time.sleep(1)
+            if not self._traffic_process.is_alive():
+                break
+
+    def run_traffic_once(self, traffic_profile):
+        if self.resource_helper.client_started.value == 0:
+            self._init_traffic_process(traffic_profile)
+
+        # continue test - run next iteration
+        LOG.info("Run next iteration ...")
+        self._tasks_queue.put('RUN_TRAFFIC')
+
+    def wait_on_traffic(self):
+        self._tasks_queue.join()
+        result = self._result_queue.get()
+        return result
 
     def _start_server(self):
         # we can't share ssh paramiko objects to force new connection

@@ -23,7 +23,7 @@ from yardstick.common import constants
 from yardstick.network_services.traffic_profile import trex_traffic_profile
 
 
-LOGGING = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
 SRC_PORT = 'sport'
 DST_PORT = 'dport'
 
@@ -271,7 +271,7 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
         return streams
 
     def get_drop_percentage(self, samples, tol_low, tol_high,
-                            correlated_traffic):
+                            correlated_traffic, resolution):
         """Calculate the drop percentage and run the traffic"""
         completed = False
         out_pkt_end = sum(port['out_packets'] for port in samples[-1].values())
@@ -301,7 +301,13 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
             completed = True
 
         last_rate = self.rate
-        self.rate = round(float(self.max_rate + self.min_rate) / 2.0, 5)
+        self.rate = self._get_next_rate()
+        if abs(last_rate - self.rate) < resolution:
+            # stop test if the difference between the rate transmission
+            # in two iterations is smaller than the value of the resolution
+            completed = True
+        LOG.debug("rate=%s, next_rate=%s, resolution=%s, completed=%s",
+                  last_rate, self.rate, resolution, completed)
 
         throughput = rx_rate_fps * 2 if correlated_traffic else rx_rate_fps
 

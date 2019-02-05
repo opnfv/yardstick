@@ -52,6 +52,7 @@ class TrexProfile(base.TrafficProfile):
         IPv6: ('ip6_packet', Pkt.IPv6),
         UDP: ('udp_packet', Pkt.UDP),
     }
+    RATE_ROUND = 5
 
     def _general_single_action_partial(self, protocol):
         def f(field):
@@ -186,6 +187,8 @@ class TrexProfile(base.TrafficProfile):
         self.qinq = False
         self.vm_flow_vars = []
         self.packets = []
+        self.max_rate = 0
+        self.min_rate = 0
 
         self._map_proto_actions = {
             # the tuple is (single value function, range value function, if the values should be
@@ -336,6 +339,10 @@ class TrexProfile(base.TrafficProfile):
             self._set_proto_addr(UDP, SRC_PORT, outer_l4['srcport'], outer_l4['count'])
         if 'dstport' in outer_l4:
             self._set_proto_addr(UDP, DST_PORT, outer_l4['dstport'], outer_l4['count'])
+
+    def _get_next_rate(self):
+        rate = round(float(self.max_rate + self.min_rate)/2.0, self.RATE_ROUND)
+        return rate
 
     @classmethod
     def _count_ip(cls, start_ip, end_ip):

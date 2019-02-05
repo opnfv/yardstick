@@ -16,13 +16,8 @@ import ipaddress
 import logging
 import six
 import collections
-import os
-import time
 
 from six import moves
-
-from multiprocessing import Queue, Process, JoinableQueue
-
 from yardstick.common import utils
 from yardstick.common import exceptions
 from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
@@ -844,9 +839,6 @@ class IxiaTrafficGen(SampleVNFTrafficGen):
         self._ixia_traffic_gen = None
         self.ixia_file_name = ''
         self.vnf_port_pairs = []
-        self._traffic_process = None
-        self._tasks_queue = JoinableQueue()
-        self._result_queue = Queue()
 
     def _check_status(self):
         pass
@@ -854,34 +846,3 @@ class IxiaTrafficGen(SampleVNFTrafficGen):
     def terminate(self):
         self.resource_helper.stop_collect()
         super(IxiaTrafficGen, self).terminate()
-
-    def _test_runner(self, traffic_profile, tasks, results):
-        self.resource_helper.run_test(traffic_profile, tasks, results)
-
-    def _init_traffic_process(self, traffic_profile):
-        name = '{}-{}-{}-{}'.format(self.name, self.APP_NAME,
-                                    traffic_profile.__class__.__name__,
-                                    os.getpid())
-        self._traffic_process = Process(name=name, target=self._test_runner,
-                                        args=(
-                                        traffic_profile, self._tasks_queue,
-                                        self._result_queue))
-
-        self._traffic_process.start()
-        while self.resource_helper.client_started.value == 0:
-            time.sleep(1)
-            if not self._traffic_process.is_alive():
-                break
-
-    def run_traffic_once(self, traffic_profile):
-        if self.resource_helper.client_started.value == 0:
-            self._init_traffic_process(traffic_profile)
-
-        # continue test - run next iteration
-        LOG.info("Run next iteration ...")
-        self._tasks_queue.put('RUN_TRAFFIC')
-
-    def wait_on_traffic(self):
-        self._tasks_queue.join()
-        result = self._result_queue.get()
-        return result

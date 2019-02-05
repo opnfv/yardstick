@@ -28,7 +28,6 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
     UPLINK = 'uplink'
     DOWNLINK = 'downlink'
     DROP_PERCENT_ROUND = 6
-    RATE_ROUND = 5
     STATUS_SUCCESS = "Success"
     STATUS_FAIL = "Failure"
 
@@ -170,10 +169,6 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
                     yield traffic_generator.vnfd_helper.port_num(intf)
 
         self.ports = [port for port in port_generator()]
-
-    def _get_next_rate(self):
-        rate = round(float(self.max_rate + self.min_rate)/2.0, self.RATE_ROUND)
-        return rate
 
     def _get_framesize(self):
         framesizes = []
