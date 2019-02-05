@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_a1b4c2d1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-05T12:47:37Z",
+      "side": 1,
+      "message": "YARDSTICK",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "656f92ab6f7c8345373dff26e7395675fdd6c9bf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
