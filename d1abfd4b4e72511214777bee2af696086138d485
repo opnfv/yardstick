@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_44ba1c24",
+        "filename": "yardstick/network_services/traffic_profile/ixia_rfc2544.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 6903
+      },
+      "writtenOn": "2019-02-06T12:48:56Z",
+      "side": 1,
+      "message": "PktSize",
+      "range": {
+        "startLine": 275,
+        "startChar": 17,
+        "endLine": 275,
+        "endChar": 25
+      },
+      "revId": "d1abfd4b4e72511214777bee2af696086138d485",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_24b56031",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_rfc2544_ixia.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 816,
+      "author": {
+        "id": 6903
+      },
+      "writtenOn": "2019-02-06T12:48:56Z",
+      "side": 1,
+      "message": "Iteration",
+      "range": {
+        "startLine": 816,
+        "startChar": 18,
+        "endLine": 816,
+        "endChar": 33
+      },
+      "revId": "d1abfd4b4e72511214777bee2af696086138d485",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
