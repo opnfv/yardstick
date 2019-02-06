@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_a4f7b0f4",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_ixia_4port.yaml",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2311
+      },
+      "writtenOn": "2019-02-06T13:27:06Z",
+      "side": 1,
+      "message": "This should be removed. \n\nMaybe not in this patch, but in a follow-up",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 35
+      },
+      "revId": "5510cbb8b7bcae1e998b8eb9cfe1e89e0b7ea040",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
