@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Daniel Martin Buckley <daniel.m.buckley@intel.com>
+Code-Review+2: Volodymyr Mytnyk <volodymyrx.mytnyk@intel.com>
+Submitted-by: Volodymyr Mytnyk <volodymyrx.mytnyk@intel.com>
+Submitted-at: Wed, 06 Feb 2019 16:32:50 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/66779
+Project: yardstick
+Branch: refs/heads/master
