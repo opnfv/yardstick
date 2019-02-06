@@ -38,8 +38,6 @@ LOG = logging.getLogger(__name__)
 def _worker_process(queue, cls, method_name, scenario_cfg,
                     context_cfg, aborted, output_queue):
 
-    sequence = 1
-
     runner_cfg = scenario_cfg['runner']
 
     interval = runner_cfg.get("interval", 1)
@@ -56,6 +54,7 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
     LOG.info("worker START, sequence_values(%s, %s), class %s",
              arg_name, sequence_values, cls)
 
+    scenario_output = base.ScenarioOutput(queue, sequence=1, errors="")
     benchmark = cls(scenario_cfg, context_cfg)
     benchmark.setup()
     method = getattr(benchmark, method_name)
@@ -68,22 +67,23 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
         options[arg_name] = value
 
         LOG.debug("runner=%(runner)s seq=%(sequence)s START",
-                  {"runner": runner_cfg["runner_id"], "sequence": sequence})
+                  {"runner": runner_cfg["runner_id"],
+                   "sequence": scenario_output.sequence})
 
-        data = {}
-        errors = ""
+        scenario_output.clear()
+        scenario_output.errors = ""
 
         try:
-            result = method(data)
+            result = method(scenario_output)
         except y_exc.SLAValidationError as error:
             # SLA validation failed in scenario, determine what to do now
             if sla_action == "assert":
                 raise
             elif sla_action == "monitor":
                 LOG.warning("SLA validation failed: %s", error.args)
-                errors = error.args
+                scenario_output.errors = error.args
         except Exception as e:  # pylint: disable=broad-except
-            errors = traceback.format_exc()
+            scenario_output.errors = traceback.format_exc()
             LOG.exception(e)
         else:
             if result:
@@ -91,21 +91,16 @@ def _worker_process(queue, cls, method_name, scenario_cfg,
 
         time.sleep(interval)
 
-        benchmark_output = {
-            'timestamp': time.time(),
-            'sequence': sequence,
-            'data': data,
-            'errors': errors
-        }
-
-        queue.put(benchmark_output)
+        if scenario_output:
+            scenario_output.push()
 
         LOG.debug("runner=%(runner)s seq=%(sequence)s END",
-                  {"runner": runner_cfg["runner_id"], "sequence": sequence})
+                  {"runner": runner_cfg["runner_id"],
+                   "sequence": scenario_output.sequence})
 
-        sequence += 1
+        scenario_output.sequence += 1
 
-        if (errors and sla_action is None) or aborted.is_set():
+        if (scenario_output.errors and sla_action is None) or aborted.is_set():
             break
 
     try:
