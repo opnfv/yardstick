@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_444fbcbd",
+        "filename": "doc8.ini",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2019-02-06T20:38:22Z",
+      "side": 1,
+      "message": "I thinks it\u0027s the default value.",
+      "revId": "959a167e104a454248893d315fffbacd10b22362",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e44fe8bc",
+        "filename": "tox.ini",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2019-02-06T20:38:22Z",
+      "side": 1,
+      "message": "you could list them in a classical test-requirements",
+      "revId": "959a167e104a454248893d315fffbacd10b22362",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
