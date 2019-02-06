@@ -175,6 +175,19 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         rate = round(float(self.max_rate + self.min_rate)/2.0, self.RATE_ROUND)
         return rate
 
+    def _get_framesize(self):
+        framesizes = []
+        traffic = self._get_ixia_traffic_profile(self.full_profile)
+        for v in traffic.values():
+            framesize = v['outer_l2']['framesize']
+            for size in (s for s, w in framesize.items() if int(w) != 0):
+                framesizes.append(size)
+        if len(set(framesizes)) == 0:
+            return ''
+        elif len(set(framesizes)) == 1:
+            return framesizes[0]
+        return 'IMIX'
+
     def execute_traffic(self, traffic_generator, ixia_obj=None, mac=None):
         mac = {} if mac is None else mac
         first_run = self.first_run
@@ -225,6 +238,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         else:
             completed = True
 
+        last_rate = self.rate
         next_rate = self._get_next_rate()
         if abs(next_rate - self.rate) < resolution:
             LOG.debug("rate=%s, next_rate=%s, resolution=%s", self.rate,
@@ -257,6 +271,8 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         samples['latency_ns_avg'] = latency_ns_avg
         samples['latency_ns_min'] = latency_ns_min
         samples['latency_ns_max'] = latency_ns_max
+        samples['Rate'] = last_rate
+        samples['PktSize'] = self._get_framesize()
 
         return completed, samples
 
@@ -332,6 +348,7 @@ class IXIARFC2544PppoeScenarioProfile(IXIARFC2544Profile):
         sum_drop_percent = 100
         num_ifaces = len(samples)
         duration = self.config.duration
+        last_rate = self.rate
         priority_stats = samples.pop('priority_stats')
         priority_stats = self._get_prio_flows_drop_percentage(priority_stats)
         summary_subs_stats = self._get_summary_pppoe_subs_counters(samples)
@@ -367,6 +384,8 @@ class IXIARFC2544PppoeScenarioProfile(IXIARFC2544Profile):
         samples['latency_ns_min'] = latency_ns_min
         samples['latency_ns_max'] = latency_ns_max
         samples['priority'] = priority_stats
+        samples['Rate'] = last_rate
+        samples['PktSize'] = self._get_framesize()
         samples.update(summary_subs_stats)
 
         if tc_rfc2544_opts:
