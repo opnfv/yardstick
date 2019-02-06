@@ -2400,6 +2400,7 @@ class TestProxProfileHelper(unittest.TestCase):
         with helper.traffic_context(64, 1):
             pass
 
+    @mock.patch.object(time, 'sleep')
     def test_run_test(self, *args):
         resource_helper = mock.MagicMock()
         resource_helper.step_delta = 0.4
@@ -2549,6 +2550,7 @@ class TestProxBngProfileHelper(unittest.TestCase):
         self.assertEqual(helper.arp_task_cores, expected_arp_task)
         self.assertEqual(helper._cores_tuple, expected_combined)
 
+    @mock.patch.object(time, 'sleep')
     def test_run_test(self, *args):
         resource_helper = mock.MagicMock()
         resource_helper.step_delta = 0.4
@@ -2675,6 +2677,7 @@ class TestProxVpeProfileHelper(unittest.TestCase):
         self.assertEqual(helper.inet_ports, expected_inet)
         self.assertEqual(helper._ports_tuple, expected_combined)
 
+    @mock.patch.object(time, 'sleep')
     def test_run_test(self, *args):
         resource_helper = mock.MagicMock()
         resource_helper.step_delta = 0.4
@@ -2792,6 +2795,7 @@ class TestProxlwAFTRProfileHelper(unittest.TestCase):
         self.assertEqual(helper.inet_ports, expected_inet)
         self.assertEqual(helper._ports_tuple, expected_combined)
 
+    @mock.patch.object(time, 'sleep')
     def test_run_test(self, *args):
         resource_helper = mock.MagicMock()
         resource_helper.step_delta = 0.4
