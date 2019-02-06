@@ -19,8 +19,8 @@ scenarios:
   traffic_profile: ../../traffic_profiles/ixia_ipv4_latency.yaml
   topology: vfw_vnf_topology_ixia.yaml
   nodes:
-    tg__0: tg__0.yardstick
-    vnf__0: vnf__0.yardstick
+    tg__0: trafficgen_0.yardstick
+    vnf__0: vnf_0.yardstick
   options:
     framesize:
       uplink: {{ framesize }}
@@ -68,7 +68,7 @@ contexts:
        user: ""
        password: ""
      servers:
-       vnf__0:
+       vnf_0:
          network_ports:
            mgmt:
              cidr: '1.1.1.7/24'

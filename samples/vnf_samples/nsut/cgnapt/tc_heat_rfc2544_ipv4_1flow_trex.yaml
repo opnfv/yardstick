@@ -19,8 +19,8 @@ scenarios:
   traffic_profile: ../../traffic_profiles/ipv4_throughput_cgnapt.yaml
   topology: cgnapt-vnf-topology.yaml
   nodes:
-    tg__0: trafficgen_1.yardstick
-    vnf__0: vnf.yardstick
+    tg__0: trafficgen_0.yardstick
+    vnf__0: vnf_0.yardstick
   options:
     framesize:
       uplink: {{ framesize }}
@@ -55,10 +55,10 @@ context:
     pgrp1:
       policy: "availability"
   servers:
-    vnf:
+    vnf_0:
       floating_ip: true
       placement: "pgrp1"
-    trafficgen_1:
+    trafficgen_0:
       floating_ip: true
       placement: "pgrp1"
   networks:

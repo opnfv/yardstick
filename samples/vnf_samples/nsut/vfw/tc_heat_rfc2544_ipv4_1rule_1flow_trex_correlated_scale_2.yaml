@@ -19,8 +19,8 @@ scenarios:
     traffic_profile: ../../traffic_profiles/ipv4_throughput-2.yaml
     topology: vfw-tg-topology-3node-2.yaml
     nodes:
-      tg__0: tg_0.yardstick
-      tg__1: tg_1.yardstick
+      tg__0: trafficgen_0.yardstick
+      tg__1: trafficgen_1.yardstick
       vnf__0: vnf_0.yardstick
       vnf__1: vnf_1.yardstick
     options:
@@ -66,7 +66,7 @@ context:
     pgrp1:
       policy: "availability"
   servers:
-    tg_0:
+    trafficgen_0:
       floating_ip: true
       placement: "pgrp1"
       network_ports:
@@ -76,7 +76,7 @@ context:
           - xe0
         uplink_1:
           - xe1
-    tg_1:
+    trafficgen_1:
       floating_ip: true
       placement: "pgrp1"
       network_ports:

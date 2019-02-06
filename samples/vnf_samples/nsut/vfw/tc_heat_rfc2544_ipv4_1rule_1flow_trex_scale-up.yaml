@@ -24,7 +24,7 @@ scenarios:
     vports: {{ vports }}
   topology: vfw-tg-topology-scale-up.yaml
   nodes:
-    tg__0: tg_0.yardstick
+    tg__0: trafficgen_0.yardstick
     vnf__0: vnf_0.yardstick
   options:
     framesize:
@@ -67,7 +67,7 @@ context:
     pgrp1:
       policy: "availability"
   servers:
-    tg_0:
+    trafficgen_0:
       floating_ip: true
       placement: "pgrp1"
     vnf_0:
