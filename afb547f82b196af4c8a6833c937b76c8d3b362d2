@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_21f8b248",
+        "filename": "samples/vnf_samples/vnf_descriptors/tg_sipp_vnfd.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-06T09:16:35Z",
+      "side": 1,
+      "message": "change year",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "afb547f82b196af4c8a6833c937b76c8d3b362d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_41fdee39",
+        "filename": "samples/vnf_samples/vnf_descriptors/tg_sipp_vnfd.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-06T09:16:35Z",
+      "side": 1,
+      "message": "no such \"sipp-baremetal\" VDU. Only \"sippvnf-baremetal\" is defined below in L36.",
+      "range": {
+        "startLine": 22,
+        "startChar": 20,
+        "endLine": 22,
+        "endChar": 34
+      },
+      "revId": "afb547f82b196af4c8a6833c937b76c8d3b362d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_61990a1f",
+        "filename": "samples/vnf_samples/vnf_descriptors/vims_hss_vnfd.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-06T09:16:35Z",
+      "side": 1,
+      "message": "year",
+      "revId": "afb547f82b196af4c8a6833c937b76c8d3b362d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8196e6ee",
+        "filename": "samples/vnf_samples/vnf_descriptors/vims_hss_vnfd.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-06T09:16:35Z",
+      "side": 1,
+      "message": "no such \"Hss\" VDU. Only \"HssVnf\" is defined below (L36).",
+      "range": {
+        "startLine": 22,
+        "startChar": 20,
+        "endLine": 22,
+        "endChar": 23
+      },
+      "revId": "afb547f82b196af4c8a6833c937b76c8d3b362d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a1a3224e",
+        "filename": "samples/vnf_samples/vnf_descriptors/vims_pcscf_vnfd.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-06T09:16:35Z",
+      "side": 1,
+      "message": "2019",
+      "revId": "afb547f82b196af4c8a6833c937b76c8d3b362d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c1a0de45",
+        "filename": "samples/vnf_samples/vnf_descriptors/vims_pcscf_vnfd.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-06T09:16:35Z",
+      "side": 1,
+      "message": "same, see previous comments.",
+      "range": {
+        "startLine": 22,
+        "startChar": 20,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "afb547f82b196af4c8a6833c937b76c8d3b362d2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
