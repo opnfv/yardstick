@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_c4590c00",
+        "filename": "yardstick/network_services/traffic_profile/rfc2544.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-06T14:35:59Z",
+      "side": 1,
+      "message": "1. As I understand, you have fixed the bug in that function when DISTRIBUTION_IN_PACKETS has been provided. This is great but I would expect it to have as a separate review.\n\n---------------\n\u003e\u003e\u003e\n\u003e\u003e\u003e _create_imix_data_orig({\u002764B\u0027:20, \u0027128B\u0027:60}, DISTRIBUTION_IN_PACKETS)\n{\u0027128\u0027: 85.71428571428571, \u002764\u0027: 14.285714285714286}\n\u003e\u003e\u003e _create_imix_data_new({\u002764B\u0027:20, \u0027128B\u0027:60}, DISTRIBUTION_IN_PACKETS)\n{\u0027128\u0027: 75.0, \u002764\u0027: 25.0}\n\u003e\u003e\u003e\n---------------\n\n2. The changes affects default behavior of the function. The result is not the same as was before:\n\n---------------\n\u003e\u003e\u003e\n\u003e\u003e\u003e _create_imix_data_orig({\u002764B\u0027:20, \u0027128B\u0027:60})\n{\u0027128\u0027: 85.71428571428571, \u002764\u0027: 14.285714285714286}\n\u003e\u003e\u003e _create_imix_data_new({\u002764B\u0027:20, \u0027128B\u0027:60})\n{\u0027128\u0027: 85, \u002764\u0027: 14}\n\u003e\u003e\u003e\n---------------\n\nPlease make sure the default behavior is not changed after your changes.",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 55
+      },
+      "revId": "074fec98221bce5cf2f384145b98461ca3444056",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
