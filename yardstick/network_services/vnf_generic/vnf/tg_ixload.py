@@ -142,7 +142,12 @@ class IxLoadTrafficGen(sample_vnf.SampleVNFTrafficGen):
                                    "external-interface"] if
                                intf["virtual-interface"]["vld_id"] == name)
 
-                links[name]["ip"]["gateway"] = gateway
+                try:
+                    links[name]["ip"]["gateway"] = gateway
+                except KeyError:
+                    LOG.error("Invalid traffic profile: No IP section defined for %s", name)
+                    raise
+
             except StopIteration:
                 LOG.debug("Cant find gateway for link %s", name)
                 links[name]["ip"]["gateway"] = "0.0.0.0"
