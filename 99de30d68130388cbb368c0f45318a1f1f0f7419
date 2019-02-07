@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_6f861167",
+        "filename": "samples/vnf_samples/nsut/cmts/k8s_vcmts_topology.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-07T14:37:03Z",
+      "side": 1,
+      "message": "This doesn\u0027t make sense to have Jinja static variables. Please use something like this:\n{% set num_tg\u003d get(extra_args, \u0027num_tg\u0027, \u00272\u0027) %}\nto be able to template the topolgy.\nextra_args - should be set in testcase file similar like done in :samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_trex_scale-up.yaml",
+      "revId": "99de30d68130388cbb368c0f45318a1f1f0f7419",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_cf7da570",
+        "filename": "samples/vnf_samples/nsut/cmts/tc_vcmts_k8s_pktgen.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-07T14:37:03Z",
+      "side": 1,
+      "message": "add extra_args here to template topology.",
+      "revId": "99de30d68130388cbb368c0f45318a1f1f0f7419",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
