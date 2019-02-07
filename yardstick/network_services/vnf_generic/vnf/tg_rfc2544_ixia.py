@@ -813,6 +813,7 @@ class IxiaResourceHelper(ClientResourceHelper):
                 completed, samples = traffic_profile.get_drop_percentage(
                     samples, min_tol, max_tol, precision, resolution,
                     first_run=first_run)
+                samples['Iteration'] = self.rfc_helper.iteration.value
                 self._queue.put(samples)
 
                 if completed:

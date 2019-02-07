@@ -110,9 +110,11 @@ class TestIxiaResourceHelper(unittest.TestCase):
         mock_tprofile.update_traffic_profile.assert_called_once()
 
     def test_run_test(self):
+        expected_result = {'test': 'fake_samples', 'Iteration': 1}
         mock_tprofile = mock.Mock()
         mock_tprofile.config.duration = 10
-        mock_tprofile.get_drop_percentage.return_value = True, 'fake_samples'
+        mock_tprofile.get_drop_percentage.return_value = \
+            True, {'test': 'fake_samples'}
         ixia_rhelper = tg_rfc2544_ixia.IxiaResourceHelper(mock.Mock())
         tasks_queue = mock.Mock()
         tasks_queue.get.return_value = 'RUN_TRAFFIC'
@@ -127,7 +129,7 @@ class TestIxiaResourceHelper(unittest.TestCase):
                 mock.patch.object(utils, 'wait_until_true'):
             ixia_rhelper.run_test(mock_tprofile, tasks_queue, results_queue)
 
-        self.assertEqual('fake_samples', ixia_rhelper._queue.get())
+        self.assertEqual(expected_result, ixia_rhelper._queue.get())
         mock_tprofile.update_traffic_profile.assert_called_once()
         tasks_queue.task_done.assert_called_once()
         results_queue.put.assert_called_once_with('COMPLETE')

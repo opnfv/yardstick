@@ -515,6 +515,52 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         rfc2544_profile._update_traffic_tracking_options(mock_traffic_gen)
         mock_traffic_gen.update_tracking_options.assert_called_once()
 
+    def test__get_framesize(self):
+        traffic_profile = {
+            'uplink_0': {'outer_l2': {'framesize': {'64B': 100}}},
+            'downlink_0': {'outer_l2': {'framesize': {'64B': 100}}},
+            'uplink_1': {'outer_l2': {'framesize': {'64B': 100}}},
+            'downlink_1': {'outer_l2': {'framesize': {'64B': 100}}}
+        }
+        rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
+        with mock.patch.object(rfc2544_profile, '_get_ixia_traffic_profile') \
+                as mock_get_tp:
+            mock_get_tp.return_value = traffic_profile
+            result = rfc2544_profile._get_framesize()
+        self.assertEqual(result, '64B')
+
+    def test__get_framesize_IMIX_traffic(self):
+        traffic_profile = {
+            'uplink_0': {'outer_l2': {'framesize': {'64B': 50,
+                                                    '128B': 50}}},
+            'downlink_0': {'outer_l2': {'framesize': {'64B': 50,
+                                                      '128B': 50}}},
+            'uplink_1': {'outer_l2': {'framesize': {'64B': 50,
+                                                    '128B': 50}}},
+            'downlink_1': {'outer_l2': {'framesize': {'64B': 50,
+                                                      '128B': 50}}}
+        }
+        rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
+        with mock.patch.object(rfc2544_profile, '_get_ixia_traffic_profile') \
+                as mock_get_tp:
+            mock_get_tp.return_value = traffic_profile
+            result = rfc2544_profile._get_framesize()
+        self.assertEqual(result, 'IMIX')
+
+    def test__get_framesize_zero_pkt_size_weight(self):
+        traffic_profile = {
+            'uplink_0': {'outer_l2': {'framesize': {'64B': 0}}},
+            'downlink_0': {'outer_l2': {'framesize': {'64B': 0}}},
+            'uplink_1': {'outer_l2': {'framesize': {'64B': 0}}},
+            'downlink_1': {'outer_l2': {'framesize': {'64B': 0}}}
+        }
+        rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
+        with mock.patch.object(rfc2544_profile, '_get_ixia_traffic_profile') \
+                as mock_get_tp:
+            mock_get_tp.return_value = traffic_profile
+            result = rfc2544_profile._get_framesize()
+        self.assertEqual(result, '')
+
     def test_execute_traffic_first_run(self):
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.first_run = True
@@ -594,7 +640,9 @@ class TestIXIARFC2544Profile(unittest.TestCase):
                         'Store-Forward_Max_latency_ns': 28}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
+        rfc2544_profile.rate = 100.0
         rfc2544_profile._get_next_rate = mock.Mock(return_value=100.0)
+        rfc2544_profile._get_framesize = mock.Mock(return_value='64B')
         completed, samples = rfc2544_profile.get_drop_percentage(
             samples, 0, 1, 4, 0.1)
         self.assertTrue(completed)
@@ -604,6 +652,8 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         self.assertEqual(21.5, samples['latency_ns_avg'])
         self.assertEqual(14.0, samples['latency_ns_min'])
         self.assertEqual(26.5, samples['latency_ns_max'])
+        self.assertEqual(100.0, samples['Rate'])
+        self.assertEqual('64B', samples['PktSize'])
 
     def test_get_drop_percentage_over_drop_percentage(self):
         samples = {'iface_name_1':
@@ -751,7 +801,8 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
     def setUp(self):
         self.ixia_tp = ixia_rfc2544.IXIARFC2544PppoeScenarioProfile(
             self.TRAFFIC_PROFILE)
-        self.ixia_tp._get_next_rate = mock.Mock(return_value=0.1)
+        self.ixia_tp.rate = 100.0
+        self.ixia_tp._get_next_rate = mock.Mock(return_value=50.0)
 
     def test___init__(self):
         self.assertIsInstance(self.ixia_tp.full_profile,
@@ -861,6 +912,7 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
         mock_get_pppoe_subs.return_value = {'sessions_up': 1}
         mock_sum_prio_drop_rate.return_value = {'0': {'DropPercentage': 0.0}}
 
+        self.ixia_tp._get_framesize = mock.Mock(return_value='64B')
         status, res = self.ixia_tp.get_drop_percentage(
             samples, tol_min=0.0, tolerance=0.0001, precision=0,
             resolution=0.1, first_run=True)
@@ -868,6 +920,8 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
         self.assertIsNotNone(res.get('priority'))
         self.assertIsNotNone(res.get('sessions_up'))
         self.assertEqual(res['DropPercentage'], 0.0)
+        self.assertEqual(res['Rate'], 100.0)
+        self.assertEqual(res['PktSize'], '64B')
         self.assertTrue(status)
         mock_sum_prio_drop_rate.assert_called_once()
         mock_get_pppoe_subs.assert_called_once()
