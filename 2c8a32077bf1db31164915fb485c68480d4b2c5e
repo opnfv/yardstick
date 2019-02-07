@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_6fbe11d6",
+        "filename": "docs/testing/user/userguide/nsb/tc_prox_context_l3fwd_port.rst",
+        "patchSetId": 15
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2019-02-07T18:44:59Z",
+      "side": 1,
+      "message": "Sorry, this just sounds like plain overkill for this \"simple\" L3FWD test cases!\nPossibly not even feasible in a VM, except on high-end platforms.",
+      "range": {
+        "startLine": 70,
+        "startChar": 44,
+        "endLine": 70,
+        "endChar": 52
+      },
+      "revId": "2c8a32077bf1db31164915fb485c68480d4b2c5e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_afb829e6",
+        "filename": "docs/testing/user/userguide/nsb/tc_prox_context_l3fwd_port.rst",
+        "patchSetId": 15
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 7067
+      },
+      "writtenOn": "2019-02-07T18:44:59Z",
+      "side": 1,
+      "message": "Sorry, this just sounds like plain overkill for this \"simple\" L3FWD test cases!\nEspecially since you don\u0027t use them all in gen_l3fwd-2.cfg and gen_l3fwd-4.cfg!\nWe should instead, either create distinct set of files for 10/25/40, or template the files depending on NIC speed to adjust CPU requirements to the actual workload.",
+      "range": {
+        "startLine": 76,
+        "startChar": 40,
+        "endLine": 76,
+        "endChar": 47
+      },
+      "revId": "2c8a32077bf1db31164915fb485c68480d4b2c5e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
