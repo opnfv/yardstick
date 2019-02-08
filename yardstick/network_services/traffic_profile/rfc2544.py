@@ -278,10 +278,16 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
         in_pkt_end = sum(port['in_packets'] for port in samples[-1].values())
         out_pkt_ini = sum(port['out_packets'] for port in samples[0].values())
         in_pkt_ini = sum(port['in_packets'] for port in samples[0].values())
+        in_bytes_ini = sum(port['in_bytes'] for port in samples[0].values())
+        out_bytes_ini = sum(port['out_bytes'] for port in samples[0].values())
+        in_bytes_end = sum(port['in_bytes'] for port in samples[-1].values())
+        out_bytes_end = sum(port['out_bytes'] for port in samples[-1].values())
         time_diff = (list(samples[-1].values())[0]['timestamp'] -
                      list(samples[0].values())[0]['timestamp']).total_seconds()
         out_packets = out_pkt_end - out_pkt_ini
         in_packets = in_pkt_end - in_pkt_ini
+        out_bytes = out_bytes_end - out_bytes_ini
+        in_bytes = in_bytes_end - in_bytes_ini
         tx_rate_fps = float(out_packets) / time_diff
         rx_rate_fps = float(in_packets) / time_diff
         drop_percent = 100.0
@@ -320,6 +326,8 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
         output = {
             'TxThroughput': tx_rate_fps,
             'RxThroughput': rx_rate_fps,
+            'RxThroughputBps': round(float(in_bytes) / time_diff, 3),
+            'TxThroughputBps': round(float(out_bytes) / time_diff, 3),
             'CurrentDropPercentage': drop_percent,
             'Throughput': throughput,
             'DropPercentage': self.drop_percent_max,

@@ -179,6 +179,8 @@ class TrexResourceHelper(ClientResourceHelper):
                 'tx_throughput_bps': float(port_stats.get('tx_bps', 0.0)),
                 'in_packets': int(port_stats.get('ipackets', 0)),
                 'out_packets': int(port_stats.get('opackets', 0)),
+                'in_bytes': int(port_stats.get('ibytes', 0)),
+                'out_bytes': int(port_stats.get('obytes', 0)),
                 'timestamp': timestamp
             }
 

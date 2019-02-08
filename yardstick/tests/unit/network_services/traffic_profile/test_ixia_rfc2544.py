@@ -630,11 +630,13 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test_get_drop_percentage_completed(self):
         samples = {'iface_name_1':
                        {'in_packets': 1000, 'out_packets': 1000,
+                        'in_bytes': 64000, 'out_bytes': 64000,
                         'Store-Forward_Avg_latency_ns': 20,
                         'Store-Forward_Min_latency_ns': 15,
                         'Store-Forward_Max_latency_ns': 25},
                    'iface_name_2':
                        {'in_packets': 1005, 'out_packets': 1007,
+                        'in_bytes': 64320, 'out_bytes': 64448,
                         'Store-Forward_Avg_latency_ns': 23,
                         'Store-Forward_Min_latency_ns': 13,
                         'Store-Forward_Max_latency_ns': 28}
@@ -658,11 +660,13 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test_get_drop_percentage_over_drop_percentage(self):
         samples = {'iface_name_1':
                        {'in_packets': 1000, 'out_packets': 1000,
+                        'in_bytes': 64000, 'out_bytes': 64000,
                         'Store-Forward_Avg_latency_ns': 20,
                         'Store-Forward_Min_latency_ns': 15,
                         'Store-Forward_Max_latency_ns': 25},
                    'iface_name_2':
                        {'in_packets': 1005, 'out_packets': 1007,
+                        'in_bytes': 64320, 'out_bytes': 64448,
                         'Store-Forward_Avg_latency_ns': 20,
                         'Store-Forward_Min_latency_ns': 15,
                         'Store-Forward_Max_latency_ns': 25}
@@ -681,11 +685,13 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test_get_drop_percentage_under_drop_percentage(self):
         samples = {'iface_name_1':
                        {'in_packets': 1000, 'out_packets': 1000,
+                        'in_bytes': 64000, 'out_bytes': 64000,
                         'Store-Forward_Avg_latency_ns': 20,
                         'Store-Forward_Min_latency_ns': 15,
                         'Store-Forward_Max_latency_ns': 25},
                    'iface_name_2':
                        {'in_packets': 1005, 'out_packets': 1007,
+                        'in_bytes': 64320, 'out_bytes': 64448,
                         'Store-Forward_Avg_latency_ns': 20,
                         'Store-Forward_Min_latency_ns': 15,
                         'Store-Forward_Max_latency_ns': 25}
@@ -705,11 +711,13 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test_get_drop_percentage_not_flow(self, *args):
         samples = {'iface_name_1':
                        {'in_packets': 1000, 'out_packets': 0,
+                        'in_bytes': 64000, 'out_bytes': 0,
                         'Store-Forward_Avg_latency_ns': 20,
                         'Store-Forward_Min_latency_ns': 15,
                         'Store-Forward_Max_latency_ns': 25},
                    'iface_name_2':
                        {'in_packets': 1005, 'out_packets': 0,
+                        'in_bytes': 64320, 'out_bytes': 0,
                         'Store-Forward_Avg_latency_ns': 20,
                         'Store-Forward_Min_latency_ns': 15,
                         'Store-Forward_Max_latency_ns': 25}
@@ -728,11 +736,13 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     def test_get_drop_percentage_first_run(self):
         samples = {'iface_name_1':
                        {'in_packets': 1000, 'out_packets': 1000,
+                        'in_bytes': 64000, 'out_bytes': 64000,
                         'Store-Forward_Avg_latency_ns': 20,
                         'Store-Forward_Min_latency_ns': 15,
                         'Store-Forward_Max_latency_ns': 25},
                    'iface_name_2':
                        {'in_packets': 1005, 'out_packets': 1007,
+                        'in_bytes': 64320, 'out_bytes': 64448,
                         'Store-Forward_Avg_latency_ns': 20,
                         'Store-Forward_Min_latency_ns': 15,
                         'Store-Forward_Max_latency_ns': 25}
@@ -752,11 +762,13 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         rfc2544_profile._get_next_rate = mock.Mock(return_value=0.1)
         samples = {'iface_name_1':
                        {'in_packets': 1000, 'out_packets': 1000,
+                        'in_bytes': 64000, 'out_bytes': 64000,
                         'Store-Forward_Avg_latency_ns': 20,
                         'Store-Forward_Min_latency_ns': 15,
                         'Store-Forward_Max_latency_ns': 25},
                    'iface_name_2':
                        {'in_packets': 1005, 'out_packets': 1007,
+                        'in_bytes': 64320, 'out_bytes': 64448,
                         'Store-Forward_Avg_latency_ns': 20,
                         'Store-Forward_Min_latency_ns': 15,
                         'Store-Forward_Max_latency_ns': 25}
@@ -768,11 +780,13 @@ class TestIXIARFC2544Profile(unittest.TestCase):
 
         samples = {'iface_name_1':
                        {'in_packets': 1000, 'out_packets': 1000,
+                        'in_bytes': 64000, 'out_bytes': 64000,
                         'Store-Forward_Avg_latency_ns': 20,
                         'Store-Forward_Min_latency_ns': 15,
                         'Store-Forward_Max_latency_ns': 25},
                    'iface_name_2':
                        {'in_packets': 1005, 'out_packets': 1007,
+                        'in_bytes': 64320, 'out_bytes': 64448,
                         'Store-Forward_Avg_latency_ns': 20,
                         'Store-Forward_Min_latency_ns': 15,
                         'Store-Forward_Max_latency_ns': 25}
@@ -899,12 +913,16 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
                 '0': {
                     'in_packets': 100,
                     'out_packets': 100,
+                    'in_bytes': 6400,
+                    'out_bytes': 6400,
                     'Store-Forward_Avg_latency_ns': 10,
                     'Store-Forward_Min_latency_ns': 10,
                     'Store-Forward_Max_latency_ns': 10}},
             'xe0': {
                 'in_packets': 100,
                 'out_packets': 100,
+                'in_bytes': 6400,
+                'out_bytes': 6400,
                 'Store-Forward_Avg_latency_ns': 10,
                 'Store-Forward_Min_latency_ns': 10,
                 'Store-Forward_Max_latency_ns': 10}}
@@ -937,12 +955,16 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
                 '0': {
                     'in_packets': 90,
                     'out_packets': 100,
+                    'in_bytes': 5760,
+                    'out_bytes': 6400,
                     'Store-Forward_Avg_latency_ns': 10,
                     'Store-Forward_Min_latency_ns': 10,
                     'Store-Forward_Max_latency_ns': 10}},
             'xe0': {
                 'in_packets': 90,
                 'out_packets': 100,
+                'in_bytes': 5760,
+                'out_bytes': 6400,
                 'Store-Forward_Avg_latency_ns': 10,
                 'Store-Forward_Min_latency_ns': 10,
                 'Store-Forward_Max_latency_ns': 10}}
@@ -972,12 +994,16 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
                 '0': {
                     'in_packets': 100,
                     'out_packets': 100,
+                    'in_bytes': 6400,
+                    'out_bytes': 6400,
                     'Store-Forward_Avg_latency_ns': 10,
                     'Store-Forward_Min_latency_ns': 10,
                     'Store-Forward_Max_latency_ns': 10}},
             'xe0': {
                 'in_packets': 90,
                 'out_packets': 100,
+                'in_bytes': 5760,
+                'out_bytes': 6400,
                 'Store-Forward_Avg_latency_ns': 10,
                 'Store-Forward_Min_latency_ns': 10,
                 'Store-Forward_Max_latency_ns': 10
