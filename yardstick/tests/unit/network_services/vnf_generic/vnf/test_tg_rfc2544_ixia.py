@@ -28,6 +28,7 @@ from yardstick.benchmark.contexts import base as ctx_base
 from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
 from yardstick.network_services.traffic_profile import base as tp_base
 from yardstick.network_services.vnf_generic.vnf import tg_rfc2544_ixia
+from yardstick.network_services.traffic_profile import ixia_rfc2544
 
 
 TEST_FILE_YAML = 'nsb_test_case.yaml'
@@ -528,9 +529,13 @@ class TestIxiaBasicScenario(unittest.TestCase):
 
     def test_create_traffic_model(self):
         self.mock_IxNextgen.get_vports.return_value = [1, 2, 3, 4]
-        self.scenario.create_traffic_model()
+        yaml_data = {'traffic_profile': {}
+                    }
+        traffic_profile = ixia_rfc2544.IXIARFC2544Profile(yaml_data)
+        self.scenario.create_traffic_model(traffic_profile)
         self.scenario.client.get_vports.assert_called_once()
-        self.scenario.client.create_traffic_model.assert_called_once_with([1, 3], [2, 4])
+        self.scenario.client.create_traffic_model.assert_called_once_with(
+            [1, 3], [2, 4], traffic_profile)
 
     def test_apply_config(self):
         self.assertIsNone(self.scenario.apply_config())

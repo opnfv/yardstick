@@ -22,10 +22,46 @@ from collections import OrderedDict
 
 from yardstick.common import exceptions
 from yardstick.network_services.libs.ixia_libs.ixnet import ixnet_api
+from yardstick.network_services.traffic_profile import ixia_rfc2544
 
 
 UPLINK = 'uplink'
 DOWNLINK = 'downlink'
+
+TRAFFIC_PROFILE = {
+    'uplink_0': {
+        'ipv4': {
+            'outer_l2': {
+                'framesize': {
+                    '128B': '0',
+                    '1518B': '0',
+                    '64B': '0',
+                    '373b': '0',
+                    '256B': '0',
+                    '1400B': '0',
+                    '570B': '0'}},
+            'id': 1}},
+    'description': 'Traffic profile to run RFC2544 latency',
+    'name': 'rfc2544',
+    'schema': 'isb:traffic_profile:0.1',
+    'traffic_profile': {
+        'injection_time': None,
+        'enable_latency': True,
+        'frame_rate': '100%',
+        'traffic_type': 'IXIARFC2544Profile'},
+    'downlink_0': {
+        'ipv4': {
+            'outer_l2': {
+                'framesize': {
+                    '128B': '0',
+                    '1518B': '0',
+                    '64B': '0',
+                    '373b': '0',
+                    '256B': '0',
+                    '1400B': '0',
+                    '570B': '0'}},
+            'id': 2}}}
+
 
 TRAFFIC_PARAMETERS = {
     UPLINK: {
@@ -506,12 +542,17 @@ class TestIxNextgen(unittest.TestCase):
             'my_root/traffic/protocolTemplate:"my_protocol"')
 
     def test__setup_config_elements(self):
+        # the config parsed from some_file
+        yaml_data = {'traffic_profile': {}
+                    }
+        traffic_profile = ixia_rfc2544.IXIARFC2544Profile(yaml_data)
+        traffic_profile.params = TRAFFIC_PROFILE
         self.ixnet_gen.ixnet.getList.side_effect = [['traffic_item'],
                                                ['cfg_element']]
         with mock.patch.object(self.ixnet_gen, '_append_procotol_to_stack') as \
                 mock_append_proto:
-            self.ixnet_gen._setup_config_elements()
-        mock_append_proto.assert_has_calls([
+            self.ixnet_gen._setup_config_elements(traffic_profile=traffic_profile)
+            mock_append_proto.assert_has_calls([
             mock.call(ixnet_api.PROTO_UDP, 'cfg_element/stack:"ethernet-1"'),
             mock.call(ixnet_api.PROTO_IPV4, 'cfg_element/stack:"ethernet-1"')])
         self.ixnet_gen.ixnet.setAttribute.assert_has_calls([
@@ -526,11 +567,15 @@ class TestIxNextgen(unittest.TestCase):
     def test_create_traffic_model(self, mock__setup_config_elements,
                                   mock__create_flow_groups,
                                   mock__create_traffic_item):
+        # the config parsed from some_file
+        yaml_data = {'traffic_profile': {}}
+        traffic_profile = ixia_rfc2544.IXIARFC2544Profile(yaml_data)
         uplink_ports = ['port1', 'port3']
         downlink_ports = ['port2', 'port4']
         uplink_endpoints = ['port1/protocols', 'port3/protocols']
         downlink_endpoints = ['port2/protocols', 'port4/protocols']
-        self.ixnet_gen.create_traffic_model(uplink_ports, downlink_ports)
+        self.ixnet_gen.create_traffic_model(uplink_ports, downlink_ports,
+                                            traffic_profile=traffic_profile)
         mock__create_traffic_item.assert_called_once_with('raw')
         mock__create_flow_groups.assert_called_once_with(uplink_endpoints,
                                                          downlink_endpoints)
@@ -550,6 +595,56 @@ class TestIxNextgen(unittest.TestCase):
         mock__create_flow_groups.assert_called_once_with(uplink_topologies,
                                                          downlink_topologies)
         mock__setup_config_elements.assert_called_once_with(False)
+
+    def test_flows_settings(self):
+        cfg = {'uplink_0': {
+          'ipv4': {
+            'outer_l2': {
+                'framesize': {
+                    '128B': '0',
+                    '1518B': '0',
+                    '64B': '0',
+                    '373b': '0',
+                    '256B': '0',
+                    '1400B': '0',
+                    '570B': '0'}},
+            'id': 1}}}
+
+        expected = [
+            {'ipv4': {
+                'id': 1,
+                'outer_l2': {
+                    'framesize': {
+                        '1518B': '0',
+                        '1400B': '0',
+                        '128B': '0',
+                        '64B': '0',
+                        '256B': '0',
+                        '373b': '0',
+                        '570B': '0'}}}}]
+
+        self.assertEqual(expected, self.ixnet_gen._flows_settings(cfg=cfg))
+
+    def test_is_qinq(self):
+        flow_data = {'ipv4': {
+            'outer_l2': {},
+            'id': 1}}
+        self.assertEqual(False, self.ixnet_gen.is_qinq(flow_data=flow_data))
+
+        flow_data = {'ipv4': {
+            'outer_l2': {
+                'QinQ': {
+                    'C-VLAN': {
+                        'priority': 0,
+                        'cfi': 0,
+                        'id': 512},
+                     'S-VLAN': {
+                        'priority': 0,
+                        'cfi': 0,
+                        'id': 128}},
+            },
+            'id': 1}}
+        self.assertEqual(True, self.ixnet_gen.is_qinq(flow_data=flow_data))
 
     def test__update_frame_mac(self):
         with mock.patch.object(self.ixnet_gen, '_get_field_in_stack_item') as \
