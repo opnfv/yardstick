@@ -22,6 +22,30 @@
       "revId": "f757200bcc7d46d8eaa5acf157601fa40c528416",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_8f644d23",
+        "filename": "docs/testing/user/userguide/nsb/tc_bng_pppoe_rfc2544_ixia.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-02-08T17:14:42Z",
+      "side": 1,
+      "message": "Yes, I\u0027m referring to tc_bng_pppoe_rfc2544_ixia_IMIX_scale_up.yaml.\nUpdated description with correct test case file name.",
+      "parentUuid": "1a622d24_322770b8",
+      "range": {
+        "startLine": 48,
+        "startChar": 19,
+        "endLine": 48,
+        "endChar": 69
+      },
+      "revId": "f757200bcc7d46d8eaa5acf157601fa40c528416",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
