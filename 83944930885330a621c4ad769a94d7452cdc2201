@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_8f61ed3b",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_trex.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-08T13:54:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_2f8c197f",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "83944930885330a621c4ad769a94d7452cdc2201",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_8fea8d0d",
         "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_trex.yaml",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-07T16:28:45Z",
       "side": 1,
       "message": "vnf_0",
+      "range": {
+        "startLine": 24,
+        "startChar": 12,
+        "endLine": 24,
+        "endChar": 15
+      },
+      "revId": "83944930885330a621c4ad769a94d7452cdc2201",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6f645149",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_trex.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-08T13:54:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_8fea8d0d",
       "range": {
         "startLine": 24,
         "startChar": 12,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_cf5be585",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_trex.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-08T13:54:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_6fed7125",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "83944930885330a621c4ad769a94d7452cdc2201",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_cff485f4",
         "filename": "samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_trex.yaml",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2019-02-07T16:28:45Z",
       "side": 1,
       "message": "vnf_0",
+      "range": {
+        "startLine": 24,
+        "startChar": 12,
+        "endLine": 24,
+        "endChar": 15
+      },
+      "revId": "83944930885330a621c4ad769a94d7452cdc2201",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_af5e6974",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_trex.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-08T13:54:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_cff485f4",
       "range": {
         "startLine": 24,
         "startChar": 12,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_0f55dd4f",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_trex.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-08T13:54:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_aff789f4",
+      "range": {
+        "startLine": 23,
+        "startChar": 11,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "83944930885330a621c4ad769a94d7452cdc2201",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_0fde7d6d",
         "filename": "samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_trex.yaml",
         "patchSetId": 5
@@ -128,6 +248,30 @@
       "writtenOn": "2019-02-07T16:28:45Z",
       "side": 1,
       "message": "vnf_0",
+      "range": {
+        "startLine": 24,
+        "startChar": 12,
+        "endLine": 24,
+        "endChar": 15
+      },
+      "revId": "83944930885330a621c4ad769a94d7452cdc2201",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ef4fc1bc",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_trex.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-08T13:54:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_0fde7d6d",
       "range": {
         "startLine": 24,
         "startChar": 12,
