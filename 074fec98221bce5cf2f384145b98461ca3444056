@@ -46,6 +46,30 @@
       "revId": "074fec98221bce5cf2f384145b98461ca3444056",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2ae1a79a",
+        "filename": "yardstick/network_services/traffic_profile/rfc2544.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-11T15:41:29Z",
+      "side": 1,
+      "message": "The reference page doesn\u0027t describe the output format but it provided an example.\nThe main issue that changes causes is the normalization. The description of the function says: \"This function normalizes the sum of framesize weights to 100\". In your implementation, the sum will not be 100. In case of the provided example ({64B:20, 182B:60}), you will receive sum equal to 99 instead (85+14 \u003d 99). So we lost 1% of traffic here. This is the issue. So, please leave the float numbers as was before. Also, those changes should go as a separate review. Thanks.",
+      "parentUuid": "1a622d24_e47248e2",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 201,
+        "endChar": 55
+      },
+      "revId": "074fec98221bce5cf2f384145b98461ca3444056",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
