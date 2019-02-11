@@ -100,6 +100,8 @@ class IxNextgen(object):  # pragma: no cover
         "Rx_Rate_Kbps": 'Rx. Rate (Kbps)',
         "Tx_Rate_Mbps": 'Tx. Rate (Mbps)',
         "Rx_Rate_Mbps": 'Rx. Rate (Mbps)',
+        "Bytes_Tx": 'Bytes Tx.',
+        "Bytes_Rx": 'Bytes Rx.'
     }
 
     LATENCY_NAME_MAP = {

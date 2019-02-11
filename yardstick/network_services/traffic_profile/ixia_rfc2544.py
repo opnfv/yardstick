@@ -209,8 +209,16 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
             [samples[iface]['in_packets'] for iface in samples])
         out_packets_sum = sum(
             [samples[iface]['out_packets'] for iface in samples])
+        in_bytes_sum = sum(
+            [samples[iface]['in_bytes'] for iface in samples])
+        out_bytes_sum = sum(
+            [samples[iface]['out_bytes'] for iface in samples])
         rx_throughput = round(float(in_packets_sum) / duration, 3)
         tx_throughput = round(float(out_packets_sum) / duration, 3)
+        # Rx throughput in Bps
+        rx_throughput_bps = round(float(in_bytes_sum) / duration, 3)
+        # Tx throughput in Bps
+        tx_throughput_bps = round(float(out_bytes_sum) / duration, 3)
         packet_drop = abs(out_packets_sum - in_packets_sum)
 
         try:
@@ -262,6 +270,8 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
 
         samples['TxThroughput'] = tx_throughput
         samples['RxThroughput'] = rx_throughput
+        samples['TxThroughputBps'] = tx_throughput_bps
+        samples['RxThroughputBps'] = rx_throughput_bps
         samples['DropPercentage'] = drop_percent
         samples['latency_ns_avg'] = latency_ns_avg
         samples['latency_ns_min'] = latency_ns_min
@@ -351,8 +361,16 @@ class IXIARFC2544PppoeScenarioProfile(IXIARFC2544Profile):
             [samples[iface]['in_packets'] for iface in samples])
         out_packets_sum = sum(
             [samples[iface]['out_packets'] for iface in samples])
+        in_bytes_sum = sum(
+            [samples[iface]['in_bytes'] for iface in samples])
+        out_bytes_sum = sum(
+            [samples[iface]['out_bytes'] for iface in samples])
         rx_throughput = round(float(in_packets_sum) / duration, 3)
         tx_throughput = round(float(out_packets_sum) / duration, 3)
+        # Rx throughput in Bps
+        rx_throughput_bps = round(float(in_bytes_sum) / duration, 3)
+        # Tx throughput in Bps
+        tx_throughput_bps = round(float(out_bytes_sum) / duration, 3)
         sum_packet_drop = abs(out_packets_sum - in_packets_sum)
 
         try:
@@ -374,6 +392,8 @@ class IXIARFC2544PppoeScenarioProfile(IXIARFC2544Profile):
 
         samples['TxThroughput'] = tx_throughput
         samples['RxThroughput'] = rx_throughput
+        samples['TxThroughputBps'] = tx_throughput_bps
+        samples['RxThroughputBps'] = rx_throughput_bps
         samples['DropPercentage'] = sum_drop_percent
         samples['latency_ns_avg'] = latency_ns_avg
         samples['latency_ns_min'] = latency_ns_min
