@@ -80,6 +80,7 @@ from yardstick.common import exceptions
 from yardstick.common.utils import try_int, NON_NONE_DEFAULT, make_dict_from_map
 from yardstick.network_services.utils import provision_tool
 
+LOG = logging.getLogger(__name__)
 
 def convert_key_to_str(key):
     if not isinstance(key, (paramiko.RSAKey, paramiko.DSSKey)):
@@ -337,6 +338,7 @@ class SSH(object):
             details = fmt % {"cmd": cmd, "status": exit_status}
             if stderr_data:
                 details += " Last stderr data: '%s'." % stderr_data
+            LOG.critical("PROX ERROR: %s", details)
             raise exceptions.SSHError(error_msg=details)
         return exit_status
 

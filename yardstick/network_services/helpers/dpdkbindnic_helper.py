@@ -284,6 +284,7 @@ printf "%s/driver:" $1 ; basename $(readlink -s $1/device/driver); } \
         res = self.ssh_helper.execute(*args, **kwargs)
         if res[0] != 0:
             template = '{} command failed with rc={}'
+            LOG.critical("DPDK_DEVBIND Failure %s", res[1])
             raise DpdkBindHelperException(template.format(self.dpdk_devbind, res[0]))
         return res
 
