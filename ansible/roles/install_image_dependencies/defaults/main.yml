@@ -30,6 +30,7 @@ install_dependencies:
     - libxss-dev
     - expect
     - libnuma-dev
+    - curl
   RedHat:
     - bc
     - fio
@@ -50,3 +51,4 @@ install_dependencies:
     - sysstat
     - unzip
     - python-devel
+    - curl
