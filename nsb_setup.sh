@@ -136,6 +136,7 @@ ansible-playbook \
          -e IMAGE_PROPERTY='nsb' \
          -e OS_RELEASE='xenial' \
          -e INSTALLATION_MODE='container_pull' \
+         -e YARDSTICK_DIR='/home/opnfv/repos/yardstick' \
          -e YARD_IMAGE_ARCH='amd64' ${extra_args} \
          -i install-inventory.ini install.yaml
 

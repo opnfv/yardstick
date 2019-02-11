@@ -15,7 +15,6 @@
 - hosts: jumphost
   become: yes
   vars:
-    yardstick_dir: "{{ YARDSTICK_DIR | default('/home/opnfv/repos/yardstick') }}"
     virtual_environment: "{{ VIRTUAL_ENVIRONMENT | default(False) }}"
     nsb_dir: "{{ NSB_DIR | default('/opt/nsb_bin/') }}"
 
@@ -105,54 +104,53 @@
     - docker
     - barometer_collectd
 
-
 - name: Prepare to build VM
-  hosts: jumphost
+  hosts: yardstick-standalone
   become: yes
   vars:
     img_prop_item: "{{ IMG_PROPERTY }}"
     img_arch: "{{ YARD_IMG_ARCH }}"
-
-  tasks:
-    - name: Include pre-build
-      include_role:
-        name: build_yardstick_image
-        tasks_from: pre_build.yml
-      when:
-        - installation_mode != inst_mode_container
-        - IMG_PROPERTY == 'nsb' or IMG_PROPERTY == 'normal'
-
-
-- name: Build VM in chroot
-  hosts: chroot_image
-  connection: chroot
-  become: yes
-  vars:
-    img_property: "{{ IMG_PROPERTY }}"
   environment: "{{ proxy_env }}"
 
   tasks:
-    - name: Include image build
-      include_role:
-        name: build_yardstick_image
-        tasks_from: "cloudimg_modify_{{ img_property }}.yml"
+    - name: Copy ansible folder to remote DUT
+      copy:
+        src: "{{ yardstick_dir }}/ansible"
+        dest: /tmp
+
+    - name: Install DUT related packages
+      apt:
+        name: "{{ packages }}"
+      vars:
+        packages:
+        - qemu-kvm
+        - libvirt-bin
+        - bridge-utils
+        - fping
+        - genisoimage
+
+    # There is a bug with the easy install ansible module in Ubuntu 16.04 linux.
+    # Refer https://github.com/ansible/ansible/issues/23534
+    - name: Install pip
+      shell: easy_install -U pip
       when:
-        - installation_mode != inst_mode_container
-        - IMG_PROPERTY == 'nsb' or IMG_PROPERTY == 'normal'
+        - ansible_distribution == 'Ubuntu'
+        - ansible_distribution_major_version|int <= 16
 
-
-- name: Clear up after VM is built
-  hosts: jumphost
-  become: yes
-
-  tasks:
-    - name: Include post-build
-      include_role:
-        name: build_yardstick_image
-        tasks_from: post_build.yml
+    - name: Install python-pip
+      action: "{{ ansible_pkg_mgr }} name=python-pip state=present"
       when:
-        - installation_mode != inst_mode_container
-        - IMG_PROPERTY == 'nsb' or IMG_PROPERTY == 'normal'
+        - ansible_distribution == 'Ubuntu'
+        - ansible_distribution_major_version|int >= 17
+
+    - name: Update pip ansible docker
+      pip:
+        name: "ansible==2.5.5"
+
+    - name: Run ansible on remote
+      shell: "ansible-playbook -e OS_RELEASE={{ OS_RELEASE  }} -e IMAGE_PROPERTY={{ IMAGE_PROPERTY }} -e YARD_IMAGE_ARCH={{ YARD_IMAGE_ARCH }} -i install-inventory.ini build_vm.yml -vv"
+      args:
+        chdir: "/tmp/ansible"
 
 
 - name: Add OpenStack variables, image
@@ -216,6 +214,5 @@
         volumes:
           - "{{ openrc_file|default('/dev/null') }}:/etc/yardstick/openstack.creds:ro"
           - /var/run/docker.sock:/var/run/docker.sock
-          - /opt:/opt
           - /etc/localtime:/etc/localtime:ro
       when: installation_mode == inst_mode_container_pull
