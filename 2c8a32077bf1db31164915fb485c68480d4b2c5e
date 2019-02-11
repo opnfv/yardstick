@@ -45,6 +45,30 @@
       "revId": "2c8a32077bf1db31164915fb485c68480d4b2c5e",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4ac5033b",
+        "filename": "docs/testing/user/userguide/nsb/tc_prox_context_l3fwd_port.rst",
+        "patchSetId": 15
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 6751
+      },
+      "writtenOn": "2019-02-11T12:46:49Z",
+      "side": 1,
+      "message": "The decision to have a 1 set of gen/handle files instead of a set per each NIC speed and a new gen/handle files to be added for new faster NICs  was made some time ago. \n\nThe reason 32cores is specified is that the latency cores needs to be fixed for the configurable grafana dashboard (all tests have the same latency cores) And some tests are more more complex that other and require more cores.\n\nAs for this being a simple L3FWD ... it is but all tests require the same latency cores. \n\nHOWEVER it is stated that you can use less cores if you modify the Dashboard and the PROX gen files.",
+      "parentUuid": "1a622d24_afb829e6",
+      "range": {
+        "startLine": 76,
+        "startChar": 40,
+        "endLine": 76,
+        "endChar": 47
+      },
+      "revId": "2c8a32077bf1db31164915fb485c68480d4b2c5e",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
