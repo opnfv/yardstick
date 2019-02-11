@@ -13,34 +13,50 @@
 # limitations under the License.
 
 {% set framesize = framesize or "{64B: 100}" %}
+{% set vports = vports or 2 %}
+{% set rate = rate or 100 %}
+{% set drop_rate = drop_rate or "0.0001 - 0.0001" %}
+{% set iterations = iterations or 1 %}
+{% set queues_per_port = queues_per_port or 1 %}
+{% set pod_file = pod_file or "/etc/yardstick/nodes/pod_trex.yaml" %}
 ---
 schema: yardstick:task:0.1
 scenarios:
 - type: NSPerf-RFC2544
   traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
   topology: agnostic_vnf_topology_trex_tmpl.yaml
+  extra_args:
+    vports: {{vports}}
+    rate: {{rate}}
   nodes:
     tg__0: trafficgen_0.yardstick
     vnf__0: vnf_0.yardstick
   options:
     framesize:
-      uplink: {{ framesize }}
-      downlink: {{ framesize }}
+      uplink: {{framesize}}
+      downlink: {{framesize}}
     flow:
-      src_ip: [{'tg__0': 'xe0'}]
-      dst_ip: [{'tg__0': 'xe1'}]
+      src_ip: [
+{% for vport in range(0,vports,2|int) %}
+       {'tg__0': 'xe{{vport}}'},
+{% endfor %}  ]
+      dst_ip: [
+{% for vport in range(1,vports,2|int) %}
+      {'tg__0': 'xe{{vport}}'},
+{% endfor %}  ]
       count: 1
     traffic_type: 4
     rfc2544:
-      allowed_drop_rate: 0.0001 - 0.0001
+      allowed_drop_rate: {{drop_rate}}
+      queues_per_port: {{queues_per_port}}
     vnf__0:
         []
   runner:
     type: Iteration
-    iterations: 1
+    iterations: {{iterations}}
     interval: 5
 context:
   type: Node
   name: yardstick
   nfvi_type: baremetal
-  file: /etc/yardstick/nodes/pod_trex.yaml
+  file: {{pod_file}}
