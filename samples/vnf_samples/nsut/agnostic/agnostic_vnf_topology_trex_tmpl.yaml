@@ -1,4 +1,4 @@
-# Copyright (c) 2018 Intel Corporation
+# Copyright (c) 2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,6 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+---
+{% set vports = get(extra_args, 'vports', '2') %}
 nsd:nsd-catalog:
     nsd:
     -   id: agnostic-topology
@@ -26,24 +28,25 @@ nsd:nsd-catalog:
             VNF model: ../../vnf_descriptors/agnostic_vnf.yaml      #VNF type
 
         vld:
-        -   id: uplink_0
-            name: tg__0 to vnf__0 link 1
+{% for vport in range(0,vports,2|int) %}
+        -   id: uplink_{{loop.index0}}
+            name: tg__0 to vnf__0 link {{vport + 1}}
             type: ELAN
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: '1'
-                vnfd-connection-point-ref: xe0
+                vnfd-connection-point-ref: xe{{vport}}
                 vnfd-id-ref: tg__0
             -   member-vnf-index-ref: '2'
-                vnfd-connection-point-ref: xe0
+                vnfd-connection-point-ref: xe{{vport}}
                 vnfd-id-ref: vnf__0
-
-        -   id: downlink_0
-            name: vnf__0 to tg__0 link 2
+        -   id: downlink_{{loop.index0}}
+            name: vnf__0 to tg__0 link {{vport + 2}}
             type: ELAN
             vnfd-connection-point-ref:
             -   member-vnf-index-ref: '2'
-                vnfd-connection-point-ref: xe1
+                vnfd-connection-point-ref: xe{{vport+1}}
                 vnfd-id-ref: vnf__0
             -   member-vnf-index-ref: '1'
-                vnfd-connection-point-ref: xe1
+                vnfd-connection-point-ref: xe{{vport+1}}
                 vnfd-id-ref: tg__0
+{% endfor %}
