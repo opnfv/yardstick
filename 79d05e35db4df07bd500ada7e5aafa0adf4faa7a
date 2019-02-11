@@ -22,6 +22,30 @@
       "revId": "79d05e35db4df07bd500ada7e5aafa0adf4faa7a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2a3087e7",
+        "filename": "yardstick/network_services/vnf_generic/vnf/ipsec_vnf.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-02-11T02:13:38Z",
+      "side": 1,
+      "message": "For QAT device DH895xCC, the number of VFs is required as 32",
+      "parentUuid": "1a622d24_640918dd",
+      "range": {
+        "startLine": 169,
+        "startChar": 31,
+        "endLine": 169,
+        "endChar": 33
+      },
+      "revId": "79d05e35db4df07bd500ada7e5aafa0adf4faa7a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
