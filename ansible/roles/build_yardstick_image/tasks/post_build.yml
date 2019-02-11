@@ -35,6 +35,10 @@
     state: unmounted
 
 - mount:
+    name: "{{ mountdir }}/run"
+    state: unmounted
+
+- mount:
     name: "{{ mountdir }}"
     state: unmounted
 

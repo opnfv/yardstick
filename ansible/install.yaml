@@ -103,54 +103,64 @@
     - docker
     - barometer_collectd
 
-
 - name: Prepare to build VM
-  hosts: jumphost
+  hosts: virtual-image-sa
   become: yes
   vars:
     img_prop_item: "{{ IMG_PROPERTY }}"
     img_arch: "{{ YARD_IMG_ARCH }}"
 
   tasks:
-    - name: Include pre-build
-      include_role:
-        name: build_yardstick_image
-        tasks_from: pre_build.yml
-      when:
-        - installation_mode != inst_mode_container
-        - IMG_PROPERTY == 'nsb' or IMG_PROPERTY == 'normal'
+    - name: Run ansible on remote
+      shell: "ansible-playbook -e OS_RELEASE={{ OS_RELEASE  }} -e IMAGE_PROPERTY={{ IMAGE_PROPERTY }} -e YARD_IMAGE_ARCH={{ YARD_IMAGE_ARCH }} -i /tmp/yardstick/ansible/install-inventory.ini /tmp/yardstick/ansible/build_vm.yml -vvv"
 
-
-- name: Build VM in chroot
-  hosts: chroot_image
-  connection: chroot
-  become: yes
-  vars:
-    img_property: "{{ IMG_PROPERTY }}"
-  environment: "{{ proxy_env }}"
-
-  tasks:
-    - name: Include image build
-      include_role:
-        name: build_yardstick_image
-        tasks_from: "cloudimg_modify_{{ img_property }}.yml"
-      when:
-        - installation_mode != inst_mode_container
-        - IMG_PROPERTY == 'nsb' or IMG_PROPERTY == 'normal'
-
-
-- name: Clear up after VM is built
-  hosts: jumphost
-  become: yes
-
-  tasks:
-    - name: Include post-build
-      include_role:
-        name: build_yardstick_image
-        tasks_from: post_build.yml
-      when:
-        - installation_mode != inst_mode_container
-        - IMG_PROPERTY == 'nsb' or IMG_PROPERTY == 'normal'
+#- name: Prepare to build VM
+#  hosts: jumphost
+#  become: yes
+#  vars:
+#    img_prop_item: "{{ IMG_PROPERTY }}"
+#    img_arch: "{{ YARD_IMG_ARCH }}"
+#
+#  tasks:
+#    - name: Include pre-build
+#      include_role:
+#        name: build_yardstick_image
+#        tasks_from: pre_build.yml
+#      when:
+#        - installation_mode != inst_mode_container
+#        - IMG_PROPERTY == 'nsb' or IMG_PROPERTY == 'normal'
+#
+#
+#- name: Build VM in chroot
+#  hosts: chroot_image
+#  connection: chroot
+#  become: yes
+#  vars:
+#    img_property: "{{ IMG_PROPERTY }}"
+#  environment: "{{ proxy_env }}"
+#
+#  tasks:
+#    - name: Include image build
+#      include_role:
+#        name: build_yardstick_image
+#        tasks_from: "cloudimg_modify_{{ img_property }}.yml"
+#      when:
+#        - installation_mode != inst_mode_container
+#        - IMG_PROPERTY == 'nsb' or IMG_PROPERTY == 'normal'
+#
+#
+#- name: Clear up after VM is built
+#  hosts: jumphost
+#  become: yes
+#
+#  tasks:
+#    - name: Include post-build
+#      include_role:
+#        name: build_yardstick_image
+#        tasks_from: post_build.yml
+#      when:
+#        - installation_mode != inst_mode_container
+#        - IMG_PROPERTY == 'nsb' or IMG_PROPERTY == 'normal'
 
 
 - name: Add OpenStack variables, image

@@ -45,6 +45,7 @@
   with_items:
     # order matters
     - "{{ mountdir }}/proc"
+    - "{{ mountdir }}/run"
     - "{{ mountdir }}"
     - "/mnt/{{ release }}"
 
@@ -173,6 +174,17 @@
     src: none
     name: "{{ mountdir }}/proc"
     fstype: proc
+    # !!!!!!! this is required otherwise we add entries to /etc/fstab
+    # and prevent the system from booting
+    fstab: "{{ fake_fstab }}"
+    state: mounted
+
+- name: mount chroot /run
+  mount:
+    src: /run
+    name: "{{ mountdir }}/run"
+    fstype: tmpfs
+    opts: bind
     # !!!!!!! this is required otherwise we add entries to /etc/fstab
     # and prevent the system from booting
     fstab: "{{ fake_fstab }}"
