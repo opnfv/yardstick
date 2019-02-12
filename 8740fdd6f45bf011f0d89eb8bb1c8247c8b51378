@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_7051ce0d",
+        "filename": "samples/vnf_samples/traffic_profiles/ipv4_throughput-tmpl.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-12T16:15:25Z",
+      "side": 1,
+      "message": "2019",
+      "range": {
+        "startLine": 1,
+        "startChar": 21,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "8740fdd6f45bf011f0d89eb8bb1c8247c8b51378",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_d058a234",
+        "filename": "samples/vnf_samples/traffic_profiles/ipv4_throughput-tmpl.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-12T16:15:25Z",
+      "side": 1,
+      "message": "\u00272\u0027? I suppose you mean 100?",
+      "range": {
+        "startLine": 37,
+        "startChar": 38,
+        "endLine": 37,
+        "endChar": 41
+      },
+      "revId": "8740fdd6f45bf011f0d89eb8bb1c8247c8b51378",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b05b662d",
+        "filename": "samples/vnf_samples/traffic_profiles/ipv4_throughput-tmpl.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-12T16:15:25Z",
+      "side": 1,
+      "message": "vports/2",
+      "range": {
+        "startLine": 51,
+        "startChar": 21,
+        "endLine": 51,
+        "endChar": 28
+      },
+      "revId": "8740fdd6f45bf011f0d89eb8bb1c8247c8b51378",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_10421a3e",
+        "filename": "samples/vnf_samples/traffic_profiles/ipv4_throughput-tmpl.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-12T16:15:25Z",
+      "side": 1,
+      "message": "not sure the count + 1 is working fine. Please check if this works with more that 2 ports or use loop.index0 etc.",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 54,
+        "endChar": 22
+      },
+      "revId": "8740fdd6f45bf011f0d89eb8bb1c8247c8b51378",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
