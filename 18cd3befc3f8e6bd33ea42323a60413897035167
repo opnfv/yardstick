@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_157dec1c",
+        "filename": "tox.ini",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2019-02-12T10:02:45Z",
+      "side": 1,
+      "message": "could we move this command to run_test.sh so the check process can be controlled in it. [1] applies for the filetype check before the verify test.\n[1] https://gerrit.opnfv.org/gerrit/#/c/66961/",
+      "range": {
+        "startLine": 65,
+        "startChar": 1,
+        "endLine": 65,
+        "endChar": 39
+      },
+      "revId": "18cd3befc3f8e6bd33ea42323a60413897035167",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
