@@ -589,12 +589,15 @@ class TestIxNextgen(unittest.TestCase):
                                        mock__create_traffic_item):
         uplink_topologies = ['up1', 'up3']
         downlink_topologies = ['down2', 'down4']
+        traffic_profile = 'fake_profile'
         self.ixnet_gen.create_ipv4_traffic_model(uplink_topologies,
-                                                 downlink_topologies)
+                                                 downlink_topologies,
+                                                 traffic_profile)
         mock__create_traffic_item.assert_called_once_with('ipv4')
         mock__create_flow_groups.assert_called_once_with(uplink_topologies,
                                                          downlink_topologies)
-        mock__setup_config_elements.assert_called_once_with(False)
+        mock__setup_config_elements.assert_called_once_with(
+            traffic_profile='fake_profile', add_default_proto=False)
 
     def test_flows_settings(self):
         cfg = {'uplink_0': {

@@ -477,7 +477,8 @@ class IxNextgen(object):  # pragma: no cover
         self._create_flow_groups(uplink_endpoints, downlink_endpoints)
         self._setup_config_elements(traffic_profile=traffic_profile)
 
-    def create_ipv4_traffic_model(self, uplink_endpoints, downlink_endpoints):
+    def create_ipv4_traffic_model(self, uplink_endpoints, downlink_endpoints,
+                                  traffic_profile):
         """Create a traffic item and the needed flow groups
 
         Each flow group inside the traffic item (only one is present)
@@ -490,7 +491,8 @@ class IxNextgen(object):  # pragma: no cover
         """
         self._create_traffic_item('ipv4')
         self._create_flow_groups(uplink_endpoints, downlink_endpoints)
-        self._setup_config_elements(False)
+        self._setup_config_elements(traffic_profile=traffic_profile,
+                                    add_default_proto=False)
 
     def _update_frame_mac(self, ethernet_descriptor, field, mac_address):
         """Set the MAC address in a config element stack Ethernet field

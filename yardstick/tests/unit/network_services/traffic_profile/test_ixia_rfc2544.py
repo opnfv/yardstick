@@ -517,60 +517,56 @@ class TestIXIARFC2544Profile(unittest.TestCase):
 
     def test__get_framesize(self):
         traffic_profile = {
-            'uplink_0': {'outer_l2': {'framesize': {'64B': 100}}},
-            'downlink_0': {'outer_l2': {'framesize': {'64B': 100}}},
-            'uplink_1': {'outer_l2': {'framesize': {'64B': 100}}},
-            'downlink_1': {'outer_l2': {'framesize': {'64B': 100}}}
+            'uplink_0': {'ipv4': {'outer_l2': {'framesize': {'64B': 100}}}},
+            'downlink_0': {'ipv4': {'outer_l2': {'framesize': {'64B': 100}}}},
+            'uplink_1': {'ipv4': {'outer_l2': {'framesize': {'64B': 100}}}},
+            'downlink_1': {'ipv4': {'outer_l2': {'framesize': {'64B': 100}}}}
         }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
-        with mock.patch.object(rfc2544_profile, '_get_ixia_traffic_profile') \
-                as mock_get_tp:
-            mock_get_tp.return_value = traffic_profile
-            result = rfc2544_profile._get_framesize()
+        rfc2544_profile.params = traffic_profile
+        result = rfc2544_profile._get_framesize()
         self.assertEqual(result, '64B')
 
     def test__get_framesize_IMIX_traffic(self):
         traffic_profile = {
-            'uplink_0': {'outer_l2': {'framesize': {'64B': 50,
-                                                    '128B': 50}}},
-            'downlink_0': {'outer_l2': {'framesize': {'64B': 50,
-                                                      '128B': 50}}},
-            'uplink_1': {'outer_l2': {'framesize': {'64B': 50,
-                                                    '128B': 50}}},
-            'downlink_1': {'outer_l2': {'framesize': {'64B': 50,
-                                                      '128B': 50}}}
+            'uplink_0': {'ipv4': {'outer_l2': {'framesize': {'64B': 50,
+                                                             '128B': 50}}}},
+            'downlink_0': {'ipv4': {'outer_l2': {'framesize': {'64B': 50,
+                                                               '128B': 50}}}},
+            'uplink_1': {'ipv4': {'outer_l2': {'framesize': {'64B': 50,
+                                                             '128B': 50}}}},
+            'downlink_1': {'ipv4': {'outer_l2': {'framesize': {'64B': 50,
+                                                               '128B': 50}}}}
         }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
-        with mock.patch.object(rfc2544_profile, '_get_ixia_traffic_profile') \
-                as mock_get_tp:
-            mock_get_tp.return_value = traffic_profile
-            result = rfc2544_profile._get_framesize()
+        rfc2544_profile.params = traffic_profile
+        result = rfc2544_profile._get_framesize()
         self.assertEqual(result, 'IMIX')
 
     def test__get_framesize_zero_pkt_size_weight(self):
         traffic_profile = {
-            'uplink_0': {'outer_l2': {'framesize': {'64B': 0}}},
-            'downlink_0': {'outer_l2': {'framesize': {'64B': 0}}},
-            'uplink_1': {'outer_l2': {'framesize': {'64B': 0}}},
-            'downlink_1': {'outer_l2': {'framesize': {'64B': 0}}}
+            'uplink_0': {'ipv4': {'outer_l2': {'framesize': {'64B': 0}}}},
+            'downlink_0': {'ipv4': {'outer_l2': {'framesize': {'64B': 0}}}},
+            'uplink_1': {'ipv4': {'outer_l2': {'framesize': {'64B': 0}}}},
+            'downlink_1': {'ipv4': {'outer_l2': {'framesize': {'64B': 0}}}}
         }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
-        with mock.patch.object(rfc2544_profile, '_get_ixia_traffic_profile') \
-                as mock_get_tp:
-            mock_get_tp.return_value = traffic_profile
-            result = rfc2544_profile._get_framesize()
+        rfc2544_profile.params = traffic_profile
+        result = rfc2544_profile._get_framesize()
         self.assertEqual(result, '')
 
     def test_execute_traffic_first_run(self):
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.first_run = True
         rfc2544_profile.rate = 50
+        traffic_gen = mock.Mock()
+        traffic_gen.rfc_helper.iteration.value = 0
         with mock.patch.object(rfc2544_profile, '_get_ixia_traffic_profile') \
                 as mock_get_tp, \
                 mock.patch.object(rfc2544_profile, '_ixia_traffic_generate') \
                 as mock_tgenerate:
             mock_get_tp.return_value = 'fake_tprofile'
-            output = rfc2544_profile.execute_traffic(mock.ANY,
+            output = rfc2544_profile.execute_traffic(traffic_gen,
                                                      ixia_obj=mock.ANY)
 
         self.assertTrue(output)
@@ -585,13 +581,15 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         rfc2544_profile.first_run = False
         rfc2544_profile.max_rate = 70
         rfc2544_profile.min_rate = 0
+        traffic_gen = mock.Mock()
+        traffic_gen.rfc_helper.iteration.value = 0
         with mock.patch.object(rfc2544_profile, '_get_ixia_traffic_profile') \
                 as mock_get_tp, \
                 mock.patch.object(rfc2544_profile, '_ixia_traffic_generate') \
                 as mock_tgenerate:
             mock_get_tp.return_value = 'fake_tprofile'
             rfc2544_profile.full_profile = mock.ANY
-            output = rfc2544_profile.execute_traffic(mock.ANY,
+            output = rfc2544_profile.execute_traffic(traffic_gen,
                                                      ixia_obj=mock.ANY)
 
         self.assertFalse(output)
@@ -817,6 +815,7 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
             self.TRAFFIC_PROFILE)
         self.ixia_tp.rate = 100.0
         self.ixia_tp._get_next_rate = mock.Mock(return_value=50.0)
+        self.ixia_tp._get_framesize = mock.Mock(return_value='64B')
 
     def test___init__(self):
         self.assertIsInstance(self.ixia_tp.full_profile,

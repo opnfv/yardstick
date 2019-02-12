@@ -115,7 +115,7 @@ class TestIxiaResourceHelper(unittest.TestCase):
         mock_tprofile = mock.Mock()
         mock_tprofile.config.duration = 10
         mock_tprofile.get_drop_percentage.return_value = \
-            True, {'test': 'fake_samples'}
+            True, {'test': 'fake_samples', 'Iteration': 1}
         ixia_rhelper = tg_rfc2544_ixia.IxiaResourceHelper(mock.Mock())
         tasks_queue = mock.Mock()
         tasks_queue.get.return_value = 'RUN_TRAFFIC'
@@ -649,11 +649,13 @@ class TestIxiaL3Scenario(TestIxiaBasicScenario):
 
     def test_create_traffic_model(self):
         self.mock_IxNextgen.get_vports.return_value = ['1', '2']
-        self.scenario.create_traffic_model()
+        traffic_profile = 'fake_profile'
+        self.scenario.create_traffic_model(traffic_profile)
         self.scenario.client.get_vports.assert_called_once()
         self.scenario.client.create_ipv4_traffic_model.\
             assert_called_once_with(['1/protocols/static'],
-                                    ['2/protocols/static'])
+                                    ['2/protocols/static'],
+                                    'fake_profile')
 
     def test_apply_config(self):
         self.scenario._add_interfaces = mock.Mock()
@@ -772,7 +774,7 @@ class TestIxiaPppoeClientScenario(unittest.TestCase):
         mock_id_pairs.assert_called_once_with(mock_tp.full_profile)
         mock_obj_pairs.assert_called_once_with(['xe0', 'xe1', 'xe0', 'xe1'])
         self.scenario.client.create_ipv4_traffic_model.assert_called_once_with(
-            uplink_endpoints, downlink_endpoints)
+            uplink_endpoints, downlink_endpoints, mock_tp)
 
     @mock.patch.object(tg_rfc2544_ixia.IxiaPppoeClientScenario,
                        '_get_endpoints_src_dst_id_pairs')
@@ -796,7 +798,7 @@ class TestIxiaPppoeClientScenario(unittest.TestCase):
         mock_id_pairs.assert_called_once_with(mock_tp.full_profile)
         mock_obj_pairs.assert_called_once_with([])
         self.scenario.client.create_ipv4_traffic_model.assert_called_once_with(
-            uplink_topologies, downlink_topologies)
+            uplink_topologies, downlink_topologies, mock_tp)
 
     def test__get_endpoints_src_dst_id_pairs(self):
         full_tp = OrderedDict([
