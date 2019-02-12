@@ -142,7 +142,7 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
         return trex_stl_streams.STLProfile(streams)
 
     def _create_imix_data(self, imix,
-                          weight_mode=constants.DISTRIBUTION_IN_PACKETS):
+                          weight_mode=constants.DISTRIBUTION_IN_BYTES):
         """Generate the IMIX distribution for a STL profile
 
         The input information is the framesize dictionary in a test case
@@ -192,13 +192,13 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
         imix_dip = {size: float(weight) / weight_normalize
                     for size, weight in imix_count.items()}
 
-        if weight_mode == constants.DISTRIBUTION_IN_BYTES:
+        if weight_mode == constants.DISTRIBUTION_IN_PACKETS:
             return imix_dip
 
         byte_total = sum([int(size) * weight
-                          for size, weight in imix_dip.items()])
-        return {size: (int(size) * weight * 100) / byte_total
-                for size, weight in imix_dip.items()}
+                          for size, weight in imix_count.items()])
+        return {size: float(int(size) * weight * 100) / byte_total
+                for size, weight in imix_count.items()}
 
     def _create_vm(self, packet_definition):
         """Create the STL Raw instructions"""

@@ -141,25 +141,25 @@ class TestRFC2544Profile(base.BaseUnitTestCase):
                                                     port_pg_id, True)
         mock_stl_profile.assert_called_once_with(['stream1'])
 
-    def test__create_imix_data_mode_DIB(self):
+    def test__create_imix_data_mode_DIP(self):
         rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
         data = {'64B': 50, '128B': 50}
         self.assertEqual(
             {'64': 50.0, '128': 50.0},
             rfc2544_profile._create_imix_data(
-                data, weight_mode=constants.DISTRIBUTION_IN_BYTES))
+                data, weight_mode=constants.DISTRIBUTION_IN_PACKETS))
         data = {'64B': 1, '128b': 3}
         self.assertEqual(
             {'64': 25.0, '128': 75.0},
             rfc2544_profile._create_imix_data(
-                data, weight_mode=constants.DISTRIBUTION_IN_BYTES))
+                data, weight_mode=constants.DISTRIBUTION_IN_PACKETS))
         data = {}
         self.assertEqual(
             {},
             rfc2544_profile._create_imix_data(
-                data, weight_mode=constants.DISTRIBUTION_IN_BYTES))
+                data, weight_mode=constants.DISTRIBUTION_IN_PACKETS))
 
-    def test__create_imix_data_mode_DIP(self):
+    def test__create_imix_data_mode_DIB(self):
         rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
         data = {'64B': 25, '128B': 25, '512B': 25, '1518B': 25}
         byte_total = 64 * 25 + 128 * 25 + 512 * 25 + 1518 * 25
@@ -169,17 +169,17 @@ class TestRFC2544Profile(base.BaseUnitTestCase):
              '512': 512 * 25.0 * 100 / byte_total,
              '1518': 1518 * 25.0 * 100/ byte_total},
             rfc2544_profile._create_imix_data(
-                data, weight_mode=constants.DISTRIBUTION_IN_PACKETS))
+                data, weight_mode=constants.DISTRIBUTION_IN_BYTES))
         data = {}
         self.assertEqual(
             {},
             rfc2544_profile._create_imix_data(
-                data, weight_mode=constants.DISTRIBUTION_IN_PACKETS))
+                data, weight_mode=constants.DISTRIBUTION_IN_BYTES))
         data = {'64B': 100}
         self.assertEqual(
             {'64': 100.0},
             rfc2544_profile._create_imix_data(
-                data, weight_mode=constants.DISTRIBUTION_IN_PACKETS))
+                data, weight_mode=constants.DISTRIBUTION_IN_BYTES))
 
     def test__create_vm(self):
         packet = {'outer_l2': 'l2_definition'}
