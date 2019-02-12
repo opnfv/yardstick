@@ -66,16 +66,21 @@ run_functional_test() {
     fi
 }
 
-if [[ $opts =~ "--unit" ]]; then
-    run_tests
-fi
+# get file types of the last change on git
+file_types=$(git diff-tree -r --name-only HEAD~1 HEAD | awk -F[/] '{print $NF}' | awk -F[.] 'NF>1 {print $NF}' | uniq)
 
-if [[ $opts =~ "--coverage" ]]; then
-    run_coverage
-fi
+if [[ $file_types =~ "py" ]]; then
+    if [[ $opts =~ "--unit" ]]; then
+        run_tests
+    fi
 
-if [[ $opts =~ "--functional" ]]; then
-    run_functional_test
+    if [[ $opts =~ "--coverage" ]]; then
+        run_coverage
+    fi
+
+    if [[ $opts =~ "--functional" ]]; then
+        run_functional_test
+    fi
 fi
 
 if [[ -z $opts ]]; then
