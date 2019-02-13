@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_a44e8b6d",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-13T17:20:58Z",
+      "side": 1,
+      "message": "The description says different:\n\n\"\nSupport using existing private key\n\nCurrently, the private key is auto-generated from Yardstick.\nThis patch will allow user use their existing private key,\nfor example, in the external heat template.\n\"\n\nAs I understand, it means that you are adding support of user provided key for both scenario, doesn\u0027t matter if template is provided or not.\nIn your case, the key_filename will work ONLY if you provide the external template.\nSo if you are adding feature that support using of existing private key, please change the implementation to support key_filename in both cases, doesn\u0027t matter if template is provided or not. The key_filename should work with auto-generated template too.",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 51
+      },
+      "revId": "5b6f908f0e6cf7558f9e7ea7f4cff2623a0a514f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e4588334",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-13T17:20:58Z",
+      "side": 1,
+      "message": "Again, if user provided template file in TC and provided incorrect key_filename path (e.g. key_filename: yardstick/resources/files/key-blabla), the Yardstick will generate automatically SSH key using the provided key file name and use it by heat. The logic above will not catch that (since the incorrect key file provided by user will be generate automatically anyway by Yardstick). This behavior is not obvious for user, thus it should be fixed.\nThe correct logic of you changes should be the following:\nIf user provided incorrect key file name, the Yardstick should stop running the TC and print an error as above. This doesn\u0027t work like that at the moment.",
+      "range": {
+        "startLine": 530,
+        "startChar": 0,
+        "endLine": 533,
+        "endChar": 17
+      },
+      "revId": "5b6f908f0e6cf7558f9e7ea7f4cff2623a0a514f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
