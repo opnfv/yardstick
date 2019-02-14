@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_c4862713",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_64B_trex.yaml",
+        "patchSetId": 17
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-14T13:32:14Z",
+      "side": 0,
+      "message": "Please rename it to: /tc_baremetal_rfc2544_ipv4_trex.yaml and make it templated.",
+      "revId": "e57fc0187a482eae59ca3a6c35c6bfc486de5521",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}

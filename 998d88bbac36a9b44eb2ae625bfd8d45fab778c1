@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_64a0f39f",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_trex.yaml",
+        "patchSetId": 17
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-14T13:32:14Z",
+      "side": 1,
+      "message": "int instead, not string",
+      "range": {
+        "startLine": 15,
+        "startChar": 34,
+        "endLine": 15,
+        "endChar": 39
+      },
+      "revId": "998d88bbac36a9b44eb2ae625bfd8d45fab778c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_449b3772",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_trex.yaml",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-14T13:32:14Z",
+      "side": 1,
+      "message": "pleas use range here.",
+      "revId": "998d88bbac36a9b44eb2ae625bfd8d45fab778c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a4896b28",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_trex.yaml",
+        "patchSetId": 17
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-14T13:32:14Z",
+      "side": 1,
+      "message": "1",
+      "revId": "998d88bbac36a9b44eb2ae625bfd8d45fab778c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_848c2f37",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_trex.yaml",
+        "patchSetId": 17
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-14T13:32:14Z",
+      "side": 1,
+      "message": "5",
+      "revId": "998d88bbac36a9b44eb2ae625bfd8d45fab778c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e4836302",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_rfc2544_ipv4_trex.yaml",
+        "patchSetId": 17
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-14T13:32:14Z",
+      "side": 1,
+      "message": "This should be as is:  NSPerf-RFC2544",
+      "revId": "998d88bbac36a9b44eb2ae625bfd8d45fab778c1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
