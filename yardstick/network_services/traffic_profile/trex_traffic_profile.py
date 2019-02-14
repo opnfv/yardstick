@@ -344,6 +344,21 @@ class TrexProfile(base.TrafficProfile):
         rate = round(float(self.max_rate + self.min_rate)/2.0, self.RATE_ROUND)
         return rate
 
+    def _get_framesize(self):
+        framesizes = []
+        for traffickey, value in self.params.items():
+            if not traffickey.startswith((self.UPLINK, self.DOWNLINK)):
+                continue
+            for _, data in value.items():
+                framesize = data['outer_l2']['framesize']
+                for size in (s for s, w in framesize.items() if int(w) != 0):
+                    framesizes.append(size)
+        if len(set(framesizes)) == 0:
+            return ''
+        elif len(set(framesizes)) == 1:
+            return framesizes[0]
+        return 'IMIX'
+
     @classmethod
     def _count_ip(cls, start_ip, end_ip):
         start = ipaddress.ip_address(six.u(start_ip))

@@ -35,6 +35,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         super(IXIARFC2544Profile, self).__init__(yaml_data)
         self.rate = self.config.frame_rate
         self.rate_unit = self.config.rate_unit
+        self.iteration = 0
         self.full_profile = {}
 
     def _get_ip_and_mask(self, ip_range):
@@ -170,19 +171,6 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
 
         self.ports = [port for port in port_generator()]
 
-    def _get_framesize(self):
-        framesizes = []
-        traffic = self._get_ixia_traffic_profile(self.full_profile)
-        for v in traffic.values():
-            framesize = v['outer_l2']['framesize']
-            for size in (s for s, w in framesize.items() if int(w) != 0):
-                framesizes.append(size)
-        if len(set(framesizes)) == 0:
-            return ''
-        elif len(set(framesizes)) == 1:
-            return framesizes[0]
-        return 'IMIX'
-
     def execute_traffic(self, traffic_generator, ixia_obj=None, mac=None):
         mac = {} if mac is None else mac
         first_run = self.first_run
@@ -194,6 +182,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         else:
             self.rate = self._get_next_rate()
 
+        self.iteration = traffic_generator.rfc_helper.iteration.value
         traffic = self._get_ixia_traffic_profile(self.full_profile, mac)
         self._ixia_traffic_generate(traffic, ixia_obj, traffic_generator)
         return first_run
@@ -278,6 +267,7 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         samples['latency_ns_max'] = latency_ns_max
         samples['Rate'] = last_rate
         samples['PktSize'] = self._get_framesize()
+        samples['Iteration'] = self.iteration
 
         return completed, samples
 
@@ -401,6 +391,7 @@ class IXIARFC2544PppoeScenarioProfile(IXIARFC2544Profile):
         samples['priority'] = priority_stats
         samples['Rate'] = last_rate
         samples['PktSize'] = self._get_framesize()
+        samples['Iteration'] = self.iteration
         samples.update(summary_subs_stats)
 
         if tc_rfc2544_opts:

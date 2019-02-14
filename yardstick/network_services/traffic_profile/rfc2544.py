@@ -72,10 +72,13 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
     """TRex RFC2544 traffic profile"""
 
     TOLERANCE_LIMIT = 0.01
+    STATUS_SUCCESS = "Success"
+    STATUS_FAIL = "Failure"
 
     def __init__(self, traffic_generator):
         super(RFC2544Profile, self).__init__(traffic_generator)
         self.generator = None
+        self.iteration = 0
         self.rate = self.config.frame_rate
         self.max_rate = self.config.frame_rate
         self.min_rate = 0
@@ -126,6 +129,7 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
         self.generator.client.start(ports=ports,
                                     duration=self.config.duration,
                                     force=True)
+        self.iteration = self.generator.rfc2544_helper.iteration.value
         return ports, port_pg_id
 
     def _create_profile(self, profile_data, rate, port_pg_id, enable_latency):
@@ -274,6 +278,7 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
                             correlated_traffic, resolution):
         """Calculate the drop percentage and run the traffic"""
         completed = False
+        status = self.STATUS_FAIL
         out_pkt_end = sum(port['out_packets'] for port in samples[-1].values())
         in_pkt_end = sum(port['in_packets'] for port in samples[-1].values())
         out_pkt_ini = sum(port['out_packets'] for port in samples[0].values())
@@ -304,6 +309,7 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
         elif drop_percent < tol_low:
             self.min_rate = self.rate
         else:
+            status = self.STATUS_SUCCESS
             completed = True
 
         last_rate = self.rate
@@ -332,6 +338,9 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
             'Throughput': throughput,
             'DropPercentage': self.drop_percent_max,
             'Rate': last_rate,
-            'Latency': latency
+            'Latency': latency,
+            'PktSize': self._get_framesize(),
+            'Iteration': self.iteration,
+            'Status': status
         }
         return completed, output

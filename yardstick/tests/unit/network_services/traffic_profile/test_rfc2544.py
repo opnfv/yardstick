@@ -248,8 +248,12 @@ class TestRFC2544Profile(base.BaseUnitTestCase):
             mock.call(percentage=float(25 * 35) / 100),
             mock.call(percentage=float(75 * 35) / 100)], any_order=True)
 
-    def test_get_drop_percentage(self):
+    @mock.patch.object(rfc2544.RFC2544Profile, '_get_framesize')
+    def test_get_drop_percentage(self, mock_get_framesize):
         rfc2544_profile = rfc2544.RFC2544Profile(self.TRAFFIC_PROFILE)
+        rfc2544_profile.iteration = 1
+        mock_get_framesize.return_value = '64B'
+
         samples = [
             {'xe1': {'tx_throughput_fps': 110,
                      'rx_throughput_fps': 101,
@@ -292,7 +296,10 @@ class TestRFC2544Profile(base.BaseUnitTestCase):
                     'TxThroughputBps': 128000000.0,
                     'CurrentDropPercentage': 50.0,
                     'Rate': 100.0,
-                    'Throughput': 1000000.0}
+                    'Throughput': 1000000.0,
+                    'Iteration': 1,
+                    'PktSize': '64B',
+                    'Status': 'Failure'}
         self.assertEqual(expected, output)
         self.assertFalse(completed)
 

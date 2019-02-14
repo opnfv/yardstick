@@ -54,13 +54,13 @@ class IxiaBasicScenario(object):
     def stop_protocols(self):
         pass
 
-    def create_traffic_model(self, traffic_profile=None):
-        # pylint: disable=unused-argument
+    def create_traffic_model(self, traffic_profile):
         vports = self.client.get_vports()
         self._uplink_vports = vports[::2]
         self._downlink_vports = vports[1::2]
         self.client.create_traffic_model(self._uplink_vports,
-                                         self._downlink_vports, traffic_profile)
+                                         self._downlink_vports,
+                                         traffic_profile)
 
     def _get_stats(self):
         return self.client.get_statistics()
@@ -169,8 +169,7 @@ class IxiaL3Scenario(IxiaBasicScenario):
         self._add_interfaces()
         self._add_static_ips()
 
-    def create_traffic_model(self, traffic_profile=None):
-        # pylint: disable=unused-argument
+    def create_traffic_model(self, traffic_profile):
         vports = self.client.get_vports()
         self._uplink_vports = vports[::2]
         self._downlink_vports = vports[1::2]
@@ -181,7 +180,8 @@ class IxiaL3Scenario(IxiaBasicScenario):
                               for port in self._downlink_vports]
 
         self.client.create_ipv4_traffic_model(uplink_endpoints,
-                                              downlink_endpoints)
+                                              downlink_endpoints,
+                                              traffic_profile)
 
 
 class IxiaPppoeClientScenario(object):
@@ -220,7 +220,8 @@ class IxiaPppoeClientScenario(object):
             uplink_endpoints = self._access_topologies
             downlink_endpoints = self._core_topologies
         self.client.create_ipv4_traffic_model(uplink_endpoints,
-                                              downlink_endpoints)
+                                              downlink_endpoints,
+                                              traffic_profile)
 
     def run_protocols(self):
         LOG.info('PPPoE Scenario - Start Protocols')
@@ -816,7 +817,6 @@ class IxiaResourceHelper(ClientResourceHelper):
                 completed, samples = traffic_profile.get_drop_percentage(
                     samples, min_tol, max_tol, precision, resolution,
                     first_run=first_run)
-                samples['Iteration'] = self.rfc_helper.iteration.value
                 self._queue.put(samples)
 
                 if completed:
