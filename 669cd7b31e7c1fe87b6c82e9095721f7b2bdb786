@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_128d4c32",
+        "filename": "yardstick/network_services/helpers/cpu.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-02-15T17:45:47Z",
+      "side": 1,
+      "message": "We can get this value from \"get_core_socket\" method output",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 13
+      },
+      "revId": "669cd7b31e7c1fe87b6c82e9095721f7b2bdb786",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_72b018de",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpp_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-02-15T17:45:47Z",
+      "side": 1,
+      "message": "Is it ok to leave value\u003dNone here and not to set default value in case it wasn\u0027t specified?",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 108,
+        "endChar": 16
+      },
+      "revId": "669cd7b31e7c1fe87b6c82e9095721f7b2bdb786",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
