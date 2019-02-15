@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_f2e408ae",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-15T16:00:27Z",
+      "side": 1,
+      "message": "Why number of worker_threads is used to run multiple scenarios? Have you tested to run multiple scenarios? Should it be used only in L69?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 41
+      },
+      "revId": "8d3218300740ef9945832f318b168fb0876585b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_d2e1049c",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-15T16:00:27Z",
+      "side": 1,
+      "message": "spaces ... {{ worker_thread }} The indentation in {{}} should be the same in all places in the TC. Please check this in all TCs.",
+      "range": {
+        "startLine": 64,
+        "startChar": 35,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "8d3218300740ef9945832f318b168fb0876585b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
