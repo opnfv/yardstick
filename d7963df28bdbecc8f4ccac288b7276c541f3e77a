@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fafc7978_321210b5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/ipsec_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-15T14:34:34Z",
+      "side": 1,
+      "message": "change year in all files in this patch",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "d7963df28bdbecc8f4ccac288b7276c541f3e77a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_12170ca5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/ipsec_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-15T14:34:34Z",
+      "side": 1,
+      "message": "Are you going to add implementation? If not, please remove the comment",
+      "revId": "d7963df28bdbecc8f4ccac288b7276c541f3e77a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_720c9895",
+        "filename": "yardstick/network_services/vnf_generic/vnf/ipsec_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-15T14:34:34Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "d7963df28bdbecc8f4ccac288b7276c541f3e77a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_521194ab",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpp_helpers.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-15T14:34:34Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "d7963df28bdbecc8f4ccac288b7276c541f3e77a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
