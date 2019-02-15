@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_f21fe8b5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/ipsec_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-15T14:35:41Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "d7963df28bdbecc8f4ccac288b7276c541f3e77a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_12170ca5",
         "filename": "yardstick/network_services/vnf_generic/vnf/ipsec_vnf.py",
         "patchSetId": 10
