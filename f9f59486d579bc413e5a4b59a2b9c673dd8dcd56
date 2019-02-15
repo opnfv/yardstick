@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_90190a8b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7371
+      },
+      "writtenOn": "2019-02-15T17:04:32Z",
+      "side": 1,
+      "message": "str(scenario_cfg.get(\"options\").get(\"run_mode\"))",
+      "range": {
+        "startLine": 77,
+        "startChar": 20,
+        "endLine": 77,
+        "endChar": 63
+      },
+      "revId": "f9f59486d579bc413e5a4b59a2b9c673dd8dcd56",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
