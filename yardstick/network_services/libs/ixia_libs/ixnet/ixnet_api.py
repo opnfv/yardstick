@@ -94,12 +94,6 @@ class IxNextgen(object):  # pragma: no cover
         "port_name": 'Port Name',
         "Frames_Tx": 'Frames Tx.',
         "Valid_Frames_Rx": 'Valid Frames Rx.',
-        "Frames_Tx_Rate": 'Frames Tx. Rate',
-        "Valid_Frames_Rx_Rate": 'Valid Frames Rx. Rate',
-        "Tx_Rate_Kbps": 'Tx. Rate (Kbps)',
-        "Rx_Rate_Kbps": 'Rx. Rate (Kbps)',
-        "Tx_Rate_Mbps": 'Tx. Rate (Mbps)',
-        "Rx_Rate_Mbps": 'Rx. Rate (Mbps)',
         "Bytes_Tx": 'Bytes Tx.',
         "Bytes_Rx": 'Bytes Rx.'
     }

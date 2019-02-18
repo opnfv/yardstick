@@ -80,21 +80,17 @@ class IxiaBasicScenario(object):
                 min_latency = stats['Store-Forward_Min_latency_ns'][port_num]
                 max_latency = stats['Store-Forward_Max_latency_ns'][port_num]
                 samples[port_name] = {
-                    'rx_throughput_kps': float(stats['Rx_Rate_Kbps'][port_num]),
-                    'tx_throughput_kps': float(stats['Tx_Rate_Kbps'][port_num]),
-                    'rx_throughput_mbps': float(stats['Rx_Rate_Mbps'][port_num]),
-                    'tx_throughput_mbps': float(stats['Tx_Rate_Mbps'][port_num]),
                     'RxThroughputBps': float(stats['Bytes_Rx'][port_num]) / duration,
                     'TxThroughputBps': float(stats['Bytes_Tx'][port_num]) / duration,
-                    'in_packets': int(stats['Valid_Frames_Rx'][port_num]),
-                    'out_packets': int(stats['Frames_Tx'][port_num]),
-                    'in_bytes': int(stats['Bytes_Rx'][port_num]),
-                    'out_bytes': int(stats['Bytes_Tx'][port_num]),
+                    'InPackets': int(stats['Valid_Frames_Rx'][port_num]),
+                    'OutPackets': int(stats['Frames_Tx'][port_num]),
+                    'InBytes': int(stats['Bytes_Rx'][port_num]),
+                    'OutBytes': int(stats['Bytes_Tx'][port_num]),
                     'RxThroughput': float(stats['Valid_Frames_Rx'][port_num]) / duration,
                     'TxThroughput': float(stats['Frames_Tx'][port_num]) / duration,
-                    'Store-Forward_Avg_latency_ns': utils.safe_cast(avg_latency, int, 0),
-                    'Store-Forward_Min_latency_ns': utils.safe_cast(min_latency, int, 0),
-                    'Store-Forward_Max_latency_ns': utils.safe_cast(max_latency, int, 0)
+                    'LatencyAvg': utils.safe_cast(avg_latency, int, 0),
+                    'LatencyMin': utils.safe_cast(min_latency, int, 0),
+                    'LatencyMax': utils.safe_cast(max_latency, int, 0)
                 }
             except IndexError:
                 pass
@@ -609,29 +605,25 @@ class IxiaPppoeClientScenario(object):
                         for flow in port_flow_map[port_num]]) / len(port_flow_map[port_num])
 
                 samples[port_name] = {
-                    'rx_throughput_kps': float(ports_stats[port_num]['Rx_Rate_Kbps']),
-                    'tx_throughput_kps': float(ports_stats[port_num]['Tx_Rate_Kbps']),
-                    'rx_throughput_mbps': float(ports_stats[port_num]['Rx_Rate_Mbps']),
-                    'tx_throughput_mbps': float(ports_stats[port_num]['Tx_Rate_Mbps']),
                     'RxThroughputBps': float(ports_stats[port_num]['Bytes_Rx']) / duration,
                     'TxThroughputBps': float(ports_stats[port_num]['Bytes_Tx']) / duration,
-                    'in_packets': int(ports_stats[port_num]['Valid_Frames_Rx']),
-                    'out_packets': int(ports_stats[port_num]['Frames_Tx']),
-                    'in_bytes': int(ports_stats[port_num]['Bytes_Rx']),
-                    'out_bytes': int(ports_stats[port_num]['Bytes_Tx']),
+                    'InPackets': int(ports_stats[port_num]['Valid_Frames_Rx']),
+                    'OutPackets': int(ports_stats[port_num]['Frames_Tx']),
+                    'InBytes': int(ports_stats[port_num]['Bytes_Rx']),
+                    'OutBytes': int(ports_stats[port_num]['Bytes_Tx']),
                     'RxThroughput': float(ports_stats[port_num]['Valid_Frames_Rx']) / duration,
                     'TxThroughput': float(ports_stats[port_num]['Frames_Tx']) / duration,
-                    'Store-Forward_Avg_latency_ns': utils.safe_cast(avg_latency, int, 0),
-                    'Store-Forward_Min_latency_ns': utils.safe_cast(min_latency, int, 0),
-                    'Store-Forward_Max_latency_ns': utils.safe_cast(max_latency, int, 0)
+                    'LatencyAvg': utils.safe_cast(avg_latency, int, 0),
+                    'LatencyMin': utils.safe_cast(min_latency, int, 0),
+                    'LatencyMax': utils.safe_cast(max_latency, int, 0)
                 }
 
                 if port_subs_stats:
                     samples[port_name].update(
-                        {'sessions_up': int(port_subs_stats[0]['Sessions_Up']),
-                         'sessions_down': int(port_subs_stats[0]['Sessions_Down']),
-                         'sessions_not_started': int(port_subs_stats[0]['Sessions_Not_Started']),
-                         'sessions_total': int(port_subs_stats[0]['Sessions_Total'])}
+                        {'SessionsUp': int(port_subs_stats[0]['Sessions_Up']),
+                         'SessionsDown': int(port_subs_stats[0]['Sessions_Down']),
+                         'SessionsNotStarted': int(port_subs_stats[0]['Sessions_Not_Started']),
+                         'SessionsTotal': int(port_subs_stats[0]['Sessions_Total'])}
                     )
 
             except IndexError:

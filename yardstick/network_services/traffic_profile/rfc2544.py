@@ -82,7 +82,6 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
         self.rate = self.config.frame_rate
         self.max_rate = self.config.frame_rate
         self.min_rate = 0
-        self.drop_percent_max = 0
 
     def register_generator(self, generator):
         self.generator = generator
@@ -321,26 +320,44 @@ class RFC2544Profile(trex_traffic_profile.TrexProfile):
         LOG.debug("rate=%s, next_rate=%s, resolution=%s, completed=%s",
                   last_rate, self.rate, resolution, completed)
 
-        throughput = rx_rate_fps * 2 if correlated_traffic else rx_rate_fps
+        ports = samples[-1].keys()
+        num_ports = len(ports)
 
-        if drop_percent > self.drop_percent_max:
-            self.drop_percent_max = drop_percent
+        output = {}
+        for port in ports:
+            output[port] = {}
+            first = samples[0][port]
+            last = samples[-1][port]
+            output[port]['InPackets'] = last['in_packets'] - first['in_packets']
+            output[port]['OutPackets'] = last['out_packets'] - first['out_packets']
+            output[port]['InBytes'] = last['in_bytes'] - first['in_bytes']
+            output[port]['OutBytes'] = last['out_bytes'] - first['out_bytes']
+            if self.config.enable_latency:
+                #output[port]['Latency'] = last['latency']
+                output[port]['LatencyAvg'] = float(sum(
+                    [last['latency'][id]['average'] for id in
+                     last['latency']]) * 1000) / len(last['latency'])
+                output[port]['LatencyMin'] = min(
+                    [last['latency'][id]['total_min'] for id in
+                     last['latency']]) * 1000
+                output[port]['LatencyMax'] = max(
+                    [last['latency'][id]['total_max'] for id in
+                     last['latency']]) * 1000
 
-        latency = {port_num: value['latency']
-                   for port_num, value in samples[-1].items()}
+        output['TxThroughput'] = tx_rate_fps
+        output['RxThroughput'] = rx_rate_fps
+        output['RxThroughputBps'] = round(float(in_bytes) / time_diff, 3)
+        output['TxThroughputBps'] = round(float(out_bytes) / time_diff, 3)
+        output['DropPercentage'] = drop_percent
+        output['Rate'] = last_rate
+        output['PktSize'] = self._get_framesize()
+        output['Iteration'] = self.iteration
+        output['Status'] = status
 
-        output = {
-            'TxThroughput': tx_rate_fps,
-            'RxThroughput': rx_rate_fps,
-            'RxThroughputBps': round(float(in_bytes) / time_diff, 3),
-            'TxThroughputBps': round(float(out_bytes) / time_diff, 3),
-            'CurrentDropPercentage': drop_percent,
-            'Throughput': throughput,
-            'DropPercentage': self.drop_percent_max,
-            'Rate': last_rate,
-            'Latency': latency,
-            'PktSize': self._get_framesize(),
-            'Iteration': self.iteration,
-            'Status': status
-        }
+        if self.config.enable_latency:
+            output['LatencyAvg'] = float(
+                sum([output[port]['LatencyAvg'] for port in ports])) / num_ports
+            output['LatencyMin'] = min([output[port]['LatencyMin'] for port in ports])
+            output['LatencyMax'] = max([output[port]['LatencyMax'] for port in ports])
+
         return completed, output

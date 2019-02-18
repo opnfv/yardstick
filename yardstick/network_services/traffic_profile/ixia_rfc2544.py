@@ -195,13 +195,13 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         num_ifaces = len(samples)
         duration = self.config.duration
         in_packets_sum = sum(
-            [samples[iface]['in_packets'] for iface in samples])
+            [samples[iface]['InPackets'] for iface in samples])
         out_packets_sum = sum(
-            [samples[iface]['out_packets'] for iface in samples])
+            [samples[iface]['OutPackets'] for iface in samples])
         in_bytes_sum = sum(
-            [samples[iface]['in_bytes'] for iface in samples])
+            [samples[iface]['InBytes'] for iface in samples])
         out_bytes_sum = sum(
-            [samples[iface]['out_bytes'] for iface in samples])
+            [samples[iface]['OutBytes'] for iface in samples])
         rx_throughput = round(float(in_packets_sum) / duration, 3)
         tx_throughput = round(float(out_packets_sum) / duration, 3)
         # Rx throughput in Bps
@@ -243,15 +243,10 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
                   "completed=%s", tolerance, precision, drop_percent,
                   completed)
 
-        latency_ns_avg = float(
-            sum([samples[iface]['Store-Forward_Avg_latency_ns']
-            for iface in samples])) / num_ifaces
-        latency_ns_min = float(
-            sum([samples[iface]['Store-Forward_Min_latency_ns']
-            for iface in samples])) / num_ifaces
-        latency_ns_max = float(
-            sum([samples[iface]['Store-Forward_Max_latency_ns']
-            for iface in samples])) / num_ifaces
+        latency_ns_avg = float(sum(
+            [samples[iface]['LatencyAvg'] for iface in samples])) / num_ifaces
+        latency_ns_min = min([samples[iface]['LatencyMin'] for iface in samples])
+        latency_ns_max = max([samples[iface]['LatencyMax'] for iface in samples])
 
         samples['Status'] = self.STATUS_FAIL
         if round(drop_percent, precision) <= tolerance:
@@ -262,9 +257,9 @@ class IXIARFC2544Profile(trex_traffic_profile.TrexProfile):
         samples['TxThroughputBps'] = tx_throughput_bps
         samples['RxThroughputBps'] = rx_throughput_bps
         samples['DropPercentage'] = drop_percent
-        samples['latency_ns_avg'] = latency_ns_avg
-        samples['latency_ns_min'] = latency_ns_min
-        samples['latency_ns_max'] = latency_ns_max
+        samples['LatencyAvg'] = latency_ns_avg
+        samples['LatencyMin'] = latency_ns_min
+        samples['LatencyMax'] = latency_ns_max
         samples['Rate'] = last_rate
         samples['PktSize'] = self._get_framesize()
         samples['Iteration'] = self.iteration
@@ -327,10 +322,10 @@ class IXIARFC2544PppoeScenarioProfile(IXIARFC2544Profile):
 
     def _get_summary_pppoe_subs_counters(self, samples):
         result = {}
-        keys = ['sessions_up',
-                'sessions_down',
-                'sessions_not_started',
-                'sessions_total']
+        keys = ['SessionsUp',
+                'SessionsDown',
+                'SessionsNotStarted',
+                'SessionsTotal']
         for key in keys:
             result[key] = \
                 sum([samples[port][key] for port in samples
@@ -348,13 +343,13 @@ class IXIARFC2544PppoeScenarioProfile(IXIARFC2544Profile):
         priority_stats = self._get_prio_flows_drop_percentage(priority_stats)
         summary_subs_stats = self._get_summary_pppoe_subs_counters(samples)
         in_packets_sum = sum(
-            [samples[iface]['in_packets'] for iface in samples])
+            [samples[iface]['InPackets'] for iface in samples])
         out_packets_sum = sum(
-            [samples[iface]['out_packets'] for iface in samples])
+            [samples[iface]['OutPackets'] for iface in samples])
         in_bytes_sum = sum(
-            [samples[iface]['in_bytes'] for iface in samples])
+            [samples[iface]['InBytes'] for iface in samples])
         out_bytes_sum = sum(
-            [samples[iface]['out_bytes'] for iface in samples])
+            [samples[iface]['OutBytes'] for iface in samples])
         rx_throughput = round(float(in_packets_sum) / duration, 3)
         tx_throughput = round(float(out_packets_sum) / duration, 3)
         # Rx throughput in Bps
@@ -370,25 +365,20 @@ class IXIARFC2544PppoeScenarioProfile(IXIARFC2544Profile):
         except ZeroDivisionError:
             LOG.info('No traffic is flowing')
 
-        latency_ns_avg = float(
-            sum([samples[iface]['Store-Forward_Avg_latency_ns']
-                 for iface in samples])) / num_ifaces
-        latency_ns_min = float(
-            sum([samples[iface]['Store-Forward_Min_latency_ns']
-                 for iface in samples])) / num_ifaces
-        latency_ns_max = float(
-            sum([samples[iface]['Store-Forward_Max_latency_ns']
-                 for iface in samples])) / num_ifaces
+        latency_ns_avg = float(sum(
+            [samples[iface]['LatencyAvg'] for iface in samples])) / num_ifaces
+        latency_ns_min = min([samples[iface]['LatencyMin'] for iface in samples])
+        latency_ns_max = max([samples[iface]['LatencyMax'] for iface in samples])
 
         samples['TxThroughput'] = tx_throughput
         samples['RxThroughput'] = rx_throughput
         samples['TxThroughputBps'] = tx_throughput_bps
         samples['RxThroughputBps'] = rx_throughput_bps
         samples['DropPercentage'] = sum_drop_percent
-        samples['latency_ns_avg'] = latency_ns_avg
-        samples['latency_ns_min'] = latency_ns_min
-        samples['latency_ns_max'] = latency_ns_max
-        samples['priority'] = priority_stats
+        samples['LatencyAvg'] = latency_ns_avg
+        samples['LatencyMin'] = latency_ns_min
+        samples['LatencyMax'] = latency_ns_max
+        samples['Priority'] = priority_stats
         samples['Rate'] = last_rate
         samples['PktSize'] = self._get_framesize()
         samples['Iteration'] = self.iteration
@@ -397,7 +387,7 @@ class IXIARFC2544PppoeScenarioProfile(IXIARFC2544Profile):
         if tc_rfc2544_opts:
             priority = tc_rfc2544_opts.get('priority')
             if priority:
-                drop_percent = samples['priority'][priority]['DropPercentage']
+                drop_percent = samples['Priority'][priority]['DropPercentage']
             else:
                 drop_percent = sum_drop_percent
         else:
