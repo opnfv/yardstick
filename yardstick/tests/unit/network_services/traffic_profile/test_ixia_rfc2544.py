@@ -627,17 +627,17 @@ class TestIXIARFC2544Profile(unittest.TestCase):
 
     def test_get_drop_percentage_completed(self):
         samples = {'iface_name_1':
-                       {'in_packets': 1000, 'out_packets': 1000,
-                        'in_bytes': 64000, 'out_bytes': 64000,
-                        'Store-Forward_Avg_latency_ns': 20,
-                        'Store-Forward_Min_latency_ns': 15,
-                        'Store-Forward_Max_latency_ns': 25},
+                       {'InPackets': 1000, 'OutPackets': 1000,
+                        'InBytes': 64000, 'OutBytes': 64000,
+                        'LatencyAvg': 20,
+                        'LatencyMin': 15,
+                        'LatencyMax': 25},
                    'iface_name_2':
-                       {'in_packets': 1005, 'out_packets': 1007,
-                        'in_bytes': 64320, 'out_bytes': 64448,
-                        'Store-Forward_Avg_latency_ns': 23,
-                        'Store-Forward_Min_latency_ns': 13,
-                        'Store-Forward_Max_latency_ns': 28}
+                       {'InPackets': 1005, 'OutPackets': 1007,
+                        'InBytes': 64320, 'OutBytes': 64448,
+                        'LatencyAvg': 23,
+                        'LatencyMin': 13,
+                        'LatencyMax': 28}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.rate = 100.0
@@ -649,25 +649,25 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         self.assertEqual(66.9, samples['TxThroughput'])
         self.assertEqual(66.833, samples['RxThroughput'])
         self.assertEqual(0.099651, samples['DropPercentage'])
-        self.assertEqual(21.5, samples['latency_ns_avg'])
-        self.assertEqual(14.0, samples['latency_ns_min'])
-        self.assertEqual(26.5, samples['latency_ns_max'])
+        self.assertEqual(21.5, samples['LatencyAvg'])
+        self.assertEqual(13.0, samples['LatencyMin'])
+        self.assertEqual(28.0, samples['LatencyMax'])
         self.assertEqual(100.0, samples['Rate'])
         self.assertEqual('64B', samples['PktSize'])
 
     def test_get_drop_percentage_over_drop_percentage(self):
         samples = {'iface_name_1':
-                       {'in_packets': 1000, 'out_packets': 1000,
-                        'in_bytes': 64000, 'out_bytes': 64000,
-                        'Store-Forward_Avg_latency_ns': 20,
-                        'Store-Forward_Min_latency_ns': 15,
-                        'Store-Forward_Max_latency_ns': 25},
+                       {'InPackets': 1000, 'OutPackets': 1000,
+                        'InBytes': 64000, 'OutBytes': 64000,
+                        'LatencyAvg': 20,
+                        'LatencyMin': 15,
+                        'LatencyMax': 25},
                    'iface_name_2':
-                       {'in_packets': 1005, 'out_packets': 1007,
-                        'in_bytes': 64320, 'out_bytes': 64448,
-                        'Store-Forward_Avg_latency_ns': 20,
-                        'Store-Forward_Min_latency_ns': 15,
-                        'Store-Forward_Max_latency_ns': 25}
+                       {'InPackets': 1005, 'OutPackets': 1007,
+                        'InBytes': 64320, 'OutBytes': 64448,
+                        'LatencyAvg': 20,
+                        'LatencyMin': 15,
+                        'LatencyMax': 25}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.rate = 1000
@@ -682,17 +682,17 @@ class TestIXIARFC2544Profile(unittest.TestCase):
 
     def test_get_drop_percentage_under_drop_percentage(self):
         samples = {'iface_name_1':
-                       {'in_packets': 1000, 'out_packets': 1000,
-                        'in_bytes': 64000, 'out_bytes': 64000,
-                        'Store-Forward_Avg_latency_ns': 20,
-                        'Store-Forward_Min_latency_ns': 15,
-                        'Store-Forward_Max_latency_ns': 25},
+                       {'InPackets': 1000, 'OutPackets': 1000,
+                        'InBytes': 64000, 'OutBytes': 64000,
+                        'LatencyAvg': 20,
+                        'LatencyMin': 15,
+                        'LatencyMax': 25},
                    'iface_name_2':
-                       {'in_packets': 1005, 'out_packets': 1007,
-                        'in_bytes': 64320, 'out_bytes': 64448,
-                        'Store-Forward_Avg_latency_ns': 20,
-                        'Store-Forward_Min_latency_ns': 15,
-                        'Store-Forward_Max_latency_ns': 25}
+                       {'InPackets': 1005, 'OutPackets': 1007,
+                        'InBytes': 64320, 'OutBytes': 64448,
+                        'LatencyAvg': 20,
+                        'LatencyMin': 15,
+                        'LatencyMax': 25}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.rate = 1000
@@ -708,17 +708,17 @@ class TestIXIARFC2544Profile(unittest.TestCase):
     @mock.patch.object(ixia_rfc2544.LOG, 'info')
     def test_get_drop_percentage_not_flow(self, *args):
         samples = {'iface_name_1':
-                       {'in_packets': 1000, 'out_packets': 0,
-                        'in_bytes': 64000, 'out_bytes': 0,
-                        'Store-Forward_Avg_latency_ns': 20,
-                        'Store-Forward_Min_latency_ns': 15,
-                        'Store-Forward_Max_latency_ns': 25},
+                       {'InPackets': 1000, 'OutPackets': 0,
+                        'InBytes': 64000, 'OutBytes': 0,
+                        'LatencyAvg': 20,
+                        'LatencyMin': 15,
+                        'LatencyMax': 25},
                    'iface_name_2':
-                       {'in_packets': 1005, 'out_packets': 0,
-                        'in_bytes': 64320, 'out_bytes': 0,
-                        'Store-Forward_Avg_latency_ns': 20,
-                        'Store-Forward_Min_latency_ns': 15,
-                        'Store-Forward_Max_latency_ns': 25}
+                       {'InPackets': 1005, 'OutPackets': 0,
+                        'InBytes': 64320, 'OutBytes': 0,
+                        'LatencyAvg': 20,
+                        'LatencyMin': 15,
+                        'LatencyMax': 25}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile.rate = 1000
@@ -733,17 +733,17 @@ class TestIXIARFC2544Profile(unittest.TestCase):
 
     def test_get_drop_percentage_first_run(self):
         samples = {'iface_name_1':
-                       {'in_packets': 1000, 'out_packets': 1000,
-                        'in_bytes': 64000, 'out_bytes': 64000,
-                        'Store-Forward_Avg_latency_ns': 20,
-                        'Store-Forward_Min_latency_ns': 15,
-                        'Store-Forward_Max_latency_ns': 25},
+                       {'InPackets': 1000, 'OutPackets': 1000,
+                        'InBytes': 64000, 'OutBytes': 64000,
+                        'LatencyAvg': 20,
+                        'LatencyMin': 15,
+                        'LatencyMax': 25},
                    'iface_name_2':
-                       {'in_packets': 1005, 'out_packets': 1007,
-                        'in_bytes': 64320, 'out_bytes': 64448,
-                        'Store-Forward_Avg_latency_ns': 20,
-                        'Store-Forward_Min_latency_ns': 15,
-                        'Store-Forward_Max_latency_ns': 25}
+                       {'InPackets': 1005, 'OutPackets': 1007,
+                        'InBytes': 64320, 'OutBytes': 64448,
+                        'LatencyAvg': 20,
+                        'LatencyMin': 15,
+                        'LatencyMax': 25}
                    }
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile._get_next_rate = mock.Mock(return_value=50.0)
@@ -759,17 +759,17 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         rfc2544_profile = ixia_rfc2544.IXIARFC2544Profile(self.TRAFFIC_PROFILE)
         rfc2544_profile._get_next_rate = mock.Mock(return_value=0.1)
         samples = {'iface_name_1':
-                       {'in_packets': 1000, 'out_packets': 1000,
-                        'in_bytes': 64000, 'out_bytes': 64000,
-                        'Store-Forward_Avg_latency_ns': 20,
-                        'Store-Forward_Min_latency_ns': 15,
-                        'Store-Forward_Max_latency_ns': 25},
+                       {'InPackets': 1000, 'OutPackets': 1000,
+                        'InBytes': 64000, 'OutBytes': 64000,
+                        'LatencyAvg': 20,
+                        'LatencyMin': 15,
+                        'LatencyMax': 25},
                    'iface_name_2':
-                       {'in_packets': 1005, 'out_packets': 1007,
-                        'in_bytes': 64320, 'out_bytes': 64448,
-                        'Store-Forward_Avg_latency_ns': 20,
-                        'Store-Forward_Min_latency_ns': 15,
-                        'Store-Forward_Max_latency_ns': 25}
+                       {'InPackets': 1005, 'OutPackets': 1007,
+                        'InBytes': 64320, 'OutBytes': 64448,
+                        'LatencyAvg': 20,
+                        'LatencyMin': 15,
+                        'LatencyMax': 25}
                    }
         rfc2544_profile.rate = 0.19
         completed, _ = rfc2544_profile.get_drop_percentage(
@@ -777,17 +777,17 @@ class TestIXIARFC2544Profile(unittest.TestCase):
         self.assertTrue(completed)
 
         samples = {'iface_name_1':
-                       {'in_packets': 1000, 'out_packets': 1000,
-                        'in_bytes': 64000, 'out_bytes': 64000,
-                        'Store-Forward_Avg_latency_ns': 20,
-                        'Store-Forward_Min_latency_ns': 15,
-                        'Store-Forward_Max_latency_ns': 25},
+                       {'InPackets': 1000, 'OutPackets': 1000,
+                        'InBytes': 64000, 'OutBytes': 64000,
+                        'LatencyAvg': 20,
+                        'LatencyMin': 15,
+                        'LatencyMax': 25},
                    'iface_name_2':
-                       {'in_packets': 1005, 'out_packets': 1007,
-                        'in_bytes': 64320, 'out_bytes': 64448,
-                        'Store-Forward_Avg_latency_ns': 20,
-                        'Store-Forward_Min_latency_ns': 15,
-                        'Store-Forward_Max_latency_ns': 25}
+                       {'InPackets': 1005, 'OutPackets': 1007,
+                        'InBytes': 64320, 'OutBytes': 64448,
+                        'LatencyAvg': 20,
+                        'LatencyMin': 15,
+                        'LatencyMax': 25}
                    }
         rfc2544_profile.rate = 0.5
         completed, _ = rfc2544_profile.get_drop_percentage(
@@ -852,8 +852,8 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
 
         input_stats = {
             '0': {
-                'in_packets': 50,
-                'out_packets': 100,
+                'InPackets': 50,
+                'OutPackets': 100,
                 'Store-Forward_Avg_latency_ns': 10,
                 'Store-Forward_Min_latency_ns': 10,
                 'Store-Forward_Max_latency_ns': 10}}
@@ -865,8 +865,8 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
     def test__get_prio_flows_drop_percentage_traffic_not_flowing(self):
         input_stats = {
             '0': {
-                'in_packets': 0,
-                'out_packets': 0,
+                'InPackets': 0,
+                'OutPackets': 0,
                 'Store-Forward_Avg_latency_ns': 0,
                 'Store-Forward_Min_latency_ns': 0,
                 'Store-Forward_Max_latency_ns': 0}}
@@ -878,24 +878,24 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
     def test__get_summary_pppoe_subs_counters(self):
         input_stats = {
             'xe0': {
-                'out_packets': 100,
-                'sessions_up': 4,
-                'sessions_down': 0,
-                'sessions_not_started': 0,
-                'sessions_total': 4},
+                'OutPackets': 100,
+                'SessionsUp': 4,
+                'SessionsDown': 0,
+                'SessionsNotStarted': 0,
+                'SessionsTotal': 4},
             'xe1': {
-                'out_packets': 100,
-                'sessions_up': 4,
-                'sessions_down': 0,
-                'sessions_not_started': 0,
-                'sessions_total': 4}
+                'OutPackets': 100,
+                'SessionsUp': 4,
+                'SessionsDown': 0,
+                'SessionsNotStarted': 0,
+                'SessionsTotal': 4}
         }
 
         expected_stats = {
-            'sessions_up': 8,
-            'sessions_down': 0,
-            'sessions_not_started': 0,
-            'sessions_total': 8
+            'SessionsUp': 8,
+            'SessionsDown': 0,
+            'SessionsNotStarted': 0,
+            'SessionsTotal': 8
         }
 
         res = self.ixia_tp._get_summary_pppoe_subs_counters(input_stats)
@@ -910,23 +910,23 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
         samples = {
             'priority_stats': {
                 '0': {
-                    'in_packets': 100,
-                    'out_packets': 100,
-                    'in_bytes': 6400,
-                    'out_bytes': 6400,
-                    'Store-Forward_Avg_latency_ns': 10,
-                    'Store-Forward_Min_latency_ns': 10,
-                    'Store-Forward_Max_latency_ns': 10}},
+                    'InPackets': 100,
+                    'OutPackets': 100,
+                    'InBytes': 6400,
+                    'OutBytes': 6400,
+                    'LatencyAvg': 10,
+                    'LatencyMin': 10,
+                    'LatencyMax': 10}},
             'xe0': {
-                'in_packets': 100,
-                'out_packets': 100,
-                'in_bytes': 6400,
-                'out_bytes': 6400,
-                'Store-Forward_Avg_latency_ns': 10,
-                'Store-Forward_Min_latency_ns': 10,
-                'Store-Forward_Max_latency_ns': 10}}
+                'InPackets': 100,
+                'OutPackets': 100,
+                'InBytes': 6400,
+                'OutBytes': 6400,
+                'LatencyAvg': 10,
+                'LatencyMin': 10,
+                'LatencyMax': 10}}
 
-        mock_get_pppoe_subs.return_value = {'sessions_up': 1}
+        mock_get_pppoe_subs.return_value = {'SessionsUp': 1}
         mock_sum_prio_drop_rate.return_value = {'0': {'DropPercentage': 0.0}}
 
         self.ixia_tp._get_framesize = mock.Mock(return_value='64B')
@@ -934,8 +934,8 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
             samples, tol_min=0.0, tolerance=0.0001, precision=0,
             resolution=0.1, first_run=True)
         self.assertIsNotNone(res.get('DropPercentage'))
-        self.assertIsNotNone(res.get('priority'))
-        self.assertIsNotNone(res.get('sessions_up'))
+        self.assertIsNotNone(res.get('Priority'))
+        self.assertIsNotNone(res.get('SessionsUp'))
         self.assertEqual(res['DropPercentage'], 0.0)
         self.assertEqual(res['Rate'], 100.0)
         self.assertEqual(res['PktSize'], '64B')
@@ -952,31 +952,31 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
         samples = {
             'priority_stats': {
                 '0': {
-                    'in_packets': 90,
-                    'out_packets': 100,
-                    'in_bytes': 5760,
-                    'out_bytes': 6400,
-                    'Store-Forward_Avg_latency_ns': 10,
-                    'Store-Forward_Min_latency_ns': 10,
-                    'Store-Forward_Max_latency_ns': 10}},
+                    'InPackets': 90,
+                    'OutPackets': 100,
+                    'InBytes': 5760,
+                    'OutBytes': 6400,
+                    'LatencyAvg': 10,
+                    'LatencyMin': 10,
+                    'LatencyMax': 10}},
             'xe0': {
-                'in_packets': 90,
-                'out_packets': 100,
-                'in_bytes': 5760,
-                'out_bytes': 6400,
-                'Store-Forward_Avg_latency_ns': 10,
-                'Store-Forward_Min_latency_ns': 10,
-                'Store-Forward_Max_latency_ns': 10}}
+                'InPackets': 90,
+                'OutPackets': 100,
+                'InBytes': 5760,
+                'OutBytes': 6400,
+                'LatencyAvg': 10,
+                'LatencyMin': 10,
+                'LatencyMax': 10}}
 
-        mock_get_pppoe_subs.return_value = {'sessions_up': 1}
+        mock_get_pppoe_subs.return_value = {'SessionsUp': 1}
         mock_sum_prio_drop_rate.return_value = {'0': {'DropPercentage': 0.0}}
 
         status, res = self.ixia_tp.get_drop_percentage(
             samples, tol_min=0.0, tolerance=0.0001, precision=0,
             resolution=0.1, first_run=True)
         self.assertIsNotNone(res.get('DropPercentage'))
-        self.assertIsNotNone(res.get('priority'))
-        self.assertIsNotNone(res.get('sessions_up'))
+        self.assertIsNotNone(res.get('Priority'))
+        self.assertIsNotNone(res.get('SessionsUp'))
         self.assertEqual(res['DropPercentage'], 10.0)
         self.assertFalse(status)
         mock_sum_prio_drop_rate.assert_called_once()
@@ -991,24 +991,24 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
         samples = {
             'priority_stats': {
                 '0': {
-                    'in_packets': 100,
-                    'out_packets': 100,
-                    'in_bytes': 6400,
-                    'out_bytes': 6400,
-                    'Store-Forward_Avg_latency_ns': 10,
-                    'Store-Forward_Min_latency_ns': 10,
-                    'Store-Forward_Max_latency_ns': 10}},
+                    'InPackets': 100,
+                    'OutPackets': 100,
+                    'InBytes': 6400,
+                    'OutBytes': 6400,
+                    'LatencyAvg': 10,
+                    'LatencyMin': 10,
+                    'LatencyMax': 10}},
             'xe0': {
-                'in_packets': 90,
-                'out_packets': 100,
-                'in_bytes': 5760,
-                'out_bytes': 6400,
-                'Store-Forward_Avg_latency_ns': 10,
-                'Store-Forward_Min_latency_ns': 10,
-                'Store-Forward_Max_latency_ns': 10
+                'InPackets': 90,
+                'OutPackets': 100,
+                'InBytes': 5760,
+                'OutBytes': 6400,
+                'LatencyAvg': 10,
+                'LatencyMin': 10,
+                'LatencyMax': 10
         }}
 
-        mock_get_pppoe_subs.return_value = {'sessions_up': 1}
+        mock_get_pppoe_subs.return_value = {'SessionsUp': 1}
         mock_sum_prio_drop_rate.return_value = {'0': {'DropPercentage': 0.0}}
 
         tc_rfc2544_opts = {'priority': '0',
@@ -1017,8 +1017,8 @@ class TestIXIARFC2544PppoeScenarioProfile(unittest.TestCase):
             samples, tol_min=15.0000, tolerance=15.0001, precision=0,
             resolution=0.1, first_run=True, tc_rfc2544_opts=tc_rfc2544_opts)
         self.assertIsNotNone(res.get('DropPercentage'))
-        self.assertIsNotNone(res.get('priority'))
-        self.assertIsNotNone(res.get('sessions_up'))
+        self.assertIsNotNone(res.get('Priority'))
+        self.assertIsNotNone(res.get('SessionsUp'))
         self.assertTrue(status)
         mock_sum_prio_drop_rate.assert_called_once()
         mock_get_pppoe_subs.assert_called_once()
