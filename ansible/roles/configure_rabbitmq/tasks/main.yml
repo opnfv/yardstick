@@ -12,19 +12,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: Restart rabbitmq
-  service:
-    name: rabbitmq-server
-    state: restarted
+- debug: var=install_mode
+- debug: var=inst_mode_baremetal
+- debug: var=inst_mode_container
 
-- name: rabbitmqctl start_app
-  shell: rabbitmqctl start_app
+- block:
+  - name: Restart rabbitmq
+    service:
+      name: rabbitmq-server
+      state: restarted
 
-- name: Configure rabbitmq
-  rabbitmq_user:
-    user: yardstick
-    password: yardstick
-    configure_priv: .*
-    read_priv: .*
-    write_priv: .*
-    state: present
+  - name: rabbitmqctl start_app
+    shell: rabbitmqctl start_app
+
+  - name: Configure rabbitmq
+    rabbitmq_user:
+      user: yardstick
+      password: yardstick
+      configure_priv: .*
+      read_priv: .*
+      write_priv: .*
+      state: present
+  when: install_mode == inst_mode_baremetal
+
+- name: Create rabbitmq file for supervisor
+  template:
+    src: rabbitmq.sh.j2
+    dest: /etc/yardstick/rabbitmq.sh
+    mode: 0755
+  when: install_mode == inst_mode_container
