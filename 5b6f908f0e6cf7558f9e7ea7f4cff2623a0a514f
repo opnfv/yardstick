@@ -141,6 +141,30 @@
       "revId": "5b6f908f0e6cf7558f9e7ea7f4cff2623a0a514f",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_38883122",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 7491
+      },
+      "writtenOn": "2019-02-20T11:09:58Z",
+      "side": 1,
+      "message": "Thanks, I understood your idea. \nHow do you think if I add the check condition of existing key_filename in the init() functions. Then, Yardstick will not generate key L357 anymore.\n\nExample:\n110  if self.template_file is not None:\n111      # make sure the key_filename exists\n112      if not os.path.exists(self.key_filename):\n113          LOG.error(\"The key_filename provided %s \n                        does not exist!\",\n114                     self.key_filename)\n115      else:\n116           self.key_filename \u003d \n                    attrs.get(\"key_filename\")\n117  if self.key_filename is not None:\n118      # Disable key file generation if an external private \n           key\n119      # has been provided\n120      self.yardstick_gen_key_file \u003d False",
+      "parentUuid": "fafc7978_98915d55",
+      "range": {
+        "startLine": 530,
+        "startChar": 0,
+        "endLine": 533,
+        "endChar": 17
+      },
+      "revId": "5b6f908f0e6cf7558f9e7ea7f4cff2623a0a514f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
