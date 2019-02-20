@@ -674,3 +674,34 @@ preinstalled and properly configured.
     dump_interface_table
     quit
     EOL
+
+
+Preparing test run of vCMTS test case
+-------------------------------------
+
+Location of vCMTS test cases: ``samples/vnf_samples/nsut/cmts/``.
+
+Before running a specific vIPSEC test case using NSB, some changes must be
+made to the original vCMTS package.
+
+Allow SSH access to the docker images
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Follow the documentation at ``https://docs.docker.com/engine/examples/running_ssh_service/``
+to allow SSH access to the Pktgen/vcmts-d containers located at:
+
+* ``$VCMTS_ROOT/pktgen/docker/docker-image-pktgen/Dockerfile`` and
+* ``$VCMTS_ROOT/vcmtsd/docker/docker-image-vcmtsd/Dockerfile``
+
+
+Deploy the ConfigMaps for Pktgen and vCMTSd
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: bash
+
+    cd $VCMTS_ROOT/kubernetes/helm/pktgen
+    helm template . -x templates/pktgen-configmap.yaml > configmap.yaml
+    kubectl create -f configmap.yaml
+
+    cd $VCMTS_ROOT/kubernetes/helm/vcmtsd
+    helm template . -x templates/vcmts-configmap.yaml > configmap.yaml
+    kubectl create -f configmap.yaml
+

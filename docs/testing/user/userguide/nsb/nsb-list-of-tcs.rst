@@ -38,3 +38,4 @@ NSB PROX Test Case Descriptions
    tc_vfw_rfc3511
    tc_vpp_baremetal_crypto_ipsec
    tc_vims_context_sipp
+   tc_pktgen_k8s_vcmts
