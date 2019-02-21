@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_d11624f1",
+        "filename": "yardstick/network_services/helpers/cpu.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-02-21T02:40:48Z",
+      "side": 1,
+      "message": "We use the constant variable to check CPU SMT is enabled or disabled",
+      "parentUuid": "fafc7978_128d4c32",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 13
+      },
+      "revId": "669cd7b31e7c1fe87b6c82e9095721f7b2bdb786",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_72b018de",
         "filename": "yardstick/network_services/vnf_generic/vnf/vpp_helpers.py",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-15T17:45:47Z",
       "side": 1,
       "message": "Is it ok to leave value\u003dNone here and not to set default value in case it wasn\u0027t specified?",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 108,
+        "endChar": 16
+      },
+      "revId": "669cd7b31e7c1fe87b6c82e9095721f7b2bdb786",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_31d3303a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpp_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-02-21T02:40:48Z",
+      "side": 1,
+      "message": "yes, if value\u003dNone, the default will be ‘auto’\n\nRef: https://my-vpp-docs.readthedocs.io/en/latest/gettingstarted/users/configuring/startup.html\n\n\nuio-driver uio_pci_generic|igb_uio|vfio-pci|auto\n\n    Change UIO driver used by VPP. Default is ‘auto’.\n\n    Example: uio-driver igb_uio",
+      "parentUuid": "fafc7978_72b018de",
       "range": {
         "startLine": 107,
         "startChar": 8,
