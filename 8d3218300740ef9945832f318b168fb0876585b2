@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_1131cca2",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-02-21T02:21:11Z",
+      "side": 1,
+      "message": "1. Why number of worker_threads is used to run multiple scenarios?\n\u003d\u003e For IMIX scale up\n2. Have you tested to run multiple scenarios?\n\u003d\u003e yes, i\u0027ve already tested with IMIX scale up\n3. Should it be used only in L69?\n\u003d\u003e yes",
+      "parentUuid": "fafc7978_f2e408ae",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 41
+      },
+      "revId": "8d3218300740ef9945832f318b168fb0876585b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_d2e1049c",
         "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_IMIX_trex.yaml",
         "patchSetId": 8
