@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_512b5430",
+        "filename": "yardstick/network_services/vnf_generic/vnf/ipsec_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-02-21T02:29:34Z",
+      "side": 1,
+      "message": "implement in https://gerrit.opnfv.org/gerrit/65243",
+      "parentUuid": "fafc7978_f21fe8b5",
+      "revId": "d7963df28bdbecc8f4ccac288b7276c541f3e77a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_12170ca5",
         "filename": "yardstick/network_services/vnf_generic/vnf/ipsec_vnf.py",
         "patchSetId": 10
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_b11f2009",
+        "filename": "yardstick/network_services/vnf_generic/vnf/ipsec_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-02-21T02:29:34Z",
+      "side": 1,
+      "message": "implement in https://gerrit.opnfv.org/gerrit/65243",
+      "parentUuid": "fafc7978_12170ca5",
+      "revId": "d7963df28bdbecc8f4ccac288b7276c541f3e77a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_720c9895",
         "filename": "yardstick/network_services/vnf_generic/vnf/ipsec_vnf.py",
         "patchSetId": 10
@@ -70,6 +106,24 @@
       "writtenOn": "2019-02-15T14:34:34Z",
       "side": 1,
       "message": "ditto",
+      "revId": "d7963df28bdbecc8f4ccac288b7276c541f3e77a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_911c9c15",
+        "filename": "yardstick/network_services/vnf_generic/vnf/ipsec_vnf.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-02-21T02:29:34Z",
+      "side": 1,
+      "message": "implement in https://gerrit.opnfv.org/gerrit/65245",
+      "parentUuid": "fafc7978_720c9895",
       "revId": "d7963df28bdbecc8f4ccac288b7276c541f3e77a",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
