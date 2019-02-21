@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_f14888ce",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex_vpp.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-02-21T10:26:08Z",
+      "side": 1,
+      "message": "The try/except block here for make sure we can force the value to float type.\neg: pg_latency.get(\"total_min\", 0.0) \u003d one (ValueError will be raised)",
+      "parentUuid": "da01753e_513a3437",
+      "range": {
+        "startLine": 67,
+        "startChar": 20,
+        "endLine": 79,
+        "endChar": 41
+      },
+      "revId": "293c45d1e13936f6927e8e004c981b964bcc7264",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_b13e0028",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex_vpp.py",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-21T10:14:47Z",
       "side": 1,
       "message": "Same as above:\nIf specify default values for \"pg_latency\" data\n\n\nLine: 146\npg_latency \u003d latency_global.get(pg_id, {}).get(\u0027latency\u0027, {})\n\n\nLines: 148-151\nlat \u003d self.fmt_latency(pg_latency.get(\"total_min\", 0.0),\n                       pg_latency.get(\"average\", 0.0),\n                       pg_latency.get(\"total_max\", 0.0))\n\n\nMethod \"fmt_latency\" (lines 100-115) could be simplified to:\n\n\"\"\"\n@staticmethod\ndef fmt_latency(lat_min, lat_avg, lat_max):\n    t_min \u003d int(round(float(lat_min)))\n    t_avg \u003d int(round(float(lat_avg)))\n    t_max \u003d int(round(float(lat_max)))\n    return \"/\".join(str(tmp) for tmp in (t_min, t_avg, t_max))\n\"\"\"",
+      "range": {
+        "startLine": 146,
+        "startChar": 24,
+        "endLine": 151,
+        "endChar": 61
+      },
+      "revId": "293c45d1e13936f6927e8e004c981b964bcc7264",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d14584b4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex_vpp.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-02-21T10:26:08Z",
+      "side": 1,
+      "message": "same as ablove",
+      "parentUuid": "da01753e_b13e0028",
       "range": {
         "startLine": 146,
         "startChar": 24,
