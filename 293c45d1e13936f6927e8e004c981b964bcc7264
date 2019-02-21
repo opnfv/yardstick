@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_515fd472",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex_vpp.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-02-21T12:21:52Z",
+      "side": 1,
+      "message": "I\u0027m not sure about that, maybe not \"one\" but we can get \"n/a\",...\nSo i added try/except block here to prevent error.",
+      "parentUuid": "da01753e_117eece4",
+      "range": {
+        "startLine": 67,
+        "startChar": 20,
+        "endLine": 79,
+        "endChar": 41
+      },
+      "revId": "293c45d1e13936f6927e8e004c981b964bcc7264",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_b13e0028",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_trex_vpp.py",
         "patchSetId": 10
