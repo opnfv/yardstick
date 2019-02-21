@@ -69,6 +69,30 @@
       "revId": "8d3218300740ef9945832f318b168fb0876585b2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_71ddb842",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-02-21T02:48:31Z",
+      "side": 1,
+      "message": "all TCs have the same format \u0027{{worker_thread}}\u0027",
+      "parentUuid": "fafc7978_d2e1049c",
+      "range": {
+        "startLine": 64,
+        "startChar": 35,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "8d3218300740ef9945832f318b168fb0876585b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
