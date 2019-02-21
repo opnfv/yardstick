@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: John O'Loughlin <john.oloughlin@intel.com>
+Code-Review+2: Volodymyr Mytnyk <volodymyrx.mytnyk@intel.com>
+Submitted-by: Volodymyr Mytnyk <volodymyrx.mytnyk@intel.com>
+Submitted-at: Thu, 21 Feb 2019 15:16:29 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/66297
+Project: yardstick
+Branch: refs/heads/master
