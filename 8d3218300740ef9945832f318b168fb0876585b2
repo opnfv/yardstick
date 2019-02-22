@@ -93,6 +93,30 @@
       "revId": "8d3218300740ef9945832f318b168fb0876585b2",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_148d3a32",
+        "filename": "samples/vnf_samples/nsut/ipsec/tc_baremetal_rfc2544_ipv4_hw_aesgcm_IMIX_trex.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-02-22T16:16:00Z",
+      "side": 1,
+      "message": "I don\u0027t mean exactly worker_threads. I mean all variable that you use in TC files. Some of them use {{variable}}, some use {{ variable }} indentation. Please fix all TC to have the same indentation. This is minor but should be fixed.",
+      "parentUuid": "da01753e_71ddb842",
+      "range": {
+        "startLine": 64,
+        "startChar": 35,
+        "endLine": 64,
+        "endChar": 53
+      },
+      "revId": "8d3218300740ef9945832f318b168fb0876585b2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
