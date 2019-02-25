@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_775808fb",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-25T09:17:45Z",
+      "side": 1,
+      "message": "please fix indentation (hanging lines should not align with an open bracket)",
+      "range": {
+        "startLine": 350,
+        "startChar": 0,
+        "endLine": 352,
+        "endChar": 27
+      },
+      "revId": "b09eeb7d127b1e9b3a90ddd02c39aa1024882da5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_3705e0c2",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-25T09:17:45Z",
+      "side": 1,
+      "message": "please fix unit test\nhttps://build.opnfv.org/ci/job/yardstick-verify-master/10225/console",
+      "range": {
+        "startLine": 177,
+        "startChar": 8,
+        "endLine": 177,
+        "endChar": 30
+      },
+      "revId": "b09eeb7d127b1e9b3a90ddd02c39aa1024882da5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
