@@ -16,7 +16,7 @@
 schema: yardstick:task:0.1
 {% set page = page or "/1b.html" %}
 scenarios:
-- type: NSPerf
+- type: NSPerf-RFC3511
   traffic_profile: "../../traffic_profiles/ixload/http_ixload.yaml"
   topology: agnostic_vnf_topology_ixload_2ports.yaml
   nodes:
@@ -27,8 +27,8 @@ scenarios:
       uplink: [{{page}}]
     vnf__0: []
   runner:
-    type: Duration
-    duration: 2
+    type: Iteration
+    iterations: 1
   ixia_profile: ../../traffic_profiles/ixload/HTTP-ConcurrentConnections_2Ports.rxf
 context:
   type: Node

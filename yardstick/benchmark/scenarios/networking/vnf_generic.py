@@ -627,3 +627,58 @@ class NetworkServiceRFC2544(NetworkServiceBase):
             output.push(self.collector.get_kpi())
 
         self.collector.stop()
+
+class NetworkServiceRFC3511(NetworkServiceBase):
+    """Class handles RFC3511 Network service testing"""
+
+    __scenario_type__ = "NSPerf-RFC3511"
+
+    def __init__(self, scenario_cfg, context_cfg):  # pragma: no cover
+        super(NetworkServiceRFC3511, self).__init__(scenario_cfg, context_cfg)
+
+    def setup(self):
+        """Setup infrastructure, provision VNFs"""
+        self.map_topology_to_infrastructure()
+        self.load_vnf_models()
+
+        traffic_runners = [vnf for vnf in self.vnfs if vnf.runs_traffic]
+        non_traffic_runners = [vnf for vnf in self.vnfs if not vnf.runs_traffic]
+        try:
+            for vnf in chain(traffic_runners, non_traffic_runners):
+                LOG.info("Instantiating %s", vnf.name)
+                vnf.instantiate(self.scenario_cfg, self.context_cfg)
+                LOG.info("Waiting for %s to instantiate", vnf.name)
+                vnf.wait_for_instantiate()
+        except:
+            LOG.exception("")
+            for vnf in self.vnfs:
+                vnf.terminate()
+            raise
+
+        self._generate_pod_yaml()
+
+    def run(self, output):
+        """ Run experiment
+
+        :param output: scenario output to push results
+        :return: None
+        """
+
+        self._fill_traffic_profile()
+
+        traffic_runners = [vnf for vnf in self.vnfs if vnf.runs_traffic]
+
+        for traffic_gen in traffic_runners:
+            traffic_gen.listen_traffic(self.traffic_profile)
+
+        self.collector = Collector(self.vnfs,
+                                   context_base.Context.get_physical_nodes())
+        self.collector.start()
+
+        for traffic_gen in traffic_runners:
+            LOG.info("Run traffic on %s", traffic_gen.name)
+            traffic_gen.run_traffic(self.traffic_profile)
+
+        output.push(self.collector.get_kpi())
+
+        self.collector.stop()
