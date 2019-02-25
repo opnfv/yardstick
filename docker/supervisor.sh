@@ -10,7 +10,6 @@
 
 # nginx service start when boot
 supervisor_config='/etc/supervisor/conf.d/yardstick.conf'
-rabbitmq_config='/etc/supervisor/conf.d/rabbitmq.conf'
 
 if [[ ! -e "${supervisor_config}" ]]; then
 
@@ -24,18 +23,9 @@ command = service nginx restart
 [program:yardstick_uwsgi]
 directory = /etc/yardstick
 command = uwsgi -i yardstick.ini
-EOF
 
-fi
-
-if [[ ! -e "${rabbitmq_config}" ]]; then
-
-    cat << EOF > "${rabbitmq_config}"
 [program:rabbitmq]
-command = /bin/bash -c "service rabbitmq-server restart
-    rabbitmqctl start_app
-    rabbitmqctl add_user yardstick yardstick
-    rabbitmqctl set_permissions -p / yardstick '.*' '.*'"
+command=/etc/yardstick/rabbitmq.sh
 EOF
 
 fi

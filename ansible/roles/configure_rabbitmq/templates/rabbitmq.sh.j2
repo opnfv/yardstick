@@ -1,0 +1,20 @@
+#!/bin/bash
+trap "rabbitmqctl stop_app" EXIT
+
+rabbitmqctl stop_app
+service rabbitmq-server restart
+rabbitmqctl start_app
+
+tmp_file="/tmp/$(basename -- $0).configured"
+if [ ! -f "$tmp_file" ]; then
+    rabbitmqctl add_user yardstick yardstick
+    rabbitmqctl set_permissions -p / yardstick '.*' '.*' '.*'
+    touch "$tmp_file"
+fi
+
+while :
+do
+    sleep 5
+    service rabbitmq-server status > /dev/null 2>&1 || exit 1
+    rabbitmqctl report | grep "Status of node rabbit@`hostname`" > /dev/null 2>&1 || exit 1
+done
