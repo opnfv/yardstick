@@ -24,7 +24,7 @@
 schema: yardstick:task:0.1
 description: >
     This is the VPP IPSec performance tests based on the Data Plane Development
-    Kit (DPDK) Cryptodev framework. DUT1 and DUT2 are configured with DPDK SW
+    Kit (DPDK) Cryptodev framework. DUT1 and DUT2 are configured with DPDK HW
     cryptodev devices and {{ tunnels }} IPsec tunnels between them. DUTs get
     IPv4 traffic from TG with {{ frame_size }}B packet size and number of flows
     is {{ flow_count }}, encrypt it and send to another DUT, where packets are
@@ -61,13 +61,13 @@ scenarios:
         interval: 1
       # Crypto device type. Type: string - *Example:* HW_cryptodev | SW_cryptodev
       # Number of RX queues, default value: ${None}. Type: integer
-      vnf_config: {crypto_type: 'SW_cryptodev', rxq: 1, worker_config: '1C/1T',
-                   worker_threads: {{worker_thread}}}
+      vnf_config: {crypto_type: 'HW_cryptodev', rxq: 1, worker_config: '1C/1T',
+                   worker_threads: {{ worker_thread }}}
     vnf__1:
       collectd:
         interval: 1
-      vnf_config: {crypto_type: 'SW_cryptodev', rxq: 1, worker_config: '1C/1T',
-                   worker_threads: {{worker_thread}}}
+      vnf_config: {crypto_type: 'HW_cryptodev', rxq: 1, worker_config: '1C/1T',
+                   worker_threads: {{ worker_thread }}}
     tg__0:
       collectd:
         interval: 1
