@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_77b008de",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-26T20:17:28Z",
+      "side": 1,
+      "message": "Even though this multiline string is not executable right here, please note that currently the test cases are mostly using naming convention\n  \"trafficgen_0.yardstick\"\nA massive renaming/unification effort was recently merged.",
+      "range": {
+        "startLine": 504,
+        "startChar": 26,
+        "endLine": 504,
+        "endChar": 30
+      },
+      "revId": "ac68f558bb26562e83da2cb90a6b80606a937a54",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_daed99f1",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-26T20:17:28Z",
+      "side": 1,
+      "message": "nit: bool() is excessive there, it seems",
+      "range": {
+        "startLine": 526,
+        "startChar": 15,
+        "endLine": 526,
+        "endChar": 47
+      },
+      "revId": "ac68f558bb26562e83da2cb90a6b80606a937a54",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_3abae5e1",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-26T20:17:28Z",
+      "side": 1,
+      "message": "could avoid the if statement in L526:\n\nfor key, value in attr_name.get(\"interfaces\", {}).items():\n    ...",
+      "range": {
+        "startLine": 526,
+        "startChar": 0,
+        "endLine": 527,
+        "endChar": 70
+      },
+      "revId": "ac68f558bb26562e83da2cb90a6b80606a937a54",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_7ab46df2",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-26T20:17:28Z",
+      "side": 1,
+      "message": "Does it make sense to have two \"scenarios\" branches here?",
+      "range": {
+        "startLine": 622,
+        "startChar": 0,
+        "endLine": 636,
+        "endChar": 53
+      },
+      "revId": "ac68f558bb26562e83da2cb90a6b80606a937a54",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
