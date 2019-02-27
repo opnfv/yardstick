@@ -91,6 +91,30 @@
       "revId": "ac68f558bb26562e83da2cb90a6b80606a937a54",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_7a82ad01",
+        "filename": "yardstick/benchmark/core/task.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 7491
+      },
+      "writtenOn": "2019-02-27T03:12:04Z",
+      "side": 1,
+      "message": "Yes, the two \"scenarios\" with two different formats, and the way to get the name to check \"qualified_name\" are different also.",
+      "parentUuid": "da01753e_7ab46df2",
+      "range": {
+        "startLine": 622,
+        "startChar": 0,
+        "endLine": 636,
+        "endChar": 53
+      },
+      "revId": "ac68f558bb26562e83da2cb90a6b80606a937a54",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
