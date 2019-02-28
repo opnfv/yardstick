@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_4588aa22",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-02-28T11:10:17Z",
+      "side": 1,
+      "message": "Why do you copy KPI\u0027s from one influxdb to another?\nIn general collect_kpi() collects KPI\u0027s from VNF and returns dictionary. After all this dictionary is pushed to the preconfigured dispatcher, which can be influxdb.",
+      "parentUuid": "da01753e_943bea37",
+      "range": {
+        "startLine": 261,
+        "startChar": 8,
+        "endLine": 261,
+        "endChar": 29
+      },
+      "revId": "5443a3e1c18dd27cadfadd5d9579ced86b5a9b76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_94f48a88",
         "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
         "patchSetId": 9
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "yes, no errors/exceptions here",
       "parentUuid": "da01753e_94f48a88",
+      "range": {
+        "startLine": 267,
+        "startChar": 8,
+        "endLine": 267,
+        "endChar": 19
+      },
+      "revId": "5443a3e1c18dd27cadfadd5d9579ced86b5a9b76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_05c86273",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-02-28T11:10:17Z",
+      "side": 1,
+      "message": "I don\u0027t think anything should be returned here.\nThis class is inherited from \"GenericVNF\" which has:\nclass GenericVNF(object):\nSNIP\n    @abc.abstractmethod\n    def start_collect(self):\n        \"\"\"Start KPI collection\n        :return: None\n        \"\"\"",
+      "parentUuid": "da01753e_14309a55",
       "range": {
         "startLine": 267,
         "startChar": 8,
