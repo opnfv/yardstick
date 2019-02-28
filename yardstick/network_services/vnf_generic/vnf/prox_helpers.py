@@ -347,7 +347,7 @@ class ProxSocketHelper(object):
         LOG.debug("Received data from socket: [%s]", ret_str)
         return status, ret_str
 
-    def get_data(self, pkt_dump_only=False, timeout=0.01):
+    def get_data(self, pkt_dump_only=False, timeout=10.0):
         """ read data from the socket """
 
         # This method behaves slightly differently depending on whether it is
