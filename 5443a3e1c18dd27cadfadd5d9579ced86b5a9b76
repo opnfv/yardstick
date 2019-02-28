@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_543a2237",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 7379
+      },
+      "writtenOn": "2019-02-28T09:54:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_f4da3616",
+      "range": {
+        "startLine": 180,
+        "startChar": 0,
+        "endLine": 180,
+        "endChar": 68
+      },
+      "revId": "5443a3e1c18dd27cadfadd5d9579ced86b5a9b76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_d4d732ec",
         "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-22T18:41:38Z",
       "side": 1,
       "message": "If omitted None is returned.",
+      "range": {
+        "startLine": 184,
+        "startChar": 8,
+        "endLine": 184,
+        "endChar": 19
+      },
+      "revId": "5443a3e1c18dd27cadfadd5d9579ced86b5a9b76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_7435a645",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 7379
+      },
+      "writtenOn": "2019-02-28T09:54:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_d4d732ec",
       "range": {
         "startLine": 184,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_b43eee27",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 7379
+      },
+      "writtenOn": "2019-02-28T09:54:16Z",
+      "side": 1,
+      "message": "this whole functions is a copy of:\n\nhttps://github.com/opnfv/yardstick/blob/master/yardstick/network_services/vnf_generic/vnf/sample_vnf.py#L711\n\ncopied here because we can\u0027t derive this class from SampleVNF, the spec we got mentioned that this class must be derived from GenericVNF.",
+      "parentUuid": "da01753e_54034273",
+      "range": {
+        "startLine": 237,
+        "startChar": 8,
+        "endLine": 237,
+        "endChar": 33
+      },
+      "revId": "5443a3e1c18dd27cadfadd5d9579ced86b5a9b76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_b4f70e8c",
         "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
         "patchSetId": 9
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_943bea37",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 7379
+      },
+      "writtenOn": "2019-02-28T09:54:16Z",
+      "side": 1,
+      "message": "seems like a non-empty dictionary must always be returned.",
+      "parentUuid": "da01753e_b4f70e8c",
+      "range": {
+        "startLine": 261,
+        "startChar": 8,
+        "endLine": 261,
+        "endChar": 29
+      },
+      "revId": "5443a3e1c18dd27cadfadd5d9579ced86b5a9b76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_94f48a88",
         "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
         "patchSetId": 9
@@ -105,6 +201,30 @@
       "writtenOn": "2019-02-22T18:41:38Z",
       "side": 1,
       "message": "Like, always return True?",
+      "range": {
+        "startLine": 267,
+        "startChar": 8,
+        "endLine": 267,
+        "endChar": 19
+      },
+      "revId": "5443a3e1c18dd27cadfadd5d9579ced86b5a9b76",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_14309a55",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 7379
+      },
+      "writtenOn": "2019-02-28T09:54:16Z",
+      "side": 1,
+      "message": "yes, no errors/exceptions here",
+      "parentUuid": "da01753e_94f48a88",
       "range": {
         "startLine": 267,
         "startChar": 8,
