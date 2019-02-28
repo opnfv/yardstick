@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_e5f8be4b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-28T16:19:21Z",
+      "side": 1,
+      "message": "please update year range",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "057e9fb709e538d2464ac7990b2982c2e92998c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_45954ae3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-28T16:19:21Z",
+      "side": 1,
+      "message": "improper indentation, I think\none of options is to move all params to L46 with indent of 8 whitespaces",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 34
+      },
+      "revId": "057e9fb709e538d2464ac7990b2982c2e92998c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_65a4ce57",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-28T16:19:21Z",
+      "side": 1,
+      "message": "Is there any indicator of IMS services readiness?\nIf yes, then, at very least, L50 might need to be prefixed with a TODO comment stating it would be reworked later.",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 34
+      },
+      "revId": "057e9fb709e538d2464ac7990b2982c2e92998c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c5881ac9",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-28T16:19:21Z",
+      "side": 1,
+      "message": "1. Possibly you misunderstood my point...\nThe script itself is not a part of this or other code changes here. So, one may not test this VNF by running this code. Or even to understand what it does.\n2. Please revert to conventional assignment syntax \" \u003d \".",
+      "revId": "057e9fb709e538d2464ac7990b2982c2e92998c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a58516af",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-28T16:19:21Z",
+      "side": 1,
+      "message": "Please explain why this delay here is needed, by your design.",
+      "revId": "057e9fb709e538d2464ac7990b2982c2e92998c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_059342fb",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-02-28T16:19:21Z",
+      "side": 1,
+      "message": "1. Repeat my question from previous patch set: could the hardcoded value \"60\" be replaced with self.WAIT_TIME or other pre-set variable?\n2. Could the delay be replaced with a status check?",
+      "range": {
+        "startLine": 94,
+        "startChar": 19,
+        "endLine": 94,
+        "endChar": 21
+      },
+      "revId": "057e9fb709e538d2464ac7990b2982c2e92998c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
