@@ -65,6 +65,14 @@ NSB extension includes:
     * L4-L7 state-full traffic profiles
     * Tunneling protocol/network overlay support
 
+* Scenarios that handle NSB test cases execution
+
+    * NSPerf - scenario that handles generic NSB test case execution
+      (setup and init tg/vnf, trigger traffic on tg, collect kpi)
+    * NSPerf-RFC2544 - scenario that allows repeatable triggering of traffic on
+      traffic generators until test case acceptance criteria is met
+      (for example RFC2544 binary search)
+
 * Test case samples
 
     * Ping
