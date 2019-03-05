@@ -27,12 +27,14 @@ scenarios:
   type: Ping
   options:
     packetsize: 100
-  host: demo1.demo{{num}}
-  target: demo2.demo{{num}}
+  host: demo2.demo{{num}}
+  target: demo1.demo{{num}}
   runner:
     type: Duration
     duration: 60
     interval: 1
+  sla:
+    max_rtt: 10
 {% endfor %}
 
 contexts:
@@ -67,10 +69,10 @@ contexts:
       policy: "availability"
 
   servers:
-    demo1:
+    demo2:
       floating_ip: true
       placement: "pgrp1"
-    demo2:
+    demo1:
       placement: "pgrp1"
 
   networks:
