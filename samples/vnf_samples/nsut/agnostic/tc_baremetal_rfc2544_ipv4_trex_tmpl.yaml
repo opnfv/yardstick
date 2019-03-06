@@ -23,7 +23,7 @@
 schema: yardstick:task:0.1
 scenarios:
 - type: NSPerf-RFC2544
-  traffic_profile: ../../traffic_profiles/ipv4_throughput.yaml
+  traffic_profile: ../../traffic_profiles/ipv4_throughput-tmpl.yaml
   topology: agnostic_vnf_topology_trex_tmpl.yaml
   extra_args:
     vports: {{vports}}
@@ -48,6 +48,7 @@ scenarios:
     traffic_type: 4
     rfc2544:
       allowed_drop_rate: {{drop_rate}}
+    tg__0:
       queues_per_port: {{queues_per_port}}
     vnf__0:
         []
