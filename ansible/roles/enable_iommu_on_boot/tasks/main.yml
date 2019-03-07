@@ -54,25 +54,26 @@
       - not is_nsb_iommu_role.changed
       - is_iommu.changed
 
-  - name: Add IOMMU when it is not set
-    lineinfile:
-      path: "{{ grub_file }}"
-      regexp: "{{ iommu_help_string }}"
-      line: '{{ enable_iommu }}" {{ iommu_help_string }}'
+  - block:
+    - name: Add IOMMU when it is not set
+      lineinfile:
+        path: "{{ grub_file }}"
+        regexp: "{{ iommu_help_string }}"
+        line: '{{ enable_iommu }}" {{ iommu_help_string }}'
+
+    - name: find boot grub.cfg
+      find:
+        paths: /boot
+        file_type: file
+        patterns: 'grub*.cfg'
+        recurse: yes
+      register: grub_files
+
+    - include: manual_modify_grub.yml
+      # only tested on Ubuntu, kernel line is probably different on other distros
+      with_items: "{{ grub_files.files }}"
     when:
+      - ansible_distribution == "Ubuntu"
       - not is_nsb_iommu_role.changed
       - not is_iommu.changed
-
-  - name: find boot grub.cfg
-    find:
-      paths: /boot
-      file_type: file
-      patterns: 'grub*.cfg'
-      recurse: yes
-    register: grub_files
-
-  - include: manual_modify_grub.yml
-    # only tested on Ubuntu, kernel line is probably different on other distros
-    with_items: "{{ grub_files.files }}"
-    when: ansible_distribution == "Ubuntu"
   when: iommu_boot_params is defined
