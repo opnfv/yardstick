@@ -23,6 +23,10 @@
     dest: "{{ i40evf_dest }}/{{ i40evf_gzfile }}"
     validate_certs: False
     checksum: "{{ i40evf_checksum[i40evf_version] }}"
+  register: package_result
+  until: package_result is succeeded
+  retries: 10
+  delay: 5
 
 - name: Unarchive the i40evf file
   unarchive:
