@@ -1,4 +1,4 @@
-# Copyright (c) 2017 Intel Corporation
+# Copyright (c) 2017-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-- name: check if hugepages are set by this role
+- name: Check if hugepages are set by this role
   command: "grep -o '{{ hugepage_param_regex }}' /etc/default/grub"
   register: is_mine_huge
   ignore_errors: True
@@ -22,46 +22,32 @@
 #  stat: path="/sys/firmware/efi"
 #  register: efi
 
-- name: check if hugepages are set by someone else
+- name: Check if hugepages are set by someone else
   command: "grep -o 'default_hugepagesz=' /etc/default/grub"
   register: is_huge
   ignore_errors: True
 
-- fail:
+- debug:
     msg: "Hugepages already set by someone else"
   when: is_mine_huge.stdout == "" and is_huge.stdout != ""
 
-- name: configure hugepages as idempotent block
+- name: Configure hugepages as idempotent block
   block:
-    - name: use 8 for auto num_hugepages and 1G size
+    - name: Use 8 for auto num_hugepages and 1G size
       set_fact:
         num_hugepages: 8
       when: num_hugepages|default("auto") == "auto"
 
-    - name: set hugepages in grub
+    - name: Set hugepages in grub
       lineinfile:
         dest: /etc/default/grub
         regexp: '{{ hugepage_param_regex }}'
         line: '{{ hugepage_param }}'
         state: present
 
-    - name: create hugetables mount
-      file:
-        path: "{{ hugetable_mount }}"
-        state: directory
-
-    - name: mount hugetlbfs
-      mount:
-        name: "{{ hugetable_mount }}"
-        src: nodev
-        fstype: hugetlbfs
-        state: present
-
-    - service:
-        name: procps
-        enabled: yes
-
     - include: manual_modify_grub.yml
       # only tested on Ubuntu, kernel line is probably different on other distros
       when: ansible_distribution == "Ubuntu"
-  when: is_mine_huge.stdout == ""
+  when:
+    - is_mine_huge.stdout == ""
+    - is_huge.stdout == ""
