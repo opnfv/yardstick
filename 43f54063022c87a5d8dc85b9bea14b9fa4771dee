@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_86b61889",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 11
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-03-08T05:00:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_86357848",
+      "revId": "43f54063022c87a5d8dc85b9bea14b9fa4771dee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_663a1438",
         "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
         "patchSetId": 11
@@ -30,6 +48,30 @@
       "writtenOn": "2019-03-07T17:04:30Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 663,
+        "startChar": 0,
+        "endLine": 673,
+        "endChar": 6
+      },
+      "revId": "43f54063022c87a5d8dc85b9bea14b9fa4771dee",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_66bb3473",
+        "filename": "docs/testing/user/userguide/14-nsb-operation.rst",
+        "patchSetId": 11
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-03-08T05:00:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_663a1438",
       "range": {
         "startLine": 663,
         "startChar": 0,
