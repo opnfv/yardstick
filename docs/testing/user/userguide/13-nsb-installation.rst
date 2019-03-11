@@ -95,9 +95,10 @@ The ``nsb_setup.sh`` allows to:
 1. Install Yardstick in specified mode: bare metal or container.
    Refer :doc:`04-installation`.
 2. Install package dependencies on remote servers used as traffic generator or
-   sample VNF. Add such servers to ``install-inventory.ini`` file to either
+   sample VNF. Install DPDK, sample VNFs, TREX, collectd.
+   Add such servers to ``install-inventory.ini`` file to either
    ``yardstick-standalone`` or ``yardstick-baremetal`` server groups.
-   Configures IOMMU, hugepages, open file limits, CPU isolation, etc.
+   It configures IOMMU, hugepages, open file limits, CPU isolation, etc.
 3. Build VM image either nsb or normal. The nsb VM image is used to run
    Yardstick sample VNF tests, like vFW, vACL, vCGNAPT, etc.
    The normal VM image is used to run Yardstick ping tests in OpenStack context.
@@ -136,21 +137,24 @@ Modify the Yardstick installation inventory used by Ansible::
   [yardstick:children]
   jumphost
 
-  [yardstick-standalone]
+  [yardstick-baremetal]
   standalone ansible_host=192.168.2.51 ansible_connection=ssh
 
-  [yardstick-baremetal]
+  [yardstick-standalone]
   baremetal ansible_host=192.168.2.52 ansible_connection=ssh
 
   [all:vars]
-  arch_amd64=amd64
-  arch_arm64=arm64
-  inst_mode_baremetal=baremetal
-  inst_mode_container=container
-  inst_mode_container_pull=container_pull
-  ubuntu_archive={"amd64": "http://archive.ubuntu.com/ubuntu/", "arm64": "http://ports.ubuntu.com/ubuntu-ports/"}
-  ansible_user=root
-  ansible_ssh_pass=root  # OR ansible_ssh_private_key_file=/root/.ssh/id_rsa
+  # Uncomment credentials below if needed
+    ansible_user=root
+    ansible_ssh_pass=root  # OR ansible_ssh_private_key_file=/root/.ssh/id_rsa
+  # When IMG_PROPERTY is passed neither normal nor nsb set
+  # "path_to_vm=/path/to/image" to add it to OpenStack
+  # path_to_img=/tmp/workspace/yardstick-image.img
+
+  # List of CPUs to be isolated (not used by default)
+  # Grub line will be extended with:
+  # "isolcpus=<ISOL_CPUS> nohz=on nohz_full=<ISOL_CPUS> rcu_nocbs=1<ISOL_CPUS>"
+  # ISOL_CPUS=2-27,30-55 # physical cpu's for all NUMA nodes, four cpu's reserved
 
 .. warning::
 
@@ -178,13 +182,17 @@ Modify the Yardstick installation inventory used by Ansible::
 .. note::
 
    CPU isolation can be applied to the remote servers, like:
-   ISOL_CPUS=2-27,30-55
-   Uncomment and modify accordingly in ``install-inventory.ini`` file.
+   ISOL_CPUS=2-27,30-55. Uncomment and modify accordingly in
+   ``install-inventory.ini`` file.
 
 By default ``nsb_setup.sh`` pulls Yardstick image based on Ubuntu 16.04 from
 docker hub and starts container, builds NSB VM image based on Ubuntu 16.04,
 installs packages to the servers given in ``yardstick-standalone`` and
 ``yardstick-baremetal`` host groups.
+
+To pull Yardstick built based on Ubuntu 18 run::
+
+    ./nsb_setup.sh -i opnfv/yardstick-ubuntu-18.04:latest
 
 To change default behavior modify parameters for ``install.yaml`` in
 ``nsb_setup.sh`` file.
@@ -196,10 +204,13 @@ To execute an installation for a **BareMetal** or a **Standalone context**::
 
     ./nsb_setup.sh
 
-
 To execute an installation for an **OpenStack** context::
 
     ./nsb_setup.sh <path to admin-openrc.sh>
+
+.. note::
+
+   Make sure kernel is updated before running ``nsb_setup.sh``.
 
 .. warning::
 
@@ -217,10 +228,62 @@ execute::
 
   docker exec -it yardstick bash
 
+.. note::
+
+   It may be needed to configure tty in docker container to extend commandline
+   character length:
+
+   stty size rows 58 cols 234
+
 It will also automatically download all the packages needed for NSB Testing
-setup. Refer chapter :doc:`04-installation` for more on Docker
+setup. Refer chapter :doc:`04-installation` for more on Docker.
 
 **Install Yardstick using Docker (recommended)**
+
+Bare Metal context example
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For this setup is required TG sample VNF and Yardstick jump host.
+TG can be either IXIA or server which is configured in pod file.
+
+Following steps are needed:
+
+1. Clone Yardstick repo to jump host.
+2. Add servers to ``yardstick-baremetal`` group in ``install-inventory.ini``
+   file to install NSB and dependencies.
+3. Start deployment:
+   ./nsb_setup.sh -i opnfv/yardstick-ubuntu-18.04:latest -o <openrc_file>
+4. Reboot bare metal servers.
+5. Modify pod yaml file and run tests.
+
+Standalone context example
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For Standalone context same setup is required.
+Few steps are different from bare metal context.
+
+Following steps are needed:
+
+1. Clone Yardstick repo to jump host.
+2. Add servers to ``yardstick-baremetal`` group in ``install-inventory.ini``
+   file to install NSB and dependencies.
+   Add server where VM with sample VNF will be deployed to
+   ``yardstick-standalone`` group in ``install-inventory.ini`` file.
+   Target VM image named ``yardstick-nsb-image.img`` will be placed to
+   ``/var/lib/libvirt/images/``.
+3. Modify ``nsb_setup.sh`` on jump host:
+   ansible-playbook \
+   -e IMAGE_PROPERTY='nsb' \
+   -e OS_RELEASE='bionic' \
+   -e INSTALLATION_MODE='container_pull' \
+   -e YARDSTICK_DIR=<path to Yardstick> \
+   -e YARD_IMAGE_ARCH='amd64' ${extra_args} \
+   -i install-inventory.ini install.yaml
+4. Start deployment:
+   ./nsb_setup.sh -i opnfv/yardstick-ubuntu-18.04:latest -o <openrc_file>
+5. Reboot servers.
+6. Modify pod yaml file and run tests.
+
 
 System Topology
 ---------------
