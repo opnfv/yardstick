@@ -94,7 +94,7 @@ class VnfdHelper(dict):
         for interface in self.interfaces:
             virtual_intf = interface["virtual-interface"]
             if virtual_intf[key] == value:
-                return interface
+                return virtual_intf
         raise KeyError()
 
     def find_interface(self, **kwargs):
