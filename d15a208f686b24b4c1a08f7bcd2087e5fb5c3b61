@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_709e4958",
+        "filename": "yardstick/network_services/helpers/vpp_helpers/abstract_search_algorithm.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-13T16:50:05Z",
+      "side": 1,
+      "message": "year",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "d15a208f686b24b4c1a08f7bcd2087e5fb5c3b61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_50b6a5dd",
+        "filename": "yardstick/network_services/helpers/vpp_helpers/abstract_search_algorithm.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-13T16:50:05Z",
+      "side": 1,
+      "message": "Where this file is located? Could you please point the gerrit repo ?",
+      "revId": "d15a208f686b24b4c1a08f7bcd2087e5fb5c3b61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d0a29599",
+        "filename": "yardstick/network_services/helpers/vpp_helpers/multiple_loss_ratio_search.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-13T16:50:05Z",
+      "side": 1,
+      "message": "year",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "d15a208f686b24b4c1a08f7bcd2087e5fb5c3b61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_b09f1150",
+        "filename": "yardstick/network_services/helpers/vpp_helpers/ndr_pdr_result.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-13T16:50:05Z",
+      "side": 1,
+      "message": "year",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "d15a208f686b24b4c1a08f7bcd2087e5fb5c3b61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_10ad3d89",
+        "filename": "yardstick/network_services/helpers/vpp_helpers/receive_rate_interval.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-13T16:50:05Z",
+      "side": 1,
+      "message": "year",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "d15a208f686b24b4c1a08f7bcd2087e5fb5c3b61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_f0a9997c",
+        "filename": "yardstick/network_services/helpers/vpp_helpers/receive_rate_measurement.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-13T16:50:05Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "d15a208f686b24b4c1a08f7bcd2087e5fb5c3b61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1076dd3e",
+        "filename": "yardstick/network_services/traffic_profile/vpp_rfc2544.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-13T16:50:05Z",
+      "side": 1,
+      "message": "import ipaddress\nimport random\nimport string",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 32
+      },
+      "revId": "d15a208f686b24b4c1a08f7bcd2087e5fb5c3b61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_f0723948",
+        "filename": "yardstick/tests/unit/network_services/helpers/vpp_helpers/test_multiple_loss_ratio_search.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-13T16:50:05Z",
+      "side": 1,
+      "message": "year",
+      "range": {
+        "startLine": 1,
+        "startChar": 20,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "d15a208f686b24b4c1a08f7bcd2087e5fb5c3b61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_508fc523",
+        "filename": "yardstick/tests/unit/network_services/helpers/vpp_helpers/test_ndr_pdr_result.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-13T16:50:05Z",
+      "side": 1,
+      "message": "year",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "d15a208f686b24b4c1a08f7bcd2087e5fb5c3b61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_3094c136",
+        "filename": "yardstick/tests/unit/network_services/helpers/vpp_helpers/test_receive_rate_interval.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-13T16:50:05Z",
+      "side": 1,
+      "message": "year",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "d15a208f686b24b4c1a08f7bcd2087e5fb5c3b61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_90992d71",
+        "filename": "yardstick/tests/unit/network_services/helpers/vpp_helpers/test_receive_rate_measurement.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-13T16:50:05Z",
+      "side": 1,
+      "message": "year",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "d15a208f686b24b4c1a08f7bcd2087e5fb5c3b61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
