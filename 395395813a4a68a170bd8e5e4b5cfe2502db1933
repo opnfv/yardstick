@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_73f813e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-14T17:48:24Z",
+      "side": 1,
+      "message": "Filenames in a patchset differ.\nPlease adjust filenames so it fits the docs review, as well as a commit message content.",
+      "range": {
+        "startLine": 11,
+        "startChar": 4,
+        "endLine": 11,
+        "endChar": 45
+      },
+      "revId": "395395813a4a68a170bd8e5e4b5cfe2502db1933",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1390a794",
+        "filename": "samples/vnf_samples/nsut/vims/tc_vims_heat_sipp.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-14T17:48:24Z",
+      "side": 1,
+      "message": "Is this file provided in any other review?",
+      "range": {
+        "startLine": 20,
+        "startChar": 19,
+        "endLine": 20,
+        "endChar": 52
+      },
+      "revId": "395395813a4a68a170bd8e5e4b5cfe2502db1933",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_93f3f709",
+        "filename": "samples/vnf_samples/nsut/vims/tc_vims_heat_sipp.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-14T17:48:24Z",
+      "side": 1,
+      "message": "Please replace with a placeholder.\nThere\u0027s no sense to provide a specific key here.\nEven more, this one seems to be an incomplete string.",
+      "range": {
+        "startLine": 50,
+        "startChar": 18,
+        "endLine": 50,
+        "endChar": 400
+      },
+      "revId": "395395813a4a68a170bd8e5e4b5cfe2502db1933",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_33ee8b23",
+        "filename": "samples/vnf_samples/nsut/vims/tc_vims_heat_sipp.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-14T17:48:24Z",
+      "side": 1,
+      "message": "Is an example of this file provided in any other review?",
+      "range": {
+        "startLine": 79,
+        "startChar": 8,
+        "endLine": 79,
+        "endChar": 42
+      },
+      "revId": "395395813a4a68a170bd8e5e4b5cfe2502db1933",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d3dc5f77",
+        "filename": "samples/vnf_samples/nsut/vims/vims-topology.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-14T17:48:24Z",
+      "side": 1,
+      "message": "Are these files present in any other review, at least?\nIf no, this patch set seems to be incomplete. All related files should be in a single or in related commits.",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 75
+      },
+      "revId": "395395813a4a68a170bd8e5e4b5cfe2502db1933",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
