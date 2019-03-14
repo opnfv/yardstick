@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_504a2584",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-14T13:53:44Z",
+      "side": 1,
+      "message": "it requires root access to write/read files from /root folder. Can we have it at least in /tmp folder instead?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "94b87a7d4dfb172751f2bf57875abed3fbbf7db3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_906dad07",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-14T13:53:44Z",
+      "side": 1,
+      "message": "For instance, if \"port\" is not specified in the TC options, str(scenario_cfg.get(\"options\").get(\"port\")) will return \u0027None\u0027.\n\nIs it ok to have \"None;\" as a value for self.params ?\n\nShouldn\u0027t we have default value for \"port\" and all other options?",
+      "range": {
+        "startLine": 63,
+        "startChar": 22,
+        "endLine": 79,
+        "endChar": 69
+      },
+      "revId": "94b87a7d4dfb172751f2bf57875abed3fbbf7db3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_7072c9e6",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-14T13:53:44Z",
+      "side": 1,
+      "message": "Please add example of result file in a comment to easy understand and review the code.",
+      "revId": "94b87a7d4dfb172751f2bf57875abed3fbbf7db3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1081bd8f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-14T13:53:44Z",
+      "side": 1,
+      "message": "Add a comment:\n\n# i \u003d (\u003cline number starting from 0\u003e, \u003cfile line\u003e)",
+      "revId": "94b87a7d4dfb172751f2bf57875abed3fbbf7db3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d07615d8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-14T13:53:44Z",
+      "side": 1,
+      "message": "else: is not required here.\n\n-------------\nif os.path.getsize(fname) \u003e 0:\n  ...\n  return i[0] + 1\nreturn 0",
+      "revId": "94b87a7d4dfb172751f2bf57875abed3fbbf7db3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
