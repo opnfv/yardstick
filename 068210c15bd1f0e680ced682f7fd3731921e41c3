@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_bd0fea2d",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-14T10:49:47Z",
+      "side": 1,
+      "message": "1. Is it same as \"value\"?\nSeems this code chunk could be much shorter and more readable:\n\nfor key, value in attr_name.get(\"interfaces\", {}).items():\n    value[\"local_ip\"] \u003d server.private_ip\n    for k in [\"local_mac\", \"netmask\", \"network\", \"gateway_ip\"]:\n        value[k] \u003d stack_outputs.get(value[k])\n    server.interfaces.update({key: value})\n\n2. If get() is used here, is it a valid use case to continue if any of these parameters are set to None? Please advice as per your use case.",
+      "range": {
+        "startLine": 503,
+        "startChar": 26,
+        "endLine": 503,
+        "endChar": 54
+      },
+      "revId": "068210c15bd1f0e680ced682f7fd3731921e41c3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d088d5c8",
+        "filename": "yardstick/tests/unit/benchmark/core/test_task.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-14T10:49:47Z",
+      "side": 1,
+      "message": "IMO this is not enough, because the code tested here handles two cases, and only Mapping case is covered here.\nI guess easiest is to adjust one key in input data.\n\nPlease update the code or share your opinion, if I miss something.",
+      "revId": "068210c15bd1f0e680ced682f7fd3731921e41c3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
