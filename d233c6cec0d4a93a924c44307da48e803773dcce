@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "da01753e_d3ae1fe7",
+        "filename": "docs/testing/user/userguide/nsb/nsb-list-of-tcs.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-14T17:27:29Z",
+      "side": 1,
+      "message": "What is a proper file name?\nThis patchset holds only a file named:\n\n  docs/testing/user/userguide/nsb/tc_vims_context.rst\n\nSo expected name here seems to be \"tc_vims_context\"\nOr, maybe, file should be renamed?",
+      "range": {
+        "startLine": 39,
+        "startChar": 3,
+        "endLine": 39,
+        "endChar": 18
+      },
+      "revId": "d233c6cec0d4a93a924c44307da48e803773dcce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_7373f3b1",
         "filename": "docs/testing/user/userguide/nsb/tc_vims_context.rst",
         "patchSetId": 6
