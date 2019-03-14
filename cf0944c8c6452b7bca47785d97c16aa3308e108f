@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_5063451a",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-14T14:06:04Z",
+      "side": 1,
+      "message": "Please update this to avoid double get() call in same line. If first one returns None, second one will raise an AttributeError exception.\n\nAt very least, it could be:\n\n  self.start_user \u003d scenario_cfg.get(\"options\", {}).get(\"start_user\", self.start_user)\n  self.end_user \u003d scenario_cfg.get(\"options\", {}).get(\"end_user\", self.start_user)\n\nExample:\n  \u003e\u003e\u003e {}.get(\"a\", {}).get(\"b\", 11)\n  11\n  \u003e\u003e\u003e {\"a\": {\"b\": 22}}.get(\"a\", {}).get(\"b\", 11)\n  22",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 67
+      },
+      "revId": "cf0944c8c6452b7bca47785d97c16aa3308e108f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_10aa5d19",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vims_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-14T14:06:04Z",
+      "side": 1,
+      "message": "1. Please first initialize\n  self.WAIT_TIME\nin __init__()\n\n2. Very risky line! Generally, using double get() is a pain.\nIf options would miss \"wait_time\" key, time.sleep() would raise TypeError exception due to None value of self.WAIT_TIME.\nAnd even worse, if the \"options\" key would not be there, same thing will occur.\nPlease provide better handling here.",
+      "range": {
+        "startLine": 87,
+        "startChar": 8,
+        "endLine": 87,
+        "endChar": 69
+      },
+      "revId": "cf0944c8c6452b7bca47785d97c16aa3308e108f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_b07391e6",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_vims_vnf.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-14T14:06:04Z",
+      "side": 1,
+      "message": "Any plans to use \"constant\" SSH_HELPER again?",
+      "range": {
+        "startLine": 701,
+        "startChar": 4,
+        "endLine": 701,
+        "endChar": 27
+      },
+      "revId": "cf0944c8c6452b7bca47785d97c16aa3308e108f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
