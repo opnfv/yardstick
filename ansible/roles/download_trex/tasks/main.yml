@@ -23,6 +23,10 @@
     dest: "{{ trex_dest }}"
     validate_certs: False
     checksum: "{{ trex_sha256s[trex_version] }}"
+  register: package_result
+  until: package_result is succeeded
+  retries: 10
+  delay: 5
 
 - name: unarchive Trex
   unarchive:

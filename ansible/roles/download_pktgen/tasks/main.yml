@@ -22,6 +22,10 @@
     dest: "{{ pktgen_dest }}"
     validate_certs: False
     checksum: "{{ pktgen_sha256s[pktgen_version] }}"
+  register: package_result
+  until: package_result is succeeded
+  retries: 10
+  delay: 5
 
 - unarchive:
     src: "{{ pktgen_dest }}/{{ pktgen_file }}"

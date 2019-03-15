@@ -26,6 +26,10 @@
     dest: "{{ dpdk_dest }}"
     validate_certs: False
     checksum: "{{ dpdk_md5[dpdk_version] }}"
+  register: package_result
+  until: package_result is succeeded
+  retries: 10
+  delay: 5
 
 - unarchive:
     src: "{{ dpdk_dest }}/{{ dpdk_file }}"

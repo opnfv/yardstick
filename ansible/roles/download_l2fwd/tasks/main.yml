@@ -20,6 +20,10 @@
   get_url:
     url: "{{ l2fwd_url }}"
     dest: "{{ l2fwd_dest }}"
+  register: package_result
+  until: package_result is succeeded
+  retries: 10
+  delay: 5
 
 - unarchive:
     src: "{{ l2fwd_dest }}/{{ l2fwd_file }}"

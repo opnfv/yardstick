@@ -18,6 +18,10 @@
     dest: "{{ clone_dest }}/"
     validate_certs: False
     checksum: "{{ civetweb_sha256s }}"
+  register: package_result
+  until: package_result is succeeded
+  retries: 10
+  delay: 5
 
 - name: unarchive civetweb
   unarchive:
