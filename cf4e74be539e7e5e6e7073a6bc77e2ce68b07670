@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_73b5b3cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-15T10:57:09Z",
+      "side": 1,
+      "message": "Now please check the file names in the docs: https://gerrit.opnfv.org/gerrit/#/c/63025/6/docs/testing/user/userguide/nsb/tc_vims_context.rst\n\nPlease adjust so it is a proper naming by convention, as well as consistent within different related reviews.",
+      "range": {
+        "startLine": 11,
+        "startChar": 4,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "cf4e74be539e7e5e6e7073a6bc77e2ce68b07670",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
