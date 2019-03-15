@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_73ec93c8",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_vims_vnf.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-15T12:22:53Z",
+      "side": 1,
+      "message": "nit: Hope it is an example, and not your real password :)\nSame regarding other passwords in this file (same one twice more, and once for InfluxDB).",
+      "range": {
+        "startLine": 679,
+        "startChar": 29,
+        "endLine": 679,
+        "endChar": 39
+      },
+      "revId": "bfd9a2b8537db51d00de72dde85ec70d64c64e66",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
