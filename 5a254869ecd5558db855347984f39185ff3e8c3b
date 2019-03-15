@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_b3c6fb47",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-15T15:15:58Z",
+      "side": 1,
+      "message": "As mentioned before, this limits a user to run yardstick only with a root user. Sudo user won\u0027t work, it seems, due to dir access restriction.\nPlease explain if there\u0027s any specifics that I do not see here.",
+      "range": {
+        "startLine": 40,
+        "startChar": 18,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "5a254869ecd5558db855347984f39185ff3e8c3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_f3d7e3eb",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-15T15:15:58Z",
+      "side": 1,
+      "message": "Are there any unit tests in a separate review or do you plan to add them soon?\n\nMeanwhile, would you mind to provide an example of what is expected result of this piece of code.\nIf I can guess it, it looks like a series of semicolon-delimited values.\n\nTry to re-work this.\nI\u0027ve tried the following:\n\n\u003e\u003e\u003e _params \u003d {\"port\": 5060, \"start_user\": 1, \"end_user\": 10000, \"init_reg_cps\": 50, \"init_reg_max\": 5000, \"reg_cps\": 50, \"reg_step\": 10, \"rereg_cps\": 10, \"rereg_step\": 5, \"dereg_cps\": 10, \"dereg_step\": 5, \"msgc_cps\": 10, \"msgc_step\": 2, \"run_mode\": \"rtp\", \"call_cps\": 10, \"hold_time\": 15, \"call_step\": 5}\n\n\u003e\u003e\u003e scenario_cfg \u003d {}\n\n\u003e\u003e\u003e \u0027;\u0027.join([str(scenario_cfg.get(\"options\", {}).get(k, v)) for k, v in _params.items()])\n\n\u00275060;15;10;5;10000;2;10;rtp;50;5;5000;10;50;1;10;10;5\u0027\n\u003e\u003e\u003e\n\nPlease do not use as is, due to an order mixed. Could leverage OrderedDict, or a mere list(tuple), if you follow this way. Or come out with your own solution.",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 74
+      },
+      "revId": "5a254869ecd5558db855347984f39185ff3e8c3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_5304ef7d",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-15T15:15:58Z",
+      "side": 1,
+      "message": "Please rename: it is a filename, not a file",
+      "range": {
+        "startLine": 99,
+        "startChar": 28,
+        "endLine": 99,
+        "endChar": 32
+      },
+      "revId": "5a254869ecd5558db855347984f39185ff3e8c3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_b350bb5f",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-15T15:15:58Z",
+      "side": 1,
+      "message": "Try to re-work it based on below.\n\n\u003e\u003e\u003e print(a)\n\n   timestamp:1000 reg:100 reg_saps:0\n   timestamp:2000 reg:100 reg_saps:50\n   timestamp:3000 reg:100 reg_saps:50\n\n   timestamp:4000 reg:100 reg_saps:50\n   reg_Requested_prereg:50\n   reg_Effective_prereg:49.49\n   reg_DOC:0\n\u003e\u003e\u003e pprint(a)\n(\u0027\\n\u0027\n \u0027   timestamp:1000 reg:100 reg_saps:0\\n\u0027\n \u0027   timestamp:2000 reg:100 reg_saps:50\\n\u0027\n \u0027   timestamp:3000 reg:100 reg_saps:50\\n\u0027\n \u0027\\n\u0027\n \u0027   timestamp:4000 reg:100 reg_saps:50\\n\u0027\n \u0027   reg_Requested_prereg:50\\n\u0027\n \u0027   reg_Effective_prereg:49.49\\n\u0027\n \u0027   reg_DOC:0\u0027)\n\n\u003e\u003e\u003e pprint([{k:v for k, v in [i.split(\":\", 1) for i in x.split()]} for x in a.splitlines() if x])\n[{\u0027reg\u0027: \u0027100\u0027, \u0027reg_saps\u0027: \u00270\u0027, \u0027timestamp\u0027: \u00271000\u0027},\n {\u0027reg\u0027: \u0027100\u0027, \u0027reg_saps\u0027: \u002750\u0027, \u0027timestamp\u0027: \u00272000\u0027},\n {\u0027reg\u0027: \u0027100\u0027, \u0027reg_saps\u0027: \u002750\u0027, \u0027timestamp\u0027: \u00273000\u0027},\n {\u0027reg\u0027: \u0027100\u0027, \u0027reg_saps\u0027: \u002750\u0027, \u0027timestamp\u0027: \u00274000\u0027},\n {\u0027reg_Requested_prereg\u0027: \u002750\u0027},\n {\u0027reg_Effective_prereg\u0027: \u002749.49\u0027},\n {\u0027reg_DOC\u0027: \u00270\u0027}]",
+      "range": {
+        "startLine": 99,
+        "startChar": 34,
+        "endLine": 114,
+        "endChar": 20
+      },
+      "revId": "5a254869ecd5558db855347984f39185ff3e8c3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_b33b9b37",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-15T15:15:58Z",
+      "side": 1,
+      "message": "Try this:\n\n  with open(fname, \u0027rb\u0027) as fp:\n      return sum(1 for x in fp)\n\nIf file size is significant, could enhance it with block reads.",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 16
+      },
+      "revId": "5a254869ecd5558db855347984f39185ff3e8c3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_134ee7c1",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-15T15:15:58Z",
+      "side": 1,
+      "message": "Could you please explain what is the original idea?\nWhat does it confirm when the counter is same number as file lines number?",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 20
+      },
+      "revId": "5a254869ecd5558db855347984f39185ff3e8c3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
