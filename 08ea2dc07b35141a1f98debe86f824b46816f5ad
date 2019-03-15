@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_73d653c7",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_imsbench_sipp.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-15T16:50:58Z",
+      "side": 1,
+      "message": "Is it same as QUEUE \"constant\"?",
+      "range": {
+        "startLine": 429,
+        "startChar": 30,
+        "endLine": 429,
+        "endChar": 82
+      },
+      "revId": "08ea2dc07b35141a1f98debe86f824b46816f5ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_93d137d0",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_imsbench_sipp.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-15T16:50:58Z",
+      "side": 1,
+      "message": "Could you please mock all such operations, to avoid file system access.",
+      "range": {
+        "startLine": 431,
+        "startChar": 13,
+        "endLine": 431,
+        "endChar": 28
+      },
+      "revId": "08ea2dc07b35141a1f98debe86f824b46816f5ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d3da9fe8",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_imsbench_sipp.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-15T16:50:58Z",
+      "side": 1,
+      "message": "Is it same as QUEUE \"constant\"?",
+      "range": {
+        "startLine": 442,
+        "startChar": 30,
+        "endLine": 442,
+        "endChar": 82
+      },
+      "revId": "08ea2dc07b35141a1f98debe86f824b46816f5ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_f3a6c352",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_imsbench_sipp.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-15T16:50:58Z",
+      "side": 1,
+      "message": "If only the open() call is mocked, it would be no reason to mock this.",
+      "range": {
+        "startLine": 443,
+        "startChar": 22,
+        "endLine": 443,
+        "endChar": 41
+      },
+      "revId": "08ea2dc07b35141a1f98debe86f824b46816f5ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
