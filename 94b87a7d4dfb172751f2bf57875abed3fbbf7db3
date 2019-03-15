@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "da01753e_53d06f53",
+        "filename": "yardstick/network_services/traffic_profile/sip.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-15T15:15:58Z",
+      "side": 1,
+      "message": "Does it make any sense?\n\nSeems \"generator\" is a property of only this class.\nAnd if there\u0027s a risk that execute_traffic() would run twice and thus re-assign self.generator, then there\u0027s a bigger issue somewhere.\n\nLet me know if I miss something here.",
+      "range": {
+        "startLine": 26,
+        "startChar": 40,
+        "endLine": 26,
+        "endChar": 67
+      },
+      "revId": "94b87a7d4dfb172751f2bf57875abed3fbbf7db3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_504a2584",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
         "patchSetId": 13
