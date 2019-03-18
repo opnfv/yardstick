@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2018 Intel Corporation
+# Copyright (c) 2016-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@
 # the profile defines a public and private side to make limited traffic correlation
 # between private and public side same way as it is made by IXIA solution.
 #
-{% set vports = get(extra_args, 'vports', 2)|int / 2 %}
+{% set vports = get(extra_args, 'vports', 2) %}
 ---
 schema: "nsb:traffic_profile:0.1"
 
@@ -46,7 +46,7 @@ traffic_profile:
   frame_rate: 100  # pc of linerate
   duration: {{ duration }}
 
-{% for vport in range(vports|int) %}
+{% for vport in range((vports / 2)|int) %}
 uplink_{{vport}}:
   ipv4:
     id: {{ (vport * 2) + 1 }}
@@ -101,3 +101,4 @@ downlink_{{vport}}:
       dstport: {{ get(flow, 'flow.src_port_%s'| format(vport), '2001-4001') }}
       count: {{ get(flow, 'flow.count', '1') }}
 {% endfor %}
+
