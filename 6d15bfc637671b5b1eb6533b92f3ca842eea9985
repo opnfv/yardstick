@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_ce1cb216",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:00:11Z",
+      "side": 1,
+      "message": "When proxy is configured on remote device? What ansible playbook/roles provides/configure proxy?",
+      "revId": "6d15bfc637671b5b1eb6533b92f3ca842eea9985",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_4e31e2a1",
+        "filename": "ansible/roles/build_yardstick_image/tasks/post_build.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:00:11Z",
+      "side": 1,
+      "message": "Can we use copy module here instead?",
+      "revId": "6d15bfc637671b5b1eb6533b92f3ca842eea9985",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8e2bca2f",
+        "filename": "ansible/roles/build_yardstick_image/tasks/pre_build.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:00:11Z",
+      "side": 1,
+      "message": "Why it is needed now? How did it work before?",
+      "revId": "6d15bfc637671b5b1eb6533b92f3ca842eea9985",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_ee1ff607",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:00:11Z",
+      "side": 1,
+      "message": "please use current yardstick directory instead hard codded one. Probably, ansible variables should provide such path.",
+      "revId": "6d15bfc637671b5b1eb6533b92f3ca842eea9985",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
