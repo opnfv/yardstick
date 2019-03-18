@@ -12,35 +12,53 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 {% set framesize = framesize or "{64B: 100}" %}
+{% set worker_threads = worker_threads or [1] %}
+{% set duration = duration or 30 %}
+{% set tolerance_low = tolerance_low or 0.0001 %}
+{% set tolerance_high = tolerance_high or 0.0001 %}
+{% set public_ip = public_ip or ["152.16.40.10"] %}
+{% set vports = vports or 2 %}
 ---
 schema: yardstick:task:0.1
 scenarios:
-{% for worker_thread in [1, 2 ,3 , 4, 5, 6] %}
-- type: NSPerf
-  traffic_profile: ../../traffic_profiles/ipv4_throughput_cgnapt.yaml
-  topology: cgnapt-vnf-topology.yaml
+{% for worker_thread in worker_threads %}
+- type: NSPerf-RFC2544
+  traffic_profile: ../../traffic_profiles/ipv4_throughput_cgnapt-scale-up.yaml
+  extra_args:
+    vports: {{ vports }}
+  topology: cgnapt-tg-topology-scale-up.yaml
   nodes:
     tg__0: trafficgen_0.yardstick
     vnf__0: vnf_0.yardstick
   options:
+    duration: {{ duration }}
     framesize:
       uplink: {{ framesize }}
       downlink: {{ framesize }}
     flow:
-      src_ip: [{'tg__0': 'xe0'}]
-      dst_ip: [{'tg__0': 'xe1'}]
-      public_ip: ["152.16.40.10"]
+      src_ip:
+{% for vport in range(0, vports|int, 2) %}
+        - {'tg__0': 'xe{{ vport }}'}
+{% endfor %}
+      dst_ip:
+{% for vport in range(1, vports|int, 2) %}
+        - {'tg__0': 'xe{{ vport }}'}
+{% endfor %}
+      public_ip:
+{% for port_num in range((vports/2)|int) %}
+        - {{ public_ip[port_num] }}
+{% endfor %}
       count: 1
     traffic_type: 4
     rfc2544:
-      allowed_drop_rate: 0.0001 - 0.0001
+      allowed_drop_rate: "{{ tolerance_low }} - {{ tolerance_high }}"
     vnf__0:
       vnf_config: {lb_config: 'HW', lb_count: 1, worker_config: '1C/1T', worker_threads: {{worker_thread}}}
       nfvi_enable: True
   runner:
     type: Iteration
-    iterations: 10
-    interval: 35
+    iterations: 1
+    interval: 5
 {% endfor %}
 context:
   type: Node
