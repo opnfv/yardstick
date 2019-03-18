@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_2e9f3e61",
+        "filename": "ansible/install.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T10:45:40Z",
+      "side": 1,
+      "message": "The proxy are defined in ansible/group_vars/all.yml.",
+      "parentUuid": "da01753e_ce1cb216",
+      "revId": "6d15bfc637671b5b1eb6533b92f3ca842eea9985",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_4e31e2a1",
         "filename": "ansible/roles/build_yardstick_image/tasks/post_build.yml",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2019-03-18T10:00:11Z",
       "side": 1,
       "message": "Can we use copy module here instead?",
+      "revId": "6d15bfc637671b5b1eb6533b92f3ca842eea9985",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_ce915254",
+        "filename": "ansible/roles/build_yardstick_image/tasks/post_build.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T10:45:40Z",
+      "side": 1,
+      "message": "No, as we copy on same DUT where sample VNF will be started.\nAnsible copy can be used when copy is made from local or remote server to remote server.",
+      "parentUuid": "da01753e_4e31e2a1",
       "revId": "6d15bfc637671b5b1eb6533b92f3ca842eea9985",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_0e9cfa68",
+        "filename": "ansible/roles/build_yardstick_image/tasks/pre_build.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T10:45:40Z",
+      "side": 1,
+      "message": "It is needed as it fails without it.",
+      "parentUuid": "da01753e_8e2bca2f",
+      "revId": "6d15bfc637671b5b1eb6533b92f3ca842eea9985",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_ee1ff607",
         "filename": "nsb_setup.sh",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2019-03-18T10:00:11Z",
       "side": 1,
       "message": "please use current yardstick directory instead hard codded one. Probably, ansible variables should provide such path.",
+      "revId": "6d15bfc637671b5b1eb6533b92f3ca842eea9985",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_6e882623",
+        "filename": "nsb_setup.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T10:45:40Z",
+      "side": 1,
+      "message": "Good point, will take a look at it.",
+      "parentUuid": "da01753e_ee1ff607",
       "revId": "6d15bfc637671b5b1eb6533b92f3ca842eea9985",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
