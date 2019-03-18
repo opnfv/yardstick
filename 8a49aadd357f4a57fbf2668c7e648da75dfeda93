@@ -1,0 +1,279 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_6ed30639",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:15:24Z",
+      "side": 1,
+      "message": "standalone ?",
+      "range": {
+        "startLine": 141,
+        "startChar": 2,
+        "endLine": 141,
+        "endChar": 12
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_4ed8c253",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:15:24Z",
+      "side": 1,
+      "message": "baremetal?",
+      "range": {
+        "startLine": 144,
+        "startChar": 2,
+        "endLine": 144,
+        "endChar": 11
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_aeddee44",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:15:24Z",
+      "side": 1,
+      "message": "What does it mean kernel is updated ? What needs to be done to update it ? Please explain more.",
+      "range": {
+        "startLine": 213,
+        "startChar": 3,
+        "endLine": 213,
+        "endChar": 45
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8ee2aa01",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:15:24Z",
+      "side": 1,
+      "message": "why 58 and 234?",
+      "range": {
+        "startLine": 236,
+        "startChar": 18,
+        "endLine": 236,
+        "endChar": 29
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_4ea602c3",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:15:24Z",
+      "side": 1,
+      "message": "please mention somewhere that this is for U18.",
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_eee6d615",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:15:24Z",
+      "side": 1,
+      "message": "please rephrase",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 26
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_cee31204",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:15:24Z",
+      "side": 1,
+      "message": "it is not required for BM",
+      "range": {
+        "startLine": 255,
+        "startChar": 57,
+        "endLine": 255,
+        "endChar": 73
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_2ef1fecd",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:15:24Z",
+      "side": 1,
+      "message": "Enter to yardstick container and modify ...",
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_aeab2e88",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:15:24Z",
+      "side": 1,
+      "message": "please mention somewhere that this is for U18.",
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8eb90aec",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:15:24Z",
+      "side": 1,
+      "message": "same? If user will go to this section by the URL to this section, it is not clear what setup means here. Please mention that BM setup can be use here but not \"same\".",
+      "range": {
+        "startLine": 262,
+        "startChar": 23,
+        "endLine": 262,
+        "endChar": 27
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_eecd3688",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:15:24Z",
+      "side": 1,
+      "message": "remove this.",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 48
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_0ec51a5b",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:15:24Z",
+      "side": 1,
+      "message": "can we have an option in the script and do not ask user to modify the NSB script?",
+      "range": {
+        "startLine": 274,
+        "startChar": 3,
+        "endLine": 274,
+        "endChar": 26
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_6ea146a9",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-18T10:15:24Z",
+      "side": 1,
+      "message": "Enter into container first.....",
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
