@@ -33,7 +33,7 @@
 # the profile defines a public and private side to make limited traffic correlation
 # between private and public side same way as it is made by IXIA solution.
 #
-{% set vports = get(extra_args, 'vports', 2)|int / 2 %}
+{% set vports = get(extra_args, 'vports', 2) %}
 ---
 schema: "nsb:traffic_profile:0.1"
 
@@ -46,7 +46,7 @@ traffic_profile:
   frame_rate: 100  # pc of linerate
   duration: {{ duration }}
 
-{% for vport in range(vports|int) %}
+{% for vport in range((vports / 2)|int) %}
 uplink_{{vport}}:
   ipv4:
     id: {{ (vport * 2) + 1 }}
