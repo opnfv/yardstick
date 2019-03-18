@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_8e874a0f",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T12:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_6ed30639",
+      "range": {
+        "startLine": 141,
+        "startChar": 2,
+        "endLine": 141,
+        "endChar": 12
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_4ed8c253",
         "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-18T10:15:24Z",
       "side": 1,
       "message": "baremetal?",
+      "range": {
+        "startLine": 144,
+        "startChar": 2,
+        "endLine": 144,
+        "endChar": 11
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_ee7b7627",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T12:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_4ed8c253",
       "range": {
         "startLine": 144,
         "startChar": 2,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_ce78322e",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T12:08:08Z",
+      "side": 1,
+      "message": "How about this?\nYardstick may not be operational after linux kernel update  if Yardstick has been installed before. Run ``nsb_setup.sh`` again in this case.",
+      "parentUuid": "da01753e_aeddee44",
+      "range": {
+        "startLine": 213,
+        "startChar": 3,
+        "endLine": 213,
+        "endChar": 45
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_8ee2aa01",
         "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2019-03-18T10:15:24Z",
       "side": 1,
       "message": "why 58 and 234?",
+      "range": {
+        "startLine": 236,
+        "startChar": 18,
+        "endLine": 236,
+        "endChar": 29
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_ae820efe",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T12:08:08Z",
+      "side": 1,
+      "message": "Why not? This this just an example.",
+      "parentUuid": "da01753e_8ee2aa01",
       "range": {
         "startLine": 236,
         "startChar": 18,
@@ -111,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_2e761e3f",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T12:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_4ea602c3",
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_eee6d615",
         "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
         "patchSetId": 2
@@ -122,6 +236,30 @@
       "writtenOn": "2019-03-18T10:15:24Z",
       "side": 1,
       "message": "please rephrase",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 26
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_2ead7e89",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T12:08:08Z",
+      "side": 1,
+      "message": "Let\u0027s assume there are three servers acting as TG, sample VNF DUT and jump host.\n\nPerform following steps:",
+      "parentUuid": "da01753e_eee6d615",
       "range": {
         "startLine": 246,
         "startChar": 0,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_0e735a4e",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T12:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_cee31204",
+      "range": {
+        "startLine": 255,
+        "startChar": 57,
+        "endLine": 255,
+        "endChar": 73
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_2ef1fecd",
         "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
         "patchSetId": 2
@@ -168,6 +330,24 @@
       "writtenOn": "2019-03-18T10:15:24Z",
       "side": 1,
       "message": "Enter to yardstick container and modify ...",
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_6e8f8624",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T12:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_2ef1fecd",
       "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -191,6 +371,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_8e9e2a55",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T12:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_aeab2e88",
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_8eb90aec",
         "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
         "patchSetId": 2
@@ -202,6 +400,30 @@
       "writtenOn": "2019-03-18T10:15:24Z",
       "side": 1,
       "message": "same? If user will go to this section by the URL to this section, it is not clear what setup means here. Please mention that BM setup can be use here but not \"same\".",
+      "range": {
+        "startLine": 262,
+        "startChar": 23,
+        "endLine": 262,
+        "endChar": 27
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_0eaa3a70",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T12:08:08Z",
+      "side": 1,
+      "message": "Let\u0027s assume there are three servers acting as TG, sample VNF DUT and jump host.\n\nPerform following steps:",
+      "parentUuid": "da01753e_8eb90aec",
       "range": {
         "startLine": 262,
         "startChar": 23,
@@ -237,6 +459,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_ae996e70",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T12:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_eecd3688",
+      "range": {
+        "startLine": 263,
+        "startChar": 0,
+        "endLine": 263,
+        "endChar": 48
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_0ec51a5b",
         "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
         "patchSetId": 2
@@ -260,6 +506,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_eec9b65b",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T12:08:08Z",
+      "side": 1,
+      "message": "To remove:\n-e YARDSTICK_DIR\u003d\u003cpath to Yardstick\u003e \\",
+      "parentUuid": "da01753e_0ec51a5b",
+      "range": {
+        "startLine": 274,
+        "startChar": 3,
+        "endLine": 274,
+        "endChar": 26
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_6ea146a9",
         "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
         "patchSetId": 2
@@ -271,6 +541,24 @@
       "writtenOn": "2019-03-18T10:15:24Z",
       "side": 1,
       "message": "Enter into container first.....",
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_4e944237",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-18T12:08:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_6ea146a9",
       "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
