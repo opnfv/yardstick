@@ -1,4 +1,4 @@
-# Copyright (c) 2016-2017 Intel Corporation
+# Copyright (c) 2016-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@
 # the profile defines a public and private side to make limited traffic correlation
 # between private and public side same way as it is made by IXIA solution.
 #
-{% set vports = get(extra_args, 'vports', 2)|int / 2 %}
+{% set vports = get(extra_args, 'vports', 2) %}
 ---
 schema: "nsb:traffic_profile:0.1"
 
@@ -46,7 +46,7 @@ traffic_profile:
   frame_rate : 100  # pc of linerate
   duration: {{ duration }}
 
-{% for vport in range(vports|int) %}
+{% for vport in range(vports|int / 2) %}
 uplink_{{vport}}:
       ipv4:
         id: {{ (vport * 2) + 1 }}
@@ -65,15 +65,15 @@ uplink_{{vport}}:
 
         outer_l3v4:
             proto: "udp"
-            srcip4: {{ get(flow, 'flow.src_ip_%s'| format(vport), '10.%s.2.1-10.%s.2.255'| format(vport, vport)) }}
-            dstip4: {{ get(flow, 'flow.dst_ip_%s'| format(vport), '10.%s.3.1-10.%s.3.255'| format(vport, vport)) }}
-            count: {{ get(flow, 'flow.count', '1') }}
+            srcip4: "{{ get(flow, 'flow.src_ip_%s'| format(vport), '10.%s.2.1-10.%s.2.255'| format(vport, vport)) }}"
+            dstip4: "{{ get(flow, 'flow.dst_ip_%s'| format(vport), '10.%s.3.1-10.%s.3.255'| format(vport, vport)) }}"
+            count: "{{ get(flow, 'flow.count', '1') }}"
             ttl: 32
             dscp: 0
         outer_l4:
-            srcport: {{ get(flow, 'flow.src_port_%s'| format(vport), '1234-4321') }}
-            dstport: {{ get(flow, 'flow.dst_port_%s'| format(vport), '2001-4001') }}
-            count: {{ get(flow, 'flow.count', '1') }}
+            srcport: "{{ get(flow, 'flow.src_port_%s'| format(vport), '1234-4321') }}"
+            dstport: "{{ get(flow, 'flow.dst_port_%s'| format(vport), '2001-4001') }}"
+            count: "{{ get(flow, 'flow.count', '1') }}"
 downlink_{{vport}}:
       ipv4:
         id: {{ (vport * 2) + 2}}
@@ -92,13 +92,13 @@ downlink_{{vport}}:
 
         outer_l3v4:
             proto: "udp"
-            srcip4: {{ get(flow, 'flow.dst_ip_%s'| format(vport), '10.%s.3.1-10.%s.3.255'| format(vport, vport)) }}
-            dstip4: {{ get(flow, 'flow.public_ip_%s'| format(vport), '10.%s.2.1-10.%s.2.255'| format(vport, vport)) }}
-            count: {{ get(flow, 'flow.count', '1') }}
+            srcip4: "{{ get(flow, 'flow.dst_ip_%s'| format(vport), '10.%s.3.1-10.%s.3.255'| format(vport, vport)) }}"
+            dstip4: "{{ get(flow, 'flow.public_ip_%s'| format(vport), '10.%s.2.1-10.%s.2.255'| format(vport, vport)) }}"
+            count: "{{ get(flow, 'flow.count', '1') }}"
             ttl: 32
             dscp: 0
         outer_l4:
-            srcport: {{ get(flow, 'flow.dst_port_%s'| format(vport), '1-65535') }}
-            dstport: {{ get(flow, 'flow.src_port_%s'| format(vport), '1-65535') }}
-            count: {{ get(flow, 'flow.count', '1') }}
+            srcport: "{{ get(flow, 'flow.dst_port_%s'| format(vport), '1-65535') }}"
+            dstport: "{{ get(flow, 'flow.src_port_%s'| format(vport), '1-65535') }}"
+            count: "{{ get(flow, 'flow.count', '1') }}"
 {% endfor %}
