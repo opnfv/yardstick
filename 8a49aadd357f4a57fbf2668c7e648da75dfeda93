@@ -167,6 +167,54 @@
     },
     {
       "key": {
+        "uuid": "da01753e_2ef29e9a",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-19T16:53:00Z",
+      "side": 1,
+      "message": "\u003e How about this?\n \u003e Yardstick may not be operational after linux kernel update  if\n \u003e Yardstick has been installed before. Run ``nsb_setup.sh`` again in\n \u003e this case.",
+      "parentUuid": "da01753e_ce78322e",
+      "range": {
+        "startLine": 213,
+        "startChar": 3,
+        "endLine": 213,
+        "endChar": 45
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_094b54b1",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-19T16:53:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_c9cdcc5f",
+      "range": {
+        "startLine": 213,
+        "startChar": 3,
+        "endLine": 213,
+        "endChar": 45
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_29dbb81c",
         "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
         "patchSetId": 2
@@ -178,6 +226,24 @@
       "writtenOn": "2019-03-19T14:26:02Z",
       "side": 1,
       "message": "..., for example:",
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_69c78013",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-19T16:53:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_29dbb81c",
       "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -325,6 +391,30 @@
       "side": 1,
       "message": "\u003e Let\u0027s assume there are three servers acting as TG, sample VNF DUT\n \u003e and jump host.\n \u003e \n \u003e Perform following steps:\nBasic baremetal setup (using software generator) requires at least three serves: TG, DUT and jump host.\n\nTo install NSB, perform following steps:",
       "parentUuid": "da01753e_2ead7e89",
+      "range": {
+        "startLine": 246,
+        "startChar": 0,
+        "endLine": 246,
+        "endChar": 26
+      },
+      "revId": "8a49aadd357f4a57fbf2668c7e648da75dfeda93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_294e18c2",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 7145
+      },
+      "writtenOn": "2019-03-19T16:53:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_09d8741c",
       "range": {
         "startLine": 246,
         "startChar": 0,
