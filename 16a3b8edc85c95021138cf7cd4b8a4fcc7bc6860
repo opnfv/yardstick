@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_29c4583f",
+        "filename": "docs/testing/user/userguide/nsb/tc_pktgen_k8s_vcmts.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-19T13:41:05Z",
+      "side": 1,
+      "message": "Ra phrase to something like:\n\nYardstick collects vCMTS metrics from remote InfluxDB (deployed by something...) to local Yardstick InfluxDB into collectd database.",
+      "range": {
+        "startLine": 94,
+        "startChar": 17,
+        "endLine": 95,
+        "endChar": 58
+      },
+      "revId": "16a3b8edc85c95021138cf7cd4b8a4fcc7bc6860",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
