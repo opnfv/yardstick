@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_89b584cf",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-19T13:33:01Z",
+      "side": 1,
+      "message": "import from yardstick.common.constants",
+      "revId": "f4007406571586c44f96ec1f62ccf3cdfaf75949",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e9c9b05b",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-19T13:33:01Z",
+      "side": 1,
+      "message": "Where his script is located?",
+      "range": {
+        "startLine": 123,
+        "startChar": 17,
+        "endLine": 123,
+        "endChar": 46
+      },
+      "revId": "f4007406571586c44f96ec1f62ccf3cdfaf75949",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a98208fe",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-19T13:33:01Z",
+      "side": 1,
+      "message": "where those variable are used?",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 25
+      },
+      "revId": "f4007406571586c44f96ec1f62ccf3cdfaf75949",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_89e2a401",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-19T13:33:01Z",
+      "side": 1,
+      "message": "Use yardstick/common/yaml_loader.py",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 69
+      },
+      "revId": "f4007406571586c44f96ec1f62ccf3cdfaf75949",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_89b0e4f5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-19T13:33:01Z",
+      "side": 1,
+      "message": "handle KeyError",
+      "revId": "f4007406571586c44f96ec1f62ccf3cdfaf75949",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a9ab2888",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-19T13:33:01Z",
+      "side": 1,
+      "message": "use IncorrectConfig exception",
+      "revId": "f4007406571586c44f96ec1f62ccf3cdfaf75949",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_69b660de",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-19T13:33:01Z",
+      "side": 1,
+      "message": "{}",
+      "range": {
+        "startLine": 259,
+        "startChar": 15,
+        "endLine": 259,
+        "endChar": 29
+      },
+      "revId": "f4007406571586c44f96ec1f62ccf3cdfaf75949",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
