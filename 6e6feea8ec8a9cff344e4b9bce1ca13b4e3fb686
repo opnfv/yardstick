@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_84f8cbe6",
+        "filename": "samples/vnf_samples/nsut/cmts/k8s_vcmts_topology.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 7379
+      },
+      "writtenOn": "2019-03-20T10:42:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_6905c0c1",
+      "range": {
+        "startLine": 15,
+        "startChar": 42,
+        "endLine": 15,
+        "endChar": 45
+      },
+      "revId": "6e6feea8ec8a9cff344e4b9bce1ca13b4e3fb686",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_490a7cd3",
         "filename": "samples/vnf_samples/nsut/cmts/k8s_vcmts_topology.yaml",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-19T10:24:32Z",
       "side": 1,
       "message": "int 2 instead \u00272\u0027",
+      "range": {
+        "startLine": 16,
+        "startChar": 41,
+        "endLine": 16,
+        "endChar": 45
+      },
+      "revId": "6e6feea8ec8a9cff344e4b9bce1ca13b4e3fb686",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e4dc3777",
+        "filename": "samples/vnf_samples/nsut/cmts/k8s_vcmts_topology.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7379
+      },
+      "writtenOn": "2019-03-20T10:42:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_490a7cd3",
       "range": {
         "startLine": 16,
         "startChar": 41,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_a4f34f09",
+        "filename": "samples/vnf_samples/nsut/cmts/tc_vcmts_k8s_pktgen.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 7379
+      },
+      "writtenOn": "2019-03-20T10:42:20Z",
+      "side": 1,
+      "message": "No, please refer to the \u0027Note:\u0027 part of _change_node_names() in yardstick/benchmark/core/task.py",
+      "parentUuid": "da01753e_0969948b",
+      "range": {
+        "startLine": 33,
+        "startChar": 40,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "6e6feea8ec8a9cff344e4b9bce1ca13b4e3fb686",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_aeb68e88",
         "filename": "samples/vnf_samples/nsut/cmts/tc_vcmts_k8s_pktgen.yaml",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2019-03-18T17:02:12Z",
       "side": 1,
       "message": "Where those files are located ? How to create them? Is this information described somewhere?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 52
+      },
+      "revId": "6e6feea8ec8a9cff344e4b9bce1ca13b4e3fb686",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_64e9671a",
+        "filename": "samples/vnf_samples/nsut/cmts/tc_vcmts_k8s_pktgen.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 7379
+      },
+      "writtenOn": "2019-03-20T10:42:20Z",
+      "side": 1,
+      "message": "both of them are provided in vCMTS package (after configuring the test machines using the documentation provided with the released package)",
+      "parentUuid": "da01753e_aeb68e88",
       "range": {
         "startLine": 47,
         "startChar": 0,
