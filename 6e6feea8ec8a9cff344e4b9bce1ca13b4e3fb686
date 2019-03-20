@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_a4b4eff2",
+        "filename": "samples/vnf_samples/nsut/cmts/tc_vcmts_k8s_pktgen.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-20T13:10:46Z",
+      "side": 1,
+      "message": "NOTE: in Kubernetes context, the separator character between the server\n        name and the context name is \"-\":\n        scenario:\n          host: host-k8s\n          target: target-k8s\n\nOk, thanks.",
+      "parentUuid": "da01753e_a4f34f09",
+      "range": {
+        "startLine": 33,
+        "startChar": 40,
+        "endLine": 33,
+        "endChar": 41
+      },
+      "revId": "6e6feea8ec8a9cff344e4b9bce1ca13b4e3fb686",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_aeb68e88",
         "filename": "samples/vnf_samples/nsut/cmts/tc_vcmts_k8s_pktgen.yaml",
         "patchSetId": 6
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "both of them are provided in vCMTS package (after configuring the test machines using the documentation provided with the released package)",
       "parentUuid": "da01753e_aeb68e88",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 52
+      },
+      "revId": "6e6feea8ec8a9cff344e4b9bce1ca13b4e3fb686",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_84b9ebeb",
+        "filename": "samples/vnf_samples/nsut/cmts/tc_vcmts_k8s_pktgen.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-20T13:10:46Z",
+      "side": 1,
+      "message": "ok, please make sure it\u0027s described in the TC vCMTS TC documentation.",
+      "parentUuid": "da01753e_64e9671a",
       "range": {
         "startLine": 47,
         "startChar": 0,
