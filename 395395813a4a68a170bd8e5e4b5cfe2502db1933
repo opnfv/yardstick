@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_b3e39b04",
+        "filename": "samples/vnf_samples/nsut/vims/tc_vims_heat_sipp.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 7491
+      },
+      "writtenOn": "2019-03-21T06:34:45Z",
+      "side": 1,
+      "message": "It\u0027s here: https://gerrit.opnfv.org/gerrit/#/c/63985/13/samples/vnf_samples/traffic_profiles/sip.yaml.\nShould we move it to this patch?",
+      "parentUuid": "da01753e_1390a794",
+      "range": {
+        "startLine": 20,
+        "startChar": 19,
+        "endLine": 20,
+        "endChar": 52
+      },
+      "revId": "395395813a4a68a170bd8e5e4b5cfe2502db1933",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_93f3f709",
         "filename": "samples/vnf_samples/nsut/vims/tc_vims_heat_sipp.yaml",
         "patchSetId": 4
