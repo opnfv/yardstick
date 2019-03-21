@@ -21,6 +21,7 @@ NSB Installation
 
 .. _OVS-DPDK: http://docs.openvswitch.org/en/latest/intro/install/dpdk/
 .. _devstack: https://docs.openstack.org/devstack/pike/>
+.. _OVS-DPDK-versions: http://docs.openvswitch.org/en/latest/faq/releases/
 
 Abstract
 --------
@@ -880,6 +881,144 @@ Update contexts section
          vpci: "0000:00:08.0"
          cidr: '152.16.40.10/24'
          gateway_ip: '152.16.100.20'
+
+OVS-DPDK configuration options
+++++++++++++++++++++++++++++++
+
+There are number of configuration options available for OVS-DPDK context in
+test case. Mostly they are used for performance tuning.
+
+OVS-DPDK properties:
+''''''''''''''''''''
+
+OVS-DPDK properties example under *ovs_properties* section:
+
+  .. code-block:: console
+
+      ovs_properties:
+        version:
+          ovs: 2.8.1
+          dpdk: 17.05.2
+        pmd_threads: 4
+        pmd_cpu_mask: "0x3c"
+        ram:
+         socket_0: 2048
+         socket_1: 2048
+        queues: 2
+        vpath: "/usr/local"
+        max_idle: 30000
+        lcore_mask: 0x02
+        dpdk_pmd-rxq-affinity:
+          0: "0:2,1:2"
+          1: "0:2,1:2"
+          2: "0:3,1:3"
+          3: "0:3,1:3"
+        vhost_pmd-rxq-affinity:
+          0: "0:3,1:3"
+          1: "0:3,1:3"
+          2: "0:4,1:4"
+          3: "0:4,1:4"
+
+OVS-DPDK properties description:
+
+  +-------------------------+-------------------------------------------------+
+  | Parameters              | Detail                                          |
+  +=========================+=================================================+
+  | version                 || Version of OVS and DPDK to be installed        |
+  |                         || There is a relation between OVS and DPDK       |
+  |                         |  version which can be found at                  |
+  |                         | `OVS-DPDK-versions`_                            |
+  |                         || By default OVS: 2.6.0, DPDK: 16.07.2           |
+  +-------------------------+-------------------------------------------------+
+  | lcore_mask              || Core bitmask used during DPDK initialization   |
+  |                         |  where the non-datapath OVS-DPDK threads such   |
+  |                         |  as handler and revalidator threads run         |
+  +-------------------------+-------------------------------------------------+
+  | pmd_cpu_mask            || Core bitmask that sets which cores are used by |
+  |                         || OVS-DPDK for datapath packet processing        |
+  +-------------------------+-------------------------------------------------+
+  | pmd_threads             || Number of PMD threads used by OVS-DPDK for     |
+  |                         |  datapath                                       |
+  |                         || This core mask is evaluated in Yardstick       |
+  |                         || It will be used if pmd_cpu_mask is not given   |
+  |                         || Default is 2                                   |
+  +-------------------------+-------------------------------------------------+
+  | ram                     || Amount of RAM to be used for each socket, MB   |
+  |                         || Default is 2048 MB                             |
+  +-------------------------+-------------------------------------------------+
+  | queues                  || Number of RX queues used for DPDK physical     |
+  |                         |  interface                                      |
+  +-------------------------+-------------------------------------------------+
+  | dpdk_pmd-rxq-affinity   || RX queue assignment to PMD threads for DPDK    |
+  |                         || e.g.: <port number> : <queue-id>:<core-id>     |
+  +-------------------------+-------------------------------------------------+
+  | vhost_pmd-rxq-affinity  || RX queue assignment to PMD threads for vhost   |
+  |                         || e.g.: <port number> : <queue-id>:<core-id>     |
+  +-------------------------+-------------------------------------------------+
+  | vpath                   || User path for openvswitch files                |
+  |                         || Default is ``/usr/local``                      |
+  +-------------------------+-------------------------------------------------+
+  | max_idle                || The maximum time that idle flows will remain   |
+  |                         |  cached in the datapath, ms                     |
+  +-------------------------+-------------------------------------------------+
+
+
+VM image properties
+'''''''''''''''''''
+
+VM image properties example under *flavor* section:
+
+  .. code-block:: console
+
+      flavor:
+        images: <path>
+        ram: 8192
+        extra_specs:
+           machine_type: 'pc-i440fx-xenial'
+           hw:cpu_sockets: 1
+           hw:cpu_cores: 6
+           hw:cpu_threads: 2
+           hw_socket: 0
+           cputune: |
+             <cputune>
+               <vcpupin vcpu="0" cpuset="7"/>
+               <vcpupin vcpu="1" cpuset="8"/>
+               ...
+               <vcpupin vcpu="11" cpuset="18"/>
+               <emulatorpin cpuset="11"/>
+             </cputune>
+
+VM image properties description:
+
+  +-------------------------+-------------------------------------------------+
+  | Parameters              | Detail                                          |
+  +=========================+=================================================+
+  | images                  || Path to the VM image generated by              |
+  |                         |  ``nsb_setup.sh``                               |
+  |                         || Default path is ``/var/lib/libvirt/images/``   |
+  |                         || Default file name ``yardstick-nsb-image.img``  |
+  |                         |  or ``yardstick-image.img``                     |
+  +-------------------------+-------------------------------------------------+
+  | ram                     || Amount of RAM to be used for VM                |
+  |                         || Default is 4096 MB                             |
+  +-------------------------+-------------------------------------------------+
+  | hw:cpu_sockets          || Number of sockets provided to the guest VM     |
+  |                         || Default is 1                                   |
+  +-------------------------+-------------------------------------------------+
+  | hw:cpu_cores            || Number of cores provided to the guest VM       |
+  |                         || Default is 2                                   |
+  +-------------------------+-------------------------------------------------+
+  | hw:cpu_threads          || Number of threads provided to the guest VM     |
+  |                         || Default is 2                                   |
+  +-------------------------+-------------------------------------------------+
+  | hw_socket               || Generate vcpu cpuset from given HW socket      |
+  |                         || Default is 0                                   |
+  +-------------------------+-------------------------------------------------+
+  | cputune                 || Maps virtual cpu with logical cpu              |
+  +-------------------------+-------------------------------------------------+
+  | machine_type            || Machine type to be emulated in VM              |
+  |                         || Default is 'pc-i440fx-xenial'                  |
+  +-------------------------+-------------------------------------------------+
 
 
 OpenStack with SR-IOV support
