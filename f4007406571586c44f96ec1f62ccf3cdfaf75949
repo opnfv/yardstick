@@ -367,6 +367,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_3f1daa74",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2019-03-22T08:49:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_a98328cb",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 246,
+        "endChar": 30
+      },
+      "revId": "f4007406571586c44f96ec1f62ccf3cdfaf75949",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_69b660de",
         "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
         "patchSetId": 12
