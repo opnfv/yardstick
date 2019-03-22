@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_93ddb745",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 7491
+      },
+      "writtenOn": "2019-03-22T03:48:52Z",
+      "side": 1,
+      "message": "Ok, I will change to /tmp",
+      "parentUuid": "da01753e_504a2584",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "94b87a7d4dfb172751f2bf57875abed3fbbf7db3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_906dad07",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
         "patchSetId": 13
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_73e2d304",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7491
+      },
+      "writtenOn": "2019-03-22T03:48:52Z",
+      "side": 1,
+      "message": "Ok, I will add the default value for all options",
+      "parentUuid": "da01753e_906dad07",
+      "range": {
+        "startLine": 63,
+        "startChar": 22,
+        "endLine": 79,
+        "endChar": 69
+      },
+      "revId": "94b87a7d4dfb172751f2bf57875abed3fbbf7db3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_7072c9e6",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
         "patchSetId": 13
@@ -82,6 +130,24 @@
       "writtenOn": "2019-03-14T13:53:44Z",
       "side": 1,
       "message": "Please add example of result file in a comment to easy understand and review the code.",
+      "revId": "94b87a7d4dfb172751f2bf57875abed3fbbf7db3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_d3e61f16",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 7491
+      },
+      "writtenOn": "2019-03-22T03:48:52Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "da01753e_7072c9e6",
       "revId": "94b87a7d4dfb172751f2bf57875abed3fbbf7db3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
