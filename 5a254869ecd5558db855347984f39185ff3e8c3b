@@ -161,6 +161,30 @@
       "revId": "5a254869ecd5558db855347984f39185ff3e8c3b",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_7f2572aa",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 7491
+      },
+      "writtenOn": "2019-03-22T03:48:52Z",
+      "side": 1,
+      "message": "In our case, the test will finish and output a summarized result file. After that, we will push the result to the influxdb line by line. The test will end when we push all the lines to db, not depend on the \"duration\" value. And we set the duration is too big, to make sure that test will end before \"duration\".",
+      "parentUuid": "da01753e_134ee7c1",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 20
+      },
+      "revId": "5a254869ecd5558db855347984f39185ff3e8c3b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
