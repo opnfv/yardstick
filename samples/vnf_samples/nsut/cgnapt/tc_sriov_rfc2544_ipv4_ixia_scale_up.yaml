@@ -1,0 +1,101 @@
+# Copyright (c) 2019 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+{% set vports = vports or 2 %}
+{% set tolerance_low = tolerance_low or 0.005 %}
+{% set tolerance_high = tolerance_high or 0.01 %}
+{% set public_ip = public_ip or ["152.16.40.10"] %}
+---
+schema: yardstick:task:0.1
+scenarios:
+- type: NSPerf-RFC2544
+  traffic_profile: ../../traffic_profiles/ixia_ipv4_latency_scale_up.yaml
+  topology: cgnapt-tg-topology-ixia-scale-up.yaml
+  extra_args:
+    vports: {{ vports }}
+  nodes:
+    tg__0: trafficgen_0.yardstick
+    vnf__0: vnf_0.yardstick
+  options:
+    framesize:
+    flow:
+      src_ip:
+{% for vport in range(0, vports|int, 2) %}
+        - {'tg__0': 'xe{{ vport }}'}
+{% endfor %}
+      dst_ip:
+{% for vport in range(1, vports|int, 2) %}
+        - {'tg__0': 'xe{{ vport }}'}
+{% endfor %}
+      public_ip:
+{% for port_num in range((vports/2)|int) %}
+        - {{ public_ip[port_num] }}
+{% endfor %}
+      count: 1
+    traffic_type: 4
+    rfc2544:
+      resolution: 0.01
+      allowed_drop_rate: "{{ tolerance_low }} - {{ tolerance_high }}"
+    vnf__0:
+      vnf_config: {lb_config: 'SW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+  runner:
+    type: Sequence
+    scenario_option_name: framesize
+    sequence:
+    - uplink: {64B: 100}
+      downlink: {64B: 100}
+    - uplink: {64B: 25, 128B: 25, 512B: 25, 1024B: 25}
+      downlink: {64B: 25, 128B: 25, 512B: 25, 1024B: 25}
+contexts:
+   - name: yardstick
+     type: Node
+     file: /etc/yardstick/nodes/pod_ixia_ovs.yaml
+   - type: StandaloneSriov
+     name: yardstick
+     file: /etc/yardstick/nodes/pod_sriov.yaml
+     vm_deploy: True
+     flavor:
+       images: "/var/lib/libvirt/images/yardstick-nsb-image.img"
+       ram: 16384
+       extra_specs:
+         hw:cpu_sockets: 1
+         hw:cpu_cores: 6
+         hw:cpu_threads: 2
+       user: ""
+       password: ""
+     servers:
+       vnf_0:
+         network_ports:
+           mgmt:
+             cidr: '172.10.1.150/24'
+{% for port_num in range((vports/2)|int) %}
+           xe{{ port_num * 2 }}:
+             - uplink_{{ port_num }}
+           xe{{ (port_num * 2) + 1 }}:
+             - downlink_{{ port_num }}
+{% endfor %}
+     networks:
+{% for port_num in range((vports/2)|int) %}
+       uplink_{{ port_num }}:
+         port_num: {{ networks.uplink[port_num].port_num }}
+         phy_port: "{{ networks.uplink[port_num].phy_port }}"
+         vpci: "{{ networks.uplink[port_num].vpci }}"
+         cidr: "{{ networks.uplink[port_num].cidr }}"
+         gateway_ip: "{{ networks.uplink[port_num].gateway_ip }}"
+       downlink_{{ port_num }}:
+         port_num: {{ networks.downlink[port_num].port_num }}
+         phy_port: "{{ networks.downlink[port_num].phy_port }}"
+         vpci: "{{ networks.downlink[port_num].vpci }}"
+         cidr: "{{ networks.downlink[port_num].cidr }}"
+         gateway_ip: "{{ networks.downlink[port_num].gateway_ip }}"
+{% endfor %}

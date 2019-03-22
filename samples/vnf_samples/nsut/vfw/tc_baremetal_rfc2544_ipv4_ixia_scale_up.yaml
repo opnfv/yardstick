@@ -1,0 +1,59 @@
+# Copyright (c) 2019 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+{% set vports = vports or 2 %}
+{% set tolerance_low = tolerance_low or 0.005 %}
+{% set tolerance_high = tolerance_high or 0.01 %}
+---
+schema: yardstick:task:0.1
+scenarios:
+- type: NSPerf-RFC2544
+  traffic_profile: ../../traffic_profiles/ixia_ipv4_latency_scale_up.yaml
+  topology: vfw-tg-topology-ixia-scale-up.yaml
+  extra_args:
+    vports: {{ vports }}
+  nodes:
+    tg__0: trafficgen_0.yardstick
+    vnf__0: vnf_0.yardstick
+  options:
+    framesize:
+    flow:
+      src_ip: [
+{% for vport in range(0,vports,2|int) %}
+       {'tg__0': 'xe{{vport}}'},
+{% endfor %}  ]
+      dst_ip: [
+{% for vport in range(1,vports,2|int) %}
+      {'tg__0': 'xe{{vport}}'},
+{% endfor %}  ]
+      count: 1
+    traffic_type: 4
+    rfc2544:
+      resolution: 0.01
+      allowed_drop_rate: "{{ tolerance_low }} - {{ tolerance_high }}"
+    vnf__0:
+      vnf_config: {lb_config: 'HW', lb_count: 1, worker_config: '1C/1T', worker_threads: 1}
+  runner:
+    type: Sequence
+    scenario_option_name: framesize
+    sequence:
+    - uplink: {64B: 100}
+      downlink: {64B: 100}
+    - uplink: {64B: 25, 128B: 25, 512B: 25, 1024B: 25}
+      downlink: {64B: 25, 128B: 25, 512B: 25, 1024B: 25}
+context:
+  type: Node
+  name: yardstick
+  nfvi_type: baremetal
+  file: /etc/yardstick/nodes/pod_ixia.yaml
