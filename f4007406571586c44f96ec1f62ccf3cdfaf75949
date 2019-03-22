@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_7f40d256",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-22T08:48:17Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "da01753e_091d14be",
+      "range": {
+        "startLine": 123,
+        "startChar": 17,
+        "endLine": 123,
+        "endChar": 46
+      },
+      "revId": "f4007406571586c44f96ec1f62ccf3cdfaf75949",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_a98208fe",
         "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
         "patchSetId": 12
@@ -131,6 +155,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_df245ec8",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-22T08:48:17Z",
+      "side": 1,
+      "message": "If this is not used, please remove this.",
+      "parentUuid": "da01753e_c46493e7",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 25
+      },
+      "revId": "f4007406571586c44f96ec1f62ccf3cdfaf75949",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_89e2a401",
         "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
         "patchSetId": 12
@@ -166,6 +214,30 @@
       "side": 1,
       "message": "the yaml_loader.py pointed to has a problem with the underlying regex implementation, it can not process the PCI address if it\u0027s un-quoted (processed as double)",
       "parentUuid": "da01753e_89e2a401",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 69
+      },
+      "revId": "f4007406571586c44f96ec1f62ccf3cdfaf75949",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_bf219ab6",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-22T08:48:17Z",
+      "side": 1,
+      "message": "Ok, thanks. Could you please please add this comment above the the open() function explaining why we use such method to read yaml.",
+      "parentUuid": "da01753e_891104af",
       "range": {
         "startLine": 208,
         "startChar": 0,
@@ -330,6 +402,30 @@
       "side": 1,
       "message": "empty result causes an error",
       "parentUuid": "da01753e_69b660de",
+      "range": {
+        "startLine": 259,
+        "startChar": 15,
+        "endLine": 259,
+        "endChar": 29
+      },
+      "revId": "f4007406571586c44f96ec1f62ccf3cdfaf75949",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1f2f06a3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vcmts_vnf.py",
+        "patchSetId": 12
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-22T08:48:17Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "da01753e_c922ec00",
       "range": {
         "startLine": 259,
         "startChar": 15,
