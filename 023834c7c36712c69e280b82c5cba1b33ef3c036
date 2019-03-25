@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_62f31674",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-25T09:43:34Z",
+      "side": 1,
+      "message": "In patchset #5 there was code for more parameters than it is right now. Is it intended? What had changed?",
+      "range": {
+        "startLine": 503,
+        "startChar": 26,
+        "endLine": 503,
+        "endChar": 48
+      },
+      "revId": "023834c7c36712c69e280b82c5cba1b33ef3c036",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_42fc123f",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-25T09:43:34Z",
+      "side": 1,
+      "message": "1. Since it is used inside a loop, this is exactly the \"value\" var. Why would you get it again, after it was done on a loop iteration start?\n2. There\u0027s no need to over-use get() method, while we\u0027re sure that \"key\" and \"value\" are defined (else the loop body execution would be skipped).\n\nPlease explain if I miss your idea.",
+      "range": {
+        "startLine": 504,
+        "startChar": 54,
+        "endLine": 505,
+        "endChar": 68
+      },
+      "revId": "023834c7c36712c69e280b82c5cba1b33ef3c036",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
