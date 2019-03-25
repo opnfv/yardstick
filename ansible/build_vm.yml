@@ -1,0 +1,44 @@
+- name: Prepare to build VM
+  hosts: jumphost
+  become: yes
+  vars:
+    img_prop_item: "{{ IMG_PROPERTY }}"
+    img_arch: "{{ YARD_IMG_ARCH }}"
+
+  tasks:
+    - name: Include pre-build
+      include_role:
+        name: build_yardstick_image
+        tasks_from: pre_build.yml
+      when:
+        - installation_mode != inst_mode_container
+
+
+- name: Build VM in chroot
+  hosts: chroot_image
+  connection: chroot
+  become: yes
+  vars:
+    img_property: "{{ IMG_PROPERTY }}"
+  environment: "{{ proxy_env }}"
+
+  tasks:
+    - name: Include image build
+      include_role:
+        name: build_yardstick_image
+        tasks_from: "cloudimg_modify_{{ img_property }}.yml"
+      when:
+        - installation_mode != inst_mode_container
+
+
+- name: Clear up after VM is built
+  hosts: jumphost
+  become: yes
+
+  tasks:
+    - name: Include post-build
+      include_role:
+        name: build_yardstick_image
+        tasks_from: post_build.yml
+      when:
+        - installation_mode != inst_mode_container

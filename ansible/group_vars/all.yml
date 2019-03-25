@@ -7,7 +7,16 @@ release: "{{ OS_RELEASE  | default('xenial') }}"
 normal_image_file: "{{ workspace }}/yardstick-image.img"
 nsb_image_file: "{{ workspace }}/yardstick-nsb-image.img"
 ubuntu_image_file: /tmp/workspace/yardstick/yardstick-trusty-server.raw
+arch_amd64: "amd64"
+arch_arm64: "arm64"
+inst_mode_baremetal: "baremetal"
+inst_mode_container: "container"
+inst_mode_container_pull: "container_pull"
+ubuntu_archive:
+  "amd64": "http://archive.ubuntu.com/ubuntu/"
+  "arm64": "http://ports.ubuntu.com/ubuntu-ports/"
 installation_mode: "{{ INSTALLATION_MODE | default('baremetal') }}"
+yardstick_dir: "{{ YARDSTICK_DIR | default('/home/opnfv/repos/yardstick') }}"
 proxy_env:
   PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/bin
   http_proxy: "{{ lookup('env', 'http_proxy') }}"
