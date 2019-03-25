@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "da01753e_a2a4de57",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-25T10:24:35Z",
+      "side": 1,
+      "message": "Would you mind to let me know why my comment (https://gerrit.opnfv.org/gerrit/#/c/63985/14/yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py@79) regarding this part was not addressed?",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 74
+      },
+      "revId": "f01f46783ab4df66c10980d2fb43ed5ad38c08c7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_629af615",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-25T10:24:35Z",
+      "side": 1,
+      "message": "Did you test this code? This reads one symbol at a time.\nMy quick try leads to this result:\n\n  \u003e\u003e\u003e with open(\u002711\u0027, \u0027r\u0027) as fp:\n  ...   for idx, x in enumerate(fp.read()):\n  ...     print(idx, x)\n  ...\n  (0, \u0027s\u0027)\n  (1, \u0027d\u0027)\n  (2, \u0027k\u0027)\n  ...\n  (15, \u0027j\u0027)\n  (16, \u0027f\u0027)\n  (17, \u0027\\n\u0027)\n  (18, \u0027 \u0027)\n  (19, \u0027s\u0027)\n  ...\n  (62, \u0027a\u0027)\n  (63, \u0027f\u0027)\n  (64, \u0027\\n\u0027)\n  (65, \u0027\\n\u0027)\n\nMaybe it should be readlines() instead, avoiding further use of splitlines() at L103:\n\n  \u003e\u003e\u003e with open(\u002711\u0027, \u0027r\u0027) as fp:\n  ...   for idx, x in enumerate(fp.readlines()):\n  ...     print(idx, x)\n  ...\n  (0, \u0027sdkfjhasdjfhasdjf\\n\u0027)\n  (1, \u0027 sdafh asjkdfh asdjkfh asdjkfh \\n\u0027)\n  (2, \u0027sdfhasdjkfsdaf\\n\u0027)\n(3, \u0027\\n\u0027)",
+      "range": {
+        "startLine": 101,
+        "startChar": 24,
+        "endLine": 101,
+        "endChar": 30
+      },
+      "revId": "f01f46783ab4df66c10980d2fb43ed5ad38c08c7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c29f6202",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-25T10:24:35Z",
+      "side": 1,
+      "message": "not needed if readlines() is used on defining \"content\" object",
+      "range": {
+        "startLine": 103,
+        "startChar": 18,
+        "endLine": 103,
+        "endChar": 47
+      },
+      "revId": "f01f46783ab4df66c10980d2fb43ed5ad38c08c7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_7f173252",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
         "patchSetId": 16
@@ -13,6 +82,29 @@
       "writtenOn": "2019-03-22T08:57:05Z",
       "side": 1,
       "message": "remove",
+      "revId": "f01f46783ab4df66c10980d2fb43ed5ad38c08c7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_02896aca",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-25T10:24:35Z",
+      "side": 1,
+      "message": "Since this module is a TG implementation, it is required to specify the docstrings for every method and class definition, if you don\u0027t mind.\n\nSorry for late notice of this.",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 16
+      },
       "revId": "f01f46783ab4df66c10980d2fb43ed5ad38c08c7",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
