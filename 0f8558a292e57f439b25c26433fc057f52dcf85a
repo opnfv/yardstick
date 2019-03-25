@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_0513345d",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-25T15:34:14Z",
+      "side": 1,
+      "message": "Description",
+      "range": {
+        "startLine": 925,
+        "startChar": 30,
+        "endLine": 925,
+        "endChar": 36
+      },
+      "revId": "0f8558a292e57f439b25c26433fc057f52dcf85a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e50f102d",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-25T15:34:14Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 990,
+        "startChar": 30,
+        "endLine": 990,
+        "endChar": 36
+      },
+      "revId": "0f8558a292e57f439b25c26433fc057f52dcf85a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c5092c2e",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-25T15:34:14Z",
+      "side": 1,
+      "message": "please specify what is the default NSB path.",
+      "range": {
+        "startLine": 993,
+        "startChar": 31,
+        "endLine": 993,
+        "endChar": 47
+      },
+      "revId": "0f8558a292e57f439b25c26433fc057f52dcf85a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a50ea832",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-25T15:34:14Z",
+      "side": 1,
+      "message": "please specify default values for each of the values if possible.",
+      "range": {
+        "startLine": 989,
+        "startChar": 0,
+        "endLine": 1008,
+        "endChar": 79
+      },
+      "revId": "0f8558a292e57f439b25c26433fc057f52dcf85a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
