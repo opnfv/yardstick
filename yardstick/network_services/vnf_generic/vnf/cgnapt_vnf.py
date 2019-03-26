@@ -98,24 +98,29 @@ class CgnaptApproxVnf(SampleVNF):
             return
 
         flow = self.scenario_helper.all_options.get('flow', {})
-        public_ip = flow.get('public_ip', ['152.16.40.10']).pop()
-        ip_iter = self.setup_helper._generate_ip_from_pool(public_ip)
+        public_ips = flow.get('public_ip', ['152.16.40.10'])
         gw_ips = self.setup_helper._get_cgnapt_config()
         if self.scenario_helper.vnf_cfg.get("lb_config", "SW") == 'HW':
             pipeline = self.setup_helper.HW_DEFAULT_CORE
+            # pylint: disable=unused-variable
             offset = 3
         else:
             pipeline = self.setup_helper.SW_DEFAULT_CORE - 1
+            # pylint: disable=unused-variable
             offset = 0
 
+        # pylint: disable=unused-variable
         worker_threads = int(self.scenario_helper.vnf_cfg["worker_threads"])
         # p <pipeline id> entry addm <prv_ipv4/6> prvport> <pub_ip> <pub_port> <phy_port> <ttl>
         # <no_of_entries> <end_prv_port> <end_pub_port>
         cmd_template = "p {0} entry addm {1} 1 {2} 1 0 32 65535 65535 65535"
-        for gw, ip in zip(gw_ips, ip_iter):
+        for gw, ip in zip(gw_ips, public_ips):
             cmd = cmd_template.format(pipeline, gw, ip)
-            pipeline += worker_threads
-            pipeline += offset
+            # TODO: clarify if it's needed to increment pipeline id
+            # Using one pipeline id is a workaround to add multiple entries for setup with
+            # four or more ports.
+            #pipeline += worker_threads
+            #pipeline += offset
             LOG.info(cmd)
             self.vnf_execute(cmd)
 
