@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_a83afd33",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_imsbench_sipp.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 7491
+      },
+      "writtenOn": "2019-03-27T08:55:47Z",
+      "side": 1,
+      "message": "Do you mean it should be like that:\n----------------------------\nm \u003d mock.mock_open()\nwith mock.patch(\u0027test_tg_imsbench_sipp.open\u0027, create\u003dTrue) as m:\n    with open(\u0027/tmp/test.txt\u0027, \u0027w\u0027) as h:\n        h.write(self.FILE)\ntest \u003d self.sipp_vnf.handle_result_files(\"/tmp/test.txt\")\nself.assertEqual(result_deque, test)\n-----------------------------",
+      "parentUuid": "da01753e_93d137d0",
+      "range": {
+        "startLine": 431,
+        "startChar": 13,
+        "endLine": 431,
+        "endChar": 28
+      },
+      "revId": "08ea2dc07b35141a1f98debe86f824b46816f5ad",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_d3da9fe8",
         "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_imsbench_sipp.py",
         "patchSetId": 15
