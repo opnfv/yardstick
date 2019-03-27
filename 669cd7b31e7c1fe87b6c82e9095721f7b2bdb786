@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_281d6dbe",
+        "filename": "yardstick/network_services/helpers/cpu.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-03-27T15:45:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_10625dd8",
+      "range": {
+        "startLine": 110,
+        "startChar": 20,
+        "endLine": 110,
+        "endChar": 42
+      },
+      "revId": "669cd7b31e7c1fe87b6c82e9095721f7b2bdb786",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_d01f3508",
         "filename": "yardstick/network_services/helpers/cpu.py",
         "patchSetId": 6
@@ -107,6 +131,30 @@
       "writtenOn": "2019-03-13T14:05:57Z",
       "side": 1,
       "message": "Those methods are static and belong to CpuSysCores class but not uses it at all. Can you make it to be similar to get_core_socket function and store/use cpu_node in the class it self?",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 53
+      },
+      "revId": "669cd7b31e7c1fe87b6c82e9095721f7b2bdb786",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e8508560",
+        "filename": "yardstick/network_services/helpers/cpu.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-03-27T15:45:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_d01f3508",
       "range": {
         "startLine": 130,
         "startChar": 0,
@@ -189,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_73aad3d5",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpp_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-03-27T15:45:24Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "da01753e_7073e9b1",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 16
+      },
+      "revId": "669cd7b31e7c1fe87b6c82e9095721f7b2bdb786",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_b06431e6",
         "filename": "yardstick/network_services/vnf_generic/vnf/vpp_helpers.py",
         "patchSetId": 6
@@ -206,6 +278,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_8879f9fe",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpp_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-03-27T15:45:24Z",
+      "side": 1,
+      "message": "Input:\n\n{\u0027unix\u0027: {\u0027log\u0027: \u0027/tmp/vpe.log\u0027}, \u0027heapsize\u0027: \u00274G\u0027}\n\nOutput:\n\nheapsize 4G\nunix\n{\n  log /tmp/vpe.log\n}",
+      "parentUuid": "da01753e_b06431e6",
+      "revId": "669cd7b31e7c1fe87b6c82e9095721f7b2bdb786",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_d06735e9",
         "filename": "yardstick/network_services/vnf_generic/vnf/vpp_helpers.py",
         "patchSetId": 6
@@ -217,6 +307,30 @@
       "writtenOn": "2019-03-13T14:05:57Z",
       "side": 1,
       "message": "dead code, please remove it",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 79
+      },
+      "revId": "669cd7b31e7c1fe87b6c82e9095721f7b2bdb786",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_93a5b706",
+        "filename": "yardstick/network_services/vnf_generic/vnf/vpp_helpers.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-03-27T15:45:24Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "da01753e_d06735e9",
       "range": {
         "startLine": 171,
         "startChar": 0,
