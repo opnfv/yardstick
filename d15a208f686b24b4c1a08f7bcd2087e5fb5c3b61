@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_133427dd",
+        "filename": "yardstick/network_services/helpers/vpp_helpers/abstract_search_algorithm.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-03-27T09:41:28Z",
+      "side": 1,
+      "message": "please check this url:\nhttps://gerrit.fd.io/r/gitweb?p\u003dcsit.git;a\u003dblob;f\u003dresources/libraries/python/MLRsearch/AbstractSearchAlgorithm.py;h\u003d08f8b7e0a9d2f2f744c5f44fe9ce9dd326fd099a;hb\u003dHEAD",
+      "parentUuid": "da01753e_509505e3",
+      "revId": "d15a208f686b24b4c1a08f7bcd2087e5fb5c3b61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_d0a29599",
         "filename": "yardstick/network_services/helpers/vpp_helpers/multiple_loss_ratio_search.py",
         "patchSetId": 8
@@ -306,6 +324,30 @@
       "writtenOn": "2019-03-14T09:52:08Z",
       "side": 1,
       "message": "Still not fixed",
+      "parentUuid": "da01753e_1076dd3e",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 32
+      },
+      "revId": "d15a208f686b24b4c1a08f7bcd2087e5fb5c3b61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_0826a916",
+        "filename": "yardstick/network_services/traffic_profile/vpp_rfc2544.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 7459
+      },
+      "writtenOn": "2019-03-27T09:41:28Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "da01753e_1076dd3e",
       "range": {
         "startLine": 17,
