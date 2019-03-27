@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_a8179d50",
+        "filename": "samples/vnf_samples/nsut/cgnapt/tc_heat_external_rfc2544_ipv4_ixia_scale_up.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-27T16:43:11Z",
+      "side": 1,
+      "message": "public_ip or",
+      "revId": "54ed067299339ab7121336c49d2659bee237683c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_080ce941",
+        "filename": "samples/vnf_samples/nsut/cgnapt/tc_heat_external_rfc2544_ipv4_ixia_scale_up.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-27T16:43:11Z",
+      "side": 1,
+      "message": "phynet_map or",
+      "revId": "54ed067299339ab7121336c49d2659bee237683c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e808852f",
+        "filename": "samples/vnf_samples/traffic_profiles/ixia_ipv4_latency_scale_up.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-27T16:43:11Z",
+      "side": 1,
+      "message": "public_ip_0 ???",
+      "range": {
+        "startLine": 82,
+        "startChar": 28,
+        "endLine": 82,
+        "endChar": 39
+      },
+      "revId": "54ed067299339ab7121336c49d2659bee237683c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
