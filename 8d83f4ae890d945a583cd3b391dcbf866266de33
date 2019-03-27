@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_73ff6a02",
+        "filename": "samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_trex_scale_up.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-27T16:45:36Z",
+      "side": 1,
+      "message": "remove in all places",
+      "revId": "8d83f4ae890d945a583cd3b391dcbf866266de33",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
