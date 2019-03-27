@@ -102,6 +102,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_88ee198a",
+        "filename": "yardstick/network_services/helpers/vpp_helpers/abstract_search_algorithm.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-03-27T12:04:08Z",
+      "side": 1,
+      "message": "Thanks. Sorry to be not so clear, could you please update the reference/URL in the file  L16 too, so everyone will know where to find it? Also please check the reference in all files where you mention this reference. Once it\u0027s done, it\u0027s good to go. \nThank you.",
+      "parentUuid": "da01753e_133427dd",
+      "revId": "d15a208f686b24b4c1a08f7bcd2087e5fb5c3b61",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_d0a29599",
         "filename": "yardstick/network_services/helpers/vpp_helpers/multiple_loss_ratio_search.py",
         "patchSetId": 8
