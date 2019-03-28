@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_f3f87ac6",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 7491
+      },
+      "writtenOn": "2019-03-28T07:52:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_c29f6202",
+      "range": {
+        "startLine": 103,
+        "startChar": 18,
+        "endLine": 103,
+        "endChar": 47
+      },
+      "revId": "f01f46783ab4df66c10980d2fb43ed5ad38c08c7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_7f173252",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
         "patchSetId": 16
@@ -88,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_b30f12e1",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 7491
+      },
+      "writtenOn": "2019-03-28T07:52:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_7f173252",
+      "revId": "f01f46783ab4df66c10980d2fb43ed5ad38c08c7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_02896aca",
         "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
         "patchSetId": 16
@@ -99,6 +141,30 @@
       "writtenOn": "2019-03-25T10:24:35Z",
       "side": 1,
       "message": "Since this module is a TG implementation, it is required to specify the docstrings for every method and class definition, if you don\u0027t mind.\n\nSorry for late notice of this.",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 129,
+        "endChar": 16
+      },
+      "revId": "f01f46783ab4df66c10980d2fb43ed5ad38c08c7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_530a26d3",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 7491
+      },
+      "writtenOn": "2019-03-28T07:52:46Z",
+      "side": 1,
+      "message": "OK, I will add the docstrings",
+      "parentUuid": "da01753e_02896aca",
       "range": {
         "startLine": 129,
         "startChar": 8,
