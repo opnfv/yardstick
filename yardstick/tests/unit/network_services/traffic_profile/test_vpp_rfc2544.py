@@ -18,8 +18,17 @@ from trex_stl_lib import trex_stl_packet_builder_scapy
 from trex_stl_lib import trex_stl_streams
 
 from yardstick.common import constants
+from yardstick.network_services.helpers.vpp_helpers.multiple_loss_ratio_search import \
+    MultipleLossRatioSearch
+from yardstick.network_services.helpers.vpp_helpers.ndr_pdr_result import \
+    NdrPdrResult
+from yardstick.network_services.helpers.vpp_helpers.receive_rate_interval import \
+    ReceiveRateInterval
+from yardstick.network_services.helpers.vpp_helpers.receive_rate_measurement import \
+    ReceiveRateMeasurement
 from yardstick.network_services.traffic_profile import base as tp_base
 from yardstick.network_services.traffic_profile import rfc2544, vpp_rfc2544
+from yardstick.network_services.traffic_profile.rfc2544 import PortPgIDMap
 from yardstick.tests.unit import base
 
 
@@ -129,6 +138,7 @@ class TestVppRFC2544Profile(base.BaseUnitTestCase):
         self.assertEqual(vpp_rfc2544_profile.max_rate,
                          vpp_rfc2544_profile.rate)
         self.assertEqual(0, vpp_rfc2544_profile.min_rate)
+        self.assertEqual(2, vpp_rfc2544_profile.number_of_intermediate_phases)
         self.assertEqual(30, vpp_rfc2544_profile.duration)
         self.assertEqual(0.1, vpp_rfc2544_profile.precision)
         self.assertEqual(1.0, vpp_rfc2544_profile.lower_bound)
@@ -287,6 +297,7 @@ class TestVppRFC2544Profile(base.BaseUnitTestCase):
         vpp_rfc2544_profile = vpp_rfc2544.VppRFC2544Profile(
             self.TRAFFIC_PROFILE_MAX_RATE)
         vpp_rfc2544_profile.init_queue(mock.MagicMock())
+        vpp_rfc2544_profile.pkt_size = 64
         vpp_rfc2544_profile.params = {
             'downlink_0': 'profile1',
             'uplink_0': 'profile2'}
@@ -480,6 +491,7 @@ class TestVppRFC2544Profile(base.BaseUnitTestCase):
         mock_latency.side_effect = ['latency1', 'latency2']
         vpp_rfc2544_profile = vpp_rfc2544.VppRFC2544Profile(
             self.TRAFFIC_PROFILE_MAX_RATE)
+        vpp_rfc2544_profile.pkt_size = 64
         vpp_rfc2544_profile.port_pg_id = rfc2544.PortPgIDMap()
         vpp_rfc2544_profile.port_pg_id.add_port(1)
         with mock.patch.object(vpp_rfc2544_profile, '_create_single_packet') as \
@@ -523,10 +535,69 @@ class TestVppRFC2544Profile(base.BaseUnitTestCase):
     def test_binary_search_with_optimized(self):
         vpp_rfc2544_profile = vpp_rfc2544.VppRFC2544Profile(
             self.TRAFFIC_PROFILE)
+        vpp_rfc2544_profile.pkt_size = 64
+        vpp_rfc2544_profile.init_queue(mock.MagicMock())
         mock_generator = mock.MagicMock()
-        self.assertIsNone(
-            vpp_rfc2544_profile.binary_search_with_optimized(mock_generator,
-                                                             30, 720, ''))
+        mock_generator.vnfd_helper.interfaces = [
+            {"name": "xe0"}, {"name": "xe0"}
+        ]
+
+        vpp_rfc2544_profile.ports = [0, 1]
+        vpp_rfc2544_profile.port_pg_id = PortPgIDMap()
+        vpp_rfc2544_profile.port_pg_id.add_port(0)
+        vpp_rfc2544_profile.port_pg_id.add_port(1)
+        vpp_rfc2544_profile.profiles = mock.MagicMock()
+        vpp_rfc2544_profile.test_data = mock.MagicMock()
+        vpp_rfc2544_profile.queue = mock.MagicMock()
+
+        with mock.patch.object(MultipleLossRatioSearch, 'measure') as \
+                mock_measure, \
+                mock.patch.object(MultipleLossRatioSearch, 'ndrpdr') as \
+                        mock_ndrpdr:
+            measured_low = ReceiveRateMeasurement(1, 14880000, 14879927, 0)
+            measured_high = ReceiveRateMeasurement(1, 14880000, 14879927, 0)
+            measured_low.latency = ['1000/3081/3962', '500/3149/3730']
+            measured_high.latency = ['1000/3081/3962', '500/3149/3730']
+            starting_interval = ReceiveRateInterval(measured_low,
+                                                    measured_high)
+            starting_result = NdrPdrResult(starting_interval,
+                                           starting_interval)
+            mock_measure.return_value = ReceiveRateMeasurement(1, 14880000,
+                                                               14879927, 0)
+            mock_ndrpdr.return_value = MultipleLossRatioSearch.ProgressState(
+                starting_result, 2, 30, 0.005, 0.0,
+                4857361, 4977343)
+
+            result_samples = vpp_rfc2544_profile.binary_search_with_optimized(
+                traffic_generator=mock_generator, duration=30,
+                timeout=720,
+                test_data={})
+
+        expected = {'Result_NDR_LOWER': {'bandwidth_total_Gbps': 9.999310944,
+                                         'rate_total_pps': 14879927.0},
+                    'Result_NDR_UPPER': {'bandwidth_total_Gbps': 9.999310944,
+                                         'rate_total_pps': 14879927.0},
+                    'Result_NDR_packets_lost': {'packet_loss_ratio': 0.0,
+                                                'packets_lost': 0.0},
+                    'Result_PDR_LOWER': {'bandwidth_total_Gbps': 9.999310944,
+                                         'rate_total_pps': 14879927.0},
+                    'Result_PDR_UPPER': {'bandwidth_total_Gbps': 9.999310944,
+                                         'rate_total_pps': 14879927.0},
+                    'Result_PDR_packets_lost': {'packet_loss_ratio': 0.0,
+                                                'packets_lost': 0.0},
+                    'Result_stream0_NDR_LOWER': {'avg_latency': 3081.0,
+                                                 'max_latency': 3962.0,
+                                                 'min_latency': 1000.0},
+                    'Result_stream0_PDR_LOWER': {'avg_latency': 3081.0,
+                                                 'max_latency': 3962.0,
+                                                 'min_latency': 1000.0},
+                    'Result_stream1_NDR_LOWER': {'avg_latency': 3149.0,
+                                                 'max_latency': 3730.0,
+                                                 'min_latency': 500.0},
+                    'Result_stream1_PDR_LOWER': {'avg_latency': 3149.0,
+                                                 'max_latency': 3730.0,
+                                                 'min_latency': 500.0}}
+        self.assertEqual(expected, result_samples)
 
     def test_binary_search(self):
         vpp_rfc2544_profile = vpp_rfc2544.VppRFC2544Profile(
