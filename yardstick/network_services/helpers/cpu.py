@@ -15,11 +15,15 @@
 
 import io
 
+# Number of threads per core.
+NR_OF_THREADS = 2
+
 
 class CpuSysCores(object):
 
     def __init__(self, connection=""):
         self.core_map = {}
+        self.cpuinfo = {}
         self.connection = connection
 
     def _open_cpuinfo(self):
@@ -62,13 +66,14 @@ class CpuSysCores(object):
 
     def get_cpu_layout(self):
         _, stdout, _ = self.connection.execute("lscpu -p")
-        cpuinfo = {}
-        cpuinfo['cpuinfo'] = list()
+        self.cpuinfo = {}
+        self.cpuinfo['cpuinfo'] = list()
         for line in stdout.split("\n"):
             if line and line[0] != "#":
-                cpuinfo['cpuinfo'].append([CpuSysCores._str2int(x) for x in
-                                           line.split(",")])
-        return cpuinfo
+                self.cpuinfo['cpuinfo'].append(
+                    [CpuSysCores._str2int(x) for x in
+                     line.split(",")])
+        return self.cpuinfo
 
     def validate_cpu_cfg(self, vnf_cfg=None):
         if vnf_cfg is None:
@@ -89,9 +94,80 @@ class CpuSysCores(object):
 
         return 0
 
+    def is_smt_enabled(self):
+        return CpuSysCores.smt_enabled(self.cpuinfo)
+
+    def cpu_list_per_node(self, cpu_node, smt_used=False):
+        cpu_node = int(cpu_node)
+        cpu_info = self.cpuinfo.get("cpuinfo")
+        if cpu_info is None:
+            raise RuntimeError("Node cpuinfo not available.")
+
+        smt_enabled = self.is_smt_enabled()
+        if not smt_enabled and smt_used:
+            raise RuntimeError("SMT is not enabled.")
+
+        cpu_list = []
+        for cpu in cpu_info:
+            if cpu[3] == cpu_node:
+                cpu_list.append(cpu[0])
+
+        if not smt_enabled or smt_enabled and smt_used:
+            pass
+
+        if smt_enabled and not smt_used:
+            cpu_list_len = len(cpu_list)
+            cpu_list = cpu_list[:int(cpu_list_len / NR_OF_THREADS)]
+
+        return cpu_list
+
+    def cpu_slice_of_list_per_node(self, cpu_node, skip_cnt=0, cpu_cnt=0,
+                                   smt_used=False):
+        cpu_list = self.cpu_list_per_node(cpu_node, smt_used)
+
+        cpu_list_len = len(cpu_list)
+        if cpu_cnt + skip_cnt > cpu_list_len:
+            raise RuntimeError("cpu_cnt + skip_cnt > length(cpu list).")
+
+        if cpu_cnt == 0:
+            cpu_cnt = cpu_list_len - skip_cnt
+
+        if smt_used:
+            cpu_list_0 = cpu_list[:int(cpu_list_len / NR_OF_THREADS)]
+            cpu_list_1 = cpu_list[int(cpu_list_len / NR_OF_THREADS):]
+            cpu_list = [cpu for cpu in cpu_list_0[skip_cnt:skip_cnt + cpu_cnt]]
+            cpu_list_ex = [cpu for cpu in
+                           cpu_list_1[skip_cnt:skip_cnt + cpu_cnt]]
+            cpu_list.extend(cpu_list_ex)
+        else:
+            cpu_list = [cpu for cpu in cpu_list[skip_cnt:skip_cnt + cpu_cnt]]
+
+        return cpu_list
+
+    def cpu_list_per_node_str(self, cpu_node, skip_cnt=0, cpu_cnt=0, sep=",",
+                              smt_used=False):
+        cpu_list = self.cpu_slice_of_list_per_node(cpu_node,
+                                                   skip_cnt=skip_cnt,
+                                                   cpu_cnt=cpu_cnt,
+                                                   smt_used=smt_used)
+        return sep.join(str(cpu) for cpu in cpu_list)
+
     @staticmethod
     def _str2int(string):
         try:
             return int(string)
         except ValueError:
             return 0
+
+    @staticmethod
+    def smt_enabled(cpuinfo):
+        cpu_info = cpuinfo.get("cpuinfo")
+        if cpu_info is None:
+            raise RuntimeError("Node cpuinfo not available.")
+        cpu_mems = [item[-4:] for item in cpu_info]
+        cpu_mems_len = int(len(cpu_mems) / NR_OF_THREADS)
+        count = 0
+        for cpu_mem in cpu_mems[:cpu_mems_len]:
+            if cpu_mem in cpu_mems[cpu_mems_len:]:
+                count += 1
+        return count == cpu_mems_len
