@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_8ea46158",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-29T09:34:00Z",
+      "side": 1,
+      "message": "This is not pythonic, please change it. Earlier I\u0027ve provided some simple ideas to start with.\nhttps://gerrit.opnfv.org/gerrit/#/c/63985/14/yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py@79",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 74
+      },
+      "revId": "7f80aa10532348d77b112aec6f156bb6c71ebc47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8ebbc171",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-29T09:34:00Z",
+      "side": 1,
+      "message": "1. No need to convert to dict() as the popped queue element  is a dict already.\n\n2. More pythonic is:\n\n \u003e\u003e\u003e try:\n ...   deque().popleft()\n ... except IndexError:\n ...   pass\n \u003e\u003e\u003e",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 47
+      },
+      "revId": "7f80aa10532348d77b112aec6f156bb6c71ebc47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_eeafed29",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_imsbench_sipp.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-29T09:34:00Z",
+      "side": 1,
+      "message": "self.sipp_vnf.queue \u003d deque([self.QUEUE])",
+      "range": {
+        "startLine": 442,
+        "startChar": 0,
+        "endLine": 443,
+        "endChar": 42
+      },
+      "revId": "7f80aa10532348d77b112aec6f156bb6c71ebc47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_2eaa9519",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_imsbench_sipp.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-03-29T09:34:00Z",
+      "side": 1,
+      "message": "Returning to the idea of mocking these calls... seems it is only 3 of them here, so would it make sense for you to patch the mock_open in a decorator style?\n\nI was thinking about your suggestion, and I feel it is not optimal to mock directly in a test - then would need to watch out if the mock is reset. Decorator might be simpler and safer, too.",
+      "range": {
+        "startLine": 448,
+        "startChar": 13,
+        "endLine": 448,
+        "endChar": 28
+      },
+      "revId": "7f80aa10532348d77b112aec6f156bb6c71ebc47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
