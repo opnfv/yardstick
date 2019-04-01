@@ -91,6 +91,30 @@
       "revId": "7f80aa10532348d77b112aec6f156bb6c71ebc47",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_5404cc14",
+        "filename": "yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_imsbench_sipp.py",
+        "patchSetId": 19
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 7503
+      },
+      "writtenOn": "2019-04-01T10:11:47Z",
+      "side": 1,
+      "message": "I tried 2 ways to write the test but I got the issues.\n\n--------------------------------\nThe first one, I used \"test_tg_imsbench_sipp.open\" likes this:\n\n\n    @mock.patch(\u0027test_tg_imsbench_sipp.open\u0027, new_callable\u003dmock.mock_open, create\u003dTrue)\n    def test_count_line_num(self, mock_file):\n        file \u003d \"/tmp/test.txt\"\n        with open(file, \u0027w\u0027) as output:\n            output.write(self.FILE)\n        mock_file.assert_called_with(file, \u0027w\u0027)\n        self.assertEqual(1, self.sipp_vnf.count_line_num(file))\n\n\n\nI got error:\n\n\n    mock_file.assert_called_with(file, \u0027w\u0027)\n  File \"/usr/local/lib/python2.7/dist-packages/mock/mock.py\", line 925, in assert_called_with\n    raise AssertionError(\u0027Expected call: %s\\nNot called\u0027 % (expected,))\nAssertionError: Expected call: open(\u0027/tmp/test.txt\u0027, \u0027w\u0027)\nNot called\n\n\n--------------------------------\nThe second, I used \"__builtin__\" instead of \"test_tg_imsbench_sipp.open\":\n\n\n    @mock.patch(\u0027__builtin__.open\u0027, new_callable\u003dmock.mock_open)\n    def test_count_line_num(self, mock_file):\n        file \u003d \"/tmp/test.txt\"\n        with open(file, \u0027w\u0027) as output:\n            output.write(self.FILE)\n        mock_file.assert_called_with(file, \u0027w\u0027)\n        self.assertEqual(1, self.sipp_vnf.count_line_num(file))\n\n\nAnd I got error:\n\n\n  File \"yardstick/tests/unit/network_services/vnf_generic/vnf/test_tg_imsbench_sipp.py\", line 465, in test_count_line_num\n    self.assertEqual(1, self.sipp_vnf.count_line_num(file))\nAssertionError: 1 !\u003d 0\n\n--------------------------------\n\nI think I missed something here, do you have any suggestions?",
+      "parentUuid": "da01753e_2eaa9519",
+      "range": {
+        "startLine": 448,
+        "startChar": 13,
+        "endLine": 448,
+        "endChar": 28
+      },
+      "revId": "7f80aa10532348d77b112aec6f156bb6c71ebc47",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
