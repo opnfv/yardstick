@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_b4d1b8cf",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-04-02T14:07:56Z",
+      "side": 1,
+      "message": "Nit: The structure defined in L69 is an ordered iterable by itself. No need to convert to OrderedDict.\n\n         _params \u003d [(\"port\", 5060), (\"start_user\", 1), (\"end_user\", 10000),\n                    (\"init_reg_cps\", 50), (\"init_reg_max\", 5000), (\"reg_cps\", 50),\n                    (\"reg_step\", 10), (\"rereg_cps\", 10), (\"rereg_step\", 5),\n                    (\"dereg_cps\", 10), (\"dereg_step\", 5), (\"msgc_cps\", 10),\n                    (\"msgc_step\", 2), (\"run_mode\", \"rtp\"), (\"call_cps\", 10),\n                    (\"hold_time\", 15), (\"call_step\", 5)]\n\n         self.params \u003d \u0027;\u0027.join([str(scenario_cfg.get(\"options\", {}).get(k, v)) for k, v in _params])",
+      "revId": "0b9e15e10abfbede5eea2ee6dc8c16c9c70efe55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_94d634c4",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 21
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-04-02T14:07:56Z",
+      "side": 1,
+      "message": "not needed, if split strings in brackets",
+      "range": {
+        "startLine": 77,
+        "startChar": 78,
+        "endLine": 77,
+        "endChar": 79
+      },
+      "revId": "0b9e15e10abfbede5eea2ee6dc8c16c9c70efe55",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
