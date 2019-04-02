@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_b4fed869",
+        "filename": "yardstick/benchmark/contexts/heat.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-04-02T09:14:02Z",
+      "side": 1,
+      "message": "Guess this comment is meant to explain that None is just fine value. Is it a correct assumption? Just since I can\u0027t run this code to verify, I rely that you have checked this is expected use case.\n\nBut this code piece does not influence anything, could be removed, I think. But a comment does make sense, if used at L504.",
+      "range": {
+        "startLine": 505,
+        "startChar": 0,
+        "endLine": 507,
+        "endChar": 28
+      },
+      "revId": "be9ec7f9f5a42270cc6044ecb0b32111c702937f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_9403d472",
+        "filename": "yardstick/tests/unit/benchmark/contexts/test_heat.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-04-02T09:14:02Z",
+      "side": 1,
+      "message": "If definitions of two parameters (\"network\", \"gateway_ip\") return, let related asserts return, too. Is it a fair comment?",
+      "range": {
+        "startLine": 750,
+        "startChar": 12,
+        "endLine": 750,
+        "endChar": 83
+      },
+      "revId": "be9ec7f9f5a42270cc6044ecb0b32111c702937f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
