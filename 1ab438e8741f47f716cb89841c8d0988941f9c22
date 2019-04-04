@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_e826c067",
+        "filename": "yardstick/network_services/vnf_generic/vnf/tg_imsbench_sipp.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 7363
+      },
+      "writtenOn": "2019-04-04T11:18:18Z",
+      "side": 1,
+      "message": "Seems I missed this in previous patch set. Apologies.\n\n for k, v in _params",
+      "range": {
+        "startLine": 77,
+        "startChar": 44,
+        "endLine": 77,
+        "endChar": 65
+      },
+      "revId": "1ab438e8741f47f716cb89841c8d0988941f9c22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
