@@ -1,4 +1,4 @@
-# Copyright (c) 2018 Intel Corporation
+# Copyright (c) 2018-2019 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ class LandslideProfile(base.TrafficProfile):
     def __init__(self, tp_config):
         super(LandslideProfile, self).__init__(tp_config)
 
+        self.tp_config = tp_config
         # for backward compatibility support dict and list of dicts
         if isinstance(tp_config["dmf_config"], dict):
             self.dmf_config = [tp_config["dmf_config"]]

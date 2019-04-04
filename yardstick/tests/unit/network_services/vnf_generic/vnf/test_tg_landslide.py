@@ -271,7 +271,7 @@ SESSION_PROFILE = {
                     },
                     'SgwUserSut': {
                         'class': 'Sut',
-                        'name': 'SGW_USER_NAME'
+                        'name': 'SGW - U SUT'
                     },
                     'TestActivity': 'Capacity Test',
                     'NetworkHostAddrLocal': {
@@ -435,7 +435,9 @@ class TestLandslideTrafficGen(unittest.TestCase):
 
     def test_terminate(self, *args):
         self.ls_tg.resource_helper._tcl = mock.Mock()
+        self.ls_tg.resource_helper.abort_running_tests = mock.Mock()
         self.assertIsNone(self.ls_tg.terminate())
+        self.ls_tg.resource_helper.abort_running_tests.assert_called_once()
         self.ls_tg.resource_helper._tcl.disconnect.assert_called_once()
 
     @mock.patch.object(ctx_base.Context, 'get_context_from_server',
@@ -446,6 +448,7 @@ class TestLandslideTrafficGen(unittest.TestCase):
         self.ls_tg.resource_helper.connect = mock.Mock()
         self.ls_tg.resource_helper.create_test_servers = mock.Mock()
         self.ls_tg.resource_helper.create_suts = mock.Mock()
+        self.ls_tg._read_session_profile = mock.Mock()
         self.ls_tg._load_session_profile = mock.Mock()
         self.assertIsNone(self.ls_tg.instantiate(self.SCENARIO_CFG,
                                                  self.CONTEXT_CFG))
@@ -454,6 +457,7 @@ class TestLandslideTrafficGen(unittest.TestCase):
         _suts_blocks_num = len([item['suts'] for item in self.vnfd['config']])
         self.assertEqual(_suts_blocks_num,
                          self.ls_tg.resource_helper.create_suts.call_count)
+        self.ls_tg._read_session_profile.assert_called_once()
         self.ls_tg._load_session_profile.assert_called_once()
 
     @mock.patch.object(tg_landslide.LandslideResourceHelper,
@@ -467,7 +471,7 @@ class TestLandslideTrafficGen(unittest.TestCase):
             'keywords': 'UDP',
             'dataProtocol': 'udp',
             'dmf': {'library': 'test', 'name': 'name'}}
-        mock_traffic_profile.params = self.TRAFFIC_PROFILE
+        mock_traffic_profile.tp_config = self.TRAFFIC_PROFILE
         self.ls_tg.resource_helper._user_id = self.TEST_USER_ID
         mock_get_tests.return_value = [{'id': self.SUCCESS_RECORD_ID,
                                         'testStateOrStep': 'COMPLETE'}]
@@ -499,13 +503,13 @@ class TestLandslideTrafficGen(unittest.TestCase):
         self.assertIsNone(self.ls_tg.wait_for_instantiate())
         self.ls_tg.wait_for_instantiate()
 
-    def test__update_session_suts_no_tc_role(self, *args):
+    def test__update_session_suts_no_tc_role(self):
         _suts = [{'role': 'epc_role'}]
         _testcase = {'parameters': {'diff_epc_role': {'class': 'Sut'}}}
         res = self.ls_tg._update_session_suts(_suts, _testcase)
         self.assertEqual(_testcase, res)
 
-    def test__update_session_suts(self, *args):
+    def test__update_session_suts(self):
 
         def get_testnode_param(role, key, session_prof):
             """ Get value by key from the deep nested dict to avoid calls like:
@@ -622,6 +626,15 @@ class TestLandslideTrafficGen(unittest.TestCase):
 
     @mock.patch.object(common_utils, 'open_relative_file')
     @mock.patch.object(yaml_loader, 'yaml_load')
+    def test__read_session_profile(self, mock_yaml_load, *args):
+        self.ls_tg.scenario_helper.scenario_cfg = \
+            copy.deepcopy(self.SCENARIO_CFG)
+        mock_yaml_load.return_value = copy.deepcopy(SESSION_PROFILE)
+        self.assertIsNone(self.ls_tg._read_session_profile())
+        self.assertIsNotNone(self.ls_tg.session_profile)
+
+    @mock.patch.object(tg_landslide.LandslideTrafficGen,
+                       '_read_session_profile')
     @mock.patch.object(tg_landslide.LandslideTrafficGen,
                        '_update_session_test_servers')
     @mock.patch.object(tg_landslide.LandslideTrafficGen,
@@ -629,17 +642,15 @@ class TestLandslideTrafficGen(unittest.TestCase):
     @mock.patch.object(tg_landslide.LandslideTrafficGen,
                        '_update_session_tc_params')
     def test__load_session_profile(self, mock_upd_ses_tc_params,
-                                   mock_upd_ses_suts, mock_upd_ses_ts,
-                                   mock_yaml_load, *args):
+                                   mock_upd_ses_suts, mock_upd_ses_ts, *args):
         self.ls_tg.scenario_helper.scenario_cfg = \
             copy.deepcopy(self.SCENARIO_CFG)
-        mock_yaml_load.return_value = copy.deepcopy(SESSION_PROFILE)
-        self.assertIsNone(self.ls_tg._load_session_profile())
-        self.assertIsNotNone(self.ls_tg.session_profile)
+        self.ls_tg.session_profile = copy.deepcopy(SESSION_PROFILE)
         # Number of blocks in configuration files
         # Number of test servers, suts and tc params blocks should be equal
         _config_files_blocks_num = len([item['test_server']
                                         for item in self.vnfd['config']])
+        self.assertIsNone(self.ls_tg._load_session_profile())
         self.assertEqual(_config_files_blocks_num,
                          mock_upd_ses_ts.call_count)
         self.assertEqual(_config_files_blocks_num,
@@ -647,31 +658,25 @@ class TestLandslideTrafficGen(unittest.TestCase):
         self.assertEqual(_config_files_blocks_num,
                          mock_upd_ses_tc_params.call_count)
 
-    @mock.patch.object(common_utils, 'open_relative_file')
-    @mock.patch.object(yaml_loader, 'yaml_load')
-    def test__load_session_profile_unequal_num_of_cfg_blocks(
-            self, mock_yaml_load, *args):
-        vnfd = copy.deepcopy(VNFD['vnfd:vnfd-catalog']['vnfd'][0])
-        ls_traffic_gen = tg_landslide.LandslideTrafficGen(NAME, vnfd)
-        ls_traffic_gen.scenario_helper.scenario_cfg = self.SCENARIO_CFG
-        mock_yaml_load.return_value = copy.deepcopy(SESSION_PROFILE)
+    @mock.patch.object(tg_landslide.LandslideTrafficGen,
+                       '_read_session_profile')
+    def test__load_session_profile_unequal_num_of_cfg_blocks(self, *args):
+        self.ls_tg.scenario_helper.scenario_cfg = \
+            copy.deepcopy(self.SCENARIO_CFG)
+        self.ls_tg.session_profile = copy.deepcopy(SESSION_PROFILE)
         # Delete test_servers item from pod file to make it not valid
-        ls_traffic_gen.vnfd_helper['config'].pop()
+        self.ls_tg.vnfd_helper['config'].pop()
         with self.assertRaises(RuntimeError):
-            ls_traffic_gen._load_session_profile()
+            self.ls_tg._load_session_profile()
 
-    @mock.patch.object(common_utils, 'open_relative_file')
-    @mock.patch.object(yaml_loader, 'yaml_load')
-    def test__load_session_profile_test_type_mismatch(self, mock_yaml_load,
-                                                      *args):
+    def test__load_session_profile_test_type_mismatch(self, *args):
         vnfd = copy.deepcopy(VNFD['vnfd:vnfd-catalog']['vnfd'][0])
+        self.ls_tg.scenario_helper.scenario_cfg = \
+            copy.deepcopy(self.SCENARIO_CFG)
         # Swap test servers data in pod file
         vnfd['config'] = list(reversed(vnfd['config']))
-        ls_tg = tg_landslide.LandslideTrafficGen(NAME, vnfd)
-        ls_tg.scenario_helper.scenario_cfg = self.SCENARIO_CFG
-        mock_yaml_load.return_value = SESSION_PROFILE
         with self.assertRaises(RuntimeError):
-            ls_tg._load_session_profile()
+            self.ls_tg._load_session_profile()
 
 
 class TestLandslideResourceHelper(unittest.TestCase):
@@ -1116,14 +1121,14 @@ class TestLandslideResourceHelper(unittest.TestCase):
 
     @mock.patch.object(tg_landslide.LandslideResourceHelper,
                        'get_test_servers')
-    def test__check_test_servers_state_server_not_ready(
-            self, mock_get_test_servers, *args):
+    def test__check_test_servers_state_server_not_ready(self,
+                                                        mock_get_test_servers):
         test_servers_not_ready = [
             {
                 "url": ''.join([EXAMPLE_URL, "testServers/1"]),
                 "id": 1,
                 "name": "TestServer_1",
-                "state": "NOT_READY",
+                "state": "RUNNING",
                 "version": "16.4.0.10"
             }
         ]

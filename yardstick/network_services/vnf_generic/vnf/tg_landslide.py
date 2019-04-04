@@ -53,33 +53,54 @@ class LandslideTrafficGen(sample_vnf.SampleVNFTrafficGen):
         pass
 
     def terminate(self):
+        self.resource_helper.abort_running_tests()
         self.resource_helper.disconnect()
 
     def instantiate(self, scenario_cfg, context_cfg):
         super(LandslideTrafficGen, self).instantiate(scenario_cfg, context_cfg)
         self.resource_helper.connect()
 
-        # Create test servers
-        test_servers = [x['test_server'] for x in self.vnfd_helper['config']]
-        self.resource_helper.create_test_servers(test_servers)
+        self._read_session_profile()
 
-        # Create SUTs
-        [self.resource_helper.create_suts(x['suts']) for x in
-         self.vnfd_helper['config']]
+        # If reuse_existing set to True, skip setup configuration
+        if not self.session_profile.get('reuse_existing', False):
+            # Create test servers
+            test_servers = [x['test_server']
+                            for x in self.vnfd_helper['config']]
+            self.resource_helper.create_test_servers(test_servers)
 
-        # Fill in test session based on session profile and test case options
-        self._load_session_profile()
+            # Create SUTs
+            [self.resource_helper.create_suts(x['suts']) for x in
+             self.vnfd_helper['config']]
+
+            # Fill in test session placeholders
+            self._load_session_profile()
+        else:
+            LOG.info('Reuse existing test session %s',
+                     self.session_profile.get('name'))
 
     def run_traffic(self, traffic_profile):
-        self.resource_helper.abort_running_tests()
-        # Update DMF profile with related test case options
-        traffic_profile.update_dmf(self.scenario_helper.all_options)
-        # Create DMF in test user library
-        self.resource_helper.create_dmf(traffic_profile.dmf_config)
-        # Create/update test session in test user library
-        self.resource_helper.create_test_session(self.session_profile)
+        if not self.session_profile.get('reuse_existing', False):
+            _json_data = {}
+            # Create/update test session in test user library
+            self.resource_helper.create_test_session(self.session_profile)
+            if not traffic_profile.tp_config.get('reuse_existing', False):
+                # Update DMF profile with related test case options
+                traffic_profile.update_dmf(self.scenario_helper.all_options)
+                # Create DMF in test user library
+                self.resource_helper.create_dmf(traffic_profile.dmf_config)
+            # TODO: update test session if traffic profile reuse is requested
+            else:
+                pass
+        # TODO: override test session params before test run
+        else:
+            # The order of test cases should match one in reused test session
+            _json_data = {}
+            pass
+
         # Start test session
-        self.resource_helper.create_running_tests(self.session_profile['name'])
+        self.resource_helper.create_running_tests(self.session_profile['name'],
+                                                  json_data=_json_data)
 
     def collect_kpi(self):
         return self.resource_helper.collect_kpi()
@@ -149,14 +170,14 @@ class LandslideTrafficGen(sample_vnf.SampleVNFTrafficGen):
             testcase['parameters'][_param_key] = tc_options[_param_key]
         return testcase
 
-    def _load_session_profile(self):
-
+    def _read_session_profile(self):
         with common_utils.open_relative_file(
                 self.scenario_helper.scenario_cfg['session_profile'],
                 self.scenario_helper.task_path) as stream:
             self.session_profile = yaml_loader.yaml_load(stream)
 
-        # Raise exception if number of entries differs in following files,
+    def _load_session_profile(self):
+        # Raise exception if number of entries differs in following files
         _config_files = ['pod file', 'session_profile file', 'test_case file']
         # Count testcases number in all tsGroups of session profile
         session_tests_num = [xx for x in self.session_profile['tsGroups']
@@ -551,7 +572,7 @@ class LandslideResourceHelper(sample_vnf.ClientResourceHelper):
         while time.time() - _start_time < timeout:
             ts_ids_not_ready = {x['id'] for x in
                                 self.get_test_servers(test_servers_ids)
-                                if x['state'] != 'READY'}
+                                if 'READY' not in x['state']}
             if ts_ids_not_ready == set():
                 break
             time.sleep(delay)
@@ -651,11 +672,19 @@ class LandslideResourceHelper(sample_vnf.ClientResourceHelper):
         return self.exec_rest_request('delete', '{}/{}'.format(
             self.user_lib_uri.format(self._user_id), test_session))
 
-    def create_running_tests(self, test_session_name):
+    def create_running_tests(self, test_session_name, json_data=None):
+        """Run test session with optional params override
+
+        :param test_session_name: (str) existing Landslide test session name
+        :param json_data: (dict) pre-run test session params override
+        """
+        _json_data = {'library': self._user_id,
+                      'name': test_session_name}
+        if json_data:
+            _json_data = json_data.update(_json_data)
         r = self.exec_rest_request('post',
                                    self.running_tests_uri,
-                                   json_data={'library': self._user_id,
-                                              'name': test_session_name})
+                                   json_data=_json_data)
         if r.status_code != self.REST_STATUS_CODES['CREATED']:
             raise exceptions.RestApiError('Failed to start test session.')
         self.run_id = r.json()['id']
