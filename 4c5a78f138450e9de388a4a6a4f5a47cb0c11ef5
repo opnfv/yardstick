@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_6b03eab8",
+        "filename": "ansible/roles/install_kube/tasks/main.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6419
+      },
+      "writtenOn": "2019-04-08T13:55:06Z",
+      "side": 1,
+      "message": "Please remove this. It is not needed.",
+      "revId": "4c5a78f138450e9de388a4a6a4f5a47cb0c11ef5",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
