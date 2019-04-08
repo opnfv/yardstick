@@ -22,6 +22,30 @@
       "revId": "e9906718227f74317db7da667609d70f13fda0d9",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_8ba0cef5",
+        "filename": "samples/vnf_samples/nsut/agnostic/tc_baremetal_http_ixload__Requests_Concurrency_template.yaml",
+        "patchSetId": 16
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 7085
+      },
+      "writtenOn": "2019-04-08T09:35:22Z",
+      "side": 1,
+      "message": "this is due to a rebase. it should be \n\n   tg__0: trafficgen_0.yardstick\n   vnf__0: vnf_0.yardstick",
+      "parentUuid": "da01753e_2802883e",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 25
+      },
+      "revId": "e9906718227f74317db7da667609d70f13fda0d9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
