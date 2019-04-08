@@ -19,6 +19,7 @@
 # the profile defines a public and private side to make limited traffic correlation
 # between private and public side same way as it is made by IXIA solution.
 #
+{% set frame_rate = get(extra_args, 'frame_rate' or '100%' ) %}
 schema: "nsb:traffic_profile:0.1"
 
 # This file is a template, it will be filled with values from tc.yaml before passing to the traffic generator
@@ -27,7 +28,7 @@ name:            rfc2544
 description:     Traffic profile to run RFC2544 latency
 traffic_profile:
   traffic_type : IXIARFC2544Profile # defines traffic behavior - constant or look for highest possible throughput
-  frame_rate : 100%  # pc of linerate
+  frame_rate : {{ frame_rate }}  # pc of linerate
   duration: {{ duration }}
   enable_latency: True
 
