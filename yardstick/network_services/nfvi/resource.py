@@ -48,6 +48,7 @@ class ResourceProfile(object):
     This profile adds a resource at the beginning of the test session
     """
     COLLECTD_CONF = "collectd.conf"
+    BAR_COLLECTD_CONF_PATH = "/opt/collectd/etc/collectd.conf.d/"
     AMPQ_PORT = 5672
     DEFAULT_INTERVAL = 25
     DEFAULT_TIMEOUT = 3600
@@ -248,6 +249,8 @@ class ResourceProfile(object):
             "plugins": self.plugins,
         }
         self._provide_config_file(config_file_path, self.COLLECTD_CONF, kwargs)
+        self._provide_config_file(self.BAR_COLLECTD_CONF_PATH,
+                                  self.COLLECTD_CONF, kwargs)
 
     def _setup_ovs_stats(self, connection):
         try:
