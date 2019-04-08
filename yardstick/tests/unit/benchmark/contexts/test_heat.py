@@ -13,6 +13,7 @@ import os
 
 import mock
 import unittest
+import collections
 
 from yardstick.benchmark.contexts import base
 from yardstick.benchmark.contexts import heat
@@ -741,6 +742,50 @@ class HeatContextTestCase(unittest.TestCase):
         attr_name = 'foo.wow4'
         result = self.test_context._get_server(attr_name)
         self.assertIsNone(result)
+
+    @mock.patch("yardstick.benchmark.contexts.heat.pkg_resources")
+    def test__get_server_found_dict_found_interfaces_dict(self, *args):
+        """
+        Use HeatContext._get_server to get a server that matches
+        based on a dictionary input.
+        """
+        self.test_context._name = 'bar'
+        self.test_context._task_id = '1234567890'
+        self.test_context._name_task_id = '{}-{}'.format(
+            self.test_context._name, self.test_context._task_id[:8])
+        self.test_context._user = 'bot'
+        self.test_context.stack = mock.Mock()
+        self.test_context.stack.outputs = {
+            'private_ip': '10.0.0.1',
+            'public_ip': '127.0.0.1',
+            'local_mac_addr': '64:00:6a:18:0f:d6',
+            'private_netmask': '255.255.255.0',
+            'private_net_name': 'private_network',
+            'private_net_gateway': '127.0.0.254'
+        }
+
+        attr_name = {
+            'name': 'foo.bar-12345678',
+            'private_ip_attr': 'private_ip',
+            'public_ip_attr': 'public_ip',
+            'interfaces': {
+                'data_net': {
+                    'local_ip': 'private_ip',
+                    'local_mac': 'local_mac_addr',
+                    'netmask': 'private_netmask',
+                    'network': 'private_net_name',
+                    'gateway_ip': 'private_net_gateway'
+                    }
+                }
+        }
+        self.test_context.key_uuid = 'foo-42'
+        result = self.test_context._get_server(attr_name)
+        self.assertIsInstance(result['interfaces'], collections.Mapping)
+        for key in attr_name.get("interfaces").keys():
+            self.assertEqual(result['interfaces'][key]['local_ip'], '10.0.0.1')
+            self.assertEqual(result['interfaces'][key]['local_mac'], '64:00:6a:18:0f:d6')
+            self.assertEqual(result['interfaces'][key]['netmask'], '255.255.255.0')
+            self.assertEqual(result['interfaces'][key]['gateway_ip'], '127.0.0.254')
 
     # TODO: Split this into more granular tests
     def test__get_network(self):
