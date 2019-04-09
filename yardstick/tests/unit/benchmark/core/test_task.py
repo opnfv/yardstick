@@ -31,6 +31,14 @@ from yardstick.common import utils
 
 class TaskTestCase(unittest.TestCase):
 
+    def setUp(self):
+        self._mock_log = mock.patch.object(task, 'LOG')
+        self.mock_log = self._mock_log.start()
+        self.addCleanup(self._stop_mock)
+
+    def _stop_mock(self):
+        self._mock_log.stop()
+
     @mock.patch.object(base, 'Context')
     def test_parse_nodes_with_context_same_context(self, mock_context):
         scenario_cfg = {
