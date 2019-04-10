@@ -1,4 +1,4 @@
-# Copyright (c) 2017-2019 Intel Corporation.
+# Copyright (c) 2017 Intel Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,10 +17,6 @@
 
   - name: create docker service config dir
     file: path=/etc/systemd/system/docker.service.d state=directory
-
-  - name: docker configuration
-    template: src=daemon.json.j2 dest=/etc/docker/daemon.json owner=root mode=0644
-    when: 'docker_daemon_config is defined'
 
   - name: create docker proxy config
     template: src=http-proxy-conf.j2 dest=/etc/systemd/system/docker.service.d/http-proxy.conf owner=root mode=0644
