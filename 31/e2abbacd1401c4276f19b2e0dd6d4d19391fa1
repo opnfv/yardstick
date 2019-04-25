@@ -1,0 +1,7 @@
+Code-Review+2: Volodymyr Mytnyk <volodymyrx.mytnyk@intel.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Submitted-by: Rex Lee <limingjiang@huawei.com>
+Submitted-at: Thu, 25 Apr 2019 03:41:00 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/60961
+Project: yardstick
+Branch: refs/heads/master
