@@ -1,7 +1,7 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International
 .. License.
 .. http://creativecommons.org/licenses/by/4.0
-.. (c) OPNFV, 2016-2017 Intel Corporation.
+.. (c) OPNFV, 2016-2019 Intel Corporation.
 
 .. Convention for heading levels in Yardstick documentation:
 
@@ -55,8 +55,8 @@ traffic according to user defined profiles.
 NSB extension includes:
 
 * Generic data models of Network Services, based on ETSI spec
-  `ETSI GS NFV-TST 001`_
-* Standalone :term:`context` for VNF testing SRIOV, OVS, OVS-DPDK, etc
+  `ETSI GS NFV-TST001`_
+* Standalone :term:`context` for VNF testing SRIOV,     OVS-DPDK, etc
 * Generic VNF configuration models and metrics implemented with Python
   classes
 * Traffic generator features and traffic profiles
@@ -175,8 +175,8 @@ Supported testcases scenarios:
 
 * Correlated UDP traffic using TREX traffic generator and replay VNF.
 
-    * using different IMIX configuration like pure voice, pure video traffic etc
-    * using different number IP flows e.g. 1, 1K, 16K, 64K, 256K, 1M flows
+    * Using different IMIX configuration like pure voice, pure video traffic etc
+    * Using different number IP flows e.g. 1, 1K, 16K, 64K, 256K, 1M flows
     * Using different number of rules configured e.g. 1, 1K, 10K rules
 
 For UDP correlated traffic following Key Performance Indicators are collected
@@ -194,6 +194,7 @@ There is already some reporting in NSB available, but NSB collects all KPIs for
 analytics to process.
 
 Below is an example list of basic KPIs:
+
 * Throughput
 * Latency
 * Packet delay variation
@@ -214,7 +215,7 @@ the following collectd plug-ins are enabled for NSB testcases:
 * RAM
 * CPU usage
 * Intel® PMU
-* Intel(r) RDT
+* Intel® RDT
 
 Graphical Overview
 ------------------

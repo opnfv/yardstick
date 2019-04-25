@@ -72,6 +72,7 @@ Several prerequisites are needed for Yardstick:
    the end of this document. That section details some tips/tricks which *may*
    be of help in a proxified environment.
 
+.. _Install Yardstick using Docker:
 
 Install Yardstick using Docker (first option) (**recommended**)
 ---------------------------------------------------------------

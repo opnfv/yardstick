@@ -108,17 +108,19 @@ The ``nsb_setup.sh`` allows to:
 Firstly, configure the network proxy, either using the environment variables or
 setting the global environment file.
 
-Set environment::
+Set environment in the file::
 
     http_proxy='http://proxy.company.com:port'
     https_proxy='http://proxy.company.com:port'
+
+Set environment variables:
 
 .. code-block:: console
 
     export http_proxy='http://proxy.company.com:port'
     export https_proxy='http://proxy.company.com:port'
 
-Download the source code and check out the latest stable branch
+Download the source code and check out the latest stable branch:
 
 .. code-block:: console
 
@@ -127,7 +129,9 @@ Download the source code and check out the latest stable branch
   # Switch to latest stable branch
   git checkout stable/gambia
 
-Modify the Yardstick installation inventory used by Ansible::
+Modify the Yardstick installation inventory used by Ansible:
+
+.. code-block:: ini
 
   cat ./ansible/install-inventory.ini
   [jumphost]
@@ -161,7 +165,7 @@ Modify the Yardstick installation inventory used by Ansible::
 .. warning::
 
    Before running ``nsb_setup.sh`` make sure python is installed on servers
-   added to ``yardstick-standalone`` or ``yardstick-baremetal`` groups.
+   added to ``yardstick-standalone`` and ``yardstick-baremetal`` groups.
 
 .. note::
 
@@ -239,9 +243,8 @@ execute::
    stty size rows 58 cols 234
 
 It will also automatically download all the packages needed for NSB Testing
-setup. Refer chapter :doc:`04-installation` for more on Docker.
-
-**Install Yardstick using Docker (recommended)**
+setup. Refer chapter :doc:`04-installation` for more on Docker:
+:ref:`Install Yardstick using Docker`
 
 Bare Metal context example
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -329,7 +332,9 @@ container)::
     vi /etc/yardstick/yardstick.conf
 
 Add ``trex_path``, ``trex_client_lib`` and ``bin_path`` to the ``nsb``
-section::
+section:
+
+.. code-block:: ini
 
   [DEFAULT]
   debug = True
@@ -360,16 +365,17 @@ Connect to the Yardstick container::
   docker exec -it yardstick /bin/bash
 
 If you're running ``heat`` testcases and ``nsb_setup.sh`` was not used::
+
   source /etc/yardstick/openstack.creds
 
-In addition to the above, you need to se the ``EXTERNAL_NETWORK`` for
+In addition to the above, you need to set the ``EXTERNAL_NETWORK`` for
 OpenStack::
 
   export EXTERNAL_NETWORK="<openstack public network>"
 
 Finally, you should be able to run the testcase::
 
-  yardstick --debug task start ./yardstick/samples/vnf_samples/nsut/<vnf>/<test case>
+  yardstick --debug task start yardstick/samples/vnf_samples/nsut/<vnf>/<test case>
 
 Network Service Benchmarking - Bare-Metal
 -----------------------------------------
@@ -410,7 +416,7 @@ Bare-Metal Config pod.yaml
 Before executing Yardstick test cases, make sure that ``pod.yaml`` reflects the
 topology and update all the required fields.::
 
-    cp ./etc/yardstick/nodes/pod.yaml.nsb.sample /etc/yardstick/nodes/pod.yaml
+    cp <yardstick>/etc/yardstick/nodes/pod.yaml.nsb.sample /etc/yardstick/nodes/pod.yaml
 
 .. code-block:: YAML
 
@@ -435,7 +441,7 @@ topology and update all the required fields.::
                 dpdk_port_num: 1
                 local_ip: "152.16.40.20"
                 netmask:   "255.255.255.0"
-                local_mac: "00:00.00:00:00:02"
+                local_mac: "00:00:00:00:00:02"
 
     -
         name: vnf
@@ -490,7 +496,7 @@ SR-IOV Pre-requisites
 +++++++++++++++++++++
 
 On Host, where VM is created:
- a) Create and configure a bridge named ``br-int`` for VM to connect to
+ 1. Create and configure a bridge named ``br-int`` for VM to connect to
     external network. Currently this can be done using VXLAN tunnel.
 
     Execute the following on host, where VM is created::
@@ -519,7 +525,7 @@ On Host, where VM is created:
 
   .. note:: Host and jump host are different baremetal servers.
 
- b) Modify test case management CIDR.
+ 2. Modify test case management CIDR.
     IP addresses IP#1, IP#2 and CIDR must be in the same network.
 
   .. code-block:: YAML
@@ -530,7 +536,7 @@ On Host, where VM is created:
           mgmt:
             cidr: '1.1.1.7/24'
 
- c) Build guest image for VNF to run.
+ 3. Build guest image for VNF to run.
     Most of the sample test cases in Yardstick are using a guest image called
     ``yardstick-nsb-image`` which deviates from an Ubuntu Cloud Server image
     Yardstick has a tool for building this custom image with SampleVNF.
@@ -549,8 +555,6 @@ On Host, where VM is created:
 
    For instructions on generating a cloud image using Ansible, refer to
    :doc:`04-installation`.
-
-   for more details refer to chapter :doc:`04-installation`
 
    .. note:: VM should be build with static IP and be accessible from the
       Yardstick host.
@@ -618,8 +622,8 @@ topology and update all the required fields.
 
 .. code-block:: console
 
-    cp ./etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
-    cp ./etc/yardstick/nodes/standalone/host_sriov.yaml /etc/yardstick/nodes/standalone/host_sriov.yaml
+    cp <yardstick>/etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
+    cp <yardstick>/etc/yardstick/nodes/standalone/host_sriov.yaml /etc/yardstick/nodes/standalone/host_sriov.yaml
 
 .. note:: Update all the required fields like ip, user, password, pcis, etc...
 
@@ -650,7 +654,7 @@ SR-IOV Config pod_trex.yaml
                 dpdk_port_num: 1
                 local_ip: "152.16.40.20"
                 netmask:   "255.255.255.0"
-                local_mac: "00:00.00:00:00:02"
+                local_mac: "00:00:00:00:00:02"
 
 SR-IOV Config host_sriov.yaml
 +++++++++++++++++++++++++++++
@@ -666,7 +670,7 @@ SR-IOV Config host_sriov.yaml
        password: ""
 
 SR-IOV testcase update:
-``./samples/vnf_samples/nsut/vfw/tc_sriov_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
+``<yardstick>/samples/vnf_samples/nsut/vfw/tc_sriov_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
 
 Update contexts section
 '''''''''''''''''''''''
@@ -719,7 +723,7 @@ OVS-DPDK Pre-requisites
 +++++++++++++++++++++++
 
 On Host, where VM is created:
- a) Create and configure a bridge named ``br-int`` for VM to connect to
+ 1. Create and configure a bridge named ``br-int`` for VM to connect to
     external network. Currently this can be done using VXLAN tunnel.
 
     Execute the following on host, where VM is created:
@@ -750,7 +754,7 @@ On Host, where VM is created:
 
   .. note:: Host and jump host are different baremetal servers.
 
- b) Modify test case management CIDR.
+ 2. Modify test case management CIDR.
     IP addresses IP#1, IP#2 and CIDR must be in the same network.
 
   .. code-block:: YAML
@@ -761,7 +765,7 @@ On Host, where VM is created:
           mgmt:
             cidr: '1.1.1.7/24'
 
- c) Build guest image for VNF to run.
+ 3. Build guest image for VNF to run.
     Most of the sample test cases in Yardstick are using a guest image called
     ``yardstick-nsb-image`` which deviates from an Ubuntu Cloud Server image
     Yardstick has a tool for building this custom image with SampleVNF.
@@ -784,11 +788,11 @@ On Host, where VM is created:
    .. note::  VM should be build with static IP and should be accessible from
       yardstick host.
 
-3. OVS & DPDK version.
-   * OVS 2.7 and DPDK 16.11.1 above version is supported
+4. OVS & DPDK version:
 
-4. Setup `OVS-DPDK`_ on host.
+  * OVS 2.7 and DPDK 16.11.1 above version is supported
 
+Refer setup instructions at `OVS-DPDK`_ on host.
 
 OVS-DPDK Config pod.yaml describing Topology
 ++++++++++++++++++++++++++++++++++++++++++++
@@ -856,8 +860,8 @@ OVS-DPDK 3-Node setup - Correlated Traffic
 Before executing Yardstick test cases, make sure that the ``pod.yaml`` reflects
 the topology and update all the required fields::
 
-  cp ./etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
-  cp ./etc/yardstick/nodes/standalone/host_ovs.yaml /etc/yardstick/nodes/standalone/host_ovs.yaml
+  cp <yardstick>/etc/yardstick/nodes/standalone/trex_bm.yaml.sample /etc/yardstick/nodes/standalone/pod_trex.yaml
+  cp <yardstick>/etc/yardstick/nodes/standalone/host_ovs.yaml /etc/yardstick/nodes/standalone/host_ovs.yaml
 
 .. note:: Update all the required fields like ip, user, password, pcis, etc...
 
@@ -887,7 +891,7 @@ OVS-DPDK Config pod_trex.yaml
               dpdk_port_num: 1
               local_ip: "152.16.40.20"
               netmask:   "255.255.255.0"
-              local_mac: "00:00.00:00:00:02"
+              local_mac: "00:00:00:00:00:02"
 
 OVS-DPDK Config host_ovs.yaml
 +++++++++++++++++++++++++++++
@@ -903,7 +907,7 @@ OVS-DPDK Config host_ovs.yaml
        password: ""
 
 ovs_dpdk testcase update:
-``./samples/vnf_samples/nsut/vfw/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
+``<yardstick>/samples/vnf_samples/nsut/vfw/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``
 
 Update contexts section
 '''''''''''''''''''''''
@@ -1237,7 +1241,7 @@ DevStack installation
 If you want to try out NSB, but don't have OpenStack set-up, you can use
 `Devstack`_ to install OpenStack on a host. Please note, that the
 ``stable/pike`` branch of devstack repo should be used during the installation.
-The required ``local.conf`` configuration file are described below.
+The required ``local.conf`` configuration file is described below.
 
 DevStack configuration file:
 
@@ -1248,7 +1252,7 @@ DevStack configuration file:
   commands to get device and vendor id of the virtual function (VF).
 
 .. literalinclude:: code/single-devstack-local.conf
-   :language: console
+   :language: ini
 
 Start the devstack installation on a host.
 
@@ -1265,7 +1269,7 @@ Run the Sample VNF test case
 
 There is an example of Sample VNF test case ready to be executed in an
 OpenStack environment with SR-IOV support: ``samples/vnf_samples/nsut/vfw/
-tc_heat_sriov_external_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``.
+tc_heat_sriov_external_rfc2544_ipv4_1rule_1flow_trex.yaml``.
 
 Install Yardstick using `Install Yardstick (NSB Testing)`_ steps for OpenStack
 context.
@@ -1278,7 +1282,7 @@ container:
   command to get the PF PCI address for ``vpci`` field.
 
 .. literalinclude:: code/single-yardstick-pod.conf
-   :language: console
+   :language: ini
 
 Run the Sample vFW RFC2544 SR-IOV TC (``samples/vnf_samples/nsut/vfw/
 tc_heat_sriov_external_rfc2544_ipv4_1rule_1flow_64B_trex.yaml``) in the heat
@@ -1338,12 +1342,12 @@ devstack repo should be used during the installation.
 DevStack configuration file for controller host:
 
 .. literalinclude:: code/multi-devstack-controller-local.conf
-   :language: console
+   :language: ini
 
 DevStack configuration file for compute host:
 
 .. literalinclude:: code/multi-devstack-compute-local.conf
-   :language: console
+   :language: ini
 
 Start the devstack installation on the controller and compute hosts.
 
@@ -1385,13 +1389,13 @@ IxLoad
 
   .. code-block:: console
 
-    cp ./etc/yardstick/nodes/pod.yaml.nsb.sample.ixia \
-      /etc/yardstick/nodes/pod_ixia.yaml
+    cp <repo>/etc/yardstick/nodes/pod.yaml.nsb.sample.ixia \
+      etc/yardstick/nodes/pod_ixia.yaml
 
   Config ``pod_ixia.yaml``
 
   .. literalinclude:: code/pod_ixia.yaml
-     :language: console
+     :language: yaml
 
   for sriov/ovs_dpdk pod files, please refer to `Standalone Virtualization`_
   for ovs-dpdk/sriov configuration
@@ -1409,7 +1413,7 @@ IxLoad
 4. Create a folder ``Results`` in c:\ and share the folder on the network.
 
 5. Execute testcase in samplevnf folder e.g.
-   ``./samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_1b_Requests-65000_Concurrency.yaml``
+   ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_http_ixload_1b_Requests-65000_Concurrency.yaml``
 
 IxNetwork
 ^^^^^^^^^
@@ -1421,13 +1425,13 @@ installed as part of the requirements of the project.
 
   .. code-block:: console
 
-    cp ./etc/yardstick/nodes/pod.yaml.nsb.sample.ixia \
-    /etc/yardstick/nodes/pod_ixia.yaml
+    cp <repo>/etc/yardstick/nodes/pod.yaml.nsb.sample.ixia \
+    etc/yardstick/nodes/pod_ixia.yaml
 
   Configure ``pod_ixia.yaml``
 
   .. literalinclude:: code/pod_ixia.yaml
-     :language: console
+     :language: yaml
 
   for sriov/ovs_dpdk pod files, please refer to above
   `Standalone Virtualization`_ for ovs-dpdk/sriov configuration
@@ -1442,7 +1446,7 @@ installed as part of the requirements of the project.
       (or ``IxNetworkApiServer``)
 
 3. Execute testcase in samplevnf folder e.g.
-   ``./samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml``
+   ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_ixia.yaml``
 
 Spirent Landslide
 -----------------

@@ -1,7 +1,7 @@
 .. This work is licensed under a Creative Commons Attribution 4.0 International
 .. License.
 .. http://creativecommons.org/licenses/by/4.0
-.. (c) OPNFV, 2016-2018 Intel Corporation.
+.. (c) OPNFV, 2016-2019 Intel Corporation.
 ..
     Convention for heading levels in Yardstick documentation:
 
@@ -265,8 +265,8 @@ to the VNF.
 
 An example scale-up Heat testcase is:
 
-.. literalinclude:: /../samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_64B_trex_scale-up.yaml
-   :language: yaml
+.. literalinclude:: /../samples/vnf_samples/nsut/vfw/tc_heat_rfc2544_ipv4_1rule_1flow_trex_scale-up.yaml
+   :language: yaml+jinja
 
 This testcase template requires specifying the number of VCPUs, Memory and Ports.
 We set the VCPUs and memory using the ``--task-args`` options
@@ -281,7 +281,7 @@ In order to support ports scale-up, traffic and topology templates need to be us
 A example topology template is:
 
 .. literalinclude:: /../samples/vnf_samples/nsut/vfw/vfw-tg-topology-scale-up.yaml
-   :language: yaml
+   :language: yaml+jinja
 
 This template has ``vports`` as an argument. To pass this argument it needs to
 be configured in ``extra_args`` scenario definition. Please note that more
@@ -303,7 +303,7 @@ For example:
 A example traffic profile template is:
 
 .. literalinclude:: /../samples/vnf_samples/traffic_profiles/ipv4_throughput-scale-up.yaml
-   :language: yaml
+   :language: yaml+jinja
 
 There is an option to provide predefined config for SampleVNFs. Path to config
 file may by specified in ``vnf_config`` scenario section.
@@ -319,11 +319,10 @@ Baremetal
 ^^^^^^^^^
   1. Follow above traffic generator section to setup.
   2. Edit num of threads in
-     ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_1rule_1flow_64B_trex_scale_up.yaml``
+     ``<repo>/samples/vnf_samples/nsut/vfw/tc_baremetal_rfc2544_ipv4_trex_scale_up.yaml``
      e.g, 6 Threads for given VNF
 
-.. code-block:: yaml
-
+.. code-block:: yaml+jinja
 
      schema: yardstick:task:0.1
      scenarios:
@@ -382,7 +381,7 @@ Scale-out not supported on Baremetal.
   .. code-block:: console
 
     cd <repo>/ansible
-    trex: standalone_ovs_scale_out_trex_test.yaml or standalone_sriov_scale_out_trex_test.yaml
+    trex: standalone_ovs_scale_out_test.yaml or standalone_sriov_scale_out_test.yaml
     ixia: standalone_ovs_scale_out_ixia_test.yaml or standalone_sriov_scale_out_ixia_test.yaml
     ixia_correlated: standalone_ovs_scale_out_ixia_correlated_test.yaml or standalone_sriov_scale_out_ixia_correlated_test.yaml
 
@@ -503,8 +502,8 @@ Sample test case file
 4. Modify ``networks/phy_port`` accordingly to the baremetal setup.
 5. Run test from:
 
-.. literalinclude:: /../samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_64B_trex.yaml
-   :language: yaml
+.. literalinclude:: /../samples/vnf_samples/nsut/acl/tc_ovs_rfc2544_ipv4_1rule_1flow_trex.yaml
+   :language: yaml+jinja
 
 Preparing test run of vEPC test case
 ------------------------------------
@@ -617,7 +616,7 @@ The vPE (Provider Edge Router) is a :term: `VNF` approximation
 serving as an Edge Router. The vPE is approximated using the
 ``ip_pipeline`` dpdk application.
 
-         .. image:: images/vPE_Diagram.png
+         .. image:: /../docs/testing/developer/devguide/images/vPE_Diagram.png
             :width: 800px
             :alt: NSB vPE Diagram
 
@@ -642,7 +641,7 @@ A testcase can be started with the following command as an example:
     yardstick task start /yardstick/samples/vnf_samples/nsut/vpe/tc_baremetal_rfc2544_ipv4_1flow_64B_ixia.yaml
 
 Preparing test run of vIPSEC test case
-------------------------------------
+--------------------------------------
 
 Location of vIPSEC test cases: ``samples/vnf_samples/nsut/ipsec/``.
 

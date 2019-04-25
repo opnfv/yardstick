@@ -3,9 +3,9 @@
 .. http://creativecommons.org/licenses/by/4.0
 .. (c) OPNFV, 2017 Intel Corporation.
 
-**********************************************
-Yardstick Test Case Description: NSB PROXi VPE
-**********************************************
+*********************************************
+Yardstick Test Case Description: NSB PROX VPE
+*********************************************
 
 +-----------------------------------------------------------------------------+
 |NSB PROX test for NFVI characterization                                      |
