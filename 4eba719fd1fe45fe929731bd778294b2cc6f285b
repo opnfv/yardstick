@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df00c331_b619a1bb",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2019-04-25T08:50:13Z",
+      "side": 1,
+      "message": "pls remove",
+      "range": {
+        "startLine": 486,
+        "startChar": 0,
+        "endLine": 486,
+        "endChar": 57
+      },
+      "revId": "4eba719fd1fe45fe929731bd778294b2cc6f285b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74e3de4d_61882db3",
+        "filename": "docs/testing/user/userguide/13-nsb-installation.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 5499
+      },
+      "writtenOn": "2019-04-25T08:50:13Z",
+      "side": 1,
+      "message": "pls add example",
+      "range": {
+        "startLine": 728,
+        "startChar": 54,
+        "endLine": 728,
+        "endChar": 58
+      },
+      "revId": "4eba719fd1fe45fe929731bd778294b2cc6f285b",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
