@@ -56,3 +56,35 @@
     # make executable
     mode: 0755
 
+- set_fact:
+    path_vnf: "{{ INSTALL_BIN_PATH }}/{{ vnf_app_names[vnf_name]}}"
+
+- stat:
+    path: "{{ path_vnf }}"
+    checksum_algorithm: md5
+  register: path_vnf_var
+
+- stat:
+    path: "{{ path_json }}"
+  register: path_json_var
+
+- name: Fetch from remote
+  fetch:
+    src: "{{ path_json }}"
+    dest: "{{ path_json }}"
+    flat: yes
+  when: path_json_var.stat.exists
+
+- name: Read from json
+  set_fact:
+    json_vars: "{{ lookup('file', path_json) | from_json }}"
+  when: path_json_var.stat.exists
+
+- set_fact:
+    json_vars: "{{ json_vars | default([]) | combine({ vnf_app_names[vnf_name]: {'branch_commit': samplevnf_version, 'path_vnf': path_vnf, 'md5': path_vnf_var.stat.checksum }}) }}"
+
+- name: Update json file
+  copy:
+    content: "{{ json_vars | to_nice_json }}"
+    dest: "{{ path_json }}"
+    mode: 0755
