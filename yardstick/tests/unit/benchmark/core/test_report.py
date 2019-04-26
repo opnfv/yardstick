@@ -77,10 +77,10 @@ MORE_EXPECTED_TABLE_VALS = {
             123,
             4.56,
             9876543210987654321 if six.PY3 else 9.876543210987655e+18,
-            'str_str value',
-            'str_unicode value',
-            'unicode_str value',
-            'unicode_unicode value',
+            None,
+            None,
+            None,
+            None,
             7.89,
             1011,
             9876543210123456789 if six.PY3 else 9.876543210123457e+18,
@@ -219,12 +219,314 @@ class ReportTestCase(unittest.TestCase):
         self.rep.task_id = GOOD_TASK_ID
         six.assertRaisesRegex(self, KeyError, "Task ID", self.rep._get_metrics)
 
+    @mock.patch.object(influx, 'query')
+    def test__get_task_start_time(self, mock_query):
+        self.rep.yaml_name = GOOD_YAML_NAME
+        self.rep.task_id = GOOD_TASK_ID
+        mock_query.return_value = [{
+            u'free.memory0.used': u'9789088',
+            u'free.memory0.available': u'22192984',
+            u'free.memory0.shared': u'219152',
+            u'time': u'2019-01-22T16:20:14.568075776Z',
+        }]
+        expected = "2019-01-22T16:20:14.568075776Z"
+
+        self.assertEqual(
+            expected,
+            self.rep._get_task_start_time()
+        )
+
+    def test__get_task_start_time_task_not_found(self):
+        pass
+
+    @mock.patch.object(influx, 'query')
+    def test__get_task_end_time(self, mock_query):
+        self.rep.yaml_name = GOOD_YAML_NAME
+        self.rep.task_id = GOOD_TASK_ID
+        # TODO(elfoley): write this test!
+        mock_query.return_value = [{
+
+        }]
+
+    @mock.patch.object(influx, 'query')
+    def test__get_baro_metrics(self, mock_query):
+        self.rep.yaml_name = GOOD_YAML_NAME
+        self.rep.task_id = GOOD_TASK_ID
+        self.rep._get_task_start_time = mock.Mock(return_value=0)
+        self.rep._get_task_end_time = mock.Mock(return_value=0)
+
+        influx_return_values = ([{
+             u'value': 324050, u'instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:25.383698038Z',
+             u'type_instance': u'user', u'type': u'cpu',
+             }, {
+             u'value': 193798, u'instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:25.383712594Z',
+             u'type_instance': u'system', u'type': u'cpu',
+             }, {
+             u'value': 324051, u'instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:35.383696624Z',
+             u'type_instance': u'user', u'type': u'cpu',
+             }, {
+             u'value': 193800, u'instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:35.383713481Z',
+             u'type_instance': u'system', u'type': u'cpu',
+             }, {
+             u'value': 324054, u'instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:45.3836966789Z',
+             u'type_instance': u'user', u'type': u'cpu',
+             }, {
+             u'value': 193801, u'instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:45.383716296Z',
+             u'type_instance': u'system', u'type': u'cpu',
+             }],
+             [{
+             u'value': 3598453000, u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:25.383698038Z',
+             u'type_instance': u'0', u'type': u'cpufreq',
+             }, {
+             u'value': 3530250000, u'type_instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:35.383712594Z', u'type': u'cpufreq',
+             }, {
+             u'value': 3600281000, u'type_instance': u'0', u'host': u'myhostname',
+             u'time': u'2018-12-19T14:11:45.383696624Z', u'type': u'cpufreq',
+            }],
+        )
+
+        def ret_vals(vals):
+            for x in vals:
+                yield x
+            while True:
+                yield []
+
+        mock_query.side_effect = ret_vals(influx_return_values)
+
+        BARO_EXPECTED_METRICS = {
+            'Timestamp': [
+                '14:11:25.3836', '14:11:25.3837',
+                '14:11:35.3836', '14:11:35.3837',
+                '14:11:45.3836', '14:11:45.3837'],
+            'myhostname.cpu_value.cpu.user.0': {
+                '14:11:25.3836': 324050,
+                '14:11:35.3836': 324051,
+                '14:11:45.3836': 324054,
+            },
+            'myhostname.cpu_value.cpu.system.0': {
+                '14:11:25.3837': 193798,
+                '14:11:35.3837': 193800,
+                '14:11:45.3837': 193801,
+            },
+            'myhostname.cpufreq_value.cpufreq.0': {
+                '14:11:25.3836': 3598453000,
+                '14:11:35.3837': 3530250000,
+                '14:11:45.3836': 3600281000,
+            }
+        }
+        self.assertEqual(
+            BARO_EXPECTED_METRICS,
+            self.rep._get_baro_metrics()
+        )
+
     def test__get_timestamps(self):
 
         metrics = MORE_DB_METRICS
         self.assertEqual(
             MORE_TIMESTAMP,
             self.rep._get_timestamps(metrics)
+        )
+
+    def test__format_datasets(self):
+        metric_name = "free.memory0.used"
+        metrics = [{
+            u'free.memory1.free': u'1958664',
+            u'free.memory0.used': u'9789560',
+            }, {
+            u'free.memory1.free': u'1958228',
+            u'free.memory0.used': u'9789790',
+            }, {
+            u'free.memory1.free': u'1956156',
+            u'free.memory0.used': u'9791092',
+            }, {
+            u'free.memory1.free': u'1956280',
+            u'free.memory0.used': u'9790796',
+        }]
+        self.assertEqual(
+            [9789560, 9789790, 9791092, 9790796,],
+            self.rep._format_datasets(metric_name, metrics)
+        )
+
+    def test__format_datasets_val_none(self):
+         metric_name = "free.memory0.used"
+         metrics = [{
+            u'free.memory1.free': u'1958664',
+            u'free.memory0.used': 9876543109876543210,
+            }, {
+            u'free.memory1.free': u'1958228',
+            }, {
+            u'free.memory1.free': u'1956156',
+            u'free.memory0.used': u'9791092',
+            }, {
+            u'free.memory1.free': u'1956280',
+            u'free.memory0.used': u'9790796',
+         }]
+
+         exp0 = 9876543109876543210 if six.PY3 else 9.876543109876543e+18
+         self.assertEqual(
+            [exp0, None, 9791092, 9790796],
+            self.rep._format_datasets(metric_name, metrics)
+         )
+
+    def test__format_datasets_val_incompatible(self):
+        metric_name = "free.memory0.used"
+        metrics = [{
+            u'free.memory0.used': "some incompatible value",
+            }, {
+        }]
+        self.assertEqual(
+            [None, None],
+            self.rep._format_datasets(metric_name, metrics)
+        )
+
+    def test__combine_times(self):
+        yard_times = [
+            '00:00:00.000000',
+            '00:00:01.000000',
+            '00:00:02.000000',
+            '00:00:06.000000',
+            '00:00:08.000000',
+            '00:00:09.000000',
+        ]
+        baro_times = [
+            '00:00:01.000000',
+            '00:00:03.000000',
+            '00:00:04.000000',
+            '00:00:05.000000',
+            '00:00:07.000000',
+            '00:00:10.000000',
+        ]
+        expected_combo = [
+            '00:00:00.000000',
+            '00:00:01.000000',
+            '00:00:02.000000',
+            '00:00:03.000000',
+            '00:00:04.000000',
+            '00:00:05.000000',
+            '00:00:06.000000',
+            '00:00:07.000000',
+            '00:00:08.000000',
+            '00:00:09.000000',
+            '00:00:10.000000',
+        ]
+
+        actual_combo = self.rep._combine_times(yard_times, baro_times)
+        self.assertEqual(len(expected_combo), len(actual_combo))
+
+        self.assertEqual(
+            expected_combo,
+            actual_combo,
+        )
+
+    def test__combine_times_2(self):
+        time1 = ['14:11:25.383698', '14:11:25.383712', '14:11:35.383696',]
+        time2 = [
+            '16:20:14.568075', '16:20:24.575083',
+            '16:20:34.580989', '16:20:44.586801', ]
+        time_exp = [
+            '14:11:25.383698', '14:11:25.383712', '14:11:35.383696',
+            '16:20:14.568075', '16:20:24.575083', '16:20:34.580989',
+            '16:20:44.586801',
+        ]
+        self.assertEqual(time_exp, self.rep._combine_times(time1, time2))
+
+    def test__combine_metrics(self):
+        BARO_METRICS = {
+            'myhostname.cpu_value.cpu.user.0': {
+                '14:11:25.3836': 324050, '14:11:35.3836': 324051,
+                '14:11:45.3836': 324054,
+            },
+            'myhostname.cpu_value.cpu.system.0': {
+                '14:11:25.3837': 193798, '14:11:35.3837': 193800,
+                '14:11:45.3837': 193801,
+            }
+        }
+        BARO_TIMES = [
+            '14:11:25.3836', '14:11:25.3837', '14:11:35.3836',
+            '14:11:35.3837', '14:11:45.3836', '14:11:45.3837',
+        ]
+        YARD_METRICS = {
+            'free.memory9.free': {
+                '16:20:14.5680': 1958244, '16:20:24.5750': 1955964,
+                '16:20:34.5809': 1956040, '16:20:44.5868': 1956428,
+            },
+            'free.memory7.used': {
+                '16:20:14.5680': 9789068, '16:20:24.5750': 9791284,
+                '16:20:34.5809': 9791228, '16:20:44.5868': 9790692,
+            },
+            'free.memory2.total':{
+                '16:20:14.5680': 32671288, '16:20:24.5750': 32671288,
+                '16:20:34.5809': 32671288, '16:20:44.5868': 32671288,
+            },
+            'free.memory7.free': {
+                '16:20:14.5680': 1958368, '16:20:24.5750': 1956104,
+                '16:20:34.5809': 1956040, '16:20:44.5868': 1956552,
+            },
+            'free.memory1.used': {
+                '16:20:14.5680': 9788872, '16:20:24.5750': 9789212,
+                '16:20:34.5809': 9791168, '16:20:44.5868': 9790996,
+            },
+        }
+        YARD_TIMES = [
+             '16:20:14.5680', '16:20:24.5750',
+             '16:20:34.5809', '16:20:44.5868',
+        ]
+
+        expected_output = {
+            'myhostname.cpu_value.cpu.user.0': [{
+                'x': '14:11:25.3836', 'y': 324050, }, {
+                'x': '14:11:35.3836', 'y': 324051, }, {
+                'x': '14:11:45.3836', 'y': 324054, }],
+            'myhostname.cpu_value.cpu.system.0' : [{
+                'x': '14:11:25.3837', 'y': 193798, }, {
+                'x': '14:11:35.3837', 'y': 193800, }, {
+                'x': '14:11:45.3837', 'y': 193801, }],
+            'free.memory9.free': [{
+                'x': '16:20:14.5680', 'y': 1958244, }, {
+                'x': '16:20:24.5750', 'y': 1955964, }, {
+                'x': '16:20:34.5809', 'y': 1956040, }, {
+                'x': '16:20:44.5868', 'y': 1956428, }],
+            'free.memory7.used': [{
+                'x': '16:20:14.5680', 'y': 9789068, }, {
+                'x': '16:20:24.5750', 'y': 9791284, }, {
+                'x': '16:20:34.5809', 'y': 9791228, }, {
+                'x': '16:20:44.5868', 'y': 9790692, }],
+            'free.memory2.total': [{
+                'x': '16:20:14.5680', 'y': 32671288, }, {
+                'x': '16:20:24.5750', 'y': 32671288, }, {
+                'x': '16:20:34.5809', 'y': 32671288, }, {
+                'x': '16:20:44.5868', 'y': 32671288, }],
+            'free.memory7.free': [{
+                'x': '16:20:14.5680', 'y': 1958368, }, {
+                'x': '16:20:24.5750', 'y': 1956104, }, {
+                'x': '16:20:34.5809', 'y': 1956040, }, {
+                'x': '16:20:44.5868', 'y': 1956552, }],
+           'free.memory1.used': [{
+                'x': '16:20:14.5680', 'y': 9788872, }, {
+                'x': '16:20:24.5750', 'y': 9789212, }, {
+                'x': '16:20:34.5809', 'y': 9791168, }, {
+                'x': '16:20:44.5868', 'y': 9790996, }],
+           }
+
+        actual_output, _, _ = self.rep._combine_metrics(
+            BARO_METRICS, BARO_TIMES, YARD_METRICS, YARD_TIMES
+        )
+        self.assertEquals(
+            sorted(expected_output.keys()),
+            sorted(actual_output.keys())
+        )
+
+        self.assertEquals(
+            expected_output,
+            actual_output,
         )
 
     @mock.patch.object(report.Report, '_get_metrics')
@@ -248,12 +550,33 @@ class ReportTestCase(unittest.TestCase):
         mock_keys.assert_called_once_with()
         self.assertEqual(GOOD_TIMESTAMP, self.rep.Timestamp)
 
+    @mock.patch.object(report.Report, '_get_baro_metrics')
     @mock.patch.object(report.Report, '_get_metrics')
     @mock.patch.object(report.Report, '_get_fieldkeys')
     @mock.patch.object(report.Report, '_validate')
-    def test_generate_nsb(self, mock_valid, mock_keys, mock_metrics):
+    def test_generate_nsb(
+        self, mock_valid, mock_keys, mock_metrics, mock_baro_metrics):
+
         mock_metrics.return_value = GOOD_DB_METRICS
         mock_keys.return_value = GOOD_DB_FIELDKEYS
+        BARO_METRICS = {
+            # TODO: is timestamp needed here?
+            'Timestamp': [
+                '14:11:25.383698', '14:11:25.383712', '14:11:35.383696',
+                '14:11:35.383713', '14:11:45.383700', '14:11:45.383716'],
+            'myhostname.cpu_value.cpu.user.0': {
+                '14:11:25.383698': 324050,
+                '14:11:35.383696': 324051,
+                '14:11:45.383700': 324054,
+            },
+            'myhostname.cpu_value.cpu.system.0': {
+                '14:11:25.383712': 193798,
+                '14:11:35.383713': 193800,
+                '14:11:45.383716': 193801,
+            }
+        }
+        mock_baro_metrics.return_value = BARO_METRICS
+
         self.rep.generate_nsb(self.param)
         mock_valid.assert_called_once_with(GOOD_YAML_NAME, GOOD_TASK_ID)
         mock_metrics.assert_called_once_with()

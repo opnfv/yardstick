@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Copyright (c) 2017 Rajesh Kudaka <4k.rajesh@gmail.com>
- * Copyright (c) 2018 Intel Corporation.
+ * Copyright (c) 2018-2019 Intel Corporation.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Apache License, Version 2.0
@@ -72,11 +72,16 @@ function create_graph(cnvGraph, timestamps)
                     borderWidth: 2,
                     fill: false,
                     tension: 0,
+                    showline: true,
+                    spanGaps: true,
                 },
             },
             scales: {
                 xAxes: [{
                     type: 'category',
+                    display: true,
+                    labels: timestamps,
+                    autoSkip: true,
                 }],
                 yAxes: [{
                     type: 'linear',
@@ -144,7 +149,7 @@ function update_graph(objGraph, datasets)
     objGraph.update();
 }
 
-function handle_tree(divTree, tblMetrics, objGraph, table_data, timestamps)
+function handle_tree(divTree, tblMetrics, objGraph, graph_data, table_data, timestamps)
 {
     divTree.on('check_node.jstree uncheck_node.jstree', function(e, data) {
         var selected_keys = [];
@@ -155,7 +160,7 @@ function handle_tree(divTree, tblMetrics, objGraph, table_data, timestamps)
                 selected_keys.push(node.id);
                 selected_datasets.push({
                     label: node.id,
-                    data: table_data[node.id],
+                    data: graph_data[node.id],
                 });
             }
         });

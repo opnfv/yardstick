@@ -121,6 +121,66 @@ class Report(object):
         else:
             raise KeyError("Task ID or Test case not found.")
 
+    def _get_task_start_time(self):
+        # The start time should come from the task or the metadata table.
+        # The first entry into influx for a task will be AFTER the first TC
+        # iteration
+        cmd = "select * from \"%s\" where task_id='%s' ORDER BY time ASC limit 1"
+        task_query = cmd % (self.yaml_name, self.task_id)
+
+        query_exec = influx.query(task_query)
+        start_time = query_exec[0]['time']
+        return start_time
+
+    def _get_task_end_time(self):
+        # NOTE(elfoley): when using select first() and select last() for the
+        # DB query, the timestamp returned is 0, so later queries try to
+        # return metrics from 1970
+        cmd = "select * from \"%s\" where task_id='%s' ORDER BY time DESC limit 1"
+        task_query = cmd % (self.yaml_name, self.task_id)
+        query_exec = influx.query(task_query)
+        end_time = query_exec[0]['time']
+        return end_time
+
+    def _get_baro_metrics(self):
+        start_time = self._get_task_start_time()
+        end_time = self._get_task_end_time()
+        metric_list = [
+                "cpu_value", "cpufreq_value", "intel_pmu_value",
+                 "virt_value", "memory_value"]
+        metrics = {}
+        times = []
+        query_exec = {}
+        for metric in metric_list:
+            cmd = "select * from \"%s\" where time >= '%s' and time <= '%s'"
+            query = cmd % (metric, start_time, end_time)
+            query_exec[metric] = influx.query(query, db='collectd')
+            print("query_exec: {}".format(query_exec))
+
+        for metric in query_exec:
+            print("metric in query_exec: {}".format(metric))
+            met_values = query_exec[metric]
+            print("met_values: {}".format(met_values))
+            for x in met_values:
+                x['name'] = metric
+                metric_name = str('.'.join(
+                    [x[f] for f in [
+                        'host', 'name', 'type', 'type_instance', 'instance'
+                         ] if x.get(f)]))
+
+                if not metrics.get(metric_name):
+                    metrics[metric_name] = {}
+                metric_time = self._get_trimmed_timestamp(x['time'])
+                times.append(metric_time)
+                time = metric_time
+                metrics[metric_name][time] = x['value']
+
+        times = sorted(list(set(times)))
+
+        metrics['Timestamp'] = times
+        print("metrics: {}".format(metrics))
+        return metrics
+
     def _get_trimmed_timestamp(self, metric_time, resolution=4):
         if not isinstance(metric_time, str):
             metric_time = metric_time.encode('utf8') # PY2: unicode to str
@@ -137,6 +197,46 @@ class Report(object):
                 metric['time'], resolution)
             timestamps.append(metric_time)               # HH:MM:SS.micros
         return timestamps
+
+    def _format_datasets(self, metric_name, metrics):
+        values = []
+        for metric in metrics:
+            val = metric.get(metric_name, None)
+            if val is None:
+                # keep explicit None or missing entry as is
+                pass
+            elif isinstance(val, (int, float)):
+                # keep plain int or float as is
+                pass
+            elif six.PY2 and isinstance(val,
+                        long):  # pylint: disable=undefined-variable
+                # PY2: long value would be rendered with trailing L,
+                # which JS does not support, so convert it to float
+                val = float(val)
+            elif isinstance(val, six.string_types):
+                s = val
+                if not isinstance(s, str):
+                    s = s.encode('utf8')            # PY2: unicode to str
+                try:
+                    # convert until failure
+                    val = s
+                    val = float(s)
+                    val = int(s)
+                    if six.PY2 and isinstance(val,
+                                long):  # pylint: disable=undefined-variable
+                        val = float(val)            # PY2: long to float
+                except ValueError:
+                    # value may have been converted to a number
+                    pass
+                finally:
+                    # if val was not converted into a num, then it must be
+                    # text, which shouldn't end up in the report
+                    if isinstance(val, six.string_types):
+                        val = None
+            else:
+                raise ValueError("Cannot convert %r" % val)
+            values.append(val)
+        return values
 
     @cliargs("task_id", type=str, help=" task id", nargs=1)
     @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
@@ -174,37 +274,7 @@ class Report(object):
 
         # extract and convert field values
         for key in field_keys:
-            values = []
-            for metric in db_metrics:
-                val = metric.get(key, None)
-                if val is None:
-                    # keep explicit None or missing entry as is
-                    pass
-                elif isinstance(val, (int, float)):
-                    # keep plain int or float as is
-                    pass
-                elif six.PY2 and isinstance(val,
-                            long):  # pylint: disable=undefined-variable
-                    # PY2: long value would be rendered with trailing L,
-                    # which JS does not support, so convert it to float
-                    val = float(val)
-                elif isinstance(val, six.string_types):
-                    s = val
-                    if not isinstance(s, str):
-                        s = s.encode('utf8')            # PY2: unicode to str
-                    try:
-                        # convert until failure
-                        val = s
-                        val = float(s)
-                        val = int(s)
-                        if six.PY2 and isinstance(val,
-                                    long):  # pylint: disable=undefined-variable
-                            val = float(val)            # PY2: long to float
-                    except ValueError:
-                        pass
-                else:
-                    raise ValueError("Cannot convert %r" % val)
-                values.append(val)
+            values = self._format_datasets(key, db_metrics)
             datasets.append({'label': key, 'data': values})
             table_vals[key] = values
 
@@ -235,18 +305,65 @@ class Report(object):
 
         print("Report generated. View %s" % consts.DEFAULT_HTML_FILE)
 
+    def _combine_times(self, *args):
+        times = []
+        # Combines an arbitrary number of lists
+        [times.extend(x) for x in args]
+        times = list(set(times))
+        times.sort()
+        return times
+
+    def _combine_metrics(self, *args):
+        baro_data, baro_time, yard_data, yard_time = args
+        combo_time = self._combine_times(baro_time, yard_time)
+
+        data = {}
+        [data.update(x) for x in (baro_data, yard_data)]
+
+        table_data = {}
+        table_data['Timestamp'] = combo_time
+        combo = {}
+        keys = sorted(data.keys())
+        for met_name in data:
+            dataset = []
+            for point in data[met_name]:
+                 dataset.append({'x': point, 'y': data[met_name][point]})
+            # the metrics need to be ordered by time
+            combo[met_name] = sorted(dataset, key=lambda i: i['x'])
+        for met_name in data:
+            table_data[met_name] = []
+            for t in combo_time:
+                table_data[met_name].append(data[met_name].get(t, ''))
+        return combo, keys, table_data
+
     @cliargs("task_id", type=str, help=" task id", nargs=1)
     @cliargs("yaml_name", type=str, help=" Yaml file Name", nargs=1)
     def generate_nsb(self, args):
         """Start NSB report generation."""
         _, report_data = self._generate_common(args)
         report_time = report_data.pop('Timestamp')
-        report_keys = sorted(report_data, key=str.lower)
-        report_tree = JSTree().format_for_jstree(report_keys)
         report_meta = {
             "testcase": self.yaml_name,
             "task_id": self.task_id,
         }
+
+        yardstick_data = {}
+        for i, t in enumerate(report_time):
+            for m in report_data:
+                if not yardstick_data.get(m):
+                   yardstick_data[m] = {}
+                yardstick_data[m][t] = report_data[m][i]
+
+        baro_data = self._get_baro_metrics()
+        baro_timestamps = baro_data.pop('Timestamp')
+
+        yard_timestamps = report_time
+        report_time = self._combine_times(yard_timestamps, baro_timestamps)
+
+        combo_metrics, combo_keys, combo_table = self._combine_metrics(
+            baro_data, baro_timestamps, yardstick_data, yard_timestamps)
+        combo_time = self._combine_times(baro_timestamps, yard_timestamps)
+        combo_tree = JSTree().format_for_jstree(combo_keys)
 
         template_dir = consts.YARDSTICK_ROOT_PATH + "yardstick/common"
         template_environment = jinja2.Environment(
@@ -254,12 +371,14 @@ class Report(object):
             loader=jinja2.FileSystemLoader(template_dir),
             lstrip_blocks=True)
 
+        combo_data = combo_metrics
         context = {
             "report_meta": report_meta,
-            "report_data": report_data,
-            "report_time": report_time,
-            "report_keys": report_keys,
-            "report_tree": report_tree,
+            "report_data": combo_data,
+            "report_time": combo_time,
+            "report_keys": combo_keys,
+            "report_tree": combo_tree,
+            "table_data": combo_table,
         }
 
         template_html = template_environment.get_template("nsb_report.html.j2")
