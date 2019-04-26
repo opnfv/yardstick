@@ -34,4 +34,4 @@ nodes:
             dpdk_port_num: 1
             local_ip: "152.16.40.20"
             netmask:   "255.255.255.0"
-            local_mac: "00:00.00:00:00:02"
+            local_mac: "00:00:00:00:00:02"
