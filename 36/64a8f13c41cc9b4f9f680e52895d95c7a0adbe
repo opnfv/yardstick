@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Submitted-by: Rex Lee <limingjiang@huawei.com>
+Submitted-at: Fri, 26 Apr 2019 01:15:10 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/67701
+Project: yardstick
+Branch: refs/heads/stable/hunter
