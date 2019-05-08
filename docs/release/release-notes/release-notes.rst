@@ -21,7 +21,7 @@ Yardstick Release Notes
 Abstract
 ========
 
-This document compiles the release notes for the Gambia release of OPNFV Yardstick.
+This document compiles the release notes for the Hunter release of OPNFV Yardstick.
 
 
 Version History
@@ -30,13 +30,7 @@ Version History
 | *Date*            | *Version* | *Comment*                       |
 |                   |           |                                 |
 +-------------------+-----------+---------------------------------+
-| November 9, 2018  | 7.0.0     | Yardstick for Gambia release    |
-|                   |           |                                 |
-+-------------------+-----------+---------------------------------+
-| December 14, 2018 | 7.1.0     | Yardstick for Gambia release    |
-|                   |           |                                 |
-+-------------------+-----------+---------------------------------+
-| January 25, 2019  | 7.2.0     | Yardstick for Gambia release    |
+| May 10, 2019      | 8.0.0     | Yardstick for Hunter release    |
 |                   |           |                                 |
 +-------------------+-----------+---------------------------------+
 
@@ -51,10 +45,10 @@ the methodology in ETSI-ISG NFV-TST001_.
 The *Yardstick* framework is *installer*, *infrastructure* and *application*
 independent.
 
-OPNFV Gambia Release
+OPNFV Hunter Release
 ====================
 
-This Gambia release provides *Yardstick* as a framework for NFVI testing
+This Hunter release provides *Yardstick* as a framework for NFVI testing
 and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
 
 * Documentation generated with Sphinx
@@ -79,7 +73,7 @@ and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
 
 * Yardstick plug-in configuration yaml files, plug-in install/remove scripts
 
-For Gambia release, the *Yardstick framework* is used for the following
+For Hunter release, the *Yardstick framework* is used for the following
 testing:
 
 * OPNFV platform testing - generic test cases to measure the categories:
@@ -117,19 +111,19 @@ Release Data
 | **Project**                    | Yardstick             |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Repo/tag**                   | yardstick/opnfv-7.2.0 |
+| **Repo/tag**                   | yardstick/opnfv-8.0.0 |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Yardstick Docker image tag** | opnfv-7.2.0           |
+| **Yardstick Docker image tag** | opnfv-8.0.0           |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release designation**        | Gambia 7.2            |
+| **Release designation**        | Hunter 8.0            |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release date**               | January 25, 2019     |
+| **Release date**               | May 10, 2019          |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Purpose of the delivery**    | OPNFV Gambia 7.2.0    |
+| **Purpose of the delivery**    | OPNFV Hunter 8.0.0    |
 |                                |                       |
 +--------------------------------+-----------------------+
 
@@ -148,7 +142,7 @@ Documents
 Software Deliverables
 ---------------------
 
- - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: opnfv-7.0.0)
+ - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: opnfv-8.0.0)
 
 List of Contexts
 ^^^^^^^^^^^^^^^^
@@ -173,8 +167,6 @@ List of Contexts
 
 List of Runners
 ^^^^^^^^^^^^^^^
-
-.. note:: Yardstick Gambia 7.0.0 adds 1 new Runner, "IterationIPC".
 
 +----------------+-------------------------------------------------------+
 | **Runner**     | **Description**                                       |
@@ -275,7 +267,7 @@ List of Scenarios
 New Test cases
 --------------
 
-.. note:: Yardstick Gambia 7.2.0 adds no new test cases.
+.. note:: Yardstick Hunter 8.0.0 adds no new test cases.
 
 * Generic NFVI test cases
 
@@ -295,8 +287,7 @@ Module Version Changes
 This is the seventh tracked release of Yardstick. It is based on following
 upstream versions:
 
-- OpenStack Queens
-- OpenDayLight Oxygen
+- OpenStack Rocky
 
 
 Document Version Changes
@@ -306,9 +297,6 @@ This is the seventh tracked version of the Yardstick framework in OPNFV.
 It includes the following documentation updates:
 
 - Yardstick User Guide:
-
-  - Remove vTC chapter;
-
 - Yardstick Developer Guide
 - Yardstick Release Notes for Yardstick: this document
 
@@ -316,49 +304,28 @@ It includes the following documentation updates:
 Feature additions
 -----------------
 
-- Simplify Yardstick installation to use a single ansible playbook (nsb_setup.yaml)....
-- Spirent support.
-- vEPC testcases.
-- Agnostic VNF tests cases for reuse of standard RFC-2544 test case.
-- PROX enhancements and the addition of Standalone test case using SRIOV and
-  OVS-DPDK.
-- Ixia enhancements for vBNG and PPPoE traffic.
-- Improvements of unit tests and gating.
-- Add DPDK pktgen traffic generator.
-- Kubernetes context enhancements.
-- Kubernetes sample test cases of fio and lmbench added.
-
+- Add TRex Baremetal/SA scale up test cases.
+- Add possibility to distribute DPDK/vhost-user ports/queues between CPU cores.
+- Adding scale up test case for l3fwd OvS-DPDK.
+- Add Testcase Prox Standalone SRIOV.
+- Add vBNG PPPoE test cases functionality.
+- Add IXIA Baremetal scale up testcases.
+- Add vIPSEC testcases.
+- Add TRex Baremetal/SA scale up test cases.
+- Add OpenStack test cases with different framesize and IMIX.
+- Add new scenario NSPerf-RFC3511.
+- Add VPP traffic profiles for TRex traffic generator.
+- Add Trex traffic generator to initate Traffic for VPP IPSEC.
+- Add IxNextgen API for setting IP priority, flow tracking options, creating BGP protocol layer.
+- Add Pktgen traffic generator for vCMTS.
+- Add Trex traffic generator to initate Traffic for VPP IPSEC.
+- Add sipp trafficgen based SampleVNFTrafficGen.
+- Add ansible scripts to deploy Kubernetes.
+- Update NSB report to use Barometer metrics.
+- Support using existing private key when using external heat template file.
 
 Scenario Matrix
 ===============
-
-For Gambia 7.2.0, Yardstick was tested on the following scenarios:
-
-+-------------------------+------+---------+----------+------+
-|        Scenario         | Apex | Compass | Fuel-arm | Fuel |
-+=========================+======+=========+==========+======+
-| os-nosdn-nofeature-noha |   X  |         |          |      |
-+-------------------------+------+---------+----------+------+
-| os-nosdn-nofeature-ha   |   X  |         |          |      |
-+-------------------------+------+---------+----------+------+
-| os-odl-bgpvpn-noha      |   X  |         |          |      |
-+-------------------------+------+---------+----------+------+
-| os-nosdn-calipso-noha   |   X  |         |          |      |
-+-------------------------+------+---------+----------+------+
-| os-nosdn-kvm-ha         |      |    X    |          |      |
-+-------------------------+------+---------+----------+------+
-| os-odl-nofeature-ha     |      |         |     X    |   X  |
-+-------------------------+------+---------+----------+------+
-| os-odl-sfc-noha         |   X  |         |          |      |
-+-------------------------+------+---------+----------+------+
-| os-nosdn-ovs-ha         |      |         |          |   X  |
-+-------------------------+------+---------+----------+------+
-| k8-nosdn-nofeature-ha   |      |    X    |          |      |
-+-------------------------+------+---------+----------+------+
-| k8-nosdn-stor4nfv-noha  |      |    X    |          |      |
-+-------------------------+------+---------+----------+------+
-| k8-nosdn-stor4nfv-ha    |      |    X    |          |      |
-+-------------------------+------+---------+----------+------+
 
 
 Test results
@@ -376,16 +343,8 @@ Known Issues/Faults
 Corrected Faults
 ----------------
 
-Gambia 7.2.0:
 
-+--------------------+--------------------------------------------------------------------------+
-| **JIRA REFERENCE** |                             **DESCRIPTION**                              |
-+====================+==========================================================================+
-| YARDSTICK-1512     | [dovetail] split the sla check results into process recovery and service |
-|                    | recovery for HA test cases.                                              |
-+--------------------+--------------------------------------------------------------------------+
-
-Gambia 7.2.0 known restrictions/issues
+Hunter 8.0.0 known restrictions/issues
 ======================================
 
 
@@ -394,7 +353,7 @@ Useful links
 
  - wiki project page: https://wiki.opnfv.org/display/yardstick/Yardstick
 
- - wiki Yardstick Gambia release planning page: https://wiki.opnfv.org/display/yardstick/Release+Gambia
+ - wiki Yardstick Hunter release planning page: https://wiki.opnfv.org/display/yardstick/Release+Hunter
 
  - Yardstick repo: https://git.opnfv.org/yardstick
 
