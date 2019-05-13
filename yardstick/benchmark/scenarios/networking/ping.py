@@ -103,12 +103,14 @@ class Ping(base.Scenario):
                 rtt_result[target_vm_name] = float(self.PING_ERROR_RTT)
                 # store result before potential AssertionError
                 result.update(utils.flatten_dict_key(ping_result))
-                self.verify_SLA(sla_max_rtt is None,
-                                "packet dropped rtt %f > sla: max_rtt(%f)"
-                                % (rtt_result[target_vm_name], sla_max_rtt))
-                self.verify_SLA(False,
-                                "packet dropped rtt %f"
-                                % (rtt_result[target_vm_name]))
+                if sla_max_rtt is not None:
+                    self.verify_SLA(rtt_result[target_vm_name] <= sla_max_rtt,
+                                    "packet dropped rtt %f > sla: max_rtt(%f)"
+                                    % (rtt_result[target_vm_name], sla_max_rtt))
+                else:
+                    self.verify_SLA(False,
+                                    "packet dropped rtt %f"
+                                    % (rtt_result[target_vm_name]))
 
 
 def _test():    # pragma: no cover

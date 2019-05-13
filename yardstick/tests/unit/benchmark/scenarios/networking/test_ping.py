@@ -91,3 +91,17 @@ class PingTestCase(unittest.TestCase):
 
         mock_ssh.SSH.from_node().execute.return_value = (1, '', 'FOOBAR')
         self.assertRaises(RuntimeError, p.run, result)
+
+    @mock.patch('yardstick.benchmark.scenarios.networking.ping.ssh')
+    def test_ping_unsuccessful_no_sla(self, mock_ssh):
+
+        args = {
+            'options': {'packetsize': 200},
+            'target': 'ares.demo'
+        }
+        result = {}
+
+        p = ping.Ping(args, self.ctx)
+
+        mock_ssh.SSH.from_node().execute.return_value = (0, '', '')
+        self.assertRaises(y_exc.SLAValidationError, p.run, result)
