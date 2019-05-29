@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9aebb073_5b69e4e6",
+        "filename": "requirements.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2019-05-29T08:20:55Z",
+      "side": 1,
+      "message": "# Apache-2.0\n\nI could sync all the licences easily and clean abstract/concrete requirements mixed here.\n\nBut I\u0027m quite afraid of side effects if requirements are currently unsynced.",
+      "revId": "7d827718f19c85ff270939017b30fac6c1114ef1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
