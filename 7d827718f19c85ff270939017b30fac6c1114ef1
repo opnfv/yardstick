@@ -16,6 +16,24 @@
       "revId": "7d827718f19c85ff270939017b30fac6c1114ef1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa8fd0d1_85569125",
+        "filename": "requirements.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 7475
+      },
+      "writtenOn": "2019-05-30T06:10:30Z",
+      "side": 1,
+      "message": "OK, I\u0027ll add the license information for python-openstackclient.\nBut I didn\u0027t get what you mean by requirements being synced/unsynced. Can you elaborate.",
+      "parentUuid": "9aebb073_5b69e4e6",
+      "revId": "7d827718f19c85ff270939017b30fac6c1114ef1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
