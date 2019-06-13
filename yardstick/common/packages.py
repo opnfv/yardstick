@@ -16,8 +16,8 @@ import logging
 import re
 
 import pip
-from pip import exceptions as pip_exceptions
-from pip.operations import freeze
+from pip._internal import exceptions as pip_exceptions
+from pip._internal.operations import freeze
 
 from yardstick.common import privsep
 
