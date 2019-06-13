@@ -2,20 +2,20 @@
 # of appearance. Changing the order has an impact on the overall integration
 # process, which may cause wedges in the gate later.
 
-coverage==4.4.2             # Apache 2.0; OSI Approved  Apache Software License; http://www.apache.org/licenses/LICENSE-2.0; http://www.apache.org/licenses/LICENSE-2.0
-fixtures==3.0.0             # OSI Approved  BSD License; OSI Approved  Apache Software License
-oslotest===2.17.1           # OSI Approved  Apache Software License
-packaging==16.8.0           # BSD or Apache License, Version 2.0
-pyflakes==1.0.0             # MIT; OSI Approved  MIT License
-pylint==1.8.1               # GPLv2
-python-subunit==1.2.0       # OSI Approved  Apache Software License; OSI Approved  BSD License
-testrepository==0.0.20      # OSI Approved  BSD License; OSI Approved  Apache Software License
-testtools==2.3.0            # OSI Approved  MIT License
-unittest2==1.1.0            # OSI Approved  BSD License
+coverage!=4.4 # Apache-2.0
+fixtures # Apache-2.0/BSD
+oslotest # Apache-2.0
+packaging # Apache-2.0
+pyflakes # MIT; OSI Approved  MIT License
+pylint # GPLv2
+python-subunit # Apache-2.0/BSD
+testrepository # Apache-2.0/BSD
+testtools # MIT
+unittest2 # BSD
 
 # NOTE(ralonsoh): to be removed, only for coverage support
-python-heatclient==1.11.0        # OSI Approved  Apache Software License
+python-heatclient # Apache-2.0
 
-# Yardstick G release <-> OpenStack Queens release
-openstack_requirements==1.2.0   # OSI Approved  Apache Software License
--e git+https://github.com/openstack/requirements.git@stable/queens#egg=os_requirements
+# Yardstick I release <-> OpenStack Stein release
+-e git+https://github.com/openstack/requirements.git@stable/stein#egg=os_requirements
+

@@ -13,8 +13,8 @@
 # limitations under the License.
 
 import mock
-from pip import exceptions as pip_exceptions
-from pip.operations import freeze
+from pip._internal import exceptions as pip_exceptions
+from pip._internal.operations import freeze
 import unittest
 
 from yardstick.common import packages
