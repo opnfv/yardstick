@@ -12,6 +12,7 @@ FROM ubuntu:16.04
 LABEL image=opnfv/yardstick
 
 ARG BRANCH=master
+ARG OPENSTACK_TAG=stable/stein
 
 # GIT repo directory
 ENV REPOS_DIR="/home/opnfv/repos" \
@@ -26,7 +27,9 @@ ENV YARDSTICK_REPO_DIR="${REPOS_DIR}/yardstick/" \
 
 RUN apt-get update && apt-get install -y git python python-setuptools python-pip iputils-ping && apt-get -y autoremove && apt-get clean
 RUN easy_install -U setuptools==30.0.0
-RUN pip install appdirs==1.4.0 pyopenssl==17.5.0 openstacksdk==0.11.3 python-openstackclient==3.14.2 python-heatclient==1.14.0 ansible==2.5.5
+RUN pip install \
+        -chttps://opendev.org/openstack/requirements/raw/branch/$OPENSTACK_TAG/upper-constraints.txt \
+        appdirs==1.4.0 pyopenssl==17.5.0 openstacksdk==0.11.3 python-openstackclient==3.14.2 python-heatclient==1.14.0 ansible==2.5.5
 
 RUN mkdir -p ${REPOS_DIR}
 
