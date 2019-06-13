@@ -1,3 +1,6 @@
+# The order of packages is significant, because pip processes them in the order
+# of appearance. Changing the order has an impact on the overall integration
+# process, which may cause wedges in the gate later.
 ##############################################################################
 # Copyright (c) 2015 Ericsson AB and others.
 #
@@ -7,63 +10,63 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
-Babel==2.3.4            # BSD; OSI Approved  BSD License
-Jinja2==2.9.6           # BSD; OSI Approved  BSD License
-SQLAlchemy==1.1.12      # MIT License; OSI Approved  MIT License
-PTable==0.9.2           # BSD (3 clause); OSI Approved  BSD License
-ansible==2.5.5          # GPLv3; OSI Approved  GNU General Public License v3 or later (GPLv3+)
-backport-ipaddress==0.1; python_version <= "2.7"    # OSI Approved  Python Software Foundation License
-chainmap==1.0.2         # Python Software Foundation License; OSI Approved  Python Software Foundation License
-cmd2==0.8.6             # MIT License; OSI Approved  MIT License
-docker-py==1.10.6       # OSI Approved  Apache Software License
-extras==1.0.0           # OSI Approved  MIT License
-flasgger==0.5.13        # MIT
-flask-restful-swagger==0.19 # MIT
-flask-restful==0.3.5    # BSD; OSI Approved  BSD License
-flask==0.11.1           # BSD; OSI Approved  BSD License
-functools32==3.2.3.post2; python_version <= "2.7"    # PSF license
-futures==3.1.1;python_version=='2.7'    # BSD; OSI Approved  BSD License
-influxdb==4.1.1         # MIT License; OSI Approved  MIT License
-IxNetwork==8.40.1124.9  # MIT License; OSI Approved  MIT License
-jinja2schema==0.1.4     # OSI Approved  BSD License
-keystoneauth1==3.3.0    # OSI Approved  Apache Software License
-kubernetes==6.0.0       # OSI Approved  Apache Software License
-mock==2.0.0             # OSI Approved  BSD License; `BSD License`_; http://github.com/testing-cabal/mock/blob/master/LICENSE.txt
-msgpack-python==0.4.8   # OSI Approved  Apache Software License
-netaddr==0.7.19         # BSD License; OSI Approved  BSD License; OSI Approved  MIT License
-netifaces==0.10.6       # MIT License; OSI Approved  MIT License
-os-client-config==1.28.0    # OSI Approved  Apache Software License
-osc-lib==1.8.0          # OSI Approved  Apache Software License
-oslo.log==3.41.0        # OSI Approved  Apache Software License
-oslo.config==5.1.0      # OSI Approved  Apache Software License
-oslo.i18n==3.17.0       # OSI Approved  Apache Software License
-oslo.messaging==5.36.0 # OSI Approved  Apache Software License
-oslo.privsep==1.23.0   # OSI Approved  Apache Software License
-oslo.serialization==2.20.1  # OSI Approved  Apache Software License
-oslo.utils==3.33.0      # OSI Approved  Apache Software License
-paramiko==2.2.1         # LGPL; OSI Approved  GNU Library or Lesser General Public License (LGPL)
-pbr==3.1.1              # OSI Approved  Apache Software License; Apache License, Version 2.0
-pika==0.10.0            # BSD; OSI Approved  BSD License
-pip==9.0.1              # MIT
-positional==1.1.2       # OSI Approved  Apache Software License
-pycrypto==2.6.1         # Public Domain
-pyparsing==2.2.0        # MIT License; OSI Approved  MIT License
-pyroute2==0.4.21        # dual license GPLv2+ and Apache v2; OSI Approved  GNU General Public License v2 or later (GPLv2+); OSI Approved  Apache Software License
-pyrsistent==0.14.1      # LICENSE.mit; OSI Approved  MIT License
-python-cinderclient==3.3.0      # OSI Approved  Apache Software License
-python-glanceclient==2.8.0      # OSI Approved  Apache Software License
-python-keystoneclient==3.13.0   # OSI Approved  Apache Software License
-python-neutronclient==6.5.0     # OSI Approved  Apache Software License
-python-novaclient==9.1.1        # OSI Approved  Apache Software License
-python-openstackclient==3.18.0  # Apache Software License
-pyzmq==16.0.2           # LGPL+BSD; OSI Approved  GNU Library or Lesser General Public License (LGPL); OSI Approved  BSD License
-requests==2.14.2        # Apache 2.0; OSI Approved  Apache Software License
-requestsexceptions==1.3.0   # OSI Approved  Apache Software License
-scp==0.10.2             # LGPL
-shade==1.22.2           # OSI Approved  Apache Software License
-simplejson==3.13.2      # MIT License; OSI Approved  MIT License; OSI Approved  Academic Free License (AFL)
-six==1.10.0             # MIT; OSI Approved  MIT License
-stevedore==1.25.0       # OSI Approved  Apache Software License
-traceback2==1.4.0       # OSI Approved  Python Software Foundation License
-unicodecsv==0.14.1      # BSD License; OSI Approved  BSD License
-wrapt==1.10.10          # BSD
+Babel!=2.4.0 # BSD
+Jinja2 # BSD License (3 clause)
+SQLAlchemy!=1.1.5,!=1.1.6,!=1.1.7,!=1.1.8 # MIT
+PTable # BSD (3 clause); OSI Approved  BSD License
+ansible # GPLv3; OSI Approved  GNU General Public License v3 or later (GPLv3+)
+backport-ipaddress;python_version <= "2.7" # OSI Approved  Python Software Foundation License
+chainmap # Python Software Foundation License; OSI Approved  Python Software Foundation License
+cmd2!=0.8.3,<0.9.0 # MIT
+docker-py # OSI Approved  Apache Software License
+extras # MIT
+flasgger # MIT
+flask-restful-swagger # MIT
+Flask-RESTful # BSD
+Flask!=0.11 # BSD
+functools32;python_version <= "2.7" # PSF license
+futures!=0.17.0;python_version=='2.7' or python_version=='2.6' # PSF
+influxdb!=5.2.0,!=5.2.1 # MIT
+IxNetwork # MIT License; OSI Approved  MIT License
+jinja2schema # OSI Approved  BSD License
+keystoneauth1 # Apache-2.0
+kubernetes # Apache-2.0
+mock # BSD
+msgpack-python # OSI Approved  Apache Software License
+netaddr # BSD
+netifaces!=0.10.0,!=0.10.1 # MIT
+os-client-config # Apache-2.0
+osc-lib # Apache-2.0
+oslo.log # Apache-2.0
+oslo.config!=4.3.0,!=4.4.0 # Apache-2.0
+oslo.i18n # Apache-2.0
+oslo.messaging!=9.0.0 # Apache-2.0
+oslo.privsep # Apache-2.0
+oslo.serialization!=2.19.1 # Apache-2.0
+oslo.utils!=3.39.1,!=3.40.0,!=3.40.1 # Apache-2.0
+paramiko # LGPLv2.1+
+pbr!=2.1.0 # Apache-2.0
+pika # BSD
+pip # MIT
+positional # OSI Approved  Apache Software License
+pycrypto # Public Domain
+pyparsing # MIT
+pyroute2;sys_platform!='win32' # Apache-2.0 (+ dual licensed GPL2)
+pyrsistent # LICENSE.mit; OSI Approved  MIT License
+python-cinderclient!=4.0.0 # Apache-2.0
+python-glanceclient # Apache-2.0
+python-keystoneclient!=2.1.0 # Apache-2.0
+python-neutronclient # Apache-2.0
+python-novaclient # Apache-2.0
+python-openstackclient # Apache-2.0
+pyzmq # LGPL+BSD
+requests!=2.20.0 # Apache-2.0
+requestsexceptions # Apache-2.0
+scp # LGPL
+shade # Apache-2.0
+simplejson # MIT
+six # MIT
+stevedore # Apache-2.0
+traceback2 # OSI Approved  Python Software Foundation License
+unicodecsv;python_version<'3.0' # BSD
+wrapt # BSD License
