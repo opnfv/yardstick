@@ -15,6 +15,7 @@
 import os
 from os import path
 import re
+import unittest
 
 from yardstick.common import packages
 from yardstick.common import utils
@@ -69,6 +70,7 @@ class PipPackagesTestCase(base.BaseFunctionalTestCase):
         self.assertEqual(0, packages.pip_install(package_dir, self.TMP_FOLDER))
         self.assertTrue(package_name in self._list_packages())
 
+    @unittest.skip("see https://github.com/pypa/pip/issues/3889")
     def test_install_from_pip_package(self):
         dirname = path.dirname(__file__)
         package_path = (dirname +
@@ -89,11 +91,10 @@ class PipPackagesTestCase(base.BaseFunctionalTestCase):
         # NOTE (ralonsoh): from requirements.txt file. The best way to test
         # this function is to parse requirements.txt and test-requirements.txt
         # and check all packages.
-        pkgs_ref = {'Babel': '2.3.4',
-                    'SQLAlchemy': '1.1.12',
-                    'influxdb': '4.1.1',
-                    'netifaces': '0.10.6',
-                    'unicodecsv': '0.14.1'}
+        pkgs_ref = {'Babel': '2.6.0',
+                    'SQLAlchemy': '1.2.18',
+                    'influxdb': '5.1.0',
+                    'netifaces': '0.10.9'}
         pkgs = packages.pip_list()
         for name, version in (pkgs_ref.items()):
             self.assertEqual(version, pkgs[name])
