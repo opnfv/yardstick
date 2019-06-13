@@ -1,64 +1,29 @@
-##############################################################################
-# Copyright (c) 2017 Ericsson AB and others.
+# Copyright (c) 2013 Hewlett-Packard Development Company, L.P.
 #
-# All rights reserved. This program and the accompanying materials
-# are made available under the terms of the Apache License, Version 2.0
-# which accompanies this distribution, and is available at
-# http://www.apache.org/licenses/LICENSE-2.0
-##############################################################################
-from __future__ import absolute_import
-from setuptools import setup, find_packages
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+# implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
+# THIS FILE IS MANAGED BY THE GLOBAL REQUIREMENTS REPO - DO NOT EDIT
+import setuptools
 
-setup(
-    name="yardstick",
-    version="0.1.dev0",
-    packages=find_packages(),
-    include_package_data=True,
-    package_data={
-        'yardstick': [
-            'benchmark/scenarios/availability/*.yaml',
-            'benchmark/scenarios/availability/attacker/*.yaml',
-            'benchmark/scenarios/availability/ha_tools/*.bash',
-            'benchmark/scenarios/availability/ha_tools/*/*.bash',
-            'benchmark/scenarios/availability/attacker/scripts/*.bash',
-            'benchmark/scenarios/availability/monitor/*.yaml',
-            'benchmark/scenarios/availability/monitor/script_tools/*.bash',
-            'benchmark/scenarios/compute/*.bash',
-            'benchmark/scenarios/networking/*.bash',
-            'benchmark/scenarios/networking/*.txt',
-            'benchmark/scenarios/parser/*.sh',
-            'benchmark/scenarios/storage/*.bash',
-            'network_services/nfvi/collectd.conf',
-            'network_services/nfvi/collectd.sh',
-            'resources/files/*',
-            'resources/scripts/install/*.bash',
-            'resources/scripts/remove/*.bash',
-            'resources/templates/*.vat'
-        ],
-        'etc': [
-            'yardstick/nodes/*/*.yaml',
-            'yardstick/*.sample'
-        ],
-        'tests': [
-            'opnfv/*/*.yaml',
-            'ci/*.sh'
-        ]
-    },
-    url="https://www.opnfv.org",
-    extras_require={
-        'plot': ["matplotlib>=1.4.2"]
-    },
-    entry_points={
-        'console_scripts': [
-            'yardstick=yardstick.main:main',
-            'yardstick-plot=yardstick.plot.plotter:main [plot]'
-        ],
-        'yardstick.scenario': []
-    },
-    scripts=[
-        'tools/yardstick-img-modify',
-        'tools/yardstick-img-lxd-modify',
-        'tools/yardstick-img-dpdk-modify'
-    ]
-)
+# In python < 2.7.4, a lazy loading of package `pbr` will break
+# setuptools if some other modules registered functions in `atexit`.
+# solution from: http://bugs.python.org/issue15881#msg170215
+try:
+    import multiprocessing  # noqa
+except ImportError:
+    pass
+
+setuptools.setup(
+    setup_requires=['pbr>=2.0.0'],
+    pbr=True)

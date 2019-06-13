@@ -89,10 +89,10 @@ class PipPackagesTestCase(base.BaseFunctionalTestCase):
         # NOTE (ralonsoh): from requirements.txt file. The best way to test
         # this function is to parse requirements.txt and test-requirements.txt
         # and check all packages.
-        pkgs_ref = {'Babel': '2.3.4',
-                    'SQLAlchemy': '1.1.12',
-                    'influxdb': '4.1.1',
-                    'netifaces': '0.10.6',
+        pkgs_ref = {'Babel': '2.6.0',
+                    'SQLAlchemy': '1.2.18',
+                    'influxdb': '5.1.0',
+                    'netifaces': '0.10.9',
                     'unicodecsv': '0.14.1'}
         pkgs = packages.pip_list()
         for name, version in (pkgs_ref.items()):
