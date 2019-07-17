@@ -16,6 +16,24 @@
       "revId": "04677867cae849216b62fabc88f2fa6781ed9cce",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13f07981_227fc8a5",
+        "filename": "requirements.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2019-07-17T12:07:40Z",
+      "side": 1,
+      "message": "It\u0027s done automatically by the OpenStack tools.\nThere is no reason to put a copyright here.",
+      "parentUuid": "ff336668_b33b9b78",
+      "revId": "04677867cae849216b62fabc88f2fa6781ed9cce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
