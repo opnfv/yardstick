@@ -1,0 +1,10 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Thierry ALLENO <thierry.alleno@orange.com>
+Code-Review+1: Deepanshu Bhatia <deepanshu@voereir.com>
+Code-Review+1: Juha Kosonen <juha.kosonen@nokia.com>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Submitted-by: Rex Lee <limingjiang@huawei.com>
+Submitted-at: Wed, 28 Aug 2019 01:10:06 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/c/yardstick/+/68043
+Project: yardstick
+Branch: refs/heads/master
