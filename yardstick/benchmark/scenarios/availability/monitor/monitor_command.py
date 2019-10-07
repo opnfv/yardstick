@@ -70,12 +70,12 @@ class MonitorOpenstackCmd(basemonitor.BaseMonitor):
 
     def verify_SLA(self):
         outage_time = self._result.get('outage_time', None)
-        max_outage_time = self._config["sla"]["max_outage_time"]
-        if outage_time > max_outage_time:
-            LOG.info("SLA failure: %f > %f", outage_time, max_outage_time)
-            return False
-        else:
-            return True
+        if self._config.get("sla"):
+            max_outage_time = self._config["sla"]["max_outage_time"]
+            if outage_time > max_outage_time:
+                LOG.info("SLA failure: %f > %f", outage_time, max_outage_time)
+                return False
+        return True
 
 
 def _test():    # pragma: no cover
