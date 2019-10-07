@@ -52,7 +52,8 @@ class GeneralMonitorServiceTestCase(unittest.TestCase):
         }
 
     def test__monitor_general_all_successful(self, mock_open, mock_ssh):
-        ins = monitor_general.GeneralMonitor(self.monitor_cfg, self.context, {"nova-api": 10})
+        ins = monitor_general.GeneralMonitor(
+            self.monitor_cfg, self.context, {"nova-api": 10})
 
         ins.setup()
         mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
@@ -79,4 +80,15 @@ class GeneralMonitorServiceTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.return_value = (1, "error", 'error')
         ins.monitor_func()
         ins._result = {'outage_time': 2}
+        ins.verify_SLA()
+
+    def test__monitor_general_all_successful_no_sla(self, mock_open, mock_ssh):
+        self.monitor_cfg.pop('sla')
+        ins = monitor_general.GeneralMonitor(
+            self.monitor_cfg, self.context, {"nova-api": 10})
+
+        ins.setup()
+        mock_ssh.SSH.from_node().execute.return_value = (0, "running", '')
+        ins.monitor_func()
+        ins._result = {'outage_time': 0}
         ins.verify_SLA()

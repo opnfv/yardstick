@@ -69,8 +69,9 @@ class GeneralMonitor(basemonitor.BaseMonitor):
         if outage_time is None:
             LOG.error("There is no outage_time in monitor result.")
             return False
-        if outage_time > max_outage_time:
-            LOG.error("SLA failure: %f > %f", outage_time, max_outage_time)
-            return False
-        else:
-            return True
+        if self._config.get("sla"):
+            max_outage_time = self._config["sla"]["max_outage_time"]
+            if outage_time > max_outage_time:
+                LOG.error("SLA failure: %f > %f", outage_time, max_outage_time)
+                return False
+        return True
