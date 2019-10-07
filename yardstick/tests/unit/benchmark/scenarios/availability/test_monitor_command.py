@@ -62,7 +62,8 @@ class MonitorOpenstackCmdTestCase(unittest.TestCase):
 
     def test__monitor_command_monitor_func_successful(self):
 
-        instance = monitor_command.MonitorOpenstackCmd(self.config, None, {"nova-api": 10})
+        instance = monitor_command.MonitorOpenstackCmd(
+            self.config, None, {"nova-api": 10})
         instance.setup()
         self.mock_subprocess.check_output.return_value = (0, 'unittest')
         ret = instance.monitor_func()
@@ -73,7 +74,8 @@ class MonitorOpenstackCmdTestCase(unittest.TestCase):
     @mock.patch.object(monitor_command, 'LOG')
     def test__monitor_command_monitor_func_failure(self, mock_log):
         self.mock_subprocess.check_output.return_value = (1, 'unittest')
-        instance = monitor_command.MonitorOpenstackCmd(self.config, None, {"nova-api": 10})
+        instance = monitor_command.MonitorOpenstackCmd(
+            self.config, None, {"nova-api": 10})
         instance.setup()
         self.mock_subprocess.check_output.side_effect = RuntimeError
         ret = instance.monitor_func()
@@ -93,3 +95,14 @@ class MonitorOpenstackCmdTestCase(unittest.TestCase):
         mock_ssh.SSH.from_node().execute.return_value = (0, "0", '')
         ret = instance.monitor_func()
         self.assertTrue(ret)
+
+    def test__monitor_command_monitor_func_successful_no_sla(self):
+        self.config.pop('sla')
+        instance = monitor_command.MonitorOpenstackCmd(
+            self.config, None, {"nova-api": 10})
+        instance.setup()
+        self.mock_subprocess.check_output.return_value = (0, 'unittest')
+        ret = instance.monitor_func()
+        self.assertTrue(ret)
+        instance._result = {"outage_time": 0}
+        instance.verify_SLA()
