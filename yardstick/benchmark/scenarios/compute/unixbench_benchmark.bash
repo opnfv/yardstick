@@ -25,8 +25,8 @@ run_unixbench()
 # write the result to stdout in json format
 output_json()
 {
-    single_score=$(awk '/Score/{print $7}' $OUTPUT_FILE | head -1 )
-    parallel_score=$(awk '/Score/{print $7}' $OUTPUT_FILE | tail -1 )
+    single_score=$(awk '/Score/{print $NF}' $OUTPUT_FILE | head -1 )
+    parallel_score=$(awk '/Score/{print $NF}' $OUTPUT_FILE | tail -1 )
     echo -e "{  \
         \"single_score\":\"$single_score\", \
         \"parallel_score\":\"$parallel_score\" \
