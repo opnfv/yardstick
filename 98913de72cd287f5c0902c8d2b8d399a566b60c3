@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57e4b19c_32741ba5",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_general.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2019-10-13T10:28:29Z",
+      "side": 1,
+      "message": "we could avoid calling verify_SLA if sla is not defined in config, right?",
+      "revId": "98913de72cd287f5c0902c8d2b8d399a566b60c3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
