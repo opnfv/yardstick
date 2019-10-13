@@ -16,6 +16,24 @@
       "revId": "98913de72cd287f5c0902c8d2b8d399a566b60c3",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b6f5b47_f128e8b7",
+        "filename": "yardstick/benchmark/scenarios/availability/monitor/monitor_general.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 7513
+      },
+      "writtenOn": "2019-10-13T13:46:50Z",
+      "side": 1,
+      "message": "I agree with you but we can not do it as of now. \nFirst reason the multi monitor is doing some processing in verify_SLA. It should not be done in this method. See [here](https://git.opnfv.org/yardstick/tree/yardstick/benchmark/scenarios/availability/monitor/monitor_multi.py#n65).\nSecond is that this kind of skipping SLA inside the method itself is deeply embedded in all the scenarios. With monitors, we could avoid calling it and move the check to caller but we will end up exposing the config to caller. Now, caller should not bother about structure of a monitor config. Also, if there are multiple callers in future, then every caller needs to handle the structure. \nThird reason is that this is a problem with all the scenarios. Every scenario calls verify_SLA if \u0027sla\u0027 key is available. \n\nSolution - We should have a method in each scenario that signifies if SLA needs to be applied or not. by this, we will not expose any structure and it will make sure no one does some result post processing wrongly as done in multi monitor case. I can open a story on JIRA if you want to go ahead with this refactoring.",
+      "parentUuid": "57e4b19c_32741ba5",
+      "revId": "98913de72cd287f5c0902c8d2b8d399a566b60c3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
     }
   ]
 }
