@@ -165,6 +165,12 @@ class NetperfNode(base.Scenario):
         """remove netperf from nodes after test"""
         self.server.execute("sudo bash netperf_remove.sh")
         self.client.execute("sudo bash netperf_remove.sh")
+        # Remove netperf bash files after test
+        self.server.execute("sudo rm ~/netperf_install.sh")
+        self.server.execute("sudo rm ~/netperf_remove.sh")
+
+        self.client.execute("sudo rm ~/netperf_install.sh")
+        self.client.execute("sudo rm ~/netperf_remove.sh")
 
 
 def _test():    # pragma: no cover
