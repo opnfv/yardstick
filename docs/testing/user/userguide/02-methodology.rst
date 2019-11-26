@@ -108,6 +108,9 @@ options).
 |         | * Latency for storage read/write operations                       |
 |         | * Throughput for storage read/write operations                    |
 |         |                                                                   |
++---------+-------------------------------------------------------------------|
+| Energy  | * Energy consumption in Watts (transversal to all others scenario |
+|         |                                                                   |
 +---------+-------------------------------------------------------------------+
 
 .. _table2_2:
@@ -183,6 +186,7 @@ options).
 |         | TC010             | TC024          |                              |
 |         | TC012             | TC055          |                              |
 |         | TC014             |                |                              |
+|         | TC015             |                |                              |
 |         | TC069             |                |                              |
 +---------+-------------------+----------------+------------------------------+
 | Network | TC001             | TC044          |  TC016 [1]_                  |
