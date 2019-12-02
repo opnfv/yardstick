@@ -30,7 +30,7 @@ RUN easy_install -U setuptools==30.0.0
 RUN pip install \
         -chttps://opendev.org/openstack/requirements/raw/branch/$OPENSTACK_TAG/upper-constraints.txt \
         -chttps://git.opnfv.org/yardstick/plain/upper-constraints.txt?h=$BRANCH \
-        appdirs==1.4.0 pyopenssl==17.5.0 openstacksdk==0.11.3 python-heatclient==1.14.0
+        appdirs==1.4.0 pyopenssl==17.5.0 openstacksdk==0.11.3 python-heatclient==1.14.0 ansible==2.5.5
 
 RUN mkdir -p ${REPOS_DIR}
 
