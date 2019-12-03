@@ -1,0 +1,14 @@
+{
+    "@odata.id": "/redfish/v1/Chassis",
+    "Name": "ChassisCollection",
+    "@odata.context": "/redfish/v1/$metadata#ChassisCollection.ChassisCollection",
+    "Members": [
+        {
+            "@odata.id": "/redfish/v1/Chassis/1"
+        }
+    ],
+    "@odata.type": "#ChassisCollection.ChassisCollection",
+    "@odata.etag": "\"af5a94479815eb5f87fe91ea08fde0ac\"",
+    "Members@odata.count": 1,
+    "Description": "A collection of Chassis resource instances."
+}
