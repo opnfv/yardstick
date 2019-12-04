@@ -16,6 +16,7 @@ import logging
 import re
 
 import pip
+from pip._internal.main import main
 from pip._internal import exceptions as pip_exceptions
 from pip._internal.operations import freeze
 
@@ -36,7 +37,7 @@ def _pip_main(package, action, target=None):
         cmd = [action, package, '--upgrade']
         if target:
             cmd.append('--target=%s' % target)
-    return pip._internal.main(cmd)
+    return main(cmd)
 
 
 def _pip_execute_action(package, action=ACTION_INSTALL, target=None):
