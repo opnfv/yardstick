@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0fbfc76_d625904b",
+        "filename": "yardstick/benchmark/scenarios/energy/energy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2019-12-05T08:09:40Z",
+      "side": 1,
+      "message": "not needed here, should move to the test_energy.py",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 13
+      },
+      "revId": "a669e545da07f49f941a8dcfc0168d14eca30505",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
