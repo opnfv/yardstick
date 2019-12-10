@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "805f6fe8_dd04e8f1",
+        "filename": "yardstick/benchmark/scenarios/energy/energy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 331
+      },
+      "writtenOn": "2019-12-10T08:23:40Z",
+      "side": 1,
+      "message": "The power data keep updates in the loop, and keep the last time data. Is it what you want to do?",
+      "range": {
+        "startLine": 135,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 35
+      },
+      "revId": "4b513ce2add731c454ec94e468a8a3e9fb4f5267",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
