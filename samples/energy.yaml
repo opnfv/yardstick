@@ -1,0 +1,53 @@
+##############################################################################
+# Copyright (c) 2019 Orange and others.
+#
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+---
+# Sample benchmark task config file
+# Monitor energy consumption during a cpu test
+# Should be used inside test cases where UnixBench is replaced by other
+# scenario type. This enables to easily consider energy consumption as a
+# mandatory metric for any performance test
+
+schema: "yardstick:task:0.1"
+
+{% set target = target or "node5"%}
+{% set file = file or '/etc/yardstick/pod.yaml' %}
+{% set duree = 60 %}
+{% set intervalle = 5 %}
+scenarios:
+
+-
+  type: Energy
+  run_in_background: true
+  target: {{target}}.LF
+
+  runner:
+    type: Duration
+    duration: {{duree}}
+    interval: {{intervalle}}
+
+  sla:
+    action: monitor
+
+-
+  type: UnixBench
+  options:
+    run_mode: 'verbose'
+    test_type: 'dhry2reg'
+  host: {{target}}.LF
+
+  runner:
+    type: Iteration
+    iterations: 1
+    interval: 1
+
+
+context:
+  type: Node
+  name: LF
+  file: {{file}}
