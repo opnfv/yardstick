@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Roland Picard <roland.picard@orange.com>
+Code-Review+2: Rex Lee <limingjiang@huawei.com>
+Submitted-by: Rex Lee <limingjiang@huawei.com>
+Submitted-at: Mon, 23 Dec 2019 12:21:35 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/c/yardstick/+/69339
+Project: yardstick
+Branch: refs/heads/master
