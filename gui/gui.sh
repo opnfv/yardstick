@@ -1,5 +1,6 @@
+curl -sL https://deb.nodesource.com/setup_8.x -o /tmp/nodesource_setup.sh
+bash /tmp/nodesource_setup.sh
 apt-get install -y nodejs
-apt-get install -y npm
 ln -s /usr/bin/nodejs /usr/bin/node
 npm install
 npm install -g grunt
