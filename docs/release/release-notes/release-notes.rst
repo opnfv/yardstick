@@ -21,7 +21,7 @@ Yardstick Release Notes
 Abstract
 ========
 
-This document compiles the release notes for the Hunter release of OPNFV Yardstick.
+This document compiles the release notes for the Iruya release of OPNFV Yardstick.
 
 
 Version History
@@ -30,7 +30,7 @@ Version History
 | *Date*            | *Version* | *Comment*                       |
 |                   |           |                                 |
 +-------------------+-----------+---------------------------------+
-| May 10, 2019      | 8.0.0     | Yardstick for Hunter release    |
+| Jan 10, 2020      | 9.0.0     | Yardstick for Iruya release     |
 |                   |           |                                 |
 +-------------------+-----------+---------------------------------+
 
@@ -45,10 +45,10 @@ the methodology in ETSI-ISG NFV-TST001_.
 The *Yardstick* framework is *installer*, *infrastructure* and *application*
 independent.
 
-OPNFV Hunter Release
+OPNFV Iruya Release
 ====================
 
-This Hunter release provides *Yardstick* as a framework for NFVI testing
+This Iruya release provides *Yardstick* as a framework for NFVI testing
 and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
 
 * Documentation generated with Sphinx
@@ -73,7 +73,7 @@ and OPNFV feature testing, automated in the OPNFV CI pipeline, including:
 
 * Yardstick plug-in configuration yaml files, plug-in install/remove scripts
 
-For Hunter release, the *Yardstick framework* is used for the following
+For Iruya release, the *Yardstick framework* is used for the following
 testing:
 
 * OPNFV platform testing - generic test cases to measure the categories:
@@ -111,19 +111,19 @@ Release Data
 | **Project**                    | Yardstick             |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Repo/tag**                   | yardstick/opnfv-8.0.0 |
+| **Repo/tag**                   | yardstick/opnfv-9.0.0 |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Yardstick Docker image tag** | opnfv-8.0.0           |
+| **Yardstick Docker image tag** | opnfv-9.0.0           |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release designation**        | Hunter 8.0            |
+| **Release designation**        | Iruya 9.0             |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Release date**               | May 10, 2019          |
+| **Release date**               | Jan 10, 2020          |
 |                                |                       |
 +--------------------------------+-----------------------+
-| **Purpose of the delivery**    | OPNFV Hunter 8.0.0    |
+| **Purpose of the delivery**    | OPNFV Iruya 9.0.0     |
 |                                |                       |
 +--------------------------------+-----------------------+
 
@@ -142,7 +142,7 @@ Documents
 Software Deliverables
 ---------------------
 
- - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: opnfv-8.0.0)
+ - The Yardstick Docker image: https://hub.docker.com/r/opnfv/yardstick (tag: opnfv-9.0.0)
 
 List of Contexts
 ^^^^^^^^^^^^^^^^
@@ -267,8 +267,17 @@ List of Scenarios
 New Test cases
 --------------
 
-.. note:: Yardstick Hunter 8.0.0 adds no new test cases.
+opnfv_yardstick_tc015: Processing speed with impact on energy consumption
+and CPU load.
 
+The purpose of TC015 is to evaluate the IaaS compute performance with
+regards to CPU processing speed with its impact on the energy consumption.
+It measures score of single cpu running and parallel running. Energy
+consumption and cpu load are monitored while the cpu test is running.
+The purpose is also to be able to spot the trends. Test results, graphs
+and similar shall be stored for comparison reasons and product evolution
+understanding between different OPNFV versions and/or configurations,
+different server types.
 
 
 Version Change
@@ -280,7 +289,7 @@ Module Version Changes
 This is the seventh tracked release of Yardstick. It is based on following
 upstream versions:
 
-- OpenStack Rocky
+- OpenStack Stein
 
 
 Document Version Changes
@@ -297,25 +306,6 @@ It includes the following documentation updates:
 Feature additions
 -----------------
 
-- Add TRex Baremetal/SA scale up test cases.
-- Add possibility to distribute DPDK/vhost-user ports/queues between CPU cores.
-- Adding scale up test case for l3fwd OvS-DPDK.
-- Add Testcase Prox Standalone SRIOV.
-- Add vBNG PPPoE test cases functionality.
-- Add IXIA Baremetal scale up testcases.
-- Add vIPSEC testcases.
-- Add TRex Baremetal/SA scale up test cases.
-- Add OpenStack test cases with different framesize and IMIX.
-- Add new scenario NSPerf-RFC3511.
-- Add VPP traffic profiles for TRex traffic generator.
-- Add Trex traffic generator to initate Traffic for VPP IPSEC.
-- Add IxNextgen API for setting IP priority, flow tracking options, creating BGP protocol layer.
-- Add Pktgen traffic generator for vCMTS.
-- Add Trex traffic generator to initate Traffic for VPP IPSEC.
-- Add sipp trafficgen based SampleVNFTrafficGen.
-- Add ansible scripts to deploy Kubernetes.
-- Update NSB report to use Barometer metrics.
-- Support using existing private key when using external heat template file.
 
 Scenario Matrix
 ===============
@@ -337,7 +327,7 @@ Corrected Faults
 ----------------
 
 
-Hunter 8.0.0 known restrictions/issues
+Iruya 9.0.0 known restrictions/issues
 ======================================
 
 
@@ -346,7 +336,7 @@ Useful links
 
  - wiki project page: https://wiki.opnfv.org/display/yardstick/Yardstick
 
- - wiki Yardstick Hunter release planning page: https://wiki.opnfv.org/display/yardstick/Release+Hunter
+ - wiki Yardstick Iruya release planning page: https://wiki.opnfv.org/display/yardstick/Release+Iruya
 
  - Yardstick repo: https://git.opnfv.org/yardstick
 
