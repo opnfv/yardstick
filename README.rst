@@ -4,7 +4,7 @@
 .. (c) OPNFV, Ericsson AB and others.
 
 
-Yardstick
+Yardstick - An amazing project
 =========
 
 
